@@ -215,6 +215,42 @@ def test_skipped_dependency_rejected(repo_copy: Path) -> None:
     assert "dependency milestone M00 has unfinished packages" in result.stdout
 
 
+def test_m01_w01_requires_m00_milestone_acceptance_not_only_done_packages(
+    repo_copy: Path,
+) -> None:
+    promote_milestones(repo_copy, ["M00"])
+    set_ms_state(repo_copy, "M00", "VERIFIED")
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M01", "READY")
+    set_pkg_state(repo_copy, "M01-W01", "READY")
+    set_next_ready(repo_copy, "`M01-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "milestone M00 is 'VERIFIED' (ACCEPTED required)" in result.stdout
+
+
+def test_m01_w01_becomes_ready_after_valid_m00_acceptance(repo_copy: Path) -> None:
+    promote_milestones(repo_copy, ["M00"])
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M01", "READY")
+    set_pkg_state(repo_copy, "M01-W01", "READY")
+    set_next_ready(repo_copy, "`M01-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_no_other_m01_package_becomes_prematurely_ready(repo_copy: Path) -> None:
+    promote_milestones(repo_copy, ["M00"])
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M01", "READY")
+    set_pkg_state(repo_copy, "M01-W01", "READY")
+    set_pkg_state(repo_copy, "M01-W02", "READY")
+    set_next_ready(repo_copy, "`M01-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "earlier package M01-W01 is 'READY'" in result.stdout
+
+
 def test_two_in_progress_rejected(repo_copy: Path) -> None:
     set_pkg_state(repo_copy, "M01-W01", "IN_PROGRESS")
     set_pkg_state(repo_copy, "M01-W02", "IN_PROGRESS")
@@ -498,3 +534,23 @@ def test_missing_evidence_heading_rejected(repo_copy: Path) -> None:
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "M00-W02" in result.stdout
+
+
+def test_milestone_acceptance_allows_verified_package_rows(repo_copy: Path) -> None:
+    set_pkg_state(repo_copy, "M00-W07", "VERIFIED")
+    path = status_path(repo_copy)
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(r"^\| `M00-W07` \|[^\n]*$", flags=re.MULTILINE)
+    row = (
+        f"| `M00-W07` | VERIFIED | {FAKE_TREE} | "
+        "docs/TEST_EVIDENCE.md § M00-W07 | fixture |"
+    )
+    path.write_text(pattern.sub(row, text, count=1), encoding="utf-8")
+    evidence = repo_copy / "docs" / "TEST_EVIDENCE.md"
+    with evidence.open("a", encoding="utf-8") as handle:
+        handle.write("\n### M00-W07 — verified fixture\n")
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M00", "ACCEPTED")
+    set_next_ready(repo_copy, "NONE")
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr

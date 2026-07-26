@@ -123,7 +123,9 @@ pnpm test:e2e        # Playwright browser tests (pinned Chromium)
 pnpm test:visual     # visual suite state (NOT_YET_APPLICABLE until M10-W06)
 pnpm test:python     # Ruff + mypy + pytest via uv (pinned interpreter)
 pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
-pnpm verify          # aggregate of all of the above + integrity + status
+pnpm traceability:check     # read-only 135/260 traceability + drift validation
+pnpm traceability:generate  # regenerate the reviewed human traceability view
+pnpm verify          # aggregate of all of the above + traceability/integrity/status
 python3 scripts/validate_status.py
 ```
 
@@ -131,6 +133,36 @@ Direct §8.5 equivalents (`uv run ruff check services`, `uv run mypy
 services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
+
+## Traceability and next-work derivation (M00-W07)
+
+`docs/traceability.json` is the canonical reviewed machine-readable mapping.
+It contains all 135 requirement records and all 260 expanded work-package
+records. Exact requirement text, package IDs/titles, and explicit
+milestone/gate dependencies remain owned by the immutable canonical
+specification; live states/evidence remain owned by `PROJECT_STATUS.md` and
+the critical-gate ledger. The JSON records the reviewed ownership,
+planned components/test/evidence layers, honest implementation state,
+sequential dependency derivation, direct downstream edges, and mapping
+checksums.
+
+`docs/REQUIREMENTS_TRACEABILITY.md` is a generated view and must not be
+edited by hand:
+
+```bash
+pnpm traceability:generate  # update after an intentional canonical input change
+pnpm traceability:check     # read-only; fails if regeneration would change the view
+```
+
+The validator rejects inventory/count drift, duplicates/unknown IDs,
+text/title/ownership drift, unknown or cyclic dependencies, incorrect
+critical-gate effects, premature readiness, false future implementation or
+evidence, missing completed paths/evidence headings/gate reports, and
+human/machine disagreement. It is an always-active mandatory `pnpm verify`
+suite, so `pnpm preflight` and both CI matrix jobs enforce the same data.
+Future packages update the JSON, regenerate the Markdown, record real
+evidence, and keep future work `NOT_STARTED`/`NOT_YET_APPLICABLE` until real
+code and tests exist.
 
 ## Doctor and preflight (M00-W06)
 

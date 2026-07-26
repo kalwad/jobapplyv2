@@ -33,6 +33,142 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W07 — Seed traceability and status (2026-07-26)
+
+- Revision: content tree/commit pending while the package is IN_PROGRESS.
+- Starting prerequisite: HEAD and `origin/main` were both
+  `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9` on `main`, with a clean tree.
+  Final M00-W06 stamp run 30218521997 was successful on macOS and Linux;
+  M00-W01 through M00-W06 were VERIFIED, M00-W07 was READY, no package was
+  IN_PROGRESS, all three critical gates were NOT_EVALUATED, the status
+  validator passed 25 check groups, doctor reported 19 PASS / 0 FAIL /
+  3 honest NOT_YET_APPLICABLE suites, and baseline `pnpm verify` exited 0
+  with 109 Python tests.
+- Traceability architecture:
+  - `docs/MASTER_IMPLEMENTATION_SPEC.md` remains authoritative for exact
+    requirement text, requirement IDs, milestone/package IDs and titles,
+    and explicit milestone/gate dependencies. Its unchanged SHA-256 is
+    `9faa4da58b566c56e70a773b31ac7bea3b4ca7b565fa333abf16cf6ee73bd901`.
+  - `docs/PROJECT_STATUS.md` remains authoritative for live package and
+    milestone state/evidence; `docs/CRITICAL_GATES.md` plus `docs/gates/`
+    remain authoritative for live gate state/evidence.
+  - `docs/traceability.json` is the reviewed machine source for all 135
+    requirement mappings and all 260 expanded work-package dependency,
+    verification, and evidence records. Reviewed mapping/dependency hashes
+    make an ownership or derived-edge edit explicit.
+  - `scripts/traceability.py` parses the canonical inputs, validates exact
+    agreement and fraud/drift negatives, derives the one legitimate next
+    package, and deterministically renders
+    `docs/REQUIREMENTS_TRACEABILITY.md`.
+  - Sequential edges are labeled `REVIEWED_DERIVED_SEQUENTIAL`, based on
+    spec §1 ordering and each §9 package list. Cross-milestone and
+    critical-gate edges are not invented; they must match the specification
+    exactly.
+- Honest requirement state: six M00 readiness/ledger requirements
+  (`REQ-RES-017`, `REQ-FORM-022`, `REQ-WD-001`, `REQ-GATE-001`,
+  `REQ-GATE-005`, `REQ-GATE-014`) link real M00-W05 code, tests, and
+  evidence and are VERIFIED. Ten partial infrastructure records are
+  `SCAFFOLD_ONLY`. Every other future requirement is
+  `NOT_STARTED`/`NOT_YET_APPLICABLE` with no completed path, result,
+  compatibility claim, or evidence.
+- Focused commands run and inspected so far:
+  - `python3 scripts/traceability.py generate` and
+    `pnpm traceability:check` → exit 0; exactly 135 requirements and 260
+    packages validated; generated view agrees byte-for-byte.
+  - `uv run pytest scripts/tests/test_traceability.py -q` → exit 0,
+    31 passed. Coverage includes exact counts/uniqueness; missing,
+    duplicate, and unknown requirements/packages; text/title/milestone/
+    ownership drift; unknown dependencies and cycles; Workday gate
+    dependencies; M03/M06/M21 gate blocking; future-claim fraud; missing
+    completed code/test paths, evidence headings, and gate reports;
+    human/machine drift; deterministic read-only regeneration; canonical
+    inventory drift; and M00→M01 next-work derivation.
+  - `uv run pytest scripts/tests/test_validate_status.py -q` → exit 0,
+    31 passed. New tests prove M01-W01 requires M00 ACCEPTED, becomes READY
+    after valid M00 acceptance, later M01 packages stay blocked by sequence,
+    and a milestone may be ACCEPTED while its completed package rows remain
+    VERIFIED.
+  - `uv run ruff check scripts/traceability.py
+    scripts/tests/test_traceability.py` → exit 0.
+  - `uv run mypy scripts/traceability.py
+    scripts/tests/test_traceability.py` → exit 0, no issues.
+- Full local command matrix (working tree; all results inspected):
+  - `pnpm install --frozen-lockfile` → exit 0; all 12 workspace projects
+    already up to date. `uv sync --locked` → exit 0; 17 packages resolved,
+    15 checked.
+  - `pnpm run doctor` → exit 0; 18 PASS, the expected dirty-tree WARNING,
+    0 FAIL, and 3 honest NOT_YET_APPLICABLE future suites. It confirms 14
+    project-memory files and 14 required root scripts.
+  - The first `pnpm preflight` exposed formatting drift in three newly
+    edited Python files and exited 1; no failure was masked. After
+    `uv run ruff format scripts/traceability.py
+    scripts/tests/test_traceability.py scripts/tests/test_integrity.py`,
+    `pnpm preflight` → exit 0: doctor passed and every active aggregate
+    suite passed.
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:e2e`, `pnpm test:python`, and `pnpm test:rust` → exit 0
+    each. TypeScript: 8/8 package tests and 8/8 typecheck tasks; Playwright:
+    1/1 pinned-Chromium smoke test; Python: 146/146; Rust: 1/1 plus
+    rustfmt, Clippy `-D warnings`, and build.
+  - `pnpm verify` → exit 0. Toolchain, format, lint, typecheck, unit-ts,
+    e2e-browser, python, rust, traceability, status, and integrity were
+    ACTIVE/PASS. Contract generation, contract compatibility, and visual
+    remained honestly NOT_YET_APPLICABLE and were not counted as passing.
+  - `uv run pytest scripts/tests/test_integrity.py
+    scripts/tests/test_proofs_and_real_repo.py
+    scripts/tests/test_suite_states.py -q` → exit 0, 36 passed
+    (verification-runner/integrity suite).
+  - `uv run pytest scripts/tests/test_ci_workflow.py
+    scripts/tests/test_doctor.py -q` → exit 0, 47 passed (28 CI-policy +
+    19 doctor/preflight).
+  - `uv run pytest scripts/tests/test_traceability.py
+    scripts/tests/test_validate_status.py -q` → exit 0, 62 passed.
+  - `uv run pytest scripts/tests -q` → exit 0, 145 passed.
+  - `pnpm traceability:check` → exit 0, exact 135/260 PASS.
+    `python3 scripts/validate_status.py` → exit 0,
+    `PASS: all checks passed (26 check groups)`.
+- M00 package-by-package exit audit:
+  - M00-W01 PASS: all 14 canonical memory/gate/traceability files exist,
+    carry required structure, and reconstruct current/next work without chat
+    history; status validation is fail-closed.
+  - M00-W02 PASS: the honest monorepo scaffold remains intact; no desktop,
+    extension, ATS, model, or other product implementation was introduced.
+    The 8 TypeScript, 1 Python, and 1 Rust scaffold smoke tests pass.
+  - M00-W03 PASS: Node 24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
+    Rust 1.97.1 plus rustfmt/Clippy, and Playwright 1.62.0 Chromium remain
+    pinned/enforced. Doctor wrong-version/component/browser negatives and
+    the real Chromium launch pass.
+  - M00-W04 PASS: root verification remains status-derived and fail-closed;
+    ACTIVE/NOT_YET_APPLICABLE/REQUIRED_MISSING, mandatory-empty,
+    mutation/status-neutrality, no-op, bypass, focus/skip, and discovery
+    proofs pass in the 36-test runner/integrity subset and aggregate verify.
+  - M00-W05 PASS: the canonical specification is still the sole v1.2 copy
+    with SHA-256
+    `9faa4da58b566c56e70a773b31ac7bea3b4ca7b565fa333abf16cf6ee73bd901`;
+    inventory is exactly 39/260/135; all three gate records exist and remain
+    NOT_EVALUATED; preserved historical evidence and readiness negatives
+    pass.
+  - M00-W06 PASS locally and historically hosted: doctor/preflight pass;
+    the 28-test CI suite preserves read-only permissions, macOS/Linux,
+    frozen/locked installs, narrow caches/artifacts, generated-contract
+    honesty, and the isolated job-scoped runner-temp RUSTUP_HOME regression.
+    Final starting-HEAD run 30218521997 passed both matrix jobs.
+  - M00-W07 PASS locally: canonical metadata/view are complete, generation
+    and check are deterministic, all required fraud/drift negatives pass,
+    and valid M00 acceptance derives only M01-W01 as READY.
+- Pending before M00 acceptance: fresh-clone proof for the committed intended
+  content revision, then successful hosted macOS/Linux CI for that content
+  commit. Closeout state and M01-W01 readiness remain unstamped until those
+  complete; the final stamp HEAD must then pass both hosted jobs.
+- Security/privacy impact: metadata contains only specification text,
+  repository paths, package IDs, and planned test/evidence categories. It
+  contains no executable code, secrets, PII, real applicant data, live-site
+  result, or speculative compatibility/benchmark claim. Validation is
+  stdlib-only and read-only in check mode.
+- Compatibility impact: none. M00 hosted OS results prove repository
+  bootstrap/verification only; no desktop or ATS compatibility row is
+  populated.
+
 ### M00-W06 — Create CI and local preflight (2026-07-26)
 
 #### Current-HEAD macOS hosted-CI repair (2026-07-26)

@@ -311,6 +311,17 @@ def test_ci_pnpm_scripts_exist_in_package_json() -> None:
         assert name in scripts
 
 
+def test_ci_aggregate_includes_mandatory_traceability_validation() -> None:
+    suite = registry_suite("traceability")
+    assert suite.owner == "M00-W07"
+    assert suite.mandatory is True
+    assert suite.activation.kind == "always_active"
+    assert suite.commands == (
+        ("python3", "scripts/traceability.py", "check", "--quiet"),
+    )
+    assert "pnpm verify" in "\n".join(run_bodies())
+
+
 def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
     uploads = [
         step

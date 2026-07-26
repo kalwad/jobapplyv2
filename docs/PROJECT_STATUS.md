@@ -2,10 +2,10 @@
 
 Spec version: 1.2
 Repository revision: tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf (commit 124418f3a34389c4c56dced60a9fff9a5947adc4)
-Last updated: 2026-07-26T20:12:29Z
+Last updated: 2026-07-26T21:03:18Z
 Current phase: A — Contract, measurement, and early autofill challenge
 Current milestone: M00
-Current work package: NONE
+Current work package: M00-W07
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -22,14 +22,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no work package is IN_PROGRESS. Last completed: M00-W06 (VERIFIED at repair content tree `9f9adc79cea15cb2f3a855b2b66463467822b5bf`). Failed run 30217235083 proved the macOS runner's inherited rustup state was partially installed and conflicted at `bin/cargo-clippy`; repair commit `124418f3a34389c4c56dced60a9fff9a5947adc4` isolates every matrix job under its own `runner.temp` rustup home. Hosted repair run 30218333122 passed required macOS job 89836260053 and Linux job 89836260044.
-- Objective: next up is M00-W07 — Seed traceability and status. This task does not begin it; the conventional M00-W06 stamp-commit HEAD must itself pass both hosted jobs before any M00-W07 work starts.
+- State: M00-W07 is IN_PROGRESS. Its 135-requirement/260-package traceability implementation and local M00 audit pass; fresh-clone and hosted content-revision proof remain before closeout stamping. M00-W06 is VERIFIED at repair content tree `9f9adc79cea15cb2f3a855b2b66463467822b5bf`; final stamp-commit run 30218521997 passed required macOS and Linux jobs at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
+- Objective: seed complete v1.2 requirement traceability and the deterministic work-package dependency/readiness map, validate both canonical inventories, and audit the M00 exit gate without beginning M01.
 - Dependencies verified: M00 has no dependency milestones; M00-W01 through M00-W06 are VERIFIED.
 - Critical-gate prerequisites: none for M00-W07 (gate blocking starts at M03/M06/M21; all three gates remaining NOT_EVALUATED is valid).
-- Files expected to change: (set when M00-W07 starts)
-- Required tests: (set when M00-W07 starts)
-- Required manual/holdout evidence: (set when M00-W07 starts; holdout machinery itself starts at M02)
-- Blockers: M00-W07 activation remains conditioned on successful macOS and Linux CI for the final M00-W06 stamp-commit HEAD.
+- Files expected to change: traceability metadata/view/tooling/tests plus project-memory, root-command, and verification integration files required by M00-W07.
+- Required tests: exact 135/260 inventory, schema/enums, ownership/title drift, dependency integrity/cycles/gates/readiness, honest future states, completed-path/evidence existence, deterministic generation, and human/machine agreement; all existing M00 regressions remain required.
+- Required manual/holdout evidence: M00 package-by-package acceptance audit, deterministic fresh-clone proof, and hosted macOS/Linux CI for the content and final closeout revisions. Product holdout gates remain NOT_EVALUATED.
+- Blockers: none. Remaining closeout conditions are the committed-content fresh-clone proof and required hosted macOS/Linux CI; M00 remains IN_PROGRESS until both pass.
 
 ## Milestone table
 
@@ -85,7 +85,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W04` | VERIFIED | tree 6c798abfd76824fd43c09c72615a3a976406f081 | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
 | `M00-W06` | VERIFIED | tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight; repair current-HEAD macOS CI with job-scoped rustup state |
-| `M00-W07` | READY | — | — | Seed traceability and status (do not start until the final M00-W06 stamp-commit HEAD passes hosted macOS and Linux CI) |
+| `M00-W07` | IN_PROGRESS | — | — | Seed traceability and status |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
@@ -342,14 +342,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: `M00-W07`
-- Reason: M00-W01 through M00-W06 are VERIFIED; M00-W07 (Seed traceability and status) is the next package in M00's listed order, and M00 has no dependency milestones. Do not begin it unless the final M00-W06 stamp-commit HEAD has passed both hosted jobs.
+- ID: NONE
+- Reason: M00-W07 is the single IN_PROGRESS package. No later package may become READY until it is verified and the M00 exit gate is accepted.
 - Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §M00 (W07 row), §8.5–8.6, §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md (ADR-0001); docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W06; docs/KNOWN_ISSUES.md (KI-0001, KI-0003, KI-0005).
 
 ## Known release blockers
 
 - All milestones M00–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all three critical gates are PASS at the final release revision (spec §2.2, §16).
-- M00-W07 activation guard: the final M00-W06 stamp-commit HEAD must pass required macOS and Linux CI. The repaired content tree already passed both jobs in run 30218333122.
+- M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
 - Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin`, so this blocker no longer applies to new work.
 
 ## Status conventions and update rules

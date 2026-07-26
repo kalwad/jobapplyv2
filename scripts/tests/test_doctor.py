@@ -91,7 +91,12 @@ def doctor_repo(tmp_path: Path) -> Path:
         REPO_ROOT / "services" / "native-host" / "Cargo.lock",
         repo / "services" / "native-host" / "Cargo.lock",
     )
-    for rel in ("validate_status.py", "verify.py", "verification-suites.json"):
+    for rel in (
+        "validate_status.py",
+        "traceability.py",
+        "verify.py",
+        "verification-suites.json",
+    ):
         shutil.copy2(REPO_ROOT / "scripts" / rel, repo / "scripts" / rel)
     return repo
 

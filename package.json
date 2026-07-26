@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write . && uv run ruff format services scripts/verify.py scripts/validate_status.py scripts/tests && cargo fmt --manifest-path services/native-host/Cargo.toml",
+    "format": "prettier --write . && uv run ruff format services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/tests && cargo fmt --manifest-path services/native-host/Cargo.toml",
     "format:check": "uv run python scripts/verify.py --suite format",
     "typecheck": "uv run python scripts/verify.py --suite typecheck",
     "test": "uv run python scripts/verify.py --suite unit-ts",
@@ -21,6 +21,8 @@
     "test:python": "uv run python scripts/verify.py --suite python",
     "test:rust": "uv run python scripts/verify.py --suite rust",
     "test:browser-smoke": "playwright test",
+    "traceability:generate": "uv run python scripts/traceability.py generate",
+    "traceability:check": "uv run python scripts/traceability.py check",
     "verify": "uv run python scripts/verify.py",
     "doctor": "python3 scripts/doctor.py",
     "preflight": "python3 scripts/doctor.py --preflight"

@@ -64,6 +64,8 @@ CANONICAL_ROOT_SCRIPTS = (
     "test:visual",
     "test:python",
     "test:rust",
+    "traceability:generate",
+    "traceability:check",
     "verify",
     "doctor",
     "preflight",
@@ -78,6 +80,7 @@ MEMORY_FILES = (
     "docs/KNOWN_ISSUES.md",
     "docs/COMPATIBILITY_MATRIX.md",
     "docs/REQUIREMENTS_TRACEABILITY.md",
+    "docs/traceability.json",
     "docs/CRITICAL_GATES.md",
 )
 
@@ -85,6 +88,7 @@ LOCKFILES = ("pnpm-lock.yaml", "uv.lock", "services/native-host/Cargo.lock")
 
 REQUIRED_SCRIPT_FILES = (
     "scripts/validate_status.py",
+    "scripts/traceability.py",
     "scripts/verify.py",
     "scripts/verification-suites.json",
 )

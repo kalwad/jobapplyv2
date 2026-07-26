@@ -37,6 +37,7 @@
           "services",
           "scripts/verify.py",
           "scripts/validate_status.py",
+          "scripts/traceability.py",
           "scripts/doctor.py",
           "scripts/tests"
         ],
@@ -85,6 +86,7 @@
           "services",
           "scripts/verify.py",
           "scripts/validate_status.py",
+          "scripts/traceability.py",
           "scripts/doctor.py",
           "scripts/tests"
         ]
@@ -231,6 +233,7 @@
           "services",
           "scripts/verify.py",
           "scripts/validate_status.py",
+          "scripts/traceability.py",
           "scripts/doctor.py",
           "scripts/tests"
         ],
@@ -243,6 +246,7 @@
           "services",
           "scripts/verify.py",
           "scripts/validate_status.py",
+          "scripts/traceability.py",
           "scripts/doctor.py",
           "scripts/tests"
         ],
@@ -253,6 +257,7 @@
           "services",
           "scripts/verify.py",
           "scripts/validate_status.py",
+          "scripts/traceability.py",
           "scripts/doctor.py",
           "scripts/tests"
         ],
@@ -310,6 +315,20 @@
       "discovery_globs": ["services/native-host/src/**/*.rs"],
       "artifacts": [],
       "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. cargo build additionally proves the real (non-test-harness) binary links; it compiles only code that exists \u2014 no fake build target (KI-0001 remains about the JS/TS side)."
+    },
+    {
+      "id": "traceability",
+      "name": "Requirements and work-package traceability",
+      "owner": "M00-W07",
+      "mandatory": true,
+      "activation": {
+        "type": "always_active"
+      },
+      "commands": [["python3", "scripts/traceability.py", "check", "--quiet"]],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Read-only, fail-closed validation of the exact 135-requirement and 260-work-package inventories, reviewed mappings, dependencies, critical-gate effects, honest states/evidence, deterministic generated view, and next-work derivation."
     },
     {
       "id": "status",

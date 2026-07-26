@@ -56,6 +56,9 @@ Chromium; production extension foundation: M17).
 
 Nothing measured yet. Primary development/verification target per spec:
 macOS on Apple silicon (M5, 24 GB unified memory).
+The M00 macOS/Linux hosted verification matrix proves repository bootstrap
+and verification portability only; because no desktop product exists, it is
+not an OS compatibility claim and no support row is populated by M00-W07.
 
 | OS | Version | Desktop app status | Last verified revision | Evidence |
 |---|---|---|---|---|

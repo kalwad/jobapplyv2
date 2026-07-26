@@ -19,7 +19,9 @@ At the beginning of every new prompt or resumed session, Claude must:
 1. Read this file.
 2. Read `docs/MASTER_IMPLEMENTATION_SPEC.md`.
 3. Read `docs/PROJECT_STATUS.md`, `docs/DECISIONS.md`, `docs/TEST_EVIDENCE.md`,
-   `docs/KNOWN_ISSUES.md`, and `docs/CRITICAL_GATES.md`.
+   `docs/KNOWN_ISSUES.md`, `docs/COMPATIBILITY_MATRIX.md`,
+   `docs/traceability.json`, `docs/REQUIREMENTS_TRACEABILITY.md`, and
+   `docs/CRITICAL_GATES.md`.
 4. Inspect the repository state and relevant tests instead of trusting an
    earlier conversational summary.
 5. State the exact work-package ID it is executing.
@@ -38,7 +40,8 @@ At the beginning of every new prompt or resumed session, Claude must:
 | `docs/TEST_EVIDENCE.md` | Exact verification commands and results | Appended at every package verification; never record a command that was not run and inspected in the current repository state |
 | `docs/KNOWN_ISSUES.md` | Reproducible defects, deferred risks, parked ideas | Updated whenever discovered; scope ideas are parked here instead of broadening a package |
 | `docs/COMPATIBILITY_MATRIX.md` | ATS/browser/OS support and measured pass rates | Measured, evidence-linked data only |
-| `docs/REQUIREMENTS_TRACEABILITY.md` | Requirement → code → test → release gate | Fully seeded in `M00-W07`; a row is updated as part of each package closeout |
+| `docs/traceability.json` | Canonical reviewed machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | Fully seeded in `M00-W07`; update with each affected package, refresh reviewed hashes, then regenerate/check the Markdown view |
+| `docs/REQUIREMENTS_TRACEABILITY.md` | Generated requirement and work-package traceability/readiness view | Never edit by hand; regenerate with `pnpm traceability:generate` and require `pnpm traceability:check` |
 | `docs/CRITICAL_GATES.md` | Autofill, resume/PageFit, and Workday gate state, corpus hash, reviewer, decision | Gate states change only with recorded evidence; PASS additionally requires independent review and the owner decision (spec §12) |
 | `docs/gates/` | Per-gate run reports and the holdout execution log | Append-only run records; states mirror `docs/CRITICAL_GATES.md` |
 
@@ -65,12 +68,16 @@ NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
   and `M05` ACCEPTED; `M21` (and later production ATS expansion) requires
   `M19` and `M20` ACCEPTED and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
   `REDESIGN_REQUIRED` or `BLOCKED` on a gate prevents downstream readiness.
-- Validate structure with `python3 scripts/validate_status.py` before
+- Validate structure with `python3 scripts/validate_status.py` and
+  `pnpm traceability:check` before
   reporting any package complete. The script enforces valid enums, the exact
   v1.2 inventory (39 milestones, 260 work packages, 135 requirements), the
-  single-`IN_PROGRESS` rule, unskipped dependencies, ACCEPTED-milestone
-  prerequisites, gate-based readiness blocking, verified-evidence
-  preservation, and that exactly one canonical specification exists.
+  single-`IN_PROGRESS` rule, unskipped dependencies, acceptance of every
+  dependency milestone, gate-based readiness blocking, verified-evidence
+  preservation, deterministic next-work selection, and that exactly one
+  canonical specification exists. The traceability check additionally
+  enforces reviewed mappings, exact dependency graphs, honest future states,
+  real completed code/test/evidence links, and generated-view agreement.
 
 ## Work-package execution protocol (spec §1.3)
 

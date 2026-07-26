@@ -23,8 +23,9 @@ Checks performed
       a gate may claim PASS.
   5.  Dependencies are not skipped: milestone dependencies parsed from the
       spec's "**Dependencies:**" lines, the intra-milestone sequential
-      convention, ACCEPTED-milestone prerequisites (M03<-M02, M06<-M05,
-      M20<-M19, M21<-M19+M20, M36<-M35), and gate-based readiness blocking
+      convention, ACCEPTED state for every dependency milestone, explicit
+      ACCEPTED-milestone prerequisites (M03<-M02, M06<-M05, M20<-M19,
+      M21<-M19+M20, M36<-M35), and gate-based readiness blocking
       (a package of M03/M06/M17/M18/M19/M21/M22/M23 may be READY or started
       only while its required critical gate is PASS).
   6.  Milestone-state consistency with package states.
@@ -106,6 +107,10 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("docs/KNOWN_ISSUES.md", ("# Known Issues", "## Entry template")),
     ("docs/COMPATIBILITY_MATRIX.md", ("# Compatibility Matrix",)),
     ("docs/REQUIREMENTS_TRACEABILITY.md", ("# Requirements Traceability",)),
+    (
+        "docs/traceability.json",
+        ('"schema_version": 1', '"requirements": [', '"work_packages": ['),
+    ),
     ("docs/CRITICAL_GATES.md", ("# Critical Gates", *GATES)),
     ("docs/gates/AUTOFILL_FEASIBILITY_GATE.md", ("AUTOFILL_FEASIBILITY",)),
     (
@@ -706,8 +711,13 @@ def _check_readiness_prerequisites(
     errors = 0
     for pid, state, milestone in _started_or_ready(spec, pkg_states):
         mid = pid[:3]
-        accepted_required = set(milestone.accepted_deps) | set(
-            HARD_ACCEPTED_DEPS.get(mid, ())
+        # Spec §1 completion rules make milestone acceptance, not merely a set
+        # of individually verified packages, the cross-milestone readiness
+        # boundary. Explicit/hard ACCEPTED qualifiers remain a checked subset.
+        accepted_required = (
+            set(milestone.deps)
+            | set(milestone.accepted_deps)
+            | set(HARD_ACCEPTED_DEPS.get(mid, ()))
         )
         for dep in sorted(accepted_required):
             if ms_states.get(dep) != "ACCEPTED":
@@ -768,9 +778,10 @@ def check_milestone_consistency(
                 f"milestone {mid} is NOT_STARTED but has packages beyond NOT_STARTED"
             )
             consistency_errors += 1
-        if ms_state == "ACCEPTED" and any(state != "ACCEPTED" for state in states):
+        if ms_state == "ACCEPTED" and any(state not in DONE for state in states):
             report.fail(
-                f"milestone {mid} is ACCEPTED but not all packages are ACCEPTED"
+                f"milestone {mid} is ACCEPTED but not all packages are "
+                "VERIFIED or ACCEPTED"
             )
             consistency_errors += 1
     if consistency_errors == 0:

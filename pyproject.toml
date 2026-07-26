@@ -105,6 +105,11 @@ allowed-confusables = ["–", "—"]
 "scripts/verify.py" = ["T201", "S404", "S603", "S607"]
 # The status validator is a CLI as well (T201: printing violations is its job).
 "scripts/validate_status.py" = ["T201"]
+# The traceability validator/generator is a CLI (T201). Its three validation
+# coordinators intentionally apply many independent fail-closed rules to one
+# record type; splitting them would obscure shared invariants without reducing
+# complexity (PLR0912/13/15/17).
+"scripts/traceability.py" = ["T201", "PLR0912", "PLR0913", "PLR0915", "PLR0917"]
 # The environment doctor is a CLI (T201) that interrogates tools via
 # subprocess with no shell (S404/S603) and resolves them from PATH by
 # design — diagnosing PATH problems is its purpose (S607). S105 is a
@@ -125,6 +130,7 @@ files = [
     "services",
     "scripts/verify.py",
     "scripts/validate_status.py",
+    "scripts/traceability.py",
     "scripts/doctor.py",
     "scripts/tests",
 ]

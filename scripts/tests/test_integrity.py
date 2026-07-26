@@ -43,6 +43,22 @@ def test_missing_required_root_script_fails(fixture_repo: verify.Context) -> Non
     assert any("required root script missing: 'verify'" in f for f in failures)
 
 
+def test_traceability_commands_and_source_are_repository_integrity_requirements(
+    fixture_repo: verify.Context,
+) -> None:
+    scripts = dict(GOOD_SCRIPTS)
+    del scripts["traceability:check"]
+    (fixture_repo.repo / "package.json").write_text(
+        json.dumps({"name": "fixture", "scripts": scripts}), encoding="utf-8"
+    )
+    failures = verify.check_root_scripts(fixture_repo)
+    assert any(
+        "required root script missing: 'traceability:check'" in f for f in failures
+    )
+    assert "docs/traceability.json" in verify.MEMORY_FILES
+    assert "scripts/traceability.py" in verify.REQUIRED_SCRIPT_FILES
+
+
 def test_echo_only_script_rejected(fixture_repo: verify.Context) -> None:
     scripts = dict(GOOD_SCRIPTS)
     scripts["lint"] = "echo lint passed"

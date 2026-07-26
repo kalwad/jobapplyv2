@@ -35,6 +35,8 @@ GOOD_SCRIPTS = {
     "test:visual": "uv run python scripts/verify.py --suite visual",
     "test:python": "uv run python scripts/verify.py --suite python",
     "test:rust": "uv run python scripts/verify.py --suite rust",
+    "traceability:generate": "uv run python scripts/traceability.py generate",
+    "traceability:check": "uv run python scripts/traceability.py check",
     "verify": "uv run python scripts/verify.py",
     "doctor": "python3 scripts/doctor.py",
     "preflight": "python3 scripts/doctor.py --preflight",
