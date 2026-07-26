@@ -37,6 +37,7 @@ def test_real_registry_loads_and_states_match_project_state(
         "e2e-browser",
         "python",
         "rust",
+        "portability",
         "traceability",
         "status",
         "integrity",

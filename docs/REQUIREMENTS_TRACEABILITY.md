@@ -24,7 +24,7 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 ## Deterministic next work
 
 - Current package: `NONE`
-- Next READY package: `M00-W09`
+- Next READY package: `M00-W10`
 - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every direct sequential package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
 
 ## Critical-gate effects
@@ -212,8 +212,8 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 | M00-W06 | Create CI and local preflight | VERIFIED | M00-W05 | — | — | — | Create CI and local preflight | Doctor, preflight, static CI-policy tests, local aggregate verification, and hosted matrix CI, pnpm verify | docs/TEST_EVIDENCE.md § M00-W06 | M00-W07 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W06) | REVIEWED_V1_2 |
 | M00-W07 | Seed traceability and status | VERIFIED | M00-W06 | — | — | — | Seed traceability and status | Traceability/status/integrity positive and required negative tests, pnpm verify | M00 exit-gate audit, deterministic fresh-clone proof, and hosted macOS/Linux CI | M00-W08 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W07) | REVIEWED_V1_2 |
 | M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline | VERIFIED | M00-W07 | — | — | — | Adopt and migrate the v1.3 cross-platform rebaseline | Exact v1.3 inventory, status, traceability, policy, drift, and fail-closed regression tests, pnpm verify | Exact source-hash/adoption audit, preserved-history audit, and hosted macOS/Ubuntu CI evidence | M00-W09 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W08) | PROVISIONAL_PENDING_M00_W10 |
-| M00-W09 | Add Windows CI and platform-portability baseline | READY | M00-W08 | — | — | — | Add Windows CI and platform-portability baseline | M00-W09 owning-package automated verification defined by the canonical specification, pnpm verify | M00-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable | M00-W10 | M01, M02, M03, M28, M38 | — | PROVISIONAL_PENDING_M00_W10 |
-| M00-W10 | Extend traceability and re-accept M00 under v1.3 | NOT_STARTED | M00-W09 | — | — | — | Extend traceability and re-accept M00 under v1.3 | M00-W10 owning-package automated verification defined by the canonical specification, pnpm verify | M00-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable | — | M01, M02, M03, M28, M38 | — | PROVISIONAL_PENDING_M00_W10 |
+| M00-W09 | Add Windows CI and platform-portability baseline | VERIFIED | M00-W08 | — | — | — | Add Windows CI and platform-portability baseline | Three-OS workflow policy, Windows doctor simulation, portability-policy, verification-runner, status, and traceability test suites, pnpm verify (including the new mandatory always-active portability suite) | Hosted macos-15 + windows-2025 + ubuntu-24.04 CI runs of the identical canonical doctor/verify commands at the content and stamp revisions; clean-clone simulation | M00-W10 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W09) | PROVISIONAL_PENDING_M00_W10 |
+| M00-W10 | Extend traceability and re-accept M00 under v1.3 | READY | M00-W09 | — | — | — | Extend traceability and re-accept M00 under v1.3 | M00-W10 owning-package automated verification defined by the canonical specification, pnpm verify | M00-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable | — | M01, M02, M03, M28, M38 | — | PROVISIONAL_PENDING_M00_W10 |
 
 ### M01 — Shared contracts, identifiers, error model, capability model, and critical-risk evaluation contracts
 

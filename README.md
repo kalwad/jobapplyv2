@@ -27,9 +27,11 @@ see [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
 
 Two layers, deliberately distinct:
 
-**Bootstrap tools** — installed once, globally, on the Apple-silicon Mac
-(these only have to be _present_; their own versions are not what the
-repository pins):
+**Bootstrap tools** — installed once, globally (these only have to be
+_present_; their own versions are not what the repository pins). The table
+below covers the primary Apple-silicon Mac; Windows uses the
+"Windows setup (PowerShell)" section further down, and Ubuntu needs the
+same five tools from nvm/NodeSource, pipx, and rustup.rs:
 
 | Tool        | Install (macOS, Apple silicon)              | Purpose                      |
 | ----------- | ------------------------------------------- | ---------------------------- |
@@ -71,7 +73,32 @@ corepack enable pnpm
 (from a shell where the `node@24` keg is first on `PATH`; Corepack then
 serves exactly the `packageManager` pnpm version inside this repository).
 
+## Windows setup (PowerShell)
+
+Development-host bootstrap for Windows (M00-W09; this is a
+repository/toolchain portability baseline — packaged Windows 11 desktop
+product support remains `NOT_YET_IMPLEMENTED`, see
+[docs/PLATFORM_SUPPORT.md](docs/PLATFORM_SUPPORT.md)). Install the
+bootstrap tools once from PowerShell 7 (`pwsh`):
+
+```powershell
+winget install OpenJS.NodeJS.LTS      # Node 24.x; .nvmrc pins 24.18.0 exactly
+winget install astral-sh.uv           # repository enforces ==0.11.32 itself
+# rustup: download and run rustup-init.exe from rustup.rs, then:
+rustup toolchain install 1.97.1
+corepack enable pnpm                  # serves the pinned pnpm 11.17.0
+```
+
+No Homebrew, Bash, POSIX shell profile, `/tmp`, or executable-bit behavior
+is required: the canonical commands below run identically from PowerShell.
+`rust-toolchain.toml` overrides the active Rust toolchain inside the
+repository, uv fetches the pinned CPython 3.12.13 automatically, and the
+doctor reports Windows-specific remediation (winget/rustup-init) when a
+pin is not satisfied.
+
 ## Install (fresh clone)
+
+Same commands on macOS, Windows (PowerShell), and Ubuntu:
 
 ```bash
 pnpm install --frozen-lockfile
@@ -79,6 +106,9 @@ pnpm exec playwright install chromium
 uv sync --locked
 cargo fetch --locked --manifest-path services/native-host/Cargo.toml
 ```
+
+(On Ubuntu CI the browser step is `pnpm exec playwright install
+--with-deps chromium`; `--with-deps` is Linux-only.)
 
 Then confirm the environment before doing anything else:
 
@@ -214,28 +244,51 @@ Common environment failures:
 - **Missing Chromium:** `pnpm exec playwright install chromium` (one-time
   network download; everything else in doctor/verify is offline).
 
-## CI (GitHub Actions, M00-W06)
+## CI (GitHub Actions, M00-W06 + M00-W09)
 
 One workflow, [.github/workflows/ci.yml](.github/workflows/ci.yml), runs a
-single `verify` job on a `macos-15` + `ubuntu-24.04` matrix. Each job
-checks out the exact revision, activates the repository pins (Node from
-`.nvmrc` via setup-node, pnpm via Corepack's `packageManager` field, uv as
-the exact PyPI wheel version read from `pyproject.toml`, Rust from
-`rust-toolchain.toml` with rustfmt/Clippy), installs with
-`pnpm install --frozen-lockfile` + `uv sync --locked` +
-`cargo fetch --locked`, then runs **exactly** `pnpm run doctor` and
-`pnpm verify` — the same canonical commands as local development, no
-CI-only test subset. To reproduce CI locally, run `pnpm preflight`.
+single `verify` job on the required `macos-15` + `windows-2025` +
+`ubuntu-24.04` matrix. Each job checks out the exact revision, activates
+the repository pins (Node from `.nvmrc` via setup-node, pnpm via
+Corepack's `packageManager` field, uv as the exact PyPI wheel version read
+from `pyproject.toml`, Rust from `rust-toolchain.toml` with
+rustfmt/Clippy installed into a job-isolated `RUSTUP_HOME` under
+`runner.temp`), installs with `pnpm install --frozen-lockfile` +
+`uv sync --locked` + `cargo fetch --locked`, then runs **exactly**
+`pnpm run doctor` and `pnpm verify` — the same canonical commands as local
+development on every OS, with no CI-only or weaker per-platform test
+subset. To reproduce CI locally, run `pnpm preflight`.
+
+Shell policy (M00-W09): there is no workflow-global Bash default.
+Single-command steps use each OS's native default shell; multi-line steps
+declare `bash` only behind a non-Windows guard, and Windows-specific
+scripting uses `pwsh` with `$ErrorActionPreference = 'Stop'` and
+`$PSNativeCommandUseErrorActionPreference = $true` so child-process
+failures always fail the step. The `portability` verification suite
+(`scripts/check_portability.py`, run by `pnpm verify` on every OS) is a
+deterministic policy gate: it rejects a missing required OS, a weaker
+Windows command set, global Bash assumptions, POSIX-only tokens in
+Windows-reachable steps, `continue-on-error`, masked child failures,
+unpinned or third-party actions, widened permissions, cached
+`RUSTUP_HOME`/toolchain state, out-of-allowlist cache paths, missing
+frozen installs or toolchain probes or Chromium installs, non-failure
+artifact uploads — and, in shared runtime scripts, hard-coded
+`/tmp`/`/bin`/`/usr` paths, `shell=True`/Bash wrappers, manual path
+separator concatenation, executable-bit dependence outside
+`scripts/portability.py`, case-colliding tracked paths, and a missing
+LF-enforcing `.gitattributes`.
 
 Security posture: `permissions: contents: read`, no secrets, official
 `actions/*` actions only, every action pinned to an immutable commit SHA
 with its release tag annotated, `persist-credentials: false`, no live-site
 tests, and no network use after dependency/browser installation.
 
-M00-W08 deliberately does not add Windows CI. The certified target policy is
-recorded in `docs/PLATFORM_SUPPORT.md`; Windows CI belongs to M00-W09, and
-product certification still requires later native packaged evidence rather
-than repository CI alone.
+The `windows-2025` job is a repository/toolchain portability baseline
+only: passing it does not prove packaged Windows 11 desktop support,
+secure storage, native messaging, local-model runtime, installers, or
+updates. The certified target policy is recorded in
+`docs/PLATFORM_SUPPORT.md`; `CROSS_PLATFORM_CORE` (Gate D) remains
+`NOT_EVALUATED` and still requires later native packaged evidence.
 
 Cache policy: pnpm store, uv cache, cargo registry/git, and Playwright
 browser caches are keyed on `runner.os` + `runner.arch` + `hashFiles()` of

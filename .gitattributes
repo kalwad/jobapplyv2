@@ -1,0 +1,7 @@
+# Deterministic line endings on every certified development platform
+# (M00-W09, spec §5.14.4, REQ-PLAT-016): all text files are committed and
+# checked out with LF regardless of the host's core.autocrlf, so format
+# checks, hashes, and generated-view comparisons behave identically on
+# macOS, Windows, and Ubuntu. Binary content is auto-detected by Git and
+# left untouched.
+* text=auto eol=lf

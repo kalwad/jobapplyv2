@@ -57,9 +57,11 @@ Chromium; production extension foundation: M17).
 The first-release policy targets macOS 14+ arm64, Windows 11 x64, and Ubuntu
 24.04 LTS x64. No desktop product or packaged platform evidence exists, so
 all three are `NOT_YET_IMPLEMENTED`; this is a target matrix, not a support
-claim. M00 macOS/Ubuntu hosted checks prove repository bootstrap only.
-Windows repository CI begins in M00-W09. Product certification and Gate D
-remain later work; see `docs/PLATFORM_SUPPORT.md`.
+claim. M00 hosted checks (macOS 15 arm64, Windows Server 2025 x64 since
+M00-W09, Ubuntu 24.04 x64) prove repository/toolchain bootstrap only; a
+passing `windows-2025` job is not packaged Windows 11 desktop support.
+Product certification and Gate D remain later work; see
+`docs/PLATFORM_SUPPORT.md`.
 
 | OS | Architecture | Desktop app status | Last verified revision | Evidence |
 |---|---|---|---|---|

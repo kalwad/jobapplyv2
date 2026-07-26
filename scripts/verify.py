@@ -35,6 +35,10 @@ from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import portability
+
 VALID_PACKAGE_STATES = frozenset(
     {
         "NOT_STARTED",
@@ -370,9 +374,22 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
     # discovery-proof regexes match real counts (some tools ignore
     # NO_COLOR, so combined output is ANSI-stripped as well).
     env = {**os.environ, "NO_COLOR": "1", "FORCE_COLOR": "0"}
+    # Registry commands stay platform-neutral (M00-W09, REQ-PLAT-025):
+    # the literal interpreter name "python3" runs as this runner's own
+    # pinned interpreter (identical semantics on hosts without a python3
+    # shim), and every other bare name is resolved through PATH — with
+    # PATHEXT on Windows, where CreateProcess would not find .cmd shims
+    # such as pnpm — before spawning the absolute path.
+    if argv[0] == "python3":
+        head: str | None = sys.executable
+    else:
+        head = portability.host_resolve_executable(argv[0])
+    if head is None:
+        print(f"  command not found: {argv[0]}", flush=True)
+        return 127, f"command not found: {argv[0]}"
     try:
         proc = subprocess.run(
-            argv,
+            (head, *argv[1:]),
             cwd=ctx.repo,
             env=env,
             capture_output=True,

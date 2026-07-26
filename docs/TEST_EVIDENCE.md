@@ -33,6 +33,172 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
+
+- Revision: stamp pending (content tree recorded in the conventional
+  follow-up commit after the hosted three-OS content run passes).
+- Starting prerequisite: `main` was clean at
+  `33b012e1d30fa82b62ee0ce02746b56839c4816b`, equal to `origin/main`.
+  Final M00-W08 stamp run 30223489467 passed macOS job 89849840494 and
+  Ubuntu job 89849840515. `python3 scripts/validate_status.py` (35 groups),
+  `pnpm traceability:check` (157/286), `pnpm run doctor` (19 pass / 0 fail /
+  3 honest NOT_YET_APPLICABLE), and `pnpm verify` (exit 0) all passed before
+  any edit. M00-W01…W08 were VERIFIED, M00-W09 was READY, M00-W10 and
+  M01-W01 were NOT_STARTED, no package was IN_PROGRESS, and all four
+  critical gates were NOT_EVALUATED.
+- Environment: macOS 27.0 arm64 (primary dev machine); Node v24.18.0;
+  pnpm 11.17.0; uv 0.11.32; uv-managed CPython 3.12.13; rustc 1.97.1 with
+  rustfmt/clippy via the rust-toolchain.toml override; Playwright 1.62.0
+  with pinned Chromium. Windows facts were verified against the
+  actions/runner-images windows-2025 manifest before implementation
+  (Rust 1.97.1 + rustup 1.29 preinstalled, Pipx 1.16 with a machine-PATH
+  bin dir, PowerShell 7.6, Node 24.18.0 in the tool cache, and the
+  actions/python-versions Windows layout that ships a `python3.exe`
+  symlink), and actual Windows execution is claimed only from the hosted
+  windows-2025 job — never a mocked local result.
+- Windows CI architecture (.github/workflows/ci.yml):
+  - The single `verify` job matrix is exactly
+    `[macos-15, windows-2025, ubuntu-24.04]`; every OS runs the identical
+    canonical `pnpm run doctor` and `pnpm verify` steps unguarded (no
+    weaker Windows subset), then a shared pwsh no-tracked-changes gate.
+  - Shell policy: no workflow-global bash default. Single-command steps
+    declare no shell (native per-OS defaults propagate exit codes);
+    multi-line bash steps are guarded `runner.os != 'Windows'`; Windows
+    scripting uses pwsh with `$ErrorActionPreference = 'Stop'` +
+    `$PSNativeCommandUseErrorActionPreference = $true`.
+  - Windows toolchain isolation: the Windows Rust step installs exact
+    1.97.1 with `--profile minimal --component rustfmt --component clippy`
+    into a fresh `RUSTUP_HOME` under `runner.temp` (asserted absent first,
+    persisted via GITHUB_ENV, never cached) and probes
+    `rustup show active-toolchain`, `rustup which cargo/rustc` vs the
+    PATH proxies, `cargo/rustc/rustfmt/cargo clippy --version`, plus the
+    `+1.97.1` proxy checks — mirroring the POSIX step.
+  - Frozen/locked installs on every OS: `pnpm install --frozen-lockfile`,
+    `uv sync --locked`, `cargo fetch --locked`, and
+    `pipx install "uv==<pyproject pin>"`; Chromium installed per OS
+    (`--with-deps` only on Linux). Caches (pnpm store, uv, cargo
+    registry/git, Playwright) carry runner.os + runner.arch +
+    hashFiles keys, gained the Windows locations
+    (`~/AppData/Local/uv/cache`, `~/AppData/Local/ms-playwright`), and
+    still have no restore-keys; failure-only Playwright artifact upload
+    is unchanged with a per-OS artifact name.
+- Doctor/runner portability (scripts/portability.py, scripts/doctor.py,
+  scripts/verify.py):
+  - New shared `scripts/portability.py` resolves executables with
+    injectable platform flavor, PATH entries, PATHEXT, and probes:
+    PATHEXT/.exe/.cmd and case-insensitive semantics on Windows (no
+    executable-bit requirement), executable bit on POSIX; runtime callers
+    execute the resolved absolute path (cwd never searched).
+  - `doctor.py` gained injectable `platform_id`/`home`, a `platform`
+    check, per-platform remediation (winget/rustup-init/PowerShell wording
+    on Windows — never Homebrew), home redaction in both `\\` and `/`
+    spellings, and PATH/PATHEXT-aware child spawning; `verify.py` maps the
+    registry's literal `python3` onto its own pinned interpreter and
+    resolves all other commands the same way;
+    `traceability.py generate` now writes the view with `newline="\n"`.
+  - `.gitattributes` (`* text=auto eol=lf`) makes checkouts byte-identical
+    on every platform; all 102 tracked text files were already LF.
+- Platform scaffold: `packages/platform` (`@japp/platform`) with
+  package.json, tsconfig, ownership README, ownership-notice entry point,
+  and the standard workspace-wiring smoke test. No M01-W07 interface, no
+  secure-store/native-messaging/model/installer/product behavior. Turbo
+  and Vitest discovery proofs now count 9 workspace packages.
+- Static portability policy (scripts/check_portability.py; new mandatory
+  always-active `portability` suite in scripts/verification-suites.json,
+  owner M00-W09): PORT-CI-001…018 enforce the exact three-OS matrix,
+  unguarded canonical commands, per-step shell discipline, no POSIX-only
+  tokens in Windows-reachable steps, no continue-on-error or masked child
+  failures, SHA-pinned official actions, read-only permissions,
+  persist-credentials: false, frozen/locked installs, exact Rust probes,
+  runner.temp-isolated uncached RUSTUP_HOME, an allowlisted dependency
+  cache set (rejecting toolchain state, build output, profiles, or
+  private data), per-OS Chromium installs, failure-only test-results
+  uploads, and no live-site URLs. PORT-SRC-001…008 reject hard-coded
+  /tmp//bin//usr//etc//var literals, shell=True and bash-wrapper strings,
+  manual separator concatenation, X_OK/chmod outside the designated
+  scripts/portability.py module, case-colliding tracked paths, a missing
+  LF .gitattributes rule, POSIX-only package.json scripts, and non-allowlisted
+  registry command heads. Scans are AST/structure-based over executable
+  surfaces only; documentation, scripts/tests fixtures, comments, and URL
+  literals cannot false-positive (proven by dedicated tests).
+- Commands and observed results (current repository state, in order):
+  - `pnpm install --frozen-lockfile` → exit 0 (13 workspace projects
+    after adding @japp/platform; pnpm-lock.yaml updated intentionally).
+  - `uv sync --locked` → exit 0 (17 resolved / 15 checked).
+  - `pnpm run doctor` → exit 0: 19 PASS (including the new Host platform
+    check), expected dirty-tree WARNING during development, 0 FAIL,
+    3 honest NOT_YET_APPLICABLE suites.
+  - `pnpm run doctor --json` twice → exit 0, byte-identical payloads
+    (stable machine-readable output).
+  - `uv run python scripts/check_portability.py` → exit 0 on the real
+    repository (both verbose and --quiet forms).
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:e2e`, `pnpm test:python`, `pnpm test:rust` → each exit 0.
+    Results: 9/9 turbo typecheck tasks + root tsc + strict mypy over 17
+    source files; 9/9 package Vitest runs; 1/1 pinned-Chromium smoke;
+    248/248 Python tests; 1/1 Rust test plus rustfmt, Clippy
+    `-D warnings`, and build.
+  - Focused suites: `uv run pytest scripts/tests/test_doctor.py -q` →
+    33 passed (13 new Windows simulations: healthy Windows run with
+    0 FAIL on Windows-native toolchain paths; wrong Node/missing
+    pnpm/missing uv/wrong Python patch/missing rustup proxy/wrong
+    toolchain/missing rustfmt+clippy/missing Chromium all FAIL with
+    Windows-specific, Homebrew-free remediation; drive-letter +
+    space/Unicode home redaction; CRLF pin files; unresolvable-command
+    diagnosis). `uv run pytest scripts/tests/test_ci_workflow.py -q` →
+    40 passed. `uv run pytest scripts/tests/test_portability.py -q` →
+    50 passed (Windows .exe/.CMD/PATHEXT/case/space/Unicode/drive-letter
+    resolution and no-execute-bit semantics via injected environments;
+    baseline policy fixture clean; every PORT-CI/PORT-SRC negative fires;
+    guarded platform-specific equivalents permitted; docs/test-fixture/
+    comment/URL literals produce no false positives; real repository
+    passes; registry `python3` maps to the pinned interpreter).
+  - Full regression: `uv run pytest -q` → 248 passed, 0 failed
+    (M00-W04 runner/proof, M00-W05/W06 status+CI+doctor, M00-W07
+    traceability, and M00-W08 inventory suites all green; the only
+    expectation updates are the intended inventory growth to 9 workspace
+    packages and the new always-active portability suite).
+  - `pnpm traceability:generate` then `pnpm traceability:check` → exit 0,
+    157 requirements / 286 work packages; regeneration is deterministic.
+  - `python3 scripts/validate_status.py` → exit 0, 35/35 check groups at
+    the final status state (M00-W09 VERIFIED `stamp pending`, M00-W10
+    READY, no IN_PROGRESS).
+  - Final `pnpm preflight` → exit 0 (doctor, then the canonical
+    aggregate); final `pnpm verify` → exit 0 with toolchain, format,
+    lint, typecheck, unit-ts, e2e-browser, python, rust, portability,
+    traceability, status, and integrity ACTIVE/PASS and contract-gen,
+    contract, visual honestly NOT_YET_APPLICABLE.
+  - Clean-clone simulation: `git clone . <temp>` +
+    `pnpm install --frozen-lockfile` + `uv sync --locked` +
+    `python3 scripts/validate_status.py` + `pnpm traceability:check` +
+    `uv run python scripts/check_portability.py` + `pnpm run doctor`
+    inside the clone → all exit 0 (Chromium-dependent probes reuse the
+    machine's installed pinned browser; full aggregate verification in a
+    clean clone is otherwise identical to the in-repo run).
+- Test counts: 248 Python (incl. 33 doctor, 40 workflow, 50 portability),
+  9 Vitest packages, 1 Playwright smoke, 1 Rust; 0 failed, 0 skipped.
+- Artifacts: none retained (all suites passed; Playwright artifacts are
+  failure-only).
+- Security/supply-chain: read-only workflow token unchanged; only
+  SHA-pinned official `actions/*` actions; no third-party Windows setup
+  action introduced (official actions plus repository commands and the
+  preinstalled runner pipx/rustup are sufficient); no secrets, live-site
+  tests, environment dumps, browser profiles, or user data in CI, caches,
+  or artifacts; the portability suite now enforces these properties
+  deterministically on every platform.
+- Honest scope: the windows-2025 job is a repository/toolchain
+  portability baseline. Windows product certification remains
+  NOT_YET_IMPLEMENTED; passing windows-2025 CI does not prove packaged
+  Windows 11 desktop support; CROSS_PLATFORM_CORE remains NOT_EVALUATED;
+  no Windows secure-store, native-messaging, local-model, installer,
+  update, or product claim exists (docs/PLATFORM_SUPPORT.md,
+  docs/platform/CERTIFIED_MATRIX.md).
+- Hosted proof: pending at entry creation — the content commit must pass
+  all three hosted jobs (macos-15, windows-2025, ubuntu-24.04) running
+  the same canonical doctor/verify commands, and the final revision-stamp
+  HEAD requires its own successful three-OS run before closeout. Run and
+  job IDs are recorded below when observed.
+
 ### M00-W08 — Adopt and migrate the v1.3 cross-platform rebaseline (2026-07-26)
 
 - Revision: tree `e05dbf9bdf9c190e8cd6b022d9611d65805740b7` / commit

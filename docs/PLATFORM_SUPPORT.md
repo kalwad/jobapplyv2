@@ -23,10 +23,15 @@ installer, updater, or compatibility target already works.
 | `windows-x64` | Windows 11 | x86-64 | Chrome stable | `CERTIFIED_FULL`, `CERTIFIED_CORE` | `NOT_YET_IMPLEMENTED` | — |
 | `ubuntu-x64` | Ubuntu 24.04 LTS, supported default GNOME session | x86-64 | Chrome stable | `CERTIFIED_FULL`, `CERTIFIED_CORE` | `NOT_YET_IMPLEMENTED` | — |
 
-The current macOS and Ubuntu GitHub Actions jobs prove only the M00 repository
-toolchain and verification baseline. They do not certify packaged product
-behavior. Windows CI is owned by `M00-W09` and is not implemented by
-`M00-W08`.
+The macOS, Windows, and Ubuntu GitHub Actions jobs prove only the M00
+repository toolchain and verification baseline. They do not certify packaged
+product behavior. `M00-W09` added the required `windows-2025` hosted job,
+the Windows-aware doctor/preflight behavior, and the deterministic
+platform-portability policy suite (`scripts/check_portability.py`); a
+passing `windows-2025` job is a repository/toolchain portability baseline
+and does not prove packaged Windows 11 desktop support. No Windows
+secure-store, native-messaging, local-model, installer, update, or product
+claim exists yet, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`.
 
 ## Staged local-AI policy
 

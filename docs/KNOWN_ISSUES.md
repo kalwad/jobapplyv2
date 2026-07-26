@@ -36,6 +36,18 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
+## M00-W09 portability review
+
+M00-W09 added the required `windows-2025` hosted job, Windows-aware
+doctor/resolution behavior (`scripts/portability.py`), the deterministic
+portability policy suite (`scripts/check_portability.py`), the
+`packages/platform` ownership scaffold, and `.gitattributes` LF
+enforcement. No new open defect was found. The Windows job is a
+repository/toolchain portability baseline only: no Windows product,
+secure-store, native-messaging, model-runtime, installer, or update claim
+exists, and all four critical gates remain `NOT_EVALUATED`. KI-0006 parks
+the one deliberate scope boundary observed during implementation.
+
 ## M00-W08 migration review
 
 The earlier M00-W07 audit found no new open product defect. M00 is now
@@ -172,6 +184,28 @@ validator exception or weakening was introduced.
   test_ledger_invalid_state_value_rejected in
   scripts/tests/test_validate_status.py. Evidence:
   docs/TEST_EVIDENCE.md § M00-W06.
+
+### KI-0006 — Portability source rules cover Python runtime scripts only (deliberate M00-W09 boundary)
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-07-26 during M00-W09
+- Affects: scripts/check_portability.py (PORT-SRC rule family)
+- Description: the AST-level portability rules (hard-coded POSIX system
+  paths, `shell=True`/Bash wrappers, separator concatenation,
+  executable-bit dependence) scan the Python runtime scripts
+  (`scripts/*.py`, `services/*/src/**/*.py`) plus package manifests, the
+  suite registry, and the workflow — the only executable shared logic that
+  exists in M00. TypeScript workspace packages and the Rust crate are
+  scaffolds with no runtime logic yet, so equivalent TS/Rust source rules
+  would today assert over nothing (a mocked success, spec §1.5). When
+  M02+/M17+ introduce real TS/Rust runtime behavior, extend the PORT-SRC
+  family (or add eslint/clippy lint equivalents) to those ecosystems
+  instead of assuming the Python-only scan is sufficient.
+- Reproduction: n/a (scope boundary, not a defect).
+- Workaround: n/a.
+- Resolution + evidence link: pending the first packages that add TS/Rust
+  runtime logic.
 
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 

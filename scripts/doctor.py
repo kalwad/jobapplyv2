@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local environment doctor and preflight entry point (M00-W06, spec §M00).
+"""Local environment doctor and preflight entry point (M00-W06/M00-W09, spec §M00).
 
 Read-only diagnosis of the developer/CI environment against the repository's
 own pins (.nvmrc, package.json, .python-version, pyproject.toml,
@@ -7,6 +7,15 @@ rust-toolchain.toml). The doctor never installs software, never modifies
 tracked files, never alters PATH or shell configuration, and defaults to
 offline checks (the browser probe launches the locally installed pinned
 Chromium against inline content only).
+
+The doctor is platform-neutral (M00-W09, REQ-PLAT-025): it runs on macOS,
+Windows, and Ubuntu. Child commands are resolved through
+scripts/portability.py (PATHEXT/.exe/.cmd semantics on Windows, executable
+bit on POSIX), no POSIX filesystem layout (/tmp, /bin, /usr, Homebrew) is
+assumed outside macOS-specific remediation text, and every failing check
+carries remediation for the detected platform. Platform identity, command
+results, and the home directory used for path redaction are injectable so
+Windows behavior is testable from any host.
 
 Modes
   python3 scripts/doctor.py             human-readable summary
@@ -38,11 +47,12 @@ import sys
 import tempfile
 import tomllib
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import portability
 import validate_status
 import verify
 
@@ -64,6 +74,7 @@ STATUS_FAIL = "FAIL"
 STATUS_NOT_YET_APPLICABLE = "NOT_YET_APPLICABLE"
 
 ACTIVATION_README = "see README.md 'Activation on this machine'"
+WINDOWS_README = "see README.md 'Windows setup (PowerShell)'"
 
 
 @dataclass(frozen=True)
@@ -89,21 +100,32 @@ class Pins:
 class DoctorContext:
     repo: Path
     run: Runner
+    # Injectable platform identity and redaction root: tests simulate
+    # Windows (or any platform) from any host instead of depending on the
+    # machine actually running the tests (M00-W09 §E).
+    platform_id: str = field(default_factory=portability.detect_platform_id)
+    home: Path = field(default_factory=Path.home)
 
 
 def default_runner(repo: Path) -> Runner:
     def run(argv: tuple[str, ...]) -> tuple[int, str]:
+        # Resolve through PATH (and PATHEXT on Windows) before spawning:
+        # Windows CreateProcess would not find .cmd shims such as pnpm, and
+        # an unresolvable command must diagnose cleanly on every platform.
+        resolved = portability.host_resolve_executable(argv[0])
+        if resolved is None:
+            return 127, f"{argv[0]}: command not found"
         try:
             proc = subprocess.run(
-                argv,
+                (resolved, *argv[1:]),
                 cwd=repo,
                 capture_output=True,
                 text=True,
                 timeout=COMMAND_TIMEOUT_SECONDS,
                 check=False,
             )
-        except FileNotFoundError:
-            return 127, f"{argv[0]}: command not found"
+        except OSError as exc:
+            return 126, f"{argv[0]}: cannot execute ({exc})"
         except subprocess.TimeoutExpired:
             return 124, f"{' '.join(argv)}: timed out"
         return proc.returncode, (proc.stdout + proc.stderr).strip()
@@ -111,10 +133,20 @@ def default_runner(repo: Path) -> Runner:
     return run
 
 
-def _scrub(text: str) -> str:
-    """Replace the home-directory prefix so output stays path-minimal."""
-    home = str(Path.home())
-    return text.replace(home, "~") if home and home != "/" else text
+def _scrub(text: str, home: Path | None = None) -> str:
+    """Replace the home-directory prefix so output stays path-minimal.
+
+    Both native and forward-slash spellings are redacted: Windows tools mix
+    ``C:\\Users\\name`` and ``C:/Users/name`` in their output.
+    """
+    root = str(home if home is not None else Path.home())
+    if not root or root == "/":
+        return text
+    scrubbed = text.replace(root, "~")
+    alt = root.replace("\\", "/")
+    if alt != root:
+        scrubbed = scrubbed.replace(alt, "~")
+    return scrubbed
 
 
 def read_pins(repo: Path) -> Pins:
@@ -152,7 +184,7 @@ def _version_check(ctx: DoctorContext, probe: VersionProbe) -> CheckResult:
             probe.check_id,
             probe.name,
             STATUS_FAIL,
-            _scrub(output or f"exit {code}"),
+            _scrub(output or f"exit {code}", ctx.home),
             probe.remediation,
         )
     if probe.expected_fragment not in first_line:
@@ -160,10 +192,13 @@ def _version_check(ctx: DoctorContext, probe: VersionProbe) -> CheckResult:
             probe.check_id,
             probe.name,
             STATUS_FAIL,
-            f"got '{_scrub(first_line)}', expected '{probe.expected_fragment}'",
+            f"got '{_scrub(first_line, ctx.home)}', "
+            f"expected '{probe.expected_fragment}'",
             probe.remediation,
         )
-    return CheckResult(probe.check_id, probe.name, STATUS_PASS, _scrub(first_line))
+    return CheckResult(
+        probe.check_id, probe.name, STATUS_PASS, _scrub(first_line, ctx.home)
+    )
 
 
 def check_repository_files(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
@@ -240,6 +275,26 @@ def check_repository_files(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
     return results
 
 
+def check_platform(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
+    del pins
+    known = ctx.platform_id in portability.PLATFORM_IDS
+    return [
+        CheckResult(
+            "platform",
+            "Host platform",
+            STATUS_PASS if known else STATUS_WARNING,
+            f"{ctx.platform_id}; repository commands are platform-neutral "
+            "(REQ-PLAT-025). Development-host support only — packaged "
+            "product certification is later native work "
+            "(docs/PLATFORM_SUPPORT.md)",
+            ""
+            if known
+            else "unrecognized platform; certified development "
+            "hosts are macOS, Windows, and Ubuntu",
+        )
+    ]
+
+
 def check_git_state(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
     del pins
     code, inside = ctx.run(("git", "rev-parse", "--is-inside-work-tree"))
@@ -249,7 +304,7 @@ def check_git_state(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                 "git-worktree",
                 "Git repository",
                 STATUS_FAIL,
-                _scrub(inside),
+                _scrub(inside, ctx.home),
                 "run the doctor from a checkout of the repository",
             )
         ]
@@ -273,46 +328,89 @@ def check_git_state(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
     ]
 
 
-def check_toolchain(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
+def _toolchain_remediation(platform_id: str, pins: Pins) -> dict[str, str]:
+    """Actionable per-platform remediation for the toolchain probes.
+
+    macOS keeps the Homebrew keg activation guidance; Windows guidance uses
+    winget/rustup-init/PowerShell terms and never references Homebrew,
+    /opt, or POSIX shell profiles; Linux guidance is distribution-neutral.
+    """
+    if platform_id == portability.PLATFORM_WINDOWS:
+        return {
+            "node": f"install Node {pins.node} (for example "
+            "winget install OpenJS.NodeJS.LTS, or nvm-windows) and ensure "
+            f"that exact version is first on PATH; {WINDOWS_README}",
+            "pnpm": "corepack enable pnpm from a PowerShell session where "
+            f"the pinned Node {pins.node} is first on PATH; {WINDOWS_README}",
+            "uv": f"install uv {pins.uv} (for example "
+            f"winget install astral-sh.uv, or pipx install uv=={pins.uv}); "
+            f"{WINDOWS_README}",
+            "python": "uv sync --locked (uv fetches the pinned CPython automatically)",
+            "rust": "install rustup with rustup-init.exe from rustup.rs, "
+            f"then: rustup toolchain install {pins.rust}; {WINDOWS_README}",
+        }
+    if platform_id == portability.PLATFORM_LINUX:
+        return {
+            "node": f"install Node {pins.node} (for example via nvm or a "
+            "NodeSource package) and ensure that exact version is first "
+            "on PATH",
+            "pnpm": "corepack enable pnpm from a shell where the pinned "
+            f"Node {pins.node} is first on PATH",
+            "uv": f"pipx install uv=={pins.uv} (or the official installer "
+            f"pinned to {pins.uv}; the repository enforces =={pins.uv})",
+            "python": "uv sync --locked (uv fetches the pinned CPython automatically)",
+            "rust": "install rustup from your distribution or rustup.rs, "
+            f"then: rustup toolchain install {pins.rust}",
+        }
     activation = (
         'export PATH="/opt/homebrew/opt/node@24/bin:'
         f'/opt/homebrew/opt/rustup/bin:$PATH" ({ACTIVATION_README})'
     )
+    return {
+        "node": f"brew install node@24, then {activation}",
+        "pnpm": "corepack enable pnpm from a shell where the node@24 keg is "
+        f"first on PATH; {activation}",
+        "uv": f"brew install uv (repository pins =={pins.uv} via pyproject.toml)",
+        "python": "uv sync --locked (uv fetches the pinned CPython automatically)",
+        "rust": f"brew install rustup; rustup toolchain install {pins.rust}; "
+        f"{activation}",
+    }
+
+
+def check_toolchain(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
+    remediation = _toolchain_remediation(ctx.platform_id, pins)
     probes = [
         VersionProbe(
             "node",
             f"Node {pins.node}",
             ("node", "--version"),
             f"v{pins.node}",
-            f"brew install node@24, then {activation}",
+            remediation["node"],
         ),
         VersionProbe(
             "pnpm",
             f"pnpm {pins.pnpm}",
             ("pnpm", "--version"),
             pins.pnpm,
-            "corepack enable pnpm from a shell where the node@24 keg is "
-            f"first on PATH; {activation}",
+            remediation["pnpm"],
         ),
         VersionProbe(
             "uv",
             f"uv {pins.uv}",
             ("uv", "--version"),
             f"uv {pins.uv}",
-            f"brew install uv (repository pins =={pins.uv} via pyproject.toml)",
+            remediation["uv"],
         ),
         VersionProbe(
             "python",
             f"Python {pins.python} (uv-managed)",
             ("uv", "run", "python", "-VV"),
             f"Python {pins.python}",
-            "uv sync --locked (uv fetches the pinned CPython automatically)",
+            remediation["python"],
         ),
     ]
     results = [_version_check(ctx, probe) for probe in probes]
-    rust_remediation = (
-        f"brew install rustup; rustup toolchain install {pins.rust}; {activation}"
-    )
+    rust_remediation = remediation["rust"]
     code, toolchain_path = ctx.run(("rustup", "which", "cargo"))
     if code != 0:
         results.append(
@@ -320,7 +418,7 @@ def check_toolchain(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                 "rust-proxy",
                 f"Cargo via pinned rustup toolchain {pins.rust}",
                 STATUS_FAIL,
-                _scrub(toolchain_path),
+                _scrub(toolchain_path, ctx.home),
                 rust_remediation,
             )
         )
@@ -330,8 +428,9 @@ def check_toolchain(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                 "rust-proxy",
                 f"Cargo via pinned rustup toolchain {pins.rust}",
                 STATUS_FAIL,
-                f"cargo resolves to {_scrub(toolchain_path.strip())}, not the "
-                f"{pins.rust} toolchain (rust-toolchain.toml override not active)",
+                f"cargo resolves to {_scrub(toolchain_path.strip(), ctx.home)}, "
+                f"not the {pins.rust} toolchain "
+                "(rust-toolchain.toml override not active)",
                 rust_remediation,
             )
         )
@@ -341,7 +440,7 @@ def check_toolchain(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                 "rust-proxy",
                 f"Cargo via pinned rustup toolchain {pins.rust}",
                 STATUS_PASS,
-                _scrub(toolchain_path.strip()),
+                _scrub(toolchain_path.strip(), ctx.home),
             )
         )
     rust_probes = [
@@ -382,6 +481,8 @@ def check_writable_dirs(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
     del pins
     problems: list[str] = []
     try:
+        # tempfile.gettempdir() honors each platform's convention (TMPDIR,
+        # TEMP/TMP + the Windows user temp) — never a hard-coded /tmp.
         with tempfile.NamedTemporaryFile(prefix="japp-doctor-") as handle:
             handle.write(b"probe")
     except OSError as exc:
@@ -396,7 +497,7 @@ def check_writable_dirs(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
             "writable-dirs",
             "Writable temporary and artifact locations",
             STATUS_FAIL if problems else STATUS_PASS,
-            _scrub("; ".join(problems))
+            _scrub("; ".join(problems), ctx.home)
             if problems
             else "system temp + repository root writable",
             "fix directory permissions" if problems else "",
@@ -443,7 +544,7 @@ def check_playwright(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
             )
         )
     else:
-        detail = _scrub(output[-400:]) if output else f"exit {code}"
+        detail = _scrub(output[-400:], ctx.home) if output else f"exit {code}"
         results.append(
             CheckResult(
                 "browser-probe",
@@ -466,7 +567,7 @@ def check_status_validator(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
             "status-validator",
             "Project-status validation",
             STATUS_PASS if code == 0 else STATUS_FAIL,
-            _scrub(tail),
+            _scrub(tail, ctx.home),
             "" if code == 0 else "fix docs/PROJECT_STATUS.md per the errors above",
         )
     ]
@@ -489,7 +590,7 @@ def check_suite_states(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                 "suite-states",
                 "Verification-suite state model",
                 STATUS_FAIL,
-                _scrub(str(exc)),
+                _scrub(str(exc), ctx.home),
                 "restore scripts/verification-suites.json and "
                 "docs/PROJECT_STATUS.md from git",
             )
@@ -505,7 +606,7 @@ def check_suite_states(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
                     f"suite-{suite.suite_id}",
                     f"Suite state: {suite.suite_id}",
                     STATUS_FAIL,
-                    _scrub(str(exc)),
+                    _scrub(str(exc), ctx.home),
                     "align the registry activation packages with "
                     "docs/PROJECT_STATUS.md",
                 )
@@ -546,6 +647,7 @@ def check_suite_states(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
 
 
 CHECKS: tuple[Callable[[DoctorContext, Pins], list[CheckResult]], ...] = (
+    check_platform,
     check_repository_files,
     check_git_state,
     check_toolchain,
@@ -624,7 +726,11 @@ def run_preflight(
         )
         return 1
     print(f"\npreflight: doctor ok — running {' '.join(verify_argv)}", flush=True)
-    completed = subprocess.run(verify_argv, cwd=ctx.repo, check=False)
+    resolved = portability.host_resolve_executable(verify_argv[0])
+    if resolved is None:
+        print(f"preflight: command not found: {verify_argv[0]}", file=sys.stderr)
+        return 1
+    completed = subprocess.run((resolved, *verify_argv[1:]), cwd=ctx.repo, check=False)
     return completed.returncode
 
 

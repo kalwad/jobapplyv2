@@ -1,9 +1,12 @@
-"""Tests for the environment doctor and preflight (M00-W06).
+"""Tests for the environment doctor and preflight (M00-W06, M00-W09).
 
 Negative environment cases inject fake command results through the doctor's
 Runner seam instead of uninstalling or corrupting real local tools; repo-file
-cases use temporary fixture copies. The positive path runs the real doctor
-subprocess against the real repository.
+cases use temporary fixture copies. Platform identity and the redaction home
+are injected too, so the macOS assertions stay deterministic when this suite
+runs on the Windows/Ubuntu CI hosts and the Windows simulations run on any
+host (M00-W09 §E/§I). The positive path runs the real doctor subprocess
+against the real repository on whichever platform is executing the tests.
 """
 
 from __future__ import annotations
@@ -15,6 +18,7 @@ import sys
 from pathlib import Path
 
 import doctor
+import portability
 import pytest
 from conftest import REPO_ROOT
 
@@ -39,11 +43,25 @@ BASE_OUTPUTS: dict[tuple[str, ...], tuple[int, str]] = {
     doctor.BROWSER_SMOKE_ARGV: (0, "1 passed"),
 }
 
+# Windows-flavored healthy outputs: same pinned versions, Windows-native
+# toolchain paths (drive letter, backslashes, .exe suffix, spaces in the
+# profile directory).
+WINDOWS_HOME = "C:\\Users\\Fixture User"
+WINDOWS_OUTPUTS: dict[tuple[str, ...], tuple[int, str]] = {
+    **BASE_OUTPUTS,
+    ("rustup", "which", "cargo"): (
+        0,
+        WINDOWS_HOME
+        + "\\.rustup\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\cargo.exe",
+    ),
+}
+
 
 def stub_runner(
     overrides: dict[tuple[str, ...], tuple[int, str]] | None = None,
+    base: dict[tuple[str, ...], tuple[int, str]] | None = None,
 ) -> doctor.Runner:
-    table = {**BASE_OUTPUTS, **(overrides or {})}
+    table = {**(base if base is not None else BASE_OUTPUTS), **(overrides or {})}
 
     def run(argv: tuple[str, ...]) -> tuple[int, str]:
         if argv in table:
@@ -56,9 +74,27 @@ def stub_runner(
 
 
 def ctx_with(
-    repo: Path, overrides: dict[tuple[str, ...], tuple[int, str]] | None = None
+    repo: Path,
+    overrides: dict[tuple[str, ...], tuple[int, str]] | None = None,
+    platform_id: str = portability.PLATFORM_MACOS,
 ) -> doctor.DoctorContext:
-    return doctor.DoctorContext(repo=repo, run=stub_runner(overrides))
+    """Context pinned to simulated macOS regardless of the test host."""
+    return doctor.DoctorContext(
+        repo=repo, run=stub_runner(overrides), platform_id=platform_id
+    )
+
+
+def windows_ctx_with(
+    repo: Path,
+    overrides: dict[tuple[str, ...], tuple[int, str]] | None = None,
+) -> doctor.DoctorContext:
+    """Context simulating a healthy Windows host from any platform."""
+    return doctor.DoctorContext(
+        repo=repo,
+        run=stub_runner(overrides, base=WINDOWS_OUTPUTS),
+        platform_id=portability.PLATFORM_WINDOWS,
+        home=Path(WINDOWS_HOME),
+    )
 
 
 def result_by_id(
@@ -98,6 +134,12 @@ def doctor_repo(tmp_path: Path) -> Path:
         "verification-suites.json",
     ):
         shutil.copy2(REPO_ROOT / "scripts" / rel, repo / "scripts" / rel)
+    playwright_manifest = repo / "node_modules" / "@playwright" / "test"
+    playwright_manifest.mkdir(parents=True)
+    shutil.copy2(
+        REPO_ROOT / "node_modules" / "@playwright" / "test" / "package.json",
+        playwright_manifest / "package.json",
+    )
     return repo
 
 
@@ -106,6 +148,13 @@ def toolchain_results(
 ) -> list[doctor.CheckResult]:
     pins = doctor.read_pins(REPO_ROOT)
     return doctor.check_toolchain(ctx_with(REPO_ROOT, overrides), pins)
+
+
+def windows_toolchain_results(
+    overrides: dict[tuple[str, ...], tuple[int, str]] | None = None,
+) -> list[doctor.CheckResult]:
+    pins = doctor.read_pins(REPO_ROOT)
+    return doctor.check_toolchain(windows_ctx_with(REPO_ROOT, overrides), pins)
 
 
 # ------------------------------------------------------------ positive path
@@ -308,6 +357,183 @@ def test_human_output_contains_actionable_remediation() -> None:
     rendered = doctor.render_human(results)
     assert "fix →" in rendered
     assert "node@24" in rendered
+
+
+# --------------------------------------------- simulated Windows (M00-W09 §E)
+
+
+def test_simulated_healthy_windows_environment_succeeds(doctor_repo: Path) -> None:
+    ctx = windows_ctx_with(doctor_repo)
+    results = doctor.run_doctor(ctx)
+    failures = [r for r in results if r.status == doctor.STATUS_FAIL]
+    assert failures == [], [f"{r.check_id}: {r.detail}" for r in failures]
+    platform_check = result_by_id(results, "platform")
+    assert platform_check.status == doctor.STATUS_PASS
+    assert "windows" in platform_check.detail
+    proxy = result_by_id(results, "rust-proxy")
+    assert proxy.status == doctor.STATUS_PASS
+    # Windows-native toolchain path (drive letter, backslashes, .exe) is
+    # accepted and the user profile is redacted from the detail.
+    assert "cargo.exe" in proxy.detail
+    assert WINDOWS_HOME not in proxy.detail
+    assert proxy.detail.startswith("~")
+
+
+def test_windows_wrong_node_version_fails_with_windows_remediation() -> None:
+    results = windows_toolchain_results({("node", "--version"): (0, "v26.0.0")})
+    node = result_by_id(results, "node")
+    assert node.status == doctor.STATUS_FAIL
+    assert "v26.0.0" in node.detail
+    assert "winget" in node.remediation or "nvm-windows" in node.remediation
+    assert "brew" not in node.remediation
+
+
+def test_windows_missing_pnpm_fails() -> None:
+    results = windows_toolchain_results(
+        {
+            ("pnpm", "--version"): (
+                127,
+                "'pnpm' is not recognized as an internal or external command",
+            )
+        }
+    )
+    pnpm = result_by_id(results, "pnpm")
+    assert pnpm.status == doctor.STATUS_FAIL
+    assert "corepack" in pnpm.remediation
+    assert "PowerShell" in pnpm.remediation
+
+
+def test_windows_missing_uv_fails() -> None:
+    results = windows_toolchain_results(
+        {("uv", "--version"): (127, "uv: command not found")}
+    )
+    uv = result_by_id(results, "uv")
+    assert uv.status == doctor.STATUS_FAIL
+    assert "winget install astral-sh.uv" in uv.remediation
+    assert "brew" not in uv.remediation
+
+
+def test_windows_wrong_python_patch_fails() -> None:
+    results = windows_toolchain_results(
+        {("uv", "run", "python", "-VV"): (0, "Python 3.12.14 (fixture)")}
+    )
+    python = result_by_id(results, "python")
+    assert python.status == doctor.STATUS_FAIL
+    assert "uv sync --locked" in python.remediation
+
+
+def test_windows_missing_rustup_proxy_fails() -> None:
+    results = windows_toolchain_results(
+        {
+            ("rustup", "which", "cargo"): (
+                127,
+                "'rustup' is not recognized as an internal or external command",
+            )
+        }
+    )
+    proxy = result_by_id(results, "rust-proxy")
+    assert proxy.status == doctor.STATUS_FAIL
+    assert "rustup-init.exe" in proxy.remediation
+    assert "brew" not in proxy.remediation
+
+
+def test_windows_wrong_rust_toolchain_fails() -> None:
+    results = windows_toolchain_results(
+        {
+            ("rustup", "which", "cargo"): (
+                0,
+                WINDOWS_HOME
+                + "\\.rustup\\toolchains\\1.96.0-x86_64-pc-windows-msvc"
+                + "\\bin\\cargo.exe",
+            )
+        }
+    )
+    proxy = result_by_id(results, "rust-proxy")
+    assert proxy.status == doctor.STATUS_FAIL
+    assert "rust-toolchain.toml override not active" in proxy.detail
+
+
+def test_windows_missing_rustfmt_and_clippy_fail() -> None:
+    results = windows_toolchain_results(
+        {
+            ("cargo", "fmt", "--version"): (1, "error: no such command: fmt"),
+            ("cargo", "clippy", "--version"): (1, "error: no such command: clippy"),
+        }
+    )
+    assert result_by_id(results, "rustfmt").status == doctor.STATUS_FAIL
+    assert "component add rustfmt" in result_by_id(results, "rustfmt").remediation
+    assert result_by_id(results, "clippy").status == doctor.STATUS_FAIL
+    assert "component add clippy" in result_by_id(results, "clippy").remediation
+
+
+def test_windows_missing_chromium_fails() -> None:
+    pins = doctor.read_pins(REPO_ROOT)
+    overrides = {
+        doctor.BROWSER_SMOKE_ARGV: (
+            1,
+            "browserType.launch: Executable doesn't exist at "
+            + WINDOWS_HOME
+            + "\\AppData\\Local\\ms-playwright\\chromium\\chrome.exe",
+        )
+    }
+    results = doctor.check_playwright(windows_ctx_with(REPO_ROOT, overrides), pins)
+    probe = result_by_id(results, "browser-probe")
+    assert probe.status == doctor.STATUS_FAIL
+    assert "playwright install chromium" in probe.remediation
+    # The Windows user profile is redacted from the reported detail.
+    assert WINDOWS_HOME not in probe.detail
+    assert "~\\AppData\\Local\\ms-playwright" in probe.detail
+
+
+def test_windows_remediation_never_references_homebrew() -> None:
+    all_broken = {
+        ("node", "--version"): (127, "not found"),
+        ("pnpm", "--version"): (127, "not found"),
+        ("uv", "--version"): (127, "not found"),
+        ("uv", "run", "python", "-VV"): (127, "not found"),
+        ("rustup", "which", "cargo"): (127, "not found"),
+        ("cargo", "--version"): (127, "not found"),
+        ("rustc", "--version"): (127, "not found"),
+        ("cargo", "fmt", "--version"): (127, "not found"),
+        ("cargo", "clippy", "--version"): (127, "not found"),
+    }
+    results = windows_toolchain_results(all_broken)
+    assert results, "toolchain probes must report on a fully broken host"
+    for result in results:
+        assert result.status == doctor.STATUS_FAIL
+        lowered = result.remediation.lower()
+        assert "brew" not in lowered
+        assert "homebrew" not in lowered
+        assert "/opt/" not in lowered
+
+
+def test_scrub_redacts_windows_home_with_space_and_unicode() -> None:
+    home = Path("C:\\Users\\Tanish Ünïcode")
+    text = (
+        "cargo at C:\\Users\\Tanish Ünïcode\\.cargo\\bin\\cargo.exe and "
+        "C:/Users/Tanish Ünïcode/.rustup/toolchains"
+    )
+    scrubbed = doctor._scrub(text, home)
+    assert "Tanish Ünïcode" not in scrubbed
+    assert "~\\.cargo\\bin\\cargo.exe" in scrubbed
+    assert "~/.rustup/toolchains" in scrubbed
+
+
+def test_read_pins_accepts_crlf_pin_files(doctor_repo: Path) -> None:
+    # Pin parsing must not assume LF-only files (M00-W09 §E/§I): a CRLF
+    # checkout of .nvmrc/.python-version yields the same pins.
+    (doctor_repo / ".nvmrc").write_bytes(b"24.18.0\r\n")
+    (doctor_repo / ".python-version").write_bytes(b"3.12.13\r\n")
+    pins = doctor.read_pins(doctor_repo)
+    assert pins.node == "24.18.0"
+    assert pins.python == "3.12.13"
+
+
+def test_default_runner_reports_unresolvable_command(tmp_path: Path) -> None:
+    run = doctor.default_runner(tmp_path)
+    code, output = run(("definitely-not-a-real-command-m00w09",))
+    assert code == 127
+    assert "command not found" in output
 
 
 # ------------------------------------------------------------------ preflight

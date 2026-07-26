@@ -1,11 +1,14 @@
-"""Static validation of the GitHub Actions CI definition (M00-W06).
+"""Static validation of the GitHub Actions CI definition (M00-W06, M00-W09).
 
 Parses .github/workflows/*.yml with a duplicate-key-rejecting loader and
 asserts the security, determinism, and no-divergence properties the package
-contract requires: read-only permissions, SHA-pinned official actions,
-macOS+Linux matrix, frozen/locked installs, doctor + canonical verification
-(not a hand-written subset), failure-scoped artifact upload, cache keys tied
-to platform/tool/lockfile identity, and honest generated-contract ownership.
+contract requires: read-only permissions, SHA-pinned official actions, the
+exact macos-15 + windows-2025 + ubuntu-24.04 matrix, frozen/locked installs,
+doctor + canonical verification on every platform (not a hand-written or
+weaker Windows subset), Windows-valid shell discipline (no global bash, pwsh
+for Windows scripting, single-command steps otherwise), per-platform Rust
+isolation, failure-scoped artifact upload, cache keys tied to
+platform/tool/lockfile identity, and honest generated-contract ownership.
 """
 
 from __future__ import annotations
@@ -126,15 +129,33 @@ def test_concurrency_cancels_superseded_runs() -> None:
     assert "cancel-in-progress" in concurrency
 
 
-def test_matrix_includes_macos_and_linux() -> None:
+def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
     data = load_ci()
     jobs = data["jobs"]
     assert len(jobs) == 1
     matrix_os = next(iter(jobs.values()))["strategy"]["matrix"]["os"]
-    assert any(os_name.startswith("macos-") for os_name in matrix_os)
-    assert any(os_name.startswith("ubuntu-") for os_name in matrix_os)
+    assert matrix_os == ["macos-15", "windows-2025", "ubuntu-24.04"], (
+        "required CI must run exactly the v1.3 hosted baselines: macos-15, "
+        f"windows-2025, ubuntu-24.04 (found {matrix_os})"
+    )
     for os_name in matrix_os:
         assert "latest" not in os_name, "runner labels must be explicit versions"
+
+
+def test_windows_runner_is_exactly_the_v13_hosted_baseline() -> None:
+    matrix_os = next(iter(load_ci()["jobs"].values()))["strategy"]["matrix"]["os"]
+    assert "windows-2025" in matrix_os
+    assert not any(
+        entry.startswith("windows-") and entry != "windows-2025" for entry in matrix_os
+    )
+
+
+def _rust_install_steps(job: dict[str, Any]) -> list[tuple[int, dict[str, Any]]]:
+    return [
+        (index, step)
+        for index, step in enumerate(job["steps"])
+        if "rustup toolchain install" in str(step.get("run", ""))
+    ]
 
 
 def test_every_matrix_job_initializes_fresh_job_scoped_rustup_home() -> None:
@@ -146,47 +167,85 @@ def test_every_matrix_job_initializes_fresh_job_scoped_rustup_home() -> None:
     assert jobs, "workflow must retain a matrix job"
     for job in jobs:
         # GitHub does not expose the runner context in jobs.<job_id>.env.
-        # Set it on the first Rust step, then persist the exact runner.temp
-        # value through GITHUB_ENV for all later steps in this matrix job.
+        # Set it on the per-platform Rust steps, then persist the exact
+        # runner.temp value through GITHUB_ENV for all later steps.
         assert "RUSTUP_HOME" not in job.get("env", {})
-        matches = [
-            (index, step)
-            for index, step in enumerate(job["steps"])
-            if "rustup toolchain install" in str(step.get("run", ""))
-        ]
-        assert len(matches) == 1
-        install_index, install_step = matches[0]
-        assert install_step.get("env", {}).get("RUSTUP_HOME") == (
-            "${{ runner.temp }}/rustup-home"
+        matches = _rust_install_steps(job)
+        assert len(matches) == 2, (
+            "expected exactly one POSIX and one Windows Rust install step"
         )
-        lines = [
-            line.strip()
-            for line in str(install_step["run"]).splitlines()
-            if line.strip()
-        ]
-        fresh_index = lines.index('test ! -e "$RUSTUP_HOME"')
-        create_index = lines.index('mkdir -p "$RUSTUP_HOME"')
-        persist_index = lines.index(
-            'printf \'RUSTUP_HOME=%s\\n\' "$RUSTUP_HOME" >> "$GITHUB_ENV"'
-        )
-        rustup_index = next(
-            index
-            for index, line in enumerate(lines)
-            if line.startswith("rustup toolchain install ")
-        )
-        assert fresh_index < create_index < persist_index < rustup_index
+        for _index, install_step in matches:
+            rustup_home = str(install_step.get("env", {}).get("RUSTUP_HOME", ""))
+            assert rustup_home.startswith("${{ runner.temp }}"), (
+                "every platform's Rust install must isolate RUSTUP_HOME "
+                "beneath runner.temp"
+            )
+            assert "GITHUB_ENV" in str(install_step["run"])
+        first_install_index = min(index for index, _step in matches)
         earlier_runs = "\n".join(
-            str(step.get("run", "")) for step in job["steps"][:install_index]
+            str(step.get("run", "")) for step in job["steps"][:first_install_index]
         )
         assert not re.search(
             r"(?m)^\s*(?:rustup|cargo|rustc|rustfmt)(?:\s|$)", earlier_runs
         )
 
 
-def test_job_has_timeout_and_bash_default() -> None:
+def test_posix_rust_step_asserts_fresh_home_before_install() -> None:
+    install_step = step_named("Install pinned Rust toolchain (rust-toolchain.toml)")
+    assert install_step["shell"] == "bash"
+    assert install_step["if"] == "runner.os != 'Windows'"
+    lines = [
+        line.strip() for line in str(install_step["run"]).splitlines() if line.strip()
+    ]
+    fresh_index = lines.index('test ! -e "$RUSTUP_HOME"')
+    create_index = lines.index('mkdir -p "$RUSTUP_HOME"')
+    persist_index = lines.index(
+        'printf \'RUSTUP_HOME=%s\\n\' "$RUSTUP_HOME" >> "$GITHUB_ENV"'
+    )
+    rustup_index = next(
+        index
+        for index, line in enumerate(lines)
+        if line.startswith("rustup toolchain install ")
+    )
+    assert fresh_index < create_index < persist_index < rustup_index
+
+
+def test_windows_rust_step_asserts_fresh_home_before_install() -> None:
+    install_step = step_named(
+        "Install pinned Rust toolchain (rust-toolchain.toml, Windows)"
+    )
+    assert install_step["shell"] == "pwsh"
+    assert install_step["if"] == "runner.os == 'Windows'"
+    body = str(install_step["run"])
+    lines = [line.strip() for line in body.splitlines() if line.strip()]
+    fresh_index = next(
+        index
+        for index, line in enumerate(lines)
+        if line.startswith("if (Test-Path -LiteralPath $env:RUSTUP_HOME)")
+    )
+    create_index = next(
+        index
+        for index, line in enumerate(lines)
+        if line.startswith("New-Item -ItemType Directory")
+    )
+    persist_index = next(
+        index for index, line in enumerate(lines) if "GITHUB_ENV" in line
+    )
+    rustup_index = next(
+        index
+        for index, line in enumerate(lines)
+        if line.startswith("rustup toolchain install ")
+    )
+    assert fresh_index < create_index < persist_index < rustup_index
+
+
+def test_job_has_timeout_and_no_global_shell_default() -> None:
     data = load_ci()
-    assert data["defaults"]["run"]["shell"] == "bash"
+    # A workflow-global bash default would apply POSIX assumptions to the
+    # Windows job (M00-W09 §B); shells are declared per step instead.
+    assert "defaults" not in data
     for job in data["jobs"].values():
+        assert "defaults" not in job
         assert job["timeout-minutes"] <= 60
 
 
@@ -274,6 +333,36 @@ def test_rust_install_verifies_pinned_toolchain_proxies_and_versions() -> None:
     # cargo/rustc binaries, so these are direct PATH-proxy assertions.
     assert 'cargo "+${RUST_PIN}" --version' in install
     assert 'rustc "+${RUST_PIN}" --version' in install
+
+
+def test_windows_rust_install_mirrors_the_posix_probe_set() -> None:
+    install = step_named(
+        "Install pinned Rust toolchain (rust-toolchain.toml, Windows)"
+    )["run"]
+    required_probes = (
+        "rustup show active-toolchain",
+        "Get-Command cargo",
+        "Get-Command rustc",
+        "rustup which cargo",
+        "rustup which rustc",
+        "cargo --version",
+        "rustc --version",
+        "rustfmt --version",
+        "cargo clippy --version",
+    )
+    for probe in required_probes:
+        assert probe in install, f"missing Windows post-install Rust probe: {probe}"
+    assert "rust-toolchain.toml" in install
+    assert "--profile minimal" in install
+    assert "--component rustfmt" in install
+    assert "--component clippy" in install
+    assert '"$rustPin-*"' in install
+    # Same trusted-proxy proofs as the POSIX variant.
+    assert 'cargo "+$rustPin" --version' in install
+    assert 'rustc "+$rustPin" --version' in install
+    # pwsh strictness: native-command failures must stop the step.
+    assert "$ErrorActionPreference = 'Stop'" in install
+    assert "$PSNativeCommandUseErrorActionPreference = $true" in install
 
 
 def test_ci_runs_doctor_and_canonical_verification_only() -> None:
@@ -387,10 +476,12 @@ def test_dependency_cache_paths_are_narrow_allowlisted() -> None:
         "${{ steps.pnpm-store.outputs.path }}",
         "~/.cache/uv",
         "~/Library/Caches/uv",
+        "~/AppData/Local/uv/cache",
         "~/.cargo/registry",
         "~/.cargo/git",
         "~/Library/Caches/ms-playwright",
         "~/.cache/ms-playwright",
+        "~/AppData/Local/ms-playwright",
     }
     actual = {
         line.strip()
@@ -418,6 +509,148 @@ def test_no_network_tests_or_live_sites_in_run_steps() -> None:
     bodies = "\n".join(run_bodies())
     assert "http://" not in bodies
     assert "https://" not in bodies
+
+
+# --------------------------------------- M00-W09 cross-platform workflow
+
+
+def _windows_reachable(step: dict[str, Any]) -> bool:
+    condition = str(step.get("if", ""))
+    return not any(
+        guard in condition
+        for guard in (
+            "runner.os != 'Windows'",
+            "runner.os == 'Linux'",
+            "runner.os == 'macOS'",
+        )
+    )
+
+
+def test_canonical_doctor_and_verify_steps_run_on_every_platform() -> None:
+    for body in ("pnpm run doctor", "pnpm verify"):
+        matches = [
+            step for step in ci_steps() if str(step.get("run", "")).strip() == body
+        ]
+        assert len(matches) == 1, f"expected exactly one '{body}' step"
+        assert "if" not in matches[0], (
+            f"'{body}' must run unconditionally on macOS, Windows, and "
+            "Ubuntu — a guarded or weaker Windows command set is prohibited"
+        )
+        assert "shell" not in matches[0], (
+            "canonical single-command steps use each OS's native default "
+            "shell for exit-code propagation"
+        )
+
+
+def test_shell_discipline_bash_never_reaches_windows() -> None:
+    for step in ci_steps():
+        if "run" not in step:
+            continue
+        shell = str(step.get("shell", ""))
+        body = str(step["run"])
+        if shell in {"bash", "sh"}:
+            assert not _windows_reachable(step), (
+                f"bash step {step.get('name')!r} is reachable on Windows"
+            )
+        if shell in {"powershell", "cmd"}:
+            raise AssertionError(
+                f"step {step.get('name')!r} uses legacy shell {shell!r}; "
+                "Windows scripting must use pwsh"
+            )
+        if not shell:
+            assert "\n" not in body.strip(), (
+                f"multi-line step {step.get('name')!r} must declare its "
+                "shell explicitly (per-OS default shells differ)"
+            )
+        if shell == "pwsh" and "\n" in body.strip():
+            assert "$ErrorActionPreference = 'Stop'" in body
+            assert "$PSNativeCommandUseErrorActionPreference = $true" in body
+
+
+def test_chromium_installed_on_all_three_platforms() -> None:
+    installs = [
+        step for step in ci_steps() if "playwright install" in str(step.get("run", ""))
+    ]
+    assert len(installs) == 3, "expected one Chromium install step per OS"
+    by_guard = {str(step.get("if", "")): step for step in installs}
+    assert "runner.os == 'Linux'" in by_guard
+    assert "runner.os == 'macOS'" in by_guard
+    assert "runner.os == 'Windows'" in by_guard
+    for guard, step in by_guard.items():
+        body = str(step["run"])
+        if guard == "runner.os == 'Linux'":
+            assert "--with-deps" in body, (
+                "Linux must install the pinned browser's system dependencies"
+            )
+        else:
+            assert "--with-deps" not in body, (
+                "--with-deps is supported only on the Linux install path"
+            )
+        assert body.strip().endswith("chromium")
+
+
+def test_uv_install_has_posix_and_windows_variants_with_same_pin_source() -> None:
+    posix = step_named(
+        "Install pinned uv (PyPI wheel, exact version from pyproject.toml)"
+    )
+    windows = step_named(
+        "Install pinned uv (PyPI wheel, exact version from pyproject.toml, Windows)"
+    )
+    assert posix["if"] == "runner.os != 'Windows'"
+    assert posix["shell"] == "bash"
+    assert windows["if"] == "runner.os == 'Windows'"
+    assert windows["shell"] == "pwsh"
+    for step in (posix, windows):
+        body = str(step["run"])
+        assert "pyproject.toml" in body
+        assert "required-version" in body
+        assert 'pipx install "uv==' in body
+        assert "uv --version" in body
+
+
+def test_artifact_upload_name_is_per_matrix_platform() -> None:
+    uploads = [
+        step
+        for step in ci_steps()
+        if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+    ]
+    assert len(uploads) == 1
+    assert "${{ matrix.os }}" in str(uploads[0]["with"]["name"]), (
+        "matrix legs must not collide on one artifact name"
+    )
+
+
+def test_tracked_changes_assertion_runs_on_every_platform() -> None:
+    matches = [
+        step
+        for step in ci_steps()
+        if "git status --porcelain" in str(step.get("run", ""))
+    ]
+    assert len(matches) == 1
+    step = matches[0]
+    assert "if" not in step, "the no-tracked-changes gate must run on every OS"
+    assert step["shell"] == "pwsh", (
+        "one pwsh implementation runs identically on all three platforms"
+    )
+    assert "throw" in str(step["run"])
+
+
+def test_portability_suite_is_mandatory_and_always_active() -> None:
+    suite = registry_suite("portability")
+    assert suite.owner == "M00-W09"
+    assert suite.mandatory is True
+    assert suite.activation.kind == "always_active"
+    assert suite.commands == (("python3", "scripts/check_portability.py", "--quiet"),)
+    # The canonical aggregate (and therefore every CI platform) runs it.
+    assert "pnpm verify" in "\n".join(run_bodies())
+
+
+def test_gitattributes_enforces_lf_checkouts_everywhere() -> None:
+    attributes = (REPO_ROOT / ".gitattributes").read_text(encoding="utf-8")
+    assert any(
+        "text=auto" in line.split() and "eol=lf" in line.split()
+        for line in attributes.splitlines()
+    ), "text files must check out as LF on Windows as well"
 
 
 # ------------------------------------------- generated-contract lifecycle

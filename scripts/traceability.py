@@ -1749,7 +1749,9 @@ def main(argv: list[str] | None = None) -> int:
         if result.expected_view is None:
             print("FAIL: generator produced no view")
             return 1
-        view_path.write_text(result.expected_view, encoding="utf-8")
+        # newline="\n" keeps the generated view byte-identical on every
+        # platform (Windows default text mode would write CRLF).
+        view_path.write_text(result.expected_view, encoding="utf-8", newline="\n")
     return _report(result, quiet=args.quiet)
 
 

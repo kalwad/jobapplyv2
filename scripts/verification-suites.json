@@ -1,5 +1,5 @@
 {
-  "$comment": "Canonical machine-readable verification-suite registry (M00-W04, spec \u00a78.5). Consumed and schema-validated by scripts/verify.py. Suite STATE is derived at runtime: ACTIVE suites run their commands and must pass; a suite with an activation condition is NOT_YET_APPLICABLE while every listed activation package is still NOT_STARTED or READY in docs/PROJECT_STATUS.md, and becomes REQUIRED_MISSING (a hard failure) as soon as any activation package has begun (IN_PROGRESS or later) while the suite's discovery globs still match no files. Nobody flips a boolean by hand: state follows the project-status tables. Proof names refer to typed discovery-proof implementations in scripts/verify.py; commands are argv arrays executed from the repository root with no shell.",
+  "$comment": "Canonical machine-readable verification-suite registry (M00-W04, spec §8.5). Consumed and schema-validated by scripts/verify.py. Suite STATE is derived at runtime: ACTIVE suites run their commands and must pass; a suite with an activation condition is NOT_YET_APPLICABLE while every listed activation package is still NOT_STARTED or READY in docs/PROJECT_STATUS.md, and becomes REQUIRED_MISSING (a hard failure) as soon as any activation package has begun (IN_PROGRESS or later) while the suite's discovery globs still match no files. Nobody flips a boolean by hand: state follows the project-status tables. Proof names refer to typed discovery-proof implementations in scripts/verify.py; commands are argv arrays executed from the repository root with no shell.",
   "schema_version": 1,
   "allowed_skips": [],
   "suites": [
@@ -39,6 +39,8 @@
           "scripts/validate_status.py",
           "scripts/traceability.py",
           "scripts/doctor.py",
+          "scripts/check_portability.py",
+          "scripts/portability.py",
           "scripts/tests"
         ],
         [
@@ -88,6 +90,8 @@
           "scripts/validate_status.py",
           "scripts/traceability.py",
           "scripts/doctor.py",
+          "scripts/check_portability.py",
+          "scripts/portability.py",
           "scripts/tests"
         ]
       ],
@@ -137,7 +141,7 @@
       "proofs": [],
       "discovery_globs": ["scripts/generate-contracts.*"],
       "artifacts": [],
-      "explanation": "NOT_YET_APPLICABLE: generated cross-language contracts are owned by M01-W02 (Generate TypeScript and Python contracts) and that work package has not begun in docs/PROJECT_STATUS.md. This is distinct from the 'contract' suite below: contract-gen proves committed generated artifacts are not stale (regenerate, then fail on any tracked diff), while 'contract' runs cross-language compatibility tests (owner M01-W05). The moment M01-W02 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until the real generator exists at scripts/generate-contracts.* and the generate:contracts --check root command performs regeneration plus a clean-tree comparison. No placeholder generator or fake generated files may be added to turn this suite green (spec \u00a71.5)."
+      "explanation": "NOT_YET_APPLICABLE: generated cross-language contracts are owned by M01-W02 (Generate TypeScript and Python contracts) and that work package has not begun in docs/PROJECT_STATUS.md. This is distinct from the 'contract' suite below: contract-gen proves committed generated artifacts are not stale (regenerate, then fail on any tracked diff), while 'contract' runs cross-language compatibility tests (owner M01-W05). The moment M01-W02 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until the real generator exists at scripts/generate-contracts.* and the generate:contracts --check root command performs regeneration plus a clean-tree comparison. No placeholder generator or fake generated files may be added to turn this suite green (spec §1.5)."
     },
     {
       "id": "contract",
@@ -167,7 +171,7 @@
       ],
       "discovery_globs": ["packages/contracts/test/contract/**/*.test.ts"],
       "artifacts": [],
-      "explanation": "NOT_YET_APPLICABLE: the contract suite is owned by M01-W05 (Build contract compatibility tests) and that work package has not begun in docs/PROJECT_STATUS.md. This is an honest suite-state classification, NOT a passing test suite \u2014 zero contract tests have run. The moment M01-W05 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until real contract tests exist at the discovery globs; M01 seeds tests and updates the commands here without restructuring the runner."
+      "explanation": "NOT_YET_APPLICABLE: the contract suite is owned by M01-W05 (Build contract compatibility tests) and that work package has not begun in docs/PROJECT_STATUS.md. This is an honest suite-state classification, NOT a passing test suite — zero contract tests have run. The moment M01-W05 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until real contract tests exist at the discovery globs; M01 seeds tests and updates the commands here without restructuring the runner."
     },
     {
       "id": "e2e-browser",
@@ -214,7 +218,7 @@
       "artifacts": [
         "test-results/ (failure-only diffs, git-ignored) once ACTIVE"
       ],
-      "explanation": "NOT_YET_APPLICABLE: no renderable product surface exists \u2014 the first spec-mandated visual-regression owner is M10-W06 (document validation snapshots); desktop-view and extension-panel snapshot layers attach with their own milestones by updating this entry. There is deliberately no placeholder snapshot or pixel test: that would be a mocked success (spec \u00a71.5). When M10-W06 begins, this suite turns REQUIRED_MISSING and pnpm verify fails until real visual specs exist under e2e/visual/."
+      "explanation": "NOT_YET_APPLICABLE: no renderable product surface exists — the first spec-mandated visual-regression owner is M10-W06 (document validation snapshots); desktop-view and extension-panel snapshot layers attach with their own milestones by updating this entry. There is deliberately no placeholder snapshot or pixel test: that would be a mocked success (spec §1.5). When M10-W06 begins, this suite turns REQUIRED_MISSING and pnpm verify fails until real visual specs exist under e2e/visual/."
     },
     {
       "id": "python",
@@ -235,6 +239,8 @@
           "scripts/validate_status.py",
           "scripts/traceability.py",
           "scripts/doctor.py",
+          "scripts/check_portability.py",
+          "scripts/portability.py",
           "scripts/tests"
         ],
         [
@@ -248,6 +254,8 @@
           "scripts/validate_status.py",
           "scripts/traceability.py",
           "scripts/doctor.py",
+          "scripts/check_portability.py",
+          "scripts/portability.py",
           "scripts/tests"
         ],
         [
@@ -259,6 +267,8 @@
           "scripts/validate_status.py",
           "scripts/traceability.py",
           "scripts/doctor.py",
+          "scripts/check_portability.py",
+          "scripts/portability.py",
           "scripts/tests"
         ],
         ["uv", "run", "pytest"]
@@ -314,7 +324,21 @@
       ],
       "discovery_globs": ["services/native-host/src/**/*.rs"],
       "artifacts": [],
-      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. cargo build additionally proves the real (non-test-harness) binary links; it compiles only code that exists \u2014 no fake build target (KI-0001 remains about the JS/TS side)."
+      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. cargo build additionally proves the real (non-test-harness) binary links; it compiles only code that exists — no fake build target (KI-0001 remains about the JS/TS side)."
+    },
+    {
+      "id": "portability",
+      "name": "Platform-portability policy (three-OS CI and shared scripts)",
+      "owner": "M00-W09",
+      "mandatory": true,
+      "activation": {
+        "type": "always_active"
+      },
+      "commands": [["python3", "scripts/check_portability.py", "--quiet"]],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Read-only, fail-closed static validation that required CI keeps the exact macos-15/windows-2025/ubuntu-24.04 matrix running the identical canonical doctor/verify commands, SHA-pinned official actions, read-only permissions, no continue-on-error or masked child failures, frozen/locked installs, exact toolchain probes, isolated uncached RUSTUP_HOME, an allowlisted dependency-cache set, failure-only Playwright artifacts, and that shared runtime scripts/package commands stay platform-neutral (no /tmp//bin//usr literals, shell=True, Bash-only wrappers, POSIX permission-bit dependence, case-colliding tracked paths, or missing LF enforcement)."
     },
     {
       "id": "traceability",

@@ -1,11 +1,29 @@
-# Deterministic CI (M00-W06, spec §M00 W06 row, §8.5).
+# Deterministic CI (M00-W06 macOS/Ubuntu; M00-W09 Windows portability
+# baseline; spec §M00, §8.5, REQ-PLAT-013, REQ-PLAT-025).
 #
-# Both jobs run the exact same two canonical commands a developer runs
-# locally — `pnpm doctor` then `pnpm verify` — after activating the
-# repository-pinned toolchain with frozen/locked installs. There is no
-# CI-only verification logic: the doctor and the aggregate runner are the
-# single sources of truth (scripts/doctor.py, scripts/verify.py,
-# scripts/verification-suites.json).
+# All three required jobs run the exact same two canonical commands a
+# developer runs locally — `pnpm run doctor` then `pnpm verify` — after
+# activating the repository-pinned toolchain with frozen/locked installs.
+# There is no CI-only verification logic and no weaker per-OS subset: the
+# doctor and the aggregate runner are the single sources of truth
+# (scripts/doctor.py, scripts/verify.py, scripts/verification-suites.json).
+#
+# Shell policy (M00-W09): there is deliberately NO workflow-global bash
+# default. Single-command steps declare no shell, so each OS uses its
+# native default (`bash -e` on macOS/Ubuntu, PowerShell 7 with appended
+# exit-code propagation on Windows) and a failing child fails the step.
+# Multi-line steps declare their shell explicitly: `bash` only on steps
+# guarded off Windows (GitHub runs it as `bash --noprofile --norc -eo
+# pipefail`), and `pwsh` steps start with $ErrorActionPreference='Stop' +
+# $PSNativeCommandUseErrorActionPreference=$true so every native-command
+# failure stops the step (no masking). No step depends on an interactive
+# shell profile.
+#
+# The windows-2025 job is a repository/toolchain portability baseline
+# only. It does not certify packaged Windows 11 desktop support, secure
+# storage, native messaging, model runtime, installers, or updates; Gate D
+# (CROSS_PLATFORM_CORE) still requires the native packaged evidence owned
+# by M03/M04/M05/M17/M27 (docs/PLATFORM_SUPPORT.md).
 #
 # Security posture: read-only token, no secrets, official actions only,
 # every action pinned to an immutable commit SHA (annotated with its
@@ -27,21 +45,15 @@ concurrency:
   # Superseded PR/branch runs are cancelled; pushes to main always finish.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-defaults:
-  run:
-    # GitHub runs `bash --noprofile --norc -eo pipefail` for `shell: bash`,
-    # so failing children and broken pipes fail the step (no masking).
-    shell: bash
-
 jobs:
   verify:
     name: doctor + verify (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-24.04]
+        os: [macos-15, windows-2025, ubuntu-24.04]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Check out exact revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -54,26 +66,41 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Activate pinned pnpm via Corepack
-        run: |
-          corepack enable pnpm
-          pnpm --version
+        run: corepack enable pnpm
+
+      - name: Show activated pnpm version
+        run: pnpm --version
 
       - name: Install pinned uv (PyPI wheel, exact version from pyproject.toml)
+        if: runner.os != 'Windows'
+        shell: bash
         run: |
-          UV_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("pyproject.toml").read_text())["tool"]["uv"]["required-version"].removeprefix("=="))')"
+          UV_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))["tool"]["uv"]["required-version"].removeprefix("=="))')"
           pipx install "uv==${UV_PIN}"
           uv --version
 
+      - name: Install pinned uv (PyPI wheel, exact version from pyproject.toml, Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $uvPin = python3 -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text(encoding='utf-8'))['tool']['uv']['required-version'].removeprefix('=='))"
+          pipx install "uv==$uvPin"
+          uv --version
+
       - name: Install pinned Rust toolchain (rust-toolchain.toml)
+        if: runner.os != 'Windows'
         # runner.temp is available at step scope (not jobs.<job_id>.env).
         # Persist this fresh per-job home for every later cargo/rustup probe.
         env:
           RUSTUP_HOME: ${{ runner.temp }}/rustup-home
+        shell: bash
         run: |
           test ! -e "$RUSTUP_HOME"
           mkdir -p "$RUSTUP_HOME"
           printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
-          RUST_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("rust-toolchain.toml").read_text())["toolchain"]["channel"])')"
+          RUST_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("rust-toolchain.toml").read_text(encoding="utf-8"))["toolchain"]["channel"])')"
           rustup toolchain install "${RUST_PIN}" --profile minimal --component rustfmt --component clippy
 
           ACTIVE_TOOLCHAIN="$(rustup show active-toolchain)"
@@ -104,9 +131,53 @@ jobs:
           cargo "+${RUST_PIN}" --version
           rustc "+${RUST_PIN}" --version
 
+      - name: Install pinned Rust toolchain (rust-toolchain.toml, Windows)
+        if: runner.os == 'Windows'
+        env:
+          RUSTUP_HOME: ${{ runner.temp }}/rustup-home
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          if (Test-Path -LiteralPath $env:RUSTUP_HOME) { throw "RUSTUP_HOME already exists: $env:RUSTUP_HOME" }
+          New-Item -ItemType Directory -Path $env:RUSTUP_HOME | Out-Null
+          "RUSTUP_HOME=$env:RUSTUP_HOME" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $rustPin = python3 -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('rust-toolchain.toml').read_text(encoding='utf-8'))['toolchain']['channel'])"
+          rustup toolchain install $rustPin --profile minimal --component rustfmt --component clippy
+
+          $activeToolchain = (rustup show active-toolchain) -join "`n"
+          Write-Output $activeToolchain
+          if ($activeToolchain -notlike "$rustPin-*") { throw "active toolchain '$activeToolchain' does not start with the pin $rustPin" }
+          if ($activeToolchain -notlike "*rust-toolchain.toml*") { throw "active toolchain is not selected by the rust-toolchain.toml override" }
+
+          $cargoProxy = (Get-Command cargo).Path
+          $rustcProxy = (Get-Command rustc).Path
+          $cargoToolchainBin = rustup which cargo
+          $rustcToolchainBin = rustup which rustc
+          Write-Output $cargoProxy $rustcProxy $cargoToolchainBin $rustcToolchainBin
+          if ($cargoProxy -eq $cargoToolchainBin) { throw "cargo on PATH is the toolchain binary, not the trusted rustup proxy" }
+          if ($rustcProxy -eq $rustcToolchainBin) { throw "rustc on PATH is the toolchain binary, not the trusted rustup proxy" }
+
+          $cargoVersion = cargo --version
+          $rustcVersion = rustc --version
+          $rustfmtVersion = rustfmt --version
+          $clippyVersion = cargo clippy --version
+          Write-Output $cargoVersion $rustcVersion $rustfmtVersion $clippyVersion
+          if ($cargoVersion -notlike "cargo $rustPin *") { throw "cargo version '$cargoVersion' does not match the pin $rustPin" }
+          if ($rustcVersion -notlike "rustc $rustPin *") { throw "rustc version '$rustcVersion' does not match the pin $rustPin" }
+
+          # Only rustup proxies accept +toolchain; these prove the PATH
+          # cargo/rustc commands are the trusted runner proxies.
+          cargo "+$rustPin" --version
+          rustc "+$rustPin" --version
+
       - name: Resolve pnpm store path
         id: pnpm-store
-        run: echo "path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          "path=$(pnpm store path)" >> $env:GITHUB_OUTPUT
 
       - name: Cache pnpm store
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -120,6 +191,7 @@ jobs:
           path: |
             ~/.cache/uv
             ~/Library/Caches/uv
+            ~/AppData/Local/uv/cache
           key: uv-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pyproject.toml', 'uv.lock', '.python-version') }}
 
       - name: Cache cargo registry and git
@@ -136,6 +208,7 @@ jobs:
           path: |
             ~/Library/Caches/ms-playwright
             ~/.cache/ms-playwright
+            ~/AppData/Local/ms-playwright
           key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install JS dependencies (frozen lockfile)
@@ -147,6 +220,10 @@ jobs:
 
       - name: Install pinned Playwright Chromium (macOS)
         if: runner.os == 'macOS'
+        run: pnpm exec playwright install chromium
+
+      - name: Install pinned Playwright Chromium (Windows)
+        if: runner.os == 'Windows'
         run: pnpm exec playwright install chromium
 
       - name: Sync Python workspace (locked)
@@ -164,9 +241,12 @@ jobs:
         run: pnpm verify
 
       - name: Assert verification left no tracked changes
+        shell: pwsh
         run: |
-          git status --porcelain
-          test -z "$(git status --porcelain)"
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $porcelain = (git status --porcelain) -join "`n"
+          if ($porcelain) { Write-Output $porcelain; throw "verification left tracked changes" }
 
       - name: Upload Playwright failure artifacts (traces/screenshots/videos only)
         if: failure()

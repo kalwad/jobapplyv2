@@ -116,6 +116,22 @@ allowed-confusables = ["–", "—"]
 # false positive: STATUS_PASS/"PASS" is verification-status vocabulary
 # (suite states), not a credential.
 "scripts/doctor.py" = ["T201", "S404", "S603", "S607", "S105"]
+# The portability policy checker is a CLI (T201) that runs git via
+# subprocess with no shell (S404/S603/S607). S108 is a false positive on
+# its banned-token rule tables: the "/tmp" literal is the vocabulary the
+# checker REJECTS elsewhere, never a path it uses. Its rule coordinators
+# intentionally apply many independent fail-closed checks (PLR0912/
+# PLR0915 splits would obscure shared invariants without reducing
+# complexity).
+"scripts/check_portability.py" = [
+    "T201",
+    "S404",
+    "S603",
+    "S607",
+    "S108",
+    "PLR0912",
+    "PLR0915",
+]
 # Runner tests: pytest asserts (S101), subprocess fixtures (S404/S603/S607),
 # and literal exit codes/counts in assertions (PLR2004).
 "scripts/tests/**" = ["S101", "S404", "S603", "S607", "PLR2004"]
@@ -132,6 +148,8 @@ files = [
     "scripts/validate_status.py",
     "scripts/traceability.py",
     "scripts/doctor.py",
+    "scripts/check_portability.py",
+    "scripts/portability.py",
     "scripts/tests",
 ]
 mypy_path = ["services/orchestrator/src", "scripts", "scripts/tests"]

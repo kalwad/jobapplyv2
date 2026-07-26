@@ -5232,19 +5232,24 @@
       "id": "M00-W09",
       "milestone": "M00",
       "title": "Add Windows CI and platform-portability baseline",
-      "current_state": "READY",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "stamp pending",
       "primary_deliverables": [
         "Add Windows CI and platform-portability baseline"
       ],
       "required_automated_verification": [
-        "M00-W09 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Three-OS workflow policy, Windows doctor simulation, portability-policy, verification-runner, status, and traceability test suites",
+        "pnpm verify (including the new mandatory always-active portability suite)"
       ],
       "required_manual_evidence": [
-        "M00-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Hosted macos-15 + windows-2025 + ubuntu-24.04 CI runs of the identical canonical doctor/verify commands at the content and stamp revisions; clean-clone simulation"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W09"
+        }
+      ],
       "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
       "direct_package_prerequisites": [
         "M00-W08"
@@ -5270,7 +5275,7 @@
       "id": "M00-W10",
       "milestone": "M00",
       "title": "Extend traceability and re-accept M00 under v1.3",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "primary_deliverables": [
         "Extend traceability and re-accept M00 under v1.3"

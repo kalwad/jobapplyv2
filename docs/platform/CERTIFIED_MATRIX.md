@@ -20,4 +20,9 @@ contract, not completed compatibility claims.
 | Firefox, Safari, ChromeOS, mobile | `UNSUPPORTED` | Outside v1.3 first-release scope. |
 
 M00 CI evidence is repository-infrastructure evidence only and must never be
-promoted into these native-product rows.
+promoted into these native-product rows. That includes the required
+`windows-2025` hosted job added by M00-W09: it proves repository/toolchain
+portability (pins, doctor, canonical verification, portability policy) on a
+hosted Windows Server runner, not certified Windows 11 desktop product
+behavior, which remains `NOT_YET_IMPLEMENTED` until its owning packages
+produce native packaged evidence.

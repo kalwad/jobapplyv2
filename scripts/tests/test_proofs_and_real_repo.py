@@ -33,26 +33,26 @@ def test_workspace_package_enumeration_matches_scaffold() -> None:
     ctx = _ctx()
     with_test = verify.workspace_packages_with_script(ctx, "test")
     with_typecheck = verify.workspace_packages_with_script(ctx, "typecheck")
-    assert len(with_test) == 8
-    assert len(with_typecheck) == 8
+    assert len(with_test) == 9
+    assert len(with_typecheck) == 9
     assert all(name.startswith("@japp/") for name in with_test)
 
 
 def test_turbo_task_count_proof_detects_dropped_tasks() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="turbo_task_count", script="test")
-    good = "Tasks:    8 successful, 8 total"
-    bad = "Tasks:    7 successful, 7 total"
+    good = "Tasks:    9 successful, 9 total"
+    bad = "Tasks:    8 successful, 8 total"
     assert verify.check_proof(ctx, _suite_stub(), proof, good) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, bad)
     assert failure is not None
-    assert "8 workspace packages" in failure
+    assert "9 workspace packages" in failure
 
 
 def test_vitest_per_package_proof_requires_fresh_counts() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="vitest_per_package", script="test")
-    fresh = "\n".join(["Tests  1 passed (1)"] * 8)
+    fresh = "\n".join(["Tests  1 passed (1)"] * 9)
     cached = "\n".join(["Tests  1 passed (1)"] * 3)
     assert verify.check_proof(ctx, _suite_stub(), proof, fresh) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, cached)
