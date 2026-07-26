@@ -1,4 +1,12 @@
 # pnpm workspace layout (docs/MASTER_IMPLEMENTATION_SPEC.md §5.1, §5.2).
+
+# M00-W03 enforcement: refuse to run under a Node/pnpm that does not match
+# the engines pins in package.json (use the .nvmrc Node — see README).
+engineStrict: true
+
+# Always record exact dependency versions (reproducibility).
+savePrefix: ""
+
 packages:
   - "apps/*"
   - "packages/*"
@@ -6,7 +14,9 @@ packages:
 # Single source of exact dependency versions shared by workspace packages
 # (reproducible versions; see also pnpm-lock.yaml).
 catalog:
-  "@types/node": 26.1.1
+  # @types/node tracks the pinned Node 24 LTS runtime (.nvmrc), not the
+  # newest Node major (M00-W03).
+  "@types/node": 24.13.3
   typescript: 6.0.3
   vitest: 4.1.10
 

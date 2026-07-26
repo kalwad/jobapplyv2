@@ -1,0 +1,6 @@
+# Exact Rust toolchain pin (spec §5.2, M00-W03). rustup resolves this file
+# for every cargo invocation inside the repository, overriding any
+# machine-global default toolchain.
+[toolchain]
+channel = "1.97.1"
+components = ["rustfmt", "clippy"]

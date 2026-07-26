@@ -33,6 +33,113 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W03 — Establish strict toolchain configuration (2026-07-26)
+
+- Revision: tree recorded post-commit / commit recorded post-commit (stamped
+  in the follow-up commit per the anchoring convention above).
+- Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon). Toolchain pinned
+  by this package and verified live:
+  - Node v24.18.0 (`brew install node@24`, keg-only; pinned via .nvmrc +
+    `engines.node` + `engineStrict: true`), replacing use of the machine's
+    Node 26 Current per owner instruction. Compatibility under Node 24 was
+    verified (all TS commands below); no incompatibility found, so the
+    Node-24-unusable escape clause was not needed.
+  - pnpm 11.17.0 served by Corepack 0.35.0 (`corepack enable pnpm`; shim at
+    /opt/homebrew/opt/node@24/bin/pnpm reads the `packageManager` field).
+  - Python 3.12.13 exact (uv-managed; `.python-version`), uv 0.11.32
+    enforced by `[tool.uv] required-version = "==0.11.32"`.
+  - Rust 1.97.1 + rustfmt 1.9.0-stable + clippy 0.1.97 via
+    rust-toolchain.toml (rustup 1.29.0_2).
+  - @playwright/test 1.62.0 with pinned Chrome Headless Shell
+    151.0.7922.34 (playwright chromium-headless-shell v1234).
+  - @types/node 24.13.3 (aligned to Node 24, replacing 26.1.1);
+    TypeScript 6.0.3, Vitest 4.1.10, ESLint 10.8.0, typescript-eslint
+    8.65.0, Prettier 3.9.6, turbo 2.10.7; mypy 2.3.0, pytest 9.1.1,
+    ruff 0.16.0.
+- Commands and observed results (positive path, run under
+  PATH=/opt/homebrew/opt/node@24/bin:/opt/homebrew/opt/rustup/bin:$PATH):
+  - `node -v` → v24.18.0; `pnpm -v` → 11.17.0 (Corepack shim);
+    `uv --version` → 0.11.32; `uv run python -VV` → Python 3.12.13;
+    `cargo --version` → 1.97.1; `rustc --version` → 1.97.1;
+    `cargo fmt --version` → rustfmt 1.9.0-stable; `cargo clippy --version`
+    → clippy 0.1.97; `pnpm exec playwright --version` → Version 1.62.0.
+  - `pnpm install --frozen-lockfile` → exit 0 under Node 24.
+  - `pnpm lint` → exit 0 (typed strictTypeChecked + stylisticTypeChecked
+    over every TS file via projectService; unused disable directives are
+    errors).
+  - `pnpm format:check` → exit 0 (canonical docs still excluded from
+    formatting by .prettierignore).
+  - `pnpm typecheck` → exit 0; turbo 8/8 package projects plus the root
+    e2e/config project (`tsc -p tsconfig.json`), all with
+    `skipLibCheck: false`, `noImplicitReturns`, `useUnknownInCatchVariables`
+    added to the W02 strict baseline.
+  - `pnpm exec turbo run test --force` → exit 0; Tasks: 8 successful, 8
+    total (fresh, cache bypassed; one Vitest smoke test per package).
+  - `pnpm exec playwright test --list` → exactly 1 test discovered:
+    e2e/browser-smoke.spec.ts "pinned Chromium launches, renders controlled
+    content, and executes JavaScript".
+  - `pnpm test:browser-smoke` → exit 0; 1 passed (~0.6–3.4 s); the test
+    renders inline `page.setContent` markup only (no network, no product
+    claims) and records the Chromium version as a test annotation.
+  - `uv sync --locked` → exit 0; `uv run python -c "import sys;
+    print(sys.base_prefix)"` →
+    ~/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none (uv-managed
+    interpreter, not system Python; project venv .venv/bin/python3).
+  - `uv run pytest` → exit 0; 1 passed under the new strict options
+    (`--strict-markers --strict-config -ra`, `xfail_strict`,
+    `filterwarnings = ["error"]`).
+  - `uv run ruff check services` → exit 0 under the curated strict baseline
+    (24 rule families; ISC001 disabled for formatter compatibility; S101
+    allowed only under tests/ — both documented in pyproject.toml).
+  - `uv run ruff format --check services` → exit 0 (6 files).
+  - `uv run mypy services` → exit 0 (strict = true plus warn_unreachable
+    and ignore-without-code / redundant-expr / possibly-undefined codes).
+  - `cargo fmt --manifest-path services/native-host/Cargo.toml --check` →
+    exit 0; `cargo clippy --manifest-path ... --all-targets --all-features
+    -- -D warnings` → exit 0; `cargo test --manifest-path ...` → exit 0;
+    1 passed. Native-host refusal behavior unchanged from W02.
+  - `python3 scripts/validate_status.py` → exit 0, PASS (17 check groups).
+- Negative and enforcement checks:
+  - Node pin enforced: with the machine default Node v26.0.0 active,
+    `pnpm install --frozen-lockfile` → exit 1,
+    `ERR_PNPM_UNSUPPORTED_ENGINE … Expected version: 24.18.0, Got: v26.0.0`
+    (`engineStrict: true` in pnpm-workspace.yaml; the legacy `.npmrc
+    engine-strict` flag is NOT read by pnpm 11 — verified `pnpm config get
+    engine-strict` → undefined — which is why .npmrc was removed and both
+    settings live in pnpm-workspace.yaml).
+  - uv pin enforced: a scratch project with `required-version = "==999.0.0"`
+    → `uv lock` exit 2, "Required uv version `==999.0.0` does not match the
+    running version `0.11.32`".
+  - Rust pin resolved: inside the repo `rustup show active-toolchain` →
+    `1.97.1-aarch64-apple-darwin (overridden by '…/rust-toolchain.toml')`;
+    outside the repo → `stable-aarch64-apple-darwin (default)`.
+  - Playwright discovery: `--list` shows exactly the one intended test;
+    `playwright test --grep does_not_exist` → exit 1, "Error: No tests
+    found" (an empty browser suite cannot pass).
+  - Vitest empty suite fails: `vitest run nonexistent_pattern` in a package
+    → exit 1 ("No test files found").
+  - pytest empty selection fails: `uv run pytest -k nomatch_xyz` → exit 5
+    (1 deselected, no tests ran).
+- Test counts: TypeScript 8/8 package smoke tests; Playwright 1/1 browser
+  infrastructure test; Python 1/1; Rust 1/1; all lint/format/type/version
+  checks exit 0; 6/6 negative-enforcement checks behaved as required.
+- Artifacts: none retained (Playwright trace/screenshot/video are
+  failure-only by config and the run passed; artifact dirs are
+  git-ignored).
+- Notes:
+  - Environment changes performed on this Mac during the package:
+    `brew install node@24` (24.18.0, keg-only), `corepack enable pnpm`
+    (shims inside the node@24 keg), `rustup toolchain install 1.97.1`
+    (with rustfmt/clippy, in ~/.rustup), Playwright Chromium headless-shell
+    151.0.7922.34 download (~/Library/Caches/ms-playwright). No shell rc
+    files were modified; activation is documented in README.md.
+  - KI-0001 (no JS/TS build task) intentionally remains DEFERRED: this
+    package adds no real build target, so adding a `build` task would still
+    be a mocked success (owner instruction honored).
+  - The Playwright smoke test is infrastructure-only by design; product
+    e2e/visual suites and their aggregation (`test:e2e`, `test:visual`,
+    `pnpm verify`) remain M00-W04+ scope.
+
 ### M00-W02 — Scaffold the monorepo (2026-07-26)
 
 - Revision: tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 / commit

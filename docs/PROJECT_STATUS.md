@@ -2,7 +2,7 @@
 
 Spec version: 1.0
 Repository revision: tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 (commit b64f54da8ec3c302bd28efac68afd80ea5efc142)
-Last updated: 2026-07-26T01:03:34Z
+Last updated: 2026-07-26T01:24:19Z
 Current phase: A — Project contract and platform
 Current milestone: M00
 Current work package: NONE
@@ -10,11 +10,11 @@ Overall release gate: NOT_READY
 
 ## Active work
 
-- State: no work package is IN_PROGRESS. Last completed: M00-W02 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W02; deliberate build-task deferral recorded as KI-0001 in docs/KNOWN_ISSUES.md).
-- Objective: next up is M00-W03 — Establish strict toolchain configuration (pin Node, pnpm, Python, Rust, and package-manager versions; enable TypeScript strict mode, Ruff, mypy, pytest, Vitest, Playwright, rustfmt, and Clippy — several are enabled at baseline strictness by the W02 scaffold and W03 completes/pins them).
-- Dependencies verified: for M00-W03 — M00 has no dependency milestones; M00-W01 and M00-W02 are VERIFIED.
-- Files expected to change: (set when M00-W03 starts)
-- Required tests: (set when M00-W03 starts)
+- State: no work package is IN_PROGRESS. Last completed: M00-W03 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W03; toolchain pins: Node 24.18.0 + pnpm 11.17.0/Corepack, Python 3.12.13 + uv 0.11.32, Rust 1.97.1, Playwright 1.62.0 + Chromium 151.0.7922.34).
+- Objective: next up is M00-W04 — Create root verification commands (deterministic root commands for lint, typecheck, unit, contract, browser, visual, Rust, and aggregate verification; empty suites must fail until explicitly seeded with a smoke test).
+- Dependencies verified: for M00-W04 — M00 has no dependency milestones; M00-W01, M00-W02, and M00-W03 are VERIFIED.
+- Files expected to change: (set when M00-W04 starts)
+- Required tests: (set when M00-W04 starts)
 - Blockers: none.
 
 ## Milestone table
@@ -66,8 +66,8 @@ Overall release gate: NOT_READY
 |---|---|---|---|---|
 | `M00-W01` | VERIFIED | tree e1dd209417af97b3cab320b4ab01fbd702547136 | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
 | `M00-W02` | VERIFIED | tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 | docs/TEST_EVIDENCE.md § M00-W02 | Scaffold the monorepo |
-| `M00-W03` | READY | — | — | Establish strict toolchain configuration |
-| `M00-W04` | NOT_STARTED | — | — | Create root verification commands |
+| `M00-W03` | VERIFIED | tree recorded post-commit | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
+| `M00-W04` | READY | — | — | Create root verification commands |
 | `M00-W05` | NOT_STARTED | — | — | Create CI and local preflight |
 | `M00-W06` | NOT_STARTED | — | — | Seed traceability and status |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
@@ -294,9 +294,9 @@ Overall release gate: NOT_READY
 
 ## Next READY package
 
-- ID: `M00-W03`
-- Reason: M00-W01 and M00-W02 are VERIFIED; M00-W03 (Establish strict toolchain configuration) is the next package in M00's listed order, and M00 has no dependency milestones.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §5.2 (selected stack), §8.5 (required repository verification commands), §M00 (packages, verification, exit gate, prohibited shortcut); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md § M00-W02 (existing baseline configs and pins to complete: Node/Rust pins absent, TypeScript 6.0.3 pin rationale, Playwright not yet configured); docs/KNOWN_ISSUES.md (KI-0001).
+- ID: `M00-W04`
+- Reason: M00-W01 through M00-W03 are VERIFIED; M00-W04 (Create root verification commands) is the next package in M00's listed order, and M00 has no dependency milestones.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §8.5 (required repository verification commands: pnpm lint/typecheck/test/test:e2e/test:visual/verify, uv ruff/mypy/pytest, cargo fmt/clippy/test — `pnpm verify` must aggregate all required non-live checks and fail on any skipped mandatory suite), §M00 (verification, exit gate); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md § M00-W03 (existing commands and empty-suite semantics to build on); docs/KNOWN_ISSUES.md (KI-0001 — build-task deferral interacts with the aggregate command design).
 
 ## Known release blockers
 

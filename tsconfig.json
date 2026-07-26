@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // The e2e project executes code inside the pinned Chromium
+    // (page.evaluate callbacks), so the DOM lib is semantically correct
+    // here — and required by playwright-core's own type definitions under
+    // skipLibCheck:false. Workspace packages deliberately stay DOM-free.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"]
+  },
+  "include": ["playwright.config.ts", "e2e/**/*.ts"]
+}

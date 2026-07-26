@@ -13,6 +13,9 @@ dependencies = [
 
 [tool.uv]
 package = false
+# Exact uv pin (M00-W03): any other uv version refuses to operate on this
+# project. Bump deliberately together with uv.lock.
+required-version = "==0.11.32"
 
 [tool.uv.sources]
 orchestrator = { workspace = true }
@@ -31,14 +34,70 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["services/orchestrator/tests"]
+# --strict-markers: unknown markers are errors, not silent no-ops.
+# --strict-config: unknown/typo'd ini options are errors.
+# -ra: always summarize non-passing outcomes.
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+xfail_strict = true
+# Warnings are errors: accidental deprecations and misconfigurations surface
+# immediately instead of scrolling by (M00-W03). Relaxations, if ever needed,
+# must be listed here explicitly with a reason.
+filterwarnings = ["error"]
 
 [tool.ruff]
 target-version = "py312"
 src = ["services/orchestrator/src"]
 
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+# Strict-but-maintainable curated baseline (M00-W03). Families are selected
+# explicitly rather than "ALL" so each addition is a deliberate decision;
+# pydocstyle (D) and a few app-stage families are deferred until real
+# service code exists (M03+).
+select = [
+    "A",   # builtin shadowing
+    "ANN", # required type annotations
+    "ARG", # unused arguments
+    "B",   # bugbear
+    "C4",  # comprehension correctness
+    "DTZ", # naive-datetime bans
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # import sorting
+    "ICN", # import naming conventions
+    "ISC", # implicit string concatenation
+    "N",   # pep8 naming
+    "PIE", # misc correctness
+    "PL",  # pylint rules
+    "PT",  # pytest style
+    "PTH", # pathlib over os.path
+    "RET", # return correctness
+    "RUF", # ruff-specific rules
+    "S",   # bandit security rules
+    "SIM", # simplification
+    "T20", # no stray print/pprint
+    "TID", # tidy imports
+    "UP",  # pyupgrade
+    "W",   # pycodestyle warnings
+]
+ignore = [
+    # ISC001 conflicts with the ruff formatter (ruff's own guidance is to
+    # disable it when the formatter is in use).
+    "ISC001",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Pytest tests use bare `assert` by design; S101 would ban it.
+"services/**/tests/**" = ["S101"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "possibly-undefined"]
+pretty = true
 files = ["services"]
 mypy_path = ["services/orchestrator/src"]
 explicit_package_bases = true

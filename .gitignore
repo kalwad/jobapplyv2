@@ -20,6 +20,12 @@ coverage/
 # Rust (scoped per crate; broadened if more crates arrive)
 services/native-host/target/
 
+# Playwright browser-test artifacts (traces/screenshots/videos are
+# failure-only per playwright.config.ts and never committed)
+test-results/
+playwright-report/
+blob-report/
+
 # Local environment and secrets — never committed (spec §1.5)
 .env
 .env.*
