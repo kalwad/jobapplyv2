@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.2
-Repository revision: tree 135a4c1ffa7cdd43dd2be11baea4ee01721055b9 (commit 16072e528e45379fe7d7c4f7df75a3fcba7ed67d; current-HEAD hosted CI repair in progress)
-Last updated: 2026-07-26T20:07:39Z
+Repository revision: tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf (commit 124418f3a34389c4c56dced60a9fff9a5947adc4)
+Last updated: 2026-07-26T20:12:29Z
 Current phase: A — Contract, measurement, and early autofill challenge
 Current milestone: M00
-Current work package: M00-W06
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -22,14 +22,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M00-W06 is IN_PROGRESS again as a release-blocker repair. Current-HEAD workflow run 30217235083 failed required macOS job 89833453976 while Linux job 89833453996 succeeded. The macOS runner's pre-existing rustup state reported a partially installed toolchain and the exact conflict `failed to install component: 'clippy-preview-aarch64-apple-darwin', detected conflict: 'bin/cargo-clippy'`.
-- Objective: repair only M00-W06 by giving each CI matrix job a fresh job-scoped `RUSTUP_HOME` under `runner.temp`, installing and verifying the exact repository-pinned Rust 1.97.1 minimal toolchain with rustfmt and Clippy, and proving both the repair content commit and final stamped HEAD pass hosted macOS and Linux CI.
-- Dependencies verified: M00 has no dependency milestones; M00-W01 through M00-W05 remain VERIFIED. The pre-repair current tree is clean and passes `python3 scripts/validate_status.py` and `pnpm verify`.
-- Critical-gate prerequisites: none for M00-W06 (gate blocking starts at M03/M06/M21; all three gates remaining NOT_EVALUATED is valid).
-- Files expected to change: `.github/workflows/ci.yml`; `scripts/tests/test_ci_workflow.py`; `docs/PROJECT_STATUS.md`; `docs/TEST_EVIDENCE.md`; `docs/KNOWN_ISSUES.md`.
-- Required tests: CI static-validation regressions for isolated uncached `RUSTUP_HOME`, exact Rust/components/version probes, matrix/read-only/no-masking preservation, and the complete local validation command set requested for this repair.
-- Required manual/holdout evidence: inspect hosted run 30217235083 failure logs; after the repair, inspect both matrix jobs on the content commit and final stamp-commit HEAD. No UI or critical-gate holdout applies.
-- Blockers: M00-W06 cannot return to VERIFIED and M00-W07 cannot become READY until final current HEAD passes both required hosted jobs.
+- State: no work package is IN_PROGRESS. Last completed: M00-W06 (VERIFIED at repair content tree `9f9adc79cea15cb2f3a855b2b66463467822b5bf`). Failed run 30217235083 proved the macOS runner's inherited rustup state was partially installed and conflicted at `bin/cargo-clippy`; repair commit `124418f3a34389c4c56dced60a9fff9a5947adc4` isolates every matrix job under its own `runner.temp` rustup home. Hosted repair run 30218333122 passed required macOS job 89836260053 and Linux job 89836260044.
+- Objective: next up is M00-W07 — Seed traceability and status. This task does not begin it; the conventional M00-W06 stamp-commit HEAD must itself pass both hosted jobs before any M00-W07 work starts.
+- Dependencies verified: M00 has no dependency milestones; M00-W01 through M00-W06 are VERIFIED.
+- Critical-gate prerequisites: none for M00-W07 (gate blocking starts at M03/M06/M21; all three gates remaining NOT_EVALUATED is valid).
+- Files expected to change: (set when M00-W07 starts)
+- Required tests: (set when M00-W07 starts)
+- Required manual/holdout evidence: (set when M00-W07 starts; holdout machinery itself starts at M02)
+- Blockers: M00-W07 activation remains conditioned on successful macOS and Linux CI for the final M00-W06 stamp-commit HEAD.
 
 ## Milestone table
 
@@ -84,8 +84,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W03` | VERIFIED | tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
 | `M00-W04` | VERIFIED | tree 6c798abfd76824fd43c09c72615a3a976406f081 | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
-| `M00-W06` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M00-W06 | Repair current-HEAD macOS CI by isolating job-scoped rustup state |
-| `M00-W07` | NOT_STARTED | — | — | Seed traceability and status (held until repaired final M00-W06 HEAD passes hosted macOS and Linux CI) |
+| `M00-W06` | VERIFIED | tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight; repair current-HEAD macOS CI with job-scoped rustup state |
+| `M00-W07` | READY | — | — | Seed traceability and status (do not start until the final M00-W06 stamp-commit HEAD passes hosted macOS and Linux CI) |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
@@ -342,14 +342,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M00-W06 is IN_PROGRESS for the required current-HEAD hosted-CI repair. No later package is READY until repaired final HEAD passes macOS and Linux CI.
-- Required reading: current M00-W06 repair record above and docs/TEST_EVIDENCE.md § M00-W06.
+- ID: `M00-W07`
+- Reason: M00-W01 through M00-W06 are VERIFIED; M00-W07 (Seed traceability and status) is the next package in M00's listed order, and M00 has no dependency milestones. Do not begin it unless the final M00-W06 stamp-commit HEAD has passed both hosted jobs.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §M00 (W07 row), §8.5–8.6, §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md (ADR-0001); docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W06; docs/KNOWN_ISSUES.md (KI-0001, KI-0003, KI-0005).
 
 ## Known release blockers
 
 - All milestones M00–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all three critical gates are PASS at the final release revision (spec §2.2, §16).
-- M00-W06 release blocker: GitHub Actions run 30217235083 at current HEAD f9ec7926d3ff04e0cc427481a5c0a965f0578f4e failed required macOS job 89833453976 during pinned Rust installation because the runner's reused rustup state was partially installed and conflicted at `bin/cargo-clippy`. M00-W07 remains NOT_STARTED until repaired final HEAD passes both hosted jobs.
+- M00-W07 activation guard: the final M00-W06 stamp-commit HEAD must pass required macOS and Linux CI. The repaired content tree already passed both jobs in run 30218333122.
 - Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin`, so this blocker no longer applies to new work.
 
 ## Status conventions and update rules

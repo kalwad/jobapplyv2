@@ -34,10 +34,14 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
+None recorded.
+
+## Fixed defects
+
 ### KI-0005 — Reused GitHub macOS rustup state conflicts while installing Clippy
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-26 during the current-HEAD hosted verification of
   M00-W06
 - Affects: M00-W06 (`.github/workflows/ci.yml`; required macOS hosted CI)
@@ -57,11 +61,15 @@ broadening a work package (spec §1.5).
 - Workaround: none accepted. Retrying the same contaminated toolchain state
   does not correct the deterministic state conflict, so unconditional retries
   were rejected.
-- Resolution + evidence link: in progress in M00-W06. The repair isolates
-  each matrix job's `RUSTUP_HOME` under that job's `runner.temp`, persists the
-  same clean home for later Rust checks, leaves Cargo dependency caches
-  separate, and adds static regressions. Closure requires both hosted jobs to
-  pass on the repair content commit and again on the final stamp-commit HEAD.
+- Resolution + evidence link: M00-W06 repair commit
+  124418f3a34389c4c56dced60a9fff9a5947adc4 isolates each matrix job's
+  `RUSTUP_HOME` under that job's `runner.temp`, persists the same clean home
+  for later Rust checks, leaves Cargo dependency caches separate, and adds
+  static regressions. Hosted run 30218333122 passed macOS job 89836260053
+  and Linux job 89836260044; the macOS log confirms the isolated
+  `/Users/runner/work/_temp/rustup-home`, exact Rust 1.97.1 toolchain, rustfmt,
+  Clippy, trusted rustup proxies, and canonical verification. The conventional
+  stamp-commit HEAD must also pass both hosted jobs before M00-W07 begins.
   Evidence: docs/TEST_EVIDENCE.md § M00-W06.
 
 ## Deferred risks and parked ideas

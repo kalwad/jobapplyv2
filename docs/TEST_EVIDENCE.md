@@ -37,9 +37,9 @@ Exact verification commands and summarized results
 
 #### Current-HEAD macOS hosted-CI repair (2026-07-26)
 
-- Repair revision: stamp pending (M00-W06 remains IN_PROGRESS until the
-  repair content commit and final stamp-commit HEAD both pass hosted macOS
-  and Linux CI).
+- Repair revision: tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf /
+  commit 124418f3a34389c4c56dced60a9fff9a5947adc4 (stamped in the
+  conventional follow-up commit after its hosted content run passed).
 - Failed hosted evidence: workflow run 30217235083 at current HEAD
   f9ec7926d3ff04e0cc427481a5c0a965f0578f4e concluded failure. Required
   macOS job `doctor + verify (macos-15)` 89833453976 failed in
@@ -116,9 +116,22 @@ Exact verification commands and summarized results
 - Test counts: CI static validation 27/27; scripts pytest 108/108; full
   pytest (inside `pnpm test:python` / `pnpm verify`) 109/109; TypeScript
   unit packages 8/8; Playwright 1/1; Rust 1/1; validator 25 check groups.
-- Hosted repair evidence: pending the pushed repair content commit. Both
-  macOS and Linux must succeed before the stamp commit; both must then
-  succeed again on final stamped HEAD.
+- Hosted repair evidence: GitHub Actions run 30218333122 at repair commit
+  124418f3a34389c4c56dced60a9fff9a5947adc4 completed successfully.
+  `doctor + verify (macos-15)` job 89836260053 and
+  `doctor + verify (ubuntu-24.04)` job 89836260044 both succeeded. The
+  macOS Rust-install log confirms `RUSTUP_HOME:
+  /Users/runner/work/_temp/rustup-home`; an exact fresh
+  `1.97.1-aarch64-apple-darwin` installation; repository override via
+  `rust-toolchain.toml`; PATH proxies at `/Users/runner/.cargo/bin/cargo`
+  and `/Users/runner/.cargo/bin/rustc`; toolchain binaries under the
+  isolated home; cargo 1.97.1, rustc 1.97.1, rustfmt 1.9.0-stable, and
+  Clippy 0.1.97; doctor PASS; validator PASS (25 check groups); canonical
+  verification exit 0; and no tracked changes.
+- Stamp-HEAD revalidation: the conventional follow-up stamp commit must
+  pass both hosted jobs before M00-W07 starts. Its terminal run is reported
+  at handoff rather than creating another evidence-only commit and another
+  unverified HEAD.
 - Artifacts: none locally; no product UI/browser behavior changed.
 - Security/privacy impact: no secrets, permissions, live-site behavior, or
   data paths changed. The token remains read-only and all actions remain
