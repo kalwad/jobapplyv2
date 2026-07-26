@@ -2,7 +2,7 @@
 
 Spec version: 1.0
 Repository revision: tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 (commit aa6b3503405651f915d21027524b112bce11f2a2)
-Last updated: 2026-07-26T01:24:19Z
+Last updated: 2026-07-26T17:43:43Z
 Current phase: A — Project contract and platform
 Current milestone: M00
 Current work package: NONE
@@ -10,11 +10,11 @@ Overall release gate: NOT_READY
 
 ## Active work
 
-- State: no work package is IN_PROGRESS. Last completed: M00-W03 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W03; toolchain pins: Node 24.18.0 + pnpm 11.17.0/Corepack, Python 3.12.13 + uv 0.11.32, Rust 1.97.1, Playwright 1.62.0 + Chromium 151.0.7922.34).
-- Objective: next up is M00-W04 — Create root verification commands (deterministic root commands for lint, typecheck, unit, contract, browser, visual, Rust, and aggregate verification; empty suites must fail until explicitly seeded with a smoke test).
-- Dependencies verified: for M00-W04 — M00 has no dependency milestones; M00-W01, M00-W02, and M00-W03 are VERIFIED.
-- Files expected to change: (set when M00-W04 starts)
-- Required tests: (set when M00-W04 starts)
+- State: no work package is IN_PROGRESS. Last completed: M00-W04 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W04). `pnpm verify` is now the canonical fail-closed aggregate: 12 registry suites (scripts/verification-suites.json) executed by scripts/verify.py with suite states derived from this file (contract NOT_YET_APPLICABLE until M01-W05 begins; visual until M10-W06 begins; both flip to hard-failing REQUIRED_MISSING at activation without tests). Parked notes: KI-0002 (validate_status.py outside strict gates), KI-0003 (runner hardening backlog).
+- Objective: next up is M00-W05 — Create CI and local preflight (CI for macOS and Linux initially, dependency caching, generated-contract checks, artifact retention for Playwright traces; a local environment doctor command).
+- Dependencies verified: for M00-W05 — M00 has no dependency milestones; M00-W01 through M00-W04 are VERIFIED.
+- Files expected to change: (set when M00-W05 starts)
+- Required tests: (set when M00-W05 starts)
 - Blockers: none.
 
 ## Milestone table
@@ -67,8 +67,8 @@ Overall release gate: NOT_READY
 | `M00-W01` | VERIFIED | tree e1dd209417af97b3cab320b4ab01fbd702547136 | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
 | `M00-W02` | VERIFIED | tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 | docs/TEST_EVIDENCE.md § M00-W02 | Scaffold the monorepo |
 | `M00-W03` | VERIFIED | tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
-| `M00-W04` | READY | — | — | Create root verification commands |
-| `M00-W05` | NOT_STARTED | — | — | Create CI and local preflight |
+| `M00-W04` | VERIFIED | tree recorded post-commit | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
+| `M00-W05` | READY | — | — | Create CI and local preflight |
 | `M00-W06` | NOT_STARTED | — | — | Seed traceability and status |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
@@ -294,9 +294,9 @@ Overall release gate: NOT_READY
 
 ## Next READY package
 
-- ID: `M00-W04`
-- Reason: M00-W01 through M00-W03 are VERIFIED; M00-W04 (Create root verification commands) is the next package in M00's listed order, and M00 has no dependency milestones.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §8.5 (required repository verification commands: pnpm lint/typecheck/test/test:e2e/test:visual/verify, uv ruff/mypy/pytest, cargo fmt/clippy/test — `pnpm verify` must aggregate all required non-live checks and fail on any skipped mandatory suite), §M00 (verification, exit gate); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md § M00-W03 (existing commands and empty-suite semantics to build on); docs/KNOWN_ISSUES.md (KI-0001 — build-task deferral interacts with the aggregate command design).
+- ID: `M00-W05`
+- Reason: M00-W01 through M00-W04 are VERIFIED; M00-W05 (Create CI and local preflight) is the next package in M00's listed order, and M00 has no dependency milestones.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §M00 (W05 row: CI for macOS and Linux, dependency caching, generated-contract checks, Playwright trace artifact retention, local environment doctor), §8.5–8.6; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md § M00-W04 (the verify runner CI will invoke, its suite states, and the pinned-toolchain activation notes); docs/KNOWN_ISSUES.md (KI-0001, KI-0002, KI-0003).
 
 ## Known release blockers
 

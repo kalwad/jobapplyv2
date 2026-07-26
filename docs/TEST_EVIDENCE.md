@@ -33,6 +33,171 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W04 — Create root verification commands (2026-07-26)
+
+- Revision: tree recorded post-commit / commit recorded post-commit (stamped
+  in the follow-up commit per the anchoring convention above).
+- Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
+  active and re-verified live — Node v24.18.0 (keg + .nvmrc), pnpm 11.17.0
+  (Corepack shim, packageManager), uv 0.11.32 (required-version), Python
+  3.12.13 (uv-managed, .python-version), rustc/cargo 1.97.1 with rustfmt
+  1.9.0 + clippy 0.1.97 (rust-toolchain.toml override), @playwright/test
+  1.62.0 with pinned Chromium (headless shell 151.0.7922.34).
+- What this package added: `scripts/verify.py` (stdlib-only, strict-mypy
+  fail-closed runner), `scripts/verification-suites.json` (canonical
+  machine-readable suite-state registry, 12 suites), `scripts/tests/`
+  (conftest + 3 files, 35 runner tests), the ten canonical root commands in
+  package.json, turbo.json `globalDependencies: ["tsconfig.base.json"]`
+  (cache-soundness fix), pytest/mypy/ruff coverage extensions in
+  pyproject.toml, README verification docs, KI-0002/KI-0003 parked notes.
+- Suite states in the aggregate (`pnpm verify`, final run from the closeout
+  tree): toolchain PASS, format PASS, lint PASS, typecheck PASS, unit-ts
+  PASS, contract NOT_YET_APPLICABLE (owner M01-W05 — printed as "not a
+  passing suite", exit contribution none), e2e-browser PASS, visual
+  NOT_YET_APPLICABLE (owner M10-W06), python PASS, rust PASS, status PASS,
+  integrity PASS → `verification exit code: 0`.
+- Commands and observed results (positive matrix, pinned PATH):
+  - `pnpm install --frozen-lockfile` → exit 0.
+  - `pnpm lint` → exit 0. `pnpm format:check` → exit 0 (prettier + ruff
+    format + cargo fmt, check-only). `pnpm typecheck` → exit 0 (turbo 8/8
+    typecheck tasks + root tsc + strict mypy; turbo_task_count proof).
+  - `pnpm test` → exit 0 — `turbo run test --force` (cache-bypassed, fresh):
+    Tasks 8 successful/8 total, per-package Vitest proof = 8× "Tests 1
+    passed" (vitest_per_package).
+  - `pnpm test:contract` → exit 0, NOT_YET_APPLICABLE banner (not a pass).
+  - `pnpm test:e2e` → exit 0; Playwright run "1 passed" + discovery proof
+    `--list` = "Total: 1 test in 1 file".
+  - `pnpm test:visual` → exit 0, NOT_YET_APPLICABLE banner (not a pass).
+  - `pnpm test:python` → exit 0 (ruff check; ruff format --check; strict
+    mypy "no issues found in 7 source files"; pytest 36 passed = 1
+    orchestrator + 35 runner tests; pytest_min_passed proof).
+  - `pnpm test:rust` → exit 0 (cargo fmt --check; clippy --all-targets
+    --all-features -D warnings; cargo test "1 passed"; cargo build —
+    explicit --manifest-path throughout; cargo_min_passed proof).
+  - `pnpm verify` → exit 0 with the per-suite summary above; run twice
+    (post-implementation and again from the final closeout tree after the
+    status edits below); status-neutral (porcelain + tracked-content
+    sha256 identical before/after).
+  - `python3 scripts/validate_status.py` → exit 0, PASS (17 check groups),
+    re-run after the final status edits.
+  - Runner test suite: `uv run pytest scripts/tests -q` → 35 passed
+    (fresh; also re-run inside pnpm test:python and pnpm verify).
+- Freshness/cache notes: unit tests always run `--force` (canonical
+  registry command) — forced executions produced the counted "Tests N
+  passed" lines; typecheck relies on sound turbo caching, made sound by
+  hashing tsconfig.base.json via globalDependencies — proof: warm run
+  "Cached: 8 cached, 8 total" → byte change to tsconfig.base.json →
+  "Cached: 0 cached, 8 total" → file restored byte-identical (empty diff).
+  Playwright, pytest, and cargo executions have no cache layer in verify.
+- Negative-path results (all fail-closed, automated in scripts/tests unless
+  marked live):
+  - Failing child command → aggregate exit 1 (test_failing_child_command…).
+  - Activated-but-empty contract and visual suites → REQUIRED_MISSING, exit
+    1 (fixture-status tests against the real registry; also live 4c in the
+    final review: `--suite visual --status <M10-W06=IN_PROGRESS copy>` →
+    exit 1 "REQUIRED and missing").
+  - REQUIRED_MISSING is unconditional — fails even for mandatory:false
+    suites (test_required_missing_fails_even_for_non_mandatory_suite);
+    non-mandatory ACTIVE failure alone does not fail the aggregate
+    (documented mandatory semantics).
+  - Empty selections: pytest exit 5 → hard failure with explicit "zero
+    tests" message ("pytest" anywhere in argv); vitest empty selection →
+    exit 1 (live: `vitest run nonexistent_pattern`); Playwright empty
+    selection → exit 1 "No tests found" (live: `--grep no_such_test…`);
+    vitest_min_tests / playwright_list_min proofs reject zero-test output.
+  - NOT_YET_APPLICABLE honesty: summary prints NOT_YET_APPLICABLE (never
+    PASS) + "not a passing suite — owned by <package>" (asserted in tests).
+  - BLOCKED activation package counts as begun → REQUIRED_MISSING (test).
+  - Unrecognized state token (e.g. "IN_PROGESS") → RegistryError, exit 2,
+    fail closed (test); unknown activation package → fail closed (test).
+  - No-op scripts rejected: "", "true", ":", "exit 0", "echo …",
+    "true && true", "exit 0 # done", "true; :" — root and workspace
+    package scripts both vetted (tests); missing canonical root script
+    rejected (test).
+  - passWithNoTests-style bypass tokens in tracked configs rejected (test).
+  - Focused/skipped tests rejected: scan covers on-disk .test.ts/.spec.ts
+    and python test files + conftests regardless of git-tracking, matching
+    .only/.skip/.fixme/.todo incl. `it.only.each(` (tests); live: a
+    test.only spec under e2e/ → playwright forbidOnly error, exit 1.
+  - Verification-caused mutation detected: porcelain + `git diff` sha256
+    snapshot mismatch → status-neutral FAIL, exit 1 (test with a command
+    that appends to a tracked fixture file).
+  - Status-validator failure propagates: corrupt status copy (M03-W02 →
+    "DONE") through the real validate_status.py → suite FAIL → exit 1
+    (test).
+  - Anchored summary parsing: echoed titles like "shows 5 passed items"
+    or "test_5_passed_items PASSED" no longer satisfy playwright/pytest
+    passed-proofs; skipped-only Playwright output fails (tests).
+  - Toolchain mismatch (live): `pnpm install --frozen-lockfile` under
+    default Node 26 → ERR_PNPM_UNSUPPORTED_ENGINE, exit 1. Mismatched uv
+    (`required-version ==999.0.0` scratch project) → error, exit 2
+    (M00-W03 evidence; mechanism unchanged).
+- Test counts: runner suite 35/35 passed; full pytest 36/36; TS unit 8/8
+  package tasks each 1/1 test (forced); Playwright 1/1 (discovery Total: 1
+  test); Rust 1/1; all lint/format/type commands exit 0.
+- Dynamic review (Ultra Code, workflow `review-m00-w04-verification-system`,
+  8 owner-mandated domains + adversarial per-finding verification; the
+  verification phase was cut short by a session usage limit after 22 of 33
+  agents):
+  - 8 findings adversarially CONFIRMED and all fixed in this tree:
+    (1) REQUIRED_MISSING was mandatory-gated vs its documented
+    unconditional contract → exit gate fixed + tests; (2–4, one underlying
+    defect reported by three domains) registry e2e explanation misstated
+    --list ordering → wording corrected; (5) unanchored Playwright
+    "(\d+) passed" regex → anchored + tests; (6) BLOCKED excluded from
+    STARTED_STATES → included + test; (7) invalid state tokens failed open
+    → RegistryError + test; (8) Rust pin checked only via rustup →
+    added cargo --version interrogation.
+  - 6 findings adversarially REJECTED with recorded reasons (kept as-is):
+    unhandled-OSError tracebacks (still exit nonzero = fail-closed),
+    vitest_per_package vacuous-pass when zero packages declare the script
+    (nevertheless hardened defensively), cargo --locked absence (spec §8.5
+    verbatim commands; no deps exist), forbidOnly substring check
+    (comment-spoof is self-sabotage, runtime forbidOnly still enforces),
+    registry-file bypass-token exemption (forced by legitimate prose; now
+    KI-0003a), e2e⊃visual glob overlap (not reachable until M10-W06; the
+    overlap is deliberate until then).
+  - 11 findings were NEVER adversarially verified (agents hit the session
+    limit); treated as open questions and triaged individually, not
+    dismissed: FIXED — turbo typecheck cache blindness to
+    tsconfig.base.json (globalDependencies + live invalidation proof),
+    _script_is_noop compound/comment misses (hardened + tests), workspace
+    scripts escaping no-op vetting (extended + test), pytest exit-5 argv
+    shape (argv membership + test), python skip-marker end-to-end coverage
+    (test added), untracked-test-file scan gap + conftest coverage (scan
+    now disk-based incl. conftests, test added), porcelain content blind
+    spot for already-dirty files (git-diff sha256 added to snapshot),
+    focused-alias gap `.only.each`/`.todo` (regex widened + tests),
+    contract command not runnable from root (switched to
+    `pnpm --filter @japp/contracts exec vitest run test/contract`).
+    DISPOSITIONED WITHOUT CODE CHANGE — "fresh execution" proof cannot
+    detect a hypothetical cache replay if --force were removed (the forced
+    command is itself tracked registry content; documented), Playwright
+    empty-selection/toolchain negatives "lack evidence" (this entry records
+    the live runs), status-neutrality untracked-content blind spot
+    (documented docstring tradeoff).
+  - Final independent single-agent compliance review (read-only) verdict:
+    SHIP, zero blocking defects; observations recorded (35-not-36 runner
+    test count corrected here; turbo.json added to changed-file list;
+    residual hardening backlog parked as KI-0003).
+- Artifacts: intentionally none persisted — Playwright artifacts are
+  failure-only and git-ignored (test-results/ etc.); all negative
+  demonstrations used temp files/copies that were removed or /tmp paths.
+- Notes:
+  - `pnpm verify` semantics: exits 0 only when every mandatory ACTIVE suite
+    passes, every proof holds, integrity is clean, the run is
+    status-neutral, and every NOT_YET_APPLICABLE classification is valid
+    against docs/PROJECT_STATUS.md; REQUIRED_MISSING is unconditionally
+    fatal. Clean-tree semantics: verify must not change porcelain or
+    tracked content (pre-commit dirty trees are allowed and compared as
+    snapshots; the final committed repository is clean).
+  - Command ownership: pnpm lint = ESLint only; Ruff lint lives in
+    test:python, Clippy in test:rust; all three run inside pnpm verify.
+  - scripts/verify-work-package.* / verify-milestone.* from spec §5.1 were
+    deliberately NOT stubbed (they would be no-ops today); `pnpm verify`
+    is the aggregate command M00 requires, and later packages add the
+    package/milestone wrappers when they have real content.
+
 ### M00-W03 — Establish strict toolchain configuration (2026-07-26)
 
 - Revision: tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 / commit

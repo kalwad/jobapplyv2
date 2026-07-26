@@ -59,3 +59,50 @@ None recorded.
   errors rather than passing vacuously).
 - Workaround: n/a (nothing exists to build yet).
 - Resolution + evidence link: pending the packages above.
+
+### KI-0002 — scripts/validate_status.py predates the strict Python gates (deliberate deferral)
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-07-26 during M00-W04
+- Affects: scripts/validate_status.py (M00-W01 deliverable); Python quality
+  gates (M00-W03/M00-W04)
+- Description: the strict Ruff/mypy coverage added in M00-W03/M00-W04 spans
+  `services/`, `scripts/verify.py`, and `scripts/tests/`, but not
+  `scripts/validate_status.py`, which was written stdlib-only in M00-W01
+  before the strict gates existed (it lacks some return-type annotations
+  and stricter-rule conformance). Its behavior is proven by the M00-W01
+  negative-case evidence and it is executed (not imported) by the verify
+  runner, so the gap is cosmetic, not functional. Annotating it and adding
+  it to the strict gates is parked to avoid touching a verified M00-W01
+  deliverable inside M00-W04's scope.
+- Reproduction: add `scripts/validate_status.py` to `[tool.mypy] files` and
+  the ruff command paths, run `uv run mypy` / `uv run ruff check` —
+  annotation findings appear.
+- Workaround: n/a (the script's own 4-negative-case evidence stands).
+- Resolution + evidence link: fold into a later M00 hardening or
+  housekeeping package with re-run of the M00-W01 negative cases.
+
+### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-07-26 during M00-W04 (final independent review observations)
+- Affects: scripts/verify.py, scripts/verification-suites.json (M00-W04)
+- Description: three residual, currently-unexploitable gaps noted by the
+  M00-W04 final compliance review, parked instead of scope-creeping the
+  package: (a) the bypass-token scan exempts the whole registry file
+  (needed because the integrity suite's explanation text legitimately
+  mentions the banned token); a future edit could hide a bypass flag inside
+  a registry command argv — discovery proofs and the pytest-exit-5 rule
+  still backstop this; scope the exemption to explanation fields later.
+  (b) `TS_FOCUS_RE` does not cover vitest's `xit`/`xdescribe`/`xtest`
+  aliases (skips via those would appear only as skipped counts).
+  (c) `BYPASS_SCAN_SUFFIXES` omits `.js` (no tracked `.js` config exists
+  today). None is reachable in the current tree; all three are cheap,
+  mechanical hardenings for a later M00/M25 hardening pass.
+- Reproduction: see docs/TEST_EVIDENCE.md § M00-W04 (final review
+  observations 3–5).
+- Workaround: n/a (not currently exploitable; layered checks cover today's
+  tree).
+- Resolution + evidence link: pending a later hardening package.

@@ -11,11 +11,17 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "typecheck": "turbo run typecheck && tsc -p tsconfig.json",
-    "test": "turbo run test",
-    "test:browser-smoke": "playwright test"
+    "format": "prettier --write . && uv run ruff format services scripts/verify.py scripts/tests && cargo fmt --manifest-path services/native-host/Cargo.toml",
+    "format:check": "uv run python scripts/verify.py --suite format",
+    "typecheck": "uv run python scripts/verify.py --suite typecheck",
+    "test": "uv run python scripts/verify.py --suite unit-ts",
+    "test:contract": "uv run python scripts/verify.py --suite contract",
+    "test:e2e": "uv run python scripts/verify.py --suite e2e-browser",
+    "test:visual": "uv run python scripts/verify.py --suite visual",
+    "test:python": "uv run python scripts/verify.py --suite python",
+    "test:rust": "uv run python scripts/verify.py --suite rust",
+    "test:browser-smoke": "playwright test",
+    "verify": "uv run python scripts/verify.py"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

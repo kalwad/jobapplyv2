@@ -1,0 +1,248 @@
+{
+  "$comment": "Canonical machine-readable verification-suite registry (M00-W04, spec §8.5). Consumed and schema-validated by scripts/verify.py. Suite STATE is derived at runtime: ACTIVE suites run their commands and must pass; a suite with an activation condition is NOT_YET_APPLICABLE while every listed activation package is still NOT_STARTED or READY in docs/PROJECT_STATUS.md, and becomes REQUIRED_MISSING (a hard failure) as soon as any activation package has begun (IN_PROGRESS or later) while the suite's discovery globs still match no files. Nobody flips a boolean by hand: state follows the project-status tables. Proof names refer to typed discovery-proof implementations in scripts/verify.py; commands are argv arrays executed from the repository root with no shell.",
+  "schema_version": 1,
+  "allowed_skips": [],
+  "suites": [
+    {
+      "id": "toolchain",
+      "name": "Pinned-toolchain assumptions",
+      "owner": "M00-W04",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "builtin": "toolchain",
+      "commands": [],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Fails fast when the active Node, pnpm, Python, uv, or Rust toolchain does not match the repository pins (.nvmrc, packageManager, .python-version, [tool.uv] required-version, rust-toolchain.toml)."
+    },
+    {
+      "id": "format",
+      "name": "Formatting (Prettier + Ruff format + rustfmt)",
+      "owner": "M00-W03",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [
+        ["pnpm", "exec", "prettier", "--check", "."],
+        [
+          "uv",
+          "run",
+          "ruff",
+          "format",
+          "--check",
+          "services",
+          "scripts/verify.py",
+          "scripts/tests"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "services/native-host/Cargo.toml",
+          "--check"
+        ]
+      ],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Check-only; never rewrites files. Canonical docs are excluded from Prettier by .prettierignore."
+    },
+    {
+      "id": "lint",
+      "name": "TypeScript lint (typed strict ESLint)",
+      "owner": "M00-W03",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [["pnpm", "exec", "eslint", "."]],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Python lint (Ruff) is owned by the python suite and Rust lint (Clippy) by the rust suite so command ownership stays unambiguous; pnpm verify runs all three."
+    },
+    {
+      "id": "typecheck",
+      "name": "Typechecking (tsc all TS projects + strict mypy)",
+      "owner": "M00-W03",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [
+        ["pnpm", "exec", "turbo", "run", "typecheck"],
+        ["pnpm", "exec", "tsc", "-p", "tsconfig.json"],
+        ["uv", "run", "mypy", "services", "scripts/verify.py", "scripts/tests"]
+      ],
+      "proofs": [{ "kind": "turbo_task_count", "script": "typecheck" }],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Covers every TypeScript workspace package, the root Playwright/e2e project, and strict mypy over Python services and the verification runner. Turborepo caching is sound here because turbo.json globalDependencies hashes tsconfig.base.json (base-config edits invalidate cached typechecks); test execution is separately cache-bypassed with --force."
+    },
+    {
+      "id": "unit-ts",
+      "name": "TypeScript unit tests (Vitest via Turborepo)",
+      "owner": "M00-W02",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [["pnpm", "exec", "turbo", "run", "test", "--force"]],
+      "proofs": [
+        { "kind": "turbo_task_count", "script": "test" },
+        { "kind": "vitest_per_package", "script": "test" }
+      ],
+      "discovery_globs": ["packages/*/test/**/*.test.ts"],
+      "artifacts": [],
+      "explanation": "--force bypasses the Turborepo cache so discovery counts always come from fresh Vitest executions; every workspace package that declares a test script must actually run and report at least one passing test."
+    },
+    {
+      "id": "contract",
+      "name": "Cross-language contract tests",
+      "owner": "M01-W05",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M01-W05"]
+      },
+      "commands": [
+        [
+          "pnpm",
+          "--filter",
+          "@japp/contracts",
+          "exec",
+          "vitest",
+          "run",
+          "test/contract"
+        ]
+      ],
+      "proofs": [{ "kind": "vitest_min_tests", "min": 1 }],
+      "discovery_globs": ["packages/contracts/test/contract/**/*.test.ts"],
+      "artifacts": [],
+      "explanation": "NOT_YET_APPLICABLE: the contract suite is owned by M01-W05 (Build contract compatibility tests) and that work package has not begun in docs/PROJECT_STATUS.md. This is an honest suite-state classification, NOT a passing test suite — zero contract tests have run. The moment M01-W05 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until real contract tests exist at the discovery globs; M01 seeds tests and updates the commands here without restructuring the runner."
+    },
+    {
+      "id": "e2e-browser",
+      "name": "Browser end-to-end tests (Playwright, pinned Chromium)",
+      "owner": "M00-W03",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [["pnpm", "exec", "playwright", "test"]],
+      "proofs": [
+        { "kind": "playwright_list_min", "min": 1 },
+        { "kind": "playwright_min_passed", "min": 1 }
+      ],
+      "discovery_globs": ["e2e/**/*.spec.ts"],
+      "artifacts": [
+        "test-results/ (failure-only traces/screenshots/videos, git-ignored)"
+      ],
+      "explanation": "Runs every discovered Playwright test (currently the browser-infrastructure smoke test). Discovery is proven with `playwright test --list` as one of the suite's proofs (evaluated with the run itself; an empty discovered set fails the suite); forbidOnly in playwright.config.ts rejects focused tests; no external sites are contacted. Future product e2e specs are added under e2e/ without changing this command contract."
+    },
+    {
+      "id": "visual",
+      "name": "Visual regression tests",
+      "owner": "M10-W06",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M10-W06"]
+      },
+      "commands": [["pnpm", "exec", "playwright", "test", "e2e/visual"]],
+      "proofs": [{ "kind": "playwright_min_passed", "min": 1 }],
+      "discovery_globs": ["e2e/visual/**/*.spec.ts"],
+      "artifacts": [
+        "test-results/ (failure-only diffs, git-ignored) once ACTIVE"
+      ],
+      "explanation": "NOT_YET_APPLICABLE: no renderable product surface exists — the first spec-mandated visual-regression owner is M10-W06 (document validation snapshots); desktop-view and extension-panel snapshot layers attach with their own milestones by updating this entry. There is deliberately no placeholder snapshot or pixel test: that would be a mocked success (spec §1.5). When M10-W06 begins, this suite turns REQUIRED_MISSING and pnpm verify fails until real visual specs exist under e2e/visual/."
+    },
+    {
+      "id": "python",
+      "name": "Python quality and tests (Ruff + mypy + pytest via uv)",
+      "owner": "M00-W03",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [
+        [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "services",
+          "scripts/verify.py",
+          "scripts/tests"
+        ],
+        [
+          "uv",
+          "run",
+          "ruff",
+          "format",
+          "--check",
+          "services",
+          "scripts/verify.py",
+          "scripts/tests"
+        ],
+        ["uv", "run", "mypy", "services", "scripts/verify.py", "scripts/tests"],
+        ["uv", "run", "pytest"]
+      ],
+      "proofs": [{ "kind": "pytest_min_passed", "min": 1 }],
+      "discovery_globs": [
+        "services/orchestrator/tests/**/test_*.py",
+        "scripts/tests/**/test_*.py"
+      ],
+      "artifacts": [],
+      "explanation": "Uses the repository-pinned interpreter (uv-managed 3.12.13) and == pinned tools. pytest exit code 5 (no tests collected) is treated as a hard failure, never success."
+    },
+    {
+      "id": "rust",
+      "name": "Rust format, lint, tests, build (pinned toolchain)",
+      "owner": "M00-W02",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "services/native-host/Cargo.toml",
+          "--check"
+        ],
+        [
+          "cargo",
+          "clippy",
+          "--manifest-path",
+          "services/native-host/Cargo.toml",
+          "--all-targets",
+          "--all-features",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        ["cargo", "test", "--manifest-path", "services/native-host/Cargo.toml"],
+        ["cargo", "build", "--manifest-path", "services/native-host/Cargo.toml"]
+      ],
+      "proofs": [{ "kind": "cargo_min_passed", "min": 1 }],
+      "discovery_globs": ["services/native-host/src/**/*.rs"],
+      "artifacts": [],
+      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. cargo build additionally proves the real (non-test-harness) binary links; it compiles only code that exists — no fake build target (KI-0001 remains about the JS/TS side)."
+    },
+    {
+      "id": "status",
+      "name": "Project-status validation",
+      "owner": "M00-W01",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "commands": [["python3", "scripts/validate_status.py", "--quiet"]],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Structural validation of the canonical project-memory files; its failure fails pnpm verify."
+    },
+    {
+      "id": "integrity",
+      "name": "Repository-integrity checks",
+      "owner": "M00-W04",
+      "mandatory": true,
+      "activation": { "type": "always_active" },
+      "builtin": "integrity",
+      "commands": [],
+      "proofs": [],
+      "discovery_globs": [],
+      "artifacts": [],
+      "explanation": "Built-in checks: canonical project-memory files exist; the canonical spec stays at docs/MASTER_IMPLEMENTATION_SPEC.md; lockfiles exist for every active ecosystem; every required root script exists and is not a no-op; no passWithNoTests-style bypass in tracked config; no focused (.only) or skipped (.skip / @pytest.mark.skip) tests outside allowed_skips; pnpm verify is status-neutral (git status --porcelain identical before and after)."
+    }
+  ]
+}

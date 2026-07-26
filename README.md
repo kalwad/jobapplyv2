@@ -91,26 +91,36 @@ cargo --version && cargo fmt --version && cargo clippy --version
 pnpm exec playwright --version
 ```
 
-## Checks
+## Checks (M00-W04 root verification commands)
+
+`pnpm verify` is the canonical aggregate, non-live verification command. It
+is driven by the suite-state registry `scripts/verification-suites.json`
+and the fail-closed runner `scripts/verify.py`: every suite is ACTIVE
+(must run and pass, with test-discovery proofs), NOT_YET_APPLICABLE (its
+owning work package has not begun — reported honestly, never as a pass),
+or REQUIRED_MISSING (owning package has begun but the suite is absent —
+always a failure). Suite state derives from `docs/PROJECT_STATUS.md`, not
+from a hand-edited flag. `pnpm verify` also validates toolchain pins,
+runs repository-integrity checks (lockfiles, canonical docs, no no-op
+scripts, no `passWithNoTests`-style bypasses, no focused/skipped tests),
+and fails if verification changes `git status --porcelain`
+(status-neutrality: it never modifies tracked files).
 
 ```bash
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm format:check
-pnpm test:browser-smoke   # Playwright infrastructure smoke test (Chromium)
-
-uv run pytest
-uv run ruff check services
-uv run ruff format --check services
-uv run mypy services
-
-cargo fmt --manifest-path services/native-host/Cargo.toml --check
-cargo clippy --manifest-path services/native-host/Cargo.toml --all-targets --all-features -- -D warnings
-cargo test --manifest-path services/native-host/Cargo.toml
-
+pnpm lint            # typed strict ESLint over all TypeScript
+pnpm format:check    # Prettier + Ruff format + rustfmt (check-only)
+pnpm typecheck       # tsc (all TS projects) + strict mypy
+pnpm test            # TypeScript unit tests (Vitest, fresh runs, count-proofed)
+pnpm test:contract   # contract suite state (NOT_YET_APPLICABLE until M01-W05)
+pnpm test:e2e        # Playwright browser tests (pinned Chromium)
+pnpm test:visual     # visual suite state (NOT_YET_APPLICABLE until M10-W06)
+pnpm test:python     # Ruff + mypy + pytest via uv (pinned interpreter)
+pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
+pnpm verify          # aggregate of all of the above + integrity + status
 python3 scripts/validate_status.py
 ```
 
-The aggregate `pnpm verify` command (which must fail on any skipped
-mandatory suite) is created in work package M00-W04.
+Direct §8.5 equivalents (`uv run ruff check services`, `uv run mypy
+services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
+services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
+unchanged.
