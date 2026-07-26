@@ -1,7 +1,7 @@
 # Project Status
 
 Spec version: 1.0
-Repository revision: tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 (commit b64f54da8ec3c302bd28efac68afd80ea5efc142)
+Repository revision: tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 (commit aa6b3503405651f915d21027524b112bce11f2a2)
 Last updated: 2026-07-26T01:24:19Z
 Current phase: A — Project contract and platform
 Current milestone: M00
@@ -66,7 +66,7 @@ Overall release gate: NOT_READY
 |---|---|---|---|---|
 | `M00-W01` | VERIFIED | tree e1dd209417af97b3cab320b4ab01fbd702547136 | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
 | `M00-W02` | VERIFIED | tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 | docs/TEST_EVIDENCE.md § M00-W02 | Scaffold the monorepo |
-| `M00-W03` | VERIFIED | tree recorded post-commit | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
+| `M00-W03` | VERIFIED | tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
 | `M00-W04` | READY | — | — | Create root verification commands |
 | `M00-W05` | NOT_STARTED | — | — | Create CI and local preflight |
 | `M00-W06` | NOT_STARTED | — | — | Seed traceability and status |

@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W03 — Establish strict toolchain configuration (2026-07-26)
 
-- Revision: tree recorded post-commit / commit recorded post-commit (stamped
-  in the follow-up commit per the anchoring convention above).
+- Revision: tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 / commit
+  aa6b3503405651f915d21027524b112bce11f2a2 (stamped in the follow-up commit
+  per the anchoring convention above).
 - Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon). Toolchain pinned
   by this package and verified live:
   - Node v24.18.0 (`brew install node@24`, keg-only; pinned via .nvmrc +
