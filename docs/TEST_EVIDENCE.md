@@ -35,7 +35,7 @@ Exact verification commands and summarized results
 
 ### M00-W01 — Create canonical project-memory files (2026-07-26)
 
-- Revision: tree PENDING-STAMP (stamped in the follow-up commit per the
+- Revision: tree e1dd209417af97b3cab320b4ab01fbd702547136 / commit 63d9442258c68a9dd8ecb9a20810e5740679557c (stamped in the follow-up commit per the
   anchoring convention above).
 - Environment: Linux 6.18.5 (cloud work environment), Python 3.11.15,
   git 2.43.0. Note: the spec's target machine (macOS, Apple silicon M5,

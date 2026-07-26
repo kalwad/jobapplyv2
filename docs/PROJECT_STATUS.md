@@ -1,7 +1,7 @@
 # Project Status
 
 Spec version: 1.0
-Repository revision: tree PENDING-STAMP (stamped immediately after the M00-W01 commit; see docs/TEST_EVIDENCE.md anchoring convention)
+Repository revision: tree e1dd209417af97b3cab320b4ab01fbd702547136 (commit 63d9442258c68a9dd8ecb9a20810e5740679557c)
 Last updated: 2026-07-26T00:23:49Z
 Current phase: A — Project contract and platform
 Current milestone: M00
@@ -64,7 +64,7 @@ Overall release gate: NOT_READY
 
 | Work package | State | Verified revision | Evidence link | Notes |
 |---|---|---|---|---|
-| `M00-W01` | VERIFIED | tree PENDING-STAMP | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
+| `M00-W01` | VERIFIED | tree e1dd209417af97b3cab320b4ab01fbd702547136 | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
 | `M00-W02` | READY | — | — | Scaffold the monorepo |
 | `M00-W03` | NOT_STARTED | — | — | Establish strict toolchain configuration |
 | `M00-W04` | NOT_STARTED | — | — | Create root verification commands |
