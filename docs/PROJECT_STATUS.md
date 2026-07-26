@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.3
-Repository revision: stamp pending (M00-W08 content tree recorded after commit)
-Last updated: 2026-07-26T22:25:07Z
+Repository revision: tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7 (commit 9bb12322b993d233017d53bfa14f853c5fc86e34)
+Last updated: 2026-07-26T22:35:44Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M00
 Current work package: NONE
@@ -23,11 +23,11 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M00-W08 is VERIFIED at `stamp pending`; M00-W01 through M00-W07 remain VERIFIED at their preserved v1.2 tree/evidence anchors. Only M00-W09 is READY.
+- State: no package is IN_PROGRESS. M00-W08 is VERIFIED at content tree `e05dbf9bdf9c190e8cd6b022d9611d65805740b7`; M00-W01 through M00-W07 remain VERIFIED at their preserved v1.2 tree/evidence anchors. Only M00-W09 is READY.
 - Objective: stop after the verified owner-approved v1.3 adoption. M00-W09 may add Windows CI in a future package; M00-W10 and M01-W01 remain untouched.
 - Dependencies verified: v1.2 M00-W01 through M00-W07 are VERIFIED; M00 was ACCEPTED at v1.2 content tree `fee2902010eb90704c05e584fb6ff7964327cb0b`; final v1.2 hosted run 30220655705 passed macOS and Ubuntu at starting HEAD `0f8059c97d1167d6bb34413bae5c1c3c44b1ae37`.
 - Critical-gate prerequisites: none for M00-W08. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M00-W08 records the exact external/canonical hash, 39/286/157/4 inventories, preserved v1.2 hashes/evidence, migration positive/negative tests, deterministic traceability generation, and full local validation. Hosted macOS/Ubuntu evidence is required before the content tree is stamped.
+- Evidence: docs/TEST_EVIDENCE.md § M00-W08 records the exact external/canonical hash, 39/286/157/4 inventories, preserved v1.2 hashes/evidence, migration positive/negative tests, deterministic traceability generation, full local validation, and successful hosted content run 30223370286 on macOS and Ubuntu.
 - Blockers: M00-W09 and M00-W10 remain incomplete. M01-W01's historical v1.2 readiness is revoked until M00-W10 is VERIFIED and M00 is re-ACCEPTED. M28 remains blocked by M27 acceptance and Gate D.
 
 ## Milestone table
@@ -85,7 +85,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
 | `M00-W06` | VERIFIED | tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight; repair current-HEAD macOS CI with job-scoped rustup state |
 | `M00-W07` | VERIFIED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | docs/TEST_EVIDENCE.md § M00-W07 | Seed traceability and status |
-| `M00-W08` | VERIFIED | stamp pending | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
+| `M00-W08` | VERIFIED | tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7 | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
 | `M00-W09` | READY | — | — | Add Windows CI and platform-portability baseline |
 | `M00-W10` | NOT_STARTED | — | — | Extend traceability and re-accept M00 under v1.3 |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions; v1.2 READY state retained only in historical M00-W07 evidence |

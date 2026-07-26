@@ -5190,7 +5190,7 @@
       "milestone": "M00",
       "title": "Adopt and migrate the v1.3 cross-platform rebaseline",
       "current_state": "VERIFIED",
-      "verified_revision": "stamp pending",
+      "verified_revision": "tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7",
       "primary_deliverables": [
         "Adopt and migrate the v1.3 cross-platform rebaseline"
       ],

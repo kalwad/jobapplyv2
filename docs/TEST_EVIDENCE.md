@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W08 — Adopt and migrate the v1.3 cross-platform rebaseline (2026-07-26)
 
-- Revision: `stamp pending` until the verified content tree is committed and
-  the conventional follow-up stamp records that tree.
+- Revision: tree `e05dbf9bdf9c190e8cd6b022d9611d65805740b7` / commit
+  `9bb12322b993d233017d53bfa14f853c5fc86e34` (stamped in the conventional
+  follow-up commit after its hosted content run passed).
 - Starting prerequisite: `main` was clean at
   `0f8059c97d1167d6bb34413bae5c1c3c44b1ae37`, equal to `origin/main`.
   Final v1.2 workflow run 30220655705 passed macOS job 89842408688 and
@@ -145,8 +146,13 @@ Exact verification commands and summarized results
   feature, schema, secret, PII, applicant data, telemetry, live-site result,
   installer, model artifact, or speculative compatibility evidence was
   introduced.
-- Hosted content and final-HEAD results: pending the required local matrix,
-  content commit, and revision-stamp workflow runs.
+- Hosted content proof: workflow run 30223370286 at content commit
+  `9bb12322b993d233017d53bfa14f853c5fc86e34` passed
+  `doctor + verify (macos-15)` job 89849529794 and
+  `doctor + verify (ubuntu-24.04)` job 89849529811. Both jobs ran the
+  canonical aggregate verification and confirmed it left no tracked
+  changes. The final revision-stamp HEAD requires its own successful hosted
+  run before closeout.
 
 ### M00-W07 — Seed traceability and status (2026-07-26)
 
