@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W02 — Scaffold the monorepo (2026-07-26)
 
-- Revision: tree recorded post-commit / commit recorded post-commit (stamped
-  in the follow-up commit per the anchoring convention above).
+- Revision: tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 / commit
+  b64f54da8ec3c302bd28efac68afd80ea5efc142 (stamped in the follow-up commit
+  per the anchoring convention above).
 - Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon — the spec's target
   machine class); Node v26.0.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13
   (uv-managed via `.python-version`), rustc/cargo 1.97.1 with rustfmt 1.9.0
