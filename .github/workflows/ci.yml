@@ -1,0 +1,144 @@
+# Deterministic CI (M00-W06, spec §M00 W06 row, §8.5).
+#
+# Both jobs run the exact same two canonical commands a developer runs
+# locally — `pnpm doctor` then `pnpm verify` — after activating the
+# repository-pinned toolchain with frozen/locked installs. There is no
+# CI-only verification logic: the doctor and the aggregate runner are the
+# single sources of truth (scripts/doctor.py, scripts/verify.py,
+# scripts/verification-suites.json).
+#
+# Security posture: read-only token, no secrets, official actions only,
+# every action pinned to an immutable commit SHA (annotated with its
+# release tag), no live-site tests, artifacts uploaded only on failure and
+# only Playwright's failure-scoped traces from test-results/.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  # Superseded PR/branch runs are cancelled; pushes to main always finish.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+defaults:
+  run:
+    # GitHub runs `bash --noprofile --norc -eo pipefail` for `shell: bash`,
+    # so failing children and broken pipes fail the step (no masking).
+    shell: bash
+
+jobs:
+  verify:
+    name: doctor + verify (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - name: Check out exact revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Activate pinned Node (.nvmrc)
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Activate pinned pnpm via Corepack
+        run: |
+          corepack enable pnpm
+          pnpm --version
+
+      - name: Install pinned uv (PyPI wheel, exact version from pyproject.toml)
+        run: |
+          UV_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("pyproject.toml").read_text())["tool"]["uv"]["required-version"].removeprefix("=="))')"
+          pipx install "uv==${UV_PIN}"
+          uv --version
+
+      - name: Install pinned Rust toolchain (rust-toolchain.toml)
+        run: |
+          RUST_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("rust-toolchain.toml").read_text())["toolchain"]["channel"])')"
+          rustup toolchain install "${RUST_PIN}" --profile minimal --component rustfmt --component clippy
+          rustup show active-toolchain
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: echo "path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.nvmrc', 'pnpm-lock.yaml') }}
+
+      - name: Cache uv downloads and builds
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cache/uv
+            ~/Library/Caches/uv
+          key: uv-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pyproject.toml', 'uv.lock', '.python-version') }}
+
+      - name: Cache cargo registry and git
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock') }}
+
+      - name: Cache pinned Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/Library/Caches/ms-playwright
+            ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install JS dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Install pinned Playwright Chromium (Linux, with system deps)
+        if: runner.os == 'Linux'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install pinned Playwright Chromium (macOS)
+        if: runner.os == 'macOS'
+        run: pnpm exec playwright install chromium
+
+      - name: Sync Python workspace (locked)
+        run: uv sync --locked
+
+      - name: Fetch Rust dependencies (locked)
+        run: cargo fetch --locked --manifest-path services/native-host/Cargo.toml
+
+      - name: Environment doctor (same command as local `pnpm run doctor`)
+        # `run` is required: pnpm has an unrelated built-in `pnpm doctor`
+        # command that would shadow the repository script's bare form.
+        run: pnpm run doctor
+
+      - name: Canonical aggregate verification (same command as local `pnpm verify`)
+        run: pnpm verify
+
+      - name: Assert verification left no tracked changes
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)"
+
+      - name: Upload Playwright failure artifacts (traces/screenshots/videos only)
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-failure-${{ matrix.os }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7

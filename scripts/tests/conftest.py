@@ -36,6 +36,8 @@ GOOD_SCRIPTS = {
     "test:python": "uv run python scripts/verify.py --suite python",
     "test:rust": "uv run python scripts/verify.py --suite rust",
     "verify": "uv run python scripts/verify.py",
+    "doctor": "python3 scripts/doctor.py",
+    "preflight": "python3 scripts/doctor.py --preflight",
 }
 
 

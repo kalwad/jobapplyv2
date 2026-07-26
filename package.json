@@ -21,7 +21,9 @@
     "test:python": "uv run python scripts/verify.py --suite python",
     "test:rust": "uv run python scripts/verify.py --suite rust",
     "test:browser-smoke": "playwright test",
-    "verify": "uv run python scripts/verify.py"
+    "verify": "uv run python scripts/verify.py",
+    "doctor": "python3 scripts/doctor.py",
+    "preflight": "python3 scripts/doctor.py --preflight"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

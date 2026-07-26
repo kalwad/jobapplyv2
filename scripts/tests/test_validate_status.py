@@ -17,6 +17,7 @@ import re
 import shutil
 import subprocess
 import sys
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
@@ -344,6 +345,84 @@ def test_gate_state_mismatch_between_files_rejected(repo_copy: Path) -> None:
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "mismatch" in result.stdout
+
+
+def _edit_ledger_section(repo: Path, gate: str, edit_fn: Callable[[str], str]) -> None:
+    path = repo / "docs" / "CRITICAL_GATES.md"
+    sections = path.read_text(encoding="utf-8").split("\n## ")
+    for index, section in enumerate(sections):
+        if section.startswith(gate):
+            sections[index] = edit_fn(section)
+            break
+    else:
+        pytest.fail(f"no CRITICAL_GATES.md section for {gate}")
+    path.write_text("\n## ".join(sections), encoding="utf-8")
+
+
+def test_ledger_missing_state_line_rejected(repo_copy: Path) -> None:
+    """M00-W05 audit finding: a gate section without its '- State:' line must fail."""
+    _edit_ledger_section(
+        repo_copy,
+        "AUTOFILL_FEASIBILITY",
+        lambda s: re.sub(r"^- State: [A-Z_]+\n", "", s, count=1, flags=re.MULTILINE),
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "no '- State:' line" in result.stdout
+    assert "AUTOFILL_FEASIBILITY" in result.stdout
+
+
+def test_ledger_duplicate_state_line_rejected(repo_copy: Path) -> None:
+    _edit_ledger_section(
+        repo_copy,
+        "RESUME_PAGEFIT_FEASIBILITY",
+        lambda s: re.sub(
+            r"^(- State: [A-Z_]+\n)",
+            r"\g<1>\g<1>",
+            s,
+            count=1,
+            flags=re.MULTILINE,
+        ),
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "exactly one required" in result.stdout
+    assert "RESUME_PAGEFIT_FEASIBILITY" in result.stdout
+
+
+def test_ledger_missing_gate_section_rejected(repo_copy: Path) -> None:
+    """Removing a gate's whole ledger section must fail even though the gate
+    name still appears in the summary table (name needles alone are not
+    sufficient)."""
+    path = repo_copy / "docs" / "CRITICAL_GATES.md"
+    sections = path.read_text(encoding="utf-8").split("\n## ")
+    kept = [s for s in sections if not s.startswith("WORKDAY_GUIDED_PRE_SUBMIT")]
+    assert len(kept) == len(sections) - 1
+    path.write_text("\n## ".join(kept), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "missing the '## WORKDAY_GUIDED_PRE_SUBMIT' section" in result.stdout
+
+
+def test_ledger_unknown_gate_section_rejected(repo_copy: Path) -> None:
+    path = repo_copy / "docs" / "CRITICAL_GATES.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write("\n## TOTALLY_FAKE_GATE\n\n- State: PASS\n")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "TOTALLY_FAKE_GATE" in result.stdout
+    assert "unknown gate-like section" in result.stdout
+
+
+def test_ledger_invalid_state_value_rejected(repo_copy: Path) -> None:
+    _edit_ledger_section(
+        repo_copy,
+        "WORKDAY_GUIDED_PRE_SUBMIT",
+        lambda s: s.replace("- State: NOT_EVALUATED", "- State: GREENISH", 1),
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "GREENISH" in result.stdout
 
 
 # -------------------------------------------- gate-based readiness blocking

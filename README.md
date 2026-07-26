@@ -71,13 +71,19 @@ corepack enable pnpm
 (from a shell where the `node@24` keg is first on `PATH`; Corepack then
 serves exactly the `packageManager` pnpm version inside this repository).
 
-## Install
+## Install (fresh clone)
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm exec playwright install chromium
 uv sync --locked
-cargo fetch --manifest-path services/native-host/Cargo.toml
+cargo fetch --locked --manifest-path services/native-host/Cargo.toml
+```
+
+Then confirm the environment before doing anything else:
+
+```bash
+pnpm run doctor
 ```
 
 ## Verify the active toolchain
@@ -125,3 +131,87 @@ Direct §8.5 equivalents (`uv run ruff check services`, `uv run mypy
 services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
+
+## Doctor and preflight (M00-W06)
+
+```bash
+pnpm run doctor          # read-only environment diagnosis + remediation
+pnpm run doctor --json   # deterministic machine-readable output
+pnpm preflight           # doctor, then the canonical `pnpm verify` —
+                         # exactly the two commands CI runs, in order
+```
+
+The explicit `run` matters: pnpm ships an unrelated built-in `pnpm doctor`
+command which takes precedence over same-named package scripts, so the bare
+form would silently run the wrong tool (`pnpm preflight` has no such
+collision).
+
+`scripts/doctor.py` (stdlib-only, runs under any `python3`) checks the
+repository pins against the live environment: canonical/project-memory and
+critical-gate files, lockfiles, required root scripts, git state, exact
+Node/pnpm/uv/Python versions, the Rust toolchain resolving through the
+pinned rustup override (rustfmt + Clippy included), writable temp
+locations, the pinned `@playwright/test` package, a controlled launch of
+the pinned Chromium via the existing browser smoke test, the status
+validator, and the verification-suite state model. It never installs,
+downloads, or repairs anything and never modifies tracked files; every
+failure comes with the exact remediation command.
+
+Interpreting statuses: `PASS` means the requirement is satisfied;
+`WARNING` is informational (e.g. a dirty working tree) and does not affect
+the exit code; `FAIL` is fatal (exit 1); `NOT_YET_APPLICABLE` marks a
+verification suite whose owning work package has not begun — it is an
+honest classification from the suite-state registry, **never** a pass, and
+it flips to the hard-failing `REQUIRED_MISSING` the moment the owning
+package starts without real artifacts.
+
+Common environment failures:
+
+- **Node 26 active (machine default):** `pnpm install` fails with
+  `ERR_PNPM_UNSUPPORTED_ENGINE` and `pnpm doctor` reports the
+  wrong Node — put the keg first on `PATH` (see "Activation" above).
+- **`uv`/`cargo` not on PATH:** both Homebrew kegs are keg-only; the same
+  `PATH` export fixes cargo, and `brew install uv` provides uv (the repo
+  enforces `==0.11.32` itself).
+- **Missing Chromium:** `pnpm exec playwright install chromium` (one-time
+  network download; everything else in doctor/verify is offline).
+
+## CI (GitHub Actions, M00-W06)
+
+One workflow, [.github/workflows/ci.yml](.github/workflows/ci.yml), runs a
+single `verify` job on a `macos-15` + `ubuntu-24.04` matrix. Each job
+checks out the exact revision, activates the repository pins (Node from
+`.nvmrc` via setup-node, pnpm via Corepack's `packageManager` field, uv as
+the exact PyPI wheel version read from `pyproject.toml`, Rust from
+`rust-toolchain.toml` with rustfmt/Clippy), installs with
+`pnpm install --frozen-lockfile` + `uv sync --locked` +
+`cargo fetch --locked`, then runs **exactly** `pnpm run doctor` and
+`pnpm verify` — the same canonical commands as local development, no
+CI-only test subset. To reproduce CI locally, run `pnpm preflight`.
+
+Security posture: `permissions: contents: read`, no secrets, official
+`actions/*` actions only, every action pinned to an immutable commit SHA
+with its release tag annotated, `persist-credentials: false`, no live-site
+tests, and no network use after dependency/browser installation.
+
+Cache policy: pnpm store, uv cache, cargo registry/git, and Playwright
+browser caches are keyed on `runner.os` + `runner.arch` + `hashFiles()` of
+the relevant pin/lockfiles (`.nvmrc`/`pnpm-lock.yaml`, `pyproject.toml`/
+`uv.lock`/`.python-version`, `rust-toolchain.toml`/`Cargo.lock`). There
+are deliberately no `restore-keys` fallbacks (no stale cross-lockfile
+reuse) and no caching of build outputs, browser state, or generated
+application artifacts.
+
+Browser artifact policy: Playwright traces/screenshots/videos are
+failure-only (playwright.config.ts) and are uploaded — from
+`test-results/` only, 7-day retention — solely when a job fails. Nothing
+else is ever uploaded.
+
+Generated-contract lifecycle: the `contract-gen` registry suite (owner
+`M01-W02`) is the drift check — once real generators exist it regenerates
+contracts and fails on any tracked diff. It is distinct from the
+`contract` suite (owner `M01-W05`), which runs cross-language
+compatibility tests. Today both are honestly `NOT_YET_APPLICABLE`; each
+becomes `REQUIRED_MISSING` (a hard `pnpm verify` failure, locally and in
+CI) as soon as its owner package begins without real artifacts. No
+placeholder generators or fake generated files are permitted (spec §1.5).

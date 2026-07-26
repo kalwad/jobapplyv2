@@ -29,7 +29,11 @@ members = ["services/orchestrator"]
 dev = [
     "mypy==2.3.0",
     "pytest==9.1.1",
+    # PyYAML is used only by scripts/tests/test_ci_workflow.py to statically
+    # validate .github/workflows (M00-W06).
+    "pyyaml==6.0.3",
     "ruff==0.16.0",
+    "types-pyyaml==6.0.12.20260724",
 ]
 
 [tool.pytest.ini_options]
@@ -101,6 +105,12 @@ allowed-confusables = ["–", "—"]
 "scripts/verify.py" = ["T201", "S404", "S603", "S607"]
 # The status validator is a CLI as well (T201: printing violations is its job).
 "scripts/validate_status.py" = ["T201"]
+# The environment doctor is a CLI (T201) that interrogates tools via
+# subprocess with no shell (S404/S603) and resolves them from PATH by
+# design — diagnosing PATH problems is its purpose (S607). S105 is a
+# false positive: STATUS_PASS/"PASS" is verification-status vocabulary
+# (suite states), not a credential.
+"scripts/doctor.py" = ["T201", "S404", "S603", "S607", "S105"]
 # Runner tests: pytest asserts (S101), subprocess fixtures (S404/S603/S607),
 # and literal exit codes/counts in assertions (PLR2004).
 "scripts/tests/**" = ["S101", "S404", "S603", "S607", "PLR2004"]
@@ -111,6 +121,12 @@ strict = true
 warn_unreachable = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "possibly-undefined"]
 pretty = true
-files = ["services", "scripts/verify.py", "scripts/validate_status.py", "scripts/tests"]
+files = [
+    "services",
+    "scripts/verify.py",
+    "scripts/validate_status.py",
+    "scripts/doctor.py",
+    "scripts/tests",
+]
 mypy_path = ["services/orchestrator/src", "scripts", "scripts/tests"]
 explicit_package_bases = true

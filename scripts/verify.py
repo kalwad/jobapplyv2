@@ -65,6 +65,8 @@ CANONICAL_ROOT_SCRIPTS = (
     "test:python",
     "test:rust",
     "verify",
+    "doctor",
+    "preflight",
 )
 
 MEMORY_FILES = (

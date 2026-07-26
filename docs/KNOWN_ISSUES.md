@@ -89,6 +89,38 @@ None recorded.
   IN_PROGRESS, skipped dependency, missing package row) plus the new v1.2
   negative cases. Evidence: docs/TEST_EVIDENCE.md § M00-W05.
 
+### KI-0004 — Ledger gate section without a `- State:` line evaded the agreement check (fixed in M00-W06)
+
+- Severity: LOW
+- State: FIXED
+- Discovered: 2026-07-26 during the independent M00-W05 audit (AUDIT_PASS
+  with this one confirmed LOW defense-in-depth finding)
+- Affects: scripts/validate_status.py critical-gate ledger validation
+  (M00-W05 deliverable)
+- Description: `_parse_ledger_states` returned a partial map, and the
+  status/ledger agreement check examined only parsed entries — deleting the
+  `- State:` line from one gate section of docs/CRITICAL_GATES.md (while
+  keeping the gate name elsewhere in the file) was not rejected. Readiness
+  computation was unaffected (gate states used for readiness come from the
+  enum-validated PROJECT_STATUS table), so the audit classified it LOW.
+- Reproduction: (historical) copy docs/, remove the
+  `- State: NOT_EVALUATED` line under `## AUTOFILL_FEASIBILITY`, run
+  `python3 scripts/validate_status.py --repo <copy>` → previously exit 0.
+- Workaround: n/a.
+- Resolution + evidence link: M00-W06 replaced the parser with
+  `_parse_ledger_sections` + `_check_ledger_agreement`: every required gate
+  must have exactly one `## <GATE>` ledger section containing exactly one
+  valid `- State:` line that agrees with the PROJECT_STATUS gates table;
+  missing sections, missing state lines, duplicate state lines, invalid
+  values, and unknown gate-like sections are all rejected. Regression
+  tests: test_ledger_missing_state_line_rejected,
+  test_ledger_duplicate_state_line_rejected,
+  test_ledger_missing_gate_section_rejected,
+  test_ledger_unknown_gate_section_rejected,
+  test_ledger_invalid_state_value_rejected in
+  scripts/tests/test_validate_status.py. Evidence:
+  docs/TEST_EVIDENCE.md § M00-W06.
+
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 
 - Severity: LOW

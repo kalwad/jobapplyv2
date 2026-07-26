@@ -414,18 +414,83 @@ def check_status_shell(status: Status, report: Report) -> None:
         report.ok("PROJECT_STATUS header fields and sections present")
 
 
-def _parse_ledger_states(repo: Path) -> dict[str, str]:
+GATE_SECTION_HEADING_RE = re.compile(r"^[A-Z][A-Z0-9_]*$")
+LEDGER_STATE_LINE_RE = re.compile(r"^- State: ([A-Z_]+)\s*$", flags=re.MULTILINE)
+
+
+def _parse_ledger_sections(repo: Path) -> tuple[dict[str, list[str]], list[str]]:
+    """Parse docs/CRITICAL_GATES.md gate sections.
+
+    Returns (per-gate list of '- State:' values for every required gate whose
+    '## <GATE>' section exists, unknown gate-like section headings). Missing
+    sections are absent from the map; empty/duplicate state-line lists are the
+    caller's job to reject (M00-W05 audit finding: a section stripped of its
+    state line must fail, not silently skip the agreement check).
+    """
     ledger = repo / "docs" / "CRITICAL_GATES.md"
-    states: dict[str, str] = {}
+    sections: dict[str, list[str]] = {}
+    unknown: list[str] = []
     if not ledger.is_file():
-        return states
-    for section in ledger.read_text(encoding="utf-8").split("\n## "):
-        for gate in GATES:
-            if section.startswith(gate):
-                match = re.search(r"^- State: ([A-Z_]+)$", section, flags=re.MULTILINE)
-                if match:
-                    states[gate] = match.group(1)
-    return states
+        return sections, unknown
+    for part in ledger.read_text(encoding="utf-8").split("\n## ")[1:]:
+        heading = part.splitlines()[0].strip() if part.splitlines() else ""
+        if not GATE_SECTION_HEADING_RE.fullmatch(heading):
+            continue
+        if heading in GATES:
+            sections[heading] = LEDGER_STATE_LINE_RE.findall(part)
+        else:
+            unknown.append(heading)
+    return sections, unknown
+
+
+def _check_ledger_agreement(
+    repo: Path, gate_states: dict[str, str], report: Report
+) -> int:
+    errors = 0
+    ledger_sections, unknown_sections = _parse_ledger_sections(repo)
+    if not (repo / "docs" / "CRITICAL_GATES.md").is_file():
+        # Absence of the ledger itself is reported by check_memory_files.
+        return errors
+    for heading in unknown_sections:
+        report.fail(
+            f"docs/CRITICAL_GATES.md has unknown gate-like section "
+            f"'## {heading}' (cannot substitute for a required gate)"
+        )
+        errors += 1
+    for gate in GATES:
+        values = ledger_sections.get(gate)
+        if values is None:
+            report.fail(f"docs/CRITICAL_GATES.md is missing the '## {gate}' section")
+            errors += 1
+            continue
+        if len(values) == 0:
+            report.fail(
+                f"docs/CRITICAL_GATES.md section '## {gate}' has no '- State:' line"
+            )
+            errors += 1
+            continue
+        if len(values) > 1:
+            report.fail(
+                f"docs/CRITICAL_GATES.md section '## {gate}' has "
+                f"{len(values)} '- State:' lines (exactly one required)"
+            )
+            errors += 1
+            continue
+        value = values[0]
+        if value not in GATE_STATES:
+            report.fail(
+                f"docs/CRITICAL_GATES.md records invalid state '{value}' for {gate}"
+            )
+            errors += 1
+            continue
+        status_state = gate_states.get(gate)
+        if status_state is not None and status_state != value:
+            report.fail(
+                f"gate {gate} state mismatch: PROJECT_STATUS says "
+                f"{status_state}, docs/CRITICAL_GATES.md says {value}"
+            )
+            errors += 1
+    return errors
 
 
 def _check_gate_pass_evidence(
@@ -484,19 +549,11 @@ def check_gates(repo: Path, status: Status, report: Report) -> dict[str, str]:
         if not (repo / GATE_REPORTS[gate]).is_file():
             report.fail(f"gate report missing: {GATE_REPORTS[gate]}")
             gate_errors += 1
-    ledger_states = _parse_ledger_states(repo)
-    for gate, state in gate_states.items():
-        ledger_state = ledger_states.get(gate)
-        if ledger_state is not None and ledger_state != state:
-            report.fail(
-                f"gate {gate} state mismatch: PROJECT_STATUS says {state}, "
-                f"docs/CRITICAL_GATES.md says {ledger_state}"
-            )
-            gate_errors += 1
+    gate_errors += _check_ledger_agreement(repo, gate_states, report)
     if gate_errors == 0:
         report.ok(
             "critical-gates table valid (3 gates, valid states, reports "
-            "present, ledger agrees)"
+            "present, ledger complete and agreeing)"
         )
     return gate_states
 

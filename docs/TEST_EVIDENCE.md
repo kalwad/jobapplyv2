@@ -33,6 +33,112 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W06 — Create CI and local preflight (2026-07-26)
+
+- Revision: stamp pending (recorded in the follow-up stamp commit per the
+  anchoring convention above, together with the hosted CI run IDs).
+- Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
+  active (Node v24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
+  rustc/cargo 1.97.1, @playwright/test 1.62.0 pinned Chromium). New dev
+  dependencies: pyyaml==6.0.3 + types-pyyaml==6.0.12.20260724 (exact pins,
+  used only by the CI static-validation tests; uv.lock updated).
+- What this package added:
+  - `scripts/doctor.py` — stdlib-only, strict-gated environment doctor
+    (read-only; PASS/WARNING/FAIL/NOT_YET_APPLICABLE; per-failure
+    remediation; deterministic `--json`; `--preflight` runs the doctor then
+    the canonical `pnpm verify`). Root scripts `doctor` and `preflight`
+    added to package.json and to verify.py's CANONICAL_ROOT_SCRIPTS (their
+    absence now fails pnpm verify).
+  - `.github/workflows/ci.yml` — single `verify` job on a macos-15 +
+    ubuntu-24.04 matrix; `permissions: contents: read`;
+    `persist-credentials: false`; concurrency cancel for superseded
+    non-main runs; official actions only, all pinned to immutable commit
+    SHAs resolved live from tags (checkout v7.0.1 3d3c42e5…, setup-node
+    v7.0.0 82076278…, cache v6.1.0 55cc8345…, upload-artifact v7.0.1
+    043fb46d…); toolchain activated from the repository pin files; installs
+    frozen/locked (pnpm --frozen-lockfile, uv sync --locked, cargo fetch
+    --locked); caches keyed on runner.os + runner.arch + hashFiles of the
+    pin/lockfiles with no restore-keys; CI then runs exactly `pnpm run doctor`
+    and `pnpm verify` (`run` is required — pnpm's unrelated built-in
+    `doctor` command shadows the bare script form; caught by the
+    clean-clone simulation and fixed before push) (no CI-only subset), asserts a clean porcelain, and
+    uploads only failure-scoped Playwright artifacts from test-results/
+    (7-day retention).
+  - `contract-gen` registry suite (owner M01-W02) — generated-contract
+    drift lifecycle: NOT_YET_APPLICABLE today, REQUIRED_MISSING the moment
+    M01-W02 begins without a real generator at scripts/generate-contracts.*;
+    documented as distinct from the M01-W05 `contract` compatibility suite.
+    Registry now has 13 suites.
+  - M00-W05 audit-finding fix (KI-0004): validate_status.py ledger
+    validation now requires, for every required gate, exactly one
+    `## <GATE>` section in docs/CRITICAL_GATES.md containing exactly one
+    valid `- State:` line agreeing with the PROJECT_STATUS gates table;
+    missing sections, missing/duplicate state lines, invalid values, and
+    unknown gate-like sections are rejected.
+  - Tests: scripts/tests/test_doctor.py (20 tests — injected-runner
+    negatives for wrong Node/pnpm/uv/Python/cargo/rustup-proxy/rustfmt/
+    clippy/browser, fixture-repo negatives for missing memory file/gate
+    report/invalid status, JSON validity + run-to-run stability, remediation
+    rendering, tracked-file neutrality, preflight failure propagation in
+    both directions), scripts/tests/test_ci_workflow.py (19 static workflow
+    tests — duplicate-key-rejecting parse, read-only permissions, SHA-pinned
+    official actions with version annotations, macOS+Linux matrix, frozen
+    installs, doctor+verify-only invocation allowlist, failure-scoped
+    artifact policy vs playwright.config.ts, cache-key identity,
+    no continue-on-error, no http(s) in run steps, contract-gen
+    ownership/lifecycle), and 5 new ledger regression tests in
+    test_validate_status.py. conftest GOOD_SCRIPTS extended with
+    doctor/preflight.
+- Commands and observed results (pinned PATH; all run in the current tree):
+  - `pnpm install --frozen-lockfile` → exit 0. `uv sync --locked` → exit 0.
+  - `pnpm run doctor` → exit 0 — 18 PASS, 1 WARNING (dirty tree,
+    mid-package), 0 FAIL, 3 NOT_YET_APPLICABLE (contract-gen M01-W02,
+    contract M01-W05, visual M10-W06). `pnpm run doctor --json` → exit 0,
+    parsed, byte-stable across consecutive runs (asserted in tests as
+    well).
+  - `pnpm preflight` → exit 0 — doctor summary above, then the canonical
+    aggregate: `verification exit code: 0` with 13 registry suites
+    (toolchain, format, lint, typecheck, unit-ts PASS; contract-gen +
+    contract + visual NOT_YET_APPLICABLE with owner labels; e2e-browser,
+    python, rust, status, integrity PASS).
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:e2e`, `pnpm test:python`, `pnpm test:rust` → exit 0 each.
+  - `uv run pytest scripts/tests -q` → 101 passed (35 M00-W04 runner + 27
+    validator incl. 5 new ledger cases + 20 doctor + 19 CI-workflow);
+    full `pnpm test:python` pytest count 102 (includes the orchestrator
+    smoke test).
+  - `python3 scripts/validate_status.py` → exit 0, PASS (25 check groups),
+    re-run after every status edit.
+  - `pnpm verify` from the final content tree → recorded below in this
+    entry's closeout note (run after the last documentation edits).
+  - Clean-clone simulation → recorded below (temporary file:// clone of the
+    content commit; install → doctor → verify; clone removed afterwards).
+- Negative-path results (all fail-closed, automated): wrong Node
+  (v26.0.0), wrong pnpm, missing uv, wrong Python patch (3.12.14), missing
+  cargo, cargo resolving outside the pinned rustup toolchain, missing
+  rustfmt, missing Clippy, missing Chromium executable → doctor FAIL with
+  actionable remediation; missing canonical memory file, missing Workday
+  gate report, corrupt PROJECT_STATUS → doctor FAIL; preflight with a
+  failing doctor never starts verification (marker-file proof) and
+  propagates a failing verify child's exit code (3); ledger negatives:
+  missing `- State:` line, duplicate state lines, missing `## GATE`
+  section (with names still present elsewhere), unknown gate-like section,
+  invalid state value → validator exit 1 each; contract-gen with M01-W02
+  IN_PROGRESS and no generator → REQUIRED_MISSING (derive_state).
+- Hosted CI evidence: recorded in the stamp commit after observing the
+  runs — macOS run ID/URL and Linux run ID/URL pending observation at the
+  time this entry is committed; M00-W06 is not marked VERIFIED before both
+  hosted jobs complete successfully.
+- Test counts: pytest 101/101 (scripts) and 102/102 (full); TS unit 8/8
+  package tasks; Playwright 1/1; Rust 1/1; validator PASS 25 groups.
+- Artifacts: none persisted locally (Playwright artifacts remain
+  failure-only and git-ignored).
+- Notes: the doctor duplicates no verification logic — file/scripts
+  checks reuse verify.py and validate_status.py constants, suite states
+  come from verify.load_registry/derive_state, and preflight invokes the
+  canonical `pnpm verify` command itself. KI-0002 remains FIXED; KI-0004
+  records the audit finding fixed here.
+
 ### M00-W05 — Adopt and migrate the v1.2 Workday-first critical-risk rebaseline (2026-07-26)
 
 - Revision: tree 0c6fe779cc56755983d39951cabcdf201867bae2 / commit
