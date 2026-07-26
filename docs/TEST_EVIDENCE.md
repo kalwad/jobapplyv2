@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W04 — Create root verification commands (2026-07-26)
 
-- Revision: tree recorded post-commit / commit recorded post-commit (stamped
-  in the follow-up commit per the anchoring convention above).
+- Revision: tree 6c798abfd76824fd43c09c72615a3a976406f081 / commit
+  5181538ba8d76fc8b75155dd2e8514797a13647b (stamped in the follow-up commit
+  per the anchoring convention above).
 - Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
   active and re-verified live — Node v24.18.0 (keg + .nvmrc), pnpm 11.17.0
   (Corepack shim, packageManager), uv 0.11.32 (required-version), Python
