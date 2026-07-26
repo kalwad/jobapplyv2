@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.2
-Repository revision: tree 0c6fe779cc56755983d39951cabcdf201867bae2 (commit c2c834ef44892b70706e0ee1985d1fda1fb8f4da)
-Last updated: 2026-07-26T19:05:00Z
+Repository revision: tree 135a4c1ffa7cdd43dd2be11baea4ee01721055b9 (commit 16072e528e45379fe7d7c4f7df75a3fcba7ed67d)
+Last updated: 2026-07-26T19:36:13Z
 Current phase: A — Contract, measurement, and early autofill challenge
 Current milestone: M00
-Current work package: `M00-W06`
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -22,13 +22,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M00-W06 (Create CI and local preflight) is IN_PROGRESS. M00-W05 received AUDIT_PASS from the independent clean-worktree audit with one confirmed LOW finding (a CRITICAL_GATES.md gate section stripped of its `- State:` line evades the ledger-agreement check); fixing that finding with regression tests is in this package's scope per the owner instruction.
-- Objective: deterministic GitHub Actions CI for macOS and Linux (read-only permissions, pinned actions/toolchains, frozen installs, dependency caches keyed on OS/tool/lockfiles, failure-scoped Playwright artifact upload) plus a local environment doctor (`pnpm doctor`) and preflight (`pnpm preflight`) that reuse the canonical verification implementation; an honest generated-contract lifecycle suite owned by M01-W02 (NOT_YET_APPLICABLE now, REQUIRED_MISSING at activation); fix the audit finding in scripts/validate_status.py ledger validation.
-- Dependencies verified: M00 has no dependency milestones; M00-W01 through M00-W05 are VERIFIED (audit: AUDIT_PASS at 088101cb).
-- Critical-gate prerequisites: none for M00-W06 (gate blocking starts at M03/M06/M21; all three gates NOT_EVALUATED is valid for M00–M02 work).
-- Files expected to change: .github/workflows/ci.yml (new), scripts/doctor.py (new), scripts/validate_status.py (ledger fix), scripts/verify.py (root-script list), scripts/verification-suites.json (contract-gen suite), scripts/tests/ (test_doctor.py, test_ci_workflow.py new; conftest + test_validate_status.py extended), package.json (doctor/preflight scripts), pyproject.toml (doctor gating + yaml dev deps), uv.lock, README.md, docs/KNOWN_ISSUES.md (KI-0004), docs/PROJECT_STATUS.md, docs/TEST_EVIDENCE.md.
-- Required tests: full `uv run pytest scripts/tests` (existing 57 + new doctor/CI/ledger suites); `python3 scripts/validate_status.py`; `pnpm doctor`, `pnpm doctor --json`, `pnpm preflight`, full `pnpm verify`; clean-clone simulation; hosted GitHub Actions runs on macOS and Linux must pass before VERIFIED.
-- Required manual/holdout evidence: hosted CI run inspection (run IDs/URLs recorded in TEST_EVIDENCE); no holdout machinery in this package (starts at M02).
+- State: no work package is IN_PROGRESS. Last completed: M00-W06 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W06). The repository now has hosted CI (GitHub Actions run 30217098337: doctor + verify green on macos-15 and ubuntu-24.04 at the verified revision) executing exactly the canonical local commands (`pnpm run doctor`, `pnpm verify`), a read-only/SHA-pinned/frozen-install workflow with identity-keyed caches and failure-scoped Playwright artifacts, a stdlib-only environment doctor with JSON mode and `pnpm preflight`, the honest `contract-gen` drift-lifecycle suite (owner M01-W02, NOT_YET_APPLICABLE), and the M00-W05 audit finding fixed (KI-0004 FIXED: ledger gate sections require exactly one valid `- State:` line; 5 regression tests).
+- Objective: next up is M00-W07 — Seed traceability and status (enter every v1.2 requirement and work package into traceability/status files, assign dependencies and critical-gate effects, validate counts, identify the next READY package).
+- Dependencies verified: for M00-W07 — M00 has no dependency milestones; M00-W01 through M00-W06 are VERIFIED.
+- Critical-gate prerequisites: none for M00-W07 (gate blocking starts at M03/M06/M21; all three gates NOT_EVALUATED is valid for M00–M02 work).
+- Files expected to change: (set when M00-W07 starts)
+- Required tests: (set when M00-W07 starts)
+- Required manual/holdout evidence: (set when M00-W07 starts; holdout machinery itself starts at M02)
 - Blockers: none.
 
 ## Milestone table
@@ -84,8 +84,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W03` | VERIFIED | tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
 | `M00-W04` | VERIFIED | tree 6c798abfd76824fd43c09c72615a3a976406f081 | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
-| `M00-W06` | IN_PROGRESS | — | — | Create CI and local preflight |
-| `M00-W07` | NOT_STARTED | — | — | Seed traceability and status |
+| `M00-W06` | VERIFIED | tree 135a4c1ffa7cdd43dd2be11baea4ee01721055b9 | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight |
+| `M00-W07` | READY | — | — | Seed traceability and status |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
@@ -342,8 +342,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M00-W06 is IN_PROGRESS. When it is VERIFIED, M00-W07 (Seed traceability and status) becomes READY as the next package in M00's listed order.
+- ID: `M00-W07`
+- Reason: M00-W01 through M00-W06 are VERIFIED; M00-W07 (Seed traceability and status) is the next package in M00's listed order, and M00 has no dependency milestones.
 - Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §M00 (W06 row: CI for macOS and Linux, dependency caching, generated-contract checks, root verification, Playwright trace artifact retention, local environment doctor), §8.5–8.6, §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md (ADR-0001); docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W05 and § M00-W04 (the verify runner CI will invoke, its suite states, and the pinned-toolchain activation notes); docs/KNOWN_ISSUES.md (KI-0001, KI-0003).
 
 ## Known release blockers

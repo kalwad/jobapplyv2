@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W06 — Create CI and local preflight (2026-07-26)
 
-- Revision: stamp pending (recorded in the follow-up stamp commit per the
-  anchoring convention above, together with the hosted CI run IDs).
+- Revision: tree 135a4c1ffa7cdd43dd2be11baea4ee01721055b9 / commit
+  16072e528e45379fe7d7c4f7df75a3fcba7ed67d (stamped in the follow-up commit
+  per the anchoring convention above).
 - Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
   active (Node v24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
   rustc/cargo 1.97.1, @playwright/test 1.62.0 pinned Chromium). New dev
@@ -125,10 +126,20 @@ Exact verification commands and summarized results
   section (with names still present elsewhere), unknown gate-like section,
   invalid state value → validator exit 1 each; contract-gen with M01-W02
   IN_PROGRESS and no generator → REQUIRED_MISSING (derive_state).
-- Hosted CI evidence: recorded in the stamp commit after observing the
-  runs — macOS run ID/URL and Linux run ID/URL pending observation at the
-  time this entry is committed; M00-W06 is not marked VERIFIED before both
-  hosted jobs complete successfully.
+- Hosted CI evidence (observed live via gh before VERIFIED was recorded):
+  workflow `ci` run 30217098337 on the verified content commit
+  16072e528e45379fe7d7c4f7df75a3fcba7ed67d → conclusion success —
+  https://github.com/kalwad/jobapplyv2/actions/runs/30217098337 — with both
+  matrix jobs completed successfully: "doctor + verify (macos-15)" (job
+  89833100002) and "doctor + verify (ubuntu-24.04)" (job 89833100004).
+  Every step green on both OSes (checkout, pinned Node/pnpm/uv/Rust
+  activation, four caches, frozen installs, Chromium install, doctor,
+  canonical verification, no-tracked-changes assertion); the failure-only
+  artifact-upload step was skipped, as designed, because nothing failed.
+  The clean-clone simulation additionally caught pre-push that bare
+  `pnpm doctor` invokes pnpm's unrelated built-in doctor command — the
+  canonical invocation is `pnpm run doctor` everywhere (workflow, README,
+  static tests assert the bare form is absent).
 - Test counts: pytest 101/101 (scripts) and 102/102 (full); TS unit 8/8
   package tasks; Playwright 1/1; Rust 1/1; validator PASS 25 groups.
 - Artifacts: none persisted locally (Playwright artifacts remain
