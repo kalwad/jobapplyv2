@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W05 — Adopt and migrate the v1.2 Workday-first critical-risk rebaseline (2026-07-26)
 
-- Revision: stamp pending (recorded in the follow-up stamp commit per the
-  anchoring convention above).
+- Revision: tree 0c6fe779cc56755983d39951cabcdf201867bae2 / commit
+  c2c834ef44892b70706e0ee1985d1fda1fb8f4da (stamped in the follow-up commit
+  per the anchoring convention above).
 - Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
   active (Node v24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
   rustc/cargo 1.97.1, @playwright/test 1.62.0 with pinned Chromium) —

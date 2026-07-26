@@ -1,7 +1,7 @@
 # Project Status
 
 Spec version: 1.2
-Repository revision: tree 6c798abfd76824fd43c09c72615a3a976406f081 (commit 5181538ba8d76fc8b75155dd2e8514797a13647b — last stamped verification anchor, M00-W04; restamped at M00-W05 closeout)
+Repository revision: tree 0c6fe779cc56755983d39951cabcdf201867bae2 (commit c2c834ef44892b70706e0ee1985d1fda1fb8f4da)
 Last updated: 2026-07-26T18:47:25Z
 Current phase: A — Contract, measurement, and early autofill challenge
 Current milestone: M00
@@ -83,7 +83,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W02` | VERIFIED | tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140 | docs/TEST_EVIDENCE.md § M00-W02 | Scaffold the monorepo |
 | `M00-W03` | VERIFIED | tree 323df745c419d8cc7809e88f10bbeca018fdfbb2 | docs/TEST_EVIDENCE.md § M00-W03 | Establish strict toolchain configuration |
 | `M00-W04` | VERIFIED | tree 6c798abfd76824fd43c09c72615a3a976406f081 | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
-| `M00-W05` | VERIFIED | stamp pending | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
+| `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
 | `M00-W06` | READY | — | — | Create CI and local preflight |
 | `M00-W07` | NOT_STARTED | — | — | Seed traceability and status |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
