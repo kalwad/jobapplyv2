@@ -5,7 +5,7 @@ Late-stage permitted-source job collectors (docs/MASTER_IMPLEMENTATION_SPEC.md
 licensed providers, with provenance and terms metadata (REQ-DISC-001).
 
 This directory is intentionally empty apart from this README. The workers
-are implemented in phase G (M31+), and the package joins the Python
+are implemented in phase I (M32+, spec v1.2), and the package joins the Python
 workspace in `pyproject.toml` at that point. Creating code here earlier
 would violate owner decision OD-005 (aggregation is deliberately
 late-stage work).

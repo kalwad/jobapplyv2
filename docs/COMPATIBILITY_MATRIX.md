@@ -8,18 +8,36 @@ ATS/browser/OS support and measured pass rates
 - Only measured, evidence-linked results may appear here. No claimed support
   without fixtures, a recorded test run, and a `docs/TEST_EVIDENCE.md` entry.
 - Untested or unsupported variants must be listed and labeled as such rather
-  than omitted (spec M21-W05, M27-W06, M30-W04): compatibility is published
-  honestly, never inflated.
-- A row's "Last verified revision" must be a commit whose recorded evidence
-  actually exercised that row.
-- Population begins when the producing milestones run: browsers/OS from
-  M03/M17 onward, ATS adapters from M19 onward (Greenhouse), then Lever (M20),
-  Ashby (M21), Workday (M27), iCIMS/SmartRecruiters (M28),
-  Taleo/SuccessFactors (M29).
+  than omitted (spec v1.2: M19-W01/M20 Workday certification, M23-W05
+  initial adapter matrix, M31-W04 compatibility dashboard, M37-W06 published
+  limits): compatibility is published honestly, never inflated.
+- Compatibility claims are limited to measured ATS families, tenant/layout
+  patterns, browser versions, adapter versions, locales, session modes, and
+  last-tested dates (OD-018, REQ-FORM-021, REQ-WD-020). Universal support —
+  "every ATS", "all Workday tenants" — is prohibited.
+- A row's "Last verified revision" must be a commit/tree whose recorded
+  evidence actually exercised that row.
+- Population begins when the producing milestones run: research (non-claim)
+  evidence from M02; browsers/OS from M03/M17 onward; production ATS
+  adapters Workday-first — Workday (M19–M20), then Greenhouse (M21),
+  Lever (M22), Ashby (M23), iCIMS/SmartRecruiters (M29),
+  Taleo/SuccessFactors (M30).
+
+## Workday tenant patterns (first production ATS — spec §5.11.9.13)
+
+Nothing measured yet (Workday production adapter: M19; guided pre-submit
+certification: M20). Certification records are scoped to tenant/layout/
+locale/session patterns, never the Workday brand.
+
+| Tenant pattern | Locales | Session modes | Adapter version | Browser version | Precision | Recall | Final-review reach rate | Manual corrections | State | Last tested | Evidence |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| — | — | — | — | — | — | — | — | — | — | — | — |
 
 ## ATS adapters
 
-Nothing measured yet — no adapter exists (first adapter: M19, Greenhouse).
+Nothing measured yet — no adapter exists (first production adapter: M19,
+Workday; M02 produces research evidence only, which never becomes a support
+claim).
 
 | ATS | Adapter version | Tenant/layout variants tested | Field precision | Recall | Sensitive false fills | Receipt detection | Last verified revision | Evidence |
 |---|---|---|---|---|---|---|---|---|
@@ -27,7 +45,8 @@ Nothing measured yet — no adapter exists (first adapter: M19, Greenhouse).
 
 ## Browsers (extension)
 
-Nothing measured yet (extension foundation: M17).
+Nothing measured yet (feasibility extension: M02-W07 in pinned Playwright
+Chromium; production extension foundation: M17).
 
 | Browser | Version range | Extension status | Last verified revision | Evidence |
 |---|---|---|---|---|

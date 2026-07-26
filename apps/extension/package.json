@@ -2,5 +2,5 @@
   "name": "@japp/extension",
   "version": "0.0.1",
   "private": true,
-  "description": "Browser extension (WXT + React + TypeScript, Manifest V3 per spec §5.2). Workspace slot created in M00-W02; the extension is scaffolded in M17-W01, so this package intentionally has no code or scripts yet."
+  "description": "Browser extension (WXT + React + TypeScript, Manifest V3 per spec §5.2). Workspace slot created in M00-W02; per spec v1.2 the real MV3 feasibility extension is scaffolded in M02-W07 and productionized in M17-W01, so this package intentionally has no code or scripts yet."
 }

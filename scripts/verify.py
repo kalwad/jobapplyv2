@@ -76,6 +76,7 @@ MEMORY_FILES = (
     "docs/KNOWN_ISSUES.md",
     "docs/COMPATIBILITY_MATRIX.md",
     "docs/REQUIREMENTS_TRACEABILITY.md",
+    "docs/CRITICAL_GATES.md",
 )
 
 LOCKFILES = ("pnpm-lock.yaml", "uv.lock", "services/native-host/Cargo.lock")

@@ -32,6 +32,7 @@
           "--check",
           "services",
           "scripts/verify.py",
+          "scripts/validate_status.py",
           "scripts/tests"
         ],
         [
@@ -68,7 +69,15 @@
       "commands": [
         ["pnpm", "exec", "turbo", "run", "typecheck"],
         ["pnpm", "exec", "tsc", "-p", "tsconfig.json"],
-        ["uv", "run", "mypy", "services", "scripts/verify.py", "scripts/tests"]
+        [
+          "uv",
+          "run",
+          "mypy",
+          "services",
+          "scripts/verify.py",
+          "scripts/validate_status.py",
+          "scripts/tests"
+        ]
       ],
       "proofs": [{ "kind": "turbo_task_count", "script": "typecheck" }],
       "discovery_globs": [],
@@ -163,6 +172,7 @@
           "check",
           "services",
           "scripts/verify.py",
+          "scripts/validate_status.py",
           "scripts/tests"
         ],
         [
@@ -173,9 +183,18 @@
           "--check",
           "services",
           "scripts/verify.py",
+          "scripts/validate_status.py",
           "scripts/tests"
         ],
-        ["uv", "run", "mypy", "services", "scripts/verify.py", "scripts/tests"],
+        [
+          "uv",
+          "run",
+          "mypy",
+          "services",
+          "scripts/verify.py",
+          "scripts/validate_status.py",
+          "scripts/tests"
+        ],
         ["uv", "run", "pytest"]
       ],
       "proofs": [{ "kind": "pytest_min_passed", "min": 1 }],

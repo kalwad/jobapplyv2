@@ -2,7 +2,7 @@
   "name": "@japp/ats-adapters",
   "version": "0.0.1",
   "private": true,
-  "description": "ATS adapters — Greenhouse, Lever, Ashby, and later families (spec §5.1); first adapter arrives in M19. Scaffold created in M00-W02.",
+  "description": "ATS adapters (spec v1.2 §5.1): M02 research adapters; Workday-first production in M19-M20; Greenhouse/Lever/Ashby and later families after the Workday gate. Scaffold created in M00-W02.",
   "type": "module",
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",

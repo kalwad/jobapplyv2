@@ -8,11 +8,12 @@ see [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
 
 ## Layout (spec §5.1)
 
-- `apps/` — `desktop` (Tauri 2, M03+), `extension` (WXT MV3, M17+),
-  `mock-ats-lab` (deterministic fixtures, M02+)
+- `apps/` — `desktop` (Tauri 2, M03+), `extension` (WXT MV3 — real
+  feasibility extension in M02, productionized M17+), `mock-ats-lab`
+  (deterministic fixtures, M02+)
 - `services/` — `orchestrator` (Python 3.12 + FastAPI, M03+),
   `native-host` (Rust native-messaging bridge, M17-W04),
-  `job-index-api` / `job-ingestion-worker` (late stage, M31+)
+  `job-index-api` / `job-ingestion-worker` (late stage, M32+)
 - `packages/` — shared TypeScript workspace packages (contracts, domain,
   ui, resume-schema, form-engine, ats-adapters, security, test-fixtures)
 - `e2e/` — browser-toolchain infrastructure smoke test (Playwright;

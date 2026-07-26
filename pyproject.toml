@@ -22,7 +22,7 @@ orchestrator = { workspace = true }
 
 [tool.uv.workspace]
 # services/job-index-api and services/job-ingestion-worker join the workspace
-# when their milestones begin (M31+); they are directories with READMEs until then.
+# when their milestones begin (M32+, spec v1.2); they are directories with READMEs until then.
 members = ["services/orchestrator"]
 
 [dependency-groups]
@@ -87,6 +87,10 @@ ignore = [
     # disable it when the formatter is in use).
     "ISC001",
 ]
+# The status validator parses the canonical specification, whose headings and
+# milestone ranges legitimately use em/en dashes ("## M00 — …", "M18–M23");
+# regexes must match those exact characters (RUF001).
+allowed-confusables = ["–", "—"]
 
 [tool.ruff.lint.per-file-ignores]
 # Pytest tests use bare `assert` by design; S101 would ban it.
@@ -95,6 +99,8 @@ ignore = [
 # argv-only commands from the tracked registry with no shell (S404/S603) and
 # tool names resolved from PATH by design (S607).
 "scripts/verify.py" = ["T201", "S404", "S603", "S607"]
+# The status validator is a CLI as well (T201: printing violations is its job).
+"scripts/validate_status.py" = ["T201"]
 # Runner tests: pytest asserts (S101), subprocess fixtures (S404/S603/S607),
 # and literal exit codes/counts in assertions (PLR2004).
 "scripts/tests/**" = ["S101", "S404", "S603", "S607", "PLR2004"]
@@ -105,6 +111,6 @@ strict = true
 warn_unreachable = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "possibly-undefined"]
 pretty = true
-files = ["services", "scripts/verify.py", "scripts/tests"]
+files = ["services", "scripts/verify.py", "scripts/validate_status.py", "scripts/tests"]
 mypy_path = ["services/orchestrator/src", "scripts", "scripts/tests"]
 explicit_package_bases = true

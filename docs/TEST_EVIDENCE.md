@@ -33,6 +33,116 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W05 — Adopt and migrate the v1.2 Workday-first critical-risk rebaseline (2026-07-26)
+
+- Revision: stamp pending (recorded in the follow-up stamp commit per the
+  anchoring convention above).
+- Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); pinned toolchain
+  active (Node v24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
+  rustc/cargo 1.97.1, @playwright/test 1.62.0 with pinned Chromium) —
+  unchanged from M00-W04.
+- What this package did: owner-approved adoption of JAPP-MASTER-001 v1.2 as
+  the canonical specification (ADR-0001, ACCEPTED; owner-decision registry
+  extended to OD-020). The canonical file was replaced atomically via a
+  single rename of the owner-supplied proposed copy
+  (`mv docs/MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md
+  docs/MASTER_IMPLEMENTATION_SPEC.md`), which also removed the proposed
+  copy; exactly one canonical specification remains. New project memory:
+  docs/CRITICAL_GATES.md (three-gate ledger with §2.3 metric tables) and
+  docs/gates/ (three gate report templates + HOLDOUT_EXECUTION_LOG.md).
+  docs/PROJECT_STATUS.md regenerated in the §12 v1.2 shape (critical-gates
+  table; 39 milestones M00–M38; 260 work packages) via a one-off generator
+  that used the permanent validator's own spec parser. CLAUDE.md,
+  KNOWN_ISSUES (KI-0001 refs updated, KI-0002 FIXED), COMPATIBILITY_MATRIX
+  (Workday-first + tenant-pattern table), REQUIREMENTS_TRACEABILITY (135
+  requirements, seeding moved to M00-W07, final audit M38-W01), README, and
+  stale v1.0 milestone references in workspace-slot files migrated.
+  scripts/validate_status.py rewritten for v1.2 (exact 39/260/135 inventory
+  enforcement, critical-gates table + ledger agreement, gate-based readiness
+  blocking, ACCEPTED-milestone prerequisites, verified-evidence
+  preservation, single-canonical-spec rule) and brought under the strict
+  Ruff/mypy/pytest gates; new automated suite
+  scripts/tests/test_validate_status.py (22 tests). verify.py MEMORY_FILES
+  gained docs/CRITICAL_GATES.md; registry/format/typecheck/python command
+  paths gained scripts/validate_status.py.
+- Hashes: replaced canonical v1.0 sha256
+  2ddbda1db42cb4a4efdb61415ee1f348811f088f3d70b0a5570f6b4e0570dac8
+  (byte-identical to the owner's original upload recorded in § M00-W01);
+  adopted canonical v1.2 sha256
+  9faa4da58b566c56e70a773b31ac7bea3b4ca7b565fa333abf16cf6ee73bd901
+  (byte-identical to the owner-supplied proposed file, verified before and
+  after the rename).
+- Commands and observed results (pinned PATH):
+  - Pre-migration baseline: `pnpm verify` → exit 0 (all mandatory suites
+    PASS; contract/visual NOT_YET_APPLICABLE) — live confirmation that
+    M00-W01…W04 verification held before any edit.
+  - Mechanical inventory extraction (one-off script, same regex conventions
+    as the validator) on the proposed file → 39 milestones, 260 unique work
+    packages, 135 unique requirements; v1.0 canonical → 38/227/74 (matches
+    § M00-W01). Re-run against the adopted canonical after the rename →
+    identical 39/260/135 (families: PROF 7, RES 18, JOB 7, ANS 10, FORM 26,
+    WD 23, TRACK 6, DISC 4, AUTO 8, PLAT 10, GATE 16).
+  - `python3 scripts/validate_status.py` (migrated tree) → exit 0,
+    `PASS: all checks passed (25 check groups)` — includes spec-inventory
+    counts, §12 gate-rule derivability, critical-gates table/ledger
+    agreement, gate report presence, dependency + ACCEPTED + gate readiness
+    rules, evidence preservation, and single-canonical-spec scan.
+  - `uv run pytest scripts/tests -q` → 57 passed (35 M00-W04 runner tests +
+    22 new validator tests). Validator negative matrix automated: invalid
+    package enum (M03-W02 → DONE), skipped dependency (M01-W01 READY),
+    two IN_PROGRESS, missing package row (M38-W07), stale/missing Workday
+    packages (M19/M20 rows removed → 22 missing reported), missing Workday
+    requirement (REQ-WD-023 deleted → "expected 135"), missing milestone
+    section (M38 truncated → "expected 39"), second canonical spec
+    (proposed-path copy), renamed canonical lookalike (header marker),
+    invalid gate state ("GREEN"), missing WORKDAY_GUIDED_PRE_SUBMIT row,
+    missing Workday gate report file, missing CRITICAL_GATES.md ledger,
+    gate PASS without evidence fields, status/ledger gate-state mismatch,
+    M03 blocked without AUTOFILL_FEASIBILITY (with dependency noise proven
+    absent), M06 blocked without RESUME_PAGEFIT_FEASIBILITY, M21 blocked
+    without WORKDAY_GUIDED_PRE_SUBMIT + M19/M20 ACCEPTED, dropped preserved
+    revision (M00-W03), missing evidence heading (M00-W02); positive: full
+    migrated repo passes, and AUTOFILL_FEASIBILITY = PASS with complete
+    evidence fields unblocks M03-W01 (exit 0).
+  - Live negative demonstration (in addition to the automated suite): the
+    committed v1.0-shaped status (`git show HEAD:docs/PROJECT_STATUS.md`)
+    against the new validator via `--status` → exit 1: missing critical
+    gates (incl. WORKDAY_GUIDED_PRE_SUBMIT), `milestone table missing:
+    ['M38']`, `work-package table missing 41 package(s)`, and 8 v1.0-only
+    IDs (M22-W06, M23-W06/07, M30-W05, M31-W06/07, M34-W07, M37-W07)
+    rejected as unknown — the stale-inventory rejection required by §13.8.
+  - Post-migration aggregate: `pnpm verify` → exit 0 — toolchain, format,
+    lint, typecheck, unit-ts, e2e-browser, python (ruff + strict mypy over
+    services + verify.py + validate_status.py + tests; pytest 57), rust,
+    status (new validator), integrity (incl. docs/CRITICAL_GATES.md) all
+    PASS; contract/visual NOT_YET_APPLICABLE (owners M01-W05/M10-W06 keep
+    identical IDs and meaning under v1.2); status-neutral. Re-run from the
+    final closeout tree after the status edits below → exit 0.
+  - `uv run ruff check` / `uv run ruff format --check` / `uv run mypy` over
+    services + scripts/verify.py + scripts/validate_status.py +
+    scripts/tests → exit 0 each (validator now inside the strict gates —
+    KI-0002 FIXED).
+- Test counts: pytest 57/57 (runner 35, validator 22); TS unit 8/8 package
+  tasks (forced, inside verify); Playwright 1/1; Rust 1/1; validator PASS
+  25 check groups; all lint/format/type commands exit 0.
+- Artifacts: none persisted (documents/validator migration; no UI/browser
+  surface — Playwright artifacts remain failure-only and git-ignored).
+- Manual validation: complete `git status`/`git diff --stat` review of the
+  change set (16 modified + 3 added paths, no unintended files); canonical
+  byte-identity verified by sha256 before/after the rename; preserved
+  M00-W01…W04 revisions re-grepped verbatim from the migrated table;
+  tracked-file sweep for stale v1.0 milestone references (workspace-slot
+  READMEs/package descriptions, pyproject comment) updated to v1.2
+  numbering; owner's gitignored root upload left untouched and ignored.
+- Notes:
+  - The `stamp pending` marker in the W05 status row and this revision line
+    is the validator-accepted placeholder between the content commit and the
+    stamp commit; the stamp commit replaces both with the content commit's
+    tree/commit hashes.
+  - Historical entries below this one describe v1.0-era package IDs and
+    section numbers as they were at the time; they are records, not current
+    references, and are intentionally not rewritten.
+
 ### M00-W04 — Create root verification commands (2026-07-26)
 
 - Revision: tree 6c798abfd76824fd43c09c72615a3a976406f081 / commit

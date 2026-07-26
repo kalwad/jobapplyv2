@@ -1,5 +1,5 @@
 /**
- * ATS adapters — Greenhouse, Lever, Ashby, and later families (spec §5.1); first adapter arrives in M19.
+ * ATS adapters (spec v1.2 §5.1): M02 research adapters; Workday-first production in M19-M20; Greenhouse/Lever/Ashby and later families after the Workday gate.
  *
  * Scaffold module created by M00-W02. Real implementations arrive with the
  * owning milestones; nothing here is product behavior.

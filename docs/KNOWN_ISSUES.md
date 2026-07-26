@@ -43,7 +43,10 @@ None recorded.
 - Severity: LOW
 - State: DEFERRED
 - Discovered: 2026-07-26 during M00-W02
-- Affects: M00-W02 (scaffold); resolved by M03-W01 / M17-W01 (first real build targets) and M00-W04 (aggregate verification semantics)
+- Affects: M00-W02 (scaffold); resolved by the first real build targets —
+  under spec v1.2 (adopted in M00-W05) that is M02-W07 (real MV3 feasibility
+  extension) and M03-W01 (desktop shell) — and M00-W04 (aggregate
+  verification semantics)
 - Description: the owner's M00-W02 instructions list build configuration among the
   required configs. The TypeScript workspace intentionally defines no `build`
   task: every TypeScript package in the scaffold is a `noEmit` slot with no
@@ -53,35 +56,38 @@ None recorded.
   exists today only where real compilation exists (the native-host crate via
   `cargo build`/`cargo test`). The Turborepo pipeline and per-package script
   slots are in place; the `build` task is added together with the first real
-  build target (desktop shell M03-W01, extension M17-W01), and M00-W04's
-  aggregate `pnpm verify` must fail on skipped mandatory suites.
+  build target (v1.2: feasibility extension M02-W07, desktop shell M03-W01),
+  and M00-W04's aggregate `pnpm verify` must fail on skipped mandatory
+  suites.
 - Reproduction: `turbo run build` — no such task is defined (by design, this
   errors rather than passing vacuously).
 - Workaround: n/a (nothing exists to build yet).
 - Resolution + evidence link: pending the packages above.
 
-### KI-0002 — scripts/validate_status.py predates the strict Python gates (deliberate deferral)
+### KI-0002 — scripts/validate_status.py predates the strict Python gates (fixed in M00-W05)
 
 - Severity: LOW
-- State: DEFERRED
+- State: FIXED
 - Discovered: 2026-07-26 during M00-W04
 - Affects: scripts/validate_status.py (M00-W01 deliverable); Python quality
   gates (M00-W03/M00-W04)
-- Description: the strict Ruff/mypy coverage added in M00-W03/M00-W04 spans
+- Description: the strict Ruff/mypy coverage added in M00-W03/M00-W04 spanned
   `services/`, `scripts/verify.py`, and `scripts/tests/`, but not
   `scripts/validate_status.py`, which was written stdlib-only in M00-W01
-  before the strict gates existed (it lacks some return-type annotations
-  and stricter-rule conformance). Its behavior is proven by the M00-W01
-  negative-case evidence and it is executed (not imported) by the verify
-  runner, so the gap is cosmetic, not functional. Annotating it and adding
-  it to the strict gates is parked to avoid touching a verified M00-W01
-  deliverable inside M00-W04's scope.
-- Reproduction: add `scripts/validate_status.py` to `[tool.mypy] files` and
-  the ruff command paths, run `uv run mypy` / `uv run ruff check` —
-  annotation findings appear.
-- Workaround: n/a (the script's own 4-negative-case evidence stands).
-- Resolution + evidence link: fold into a later M00 hardening or
-  housekeeping package with re-run of the M00-W01 negative cases.
+  before the strict gates existed. The gap was parked to avoid touching a
+  verified M00-W01 deliverable inside M00-W04's scope.
+- Reproduction: (historical) add `scripts/validate_status.py` to
+  `[tool.mypy] files` and the ruff command paths — annotation findings
+  appeared.
+- Workaround: n/a.
+- Resolution + evidence link: M00-W05 rewrote the validator for the v1.2
+  contract and brought it under the strict gates: it is now listed in
+  `[tool.mypy] files`, the Ruff check/format command paths
+  (scripts/verification-suites.json, package.json `format`), and is covered
+  by the automated pytest suite `scripts/tests/test_validate_status.py`,
+  which re-runs the M00-W01 negative-case matrix (invalid enum, two
+  IN_PROGRESS, skipped dependency, missing package row) plus the new v1.2
+  negative cases. Evidence: docs/TEST_EVIDENCE.md § M00-W05.
 
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 
@@ -100,7 +106,8 @@ None recorded.
   aliases (skips via those would appear only as skipped counts).
   (c) `BYPASS_SCAN_SUFFIXES` omits `.js` (no tracked `.js` config exists
   today). None is reachable in the current tree; all three are cheap,
-  mechanical hardenings for a later M00/M25 hardening pass.
+  mechanical hardenings for a later M00 or security-hardening pass
+  (v1.2: M27).
 - Reproduction: see docs/TEST_EVIDENCE.md § M00-W04 (final review
   observations 3–5).
 - Workaround: n/a (not currently exploitable; layered checks cover today's
