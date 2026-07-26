@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.2
-Repository revision: tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf (commit 124418f3a34389c4c56dced60a9fff9a5947adc4)
-Last updated: 2026-07-26T21:03:18Z
+Repository revision: tree fee2902010eb90704c05e584fb6ff7964327cb0b (commit 22e6f0ae826ef551edfaf025fbc523411ef62637)
+Last updated: 2026-07-26T21:10:18Z
 Current phase: A — Contract, measurement, and early autofill challenge
-Current milestone: M00
-Current work package: M00-W07
+Current milestone: M01
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -22,21 +22,19 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M00-W07 is IN_PROGRESS. Its 135-requirement/260-package traceability implementation and local M00 audit pass; fresh-clone and hosted content-revision proof remain before closeout stamping. M00-W06 is VERIFIED at repair content tree `9f9adc79cea15cb2f3a855b2b66463467822b5bf`; final stamp-commit run 30218521997 passed required macOS and Linux jobs at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
-- Objective: seed complete v1.2 requirement traceability and the deterministic work-package dependency/readiness map, validate both canonical inventories, and audit the M00 exit gate without beginning M01.
-- Dependencies verified: M00 has no dependency milestones; M00-W01 through M00-W06 are VERIFIED.
-- Critical-gate prerequisites: none for M00-W07 (gate blocking starts at M03/M06/M21; all three gates remaining NOT_EVALUATED is valid).
-- Files expected to change: traceability metadata/view/tooling/tests plus project-memory, root-command, and verification integration files required by M00-W07.
-- Required tests: exact 135/260 inventory, schema/enums, ownership/title drift, dependency integrity/cycles/gates/readiness, honest future states, completed-path/evidence existence, deterministic generation, and human/machine agreement; all existing M00 regressions remain required.
-- Required manual/holdout evidence: M00 package-by-package acceptance audit, deterministic fresh-clone proof, and hosted macOS/Linux CI for the content and final closeout revisions. Product holdout gates remain NOT_EVALUATED.
-- Blockers: none. Remaining closeout conditions are the committed-content fresh-clone proof and required hosted macOS/Linux CI; M00 remains IN_PROGRESS until both pass.
+- State: no package is IN_PROGRESS. M00-W07 is VERIFIED at content tree `fee2902010eb90704c05e584fb6ff7964327cb0b`; the complete M00 exit-gate audit passed, so M00 is ACCEPTED and only M01-W01 is READY.
+- Objective: next legitimate work is M01-W01, Define JSON Schema conventions. M01 implementation has not begun.
+- Dependencies verified: M00 is ACCEPTED. M01-W01 has no direct package prerequisite and its sole milestone prerequisite is now accepted.
+- Critical-gate prerequisites: none for M01-W01. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, and WORKDAY_GUIDED_PRE_SUBMIT remain NOT_EVALUATED; their downstream packages remain blocked by the canonical rules.
+- Evidence: the M00-W07 content commit `22e6f0ae826ef551edfaf025fbc523411ef62637` passed deterministic local and clean-clone validation plus hosted workflow run 30220428453 on macOS job 89841823180 and Linux job 89841823169.
+- Blockers: none for beginning M01-W01 in a future session. The overall release remains NOT_READY because M01–M38, all product acceptance metrics, and all three critical gates remain incomplete.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
-| M00 | IN_PROGRESS | — | Phase A. Repository contract, persistent project memory, and reproducible scaffold (deps: none) |
-| M01 | NOT_STARTED | — | Phase A. Shared contracts, identifiers, error model, capability model, and critical-risk evaluation contracts (deps: M00) |
+| M00 | ACCEPTED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | Phase A. Repository contract, persistent project memory, and reproducible scaffold (deps: none) |
+| M01 | READY | — | Phase A. Shared contracts, identifiers, error model, capability model, and critical-risk evaluation contracts (deps: M00 ACCEPTED) |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -85,8 +83,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W04` | VERIFIED | tree 6c798abfd76824fd43c09c72615a3a976406f081 | docs/TEST_EVIDENCE.md § M00-W04 | Create root verification commands |
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
 | `M00-W06` | VERIFIED | tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight; repair current-HEAD macOS CI with job-scoped rustup state |
-| `M00-W07` | IN_PROGRESS | — | — | Seed traceability and status |
-| `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions |
+| `M00-W07` | VERIFIED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | docs/TEST_EVIDENCE.md § M00-W07 | Seed traceability and status |
+| `M01-W01` | READY | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
 | `M01-W04` | NOT_STARTED | — | — | Define capability and command allowlists |
@@ -342,14 +340,15 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M00-W07 is the single IN_PROGRESS package. No later package may become READY until it is verified and the M00 exit gate is accepted.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §M00 (W07 row), §8.5–8.6, §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md (ADR-0001); docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W06; docs/KNOWN_ISSUES.md (KI-0001, KI-0003, KI-0005).
+- ID: M01-W01
+- Reason: every M00 package is VERIFIED and the complete M00 exit gate is ACCEPTED. M01-W01 is the first canonical M01 package; no later M01 package is READY because sequential ordering remains enforced.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §4, §9 (M01), §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/CRITICAL_GATES.md; docs/REQUIREMENTS_TRACEABILITY.md; docs/traceability.json; docs/TEST_EVIDENCE.md § M00-W07; docs/KNOWN_ISSUES.md.
 
 ## Known release blockers
 
-- All milestones M00–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all three critical gates are PASS at the final release revision (spec §2.2, §16).
+- Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all three critical gates are PASS at the final release revision (spec §2.2, §16).
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
+- M00 closeout guard satisfied: M00-W07 content run 30220428453 passed required macOS and Linux jobs for commit `22e6f0ae826ef551edfaf025fbc523411ef62637`; the final closeout stamp HEAD must also pass both jobs before handoff.
 - Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin`, so this blocker no longer applies to new work.
 
 ## Status conventions and update rules

@@ -20,8 +20,8 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 
 ## Deterministic next work
 
-- Current package: `M00-W07`
-- Next READY package: `NONE`
+- Current package: `NONE`
+- Next READY package: `M01-W01`
 - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every direct sequential package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
 
 ## Critical-gate effects
@@ -184,13 +184,13 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 | M00-W04 | Create root verification commands | VERIFIED | M00-W03 | — | — | — | Create root verification commands | Verification-runner positive, mutation, bypass, focus, skip, no-op, and empty-suite tests, pnpm verify | docs/TEST_EVIDENCE.md § M00-W04 | M00-W05 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W04) |
 | M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline | VERIFIED | M00-W04 | — | — | — | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline | v1.2 status/gate/inventory validator negative tests, pnpm verify | docs/TEST_EVIDENCE.md § M00-W05 | M00-W06 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W05) |
 | M00-W06 | Create CI and local preflight | VERIFIED | M00-W05 | — | — | — | Create CI and local preflight | Doctor, preflight, static CI-policy tests, local aggregate verification, and hosted matrix CI, pnpm verify | docs/TEST_EVIDENCE.md § M00-W06 | M00-W07 | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W06) |
-| M00-W07 | Seed traceability and status | IN_PROGRESS | M00-W06 | — | — | — | Seed traceability and status | Traceability/status/integrity positive and required negative tests, pnpm verify | M00 exit-gate audit, deterministic fresh-clone proof, and hosted macOS/Linux CI | — | M01, M02, M03, M28, M38 | — |
+| M00-W07 | Seed traceability and status | VERIFIED | M00-W06 | — | — | — | Seed traceability and status | Traceability/status/integrity positive and required negative tests, pnpm verify | M00 exit-gate audit, deterministic fresh-clone proof, and hosted macOS/Linux CI | — | M01, M02, M03, M28, M38 | docs/TEST_EVIDENCE.md (### M00-W07) |
 
 ### M01 — Shared contracts, identifiers, error model, capability model, and critical-risk evaluation contracts
 
 | Package | Exact title | State | Direct package prerequisite(s) | Milestone prerequisite(s) | Critical gate(s) | Explicit accepted qualifier(s) | Primary deliverable(s) | Automated verification | Manual/browser/document/holdout/hosted evidence | Direct downstream package(s) | Downstream milestone(s) | Current evidence |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| M01-W01 | Define JSON Schema conventions | NOT_STARTED | — | M00 | — | — | Define JSON Schema conventions | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W02 | M02, M03, M04, M06, M17, M28, M38 | — |
+| M01-W01 | Define JSON Schema conventions | READY | — | M00 | — | — | Define JSON Schema conventions | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W02 | M02, M03, M04, M06, M17, M28, M38 | — |
 | M01-W02 | Generate TypeScript and Python contracts | NOT_STARTED | M01-W01 | M00 | — | — | Generate TypeScript and Python contracts | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W03 | M02, M03, M04, M06, M17, M28, M38 | — |
 | M01-W03 | Define error taxonomy | NOT_STARTED | M01-W02 | M00 | — | — | Define error taxonomy | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W04 | M02, M03, M04, M06, M17, M28, M38 | — |
 | M01-W04 | Define capability and command allowlists | NOT_STARTED | M01-W03 | M00 | — | — | Define capability and command allowlists | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W05 | M02, M03, M04, M06, M17, M28, M38 | — |

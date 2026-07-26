@@ -35,7 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W07 — Seed traceability and status (2026-07-26)
 
-- Revision: content tree/commit pending while the package is IN_PROGRESS.
+- Revision: tree fee2902010eb90704c05e584fb6ff7964327cb0b / commit
+  22e6f0ae826ef551edfaf025fbc523411ef62637 (stamped in the conventional
+  follow-up commit after its hosted content run passed).
 - Starting prerequisite: HEAD and `origin/main` were both
   `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9` on `main`, with a clean tree.
   Final M00-W06 stamp run 30218521997 was successful on macOS and Linux;
@@ -156,10 +158,42 @@ Exact verification commands and summarized results
   - M00-W07 PASS locally: canonical metadata/view are complete, generation
     and check are deterministic, all required fraud/drift negatives pass,
     and valid M00 acceptance derives only M01-W01 as READY.
-- Pending before M00 acceptance: fresh-clone proof for the committed intended
-  content revision, then successful hosted macOS/Linux CI for that content
-  commit. Closeout state and M01-W01 readiness remain unstamped until those
-  complete; the final stamp HEAD must then pass both hosted jobs.
+- Clean-clone content proof: a temporary non-local clone checked out exact
+  commit `22e6f0ae826ef551edfaf025fbc523411ef62637`, activated the repository
+  pins, installed with `pnpm install --frozen-lockfile` and
+  `uv sync --locked`, fetched locked Cargo dependencies, and installed or
+  located the pinned Playwright Chromium. `pnpm run doctor`,
+  `pnpm preflight`, `pnpm verify`, `pnpm traceability:check`, and
+  `python3 scripts/validate_status.py` all exited 0. The clone contained
+  exactly one canonical specification, validated exactly 135 requirements
+  and 260 work packages, preserved all three gates as NOT_EVALUATED, and
+  had empty git porcelain afterward. As required at the pre-hosted content
+  boundary, that commit still reconstructed M00-W07 as IN_PROGRESS; the
+  temporary clone was then removed.
+- Hosted content proof: workflow run 30220428453 at commit
+  `22e6f0ae826ef551edfaf025fbc523411ef62637` concluded SUCCESS.
+  `doctor + verify (macos-15)` job 89841823180 and
+  `doctor + verify (ubuntu-24.04)` job 89841823169 both passed, including
+  the canonical doctor, aggregate verification, and no-tracked-change
+  assertion.
+- Closeout-state regression: the first focused
+  `uv run pytest scripts/tests/test_traceability.py
+  scripts/tests/test_validate_status.py -q` run after stamping the accepted
+  state exited 1 with 61 passed / 1 failed. The negative fixture tried to
+  make M01-W01 READY even though that is now the valid canonical baseline;
+  no validator failure was masked. The fixture now explicitly revokes
+  M00-W07 completion and M00 acceptance before asserting the skipped-
+  dependency rejection. Ruff check/format then passed, the focused suite
+  passed 62/62, `pnpm verify` exited 0 with all mandatory suites PASS and
+  146/146 Python tests, and `python3 scripts/validate_status.py` exited 0
+  with 26/26 check groups.
+- Acceptance decision: every M00-W01 through M00-W07 package audit and the
+  complete M00 exit gate pass at content tree
+  `fee2902010eb90704c05e584fb6ff7964327cb0b`. M00-W07 is therefore
+  VERIFIED, M00 is ACCEPTED, and only M01-W01 becomes READY. No M01
+  implementation began. The final closeout stamp HEAD must pass both hosted
+  jobs before handoff; its terminal run is reported at handoff rather than
+  creating another evidence-only commit and an unverified successor HEAD.
 - Security/privacy impact: metadata contains only specification text,
   repository paths, package IDs, and planned test/evidence categories. It
   contains no executable code, secrets, PII, real applicant data, live-site

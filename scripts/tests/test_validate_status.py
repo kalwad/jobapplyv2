@@ -209,7 +209,11 @@ def test_invalid_package_state_rejected(repo_copy: Path) -> None:
 
 
 def test_skipped_dependency_rejected(repo_copy: Path) -> None:
-    set_pkg_state(repo_copy, "M01-W01", "READY")
+    # The canonical post-M00 baseline legitimately has M01-W01 READY. Revoke
+    # the final M00 package and milestone acceptance to reconstruct the
+    # forbidden skipped-dependency transition explicitly.
+    set_pkg_state(repo_copy, "M00-W07", "NOT_STARTED")
+    set_ms_state(repo_copy, "M00", "IN_PROGRESS")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "dependency milestone M00 has unfinished packages" in result.stdout

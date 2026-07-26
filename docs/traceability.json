@@ -4279,8 +4279,8 @@
       "id": "M00-W07",
       "milestone": "M00",
       "title": "Seed traceability and status",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree fee2902010eb90704c05e584fb6ff7964327cb0b",
       "direct_package_prerequisites": [
         "M00-W06"
       ],
@@ -4308,13 +4308,18 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W07"
+        }
+      ]
     },
     {
       "id": "M01-W01",
       "milestone": "M01",
       "title": "Define JSON Schema conventions",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [
