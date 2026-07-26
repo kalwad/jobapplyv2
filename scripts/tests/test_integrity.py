@@ -56,6 +56,9 @@ def test_traceability_commands_and_source_are_repository_integrity_requirements(
         "required root script missing: 'traceability:check'" in f for f in failures
     )
     assert "docs/traceability.json" in verify.MEMORY_FILES
+    assert "docs/PLATFORM_SUPPORT.md" in verify.MEMORY_FILES
+    assert "docs/gates/CROSS_PLATFORM_CORE_GATE.md" in verify.MEMORY_FILES
+    assert "docs/platform/MODEL_RUNTIME_PROFILES.md" in verify.MEMORY_FILES
     assert "scripts/traceability.py" in verify.REQUIRED_SCRIPT_FILES
 
 

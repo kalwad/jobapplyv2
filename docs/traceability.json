@@ -1,18 +1,22 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "review": {
     "reviewed_in_work_package": "M00-W07",
+    "mechanically_extended_in_work_package": "M00-W08",
     "requirements_mapping_sha256": "c2b4275f13d1074dea1532ae8d2a9020668eb44751c371e562cc78e46844eec9",
     "work_package_dependency_sha256": "bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f",
+    "expanded_requirements_mapping_sha256": "5935754159ef421679ccf7a65928044946a4e5843f42ad38d152815dfbfff5fe",
+    "expanded_work_package_dependency_sha256": "5f73e8e49816e53842a66cd4bab70c2c412f837803556dcf733e74b029632130",
+    "v1_3_extension_review_state": "PROVISIONAL_PENDING_M00_W10",
     "derived_dependency_review": "Sequential direct-package edges are the reviewed derivation of specification §1 ordering plus each §9 listed package order; milestone and gate edges remain exact specification data."
   },
   "specification": {
     "id": "JAPP-MASTER-001",
-    "version": "1.2",
+    "version": "1.3",
     "path": "docs/MASTER_IMPLEMENTATION_SPEC.md",
-    "sha256": "9faa4da58b566c56e70a773b31ac7bea3b4ca7b565fa333abf16cf6ee73bd901",
-    "requirements_inventory_sha256": "473ebbaa2c5a9b5aed50cfbfdf986f5651cc0497617cf9b3bd0292ea7cf788d9",
-    "work_packages_inventory_sha256": "a3563af9a05954dcca65bf38d0f827bb9b1914a3b94c6dedc73d6f3967d27b27"
+    "sha256": "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867",
+    "requirements_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
+    "work_packages_inventory_sha256": "795f42dd7120401f58d97e7bcdaef0d6669c27b3f38c0602e9d64a4bfd9838c8"
   },
   "enums": {
     "requirement_implementation_states": [
@@ -48,6 +52,7 @@
       "AUTOFILL_FEASIBILITY",
       "RESUME_PAGEFIT_FEASIBILITY",
       "WORKDAY_GUIDED_PRE_SUBMIT",
+      "CROSS_PLATFORM_CORE",
       "M28_CORE_ALPHA",
       "M38_RELEASE",
       "OVERALL_RELEASE"
@@ -58,6 +63,10 @@
       "SPEC_MILESTONE_DEPENDENCY",
       "SPEC_CRITICAL_GATE_QUALIFIER",
       "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+    ],
+    "mapping_review_states": [
+      "REVIEWED_V1_2",
+      "PROVISIONAL_PENDING_M00_W10"
     ]
   },
   "dependency_policy": {
@@ -65,7 +74,7 @@
     "package_state_source": "docs/PROJECT_STATUS.md work-package table",
     "gate_state_source": "docs/PROJECT_STATUS.md critical-gates table + docs/CRITICAL_GATES.md",
     "sequential_package_order": "REVIEWED_DERIVED",
-    "sequential_derivation": "Each package after W01 directly requires the immediately preceding package in the same milestone unless the specification explicitly permits otherwise; v1.2 contains no such exception.",
+    "sequential_derivation": "Each package after W01 directly requires the immediately preceding package in the same milestone unless the specification explicitly permits otherwise; v1.3 contains no such exception.",
     "milestone_readiness_state": "ACCEPTED",
     "critical_gate_readiness_state": "PASS",
     "ready_tie_breaker": "When no package is IN_PROGRESS, choose the first eligible unfinished package in canonical milestone/package order; mark exactly that package READY.",
@@ -98,7 +107,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-002",
@@ -126,7 +136,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-003",
@@ -154,7 +165,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-004",
@@ -182,7 +194,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-005",
@@ -211,7 +224,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-006",
@@ -240,7 +254,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PROF-007",
@@ -270,7 +285,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-001",
@@ -297,7 +313,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-002",
@@ -325,7 +342,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-003",
@@ -353,7 +371,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-004",
@@ -381,7 +400,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-005",
@@ -408,7 +428,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-006",
@@ -438,7 +459,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-007",
@@ -466,7 +488,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-008",
@@ -493,7 +516,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-009",
@@ -523,7 +547,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-010",
@@ -551,7 +576,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-011",
@@ -581,7 +607,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-012",
@@ -610,7 +637,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-013",
@@ -639,7 +667,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-014",
@@ -668,7 +697,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-015",
@@ -697,7 +727,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-016",
@@ -725,7 +756,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-017",
@@ -764,7 +796,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 readiness behavior is implemented, regression-tested, and verified; resume feasibility execution remains owned by its later packages."
+      "notes": "M00 readiness behavior is implemented, regression-tested, and verified; resume feasibility execution remains owned by its later packages.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-RES-018",
@@ -795,7 +828,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-001",
@@ -825,7 +859,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-002",
@@ -853,7 +888,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-003",
@@ -881,7 +917,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-004",
@@ -913,7 +950,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-005",
@@ -941,7 +979,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-006",
@@ -970,7 +1009,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-JOB-007",
@@ -999,7 +1039,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-001",
@@ -1027,7 +1068,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-002",
@@ -1055,7 +1097,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-003",
@@ -1083,7 +1126,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-004",
@@ -1111,7 +1155,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-005",
@@ -1139,7 +1184,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-006",
@@ -1167,7 +1213,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-007",
@@ -1196,7 +1243,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-008",
@@ -1224,7 +1272,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-009",
@@ -1254,7 +1303,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-ANS-010",
@@ -1283,7 +1333,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-001",
@@ -1311,7 +1362,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-002",
@@ -1339,7 +1391,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-003",
@@ -1367,7 +1420,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-004",
@@ -1396,7 +1450,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-005",
@@ -1424,7 +1479,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-006",
@@ -1452,7 +1508,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-007",
@@ -1481,7 +1538,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-008",
@@ -1510,7 +1568,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-009",
@@ -1539,7 +1598,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-010",
@@ -1567,7 +1627,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-011",
@@ -1595,7 +1656,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-012",
@@ -1624,7 +1686,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-013",
@@ -1653,7 +1716,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-014",
@@ -1682,7 +1746,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-015",
@@ -1711,7 +1776,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-016",
@@ -1740,7 +1806,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-017",
@@ -1769,7 +1836,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-018",
@@ -1798,7 +1866,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-019",
@@ -1828,7 +1897,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-020",
@@ -1857,7 +1927,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-021",
@@ -1886,7 +1957,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-022",
@@ -1925,7 +1997,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 readiness behavior is implemented, regression-tested, and verified; Autofill Feasibility execution remains owned by M02."
+      "notes": "M00 readiness behavior is implemented, regression-tested, and verified; Autofill Feasibility execution remains owned by M02.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-023",
@@ -1954,7 +2027,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-024",
@@ -1983,7 +2057,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-025",
@@ -2014,7 +2089,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-FORM-026",
@@ -2047,7 +2123,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-001",
@@ -2086,7 +2163,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 Workday-first readiness behavior is implemented, regression-tested, and verified; Workday production and Gate C execution remain future work."
+      "notes": "M00 Workday-first readiness behavior is implemented, regression-tested, and verified; Workday production and Gate C execution remain future work.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-002",
@@ -2114,7 +2192,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-003",
@@ -2142,7 +2221,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-004",
@@ -2170,7 +2250,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-005",
@@ -2199,7 +2280,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-006",
@@ -2227,7 +2309,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-007",
@@ -2255,7 +2338,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-008",
@@ -2283,7 +2367,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-009",
@@ -2312,7 +2397,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-010",
@@ -2340,7 +2426,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-011",
@@ -2368,7 +2455,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-012",
@@ -2396,7 +2484,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-013",
@@ -2424,7 +2513,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-014",
@@ -2452,7 +2542,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-015",
@@ -2481,7 +2572,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-016",
@@ -2510,7 +2602,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-017",
@@ -2539,7 +2632,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-018",
@@ -2567,7 +2661,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-019",
@@ -2595,7 +2690,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-020",
@@ -2625,7 +2721,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-021",
@@ -2653,7 +2750,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-022",
@@ -2683,7 +2781,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-WD-023",
@@ -2712,7 +2811,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-001",
@@ -2740,7 +2840,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-002",
@@ -2768,7 +2869,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-003",
@@ -2797,7 +2899,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-004",
@@ -2825,7 +2928,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-005",
@@ -2855,7 +2959,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-TRACK-006",
@@ -2884,7 +2989,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-DISC-001",
@@ -2914,7 +3020,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-DISC-002",
@@ -2942,7 +3049,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-DISC-003",
@@ -2969,7 +3077,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-DISC-004",
@@ -2997,7 +3106,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-001",
@@ -3025,7 +3135,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-002",
@@ -3053,7 +3164,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-003",
@@ -3081,7 +3193,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-004",
@@ -3108,7 +3221,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-005",
@@ -3136,7 +3250,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-006",
@@ -3164,7 +3279,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-007",
@@ -3191,7 +3307,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-AUTO-008",
@@ -3219,7 +3336,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-001",
@@ -3247,11 +3365,12 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-002",
-      "text": "Encrypt private data at rest and secrets in the OS keychain.",
+      "text": "Encrypt private data at rest and protect secrets in the operating-system keychain or credential store.",
       "family": "Platform, privacy, and quality",
       "owning_packages": [
         "M04-W01",
@@ -3275,7 +3394,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-003",
@@ -3303,7 +3423,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-004",
@@ -3330,11 +3451,12 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-005",
-      "text": "Version schemas, prompts, model configuration, and migrations.",
+      "text": "Version schemas, prompts, model configuration, platform profiles, and migrations.",
       "family": "Platform, privacy, and quality",
       "owning_packages": [
         "M01-W01",
@@ -3361,7 +3483,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-006",
@@ -3389,11 +3512,12 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-007",
-      "text": "Meet defined performance and crash-free thresholds on the M5/24 GB target.",
+      "text": "Meet defined performance and crash-free thresholds on the certified hardware profiles, including the M5/24 GB primary target.",
       "family": "Platform, privacy, and quality",
       "owning_packages": [
         "M27-W04"
@@ -3416,7 +3540,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-008",
@@ -3443,11 +3568,12 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-009",
-      "text": "Treat model and extension updates as regression-sensitive changes.",
+      "text": "Treat model, browser, extension, operating-system, installer, and platform-adapter updates as regression-sensitive changes.",
       "family": "Platform, privacy, and quality",
       "owning_packages": [
         "M05-W05",
@@ -3472,7 +3598,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-PLAT-010",
@@ -3499,7 +3626,517 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "REQ-PLAT-011",
+      "text": "Define and publish the certified first-release platform matrix: macOS 14+ arm64, Windows 11 x64, Ubuntu 24.04 LTS x64, and Chrome stable.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M00-W08",
+        "M27-W10"
+      ],
+      "planned_components": [
+        "Certified platform policy and compatibility publication"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "VERIFIED",
+      "verification_state": "VERIFIED",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/PLATFORM_SUPPORT.md",
+        "docs/platform/CERTIFIED_MATRIX.md"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-012",
+      "text": "Isolate operating-system behavior behind typed platform interfaces; shared business logic must not depend on scattered OS-condition branches.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M01-W07",
+        "M03-W09"
+      ],
+      "planned_components": [
+        "Typed platform-service boundary"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-013",
+      "text": "Run mandatory CI and repository verification on pinned macOS, Windows, and Ubuntu runner images.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M00-W09"
+      ],
+      "planned_components": [
+        "Three-operating-system CI policy"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-014",
+      "text": "Use macOS Keychain, Windows Credential Manager/DPAPI, and Linux Secret Service for secrets and encryption keys with no plaintext production fallback.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M04-W07",
+        "M04-W08",
+        "M04-W09"
+      ],
+      "planned_components": [
+        "Operating-system secure-store adapters"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-015",
+      "text": "Implement and test equivalent process supervision, loopback lifecycle, crash recovery, cancellation, and orphan-process cleanup on all certified platforms.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M03-W09",
+        "M03-W10"
+      ],
+      "planned_components": [
+        "Cross-platform process and service lifecycle"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-016",
+      "text": "Normalize and test path separators, Unicode/spaces, case sensitivity, line endings, executable suffixes/permissions, file locks, atomic replacement, temporary directories, and reserved-name behavior.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M03-W09",
+        "M03-W10",
+        "M04-W10"
+      ],
+      "planned_components": [
+        "Filesystem and process portability layer"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-017",
+      "text": "Install, validate, repair, and remove Chrome native-messaging registration using platform-correct manifest paths or Windows registry keys and protocol behavior.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M17-W07",
+        "M17-W08",
+        "M17-W09",
+        "M17-W10"
+      ],
+      "planned_components": [
+        "Chrome native-messaging registration adapters"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-018",
+      "text": "Maintain versioned platform-specific local-model runtime profiles with exact artifact, accelerator, context, memory, license, and benchmark metadata; validate capability and safe fallback early, and complete full-AI certification for every certified OS before the Cross-Platform Core Gate.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M05-W13",
+        "M05-W14",
+        "M05-W15",
+        "M27-W10"
+      ],
+      "planned_components": [
+        "Versioned local-model platform profiles"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-019",
+      "text": "Keep deterministic core workflows usable when the local model is unavailable or the machine lacks a full-AI hardware profile; show explicit capability state and remediation.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M05-W14",
+        "M05-W15",
+        "M05-W16"
+      ],
+      "planned_components": [
+        "Deterministic core fallback and capability UX"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-020",
+      "text": "Use controlled fonts, Chromium, layout tokens, and extraction/visual checks to produce equivalent ATS-safe PDF/DOCX behavior across certified platforms.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M10-W07"
+      ],
+      "planned_components": [
+        "Cross-platform document renderer and font policy"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-021",
+      "text": "Produce appropriately signed or verified installers for macOS, Windows, and Ubuntu, including native-host registration and clean uninstall behavior.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M27-W07",
+        "M27-W08",
+        "M27-W09"
+      ],
+      "planned_components": [
+        "Native packaging and installation"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-022",
+      "text": "Implement signed platform-aware updates, repair, rollback, and failed-update recovery without private-data loss.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M27-W11"
+      ],
+      "planned_components": [
+        "Signed update, repair, and rollback"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-023",
+      "text": "Use an OS-neutral encrypted backup format and prove restore across the certified source/target platform matrix.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M04-W10"
+      ],
+      "planned_components": [
+        "Portable encrypted backup and restore"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-024",
+      "text": "Run the built Chrome extension, service worker, frame agents, and real native host through platform-native E2E on all certified platforms.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M17-W10"
+      ],
+      "planned_components": [
+        "Platform-native extension/native-host E2E"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-025",
+      "text": "Ensure canonical commands and packaged runtime discovery do not depend on interactive shell profiles or Bash/POSIX-only behavior.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M00-W09",
+        "M03-W09"
+      ],
+      "planned_components": [
+        "Shell-independent commands and runtime discovery"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-PLAT-026",
+      "text": "Publish exact operating-system, architecture, browser, model-profile, installer, and last-tested compatibility with known limitations.",
+      "family": "Platform, privacy, and quality",
+      "owning_packages": [
+        "M27-W10"
+      ],
+      "planned_components": [
+        "Published certified compatibility matrix"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
     },
     {
       "id": "REQ-GATE-001",
@@ -3541,7 +4178,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages."
+      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-002",
@@ -3573,7 +4211,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-003",
@@ -3606,7 +4245,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-004",
@@ -3639,7 +4279,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-005",
@@ -3678,7 +4319,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages."
+      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-006",
@@ -3711,7 +4353,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-007",
@@ -3739,7 +4382,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-008",
@@ -3767,7 +4411,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-009",
@@ -3799,7 +4444,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-010",
@@ -3831,7 +4477,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-011",
@@ -3863,7 +4510,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-012",
@@ -3895,7 +4543,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet."
+      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-013",
@@ -3926,7 +4575,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-014",
@@ -3964,7 +4614,8 @@
       "completed_test_paths": [
         "scripts/tests/test_validate_status.py"
       ],
-      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages."
+      "notes": "M00 readiness/ledger behavior is implemented, regression-tested, and verified; product gate execution remains owned by its later packages.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-015",
@@ -3992,7 +4643,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "REQ-GATE-016",
@@ -4021,7 +4673,216 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence."
+      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "mapping_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "REQ-GATE-017",
+      "text": "Maintain `CROSS_PLATFORM_CORE` in the critical-gate ledger with per-platform package, browser, runtime, installer, backup, and update evidence.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M00-W08",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "CROSS_PLATFORM_CORE ledger and evidence model"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "VERIFIED",
+      "verification_state": "VERIFIED",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/CRITICAL_GATES.md",
+        "docs/gates/CROSS_PLATFORM_CORE_GATE.md",
+        "scripts/validate_status.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-GATE-018",
+      "text": "Prevent `M28` and later closed-alpha work from becoming ready until `CROSS_PLATFORM_CORE = PASS`.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M00-W08",
+        "M27-W12",
+        "M28-W01"
+      ],
+      "planned_components": [
+        "M28 Gate D readiness enforcement"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "VERIFIED",
+      "verification_state": "VERIFIED",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "scripts/validate_status.py",
+        "scripts/traceability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-GATE-019",
+      "text": "Require actual packaged execution on every certified platform; compilation, cross-compilation, containers, or one operating system cannot substitute for native evidence.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Native packaged Gate D evidence"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-GATE-020",
+      "text": "Require a separate independent audit and owner decision for the Cross-Platform Core Gate.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Independent Gate D audit and owner decision"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-GATE-021",
+      "text": "Require complete cross-platform gate regression after changes to platform abstractions, secure storage, native messaging, model runtime, renderer/fonts, installers, updater, Chrome, or certified OS versions.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Gate D regression policy"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+    },
+    {
+      "id": "REQ-GATE-022",
+      "text": "Restrict platform support claims to the exact certified matrix and evidence bundle; experimental targets must be labeled explicitly.",
+      "family": "Critical-gate, benchmark, and clean-room",
+      "owning_packages": [
+        "M00-W08",
+        "M27-W10",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Evidence-bounded platform support claims"
+      ],
+      "automated_test_layers": [
+        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+      ],
+      "manual_evidence": [
+        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
+      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
     }
   ],
   "work_packages": [
@@ -4063,7 +4924,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W01"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W02",
@@ -4105,7 +4967,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W02"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W03",
@@ -4147,7 +5010,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W03"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W04",
@@ -4189,7 +5053,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W04"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W05",
@@ -4231,7 +5096,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W05"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W06",
@@ -4273,7 +5139,8 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W06"
         }
-      ]
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M00-W07",
@@ -4300,7 +5167,9 @@
       "required_manual_evidence": [
         "M00 exit-gate audit, deterministic fresh-clone proof, and hosted macOS/Linux CI"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M00-W08"
+      ],
       "downstream_milestones": [
         "M01",
         "M02",
@@ -4313,13 +5182,131 @@
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W07"
         }
+      ],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M00-W08",
+      "milestone": "M00",
+      "title": "Adopt and migrate the v1.3 cross-platform rebaseline",
+      "current_state": "VERIFIED",
+      "verified_revision": "stamp pending",
+      "primary_deliverables": [
+        "Adopt and migrate the v1.3 cross-platform rebaseline"
+      ],
+      "required_automated_verification": [
+        "Exact v1.3 inventory, status, traceability, policy, drift, and fail-closed regression tests",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "Exact source-hash/adoption audit, preserved-history audit, and hosted macOS/Ubuntu CI evidence"
+      ],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W08"
+        }
+      ],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M00-W07"
+      ],
+      "milestone_prerequisites": [],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL"
+      ],
+      "downstream_packages": [
+        "M00-W09"
+      ],
+      "downstream_milestones": [
+        "M01",
+        "M02",
+        "M03",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M00-W09",
+      "milestone": "M00",
+      "title": "Add Windows CI and platform-portability baseline",
+      "current_state": "READY",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Add Windows CI and platform-portability baseline"
+      ],
+      "required_automated_verification": [
+        "M00-W09 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M00-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M00-W08"
+      ],
+      "milestone_prerequisites": [],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL"
+      ],
+      "downstream_packages": [
+        "M00-W10"
+      ],
+      "downstream_milestones": [
+        "M01",
+        "M02",
+        "M03",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M00-W10",
+      "milestone": "M00",
+      "title": "Extend traceability and re-accept M00 under v1.3",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Extend traceability and re-accept M00 under v1.3"
+      ],
+      "required_automated_verification": [
+        "M00-W10 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M00-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M00-W09"
+      ],
+      "milestone_prerequisites": [],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M01",
+        "M02",
+        "M03",
+        "M28",
+        "M38"
       ]
     },
     {
       "id": "M01-W01",
       "milestone": "M01",
       "title": "Define JSON Schema conventions",
-      "current_state": "READY",
+      "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [
@@ -4353,7 +5340,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W02",
@@ -4395,7 +5383,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W03",
@@ -4437,7 +5426,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W04",
@@ -4479,7 +5469,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W05",
@@ -4523,7 +5514,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W06",
@@ -4555,7 +5547,9 @@
         "M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M01-W07"
+      ],
       "downstream_milestones": [
         "M02",
         "M03",
@@ -4565,7 +5559,49 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M01-W07",
+      "milestone": "M01",
+      "title": "Define cross-platform capability and platform-service contracts",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Define cross-platform capability and platform-service contracts"
+      ],
+      "required_automated_verification": [
+        "M01-W07 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M01-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M01-W06"
+      ],
+      "milestone_prerequisites": [
+        "M00"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M02",
+        "M03",
+        "M04",
+        "M06",
+        "M17",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M02-W01",
@@ -4610,7 +5646,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W02",
@@ -4657,7 +5694,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W03",
@@ -4706,7 +5744,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W04",
@@ -4753,7 +5792,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W05",
@@ -4803,7 +5843,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W06",
@@ -4852,7 +5893,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W07",
@@ -4901,7 +5943,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W08",
@@ -4948,7 +5991,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W09",
@@ -4995,7 +6039,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W10",
@@ -5042,7 +6087,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W11",
@@ -5090,7 +6136,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W12",
@@ -5140,7 +6187,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W13",
@@ -5191,7 +6239,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W14",
@@ -5240,7 +6289,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W15",
@@ -5287,7 +6337,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W01",
@@ -5334,7 +6385,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W02",
@@ -5383,7 +6435,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W03",
@@ -5432,7 +6485,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W04",
@@ -5481,7 +6535,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W05",
@@ -5530,7 +6585,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W06",
@@ -5570,7 +6626,9 @@
         "M03 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Browser/manual workflow evidence on declared supported scope"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M03-W07"
+      ],
       "downstream_milestones": [
         "M04",
         "M05",
@@ -5579,7 +6637,206 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M03-W07",
+      "milestone": "M03",
+      "title": "Package Windows x64 development build",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Package Windows x64 development build"
+      ],
+      "required_automated_verification": [
+        "M03-W07 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M03-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M03-W06"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M02"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M03-W08"
+      ],
+      "downstream_milestones": [
+        "M04",
+        "M05",
+        "M17",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M03-W08",
+      "milestone": "M03",
+      "title": "Package Ubuntu x64 development build",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Package Ubuntu x64 development build"
+      ],
+      "required_automated_verification": [
+        "M03-W08 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M03-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M03-W07"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M02"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M03-W09"
+      ],
+      "downstream_milestones": [
+        "M04",
+        "M05",
+        "M17",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M03-W09",
+      "milestone": "M03",
+      "title": "Implement platform lifecycle, path, and process adapters",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement platform lifecycle, path, and process adapters"
+      ],
+      "required_automated_verification": [
+        "M03-W09 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M03-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M03-W08"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M02"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M03-W10"
+      ],
+      "downstream_milestones": [
+        "M04",
+        "M05",
+        "M17",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M03-W10",
+      "milestone": "M03",
+      "title": "Run cross-platform desktop lifecycle matrix",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Run cross-platform desktop lifecycle matrix"
+      ],
+      "required_automated_verification": [
+        "M03-W10 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M03-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M03-W09"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M02"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M04",
+        "M05",
+        "M17",
+        "M27",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M04-W01",
@@ -5618,7 +6875,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M04-W02",
@@ -5659,7 +6917,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M04-W03",
@@ -5700,7 +6959,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M04-W04",
@@ -5741,7 +7001,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M04-W05",
@@ -5782,7 +7043,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M04-W06",
@@ -5813,7 +7075,9 @@
       "required_manual_evidence": [
         "M04 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M04-W07"
+      ],
       "downstream_milestones": [
         "M05",
         "M06",
@@ -5821,7 +7085,174 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M04-W07",
+      "milestone": "M04",
+      "title": "Implement macOS Keychain secret-store adapter",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement macOS Keychain secret-store adapter"
+      ],
+      "required_automated_verification": [
+        "M04-W07 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M04-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M04-W06"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M04-W08"
+      ],
+      "downstream_milestones": [
+        "M05",
+        "M06",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M04-W08",
+      "milestone": "M04",
+      "title": "Implement Windows Credential Manager and DPAPI adapter",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement Windows Credential Manager and DPAPI adapter"
+      ],
+      "required_automated_verification": [
+        "M04-W08 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M04-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M04-W07"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M04-W09"
+      ],
+      "downstream_milestones": [
+        "M05",
+        "M06",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M04-W09",
+      "milestone": "M04",
+      "title": "Implement Ubuntu Secret Service adapter",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement Ubuntu Secret Service adapter"
+      ],
+      "required_automated_verification": [
+        "M04-W09 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M04-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M04-W08"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M04-W10"
+      ],
+      "downstream_milestones": [
+        "M05",
+        "M06",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M04-W10",
+      "milestone": "M04",
+      "title": "Prove portable encrypted backup and filesystem semantics",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Prove portable encrypted backup and filesystem semantics"
+      ],
+      "required_automated_verification": [
+        "M04-W10 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M04-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M04-W09"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M05",
+        "M06",
+        "M27",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M05-W01",
@@ -5870,7 +7301,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W02",
@@ -5919,7 +7351,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W03",
@@ -5968,7 +7401,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W04",
@@ -6017,7 +7451,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W05",
@@ -6070,7 +7505,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W06",
@@ -6119,7 +7555,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W07",
@@ -6170,7 +7607,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W08",
@@ -6221,7 +7659,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W09",
@@ -6270,7 +7709,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W10",
@@ -6321,7 +7761,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W11",
@@ -6372,7 +7813,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M05-W12",
@@ -6408,7 +7850,9 @@
         "Browser/manual workflow evidence on declared supported scope",
         "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M05-W13"
+      ],
       "downstream_milestones": [
         "M06",
         "M07",
@@ -6423,7 +7867,206 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M05-W13",
+      "milestone": "M05",
+      "title": "Define versioned platform model-runtime profiles",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Define versioned platform model-runtime profiles"
+      ],
+      "required_automated_verification": [
+        "M05-W13 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M05-W13 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M05-W12"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M05-W14"
+      ],
+      "downstream_milestones": [
+        "M06",
+        "M07",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M05-W14",
+      "milestone": "M05",
+      "title": "Validate Windows model-runtime capability and core fallback",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Validate Windows model-runtime capability and core fallback"
+      ],
+      "required_automated_verification": [
+        "M05-W14 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M05-W14 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M05-W13"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M05-W15"
+      ],
+      "downstream_milestones": [
+        "M06",
+        "M07",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M05-W15",
+      "milestone": "M05",
+      "title": "Validate Ubuntu model-runtime capability and core fallback",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Validate Ubuntu model-runtime capability and core fallback"
+      ],
+      "required_automated_verification": [
+        "M05-W15 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M05-W15 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M05-W14"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M05-W16"
+      ],
+      "downstream_milestones": [
+        "M06",
+        "M07",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M05-W16",
+      "milestone": "M05",
+      "title": "Implement cross-platform model capability UX and graceful degradation",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement cross-platform model capability UX and graceful degradation"
+      ],
+      "required_automated_verification": [
+        "M05-W16 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M05-W16 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M05-W15"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M06",
+        "M07",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M27",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M06-W01",
@@ -6474,7 +8117,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M06-W02",
@@ -6527,7 +8171,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M06-W03",
@@ -6580,7 +8225,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M06-W04",
@@ -6633,7 +8279,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M06-W05",
@@ -6688,7 +8335,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M06-W06",
@@ -6741,7 +8389,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W01",
@@ -6779,7 +8428,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W02",
@@ -6819,7 +8469,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W03",
@@ -6859,7 +8510,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W04",
@@ -6901,7 +8553,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W05",
@@ -6941,7 +8594,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M07-W06",
@@ -6981,7 +8635,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W01",
@@ -7024,7 +8679,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W02",
@@ -7069,7 +8725,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W03",
@@ -7114,7 +8771,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W04",
@@ -7159,7 +8817,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W05",
@@ -7204,7 +8863,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M08-W06",
@@ -7245,7 +8905,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W01",
@@ -7287,7 +8948,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W02",
@@ -7333,7 +8995,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W03",
@@ -7379,7 +9042,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W04",
@@ -7423,7 +9087,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W05",
@@ -7467,7 +9132,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M09-W06",
@@ -7509,7 +9175,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W01",
@@ -7550,7 +9217,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W02",
@@ -7593,7 +9261,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W03",
@@ -7636,7 +9305,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W04",
@@ -7679,7 +9349,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W05",
@@ -7722,7 +9393,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M10-W06",
@@ -7756,7 +9428,9 @@
         "M10 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Browser/manual workflow evidence on declared supported scope"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M10-W07"
+      ],
       "downstream_milestones": [
         "M12",
         "M14",
@@ -7765,7 +9439,50 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M10-W07",
+      "milestone": "M10",
+      "title": "Validate cross-platform rendering and bundled-font policy",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Validate cross-platform rendering and bundled-font policy"
+      ],
+      "required_automated_verification": [
+        "M10-W07 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M10-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M10-W06"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M05",
+        "M09"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M12",
+        "M14",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M11-W01",
@@ -7810,7 +9527,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M11-W02",
@@ -7859,7 +9577,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M11-W03",
@@ -7906,7 +9625,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M11-W04",
@@ -7955,7 +9675,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M11-W05",
@@ -8002,7 +9723,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M11-W06",
@@ -8049,7 +9771,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W01",
@@ -8092,7 +9815,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W02",
@@ -8137,7 +9861,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W03",
@@ -8182,7 +9907,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W04",
@@ -8227,7 +9953,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W05",
@@ -8272,7 +9999,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M12-W06",
@@ -8317,7 +10045,8 @@
         "M33",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W01",
@@ -8359,7 +10088,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W02",
@@ -8403,7 +10133,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W03",
@@ -8447,7 +10178,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W04",
@@ -8491,7 +10223,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W05",
@@ -8535,7 +10268,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W06",
@@ -8581,7 +10315,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M13-W07",
@@ -8625,7 +10360,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W01",
@@ -8666,7 +10402,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W02",
@@ -8709,7 +10446,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W03",
@@ -8752,7 +10490,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W04",
@@ -8795,7 +10534,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W05",
@@ -8840,7 +10580,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M14-W06",
@@ -8885,7 +10626,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M15-W01",
@@ -8926,7 +10668,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M15-W02",
@@ -8969,7 +10712,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M15-W03",
@@ -9012,7 +10756,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M15-W04",
@@ -9055,7 +10800,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M15-W05",
@@ -9098,7 +10844,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W01",
@@ -9144,7 +10891,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W02",
@@ -9192,7 +10940,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W03",
@@ -9240,7 +10989,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W04",
@@ -9288,7 +11038,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W05",
@@ -9336,7 +11087,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W06",
@@ -9386,7 +11138,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M16-W07",
@@ -9434,7 +11187,8 @@
         "M34",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W01",
@@ -9479,7 +11233,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W02",
@@ -9524,7 +11279,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W03",
@@ -9569,7 +11325,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W04",
@@ -9614,7 +11371,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W05",
@@ -9661,7 +11419,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M17-W06",
@@ -9698,7 +11457,9 @@
         "M17 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Browser/manual workflow evidence on declared supported scope"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M17-W07"
+      ],
       "downstream_milestones": [
         "M18",
         "M25",
@@ -9706,7 +11467,190 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M17-W07",
+      "milestone": "M17",
+      "title": "Implement macOS native-host registration lifecycle",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement macOS native-host registration lifecycle"
+      ],
+      "required_automated_verification": [
+        "M17-W07 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M17-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M17-W06"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M17-W08"
+      ],
+      "downstream_milestones": [
+        "M18",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M17-W08",
+      "milestone": "M17",
+      "title": "Implement Windows native-host registration and binary protocol",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement Windows native-host registration and binary protocol"
+      ],
+      "required_automated_verification": [
+        "M17-W08 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M17-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M17-W07"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M17-W09"
+      ],
+      "downstream_milestones": [
+        "M18",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M17-W09",
+      "milestone": "M17",
+      "title": "Implement Ubuntu native-host registration lifecycle",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement Ubuntu native-host registration lifecycle"
+      ],
+      "required_automated_verification": [
+        "M17-W09 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M17-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M17-W08"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER"
+      ],
+      "downstream_packages": [
+        "M17-W10"
+      ],
+      "downstream_milestones": [
+        "M18",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M17-W10",
+      "milestone": "M17",
+      "title": "Run cross-platform real extension/native-host E2E",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Run cross-platform real extension/native-host E2E"
+      ],
+      "required_automated_verification": [
+        "M17-W10 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M17-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M17-W09"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M18",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M18-W01",
@@ -9756,7 +11700,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W02",
@@ -9808,7 +11753,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W03",
@@ -9860,7 +11806,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W04",
@@ -9912,7 +11859,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W05",
@@ -9964,7 +11912,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W06",
@@ -10018,7 +11967,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M18-W07",
@@ -10070,7 +12020,8 @@
         "M31",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W01",
@@ -10117,7 +12068,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W02",
@@ -10166,7 +12118,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W03",
@@ -10215,7 +12168,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W04",
@@ -10263,7 +12217,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W05",
@@ -10312,7 +12267,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W06",
@@ -10360,7 +12316,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W07",
@@ -10407,7 +12364,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W08",
@@ -10456,7 +12414,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W09",
@@ -10505,7 +12464,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W10",
@@ -10555,7 +12515,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M19-W11",
@@ -10604,7 +12565,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W01",
@@ -10653,7 +12615,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W02",
@@ -10704,7 +12667,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W03",
@@ -10755,7 +12719,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W04",
@@ -10804,7 +12769,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W05",
@@ -10853,7 +12819,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W06",
@@ -10906,7 +12873,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W07",
@@ -10955,7 +12923,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W08",
@@ -11004,7 +12973,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W09",
@@ -11057,7 +13027,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W10",
@@ -11106,7 +13077,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M20-W11",
@@ -11157,7 +13129,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W01",
@@ -11209,7 +13182,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W02",
@@ -11261,7 +13235,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W03",
@@ -11314,7 +13289,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W04",
@@ -11366,7 +13342,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W05",
@@ -11418,7 +13395,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M21-W06",
@@ -11470,7 +13448,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M22-W01",
@@ -11515,7 +13494,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M22-W02",
@@ -11562,7 +13542,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M22-W03",
@@ -11609,7 +13590,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M22-W04",
@@ -11659,7 +13641,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M22-W05",
@@ -11704,7 +13687,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M23-W01",
@@ -11749,7 +13733,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M23-W02",
@@ -11797,7 +13782,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M23-W03",
@@ -11845,7 +13831,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M23-W04",
@@ -11892,7 +13879,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M23-W05",
@@ -11940,7 +13928,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W01",
@@ -11986,7 +13975,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W02",
@@ -12032,7 +14022,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W03",
@@ -12080,7 +14071,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W04",
@@ -12127,7 +14119,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W05",
@@ -12173,7 +14166,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M24-W06",
@@ -12217,7 +14211,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W01",
@@ -12270,7 +14265,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W02",
@@ -12325,7 +14321,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W03",
@@ -12380,7 +14377,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W04",
@@ -12435,7 +14433,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W05",
@@ -12492,7 +14491,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W06",
@@ -12547,7 +14547,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M25-W07",
@@ -12600,7 +14601,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M26-W01",
@@ -12638,7 +14640,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M26-W02",
@@ -12678,7 +14681,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M26-W03",
@@ -12718,7 +14722,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M26-W04",
@@ -12758,7 +14763,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M26-W05",
@@ -12798,7 +14804,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W01",
@@ -12856,7 +14863,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W02",
@@ -12916,7 +14924,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W03",
@@ -12976,7 +14985,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W04",
@@ -13037,7 +15047,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W05",
@@ -13097,7 +15108,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W06",
@@ -13157,7 +15169,8 @@
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M27-W07",
@@ -13210,12 +15223,318 @@
       "required_manual_evidence": [
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M27-W08"
+      ],
       "downstream_milestones": [
         "M28",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M27-W08",
+      "milestone": "M27",
+      "title": "Package, sign, and validate Windows x64 release candidate",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Package, sign, and validate Windows x64 release candidate"
+      ],
+      "required_automated_verification": [
+        "M27-W08 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M27-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M27-W07"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M27-W09"
+      ],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M27-W09",
+      "milestone": "M27",
+      "title": "Package and validate Ubuntu x64 release candidate",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Package and validate Ubuntu x64 release candidate"
+      ],
+      "required_automated_verification": [
+        "M27-W09 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M27-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M27-W08"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M27-W10"
+      ],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M27-W10",
+      "milestone": "M27",
+      "title": "Finalize full-AI platform profiles, diagnostics, and support publication",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Finalize full-AI platform profiles, diagnostics, and support publication"
+      ],
+      "required_automated_verification": [
+        "M27-W10 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M27-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M27-W09"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M27-W11"
+      ],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M27-W11",
+      "milestone": "M27",
+      "title": "Implement signed cross-platform update and rollback",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Implement signed cross-platform update and rollback"
+      ],
+      "required_automated_verification": [
+        "M27-W11 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M27-W11 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M27-W10"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [
+        "M27-W12"
+      ],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M27-W12",
+      "milestone": "M27",
+      "title": "Independent Cross-Platform Core Gate audit and decision",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "primary_deliverables": [
+        "Independent Cross-Platform Core Gate audit and decision"
+      ],
+      "required_automated_verification": [
+        "M27-W12 owning-package automated verification defined by the canonical specification",
+        "pnpm verify"
+      ],
+      "required_manual_evidence": [
+        "M27-W12 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "direct_package_prerequisites": [
+        "M27-W11"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
     },
     {
       "id": "M28-W01",
@@ -13254,11 +15573,17 @@
         "M26",
         "M27"
       ],
-      "critical_gate_prerequisites": [],
-      "accepted_milestone_prerequisites": [],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
       "dependency_basis": [
         "NO_DIRECT_PACKAGE_PREREQUISITE",
-        "SPEC_MILESTONE_DEPENDENCY"
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
         "Run frozen corpus"
@@ -13281,7 +15606,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M28-W02",
@@ -13322,11 +15648,17 @@
         "M26",
         "M27"
       ],
-      "critical_gate_prerequisites": [],
-      "accepted_milestone_prerequisites": [],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
       "dependency_basis": [
         "REVIEWED_DERIVED_SEQUENTIAL",
-        "SPEC_MILESTONE_DEPENDENCY"
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
         "Manual side-by-side evaluation"
@@ -13350,7 +15682,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M28-W03",
@@ -13391,11 +15724,17 @@
         "M26",
         "M27"
       ],
-      "critical_gate_prerequisites": [],
-      "accepted_milestone_prerequisites": [],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
       "dependency_basis": [
         "REVIEWED_DERIVED_SEQUENTIAL",
-        "SPEC_MILESTONE_DEPENDENCY"
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
         "External alpha pilot"
@@ -13420,7 +15759,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M28-W04",
@@ -13461,11 +15801,17 @@
         "M26",
         "M27"
       ],
-      "critical_gate_prerequisites": [],
-      "accepted_milestone_prerequisites": [],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
       "dependency_basis": [
         "REVIEWED_DERIVED_SEQUENTIAL",
-        "SPEC_MILESTONE_DEPENDENCY"
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
         "Defect burn-down"
@@ -13488,7 +15834,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M28-W05",
@@ -13529,11 +15876,17 @@
         "M26",
         "M27"
       ],
-      "critical_gate_prerequisites": [],
-      "accepted_milestone_prerequisites": [],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
       "dependency_basis": [
         "REVIEWED_DERIVED_SEQUENTIAL",
-        "SPEC_MILESTONE_DEPENDENCY"
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
         "Freeze core v1 interfaces"
@@ -13554,7 +15907,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M29-W01",
@@ -13590,7 +15944,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M29-W02",
@@ -13629,7 +15984,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M29-W03",
@@ -13669,7 +16025,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M29-W04",
@@ -13709,7 +16066,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M29-W05",
@@ -13747,7 +16105,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M30-W01",
@@ -13785,7 +16144,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M30-W02",
@@ -13825,7 +16185,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M30-W03",
@@ -13865,7 +16226,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M30-W04",
@@ -13904,7 +16266,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M31-W01",
@@ -13942,7 +16305,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M31-W02",
@@ -13982,7 +16346,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M31-W03",
@@ -14022,7 +16387,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M31-W04",
@@ -14062,7 +16428,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M31-W05",
@@ -14100,7 +16467,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W01",
@@ -14136,7 +16504,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W02",
@@ -14174,7 +16543,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W03",
@@ -14214,7 +16584,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W04",
@@ -14254,7 +16625,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W05",
@@ -14292,7 +16664,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W06",
@@ -14330,7 +16703,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M32-W07",
@@ -14366,7 +16740,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W01",
@@ -14404,7 +16779,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W02",
@@ -14444,7 +16820,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W03",
@@ -14484,7 +16861,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W04",
@@ -14524,7 +16902,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W05",
@@ -14566,7 +16945,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M33-W06",
@@ -14606,7 +16986,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W01",
@@ -14648,7 +17029,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W02",
@@ -14692,7 +17074,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W03",
@@ -14734,7 +17117,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W04",
@@ -14776,7 +17160,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W05",
@@ -14820,7 +17205,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M34-W06",
@@ -14860,7 +17246,8 @@
         "M35",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W01",
@@ -14904,7 +17291,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W02",
@@ -14950,7 +17338,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W03",
@@ -14996,7 +17385,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W04",
@@ -15042,7 +17432,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W05",
@@ -15088,7 +17479,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W06",
@@ -15134,7 +17526,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M35-W07",
@@ -15182,7 +17575,8 @@
         "M36",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W01",
@@ -15221,7 +17615,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W02",
@@ -15261,7 +17656,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W03",
@@ -15301,7 +17697,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W04",
@@ -15341,7 +17738,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W05",
@@ -15381,7 +17779,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W06",
@@ -15421,7 +17820,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M36-W07",
@@ -15461,7 +17861,8 @@
         "M37",
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W01",
@@ -15497,7 +17898,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W02",
@@ -15535,7 +17937,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W03",
@@ -15573,7 +17976,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W04",
@@ -15609,7 +18013,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W05",
@@ -15645,7 +18050,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M37-W06",
@@ -15679,7 +18085,8 @@
       "downstream_milestones": [
         "M38"
       ],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W01",
@@ -15752,7 +18159,8 @@
         "M38-W02"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W02",
@@ -15823,7 +18231,8 @@
         "M38-W03"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W03",
@@ -15896,7 +18305,8 @@
         "M38-W04"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W04",
@@ -15967,7 +18377,8 @@
         "M38-W05"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W05",
@@ -16038,7 +18449,8 @@
         "M38-W06"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W06",
@@ -16110,7 +18522,8 @@
         "M38-W07"
       ],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M38-W07",
@@ -16179,7 +18592,8 @@
       ],
       "downstream_packages": [],
       "downstream_milestones": [],
-      "current_evidence": []
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_2"
     }
   ],
   "critical_gates": [
@@ -16200,12 +18614,20 @@
         "M03-W04",
         "M03-W05",
         "M03-W06",
+        "M03-W07",
+        "M03-W08",
+        "M03-W09",
+        "M03-W10",
         "M17-W01",
         "M17-W02",
         "M17-W03",
         "M17-W04",
         "M17-W05",
         "M17-W06",
+        "M17-W07",
+        "M17-W08",
+        "M17-W09",
+        "M17-W10",
         "M18-W01",
         "M18-W02",
         "M18-W03",
@@ -16268,6 +18690,21 @@
         "M23-W03",
         "M23-W04",
         "M23-W05"
+      ]
+    },
+    {
+      "id": "CROSS_PLATFORM_CORE",
+      "current_state": "NOT_EVALUATED",
+      "report_path": "docs/gates/CROSS_PLATFORM_CORE_GATE.md",
+      "blocked_milestones": [
+        "M28"
+      ],
+      "blocked_packages": [
+        "M28-W01",
+        "M28-W02",
+        "M28-W03",
+        "M28-W04",
+        "M28-W05"
       ]
     }
   ]

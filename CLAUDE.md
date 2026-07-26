@@ -2,15 +2,16 @@
 
 This repository implements the local-first job application platform governed by
 one canonical contract: **`docs/MASTER_IMPLEMENTATION_SPEC.md`**
-(Specification ID `JAPP-MASTER-001`, version 1.2 — the Workday-first
-production and guided pre-submit rebaseline, adopted by ADR-0001). That file
+(Specification ID `JAPP-MASTER-001`, version 1.3 — the cross-platform
+production, packaging, and runtime rebaseline, adopted by ADR-0002). That file
 is the single source of authority for product scope, architecture, stack,
 milestones, work packages, critical gates, validation, and completion. Do not
 silently rewrite it. Do not choose or discuss a product name; use neutral
 labels such as "the product," "desktop app," and "browser extension."
-Implementation sessions use Claude Fable 5 Max; independent review happens in
-a separate clean session or Codex worktree, not via broad workflow fan-out
-(spec §0(20)).
+The owner selects the implementation agent per package; that selection remains
+active until the owner explicitly changes it. The repository never
+automatically routes between Claude, Codex, or reasoning modes. Independent
+critical audits still use a separate clean session or worktree (spec §0(20)).
 
 ## Mandatory session bootstrap (spec §1.2)
 
@@ -21,7 +22,8 @@ At the beginning of every new prompt or resumed session, Claude must:
 3. Read `docs/PROJECT_STATUS.md`, `docs/DECISIONS.md`, `docs/TEST_EVIDENCE.md`,
    `docs/KNOWN_ISSUES.md`, `docs/COMPATIBILITY_MATRIX.md`,
    `docs/traceability.json`, `docs/REQUIREMENTS_TRACEABILITY.md`, and
-   `docs/CRITICAL_GATES.md`.
+   `docs/CRITICAL_GATES.md`, then read `docs/PLATFORM_SUPPORT.md`, every file
+   under `docs/platform/`, and every report under `docs/gates/`.
 4. Inspect the repository state and relevant tests instead of trusting an
    earlier conversational summary.
 5. State the exact work-package ID it is executing.
@@ -40,9 +42,10 @@ At the beginning of every new prompt or resumed session, Claude must:
 | `docs/TEST_EVIDENCE.md` | Exact verification commands and results | Appended at every package verification; never record a command that was not run and inspected in the current repository state |
 | `docs/KNOWN_ISSUES.md` | Reproducible defects, deferred risks, parked ideas | Updated whenever discovered; scope ideas are parked here instead of broadening a package |
 | `docs/COMPATIBILITY_MATRIX.md` | ATS/browser/OS support and measured pass rates | Measured, evidence-linked data only |
-| `docs/traceability.json` | Canonical reviewed machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | Fully seeded in `M00-W07`; update with each affected package, refresh reviewed hashes, then regenerate/check the Markdown view |
+| `docs/PLATFORM_SUPPORT.md` and `docs/platform/` | Certified target policy and planning/future-evidence registers | Never convert planned support to certified evidence without the owning package and native proof |
+| `docs/traceability.json` | Canonical machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | v1.2 mappings remain hash-locked; M00-W08 additions stay `PROVISIONAL_PENDING_M00_W10` until the M00-W10 audit; regenerate/check the Markdown view after every intentional update |
 | `docs/REQUIREMENTS_TRACEABILITY.md` | Generated requirement and work-package traceability/readiness view | Never edit by hand; regenerate with `pnpm traceability:generate` and require `pnpm traceability:check` |
-| `docs/CRITICAL_GATES.md` | Autofill, resume/PageFit, and Workday gate state, corpus hash, reviewer, decision | Gate states change only with recorded evidence; PASS additionally requires independent review and the owner decision (spec §12) |
+| `docs/CRITICAL_GATES.md` | Autofill, resume/PageFit, Workday, and Cross-Platform Core gate state, corpus/evidence hash, reviewer, decision | Gate states change only with recorded evidence; PASS additionally requires independent review and the owner decision (spec §12) |
 | `docs/gates/` | Per-gate run reports and the holdout execution log | Append-only run records; states mirror `docs/CRITICAL_GATES.md` |
 
 ## Status model (spec §1.1 and §12)
@@ -67,11 +70,15 @@ NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
   PASS` and `M02` ACCEPTED; `M06` requires `RESUME_PAGEFIT_FEASIBILITY = PASS`
   and `M05` ACCEPTED; `M21` (and later production ATS expansion) requires
   `M19` and `M20` ACCEPTED and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
+  `M28` requires `M27` ACCEPTED and `CROSS_PLATFORM_CORE = PASS`.
+  `M01-W01` cannot become READY after v1.3 adoption until `M00-W10` is
+  VERIFIED and M00 is re-ACCEPTED. Final Windows/Ubuntu full-AI acceptance
+  belongs to M27-W10/Gate D and is not an M05-to-M06 readiness prerequisite.
   `REDESIGN_REQUIRED` or `BLOCKED` on a gate prevents downstream readiness.
 - Validate structure with `python3 scripts/validate_status.py` and
   `pnpm traceability:check` before
   reporting any package complete. The script enforces valid enums, the exact
-  v1.2 inventory (39 milestones, 260 work packages, 135 requirements), the
+  v1.3 inventory (39 milestones, 286 work packages, 157 requirements), the
   single-`IN_PROGRESS` rule, unskipped dependencies, acceptance of every
   dependency milestone, gate-based readiness blocking, verified-evidence
   preservation, deterministic next-work selection, and that exactly one
@@ -145,7 +152,7 @@ never reset or discard unexplained work solely to obtain a clean start.
 - Do not click the Workday final submit control in `GUIDED_PRE_SUBMIT`; the mode must stop on the certified review boundary.
 - Do not automate credentials, account creation, MFA, email verification, CAPTCHA, or legal-consent boundaries. Pause and preserve resumable state.
 - Do not permit production Greenhouse, Lever, or Ashby work to become ready while the Workday production gate is not `PASS`.
-- Do not use Ultra Code workflow fan-out as the default implementation process. Complete one coherent package with Fable 5 Max, then use a separate independent audit when required.
+- Do not automatically change the owner-selected implementation agent or reasoning mode. Complete one coherent package, then use a separate clean-session/worktree audit when the specification requires independence.
 
 ## Completion report format (spec §1.6) — required for every package
 

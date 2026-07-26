@@ -33,6 +33,121 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W08 — Adopt and migrate the v1.3 cross-platform rebaseline (2026-07-26)
+
+- Revision: `stamp pending` until the verified content tree is committed and
+  the conventional follow-up stamp records that tree.
+- Starting prerequisite: `main` was clean at
+  `0f8059c97d1167d6bb34413bae5c1c3c44b1ae37`, equal to `origin/main`.
+  Final v1.2 workflow run 30220655705 passed macOS job 89842408688 and
+  Ubuntu job 89842408669. `python3 scripts/validate_status.py`,
+  `pnpm traceability:check`, `pnpm run doctor`, and `pnpm verify` all exited
+  0 before adoption; v1.2 was exactly 39 milestones / 260 packages /
+  135 requirements / 3 gates, M00-W01…W07 were VERIFIED, M00 was ACCEPTED,
+  and M01-W01 was READY but untouched.
+- External adoption proof:
+  - Source:
+    `/Users/tanishkalwad/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.3_final.md`.
+  - `shasum -a 256` on both the external file and the adopted canonical file
+    returned
+    `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`.
+    The superseded v1.2 canonical SHA-256 was
+    `9faa4da58b566c56e70a773b31ac7bea3b4ca7b565fa333abf16cf6ee73bd901`.
+  - Independent parsing found version 1.3, the exact cross-platform
+    rebaseline revision, 124 balanced Markdown fences, milestones M00…M38 in
+    order, 286 unique packages, 157 unique requirements, and four gates.
+    The M00 table contains uninterrupted W01…W10 rows. All 260 v1.2 package
+    IDs/titles and 135 requirement IDs remain; the exact delta is 26
+    packages and 22 requirements.
+  - Policy inspection confirmed owner-controlled persistent agent selection,
+    no automatic Claude/Codex/reasoning-mode routing, separate clean-session
+    audits, Workday-first production ordering, unchanged exclusions, M05
+    primary-Mac acceptance plus Windows/Ubuntu capability/safe fallback,
+    no M06 dependency on Windows/Ubuntu full-AI acceptance, and final
+    Windows/Ubuntu full-AI ownership at M27-W10 before Gate D.
+  - The external bytes were copied directly over
+    `docs/MASTER_IMPLEMENTATION_SPEC.md`. `find docs -name
+    'MASTER_IMPLEMENTATION_SPEC*'` returns exactly that one canonical file.
+    No proposed or archived duplicate exists and no validator exception was
+    added.
+- Traceability preservation and extension:
+  - The M00-W07 JSON/generator/generated-view architecture remains in place.
+    The v1.2 reviewed mapping hash is unchanged at
+    `c2b4275f13d1074dea1532ae8d2a9020668eb44751c371e562cc78e46844eec9`;
+    the v1.2 reviewed dependency hash is unchanged at
+    `bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f`.
+  - The 22/26 delta is mechanically added and visibly labeled
+    `PROVISIONAL_PENDING_M00_W10`. Future product requirements remain
+    `NOT_STARTED`/`NOT_YET_APPLICABLE` with no completed paths or evidence.
+    M00-W10 still owns the complete reviewed mapping audit.
+  - `pnpm traceability:generate` and `pnpm traceability:check` exit 0 at
+    exactly 157 requirements / 286 packages; a second generation is
+    byte-stable and check mode leaves tracked state unchanged.
+- Governance and readiness:
+  - ADR-0002 records the external transport, exact hash, target matrix,
+    platform abstractions, secure-store/native-messaging/package/update
+    policies, staged AI sequencing, traceability preservation, owner-selected
+    agent policy, and v1.2 rollback through Git history.
+  - `docs/PLATFORM_SUPPORT.md`, Gate D, and the four `docs/platform/`
+    planning/future-evidence matrices contain no product, installer,
+    benchmark, full-AI, compatibility, or native-packaging claim.
+  - All four gates remain NOT_EVALUATED. M00 is reopened; the historical
+    v1.2 M01-W01 readiness is revoked. After this package verifies, only
+    M00-W09 becomes READY; M00-W10 and M01-W01 remain NOT_STARTED.
+- Focused positive/negative results:
+  - `uv run pytest scripts/tests/test_traceability.py
+    scripts/tests/test_validate_status.py -q` → exit 0, 88 passed.
+  - `uv run pytest scripts/tests -q` → exit 0, 172 passed. The canonical
+    `uv run pytest` including the orchestrator smoke test collected and
+    passed 173 tests.
+  - Coverage includes exact hash/order/counts and v1.2 preservation; missing,
+    duplicate, unknown, and stale platform records; missing governance files
+    and Gate D records/reports; incomplete Gate D PASS; M28/M01 blocking;
+    M06 independence from later full-AI acceptance; false future claims;
+    legacy remap/reclassification; provisional labeling; owner-controlled
+    agent policy; deterministic regeneration; and duplicate canonical specs.
+  - `uv run ruff check ...` and `uv run mypy ...` over all changed Python and
+    test files exited 0. The first focused `ruff format --check` correctly
+    found three edited files; `uv run ruff format` corrected them rather than
+    masking the failure.
+- Complete local validation:
+  - `pnpm install --frozen-lockfile` → exit 0 (12 workspace projects, already
+    up to date); `uv sync --locked` → exit 0 (17 resolved / 15 checked).
+  - `pnpm run doctor` → exit 0: 18 PASS, expected dirty-tree WARNING,
+    0 FAIL, and 3 honest NOT_YET_APPLICABLE future suites; it found 20
+    required memory files and four gate reports.
+  - The first final-state `pnpm preflight` exited 1 because Ruff correctly
+    detected one newly edited test file that still needed formatting. After
+    `uv run ruff format scripts/tests/test_traceability.py`, the second
+    `pnpm preflight` exited 0 and its aggregate verification passed every
+    active suite.
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:e2e`, `pnpm test:python`, and `pnpm test:rust` each exited 0.
+    Results: 8/8 TypeScript package tests; 8/8 TypeScript package typechecks;
+    1/1 pinned-Chromium test; 173/173 Python tests; 1/1 Rust test plus
+    rustfmt, Clippy `-D warnings`, and build.
+  - Focused final subsets: traceability 43/43; status validator 45/45;
+    verification runner/integrity 36/36; doctor/CI policy 48/48.
+  - Final `pnpm verify` → exit 0. Toolchain, format, lint, typecheck, unit-ts,
+    e2e-browser, Python, Rust, traceability, status, and integrity were
+    ACTIVE/PASS. Contract generation, contract compatibility, and visual
+    remain correctly NOT_YET_APPLICABLE.
+  - Final `python3 scripts/validate_status.py` → exit 0, 35/35 check groups.
+    Final `pnpm traceability:check` → exit 0 at 157/286.
+  - Structural audit printed canonical SHA-256
+    `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`,
+    124 balanced fences, 39/286/157/4 counts, uninterrupted M00-W01…W10,
+    and exactly one canonical-looking file. `git diff --check` reports only
+    eight intentional two-space Markdown hard-break lines already present
+    in the owner-approved exact-byte specification; altering them would
+    violate byte identity. No other whitespace error exists.
+- Security/privacy impact: governance metadata only. No executable product
+  feature, schema, secret, PII, applicant data, telemetry, live-site result,
+  installer, model artifact, or speculative compatibility evidence was
+  introduced.
+- Hosted content and final-HEAD results: pending the required local matrix,
+  content commit, and revision-stamp workflow runs.
+
 ### M00-W07 — Seed traceability and status (2026-07-26)
 
 - Revision: tree fee2902010eb90704c05e584fb6ff7964327cb0b / commit

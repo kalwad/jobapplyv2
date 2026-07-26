@@ -8,7 +8,7 @@ ATS/browser/OS support and measured pass rates
 - Only measured, evidence-linked results may appear here. No claimed support
   without fixtures, a recorded test run, and a `docs/TEST_EVIDENCE.md` entry.
 - Untested or unsupported variants must be listed and labeled as such rather
-  than omitted (spec v1.2: M19-W01/M20 Workday certification, M23-W05
+  than omitted (spec v1.3: M19-W01/M20 Workday certification, M23-W05
   initial adapter matrix, M31-W04 compatibility dashboard, M37-W06 published
   limits): compatibility is published honestly, never inflated.
 - Compatibility claims are limited to measured ATS families, tenant/layout
@@ -54,19 +54,24 @@ Chromium; production extension foundation: M17).
 
 ## Operating systems (desktop app)
 
-Nothing measured yet. Primary development/verification target per spec:
-macOS on Apple silicon (M5, 24 GB unified memory).
-The M00 macOS/Linux hosted verification matrix proves repository bootstrap
-and verification portability only; because no desktop product exists, it is
-not an OS compatibility claim and no support row is populated by M00-W07.
+The first-release policy targets macOS 14+ arm64, Windows 11 x64, and Ubuntu
+24.04 LTS x64. No desktop product or packaged platform evidence exists, so
+all three are `NOT_YET_IMPLEMENTED`; this is a target matrix, not a support
+claim. M00 macOS/Ubuntu hosted checks prove repository bootstrap only.
+Windows repository CI begins in M00-W09. Product certification and Gate D
+remain later work; see `docs/PLATFORM_SUPPORT.md`.
 
-| OS | Version | Desktop app status | Last verified revision | Evidence |
+| OS | Architecture | Desktop app status | Last verified revision | Evidence |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| macOS 14+ | arm64 | NOT_YET_IMPLEMENTED | — | — |
+| Windows 11 | x64 | NOT_YET_IMPLEMENTED | — | — |
+| Ubuntu 24.04 LTS | x64 | NOT_YET_IMPLEMENTED | — | — |
 
 ## Model runtime
 
-Nothing measured yet (model lock and acceptance benchmark: M05).
+Nothing measured yet (primary Mac profile acceptance: M05; Windows/Ubuntu
+capability and safe fallback: M05; final full-AI Windows/Ubuntu acceptance:
+M27-W10). No Windows or Ubuntu full-AI profile is accepted.
 
 | Runtime | Model tag | Digest | Benchmark result | Last verified revision | Evidence |
 |---|---|---|---|---|---|

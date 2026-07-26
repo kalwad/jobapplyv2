@@ -279,6 +279,15 @@ def test_missing_gate_report_fails(doctor_repo: Path) -> None:
     assert "WORKDAY_GUIDED_PRE_SUBMIT_GATE.md" in gates.detail
 
 
+def test_missing_cross_platform_gate_report_fails(doctor_repo: Path) -> None:
+    (doctor_repo / "docs" / "gates" / "CROSS_PLATFORM_CORE_GATE.md").unlink()
+    pins = doctor.read_pins(doctor_repo)
+    results = doctor.check_repository_files(ctx_with(doctor_repo), pins)
+    gates = result_by_id(results, "critical-gate-files")
+    assert gates.status == doctor.STATUS_FAIL
+    assert "CROSS_PLATFORM_CORE_GATE.md" in gates.detail
+
+
 def test_invalid_project_status_fails(doctor_repo: Path) -> None:
     status = doctor_repo / "docs" / "PROJECT_STATUS.md"
     status.write_text(

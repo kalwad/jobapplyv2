@@ -36,14 +36,21 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
-## M00 closeout review
+## M00-W08 migration review
 
-The M00-W07 traceability and package-by-package audit found no new open
-product defect. No product surface, ATS adapter, compatibility result,
-benchmark result, or critical-gate result exists yet, so none is claimed.
+The earlier M00-W07 audit found no new open product defect. M00 is now
+reopened for v1.3. No product surface, ATS adapter, compatibility result,
+benchmark result, installer, secure-store adapter, platform model profile,
+or critical-gate result exists yet, so none is claimed.
 The two existing LOW deferred risks (KI-0001 and KI-0003) remain assigned to
 their stated future owners and do not weaken an M00 verification or exit
-criterion. All three critical gates remain `NOT_EVALUATED`.
+criterion. All four critical gates remain `NOT_EVALUATED`.
+
+The initially supplied in-repository v1.3 proposal transport was rejected
+before editing because the v1.2 fail-closed validator correctly prohibited a
+second canonical-looking specification under `docs/`. The owner replaced it
+with an exact-hash external transport. ADR-0002 records the resolution; no
+validator exception or weakening was introduced.
 
 ## Fixed defects
 

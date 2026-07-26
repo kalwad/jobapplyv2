@@ -197,7 +197,7 @@ def check_repository_files(ctx: DoctorContext, pins: Pins) -> list[CheckResult]:
             (
                 f"missing: {missing_gates}"
                 if missing_gates
-                else "ledger + 3 gate reports + holdout log present"
+                else "ledger + 4 gate reports + holdout log present"
             ),
             "restore from git: git checkout -- docs/gates docs/CRITICAL_GATES.md"
             if missing_gates

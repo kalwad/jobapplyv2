@@ -1,4 +1,4 @@
-"""M00-W07 traceability inventory, dependency, honesty, and drift tests.
+"""M00-W08 traceability inventory, dependency, honesty, and drift tests.
 
 Every negative case mutates an isolated docs/scripts fixture. The tracked
 project-memory files are read-only except for the explicit deterministic
@@ -8,6 +8,7 @@ generation test against the real repository.
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import re
 import shutil
@@ -32,8 +33,16 @@ def trace_repo(tmp_path: Path) -> Path:
         repo / "scripts" / "validate_status.py",
     )
     shutil.copy2(
+        REPO_ROOT / "scripts" / "traceability.py",
+        repo / "scripts" / "traceability.py",
+    )
+    shutil.copy2(
         REPO_ROOT / "scripts" / "tests" / "test_validate_status.py",
         repo / "scripts" / "tests" / "test_validate_status.py",
+    )
+    shutil.copy2(
+        REPO_ROOT / "scripts" / "tests" / "test_traceability.py",
+        repo / "scripts" / "tests" / "test_traceability.py",
     )
     return repo
 
@@ -114,25 +123,27 @@ def set_metadata_package(
 
 
 def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
-    """Create the exact valid post-M00 state in an isolated fixture."""
+    """Create a valid future post-M00-W10 state in an isolated fixture."""
     metadata = load_metadata(repo)
     evidence = repo / "docs" / "TEST_EVIDENCE.md"
     with evidence.open("a", encoding="utf-8") as handle:
-        handle.write("\n### M00-W07 — traceability closeout fixture\n")
-    set_package_status(
-        repo,
-        "M00-W07",
-        "VERIFIED",
-        revision=FAKE_TREE,
-        evidence="docs/TEST_EVIDENCE.md § M00-W07",
-    )
-    set_metadata_package(
-        metadata,
-        "M00-W07",
-        "VERIFIED",
-        revision=FAKE_TREE,
-        evidence=True,
-    )
+        for package_id in ("M00-W08", "M00-W09", "M00-W10"):
+            handle.write(f"\n### {package_id} — traceability closeout fixture\n")
+    for package_id in ("M00-W08", "M00-W09", "M00-W10"):
+        set_package_status(
+            repo,
+            package_id,
+            "VERIFIED",
+            revision=FAKE_TREE,
+            evidence=f"docs/TEST_EVIDENCE.md § {package_id}",
+        )
+        set_metadata_package(
+            metadata,
+            package_id,
+            "VERIFIED",
+            revision=FAKE_TREE,
+            evidence=True,
+        )
     set_package_status(repo, "M01-W01", "READY")
     set_metadata_package(metadata, "M01-W01", "READY")
     replace_status(repo, r"^Current work package: .*$", "Current work package: NONE")
@@ -146,22 +157,75 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
 def test_real_repository_has_exact_inventories_and_clean_generated_view() -> None:
     result = traceability.validate_repository(REPO_ROOT)
     assert result.ok, "\n".join(result.errors)
-    assert result.requirement_count == 135
-    assert result.package_count == 260
+    assert result.requirement_count == 157
+    assert result.package_count == 286
 
 
 def test_every_id_is_unique_and_every_future_claim_is_honest() -> None:
     metadata = load_metadata(REPO_ROOT)
     requirement_ids = [record["id"] for record in records(metadata, "requirements")]
     package_ids = [record["id"] for record in records(metadata, "work_packages")]
-    assert len(requirement_ids) == len(set(requirement_ids)) == 135
-    assert len(package_ids) == len(set(package_ids)) == 260
+    assert len(requirement_ids) == len(set(requirement_ids)) == 157
+    assert len(package_ids) == len(set(package_ids)) == 286
     for requirement in records(metadata, "requirements"):
         if requirement["implementation_state"] == "NOT_STARTED":
             assert requirement["verification_state"] == "NOT_YET_APPLICABLE"
             assert requirement["completed_code_paths"] == []
             assert requirement["completed_test_paths"] == []
             assert requirement["current_evidence"] == []
+
+
+def test_v13_delta_and_preserved_v12_hashes_are_exact() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    requirement_ids = {
+        cast(str, record["id"]) for record in records(metadata, "requirements")
+    }
+    package_ids = {
+        cast(str, record["id"]) for record in records(metadata, "work_packages")
+    }
+    assert requirement_ids & traceability.NEW_REQUIREMENT_IDS == (
+        traceability.NEW_REQUIREMENT_IDS
+    )
+    assert package_ids & traceability.NEW_PACKAGE_IDS == traceability.NEW_PACKAGE_IDS
+    assert len(requirement_ids - traceability.NEW_REQUIREMENT_IDS) == 135
+    assert len(package_ids - traceability.NEW_PACKAGE_IDS) == 260
+    review = cast(dict[str, object], metadata["review"])
+    assert review["requirements_mapping_sha256"] == (
+        traceability.PRESERVED_REQUIREMENT_MAPPING_SHA256
+    )
+    assert review["work_package_dependency_sha256"] == (
+        traceability.PRESERVED_PACKAGE_DEPENDENCY_SHA256
+    )
+
+
+def test_adopted_spec_hash_schema_and_gate_inventory_are_exact() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    spec_path = REPO_ROOT / traceability.SPEC_REL
+    assert hashlib.sha256(spec_path.read_bytes()).hexdigest() == (
+        "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+    )
+    assert metadata["schema_version"] == 2
+    gate_ids = [record["id"] for record in records(metadata, "critical_gates")]
+    assert gate_ids == [
+        "AUTOFILL_FEASIBILITY",
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "WORKDAY_GUIDED_PRE_SUBMIT",
+        "CROSS_PLATFORM_CORE",
+    ]
+
+
+def test_new_records_are_visibly_provisional_and_future_honest() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    for record in records(metadata, "requirements"):
+        if record["id"] in traceability.NEW_REQUIREMENT_IDS:
+            assert record["mapping_review_state"] == ("PROVISIONAL_PENDING_M00_W10")
+            if record["id"] not in (traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS):
+                assert record["implementation_state"] == "NOT_STARTED"
+                assert record["verification_state"] == "NOT_YET_APPLICABLE"
+                assert record["current_evidence"] == []
+    for record in records(metadata, "work_packages"):
+        if record["id"] in traceability.NEW_PACKAGE_IDS:
+            assert record["dependency_review_state"] == ("PROVISIONAL_PENDING_M00_W10")
 
 
 def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> None:
@@ -178,8 +242,12 @@ def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> N
         "REQ-GATE-001",
         "REQ-GATE-005",
         "REQ-GATE-014",
+        "REQ-PLAT-011",
+        "REQ-GATE-017",
+        "REQ-GATE-018",
     }
-    for requirement_id in verified:
+    legacy_verified = verified - traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS
+    for requirement_id in legacy_verified:
         record = record_by_id(metadata, "requirements", requirement_id)
         assert record["completed_code_paths"] == ["scripts/validate_status.py"]
         assert record["completed_test_paths"] == [
@@ -187,6 +255,13 @@ def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> N
         ]
         assert record["current_evidence"] == [
             {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W05"}
+        ]
+    for requirement_id in traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS:
+        record = record_by_id(metadata, "requirements", requirement_id)
+        assert record["completed_code_paths"]
+        assert record["completed_test_paths"]
+        assert record["current_evidence"] == [
+            {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W08"}
         ]
 
 
@@ -196,7 +271,19 @@ def test_missing_requirement_fails(trace_repo: Path) -> None:
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
     assert "missing canonical requirement" in output
-    assert "expected 135" in output
+    assert "expected 157" in output
+
+
+def test_missing_platform_requirement_fails(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    requirements = records(metadata, "requirements")
+    requirements[:] = [
+        record for record in requirements if record["id"] != "REQ-PLAT-026"
+    ]
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "REQ-PLAT-026" in output
+    assert "missing canonical requirement" in output
 
 
 def test_duplicate_requirement_fails(trace_repo: Path) -> None:
@@ -249,7 +336,17 @@ def test_missing_work_package_fails(trace_repo: Path) -> None:
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
     assert "missing canonical work-package record" in output
-    assert "expected 260" in output
+    assert "expected 286" in output
+
+
+def test_missing_platform_work_package_fails(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    packages = records(metadata, "work_packages")
+    packages[:] = [record for record in packages if record["id"] != "M27-W12"]
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "M27-W12" in output
+    assert "missing canonical work-package record" in output
 
 
 def test_duplicate_work_package_fails(trace_repo: Path) -> None:
@@ -314,6 +411,26 @@ def test_wrong_workday_gate_dependencies_fail(trace_repo: Path) -> None:
     assert "production ATS work lacks Workday gate" in output
 
 
+def test_wrong_cross_platform_gate_dependencies_fail(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "work_packages", "M28-W01")[
+        "critical_gate_prerequisites"
+    ] = []
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "M28-W01: critical-gate prerequisites drift" in output
+    assert "M28-W01: M28 work lacks CROSS_PLATFORM_CORE" in output
+
+
+def test_m06_has_no_cross_platform_gate_prerequisite() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    for record in records(metadata, "work_packages"):
+        if cast(str, record["id"]).startswith("M06-"):
+            assert "CROSS_PLATFORM_CORE" not in cast(
+                list[str], record["critical_gate_prerequisites"]
+            )
+
+
 @pytest.mark.parametrize(
     ("package_id", "gate"),
     [
@@ -342,6 +459,25 @@ def test_false_future_implementation_claim_fails(trace_repo: Path) -> None:
     output = errors(trace_repo)
     assert "completed requirement requires real code, test, and evidence" in output
     assert "no verified/accepted owning package" in output
+
+
+def test_false_new_platform_implementation_claim_fails(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    requirement = record_by_id(metadata, "requirements", "REQ-PLAT-026")
+    requirement["implementation_state"] = "VERIFIED"
+    requirement["verification_state"] = "VERIFIED"
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "completed requirement requires real code, test, and evidence" in output
+
+
+def test_legacy_mapping_cannot_be_silently_reclassified(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "requirements", "REQ-PROF-001")["mapping_review_state"] = (
+        "PROVISIONAL_PENDING_M00_W10"
+    )
+    save_metadata(trace_repo, metadata)
+    assert "mapping review state must be REVIEWED_V1_2" in errors(trace_repo)
 
 
 @pytest.mark.parametrize(
@@ -374,6 +510,22 @@ def test_missing_critical_gate_report_fails(trace_repo: Path) -> None:
     assert "critical-gate report path does not exist" in errors(trace_repo)
 
 
+def test_missing_cross_platform_gate_record_fails(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    gates = records(metadata, "critical_gates")
+    gates[:] = [record for record in gates if record["id"] != "CROSS_PLATFORM_CORE"]
+    save_metadata(trace_repo, metadata)
+    assert "missing critical-gate record" in errors(trace_repo)
+
+
+def test_duplicate_cross_platform_gate_record_fails(trace_repo: Path) -> None:
+    metadata = load_metadata(trace_repo)
+    gate = record_by_id(metadata, "critical_gates", "CROSS_PLATFORM_CORE")
+    records(metadata, "critical_gates").append(copy.deepcopy(gate))
+    save_metadata(trace_repo, metadata)
+    assert "duplicate critical-gate record" in errors(trace_repo)
+
+
 def test_human_machine_traceability_drift_fails(trace_repo: Path) -> None:
     view = trace_repo / traceability.VIEW_REL
     view.write_text(
@@ -391,6 +543,16 @@ def test_regeneration_is_deterministic_and_check_is_read_only() -> None:
     assert second.ok
     assert first.expected_view == second.expected_view
     assert view.read_bytes() == before
+
+
+def test_multiple_canonical_specifications_fail_traceability(
+    trace_repo: Path,
+) -> None:
+    shutil.copy2(
+        trace_repo / traceability.SPEC_REL,
+        trace_repo / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md",
+    )
+    assert "second canonical-looking specification" in errors(trace_repo)
 
 
 def test_spec_inventory_change_without_metadata_update_fails(trace_repo: Path) -> None:

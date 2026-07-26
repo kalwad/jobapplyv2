@@ -1,6 +1,6 @@
 # Critical Gates
 
-Authoritative narrative decision ledger for the three blocking critical
+Authoritative narrative decision ledger for the four blocking critical
 gates (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1, §2.3, §12). For each gate
 this file holds the metric table, zero-tolerance failures, holdout result,
 independent review, owner decision, known limitations, and next permitted
@@ -23,6 +23,9 @@ reports live in `docs/gates/`.
   holdout evidence are mandatory.
 - Any change to gate-relevant components triggers the complete affected
   gate regression (spec §1.5; REQ-WD-023 for Workday).
+- Gate D requires actual native packaged evidence on all three certified
+  targets. Compilation, cross-compilation, containers, emulation, or one
+  operating system cannot substitute for that evidence.
 
 ## Summary
 
@@ -31,6 +34,7 @@ reports live in `docs/gates/`.
 | AUTOFILL_FEASIBILITY | NOT_EVALUATED | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M05 | M06 readiness | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M19–M20 | M21 readiness and later production ATS expansion (and M22/M23 qualifiers) | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+| CROSS_PLATFORM_CORE | NOT_EVALUATED | M03–M05, M10, M17, M27 | M28 readiness (requires M27 ACCEPTED) | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
 
 ## AUTOFILL_FEASIBILITY
 
@@ -63,6 +67,46 @@ reports live in `docs/gates/`.
 | Workday challenge-set architecture failures hidden or waived | 0 | — |
 | Greenhouse/Lever/Workday research comparison versus Simplify | non-inferior precision on the declared narrow set, within the declared recall margin, and safer or equal on uncertainty | — |
 | Comparison versus CareerPulse/legacy JobApply | decisive measured improvement with no inherited unsafe fallback | — |
+
+- Zero-tolerance failures observed: — (none recorded; gate not evaluated).
+- Holdout result: pending.
+- Independent review: pending.
+
+## CROSS_PLATFORM_CORE
+
+- State: NOT_EVALUATED
+- Evaluated revision: —
+- Corpus/holdout hash: —
+- Independent reviewer: —
+- Owner decision: pending
+- Report: docs/gates/CROSS_PLATFORM_CORE_GATE.md
+- Known limitations: no product platform implementation or certification has
+  occurred. Windows and Ubuntu full-AI profiles are not accepted.
+- Next permitted action: complete the staged M03–M05, M10, M17, and M27
+  platform work. The independent Gate D audit is M27-W12. M28 must not become
+  READY before M27 is ACCEPTED and this gate is PASS.
+
+### Metric table (spec §2.3 Gate D — measured results recorded at evaluation)
+
+| Dimension | Blocking cross-platform result | Measured |
+|---|---:|---|
+| Clean install, launch, and first-run diagnostics | 100% on every certified platform | — |
+| Local-service lifecycle and forced-crash recovery | 100% on every certified platform | — |
+| Orphan processes | 0 | — |
+| Secret-store plaintext/insecure fallback | 0 | — |
+| Encrypted database unreadable without protected key | 100% | — |
+| Chrome extension/native-host handshake | 100% on every certified platform | — |
+| Native-host registration removed on uninstall | 100% | — |
+| Deterministic core blocked by unavailable AI | 0 | — |
+| Accepted full-AI profile | at least one per certified OS | — |
+| Controlled PDF/DOCX text order and clipping | 100% text order; 0 clipping/hidden content | — |
+| Cross-platform encrypted backup restore | 100% on defined matrix | — |
+| Spaces/Unicode install paths | 100% | — |
+| Filesystem/process edge cases | 100% correct or safely blocked | — |
+| Update, rollback, repair, and uninstall | 100% on certified matrix | — |
+| Chrome stable platform-native E2E | PASS on every certified platform | — |
+| Critical/high platform-specific defects | 0 open | — |
+| Unsupported platform claim without dated evidence | 0 | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
 - Holdout result: pending.

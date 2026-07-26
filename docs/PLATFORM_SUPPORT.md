@@ -1,0 +1,57 @@
+# Platform Support
+
+Canonical platform-governance memory for JAPP-MASTER-001 v1.3. This file
+records intended certification scope and current evidence honestly; it is not
+evidence that a product package, secure store, model runtime, native host,
+installer, updater, or compatibility target already works.
+
+## Support-state vocabulary
+
+| State | Meaning |
+|---|---|
+| `CERTIFIED_FULL` | Native packaged core behavior and an accepted full-AI profile passed the complete platform gate. |
+| `CERTIFIED_CORE` | Native packaged deterministic core behavior passed, but no accepted full-AI profile applies to the machine. |
+| `EXPERIMENTAL` | Some behavior was measured, but no first-release support promise exists. |
+| `UNSUPPORTED` | The target is deliberately outside the certified matrix and must fail visibly with an explanation. |
+| `NOT_YET_IMPLEMENTED` | Planning contract only; no product certification evidence exists. |
+
+## First-release target contract
+
+| Target ID | Operating system | Architecture | Browser | Intended tiers | Current product state | Evidence |
+|---|---|---|---|---|---|---|
+| `macos-arm64` | macOS 14 or later | Apple Silicon arm64 | Chrome stable | `CERTIFIED_FULL`, `CERTIFIED_CORE` | `NOT_YET_IMPLEMENTED` | — |
+| `windows-x64` | Windows 11 | x86-64 | Chrome stable | `CERTIFIED_FULL`, `CERTIFIED_CORE` | `NOT_YET_IMPLEMENTED` | — |
+| `ubuntu-x64` | Ubuntu 24.04 LTS, supported default GNOME session | x86-64 | Chrome stable | `CERTIFIED_FULL`, `CERTIFIED_CORE` | `NOT_YET_IMPLEMENTED` | — |
+
+The current macOS and Ubuntu GitHub Actions jobs prove only the M00 repository
+toolchain and verification baseline. They do not certify packaged product
+behavior. Windows CI is owned by `M00-W09` and is not implemented by
+`M00-W08`.
+
+## Staged local-AI policy
+
+- `M05` must accept the primary Mac full-AI profile, define the shared
+  platform-profile contract, and validate native Windows/Ubuntu capability
+  detection plus safe no-model and insufficient-hardware behavior.
+- The absence of qualifying Windows or Ubuntu full-AI hardware during `M05`
+  does not block `M06`.
+- `M27-W10` owns final acceptance of at least one full-AI Windows profile and
+  one full-AI Ubuntu profile.
+- Neither Windows nor Ubuntu has an accepted full-AI profile today.
+- `CROSS_PLATFORM_CORE` cannot pass until those later full-AI acceptances and
+  every other Gate D requirement have real native packaged evidence.
+
+## Governance and ownership
+
+- Typed platform contracts: `M01-W07`.
+- Lifecycle/path/process packages: `M03-W07` through `M03-W10`.
+- Native secure stores and portable backup: `M04-W07` through `M04-W10`.
+- Platform model capability and fallback: `M05-W13` through `M05-W16`.
+- Cross-platform rendering: `M10-W07`.
+- Native-messaging registration/E2E: `M17-W07` through `M17-W10`.
+- Native release candidates, full-AI certification, updater, and Gate D:
+  `M27-W08` through `M27-W12`.
+
+Detailed matrices live under `docs/platform/`. Compatibility claims require a
+dated evidence reference and remain `NOT_YET_IMPLEMENTED` until their owning
+packages genuinely run.

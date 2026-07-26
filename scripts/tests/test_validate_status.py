@@ -1,18 +1,19 @@
-"""Black-box tests for the v1.2-aware scripts/validate_status.py (M00-W05).
+"""Black-box tests for the v1.3-aware scripts/validate_status.py (M00-W08).
 
 The validator is exercised exactly as production runs it (a subprocess with
 ``--repo``), against full temporary copies of the repository's project-memory
 files. Positive cases prove the migrated repository passes; negative cases
 prove every §12/§13.8-mandated rejection: invalid gate states, missing
-Workday packages/requirements, stale v1.0 inventory, a second
+platform packages/requirements, stale inventory, a second
 canonical-looking specification, a missing Workday gate report, dropped
 preserved revisions, gate-based readiness blocking for M03/M06/M21, and the
-structural rules carried over from v1.0 (enums, single IN_PROGRESS,
+structural rules carried over from v1.2 (enums, single IN_PROGRESS,
 dependencies, completeness).
 """
 
 from __future__ import annotations
 
+import hashlib
 import re
 import shutil
 import subprocess
@@ -21,6 +22,7 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
+import validate_status
 from conftest import REPO_ROOT
 
 VALIDATOR = REPO_ROOT / "scripts" / "validate_status.py"
@@ -28,6 +30,7 @@ GATES = (
     "AUTOFILL_FEASIBILITY",
     "RESUME_PAGEFIT_FEASIBILITY",
     "WORKDAY_GUIDED_PRE_SUBMIT",
+    "CROSS_PLATFORM_CORE",
 )
 FAKE_TREE = "tree " + "0" * 40
 
@@ -108,6 +111,8 @@ def pkg_rows(repo: Path) -> list[str]:
 
 def promote(repo: Path, pid: str) -> None:
     """Mark a package ACCEPTED with a synthetic revision and evidence entry."""
+    if pid in validate_status.PRESERVED_M00_REVISIONS:
+        return
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
     pattern = re.compile(rf"^\| `{pid}` \|[^\n]*$", flags=re.MULTILINE)
@@ -178,6 +183,20 @@ def pass_gate(repo: Path, gate: str) -> None:
         )
 
 
+def accept_full_ai_profiles(repo: Path) -> None:
+    path = repo / "docs" / "platform" / "MODEL_RUNTIME_PROFILES.md"
+    text = path.read_text(encoding="utf-8")
+    for platform in ("macos-arm64", "windows-x64", "ubuntu-x64"):
+        pattern = re.compile(rf"^\| `{platform}` \|[^\n]*$", flags=re.MULTILINE)
+        assert pattern.search(text)
+        row = (
+            f"| `{platform}` | `CERTIFIED_FULL` | `ACCEPTED` | "
+            f"docs/TEST_EVIDENCE.md § synthetic-{platform} | fixture | fixture |"
+        )
+        text = pattern.sub(row, text, count=1)
+    path.write_text(text, encoding="utf-8")
+
+
 # ---------------------------------------------------------------- positive
 
 
@@ -185,6 +204,36 @@ def test_migrated_repository_passes() -> None:
     result = run_validator(REPO_ROOT)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "PASS" in result.stdout
+
+
+def test_owner_approved_hash_and_exact_v13_inventory() -> None:
+    spec_path = REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.md"
+    assert hashlib.sha256(spec_path.read_bytes()).hexdigest() == (
+        "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+    )
+    spec = validate_status.parse_spec(spec_path)
+    assert list(spec.milestones) == [f"M{number:02d}" for number in range(39)]
+    assert len(spec.package_ids()) == len(set(spec.package_ids())) == 286
+    assert len(spec.requirement_ids) == 157
+    assert [pid for pid, _ in spec.milestones["M00"].packages] == [
+        f"M00-W{number:02d}" for number in range(1, 11)
+    ]
+
+
+def test_owner_controlled_agent_and_staged_ai_policy_are_present() -> None:
+    text = (REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.md").read_text(
+        encoding="utf-8"
+    )
+    assert "**Implementation-agent policy:** Owner-selected per package." in text
+    assert "must not automatically route work between Claude, Codex" in text
+    assert "does not block the resume/PageFit feasibility architecture or `M06`" in text
+    assert (
+        "Final acceptance of at least one `CERTIFIED_FULL` Windows profile "
+        "and one `CERTIFIED_FULL` Ubuntu profile is deferred to `M27-W10`"
+    ) in text
+    assert "Implementation sessions use Claude Fable 5 Max" not in (
+        REPO_ROOT / "CLAUDE.md"
+    ).read_text(encoding="utf-8")
 
 
 def test_gate_pass_unblocks_m03(repo_copy: Path) -> None:
@@ -209,11 +258,12 @@ def test_invalid_package_state_rejected(repo_copy: Path) -> None:
 
 
 def test_skipped_dependency_rejected(repo_copy: Path) -> None:
-    # The canonical post-M00 baseline legitimately has M01-W01 READY. Revoke
-    # the final M00 package and milestone acceptance to reconstruct the
-    # forbidden skipped-dependency transition explicitly.
-    set_pkg_state(repo_copy, "M00-W07", "NOT_STARTED")
+    promote_milestones(repo_copy, ["M00"])
+    set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
     set_ms_state(repo_copy, "M00", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M01-W01", "READY")
+    set_current_package(repo_copy, "NONE")
+    set_next_ready(repo_copy, "`M01-W01`")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "dependency milestone M00 has unfinished packages" in result.stdout
@@ -299,7 +349,7 @@ def test_missing_workday_requirement_rejected(repo_copy: Path) -> None:
     spec.write_text(pattern.sub("", text, count=1), encoding="utf-8")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "expected 135" in result.stdout
+    assert "expected 157" in result.stdout
 
 
 def test_missing_milestone_section_rejected(repo_copy: Path) -> None:
@@ -317,11 +367,36 @@ def test_second_canonical_spec_rejected(repo_copy: Path) -> None:
     canonical = repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.md"
     shutil.copy2(
         canonical,
-        repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md",
+        repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md",
     )
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md" in result.stdout
+    assert "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md" in result.stdout
+
+
+def test_final_tree_has_no_proposed_specification() -> None:
+    assert not (
+        REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md"
+    ).exists()
+
+
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "docs/PLATFORM_SUPPORT.md",
+        "docs/platform/CERTIFIED_MATRIX.md",
+        "docs/platform/MODEL_RUNTIME_PROFILES.md",
+        "docs/platform/NATIVE_MESSAGING_MATRIX.md",
+        "docs/platform/PACKAGING_UPDATE_MATRIX.md",
+    ],
+)
+def test_missing_platform_governance_file_rejected(
+    repo_copy: Path, relative: str
+) -> None:
+    (repo_copy / relative).unlink()
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert relative in result.stdout
 
 
 def test_renamed_canonical_lookalike_rejected(repo_copy: Path) -> None:
@@ -365,6 +440,25 @@ def test_missing_workday_gate_report_rejected(repo_copy: Path) -> None:
     assert "WORKDAY_GUIDED_PRE_SUBMIT_GATE.md" in result.stdout
 
 
+def test_missing_cross_platform_gate_report_rejected(repo_copy: Path) -> None:
+    (repo_copy / "docs" / "gates" / "CROSS_PLATFORM_CORE_GATE.md").unlink()
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "CROSS_PLATFORM_CORE_GATE.md" in result.stdout
+
+
+def test_duplicate_cross_platform_gate_row_rejected(repo_copy: Path) -> None:
+    path = status_path(repo_copy)
+    text = path.read_text(encoding="utf-8")
+    row = next(
+        line for line in text.splitlines() if line.startswith("| CROSS_PLATFORM_CORE |")
+    )
+    path.write_text(text.replace(row, f"{row}\n{row}", 1), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "duplicate critical-gates row: CROSS_PLATFORM_CORE" in result.stdout
+
+
 def test_missing_critical_gates_ledger_rejected(repo_copy: Path) -> None:
     (repo_copy / "docs" / "CRITICAL_GATES.md").unlink()
     result = run_validator(repo_copy)
@@ -378,6 +472,16 @@ def test_gate_pass_without_evidence_fields_rejected(repo_copy: Path) -> None:
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "AUTOFILL_FEASIBILITY is PASS but" in result.stdout
+
+
+def test_cross_platform_gate_pass_requires_full_ai_profiles(
+    repo_copy: Path,
+) -> None:
+    pass_gate(repo_copy, "CROSS_PLATFORM_CORE")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "windows-x64 lacks CERTIFIED_FULL/ACCEPTED" in result.stdout
+    assert "ubuntu-x64 lacks CERTIFIED_FULL/ACCEPTED" in result.stdout
 
 
 def test_gate_state_mismatch_between_files_rejected(repo_copy: Path) -> None:
@@ -492,6 +596,51 @@ def test_m06_blocked_without_resume_pagefit_gate(repo_copy: Path) -> None:
     assert "PASS required" in result.stdout
 
 
+def test_m06_is_not_blocked_by_missing_windows_ubuntu_full_ai(
+    repo_copy: Path,
+) -> None:
+    promote_milestones(repo_copy, [f"M{number:02d}" for number in range(6)])
+    pass_gate(repo_copy, "AUTOFILL_FEASIBILITY")
+    pass_gate(repo_copy, "RESUME_PAGEFIT_FEASIBILITY")
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M06", "READY")
+    set_pkg_state(repo_copy, "M06-W01", "READY")
+    set_next_ready(repo_copy, "`M06-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_m28_blocked_without_cross_platform_gate(repo_copy: Path) -> None:
+    promote_milestones(repo_copy, [f"M{number:02d}" for number in range(28)])
+    for gate in GATES[:3]:
+        pass_gate(repo_copy, gate)
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M28", "READY")
+    set_pkg_state(repo_copy, "M28-W01", "READY")
+    set_next_ready(repo_copy, "`M28-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "CROSS_PLATFORM_CORE" in result.stdout
+    assert "PASS required" in result.stdout
+
+
+def test_m28_blocked_without_m27_acceptance_even_when_gate_d_passes(
+    repo_copy: Path,
+) -> None:
+    promote_milestones(repo_copy, [f"M{number:02d}" for number in range(27)])
+    for gate in GATES:
+        pass_gate(repo_copy, gate)
+    accept_full_ai_profiles(repo_copy)
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M28", "READY")
+    set_pkg_state(repo_copy, "M28-W01", "READY")
+    set_next_ready(repo_copy, "`M28-W01`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "milestone M27" in result.stdout
+    assert "ACCEPTED required" in result.stdout
+
+
 def test_m21_blocked_without_workday_gate_and_accepted_m19_m20(
     repo_copy: Path,
 ) -> None:
@@ -541,18 +690,18 @@ def test_missing_evidence_heading_rejected(repo_copy: Path) -> None:
 
 
 def test_milestone_acceptance_allows_verified_package_rows(repo_copy: Path) -> None:
-    set_pkg_state(repo_copy, "M00-W07", "VERIFIED")
+    promote_milestones(repo_copy, ["M00"])
     path = status_path(repo_copy)
     text = path.read_text(encoding="utf-8")
-    pattern = re.compile(r"^\| `M00-W07` \|[^\n]*$", flags=re.MULTILINE)
+    pattern = re.compile(r"^\| `M00-W10` \|[^\n]*$", flags=re.MULTILINE)
     row = (
-        f"| `M00-W07` | VERIFIED | {FAKE_TREE} | "
-        "docs/TEST_EVIDENCE.md § M00-W07 | fixture |"
+        f"| `M00-W10` | VERIFIED | {FAKE_TREE} | "
+        "docs/TEST_EVIDENCE.md § M00-W10 | fixture |"
     )
     path.write_text(pattern.sub(row, text, count=1), encoding="utf-8")
     evidence = repo_copy / "docs" / "TEST_EVIDENCE.md"
     with evidence.open("a", encoding="utf-8") as handle:
-        handle.write("\n### M00-W07 — verified fixture\n")
+        handle.write("\n### M00-W10 — verified fixture\n")
     set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M00", "ACCEPTED")
     set_next_ready(repo_copy, "NONE")

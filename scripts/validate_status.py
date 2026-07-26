@@ -1,33 +1,36 @@
 #!/usr/bin/env python3
 """Validate the structure of the canonical project-memory files.
 
-Required by docs/MASTER_IMPLEMENTATION_SPEC.md (JAPP-MASTER-001 v1.2) §1.1 and
-§12. Created in M00-W01; rewritten in M00-W05 for the v1.2 Workday-first
-rebaseline and brought under the strict Ruff/mypy/pytest gates.
+Required by docs/MASTER_IMPLEMENTATION_SPEC.md (JAPP-MASTER-001 v1.3) §1.1 and
+§12. Created in M00-W01, rewritten for the v1.2 Workday-first rebaseline in
+M00-W05, and mechanically extended for the v1.3 platform rebaseline in
+M00-W08.
 
 Checks performed
   1.  Every canonical project-memory file exists, is non-empty, and contains
       its required top-level structure (CLAUDE.md, the docs/ files including
-      docs/CRITICAL_GATES.md, and the four docs/gates/ reports).
+      docs/CRITICAL_GATES.md, platform-governance memory, and gate reports).
   2.  The canonical specification parses and defines exactly 39 milestones
-      (M00-M38), 260 unique work packages, and 135 unique requirement IDs;
-      the three §12 gate rules (M03/M06/M21) are derivable from it.
+      (M00-M38), 286 unique work packages, and 157 unique requirement IDs;
+      the four §12 gate rules (M03/M06/M21/M28) are derivable from it.
   3.  docs/PROJECT_STATUS.md structure: header fields, required sections,
       milestone/work-package table completeness against the spec, valid
       state enums, no duplicates, no more than one IN_PROGRESS package,
       current-package and next-READY consistency.
-  4.  Critical-gates table: exactly the three v1.2 gates, valid gate-state
+  4.  Critical-gates table: exactly the four v1.3 gates, valid gate-state
       enums, report paths present on disk, state agreement with the
       docs/CRITICAL_GATES.md ledger, and full evidence fields (revision,
       corpus/holdout hash, reviewer, owner decision, holdout result) before
-      a gate may claim PASS.
+      a gate may claim PASS; Gate D additionally requires accepted full-AI
+      Windows and Ubuntu profile evidence.
   5.  Dependencies are not skipped: milestone dependencies parsed from the
       spec's "**Dependencies:**" lines, the intra-milestone sequential
       convention, ACCEPTED state for every dependency milestone, explicit
       ACCEPTED-milestone prerequisites (M03<-M02, M06<-M05, M20<-M19,
       M21<-M19+M20, M36<-M35), and gate-based readiness blocking
-      (a package of M03/M06/M17/M18/M19/M21/M22/M23 may be READY or started
-      only while its required critical gate is PASS).
+      (a package with a declared M03/M06/M21/M28 gate prerequisite may be
+      READY or started only while its required critical gate is PASS).
+      M01-W01 also requires M00-W10 VERIFIED and M00 ACCEPTED.
   6.  Milestone-state consistency with package states.
   7.  Verified evidence preservation: every VERIFIED/ACCEPTED package row
       carries a `tree <hash>` revision (or the explicit `stamp pending`
@@ -45,6 +48,7 @@ Usage: python3 scripts/validate_status.py [--repo DIR] [--status FILE]
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sys
 from dataclasses import dataclass, field
@@ -64,13 +68,17 @@ DONE = {"VERIFIED", "ACCEPTED"}
 GATE_STATES = {"NOT_EVALUATED", "IN_PROGRESS", "PASS", "REDESIGN_REQUIRED", "BLOCKED"}
 
 EXPECTED_MILESTONES = 39
-EXPECTED_PACKAGES = 260
-EXPECTED_REQUIREMENTS = 135
+EXPECTED_PACKAGES = 286
+EXPECTED_REQUIREMENTS = 157
+EXPECTED_SPEC_SHA256 = (
+    "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+)
 
 GATES = (
     "AUTOFILL_FEASIBILITY",
     "RESUME_PAGEFIT_FEASIBILITY",
     "WORKDAY_GUIDED_PRE_SUBMIT",
+    "CROSS_PLATFORM_CORE",
 )
 GATE_REPORTS = {gate: f"docs/gates/{gate}_GATE.md" for gate in GATES}
 
@@ -81,13 +89,31 @@ REQUIRED_GATE_RULES = {
     "M03": "AUTOFILL_FEASIBILITY",
     "M06": "RESUME_PAGEFIT_FEASIBILITY",
     "M21": "WORKDAY_GUIDED_PRE_SUBMIT",
+    "M28": "CROSS_PLATFORM_CORE",
 }
-HARD_ACCEPTED_DEPS = {"M03": ("M02",), "M06": ("M05",), "M21": ("M19", "M20")}
+HARD_ACCEPTED_DEPS = {
+    "M03": ("M02",),
+    "M06": ("M05",),
+    "M21": ("M19", "M20"),
+    "M28": ("M27",),
+}
+
+PRESERVED_M00_REVISIONS = {
+    "M00-W01": "tree e1dd209417af97b3cab320b4ab01fbd702547136",
+    "M00-W02": "tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140",
+    "M00-W03": "tree 323df745c419d8cc7809e88f10bbeca018fdfbb2",
+    "M00-W04": "tree 6c798abfd76824fd43c09c72615a3a976406f081",
+    "M00-W05": "tree 0c6fe779cc56755983d39951cabcdf201867bae2",
+    "M00-W06": "tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf",
+    "M00-W07": "tree fee2902010eb90704c05e584fb6ff7964327cb0b",
+}
+REQUIRED_M00_SEQUENCE = tuple(f"M00-W{number:02d}" for number in range(1, 11))
 
 STAMP_PENDING = "stamp pending"
 SPEC_HEADER_MARKER = "**Specification ID:** JAPP-MASTER-001"
 CANONICAL_SPEC_REL = "docs/MASTER_IMPLEMENTATION_SPEC.md"
 MIN_ROW_CELLS = 2
+FULL_EVIDENCE_ROW_CELLS = 4
 MISSING_PREVIEW_LIMIT = 8
 SPEC_HEADER_SCAN_LINES = 60
 
@@ -97,7 +123,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
         CANONICAL_SPEC_REL,
         (
             "JAPP-MASTER-001",
-            "**Version:** 1.2",
+            "**Version:** 1.3",
             "## 12. Required project-status format",
         ),
     ),
@@ -106,10 +132,14 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("docs/TEST_EVIDENCE.md", ("# Test Evidence", "## Entry template")),
     ("docs/KNOWN_ISSUES.md", ("# Known Issues", "## Entry template")),
     ("docs/COMPATIBILITY_MATRIX.md", ("# Compatibility Matrix",)),
+    (
+        "docs/PLATFORM_SUPPORT.md",
+        ("# Platform Support", "CERTIFIED_FULL", "NOT_YET_IMPLEMENTED"),
+    ),
     ("docs/REQUIREMENTS_TRACEABILITY.md", ("# Requirements Traceability",)),
     (
         "docs/traceability.json",
-        ('"schema_version": 1', '"requirements": [', '"work_packages": ['),
+        ('"schema_version": 2', '"requirements": [', '"work_packages": ['),
     ),
     ("docs/CRITICAL_GATES.md", ("# Critical Gates", *GATES)),
     ("docs/gates/AUTOFILL_FEASIBILITY_GATE.md", ("AUTOFILL_FEASIBILITY",)),
@@ -121,7 +151,27 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
         "docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
         ("WORKDAY_GUIDED_PRE_SUBMIT",),
     ),
+    (
+        "docs/gates/CROSS_PLATFORM_CORE_GATE.md",
+        ("CROSS_PLATFORM_CORE", "NOT_EVALUATED"),
+    ),
     ("docs/gates/HOLDOUT_EXECUTION_LOG.md", ("# Holdout Execution Log",)),
+    (
+        "docs/platform/CERTIFIED_MATRIX.md",
+        ("# Certified Platform Matrix", "windows-x64", "ubuntu-x64"),
+    ),
+    (
+        "docs/platform/MODEL_RUNTIME_PROFILES.md",
+        ("# Model Runtime Profiles", "NOT_ACCEPTED", "M27-W10"),
+    ),
+    (
+        "docs/platform/NATIVE_MESSAGING_MATRIX.md",
+        ("# Native Messaging Matrix", "windows-x64", "Binary"),
+    ),
+    (
+        "docs/platform/PACKAGING_UPDATE_MATRIX.md",
+        ("# Packaging and Update Matrix", "NOT_YET_IMPLEMENTED"),
+    ),
 )
 
 HEADER_FIELDS = (
@@ -371,11 +421,18 @@ def check_memory_files(
 
 def check_spec_inventory(spec: Spec, report: Report) -> None:
     milestone_count = len(spec.milestones)
+    milestone_ids = list(spec.milestones)
+    expected_milestone_ids = [f"M{number:02d}" for number in range(39)]
     package_ids = spec.package_ids()
     if milestone_count != EXPECTED_MILESTONES:
         report.fail(
             f"spec defines {milestone_count} milestones "
             f"(expected {EXPECTED_MILESTONES})"
+        )
+    if milestone_ids != expected_milestone_ids:
+        report.fail(
+            f"spec milestone order is {milestone_ids} "
+            f"(expected {expected_milestone_ids})"
         )
     if len(package_ids) != EXPECTED_PACKAGES or len(set(package_ids)) != len(
         package_ids
@@ -402,6 +459,51 @@ def check_spec_inventory(spec: Spec, report: Report) -> None:
             f"spec parsed: {milestone_count} milestones, {len(package_ids)} work "
             f"packages, {len(spec.requirement_ids)} requirements; §12 gate rules "
             "derivable"
+        )
+
+
+def check_spec_contract(spec_path: Path, spec: Spec, report: Report) -> None:
+    """Validate the exact owner-approved v1.3 adoption and governance floor."""
+    content = spec_path.read_text(encoding="utf-8")
+    digest = hashlib.sha256(spec_path.read_bytes()).hexdigest()
+    if digest != EXPECTED_SPEC_SHA256:
+        report.fail(
+            f"canonical specification SHA-256 is {digest} "
+            f"(expected {EXPECTED_SPEC_SHA256})"
+        )
+    m00 = spec.milestones.get("M00")
+    sequence = tuple(pid for pid, _ in m00.packages) if m00 is not None else ()
+    if sequence != REQUIRED_M00_SEQUENCE:
+        report.fail(
+            f"M00 package sequence is {sequence} "
+            f"(expected uninterrupted {REQUIRED_M00_SEQUENCE})"
+        )
+    required_policy = (
+        "**Implementation-agent policy:** Owner-selected per package.",
+        "must not automatically route work between Claude, Codex, or reasoning modes",
+        (
+            "Lack of a qualifying Windows or Ubuntu full-AI machine during `M05` "
+            "does not block the resume/PageFit feasibility architecture or `M06`."
+        ),
+        (
+            "Final acceptance of at least one `CERTIFIED_FULL` Windows profile "
+            "and one `CERTIFIED_FULL` Ubuntu profile is deferred to `M27-W10`"
+        ),
+        ("the v1.2 fail-closed validator correctly rejects that state"),
+    )
+    for needle in required_policy:
+        if needle not in content:
+            report.fail(f"canonical v1.3 governance text missing: {needle!r}")
+    if "Implementation sessions use Claude Fable 5 Max" in content:
+        report.fail("obsolete hard-coded implementation-agent routing policy present")
+    if (
+        digest == EXPECTED_SPEC_SHA256
+        and sequence == REQUIRED_M00_SEQUENCE
+        and all(needle in content for needle in required_policy)
+    ):
+        report.ok(
+            "canonical v1.3 hash, M00-W01…W10 table, owner-controlled agent "
+            "policy, and staged model-profile policy verified"
         )
 
 
@@ -522,6 +624,30 @@ def _check_gate_pass_evidence(
         problems.append("gate report records no owner decision")
     if not holdouts or holdouts[-1].lower() in {"pending", "—"}:
         problems.append("gate report records no holdout result")
+    if gate == "CROSS_PLATFORM_CORE":
+        profiles_path = repo / "docs/platform/MODEL_RUNTIME_PROFILES.md"
+        profiles_text = (
+            profiles_path.read_text(encoding="utf-8") if profiles_path.is_file() else ""
+        )
+        for platform in ("macos-arm64", "windows-x64", "ubuntu-x64"):
+            row = next(
+                (
+                    line
+                    for line in profiles_text.splitlines()
+                    if line.startswith(f"| `{platform}` |")
+                ),
+                "",
+            )
+            cells = [cell.strip().strip("`") for cell in row.strip("|").split("|")]
+            if (
+                len(cells) < FULL_EVIDENCE_ROW_CELLS
+                or cells[1] != "CERTIFIED_FULL"
+                or cells[2] != "ACCEPTED"
+                or cells[3] in {"", "—"}
+            ):
+                problems.append(
+                    f"{platform} lacks CERTIFIED_FULL/ACCEPTED full-AI evidence"
+                )
     for problem in problems:
         report.fail(f"{gate} is PASS but {problem} (PASS prerequisites, spec §12)")
 
@@ -557,7 +683,7 @@ def check_gates(repo: Path, status: Status, report: Report) -> dict[str, str]:
     gate_errors += _check_ledger_agreement(repo, gate_states, report)
     if gate_errors == 0:
         report.ok(
-            "critical-gates table valid (3 gates, valid states, reports "
+            "critical-gates table valid (4 gates, valid states, reports "
             "present, ledger complete and agreeing)"
         )
     return gate_states
@@ -757,6 +883,75 @@ def check_dependencies(
         )
 
 
+def check_v13_readiness_contract(
+    spec: Spec,
+    ms_states: dict[str, str],
+    pkg_states: dict[str, str],
+    report: Report,
+) -> None:
+    """Enforce the v1.3 migration-specific readiness boundaries."""
+    errors = 0
+    m01_state = pkg_states.get("M01-W01")
+    if m01_state in (STARTED | {"READY"}):
+        if pkg_states.get("M00-W10") not in DONE:
+            report.fail("M01-W01 cannot be READY or started before M00-W10 is VERIFIED")
+            errors += 1
+        if ms_states.get("M00") != "ACCEPTED":
+            report.fail("M01-W01 cannot be READY or started before M00 is ACCEPTED")
+            errors += 1
+
+    m06 = spec.milestones.get("M06")
+    if m06 is None:
+        report.fail("canonical specification is missing M06")
+        errors += 1
+    elif "CROSS_PLATFORM_CORE" in m06.gates:
+        report.fail(
+            "M06 must not depend on CROSS_PLATFORM_CORE or final Windows/Ubuntu "
+            "full-AI certification"
+        )
+        errors += 1
+
+    if errors == 0:
+        report.ok(
+            "v1.3 readiness contract valid (M01 waits for M00-W10 acceptance; "
+            "M06 remains independent of Gate D)"
+        )
+
+
+def check_preserved_m00_history(status: Status, repo: Path, report: Report) -> None:
+    """Prevent the accepted v1.2 M00-W01…W07 anchors from being rewritten."""
+    evidence_text = (repo / "docs/TEST_EVIDENCE.md").read_text(
+        encoding="utf-8", errors="replace"
+    )
+    by_id = {cells[0]: cells for cells in status.package_rows}
+    errors = 0
+    for package_id, revision in PRESERVED_M00_REVISIONS.items():
+        cells = by_id.get(package_id, [])
+        if len(cells) < FULL_EVIDENCE_ROW_CELLS:
+            report.fail(f"{package_id}: preserved v1.2 status row is missing")
+            errors += 1
+            continue
+        if cells[1] != "VERIFIED":
+            report.fail(
+                f"{package_id}: preserved v1.2 state changed from VERIFIED to "
+                f"{cells[1]!r}"
+            )
+            errors += 1
+        if cells[2] != revision:
+            report.fail(
+                f"{package_id}: preserved v1.2 revision changed from {revision!r}"
+            )
+            errors += 1
+        if "docs/TEST_EVIDENCE.md" not in cells[3]:
+            report.fail(f"{package_id}: preserved v1.2 evidence link is missing")
+            errors += 1
+        if f"### {package_id}" not in evidence_text:
+            report.fail(f"{package_id}: preserved v1.2 evidence heading is missing")
+            errors += 1
+    if errors == 0:
+        report.ok("M00-W01…W07 v1.2 states, revisions, and evidence are preserved")
+
+
 def check_milestone_consistency(
     spec: Spec,
     ms_states: dict[str, str],
@@ -865,13 +1060,16 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
         report.fail(f"cannot parse status: {exc}")
         return report
     check_spec_inventory(spec, report)
+    check_spec_contract(spec_path, spec, report)
     check_status_shell(status, report)
     gate_states = check_gates(repo, status, report)
     ms_states, pkg_states = check_tables(spec, status, report)
     check_progress_consistency(status, pkg_states, report)
     check_dependencies(spec, ms_states, pkg_states, gate_states, report)
+    check_v13_readiness_contract(spec, ms_states, pkg_states, report)
     check_milestone_consistency(spec, ms_states, pkg_states, report)
     check_evidence_preservation(repo, status, report)
+    check_preserved_m00_history(status, repo, report)
     check_single_canonical_spec(repo, report)
     return report
 

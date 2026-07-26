@@ -79,9 +79,19 @@ MEMORY_FILES = (
     "docs/TEST_EVIDENCE.md",
     "docs/KNOWN_ISSUES.md",
     "docs/COMPATIBILITY_MATRIX.md",
+    "docs/PLATFORM_SUPPORT.md",
     "docs/REQUIREMENTS_TRACEABILITY.md",
     "docs/traceability.json",
     "docs/CRITICAL_GATES.md",
+    "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+    "docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+    "docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+    "docs/gates/CROSS_PLATFORM_CORE_GATE.md",
+    "docs/gates/HOLDOUT_EXECUTION_LOG.md",
+    "docs/platform/CERTIFIED_MATRIX.md",
+    "docs/platform/MODEL_RUNTIME_PROFILES.md",
+    "docs/platform/NATIVE_MESSAGING_MATRIX.md",
+    "docs/platform/PACKAGING_UPDATE_MATRIX.md",
 )
 
 LOCKFILES = ("pnpm-lock.yaml", "uv.lock", "services/native-host/Cargo.lock")

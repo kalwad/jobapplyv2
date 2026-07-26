@@ -1,10 +1,10 @@
 # Project Status
 
-Spec version: 1.2
-Repository revision: tree fee2902010eb90704c05e584fb6ff7964327cb0b (commit 22e6f0ae826ef551edfaf025fbc523411ef62637)
-Last updated: 2026-07-26T21:10:18Z
-Current phase: A — Contract, measurement, and early autofill challenge
-Current milestone: M01
+Spec version: 1.3
+Repository revision: stamp pending (M00-W08 content tree recorded after commit)
+Last updated: 2026-07-26T22:25:07Z
+Current phase: A — Contract, measurement, and early autofill proof
+Current milestone: M00
 Current work package: NONE
 Overall release gate: NOT_READY
 
@@ -15,6 +15,7 @@ Overall release gate: NOT_READY
 | AUTOFILL_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+| CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
 
 Allowed gate states: NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED.
 This table must always agree with the per-gate `- State:` lines in
@@ -22,19 +23,19 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M00-W07 is VERIFIED at content tree `fee2902010eb90704c05e584fb6ff7964327cb0b`; the complete M00 exit-gate audit passed, so M00 is ACCEPTED and only M01-W01 is READY.
-- Objective: next legitimate work is M01-W01, Define JSON Schema conventions. M01 implementation has not begun.
-- Dependencies verified: M00 is ACCEPTED. M01-W01 has no direct package prerequisite and its sole milestone prerequisite is now accepted.
-- Critical-gate prerequisites: none for M01-W01. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, and WORKDAY_GUIDED_PRE_SUBMIT remain NOT_EVALUATED; their downstream packages remain blocked by the canonical rules.
-- Evidence: the M00-W07 content commit `22e6f0ae826ef551edfaf025fbc523411ef62637` passed deterministic local and clean-clone validation plus hosted workflow run 30220428453 on macOS job 89841823180 and Linux job 89841823169.
-- Blockers: none for beginning M01-W01 in a future session. The overall release remains NOT_READY because M01–M38, all product acceptance metrics, and all three critical gates remain incomplete.
+- State: no package is IN_PROGRESS. M00-W08 is VERIFIED at `stamp pending`; M00-W01 through M00-W07 remain VERIFIED at their preserved v1.2 tree/evidence anchors. Only M00-W09 is READY.
+- Objective: stop after the verified owner-approved v1.3 adoption. M00-W09 may add Windows CI in a future package; M00-W10 and M01-W01 remain untouched.
+- Dependencies verified: v1.2 M00-W01 through M00-W07 are VERIFIED; M00 was ACCEPTED at v1.2 content tree `fee2902010eb90704c05e584fb6ff7964327cb0b`; final v1.2 hosted run 30220655705 passed macOS and Ubuntu at starting HEAD `0f8059c97d1167d6bb34413bae5c1c3c44b1ae37`.
+- Critical-gate prerequisites: none for M00-W08. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
+- Evidence: docs/TEST_EVIDENCE.md § M00-W08 records the exact external/canonical hash, 39/286/157/4 inventories, preserved v1.2 hashes/evidence, migration positive/negative tests, deterministic traceability generation, and full local validation. Hosted macOS/Ubuntu evidence is required before the content tree is stamped.
+- Blockers: M00-W09 and M00-W10 remain incomplete. M01-W01's historical v1.2 readiness is revoked until M00-W10 is VERIFIED and M00 is re-ACCEPTED. M28 remains blocked by M27 acceptance and Gate D.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
-| M00 | ACCEPTED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | Phase A. Repository contract, persistent project memory, and reproducible scaffold (deps: none) |
-| M01 | READY | — | Phase A. Shared contracts, identifiers, error model, capability model, and critical-risk evaluation contracts (deps: M00 ACCEPTED) |
+| M00 | IN_PROGRESS | — | Phase A. Reopened for the v1.3 M00-W08…W10 migration; v1.2 acceptance remains historical evidence |
+| M01 | NOT_STARTED | — | Phase A. Blocked until M00-W10 is VERIFIED and M00 is re-ACCEPTED |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -61,7 +62,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | M25 | NOT_STARTED | — | Phase G. Application tracker, exact snapshots, receipts, duplicates, filters, and analytics (deps: M09, M10, M11, M12, M13, M14, M15, M16, M17, M18, M19, M20, M21, M22, M23, M24) |
 | M26 | NOT_STARTED | — | Phase G. Job-specific interview practice and evidence-aware feedback (deps: M06, M11, M16) |
 | M27 | NOT_STARTED | — | Phase G. Security, privacy, prompt-injection, performance, accessibility, diagnostics, and packaging hardening (deps: M03, M04, M05, M06, M07, M08, M09, M10, M11, M12, M13, M14, M15, M16, M17, M18, M19, M20, M21, M22, M23, M24, M25, M26) |
-| M28 | NOT_STARTED | — | Phase G. Core closed-alpha acceptance gate (deps: M00, M01, M02, M03, M04, M05, M06, M07, M08, M09, M10, M11, M12, M13, M14, M15, M16, M17, M18, M19, M20, M21, M22, M23, M24, M25, M26, M27) |
+| M28 | NOT_STARTED | — | Phase G. Core closed-alpha acceptance gate (deps: M00–M27; requires M27 ACCEPTED and CROSS_PLATFORM_CORE = PASS) |
 | M29 | NOT_STARTED | — | Phase H. iCIMS and SmartRecruiters adapters (deps: M28) |
 | M30 | NOT_STARTED | — | Phase H. Taleo and SuccessFactors adapters (deps: M28) |
 | M31 | NOT_STARTED | — | Phase H. Unsupported-site teaching, adapter maintenance, and compatibility operations (deps: M18, M28, M29, M30) |
@@ -84,12 +85,16 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W05` | VERIFIED | tree 0c6fe779cc56755983d39951cabcdf201867bae2 | docs/TEST_EVIDENCE.md § M00-W05 | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline |
 | `M00-W06` | VERIFIED | tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf | docs/TEST_EVIDENCE.md § M00-W06 | Create CI and local preflight; repair current-HEAD macOS CI with job-scoped rustup state |
 | `M00-W07` | VERIFIED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | docs/TEST_EVIDENCE.md § M00-W07 | Seed traceability and status |
-| `M01-W01` | READY | — | — | Define JSON Schema conventions |
+| `M00-W08` | VERIFIED | stamp pending | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
+| `M00-W09` | READY | — | — | Add Windows CI and platform-portability baseline |
+| `M00-W10` | NOT_STARTED | — | — | Extend traceability and re-accept M00 under v1.3 |
+| `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions; v1.2 READY state retained only in historical M00-W07 evidence |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
 | `M01-W04` | NOT_STARTED | — | — | Define capability and command allowlists |
 | `M01-W05` | NOT_STARTED | — | — | Build contract compatibility tests |
 | `M01-W06` | NOT_STARTED | — | — | Define feasibility and benchmark contracts |
+| `M01-W07` | NOT_STARTED | — | — | Define cross-platform capability and platform-service contracts |
 | `M02-W01` | NOT_STARTED | — | — | Create synthetic profile/job/resume fixtures |
 | `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
@@ -111,12 +116,20 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M03-W04` | NOT_STARTED | — | — | Implement authenticated API client |
 | `M03-W05` | NOT_STARTED | — | — | Add crash/restart behavior |
 | `M03-W06` | NOT_STARTED | — | — | Package development build |
+| `M03-W07` | NOT_STARTED | — | — | Package Windows x64 development build |
+| `M03-W08` | NOT_STARTED | — | — | Package Ubuntu x64 development build |
+| `M03-W09` | NOT_STARTED | — | — | Implement platform lifecycle, path, and process adapters |
+| `M03-W10` | NOT_STARTED | — | — | Run cross-platform desktop lifecycle matrix |
 | `M04-W01` | NOT_STARTED | — | — | Select and prove database encryption |
 | `M04-W02` | NOT_STARTED | — | — | Create migration framework |
 | `M04-W03` | NOT_STARTED | — | — | Create repository/data-access layer |
 | `M04-W04` | NOT_STARTED | — | — | Create encrypted artifact store |
 | `M04-W05` | NOT_STARTED | — | — | Implement backup/export/restore |
 | `M04-W06` | NOT_STARTED | — | — | Implement deletion and retention |
+| `M04-W07` | NOT_STARTED | — | — | Implement macOS Keychain secret-store adapter |
+| `M04-W08` | NOT_STARTED | — | — | Implement Windows Credential Manager and DPAPI adapter |
+| `M04-W09` | NOT_STARTED | — | — | Implement Ubuntu Secret Service adapter |
+| `M04-W10` | NOT_STARTED | — | — | Prove portable encrypted backup and filesystem semantics |
 | `M05-W01` | NOT_STARTED | — | — | Implement runtime adapter |
 | `M05-W02` | NOT_STARTED | — | — | Create candidate model lock |
 | `M05-W03` | NOT_STARTED | — | — | Implement typed generation client |
@@ -129,6 +142,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M05-W10` | NOT_STARTED | — | — | Implement controlled ATS-safe render and measured PageFit prototype |
 | `M05-W11` | NOT_STARTED | — | — | Execute blind and side-by-side resume benchmark |
 | `M05-W12` | NOT_STARTED | — | — | Independent Resume Tailoring/PageFit Gate audit and decision |
+| `M05-W13` | NOT_STARTED | — | — | Define versioned platform model-runtime profiles |
+| `M05-W14` | NOT_STARTED | — | — | Validate Windows model-runtime capability and core fallback |
+| `M05-W15` | NOT_STARTED | — | — | Validate Ubuntu model-runtime capability and core fallback |
+| `M05-W16` | NOT_STARTED | — | — | Implement cross-platform model capability UX and graceful degradation |
 | `M06-W01` | NOT_STARTED | — | — | Implement evidence entities and repositories |
 | `M06-W02` | NOT_STARTED | — | — | Implement fact lifecycle |
 | `M06-W03` | NOT_STARTED | — | — | Implement conflict detection |
@@ -159,6 +176,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M10-W04` | NOT_STARTED | — | — | Implement PDF export |
 | `M10-W05` | NOT_STARTED | — | — | Implement DOCX export |
 | `M10-W06` | NOT_STARTED | — | — | Build document validation |
+| `M10-W07` | NOT_STARTED | — | — | Validate cross-platform rendering and bundled-font policy |
 | `M11-W01` | NOT_STARTED | — | — | Implement manual/paste capture |
 | `M11-W02` | NOT_STARTED | — | — | Implement page capture contract |
 | `M11-W03` | NOT_STARTED | — | — | Normalize job text |
@@ -202,6 +220,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M17-W04` | NOT_STARTED | — | — | Implement Rust native host |
 | `M17-W05` | NOT_STARTED | — | — | Implement extension status UI |
 | `M17-W06` | NOT_STARTED | — | — | Extend real extension E2E harness |
+| `M17-W07` | NOT_STARTED | — | — | Implement macOS native-host registration lifecycle |
+| `M17-W08` | NOT_STARTED | — | — | Implement Windows native-host registration and binary protocol |
+| `M17-W09` | NOT_STARTED | — | — | Implement Ubuntu native-host registration lifecycle |
+| `M17-W10` | NOT_STARTED | — | — | Run cross-platform real extension/native-host E2E |
 | `M18-W01` | NOT_STARTED | — | — | Productionize field ontology and contracts |
 | `M18-W02` | NOT_STARTED | — | — | Productionize scanner and field re-resolution |
 | `M18-W03` | NOT_STARTED | — | — | Productionize deterministic resolver |
@@ -272,6 +294,11 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M27-W05` | NOT_STARTED | — | — | Accessibility |
 | `M27-W06` | NOT_STARTED | — | — | Crash recovery and data integrity |
 | `M27-W07` | NOT_STARTED | — | — | macOS packaging |
+| `M27-W08` | NOT_STARTED | — | — | Package, sign, and validate Windows x64 release candidate |
+| `M27-W09` | NOT_STARTED | — | — | Package and validate Ubuntu x64 release candidate |
+| `M27-W10` | NOT_STARTED | — | — | Finalize full-AI platform profiles, diagnostics, and support publication |
+| `M27-W11` | NOT_STARTED | — | — | Implement signed cross-platform update and rollback |
+| `M27-W12` | NOT_STARTED | — | — | Independent Cross-Platform Core Gate audit and decision |
 | `M28-W01` | NOT_STARTED | — | — | Run frozen corpus |
 | `M28-W02` | NOT_STARTED | — | — | Manual side-by-side evaluation |
 | `M28-W03` | NOT_STARTED | — | — | External alpha pilot |
@@ -340,15 +367,17 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M01-W01
-- Reason: every M00 package is VERIFIED and the complete M00 exit gate is ACCEPTED. M01-W01 is the first canonical M01 package; no later M01 package is READY because sequential ordering remains enforced.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §4, §9 (M01), §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/CRITICAL_GATES.md; docs/REQUIREMENTS_TRACEABILITY.md; docs/traceability.json; docs/TEST_EVIDENCE.md § M00-W07; docs/KNOWN_ISSUES.md.
+- ID: M00-W09
+- Reason: M00-W08 is VERIFIED and M00-W09 is the next sequential package. M00 remains IN_PROGRESS; M00-W10 cannot become ready before M00-W09 verifies, and M01-W01 cannot become ready before M00-W10 verifies and M00 is re-ACCEPTED.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §1.4.1, §4.9–§4.10, §5.14, §6.2, §9 (M00), §12; docs/PLATFORM_SUPPORT.md; docs/platform/; docs/DECISIONS.md § ADR-0002; docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W08.
 
 ## Known release blockers
 
-- Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all three critical gates are PASS at the final release revision (spec §2.2, §16).
+- M00 is reopened and M00-W09/M00-W10 remain incomplete. M01-W01 is therefore NOT_STARTED and cannot become READY before M00-W10 verifies and M00 is re-ACCEPTED.
+- Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
+- CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS.
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
-- M00 closeout guard satisfied: M00-W07 content run 30220428453 passed required macOS and Linux jobs for commit `22e6f0ae826ef551edfaf025fbc523411ef62637`; the final closeout stamp HEAD must also pass both jobs before handoff.
+- Historical v1.2 closeout remains preserved: M00-W07 content run 30220428453 and final run 30220655705 passed required macOS/Ubuntu jobs. That historical acceptance does not satisfy the expanded v1.3 M00 exit gate.
 - Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin`, so this blocker no longer applies to new work.
 
 ## Status conventions and update rules
@@ -356,6 +385,6 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - States: `NOT_STARTED | READY | IN_PROGRESS | BLOCKED | IMPLEMENTED | VERIFIED | ACCEPTED` — exactly one state per work package at all times (spec §1.1).
 - No more than one work package is IN_PROGRESS at any time (spec §12).
 - VERIFIED requires passing required tests plus recorded evidence in docs/TEST_EVIDENCE.md; ACCEPTED requires all milestone exit gates (spec §1.1).
-- Dependency and readiness rules enforced by `scripts/validate_status.py`: (a) a package may be READY or started only when every dependency milestone listed in the spec for its milestone is fully VERIFIED/ACCEPTED; (b) within a milestone, packages proceed in listed order — relaxing this convention for a genuinely parallel pair requires an ADR; (c) ACCEPTED-milestone prerequisites: M03 requires M02 ACCEPTED, M06 requires M05 ACCEPTED, M20 requires M19 ACCEPTED, M21 requires M19 and M20 ACCEPTED, M36 requires M35 ACCEPTED; (d) critical-gate blocking: M03 requires AUTOFILL_FEASIBILITY = PASS, M06 requires RESUME_PAGEFIT_FEASIBILITY = PASS, M17/M18/M19 carry the AUTOFILL_FEASIBILITY qualifier, and M21/M22/M23 require WORKDAY_GUIDED_PRE_SUBMIT = PASS (spec §9.1, §12).
+- Dependency and readiness rules enforced by `scripts/validate_status.py`: (a) a package may be READY or started only when every dependency milestone listed in the spec is ACCEPTED; (b) packages proceed sequentially within a milestone; (c) M01-W01 additionally requires M00-W10 VERIFIED and M00 ACCEPTED; (d) Gate A blocks M03 and its declared downstream qualifiers, Gate B blocks M06 without depending on final Windows/Ubuntu full-AI acceptance, Gate C blocks M21–M23, and Gate D plus M27 acceptance blocks M28; (e) later auto-submit remains downstream of the accepted manual-review, exact-snapshot, duplicate-protection, and receipt milestones (spec §9.1, §12).
 - Revision anchoring: "Verified revision" records `tree <hash>` (content-only, `git rev-parse HEAD^{tree}`), optionally plus the containing commit. Because a status edit cannot contain its own commit hash, the row of the package being closed out may carry the literal marker `stamp pending` between the content commit and the follow-up stamp commit; the validator accepts exactly that marker or a `tree <40-hex>` value for VERIFIED/ACCEPTED rows.
 - Every edit to this file must be followed by a passing `python3 scripts/validate_status.py` run.

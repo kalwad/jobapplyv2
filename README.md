@@ -123,7 +123,7 @@ pnpm test:e2e        # Playwright browser tests (pinned Chromium)
 pnpm test:visual     # visual suite state (NOT_YET_APPLICABLE until M10-W06)
 pnpm test:python     # Ruff + mypy + pytest via uv (pinned interpreter)
 pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
-pnpm traceability:check     # read-only 135/260 traceability + drift validation
+pnpm traceability:check     # read-only v1.3 157/286 traceability + drift validation
 pnpm traceability:generate  # regenerate the reviewed human traceability view
 pnpm verify          # aggregate of all of the above + traceability/integrity/status
 python3 scripts/validate_status.py
@@ -134,14 +134,19 @@ services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
 
-## Traceability and next-work derivation (M00-W07)
+## Traceability and next-work derivation (M00-W07, extended by M00-W08)
 
-`docs/traceability.json` is the canonical reviewed machine-readable mapping.
-It contains all 135 requirement records and all 260 expanded work-package
-records. Exact requirement text, package IDs/titles, and explicit
+`docs/traceability.json` is the canonical machine-readable mapping.
+It contains all 157 requirement records and all 286 expanded work-package
+records plus four critical gates. Exact requirement text, package IDs/titles,
+and explicit
 milestone/gate dependencies remain owned by the immutable canonical
 specification; live states/evidence remain owned by `PROJECT_STATUS.md` and
-the critical-gate ledger. The JSON records the reviewed ownership,
+the critical-gate ledger. The 135 requirement mappings and 260 dependency
+records reviewed in M00-W07 retain their exact hashes. M00-W08 mechanically
+adds the v1.3 delta with the visible review state
+`PROVISIONAL_PENDING_M00_W10`; this is inventory coverage, not a completed
+platform mapping audit. The JSON records ownership,
 planned components/test/evidence layers, honest implementation state,
 sequential dependency derivation, direct downstream edges, and mapping
 checksums.
@@ -160,6 +165,7 @@ critical-gate effects, premature readiness, false future implementation or
 evidence, missing completed paths/evidence headings/gate reports, and
 human/machine disagreement. It is an always-active mandatory `pnpm verify`
 suite, so `pnpm preflight` and both CI matrix jobs enforce the same data.
+M00-W10 must review the provisional mappings before v1.3 M00 acceptance.
 Future packages update the JSON, regenerate the Markdown, record real
 evidence, and keep future work `NOT_STARTED`/`NOT_YET_APPLICABLE` until real
 code and tests exist.
@@ -225,6 +231,11 @@ Security posture: `permissions: contents: read`, no secrets, official
 `actions/*` actions only, every action pinned to an immutable commit SHA
 with its release tag annotated, `persist-credentials: false`, no live-site
 tests, and no network use after dependency/browser installation.
+
+M00-W08 deliberately does not add Windows CI. The certified target policy is
+recorded in `docs/PLATFORM_SUPPORT.md`; Windows CI belongs to M00-W09, and
+product certification still requires later native packaged evidence rather
+than repository CI alone.
 
 Cache policy: pnpm store, uv cache, cargo registry/git, and Playwright
 browser caches are keyed on `runner.os` + `runner.arch` + `hashFiles()` of

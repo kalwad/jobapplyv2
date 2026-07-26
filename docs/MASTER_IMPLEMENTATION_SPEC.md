@@ -1,34 +1,38 @@
 # Master Implementation Specification: Local-First Job Application Platform
 
 **Specification ID:** JAPP-MASTER-001  
-**Version:** 1.2  
-**Revision:** Workday-first production and guided pre-submit rebaseline  
+**Version:** 1.3  
+**Revision:** Cross-platform production, packaging, and runtime rebaseline  
 **Research and architecture snapshot:** July 26, 2026  
 **Canonical repository path:** `docs/MASTER_IMPLEMENTATION_SPEC.md`  
-**Intended implementation agent:** Claude Fable 5 Max  
+**Implementation-agent policy:** Owner-selected per package. The currently selected agent remains active until the owner explicitly changes it; the specification must not automatically route work between Claude, Codex, or reasoning modes.  
 **Primary development machine:** Apple-silicon laptop with an M5 chip and 24 GB unified memory  
-**Document authority:** This is the canonical product, architecture, implementation, validation, and completion contract for the project.
+**Certified first-release operating-system targets:** macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64  
+**Document authority:** This is the canonical product, architecture, implementation, validation, platform-support, and completion contract for the project.
 
 > **Fresh repository:** copy this file directly to `docs/MASTER_IMPLEMENTATION_SPEC.md` and begin with `M00-W01`.  
-> **Existing v1.0 repository that has completed through `M00-W04`:** first add this file as `docs/MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md`. Do not overwrite or delete the current canonical file manually. Execute `M00-W05` to adopt the revision atomically, record the owner-approved ADR, migrate status/validator inventories, replace the canonical file, and remove the temporary proposed copy. Git history is the archive of v1.0.  
-> **Unadopted v1.1 draft:** do not add it to the repository. Version 1.2 supersedes that draft before adoption.  
-> Claude must reread the canonical specification at the start of every implementation session, together with the project-status files defined below. Do not rename the product or invent branding while following this specification.
+> **Existing v1.2 repository with `M00-W07` in progress:** finish that package under v1.2, verify, commit, push, and restore a clean tree. Do not introduce v1.3 into the active package.  
+> **Existing v1.2 repository that has completed through `M00-W07`:** keep this owner-approved file outside the repository at an immutable path and verify its SHA-256. The v1.2 fail-closed validator deliberately rejects any second canonical-looking specification under `docs/`, so do not place a proposed copy in the active tree. Execute `M00-W08` to import these exact bytes directly into the canonical path, `M00-W09` to add the Windows/platform-portability baseline, and `M00-W10` to regenerate traceability and re-accept M00. Git history remains the archive of v1.2.  
+> **Unadopted earlier drafts:** do not add v1.1 or another duplicate master specification to the repository.  
+> Claude or Codex must reread the canonical specification at the start of every implementation session together with the project-memory files defined below. Do not rename the product or invent branding while following this specification.
 
-### Version 1.2 change summary
+### Version 1.3 change summary
 
-Version 1.2 preserves the complete v1.0 product scope and every unaffected v1.1 critical-risk control while strengthening the primary browser-automation strategy around Workday. The owner has identified Workday parity or superiority as a defining product requirement. This revision therefore:
+Version 1.3 preserves the complete v1.2 Workday-first product scope, every existing requirement, all three existing critical gates, and all completed M00 evidence. It corrects a remaining architectural risk: v1.2 mentions later Windows support and macOS/Linux CI, but does not make full Windows, Linux, and macOS behavior a sufficiently early, explicit, blocking contract. This revision therefore:
 
-- Retains the early, blocking **Autofill Feasibility Gate** inside `M02`, but makes Workday the largest and most adversarial ATS research slice rather than a late afterthought.
-- Retains the early, blocking **Resume Tailoring and PageFit Feasibility Gate** inside `M05`.
-- Adds a third blocking **Workday Production and Guided Pre-Submit Gate** spanning `M19` and `M20`.
-- Moves production Workday implementation ahead of Greenhouse, Lever, and Ashby. Those adapters cannot become ready until the Workday gate passes.
-- Requires a deep Workday tenant-pattern taxonomy, candidate-session boundary handling, stable step classification, repeaters, resume parsing reconciliation, custom prompt controls, uploads, validation, route recovery, and long-session performance proof.
-- Adds a certified `GUIDED_PRE_SUBMIT` Workday mode: after the user opens an application and either starts the current run or has previously enabled `AUTO_START_ON_OPEN` for certified Workday patterns, the product fills each safe page, verifies it, clicks **Next** exactly once, handles subsequent pages, and stops on the final review page. On a certified flow with an authenticated session and no unsupported or uncertain questions, the user performs no manual data entry; the user reviews the complete application and clicks **Submit**.
-- Prohibits the guided mode from automating login credentials, MFA, email verification, account creation, CAPTCHA handling, unapproved consequential answers, or final submission. It pauses visibly at every such boundary.
-- Requires a Workday-specific side-by-side benchmark against Simplify on the same forms and synthetic profile before other production ATS expansion.
-- Reorders the later milestone inventory without deleting any existing product capability; the final release milestone becomes `M38`.
-- Standardizes Claude implementation work on **Fable 5 Max**. Independent review is performed in a separate clean session or Codex worktree instead of relying on Ultra Code workflow fan-out.
-- Reassigns `M00-W05` to the controlled v1.2 adoption/migration step; CI and traceability remain `M00-W06` and `M00-W07`.
+- Defines three certified first-release targets: **macOS 14+ on Apple Silicon arm64**, **Windows 11 x64**, and **Ubuntu 24.04 LTS x64**, using current Google Chrome stable on each platform.
+- Adds a fourth blocking **Cross-Platform Core Gate** that must pass before the core closed alpha in `M28`.
+- Adds typed platform abstractions for secure secret storage, paths, process supervision, native-messaging registration, browser/runtime discovery, model-runtime selection, diagnostics, installers, and updates.
+- Adds required Windows CI during M00 and preserves the existing macOS and Ubuntu jobs; canonical repository commands must work without Bash-only or POSIX-only assumptions.
+- Requires packaged desktop lifecycle proof on all three operating systems rather than deferring Windows/Linux discovery to the final release.
+- Requires macOS Keychain, Windows Credential Manager/DPAPI, and Linux Secret Service implementations with no plaintext fallback.
+- Requires platform-specific Chrome native-messaging installation and removal, including Windows registry registration and binary-mode protocol verification.
+- Replaces the single Apple-MLX runtime assumption with a staged platform-profile model lock: accept the primary Apple-Silicon profile and prove Windows/Ubuntu capability detection and safe no-model behavior in `M05`; complete native Windows/Ubuntu full-AI certification before the Cross-Platform Core Gate in `M27`.
+- Requires deterministic cross-platform PDF/DOCX behavior using controlled fonts and renderer versions, plus portable encrypted backups across certified platforms.
+- Requires signed/notarized or appropriately verified platform installers, update, rollback, repair, and uninstall behavior before the cross-platform gate can pass.
+- Keeps the current Codex-authored v1.2 traceability work useful: v1.3 extends and regenerates it through `M00-W10` rather than discarding it.
+- Makes implementation-agent selection **owner-controlled and model-agnostic**. The active owner-selected agent continues across clean package boundaries until the owner explicitly changes it; the repository contract must not automatically switch between Claude, Codex, or reasoning modes. Independent audits still use a separate clean session or worktree.
+- Expands M00 from seven to ten work packages while preserving every verified v1.2 revision and evidence record.
 
 
 ---
@@ -41,7 +45,7 @@ The following decisions are final unless the owner explicitly changes them later
 2. **Do not build networking, contact graphs, referral discovery, referral-message generation, or LinkedIn connection-path features.**
 3. **Do not choose or discuss a product name in this project specification.** Use neutral labels such as “the product,” “desktop app,” and “browser extension.”
 4. Keep the remaining applicant-side capabilities: structured profile, resume creation, resume tailoring, keyword/evidence matching, one-page optimization, cover letters, short-answer generation, autofill, document upload, application tracking, submission receipts, analytics, job discovery, interview practice, and approved-queue automatic application.
-5. **Job aggregation and unattended automatic application remain late-stage work.** They must not distract from making profile, document, AI, autofill, Workday navigation, and validation systems trustworthy first.
+5. **Job aggregation and unattended automatic application remain late-stage work.** They must not distract from making profile, document, AI, autofill, Workday navigation, cross-platform runtime, and validation systems trustworthy first.
 6. The final product must support an **approved application queue**. The user reviews and approves jobs in a simple UI; the product then applies to approved jobs automatically only when every required field can be answered safely and confidently. It pauses rather than guesses when it encounters a CAPTCHA, unsupported control, unapproved sensitive question, contradiction, login challenge, changed job, or uncertain answer.
 7. A two-sided recruiter marketplace is not part of the mandatory product. It would be a separate business and infrastructure decision after this specification is complete.
 8. **The two dominant product promises are accurate browser autofill and superior evidence-grounded resume tailoring with intelligent one-page optimization.** Other features are valuable only after those promises are proven.
@@ -54,13 +58,20 @@ The following decisions are final unless the owner explicitly changes them later
 15. A failed critical gate does not permit compensating scope growth. The next action is focused defect iteration or an owner-approved redesign ADR; unrelated product milestones remain blocked.
 16. The previous CareerPulse and `kalwad/JobApply` repositories are **legacy comparison baselines, not implementation foundations**. Production code must not be copied from them without an explicit license review, a file-level provenance record, and an approved ADR showing that the code meets this specification. Their observed failures must become adversarial regression cases.
 17. The same implementation agent must not be the sole author of the implementation, expected benchmark answers, holdout cases, and final acceptance decision for a critical gate.
-18. Compatibility claims must be limited to measured ATS families, Workday tenant/layout patterns, browser versions, adapter versions, locales, session modes, and last-tested dates. Never claim universal support for “every ATS” or “all Workday tenants.”
-19. The project is governed by evidence, not milestone count. Completing many packages is not success if autofill, Workday guided completion, or resume/PageFit remains unreliable.
-20. **Claude implementation sessions use Fable 5 Max.** Broad Ultra Code workflow orchestration is not part of the owner’s operating plan. Independent review is performed after a coherent implementation pass in a separate clean Claude Max session or GPT-5.6 Ultra Codex worktree.
+18. Compatibility claims must be limited to measured ATS families, Workday tenant/layout patterns, browser versions, adapter versions, locales, session modes, operating systems, architectures, hardware profiles, and last-tested dates. Never claim universal support for “every ATS,” “all Workday tenants,” “all Linux distributions,” or untested operating-system versions.
+19. The project is governed by evidence, not milestone count. Completing many packages is not success if autofill, Workday guided completion, resume/PageFit, or certified-platform behavior remains unreliable.
+20. **Certified first-release operating-system support is mandatory:** macOS 14+ on Apple Silicon arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64. The core deterministic product must work on all three; full local-AI features require a certified hardware/runtime profile.
+21. Windows 10, Intel macOS, Windows ARM64, Linux distributions other than Ubuntu 24.04 LTS, Firefox, Safari, and mobile applications are not certified first-release targets. They may be investigated later through an approved compatibility expansion package.
+22. Platform-specific behavior must be isolated behind typed interfaces. Business logic, evidence, resume, ATS, and application state machines must not accumulate scattered OS-condition branches.
+23. Secrets and database encryption keys must use macOS Keychain, Windows Credential Manager/DPAPI, or Linux Secret Service. Missing secure storage blocks startup of private-data features; plaintext fallback is prohibited.
+24. Canonical build, test, doctor, and migration commands must be platform-neutral. Bash-only, POSIX-only, case-sensitive-filesystem-only, or shell-profile-dependent behavior is prohibited unless it is isolated to a platform-specific package with a tested equivalent on every certified platform.
+25. **Cross-platform support must pass a fourth critical gate before the core closed alpha.** Packaged install, launch, local-service lifecycle, encrypted storage, native messaging, Chrome extension connection, backup/restore, document rendering, model-runtime capability detection, update/rollback, and uninstall must be proven on all three certified targets.
+26. **Implementation-agent choice is controlled by the owner, not by this specification.** Continue using the currently owner-selected implementation agent until the owner explicitly changes it. Do not infer a switch from rate limits, elapsed time, package type, or model availability. Any capable agent may implement a package after reconstructing repository state and obeying the same tests and evidence contract; independent critical-gate audits must use a separate clean session or worktree from the implementation session.
+27. Only one implementation agent may modify a working tree at a time. Agent changes occur at clean package boundaries whenever possible; a separate worktree is used for independent audits.
 
 ---
 
-## 1. How Claude Fable 5 must use this specification
+## 1. How implementation agents must use this specification
 
 ### 1.1 Canonical project-memory files
 
@@ -75,8 +86,10 @@ docs/DECISIONS.md                    # accepted architecture decision records an
 docs/TEST_EVIDENCE.md                # exact verification commands and summarized results
 docs/KNOWN_ISSUES.md                  # reproducible defects and deferred risks
 docs/COMPATIBILITY_MATRIX.md          # ATS/browser/OS support and measured pass rates
-docs/REQUIREMENTS_TRACEABILITY.md     # requirement -> code -> test -> release gate
-docs/CRITICAL_GATES.md                # autofill, resume/PageFit, and Workday gate state, corpus hash, reviewer, decision
+docs/PLATFORM_SUPPORT.md              # certified OS/architecture/runtime/installer matrix and limitations
+docs/REQUIREMENTS_TRACEABILITY.md     # generated/validated human-readable traceability view
+docs/traceability.json                # reviewed machine-readable requirement/package mapping created by v1.2 M00-W07
+docs/CRITICAL_GATES.md                # autofill, resume/PageFit, Workday, and cross-platform gate state/evidence
 ```
 
 `PROJECT_STATUS.md` must always contain exactly one state for every work package:
@@ -89,7 +102,7 @@ A work package is not `VERIFIED` merely because code exists. Its required tests 
 
 ### 1.2 Mandatory session bootstrap
 
-At the beginning of every new prompt or resumed session, Claude must:
+At the beginning of every new prompt or resumed session, Claude or Codex must:
 
 1. Read `CLAUDE.md`.
 2. Read this specification.
@@ -101,7 +114,7 @@ At the beginning of every new prompt or resumed session, Claude must:
 
 ### 1.3 Work-package execution protocol
 
-For every work package, Claude must follow this sequence:
+For every work package, the implementation agent must follow this sequence:
 
 1. **Restate the contract:** objective, affected components, non-goals, and acceptance evidence.
 2. **Inspect before editing:** identify existing implementations, schemas, tests, migrations, and adjacent risks.
@@ -116,7 +129,7 @@ For every work package, Claude must follow this sequence:
 
 ### 1.4 Change-control rules
 
-Claude must not silently alter this specification, the selected stack, trust boundaries, model lock, acceptance thresholds, critical-gate status, or compatibility claims. When a change is necessary:
+An implementation agent must not silently alter this specification, the selected stack, trust boundaries, model lock, acceptance thresholds, critical-gate status, or compatibility claims. When a change is necessary:
 
 1. Create a proposed architecture decision record in `docs/DECISIONS.md`.
 2. Explain the observed constraint, reproducible evidence, alternatives, tradeoffs, migration impact, security/privacy impact, benchmark impact, rollback plan, and proposed decision.
@@ -135,21 +148,22 @@ NOT_EVALUATED -> IN_PROGRESS -> PASS
 8. `REDESIGN_REQUIRED` blocks downstream readiness. A redesign must be represented by an approved ADR, new or amended work packages, new regression cases, and a complete rerun of the gate.
 9. An interrupted agent session is not a specification change. Resume from repository state; never reset or discard unexplained work solely to obtain a clean start.
 
-#### 1.4.1 Version 1.2 adoption protocol
+#### 1.4.1 Version 1.3 adoption protocol after an in-flight or completed v1.2 `M00-W07`
 
-For a repository already implementing v1.0 through `M00-W04`:
+For the current repository:
 
-1. Finish, verify, commit, and push `M00-W04` under v1.0.
-2. Do not add the superseded, unadopted v1.1 draft.
-3. Add this complete file at `docs/MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md` while leaving `docs/MASTER_IMPLEMENTATION_SPEC.md` unchanged.
-4. Execute `M00-W05` as an owner-approved specification migration.
-5. During that package, compare v1.0 and v1.2, record the accepted ADR, replace the canonical file atomically, update all milestone/work-package inventories, add the three critical-gate records, update validators, preserve verified revisions for completed packages, and remove the proposed copy.
-6. Run the status validator and aggregate verification after migration.
-7. Do not begin CI or product work until the migrated repository is internally consistent.
+1. Finish `M00-W07` completely under v1.2. Preserve the in-flight Codex traceability implementation, run its full tests, commit, push, and stop before `M01-W01` implementation.
+2. If v1.2 marks M00 `ACCEPTED` and `M01-W01` `READY`, treat those states as historical v1.2 evidence. Do not begin M01 until v1.3 adoption and the expanded M00 exit gate finish.
+3. Keep this complete owner-approved file outside the repository at an immutable absolute path, record its SHA-256, and leave `docs/MASTER_IMPLEMENTATION_SPEC.md` unchanged until M00-W08 performs the atomic replacement. Do not place a second canonical-looking specification under `docs/`; the v1.2 fail-closed validator correctly rejects that state.
+4. Execute `M00-W08` as the owner-approved v1.3 migration. After a clean v1.2 preflight, it reads and hashes the external owner-approved file, copies those exact bytes directly over the canonical path without ever creating a second canonical-looking file in the repository, records the ADR, adds the fourth gate and platform memory files, migrates status and validators, preserves all completed v1.2 revisions/evidence, and reopens M00 as `IN_PROGRESS` with `M01-W01` no longer ready. Because the v1.2 traceability check is already mandatory, M00-W08 must also perform a mechanical exact-inventory extension of `docs/traceability.json` and its validator for the 22 new requirements and 26 new packages, marking every new future item honestly `NOT_STARTED`/`NOT_YET_APPLICABLE`; M00-W10 performs the full reviewed mapping and acceptance audit.
+5. Execute `M00-W09` to add Windows CI, Windows-aware doctor/preflight behavior, platform-portability static checks, and initial support-matrix enforcement. No product features are implemented in this package.
+6. Execute `M00-W10` to extend—not discard—the v1.2 `docs/traceability.json`, `scripts/traceability.py`, generated Markdown view, and validation tests to the exact v1.3 inventory, rerun the complete M00 fresh-clone matrix, re-accept M00, and make `M01-W01` ready again.
+7. Git history preserves v1.2. The external owner-approved source is not committed; after adoption the repository still contains exactly one canonical master specification.
+8. Do not modify the canonical specification or traceability inventory in the active v1.2 `M00-W07` working tree.
 
 ### 1.5 Non-negotiable engineering behavior
 
-Claude must obey all of the following:
+Every implementation agent must obey all of the following:
 
 - Never fabricate a user fact, credential, metric, date, employer, degree, skill, authorization answer, or application response.
 - Never allow generated prose to become canonical evidence automatically.
@@ -185,7 +199,17 @@ Claude must obey all of the following:
 - Do not click the Workday final submit control in `GUIDED_PRE_SUBMIT`; the mode must stop on the certified review boundary.
 - Do not automate credentials, account creation, MFA, email verification, CAPTCHA, or legal-consent boundaries. Pause and preserve resumable state.
 - Do not permit production Greenhouse, Lever, or Ashby work to become ready while the Workday production gate is not `PASS`.
-- Do not use Ultra Code workflow fan-out as the default implementation process. Complete one coherent package with Fable 5 Max, then use a separate independent audit when required.
+- Do not automatically select or switch implementation models. Use the owner-selected agent for the active package, preserve clean handoffs at package boundaries, and use a separate clean session or worktree for independent audits when required.
+
+- Do not claim a platform supported from compilation alone. Certified support requires packaged execution on the actual operating-system family and architecture.
+- Do not put platform checks throughout business logic. Platform selection must occur through typed interfaces and capability records.
+- Do not use plaintext secret, database-key, token, or credential fallback when a platform secret store is unavailable.
+- Do not hard-code `/`, `\`, drive letters, home directories, executable suffixes, line endings, case sensitivity, shell initialization, or process signals in shared logic.
+- Do not rely on a GUI process inheriting interactive-shell `PATH`; packaged runtime discovery must be explicit and tested.
+- Do not mark a cross-platform test passed when it ran only in a Linux container or through cross-compilation. The defined native platform evidence is mandatory.
+- Do not use a single MLX-only model artifact as the universal runtime. Model family, artifact, accelerator, memory limits, and benchmark results are platform-profile data.
+- Do not publish an installer or update without install, repair, upgrade, rollback, uninstall, native-host cleanup, and user-data-preservation evidence for that platform.
+- Do not make core deterministic autofill depend on local-model availability. Unsupported hardware disables or degrades AI writing features visibly while preserving safe profile, matching, tracking, and ordinary form behavior.
 
 ### 1.6 Definition of a valid completion report
 
@@ -216,11 +240,12 @@ A vague statement such as “implemented and tested” is not acceptable.
 
 Build a local-first applicant application that is faster and more convenient than manual job applications while being measurably more accurate, truthful, transparent, controllable, and useful than Simplify on the workflows included in this specification.
 
-The product has three non-negotiable promises:
+The product has four non-negotiable promises:
 
 1. **Autofill:** identify, resolve, fill, and verify ordinary fields accurately and quickly across measured major ATS patterns while refusing unsafe guesses and reporting every unresolved required field.
 2. **Workday complete-to-review:** on certified Workday tenant patterns, after the user opens the application under an active prior opt-in or starts the current run, complete every safe page with no manual data entry, advance through pages automatically, and stop at the final review boundary for the user to inspect and submit.
 3. **Resume tailoring and PageFit:** create a stronger job-specific resume that uses only supported experience, avoids keyword stuffing and incoherence, and fits to one readable page when doing so is genuinely beneficial.
+4. **Certified cross-platform reliability:** provide the same trustworthy core workflows on macOS arm64, Windows x64, and Ubuntu Linux x64, with platform-native security, installers, extension/native-host integration, and explicit local-AI capability profiles.
 
 No secondary feature can compensate for failure of any promise.
 
@@ -240,13 +265,14 @@ Project success is measured as a sequence of increasingly difficult proofs, not 
 reproducible repository
     -> typed contracts and frozen evaluation system
     -> early generic + Workday-stress autofill feasibility PASS
-    -> secure local platform and accepted local model
+    -> secure local platform abstraction, Windows CI, and accepted local-model profiles
     -> early resume/PageFit feasibility PASS
     -> complete evidence/profile/document product
     -> production extension and generic form engine
     -> Workday production adapter PASS
     -> Workday guided pre-submit PASS
     -> Greenhouse, Lever, Ashby, and cross-ATS manual workflow
+    -> packaged macOS/Windows/Ubuntu core and CROSS_PLATFORM_CORE PASS
     -> hardened closed alpha
     -> broader measured ATS coverage
     -> approved queue and certified automatic application
@@ -284,6 +310,14 @@ The project is complete only when all mandatory milestones are `ACCEPTED` and th
 | Tailored one-page resume generation | **p95 <= 90 s** on target hardware |
 | Extension crash-free test sessions | **>= 99.5%** |
 | Main desktop workflow accessible by keyboard | **100% of required controls** |
+| Certified platform clean install and first launch | **100%** on macOS arm64, Windows x64, and Ubuntu x64 release fixtures |
+| Packaged desktop/local-service lifecycle matrix | **100%** on all certified platforms |
+| Extension-to-native-host authenticated connection | **100%** on all certified platforms |
+| Platform secret-store plaintext fallbacks | **0** |
+| Encrypted backup restore across certified source/target combinations | **100%** for the defined compatibility matrix |
+| PDF/DOCX semantic extraction parity | **100% expected text order** on every certified platform |
+| Platform-specific local-model structured-output/factuality gate | **PASS** for at least one full-AI profile per certified OS |
+| Update/rollback/uninstall data-loss defects | **0** in the platform release matrix |
 | Critical security findings at release | **0 open** |
 
 “Better than Simplify” must not be asserted from opinion alone. The final gate includes manual, terms-compliant side-by-side evaluation on the same forms and content examples, with a dedicated Workday comparison. The benchmark must compare accuracy, omissions, manual corrections, page progression, factuality, quality, explainability, performance, and recovery behavior. No automated extraction of Simplify’s private APIs or code is permitted.
@@ -362,6 +396,32 @@ Before `M21` becomes `READY`, the production Workday adapter and `GUIDED_PRE_SUB
 
 A certified Workday flow begins only after the user opens the application and either explicitly starts the current run or has an active, revocable `AUTO_START_ON_OPEN` consent recorded for certified Workday patterns. The mode may proceed without manual data entry only when the user has an active permitted session, all required answers are approved or safely derivable, and the tenant pattern is certified. Any boundary or uncertainty pauses the flow. The mode always stops at final review and leaves submission to the user.
 
+#### Gate D — Cross-Platform Core Gate (`M03`–`M05`, `M10`, `M17`, `M27`)
+
+Before `M28` becomes `READY`, the product must demonstrate the following on packaged native builds for macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64:
+
+| Dimension | Blocking cross-platform result |
+|---|---:|
+| Clean install, launch, and first-run diagnostics | **100%** on every certified platform |
+| Local orchestrator start/auth/stop and forced-crash recovery | **100%** on every certified platform |
+| Orphan processes after normal or forced exit | **0** |
+| Secret-store plaintext or insecure fallback | **0** |
+| Encrypted database unreadable without platform-protected key | **100%** |
+| Chrome extension to registered native host handshake | **100%** on every certified platform |
+| Native-host registration removed on uninstall | **100%** while user data is preserved unless deletion is requested |
+| Core deterministic workflow blocked by unavailable AI model | **0** |
+| At least one full-AI model/runtime profile passes factuality and structured-output gates | **1 or more per certified OS** |
+| Controlled PDF/DOCX text order, clipping, and font matrix | **100% text-order pass; 0 clipping/hidden-content defects** |
+| Cross-platform encrypted backup restore cases | **100%** on the defined source/target matrix |
+| Install path with spaces and Unicode | **100%** |
+| Case-sensitivity, path separator, line-ending, locked-file, and atomic-replace cases | **100% correct or safely blocked** |
+| Update, rollback, repair, and uninstall scenario completion | **100%** on the certified release matrix |
+| Required Chrome stable extension/browser E2E | **PASS** on all certified platforms |
+| Critical or high platform-specific defects | **0 open** |
+| Platform claim not backed by a dated compatibility row and artifact | **0** |
+
+The gate requires native packaged evidence, not only compilation, emulation, containers, or cross-compilation. A separate high-capability session audits each platform evidence bundle, and the owner records the gate decision.
+
 #### Gate decision rules
 
 - `PASS`: all zero-tolerance metrics pass, every quantitative threshold passes, holdout results are valid, and the independent reviewer confirms the architecture can scale.
@@ -370,6 +430,7 @@ A certified Workday flow begins only after the user opens the application and ei
 - No downstream package may be marked `READY` merely because the gate is “close.”
 - A gate failure must create reproducible cases and an ADR before iteration. Thresholds remain in force.
 - `M21` and later production ATS expansion remain blocked unless `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
+- `M28` and later closed-alpha expansion remain blocked unless `CROSS_PLATFORM_CORE = PASS`.
 
 ### 2.4 Explicit non-goals
 
@@ -385,6 +446,8 @@ The following are not part of the mandatory project:
 - CAPTCHA solving or anti-bot evasion.
 - Fully autonomous generation of legally consequential answers.
 - Mobile apps before desktop and browser workflows are complete.
+- First-release certification for Windows 10, Intel Macs, Windows ARM64, non-Ubuntu Linux distributions, Firefox, Safari, or ChromeOS.
+- Claiming that a CPU-only model profile meets the same latency target as a certified GPU/Apple-Silicon profile unless the benchmark proves it.
 - Unsupported claims that the product can predict an employer’s private ATS ranking or hiring decision.
 
 ---
@@ -452,6 +515,10 @@ After the core product is validated, the product maintains or syncs a constantly
 ### 3.13 Approved-queue automatic application
 
 The user can approve jobs and add them to a queue. The product prepares a per-job application plan, selects or generates verified documents and answers, executes supported applications, pauses on uncertainty, records every step, and submits only when all required preconditions are satisfied.
+
+### 3.14 Certified cross-platform desktop and extension
+
+The user can install and run the product on a certified macOS, Windows, or Ubuntu machine without using a terminal. The desktop app starts and authenticates the local service, accesses the platform-native secret store, connects the Chrome extension to the native host, reports local-model capability, exports equivalent documents, preserves encrypted backups across platforms, updates and rolls back safely, and uninstalls without deleting user data unless explicitly requested. Unsupported operating systems, architectures, browsers, or hardware profiles are shown honestly rather than silently attempted.
 
 ---
 
@@ -595,15 +662,31 @@ Every requirement below must appear in `docs/REQUIREMENTS_TRACEABILITY.md` with 
 ### 4.9 Platform, privacy, and quality requirements
 
 - `REQ-PLAT-001`: Keep private profile/application data local by default.
-- `REQ-PLAT-002`: Encrypt private data at rest and secrets in the OS keychain.
+- `REQ-PLAT-002`: Encrypt private data at rest and protect secrets in the operating-system keychain or credential store.
 - `REQ-PLAT-003`: Bind local services to loopback and authenticate every client.
 - `REQ-PLAT-004`: Redact PII and secrets from logs and diagnostics.
-- `REQ-PLAT-005`: Version schemas, prompts, model configuration, and migrations.
+- `REQ-PLAT-005`: Version schemas, prompts, model configuration, platform profiles, and migrations.
 - `REQ-PLAT-006`: Provide export, deletion, backup, and restore.
-- `REQ-PLAT-007`: Meet defined performance and crash-free thresholds on the M5/24 GB target.
+- `REQ-PLAT-007`: Meet defined performance and crash-free thresholds on the certified hardware profiles, including the M5/24 GB primary target.
 - `REQ-PLAT-008`: Meet keyboard and screen-reader requirements for critical workflows.
-- `REQ-PLAT-009`: Treat model and extension updates as regression-sensitive changes.
+- `REQ-PLAT-009`: Treat model, browser, extension, operating-system, installer, and platform-adapter updates as regression-sensitive changes.
 - `REQ-PLAT-010`: Keep public job-index data architecturally separate from private user data.
+- `REQ-PLAT-011`: Define and publish the certified first-release platform matrix: macOS 14+ arm64, Windows 11 x64, Ubuntu 24.04 LTS x64, and Chrome stable.
+- `REQ-PLAT-012`: Isolate operating-system behavior behind typed platform interfaces; shared business logic must not depend on scattered OS-condition branches.
+- `REQ-PLAT-013`: Run mandatory CI and repository verification on pinned macOS, Windows, and Ubuntu runner images.
+- `REQ-PLAT-014`: Use macOS Keychain, Windows Credential Manager/DPAPI, and Linux Secret Service for secrets and encryption keys with no plaintext production fallback.
+- `REQ-PLAT-015`: Implement and test equivalent process supervision, loopback lifecycle, crash recovery, cancellation, and orphan-process cleanup on all certified platforms.
+- `REQ-PLAT-016`: Normalize and test path separators, Unicode/spaces, case sensitivity, line endings, executable suffixes/permissions, file locks, atomic replacement, temporary directories, and reserved-name behavior.
+- `REQ-PLAT-017`: Install, validate, repair, and remove Chrome native-messaging registration using platform-correct manifest paths or Windows registry keys and protocol behavior.
+- `REQ-PLAT-018`: Maintain versioned platform-specific local-model runtime profiles with exact artifact, accelerator, context, memory, license, and benchmark metadata; validate capability and safe fallback early, and complete full-AI certification for every certified OS before the Cross-Platform Core Gate.
+- `REQ-PLAT-019`: Keep deterministic core workflows usable when the local model is unavailable or the machine lacks a full-AI hardware profile; show explicit capability state and remediation.
+- `REQ-PLAT-020`: Use controlled fonts, Chromium, layout tokens, and extraction/visual checks to produce equivalent ATS-safe PDF/DOCX behavior across certified platforms.
+- `REQ-PLAT-021`: Produce appropriately signed or verified installers for macOS, Windows, and Ubuntu, including native-host registration and clean uninstall behavior.
+- `REQ-PLAT-022`: Implement signed platform-aware updates, repair, rollback, and failed-update recovery without private-data loss.
+- `REQ-PLAT-023`: Use an OS-neutral encrypted backup format and prove restore across the certified source/target platform matrix.
+- `REQ-PLAT-024`: Run the built Chrome extension, service worker, frame agents, and real native host through platform-native E2E on all certified platforms.
+- `REQ-PLAT-025`: Ensure canonical commands and packaged runtime discovery do not depend on interactive shell profiles or Bash/POSIX-only behavior.
+- `REQ-PLAT-026`: Publish exact operating-system, architecture, browser, model-profile, installer, and last-tested compatibility with known limitations.
 
 ### 4.10 Critical-gate, benchmark, and clean-room requirements
 
@@ -623,6 +706,12 @@ Every requirement below must appear in `docs/REQUIREMENTS_TRACEABILITY.md` with 
 - `REQ-GATE-014`: Prevent `M21` and later production ATS adapters from becoming ready unless `M20` is accepted and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
 - `REQ-GATE-015`: Require an owner-controlled Workday holdout containing unseen tenant/control/page-sequence variants and at least one navigation/recovery fault path.
 - `REQ-GATE-016`: Require a same-input Workday comparison with Simplify and an independent clean-session audit before the Workday gate can pass.
+- `REQ-GATE-017`: Maintain `CROSS_PLATFORM_CORE` in the critical-gate ledger with per-platform package, browser, runtime, installer, backup, and update evidence.
+- `REQ-GATE-018`: Prevent `M28` and later closed-alpha work from becoming ready until `CROSS_PLATFORM_CORE = PASS`.
+- `REQ-GATE-019`: Require actual packaged execution on every certified platform; compilation, cross-compilation, containers, or one operating system cannot substitute for native evidence.
+- `REQ-GATE-020`: Require a separate independent audit and owner decision for the Cross-Platform Core Gate.
+- `REQ-GATE-021`: Require complete cross-platform gate regression after changes to platform abstractions, secure storage, native messaging, model runtime, renderer/fonts, installers, updater, Chrome, or certified OS versions.
+- `REQ-GATE-022`: Restrict platform support claims to the exact certified matrix and evidence bundle; experimental targets must be labeled explicitly.
 
 ---
 
@@ -642,13 +731,21 @@ The target monorepo is:
 │   ├── TEST_EVIDENCE.md
 │   ├── KNOWN_ISSUES.md
 │   ├── COMPATIBILITY_MATRIX.md
+│   ├── PLATFORM_SUPPORT.md
 │   ├── REQUIREMENTS_TRACEABILITY.md
+│   ├── traceability.json
 │   ├── CRITICAL_GATES.md
-│   └── gates/
+│   ├── gates/
 │       ├── AUTOFILL_FEASIBILITY_GATE.md
 │       ├── RESUME_PAGEFIT_FEASIBILITY_GATE.md
 │       ├── WORKDAY_GUIDED_PRE_SUBMIT_GATE.md
+│       ├── CROSS_PLATFORM_CORE_GATE.md
 │       └── HOLDOUT_EXECUTION_LOG.md
+│   └── platform/
+│       ├── CERTIFIED_MATRIX.md
+│       ├── MODEL_RUNTIME_PROFILES.md
+│       ├── NATIVE_MESSAGING_MATRIX.md
+│       └── PACKAGING_UPDATE_MATRIX.md
 ├── apps/
 │   ├── desktop/                 # Tauri 2 + React + TypeScript
 │   ├── extension/               # WXT + React + TypeScript, real MV3 feasibility in M02; productionized in M17
@@ -662,6 +759,7 @@ The target monorepo is:
 │   ├── contracts/               # JSON Schema, generated TS and Python models
 │   ├── domain/                  # shared pure domain logic
 │   ├── ui/                      # shared UI components and accessibility helpers
+│   ├── platform/                # typed OS capabilities, paths, process, key store, installer interfaces
 │   ├── resume-schema/           # feasibility subset in M05; complete semantic document model later
 │   ├── form-engine/             # early M02 field identity/scanner/resolver/drivers; productionized later
 │   ├── ats-adapters/            # M02 research adapters; Workday-first production in M19-M20; others later
@@ -686,6 +784,7 @@ The target monorepo is:
 │   └── verification/
 ├── model/
 │   ├── model-lock.json
+│   ├── platform-profiles/
 │   ├── eval-cases/
 │   └── eval-results/
 ├── scripts/
@@ -694,6 +793,7 @@ The target monorepo is:
 │   ├── generate-contracts.*
 │   ├── redact-fixture.*
 │   ├── benchmark-model.*
+│   ├── traceability.py
 │   ├── benchmark-autofill.*
 │   └── benchmark-resume-pagefit.*
 ├── pnpm-workspace.yaml
@@ -714,7 +814,7 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 | Local API/orchestration | Python 3.12, FastAPI, Pydantic v2 |
 | Native bridge | Rust binary registered as a Chrome native-messaging host |
 | Database | SQLite with SQLCipher or an approved equivalent full-database encryption design |
-| Secret storage | macOS Keychain initially; platform keychain abstraction for later OS support |
+| Secret storage | macOS Keychain; Windows Credential Manager/DPAPI; Linux Secret Service/libsecret-compatible provider behind one interface |
 | Local files | Encrypted application-data directory with content-addressed artifacts |
 | Contracts | JSON Schema as source of truth; generated TypeScript and Pydantic models |
 | TypeScript tests | Vitest |
@@ -724,9 +824,13 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 | PDF import | PyMuPDF first, pdfplumber fallback; no OCR unless explicitly required |
 | DOCX import/export | python-docx or an approved deterministic DOCX library |
 | PDF rendering | Pinned Playwright Chromium using semantic HTML/CSS |
-| Local model runtime | Ollama’s MLX engine on Apple Silicon behind a provider abstraction |
+| Local model runtime | Versioned provider profiles: Ollama MLX on Apple Silicon and benchmarked Ollama GGUF accelerator/CPU profiles on Windows/Linux |
 | Search | SQLite FTS5 + local embeddings initially; PostgreSQL FTS/pgvector for public job index |
 | Cloud job index | Containerized ingestion workers + PostgreSQL; no private user profile data stored there |
+| Certified desktop platforms | macOS 14+ arm64; Windows 11 x64; Ubuntu 24.04 LTS x64 |
+| Certified browser | Current Google Chrome stable on each certified platform |
+| Packaging | macOS app/DMG; Windows signed NSIS or MSI decision; Ubuntu `.deb` plus AppImage convenience artifact |
+| Updates | Signed Tauri updater artifacts with platform/architecture targets and rollback policy |
 
 ### 5.3 Component responsibilities
 
@@ -765,6 +869,14 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 - Stores no private profile, resume, answers, or application data.
 - Provides normalized search and incremental sync to the local app.
 
+#### Platform service and adapters
+
+- Exposes typed `PlatformCapabilities`, `PlatformPaths`, `SecretStore`, `ProcessSupervisor`, `NativeMessagingRegistrar`, `BrowserLocator`, `ModelRuntimeProvider`, `InstallerState`, `UpdaterProvider`, and `PlatformDiagnostics` interfaces.
+- Owns operating-system-specific implementations; shared domain code cannot call platform APIs directly.
+- Detects certified, experimental, and unsupported targets and reports capability without claiming support.
+- Ensures GUI-launched processes find bundled/configured runtimes without relying on interactive-shell `PATH`.
+- Provides test seams so platform negative cases do not require corrupting the real machine.
+
 ### 5.4 Trust boundaries
 
 1. **Untrusted web boundary:** all page DOM, scripts, text, options, and navigation state.
@@ -773,7 +885,8 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 4. **Native-host boundary:** validates extension identity, message schema, capability, and session token.
 5. **Local-service boundary:** owns private data and AI orchestration.
 6. **Model boundary:** model output is untrusted data, never executable authority.
-7. **Public job-index boundary:** public metadata only; results require validation and provenance.
+7. **Platform-adapter boundary:** operating-system services, registries, credential stores, process APIs, installers, and updaters expose bounded typed capabilities.
+8. **Public job-index boundary:** public metadata only; results require validation and provenance.
 
 Chrome’s extension security guidance explicitly treats content scripts as less trustworthy than the service worker. The implementation must reflect that boundary rather than treating extension messages as inherently safe.
 
@@ -1642,11 +1755,110 @@ A critical gate requires:
 5. Owner decision recorded in `docs/CRITICAL_GATES.md`.
 ---
 
-## 6. Exact local AI model decision for the M5 / 24 GB laptop
+### 5.14 Cross-platform architecture and certification
 
-### 6.1 Required initial main-model candidate
+#### 5.14.1 Certified matrix and support tiers
 
-The exact initial production candidate for this hardware is:
+First-release certification is intentionally narrow:
+
+| Target ID | Operating system | Architecture | Browser | Support tier |
+|---|---|---|---|---|
+| `macos-arm64` | macOS 14 or later | Apple Silicon arm64 | Chrome stable | `CERTIFIED_FULL` on accepted local-AI profile; `CERTIFIED_CORE` otherwise |
+| `windows-x64` | Supported Windows 11 release | x86-64 | Chrome stable | `CERTIFIED_FULL` on accepted local-AI profile; `CERTIFIED_CORE` otherwise |
+| `ubuntu-x64` | Ubuntu 24.04 LTS, default supported GNOME desktop session | x86-64 | Chrome stable | `CERTIFIED_FULL` on accepted local-AI profile; `CERTIFIED_CORE` otherwise |
+
+Support states:
+
+```text
+CERTIFIED_FULL       # complete core plus accepted local-AI profile and performance evidence
+CERTIFIED_CORE       # deterministic/profile/document/extension/tracker workflows; AI unavailable or below performance tier
+EXPERIMENTAL         # tested informally but no support promise
+UNSUPPORTED          # blocked with explanation
+```
+
+Windows 10 is not certified because general support ended in October 2025. Intel macOS, Windows ARM64, other Linux distributions, Firefox, Safari, and ChromeOS require later compatibility packages.
+
+#### 5.14.2 Platform interface contract
+
+Shared code depends on interfaces rather than operating-system APIs:
+
+```ts
+interface PlatformCapabilities {
+  platformId: "macos-arm64" | "windows-x64" | "ubuntu-x64" | "unsupported";
+  supportTier: "CERTIFIED_FULL" | "CERTIFIED_CORE" | "EXPERIMENTAL" | "UNSUPPORTED";
+  secureStore: CapabilityState;
+  nativeMessaging: CapabilityState;
+  localModelProfiles: ModelProfileCapability[];
+  packagingChannel: string | null;
+  diagnostics: DiagnosticReason[];
+}
+
+interface PlatformPaths { appData(): Path; cache(): Path; temp(): Path; artifacts(): Path; }
+interface SecretStore { put(key: SecretKey, value: SecretBytes): Result; get(key: SecretKey): Result; delete(key: SecretKey): Result; }
+interface ProcessSupervisor { spawn(plan: SpawnPlan): ProcessHandle; terminate(handle: ProcessHandle): Result; inspect(handle: ProcessHandle): ProcessState; }
+interface NativeMessagingRegistrar { install(plan: HostRegistration): Result; verify(plan: HostRegistration): Result; remove(plan: HostRegistration): Result; }
+interface ModelRuntimeProvider { detect(): RuntimeCapability; ensureProfile(profileId: string): Result; invoke(request: TypedGenerationRequest): Result; }
+```
+
+No shared domain package may import Keychain, Windows registry, DPAPI, D-Bus Secret Service, Unix signals, Win32 process APIs, or installer APIs directly.
+
+#### 5.14.3 Secret storage
+
+- macOS: Keychain.
+- Windows: Credential Manager and/or DPAPI-protected key material behind one reviewed adapter.
+- Ubuntu: Secret Service through a libsecret-compatible provider.
+- CI: test-only injected fake store with synthetic keys; never a production fallback.
+- If the production secure store is unavailable, private-data initialization pauses with actionable remediation. It does not write a key to a file or environment variable.
+
+#### 5.14.4 Filesystem and process semantics
+
+Tests must cover separators, spaces, Unicode, case sensitivity, CRLF/LF, Windows reserved names, executable suffixes and permissions, long paths, file locking, atomic replace, temporary cleanup, spawn quoting, signal/termination semantics, parent death, and orphan detection. Shared commands use Python/TypeScript/Rust entry points and argument arrays rather than shell interpolation.
+
+Packaged GUI applications must discover bundled or configured runtimes explicitly because macOS and Linux GUI processes do not reliably inherit interactive-shell profiles, and Windows executable discovery differs from POSIX systems.
+
+#### 5.14.5 Native messaging
+
+- macOS and Linux install an absolute-path host manifest in the browser-appropriate user or system location.
+- Windows installs the manifest path through the required Chrome native-messaging registry key.
+- The Windows native host uses binary stdin/stdout semantics so newline translation cannot corrupt length-prefixed messages.
+- Install, verify, repair, update, and uninstall are idempotent and retain user data unless explicit deletion is requested.
+- The extension ID allowlist and message-size/capability limits remain mandatory on every platform.
+
+#### 5.14.6 Model runtime profiles
+
+The model family is selected by domain quality; the artifact/runtime is platform-profile data:
+
+```text
+macos-arm64-mlx          # Apple Silicon; primary M5/24 GB development profile
+windows-x64-nvidia       # GGUF/CUDA profile selected by M05 benchmark
+windows-x64-cpu          # functional compatibility fallback; no latency promise until measured
+ubuntu-x64-nvidia        # GGUF/CUDA profile selected by M05 benchmark
+ubuntu-x64-cpu           # functional compatibility fallback; no latency promise until measured
+```
+
+A profile includes exact artifact digest, runtime version, accelerator/driver bounds, context, quantization, RAM/VRAM requirement, license, structured-output score, factuality score, latency, memory, and fallback behavior. The deterministic autofill engine cannot depend on a profile being available.
+
+#### 5.14.7 Documents and fonts
+
+Resume rendering uses controlled, legally distributable font assets or an approved deterministic font policy. The semantic resume and render intermediate representation remain platform-neutral. Every certified platform runs PDF/DOCX text extraction, page count, clipping, Unicode, long-name, and visual-difference checks. Semantic parity is mandatory even when platform PDF bytes differ.
+
+#### 5.14.8 Packaging and updates
+
+- macOS: signed application bundle/DMG and notarization-ready flow.
+- Windows: signed NSIS or MSI installer selected through an ADR; per-user install is preferred initially unless native-host/enterprise requirements justify otherwise.
+- Ubuntu: `.deb` is the certified package; AppImage is an additional convenience artifact when its runtime assumptions pass.
+- Signed update metadata and assets are platform/architecture specific.
+- Each platform must pass install, first launch, upgrade, rollback, interrupted update, repair, uninstall, native-host cleanup, and user-data preservation.
+
+#### 5.14.9 Cross-platform evidence bundle
+
+Each platform gate bundle records OS build, architecture, runner or physical-machine identity, package hash/signature, browser/version, webview version, native-host registration evidence, secret-store test, runtime/model profile, document matrix, backup/restore result, update/rollback result, diagnostics, raw logs, screenshots/traces containing synthetic data only, independent reviewer, and owner decision.
+
+## 6. Local AI model family and certified platform runtime profiles
+
+### 6.1 Required initial macOS development candidate
+
+The exact initial candidate for the primary M5/24 GB macOS development profile is:
 
 ```text
 Ollama model tag: gemma4:12b-mlx
@@ -1663,11 +1875,18 @@ This is the best practical default for the stated machine because:
 - Ollama’s 2026 MLX engine is optimized for Apple Silicon and specifically advertises acceleration on M5-family chips.
 - A Qwen3.6 27B Q4 build is about 17 GB and a Qwen3.6 35B default build is about 24 GB. Those may run in isolation, but they leave too little reliable headroom on a 24 GB unified-memory laptop for this product’s normal workload and are therefore not the production default.
 
-The model selection is a **versioned initial candidate, not an article of faith**. Milestone `M05` must benchmark it on the project’s own resume, answer, extraction, factuality, and PageFit corpus on the actual M5/24 GB machine. The benchmark must also include at least one feasible independent 12B–14B alternative supported by the approved runtime—initially `Qwen/Qwen3-14B` or a newer owner-approved equivalent available at execution time—so the product does not lock itself to a convenient model without comparative evidence. The exact winner becomes the production model lock only after `M05-W06`; any replacement requires an approved ADR and must beat the candidate on overall domain quality while meeting memory, latency, reliability, licensing, and packaging gates.
+The model selection is a **versioned initial candidate, not an article of faith**, and the MLX artifact is not a universal cross-platform artifact. Milestone `M05` must benchmark it on the project’s own resume, answer, extraction, factuality, and PageFit corpus on the actual M5/24 GB machine. The benchmark must also include at least one feasible independent 12B–14B alternative supported by the approved runtime—initially `Qwen/Qwen3-14B` or a newer owner-approved equivalent available at execution time—so the product does not lock itself to a convenient model without comparative evidence. The exact winner becomes the production model lock only after `M05-W06`; any replacement requires an approved ADR and must beat the candidate on overall domain quality while meeting memory, latency, reliability, licensing, and packaging gates.
 
 The model is not the autofill engine. Ordinary field identity, option matching, sensitive policy, fill execution, and DOM reconciliation remain deterministic even when the model is unavailable.
 
-### 6.2 Model runtime limits
+### 6.2 Staged Windows and Linux profile selection
+
+`M05` must define the same versioned model-profile contract for Windows and Ubuntu, prove native runtime/capability detection, validate explicit no-model and insufficient-hardware behavior, and exercise at least one feasible candidate artifact path on each operating system when suitable native hardware is available. Lack of a qualifying Windows or Ubuntu full-AI machine during `M05` does not block the resume/PageFit feasibility architecture or `M06`.
+
+The same semantic tasks, prompt versions, evidence inputs, and verifier thresholds apply whenever a Windows or Ubuntu candidate is benchmarked. Candidate results are recorded without lowering factuality, unsupported-claim, or structured-output standards. Final acceptance of at least one `CERTIFIED_FULL` Windows profile and one `CERTIFIED_FULL` Ubuntu profile is deferred to `M27-W10` and remains mandatory before `CROSS_PLATFORM_CORE` can pass. `CERTIFIED_CORE` and safe no-model behavior must remain usable throughout development.
+
+### 6.3 Model runtime limits
+
 
 Initial runtime policy:
 
@@ -1685,7 +1904,7 @@ Runtime version: pinned and recorded in every evaluation result
 
 Do not use the advertised 256K context merely because it exists. Retrieval and structured context construction must keep ordinary requests small and reproducible.
 
-### 6.3 Task-specific generation policy
+### 6.4 Task-specific generation policy
 
 | Task | Thinking | Temperature | Output |
 |---|---:|---:|---|
@@ -1703,7 +1922,7 @@ Do not use the advertised 256K context merely because it exists. Retrieval and s
 
 Exact parameter names depend on the pinned Ollama/model version and must be stored in the prompt registry rather than scattered through code.
 
-### 6.4 Helper models and deterministic tools
+### 6.5 Helper models and deterministic tools
 
 Recommended retrieval helpers:
 
@@ -1727,7 +1946,7 @@ Use deterministic code instead of the LLM for:
 - Sensitive-field policies.
 - Submission-state transitions.
 
-### 6.5 AI pipeline contract
+### 6.6 AI pipeline contract
 
 No production workflow may be a one-shot “paste everything and return final text” prompt. The standard pattern is:
 
@@ -1745,7 +1964,7 @@ classify task and sensitivity
     -> require review or release according to policy
 ```
 
-### 6.6 Model-output safety
+### 6.7 Model-output safety
 
 - Job text must be delimited as untrusted data.
 - Instructions found inside job text or page content must never override system rules.
@@ -1921,7 +2140,8 @@ After every fill pass:
 7. **Visual regression tests:** desktop views, extension panels, resume PDFs.
 8. **Performance tests:** scan/fill latency, memory, model latency, render time, queue throughput.
 9. **Security tests:** prompt injection, message forgery, capability abuse, PII redaction, malformed documents, path traversal.
-10. **Manual real-site validation:** terms-compliant, low-volume, controlled checks on public application pages.
+10. **Platform-native package tests:** install, launch, process lifecycle, secret store, native messaging, update/rollback, backup portability, and uninstall on macOS, Windows, and Ubuntu.
+11. **Manual real-site validation:** terms-compliant, low-volume, controlled checks on public application pages.
 
 ### 8.2 Mock ATS lab
 
@@ -2040,6 +2260,19 @@ At least:
 - Holdout results are append-only and tied to a Git revision.
 - A failed holdout is not repaired by editing the holdout answer; it creates a defect or reviewed expectation-correction record.
 
+#### Cross-platform corpus
+
+Before `CROSS_PLATFORM_CORE` can pass:
+
+- At least one packaged release-candidate build for each certified target.
+- Clean and dirty upgrade fixtures, install paths with spaces/Unicode, locked-file and interrupted-update cases.
+- Secure-store availability/denial/corruption fixtures for each platform adapter.
+- Native-messaging install/repair/uninstall fixtures for Chrome stable.
+- Backup/restore fixtures covering every required source/target platform combination.
+- Document render/extraction and bundled-font matrix on every certified platform.
+- At least one full-AI profile per operating system plus explicit no-model/insufficient-hardware behavior.
+- Physical or native hosted evidence; containers and cross-compilation are supplemental only.
+
 ### 8.4 Quality baseline and side-by-side comparison
 
 Freeze baselines before optimizing. They include:
@@ -2144,7 +2377,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 cargo test
 ```
 
-`pnpm verify` must aggregate all required non-live checks and fail on any skipped mandatory suite.
+`pnpm verify` must aggregate all required non-live checks and fail on any skipped mandatory suite. Canonical commands must run from PowerShell/Windows process invocation as well as POSIX shells; OS-specific wrappers may not diverge from the shared implementation.
 
 ### 8.6 Test-evidence standard
 
@@ -2164,21 +2397,20 @@ cargo test
 
 ## 9. Milestone execution map
 
-The milestone numbers are migrated once during `M00-W05` so Workday becomes the first production ATS rather than a late expansion. The project now contains three blocking critical gates: early generic autofill feasibility in `M02`, resume/PageFit feasibility in `M05`, and production Workday guided pre-submit certification across `M19`–`M20`.
+Milestone numbers remain stable. Cross-platform behavior is implemented progressively in the milestones that own lifecycle, storage, model runtime, rendering, native messaging, and packaging; the fourth gate prevents closed-alpha expansion until those pieces work together natively.
 
 | Phase | Milestones | Result |
 |---|---|---|
-| A — Contract, measurement, and early autofill challenge | M00–M02 | Reproducible monorepo, typed contracts, frozen corpora, real extension feasibility engine, a Workday-heavy challenge set, and accepted Autofill Feasibility Gate |
-| B — Secure local platform, model, and early resume proof | M03–M05 | Desktop/orchestrator lifecycle, encrypted persistence, accepted local-model lock, and accepted Resume Tailoring/PageFit Feasibility Gate |
+| A — Contract, measurement, and early autofill proof | M00–M02 | Reproducible three-OS CI baseline, typed contracts, frozen corpora, real extension feasibility engine, and accepted Autofill Feasibility Gate |
+| B — Secure local platform, model profiles, and early resume proof | M03–M05 | Cross-platform lifecycle/storage foundations, accepted local-model profiles, and accepted Resume Tailoring/PageFit Gate |
 | C — Canonical user knowledge | M06–M08 | Evidence graph, imports, profile, eligibility, preferences, and voice data |
-| D — Resume and application intelligence | M09–M16 | Complete document system, job analysis, matching, production tailoring, one-page fit, cover letters, and short answers built on the accepted feasibility core |
-| E — Production extension and Workday-first certification | M17–M20 | Secure transport, productionized generic form engine, Workday field coverage, safe automatic page progression, final-review handoff, and accepted Workday Guided Pre-Submit Gate |
-| F — Additional production ATS and complete manual workflow | M21–M24 | Greenhouse, Lever, Ashby, cross-adapter multipage/upload/review behavior, and manual submission receipt handling without regressing Workday |
-| G — Tracking and closed alpha | M25–M28 | Receipts, analytics, interview practice, security/performance hardening, and closed-alpha acceptance with all three critical gates green |
-| H — Broader ATS coverage and compatibility operations | M29–M31 | iCIMS, SmartRecruiters, Taleo, SuccessFactors, safe unsupported-site mapping, and adapter maintenance |
-| I — Job discovery and approval | M32–M34 | Constantly refreshed public job index, explainable ranking, application preparation, and approved queue UI |
-| J — Automatic application | M35–M37 | Resumable dry-run/pre-submit execution, separately certified auto-submit where safe, intervention/recovery, and sustained pilot |
-| K — Final release | M38 | Full cross-feature independent validation and release candidate |
+| D — Resume and application intelligence | M09–M16 | Complete document system and cross-platform renderer matrix, job analysis, production tailoring, PageFit, cover letters, and answers |
+| E — Production browser autofill | M17–M24 | Cross-platform native transport, production form engine, Workday gate, initial ATS adapters, and manual application workflow |
+| F — Tracking, platform hardening, and closed alpha | M25–M28 | Receipts/analytics/interview practice, packaged three-OS core, Cross-Platform Core Gate, and closed-alpha acceptance |
+| G — Broader ATS coverage | M29–M31 | iCIMS, SmartRecruiters, Taleo, SuccessFactors, and safe unsupported-site mapping |
+| H — Job discovery and approval | M32–M34 | Constantly refreshed public job index, explainable ranking, and approved queue UI |
+| I — Automatic application | M35–M37 | Resumable safe execution, certified auto-submit, intervention/recovery, and sustained pilot |
+| J — Final release | M38 | Full cross-feature and cross-platform independent validation and release candidate |
 
 ### 9.1 Blocking readiness rules
 
@@ -2191,7 +2423,9 @@ The milestone numbers are migrated once during `M00-W05` so Workday becomes the 
 7. Greenhouse, Lever, Ashby, later adapters, and generic automation must not degrade the accepted M02 or Workday gate results. Any regression changes the affected gate state from `PASS` to `BLOCKED` until the complete regression is restored.
 8. Workday compatibility claims are limited to measured tenant/layout/locale/session patterns. Universal Workday support is prohibited.
 9. Automatic submission remains blocked until manual application review, exact snapshots, duplicate prevention, and receipt behavior are accepted. Workday guided pre-submit does not grant submit authority.
-10. The status validator must enforce all three critical-gate prerequisites and downstream readiness rules after `M00-W05`.
+10. The status validator must enforce all four critical-gate prerequisites and downstream readiness rules after `M00-W08`.
+11. `M01-W01` cannot be ready after v1.3 adoption until `M00-W10` re-accepts M00.
+12. `M28` cannot be ready or later unless `M27` is accepted and `CROSS_PLATFORM_CORE = PASS`.
 
 ---
 
@@ -2208,32 +2442,38 @@ The milestone numbers are migrated once during `M00-W05` so Workday becomes the 
 | `M00-W02` | Scaffold the monorepo | Create pnpm/Turborepo layout, Python workspace, Rust native-host crate, desktop, extension, mock ATS lab, packages, prompts, model, scripts, and docs directories. No fake feature implementations. |
 | `M00-W03` | Establish strict toolchain configuration | Pin Node, pnpm, Python, Rust, browser, and package-manager versions. Enable TypeScript strict mode, Ruff, mypy, pytest, Vitest, Playwright, rustfmt, and Clippy. |
 | `M00-W04` | Create root verification commands | Implement deterministic root commands for lint, typecheck, unit, contract, browser, visual, Python, Rust, integrity, and aggregate verification. Empty active suites must fail; not-yet-applicable suites require an explicit machine-readable state. |
-| `M00-W05` | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline | For the existing v1.0 repository, compare the proposed v1.2 and canonical specs, record owner approval in an accepted ADR, replace the canonical file atomically, migrate the 39-milestone/260-work-package/135-requirement inventory, add the three critical-gate records, update validators/readiness rules, preserve verified revisions, remove the proposed copy, and prove repository consistency. For a fresh v1.2 repository, validate the same inventory and record v1.2 as the initial accepted baseline. |
-| `M00-W06` | Create CI and local preflight | Add CI for macOS and Linux initially, dependency caching, generated-contract checks, root verification, and artifact retention for Playwright traces. Add a local environment doctor command. |
-| `M00-W07` | Seed traceability and status | Enter every v1.2 requirement and work package into traceability/status files, assign dependencies and critical-gate effects, validate counts, and identify the next READY package. |
+| `M00-W05` | Adopt and migrate the v1.2 Workday-first critical-risk rebaseline | For the existing v1.0 repository, compare the proposed v1.2 and canonical specs, record owner approval in an accepted ADR, replace the canonical file atomically, migrate the 39-milestone/260-work-package/135-requirement inventory, add the three critical-gate records, update validators/readiness rules, preserve verified revisions, remove the proposed copy, and prove repository consistency. This remains historical completed work under v1.3 and its evidence must be preserved. |
+| `M00-W06` | Create CI and local preflight | Add CI for macOS and Linux initially, dependency caching, generated-contract checks, root verification, and artifact retention for Playwright traces. Add a local environment doctor command. Under v1.3 this remains historical completed work; its macOS/Ubuntu CI, doctor/preflight, cache, generated-contract, and hosted evidence must be preserved. |
+| `M00-W07` | Seed traceability and status | Enter every v1.2 requirement and work package into traceability/status files, assign dependencies and critical-gate effects, validate counts, and identify the next READY package. Finish this in-flight v1.2 package first and preserve its machine-readable source, generator/validator, exact 135/260 inventory, M00 audit, and evidence for extension by M00-W10. |
+| `M00-W08` | Adopt and migrate the v1.3 cross-platform rebaseline | Compare canonical v1.2 with the immutable owner-approved external v1.3 file, record owner approval and the source hash in an accepted ADR, atomically copy those exact bytes into the canonical path without introducing a second canonical-looking repository file, add platform memory and the fourth gate, migrate status/validators and mechanically extend the existing traceability source to the exact 39-milestone/286-work-package/157-requirement inventory with honest future states, preserve W01–W07 evidence, reopen M00, and prove consistency. Detailed reviewed platform mappings remain owned by M00-W10. |
+| `M00-W09` | Add Windows CI and platform-portability baseline | Extend CI/doctor/preflight to windows-2025 x64; create the empty `packages/platform` scaffold if absent; validate platform-neutral scripts, path/line-ending/case assumptions, PowerShell execution, exact toolchains, Chrome/Playwright, Rust/Python/Node, and generated-contract lifecycle. Add no product behavior. |
+| `M00-W10` | Extend traceability and re-accept M00 under v1.3 | Extend and regenerate the existing `docs/traceability.json` through `scripts/traceability.py` for the exact v1.3 inventory, map all new platform requirements/packages/gate effects, preserve the existing human-readable view and tests, rerun three-OS fresh-clone evidence, mark M00 accepted only when the expanded exit gate passes, and make M01-W01 ready. |
+
+The `windows-2025` hosted job is a repository portability baseline, not proof of Windows 11 desktop certification. Gate D still requires the native packaged Windows 11 evidence defined in M03, M04, M05, M17, and M27.
 
 ### Required verification
 
-- Fresh clone installs with documented commands.
-- All scaffold smoke tests pass.
-- Generated/dirty repository checks fail correctly.
-- Status validator rejects invalid states or multiple IN_PROGRESS packages.
-- v1.0-to-v1.2 migration preserves completed-package revisions and produces the exact v1.2 inventory.
-- Validator blocks `M03` readiness without the autofill gate, blocks `M06` readiness without the resume/PageFit gate, and blocks `M21` readiness without accepted Workday production/guided milestones and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
-- Proposed specification copy is removed after adoption; exactly one canonical file remains.
-- CI and local preflight run the same canonical verification behavior.
+- Fresh clones install with documented locked commands on macOS, Windows, and Ubuntu CI.
+- All scaffold smoke tests pass and generated/dirty repository checks fail correctly.
+- Status validation rejects invalid states, multiple `IN_PROGRESS` packages, stale inventories, missing platform memory, and critical-gate readiness violations.
+- Historical v1.2 M00-W01 through M00-W07 revisions and evidence remain byte-for-byte or semantically preserved according to the recorded anchors.
+- v1.3 adoption produces exactly one canonical specification, four gate records, 39 milestones, 286 work packages, and 157 requirements.
+- `M03`, `M06`, `M21`, and `M28` readiness is blocked by the correct critical-gate and accepted-milestone prerequisites.
+- Windows, macOS, and Ubuntu CI run the same canonical doctor/preflight/verify implementation.
+- Windows negative tests reject POSIX-only scripts, shell masking, case/path/line-ending assumptions, and missing platform dependencies.
+- Traceability generation/check is deterministic for the expanded inventory and preserves completed evidence.
 
 ### Milestone exit gate
 
-A fresh clone on the M5 Mac can install, launch scaffold smoke tests, run aggregate verification, reconstruct the next task solely from repository files, and enforce the v1.2 three-gate readiness rules.
+A fresh clone on each certified CI operating-system family can install with locked dependencies, run doctor/preflight/aggregate verification, reconstruct the next task solely from repository files, and enforce all four critical-gate readiness rules. M00-W01 through W07 evidence remains unchanged, the exact v1.3 traceability inventory validates, and M01-W01 is ready only after M00-W10 re-accepts M00.
 
 ### Prohibited shortcut
 
-Do not implement profile, AI, resume, or autofill product features in this milestone. The v1.2 migration changes contracts and project memory only.
+Do not implement profile, AI, resume, autofill, desktop platform adapters, secure stores, model profiles, native-host installers, or other product behavior in M00. M00 establishes contracts, CI portability, project memory, migration integrity, and traceability only.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2252,6 +2492,7 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M01-W04` | Define capability and command allowlists | Specify which component may request each operation. Content scripts cannot request database, model, filesystem, or submission capabilities directly. Feasibility mode has no submit capability. |
 | `M01-W05` | Build contract compatibility tests | Round-trip representative messages through TS, Python, and Rust. Test unknown fields, older minor versions, invalid enums, oversized payloads, malicious values, and capability escalation. |
 | `M01-W06` | Define feasibility and benchmark contracts | Define FieldAddress, FieldDescriptor, FieldDecision, driver result, reconciliation inventory, ATS variant, WorkdayTenantFingerprint, WorkdayStepIdentity, PageReadinessProof, NavigationRecord, ApplicationSession, GuidedRunMode, Workday certification record, benchmark case/result, gate evidence bundle, holdout manifest, resume plan, atomic claim, layout measurement, and gate decision schemas. Generate and round-trip them. |
+| `M01-W07` | Define cross-platform capability and platform-service contracts | Define certified platform IDs/support tiers, platform capabilities, paths, secure store, process supervisor, native-messaging registrar, browser locator, model-runtime profile, installer/updater state, diagnostics, and platform evidence schemas. Generate TypeScript/Python/Rust-compatible contracts and forbid arbitrary OS-command payloads. |
 
 ### Required verification
 
@@ -2265,6 +2506,9 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 - Field addresses reject raw-selector-only identity.
 - Benchmark and gate result schemas require revision/corpus/runtime metadata.
 
+- Platform capability and support-tier contracts round-trip across languages.
+- Platform operations use typed allowlists; no arbitrary command, registry, path, or shell payload crosses a trust boundary.
+
 ### Milestone exit gate
 
 All inter-component and critical-feasibility messages used by `M02`, plus the Workday production and guided-navigation messages required by `M19`–`M20`, have a versioned schema and pass cross-language compatibility tests.
@@ -2275,7 +2519,7 @@ No untyped dictionaries/any payloads across trust boundaries, and no browser act
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2346,14 +2590,14 @@ If the gate is `REDESIGN_REQUIRED`, no later milestone becomes ready. Create an 
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, all applicable gate reports, `KNOWN_ISSUES.md`, and approved ADRs. It must run clean-clone verification and record the exact benchmark bundle hash.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, all applicable gate reports, `KNOWN_ISSUES.md`, and approved ADRs. It must run clean-clone verification and record the exact benchmark bundle hash.
 
 ---
 
 ## M03 — Desktop shell, local orchestrator lifecycle, and authenticated health path
 
 **Dependencies:** M00, M01, M02 with `AUTOFILL_FEASIBILITY = PASS`  
-**Goal:** Prove the desktop application can securely start, monitor, communicate with, and stop the local service.
+**Goal:** Prove the desktop application can securely start, monitor, communicate with, and stop the local service through a typed platform abstraction on macOS, Windows, and Ubuntu.
 
 ### Work packages
 
@@ -2364,20 +2608,26 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M03-W03` | Implement sidecar lifecycle | Tauri selects a random loopback port, generates an ephemeral session token, starts the service, waits for readiness, and shuts it down cleanly. |
 | `M03-W04` | Implement authenticated API client | Desktop requests include bounded timeouts, token auth, correlation IDs, cancellation, retries only for idempotent operations, and user-safe errors. |
 | `M03-W05` | Add crash/restart behavior | Detect service death, preserve unsaved UI state where possible, show diagnostics, and perform bounded restart without spawning duplicates. |
-| `M03-W06` | Package development build | Produce a signed-development or local macOS build that launches without terminal interaction. |
+| `M03-W06` | Package development build | Produce a signed-development or local macOS build that launches without terminal interaction. Under v1.3 this is the macOS arm64 development package and must prove the common lifecycle contract before the Windows and Ubuntu packages extend it. |
+| `M03-W07` | Package Windows x64 development build | Produce a Windows 11 x64 development installer/build that launches without a terminal window, starts the local service, authenticates, handles spaces/Unicode paths, and exits without orphan processes. |
+| `M03-W08` | Package Ubuntu x64 development build | Produce an Ubuntu 24.04 x64 development package that validates WebKitGTK/system dependencies, launches without shell-profile dependence, starts/authenticates the service, and exits cleanly. |
+| `M03-W09` | Implement platform lifecycle, path, and process adapters | Move spawn, executable discovery, app-data/cache/temp paths, termination, cancellation, and diagnostics behind typed adapters. Cover Windows process groups/file locks and POSIX signals without leaking OS logic into shared code. |
+| `M03-W10` | Run cross-platform desktop lifecycle matrix | Execute packaged launch, port collision, unauthorized request, crash/restart, update-neutral relaunch, Unicode/spaces path, and orphan-process tests on all certified platforms; publish capability rows without yet passing Gate D. |
 
 ### Required verification
 
-- Lifecycle unit tests.
-- Port collision test.
-- Unauthorized request rejection.
-- Crash/restart E2E.
-- No non-loopback listener.
+- Lifecycle unit tests, port collision, unauthorized request rejection, and bounded crash/restart.
+- No non-loopback listener and no orphan process after normal or forced exit.
 - Desktop keyboard smoke test.
+- Packaged lifecycle E2E on macOS arm64, Windows x64, and Ubuntu x64.
+- Ubuntu package tests cover the supported default GNOME session and record Wayland/X11 behavior where available; untested desktop environments are not implied supported.
+- Platform path/process adapter contracts and no shared-domain direct OS API imports.
+- GUI launch and runtime discovery work without interactive-shell `PATH` inheritance.
+- Spaces, Unicode, quoting, cancellation, locked-file, and platform termination cases.
 
 ### Milestone exit gate
 
-The packaged development desktop app launches the local service, authenticates, displays health/version, survives a forced service crash, and exits without orphan processes.
+All three development packages launch the authenticated local service, display health/version, survive a forced service crash, handle platform path/process semantics, and exit without orphan processes.
 
 ### Prohibited shortcut
 
@@ -2385,38 +2635,42 @@ Do not expose unauthenticated localhost endpoints.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
 ## M04 — Encrypted persistence, migrations, artifacts, backup, and restore
 
 **Dependencies:** M01, M03  
-**Goal:** Create the durable private-data layer before real resumes or profile data are accepted.
+**Goal:** Create durable encrypted private-data storage with platform-native key protection and portable backup/restore before real resumes or profile data are accepted.
 
 ### Work packages
 
 | ID | Package | Required implementation and proof |
 |---|---|---|
-| `M04-W01` | Select and prove database encryption | Implement SQLCipher or approved equivalent. Store the key in macOS Keychain. Document packaging and recovery behavior. |
+| `M04-W01` | Select and prove database encryption | Implement SQLCipher or approved equivalent. Store the key in macOS Keychain for the initial target while defining the typed SecretStore boundary used by the Windows and Ubuntu adapters. Database keys remain independent of platform storage, and no plaintext fallback is allowed. |
 | `M04-W02` | Create migration framework | Version migrations, transactional upgrades, rollback/recovery policy, schema checksum, and test against multiple historical fixtures. |
 | `M04-W03` | Create repository/data-access layer | Prevent UI and extension from raw SQL. Add transaction boundaries, optimistic concurrency, and stable IDs. |
 | `M04-W04` | Create encrypted artifact store | Content-address imported documents, rendered outputs, and snapshots; encrypt sensitive files; maintain reference counts and integrity hashes. |
 | `M04-W05` | Implement backup/export/restore | Create encrypted backup bundle, manifest, integrity verification, restore preview, and conflict-safe import. |
 | `M04-W06` | Implement deletion and retention | Delete selected categories or all user data, remove unreferenced artifacts, and verify secrets/logs are excluded. |
+| `M04-W07` | Implement macOS Keychain secret-store adapter | Store/retrieve/delete database keys and service secrets through Keychain; test denied access, missing item, migration, reinstall, and uninstall/user-data choices. |
+| `M04-W08` | Implement Windows Credential Manager and DPAPI adapter | Use Credential Manager and/or DPAPI-protected key material through the common interface; test user scope, registry/install paths, locked files, reinstall, repair, and no plaintext fallback. |
+| `M04-W09` | Implement Ubuntu Secret Service adapter | Use Secret Service/libsecret-compatible storage; detect unavailable or locked services, provide remediation, use a test-only injected store in CI, and never fall back to a file secret. |
+| `M04-W10` | Prove portable encrypted backup and filesystem semantics | Use an OS-neutral backup manifest/artifact format and test source-to-target restore across the certified matrix, spaces/Unicode, case collisions, locked files, atomic replacement, and interrupted operations. |
 
 ### Required verification
 
-- Database unreadable without key.
-- Migration forward tests.
-- Interrupted migration recovery.
-- Artifact tamper detection.
-- Backup round trip.
-- Deletion verification.
+- Database unreadable without its key and no plaintext key fallback.
+- Migration forward tests and interrupted migration recovery.
+- Artifact tamper detection, backup round trip, and deletion verification.
+- Key-store allow/deny/missing/corruption cases on macOS, Windows, and Ubuntu.
+- Credential/key reinstall, repair, and user-data preservation behavior.
+- Cross-platform backup/restore matrix, path/case/locked-file/atomic-replace cases.
 
 ### Milestone exit gate
 
-Synthetic private data survives restart and backup/restore, is unreadable without the key, and can be fully deleted with automated proof.
+Synthetic private data is encrypted and recoverable on every certified platform, portable through the approved backup format, unreadable without the platform-protected key, and fully deletable with automated proof.
 
 ### Prohibited shortcut
 
@@ -2424,14 +2678,14 @@ No plaintext fallback for production private data.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
 ## M05 — Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate
 
 **Dependencies:** M02, M03, M04  
-**Goal:** Integrate the initial local-model candidate as a controlled service, select the exact model through measured comparison, and prove the production-intended resume tailoring and one-page optimization architecture before the complete profile/document product proceeds.
+**Goal:** Select and integrate evidence-grounded local-model profiles for the primary Mac and certified Windows/Linux hardware tiers, and prove the resume/PageFit architecture.
 
 ### Work packages
 
@@ -2449,33 +2703,24 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M05-W10` | Implement controlled ATS-safe render and measured PageFit prototype | Build one production-intended single-column template, deterministic render/extraction validation, block measurement, content-utility scoring, fact-preserving shortening, mandated optimization order, typography floors, explanation, and correct two-page recommendation. |
 | `M05-W11` | Execute blind and side-by-side resume benchmark | Compare original, keyword-stuffing, one-shot local-model, Simplify where manually captured, and product outputs. Run atomic-claim audit, keyword/repetition audit, render/extraction audit, PageFit utility retention, latency/memory tests, and blind human review. |
 | `M05-W12` | Independent Resume Tailoring/PageFit Gate audit and decision | A separate high-capability session reproduces key cases, runs the owner-controlled holdout, audits model selection and every changed module, validates no unsupported claims or fact-changing compression, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. |
+| `M05-W13` | Define versioned platform model-runtime profiles | Add exact profile schema for OS/architecture/artifact/runtime/accelerator/driver/context/quantization/RAM/VRAM/license/digest/quality/latency/fallback metadata. Preserve the accepted Mac candidate as one profile, not a universal lock. |
+| `M05-W14` | Validate Windows model-runtime capability and core fallback | On Windows 11 x64, prove profile-schema compatibility, runtime and accelerator detection, unsupported-hardware handling, explicit no-model behavior, and at least one feasible candidate GGUF smoke/structured-output run when suitable native hardware is available. Record candidates for later full certification; absence of a qualifying full-AI machine does not block Gate B. |
+| `M05-W15` | Validate Ubuntu model-runtime capability and core fallback | On Ubuntu 24.04 x64, prove profile-schema compatibility, runtime and accelerator detection, unsupported-hardware handling, explicit no-model behavior, and at least one feasible candidate GGUF smoke/structured-output run when suitable native hardware is available. Record candidates for later full certification; absence of a qualifying full-AI machine does not block Gate B. |
+| `M05-W16` | Implement cross-platform model capability UX and graceful degradation | Detect profile capability, memory/accelerator/runtime state, present exact remediation, prevent unsupported downloads, and keep deterministic core workflows usable when AI is unavailable. |
 
 ### Required verification
 
-- Runtime unavailable UX.
-- Interrupted model download recovery.
-- Schema-repair behavior.
-- Prompt-injection cases.
-- No cross-request leakage.
-- Comparative model quality, memory, latency, and swap benchmark on the target Mac.
-- Deterministic plan schema and requirement allocation.
-- Zero unsupported claims and unsupported inserted skills.
-- Locks and chronology preserved.
-- No append-only bloat or repeated keyword inflation.
-- Skills section evidence links complete.
-- Render extraction order exact for the feasibility template.
-- No clipping, overlap, hidden text, or missing glyph.
-- PageFit fact preservation and utility retention.
-- Correct two-page recommendation cases.
-- Blind baseline comparison and manual Simplify comparison.
-- Owner-controlled holdout.
-- Independent audit.
+- Runtime unavailable UX, interrupted model download recovery, schema repair, injection cases, and no cross-request leakage.
+- Comparative model quality, factuality, structured-output, memory, latency, and swap benchmarks on the primary Mac.
+- Native Windows and Ubuntu capability/no-model artifacts and any available candidate-profile benchmark results using the same schemas and factuality thresholds; final full-AI acceptance remains owned by `M27-W10`.
+- Explicit no-model and insufficient-hardware behavior leaves deterministic core workflows operational.
+- Deterministic plan schema, requirement allocation, zero unsupported claims/skills, locks, chronology, and no keyword bloat.
+- Render extraction order, clipping/overlap/missing glyph, PageFit fact preservation, utility retention, and correct two-page recommendations.
+- Blind baseline/Simplify comparison, owner-controlled holdout, and independent audit.
 
 ### Milestone exit gate
 
-The exact model lock is selected through comparative evidence and runs reliably alongside the desktop app and browser on the M5/24 GB Mac. `RESUME_PAGEFIT_FEASIBILITY` is `PASS` only when every Section 2.3 Gate B threshold passes, the independent reviewer confirms the planner/verifier/renderer/PageFit architecture is productionizable, the holdout is valid, and the owner records approval. Only then may `M06` become `READY`.
-
-If the model passes but the resume architecture fails, M05 remains unaccepted. If the resume architecture passes but the model fails hardware or quality gates, M05 remains unaccepted.
+The primary Mac model family and exact Mac profile are selected through comparative evidence and run alongside the desktop/browser on the M5/24 GB target. Windows and Ubuntu must already have the common profile contract, native capability detection, explicit no-model/insufficient-hardware behavior, and recorded candidate paths, but their final `CERTIFIED_FULL` profiles are not prerequisites for Gate B. `RESUME_PAGEFIT_FEASIBILITY` is `PASS` only when every resume/PageFit threshold, holdout, and independent review passes on the primary accepted profile. Only then may M06 become ready. At least one full-AI Windows profile and one full-AI Ubuntu profile remain mandatory before `CROSS_PLATFORM_CORE` can pass in `M27`.
 
 ### Prohibited shortcut
 
@@ -2487,7 +2732,7 @@ If the model passes but the resume architecture fails, M05 remains unaccepted. I
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, the resume gate report, model lock, `KNOWN_ISSUES.md`, and approved ADRs. It must record the exact gate bundle hash and run clean-clone verification.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, the resume gate report, model lock, `KNOWN_ISSUES.md`, and approved ADRs. It must record the exact gate bundle hash and run clean-clone verification.
 
 ---
 
@@ -2526,7 +2771,7 @@ Do not store resume bullets as unqualified canonical truth.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2565,7 +2810,7 @@ No OCR dependency or opaque cloud upload in the default path.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2604,7 +2849,7 @@ Do not collapse all eligibility questions into one global yes/no.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2643,7 +2888,7 @@ Do not make the rendered HTML the source of truth.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2662,19 +2907,18 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M10-W04` | Implement PDF export | Pinned Chromium, deterministic CSS, font policy, metadata, and artifact hashing. |
 | `M10-W05` | Implement DOCX export | Semantic headings/lists, stable text order, and acceptable visual parity. |
 | `M10-W06` | Build document validation | Extract exported text, compare order/content, detect clipping/overflow/missing glyphs, and create visual regression snapshots. |
+| `M10-W07` | Validate cross-platform rendering and bundled-font policy | Run PDF/DOCX semantic extraction and visual matrices on macOS, Windows, and Ubuntu using controlled fonts and pinned Chromium; test Unicode, long names/URLs, page breaks, fallback prevention, and platform-difference thresholds. |
 
 ### Required verification
 
-- PDF/DOCX golden exports.
-- Round-trip extraction equality.
-- Page-size matrix.
-- Long URL/name cases.
-- Missing font fallback.
-- Visual regression.
+- PDF/DOCX golden exports, round-trip extraction, page-size matrix, long URL/name cases, and visual regression.
+- Controlled font/license manifest and explicit missing-font failure behavior.
+- Cross-platform semantic extraction and visual parity on macOS, Windows, and Ubuntu.
+- No platform-specific clipping, hidden text, missing glyph, or reading-order regression.
 
 ### Milestone exit gate
 
-The supported template exports PDF and DOCX with 100% expected text extraction order and zero clipping in the release corpus.
+The supported template exports semantically equivalent PDF and DOCX files across all certified platforms with 100% expected text extraction order and zero clipping in the release matrix.
 
 ### Prohibited shortcut
 
@@ -2682,7 +2926,7 @@ Do not add more templates until the first template passes all gates.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2721,7 +2965,7 @@ Do not treat all capitalized terms as required skills.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2760,7 +3004,7 @@ Do not label the summary as the employer’s ATS score.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2800,7 +3044,7 @@ Do not repair unsupported claims by inventing softer wording.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2839,7 +3083,7 @@ No hidden text, negative margins, or font below the configured floor.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2877,7 +3121,7 @@ Do not browse or invent company facts without a verified source stored with the 
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -2918,14 +3162,14 @@ Do not optimize for AI-detector evasion.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
 ## M17 — Production Manifest V3 extension foundation and secure native transport
 
 **Dependencies:** M01, M02 with `AUTOFILL_FEASIBILITY = PASS`, M03  
-**Goal:** Productionize the accepted M02 real-extension shell and connect it to the local app through least-privilege, authenticated native transport without regressing the feasibility benchmark, while preserving the frame/document/session identity needed for Workday-first production support.
+**Goal:** Productionize the accepted M02 extension and connect it securely to the local app through platform-correct native messaging on macOS, Windows, and Ubuntu.
 
 ### Work packages
 
@@ -2937,23 +3181,23 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M17-W04` | Implement Rust native host | Registration, extension allowlist, session handshake, loopback proxy, redaction, timeouts, bounded reconnect, and no selector/value arbitrary command channel. |
 | `M17-W05` | Implement extension status UI | Desktop connection, site support, measured tenant pattern, profile/model readiness, permissions, diagnostics, and no private data shown unnecessarily. |
 | `M17-W06` | Extend real extension E2E harness | Load the packaged extension in Playwright, retrieve extension ID, test service worker, frame agents, document IDs, content script, side panel, native-host mock, sleep/restart, and rerun the complete accepted M02 autofill gate regression including the Workday challenge slice. |
+| `M17-W07` | Implement macOS native-host registration lifecycle | Install/verify/repair/remove the absolute-path host manifest in supported Chrome locations; test extension allowlist, permissions, updates, uninstall, and synthetic packaged E2E. |
+| `M17-W08` | Implement Windows native-host registration and binary protocol | Register the host manifest through the correct HKCU/HKLM policy decision, verify extension origin, use binary stdin/stdout length framing, handle install paths with spaces, and test repair/update/uninstall. |
+| `M17-W09` | Implement Ubuntu native-host registration lifecycle | Install/verify/repair/remove the absolute-path user/system manifest according to the package mode; validate executable permission, Chrome location, update, and uninstall. |
+| `M17-W10` | Run cross-platform real extension/native-host E2E | On all certified platforms load the built MV3 extension in Chrome/Chromium test harness, connect the real platform host, exercise service-worker restart and typed health messages, and prove no privileged content-script path. |
 
 ### Required verification
 
 - All accepted M02 feasibility cases remain green.
-- Forged content message rejection.
-- Wrong extension ID rejection.
-- Oversized payload rejection.
-- Service-worker sleep/restart.
-- Permission grant/revoke.
-- Frame identity preserved.
-- No remote code.
-- No content-script submit or privileged capability.
-- Workday step/session/document identity survives service-worker suspension and frame reinjection in the fixture harness.
+- Forged/wrong-extension/oversized messages are rejected; no remote code or content-script privileged/submit capability.
+- Service-worker sleep/restart, permission grant/revoke, frame identity, and Workday session/document identity recovery.
+- Platform-native host registration, verify, repair, update, and uninstall tests.
+- Windows registry and binary-mode length-framing behavior.
+- Real extension-to-native-host E2E on macOS, Windows, and Ubuntu.
 
 ### Milestone exit gate
 
-The production extension securely exchanges typed requests with the local app, survives service-worker suspension, preserves the accepted autofill core behavior, and passes permission/security and gate-regression tests.
+The packaged extension securely exchanges typed requests with the correct local native host on all certified platforms, survives service-worker suspension, preserves the accepted autofill core, and leaves no stale registration after uninstall.
 
 ### Prohibited shortcut
 
@@ -2961,7 +3205,7 @@ No broad permanent host access without documented necessity, and no replacement 
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md` if regression status changes, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md` if regression status changes, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3006,7 +3250,7 @@ Do not call the main model for every ordinary field, do not replace semantic ide
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md` if regression status changes, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md` if regression status changes, `KNOWN_ISSUES.md`, and approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3065,7 +3309,7 @@ Workday manual-assist field coverage meets at least 99.5% attempted-fill precisi
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, the Workday gate report, `KNOWN_ISSUES.md`, and approved ADRs. It must run the complete M02 autofill regression, clean Workday field matrix, holdout, and independent audit and record the exact evidence-bundle hash.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, the Workday gate report, `KNOWN_ISSUES.md`, and approved ADRs. It must run the complete M02 autofill regression, clean Workday field matrix, holdout, and independent audit and record the exact evidence-bundle hash.
 
 ---
 
@@ -3132,7 +3376,7 @@ Only then may `M21` become `READY`.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, `docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must record the complete Gate C evidence bundle, independent review, holdout hash, Simplify comparison, owner decision, and next permitted action.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md`, `CRITICAL_GATES.md`, `docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md`, `KNOWN_ISSUES.md`, and approved ADRs. It must record the complete Gate C evidence bundle, independent review, holdout hash, Simplify comparison, owner decision, and next permitted action.
 
 ---
 
@@ -3172,7 +3416,7 @@ Do not use employer/private Greenhouse credentials or APIs.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3210,7 +3454,7 @@ No premature generic abstraction that hides site-specific failure behavior.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3248,7 +3492,7 @@ Do not mark an untested tenant variant supported.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3288,7 +3532,7 @@ Auto-submit is not enabled in this milestone.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3329,7 +3573,7 @@ Do not infer rejection/interview from email because email integration is exclude
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3367,14 +3611,14 @@ Do not score personality or protected traits.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
 ## M27 — Security, privacy, prompt-injection, performance, accessibility, diagnostics, and packaging hardening
 
 **Dependencies:** M03–M26  
-**Goal:** Harden the complete core product before exposing it to external alpha users.
+**Goal:** Harden security, privacy, performance, accessibility, diagnostics, platform packaging, and updates; pass the Cross-Platform Core Gate before closed alpha.
 
 ### Work packages
 
@@ -3386,43 +3630,45 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | `M27-W04` | Performance and memory | Profile desktop, extension, model, renderer, and long sessions on M5/24 GB; enforce budgets and observer cleanup. |
 | `M27-W05` | Accessibility | Keyboard, focus, labels, contrast, zoom, screen-reader smoke, reduced motion, error announcement, and extension panel usability. |
 | `M27-W06` | Crash recovery and data integrity | Forced termination during edit, model generation, upload, fill, migration, and receipt capture. |
-| `M27-W07` | macOS packaging | Signed/notarization-ready build process, model dependency onboarding, extension installation guide, update policy, and rollback. |
+| `M27-W07` | macOS packaging | Preserve the original signed/notarization-ready macOS packaging scope and complete the macOS arm64 release candidate: app/DMG, bundled runtime resources, Keychain/native-host setup, install/upgrade/rollback/uninstall tests, and synthetic data-preservation evidence. |
+| `M27-W08` | Package, sign, and validate Windows x64 release candidate | Build signed NSIS or MSI artifact according to ADR, install WebView2/runtime prerequisites safely, register native host, integrate Credential Manager/DPAPI, and test install/repair/upgrade/rollback/uninstall without data loss. |
+| `M27-W09` | Package and validate Ubuntu x64 release candidate | Build certified `.deb` and optional AppImage, validate WebKitGTK/Secret Service/Chrome dependencies, native-host manifest and permissions, and install/upgrade/rollback/uninstall behavior. |
+| `M27-W10` | Finalize full-AI platform profiles, diagnostics, and support publication | On native Windows 11 x64 and Ubuntu 24.04 x64 hardware, benchmark and accept at least one full-AI model/runtime profile per operating system using the frozen factuality and structured-output corpus; retain certified-core/no-model fallbacks. Expose certified/experimental/unsupported OS, architecture, Chrome, webview, secret store, native host, model profile, installer, update, and known-limitation status; never infer support from compilation. |
+| `M27-W11` | Implement signed cross-platform update and rollback | Use platform/architecture-targeted signed update metadata, interrupted-update recovery, rollback, version/schema compatibility checks, and native-host/extension coordination on all certified platforms. |
+| `M27-W12` | Independent Cross-Platform Core Gate audit and decision | A separate session audits native packages and evidence on all certified targets, reruns required install/lifecycle/security/native-host/model/document/backup/update cases, validates support claims, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. |
 
 ### Required verification
 
-- Security regression suite.
-- PII leak scan.
-- Memory soak.
-- Extension observer leak.
-- Workday guided-flow long-session and navigation idempotency regression.
-- Crash recovery.
-- Accessibility audit.
-- Packaged install/uninstall.
+- Security, PII leak, injection, memory/observer, Workday long-session, crash-recovery, and accessibility suites.
+- Native packaged install/launch matrix on macOS arm64, Windows x64, and Ubuntu x64.
+- Secret-store, native-host, document/font, backup/restore, model capability, accepted full-AI Windows/Ubuntu profiles, installer, update, rollback, repair, and uninstall evidence.
+- Signed/verified artifact and update metadata checks.
+- Independent `CROSS_PLATFORM_CORE` audit and owner decision.
 
 ### Milestone exit gate
 
-No critical security issue, performance budgets pass, private data is absent from diagnostics by default, and core workflows work in a packaged macOS build.
+No critical or high defect remains; all core workflows work in native packages on every certified target; at least one full-AI model/runtime profile is accepted for each certified operating system while certified-core/no-model behavior remains safe; private data is absent from diagnostics by default; performance/accessibility budgets pass; and `CROSS_PLATFORM_CORE = PASS`.
 
 ### Prohibited shortcut
 
-Do not add telemetry that records page/form/resume content.
+Do not add private-content telemetry or mark Gate D passed from CI compilation, cross-compilation, containers, emulation, or one operating system. Native packaged evidence for all three targets is required.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
 ## M28 — Core closed-alpha acceptance gate
 
-**Dependencies:** M00–M27  
+**Dependencies:** M00–M27 with `CROSS_PLATFORM_CORE = PASS`  
 **Goal:** Prove the complete non-autopilot product is genuinely usable and superior on its core trust dimensions before broad ATS and job-index work.
 
 ### Work packages
 
 | ID | Package | Required implementation and proof |
 |---|---|---|
-| `M28-W01` | Run frozen corpus | Execute all resume, answer, match, render, extension, tracker, security, performance, accessibility, and all three critical-gate regression suites from a clean clone, including owner-controlled holdouts. |
+| `M28-W01` | Run frozen corpus | Execute all resume, answer, match, render, extension, tracker, security, performance, accessibility, and all four critical-gate regression suites from clean clones and packaged platform fixtures, including owner-controlled holdouts. |
 | `M28-W02` | Manual side-by-side evaluation | Terms-compliant same-input comparison on user-owned examples against current Simplify behavior and the frozen legacy baseline; record field/document methodology, raw outcomes, and blinded ratings. |
 | `M28-W03` | External alpha pilot | Small consented cohort using synthetic or their own data; collect structured defect reports and user edits without private telemetry. |
 | `M28-W04` | Defect burn-down | Fix all critical/high defects and all release-gate failures; rerun complete verification. |
@@ -3438,7 +3684,7 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 
 ### Milestone exit gate
 
-Core product meets all applicable Section 2 metrics, all three critical gates remain PASS, and the product is accepted before M29 becomes READY.
+Core product meets all applicable Section 2 metrics, all four critical gates remain PASS, and the product is accepted before M29 becomes READY.
 
 ### Prohibited shortcut
 
@@ -3446,7 +3692,7 @@ Do not waive failed gates to start job aggregation early.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3484,7 +3730,7 @@ Do not merge adapters merely because visual controls look similar.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3521,7 +3767,7 @@ No unsafe DOM heuristics to inflate coverage numbers.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3559,7 +3805,7 @@ Do not download executable selectors/scripts from a server into the extension.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3600,7 +3846,7 @@ No LinkedIn/Indeed authenticated scraping, private API replay, CAPTCHA bypass, o
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3640,7 +3886,7 @@ Do not infer protected traits or rank using demographic data.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3680,7 +3926,7 @@ No implicit approval from saving, viewing, matching, or clicking apply.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3723,7 +3969,7 @@ AUTO_SUBMIT remains disabled.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3766,7 +4012,7 @@ No auto-submit on uncertified, CAPTCHA-protected, ambiguous, or unsupported flow
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3806,7 +4052,7 @@ Do not increase volume to hide a low success rate.
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 
@@ -3820,7 +4066,7 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | ID | Package | Required implementation and proof |
 |---|---|---|
 | `M38-W01` | Requirements traceability audit | Every REQ has implementation, automated/manual tests, evidence, owner status, and no orphan code or unverified claim. |
-| `M38-W02` | Full clean-clone verification | macOS target plus Windows packaging/support where required; all suites, migrations, backup/restore, model download, extension install, and update rollback. |
+| `M38-W02` | Full clean-clone verification | Preserve the original clean-clone verification scope and execute it on macOS arm64, Windows x64, and Ubuntu x64, including all suites, migrations, secure stores, backup/restore, model profiles, extension/native-host installation, package install/upgrade/rollback/uninstall, and recovery. |
 | `M38-W03` | Final frozen benchmark | Autofill, resume, answers, match, render, tracker, job index, queue, autopilot, security, performance, and accessibility metrics. |
 | `M38-W04` | Final Simplify side-by-side study | Manual terms-compliant evaluation on identical user-owned examples, blinded scoring, defect counts, and transparent limitations. |
 | `M38-W05` | Independent review | Security/privacy review and external usability/quality review; resolve all critical/high issues. |
@@ -3831,14 +4077,15 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 
 - All Section 2 release metrics.
 - No critical/high issues.
-- Cross-platform install/upgrade/rollback.
+- Native macOS/Windows/Ubuntu install, upgrade, rollback, repair, and uninstall.
+- CROSS_PLATFORM_CORE final regression and current platform compatibility evidence.
 - Full requirements audit.
 - Reproducible benchmark.
 - Signed artifact verification.
 
 ### Milestone exit gate
 
-All mandatory milestones are ACCEPTED, all release metrics and all three critical gates pass, no critical/high defect remains, and the side-by-side evidence supports the claim that the product is more accurate, truthful, transparent, and controllable on included workflows.
+All mandatory milestones are ACCEPTED, all release metrics and all four critical gates pass, no critical/high defect remains, and the side-by-side evidence supports the claim that the product is more accurate, truthful, transparent, and controllable on included workflows.
 
 ### Prohibited shortcut
 
@@ -3846,7 +4093,7 @@ Do not call the product complete because the UI looks finished or because one ha
 
 ### Closeout record
 
-Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
+Before marking this milestone `ACCEPTED`, the implementation agent must update `PROJECT_STATUS.md`, `TEST_EVIDENCE.md`, `REQUIREMENTS_TRACEABILITY.md`, `COMPATIBILITY_MATRIX.md` where applicable, `CRITICAL_GATES.md` when the milestone affects a critical capability or regression status, `KNOWN_ISSUES.md`, and any approved ADRs. It must run the milestone verification command from a clean working state and record the exact result.
 
 ---
 ## 10. Cross-cutting acceptance rules for every feature
@@ -3904,6 +4151,7 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 - Full audit event chain exists.
 - Real Manifest V3 Playwright tests pass; jsdom-only evidence is insufficient.
 - The affected critical-gate regression remains `PASS`.
+- Platform-native extension/native-host behavior passes for every certified platform affected by the change.
 - For Workday, tenant/session/step identity is multi-signal and versioned.
 - Every automatic `Next` action has a current page-readiness proof, page-generation binding, unique re-resolved control, idempotency key, and independently confirmed transition.
 - A timeout or ambiguous transition never causes a blind repeat click.
@@ -3911,7 +4159,17 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 - Workday final review is detected independently of button text and reconciled against the frozen application plan.
 - `GUIDED_PRE_SUBMIT` never activates the final submit control; only the user may submit in that mode.
 
-### 10.4 Data migration checklist
+### 10.4 Platform feature completion checklist
+
+- Shared logic uses typed platform capabilities rather than scattered OS branches.
+- Native packaged behavior runs on every affected certified platform.
+- Secret-store, path/process, native-host, model capability, document, backup, and update behavior is tested as applicable.
+- Platform compatibility rows record exact OS build, architecture, browser, artifact, and date.
+- Unsupported platforms and insufficient hardware fail visibly and safely.
+- No shell-profile, Bash-only, path-separator, case-sensitivity, or line-ending assumption remains in canonical flows.
+- Cross-platform gate regression remains valid.
+
+### 10.5 Data migration checklist
 
 - Forward migration tested from every supported schema version.
 - Interrupted migration recovery tested.
@@ -3954,6 +4212,15 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 | Legacy repository contaminates new architecture | Reintroduces known unsafe behavior | Clean-room baseline only; provenance/license ADR for any reuse |
 | Compatibility claim exceeds measured scope | Users trust unsupported forms | Tenant-pattern matrix, exact versions, last-tested date, raw counts |
 | Critical gate failure is ignored to maintain momentum | Feature-rich but unreliable product | Downstream readiness blocked by status validator and owner gate decision |
+| Platform support is added only at release | Architectural rewrites and unusable Windows/Linux builds | Early platform contracts, Windows CI, staged native packages, blocking Gate D |
+| macOS Keychain logic leaks into shared storage | Windows/Linux insecure or broken persistence | Typed SecretStore with three native adapters and no plaintext fallback |
+| GUI process depends on shell PATH | Packaged app cannot find Python/Ollama/native host | Explicit runtime locator and bundled/configured paths tested per OS |
+| POSIX paths/signals assumed | Windows failures and data corruption | PlatformPaths/ProcessSupervisor plus Windows CI and native tests |
+| Windows native messaging uses text mode | Corrupted length-prefixed messages | Binary-mode protocol test and registry-based installer |
+| Linux support claim covers untested distributions | Unsupportable compatibility surface | Ubuntu 24.04 certified; all others experimental until gated |
+| MLX artifact treated as universal | Windows/Linux AI features cannot run | Versioned model family with platform-specific runtime/artifact profiles |
+| Platform fonts differ | Resume clipping or extraction drift | Controlled font policy and three-OS render/extraction matrix |
+| Installer/update deletes user data | Severe irreversible loss | Signed packages, backup, update/rollback/repair/uninstall matrix and Gate D |
 | Workday step is misclassified | Wrong answers, wrong page behavior, or unsafe navigation | Multi-signal tenant/session/step identity, confidence threshold, ambiguity pause, fixture/holdout matrix |
 | Workday `Next` is clicked before the page settles | Validation loss, skipped questions, or stale values | Typed page-readiness proof covering required fields, rerender, validation, parser, repeaters, sensitive policy, and unique navigation target |
 | Workday transition times out and is clicked again | Duplicate or corrupted navigation/action | One action per generation/proof hash, transition postconditions, no blind retry, checkpointed recovery |
@@ -3972,7 +4239,7 @@ Before marking this milestone `ACCEPTED`, Claude must update `PROJECT_STATUS.md`
 ```markdown
 # Project Status
 
-Spec version: 1.2
+Spec version: 1.3
 Repository revision: <hash>
 Last updated: <ISO timestamp>
 Current phase: <phase>
@@ -3985,6 +4252,7 @@ Overall release gate: NOT_READY
 | AUTOFILL_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+| CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
 
 Allowed gate states:
 NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
@@ -4019,20 +4287,21 @@ The validation system must ensure:
 - Status enums are valid.
 - Dependencies are not skipped.
 - No more than one package is `IN_PROGRESS`.
-- Every work package in the canonical v1.2 specification appears exactly once, with exactly 39 milestones, 260 work packages, and 135 requirements.
+- Every work package in the canonical v1.3 specification appears exactly once, with exactly 39 milestones, 286 work packages, and 157 requirements.
 - Completed v1.0 revisions remain attached to their unchanged package IDs after migration.
 - `M03` cannot be `READY` or later unless `AUTOFILL_FEASIBILITY = PASS`.
 - `M06` cannot be `READY` or later unless `RESUME_PAGEFIT_FEASIBILITY = PASS`.
 - `M21` cannot be `READY` or later unless M19 and M20 are `ACCEPTED` and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
 - A gate report, corpus hash, revision, independent reviewer, holdout result, and owner decision are present before `PASS`.
 - `REDESIGN_REQUIRED` or `BLOCKED` prevents downstream readiness.
-- Exactly one canonical specification exists after `M00-W05`.
+- Exactly one canonical specification exists after `M00-W08`.
+- M00 cannot return to `ACCEPTED` and M01-W01 cannot become ready after migration until M00-W10 verifies the v1.3 inventory and three-OS baseline.
 
-`docs/CRITICAL_GATES.md` is the authoritative narrative decision ledger and must contain the metric table, zero-tolerance failures, holdout result, independent review, owner decision, known limitations, and next permitted action for each of the three gates.
+`docs/CRITICAL_GATES.md` is the authoritative narrative decision ledger for all four gates and must contain the metric table, zero-tolerance failures, holdout result, independent review, owner decision, known limitations, and next permitted action for each of the four gates.
 
 ---
 
-## 13. Reusable prompts for Claude Fable 5
+## 13. Reusable prompts for Claude and Codex
 
 ### 13.1 Start or continue one work package
 
@@ -4126,60 +4395,14 @@ benchmark limitations, and one decision: PASS, REDESIGN_REQUIRED, or BLOCKED. Do
 weaken thresholds or repair expected results to obtain PASS.
 ```
 
-### 13.8 Adopt v1.2 after a completed v1.0 M00-W04
+### 13.8 Adopt v1.3 after completing v1.2 M00-W07
 
 ```text
-The owner approves JAPP-MASTER-001 v1.2 as the new canonical specification. The current
-v1.0 canonical file must remain in force until this migration is complete. Execute only
-M00-W05 using Claude Fable 5 Max. Do not select Ultra Code or start a broad workflow
-fan-out. Complete one coherent migration pass; a separate independent audit will occur
-after the migration commit is pushed.
+The owner approves JAPP-MASTER-001 v1.3 as the new canonical specification. Execute only M00-W08.
 
-Read CLAUDE.md, the current docs/MASTER_IMPLEMENTATION_SPEC.md,
-docs/MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md, all project-memory files, the status
-validator, root verification runner, and recent Git history. Verify that M00-W01 through
-M00-W04 are genuinely VERIFIED and that the working tree contains only the proposed
-specification file as an expected new input. Confirm the proposed file declares version
-1.2 and supersedes the unadopted v1.1 draft. If any check fails, stop without resetting,
-cleaning, deleting, or overwriting files and report the exact discrepancy.
+First verify that v1.2 M00-W07 finished, all completed evidence is pushed, the working tree is clean, and no M01 implementation began. Read the current canonical v1.2 specification and the complete owner-approved v1.3 file from its external immutable path; verify the owner-provided SHA-256 before editing. Read the traceability source/generator, status, decisions, tests, gates, compatibility files, validator, doctor, CI, and Git history. Do not place the v1.3 file under `docs/` before adoption because the v1.2 validator correctly rejects a second canonical-looking specification.
 
-Create an accepted ADR documenting the owner-approved sequencing correction: preserve
-all unaffected v1.0 scope, retain the early generic autofill and resume/PageFit gates,
-make Workday the first production ATS, add a separate blocking Workday guided
-pre-submit gate, move Greenhouse/Lever/Ashby after it, add user-started automatic
-page progression that stops at final review, prohibit final submit/protected-boundary
-automation in that mode, and standardize Claude implementation on Fable 5 Max with
-separate post-commit audits.
-
-Atomically replace docs/MASTER_IMPLEMENTATION_SPEC.md with the proposed v1.2 file,
-remove the proposed copy, add/update docs/CRITICAL_GATES.md and all three gate-report
-templates, migrate the exact inventory to 39 milestones (M00-M38), 260 unique work
-packages, and 135 unique requirements, preserve verified revisions/evidence for
-M00-W01 through M00-W04, assign v1.2 M00-W05/M00-W06/M00-W07 ownership, update
-validators and readiness rules, update project status/test evidence/known issues/
-compatibility/traceability scaffolding, and ensure exactly one canonical specification
-remains.
-
-Validator/readiness behavior must prove:
-- M03 is blocked without `AUTOFILL_FEASIBILITY = PASS`.
-- M06 is blocked without `RESUME_PAGEFIT_FEASIBILITY = PASS`.
-- M21 is blocked unless M19 and M20 are accepted and
-  `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
-- Invalid gate states, missing Workday packages/requirements, stale v1.0 inventory,
-  a second canonical-looking specification, and a missing Workday report are rejected.
-- Existing verified M00-W01 through M00-W04 evidence is preserved.
-- `pnpm verify` remains deterministic and leaves no tracked changes.
-
-Run focused migration tests, all negative validator tests, root verification, status
-validation, exact ID/count checks, Markdown-structure checks, and a complete diff review.
-Perform a comprehensive single-agent specification/inventory audit before closeout.
-Do not launch a broad dynamic workflow inside this package. After the pushed commit,
-the owner may use a clean Claude Max session or GPT-5.6 Ultra Codex worktree for an
-independent audit.
-
-Mark only M00-W05 VERIFIED when the repository is internally consistent. Mark M00-W06
-READY, commit with the specified package message, push without force, confirm remote
-HEAD and a clean tree, report exact evidence, and stop. Do not begin M00-W06.
+Record an accepted ADR including the external source path and verified hash, atomically copy the approved v1.3 bytes directly into the canonical path, add PLATFORM_SUPPORT.md and CROSS_PLATFORM_CORE gate/report, migrate exactly 39 milestones, 286 work packages, and 157 requirements; preserve every M00-W01 through W07 revision/evidence and the v1.2 `docs/traceability.json` / `scripts/traceability.py` implementation. Mechanically extend the traceability source, generator, and checks so every new ID exists with honest NOT_STARTED/NOT_YET_APPLICABLE state and `pnpm verify` remains fail-closed; do not pretend the full reviewed platform mapping is complete, because M00-W10 owns that audit. Reopen M00, set M00-W09 READY, block M01-W01 until M00-W10, run migration and negative tests, pnpm verify, status validation, and stop. Do not implement Windows CI or product platform adapters in M00-W08.
 ```
 
 ### 13.9 Clean-room compare a legacy implementation
@@ -4200,26 +4423,33 @@ architecture ADR before touching production code.
 ### 14.1 Fresh repository
 
 ```text
-Read docs/MASTER_IMPLEMENTATION_SPEC.md in full. This file is the canonical contract
-for the project. Begin with M00-W01 only. Create the persistent project-memory files
-exactly as specified, validate their structure, and stop after completing and
-verifying M00-W01. Do not scaffold product code yet. Report the exact files created,
-validation performed, and the next READY work package.
+Read docs/MASTER_IMPLEMENTATION_SPEC.md in full. This file is the canonical contract. Begin with M00-W01 only, create and validate persistent project memory, and stop.
 ```
 
-### 14.2 Existing repository after v1.0 M00-W04
+### 14.2 Current repository while v1.2 M00-W07 is running
 
-Do not replace the current canonical file by hand. Add this file as:
+Do not copy or attach v1.3 to the active working tree. Let Codex finish v1.2 M00-W07, validate, commit, push, observe CI, and stop before M01-W01. Preserve its traceability implementation.
+
+### 14.3 Existing repository after v1.2 M00-W07
+
+Keep this file outside the repository at an immutable owner-controlled path, for example:
 
 ```text
-docs/MASTER_IMPLEMENTATION_SPEC.v1.2.proposed.md
+/Users/<owner>/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.3_final.md
 ```
 
-Then send the exact `13.8 Adopt v1.2` prompt in a fresh Claude Code session using **Fable 5 Max**. Do not select Ultra Code. The implementation session must complete one coherent migration and verification pass; perform any independent audit afterward from a clean worktree or separate session. Attach nothing else when all files are already in the repository.
+Verify and record its SHA-256. The v1.2 validator intentionally rejects any second canonical-looking specification under `docs/`, so the pre-adoption working tree must remain clean. Execute the exact `13.8` adoption prompt with the owner-selected implementation agent. M00-W08 reads the external file, verifies its hash, and copies its exact bytes directly into `docs/MASTER_IMPLEMENTATION_SPEC.md` as part of the same controlled migration; M00-W09 adds Windows/portability CI, and M00-W10 extends traceability and re-accepts M00. Do not begin M01 until all three finish and an independent M00 audit passes.
 
-### 14.3 Interrupted package before adoption
+### 14.4 Agent policy
 
-Finish the currently `IN_PROGRESS` package under the canonical specification that was in force when it began. Do not insert the proposed v1.2 file into the same working tree until that package has been verified, committed, pushed, and the tree is clean. If a usage limit interrupts the agent, resume the same repository and same package with the `13.3` prompt; preserve all intentional uncommitted work.
+```text
+Implementation agent   selected explicitly by the owner per package or run
+Active selection       remains in force until the owner explicitly changes it
+Automatic switching    prohibited; do not infer from limits, timing, or package type
+Independent audit      separate clean session or worktree from implementation
+```
+
+One agent writes to a working tree at a time. Any capable agent must obey the same repository reconstruction, test, evidence, and package-boundary rules.
 
 ---
 
@@ -4243,6 +4473,12 @@ These references are included so future model or architecture changes can be che
 - Workday official Candidate Experience and Recruiting product documentation, used only for public workflow context—not private implementation details.
 - Chrome for Developers documentation for content-script messaging, service-worker trust boundaries, `webNavigation` frame/document identifiers, scripting, and Manifest V3 extension security.
 - Playwright official extension-testing guidance for persistent Chromium contexts and actual Manifest V3 service workers.
+- Tauri 2 prerequisites, platform-specific configuration, Windows installer, macOS bundle/DMG, Linux Debian/AppImage, updater, signing, and distribution documentation.
+- Chrome native-messaging documentation for Windows registry registration, macOS/Linux manifest locations, absolute paths, length framing, and Windows binary I/O.
+- GitHub Actions hosted-runner documentation and runner-images matrix for macOS 15 arm64, Windows 2025 x64, and Ubuntu 24.04 x64.
+- Microsoft lifecycle documentation confirming general Windows 10 support ended on October 14, 2025.
+- Freedesktop Secret Service specification and platform credential-store documentation.
+- Ollama installation and hardware-acceleration documentation for macOS, Windows, and Linux.
 
 When a dependency, model, browser API, ATS API, or source policy changes materially, create an ADR and rerun the affected acceptance benchmarks before updating this snapshot.
 
@@ -4265,5 +4501,6 @@ The project is finished only when the user can:
 9. Approve a queue of jobs.
 10. Let the product apply to those approved jobs automatically on separately certified flows.
 11. Trust that the product pauses instead of guessing whenever the situation is uncertain or consequential.
+12. Install, update, use, back up, restore, and uninstall the complete certified product on macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64 with accurate platform capability reporting and no plaintext-secret fallback.
 
-No individual milestone, model benchmark, UI screenshot, successful application, test-count claim, or agent completion report is sufficient by itself. Completion is the aggregate, reproducible evidence from every gate in this document, with all three critical gates remaining green through the final release revision.
+No individual milestone, model benchmark, UI screenshot, successful application, test-count claim, or agent completion report is sufficient by itself. Completion is the aggregate, reproducible evidence from every gate in this document, with all four critical gates remaining green through the final release revision.

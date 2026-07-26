@@ -46,13 +46,20 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-017 | The same implementation agent must not be the sole author of the implementation, expected benchmark answers, holdout cases, and final acceptance decision for a critical gate. | ACCEPTED | Spec v1.2 §0(17) |
 | OD-018 | Compatibility claims are limited to measured ATS families, Workday tenant/layout patterns, browser versions, adapter versions, locales, session modes, and last-tested dates; never claim universal support. | ACCEPTED | Spec v1.2 §0(18) |
 | OD-019 | The project is governed by evidence, not milestone count. | ACCEPTED | Spec v1.2 §0(19) |
-| OD-020 | Claude implementation sessions use Fable 5 Max; broad Ultra Code workflow orchestration is not the operating plan. Independent review happens after a coherent implementation pass in a separate clean Claude Max session or GPT-5.6 Ultra Codex worktree. | ACCEPTED | Spec v1.2 §0(20) |
+| OD-020 | Historical v1.2 implementation-agent routing preference. Superseded by OD-026; retained only as the decision ID that governed completed v1.2 work. | SUPERSEDED | ADR-0002 / Spec v1.3 §0(26) |
+| OD-021 | Certify first-release product behavior only for macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64 with Chrome stable; all other targets remain unsupported or explicitly experimental until reviewed evidence exists. | ACCEPTED | Spec v1.3 §0(20–21) |
+| OD-022 | Add `CROSS_PLATFORM_CORE` as the fourth blocking critical gate; M28 cannot become ready unless M27 is accepted and Gate D is PASS from native packaged evidence. | ACCEPTED | Spec v1.3 §0(25), §2.3, §9.1 |
+| OD-023 | Isolate platform behavior behind typed contracts and require platform-native secure storage, platform-correct Chrome native-messaging registration, and native installer/update evidence with no plaintext-secret fallback. | ACCEPTED | Spec v1.3 §0(22–25), §5.14 |
+| OD-024 | Stage local-AI certification: accept the primary Mac profile and Windows/Ubuntu capability plus safe fallback in M05; defer required full-AI Windows and Ubuntu acceptance to M27-W10 before Gate D. | ACCEPTED | Spec v1.3 §6.2, M05, M27-W10 |
+| OD-025 | Preserve and mechanically extend the v1.2 traceability architecture and historical evidence; M00-W10 owns the complete reviewed platform mapping and M00 re-acceptance. | ACCEPTED | Spec v1.3 §1.4.1, M00-W08…W10 |
+| OD-026 | The owner selects the implementation agent. The active selection persists until the owner explicitly changes it; the repository must not automatically route between Claude, Codex, or reasoning modes. Independent audits use a separate clean session or worktree. | ACCEPTED | Spec v1.3 §0(26–27) |
 
 ## Architecture decision records
 
 | ID | Title | Status | Date | Spec sections affected |
 |---|---|---|---|---|
 | ADR-0001 | Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification | ACCEPTED | 2026-07-26 | Entire specification (v1.0 → v1.2); §0–§16 |
+| ADR-0002 | Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport | ACCEPTED | 2026-07-26 | Entire specification (v1.2 → v1.3); platform governance; Gate D; M00 readiness |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -92,9 +99,10 @@ Canonical registry of (a) owner decisions that override earlier plans and
     CAPTCHA, unexpected legal terms, and final submission.
   - M00-W05 is reassigned to this adoption/migration step; CI and
     traceability seeding become M00-W06 and M00-W07.
-  - Implementation standardizes on Claude Fable 5 Max with independent
-    review in a separate clean session or Codex worktree instead of Ultra
-    Code workflow fan-out (§0(20), §1.5).
+  - The then-current v1.2 implementation-session policy required a coherent
+    single-tree implementation pass followed by a separate clean independent
+    review (§0(20), §1.5). ADR-0002 supersedes its model-routing detail while
+    preserving that audit separation.
   - All v1.0 product scope is preserved (change summary: v1.2 "preserves the
     complete v1.0 product scope"; no capability from v1.0 §3 is dropped, and
     v1.0 §0 owner decisions 1–7 carry over verbatim or strengthened).
@@ -140,7 +148,81 @@ Canonical registry of (a) owner decisions that override earlier plans and
   prompt states "The owner approves JAPP-MASTER-001 v1.2 as the new
   canonical specification") and instructed in-session: "Execute M00-W05 —
   Adopt and migrate the v1.2 Workday-first critical-risk rebaseline — and
-  only M00-W05 using Claude Fable 5 Max."
+  only M00-W05 using the then-owner-selected implementation configuration."
+
+### ADR-0002 — Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-07-26 / 2026-07-26
+- Owner-approved external source:
+  `/Users/tanishkalwad/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.3_final.md`
+- Verified external source SHA-256:
+  `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`
+- Observed constraint (with evidence): v1.2 correctly enforced one canonical
+  specification. Its fail-closed validator rejected any second
+  `MASTER_IMPLEMENTATION_SPEC*` file under `docs/`, including the earlier
+  in-repository v1.3 transport proposal. The owner corrected the transport:
+  keep the approved v1.3 bytes outside the repository, verify the immutable
+  hash, and copy those exact bytes directly over the canonical path only after
+  a clean v1.2 preflight.
+- External transport rationale: it allowed the owner-approved specification
+  to be reviewed and hashed without creating an intermediate repository state
+  that falsely contained two canonical-looking specifications. No validator
+  exception, ignore rule, temporary bypass, or weakening was introduced.
+- Mechanical comparison: 39 milestones remain in exact M00–M38 order; the
+  package inventory expands from 260 to 286 and the requirements catalog from
+  135 to 157; all 260 existing package IDs/titles and all 135 existing
+  requirement IDs remain. Exactly 26 packages and 22 requirements are added.
+- Decision: adopt JAPP-MASTER-001 v1.3; certify only macOS 14+ arm64, Windows
+  11 x64, and Ubuntu 24.04 LTS x64; add typed platform abstractions and
+  `CROSS_PLATFORM_CORE`; assign Windows CI to M00-W09; require later native
+  packaged evidence, OS-native secure stores, platform-correct Chrome native
+  messaging, and signed/verified platform packaging/update behavior.
+- Model-profile sequencing: M05 fully accepts the primary Mac profile and
+  validates the common profile contract plus native Windows/Ubuntu capability
+  and safe fallback. Missing full-AI Windows/Ubuntu hardware does not block
+  M06. M27-W10 owns final full-AI Windows and Ubuntu acceptance, which remains
+  mandatory before Gate D can pass.
+- Traceability impact: preserve the M00-W07 JSON/generator/view architecture
+  and its reviewed v1.2 mapping/dependency hashes. M00-W08 mechanically adds
+  the 22/26 inventory with explicit
+  `PROVISIONAL_PENDING_M00_W10` review state; M00-W10 owns the complete
+  reviewed mapping audit and M00 re-acceptance.
+- Status impact: preserve M00-W01 through M00-W07 as VERIFIED with their
+  existing tree/evidence anchors, reopen M00, revoke the historical v1.2
+  readiness of M01-W01, and allow only M00-W09 to become READY after M00-W08
+  verifies.
+- Agent policy: implementation-agent selection is owner-controlled and
+  model-agnostic. The current selection persists until the owner explicitly
+  changes it; no repository rule automatically switches agents or reasoning
+  modes. Independent gate audits still use a separate clean session or
+  worktree.
+- Security/privacy impact: strengthened through explicit native secret-store,
+  process/path, native-messaging, model capability, packaging/update, and
+  diagnostics boundaries. This migration creates planning/governance records
+  only and introduces no product data, secrets, telemetry, or compatibility
+  claims.
+- Data-migration impact: no product/user data exists. Git history preserves
+  v1.2; no duplicate v1.2 master file is retained.
+- Benchmark and gate impact: the three existing gates and thresholds remain
+  intact. Gate D is added as NOT_EVALUATED and cannot pass without native
+  packaged evidence plus accepted full-AI profiles for all three certified
+  operating systems.
+- Test impact: status, traceability, doctor/integrity, and migration negative
+  tests expand to the exact 39/286/157/4 inventory, platform-memory
+  requirements, Gate D evidence, M28/M01 readiness, legacy-evidence
+  preservation, provisional mappings, and deterministic regeneration. Windows
+  CI remains out of scope until M00-W09.
+- Rollback plan: revert the M00-W08 content and revision-stamp commits. Git
+  history restores the complete v1.2 canonical bytes and project-memory
+  state. Never keep a duplicate specification as a rollback artifact.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility
+  promises affected: all of JAPP-MASTER-001; `REQ-PLAT-011…026`;
+  `REQ-GATE-017…022`; 26 added packages; Gate D; first-release platform
+  targets; M00/M01/M28 readiness.
+- Owner approval: the owner supplied the external file and exact hash and
+  explicitly directed M00-W08 to proceed using the corrected external
+  adoption protocol on 2026-07-26.
 
 ## ADR template
 

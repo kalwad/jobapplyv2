@@ -1,6 +1,6 @@
 # Holdout Execution Log
 
-Append-only log of owner-controlled holdout executions for the three
+Append-only log of owner-controlled holdout executions for the four
 critical gates (`docs/MASTER_IMPLEMENTATION_SPEC.md` §5.1, §5.13, §8.3.1).
 
 ## Rules
