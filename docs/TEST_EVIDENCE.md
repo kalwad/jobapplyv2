@@ -35,6 +35,95 @@ Exact verification commands and summarized results
 
 ### M00-W06 — Create CI and local preflight (2026-07-26)
 
+#### Current-HEAD macOS hosted-CI repair (2026-07-26)
+
+- Repair revision: stamp pending (M00-W06 remains IN_PROGRESS until the
+  repair content commit and final stamp-commit HEAD both pass hosted macOS
+  and Linux CI).
+- Failed hosted evidence: workflow run 30217235083 at current HEAD
+  f9ec7926d3ff04e0cc427481a5c0a965f0578f4e concluded failure. Required
+  macOS job `doctor + verify (macos-15)` 89833453976 failed in
+  `Install pinned Rust toolchain (rust-toolchain.toml)`; Linux job
+  `doctor + verify (ubuntu-24.04)` 89833453996 completed successfully.
+  `gh run view 30217235083 --job 89833453976 --log-failed` showed:
+  `recovering from a partially installed toolchain`, component removal,
+  rollback, and the exact terminal error `failed to install component:
+  'clippy-preview-aarch64-apple-darwin', detected conflict:
+  'bin/cargo-clippy'`.
+- Confirmed root cause: the workflow invoked the trusted hosted-runner
+  rustup proxy but inherited the runner image's default `RUSTUP_HOME`.
+  That shared state contained a partial/contaminated 1.97.1 toolchain, so
+  adding Clippy collided with an existing `bin/cargo-clippy`. The log
+  contains no download timeout or transport failure; the successful Linux
+  job and passing local suite further isolate the defect to non-hermetic
+  macOS runner toolchain state.
+- Why retries were rejected: retrying the same deterministic contaminated
+  rustup home does not remove the component conflict and would mask the
+  missing CI isolation. No unconditional or bounded retry was added. A
+  bounded retry remains appropriate only if a later independent log proves
+  a transient network failure.
+- Correction:
+  - The Rust install step receives
+    `RUSTUP_HOME: ${{ runner.temp }}/rustup-home` at step scope. GitHub does
+    not expose the `runner` context in `jobs.<job_id>.env`, so the step
+    verifies the path does not exist, creates it, and writes the exact value
+    to the job-local `GITHUB_ENV` before the first rustup command. Every
+    later Rust/Cargo step in that matrix job therefore uses the same fresh
+    home.
+  - rustup installs the repository-derived exact 1.97.1 pin with the
+    `minimal` profile plus rustfmt and Clippy. Post-install checks verify the
+    active `rust-toolchain.toml` override, rustup's selected cargo/rustc
+    binaries, `cargo --version`, `rustc --version`, `rustfmt --version`, and
+    `cargo clippy --version`. `cargo +1.97.1` and `rustc +1.97.1` probes
+    prove the PATH commands are rustup proxies.
+  - `RUSTUP_HOME`, `.rustup`, `runner.temp`, and Cargo proxy/bin state are
+    excluded from every cache. The existing Cargo dependency cache remains
+    limited to `~/.cargo/registry` and `~/.cargo/git`.
+- Static regressions: `scripts/tests/test_ci_workflow.py` now has 27 tests.
+  New coverage proves per-matrix fresh runner-temp rustup initialization
+  and ordering; no earlier Rust operation; exact Rust 1.97.1/minimal/
+  rustfmt/Clippy installation; active-toolchain, proxy, and four version
+  probes; toolchain-cache exclusion with a complete cache-path allowlist;
+  narrow retained Cargo dependency caches; and no shell failure masking.
+  Existing tests continue proving macos-15 + ubuntu-24.04, read-only
+  permissions, SHA-pinned official actions, frozen/locked installs,
+  canonical doctor + verify execution, and failure-scoped artifacts.
+- Test-first evidence: before the workflow correction,
+  `uv run pytest scripts/tests/test_ci_workflow.py -q` exited 1 with
+  2 failed / 24 passed (missing isolated `RUSTUP_HOME` and missing proxy/
+  version checks). After the correction, the focused suite exited 0 with
+  27 passed.
+- Local environment: macOS 27.0 (Darwin 27.0.0, Apple silicon); Node
+  v24.18.0; pnpm 11.17.0; uv 0.11.32; Python 3.12.13; rustc/cargo 1.97.1;
+  rustfmt 1.9.0-stable; Clippy 0.1.97; @playwright/test 1.62.0 with pinned
+  Chromium.
+- Required local validation (repair tree; every command inspected):
+  - `pnpm install --frozen-lockfile` → exit 0; all 12 workspace projects
+    already up to date.
+  - `uv sync --locked` → exit 0; 17 packages resolved / 15 checked.
+  - `pnpm run doctor` → exit 0; 18 PASS, 1 expected dirty-tree WARNING,
+    0 FAIL, 3 honest NOT_YET_APPLICABLE suites.
+  - `pnpm preflight` → exit 0; doctor result above followed by canonical
+    `pnpm verify`, exit 0.
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:python`, and `pnpm test:rust` → exit 0 each.
+  - `pnpm verify` → exit 0; all mandatory active suites PASS;
+    contract-gen/contract/visual remain honestly NOT_YET_APPLICABLE and
+    are not counted as passing suites.
+  - `uv run pytest scripts/tests -q` → exit 0, 108 passed.
+  - `python3 scripts/validate_status.py` → exit 0,
+    `PASS: all checks passed (25 check groups)`.
+- Test counts: CI static validation 27/27; scripts pytest 108/108; full
+  pytest (inside `pnpm test:python` / `pnpm verify`) 109/109; TypeScript
+  unit packages 8/8; Playwright 1/1; Rust 1/1; validator 25 check groups.
+- Hosted repair evidence: pending the pushed repair content commit. Both
+  macOS and Linux must succeed before the stamp commit; both must then
+  succeed again on final stamped HEAD.
+- Artifacts: none locally; no product UI/browser behavior changed.
+- Security/privacy impact: no secrets, permissions, live-site behavior, or
+  data paths changed. The token remains read-only and all actions remain
+  official and SHA-pinned.
+
 - Revision: tree 135a4c1ffa7cdd43dd2be11baea4ee01721055b9 / commit
   16072e528e45379fe7d7c4f7df75a3fcba7ed67d (stamped in the follow-up commit
   per the anchoring convention above).

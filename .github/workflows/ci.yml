@@ -65,10 +65,44 @@ jobs:
           uv --version
 
       - name: Install pinned Rust toolchain (rust-toolchain.toml)
+        # runner.temp is available at step scope (not jobs.<job_id>.env).
+        # Persist this fresh per-job home for every later cargo/rustup probe.
+        env:
+          RUSTUP_HOME: ${{ runner.temp }}/rustup-home
         run: |
+          test ! -e "$RUSTUP_HOME"
+          mkdir -p "$RUSTUP_HOME"
+          printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
           RUST_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("rust-toolchain.toml").read_text())["toolchain"]["channel"])')"
           rustup toolchain install "${RUST_PIN}" --profile minimal --component rustfmt --component clippy
-          rustup show active-toolchain
+
+          ACTIVE_TOOLCHAIN="$(rustup show active-toolchain)"
+          printf '%s\n' "$ACTIVE_TOOLCHAIN"
+          [[ "$ACTIVE_TOOLCHAIN" == "${RUST_PIN}-"* ]]
+          [[ "$ACTIVE_TOOLCHAIN" == *"rust-toolchain.toml"* ]]
+
+          CARGO_PROXY="$(command -v cargo)"
+          RUSTC_PROXY="$(command -v rustc)"
+          CARGO_TOOLCHAIN_BIN="$(rustup which cargo)"
+          RUSTC_TOOLCHAIN_BIN="$(rustup which rustc)"
+          printf '%s\n' "$CARGO_PROXY" "$RUSTC_PROXY"
+          printf '%s\n' "$CARGO_TOOLCHAIN_BIN" "$RUSTC_TOOLCHAIN_BIN"
+          test "$CARGO_PROXY" != "$CARGO_TOOLCHAIN_BIN"
+          test "$RUSTC_PROXY" != "$RUSTC_TOOLCHAIN_BIN"
+
+          CARGO_VERSION="$(cargo --version)"
+          RUSTC_VERSION="$(rustc --version)"
+          RUSTFMT_VERSION="$(rustfmt --version)"
+          CLIPPY_VERSION="$(cargo clippy --version)"
+          printf '%s\n' "$CARGO_VERSION" "$RUSTC_VERSION"
+          printf '%s\n' "$RUSTFMT_VERSION" "$CLIPPY_VERSION"
+          [[ "$CARGO_VERSION" == "cargo ${RUST_PIN} "* ]]
+          [[ "$RUSTC_VERSION" == "rustc ${RUST_PIN} "* ]]
+
+          # Only rustup proxies accept +toolchain; these prove the PATH
+          # cargo/rustc commands are the trusted runner proxies.
+          cargo "+${RUST_PIN}" --version
+          rustc "+${RUST_PIN}" --version
 
       - name: Resolve pnpm store path
         id: pnpm-store

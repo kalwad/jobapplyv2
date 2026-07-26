@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import re
+import tomllib
 from typing import Any
 
 import validate_status
@@ -79,6 +80,26 @@ def run_bodies() -> list[str]:
     return [step["run"] for step in ci_steps() if "run" in step]
 
 
+def matrix_jobs() -> list[dict[str, Any]]:
+    return [
+        job for job in load_ci()["jobs"].values() if "matrix" in job.get("strategy", {})
+    ]
+
+
+def cache_steps() -> list[dict[str, Any]]:
+    return [
+        step
+        for step in ci_steps()
+        if str(step.get("uses", "")).startswith("actions/cache@")
+    ]
+
+
+def step_named(name: str) -> dict[str, Any]:
+    matches = [step for step in ci_steps() if step.get("name") == name]
+    assert len(matches) == 1, f"expected exactly one CI step named {name!r}"
+    return matches[0]
+
+
 def test_workflows_dir_contains_only_ci() -> None:
     files = sorted(p.name for p in WORKFLOWS_DIR.glob("*.yml")) + sorted(
         p.name for p in WORKFLOWS_DIR.glob("*.yaml")
@@ -116,6 +137,52 @@ def test_matrix_includes_macos_and_linux() -> None:
         assert "latest" not in os_name, "runner labels must be explicit versions"
 
 
+def test_every_matrix_job_initializes_fresh_job_scoped_rustup_home() -> None:
+    data = load_ci()
+    assert "RUSTUP_HOME" not in data.get("env", {}), (
+        "workflow-global rustup state would be broader than the matrix job"
+    )
+    jobs = matrix_jobs()
+    assert jobs, "workflow must retain a matrix job"
+    for job in jobs:
+        # GitHub does not expose the runner context in jobs.<job_id>.env.
+        # Set it on the first Rust step, then persist the exact runner.temp
+        # value through GITHUB_ENV for all later steps in this matrix job.
+        assert "RUSTUP_HOME" not in job.get("env", {})
+        matches = [
+            (index, step)
+            for index, step in enumerate(job["steps"])
+            if "rustup toolchain install" in str(step.get("run", ""))
+        ]
+        assert len(matches) == 1
+        install_index, install_step = matches[0]
+        assert install_step.get("env", {}).get("RUSTUP_HOME") == (
+            "${{ runner.temp }}/rustup-home"
+        )
+        lines = [
+            line.strip()
+            for line in str(install_step["run"]).splitlines()
+            if line.strip()
+        ]
+        fresh_index = lines.index('test ! -e "$RUSTUP_HOME"')
+        create_index = lines.index('mkdir -p "$RUSTUP_HOME"')
+        persist_index = lines.index(
+            'printf \'RUSTUP_HOME=%s\\n\' "$RUSTUP_HOME" >> "$GITHUB_ENV"'
+        )
+        rustup_index = next(
+            index
+            for index, line in enumerate(lines)
+            if line.startswith("rustup toolchain install ")
+        )
+        assert fresh_index < create_index < persist_index < rustup_index
+        earlier_runs = "\n".join(
+            str(step.get("run", "")) for step in job["steps"][:install_index]
+        )
+        assert not re.search(
+            r"(?m)^\s*(?:rustup|cargo|rustc|rustfmt)(?:\s|$)", earlier_runs
+        )
+
+
 def test_job_has_timeout_and_bash_default() -> None:
     data = load_ci()
     assert data["defaults"]["run"]["shell"] == "bash"
@@ -128,6 +195,16 @@ def test_no_continue_on_error_anywhere() -> None:
     assert "continue-on-error" not in raw
     for step in ci_steps():
         assert "continue-on-error" not in step
+
+
+def test_run_steps_do_not_mask_failures() -> None:
+    for body in run_bodies():
+        executable = "\n".join(
+            line for line in body.splitlines() if not line.lstrip().startswith("#")
+        )
+        assert "set +e" not in executable
+        assert not re.search(r"\|\|\s*(?:true|:)(?:\s|$)", executable)
+        assert not re.search(r"(?:^|[;&])\s*exit\s+0(?:\s|$)", executable)
 
 
 def test_every_action_is_sha_pinned_official_and_annotated() -> None:
@@ -159,6 +236,44 @@ def test_installs_are_frozen_or_locked() -> None:
     assert "pnpm install --frozen-lockfile" in bodies
     assert "uv sync --locked" in bodies
     assert "cargo fetch --locked" in bodies
+
+
+def test_rust_install_uses_exact_pin_minimal_profile_and_components() -> None:
+    toolchain = tomllib.loads(
+        (REPO_ROOT / "rust-toolchain.toml").read_text(encoding="utf-8")
+    )["toolchain"]
+    assert toolchain["channel"] == "1.97.1"
+    assert toolchain["components"] == ["rustfmt", "clippy"]
+
+    install = step_named("Install pinned Rust toolchain (rust-toolchain.toml)")["run"]
+    assert 'Path("rust-toolchain.toml")' in install
+    assert 'rustup toolchain install "${RUST_PIN}"' in install
+    assert "--profile minimal" in install
+    assert "--component rustfmt" in install
+    assert "--component clippy" in install
+
+
+def test_rust_install_verifies_pinned_toolchain_proxies_and_versions() -> None:
+    install = step_named("Install pinned Rust toolchain (rust-toolchain.toml)")["run"]
+    required_probes = (
+        "rustup show active-toolchain",
+        "command -v cargo",
+        "command -v rustc",
+        "rustup which cargo",
+        "rustup which rustc",
+        "cargo --version",
+        "rustc --version",
+        "rustfmt --version",
+        "cargo clippy --version",
+    )
+    for probe in required_probes:
+        assert probe in install, f"missing post-install Rust probe: {probe}"
+    assert "rust-toolchain.toml" in install
+    assert '"${RUST_PIN}-"' in install
+    # The +toolchain selector is interpreted by rustup proxies, not ordinary
+    # cargo/rustc binaries, so these are direct PATH-proxy assertions.
+    assert 'cargo "+${RUST_PIN}" --version' in install
+    assert 'rustc "+${RUST_PIN}" --version' in install
 
 
 def test_ci_runs_doctor_and_canonical_verification_only() -> None:
@@ -220,11 +335,7 @@ def test_artifact_path_matches_playwright_output_config() -> None:
 
 
 def test_cache_keys_carry_platform_tool_and_lockfile_identity() -> None:
-    caches = [
-        step
-        for step in ci_steps()
-        if str(step.get("uses", "")).startswith("actions/cache@")
-    ]
+    caches = cache_steps()
     assert len(caches) == 4, "expected pnpm/uv/cargo/playwright caches"
     lockfile_sources = (
         "pnpm-lock.yaml",
@@ -243,6 +354,53 @@ def test_cache_keys_carry_platform_tool_and_lockfile_identity() -> None:
         assert "restore-keys" not in cache["with"], (
             "restore-keys would allow stale cross-lockfile cache reuse"
         )
+
+
+def test_rustup_home_and_toolchain_state_are_never_cached() -> None:
+    for cache in cache_steps():
+        path = str(cache["with"]["path"]).lower()
+        for forbidden in (
+            "rustup_home",
+            "rustup-home",
+            ".rustup",
+            "~/.cargo/bin",
+            "runner.temp",
+        ):
+            assert forbidden not in path, (
+                f"toolchain/proxy state must not be cached: {cache['name']}"
+            )
+
+
+def test_dependency_cache_paths_are_narrow_allowlisted() -> None:
+    allowed = {
+        "${{ steps.pnpm-store.outputs.path }}",
+        "~/.cache/uv",
+        "~/Library/Caches/uv",
+        "~/.cargo/registry",
+        "~/.cargo/git",
+        "~/Library/Caches/ms-playwright",
+        "~/.cache/ms-playwright",
+    }
+    actual = {
+        line.strip()
+        for cache in cache_steps()
+        for line in str(cache["with"]["path"]).splitlines()
+        if line.strip()
+    }
+    assert actual == allowed
+
+
+def test_cargo_dependency_caches_remain_narrow_and_allowed() -> None:
+    cargo = [
+        step for step in cache_steps() if step["name"] == "Cache cargo registry and git"
+    ]
+    assert len(cargo) == 1
+    paths = {
+        line.strip()
+        for line in str(cargo[0]["with"]["path"]).splitlines()
+        if line.strip()
+    }
+    assert paths == {"~/.cargo/registry", "~/.cargo/git"}
 
 
 def test_no_network_tests_or_live_sites_in_run_steps() -> None:

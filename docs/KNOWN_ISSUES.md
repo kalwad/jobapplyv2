@@ -34,7 +34,35 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-None recorded.
+### KI-0005 — Reused GitHub macOS rustup state conflicts while installing Clippy
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-26 during the current-HEAD hosted verification of
+  M00-W06
+- Affects: M00-W06 (`.github/workflows/ci.yml`; required macOS hosted CI)
+- Description: GitHub Actions run 30217235083 at
+  f9ec7926d3ff04e0cc427481a5c0a965f0578f4e failed required macOS job
+  89833453976 in `Install pinned Rust toolchain`. rustup explicitly reported
+  `recovering from a partially installed toolchain`, rolled back, and failed
+  with `failed to install component:
+  'clippy-preview-aarch64-apple-darwin', detected conflict:
+  'bin/cargo-clippy'`. The workflow inherited the hosted runner's default
+  rustup state, so installation was not hermetic even though Rust itself was
+  exactly pinned. Linux job 89833453996 succeeded; the local verification
+  suite also passed.
+- Reproduction: `gh run view 30217235083 --job 89833453976 --log-failed`
+  shows the partial-install recovery followed by the exact `cargo-clippy`
+  conflict and exit 1.
+- Workaround: none accepted. Retrying the same contaminated toolchain state
+  does not correct the deterministic state conflict, so unconditional retries
+  were rejected.
+- Resolution + evidence link: in progress in M00-W06. The repair isolates
+  each matrix job's `RUSTUP_HOME` under that job's `runner.temp`, persists the
+  same clean home for later Rust checks, leaves Cargo dependency caches
+  separate, and adds static regressions. Closure requires both hosted jobs to
+  pass on the repair content commit and again on the final stamp-commit HEAD.
+  Evidence: docs/TEST_EVIDENCE.md § M00-W06.
 
 ## Deferred risks and parked ideas
 
