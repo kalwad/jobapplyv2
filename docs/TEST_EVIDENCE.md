@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
 
-- Revision: stamp pending (content tree recorded in the conventional
-  follow-up commit after the hosted three-OS content run passes).
+- Revision: tree `ae69a908cc31e0f1282c136c25fb7f92752680dd` / commit
+  `0e27802802b2397169c74d0f0c563506980041b0` (stamped in the conventional
+  follow-up commit after its hosted three-OS content run passed).
 - Starting prerequisite: `main` was clean at
   `33b012e1d30fa82b62ee0ce02746b56839c4816b`, equal to `origin/main`.
   Final M00-W08 stamp run 30223489467 passed macOS job 89849840494 and
@@ -193,11 +194,25 @@ Exact verification commands and summarized results
   no Windows secure-store, native-messaging, local-model, installer,
   update, or product claim exists (docs/PLATFORM_SUPPORT.md,
   docs/platform/CERTIFIED_MATRIX.md).
-- Hosted proof: pending at entry creation — the content commit must pass
-  all three hosted jobs (macos-15, windows-2025, ubuntu-24.04) running
-  the same canonical doctor/verify commands, and the final revision-stamp
-  HEAD requires its own successful three-OS run before closeout. Run and
-  job IDs are recorded below when observed.
+- Hosted content proof: workflow run 30226212092 at content commit
+  `0e27802802b2397169c74d0f0c563506980041b0` passed all three required
+  jobs on the first attempt — `doctor + verify (macos-15)` job
+  89856707366 (1m39s), `doctor + verify (windows-2025)` job 89856707365
+  (3m42s), and `doctor + verify (ubuntu-24.04)` job 89856707333 (2m3s).
+  The inspected Windows log confirms Microsoft Windows Server 2025
+  (10.0.26100, image windows-2025-vs2026), a read-only GITHUB_TOKEN,
+  pipx-installed `uv 0.11.32 (x86_64-pc-windows-msvc)`, Rust
+  `1.97.1-x86_64-pc-windows-msvc` installed into the isolated
+  `D:\a\_temp/rustup-home` selected by the rust-toolchain.toml override
+  with `rustup which cargo/rustc` resolving inside that home and distinct
+  PATH proxies, uv-managed CPython 3.12.13, the canonical
+  `pnpm run doctor` reporting `Host platform PASS (windows)` with
+  `summary: 20 pass, 0 warning, 0 fail, 3 not-yet-applicable`, and the
+  canonical `pnpm verify` finishing `verification exit code: 0` with
+  unit-ts, e2e-browser, python, rust, and portability (among all
+  mandatory suites) ACTIVE/PASS and no tracked changes afterward. The
+  final revision-stamp HEAD requires its own successful three-OS run
+  before closeout.
 
 ### M00-W08 — Adopt and migrate the v1.3 cross-platform rebaseline (2026-07-26)
 

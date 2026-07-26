@@ -5233,7 +5233,7 @@
       "milestone": "M00",
       "title": "Add Windows CI and platform-portability baseline",
       "current_state": "VERIFIED",
-      "verified_revision": "stamp pending",
+      "verified_revision": "tree ae69a908cc31e0f1282c136c25fb7f92752680dd",
       "primary_deliverables": [
         "Add Windows CI and platform-portability baseline"
       ],
