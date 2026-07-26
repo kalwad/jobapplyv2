@@ -1,0 +1,6 @@
+{
+  "name": "@japp/desktop",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Desktop app (Tauri 2 + React + TypeScript + Vite per spec §5.2). Workspace slot created in M00-W02; the application shell is created in M03-W01, so this package intentionally has no code or scripts yet."
+}

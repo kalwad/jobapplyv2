@@ -1,0 +1,6 @@
+{
+  "name": "@japp/mock-ats-lab",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Deterministic local ATS fixture web app (spec §5.1, §8.2). Workspace slot created in M00-W02; the fixture lab is built in M02-W03, so this package intentionally has no code or scripts yet."
+}

@@ -2,7 +2,7 @@
 
 Spec version: 1.0
 Repository revision: tree e1dd209417af97b3cab320b4ab01fbd702547136 (commit 63d9442258c68a9dd8ecb9a20810e5740679557c)
-Last updated: 2026-07-26T00:23:49Z
+Last updated: 2026-07-26T01:03:34Z
 Current phase: A — Project contract and platform
 Current milestone: M00
 Current work package: NONE
@@ -10,11 +10,11 @@ Overall release gate: NOT_READY
 
 ## Active work
 
-- State: no work package is IN_PROGRESS. Last completed: M00-W01 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W01).
-- Objective: next up is M00-W02 — Scaffold the monorepo (pnpm/Turborepo layout, Python workspace, Rust native-host crate, desktop, extension, mock ATS lab, packages, prompts, model, scripts, docs directories; no fake feature implementations).
-- Dependencies verified: for M00-W02 — M00 has no dependency milestones and M00-W01 is VERIFIED.
-- Files expected to change: (set when M00-W02 starts)
-- Required tests: (set when M00-W02 starts; per spec M00 verification, scaffold smoke tests and fresh-clone install checks arrive with W02–W05)
+- State: no work package is IN_PROGRESS. Last completed: M00-W02 (VERIFIED — evidence in docs/TEST_EVIDENCE.md § M00-W02; deliberate build-task deferral recorded as KI-0001 in docs/KNOWN_ISSUES.md).
+- Objective: next up is M00-W03 — Establish strict toolchain configuration (pin Node, pnpm, Python, Rust, and package-manager versions; enable TypeScript strict mode, Ruff, mypy, pytest, Vitest, Playwright, rustfmt, and Clippy — several are enabled at baseline strictness by the W02 scaffold and W03 completes/pins them).
+- Dependencies verified: for M00-W03 — M00 has no dependency milestones; M00-W01 and M00-W02 are VERIFIED.
+- Files expected to change: (set when M00-W03 starts)
+- Required tests: (set when M00-W03 starts)
 - Blockers: none.
 
 ## Milestone table
@@ -65,8 +65,8 @@ Overall release gate: NOT_READY
 | Work package | State | Verified revision | Evidence link | Notes |
 |---|---|---|---|---|
 | `M00-W01` | VERIFIED | tree e1dd209417af97b3cab320b4ab01fbd702547136 | docs/TEST_EVIDENCE.md § M00-W01 | Create canonical project-memory files |
-| `M00-W02` | READY | — | — | Scaffold the monorepo |
-| `M00-W03` | NOT_STARTED | — | — | Establish strict toolchain configuration |
+| `M00-W02` | VERIFIED | tree recorded post-commit | docs/TEST_EVIDENCE.md § M00-W02 | Scaffold the monorepo |
+| `M00-W03` | READY | — | — | Establish strict toolchain configuration |
 | `M00-W04` | NOT_STARTED | — | — | Create root verification commands |
 | `M00-W05` | NOT_STARTED | — | — | Create CI and local preflight |
 | `M00-W06` | NOT_STARTED | — | — | Seed traceability and status |
@@ -294,14 +294,14 @@ Overall release gate: NOT_READY
 
 ## Next READY package
 
-- ID: `M00-W02`
-- Reason: M00-W01 is VERIFIED; M00-W02 (Scaffold the monorepo) is the next package in M00's listed order, and M00 has no dependency milestones.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §5.1 (repository structure), §5.2 (selected stack), §M00 (packages, verification, exit gate, prohibited shortcut); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md.
+- ID: `M00-W03`
+- Reason: M00-W01 and M00-W02 are VERIFIED; M00-W03 (Establish strict toolchain configuration) is the next package in M00's listed order, and M00 has no dependency milestones.
+- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §5.2 (selected stack), §8.5 (required repository verification commands), §M00 (packages, verification, exit gate, prohibited shortcut); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md § M00-W02 (existing baseline configs and pins to complete: Node/Rust pins absent, TypeScript 6.0.3 pin rationale, Playwright not yet configured); docs/KNOWN_ISSUES.md (KI-0001).
 
 ## Known release blockers
 
 - All milestones M00–M37 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED and the Section 2 metrics pass (spec §2.2).
-- Process (not a product defect): the current cloud work environment cannot reach github.com (egress policy), so pushing to the `origin` remote is performed by the owner from the development machine; commit/tree hashes recorded here allow exact verification after sync.
+- Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin` (verified via `git ls-remote` during M00-W02), so this blocker no longer applies to new work.
 
 ## Status conventions and update rules
 

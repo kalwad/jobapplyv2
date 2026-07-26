@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "locked": false,
+  "note": "Placeholder created by the M00-W02 monorepo scaffold. The model lock — pinned model tag, runtime engine and version range, digest, context limits, default parameters, and license/source metadata — is created in work package M05-W02 per docs/MASTER_IMPLEMENTATION_SPEC.md §6. No model is pinned yet, and no digest may be invented before M05 (spec §1.5)."
+}

@@ -33,6 +33,75 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W02 — Scaffold the monorepo (2026-07-26)
+
+- Revision: tree recorded post-commit / commit recorded post-commit (stamped
+  in the follow-up commit per the anchoring convention above).
+- Environment: macOS 27.0 (Darwin 27.0.0, Apple silicon — the spec's target
+  machine class); Node v26.0.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13
+  (uv-managed via `.python-version`), rustc/cargo 1.97.1 with rustfmt 1.9.0
+  and clippy 0.1.97 (rustup stable — the Rust toolchain was absent on this
+  machine and was installed during this package via Homebrew `rustup`
+  1.29.0_2; recorded as an environment change). Pinned tool versions:
+  TypeScript 6.0.3, Vitest 4.1.10, @types/node 26.1.1 (pnpm catalog, exact),
+  ESLint 10.8.0, typescript-eslint 8.65.0, Prettier 3.9.6, turbo 2.10.7
+  (exact, `save-exact`); pytest 9.1.1, ruff 0.16.0, mypy 2.3.0 (`==` pins);
+  lockfiles committed: pnpm-lock.yaml, uv.lock, services/native-host/Cargo.lock.
+- Commands and observed results:
+  - `pnpm install` → exit 0; `pnpm install --frozen-lockfile` → exit 0
+    ("Already up to date").
+  - `uv sync` → exit 0 (installs orchestrator editable); `uv sync --locked`
+    → exit 0.
+  - `pnpm lint` (`eslint .`) → exit 0.
+  - `pnpm exec turbo run typecheck --force` → exit 0; Tasks: 8 successful,
+    8 total (strict `tsc --noEmit` in every packages/* package).
+  - `pnpm exec turbo run test --force` → exit 0; Tasks: 8 successful, 8
+    total (one Vitest workspace-wiring smoke test per packages/* package).
+  - `pnpm format:check` → exit 0 (canonical docs/CLAUDE.md are excluded via
+    .prettierignore so tooling can never rewrite the contract).
+  - `uv run pytest` → exit 0; 1 passed (orchestrator package/distribution
+    wiring smoke test).
+  - `uv run ruff check services` → exit 0 ("All checks passed!").
+  - `uv run ruff format --check services` → exit 0 (6 files already
+    formatted).
+  - `uv run mypy services` (strict = true) → exit 0; no issues in 2 source
+    files.
+  - `cargo fmt --check` (services/native-host) → exit 0.
+  - `cargo clippy --all-targets --all-features -- -D warnings` → exit 0.
+  - `cargo test` → exit 0; 1 passed, 0 failed.
+  - `./target/debug/native-host` → exit 1 with the explicit notice
+    "not implemented until work package M17-W04; refusing to run" (honest
+    refusal — no fake transport).
+  - `pnpm exec turbo run build` → exit 1, "Could not find task `build` in
+    project" — deliberate deferral, recorded as KI-0001 in
+    docs/KNOWN_ISSUES.md (a build task over zero implementers would be a
+    mocked success state).
+  - `python3 scripts/validate_status.py` → exit 0, PASS (17 check groups),
+    run after the final status update for this package.
+- Test counts: TypeScript 8/8 package smoke tests passed; Python 1/1
+  passed; Rust 1/1 passed; every lint/format/typecheck command exit 0.
+- Artifacts: none (scaffold only; no UI exists yet, so §1.3.6 manual UI
+  inspection is not applicable).
+- Notes:
+  - TypeScript is pinned to 6.0.3, not the newest 7.0.2, because
+    typescript-eslint 8.65.0 declares support for typescript
+    ">=4.8.4 <6.1.0"; recorded so M00-W03 revisits the pin deliberately.
+  - `tsconfig.base.json` sets `"types": ["node"]` explicitly — TypeScript
+    6.x no longer auto-includes `@types/node` under this configuration.
+  - The root `package.json` `packageManager: pnpm@11.17.0` field is
+    structurally required by turbo (it refuses to resolve the workspace
+    without it); `.python-version` (3.12) enforces the spec §5.2 interpreter
+    on a machine whose default python3 is 3.14.
+  - apps/desktop, apps/extension, apps/mock-ats-lab and
+    services/job-index-api, services/job-ingestion-worker are intentionally
+    empty workspace slots with READMEs naming their owning milestones —
+    no fake features (spec §1.5, M00 prohibited shortcut).
+  - Pre-closeout adversarial review (multi-agent, 4 lenses + per-finding
+    adversarial verification): 2 raw findings, 1 confirmed (missing recorded
+    rationale for the absent build task — resolved by KI-0001 before this
+    entry), 1 rejected (pnpm/Python pinning is mandated by W02's
+    reproducibility requirement, not M00-W03 scope pulled forward).
+
 ### M00-W01 — Create canonical project-memory files (2026-07-26)
 
 - Revision: tree e1dd209417af97b3cab320b4ab01fbd702547136 / commit 63d9442258c68a9dd8ecb9a20810e5740679557c (stamped in the follow-up commit per the

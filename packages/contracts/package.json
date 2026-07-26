@@ -1,0 +1,16 @@
+{
+  "name": "@japp/contracts",
+  "version": "0.0.1",
+  "private": true,
+  "description": "JSON Schema source of truth and generated TypeScript/Python models (spec §5.1); schema conventions and generation arrive in M01. Scaffold created in M00-W02.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

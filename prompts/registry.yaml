@@ -1,0 +1,9 @@
+# Prompt registry — versioned prompts, generation parameters, and digests
+# (docs/MASTER_IMPLEMENTATION_SPEC.md §6.3, §6.5, §10.2).
+#
+# Intentionally empty at scaffold time (M00-W02): no AI pipeline exists yet.
+# Entries are added beginning with the model-runtime milestone (M05) and the
+# AI feature milestones that follow. Exact generation parameter names live
+# here, not scattered through code (spec §6.3).
+schema_version: 1
+prompts: []

@@ -1,0 +1,20 @@
+# pnpm workspace layout (docs/MASTER_IMPLEMENTATION_SPEC.md §5.1, §5.2).
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Single source of exact dependency versions shared by workspace packages
+# (reproducible versions; see also pnpm-lock.yaml).
+catalog:
+  "@types/node": 26.1.1
+  typescript: 6.0.3
+  vitest: 4.1.10
+
+minimumReleaseAgeExclude:
+  - "@turbo/darwin-64@2.10.7"
+  - "@turbo/darwin-arm64@2.10.7"
+  - "@turbo/linux-64@2.10.7"
+  - "@turbo/linux-arm64@2.10.7"
+  - "@turbo/windows-64@2.10.7"
+  - "@turbo/windows-arm64@2.10.7"
+  - turbo@2.10.7

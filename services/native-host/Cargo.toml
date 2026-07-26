@@ -1,0 +1,8 @@
+[package]
+name = "native-host"
+version = "0.0.1"
+edition = "2024"
+description = "Chrome native-messaging bridge/sidecar (spec §5.2). Implementation begins in M17-W04; the M00-W02 scaffold only proves the crate builds and tests."
+publish = false
+
+[dependencies]

@@ -1,0 +1,16 @@
+# Canonical project-memory documents are never auto-reformatted; the
+# specification must not be rewritten by tooling (spec §1.4).
+CLAUDE.md
+docs/
+MASTER_IMPLEMENTATION_SPEC(1).md
+
+# Lockfiles and tool/build output
+pnpm-lock.yaml
+uv.lock
+node_modules/
+dist/
+.turbo/
+coverage/
+.venv/
+services/native-host/target/
+services/native-host/Cargo.lock

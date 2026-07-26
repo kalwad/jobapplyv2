@@ -38,4 +38,24 @@ None recorded.
 
 ## Deferred risks and parked ideas
 
-None recorded.
+### KI-0001 — No JS/TS `build` task exists in the M00-W02 scaffold (deliberate deferral)
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-07-26 during M00-W02
+- Affects: M00-W02 (scaffold); resolved by M03-W01 / M17-W01 (first real build targets) and M00-W04 (aggregate verification semantics)
+- Description: the owner's M00-W02 instructions list build configuration among the
+  required configs. The TypeScript workspace intentionally defines no `build`
+  task: every TypeScript package in the scaffold is a `noEmit` slot with no
+  build output, so a Turborepo `build` task would report success over zero
+  implementers — a mocked success state (spec §1.5) contrary to the
+  "empty suites must fail" principle assigned to M00-W04. Build coverage
+  exists today only where real compilation exists (the native-host crate via
+  `cargo build`/`cargo test`). The Turborepo pipeline and per-package script
+  slots are in place; the `build` task is added together with the first real
+  build target (desktop shell M03-W01, extension M17-W01), and M00-W04's
+  aggregate `pnpm verify` must fail on skipped mandatory suites.
+- Reproduction: `turbo run build` — no such task is defined (by design, this
+  errors rather than passing vacuously).
+- Workaround: n/a (nothing exists to build yet).
+- Resolution + evidence link: pending the packages above.

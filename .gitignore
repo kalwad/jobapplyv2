@@ -6,9 +6,19 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# Node (used from M00-W02 onward)
+# Node / TypeScript (used from M00-W02 onward)
 node_modules/
+dist/
+.turbo/
+coverage/
+
+# Rust (scoped per crate; broadened if more crates arrive)
+services/native-host/target/
 
 # Local environment and secrets — never committed (spec §1.5)
 .env

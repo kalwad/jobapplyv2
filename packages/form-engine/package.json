@@ -1,0 +1,16 @@
+{
+  "name": "@japp/form-engine",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Field ontology, resolver, and fill primitives (spec §5.1); implemented in M18. Scaffold created in M00-W02.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
