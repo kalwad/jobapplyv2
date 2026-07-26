@@ -1,0 +1,20 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Node (used from M00-W02 onward)
+node_modules/
+
+# Local environment and secrets — never committed (spec §1.5)
+.env
+.env.*
+
+# Owner's original spec upload; the canonical copy lives at
+# docs/MASTER_IMPLEMENTATION_SPEC.md (spec §1.1). Ignored to prevent a
+# divergent second copy from being committed.
+MASTER_IMPLEMENTATION_SPEC(1).md
