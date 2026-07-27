@@ -37,7 +37,15 @@ export function pythonStringLiteral(text: string): string {
       out += '\\"';
     } else if (char === "\n") {
       out += "\\n";
-    } else if (code < 0x20 || (code >= 0x7f && code <= 0xa0)) {
+    } else if (
+      code < 0x20 ||
+      (code >= 0x7f && code <= 0xa0) ||
+      code === 0x2028 ||
+      code === 0x2029
+    ) {
+      // Control characters and the invisible Unicode line/paragraph
+      // separators are emitted as escapes so generated source stays
+      // ordinary reviewable text even for adversarial inputs.
       out += `\\u${code.toString(16).padStart(4, "0")}`;
     } else {
       out += char;

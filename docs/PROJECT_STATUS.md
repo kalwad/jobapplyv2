@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.3
-Repository revision: tree 3d4b0f16990decf6bb8dfa7e59e3b89a1628903d (commit 981826764dc0793f7ddc984f49888afb7657d3b5)
-Last updated: 2026-07-27T05:00:05Z
+Repository revision: tree 3a6dab5d3a1d6253d655af6e79d21b88d4383508 (commit efd41b22b311d12055e072814bf647057fbca440)
+Last updated: 2026-07-27T05:19:52Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M01
-Current work package: NONE
+Current work package: M01-W02
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,19 +23,21 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M01-W02 is VERIFIED at content tree `3d4b0f16990decf6bb8dfa7e59e3b89a1628903d` (commit `981826764dc0793f7ddc984f49888afb7657d3b5`); M01-W01 remains VERIFIED at content tree `20c25e66d5792506870531aa4a8cd01971b362c9`; M00-W01 through M00-W10 remain VERIFIED at their preserved revisions; M00 remains ACCEPTED. M01 remains IN_PROGRESS with M01-W03 as the sole READY package.
-- Objective: stop at the M01-W02 closeout. The deterministic fail-closed contract generator (`scripts/generate-contracts.ts` + `packages/contracts/generator/`, `pnpm generate:contracts` write and `--check` byte-exact drift modes), the committed generated strict TypeScript contracts with typed Ajv-delegating validator wrappers, the generated strict Pydantic v2 `japp_contracts` package, the provenance MANIFEST, and the ACTIVE contract-gen suite are complete and hosted-verified; M01-W03 (Define error taxonomy) is the exact next package and has not begun.
-- Dependencies verified: M01-W01 VERIFIED and M00 ACCEPTED. M01-W02 content run 30238366390 passed ubuntu-24.04 job 89890399400, windows-2025 job 89890399405, and macos-15 job 89890399463 at content commit `981826764dc0793f7ddc984f49888afb7657d3b5`; the inspected Windows log confirms exact checkout, doctor 21 PASS / 0 WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE with contract-gen ACTIVE and PASS, "generated contracts are up to date (35 files, byte-identical)" on Windows, 188 contracts Vitest tests, 453 Python tests, aggregate verification exit 0, and no tracked changes.
-- Critical-gate prerequisites: none for M01-W03. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M01-W02 records the clean-session bootstrap, the generator/generated implementation, the complete local command battery, the clean-clone simulation, the REQ-PLAT-005 reviewed-hash update, the KI-0017 fixture repairs, and the successful three-OS hosted content run with the Windows log inspection.
-- Blockers: none for M01-W03. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS.
+- State: M01-W02 is reopened IN_PROGRESS for a focused corrective closeout at starting revision `efd41b22b311d12055e072814bf647057fbca440` (M01-W03 returned to NOT_STARTED for the duration of the repair). All prior M01-W02 evidence is preserved; M01-W01 remains VERIFIED at content tree `20c25e66d5792506870531aa4a8cd01971b362c9`; M00-W01 through M00-W10 remain VERIFIED at their preserved revisions; M00 remains ACCEPTED.
+- Objective: repair exactly two M01-W02 defects without touching unrelated work (KI-0018): (1) make the generated-tree replacement in `packages/contracts/generator/fsops.ts` failure-safe — verify staging before touching the existing tree, use unique sibling staging/backup paths, rename the old tree to a backup, install the verified staging tree, restore the backup automatically if installation fails, preserve and report every recoverable path if rollback itself fails, and describe the guarantee honestly as transactional/rollback-safe rather than atomic; (2) replace literal control bytes (raw NUL and BEL) in `packages/contracts/test/generated/generator.test.ts` with escaped source representations and add a tracked-text control-byte regression sweep. Generated schema/model outputs remain byte-identical.
+- Dependencies verified: prior M01-W02 content run 30238366390 (ubuntu job 89890399400, windows job 89890399405, macos job 89890399463) and final stamp run 30238766443 (ubuntu job 89891533670, macos job 89891533708, windows job 89891533724) all SUCCESS; M01-W01 VERIFIED; M00 ACCEPTED.
+- Critical-gate prerequisites: none for M01-W02. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
+- Files expected to change: `packages/contracts/generator/fsops.ts`, `packages/contracts/generator/cli.ts`, `packages/contracts/test/generated/generator.test.ts`, new `packages/contracts/test/generated/fsops-install.test.ts`, `packages/contracts/README.md` §10a wording, `scripts/tests/test_integrity.py`, docs/PROJECT_STATUS.md, docs/TEST_EVIDENCE.md, docs/KNOWN_ISSUES.md, docs/traceability.json, generated docs/REQUIREMENTS_TRACEABILITY.md.
+- Required tests: deterministic failure-injection tests over the install protocol (staging failure, install failure with automatic restore, rollback failure with recoverable-path reporting, success cleanup, read-only check), the tracked-text control-byte sweep, and the full repository verification with contract-gen ACTIVE and PASS.
+- Required manual/holdout evidence: none for this package (no critical-gate work); hosted three-OS CI on the repair content and restamp revisions is required before VERIFIED.
+- Blockers: none for M01-W02. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
 | M00 | ACCEPTED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | Phase A. v1.3 M00-W08…W10 migration and complete M00 exit gate accepted; v1.2 acceptance remains historical evidence |
-| M01 | IN_PROGRESS | — | Phase A. M01-W01 and M01-W02 VERIFIED with hosted three-OS evidence; M01-W03 is the sole READY package; M01-W04 through M01-W07 remain NOT_STARTED |
+| M01 | IN_PROGRESS | — | Phase A. M01-W01 VERIFIED; M01-W02 reopened IN_PROGRESS for the KI-0018 corrective closeout; M01-W03 through M01-W07 remain NOT_STARTED |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -89,8 +91,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W09` | VERIFIED | tree ae69a908cc31e0f1282c136c25fb7f92752680dd | docs/TEST_EVIDENCE.md § M00-W09 | Add Windows CI and platform-portability baseline |
 | `M00-W10` | VERIFIED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | docs/TEST_EVIDENCE.md § M00-W10 | Extend traceability and re-accept M00 under v1.3 |
 | `M01-W01` | VERIFIED | tree 20c25e66d5792506870531aa4a8cd01971b362c9 | docs/TEST_EVIDENCE.md § M01-W01 | Define JSON Schema conventions |
-| `M01-W02` | VERIFIED | tree 3d4b0f16990decf6bb8dfa7e59e3b89a1628903d | docs/TEST_EVIDENCE.md § M01-W02 | Generate TypeScript and Python contracts |
-| `M01-W03` | READY | — | — | Define error taxonomy; exact next package, not begun |
+| `M01-W02` | IN_PROGRESS | — | — | Generate TypeScript and Python contracts; reopened for the KI-0018 corrective closeout |
+| `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
 | `M01-W04` | NOT_STARTED | — | — | Define capability and command allowlists |
 | `M01-W05` | NOT_STARTED | — | — | Build contract compatibility tests |
 | `M01-W06` | NOT_STARTED | — | — | Define feasibility and benchmark contracts |
@@ -367,13 +369,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: `M01-W03`
-- Reason: M01-W01 and M01-W02 are VERIFIED with hosted three-OS evidence and M00 is ACCEPTED; dependency and sequential-readiness validation derives M01-W03 as the only READY package.
-- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.2, §8.5, §9 M01 (especially M01-W03), and §12; packages/contracts/README.md (schema conventions, §10a generated-contract architecture, and the M01-W03/M01-W05 boundaries); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: NONE
+- Reason: M01-W02 is the only package IN_PROGRESS (reopened for the KI-0018 corrective closeout). No later package may become READY until M01-W02 is re-VERIFIED with hosted three-OS evidence.
+- Required reading: —
 
 ## Known release blockers
 
-- No M00 blocker remains. M01-W01 and M01-W02 are VERIFIED; M01-W03 is READY but deliberately unstarted at the M01-W02 handoff.
+- No M00 blocker remains. M01-W01 is VERIFIED; M01-W02 is reopened IN_PROGRESS for the KI-0018 corrective closeout; M01-W03 and later packages stay NOT_STARTED until it is re-VERIFIED.
 - Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
 - CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS.
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.

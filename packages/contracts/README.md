@@ -322,14 +322,24 @@ unconstrained schema). Stable import surface:`@japp/contracts/generated`→`gene
   records the generator format/config, every input schema id/version/
   SHA-256 (exact committed bytes), every output path/SHA-256, and the
   schema-reference → generated-type identity map for both languages.
-- **Write mode** builds the complete tree in memory, materializes it into a
-  same-volume staging directory, and installs it with a single directory
-  rename — the installed tree is always one complete generation, and stale
-  outputs of deleted schemas cannot survive. **Check mode** regenerates into
-  an isolated temporary directory, verifies the materialized bytes, and
-  byte-compares the complete inventory against `generated/` (missing, stale,
-  modified, and unexpected extra files all fail with actionable paths)
-  without ever touching the working tree.
+- **Write mode** performs a transactional, rollback-safe whole-tree
+  replacement (deliberately not called "atomic": no single indivisible
+  multi-directory operation exists portably on macOS, Windows, and Ubuntu).
+  The complete tree is materialized and byte-verified in a unique sibling
+  staging directory before the existing tree is touched; the existing tree
+  is renamed aside to a unique sibling backup — never deleted first — and
+  the verified staging tree is renamed into place; the backup is removed
+  only after the new tree is installed. If installation fails, the backup
+  is restored automatically; if even the rollback rename fails, nothing
+  recoverable is deleted and the error names every surviving directory and
+  the manual recovery action. The installed path only ever transitions
+  between complete trees, so stale outputs of deleted schemas cannot
+  survive and a partially written tree can never appear at the installed
+  path. **Check mode** regenerates into an isolated temporary directory,
+  verifies the materialized bytes, and byte-compares the complete
+  inventory against `generated/` (missing, stale, modified, and unexpected
+  extra files all fail with actionable paths) without ever touching the
+  working tree.
 
 ## 10. Boundaries owned by later packages
 

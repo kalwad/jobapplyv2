@@ -191,3 +191,94 @@ def test_workspace_package_noop_script_rejected(
     )
     failures = verify.check_root_scripts(fixture_repo)
     assert any("@fixture/a" in f and "no-op" in f for f in failures)
+
+
+# --------------------------------------------------------- tracked text bytes
+#
+# KI-0018 regression: tracked source/config text files must stay ordinary
+# reviewable UTF-8. Raw C0 control bytes (other than tab, LF, and CR, which
+# repository text policy delegates to .gitattributes/format tooling) weaken
+# reviewability and can hide adversarial content; escaped source
+# representations such as "\\0" or "\\u0007" remain the required form.
+
+TEXT_SOURCE_SUFFIXES = (
+    ".cjs",
+    ".js",
+    ".json",
+    ".md",
+    ".mjs",
+    ".py",
+    ".toml",
+    ".ts",
+    ".tsx",
+    ".yaml",
+    ".yml",
+)
+ALLOWED_TEXT_CONTROL_BYTES = frozenset({0x09, 0x0A, 0x0D})
+
+
+def _raw_control_bytes(data: bytes) -> set[int]:
+    return {
+        byte for byte in data if byte < 0x20 and byte not in ALLOWED_TEXT_CONTROL_BYTES
+    }
+
+
+def _tracked_text_files() -> list[Path]:
+    ctx = verify.Context(
+        repo=REPO_ROOT,
+        registry_path=REPO_ROOT / "scripts" / "verification-suites.json",
+        status_path=REPO_ROOT / "docs" / "PROJECT_STATUS.md",
+    )
+    return [
+        REPO_ROOT / rel
+        for rel in verify.git_tracked_files(ctx)
+        if rel.endswith(TEXT_SOURCE_SUFFIXES)
+    ]
+
+
+def test_generator_test_module_contains_no_literal_nul() -> None:
+    data = (
+        REPO_ROOT
+        / "packages"
+        / "contracts"
+        / "test"
+        / "generated"
+        / "generator.test.ts"
+    ).read_bytes()
+    assert b"\x00" not in data
+    # The adversarial runtime values survive as escaped source
+    # representations, which remain allowed.
+    assert b'.join("\\u0000")' in data
+    assert b"\\u0007" in data
+    assert b"\\u2028" in data
+
+
+def test_tracked_text_sources_contain_no_raw_control_bytes() -> None:
+    offenders: list[str] = []
+    scanned = 0
+    for path in _tracked_text_files():
+        scanned += 1
+        data = path.read_bytes()
+        if b"\x00" in data:
+            offenders.append(f"{path}: literal NUL byte")
+            continue
+        raw = _raw_control_bytes(data)
+        if raw:
+            rendered = ", ".join(hex(byte) for byte in sorted(raw))
+            offenders.append(f"{path}: raw control byte(s) {rendered}")
+    assert scanned > 100, "tracked text-file sweep collapsed unexpectedly"
+    assert offenders == []
+
+
+def test_raw_control_byte_detector_bans_c0_but_respects_text_policy() -> None:
+    assert _raw_control_bytes(b"plain text\twith tab\nand lf\r\n") == set()
+    assert _raw_control_bytes(b"nul\x00byte") == {0x00}
+    assert _raw_control_bytes(b"bel\x07 esc\x1b vt\x0b ff\x0c") == {
+        0x07,
+        0x1B,
+        0x0B,
+        0x0C,
+    }
+    # Escaped source representations are ordinary printable characters.
+    escaped_only = b'separator = "\\0"; bell = "\\u0007"'
+    assert _raw_control_bytes(escaped_only) == set()

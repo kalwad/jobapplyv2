@@ -44,7 +44,10 @@ committed generated TypeScript/Pydantic trees under
 `packages/contracts/generated/`, and the ACTIVE contract-gen drift suite.
 One reproducible defect class was discovered and fixed during package
 validation (KI-0017 below — the same boundary-fixture premise-inheritance
-class as KI-0014/KI-0015/KI-0016). Deliberate, documented scope boundaries
+class as KI-0014/KI-0015/KI-0016), and a focused corrective closeout then
+fixed KI-0018 below (non-rollback-safe generated-tree replacement plus
+literal control bytes in tracked test source) without changing generated
+output bytes. Deliberate, documented scope boundaries
 (not defects): the generator supports exactly the construct set committed by
 M01-W01 and fails closed on everything else (arrays, general combinators,
 exclusive bounds, non-date formats — see packages/contracts/README.md §10a);
@@ -104,6 +107,60 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0018 — Generated-tree replacement was not rollback-safe; tracked source carried literal control bytes
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-27 during the M01-W02 post-verification review
+- Affects: M01-W02; `packages/contracts/generator/fsops.ts`
+  (`installGeneratedTree`), `packages/contracts/generator/cli.ts`,
+  `packages/contracts/README.md` §10a wording,
+  `packages/contracts/test/generated/generator.test.ts`
+- Description: two distinct defects. (1) Write-mode installation deleted
+  the existing `generated/` tree before renaming the staging tree into
+  place; a rename failure after that deletion (Windows file lock,
+  permission failure, interruption) would leave NO usable generated tree,
+  and the cleanup block then removed staging as well. Documentation also
+  overstated the guarantee as a single atomic rename. (2) The tracked
+  generator test module contained literal control bytes — a raw NUL used
+  as a join separator, plus a raw BEL and an invisible U+2028 inside an
+  adversarial fixture string — weakening source reviewability (invisible
+  bytes in review diffs) even though the runtime values were legitimate
+  test inputs.
+- Reproduction: (1) inject a failure into the staging→generatedRoot rename
+  after the old tree was removed (deterministically reproduced through the
+  new InstallFsOps seam): the previous implementation ended with no
+  generated tree on disk. (2) `python3` byte-scan of
+  `packages/contracts/test/generated/generator.test.ts` at
+  `efd41b22b311d12055e072814bf647057fbca440` reports a 0x00 byte on line
+  132 and a 0x07 byte on line 453.
+- Workaround: none accepted; regeneration after a failed install would
+  rebuild the tree, but a failure window with no valid tree (and possibly
+  no working generator environment) is not an acceptable resting state.
+- Resolution + evidence link: `installGeneratedTree` now performs a
+  transactional, rollback-safe replacement — the new tree is materialized
+  and byte-verified in a unique sibling staging directory before the
+  existing tree is touched; the existing tree is renamed to a unique
+  sibling backup (never deleted first); the verified staging tree is
+  renamed into place; the backup is removed only after success; an
+  installation failure automatically restores the backup; a rollback
+  failure deletes nothing and reports every surviving directory plus the
+  manual recovery action; documentation now states the guarantee honestly
+  (transactional/rollback-safe, not atomic). Eleven deterministic
+  failure-injection tests cover every protocol step through the
+  injectable `InstallFsOps` seam
+  (`packages/contracts/test/generated/fsops-install.test.ts`). The
+  control bytes are replaced with escaped source representations
+  (`\u0000` join separator; `\u0007`/`\u2028` in the adversarial
+  fixture — identical runtime values), `pythonStringLiteral` additionally
+  escapes U+2028/U+2029 in emitted Python, and regression sweeps ban raw
+  C0 bytes (except tab/LF/CR) across every tracked
+  TypeScript/Python/JSON/Markdown/TOML/YAML/JavaScript file while
+  explicitly allowing escaped representations
+  (`scripts/tests/test_integrity.py`). Generated outputs remain
+  byte-identical (35 files). Evidence: docs/TEST_EVIDENCE.md § M01-W02
+  (corrective closeout subsection).
 
 ### KI-0017 — Boundary fixtures inherited the pre-M01-W02 premises
 

@@ -2,7 +2,11 @@
  * Command-line driver for the contract generator (M01-W02).
  *
  * Modes:
- * - write (default): regenerate `packages/contracts/generated/` atomically.
+ * - write (default): regenerate `packages/contracts/generated/` through
+ *   the transactional, rollback-safe whole-tree replacement in fsops.ts
+ *   (staging is verified before the existing tree is touched, the
+ *   existing tree is preserved as a backup until the new tree is
+ *   installed, and failures restore or preserve the previous tree).
  * - --check: regenerate into an isolated temporary directory outside the
  *   repository, verify the materialized bytes, and byte-compare the
  *   complete inventory against the committed tree. Read-only with respect
@@ -13,17 +17,18 @@
  * repository. Exit codes: 0 success, 1 drift, 2 usage/generation failure.
  */
 
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
   compareGeneratedTree,
-  listTreeFiles,
+  installGeneratedTree,
+  REAL_INSTALL_FS_OPS,
+  verifyMaterializedTree,
   type DriftFinding,
 } from "./fsops.ts";
-import { installGeneratedTree } from "./fsops.ts";
 import { generateContracts, type GeneratedTree } from "./generate.ts";
 
 /** Default generated root: packages/contracts/generated. */
@@ -83,30 +88,9 @@ function renderFinding(finding: DriftFinding): string {
  */
 function materializeToTemporary(tree: GeneratedTree): string {
   const temporaryRoot = mkdtempSync(join(tmpdir(), "japp-contract-gen-"));
-  installGeneratedTree(tree, join(temporaryRoot, "generated"));
   const materializedRoot = join(temporaryRoot, "generated");
-  const materialized = listTreeFiles(materializedRoot);
-  const expected = [...tree.files.keys()].sort();
-  if (
-    materialized.length !== expected.length ||
-    materialized.some((path, index) => path !== expected[index])
-  ) {
-    throw new Error(
-      "temporary materialization produced a different file inventory than " +
-        "the in-memory generation (write-path defect)",
-    );
-  }
-  for (const relative of expected) {
-    const content = readFileSync(
-      join(materializedRoot, ...relative.split("/")),
-      "utf8",
-    );
-    if (content !== tree.files.get(relative)) {
-      throw new Error(
-        `temporary materialization altered ${relative} (write-path defect)`,
-      );
-    }
-  }
+  REAL_INSTALL_FS_OPS.materializeTree(tree, materializedRoot);
+  verifyMaterializedTree(tree, materializedRoot);
   return temporaryRoot;
 }
 

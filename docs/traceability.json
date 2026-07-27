@@ -5440,8 +5440,8 @@
       "id": "M01-W02",
       "milestone": "M01",
       "title": "Generate TypeScript and Python contracts",
-      "current_state": "VERIFIED",
-      "verified_revision": "tree 3d4b0f16990decf6bb8dfa7e59e3b89a1628903d",
+      "current_state": "IN_PROGRESS",
+      "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W01"
       ],
@@ -5476,19 +5476,14 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [
-        {
-          "path": "docs/TEST_EVIDENCE.md",
-          "heading": "### M01-W02"
-        }
-      ],
+      "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W03",
       "milestone": "M01",
       "title": "Define error taxonomy",
-      "current_state": "READY",
+      "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W02"
