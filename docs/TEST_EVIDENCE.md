@@ -171,6 +171,43 @@ Exact verification commands and summarized results
     (M01-W05) and visual (M10-W06) honestly NOT_YET_APPLICABLE;
     status-neutral. `git diff --check` → exit 0.
 
+#### M01-W03 clean-clone simulation (local, committed content revision)
+
+- `git clone <repository> <fresh directory>` at
+  `916c14ad1832adbb021e5eef4c6f2f046d89056e` → exit 0.
+- `pnpm install --frozen-lockfile` → exit 0; `uv sync --locked` → exit 0;
+  `pnpm exec playwright install chromium` → exit 0.
+- `pnpm generate:contracts --check` → exit 0, "generated contracts are up
+  to date (44 files, byte-identical)" — schemas plus the canonical error
+  catalog reproduce the committed trees exactly from a clean locked
+  install.
+- Write-mode `pnpm generate:contracts` followed by
+  `git status --porcelain` → zero changes (byte-exact no-op).
+- `pnpm run doctor` → exit 0, 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE. `pnpm verify` → exit 0; clean tree throughout.
+
+#### M01-W03 hosted three-OS content verification
+
+- Content run 30242783456 at commit
+  `916c14ad1832adbb021e5eef4c6f2f046d89056e` succeeded on all three
+  required jobs: windows-2025 job 89903310571 (4m8s), macos-15 job
+  89903310628 (2m41s), and ubuntu-24.04 job 89903310666 (2m14s).
+- The complete Windows job log was downloaded and inspected: the job
+  checked out exactly `916c14ad1832adbb021e5eef4c6f2f046d89056e`; the
+  canonical doctor reported 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE with a clean working tree; aggregate verification
+  reported "generated contracts are up to date (44 files, byte-identical)"
+  — the error-taxonomy generation therefore reproduces byte-exactly on
+  windows-2025 — plus contract-gen ACTIVE and PASS, 258 @japp/contracts
+  Vitest tests, 493 Python tests (`493 passed in 84.60s`), and
+  `verification exit code: 0` (REQ-PLAT-013 infrastructure evidence only —
+  not Windows 11 product certification).
+- After this hosted success, M01-W03 was marked VERIFIED at content tree
+  `1acf66eb15095e4777d89d66833720cfb6fd0360`, M01-W04 became the sole
+  READY package, and M01 remains IN_PROGRESS. The conventional
+  revision-stamp commit records this closeout; its own three-OS run is
+  required to pass at the final head.
+
 ### M01-W02 — Generate TypeScript and Python contracts (2026-07-27)
 
 - Revision: content working tree (commit recorded post-commit). Bootstrap ran
