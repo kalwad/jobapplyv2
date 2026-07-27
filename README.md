@@ -164,7 +164,7 @@ services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
 
-## Traceability and next-work derivation (M00-W07, extended by M00-W08)
+## Traceability and next-work derivation (M00-W07, reviewed for v1.3 by M00-W10)
 
 `docs/traceability.json` is the canonical machine-readable mapping.
 It contains all 157 requirement records and all 286 expanded work-package
@@ -174,12 +174,12 @@ milestone/gate dependencies remain owned by the immutable canonical
 specification; live states/evidence remain owned by `PROJECT_STATUS.md` and
 the critical-gate ledger. The 135 requirement mappings and 260 dependency
 records reviewed in M00-W07 retain their exact hashes. M00-W08 mechanically
-adds the v1.3 delta with the visible review state
-`PROVISIONAL_PENDING_M00_W10`; this is inventory coverage, not a completed
-platform mapping audit. The JSON records ownership,
-planned components/test/evidence layers, honest implementation state,
-sequential dependency derivation, direct downstream edges, and mapping
-checksums.
+added the v1.3 delta in a visibly provisional migration state. M00-W10
+independently reviewed every one of the 22 new requirements and 26 new
+packages, promoted only those records to `REVIEWED_V1_3`, and locked the
+final expanded mapping/dependency hashes. The JSON records ownership, planned
+components/test/evidence layers, honest implementation state, sequential
+dependency derivation, direct downstream edges, and mapping checksums.
 
 `docs/REQUIREMENTS_TRACEABILITY.md` is a generated view and must not be
 edited by hand:
@@ -194,8 +194,7 @@ text/title/ownership drift, unknown or cyclic dependencies, incorrect
 critical-gate effects, premature readiness, false future implementation or
 evidence, missing completed paths/evidence headings/gate reports, and
 human/machine disagreement. It is an always-active mandatory `pnpm verify`
-suite, so `pnpm preflight` and both CI matrix jobs enforce the same data.
-M00-W10 must review the provisional mappings before v1.3 M00 acceptance.
+suite, so `pnpm preflight` and all three CI matrix jobs enforce the same data.
 Future packages update the JSON, regenerate the Markdown, record real
 evidence, and keep future work `NOT_STARTED`/`NOT_YET_APPLICABLE` until real
 code and tests exist.

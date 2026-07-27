@@ -13,3 +13,12 @@ claimed by M00-W08.
 Every future evidence row must identify the exact OS build, architecture,
 artifact hash/signature, install path, browser/webview, test date, raw
 artifact bundle, and known limitations.
+
+For a future Gate D `PASS`, every certified-platform row must be `VERIFIED`
+and cite its owning M27 package in `docs/TEST_EVIDENCE.md` or a dedicated
+artifact below `docs/gates/evidence/`. The reference must resolve, including
+any named heading; arbitrary or irrelevant repository files, placeholders,
+URLs, absolute/traversal/symlink-escaped paths, missing evidence, and duplicate
+rows are rejected. `VERIFIED` requires the native installer, signed/verified
+update, rollback, repair, uninstall, and private-data-preservation matrix; it
+is not implied by compilation or hosted repository CI.

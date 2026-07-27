@@ -11,11 +11,11 @@ labels such as "the product," "desktop app," and "browser extension."
 The owner selects the implementation agent per package; that selection remains
 active until the owner explicitly changes it. The repository never
 automatically routes between Claude, Codex, or reasoning modes. Independent
-critical audits still use a separate clean session or worktree (spec §0(20)).
+critical audits still use a separate clean session or worktree (spec §0(26–27)).
 
 ## Mandatory session bootstrap (spec §1.2)
 
-At the beginning of every new prompt or resumed session, Claude must:
+At the beginning of every new prompt or resumed session, the implementation agent must:
 
 1. Read this file.
 2. Read `docs/MASTER_IMPLEMENTATION_SPEC.md`.
@@ -37,13 +37,13 @@ At the beginning of every new prompt or resumed session, Claude must:
 |---|---|---|
 | `CLAUDE.md` | Session contract and bootstrap | Changes require owner approval |
 | `docs/MASTER_IMPLEMENTATION_SPEC.md` | Canonical contract | Never silently rewritten; changes only through an owner-ACCEPTED ADR (spec §1.4) |
-| `docs/PROJECT_STATUS.md` | Milestone/package states, critical-gate states, blockers, next action | Claude updates at every package start and finish; must PASS `python3 scripts/validate_status.py` after every edit |
-| `docs/DECISIONS.md` | Owner decisions and ADRs | Claude may add PROPOSED ADRs; only the owner ACCEPTS or REJECTS |
+| `docs/PROJECT_STATUS.md` | Milestone/package states, critical-gate states, blockers, next action | The implementation agent updates it at every package start and finish; it must PASS `python3 scripts/validate_status.py` after every edit |
+| `docs/DECISIONS.md` | Owner decisions and ADRs | The implementation agent may add PROPOSED ADRs; only the owner ACCEPTS or REJECTS |
 | `docs/TEST_EVIDENCE.md` | Exact verification commands and results | Appended at every package verification; never record a command that was not run and inspected in the current repository state |
 | `docs/KNOWN_ISSUES.md` | Reproducible defects, deferred risks, parked ideas | Updated whenever discovered; scope ideas are parked here instead of broadening a package |
 | `docs/COMPATIBILITY_MATRIX.md` | ATS/browser/OS support and measured pass rates | Measured, evidence-linked data only |
 | `docs/PLATFORM_SUPPORT.md` and `docs/platform/` | Certified target policy and planning/future-evidence registers | Never convert planned support to certified evidence without the owning package and native proof |
-| `docs/traceability.json` | Canonical machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | v1.2 mappings remain hash-locked; M00-W08 additions stay `PROVISIONAL_PENDING_M00_W10` until the M00-W10 audit; regenerate/check the Markdown view after every intentional update |
+| `docs/traceability.json` | Canonical machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | v1.2 mappings remain `REVIEWED_V1_2` and hash-locked; the M00-W10-audited v1.3 delta remains `REVIEWED_V1_3` and hash-locked; regenerate/check the Markdown view after every intentional update |
 | `docs/REQUIREMENTS_TRACEABILITY.md` | Generated requirement and work-package traceability/readiness view | Never edit by hand; regenerate with `pnpm traceability:generate` and require `pnpm traceability:check` |
 | `docs/CRITICAL_GATES.md` | Autofill, resume/PageFit, Workday, and Cross-Platform Core gate state, corpus/evidence hash, reviewer, decision | Gate states change only with recorded evidence; PASS additionally requires independent review and the owner decision (spec §12) |
 | `docs/gates/` | Per-gate run reports and the holdout execution log | Append-only run records; states mirror `docs/CRITICAL_GATES.md` |
@@ -101,7 +101,7 @@ NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
 
 ## Change control (spec §1.4)
 
-Claude must not silently alter the specification, the selected stack, trust
+The implementation agent must not silently alter the specification, the selected stack, trust
 boundaries, the model lock, acceptance thresholds, critical-gate status, or
 compatibility claims. When a change is necessary: add a PROPOSED ADR to
 `docs/DECISIONS.md` explaining the observed constraint, alternatives,

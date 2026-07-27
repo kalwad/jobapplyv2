@@ -33,6 +33,175 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W10 — Extend traceability and re-accept M00 under v1.3 (2026-07-26)
+
+- Revision: content tree/commit pending completion and hosted verification.
+- Independent clean-session bootstrap:
+  - `git fetch origin`, `git status --short`, `git branch --show-current`,
+    `git rev-parse HEAD`, and `git rev-parse origin/main` → exit 0; clean
+    `main`; local HEAD and `origin/main` both
+    `c09faaf02e546a1d57f402f18341087b21da492d`.
+  - `python3 scripts/validate_status.py` → exit 0, all 35 bootstrap check
+    groups passed.
+  - `pnpm traceability:check` → exit 0, exactly 157 requirements and 286
+    work packages validated.
+  - `pnpm run doctor` → exit 0, 20 PASS / 0 WARNING / 0 FAIL / 3 honest
+    NOT_YET_APPLICABLE suite states.
+  - `pnpm verify` → exit 0; 248 Python tests, nine fresh workspace Vitest
+    tests, one Playwright browser smoke test, and one Rust test passed;
+    status, traceability, portability, and integrity suites passed.
+- Independent history and hosted-evidence audit:
+  - Inspected the complete diffs
+    `0f8059c97d1167d6bb34413bae5c1c3c44b1ae37..33b012e1d30fa82b62ee0ce02746b56839c4816b`
+    and
+    `33b012e1d30fa82b62ee0ce02746b56839c4816b..c09faaf02e546a1d57f402f18341087b21da492d`
+    rather than relying on the prior implementation report.
+  - Inspected actual GitHub Actions metadata and all six job logs for
+    M00-W09 content run 30226212092 (macOS 89856707366, Windows
+    89856707365, Ubuntu 89856707333) and final-head run 30226415354
+    (Windows 89857236382, macOS 89857236428, Ubuntu 89857236430). Both
+    revisions and all jobs succeeded; every job checked out its exact head
+    and ran the same locked installs plus `pnpm run doctor` and
+    `pnpm verify`. The Windows Server 2025 jobs remain infrastructure
+    evidence only, not Windows 11 product certification.
+- Human-reviewed traceability audit:
+  - Compared all 22 new requirement records (`REQ-PLAT-011…026`,
+    `REQ-GATE-017…022`) against exact §4 text/family, §9 owners, planned
+    components, automated/manual/native/benchmark evidence, gate/release
+    effects, and actual repository state.
+  - Compared all 26 new package records against exact IDs/titles,
+    sequential direct prerequisites, milestone/accepted/gate prerequisites,
+    primary deliverables, package-specific automated/manual/native proof,
+    direct downstream packages/milestones, and current evidence.
+  - Confirmed all dependency edges and readiness qualifiers were correct.
+    Corrected `REQ-PLAT-013` to verified repository-infrastructure evidence;
+    recorded `REQ-PLAT-025` as `SCAFFOLD_ONLY` because shell-neutral
+    repository commands exist while M03-W09 packaged runtime discovery does
+    not; kept every future product requirement/package honest and without
+    current implementation evidence.
+  - Preserved the v1.2 requirement hash
+    `c2b4275f13d1074dea1532ae8d2a9020668eb44751c371e562cc78e46844eec9`
+    and dependency hash
+    `bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f`.
+    The final reviewed v1.3 requirement-mapping hash is
+    `4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b`;
+    the final reviewed package dependency/proof-plan hash is
+    `549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760`.
+    Both are independently pinned in `scripts/traceability.py`, not merely
+    recomputed against mutable companion values in the JSON.
+  - Kept all 135 legacy requirement records and 260 legacy package records
+    at `REVIEWED_V1_2`; promoted exactly the 22/26 v1.3 delta to
+    `REVIEWED_V1_3`; and removed every live
+    `PROVISIONAL_PENDING_M00_W10` state. The expanded requirement hash locks
+    reviewed mappings plus honest implementation/verification state,
+    completed paths, evidence, and notes. The expanded package hash locks
+    prerequisites/downstream effects plus package-specific deliverable and
+    automated/manual proof plans while live state/revision/evidence remain
+    status-owned.
+- Independent audit findings and resolutions:
+  - KI-0007: the provisional expanded hashes could be refreshed from the
+    same edited JSON. Pinned final reviewed hashes and isolated self-rehash,
+    mapping, dependency, proof-plan, honesty, and evidence-substitution
+    negatives now fail closed.
+  - KI-0008: generic workflow text named Claude, v1.3 had generalized
+    historical ADR-0001/OD-020 facts, and the PyYAML comment omitted its
+    production consumer. Generic wording is now agent-neutral; exact v1.2
+    routing facts are restored with explicit prospective ADR-0002/OD-026
+    supersession; the dependency comment names
+    `scripts/check_portability.py`.
+  - KI-0009: Windows home redaction was casing/separator-sensitive and early
+    fatal diagnostics bypassed it. Native, forward-slash, mixed-case, UNC,
+    boundary, and fatal paths now share fail-closed redaction without
+    over-redacting unrelated text; POSIX matching stays case-sensitive.
+  - KI-0010: portability predicates admitted disconnected matrices and
+    scanned inert docstrings/comments. The checker now proves one exact
+    three-OS `matrix.os` job owns both unguarded canonical commands; rejects
+    weaker guards, masking, extra/excluded axes, runtime path aliases, and
+    executable banned constructs; and ignores module/class/function
+    docstrings, type metadata, YAML comments, and PowerShell block comments.
+    The valid workflow required no change.
+  - KI-0011: arbitrary nonempty Gate D evidence could satisfy future PASS
+    checks. PASS now requires resolvable, repository-relative, owner-scoped
+    evidence; unique accepted profile/platform/native-messaging/package
+    rows; non-placeholder metrics; zero zero-tolerance failures; M27-W12
+    decision ownership; and report/ledger/status revision, hash, reviewer,
+    owner-decision, and holdout agreement. Gate D remains NOT_EVALUATED and
+    no evidence was fabricated.
+  - KI-0012: M00 closeout, current/next-work, release, gate-report, and
+    preserved-revision checks admitted inconsistent states. The validator
+    now requires all ten M00 packages exactly VERIFIED before acceptance,
+    makes M01/M01-W01 READY with M01-W01 the sole READY package after valid
+    closeout, preserves W01…W09 anchors, and rejects premature gates or
+    mismatched status/report/ledger/header state.
+- Environment: macOS 27.0 arm64; Node v24.18.0; pnpm 11.17.0; uv
+  0.11.32; uv-managed CPython 3.12.13; rustc/cargo 1.97.1; Playwright
+  1.62.0 with pinned Chromium.
+- Focused post-change verification:
+  - `uv run ruff format --check ...`, `uv run ruff check ...`, and
+    `uv run mypy scripts/traceability.py scripts/validate_status.py
+    scripts/check_portability.py scripts/doctor.py` → exit 0.
+  - `uv run pytest scripts/tests -q` → exit 0, 357 passed. The isolated
+    fixture coverage includes reviewed-state/hash tampering, deterministic
+    JSON/Markdown generation, exact M00/M01 readiness, false Gate D
+    evidence, Windows redaction variants, inert-prose false positives,
+    executable banned constructs, disconnected/dummy matrices, guarded
+    commands, and verification read-only/fail-closed behavior.
+  - `python3 scripts/validate_status.py` → exit 0, all 36 current-state
+    check groups passed; `pnpm traceability:check` → exit 0 at exactly
+    157 requirements / 286 packages; and
+    `uv run python scripts/check_portability.py` → exit 0.
+  - `pnpm run doctor` → exit 0, 19 PASS / one expected dirty-tree WARNING /
+    zero FAIL / three honest NOT_YET_APPLICABLE future suites.
+  - Complete focused suites: traceability 60/60; status validator 90/90;
+    portability plus CI policy 126/126; doctor 45/45; verification,
+    integrity, proof, and suite-state tests 36/36.
+- Complete local validation:
+  - `pnpm install --frozen-lockfile`, `uv sync --locked`, and
+    `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`
+    → exit 0; all 13 workspace projects were current, 17 Python packages
+    resolved / 15 checked, and the locked Rust dependency graph fetched.
+  - `pnpm traceability:generate` twice → exit 0 and the generated view
+    remained byte-identical at SHA-256
+    `f5abc375054f86eb04facb1fba1f4bb28a4a861693aee1daab500a096f10c5e4`;
+    `pnpm traceability:check` remained read-only and validated 157/286.
+  - `pnpm run doctor --json` twice → exit 0 and byte-identical output
+    (SHA-256
+    `8a7fa714ed890856cdee7ec8821e387af3aaf7d367b5e6d070145b9172390fe6`);
+    human output remained 19 PASS / one expected dirty-tree WARNING / zero
+    FAIL / three honest NOT_YET_APPLICABLE.
+  - `pnpm preflight`, `pnpm lint`, `pnpm format:check`, `pnpm typecheck`,
+    `pnpm test`, `pnpm test:e2e`, `pnpm test:python`, and
+    `pnpm test:rust` each exited 0. Results were nine workspace Vitest
+    tests/typechecks, one controlled Chromium test, 358 total Python tests
+    including the orchestrator smoke test, and one Rust test plus rustfmt,
+    Clippy `-D warnings`, and build.
+  - Final working-tree `pnpm verify` → exit 0: toolchain, format, lint,
+    typecheck, unit-ts, e2e-browser, Python, Rust, portability,
+    traceability, status, and integrity were ACTIVE/PASS; contract-gen,
+    contract, and visual remained honestly NOT_YET_APPLICABLE. A before/
+    after porcelain comparison proved the aggregate verifier made no
+    tracked-state change.
+  - `git diff --check` → exit 0; the canonical specification remained the
+    sole canonical file, its SHA-256 remained
+    `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`,
+    and its 39/286/157/four inventory remained exact.
+- Local clean-clone simulation:
+  - Cloned the repository with `git clone --no-local` into a new
+    `mktemp -d` location, applied the complete binary working diff, committed
+    the fixture at tree
+    `b2faf78920dae74e995c0a1e7969485628113ee4`, and ran the same locked pnpm,
+    uv, and Cargo setup without reusing the source checkout's dependency
+    directories.
+  - In that clean clone, `pnpm traceability:check` validated 157/286,
+    `python3 scripts/validate_status.py --quiet` passed 36 groups,
+    `pnpm run doctor` reported 20 PASS / zero WARNING / zero FAIL / three
+    honest NOT_YET_APPLICABLE, and `pnpm verify` passed all active suites
+    with 358 Python, nine workspace Vitest, one Chromium, and one Rust test.
+    Final `git status --short` was empty, proving installs and verification
+    were read-only.
+- The content revision and its hosted three-OS results are recorded below
+  after those checks run and are inspected.
+
 ### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
 
 - Revision: tree `ae69a908cc31e0f1282c136c25fb7f92752680dd` / commit

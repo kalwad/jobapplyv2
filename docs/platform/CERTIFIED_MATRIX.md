@@ -26,3 +26,12 @@ portability (pins, doctor, canonical verification, portability policy) on a
 hosted Windows Server runner, not certified Windows 11 desktop product
 behavior, which remains `NOT_YET_IMPLEMENTED` until its owning packages
 produce native packaged evidence.
+
+A future Gate D `PASS` requires exactly one row per certified target, a
+`CERTIFIED_FULL` current product state, and scoped native evidence under the
+target's M27 owning-package heading in `docs/TEST_EVIDENCE.md` or a dedicated
+file below `docs/gates/evidence/` (optionally with an existing heading
+anchor). Hosted-run URLs, arbitrary repository files, irrelevant package
+headings, absolute paths, traversal, missing files/headings, duplicate rows,
+and free-form placeholder text cannot satisfy Gate D. M00-W10 validates this
+boundary without manufacturing any product evidence.

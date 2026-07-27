@@ -507,16 +507,96 @@ def test_windows_remediation_never_references_homebrew() -> None:
         assert "/opt/" not in lowered
 
 
-def test_scrub_redacts_windows_home_with_space_and_unicode() -> None:
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (
+            "cargo at C:\\Users\\Tanish Ünïcode\\.cargo\\bin\\cargo.exe",
+            "cargo at ~\\.cargo\\bin\\cargo.exe",
+        ),
+        (
+            "runtime C:/Users/Tanish Ünïcode/.rustup/toolchains",
+            "runtime ~/.rustup/toolchains",
+        ),
+        (
+            "drive c:\\Users\\Tanish Ünïcode\\.cargo",
+            "drive ~\\.cargo",
+        ),
+        (
+            "directory C:\\uSeRs\\Tanish Ünïcode\\.cargo",
+            "directory ~\\.cargo",
+        ),
+        (
+            "username C:\\Users\\tANISH üNÏCODE\\.cargo",
+            "username ~\\.cargo",
+        ),
+        (
+            "mixed C:/uSeRs\\tANISH üNÏCODE/.rustup",
+            "mixed ~/.rustup",
+        ),
+    ],
+)
+def test_scrub_redacts_windows_home_with_mixed_case_and_separators(
+    text: str, expected: str
+) -> None:
     home = Path("C:\\Users\\Tanish Ünïcode")
+    assert doctor._scrub(text, home) == expected
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "C:\\Users\\Tanish Ünïcode-old\\.cargo",
+        "C:/Users/Tanish Ünïcode.backup/.rustup",
+        "C:\\Users\\Tanish Ünïcodes\\.cargo",
+        "prefixC:\\Users\\Tanish Ünïcode\\.cargo",
+    ],
+)
+def test_scrub_does_not_redact_unrelated_windows_path_prefixes(text: str) -> None:
+    home = Path("C:\\Users\\Tanish Ünïcode")
+    assert doctor._scrub(text, home) == text
+
+
+def test_scrub_keeps_posix_case_sensitive_and_component_bounded() -> None:
+    home = Path("/Users/Fixture User")
     text = (
-        "cargo at C:\\Users\\Tanish Ünïcode\\.cargo\\bin\\cargo.exe and "
-        "C:/Users/Tanish Ünïcode/.rustup/toolchains"
+        "/Users/Fixture User/.cargo "
+        "/users/fixture user/.rustup "
+        "/Users/Fixture User-old/.cache "
+        "prefix/Users/Fixture User/.cache"
     )
-    scrubbed = doctor._scrub(text, home)
-    assert "Tanish Ünïcode" not in scrubbed
-    assert "~\\.cargo\\bin\\cargo.exe" in scrubbed
-    assert "~/.rustup/toolchains" in scrubbed
+    assert doctor._scrub(text, home) == (
+        "~/.cargo /users/fixture user/.rustup /Users/Fixture User-old/.cache "
+        "prefix/Users/Fixture User/.cache"
+    )
+
+
+def test_missing_repo_fatal_output_scrubs_windows_home(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    home = Path("C:\\Users\\Sensitive Owner")
+    code = doctor.main(
+        ["--repo", "C:\\Users\\Sensitive Owner\\missing-repo"],
+        home=home,
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert "Sensitive Owner" not in captured.err
+    assert "doctor: no package.json under ~\\missing-repo" in captured.err
+
+
+def test_pin_read_fatal_output_scrubs_home(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    home = tmp_path / "Sensitive Owner"
+    repo = home / "repo"
+    repo.mkdir(parents=True)
+    (repo / "package.json").write_text("{}", encoding="utf-8")
+    code = doctor.main(["--repo", str(repo)], home=home)
+    captured = capsys.readouterr()
+    assert code == 2
+    assert str(home) not in captured.err
+    assert "~/repo/pyproject.toml" in captured.err
 
 
 def test_read_pins_accepts_crlf_pin_files(doctor_repo: Path) -> None:

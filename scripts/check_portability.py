@@ -63,9 +63,8 @@ REGISTRY_REL = "scripts/verification-suites.json"
 CHECKER_REL = "scripts/check_portability.py"
 PORTABILITY_MODULE_REL = "scripts/portability.py"
 
-REQUIRED_WINDOWS_RUNNER = "windows-2025"
-MACOS_RUNNER_RE = re.compile(r"^macos-\d+$")
-UBUNTU_RUNNER_RE = re.compile(r"^ubuntu-\d+\.\d+$")
+REQUIRED_RUNNERS = ("macos-15", "windows-2025", "ubuntu-24.04")
+MATRIX_RUNS_ON = "${{ matrix.os }}"
 SHA_PIN_RE = re.compile(r"^(?P<action>[\w.-]+/[\w.-]+)@(?P<sha>[0-9a-f]{40})$")
 
 CANONICAL_RUN_BODIES = ("pnpm run doctor", "pnpm verify")
@@ -80,6 +79,15 @@ REJECTED_SHELLS = frozenset({"powershell", "cmd", "python"})
 PWSH_STRICTNESS = (
     "$ErrorActionPreference = 'Stop'",
     "$PSNativeCommandUseErrorActionPreference = $true",
+)
+
+# Only these complete expressions prove that a step cannot execute on
+# Windows. Any composite, malformed, or unfamiliar expression is treated as
+# Windows-reachable so a substring such as ``runner.os == 'Linux'`` cannot
+# hide an ``or runner.os == 'Windows'`` branch.
+NON_WINDOWS_GUARD_RES = (
+    re.compile(r"runner\.os\s*!=\s*(?P<quote>['\"])Windows(?P=quote)"),
+    re.compile(r"runner\.os\s*==\s*(?P<quote>['\"])(?:Linux|macOS)(?P=quote)"),
 )
 
 # Tokens that only a POSIX shell interprets (or that assume a POSIX
@@ -102,8 +110,15 @@ SHELL_SYNTAX_TOKENS_FOR_SHELLLESS_STEPS = ("&&", "||", "|", ";", ">", "<", "$(",
 
 MASKING_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("set +e", re.compile(r"set \+e\b")),
-    ("|| true / || :", re.compile(r"\|\|\s*(?:true|:)(?:\s|$)")),
-    ("terminal 'exit 0'", re.compile(r"(?:^|[;&])\s*exit\s+0(?:\s|$)")),
+    ("'||' fallback", re.compile(r"\|\|")),
+    ("exit 0", re.compile(r"\bexit\s+0\b", flags=re.IGNORECASE)),
+    (
+        "trailing unconditional success",
+        re.compile(
+            r"(?:^|\n)\s*(?:true|:|\$true)\s*;?\s*$",
+            flags=re.IGNORECASE,
+        ),
+    ),
     (
         "$ErrorActionPreference downgrade",
         re.compile(r"\$ErrorActionPreference\s*=\s*['\"]?(?:SilentlyContinue|Ignore)"),
@@ -153,10 +168,8 @@ REQUIRED_RUST_PROBES = (
     "cargo clippy --version",
 )
 
-BANNED_PATH_PREFIXES = ("/tmp", "/bin/", "/usr/", "/etc/", "/var/")
-BANNED_PATH_EXACT = ("/bin", "/usr", "/etc", "/var")
+BANNED_POSIX_PATH_RE = re.compile(r"(?<![\w:/#.-])/(?:tmp|bin|usr|etc|var)(?![\w.-])")
 BANNED_SHELL_WRAPPER_FRAGMENTS = ("bash -c", "bash -lc", "sh -c")
-SEPARATOR_CONCAT_RE = re.compile(r"\+\s*(?:\"/\"|'/'|\"\\\\\"|'\\\\')\s*\+")
 
 # package.json script bodies must stay executable under cmd.exe (pnpm's
 # Windows script shell) as well as POSIX shells: no Bash/sh wrappers, no
@@ -239,95 +252,231 @@ def _steps(workflow: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
     return located
 
 
-def _step_can_run_on_windows(step: dict[str, Any]) -> bool:
+def _condition_expression(step: dict[str, Any]) -> str | None:
     condition = str(step.get("if", "")).strip()
     if not condition:
+        return None
+    has_open_wrapper = condition.startswith("${{")
+    has_close_wrapper = condition.endswith("}}")
+    if has_open_wrapper != has_close_wrapper:
+        return None
+    if has_open_wrapper:
+        condition = condition[3:-2].strip()
+    return condition
+
+
+def _step_has_exact_os_guard(step: dict[str, Any], operating_system: str) -> bool:
+    condition = _condition_expression(step)
+    if condition is None:
+        return False
+    pattern = re.compile(
+        rf"runner\.os\s*==\s*(?P<quote>['\"]){re.escape(operating_system)}"
+        r"(?P=quote)"
+    )
+    return pattern.fullmatch(condition) is not None
+
+
+def _step_can_run_on_windows(step: dict[str, Any]) -> bool:
+    condition = _condition_expression(step)
+    if condition is None:
         return True
-    non_windows_guards = (
-        "runner.os != 'Windows'",
-        'runner.os != "Windows"',
-        "runner.os == 'Linux'",
-        "runner.os == 'macOS'",
-    )
-    return not any(guard in condition for guard in non_windows_guards)
+    return not any(pattern.fullmatch(condition) for pattern in NON_WINDOWS_GUARD_RES)
 
 
-def _strip_comment_lines(body: str) -> str:
-    return "\n".join(
-        line for line in body.splitlines() if not line.lstrip().startswith("#")
-    )
+def _strip_pwsh_block_comments(body: str) -> str:
+    """Remove PowerShell ``<# ... #>`` comments while preserving line shape."""
+
+    stripped: list[str] = []
+    quote = ""
+    escaped = False
+    block_depth = 0
+    index = 0
+    while index < len(body):
+        if block_depth:
+            if body.startswith("<#", index):
+                block_depth += 1
+                stripped.extend((" ", " "))
+                index += 2
+                continue
+            if body.startswith("#>", index):
+                block_depth -= 1
+                stripped.extend((" ", " "))
+                index += 2
+                continue
+            character = body[index]
+            stripped.append("\n" if character == "\n" else " ")
+            index += 1
+            continue
+
+        character = body[index]
+        if escaped:
+            stripped.append(character)
+            escaped = False
+            index += 1
+            continue
+        if character == "`" and quote != "'":
+            stripped.append(character)
+            escaped = True
+            index += 1
+            continue
+        if quote:
+            stripped.append(character)
+            if character == quote:
+                quote = ""
+            index += 1
+            continue
+        if character in {"'", '"'}:
+            quote = character
+            stripped.append(character)
+            index += 1
+            continue
+        if body.startswith("<#", index):
+            block_depth = 1
+            stripped.extend((" ", " "))
+            index += 2
+            continue
+        stripped.append(character)
+        index += 1
+    return "".join(stripped)
 
 
-def _check_matrix(workflow: dict[str, Any], violations: list[Violation]) -> None:
+def _strip_shell_comments(body: str, shell: str = "") -> str:
+    """Remove Bash/pwsh ``#`` comments without altering quoted values.
+
+    Workflow run blocks are executable shell values, so comments inside them
+    are not removed by the YAML parser. A ``#`` starts a comment here only
+    outside quotes and at a shell token boundary (start of line or following
+    whitespace). That keeps quoted URL fragments and literal ``#`` arguments
+    visible to the policy while harmless full-line and trailing comments
+    cannot trigger banned-token, masking, or live-site findings.
+    """
+
+    if shell == PWSH_SHELL:
+        body = _strip_pwsh_block_comments(body)
+
+    stripped: list[str] = []
+    for line in body.splitlines():
+        quote = ""
+        escaped = False
+        comment_at: int | None = None
+        for index, character in enumerate(line):
+            if escaped:
+                escaped = False
+                continue
+            if character in {"\\", "`"} and quote != "'":
+                escaped = True
+                continue
+            if quote:
+                if character == quote:
+                    quote = ""
+                continue
+            if character in {"'", '"'}:
+                quote = character
+                continue
+            if character == "#" and (index == 0 or line[index - 1].isspace()):
+                comment_at = index
+                break
+        executable = line if comment_at is None else line[:comment_at]
+        stripped.append(executable.rstrip())
+    return "\n".join(stripped)
+
+
+def _check_matrix(
+    workflow: dict[str, Any], violations: list[Violation]
+) -> tuple[str, dict[str, Any]] | None:
     jobs = workflow.get("jobs", {})
-    matrix_lists: list[list[str]] = []
-    for job in jobs.values():
-        matrix = job.get("strategy", {}).get("matrix", {})
-        os_list = matrix.get("os")
-        if isinstance(os_list, list):
-            matrix_lists.append([str(entry) for entry in os_list])
-    if not matrix_lists:
+    matrix_jobs: list[tuple[str, dict[str, Any]]] = []
+    for job_id, job in jobs.items():
+        if not isinstance(job, dict):
+            continue
+        strategy = job.get("strategy", {})
+        if isinstance(strategy, dict) and "matrix" in strategy:
+            matrix_jobs.append((str(job_id), job))
+    if len(matrix_jobs) != 1:
         violations.append(
             Violation(
                 "PORT-CI-002",
                 WORKFLOW_REL,
-                "no job declares a matrix.os list; required CI must run "
-                "macos-15, windows-2025, and ubuntu-24.04",
+                "exactly one required matrix job must own the three-OS "
+                f"baseline (found {len(matrix_jobs)})",
             )
         )
-        return
-    for os_list in matrix_lists:
-        if REQUIRED_WINDOWS_RUNNER not in os_list:
-            violations.append(
-                Violation(
-                    "PORT-CI-002",
-                    WORKFLOW_REL,
-                    f"required CI is missing the Windows baseline runner "
-                    f"'{REQUIRED_WINDOWS_RUNNER}' (found {os_list})",
-                )
+        return None
+
+    job_id, job = matrix_jobs[0]
+    strategy = job.get("strategy", {})
+    matrix = strategy.get("matrix", {}) if isinstance(strategy, dict) else {}
+    matrix_keys = set(matrix) if isinstance(matrix, dict) else set()
+    if matrix_keys != {"os"}:
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                f"jobs.{job_id}.strategy.matrix",
+                "required matrix must contain only the exact 'os' baseline "
+                f"axis (found keys {sorted(str(key) for key in matrix_keys)})",
             )
-        if not any(MACOS_RUNNER_RE.match(entry) for entry in os_list):
-            violations.append(
-                Violation(
-                    "PORT-CI-002",
-                    WORKFLOW_REL,
-                    f"required CI is missing a pinned macOS runner (found {os_list})",
-                )
+        )
+    os_list = matrix.get("os") if isinstance(matrix, dict) else None
+    actual_runners = (
+        tuple(str(entry) for entry in os_list) if isinstance(os_list, list) else ()
+    )
+    if actual_runners != REQUIRED_RUNNERS:
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                f"jobs.{job_id}.strategy.matrix.os",
+                "required matrix must contain exactly "
+                f"{list(REQUIRED_RUNNERS)} (found {list(actual_runners)})",
             )
-        if not any(UBUNTU_RUNNER_RE.match(entry) for entry in os_list):
-            violations.append(
-                Violation(
-                    "PORT-CI-002",
-                    WORKFLOW_REL,
-                    f"required CI is missing a pinned Ubuntu runner (found {os_list})",
-                )
+        )
+    if str(job.get("runs-on", "")).strip() != MATRIX_RUNS_ON:
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                f"jobs.{job_id}.runs-on",
+                f"required matrix job must derive runs-on from {MATRIX_RUNS_ON!r}",
             )
-        for entry in os_list:
-            if "latest" in entry:
-                violations.append(
-                    Violation(
-                        "PORT-CI-002",
-                        WORKFLOW_REL,
-                        f"runner label '{entry}' is not an explicit version pin",
-                    )
-                )
+        )
+    if "if" in job:
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                f"jobs.{job_id}.if",
+                "required matrix job must run unconditionally; job-level "
+                "guards can silently skip the three-OS baseline",
+            )
+        )
+    return job_id, job
 
 
 def _check_canonical_commands(
-    steps: list[tuple[str, dict[str, Any]]], violations: list[Violation]
+    required_job: tuple[str, dict[str, Any]] | None,
+    violations: list[Violation],
 ) -> None:
+    if required_job is None:
+        return
+    job_id, job = required_job
+    steps = [
+        (f"{job_id}:{step.get('name', f'step[{index}]')}", step)
+        for index, step in enumerate(job.get("steps", []))
+        if isinstance(step, dict)
+    ]
     for body in CANONICAL_RUN_BODIES:
         matches = [
             (where, step)
             for where, step in steps
-            if str(step.get("run", "")).strip() == body
+            if _strip_shell_comments(
+                str(step.get("run", "")), str(step.get("shell", ""))
+            ).strip()
+            == body
         ]
-        if not matches:
+        if len(matches) != 1:
             violations.append(
                 Violation(
                     "PORT-CI-003",
-                    WORKFLOW_REL,
-                    f"canonical command step '{body}' is missing",
+                    f"jobs.{job_id}",
+                    f"required matrix job must contain exactly one canonical "
+                    f"command step '{body}' (found {len(matches)})",
                 )
             )
             continue
@@ -404,7 +553,7 @@ def _check_shell_policy(
                 )
             )
         if shell == PWSH_SHELL and "\n" in body.strip():
-            executable = _strip_comment_lines(body)
+            executable = _strip_shell_comments(body, shell)
             for prelude in PWSH_STRICTNESS:
                 if prelude not in executable:
                     violations.append(
@@ -423,8 +572,8 @@ def _check_windows_tokens(
     for where, step in steps:
         if "run" not in step or not _step_can_run_on_windows(step):
             continue
-        body = _strip_comment_lines(str(step["run"]))
         shell = str(step.get("shell", ""))
+        body = _strip_shell_comments(str(step["run"]), shell)
         for token in POSIX_ONLY_TOKENS_ANY_WINDOWS_STEP:
             if token in body:
                 violations.append(
@@ -450,21 +599,64 @@ def _check_windows_tokens(
                     )
 
 
+PWSH_CATCH_BLOCK_RE = re.compile(
+    r"\bcatch(?:\s*\[[^\]\r\n]+\])?\s*\{(?P<body>[^{}]*)\}",
+    flags=re.IGNORECASE | re.DOTALL,
+)
+PWSH_CATCH_TOKEN_RE = re.compile(r"\bcatch\b", flags=re.IGNORECASE)
+PWSH_TERMINAL_FAILURE_RE = re.compile(
+    r"(?:^|[;\n])\s*(?:throw(?:\s+[^;\n]+)?|exit\s+[1-9]\d*)\s*;?\s*$",
+    flags=re.IGNORECASE,
+)
+
+
+def _pwsh_has_swallowed_catch(executable: str) -> bool:
+    """Return true unless every simple catch block terminates with failure.
+
+    Nested or otherwise unrecognizable catch blocks fail closed. This static
+    policy intentionally accepts only a catch whose final statement is
+    ``throw``/``throw <value>`` or an explicit non-zero ``exit``.
+    """
+
+    catch_tokens = list(PWSH_CATCH_TOKEN_RE.finditer(executable))
+    if not catch_tokens:
+        return False
+    catch_blocks = list(PWSH_CATCH_BLOCK_RE.finditer(executable))
+    if len(catch_blocks) != len(catch_tokens):
+        return True
+    return any(
+        PWSH_TERMINAL_FAILURE_RE.search(match.group("body")) is None
+        for match in catch_blocks
+    )
+
+
 def _check_masking(
-    raw: str, steps: list[tuple[str, dict[str, Any]]], violations: list[Violation]
+    workflow: dict[str, Any],
+    steps: list[tuple[str, dict[str, Any]]],
+    violations: list[Violation],
 ) -> None:
-    if "continue-on-error" in raw:
-        violations.append(
-            Violation(
-                "PORT-CI-007",
-                WORKFLOW_REL,
-                "continue-on-error is prohibited on mandatory checks",
+    for job_id, job in workflow.get("jobs", {}).items():
+        if isinstance(job, dict) and "continue-on-error" in job:
+            violations.append(
+                Violation(
+                    "PORT-CI-007",
+                    f"jobs.{job_id}",
+                    "continue-on-error is prohibited on mandatory checks",
+                )
             )
-        )
     for where, step in steps:
+        if "continue-on-error" in step:
+            violations.append(
+                Violation(
+                    "PORT-CI-007",
+                    where,
+                    "continue-on-error is prohibited on mandatory checks",
+                )
+            )
         if "run" not in step:
             continue
-        executable = _strip_comment_lines(str(step["run"]))
+        shell = str(step.get("shell", ""))
+        executable = _strip_shell_comments(str(step["run"]), shell)
         for label, pattern in MASKING_PATTERNS:
             if pattern.search(executable):
                 violations.append(
@@ -474,6 +666,15 @@ def _check_masking(
                         f"child-process failure masking ({label}) is prohibited",
                     )
                 )
+        if shell == PWSH_SHELL and _pwsh_has_swallowed_catch(executable):
+            violations.append(
+                Violation(
+                    "PORT-CI-008",
+                    where,
+                    "PowerShell catch block can swallow a child-process "
+                    "failure; terminate every catch with throw or a non-zero exit",
+                )
+            )
 
 
 def _check_actions(
@@ -582,7 +783,8 @@ def _check_rust_steps(
     rust_steps = [
         (where, step)
         for where, step in steps
-        if RUST_INSTALL_MARKER in str(step.get("run", ""))
+        if RUST_INSTALL_MARKER
+        in _strip_shell_comments(str(step.get("run", "")), str(step.get("shell", "")))
     ]
     if not rust_steps:
         violations.append(
@@ -605,7 +807,7 @@ def _check_rust_steps(
             )
         )
     for where, step in rust_steps:
-        body = str(step["run"])
+        body = _strip_shell_comments(str(step["run"]), str(step.get("shell", "")))
         for probe in REQUIRED_RUST_PROBES:
             if probe not in body:
                 violations.append(
@@ -706,7 +908,8 @@ def _check_chromium(
     installs = [
         (where, step)
         for where, step in steps
-        if "playwright install" in str(step.get("run", ""))
+        if "playwright install"
+        in _strip_shell_comments(str(step.get("run", "")), str(step.get("shell", "")))
     ]
     if not installs:
         violations.append(
@@ -717,15 +920,9 @@ def _check_chromium(
             )
         )
         return
-    linux = [
-        s for where, s in installs if "runner.os == 'Linux'" in str(s.get("if", ""))
-    ]
-    macos = [
-        s for where, s in installs if "runner.os == 'macOS'" in str(s.get("if", ""))
-    ]
-    windows = [
-        s for where, s in installs if "runner.os == 'Windows'" in str(s.get("if", ""))
-    ]
+    linux = [s for _where, s in installs if _step_has_exact_os_guard(s, "Linux")]
+    macos = [s for _where, s in installs if _step_has_exact_os_guard(s, "macOS")]
+    windows = [s for _where, s in installs if _step_has_exact_os_guard(s, "Windows")]
     if not (linux and macos and windows):
         violations.append(
             Violation(
@@ -736,8 +933,10 @@ def _check_chromium(
             )
         )
     for where, step in installs:
-        body = str(step.get("run", ""))
-        guarded_linux = "runner.os == 'Linux'" in str(step.get("if", ""))
+        body = _strip_shell_comments(
+            str(step.get("run", "")), str(step.get("shell", ""))
+        )
+        guarded_linux = _step_has_exact_os_guard(step, "Linux")
         if "--with-deps" in body and not guarded_linux:
             violations.append(
                 Violation(
@@ -787,7 +986,9 @@ def _check_no_live_sites(
     steps: list[tuple[str, dict[str, Any]]], violations: list[Violation]
 ) -> None:
     for where, step in steps:
-        body = str(step.get("run", ""))
+        body = _strip_shell_comments(
+            str(step.get("run", "")), str(step.get("shell", ""))
+        )
         if "http://" in body or "https://" in body:
             violations.append(
                 Violation(
@@ -808,12 +1009,109 @@ def _runtime_scripts(repo: Path) -> list[Path]:
     return [*scripts, *services]
 
 
+def _docstring_node_ids(tree: ast.AST) -> set[int]:
+    """Return AST identities for module/class/function docstring constants."""
+
+    identities: set[int] = set()
+    docstring_owners = (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)
+    for owner in ast.walk(tree):
+        if not isinstance(owner, docstring_owners) or not owner.body:
+            continue
+        first = owner.body[0]
+        if (
+            isinstance(first, ast.Expr)
+            and isinstance(first.value, ast.Constant)
+            and isinstance(first.value.value, str)
+        ):
+            identities.add(id(first.value))
+    return identities
+
+
+def _dotted_name(node: ast.AST) -> str:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        prefix = _dotted_name(node.value)
+        return f"{prefix}.{node.attr}" if prefix else node.attr
+    return ""
+
+
+def _add_descendant_ids(node: ast.AST, identities: set[int]) -> None:
+    identities.update(id(descendant) for descendant in ast.walk(node))
+
+
+def _type_metadata_node_ids(tree: ast.AST) -> set[int]:
+    """Return AST identities that describe types rather than runtime values."""
+
+    identities: set[int] = set()
+    for owner in ast.walk(tree):
+        if isinstance(owner, ast.arg) and owner.annotation is not None:
+            _add_descendant_ids(owner.annotation, identities)
+        elif isinstance(owner, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if owner.returns is not None:
+                _add_descendant_ids(owner.returns, identities)
+        elif isinstance(owner, ast.AnnAssign):
+            _add_descendant_ids(owner.annotation, identities)
+        elif isinstance(owner, ast.TypeAlias):
+            _add_descendant_ids(owner.value, identities)
+        elif isinstance(owner, ast.Subscript) and _dotted_name(owner.value) in {
+            "Literal",
+            "typing.Literal",
+        }:
+            # ``Literal`` arguments are values syntactically, but their
+            # strings are type vocabulary and must not be treated as runtime
+            # filesystem literals.
+            _add_descendant_ids(owner.slice, identities)
+    return identities
+
+
 def _iter_string_constants(tree: ast.AST) -> list[str]:
+    excluded = _docstring_node_ids(tree) | _type_metadata_node_ids(tree)
     return [
         node.value
         for node in ast.walk(tree)
-        if isinstance(node, ast.Constant) and isinstance(node.value, str)
+        if isinstance(node, ast.Constant)
+        and isinstance(node.value, str)
+        and id(node) not in excluded
     ]
+
+
+def _separator_variable_names(tree: ast.AST) -> set[str]:
+    """Resolve simple module/local aliases for literal slash separators."""
+
+    assignments: list[tuple[str, ast.expr]] = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            assignments.extend(
+                (target.id, node.value)
+                for target in node.targets
+                if isinstance(target, ast.Name)
+            )
+        elif (
+            isinstance(node, ast.AnnAssign)
+            and isinstance(node.target, ast.Name)
+            and node.value is not None
+        ):
+            assignments.append((node.target.id, node.value))
+
+    names: set[str] = set()
+    changed = True
+    while changed:
+        changed = False
+        for name, value in assignments:
+            is_separator = (
+                isinstance(value, ast.Constant) and value.value in {"/", "\\"}
+            ) or (isinstance(value, ast.Name) and value.id in names)
+            if is_separator and name not in names:
+                names.add(name)
+                changed = True
+    return names
+
+
+def _is_separator_operand(node: ast.expr, separator_names: set[str]) -> bool:
+    return (isinstance(node, ast.Constant) and node.value in {"/", "\\"}) or (
+        isinstance(node, ast.Name) and node.id in separator_names
+    )
 
 
 def _check_runtime_script(repo: Path, path: Path, violations: list[Violation]) -> None:
@@ -826,14 +1124,14 @@ def _check_runtime_script(repo: Path, path: Path, violations: list[Violation]) -
     for literal in _iter_string_constants(tree):
         if (rel, literal) in AST_LITERAL_ALLOWLIST:
             continue
-        if literal in BANNED_PATH_EXACT or any(
-            literal.startswith(prefix) for prefix in BANNED_PATH_PREFIXES
-        ):
+        banned_path = BANNED_POSIX_PATH_RE.search(literal)
+        if banned_path is not None:
             violations.append(
                 Violation(
                     "PORT-SRC-001",
                     rel,
-                    f"hard-coded POSIX system path {literal!r}; use "
+                    f"hard-coded POSIX system path {banned_path.group()!r} "
+                    f"in runtime literal {literal!r}; use "
                     "tempfile/pathlib or isolate it in a platform-specific "
                     "module with a tested per-platform equivalent",
                 )
@@ -888,14 +1186,23 @@ def _check_runtime_script(repo: Path, path: Path, violations: list[Violation]) -
                     "scripts/portability.py may isolate them",
                 )
             )
-    if SEPARATOR_CONCAT_RE.search(source):
-        violations.append(
-            Violation(
-                "PORT-SRC-003",
-                rel,
-                "manual path-separator string concatenation; use pathlib joins",
+    type_metadata = _type_metadata_node_ids(tree)
+    separator_names = _separator_variable_names(tree)
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.BinOp) or not isinstance(node.op, ast.Add):
+            continue
+        if id(node) in type_metadata:
+            continue
+        operands = (node.left, node.right)
+        if any(_is_separator_operand(operand, separator_names) for operand in operands):
+            violations.append(
+                Violation(
+                    "PORT-SRC-003",
+                    f"{rel}:{node.lineno}",
+                    "manual path-separator string concatenation; use pathlib joins",
+                )
             )
-        )
+            break
 
 
 def _check_case_collisions(repo: Path, violations: list[Violation]) -> None:
@@ -1039,7 +1346,10 @@ def run_checks(repo: Path) -> list[Violation]:
     violations: list[Violation] = []
     workflow, raw = _load_workflow(repo)
     steps = _steps(workflow)
-    raw_bodies = "\n".join(str(step.get("run", "")) for _, step in steps)
+    raw_bodies = "\n".join(
+        _strip_shell_comments(str(step.get("run", "")), str(step.get("shell", "")))
+        for _, step in steps
+    )
 
     workflows_dir = repo / ".github" / "workflows"
     extra = sorted(
@@ -1057,11 +1367,11 @@ def run_checks(repo: Path) -> list[Violation]:
             )
         )
 
-    _check_matrix(workflow, violations)
-    _check_canonical_commands(steps, violations)
+    required_matrix_job = _check_matrix(workflow, violations)
+    _check_canonical_commands(required_matrix_job, violations)
     _check_shell_policy(workflow, steps, violations)
     _check_windows_tokens(steps, violations)
-    _check_masking(raw, steps, violations)
+    _check_masking(workflow, steps, violations)
     _check_actions(raw, steps, violations)
     _check_permissions(workflow, violations)
     _check_checkout(steps, violations)

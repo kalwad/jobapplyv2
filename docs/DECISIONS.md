@@ -7,13 +7,13 @@ Canonical registry of (a) owner decisions that override earlier plans and
 ## Ownership and update rules
 
 - The project owner is the only party who ACCEPTS or REJECTS a decision.
-  Claude may only add entries with status `PROPOSED`; an ADR may be recorded
-  as ACCEPTED directly only when it documents a decision the owner has
-  already made and communicated (the approval source is then cited in the
-  record).
-- Claude must not silently alter the specification, the selected stack, trust
-  boundaries, the model lock, acceptance thresholds, critical-gate status, or
-  compatibility claims (spec §1.4).
+  The implementation agent may only add entries with status `PROPOSED`; an
+  ADR may be recorded as ACCEPTED directly only when it documents a decision
+  the owner has already made and communicated (the approval source is then
+  cited in the record).
+- The implementation agent must not silently alter the specification, the
+  selected stack, trust boundaries, the model lock, acceptance thresholds,
+  critical-gate status, or compatibility claims (spec §1.4).
 - Lifecycle: `PROPOSED → ACCEPTED | REJECTED`; an accepted record may later be
   `SUPERSEDED` by a newer accepted record that names it.
 - The current contract stays in force until the owner approves a change. After
@@ -46,7 +46,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-017 | The same implementation agent must not be the sole author of the implementation, expected benchmark answers, holdout cases, and final acceptance decision for a critical gate. | ACCEPTED | Spec v1.2 §0(17) |
 | OD-018 | Compatibility claims are limited to measured ATS families, Workday tenant/layout patterns, browser versions, adapter versions, locales, session modes, and last-tested dates; never claim universal support. | ACCEPTED | Spec v1.2 §0(18) |
 | OD-019 | The project is governed by evidence, not milestone count. | ACCEPTED | Spec v1.2 §0(19) |
-| OD-020 | Historical v1.2 implementation-agent routing preference. Superseded by OD-026; retained only as the decision ID that governed completed v1.2 work. | SUPERSEDED | ADR-0002 / Spec v1.3 §0(26) |
+| OD-020 | Claude implementation sessions use Fable 5 Max; broad Ultra Code workflow orchestration is not the operating plan. Independent review happens after a coherent implementation pass in a separate clean Claude Max session or GPT-5.6 Ultra Codex worktree. Prospectively superseded by OD-026/ADR-0002 for v1.3 and later; retained verbatim as the policy that governed completed v1.2 work. | SUPERSEDED | Spec v1.2 §0(20); ADR-0002 / Spec v1.3 §0(26–27) |
 | OD-021 | Certify first-release product behavior only for macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64 with Chrome stable; all other targets remain unsupported or explicitly experimental until reviewed evidence exists. | ACCEPTED | Spec v1.3 §0(20–21) |
 | OD-022 | Add `CROSS_PLATFORM_CORE` as the fourth blocking critical gate; M28 cannot become ready unless M27 is accepted and Gate D is PASS from native packaged evidence. | ACCEPTED | Spec v1.3 §0(25), §2.3, §9.1 |
 | OD-023 | Isolate platform behavior behind typed contracts and require platform-native secure storage, platform-correct Chrome native-messaging registration, and native installer/update evidence with no plaintext-secret fallback. | ACCEPTED | Spec v1.3 §0(22–25), §5.14 |
@@ -99,10 +99,12 @@ Canonical registry of (a) owner decisions that override earlier plans and
     CAPTCHA, unexpected legal terms, and final submission.
   - M00-W05 is reassigned to this adoption/migration step; CI and
     traceability seeding become M00-W06 and M00-W07.
-  - The then-current v1.2 implementation-session policy required a coherent
-    single-tree implementation pass followed by a separate clean independent
-    review (§0(20), §1.5). ADR-0002 supersedes its model-routing detail while
-    preserving that audit separation.
+  - Implementation standardizes on Claude Fable 5 Max with independent
+    review in a separate clean session or Codex worktree instead of Ultra
+    Code workflow fan-out (§0(20), §1.5).
+  - Historical note: ADR-0002/OD-026 prospectively supersedes that
+    implementation-routing detail for v1.3 and later while preserving the
+    separate clean-session/worktree audit requirement.
   - All v1.0 product scope is preserved (change summary: v1.2 "preserves the
     complete v1.0 product scope"; no capability from v1.0 §3 is dropped, and
     v1.0 §0 owner decisions 1–7 carry over verbatim or strengthened).
@@ -148,7 +150,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
   prompt states "The owner approves JAPP-MASTER-001 v1.2 as the new
   canonical specification") and instructed in-session: "Execute M00-W05 —
   Adopt and migrate the v1.2 Workday-first critical-risk rebaseline — and
-  only M00-W05 using the then-owner-selected implementation configuration."
+  only M00-W05 using Claude Fable 5 Max."
 
 ### ADR-0002 — Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport
 
@@ -185,9 +187,10 @@ Canonical registry of (a) owner decisions that override earlier plans and
   mandatory before Gate D can pass.
 - Traceability impact: preserve the M00-W07 JSON/generator/view architecture
   and its reviewed v1.2 mapping/dependency hashes. M00-W08 mechanically adds
-  the 22/26 inventory with explicit
-  `PROVISIONAL_PENDING_M00_W10` review state; M00-W10 owns the complete
-  reviewed mapping audit and M00 re-acceptance.
+  the 22/26 inventory with an explicit provisional migration state. M00-W10
+  subsequently reviews every new record, promotes exactly those records to
+  `REVIEWED_V1_3`, and locks the final expanded mapping and dependency hashes
+  before M00 re-acceptance.
 - Status impact: preserve M00-W01 through M00-W07 as VERIFIED with their
   existing tree/evidence anchors, reopen M00, revoke the historical v1.2
   readiness of M01-W01, and allow only M00-W09 to become READY after M00-W08

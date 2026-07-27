@@ -5,10 +5,11 @@
     "mechanically_extended_in_work_package": "M00-W08",
     "requirements_mapping_sha256": "c2b4275f13d1074dea1532ae8d2a9020668eb44751c371e562cc78e46844eec9",
     "work_package_dependency_sha256": "bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f",
-    "expanded_requirements_mapping_sha256": "5935754159ef421679ccf7a65928044946a4e5843f42ad38d152815dfbfff5fe",
-    "expanded_work_package_dependency_sha256": "5f73e8e49816e53842a66cd4bab70c2c412f837803556dcf733e74b029632130",
-    "v1_3_extension_review_state": "PROVISIONAL_PENDING_M00_W10",
-    "derived_dependency_review": "Sequential direct-package edges are the reviewed derivation of specification §1 ordering plus each §9 listed package order; milestone and gate edges remain exact specification data."
+    "expanded_requirements_mapping_sha256": "4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b",
+    "expanded_work_package_dependency_sha256": "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760",
+    "v1_3_extension_review_state": "REVIEWED_V1_3",
+    "derived_dependency_review": "Sequential direct-package edges are the reviewed derivation of specification §1 ordering plus each §9 listed package order; milestone and gate edges remain exact specification data. The final v1.3 hashes also lock reviewed requirement honesty fields and package deliverable, automated-verification, and manual-evidence plans.",
+    "v1_3_reviewed_in_work_package": "M00-W10"
   },
   "specification": {
     "id": "JAPP-MASTER-001",
@@ -66,7 +67,7 @@
     ],
     "mapping_review_states": [
       "REVIEWED_V1_2",
-      "PROVISIONAL_PENDING_M00_W10"
+      "REVIEWED_V1_3"
     ]
   },
   "dependency_policy": {
@@ -3638,13 +3639,13 @@
         "M27-W10"
       ],
       "planned_components": [
-        "Certified platform policy and compatibility publication"
+        "Certified target policy, support-tier vocabulary, and evidence-bounded compatibility publication"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Platform-governance inventory, support-state, traceability, and false-claim regression tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W08 adoption/platform-policy evidence now; dated native compatibility rows and Gate D evidence remain owned by M27-W10/M27-W12"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3668,8 +3669,8 @@
         "scripts/tests/test_validate_status.py",
         "scripts/tests/test_traceability.py"
       ],
-      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "M00-W08 defined and published the certified target contract and tested its honest planning states. This verifies governance only; no native product compatibility or certification claim exists.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-012",
@@ -3680,13 +3681,13 @@
         "M03-W09"
       ],
       "planned_components": [
-        "Typed platform-service boundary"
+        "Cross-language platform capability contracts and typed operating-system adapter boundary"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "TypeScript/Python/Rust contract round trips, typed-operation allowlists, arbitrary-command rejection, and shared-code OS-import boundary tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Cross-language contract and trust-boundary review plus later native adapter evidence on every certified platform"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3699,8 +3700,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-013",
@@ -3710,13 +3711,13 @@
         "M00-W09"
       ],
       "planned_components": [
-        "Three-operating-system CI policy"
+        "Pinned three-operating-system CI matrix running one canonical doctor and verification implementation"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Relational CI-matrix policy, canonical-command placement, shell/failure-masking, portability, doctor, and verification-runner tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W09 content and final-head macos-15, windows-2025, and ubuntu-24.04 hosted job logs; hosted Windows Server evidence is infrastructure-only"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3724,13 +3725,24 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
-      "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "implementation_state": "VERIFIED",
+      "verification_state": "VERIFIED",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W09"
+        }
+      ],
+      "completed_code_paths": [
+        ".github/workflows/ci.yml",
+        "scripts/check_portability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_ci_workflow.py",
+        "scripts/tests/test_portability.py"
+      ],
+      "notes": "M00-W09 verified the pinned three-OS repository CI baseline and identical canonical doctor/verify commands. This is toolchain/infrastructure evidence, not native Windows 11, Ubuntu, or macOS product certification.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-014",
@@ -3742,13 +3754,13 @@
         "M04-W09"
       ],
       "planned_components": [
-        "Operating-system secure-store adapters"
+        "Typed SecretStore with Keychain, Credential Manager/DPAPI, and Secret Service adapters"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Native allow/deny/missing/corruption/reinstall/repair tests and fail-closed no-plaintext-fallback integration tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native secret-store and encrypted-database evidence on macOS, Windows, and Ubuntu plus Gate D review"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3761,8 +3773,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-015",
@@ -3773,13 +3785,13 @@
         "M03-W10"
       ],
       "planned_components": [
-        "Cross-platform process and service lifecycle"
+        "Cross-platform process supervision and authenticated loopback service lifecycle"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Lifecycle, port collision, crash/restart, cancellation, parent-death, forced termination, and orphan-process tests on packaged native builds"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Dated packaged lifecycle logs and diagnostics on all certified platforms"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3792,8 +3804,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-016",
@@ -3805,13 +3817,13 @@
         "M04-W10"
       ],
       "planned_components": [
-        "Filesystem and process portability layer"
+        "Portable path, filesystem, temporary-file, atomic-replacement, and process semantics"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Separator, spaces/Unicode, case, CRLF/LF, reserved-name, long-path, executable, lock, atomic-replace, temp-cleanup, quoting, and termination tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native filesystem/process matrix and cross-platform restore artifacts"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3824,8 +3836,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-017",
@@ -3838,13 +3850,13 @@
         "M17-W10"
       ],
       "planned_components": [
-        "Chrome native-messaging registration adapters"
+        "Platform-native Chrome host registration, binary framing, and lifecycle adapters"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Manifest/registry install, verify, repair, update, remove, extension-allowlist, message-framing, permission, and spaces/Unicode path tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Real Chrome stable/native-host lifecycle and packaged E2E evidence on each certified platform"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3857,8 +3869,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-018",
@@ -3871,13 +3883,13 @@
         "M27-W10"
       ],
       "planned_components": [
-        "Versioned local-model platform profiles"
+        "Versioned platform model-runtime profiles, capability detection, safe fallback, and final full-AI certification"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Profile-schema OS/architecture, artifact/digest, runtime/driver, license, accelerator, context/quantization/RAM/VRAM, latency, fallback, factuality, and structured-output validation plus native candidate benchmarks"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native hardware/runtime evidence, with accepted full-AI Windows and Ubuntu profile bundles owned by M27-W10 before Gate D"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3890,8 +3902,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-019",
@@ -3903,13 +3915,13 @@
         "M05-W16"
       ],
       "planned_components": [
-        "Deterministic core fallback and capability UX"
+        "Explicit model capability state, remediation UX, and deterministic-core graceful degradation"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Unavailable runtime, insufficient hardware, unsupported download, no-model, remediation, and deterministic-workflow continuity tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native capability/no-model UI inspection and diagnostics on Windows and Ubuntu"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3922,8 +3934,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-020",
@@ -3933,13 +3945,13 @@
         "M10-W07"
       ],
       "planned_components": [
-        "Cross-platform document renderer and font policy"
+        "Controlled-font, pinned-Chromium, platform-neutral render, PDF/DOCX extraction, and visual-parity matrix"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Cross-OS goldens, text order, page count, clipping, hidden content, glyph/font fallback, Unicode, long-name/URL, page-break, and visual-threshold tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Inspected PDF/DOCX artifacts and font/license evidence from macOS, Windows, and Ubuntu"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3952,8 +3964,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-021",
@@ -3965,13 +3977,13 @@
         "M27-W09"
       ],
       "planned_components": [
-        "Native packaging and installation"
+        "Signed or verified native release packages with native-host registration and clean uninstall"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Artifact signature, install, first launch, registration, repair, upgrade, rollback, uninstall, cleanup, and user-data-preservation tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Signed/verified native installer artifacts and lifecycle logs for all certified platforms"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -3984,8 +3996,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-022",
@@ -3995,13 +4007,13 @@
         "M27-W11"
       ],
       "planned_components": [
-        "Signed update, repair, and rollback"
+        "Signed platform/architecture-targeted update, repair, rollback, and failed-update recovery"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Signature/target selection, interruption, rollback, repair, schema/version compatibility, native-host coordination, and private-data-preservation tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native update/repair/rollback matrices and signed metadata/artifacts on every certified platform"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4014,8 +4026,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-023",
@@ -4025,13 +4037,13 @@
         "M04-W10"
       ],
       "planned_components": [
-        "Portable encrypted backup and restore"
+        "OS-neutral encrypted backup manifest/artifact and cross-platform restore"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Encryption/integrity, all required source-target restores, spaces/Unicode, case collision, locked file, atomic replace, and interruption tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Native source-to-target restore bundle for the certified matrix"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4044,8 +4056,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-024",
@@ -4055,13 +4067,13 @@
         "M17-W10"
       ],
       "planned_components": [
-        "Platform-native extension/native-host E2E"
+        "Built MV3 extension, service worker, frame agents, and real native host cross-platform E2E"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Real-browser extension/native-host handshake, frame identity, service-worker restart, typed health, capability boundary, and privileged-content-script rejection tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Chrome stable traces and native-host logs from all certified platforms"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4074,8 +4086,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-025",
@@ -4086,13 +4098,13 @@
         "M03-W09"
       ],
       "planned_components": [
-        "Shell-independent commands and runtime discovery"
+        "Shell-independent canonical entry points and explicit packaged runtime/executable discovery"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Static portability negative tests plus packaged GUI discovery, PATH independence, executable suffix, quoting, spaces/Unicode, and remediation tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W09 hosted three-OS canonical-command/doctor/portability proof now; later M03 packaged runtime-discovery evidence"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4100,13 +4112,29 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W09"
+        }
+      ],
+      "completed_code_paths": [
+        ".gitattributes",
+        ".github/workflows/ci.yml",
+        "scripts/check_portability.py",
+        "scripts/doctor.py",
+        "scripts/portability.py",
+        "scripts/verify.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_ci_workflow.py",
+        "scripts/tests/test_doctor.py",
+        "scripts/tests/test_portability.py"
+      ],
+      "notes": "M00-W09 verified shell-independent repository commands, Windows-aware discovery helpers, LF policy, and portability enforcement. Packaged GUI/runtime discovery and product behavior remain NOT_STARTED under M03-W09; packages/platform is ownership scaffold only.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-PLAT-026",
@@ -4116,13 +4144,13 @@
         "M27-W10"
       ],
       "planned_components": [
-        "Published certified compatibility matrix"
+        "Evidence-linked operating-system, architecture, browser, runtime-profile, installer, and limitations publication"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Compatibility-row completeness, resolved evidence, support-tier bounds, last-tested date, and no-compilation-inference tests"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Dated M27-W10 native support publication and independent Gate D claim audit"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4135,8 +4163,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-001",
@@ -4682,16 +4710,17 @@
       "family": "Critical-gate, benchmark, and clean-room",
       "owning_packages": [
         "M00-W08",
+        "M00-W10",
         "M27-W12"
       ],
       "planned_components": [
-        "CROSS_PLATFORM_CORE ledger and evidence model"
+        "CROSS_PLATFORM_CORE ledger, per-platform evidence bundle, and resolvable evidence-reference validation"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Gate/report/state agreement, required field/profile checks, resolvable repository evidence references, placeholder rejection, and complete Gate D regression"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W08 ledger creation and M00-W10 governance validation now; native platform bundles, separate audit, and owner decision remain M27-W12"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4705,6 +4734,10 @@
         {
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W08"
+        },
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W10"
         }
       ],
       "completed_code_paths": [
@@ -4716,8 +4749,8 @@
         "scripts/tests/test_validate_status.py",
         "scripts/tests/test_traceability.py"
       ],
-      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "M00-W08 created the Gate D ledger/report and M00-W10 verified fail-closed evidence-reference governance. No Gate D run or native platform evidence exists; CROSS_PLATFORM_CORE remains NOT_EVALUATED.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-018",
@@ -4725,17 +4758,17 @@
       "family": "Critical-gate, benchmark, and clean-room",
       "owning_packages": [
         "M00-W08",
-        "M27-W12",
+        "M00-W10",
         "M28-W01"
       ],
       "planned_components": [
-        "M28 Gate D readiness enforcement"
+        "M27-acceptance and CROSS_PLATFORM_CORE readiness enforcement for M28/closed alpha"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Negative readiness tests for missing M27 acceptance, non-PASS Gate D, invalid downstream READY states, and deterministic next-work selection"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W08/M00-W10 governance audit now; later valid Gate D decision before any M28 work"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4749,6 +4782,10 @@
         {
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M00-W08"
+        },
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W10"
         }
       ],
       "completed_code_paths": [
@@ -4759,8 +4796,8 @@
         "scripts/tests/test_validate_status.py",
         "scripts/tests/test_traceability.py"
       ],
-      "notes": "M00-W08 implemented and tested the governance portion of this requirement; the mechanically added ownership mapping remains PROVISIONAL_PENDING_M00_W10, and no product-platform compatibility claim is implied.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "The repository validator and reviewed dependency map fail closed before M28. This is readiness governance only; M27 and Gate D product evidence remain future and all gates remain NOT_EVALUATED.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-019",
@@ -4770,13 +4807,13 @@
         "M27-W12"
       ],
       "planned_components": [
-        "Native packaged Gate D evidence"
+        "Native packaged Gate D execution and anti-substitution evidence policy"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Evidence validation that rejects compilation, cross-compilation, container, emulation, hosted-CI-only, or single-OS substitutes"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Actual packaged install/lifecycle/security/native-host/model/document/backup/update evidence on all three certified targets"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4789,8 +4826,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-020",
@@ -4800,13 +4837,13 @@
         "M27-W12"
       ],
       "planned_components": [
-        "Independent Gate D audit and owner decision"
+        "Independent Gate D audit, role separation, and owner-controlled decision"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Reviewer/owner/decision/report completeness and same-agent/placeholder rejection"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Separate clean-session reproduction and explicit owner PASS/REDESIGN_REQUIRED/BLOCKED decision"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4819,8 +4856,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-021",
@@ -4830,13 +4867,13 @@
         "M27-W12"
       ],
       "planned_components": [
-        "Gate D regression policy"
+        "Gate D change-trigger and complete affected cross-platform regression policy"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Regression invalidation and rerun coverage for platform interfaces, stores, native messaging, runtime, renderer/fonts, installers, updater, Chrome, and OS changes"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "Fresh native platform bundles and independent rerun review after every triggering change"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4849,8 +4886,8 @@
       "current_evidence": [],
       "completed_code_paths": [],
       "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "notes": "Reviewed by M00-W10 against JAPP-MASTER-001 v1.3; planned ownership and evidence only. No implementation, native-platform result, compatibility claim, or acceptance evidence exists yet.",
+      "mapping_review_state": "REVIEWED_V1_3"
     },
     {
       "id": "REQ-GATE-022",
@@ -4858,17 +4895,18 @@
       "family": "Critical-gate, benchmark, and clean-room",
       "owning_packages": [
         "M00-W08",
+        "M00-W10",
         "M27-W10",
         "M27-W12"
       ],
       "planned_components": [
-        "Evidence-bounded platform support claims"
+        "Evidence-bounded platform support claims and explicit experimental-target labeling"
       ],
       "automated_test_layers": [
-        "Owning-package unit/integration tests plus platform-policy and readiness regression validation"
+        "Reject unresolved/undated/overbroad support claims, placeholder evidence, compilation-only inference, and unlabeled experimental targets"
       ],
       "manual_evidence": [
-        "Native/manual/holdout evidence defined by the owning package and Gate D; none exists during M00-W08"
+        "M00-W08 support-policy records and M00-W10 false-evidence audit now; later dated M27 support rows and Gate D review"
       ],
       "gate_effects": [
         "CROSS_PLATFORM_CORE",
@@ -4876,13 +4914,30 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
-      "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Mechanically added for exact v1.3 inventory coverage; ownership and evidence planning are PROVISIONAL_PENDING_M00_W10 and make no implementation or compatibility claim.",
-      "mapping_review_state": "PROVISIONAL_PENDING_M00_W10"
+      "implementation_state": "VERIFIED",
+      "verification_state": "VERIFIED",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W08"
+        },
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W10"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/PLATFORM_SUPPORT.md",
+        "docs/platform/CERTIFIED_MATRIX.md",
+        "scripts/validate_status.py",
+        "scripts/traceability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W08 established evidence-bounded claim policy and honest NOT_YET_IMPLEMENTED rows; M00-W10 added fail-closed reference/claim validation. This verifies governance only and creates no certified platform, installer, model, or Gate D claim.",
+      "mapping_review_state": "REVIEWED_V1_3"
     }
   ],
   "work_packages": [
@@ -5207,7 +5262,7 @@
           "heading": "### M00-W08"
         }
       ],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M00-W07"
       ],
@@ -5250,7 +5305,7 @@
           "heading": "### M00-W09"
         }
       ],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M00-W08"
       ],
@@ -5275,20 +5330,19 @@
       "id": "M00-W10",
       "milestone": "M00",
       "title": "Extend traceability and re-accept M00 under v1.3",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "—",
       "primary_deliverables": [
         "Extend traceability and re-accept M00 under v1.3"
       ],
       "required_automated_verification": [
-        "M00-W10 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Full traceability, status, doctor, portability, and verification/integrity suites, including mapping/dependency tamper, Gate D false-evidence, deterministic-generation, and read-only verification negatives"
       ],
       "required_manual_evidence": [
-        "M00-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Independent history/diff/evidence audit, local clean-clone simulation, and hosted content/stamp matrices on macos-15, windows-2025, and ubuntu-24.04"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M00-W09"
       ],
@@ -5577,14 +5631,13 @@
         "Define cross-platform capability and platform-service contracts"
       ],
       "required_automated_verification": [
-        "M01-W07 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Generated TypeScript/Python/Rust platform-contract round trips plus invalid support-tier, capability, arbitrary-command, registry, path, and shell-payload rejection; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M01-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Cross-language contract and trust-boundary review; NOT_YET_APPLICABLE until M01-W07 begins"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M01-W06"
       ],
@@ -6655,14 +6708,13 @@
         "Package Windows x64 development build"
       ],
       "required_automated_verification": [
-        "M03-W07 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Windows packaged lifecycle, authentication, crash, path/Unicode, orphan-process, and forced-termination tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M03-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Windows 11 x64 package launch and diagnostic evidence; hosted windows-2025 CI is not a substitute"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M03-W06"
       ],
@@ -6705,14 +6757,13 @@
         "Package Ubuntu x64 development build"
       ],
       "required_automated_verification": [
-        "M03-W08 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Ubuntu packaged lifecycle, authentication, crash, path/Unicode, dependency, orphan-process, and termination tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M03-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Ubuntu 24.04 package launch, GNOME dependency, shell-profile-independent discovery, and Wayland/X11 observations"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M03-W07"
       ],
@@ -6755,14 +6806,13 @@
         "Implement platform lifecycle, path, and process adapters"
       ],
       "required_automated_verification": [
-        "M03-W09 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Platform-adapter import-boundary, runtime discovery, path, spawn, lock, cancellation, and termination tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M03-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native adapter diagnostics and packaged discovery evidence on every certified platform"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M03-W08"
       ],
@@ -6805,14 +6855,13 @@
         "Run cross-platform desktop lifecycle matrix"
       ],
       "required_automated_verification": [
-        "M03-W10 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "All-platform packaged launch, port-collision, unauthorized-request, crash/restart, update-neutral relaunch, Unicode/spaces-path, cancellation, and orphan-process matrix; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M03-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Dated native packaged logs and capability rows on all certified platforms; this package does not decide Gate D"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M03-W09"
       ],
@@ -7103,14 +7152,13 @@
         "Implement macOS Keychain secret-store adapter"
       ],
       "required_automated_verification": [
-        "M04-W07 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Keychain allow/deny/missing/corruption/migration/reinstall/uninstall and no-plaintext-fallback tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M04-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native macOS Keychain and encrypted-database evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M04-W06"
       ],
@@ -7145,14 +7193,13 @@
         "Implement Windows Credential Manager and DPAPI adapter"
       ],
       "required_automated_verification": [
-        "M04-W08 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Credential Manager/DPAPI user-scope, registry, locked-file, reinstall, repair, and no-plaintext-fallback tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M04-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Windows 11 Credential Manager/DPAPI and encrypted-database evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M04-W07"
       ],
@@ -7187,14 +7234,13 @@
         "Implement Ubuntu Secret Service adapter"
       ],
       "required_automated_verification": [
-        "M04-W09 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Secret Service unavailable/locked/remediation/test-injection and no-file-fallback tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M04-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Ubuntu Secret Service and encrypted-database evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M04-W08"
       ],
@@ -7229,14 +7275,13 @@
         "Prove portable encrypted backup and filesystem semantics"
       ],
       "required_automated_verification": [
-        "M04-W10 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Encrypted source-to-target restore, integrity, path/case/lock/atomic-replacement, and interruption matrix; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M04-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native cross-operating-system encrypted restore artifacts for the certified matrix"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M04-W09"
       ],
@@ -7885,14 +7930,13 @@
         "Define versioned platform model-runtime profiles"
       ],
       "required_automated_verification": [
-        "M05-W13 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Exact OS/architecture/artifact/runtime/accelerator/driver/context/quantization/RAM/VRAM/license/digest/quality/latency/fallback profile-schema validation; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M05-W13 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Reviewed profile-schema artifact only; no runtime profile acceptance is implied"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M05-W12"
       ],
@@ -7935,14 +7979,13 @@
         "Validate Windows model-runtime capability and core fallback"
       ],
       "required_automated_verification": [
-        "M05-W14 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Native Windows runtime detection, no-model/insufficient-hardware fallback, and candidate structured-output smoke tests when feasible; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M05-W14 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Windows hardware/runtime candidate artifacts; lack of a full profile does not block Gate B or M06"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M05-W13"
       ],
@@ -7985,14 +8028,13 @@
         "Validate Ubuntu model-runtime capability and core fallback"
       ],
       "required_automated_verification": [
-        "M05-W15 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Native Ubuntu runtime detection, no-model/insufficient-hardware fallback, and candidate structured-output smoke tests when feasible; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M05-W15 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Ubuntu hardware/runtime candidate artifacts; lack of a full profile does not block Gate B or M06"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M05-W14"
       ],
@@ -8035,14 +8077,13 @@
         "Implement cross-platform model capability UX and graceful degradation"
       ],
       "required_automated_verification": [
-        "M05-W16 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Capability-state UX, remediation, unsupported-download, no-model, and deterministic-core fallback tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M05-W16 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Manual native capability/no-model UI and diagnostics evidence on Windows and Ubuntu"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M05-W15"
       ],
@@ -9457,14 +9498,13 @@
         "Validate cross-platform rendering and bundled-font policy"
       ],
       "required_automated_verification": [
-        "M10-W07 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Cross-OS PDF/DOCX goldens, extraction order, clipping/glyph/font fallback, Unicode/long-name/page-break, and visual-threshold tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M10-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Inspected rendered-document artifacts and font/license evidence from all certified platforms"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M10-W06"
       ],
@@ -11485,14 +11525,13 @@
         "Implement macOS native-host registration lifecycle"
       ],
       "required_automated_verification": [
-        "M17-W07 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "macOS host-manifest install/verify/repair/update/remove, allowlist, permission, and lifecycle tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M17-W07 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native macOS Chrome stable and packaged native-host E2E evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M17-W06"
       ],
@@ -11531,14 +11570,13 @@
         "Implement Windows native-host registration and binary protocol"
       ],
       "required_automated_verification": [
-        "M17-W08 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Windows registry/origin/binary-framing/spaces/repair/update/uninstall tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M17-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Windows 11 Chrome stable/native-host E2E traces and logs"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M17-W07"
       ],
@@ -11577,14 +11615,13 @@
         "Implement Ubuntu native-host registration lifecycle"
       ],
       "required_automated_verification": [
-        "M17-W09 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Ubuntu manifest-location/executable-permission/repair/update/uninstall tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M17-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Ubuntu Chrome stable/native-host E2E traces and logs"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M17-W08"
       ],
@@ -11623,14 +11660,13 @@
         "Run cross-platform real extension/native-host E2E"
       ],
       "required_automated_verification": [
-        "M17-W10 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Built MV3 plus real-host service-worker restart, frame, typed-health, and privileged-boundary E2E on all certified operating systems; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M17-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Chrome stable traces and native-host logs from macOS, Windows, and Ubuntu"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M17-W09"
       ],
@@ -15248,14 +15284,13 @@
         "Package, sign, and validate Windows x64 release candidate"
       ],
       "required_automated_verification": [
-        "M27-W08 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Signed NSIS/MSI, WebView2/runtime, secure-store/native-host, install/repair/upgrade/rollback/uninstall, and data-preservation tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M27-W08 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Signed native Windows 11 x64 installer artifact and lifecycle evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M27-W07"
       ],
@@ -15309,14 +15344,13 @@
         "Package and validate Ubuntu x64 release candidate"
       ],
       "required_automated_verification": [
-        "M27-W09 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Certified .deb and optional AppImage packaging, WebKitGTK/Secret Service/Chrome/native-host permission, and install/upgrade/rollback/repair/uninstall lifecycle tests; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M27-W09 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native Ubuntu 24.04 signed or verified package artifact and lifecycle evidence"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M27-W08"
       ],
@@ -15370,14 +15404,13 @@
         "Finalize full-AI platform profiles, diagnostics, and support publication"
       ],
       "required_automated_verification": [
-        "M27-W10 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Frozen factuality and structured-output benchmarks for accepted Windows/Ubuntu full-AI profiles, no-model fallback, and evidence-linked support-row validation; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M27-W10 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Physical/native hardware benchmark artifacts, manual diagnostics, and dated compatibility evidence for every accepted profile"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M27-W09"
       ],
@@ -15431,14 +15464,13 @@
         "Implement signed cross-platform update and rollback"
       ],
       "required_automated_verification": [
-        "M27-W11 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Signed target metadata, interruption/recovery, rollback, schema compatibility, private-data preservation, and native-host coordination across all certified platforms; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M27-W11 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Native signed update/repair/rollback matrix and recovery artifacts"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M27-W10"
       ],
@@ -15492,14 +15524,13 @@
         "Independent Cross-Platform Core Gate audit and decision"
       ],
       "required_automated_verification": [
-        "M27-W12 owning-package automated verification defined by the canonical specification",
-        "pnpm verify"
+        "Complete Gate D metric, state, role-separation, and resolvable-evidence validation plus full affected regression; pnpm verify with genuinely activated suites"
       ],
       "required_manual_evidence": [
-        "M27-W12 manual/browser/document/holdout/hosted evidence required by the canonical specification; not yet applicable"
+        "Actual native packaged bundles on all three certified platforms, an independent reviewer in a separate clean-session audit, and explicit owner decision"
       ],
       "current_evidence": [],
-      "dependency_review_state": "PROVISIONAL_PENDING_M00_W10",
+      "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M27-W11"
       ],

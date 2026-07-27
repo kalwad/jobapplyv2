@@ -18,6 +18,7 @@ import re
 import tomllib
 from typing import Any
 
+import check_portability
 import validate_status
 import verify
 import yaml
@@ -138,6 +139,10 @@ def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
         "required CI must run exactly the v1.3 hosted baselines: macos-15, "
         f"windows-2025, ubuntu-24.04 (found {matrix_os})"
     )
+    assert next(iter(jobs.values()))["runs-on"] == "${{ matrix.os }}", (
+        "the required job must derive runs-on from its exact matrix.os; a "
+        "disconnected matrix does not execute on all three baselines"
+    )
     for os_name in matrix_os:
         assert "latest" not in os_name, "runner labels must be explicit versions"
 
@@ -250,17 +255,15 @@ def test_job_has_timeout_and_no_global_shell_default() -> None:
 
 
 def test_no_continue_on_error_anywhere() -> None:
-    raw = CI_PATH.read_text(encoding="utf-8")
-    assert "continue-on-error" not in raw
+    for job in load_ci()["jobs"].values():
+        assert "continue-on-error" not in job
     for step in ci_steps():
         assert "continue-on-error" not in step
 
 
 def test_run_steps_do_not_mask_failures() -> None:
     for body in run_bodies():
-        executable = "\n".join(
-            line for line in body.splitlines() if not line.lstrip().startswith("#")
-        )
+        executable = check_portability._strip_shell_comments(body)
         assert "set +e" not in executable
         assert not re.search(r"\|\|\s*(?:true|:)(?:\s|$)", executable)
         assert not re.search(r"(?:^|[;&])\s*exit\s+0(?:\s|$)", executable)
@@ -506,7 +509,9 @@ def test_cargo_dependency_caches_remain_narrow_and_allowed() -> None:
 
 
 def test_no_network_tests_or_live_sites_in_run_steps() -> None:
-    bodies = "\n".join(run_bodies())
+    bodies = "\n".join(
+        check_portability._strip_shell_comments(body) for body in run_bodies()
+    )
     assert "http://" not in bodies
     assert "https://" not in bodies
 
@@ -515,15 +520,7 @@ def test_no_network_tests_or_live_sites_in_run_steps() -> None:
 
 
 def _windows_reachable(step: dict[str, Any]) -> bool:
-    condition = str(step.get("if", ""))
-    return not any(
-        guard in condition
-        for guard in (
-            "runner.os != 'Windows'",
-            "runner.os == 'Linux'",
-            "runner.os == 'macOS'",
-        )
-    )
+    return check_portability._step_can_run_on_windows(step)
 
 
 def test_canonical_doctor_and_verify_steps_run_on_every_platform() -> None:

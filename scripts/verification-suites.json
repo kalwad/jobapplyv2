@@ -352,7 +352,7 @@
       "proofs": [],
       "discovery_globs": [],
       "artifacts": [],
-      "explanation": "Read-only, fail-closed validation of the exact v1.3 157-requirement and 286-work-package inventories, preserved v1.2 reviewed hashes, visibly provisional M00-W08 additions, dependencies, four critical-gate effects, honest states/evidence, deterministic generated view, and next-work derivation."
+      "explanation": "Read-only, fail-closed validation of the exact v1.3 157-requirement and 286-work-package inventories, preserved v1.2 reviewed hashes, final M00-W10-reviewed v1.3 mapping/dependency hashes, dependencies, four critical-gate effects, honest states/evidence, deterministic generated view, and next-work derivation."
     },
     {
       "id": "status",

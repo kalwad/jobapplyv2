@@ -45,6 +45,16 @@ claim exists yet, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`.
 - Neither Windows nor Ubuntu has an accepted full-AI profile today.
 - `CROSS_PLATFORM_CORE` cannot pass until those later full-AI acceptances and
   every other Gate D requirement have real native packaged evidence.
+- Those future evidence references must resolve to existing
+  scoped evidence records: the relevant owning-package heading in
+  `docs/TEST_EVIDENCE.md`, a Gate D heading in
+  `docs/gates/HOLDOUT_EXECUTION_LOG.md`, or a dedicated artifact below
+  `docs/gates/evidence/`. Placeholder or irrelevant prose, arbitrary
+  repository files, external URLs, absolute paths, traversal, missing
+  references, duplicate rows, and symlink escapes cannot satisfy Gate D.
+  Every first-release target row must be `CERTIFIED_FULL` with such evidence
+  before Gate D passes. M00-W10 added this fail-closed validation while
+  leaving the gate `NOT_EVALUATED`.
 
 ## Governance and ownership
 

@@ -2,10 +2,10 @@
 
 Spec version: 1.3
 Repository revision: tree ae69a908cc31e0f1282c136c25fb7f92752680dd (commit 0e27802802b2397169c74d0f0c563506980041b0)
-Last updated: 2026-07-26T23:59:04Z
+Last updated: 2026-07-27T01:19:08Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M00
-Current work package: NONE
+Current work package: M00-W10
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M00-W09 is VERIFIED at content tree `ae69a908cc31e0f1282c136c25fb7f92752680dd`; M00-W08 is VERIFIED at content tree `e05dbf9bdf9c190e8cd6b022d9611d65805740b7`; M00-W01 through M00-W07 remain VERIFIED at their preserved v1.2 tree/evidence anchors. Only M00-W10 is READY.
-- Objective: stop after the verified Windows CI and platform-portability baseline. The windows-2025 job is repository/toolchain portability evidence only — no product behavior, no Windows product certification, no gate-state change. M00-W10 (traceability extension and M00 re-acceptance) is the next package; M01-W01 remains untouched.
-- Dependencies verified: M00-W01 through M00-W08 are VERIFIED; final M00-W08 stamp-commit hosted run 30223489467 passed macOS job 89849840494 and Ubuntu job 89849840515 at starting HEAD `33b012e1d30fa82b62ee0ce02746b56839c4816b`.
-- Critical-gate prerequisites: none for M00-W09. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M00-W09 records the three-OS workflow, Windows-aware doctor/resolver, portability policy suite, platform scaffold, full local validation, clean-clone simulation, and successful hosted content run 30226212092 on macOS (job 89856707366), Windows (job 89856707365), and Ubuntu (job 89856707333) — Windows execution proven by the hosted windows-2025 job, not a mocked local result.
-- Blockers: M00-W10 remains incomplete. M01-W01's historical v1.2 readiness is revoked until M00-W10 is VERIFIED and M00 is re-ACCEPTED. M28 remains blocked by M27 acceptance and Gate D.
+- State: M00-W10 is IN_PROGRESS after its clean-session bootstrap prerequisites passed at starting revision `c09faaf02e546a1d57f402f18341087b21da492d`. M00-W01 through M00-W09 remain VERIFIED at their preserved revisions and evidence anchors.
+- Objective: complete the human-reviewed v1.3 traceability extension, harden the M00 governance validators and negative tests, obtain fresh three-OS hosted evidence, and re-accept M00 without beginning M01-W01 or any product implementation.
+- Dependencies verified: M00-W01 through M00-W09 are VERIFIED. M00-W09 content run 30226212092 passed macOS job 89856707366, Windows job 89856707365, and Ubuntu job 89856707333; its final-head run 30226415354 passed Windows job 89857236382, macOS job 89857236428, and Ubuntu job 89857236430 at starting HEAD `c09faaf02e546a1d57f402f18341087b21da492d`.
+- Critical-gate prerequisites: none for M00-W10. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
+- Evidence: docs/TEST_EVIDENCE.md § M00-W09 records the three-OS workflow, Windows-aware doctor/resolver, portability policy suite, platform scaffold, full local validation, clean-clone simulation, and both successful hosted runs above — Windows execution is proven by the hosted windows-2025 jobs, not a mocked local result.
+- Blockers: M00-W10 requires local and hosted verification before M00 may be re-accepted. M01-W01's historical v1.2 readiness remains revoked until M00-W10 is VERIFIED and M00 is re-ACCEPTED. M28 remains blocked by M27 acceptance and Gate D.
 
 ## Milestone table
 
@@ -87,7 +87,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W07` | VERIFIED | tree fee2902010eb90704c05e584fb6ff7964327cb0b | docs/TEST_EVIDENCE.md § M00-W07 | Seed traceability and status |
 | `M00-W08` | VERIFIED | tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7 | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
 | `M00-W09` | VERIFIED | tree ae69a908cc31e0f1282c136c25fb7f92752680dd | docs/TEST_EVIDENCE.md § M00-W09 | Add Windows CI and platform-portability baseline |
-| `M00-W10` | READY | — | — | Extend traceability and re-accept M00 under v1.3 |
+| `M00-W10` | IN_PROGRESS | — | — | Extend traceability and re-accept M00 under v1.3 |
 | `M01-W01` | NOT_STARTED | — | — | Define JSON Schema conventions; v1.2 READY state retained only in historical M00-W07 evidence |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
@@ -367,9 +367,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M00-W10
-- Reason: M00-W09 is VERIFIED and M00-W10 is the next sequential package (extend traceability to the reviewed v1.3 mapping, rerun the three-OS fresh-clone matrix, and re-accept M00). M01-W01 cannot become ready before M00-W10 verifies and M00 is re-ACCEPTED.
-- Required reading: CLAUDE.md; docs/MASTER_IMPLEMENTATION_SPEC.md §1.4.1, §4.9–§4.10, §5.14, §6.2, §9 (M00), §12; docs/PLATFORM_SUPPORT.md; docs/platform/; docs/DECISIONS.md § ADR-0002; docs/CRITICAL_GATES.md; docs/TEST_EVIDENCE.md § M00-W08 and § M00-W09.
+- ID: NONE
+- Reason: M00-W10 is the only package IN_PROGRESS. No later package may become READY until M00-W10 is VERIFIED and M00 is re-ACCEPTED.
+- Required reading: —
 
 ## Known release blockers
 

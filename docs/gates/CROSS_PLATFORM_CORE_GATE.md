@@ -36,8 +36,28 @@ Required evidence includes:
 - exact OS, architecture, browser, artifact, date, raw logs, independent
   review, and owner decision.
 
-No such product evidence exists during M00-W08. Windows and Ubuntu full-AI
-profiles are explicitly not accepted.
+Every reference used by a future `PASS` must resolve to a scoped evidence
+record: `docs/TEST_EVIDENCE.md` under the relevant M17/M27 package heading,
+`docs/gates/HOLDOUT_EXECUTION_LOG.md` under a Gate D heading, or a dedicated
+file below `docs/gates/evidence/`. Markdown links and `path § heading` /
+`path#heading` forms are accepted when the approved file and optional heading
+exist. URLs, arbitrary or irrelevant repository files, absolute paths,
+traversal, symlink escapes, missing files/headings, and placeholders such as
+`pending`, `TBD`, or arbitrary non-path text are rejected.
+
+Before `PASS`, every Gate D metric row in `docs/CRITICAL_GATES.md` must contain
+a non-placeholder measured result and record zero zero-tolerance failures.
+The status table, critical-gate ledger, and this report must agree on `PASS`,
+the exact tree revision, complete evidence hash, independent reviewer,
+passing holdout result, and owner decision. All certified rows in
+`PLATFORM_SUPPORT.md` and `CERTIFIED_MATRIX.md` must be `CERTIFIED_FULL`;
+model profiles must be `CERTIFIED_FULL`/`ACCEPTED`; native-messaging and
+packaging/update rows must be `VERIFIED`; every one must carry scoped,
+resolving evidence. `M27-W12` owns the independent terminal decision.
+
+No such product evidence exists through M00-W10. Windows and Ubuntu full-AI
+profiles are explicitly not accepted. M00-W10 only made the future evidence
+checks fail closed; it did not add platform evidence.
 
 ## Run history
 

@@ -1,7 +1,7 @@
 # Model Runtime Profiles
 
 Planning and future-evidence register. No platform model profile is accepted
-by M00-W08.
+through M00-W10.
 
 | Platform | Current support | Full-AI profile acceptance | Current evidence | Early owning package(s) | Final acceptance owner |
 |---|---|---|---|---|---|
@@ -23,6 +23,13 @@ by M00-W08.
    corpus.
 5. Gate D cannot pass unless all three platform rows are `CERTIFIED_FULL`,
    their acceptance is `ACCEPTED`, and each has a real evidence reference.
+
+For a future Gate D acceptance, each evidence cell must resolve to the
+`M27-W10` heading in `docs/TEST_EVIDENCE.md` or a dedicated artifact below
+`docs/gates/evidence/` (optionally with an existing heading anchor). URLs,
+arbitrary repository files, irrelevant package headings, absolute paths,
+traversal, missing references, duplicate rows, and placeholder text do not
+qualify. `scripts/validate_status.py` enforces this before Gate D can pass.
 
 No artifact digest, accelerator result, driver bound, benchmark, latency,
 memory result, or compatibility claim is recorded until the owning package

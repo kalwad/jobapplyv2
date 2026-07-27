@@ -42,6 +42,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -137,16 +138,48 @@ def _scrub(text: str, home: Path | None = None) -> str:
     """Replace the home-directory prefix so output stays path-minimal.
 
     Both native and forward-slash spellings are redacted: Windows tools mix
-    ``C:\\Users\\name`` and ``C:/Users/name`` in their output.
+    ``C:\\Users\\name`` and ``C:/Users/name`` in their output. Windows paths
+    are compared case-insensitively, but a path-component boundary is required
+    so a profile such as ``C:\\Users\\Name`` does not over-redact the unrelated
+    sibling ``C:\\Users\\Name-old``.
     """
     root = str(home if home is not None else Path.home())
     if not root or root == "/":
         return text
-    scrubbed = text.replace(root, "~")
-    alt = root.replace("\\", "/")
-    if alt != root:
-        scrubbed = scrubbed.replace(alt, "~")
-    return scrubbed
+
+    trimmed = root.rstrip("\\/")
+    if not trimmed:
+        return text
+    drive_match = re.fullmatch(r"(?P<drive>[A-Za-z]:)[\\/]+(?P<tail>.+)", trimmed)
+    unc_match = re.fullmatch(r"[\\/]{2}(?P<tail>.+)", trimmed)
+    if drive_match is not None:
+        tail = drive_match.group("tail")
+        prefix = re.escape(drive_match.group("drive")) + r"[\\/]+"
+    elif unc_match is not None:
+        tail = unc_match.group("tail")
+        prefix = r"[\\/]{2}"
+    else:
+        tail = ""
+        prefix = ""
+    if tail:
+        components = [part for part in re.split(r"[\\/]+", tail) if part]
+        if not components:
+            return text
+        pattern = prefix + r"[\\/]+".join(re.escape(part) for part in components)
+        return re.sub(
+            r"(?<![A-Za-z0-9_.-])" + pattern + r"(?=$|[\\/])",
+            "~",
+            text,
+            flags=re.IGNORECASE,
+        )
+
+    # POSIX paths are case-sensitive. Require component boundaries on both
+    # sides so a path embedded in an unrelated identifier is not over-redacted.
+    return re.sub(
+        r"(?<![A-Za-z0-9_.-])" + re.escape(trimmed) + r"(?=$|/)",
+        "~",
+        text,
+    )
 
 
 def read_pins(repo: Path) -> Pins:
@@ -734,7 +767,11 @@ def run_preflight(
     return completed.returncode
 
 
-def main() -> int:
+def main(
+    argv: list[str] | None = None,
+    *,
+    home: Path | None = None,
+) -> int:
     parser = argparse.ArgumentParser(
         description="Read-only environment doctor and preflight (M00-W06)."
     )
@@ -747,20 +784,27 @@ def main() -> int:
         action="store_true",
         help="run the doctor, then the canonical aggregate verification",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.json and args.preflight:
         print("--json and --preflight are mutually exclusive", file=sys.stderr)
         return 2
 
+    redaction_home = Path.home() if home is None else home
     repo = Path(args.repo) if args.repo else Path(__file__).resolve().parent.parent
     if not (repo / "package.json").is_file():
-        print(f"doctor: no package.json under {repo}", file=sys.stderr)
+        print(
+            _scrub(f"doctor: no package.json under {repo}", redaction_home),
+            file=sys.stderr,
+        )
         return 2
-    ctx = DoctorContext(repo=repo, run=default_runner(repo))
+    ctx = DoctorContext(repo=repo, run=default_runner(repo), home=redaction_home)
     try:
         results = run_doctor(ctx)
     except (OSError, ValueError, KeyError, tomllib.TOMLDecodeError) as exc:
-        print(f"doctor: cannot read repository pins: {exc}", file=sys.stderr)
+        print(
+            _scrub(f"doctor: cannot read repository pins: {exc}", redaction_home),
+            file=sys.stderr,
+        )
         return 2
 
     print(render_json(results) if args.json else render_human(results))

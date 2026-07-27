@@ -4,7 +4,7 @@
 Required by docs/MASTER_IMPLEMENTATION_SPEC.md (JAPP-MASTER-001 v1.3) §1.1 and
 §12. Created in M00-W01, rewritten for the v1.2 Workday-first rebaseline in
 M00-W05, and mechanically extended for the v1.3 platform rebaseline in
-M00-W08.
+M00-W08; M00-W10 completed the human-reviewed v1.3 closeout hardening.
 
 Checks performed
   1.  Every canonical project-memory file exists, is non-empty, and contains
@@ -16,13 +16,15 @@ Checks performed
   3.  docs/PROJECT_STATUS.md structure: header fields, required sections,
       milestone/work-package table completeness against the spec, valid
       state enums, no duplicates, no more than one IN_PROGRESS package,
-      current-package and next-READY consistency.
+      current-package and next-READY consistency, and the canonical current
+      release-gate value.
   4.  Critical-gates table: exactly the four v1.3 gates, valid gate-state
       enums, report paths present on disk, state agreement with the
       docs/CRITICAL_GATES.md ledger, and full evidence fields (revision,
       corpus/holdout hash, reviewer, owner decision, holdout result) before
       a gate may claim PASS; Gate D additionally requires accepted full-AI
-      Windows and Ubuntu profile evidence.
+      profiles plus resolvable repository evidence for its bundle, profile
+      rows, and certified-platform rows.
   5.  Dependencies are not skipped: milestone dependencies parsed from the
       spec's "**Dependencies:**" lines, the intra-milestone sequential
       convention, ACCEPTED state for every dependency milestone, explicit
@@ -30,7 +32,8 @@ Checks performed
       M21<-M19+M20, M36<-M35), and gate-based readiness blocking
       (a package with a declared M03/M06/M21/M28 gate prerequisite may be
       READY or started only while its required critical gate is PASS).
-      M01-W01 also requires M00-W10 VERIFIED and M00 ACCEPTED.
+      M01-W01 also requires M00-W10 exactly VERIFIED and M00 ACCEPTED; M00
+      acceptance requires all ten direct packages to be exactly VERIFIED.
   6.  Milestone-state consistency with package states.
   7.  Verified evidence preservation: every VERIFIED/ACCEPTED package row
       carries a `tree <hash>` revision (or the explicit `stamp pending`
@@ -52,7 +55,7 @@ import hashlib
 import re
 import sys
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 STATES = {
     "NOT_STARTED",
@@ -97,6 +100,18 @@ HARD_ACCEPTED_DEPS = {
     "M21": ("M19", "M20"),
     "M28": ("M27",),
 }
+GATE_DECISION_PACKAGES = {
+    "AUTOFILL_FEASIBILITY": "M02-W15",
+    "RESUME_PAGEFIT_FEASIBILITY": "M05-W12",
+    "WORKDAY_GUIDED_PRE_SUBMIT": "M20-W11",
+    "CROSS_PLATFORM_CORE": "M27-W12",
+}
+GATE_EVALUATION_PACKAGES = {
+    "AUTOFILL_FEASIBILITY": "M02-W14",
+    "RESUME_PAGEFIT_FEASIBILITY": "M05-W11",
+    "WORKDAY_GUIDED_PRE_SUBMIT": "M20-W10",
+    "CROSS_PLATFORM_CORE": "M27-W12",
+}
 
 PRESERVED_M00_REVISIONS = {
     "M00-W01": "tree e1dd209417af97b3cab320b4ab01fbd702547136",
@@ -106,16 +121,29 @@ PRESERVED_M00_REVISIONS = {
     "M00-W05": "tree 0c6fe779cc56755983d39951cabcdf201867bae2",
     "M00-W06": "tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf",
     "M00-W07": "tree fee2902010eb90704c05e584fb6ff7964327cb0b",
+    "M00-W08": "tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7",
+    "M00-W09": "tree ae69a908cc31e0f1282c136c25fb7f92752680dd",
 }
 REQUIRED_M00_SEQUENCE = tuple(f"M00-W{number:02d}" for number in range(1, 11))
 
 STAMP_PENDING = "stamp pending"
 SPEC_HEADER_MARKER = "**Specification ID:** JAPP-MASTER-001"
 CANONICAL_SPEC_REL = "docs/MASTER_IMPLEMENTATION_SPEC.md"
+CANONICAL_RELEASE_GATE = "NOT_READY"
 MIN_ROW_CELLS = 2
 FULL_EVIDENCE_ROW_CELLS = 4
+PLATFORM_MATRIX_EVIDENCE_ROW_CELLS = 6
+GATE_REPORT_CELL_INDEX = 5
+MARKDOWN_METRIC_ROW_CELLS = 3
 MISSING_PREVIEW_LIMIT = 8
 SPEC_HEADER_SCAN_LINES = 60
+CERTIFIED_PLATFORM_IDS = ("macos-arm64", "windows-x64", "ubuntu-x64")
+APPROVED_EVIDENCE_FILES = {
+    "docs/TEST_EVIDENCE.md",
+    "docs/gates/HOLDOUT_EXECUTION_LOG.md",
+}
+APPROVED_EVIDENCE_PREFIXES = ("docs/gates/evidence/",)
+PASS_HOLDOUT_TOKENS = {"pass", "passed", "valid", "met", "meets"}
 
 MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("CLAUDE.md", ("Mandatory session bootstrap", CANONICAL_SPEC_REL)),
@@ -134,7 +162,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("docs/COMPATIBILITY_MATRIX.md", ("# Compatibility Matrix",)),
     (
         "docs/PLATFORM_SUPPORT.md",
-        ("# Platform Support", "CERTIFIED_FULL", "NOT_YET_IMPLEMENTED"),
+        ("# Platform Support", "CERTIFIED_FULL", "First-release target contract"),
     ),
     ("docs/REQUIREMENTS_TRACEABILITY.md", ("# Requirements Traceability",)),
     (
@@ -153,7 +181,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ),
     (
         "docs/gates/CROSS_PLATFORM_CORE_GATE.md",
-        ("CROSS_PLATFORM_CORE", "NOT_EVALUATED"),
+        ("CROSS_PLATFORM_CORE", "Evidence bundle"),
     ),
     ("docs/gates/HOLDOUT_EXECUTION_LOG.md", ("# Holdout Execution Log",)),
     (
@@ -162,7 +190,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ),
     (
         "docs/platform/MODEL_RUNTIME_PROFILES.md",
-        ("# Model Runtime Profiles", "NOT_ACCEPTED", "M27-W10"),
+        ("# Model Runtime Profiles", "Full-AI profile acceptance", "M27-W10"),
     ),
     (
         "docs/platform/NATIVE_MESSAGING_MATRIX.md",
@@ -170,7 +198,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ),
     (
         "docs/platform/PACKAGING_UPDATE_MATRIX.md",
-        ("# Packaging and Update Matrix", "NOT_YET_IMPLEMENTED"),
+        ("# Packaging and Update Matrix", "Update contract", "Owning packages"),
     ),
 )
 
@@ -203,6 +231,33 @@ REQ_ID_RE = re.compile(r"`(REQ-[A-Z]+-\d{3})`")
 GATE_QUALIFIER_RE = re.compile(r"with\s+`([A-Z_]+)\s*=\s*PASS`")
 ACCEPTED_QUALIFIER_RE = re.compile(r"\b(M\d{2}) accepted\b")
 TREE_REVISION_RE = re.compile(r"^tree [0-9a-f]{40}(\s.*)?$")
+EVIDENCE_HASH_RE = re.compile(r"^(?:sha256:)?[0-9a-f]{64}$")
+URL_SCHEME_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://")
+WINDOWS_ABSOLUTE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+MARKDOWN_LINK_RE = re.compile(r"^\[[^\]]+\]\(([^)]+)\)$")
+MARKDOWN_HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$", flags=re.MULTILINE)
+EVIDENCE_BUNDLE_LINE_RE = re.compile(
+    r"^\s*(?:[-*]\s*)?Evidence bundle:\s*(.*?)\s*$",
+    flags=re.MULTILINE | re.IGNORECASE,
+)
+EVIDENCE_PLACEHOLDERS = {
+    "",
+    "-",
+    "—",
+    "n/a",
+    "na",
+    "none",
+    "not applicable",
+    "not available",
+    "not yet available",
+    "pending",
+    "pending evidence",
+    "placeholder",
+    "placeholder evidence",
+    "placeholder text",
+    "tbd",
+    "todo",
+}
 
 
 @dataclass
@@ -231,6 +286,16 @@ class Status:
     package_rows: list[list[str]]
     gate_rows: list[list[str]]
     next_ready: str | None
+
+
+@dataclass(frozen=True)
+class GateDSupportTable:
+    relative_path: str
+    label: str
+    state_index: int
+    evidence_index: int
+    required_state: str
+    owners: dict[str, set[str]]
 
 
 @dataclass
@@ -354,10 +419,10 @@ def _parse_next_ready(lines: list[str]) -> str | None:
         stripped = raw.strip()
         if stripped.startswith("- ID:"):
             value = stripped[len("- ID:") :].strip()
-            if value.upper().startswith("NONE"):
+            if value == "NONE":
                 return "NONE"
-            match = PKG_ID_RE.search(value)
-            return match.group(0) if match else value
+            match = re.fullmatch(r"`?(M\d{2}-W\d{2})`?", value)
+            return match.group(1) if match else value
     return None
 
 
@@ -513,16 +578,215 @@ def check_status_shell(status: Status, report: Report) -> None:
         if not status.header.get(field_name):
             report.fail(f"PROJECT_STATUS header field missing/empty: '{field_name}'")
             shell_errors += 1
+    release_gate = status.header.get("Overall release gate:", "")
+    if release_gate and release_gate != CANONICAL_RELEASE_GATE:
+        report.fail(
+            "PROJECT_STATUS Overall release gate is "
+            f"'{release_gate}' (canonical current value must be "
+            f"{CANONICAL_RELEASE_GATE})"
+        )
+        shell_errors += 1
     for section in STATUS_SECTIONS:
         if section not in status.sections:
             report.fail(f"PROJECT_STATUS required section missing: '{section}'")
             shell_errors += 1
     if shell_errors == 0:
-        report.ok("PROJECT_STATUS header fields and sections present")
+        report.ok(
+            "PROJECT_STATUS header fields and sections present; release gate "
+            f"is {CANONICAL_RELEASE_GATE}"
+        )
 
 
 GATE_SECTION_HEADING_RE = re.compile(r"^[A-Z][A-Z0-9_]*$")
 LEDGER_STATE_LINE_RE = re.compile(r"^- State: ([A-Z_]+)\s*$", flags=re.MULTILINE)
+
+
+def _is_evidence_placeholder(value: str) -> bool:
+    normalized = re.sub(r"[\s_]+", " ", value.strip().casefold())
+    return normalized in EVIDENCE_PLACEHOLDERS
+
+
+def _heading_text(value: str) -> str:
+    """Normalize lightweight Markdown used inside a heading/reference."""
+    value = re.sub(r"[`*_]", "", value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _heading_slug(value: str) -> str:
+    """Return a conservative GitHub-style fragment for Markdown headings."""
+    value = _heading_text(value).casefold()
+    value = re.sub(r"[^\w\s-]", "", value)
+    return re.sub(r"-+", "-", re.sub(r"\s+", "-", value)).strip("-")
+
+
+def _split_evidence_heading(
+    raw: str,
+) -> tuple[str, str | None, bool, str | None]:
+    heading: str | None = None
+    fragment_syntax = False
+    error: str | None = None
+    if "§" in raw:
+        if raw.count("§") != 1:
+            error = "has ambiguous section syntax"
+        else:
+            raw, heading = (part.strip() for part in raw.split("§", 1))
+    elif "#" in raw:
+        if raw.count("#") != 1:
+            error = "has ambiguous heading syntax"
+        else:
+            raw, heading = (part.strip() for part in raw.split("#", 1))
+            fragment_syntax = True
+    return raw, heading, fragment_syntax, error
+
+
+def _resolve_evidence_file(
+    repo: Path, path_text: str
+) -> tuple[Path | None, str | None]:
+    path_text = path_text.strip().strip("`")
+    portable_path = path_text.replace("\\", "/")
+    parts = PurePosixPath(portable_path).parts
+    candidate: Path | None = None
+    error: str | None = None
+    if _is_evidence_placeholder(path_text):
+        error = "has no repository-relative file"
+    elif URL_SCHEME_RE.match(path_text) or path_text.startswith("//"):
+        error = "must not be a URL"
+    elif (
+        Path(path_text).is_absolute()
+        or PurePosixPath(portable_path).is_absolute()
+        or WINDOWS_ABSOLUTE_RE.match(path_text)
+        or path_text.startswith("\\")
+    ):
+        error = "must be repository-relative, not absolute"
+    elif ".." in parts:
+        error = "must not contain path traversal"
+    elif not parts or parts == (".",):
+        error = "has no repository-relative file"
+    else:
+        repo_root = repo.resolve()
+        candidate = (repo_root / portable_path).resolve()
+        try:
+            candidate.relative_to(repo_root)
+        except ValueError:
+            error = "resolves outside the repository"
+        else:
+            if not candidate.is_file():
+                error = f"does not resolve to an existing file: {portable_path}"
+            else:
+                resolved_relative = candidate.relative_to(repo_root).as_posix()
+                if (
+                    resolved_relative not in APPROVED_EVIDENCE_FILES
+                    and not resolved_relative.startswith(APPROVED_EVIDENCE_PREFIXES)
+                ):
+                    error = (
+                        "is not an approved repository evidence record/file "
+                        f"(resolved to {resolved_relative})"
+                    )
+    return candidate, error
+
+
+def _evidence_heading_error(
+    candidate: Path, heading: str, fragment_syntax: bool
+) -> str | None:
+    requested = _heading_text(heading.strip().strip("`"))
+    error: str | None = None
+    if _is_evidence_placeholder(requested):
+        error = "has a missing or placeholder heading"
+    else:
+        headings = [
+            _heading_text(match)
+            for match in MARKDOWN_HEADING_RE.findall(
+                candidate.read_text(encoding="utf-8", errors="replace")
+            )
+        ]
+        if fragment_syntax:
+            requested_slug = requested.casefold().lstrip("#")
+            found = any(_heading_slug(actual) == requested_slug for actual in headings)
+        else:
+            requested_folded = requested.casefold()
+            found = any(
+                actual.casefold() == requested_folded
+                or (
+                    actual.casefold().startswith(requested_folded)
+                    and actual[len(requested) : len(requested) + 1]
+                    in {" ", ":", "-", "–", "—", "("}
+                )
+                for actual in headings
+            )
+        if not found:
+            error = f"references a Markdown heading that does not exist: {requested!r}"
+    return error
+
+
+def _evidence_reference_error(repo: Path, reference: str) -> str | None:
+    """Return why an evidence reference is unsafe/unresolved, or ``None``.
+
+    Evidence fields are repository records, not arbitrary prose or remote
+    links. A reference is either a repository-relative file or a file plus a
+    Markdown heading expressed as ``path § Heading`` or ``path#heading-slug``.
+    Resolution rejects path traversal and symlink escapes before checking that
+    the target is a real file. When heading syntax is used, the heading must
+    exist in that file.
+    """
+    raw = reference.strip()
+    link = MARKDOWN_LINK_RE.fullmatch(raw)
+    if link:
+        raw = link.group(1).strip()
+    if _is_evidence_placeholder(raw):
+        return "is a placeholder"
+    path_text, heading, fragment_syntax, syntax_error = _split_evidence_heading(raw)
+    if syntax_error:
+        return syntax_error
+    candidate, path_error = _resolve_evidence_file(repo, path_text)
+    if path_error:
+        return path_error
+    if heading is None:
+        return None
+    if candidate is None:
+        return "does not resolve to an existing file"
+    return _evidence_heading_error(candidate, heading, fragment_syntax)
+
+
+def _gate_d_reference_scope_error(
+    reference: str, allowed_test_evidence_packages: set[str]
+) -> str | None:
+    """Reject real-but-irrelevant files as Gate D evidence.
+
+    Dedicated Gate D artifacts may live under ``docs/gates/evidence/``.
+    Shared ledgers must use a Gate-D-specific heading, and TEST_EVIDENCE
+    references must name one of the packages that owns the corresponding
+    native/profile/decision evidence.
+    """
+    raw = reference.strip()
+    link = MARKDOWN_LINK_RE.fullmatch(raw)
+    if link:
+        raw = link.group(1).strip()
+    path_text, heading, _, syntax_error = _split_evidence_heading(raw)
+    if syntax_error:
+        return syntax_error
+    portable_path = path_text.strip().strip("`").replace("\\", "/")
+    if portable_path.startswith("docs/gates/evidence/"):
+        return None
+    normalized_heading = _heading_text((heading or "").strip().strip("`"))
+
+    def is_package_heading(package_id: str) -> bool:
+        if not normalized_heading.startswith(package_id):
+            return False
+        suffix = normalized_heading[len(package_id) : len(package_id) + 1]
+        return not suffix or suffix in {" ", ":", "-", "–", "—", "("}
+
+    if portable_path == "docs/TEST_EVIDENCE.md" and any(
+        is_package_heading(package_id) for package_id in allowed_test_evidence_packages
+    ):
+        return None
+    if portable_path == "docs/gates/HOLDOUT_EXECUTION_LOG.md" and (
+        "CROSS_PLATFORM_CORE" in normalized_heading or "Gate D" in normalized_heading
+    ):
+        return None
+    return (
+        "is not scoped to the required Gate D evidence owner; use a dedicated "
+        "docs/gates/evidence/ artifact or an approved Gate D package heading"
+    )
 
 
 def _parse_ledger_sections(repo: Path) -> tuple[dict[str, list[str]], list[str]]:
@@ -600,61 +864,383 @@ def _check_ledger_agreement(
     return errors
 
 
+def _platform_rows(text: str, platform: str) -> list[list[str]]:
+    return [
+        [cell.strip().strip("`") for cell in line.strip("|").split("|")]
+        for line in text.splitlines()
+        if line.startswith(f"| `{platform}` |")
+    ]
+
+
+def _gate_d_profile_evidence_problems(repo: Path) -> list[str]:
+    problems: list[str] = []
+    profiles_path = repo / "docs/platform/MODEL_RUNTIME_PROFILES.md"
+    profiles_text = (
+        profiles_path.read_text(encoding="utf-8") if profiles_path.is_file() else ""
+    )
+    for platform in CERTIFIED_PLATFORM_IDS:
+        profile_rows = _platform_rows(profiles_text, platform)
+        if len(profile_rows) != 1:
+            problems.append(
+                f"{platform} must have exactly one model-profile row "
+                f"(found {len(profile_rows)})"
+            )
+            continue
+        profile_cells = profile_rows[0]
+        if len(profile_cells) < FULL_EVIDENCE_ROW_CELLS or (
+            profile_cells[1] != "CERTIFIED_FULL" or profile_cells[2] != "ACCEPTED"
+        ):
+            problems.append(
+                f"{platform} lacks CERTIFIED_FULL/ACCEPTED full-AI evidence"
+            )
+        else:
+            evidence_error = _evidence_reference_error(repo, profile_cells[3])
+            scope_error = (
+                None
+                if evidence_error
+                else _gate_d_reference_scope_error(profile_cells[3], {"M27-W10"})
+            )
+            if evidence_error or scope_error:
+                problems.append(
+                    f"{platform} profile evidence reference "
+                    f"{evidence_error or scope_error}"
+                )
+    return problems
+
+
+def _gate_d_matrix_evidence_problems(repo: Path) -> list[str]:
+    problems: list[str] = []
+    matrix_path = repo / "docs/platform/CERTIFIED_MATRIX.md"
+    matrix_text = (
+        matrix_path.read_text(encoding="utf-8") if matrix_path.is_file() else ""
+    )
+    for platform in CERTIFIED_PLATFORM_IDS:
+        matrix_rows = _platform_rows(matrix_text, platform)
+        if len(matrix_rows) != 1:
+            problems.append(
+                f"{platform} must have exactly one certified-platform matrix row "
+                f"(found {len(matrix_rows)})"
+            )
+            continue
+        matrix_cells = matrix_rows[0]
+        if len(matrix_cells) < PLATFORM_MATRIX_EVIDENCE_ROW_CELLS:
+            problems.append(
+                f"{platform} certified-platform matrix row/evidence is missing"
+            )
+        elif matrix_cells[4] != "CERTIFIED_FULL":
+            problems.append(
+                f"{platform} certified-platform current product state is "
+                f"{matrix_cells[4]!r}, not CERTIFIED_FULL"
+            )
+        else:
+            native_owners = {
+                "macos-arm64": {"M27-W07", "M27-W10", "M27-W12"},
+                "windows-x64": {"M27-W08", "M27-W10", "M27-W12"},
+                "ubuntu-x64": {"M27-W09", "M27-W10", "M27-W12"},
+            }[platform]
+            evidence_error = _evidence_reference_error(repo, matrix_cells[5])
+            scope_error = (
+                None
+                if evidence_error
+                else _gate_d_reference_scope_error(matrix_cells[5], native_owners)
+            )
+            if evidence_error or scope_error:
+                problems.append(
+                    f"{platform} platform-matrix evidence reference "
+                    f"{evidence_error or scope_error}"
+                )
+    return problems
+
+
+def _gate_d_support_table_problems(
+    repo: Path,
+    contract: GateDSupportTable,
+) -> list[str]:
+    problems: list[str] = []
+    path = repo / contract.relative_path
+    text = path.read_text(encoding="utf-8") if path.is_file() else ""
+    for platform in CERTIFIED_PLATFORM_IDS:
+        rows = _platform_rows(text, platform)
+        if len(rows) != 1:
+            problems.append(
+                f"{platform} must have exactly one {contract.label} row "
+                f"(found {len(rows)})"
+            )
+            continue
+        cells = rows[0]
+        if len(cells) <= max(contract.state_index, contract.evidence_index):
+            problems.append(f"{platform} {contract.label} state/evidence is missing")
+            continue
+        if cells[contract.state_index] != contract.required_state:
+            problems.append(
+                f"{platform} {contract.label} state is "
+                f"{cells[contract.state_index]!r}, not "
+                f"{contract.required_state}"
+            )
+            continue
+        evidence = cells[contract.evidence_index]
+        evidence_error = _evidence_reference_error(repo, evidence)
+        scope_error = (
+            None
+            if evidence_error
+            else _gate_d_reference_scope_error(evidence, contract.owners[platform])
+        )
+        if evidence_error or scope_error:
+            problems.append(
+                f"{platform} {contract.label} evidence reference "
+                f"{evidence_error or scope_error}"
+            )
+    return problems
+
+
+def _gate_d_evidence_problems(repo: Path, report_text: str) -> list[str]:
+    problems: list[str] = []
+    evidence_bundles = EVIDENCE_BUNDLE_LINE_RE.findall(report_text)
+    if not evidence_bundles:
+        problems.append("gate report records no Evidence bundle")
+    else:
+        bundle_error = _evidence_reference_error(repo, evidence_bundles[-1])
+        scope_error = (
+            None
+            if bundle_error
+            else _gate_d_reference_scope_error(evidence_bundles[-1], {"M27-W12"})
+        )
+        if bundle_error or scope_error:
+            problems.append(
+                f"gate report Evidence bundle reference {bundle_error or scope_error}"
+            )
+    problems.extend(_gate_d_profile_evidence_problems(repo))
+    problems.extend(_gate_d_matrix_evidence_problems(repo))
+    native_release_owners = {
+        "macos-arm64": {"M27-W07", "M27-W10", "M27-W12"},
+        "windows-x64": {"M27-W08", "M27-W10", "M27-W12"},
+        "ubuntu-x64": {"M27-W09", "M27-W10", "M27-W12"},
+    }
+    problems.extend(
+        _gate_d_support_table_problems(
+            repo,
+            GateDSupportTable(
+                relative_path="docs/PLATFORM_SUPPORT.md",
+                label="platform-support",
+                state_index=5,
+                evidence_index=6,
+                required_state="CERTIFIED_FULL",
+                owners=native_release_owners,
+            ),
+        )
+    )
+    native_messaging_owners = {
+        "macos-arm64": {"M17-W07", "M17-W10", "M27-W12"},
+        "windows-x64": {"M17-W08", "M17-W10", "M27-W12"},
+        "ubuntu-x64": {"M17-W09", "M17-W10", "M27-W12"},
+    }
+    problems.extend(
+        _gate_d_support_table_problems(
+            repo,
+            GateDSupportTable(
+                relative_path="docs/platform/NATIVE_MESSAGING_MATRIX.md",
+                label="native-messaging",
+                state_index=3,
+                evidence_index=4,
+                required_state="VERIFIED",
+                owners=native_messaging_owners,
+            ),
+        )
+    )
+    packaging_owners = {
+        "macos-arm64": {"M27-W07", "M27-W11", "M27-W12"},
+        "windows-x64": {"M27-W08", "M27-W11", "M27-W12"},
+        "ubuntu-x64": {"M27-W09", "M27-W11", "M27-W12"},
+    }
+    problems.extend(
+        _gate_d_support_table_problems(
+            repo,
+            GateDSupportTable(
+                relative_path="docs/platform/PACKAGING_UPDATE_MATRIX.md",
+                label="packaging/update",
+                state_index=4,
+                evidence_index=5,
+                required_state="VERIFIED",
+                owners=packaging_owners,
+            ),
+        )
+    )
+    return problems
+
+
+def _gate_d_metric_problems(ledger_text: str) -> list[str]:
+    problems: list[str] = []
+    marker = "### Metric table"
+    if marker not in ledger_text:
+        return ["critical-gate ledger has no Gate D metric table"]
+    table_text = ledger_text.split(marker, 1)[1].split(
+        "- Zero-tolerance failures observed:", 1
+    )[0]
+    measured: list[str] = []
+    for line in table_text.splitlines():
+        if not line.strip().startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if (
+            len(cells) < MARKDOWN_METRIC_ROW_CELLS
+            or cells[0] == "Dimension"
+            or set(cells[0])
+            <= {
+                "-",
+                ":",
+            }
+        ):
+            continue
+        measured.append(cells[-1])
+    placeholders = [
+        value
+        for value in measured
+        if _is_evidence_placeholder(value)
+        or value.casefold().startswith(("pending", "not evaluated"))
+    ]
+    if not measured:
+        problems.append("critical-gate ledger has no Gate D measured rows")
+    elif placeholders:
+        problems.append(
+            "critical-gate ledger has placeholder Gate D measured results "
+            f"({len(placeholders)} row(s))"
+        )
+    zero_tolerance = _last_gate_field(
+        ledger_text, ("Zero-tolerance failures observed",)
+    )
+    normalized = (zero_tolerance or "").strip().casefold()
+    if not normalized.startswith(("0", "none")):
+        problems.append(
+            "critical-gate ledger does not record zero Gate D zero-tolerance failures"
+        )
+    return problems
+
+
+def _gate_section_text(path: Path, gate: str) -> str:
+    if not path.is_file():
+        return ""
+    for part in path.read_text(encoding="utf-8").split("\n## ")[1:]:
+        lines = part.splitlines()
+        if lines and lines[0].strip() == gate:
+            return part
+    return ""
+
+
+def _last_gate_field(text: str, labels: tuple[str, ...]) -> str | None:
+    alternatives = "|".join(re.escape(label) for label in labels)
+    values = re.findall(
+        rf"^\s*(?:[-*]\s*)?(?:{alternatives}):\s*(.*?)\s*$",
+        text,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
+    return values[-1].strip().strip("`") if values else None
+
+
+def _last_gate_state(text: str) -> str | None:
+    values = re.findall(
+        r"^\s*(?:[-*]\s*)?State:\s*([A-Z_]+)\b",
+        text,
+        flags=re.MULTILINE,
+    )
+    return values[-1] if values else None
+
+
+def _gate_record_agreement_problems(
+    label: str,
+    text: str,
+    revision: str,
+    corpus_hash: str,
+    reviewer: str,
+) -> list[str]:
+    problems: list[str] = []
+    state = _last_gate_state(text)
+    recorded_revision = _last_gate_field(text, ("Evaluated revision", "Git revision"))
+    recorded_hash = _last_gate_field(
+        text, ("Corpus/holdout hash", "Corpus/evidence hash")
+    )
+    recorded_reviewer = _last_gate_field(text, ("Independent reviewer",))
+    owner_decision = _last_gate_field(text, ("Owner decision",))
+    holdout = _last_gate_field(text, ("Holdout result",))
+    if state != "PASS":
+        problems.append(f"{label} state is {state!r}, not PASS")
+    if recorded_revision != revision:
+        problems.append(
+            f"{label} evaluated revision {recorded_revision!r} disagrees with "
+            f"PROJECT_STATUS {revision!r}"
+        )
+    if recorded_hash != corpus_hash:
+        problems.append(
+            f"{label} corpus/evidence hash {recorded_hash!r} disagrees with "
+            f"PROJECT_STATUS {corpus_hash!r}"
+        )
+    if recorded_reviewer != reviewer:
+        problems.append(
+            f"{label} independent reviewer {recorded_reviewer!r} disagrees with "
+            f"PROJECT_STATUS {reviewer!r}"
+        )
+    if owner_decision is None or owner_decision.split()[0].upper() != "PASS":
+        problems.append(f"{label} owner decision is not PASS")
+    holdout_token = holdout.split()[0].casefold() if holdout else ""
+    if holdout_token not in PASS_HOLDOUT_TOKENS:
+        problems.append(f"{label} holdout result is not a passing result")
+    return problems
+
+
 def _check_gate_pass_evidence(
-    repo: Path, gate: str, cells: list[str], report: Report
+    repo: Path,
+    gate: str,
+    cells: list[str],
+    status: Status,
+    report: Report,
 ) -> None:
     padded = [*cells, "", "", "", "", ""][:6]
     _, _, revision, corpus_hash, reviewer, _ = padded
     problems: list[str] = []
-    if revision in {"", "—"}:
-        problems.append("evaluated revision is empty")
-    if corpus_hash in {"", "—"}:
-        problems.append("corpus/holdout hash is empty")
-    if reviewer in {"", "—"}:
+    if not TREE_REVISION_RE.fullmatch(revision):
+        problems.append("evaluated revision is not a canonical tree revision")
+    if not EVIDENCE_HASH_RE.fullmatch(corpus_hash):
+        problems.append("corpus/holdout hash is not a complete SHA-256")
+    if _is_evidence_placeholder(reviewer):
         problems.append("independent reviewer is empty")
     report_path = repo / GATE_REPORTS[gate]
     report_text = (
         report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
     )
-    # Gate reports are append-only run history: the LAST recorded value is the
-    # current one (the template ships with a leading "pending" entry).
-    decisions = re.findall(r"Owner decision:\s*(\S+)", report_text)
-    holdouts = re.findall(r"Holdout result:\s*(\S+)", report_text)
-    if not decisions or decisions[-1].lower() in {"pending", "—"}:
-        problems.append("gate report records no owner decision")
-    if not holdouts or holdouts[-1].lower() in {"pending", "—"}:
-        problems.append("gate report records no holdout result")
-    if gate == "CROSS_PLATFORM_CORE":
-        profiles_path = repo / "docs/platform/MODEL_RUNTIME_PROFILES.md"
-        profiles_text = (
-            profiles_path.read_text(encoding="utf-8") if profiles_path.is_file() else ""
-        )
-        for platform in ("macos-arm64", "windows-x64", "ubuntu-x64"):
-            row = next(
-                (
-                    line
-                    for line in profiles_text.splitlines()
-                    if line.startswith(f"| `{platform}` |")
-                ),
-                "",
+    ledger_text = _gate_section_text(repo / "docs/CRITICAL_GATES.md", gate)
+    if TREE_REVISION_RE.fullmatch(revision) and EVIDENCE_HASH_RE.fullmatch(corpus_hash):
+        problems.extend(
+            _gate_record_agreement_problems(
+                "gate report", report_text, revision, corpus_hash, reviewer
             )
-            cells = [cell.strip().strip("`") for cell in row.strip("|").split("|")]
-            if (
-                len(cells) < FULL_EVIDENCE_ROW_CELLS
-                or cells[1] != "CERTIFIED_FULL"
-                or cells[2] != "ACCEPTED"
-                or cells[3] in {"", "—"}
-            ):
-                problems.append(
-                    f"{platform} lacks CERTIFIED_FULL/ACCEPTED full-AI evidence"
-                )
+        )
+        problems.extend(
+            _gate_record_agreement_problems(
+                "critical-gate ledger", ledger_text, revision, corpus_hash, reviewer
+            )
+        )
+    if gate == "CROSS_PLATFORM_CORE":
+        package_states = {
+            row[0]: row[1] for row in status.package_rows if len(row) >= MIN_ROW_CELLS
+        }
+        if package_states.get("M27-W12") not in STARTED:
+            problems.append(
+                "M27-W12 is not started or verified as the independent Gate D "
+                "decision owner"
+            )
+        problems.extend(_gate_d_evidence_problems(repo, report_text))
+        problems.extend(_gate_d_metric_problems(ledger_text))
     for problem in problems:
         report.fail(f"{gate} is PASS but {problem} (PASS prerequisites, spec §12)")
 
 
-def check_gates(repo: Path, status: Status, report: Report) -> dict[str, str]:
+def check_gates(  # noqa: PLR0912 - gate states are intentionally fail-closed
+    repo: Path, status: Status, report: Report
+) -> dict[str, str]:
     gate_states: dict[str, str] = {}
     gate_errors = 0
+    package_states = {
+        row[0]: row[1] for row in status.package_rows if len(row) >= MIN_ROW_CELLS
+    }
     for cells in status.gate_rows:
         gate, state = cells[0], cells[1] if len(cells) > 1 else ""
         if gate not in GATES:
@@ -669,9 +1255,46 @@ def check_gates(repo: Path, status: Status, report: Report) -> dict[str, str]:
             report.fail(f"invalid gate state for {gate}: '{state}'")
             gate_errors += 1
             continue
+        expected_report = GATE_REPORTS[gate]
+        recorded_report = (
+            cells[GATE_REPORT_CELL_INDEX] if len(cells) > GATE_REPORT_CELL_INDEX else ""
+        )
+        if recorded_report != expected_report:
+            report.fail(
+                f"{gate} report cell is {recorded_report!r}; expected "
+                f"{expected_report!r}"
+            )
+            gate_errors += 1
+        report_path = repo / expected_report
+        report_text = (
+            report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
+        )
+        report_state = _last_gate_state(report_text)
+        if report_state != state:
+            report.fail(
+                f"gate {gate} state mismatch: PROJECT_STATUS says {state}, "
+                f"{expected_report} says {report_state!r}"
+            )
+            gate_errors += 1
+        if state == "IN_PROGRESS":
+            evaluation_package = GATE_EVALUATION_PACKAGES[gate]
+            if package_states.get(evaluation_package) not in STARTED:
+                report.fail(
+                    f"{gate} is IN_PROGRESS before evaluation package "
+                    f"{evaluation_package} is started"
+                )
+                gate_errors += 1
+        elif state in {"PASS", "REDESIGN_REQUIRED", "BLOCKED"}:
+            decision_package = GATE_DECISION_PACKAGES[gate]
+            if package_states.get(decision_package) not in STARTED:
+                report.fail(
+                    f"{gate} is {state} before decision package "
+                    f"{decision_package} is started"
+                )
+                gate_errors += 1
         if state == "PASS":
             before = len(report.errors)
-            _check_gate_pass_evidence(repo, gate, cells, report)
+            _check_gate_pass_evidence(repo, gate, cells, status, report)
             gate_errors += len(report.errors) - before
     for gate in GATES:
         if gate not in gate_states:
@@ -739,21 +1362,28 @@ def check_tables(
 def _check_next_ready(
     next_ready: str | None, pkg_states: dict[str, str], report: Report
 ) -> None:
+    ready = sorted(pid for pid, state in pkg_states.items() if state == "READY")
     if next_ready is None:
         report.fail("'## Next READY package' section has no '- ID:' line")
     elif next_ready != "NONE":
-        if pkg_states.get(next_ready) != "READY":
+        if not ready:
+            report.fail(
+                f"Next READY package is {next_ready} but no work-package row is READY"
+            )
+        elif pkg_states.get(next_ready) != "READY":
             report.fail(
                 f"Next READY package is {next_ready} but its table state is "
                 f"'{pkg_states.get(next_ready)}'"
             )
         else:
             report.ok(f"next READY package {next_ready} is READY in the table")
+    elif ready:
+        report.fail(f"Next READY package is NONE but READY row(s) exist: {ready}")
     else:
-        report.ok("next READY package: NONE (explicit)")
+        report.ok("next READY package: NONE (no READY rows)")
 
 
-def check_progress_consistency(
+def check_progress_consistency(  # noqa: PLR0912 - explicit state agreement
     status: Status, pkg_states: dict[str, str], report: Report
 ) -> None:
     in_progress = [pid for pid, state in pkg_states.items() if state == "IN_PROGRESS"]
@@ -774,15 +1404,46 @@ def check_progress_consistency(
         else:
             report.ok("'Current work package' matches the IN_PROGRESS package")
     elif len(in_progress) == 0:
-        if current_id is not None and pkg_states.get(current_id) != "BLOCKED":
+        normalized_current = current.strip()
+        if normalized_current == "NONE":
+            report.ok("'Current work package' is NONE with no IN_PROGRESS package")
+        elif (
+            current_id is not None
+            and normalized_current == current_id
+            and pkg_states.get(current_id) == "BLOCKED"
+        ):
+            report.ok("'Current work package' names the exact BLOCKED package")
+        else:
             report.fail(
                 f"'Current work package' is '{current}' but no package is "
                 "IN_PROGRESS (must be NONE or a BLOCKED package)"
             )
-        else:
-            report.ok("'Current work package' consistent (NONE or BLOCKED)")
 
     _check_next_ready(status.next_ready, pkg_states, report)
+    expected_milestone: str | None = None
+    if len(in_progress) == 1:
+        expected_milestone = in_progress[0][:3]
+    elif (
+        current_id is not None
+        and current.strip() == current_id
+        and pkg_states.get(current_id) == "BLOCKED"
+    ):
+        expected_milestone = current_id[:3]
+    elif status.next_ready not in {None, "NONE"} and re.fullmatch(
+        r"M\d{2}-W\d{2}", status.next_ready
+    ):
+        expected_milestone = status.next_ready[:3]
+    if (
+        expected_milestone is not None
+        and status.header.get("Current milestone:") != expected_milestone
+    ):
+        report.fail(
+            "PROJECT_STATUS Current milestone is "
+            f"{status.header.get('Current milestone:')!r}; expected "
+            f"{expected_milestone!r} from current/next work"
+        )
+    elif expected_milestone is not None:
+        report.ok(f"Current milestone matches {expected_milestone}")
 
 
 def _started_or_ready(
@@ -883,21 +1544,94 @@ def check_dependencies(
         )
 
 
-def check_v13_readiness_contract(
+def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
     spec: Spec,
     ms_states: dict[str, str],
     pkg_states: dict[str, str],
+    gate_states: dict[str, str],
     report: Report,
 ) -> None:
     """Enforce the v1.3 migration-specific readiness boundaries."""
     errors = 0
+    m00_exactly_verified = all(
+        pkg_states.get(pid) == "VERIFIED" for pid in REQUIRED_M00_SEQUENCE
+    )
+    m00_accepted = ms_states.get("M00") == "ACCEPTED"
+    if m00_accepted and not m00_exactly_verified:
+        wrong = {
+            pid: pkg_states.get(pid)
+            for pid in REQUIRED_M00_SEQUENCE
+            if pkg_states.get(pid) != "VERIFIED"
+        }
+        report.fail(
+            "M00 cannot be ACCEPTED unless M00-W01 through M00-W10 are "
+            f"exactly VERIFIED; nonconforming rows: {wrong}"
+        )
+        errors += 1
+    if not (m00_accepted and m00_exactly_verified):
+        evaluated = {
+            gate: state
+            for gate, state in gate_states.items()
+            if state != "NOT_EVALUATED"
+        }
+        if evaluated:
+            report.fail(
+                "all four critical gates must remain NOT_EVALUATED while M00 "
+                f"is unfinished; nonconforming gates: {evaluated}"
+            )
+            errors += 1
+
     m01_state = pkg_states.get("M01-W01")
     if m01_state in (STARTED | {"READY"}):
-        if pkg_states.get("M00-W10") not in DONE:
-            report.fail("M01-W01 cannot be READY or started before M00-W10 is VERIFIED")
+        if pkg_states.get("M00-W10") != "VERIFIED":
+            report.fail(
+                "M01-W01 cannot be READY or started before M00-W10 is exactly VERIFIED"
+            )
             errors += 1
         if ms_states.get("M00") != "ACCEPTED":
             report.fail("M01-W01 cannot be READY or started before M00 is ACCEPTED")
+            errors += 1
+    m01 = spec.milestones.get("M01")
+    m01_package_ids = (
+        [package_id for package_id, _ in m01.packages] if m01 is not None else []
+    )
+    if (
+        m01_package_ids
+        and m00_accepted
+        and m00_exactly_verified
+        and all(
+            pkg_states.get(package_id) == "NOT_STARTED"
+            for package_id in m01_package_ids
+        )
+    ):
+        report.fail(
+            "accepted M00 closeout must make M01-W01 the exact next READY "
+            "package; every M01 package is still NOT_STARTED"
+        )
+        errors += 1
+    if m01_state == "READY":
+        ready = sorted(
+            package_id for package_id, state in pkg_states.items() if state == "READY"
+        )
+        if ready != ["M01-W01"]:
+            report.fail(
+                "at the post-M00 closeout boundary M01-W01 must be the only "
+                f"READY package; found {ready}"
+            )
+            errors += 1
+        if ms_states.get("M01") != "READY":
+            report.fail("at the post-M00 closeout boundary milestone M01 must be READY")
+            errors += 1
+        evaluated = {
+            gate: state
+            for gate, state in gate_states.items()
+            if state != "NOT_EVALUATED"
+        }
+        if evaluated:
+            report.fail(
+                "all four critical gates must remain NOT_EVALUATED at the "
+                f"post-M00 closeout boundary; nonconforming gates: {evaluated}"
+            )
             errors += 1
 
     m06 = spec.milestones.get("M06")
@@ -913,13 +1647,14 @@ def check_v13_readiness_contract(
 
     if errors == 0:
         report.ok(
-            "v1.3 readiness contract valid (M01 waits for M00-W10 acceptance; "
-            "M06 remains independent of Gate D)"
+            "v1.3 readiness contract valid (M00 exact closeout, M01 waits for "
+            "M00-W10 VERIFIED plus M00 acceptance, pre-closeout gates remain "
+            "unevaluated, and M06 remains independent of Gate D)"
         )
 
 
 def check_preserved_m00_history(status: Status, repo: Path, report: Report) -> None:
-    """Prevent the accepted v1.2 M00-W01…W07 anchors from being rewritten."""
+    """Prevent the verified M00-W01…W09 anchors from being rewritten."""
     evidence_text = (repo / "docs/TEST_EVIDENCE.md").read_text(
         encoding="utf-8", errors="replace"
     )
@@ -949,7 +1684,7 @@ def check_preserved_m00_history(status: Status, repo: Path, report: Report) -> N
             report.fail(f"{package_id}: preserved v1.2 evidence heading is missing")
             errors += 1
     if errors == 0:
-        report.ok("M00-W01…W07 v1.2 states, revisions, and evidence are preserved")
+        report.ok("M00-W01…W09 states, revisions, and evidence are preserved")
 
 
 def check_milestone_consistency(
@@ -1066,7 +1801,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
     ms_states, pkg_states = check_tables(spec, status, report)
     check_progress_consistency(status, pkg_states, report)
     check_dependencies(spec, ms_states, pkg_states, gate_states, report)
-    check_v13_readiness_contract(spec, ms_states, pkg_states, report)
+    check_v13_readiness_contract(spec, ms_states, pkg_states, gate_states, report)
     check_milestone_consistency(spec, ms_states, pkg_states, report)
     check_evidence_preservation(repo, status, report)
     check_preserved_m00_history(status, repo, report)

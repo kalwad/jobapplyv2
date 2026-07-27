@@ -12,9 +12,12 @@ reports live in `docs/gates/`.
 
 - Allowed gate states: `NOT_EVALUATED | IN_PROGRESS | PASS |
   REDESIGN_REQUIRED | BLOCKED` (spec §1.4.7).
-- A gate may claim `PASS` only with an evaluated revision, corpus/holdout
-  hash, independent reviewer, holdout result, and owner decision recorded
-  (spec §12); `python3 scripts/validate_status.py` enforces this.
+- A gate may claim `PASS` only with a full `tree <40-hex>` evaluated
+  revision, complete SHA-256 corpus/holdout hash, independent reviewer,
+  passing holdout result, and owner decision `PASS` recorded consistently in
+  the status table, this ledger, and the gate report (spec §12);
+  `python3 scripts/validate_status.py` enforces this. The report-table path and
+  report state must agree even before evaluation.
 - `REDESIGN_REQUIRED` or `BLOCKED` prevents downstream readiness; a failed
   gate produces reproducible regression cases and an ADR before iteration,
   and thresholds remain in force (spec §2.3 gate decision rules).
@@ -26,6 +29,19 @@ reports live in `docs/gates/`.
 - Gate D requires actual native packaged evidence on all three certified
   targets. Compilation, cross-compilation, containers, emulation, or one
   operating system cannot substitute for that evidence.
+- A future Gate D `PASS` must fill every measured Gate D row, record zero
+  zero-tolerance failures, and cite scoped repository evidence for its
+  bundle, accepted full-AI profiles, certified targets, platform-support
+  claims, native messaging, and packaging/update lifecycle. Approved
+  locations are `docs/TEST_EVIDENCE.md` under the relevant owning-package
+  heading, `docs/gates/HOLDOUT_EXECUTION_LOG.md` under a Gate D heading, or a
+  dedicated file below `docs/gates/evidence/`. References may use a Markdown
+  link or `path § heading` / `path#heading` when the file and heading exist.
+  URLs, arbitrary repository files, irrelevant package headings, absolute
+  paths, traversal, symlink escapes, duplicate platform rows, missing
+  files/headings, and placeholders such as `pending` or `TBD` do not count.
+  M00-W10 added fail-closed validation for this contract; it did not create or
+  imply any native product evidence.
 
 ## Summary
 

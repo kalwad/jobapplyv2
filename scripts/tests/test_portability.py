@@ -294,11 +294,84 @@ def test_missing_required_platform_fails(policy_repo: Path, dropped: str) -> Non
     assert "PORT-CI-002" in rules_of(policy_repo)
 
 
-def test_guarded_canonical_verify_fails_as_weaker_windows_set(
-    policy_repo: Path,
+def test_extra_matrix_runner_fails(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["strategy"]["matrix"]["os"].append("macos-14")
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-002" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        ("exclude", [{"os": "windows-2025"}]),
+        ("include", [{"os": "ubuntu-latest"}]),
+        ("architecture", ["x64"]),
+    ],
+)
+def test_matrix_cannot_filter_or_expand_exact_baseline(
+    policy_repo: Path, key: str, value: object
 ) -> None:
     data = load_workflow(policy_repo)
-    step_by_run(data, "pnpm verify")["if"] = "runner.os != 'Windows'"
+    verify_job(data)["strategy"]["matrix"][key] = value
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-002" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize("condition", ["${{ false }}", "failure()"])
+def test_required_matrix_job_cannot_be_guarded(
+    policy_repo: Path, condition: str
+) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["if"] = condition
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-002" in rules_of(policy_repo)
+
+
+def test_required_matrix_job_must_run_on_matrix_os(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["runs-on"] = "ubuntu-24.04"
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-002" in rules_of(policy_repo)
+
+
+def test_disconnected_dummy_matrix_cannot_satisfy_policy(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    command_job = verify_job(data)
+    strategy = command_job.pop("strategy")
+    command_job["runs-on"] = "ubuntu-24.04"
+    data["jobs"]["dummy-matrix"] = {
+        "strategy": strategy,
+        "runs-on": "${{ matrix.os }}",
+        "steps": [],
+    }
+    dump_workflow(policy_repo, data)
+    rules = rules_of(policy_repo)
+    assert "PORT-CI-003" in rules
+
+
+@pytest.mark.parametrize("body", ["pnpm run doctor", "pnpm verify"])
+def test_guarded_canonical_command_fails_as_weaker_windows_set(
+    policy_repo: Path, body: str
+) -> None:
+    data = load_workflow(policy_repo)
+    step_by_run(data, body)["if"] = "runner.os != 'Windows'"
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-003" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    ("body", "weaker"),
+    [
+        ("pnpm run doctor", "pnpm doctor"),
+        ("pnpm verify", "pnpm verify --filter @japp/platform"),
+    ],
+)
+def test_weaker_canonical_command_variant_fails(
+    policy_repo: Path, body: str, weaker: str
+) -> None:
+    data = load_workflow(policy_repo)
+    step_by_run(data, body)["run"] = weaker
     dump_workflow(policy_repo, data)
     assert "PORT-CI-003" in rules_of(policy_repo)
 
@@ -341,6 +414,50 @@ def test_posix_only_command_reachable_on_windows_fails(policy_repo: Path) -> Non
     assert "PORT-CI-006" in rules_of(policy_repo)
 
 
+@pytest.mark.parametrize(
+    "condition",
+    [
+        "runner.os != 'Windows' || true",
+        "runner.os == 'Linux' || runner.os == 'Windows'",
+        "${{ runner.os == 'Linux' && false || runner.os == 'Windows' }}",
+        "${{ runner.os != 'Windows'",
+        "runner.os == 'Linux' }}",
+    ],
+)
+def test_composite_condition_cannot_hide_windows_reachability(
+    policy_repo: Path, condition: str
+) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Composite guard bypass",
+            "if": condition,
+            "shell": "bash",
+            "run": "mkdir -p artifacts",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    rules = rules_of(policy_repo)
+    assert "PORT-CI-005" in rules
+    assert "PORT-CI-006" in rules
+
+
+def test_wrapped_exact_non_windows_guard_is_permitted(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Wrapped exact guard",
+            "if": "${{ runner.os != 'Windows' }}",
+            "shell": "bash",
+            "run": "mkdir -p artifacts",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    assert rules_of(policy_repo) == set()
+
+
 def test_equivalent_guarded_platform_specific_steps_are_permitted(
     policy_repo: Path,
 ) -> None:
@@ -378,12 +495,84 @@ def test_continue_on_error_fails(policy_repo: Path) -> None:
     assert "PORT-CI-007" in rules_of(policy_repo)
 
 
+def test_job_level_continue_on_error_fails(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["continue-on-error"] = False
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-007" in rules_of(policy_repo)
+
+
 def test_masked_child_failure_fails(policy_repo: Path) -> None:
     data = load_workflow(policy_repo)
     step = step_by_run(data, "pnpm run doctor")
     step["run"] = "pnpm run doctor || true"
     dump_workflow(policy_repo, data)
     assert "PORT-CI-008" in rules_of(policy_repo)
+
+
+def test_or_fallback_that_reports_success_fails(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Masked fallback",
+            "if": "runner.os != 'Windows'",
+            "shell": "bash",
+            "run": "failing-command || echo ignored",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize("success", ["true", ":", "exit 0"])
+def test_trailing_unconditional_success_fails(policy_repo: Path, success: str) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Masked final status",
+            "if": "runner.os != 'Windows'",
+            "shell": "bash",
+            "run": f"failing-command\n{success}\n",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-008" in rules_of(policy_repo)
+
+
+def test_swallowed_pwsh_catch_fails(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Swallowed PowerShell error",
+            "if": "runner.os == 'Windows'",
+            "shell": "pwsh",
+            "run": "$ErrorActionPreference = 'Stop'\n"
+            "$PSNativeCommandUseErrorActionPreference = $true\n"
+            "try { failing-command } catch { Write-Warning 'ignored' }\n",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-008" in rules_of(policy_repo)
+
+
+def test_rethrowing_pwsh_catch_is_permitted(policy_repo: Path) -> None:
+    data = load_workflow(policy_repo)
+    verify_job(data)["steps"].insert(
+        2,
+        {
+            "name": "Rethrown PowerShell error",
+            "if": "runner.os == 'Windows'",
+            "shell": "pwsh",
+            "run": "$ErrorActionPreference = 'Stop'\n"
+            "$PSNativeCommandUseErrorActionPreference = $true\n"
+            "try { failing-command } catch { Write-Warning 'failed'; throw }\n",
+        },
+    )
+    dump_workflow(policy_repo, data)
+    assert rules_of(policy_repo) == set()
 
 
 def test_unpinned_action_fails(policy_repo: Path) -> None:
@@ -408,6 +597,12 @@ def test_missing_frozen_install_fails(policy_repo: Path) -> None:
     data = load_workflow(policy_repo)
     step_by_run(data, "pnpm install --frozen-lockfile")["run"] = "pnpm install"
     dump_workflow(policy_repo, data)
+    path = policy_repo / ".github" / "workflows" / "ci.yml"
+    path.write_text(
+        "# docs only: pnpm install --frozen-lockfile\n"
+        + path.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
     assert "PORT-CI-012" in rules_of(policy_repo)
 
 
@@ -463,6 +658,22 @@ def test_missing_windows_chromium_install_fails(policy_repo: Path) -> None:
     assert "PORT-CI-016" in rules_of(policy_repo)
 
 
+@pytest.mark.parametrize("operating_system", ["Linux", "macOS", "Windows"])
+def test_composite_guard_cannot_satisfy_platform_chromium_install(
+    policy_repo: Path, operating_system: str
+) -> None:
+    data = load_workflow(policy_repo)
+    install = next(
+        step
+        for step in verify_job(data)["steps"]
+        if "playwright install" in str(step.get("run", ""))
+        and step.get("if") == f"runner.os == '{operating_system}'"
+    )
+    install["if"] = f"runner.os == '{operating_system}' && false"
+    dump_workflow(policy_repo, data)
+    assert "PORT-CI-016" in rules_of(policy_repo)
+
+
 def test_artifact_upload_outside_failure_scope_fails(policy_repo: Path) -> None:
     data = load_workflow(policy_repo)
     upload = next(
@@ -504,6 +715,15 @@ def test_hardcoded_tmp_in_runtime_script_fails(policy_repo: Path) -> None:
     assert "PORT-SRC-001" in rules_of(policy_repo)
 
 
+def test_embedded_hardcoded_tmp_in_runtime_literal_fails(
+    policy_repo: Path,
+) -> None:
+    (policy_repo / "scripts" / "command_helper.py").write_text(
+        'COMMAND = "copy input /tmp/output"\n', encoding="utf-8"
+    )
+    assert "PORT-SRC-001" in rules_of(policy_repo)
+
+
 def test_shell_true_in_runtime_script_fails(policy_repo: Path) -> None:
     (policy_repo / "scripts" / "runner_helper.py").write_text(
         "import subprocess\n\n"
@@ -524,6 +744,16 @@ def test_bash_wrapper_literal_in_runtime_script_fails(policy_repo: Path) -> None
 def test_manual_separator_concatenation_fails(policy_repo: Path) -> None:
     (policy_repo / "scripts" / "join_helper.py").write_text(
         'def join(base: str, name: str) -> str:\n    return base + "/" + name\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-003" in rules_of(policy_repo)
+
+
+def test_separator_variable_concatenation_fails(policy_repo: Path) -> None:
+    (policy_repo / "scripts" / "join_helper.py").write_text(
+        'SEPARATOR = "/"\n'
+        "def join(base: str, name: str) -> str:\n"
+        "    return base + SEPARATOR + name\n",
         encoding="utf-8",
     )
     assert "PORT-SRC-003" in rules_of(policy_repo)
@@ -607,6 +837,53 @@ def test_bash_wrapper_registry_command_fails(policy_repo: Path) -> None:
 # ------------------------------------------------- false-positive guards
 
 
+def test_harmless_workflow_comments_never_trigger_policy(policy_repo: Path) -> None:
+    path = policy_repo / ".github" / "workflows" / "ci.yml"
+    text = path.read_text(encoding="utf-8")
+    text = (
+        "# Documentation only: continue-on-error, || true, /tmp, "
+        "https://example.invalid\n" + text
+    )
+    text = text.replace(
+        "$ErrorActionPreference = 'Stop'",
+        "$ErrorActionPreference = 'Stop' "
+        "# docs: continue-on-error || true /tmp https://example.invalid",
+        1,
+    )
+    text = text.replace(
+        'test ! -e "$RUSTUP_HOME"',
+        "# docs: continue-on-error || true /tmp https://example.invalid\n"
+        '          test ! -e "$RUSTUP_HOME"',
+        1,
+    )
+    text = text.replace(
+        "        run: pnpm verify\n",
+        "        run: pnpm verify # docs: continue-on-error || true /tmp "
+        "https://example.invalid\n",
+        1,
+    )
+    path.write_text(text, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+def test_harmless_pwsh_block_comment_never_triggers_policy(
+    policy_repo: Path,
+) -> None:
+    data = load_workflow(policy_repo)
+    pwsh_step = next(
+        step
+        for step in verify_job(data)["steps"]
+        if step.get("shell") == "pwsh" and "run" in step
+    )
+    pwsh_step["run"] = (
+        str(pwsh_step["run"])
+        + "\n<# Documentation only:\n"
+        + "continue-on-error || true /tmp https://example.invalid\n#>\n"
+    )
+    dump_workflow(policy_repo, data)
+    assert rules_of(policy_repo) == set()
+
+
 def test_documentation_prose_never_triggers_policy(policy_repo: Path) -> None:
     docs = policy_repo / "docs"
     docs.mkdir()
@@ -632,8 +909,52 @@ def test_comments_in_runtime_scripts_never_trigger_policy(
     policy_repo: Path,
 ) -> None:
     (policy_repo / "scripts" / "commented_helper.py").write_text(
-        "# The doctor never hard-codes /tmp, /bin/bash, or bash -c wrappers.\n"
+        '# Never hard-code /tmp, /bin/bash, bash -c, or base + "/" + name.\n'
         "VALUE = 1\n",
+        encoding="utf-8",
+    )
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        '"""/tmp/example, bash -c, and base + "/" + name are docs."""\nVALUE = 1\n',
+        (
+            "class Helper:\n"
+            '    """/tmp/example, bash -c, and base + "/" + name are docs."""\n'
+            "    value = 1\n"
+        ),
+        (
+            "def helper() -> int:\n"
+            '    """/tmp/example, bash -c, and base + "/" + name are docs."""\n'
+            "    return 1\n"
+        ),
+        (
+            "async def helper() -> int:\n"
+            '    """/tmp/example, bash -c, and base + "/" + name are docs."""\n'
+            "    return 1\n"
+        ),
+    ],
+)
+def test_runtime_docstrings_never_trigger_policy(
+    policy_repo: Path, source: str
+) -> None:
+    (policy_repo / "scripts" / "documented_helper.py").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_type_metadata_literals_never_trigger_runtime_policy(
+    policy_repo: Path,
+) -> None:
+    (policy_repo / "scripts" / "typed_helper.py").write_text(
+        "from typing import Literal\n\n"
+        'type SystemPath = Literal["/tmp/example", "/usr/bin", "/"]\n'
+        'PathKind = Literal["/tmp/cache", "/var/log"]\n'
+        'def inspect(path: "/etc/hosts") -> Literal["/var/log"]:\n'
+        "    return path\n",
         encoding="utf-8",
     )
     assert rules_of(policy_repo) == set()

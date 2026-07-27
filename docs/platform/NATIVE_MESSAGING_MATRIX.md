@@ -11,3 +11,12 @@ or packaged host is implemented by M00-W08.
 
 Installer, update, repair, uninstall, extension handshake, and security claims
 remain unverified until native packaged evidence exists.
+
+For a future Gate D `PASS`, every certified-platform row must be `VERIFIED`
+and cite its owning M17 package in `docs/TEST_EVIDENCE.md` or a dedicated
+artifact below `docs/gates/evidence/`. The reference must resolve, including
+any named heading; arbitrary or irrelevant repository files, placeholders,
+URLs, absolute/traversal/symlink-escaped paths, missing evidence, and duplicate
+rows are rejected. `VERIFIED` here means actual Chrome stable plus packaged
+native-host registration/protocol/repair/removal evidence, never hosted CI or
+compilation alone.

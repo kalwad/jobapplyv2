@@ -29,8 +29,9 @@ members = ["services/orchestrator"]
 dev = [
     "mypy==2.3.0",
     "pytest==9.1.1",
-    # PyYAML is used only by scripts/tests/test_ci_workflow.py to statically
-    # validate .github/workflows (M00-W06).
+    # PyYAML is required by scripts/check_portability.py and
+    # scripts/tests/test_ci_workflow.py to parse and validate GitHub Actions
+    # workflows.
     "pyyaml==6.0.3",
     "ruff==0.16.0",
     "types-pyyaml==6.0.12.20260724",

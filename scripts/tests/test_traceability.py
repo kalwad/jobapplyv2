@@ -1,4 +1,4 @@
-"""M00-W08 traceability inventory, dependency, honesty, and drift tests.
+"""M00-W10 reviewed v1.3 traceability, honesty, dependency, and drift tests.
 
 Every negative case mutates an isolated docs/scripts fixture. The tracked
 project-memory files are read-only except for the explicit deterministic
@@ -44,6 +44,21 @@ def trace_repo(tmp_path: Path) -> Path:
         REPO_ROOT / "scripts" / "tests" / "test_traceability.py",
         repo / "scripts" / "tests" / "test_traceability.py",
     )
+    for relative_path in (
+        ".gitattributes",
+        ".github/workflows/ci.yml",
+        "scripts/check_portability.py",
+        "scripts/doctor.py",
+        "scripts/portability.py",
+        "scripts/verify.py",
+        "scripts/tests/test_ci_workflow.py",
+        "scripts/tests/test_doctor.py",
+        "scripts/tests/test_portability.py",
+    ):
+        source = REPO_ROOT / relative_path
+        destination = repo / relative_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
     return repo
 
 
@@ -80,6 +95,24 @@ def record_by_id(
 def errors(repo: Path, *, check_view: bool = False) -> str:
     result = traceability.validate_repository(repo, check_view=check_view)
     return "\n".join(result.errors)
+
+
+def refresh_expanded_requirement_hash(metadata: dict[str, object]) -> None:
+    rows = traceability._expanded_requirement_review_rows(
+        records(metadata, "requirements")
+    )
+    review = cast(dict[str, object], metadata["review"])
+    review["expanded_requirements_mapping_sha256"] = traceability._inventory_hash(rows)
+
+
+def refresh_expanded_dependency_hash(metadata: dict[str, object]) -> None:
+    rows = traceability._expanded_package_review_rows(
+        records(metadata, "work_packages")
+    )
+    review = cast(dict[str, object], metadata["review"])
+    review["expanded_work_package_dependency_sha256"] = traceability._inventory_hash(
+        rows
+    )
 
 
 def replace_status(repo: Path, pattern: str, replacement: str) -> None:
@@ -196,6 +229,14 @@ def test_v13_delta_and_preserved_v12_hashes_are_exact() -> None:
     assert review["work_package_dependency_sha256"] == (
         traceability.PRESERVED_PACKAGE_DEPENDENCY_SHA256
     )
+    assert review["expanded_requirements_mapping_sha256"] == (
+        traceability.FINAL_V1_3_REQUIREMENT_MAPPING_SHA256
+    )
+    assert review["expanded_work_package_dependency_sha256"] == (
+        traceability.FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256
+    )
+    assert review["v1_3_reviewed_in_work_package"] == "M00-W10"
+    assert review["v1_3_extension_review_state"] == traceability.REVIEWED_V1_3
 
 
 def test_adopted_spec_hash_schema_and_gate_inventory_are_exact() -> None:
@@ -214,18 +255,84 @@ def test_adopted_spec_hash_schema_and_gate_inventory_are_exact() -> None:
     ]
 
 
-def test_new_records_are_visibly_provisional_and_future_honest() -> None:
+def test_agent_neutral_bootstrap_and_historical_v12_routing_facts_are_preserved() -> (
+    None
+):
+    claude = (REPO_ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+    assert (
+        "At the beginning of every new prompt or resumed session, "
+        "the implementation agent must:"
+    ) in claude
+    assert "The implementation agent updates it at every package start and finish" in (
+        claude
+    )
+    assert "The implementation agent must not silently alter the specification" in (
+        claude
+    )
+    assert "spec §0(26–27)" in claude
+    assert (
+        "At the beginning of every new prompt or resumed session, Claude must"
+        not in (claude)
+    )
+
+    decisions = (REPO_ROOT / "docs" / "DECISIONS.md").read_text(encoding="utf-8")
+    normalized_decisions = " ".join(decisions.split())
+    historical_decision = (
+        "Claude implementation sessions use Fable 5 Max; broad Ultra Code "
+        "workflow orchestration is not the operating plan. Independent review "
+        "happens after a coherent implementation pass in a separate clean Claude "
+        "Max session or GPT-5.6 Ultra Codex worktree."
+    )
+    assert historical_decision in normalized_decisions
+    assert (
+        "Implementation standardizes on Claude Fable 5 Max with independent "
+        "review in a separate clean session or Codex worktree instead of Ultra "
+        "Code workflow fan-out (§0(20), §1.5)."
+    ) in normalized_decisions
+    assert "only M00-W05 using Claude Fable 5 Max." in normalized_decisions
+    assert "ADR-0002/OD-026 prospectively supersedes" in normalized_decisions
+
+
+def test_every_new_record_is_reviewed_v13_and_no_live_provisional_record_remains() -> (
+    None
+):
     metadata = load_metadata(REPO_ROOT)
     for record in records(metadata, "requirements"):
         if record["id"] in traceability.NEW_REQUIREMENT_IDS:
-            assert record["mapping_review_state"] == ("PROVISIONAL_PENDING_M00_W10")
-            if record["id"] not in (traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS):
+            assert record["mapping_review_state"] == traceability.REVIEWED_V1_3
+            assert record["mapping_review_state"] != "PROVISIONAL_PENDING_M00_W10"
+            if record["id"] in (traceability.V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS):
+                assert record["implementation_state"] == "VERIFIED"
+                assert record["verification_state"] == "VERIFIED"
+            elif record["id"] in traceability.V1_3_SCAFFOLD_REQUIREMENT_IDS:
+                assert record["implementation_state"] == "SCAFFOLD_ONLY"
+                assert record["verification_state"] == "NOT_YET_APPLICABLE"
+            else:
                 assert record["implementation_state"] == "NOT_STARTED"
                 assert record["verification_state"] == "NOT_YET_APPLICABLE"
                 assert record["current_evidence"] == []
     for record in records(metadata, "work_packages"):
         if record["id"] in traceability.NEW_PACKAGE_IDS:
-            assert record["dependency_review_state"] == ("PROVISIONAL_PENDING_M00_W10")
+            assert record["dependency_review_state"] == traceability.REVIEWED_V1_3
+            assert record["dependency_review_state"] != ("PROVISIONAL_PENDING_M00_W10")
+    legacy_requirements = [
+        record
+        for record in records(metadata, "requirements")
+        if record["id"] not in traceability.NEW_REQUIREMENT_IDS
+    ]
+    legacy_packages = [
+        record
+        for record in records(metadata, "work_packages")
+        if record["id"] not in traceability.NEW_PACKAGE_IDS
+    ]
+    assert len(legacy_requirements) == 135
+    assert len(legacy_packages) == 260
+    assert {record["mapping_review_state"] for record in legacy_requirements} == {
+        traceability.REVIEWED_V1_2
+    }
+    assert {record["dependency_review_state"] for record in legacy_packages} == {
+        traceability.REVIEWED_V1_2
+    }
 
 
 def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> None:
@@ -243,10 +350,12 @@ def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> N
         "REQ-GATE-005",
         "REQ-GATE-014",
         "REQ-PLAT-011",
+        "REQ-PLAT-013",
         "REQ-GATE-017",
         "REQ-GATE-018",
+        "REQ-GATE-022",
     }
-    legacy_verified = verified - traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS
+    legacy_verified = verified - traceability.V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS
     for requirement_id in legacy_verified:
         record = record_by_id(metadata, "requirements", requirement_id)
         assert record["completed_code_paths"] == ["scripts/validate_status.py"]
@@ -256,13 +365,34 @@ def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> N
         assert record["current_evidence"] == [
             {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W05"}
         ]
-    for requirement_id in traceability.M00_W08_GOVERNANCE_REQUIREMENT_IDS:
+    for requirement_id in traceability.V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS:
         record = record_by_id(metadata, "requirements", requirement_id)
         assert record["completed_code_paths"]
         assert record["completed_test_paths"]
-        assert record["current_evidence"] == [
-            {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W08"}
-        ]
+        assert record["current_evidence"]
+
+
+def test_platform_scaffold_claim_is_partial_and_product_honest() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    record = record_by_id(metadata, "requirements", "REQ-PLAT-025")
+    assert record["implementation_state"] == "SCAFFOLD_ONLY"
+    assert record["verification_state"] == "NOT_YET_APPLICABLE"
+    assert record["current_evidence"] == [
+        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W09"}
+    ]
+    assert "M03-W09" in cast(str, record["notes"])
+    assert "ownership scaffold only" in cast(str, record["notes"])
+
+
+def test_new_package_proof_plans_are_specific_not_provisional_placeholders() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    for record in records(metadata, "work_packages"):
+        if record["id"] not in traceability.NEW_PACKAGE_IDS:
+            continue
+        automated = " ".join(cast(list[str], record["required_automated_verification"]))
+        manual = " ".join(cast(list[str], record["required_manual_evidence"]))
+        assert "owning-package automated verification defined" not in automated
+        assert "manual/browser/document/holdout/hosted evidence required" not in manual
 
 
 def test_missing_requirement_fails(trace_repo: Path) -> None:
@@ -330,6 +460,45 @@ def test_valid_owner_change_requires_explicit_review_hash_update(
     assert "requirements_mapping_sha256 drift" in errors(trace_repo)
 
 
+def test_reviewed_new_requirement_tamper_fails_even_if_claimed_hash_is_updated(
+    trace_repo: Path,
+) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "requirements", "REQ-PLAT-012")["planned_components"] = [
+        "tampered platform boundary"
+    ]
+    refresh_expanded_requirement_hash(metadata)
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "final reviewed v1.3 requirement-mapping hash changed" in output
+
+
+@pytest.mark.parametrize(
+    ("field", "replacement"),
+    [
+        ("implementation_state", "ACCEPTED"),
+        ("verification_state", "ACCEPTED"),
+        ("completed_code_paths", ["docs/MASTER_IMPLEMENTATION_SPEC.md"]),
+        ("completed_test_paths", ["docs/MASTER_IMPLEMENTATION_SPEC.md"]),
+        (
+            "current_evidence",
+            [{"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W01"}],
+        ),
+        ("notes", "Windows 11 native product certification is complete."),
+    ],
+)
+def test_reviewed_governance_honesty_tamper_fails_after_self_rehash(
+    trace_repo: Path,
+    field: str,
+    replacement: object,
+) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "requirements", "REQ-PLAT-013")[field] = replacement
+    refresh_expanded_requirement_hash(metadata)
+    save_metadata(trace_repo, metadata)
+    assert "final reviewed v1.3 requirement-mapping hash changed" in errors(trace_repo)
+
+
 def test_missing_work_package_fails(trace_repo: Path) -> None:
     metadata = load_metadata(trace_repo)
     records(metadata, "work_packages").pop()
@@ -391,6 +560,54 @@ def test_unknown_package_dependency_fails(trace_repo: Path) -> None:
     assert "dependency references unknown package M99-W99" in errors(trace_repo)
 
 
+def test_reviewed_new_package_dependency_tamper_fails_even_if_hash_is_updated(
+    trace_repo: Path,
+) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "work_packages", "M03-W08")[
+        "direct_package_prerequisites"
+    ] = ["M03-W06"]
+    refresh_expanded_dependency_hash(metadata)
+    save_metadata(trace_repo, metadata)
+    output = errors(trace_repo)
+    assert "M03-W08: direct package prerequisites drift" in output
+    assert "final reviewed v1.3 dependency-map hash changed" in output
+
+
+@pytest.mark.parametrize(
+    ("field", "replacement"),
+    [
+        ("primary_deliverables", ["tampered deliverable"]),
+        ("required_automated_verification", ["placeholder"]),
+        ("required_manual_evidence", ["placeholder"]),
+    ],
+)
+def test_reviewed_new_package_proof_plan_tamper_fails_after_self_rehash(
+    trace_repo: Path,
+    field: str,
+    replacement: list[str],
+) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "work_packages", "M03-W10")[field] = replacement
+    refresh_expanded_dependency_hash(metadata)
+    save_metadata(trace_repo, metadata)
+    assert "final reviewed v1.3 dependency-map hash changed" in errors(trace_repo)
+
+
+def test_completed_package_must_reference_its_own_evidence_heading(
+    trace_repo: Path,
+) -> None:
+    metadata = load_metadata(trace_repo)
+    record_by_id(metadata, "work_packages", "M00-W09")["current_evidence"] = [
+        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M00-W08"}
+    ]
+    save_metadata(trace_repo, metadata)
+    assert (
+        "M00-W09: completed package must reference its own ### M00-W09 heading"
+        in errors(trace_repo)
+    )
+
+
 def test_package_dependency_cycle_fails(trace_repo: Path) -> None:
     metadata = load_metadata(trace_repo)
     record_by_id(metadata, "work_packages", "M00-W01")[
@@ -429,6 +646,43 @@ def test_m06_has_no_cross_platform_gate_prerequisite() -> None:
             assert "CROSS_PLATFORM_CORE" not in cast(
                 list[str], record["critical_gate_prerequisites"]
             )
+
+
+def test_workday_gate_covers_declared_m21_through_m23_expansion_boundary() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    covered = {
+        cast(str, record["id"])
+        for record in records(metadata, "work_packages")
+        if cast(str, record["id"]).startswith(("M21-", "M22-", "M23-"))
+        and "WORKDAY_GUIDED_PRE_SUBMIT"
+        in cast(list[str], record["critical_gate_prerequisites"])
+    }
+    expected = {
+        cast(str, record["id"])
+        for record in records(metadata, "work_packages")
+        if cast(str, record["id"]).startswith(("M21-", "M22-", "M23-"))
+    }
+    assert covered == expected
+
+
+def test_final_platform_profile_and_gate_d_decision_owners_are_exact() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    profile = record_by_id(metadata, "work_packages", "M27-W10")
+    gate_decision = record_by_id(metadata, "work_packages", "M27-W12")
+    assert "full-AI platform profiles" in " ".join(
+        cast(list[str], profile["primary_deliverables"])
+    )
+    assert "accepted Windows/Ubuntu full-AI profiles" in " ".join(
+        cast(list[str], profile["required_automated_verification"])
+    )
+    assert "Independent Cross-Platform Core Gate audit and decision" in " ".join(
+        cast(list[str], gate_decision["primary_deliverables"])
+    )
+    assert "independent reviewer" in " ".join(
+        cast(list[str], gate_decision["required_manual_evidence"])
+    )
+    gate_requirement = record_by_id(metadata, "requirements", "REQ-GATE-020")
+    assert gate_requirement["owning_packages"] == ["M27-W12"]
 
 
 @pytest.mark.parametrize(
@@ -474,7 +728,7 @@ def test_false_new_platform_implementation_claim_fails(trace_repo: Path) -> None
 def test_legacy_mapping_cannot_be_silently_reclassified(trace_repo: Path) -> None:
     metadata = load_metadata(trace_repo)
     record_by_id(metadata, "requirements", "REQ-PROF-001")["mapping_review_state"] = (
-        "PROVISIONAL_PENDING_M00_W10"
+        "REVIEWED_V1_3"
     )
     save_metadata(trace_repo, metadata)
     assert "mapping review state must be REVIEWED_V1_2" in errors(trace_repo)
