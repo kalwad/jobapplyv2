@@ -34,7 +34,7 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-### KI-0013 — Doctor redaction tests encoded host-specific `Path` separators
+### KI-0013 — Doctor redaction tests encoded host-specific path rendering
 
 - Severity: HIGH
 - State: IN_PROGRESS
@@ -47,20 +47,27 @@ broadening a work package (spec §1.5).
   `Path("/Users/Fixture User")` becomes a Windows-style path and therefore
   no longer represents the simulated POSIX input; a fatal-path assertion
   likewise required `/` even though the correctly redacted Windows
-  diagnostic used `\`.
+  diagnostic used `\`. The first repair derived the native separator but
+  did not account for `FileNotFoundError` escaping that separator when it
+  renders the missing filename.
 - Reproduction: M00-W10 content run 30229993787, Windows job 89866914158,
   collected 358 Python tests and failed only
   `test_scrub_keeps_posix_case_sensitive_and_component_bounded` and
   `test_pin_read_fatal_output_scrubs_home`; macOS job 89866914146 and Ubuntu
-  job 89866914187 passed.
+  job 89866914187 passed. Repair run 30230286865 then passed macOS job
+  89867742632 and Ubuntu job 89867742629, but Windows job 89867742638
+  reported 357/358 Python tests passed: the remaining failure was solely the
+  escaped-backslash rendering in `test_pin_read_fatal_output_scrubs_home`.
 - Workaround: none accepted; required tests must be host-neutral and pass on
   the actual Windows runner.
 - Resolution + evidence link: `_scrub` now accepts an explicit path string
   for syntax-preserving simulation, the POSIX test uses that form, and the
-  fatal-path expectation derives the host-native separator with `Path`.
-  Local focused and aggregate verification pass; state remains IN_PROGRESS
-  until a new exact-head Windows job verifies the repair. Evidence:
-  docs/TEST_EVIDENCE.md § M00-W10.
+  fatal-path expectation derives the host-native separator with `Path` and
+  normalizes only duplicated backslashes in the exception-rendered text
+  before asserting the redacted path. It separately proves the sensitive
+  home is absent. Local focused and aggregate verification pass; state
+  remains IN_PROGRESS until a new exact-head Windows job verifies the
+  repair. Evidence: docs/TEST_EVIDENCE.md § M00-W10.
 
 ## M00-W10 independent review
 

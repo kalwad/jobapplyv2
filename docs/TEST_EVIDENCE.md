@@ -215,9 +215,23 @@ Exact verification commands and summarized results
     cases themselves passed.
   - KI-0013 records the defect. The repair preserves explicit POSIX test
     syntax as a string and derives the expected fatal diagnostic path with
-    the host-native `Path` separator. A fresh three-OS content head is
-    required; no rerun or local result can substitute for that Windows
-    proof.
+    the host-native `Path` separator.
+- First repair attempt and fail-closed response:
+  - Repair commit `27b6bec62d5fc41e7d35c9cd11c4e77e99c1bb65`
+    (tree `a44d40315100f9621e36d4277ab6785e4ff18ab5`) triggered run
+    30230286865. macOS job 89867742632 and Ubuntu job 89867742629 passed
+    the canonical doctor, aggregate verification, and no-tracked-changes
+    assertion. Windows job 89867742638 failed, so M00 remained unaccepted.
+  - Inspection of the actual Windows log found 357/358 Python tests passed.
+    The sole failure was the repaired fatal-path test: the expected native
+    path used single `\` separators, while `FileNotFoundError` correctly
+    escaped them when rendering its filename. All runtime redaction cases
+    and every other active verification suite passed.
+  - The second repair normalizes only duplicated backslashes in the
+    exception-rendered diagnostic before asserting the redacted path; the
+    independent assertion that the sensitive home is absent remains. A
+    fresh three-OS content head is required; no rerun or local result can
+    substitute for that Windows proof.
 
 ### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
 
