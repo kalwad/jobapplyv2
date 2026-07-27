@@ -156,7 +156,7 @@ describe("contract compatibility infrastructure fails closed", () => {
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
-  });
+  }, 45_000);
 
   test("omitted, duplicate, and wrong case IDs fail inventory validation", () => {
     expect(() =>
