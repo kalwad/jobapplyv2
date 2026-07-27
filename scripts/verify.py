@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import os
 import re
@@ -57,6 +58,14 @@ STARTED_STATES = frozenset(
 )
 PYTEST_EXIT_NO_TESTS = 5
 COMMAND_TIMEOUT_SECONDS = 1800
+
+
+def configure_utf8_output() -> None:
+    """Make aggregate diagnostics portable across host console code pages."""
+    for stream in (sys.stdout, sys.stderr):
+        if isinstance(stream, io.TextIOWrapper):
+            stream.reconfigure(encoding="utf-8", errors="strict")
+
 
 CANONICAL_ROOT_SCRIPTS = (
     "lint",
@@ -928,6 +937,7 @@ def run_verification(
 
 
 def main(argv: list[str] | None = None) -> int:
+    configure_utf8_output()
     parser = argparse.ArgumentParser(description=(__doc__ or "").splitlines()[0])
     parser.add_argument("--suite", action="append", help="run one suite by id")
     parser.add_argument("--repo", default=None, help="repository root override")

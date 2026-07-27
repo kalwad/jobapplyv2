@@ -9,6 +9,7 @@ files; nothing here touches the developer's machine or the real repository.
 
 from __future__ import annotations
 
+import io
 import json
 import os
 import shutil
@@ -230,6 +231,22 @@ def test_verify_run_command_decodes_child_output_as_utf8(
     assert output == "portable \u019d\n"
     assert captured["encoding"] == "utf-8"
     assert captured["errors"] == "strict"
+
+
+def test_verify_configures_aggregate_output_as_utf8(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    stdout = io.TextIOWrapper(io.BytesIO(), encoding="cp1252")
+    stderr = io.TextIOWrapper(io.BytesIO(), encoding="cp1252")
+    monkeypatch.setattr("verify.sys.stdout", stdout)
+    monkeypatch.setattr("verify.sys.stderr", stderr)
+
+    verify.configure_utf8_output()
+
+    assert stdout.encoding == "utf-8"
+    assert stdout.errors == "strict"
+    assert stderr.encoding == "utf-8"
+    assert stderr.errors == "strict"
 
 
 # ------------------------------------------- policy checker fixtures (§H/§I)
