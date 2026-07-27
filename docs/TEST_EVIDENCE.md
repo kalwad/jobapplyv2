@@ -35,8 +35,9 @@ Exact verification commands and summarized results
 
 ### M01-W04 — Define capability and command allowlists (2026-07-27)
 
-- Revision: content working tree (commit recorded post-commit). Bootstrap ran
-  at starting tree `1171f6af2fcb1a8057023fcdaf914ae232575223`
+- Revision: content tree `9ec01d8f8a734c703a943ea08012a10df023bf67`
+  / commit `d0d0abd70fd5d82a294a9c9e8167d9702b8d0217`. Bootstrap ran at
+  starting tree `1171f6af2fcb1a8057023fcdaf914ae232575223`
   (commit `11b3202d247859ab1345b170d20087ecc1f23e08`, clean `main`,
   equal to `origin/main`).
 - Environment: macOS 27.0 (Apple silicon, Darwin 27.0.0); Node v24.18.0;
@@ -221,7 +222,7 @@ Exact verification commands and summarized results
     privilege-escalation reproduction and mutated Python-model
     reproduction both fail closed; the focused policy suites pass 63/63
     TypeScript and 32/32 Python.
-- Clean-clone simulation: staged candidate tree
+- Clean-clone simulations: staged candidate tree
   `2967f3c2f1d3dd18c0e6881eaed189b9dec1ec14` was transported through a
   temporary local-only commit into a fresh detached clone without moving
   `main`. `pnpm install --frozen-lockfile`; `uv sync --locked`; and
@@ -233,7 +234,28 @@ Exact verification commands and summarized results
   every active suite with 338 TypeScript contract tests, 539 Python
   tests, browser and Rust tests, contract-gen ACTIVE/PASS, and contract/
   visual NOT_YET_APPLICABLE. Final `git diff --check` and `git status
-  --short` were empty.
+  --short` were empty. After evidence and KI-0021 governance edits, the
+  exact governed content tree `9ec01d8f8a734c703a943ea08012a10df023bf67`
+  passed a second fresh detached-clone simulation: all three locked
+  dependency commands, generation, two byte-identical checks,
+  traceability, status, clean doctor (21/0/0/2), `git diff --check`, and
+  final empty status passed.
+
+#### M01-W04 hosted content verification
+
+- GitHub Actions run
+  [30253769824](https://github.com/kalwad/jobapplyv2/actions/runs/30253769824)
+  checked out exact content commit
+  `d0d0abd70fd5d82a294a9c9e8167d9702b8d0217` and passed:
+  windows-2025 job 89937537082, ubuntu-24.04 job 89937537118, and
+  macos-15 job 89937537130.
+- The actual Windows log was inspected. It records the exact SHA fetch and
+  checkout; clean doctor with 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE; Node 24.18.0, pnpm 11.17.0, Python 3.12.13, and
+  cargo 1.97.1; 338/338 TypeScript contract tests; 55 generated files
+  byte-identical; 539/539 Python tests; status validation at 36 groups;
+  contract-gen ACTIVE/PASS; contract and visual NOT_YET_APPLICABLE;
+  verification exit 0; and a successful no-tracked-changes assertion.
 - Artifacts: the canonical security schemas and catalogs, generated
   TypeScript/Python security trees, MANIFEST, test corpus, focused tests,
   and this evidence entry. No screenshots or benchmark artifacts apply.
