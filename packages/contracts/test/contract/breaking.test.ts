@@ -307,7 +307,7 @@ describe("M01-W05 compatibility baseline", () => {
     ).toEqual({ compatible: true, findings: [], additive_changes: [] });
     expect(readFileSync(BASELINE_PATH)).toEqual(before);
     expect(statSync(BASELINE_PATH).mtimeMs).toBe(beforeMtime);
-  });
+  }, 15_000);
 
   test("rejects a drifted baseline digest", () => {
     const root = mkdtempSync(join(tmpdir(), "japp-baseline-"));

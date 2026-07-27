@@ -113,7 +113,7 @@ Exact verification commands and summarized results
   intentionally updated for the W06 evidence anchors and notes. All four
   actual gates remain NOT_EVALUATED; visual evidence remains
   NOT_YET_APPLICABLE.
-- Known issues: four pre-closeout regressions discovered by the complete
+- Known issues: five pre-closeout regressions discovered by the complete
   verification/audit pass
   were fixed in this revision: the generated Python semantic module now
   carries the mandatory reconstruction command, and isolated governance test
@@ -122,8 +122,12 @@ Exact verification commands and summarized results
   and protected namespace prefix without banning safe W06 `model_*` fields.
   The explicit structural-baseline update now owns and tests its exact
   deterministic serialization, so generic formatting cannot make its update
-  command dirty a clean checkout. No reproducible open defect was added to
-  `docs/KNOWN_ISSUES.md`.
+  command dirty a clean checkout. The intentionally heavy double-build
+  compatibility proof has a 15-second case bound after hosted Ubuntu took
+  5.903 seconds and hosted Windows took 6.215 seconds under the full parallel
+  package load, exceeding Vitest's generic 5-second default; its assertions
+  and fail-closed behavior are unchanged. No reproducible open defect was
+  added to `docs/KNOWN_ISSUES.md`.
 
 #### M01-W06 local verification
 
