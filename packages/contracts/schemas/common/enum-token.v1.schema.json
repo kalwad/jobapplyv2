@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:enum-token:v1",
+  "title": "Enum token conventions",
+  "description": "Grammar every enum value in this repository must satisfy: UPPER_SNAKE_CASE tokens of at most 64 characters, starting with a letter. Enums are closed sets of string tokens declared with a sibling type of string. Evolution rules: adding a token is a MINOR schema change (existing instances stay valid); removing or renaming a token is a MAJOR change. Validators reject undeclared tokens outright; there is no implicit pass-through of unknown enum values.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "enumToken": {
+      "title": "Enum token",
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$",
+      "maxLength": 64
+    }
+  }
+}

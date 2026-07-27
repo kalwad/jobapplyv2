@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:confidence:v1",
+  "title": "Confidence values",
+  "description": "Bounded confidence score: a JSON number in the closed interval [0, 1]. 0 means no confidence and 1 means full confidence. Values below 0 or above 1 are invalid. The value is carried as an IEEE 754 double (ordinary JSON number); producers should emit a bounded number of decimal digits, and consumers must never compare confidences for exact equality across producers.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "confidence": {
+      "title": "Confidence in [0, 1]",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

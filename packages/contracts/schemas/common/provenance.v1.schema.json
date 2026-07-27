@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:provenance:v1",
+  "title": "Provenance and source references",
+  "description": "Where a fact or record came from and when it was observed. Provenance requires a stable source identity (source_kind plus source_id) and an observation time; it may carry a content digest of the exact observed artifact and a bounded confidence. Provenance never embeds raw captured content, page HTML, or secret values — it references sources by identifier and digest only.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "sourceKind": {
+      "title": "Source kind",
+      "description": "Closed set of source families. Additive growth follows the enum evolution rules in urn:japp:schema:common:enum-token:v1.",
+      "type": "string",
+      "enum": [
+        "USER_INPUT",
+        "DOCUMENT_IMPORT",
+        "PAGE_CAPTURE",
+        "EXTERNAL_API",
+        "GENERATED"
+      ]
+    },
+    "contentDigest": {
+      "title": "Content digest",
+      "description": "SHA-256 digest of the exact observed artifact, rendered as sha256:<64 lowercase hex digits>.",
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "provenance": {
+      "title": "Provenance record",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_kind", "source_id", "observed_at"],
+      "properties": {
+        "source_kind": {
+          "$ref": "#/$defs/sourceKind"
+        },
+        "source_id": {
+          "description": "Stable identifier of the source entity (for example a document, capture, or import record).",
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "observed_at": {
+          "description": "Instant the source content was observed, always UTC.",
+          "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+        },
+        "source_digest": {
+          "$ref": "#/$defs/contentDigest"
+        },
+        "confidence": {
+          "description": "Producer confidence that the referenced source supports the derived value.",
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:redaction:v1",
+  "title": "Redaction and sensitivity annotations",
+  "description": "Defined namespaced vocabulary for data sensitivity and redaction handling. Two closed token sets are normative: sensitivityClass (how private a value is) and redactionPolicy (how diagnostics, logs, and exports must treat the value). The same vocabulary backs the x-japp-sensitivity and x-japp-redaction schema annotation keywords, which are the ONLY schema-level redaction annotations permitted — arbitrary or ad-hoc redaction keywords are rejected by the strict validator. Instance-level redaction metadata uses the redactionAnnotation object.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "sensitivityClass": {
+      "title": "Sensitivity class",
+      "type": "string",
+      "enum": ["PUBLIC", "INTERNAL", "PERSONAL", "SENSITIVE", "SECRET"]
+    },
+    "redactionPolicy": {
+      "title": "Redaction policy",
+      "description": "NONE: value may appear verbatim in diagnostics. REDACT_VALUE: value must be replaced by a fixed placeholder. HASH_ONLY: only a digest of the value may appear. FORBID_CAPTURE: the value must never be captured into diagnostics, logs, analytics, or error reports at all.",
+      "type": "string",
+      "enum": ["NONE", "REDACT_VALUE", "HASH_ONLY", "FORBID_CAPTURE"]
+    },
+    "redactionAnnotation": {
+      "title": "Redaction annotation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sensitivity", "policy"],
+      "properties": {
+        "sensitivity": {
+          "$ref": "#/$defs/sensitivityClass"
+        },
+        "policy": {
+          "$ref": "#/$defs/redactionPolicy"
+        }
+      }
+    }
+  }
+}

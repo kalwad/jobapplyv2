@@ -5,7 +5,7 @@
     "mechanically_extended_in_work_package": "M00-W08",
     "requirements_mapping_sha256": "c2b4275f13d1074dea1532ae8d2a9020668eb44751c371e562cc78e46844eec9",
     "work_package_dependency_sha256": "bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f",
-    "expanded_requirements_mapping_sha256": "4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b",
+    "expanded_requirements_mapping_sha256": "2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf",
     "expanded_work_package_dependency_sha256": "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760",
     "v1_3_extension_review_state": "REVIEWED_V1_3",
     "derived_dependency_review": "Sequential direct-package edges are the reviewed derivation of specification §1 ordering plus each §9 listed package order; milestone and gate edges remain exact specification data. The final v1.3 hashes also lock reviewed requirement honesty fields and package deliverable, automated-verification, and manual-evidence plans.",
@@ -3481,10 +3481,25 @@
       ],
       "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Infrastructure exists only as scaffold; the full requirement remains future work and has no acceptance evidence.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W01"
+        }
+      ],
+      "completed_code_paths": [
+        "packages/contracts/README.md",
+        "packages/contracts/schemas/common/envelope.v1.schema.json",
+        "packages/contracts/schemas/common/schema-version.v1.schema.json",
+        "packages/contracts/src/conventions.ts",
+        "packages/contracts/src/envelope.ts",
+        "packages/contracts/src/versioning.ts"
+      ],
+      "completed_test_paths": [
+        "packages/contracts/test/schema/conventions.test.ts",
+        "packages/contracts/test/schema/envelope.test.ts"
+      ],
+      "notes": "M01-W01 implemented and tested only the JSON Schema versioning portion: urn:japp:schema identifiers with in-id majors, x-japp-schema-version triples, the documented major/minor/patch compatibility policy, unknown-major rejection, newer-minor upgrade signaling, and envelope schema identity/version enforcement. Prompt versioning (M05), model-configuration and platform-profile versioning (M05-W02/M05-W06), migration versioning (M04-W02), and generated-model version propagation (M01-W02) remain future work, so the requirement stays SCAFFOLD_ONLY with no acceptance evidence.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -5370,7 +5385,7 @@
       "id": "M01-W01",
       "milestone": "M01",
       "title": "Define JSON Schema conventions",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [

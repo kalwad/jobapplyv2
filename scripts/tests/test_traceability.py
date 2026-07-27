@@ -54,6 +54,16 @@ def trace_repo(tmp_path: Path) -> Path:
         "scripts/tests/test_ci_workflow.py",
         "scripts/tests/test_doctor.py",
         "scripts/tests/test_portability.py",
+        # M01-W01 REQ-PLAT-005 completed-path anchors (schema-versioning
+        # portion); the fixture repo must contain every referenced file.
+        "packages/contracts/README.md",
+        "packages/contracts/schemas/common/envelope.v1.schema.json",
+        "packages/contracts/schemas/common/schema-version.v1.schema.json",
+        "packages/contracts/src/conventions.ts",
+        "packages/contracts/src/envelope.ts",
+        "packages/contracts/src/versioning.ts",
+        "packages/contracts/test/schema/conventions.test.ts",
+        "packages/contracts/test/schema/envelope.test.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path
@@ -382,6 +392,48 @@ def test_platform_scaffold_claim_is_partial_and_product_honest() -> None:
     ]
     assert "M03-W09" in cast(str, record["notes"])
     assert "ownership scaffold only" in cast(str, record["notes"])
+
+
+def test_versioning_requirement_claim_stays_partial_after_m01_w01() -> None:
+    """REQ-PLAT-005: M01-W01 recorded only the schema-versioning portion.
+
+    The M01-W01 reviewed hash update (see FINAL_V1_3_REQUIREMENT_MAPPING_SHA256)
+    added evidence, code, and test anchors for schema versioning while prompt,
+    model-configuration, platform-profile, and migration versioning remain
+    future work — the requirement must stay SCAFFOLD_ONLY with honest notes.
+    """
+    metadata = load_metadata(REPO_ROOT)
+    record = record_by_id(metadata, "requirements", "REQ-PLAT-005")
+    assert record["implementation_state"] == "SCAFFOLD_ONLY"
+    assert record["verification_state"] == "NOT_YET_APPLICABLE"
+    assert record["current_evidence"] == [
+        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M01-W01"}
+    ]
+    code_paths = cast(list[str], record["completed_code_paths"])
+    test_paths = cast(list[str], record["completed_test_paths"])
+    assert "packages/contracts/src/versioning.ts" in code_paths
+    assert (
+        "packages/contracts/schemas/common/schema-version.v1.schema.json" in code_paths
+    )
+    assert "packages/contracts/test/schema/envelope.test.ts" in test_paths
+    for relative in (*code_paths, *test_paths):
+        assert (REPO_ROOT / relative).is_file(), relative
+    notes = cast(str, record["notes"])
+    for future_owner in ("M01-W02", "M04-W02", "M05"):
+        assert future_owner in notes
+
+
+def test_reviewed_plat_005_evidence_tamper_fails_after_self_rehash(
+    trace_repo: Path,
+) -> None:
+    """The M01-W01 hash update must not weaken the anti-self-rehash lock."""
+    metadata = load_metadata(trace_repo)
+    record = record_by_id(metadata, "requirements", "REQ-PLAT-005")
+    record["implementation_state"] = "VERIFIED"
+    record["verification_state"] = "VERIFIED"
+    refresh_expanded_requirement_hash(metadata)
+    save_metadata(trace_repo, metadata)
+    assert "final reviewed v1.3 requirement-mapping hash changed" in errors(trace_repo)
 
 
 def test_new_package_proof_plans_are_specific_not_provisional_placeholders() -> None:

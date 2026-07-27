@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:correlation:v1",
+  "title": "Correlation and causation identifiers",
+  "description": "Workflow-tracing identifiers for messages, events, and records. A correlation ID names one logical workflow or user action and is shared by every message that belongs to it; a causation ID names the exact message or event that directly produced this one. Both reuse the stable-identifier grammar and are opaque. Consumers must treat them as trace metadata only — they never carry authorization or ordering semantics on their own.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "correlationId": {
+      "title": "Correlation identifier",
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "causationId": {
+      "title": "Causation identifier",
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    }
+  }
+}

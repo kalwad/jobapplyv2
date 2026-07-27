@@ -585,7 +585,12 @@ def test_named_next_ready_rejected_when_no_ready_row_exists(repo_copy: Path) -> 
 def test_current_work_package_must_be_exact_none_or_blocked_id(
     repo_copy: Path,
 ) -> None:
+    # Establish the complete premise (no IN_PROGRESS row) regardless of the
+    # live repository state: M01-W01 became IN_PROGRESS during M01, and an
+    # inherited IN_PROGRESS row would divert the validator to the
+    # current-package-mismatch error instead of the exactness error.
     set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
+    set_pkg_state(repo_copy, "M01-W01", "NOT_STARTED")
     set_current_package(repo_copy, "garbage")
     result = run_validator(repo_copy)
     assert result.returncode == 1

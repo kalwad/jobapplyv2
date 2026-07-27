@@ -2,10 +2,10 @@
 
 Spec version: 1.3
 Repository revision: tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 (commit ef830d91e7a6bffe3c74825b98405ce379cc7187)
-Last updated: 2026-07-27T02:06:32Z
+Last updated: 2026-07-27T03:23:32Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M01
-Current work package: NONE
+Current work package: M01-W01
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,19 +23,21 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M00-W01 through M00-W10 are VERIFIED at their recorded content trees and evidence anchors; M00 is ACCEPTED under v1.3. M01 and only M01-W01 are READY.
-- Objective: stop after the independently audited M00-W10 closeout. M01-W01 is the exact next package; no JSON Schema, platform interface, or other M01/product implementation has begun.
-- Dependencies verified: M00-W01 through M00-W10 are VERIFIED. Final M00-W10 content run 30231197511 passed Ubuntu job 89870307756, Windows job 89870307759, and macOS job 89870307817 at content commit `ef830d91e7a6bffe3c74825b98405ce379cc7187`; the inspected Windows log confirms exact checkout, 358/358 Python tests, canonical doctor/verify, and the clean-tree assertion.
+- State: M01-W01 is IN_PROGRESS after its clean-session bootstrap prerequisites passed at starting revision `ae01f1136a9990cd06f4271b5216148542e04097`. M00-W01 through M00-W10 remain VERIFIED at their preserved revisions and evidence anchors; M00 remains ACCEPTED under v1.3.
+- Objective: define the authoritative JSON Schema Draft 2020-12 convention layer in `packages/contracts` — canonical hand-authored schema source, `urn:japp:schema` identifier and versioning conventions, major/minor compatibility policy, foundational reusable definitions (stable IDs, schema versions, UTC timestamps, calendar dates, enum conventions, money, locations, provenance, confidence, redaction annotations, correlation IDs, forward-compatible envelope), and a strict offline Ajv 2020 validation layer with positive and negative tests. No TypeScript/Python model generation (M01-W02), error taxonomy (M01-W03), capability allowlists (M01-W04), cross-language suite (M01-W05), or product/domain contracts are part of this package.
+- Dependencies verified: M00-W01 through M00-W10 are VERIFIED and M00 is ACCEPTED. Final M00-W10 stamp run 30231563100 passed Ubuntu job 89871309320, macOS job 89871309329, and Windows job 89871309349 at HEAD `ae01f1136a9990cd06f4271b5216148542e04097`; the earlier content run 30231197511 passed all three jobs at content commit `ef830d91e7a6bffe3c74825b98405ce379cc7187` with the Windows log inspected.
 - Critical-gate prerequisites: none for M01-W01. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M00-W10 records the independent 22-requirement/26-package audit, stable v1.2/v1.3 hashes, validator and negative-test hardening, complete local and clean-clone validation, fail-closed hosted repairs, and the successful three-OS content run. Windows execution remains repository/toolchain infrastructure evidence, not Windows 11 product certification.
-- Blockers: no M00 blocker remains. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS.
+- Files expected to change: `packages/contracts/schemas/**`, `packages/contracts/src/**`, `packages/contracts/test/schema/**`, `packages/contracts/README.md`, `packages/contracts/package.json`, `pnpm-workspace.yaml` catalog + `pnpm-lock.yaml` (pinned ajv/ajv-formats), docs/PROJECT_STATUS.md, docs/TEST_EVIDENCE.md, docs/traceability.json (+ the reviewed expanded-hash update in scripts/traceability.py and its regression tests), generated docs/REQUIREMENTS_TRACEABILITY.md.
+- Required tests: schema-convention Vitest suites under `packages/contracts/test/schema/` (dialect, unique `$id`, local-only refs, per-definition positive/negative instances, annotation vocabulary, envelope/version compatibility), plus the full repository verification (`pnpm verify`) with contract-gen, contract, and visual suites honestly NOT_YET_APPLICABLE.
+- Required manual/holdout evidence: none for this package (no critical-gate work); hosted three-OS CI on the content and stamp revisions is required before VERIFIED.
+- Blockers: none for M01-W01. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
 | M00 | ACCEPTED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | Phase A. v1.3 M00-W08…W10 migration and complete M00 exit gate accepted; v1.2 acceptance remains historical evidence |
-| M01 | READY | — | Phase A. M01-W01 is the sole READY package; no M01 implementation has begun |
+| M01 | IN_PROGRESS | — | Phase A. M01-W01 (Define JSON Schema conventions) is IN_PROGRESS; M01-W02 through M01-W07 remain NOT_STARTED |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -88,7 +90,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W08` | VERIFIED | tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7 | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
 | `M00-W09` | VERIFIED | tree ae69a908cc31e0f1282c136c25fb7f92752680dd | docs/TEST_EVIDENCE.md § M00-W09 | Add Windows CI and platform-portability baseline |
 | `M00-W10` | VERIFIED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | docs/TEST_EVIDENCE.md § M00-W10 | Extend traceability and re-accept M00 under v1.3 |
-| `M01-W01` | READY | — | — | Define JSON Schema conventions; exact next package, not begun |
+| `M01-W01` | IN_PROGRESS | — | — | Define JSON Schema conventions |
 | `M01-W02` | NOT_STARTED | — | — | Generate TypeScript and Python contracts |
 | `M01-W03` | NOT_STARTED | — | — | Define error taxonomy |
 | `M01-W04` | NOT_STARTED | — | — | Define capability and command allowlists |
@@ -367,13 +369,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: `M01-W01`
-- Reason: M00-W01 through M00-W10 are VERIFIED and M00 is ACCEPTED; dependency and sequential-readiness validation derives M01-W01 as the only READY package.
-- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §0, §1, §4, §5, §8, §9 M01, and §12; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: NONE
+- Reason: M01-W01 is the only package IN_PROGRESS. No later package may become READY until M01-W01 is VERIFIED with hosted three-OS evidence.
+- Required reading: —
 
 ## Known release blockers
 
-- No M00 blocker remains. M01-W01 is READY but deliberately unstarted at the M00-W10 handoff.
+- No M00 blocker remains. M01-W01 is IN_PROGRESS; M01-W02 and later packages stay NOT_STARTED until it is VERIFIED.
 - Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
 - CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS.
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.

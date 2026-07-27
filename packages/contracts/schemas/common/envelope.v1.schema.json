@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:envelope:v1",
+  "title": "Forward-compatible message and record envelope",
+  "description": "Envelope metadata shared by every versioned message and record: payload schema identity (schema_id), declared payload schema version (schema_version), a stable message-or-record identity (message_id), the creation instant (created_at), and optional correlation/causation trace identifiers. The envelope object itself is closed; the ONLY forward-compatibility surface is the explicit extensions object, whose keys must be namespaced x-… tokens and whose values are opaque untrusted data — extension data is preserved but must never drive behavior without its own reviewed schema. Payload validation is a second phase: the enveloped-record shape deliberately leaves payload unconstrained here, and the contracts validator resolves schema_id/schema_version against the catalog before validating the payload (unknown majors are rejected; newer minors are rejected with an upgrade-required signal; see packages/contracts/README.md).",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "extensionKey": {
+      "title": "Extension key",
+      "description": "Namespaced extension property name: x- followed by lowercase kebab-case.",
+      "type": "string",
+      "pattern": "^x-[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "extensions": {
+      "title": "Explicit extension surface",
+      "description": "Deliberately open object for forward-compatible unknown data. Values are opaque and untrusted.",
+      "type": "object",
+      "x-japp-extension-point": true,
+      "propertyNames": {
+        "$ref": "#/$defs/extensionKey"
+      },
+      "maxProperties": 32
+    },
+    "envelopeMetadata": {
+      "title": "Envelope metadata",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_id", "schema_version", "message_id", "created_at"],
+      "properties": {
+        "schema_id": {
+          "description": "Catalog identifier of the payload schema.",
+          "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaId"
+        },
+        "schema_version": {
+          "description": "Exact payload schema version the producer wrote against.",
+          "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+        },
+        "message_id": {
+          "description": "Stable identity of this message or record.",
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "created_at": {
+          "description": "Creation instant, always UTC.",
+          "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+        },
+        "correlation_id": {
+          "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+        },
+        "causation_id": {
+          "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "envelopedRecord": {
+      "title": "Enveloped record",
+      "description": "Two-part shape: envelope metadata plus a payload validated in a second phase against the schema named by envelope.schema_id.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["envelope", "payload"],
+      "properties": {
+        "envelope": {
+          "$ref": "#/$defs/envelopeMetadata"
+        },
+        "payload": true
+      }
+    }
+  }
+}

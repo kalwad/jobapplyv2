@@ -17,6 +17,10 @@ catalog:
   # @types/node tracks the pinned Node 24 LTS runtime (.nvmrc), not the
   # newest Node major (M00-W03).
   "@types/node": 24.13.3
+  # Strict JSON Schema Draft 2020-12 validation for packages/contracts
+  # (M01-W01); ajv-formats supplies the RFC 3339 date/date-time assertions.
+  ajv: 8.20.0
+  ajv-formats: 3.0.1
   typescript: 6.0.3
   vitest: 4.1.10
 

@@ -46,8 +46,13 @@ PRESERVED_REQUIREMENT_MAPPING_SHA256 = (
 PRESERVED_PACKAGE_DEPENDENCY_SHA256 = (
     "bb42505238220f4b3230456f2a8c03ded62308e12b8773714fc9c559175fdb5f"
 )
+# Reviewed intentional update history for the expanded requirement hash:
+# M00-W10 locked 4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b;
+# M01-W01 recorded the implemented schema-versioning portion of REQ-PLAT-005
+# (SCAFFOLD_ONLY evidence/paths/notes only — no state, mapping, or dependency
+# change) and re-locked the hash below.
 FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 = (
-    "4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b"
+    "2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf"
 )
 FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
     "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760"

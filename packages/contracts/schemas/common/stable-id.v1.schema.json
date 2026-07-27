@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:stable-id:v1",
+  "title": "Stable namespaced identifiers",
+  "description": "Canonical entity-identifier grammar: a lowercase type prefix (2-24 characters), one underscore, and a 26-character Crockford base32 body (ULID alphabet, uppercase, excluding I, L, O, and U). Matches the specification's identifier style (for example clm_…, ev_…, fld_…) while keeping bodies lexicographically sortable and free of visually ambiguous characters. Identifiers are opaque: no component may parse meaning out of the body.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "idPrefix": {
+      "title": "Identifier type prefix",
+      "description": "Lowercase alphanumeric type prefix starting with a letter; 2-24 characters. The prefix names the entity kind and is assigned by the owning contract.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]{1,23}$"
+    },
+    "stableId": {
+      "title": "Stable namespaced identifier",
+      "description": "Complete identifier: <prefix>_<26-character Crockford base32 body>.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$"
+    }
+  }
+}

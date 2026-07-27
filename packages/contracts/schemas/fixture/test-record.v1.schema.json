@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:fixture:test-record:v1",
+  "title": "Composition test record (test-only fixture)",
+  "description": "TEST-ONLY fixture proving that the foundational common definitions compose into a concrete payload schema and flow through the envelope. The fixture namespace never carries product data and no product component may depend on it. Version history (illustrative): 1.0.0 defined every required field; 1.1.0 added the optional note field (additive MINOR change) and deprecated legacy_tag. Real payload contracts (profile, resume, application, field, Workday, benchmark, platform) are future packages.",
+  "x-japp-schema-version": "1.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "captured_at",
+    "effective_date",
+    "budget",
+    "location",
+    "provenance",
+    "match_confidence",
+    "redaction",
+    "status",
+    "superseded_by"
+  ],
+  "properties": {
+    "record_id": {
+      "description": "Stable identity of this fixture record.",
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "captured_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "effective_date": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "budget": {
+      "$ref": "urn:japp:schema:common:money:v1#/$defs/money"
+    },
+    "location": {
+      "$ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "match_confidence": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "redaction": {
+      "$ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation"
+    },
+    "status": {
+      "description": "Closed fixture status set; undeclared tokens are rejected.",
+      "type": "string",
+      "enum": ["ACTIVE", "ARCHIVED"]
+    },
+    "superseded_by": {
+      "description": "Identifier of the replacing record, or null when this record is explicitly known to have no successor. Null (known-none) and missing (not provided) are distinct by convention; this field is required precisely so producers must state the known-none case.",
+      "anyOf": [
+        {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "note": {
+      "description": "Optional free-text note added in 1.1.0. Optional and non-nullable: omit it when absent; null is rejected.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "x-japp-sensitivity": "PERSONAL",
+      "x-japp-redaction": "REDACT_VALUE"
+    },
+    "legacy_tag": {
+      "description": "Deprecated fixture field retained for minor-compatibility; removal requires the next major.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "deprecated": true,
+      "x-japp-deprecated-since": "1.1.0"
+    }
+  }
+}

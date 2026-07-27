@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:schema-version:v1",
+  "title": "Schema identifiers and schema versions",
+  "description": "Grammar for canonical schema identity and version values. A schema identifier is a repository-controlled URN of the form urn:japp:schema:<segment>[:<segment>…]:v<major>; segments are lowercase kebab-case and the final segment pins the major version. A schema version is a strict MAJOR.MINOR.PATCH numeric triple with no prerelease or build metadata. The declared major of an instance must match a catalog schema's major exactly; minors are additive-only (see packages/contracts/README.md for the full compatibility policy).",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "schemaId": {
+      "title": "Canonical schema identifier",
+      "description": "Repository-controlled URN naming one schema document and its major version.",
+      "type": "string",
+      "pattern": "^urn:japp:schema:[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?::[a-z][a-z0-9]*(?:-[a-z0-9]+)*)*:v(0|[1-9][0-9]*)$"
+    },
+    "schemaVersion": {
+      "title": "Schema version triple",
+      "description": "Strict MAJOR.MINOR.PATCH with no leading zeros, prerelease tags, or build metadata.",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    }
+  }
+}

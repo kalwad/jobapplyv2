@@ -33,6 +33,121 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W01 — Define JSON Schema conventions (2026-07-26)
+
+- Revision: recorded at content-commit time below; bootstrap ran at starting
+  HEAD `ae01f1136a9990cd06f4271b5216148542e04097` (clean `main`, equal to
+  `origin/main`).
+- Environment: macOS (Apple silicon, Darwin 27.0.0); Node v24.18.0;
+  pnpm 11.17.0; uv 0.11.32 with uv-managed Python 3.12.13; rustup toolchain
+  1.97.1 (cargo/rustc/rustfmt/clippy); @playwright/test 1.62.0 with pinned
+  Chromium; new workspace-catalog dependencies ajv 8.20.0 and
+  ajv-formats 3.0.1 (exact pins, single ajv instance in pnpm-lock.yaml).
+- Clean-session bootstrap (all inspected at starting HEAD):
+  - `git fetch origin`, `git status --short`, `git branch --show-current`,
+    `git rev-parse HEAD`, `git rev-parse origin/main`, `git log --oneline -8`
+    → exit 0; clean tree; branch `main`; local HEAD and `origin/main` both
+    `ae01f1136a9990cd06f4271b5216148542e04097`.
+  - `gh run view 30231563100` → final M00-W10 stamp run succeeded on all
+    three required jobs: ubuntu-24.04 job 89871309320, macos-15 job
+    89871309329, windows-2025 job 89871309349.
+  - `python3 scripts/validate_status.py` → exit 0, all 36 check groups
+    passed (M00 ACCEPTED; M00-W01…W10 VERIFIED; M01-W01 sole READY; no
+    IN_PROGRESS package; all four gates NOT_EVALUATED).
+  - `pnpm traceability:check` → exit 0, exactly 157 requirements and 286
+    work packages validated.
+  - `pnpm run doctor` → exit 0, 20 PASS / 0 WARNING / 0 FAIL and honest
+    NOT_YET_APPLICABLE states for contract-gen (M01-W02), contract
+    (M01-W05), and visual (M10-W06).
+  - `pnpm verify` → exit 0; toolchain, format, lint, typecheck, unit-ts,
+    e2e-browser, python, rust, portability, traceability, status, and
+    integrity suites all passed; the three inactive suites reported
+    NOT_YET_APPLICABLE.
+- Implementation delivered after the passing bootstrap (packages/contracts):
+  - `schemas/common/` — twelve hand-authored Draft 2020-12 foundational
+    documents (stable-id, schema-version, timestamp-utc, calendar-date,
+    enum-token, money, location, provenance, confidence, redaction,
+    correlation, envelope) plus the test-only composition fixture
+    `schemas/fixture/test-record.v1.schema.json`; every document declares
+    `$schema` Draft 2020-12, a unique `urn:japp:schema:…:v<major>` `$id`
+    matching its path, and `x-japp-schema-version`.
+  - `src/` — deterministic offline catalog loader with fail-closed
+    convention checks (`conventions.ts`, `catalog.ts`), strict Ajv 2020
+    validator with full-mode date/date-time formats, the five registered
+    `x-japp-*` annotation keywords, meta-schema validation and no remote
+    resolution (`validator.ts`), the major/minor acceptance policy
+    (`versioning.ts`), and two-phase enveloped-record validation
+    (`envelope.ts`).
+  - `test/schema/` — positive/negative convention, definition, and
+    envelope/versioning suites (deliberately not `test/contract/`, which
+    stays reserved for M01-W05).
+  - `README.md` — the normative convention document (ownership, layout,
+    reconstruction, versioning/compatibility policy, redaction vocabulary,
+    null-versus-missing, no-defaults/no-coercion, extension mechanism,
+    validation configuration, M01-W02 generation boundaries).
+- Traceability and governance updates in this package:
+  - M01-W01 marked IN_PROGRESS in docs/PROJECT_STATUS.md and mirrored in
+    docs/traceability.json (single-line JSON state change; canonical
+    serialization preserved); docs/REQUIREMENTS_TRACEABILITY.md regenerated.
+  - REQ-PLAT-005 stays honestly `SCAFFOLD_ONLY`/`NOT_YET_APPLICABLE` and now
+    records only the implemented schema-versioning portion (evidence anchor
+    `### M01-W01`, six code paths, two test paths, and notes naming the
+    future owners M01-W02, M04-W02, and M05). This is a reviewed intentional
+    update of the expanded requirement hash: docs/traceability.json and the
+    independently pinned `FINAL_V1_3_REQUIREMENT_MAPPING_SHA256` in
+    scripts/traceability.py moved together from
+    `4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b` to
+    `2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf`;
+    the preserved v1.2 hashes and the v1.3 package-dependency hash are
+    unchanged. Regression coverage added:
+    `test_versioning_requirement_claim_stays_partial_after_m01_w01` and
+    `test_reviewed_plat_005_evidence_tamper_fails_after_self_rehash`
+    (plus the trace-repo fixture now carries the referenced contract files).
+  - KI-0015 (MEDIUM, FIXED) recorded in docs/KNOWN_ISSUES.md: one status
+    negative inherited the pre-M01 idle premise and was repaired to
+    establish its own complete premise (same class as KI-0014).
+
+#### M01-W01 implementation validation (local, uncommitted working tree)
+
+- `pnpm install --frozen-lockfile` → exit 0 ("Already up to date"; lockfile
+  carries the new exact catalog pins ajv 8.20.0 and ajv-formats 3.0.1).
+- `uv sync --locked` → exit 0 (resolved 17, checked 15 packages; no Python
+  dependency changes).
+- `pnpm traceability:generate` then `pnpm traceability:check` → exit 0,
+  157 requirements and 286 work packages validated after the M01-W01 state,
+  REQ-PLAT-005, and reviewed-hash updates.
+- `python3 scripts/validate_status.py` → exit 0, all 36 check groups passed
+  with M01-W01 IN_PROGRESS as the single active package.
+- `pnpm run doctor` → exit 0, 19 PASS / 1 WARNING / 0 FAIL / 3
+  NOT_YET_APPLICABLE; the only warning is the expected "uncommitted changes
+  present" working-tree state during implementation (the clean-clone run
+  below shows 20 PASS / 0 WARNING).
+- `pnpm lint` → exit 0 (typed strict + stylistic ESLint over the workspace,
+  including the new src/ and test/schema/ code).
+- `pnpm format:check` → exit 0 (Prettier + Ruff format + rustfmt).
+- `pnpm typecheck` → exit 0 (turbo tsc over all packages, root Playwright
+  project, strict mypy over services and scripts).
+- `pnpm test` → exit 0 (unit-ts suite; per-package Vitest proofs).
+- Focused contracts suites: `pnpm --filter @japp/contracts exec tsc -p
+  tsconfig.json` → exit 0; `pnpm --filter @japp/contracts exec vitest run`
+  → exit 0, 4 test files, 71 tests passed (workspace wiring plus
+  test/schema/conventions.test.ts, definitions.test.ts, envelope.test.ts:
+  catalog conventions and determinism, per-definition positive/negative
+  instances, annotation-vocabulary compile rejections, envelope/version
+  policy, null-versus-missing, extension mechanism, offline-only
+  resolution, duplicate-$id rejection, catalog loading failures).
+- `pnpm test:e2e` → exit 0 (1 Playwright pinned-Chromium smoke test).
+- `pnpm test:python` → initially FAILED exposing KI-0015 (1 failed / 359
+  passed); after the premise repair `uv run pytest` → exit 0, 360 passed
+  (90 status-validator tests and 62 traceability tests, including the two
+  new REQ-PLAT-005 regressions).
+- `pnpm test:rust` → exit 0 (fmt, clippy -D warnings, 1 cargo test, build).
+- `pnpm verify` → exit 0; toolchain, format, lint, typecheck, unit-ts (79
+  Vitest tests across 9 packages), e2e-browser, python (360), rust,
+  portability, traceability, status, and integrity suites all PASS;
+  contract-gen (M01-W02), contract (M01-W05), and visual (M10-W06) remain
+  honestly NOT_YET_APPLICABLE and inactive.
+
 ### M00-W10 — Extend traceability and re-accept M00 under v1.3 (2026-07-26)
 
 - Revision: tree `30c575dcc142a8276f0aed754cac50ed1fc3ab75` / commit

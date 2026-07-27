@@ -36,6 +36,15 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
+## M01-W01 review
+
+M01-W01 introduced the JSON Schema convention layer in `packages/contracts`
+(schemas, strict offline validation, convention tests, and the normative
+README). One reproducible fixture defect was discovered and fixed during
+package validation (KI-0015 below). The syntactic-only currency/country
+checks are documented policy in `packages/contracts/README.md` §3, not
+defects. No CRITICAL or HIGH issue is open.
+
 ## M00-W10 independent review
 
 M00-W10 independently re-read the canonical v1.3 specification, the full
@@ -76,6 +85,32 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0015 — Current-package exactness negative inherited the pre-M01 idle state
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-26 during M01-W01 package validation
+- Affects: M01-W01; `scripts/tests/test_validate_status.py`; `pnpm verify`
+- Description: `test_current_work_package_must_be_exact_none_or_blocked_id`
+  assumed no work package was IN_PROGRESS in the repository state it copied.
+  Once M01-W01 was validly marked IN_PROGRESS, the fixture set M00-W10 to
+  NOT_STARTED and `Current work package: garbage` but left the inherited
+  M01-W01 IN_PROGRESS row, so the validator correctly reported the
+  current-package-mismatch error instead of the asserted
+  "must be NONE or a BLOCKED package" exactness error. Same class as
+  KI-0014: a negative test premise inherited from live repository state.
+- Reproduction: with M01-W01 IN_PROGRESS in docs/PROJECT_STATUS.md, run
+  `uv run pytest scripts/tests/test_validate_status.py`; only this fixture
+  assertion failed (359/360 passed).
+- Workaround: none accepted; the negative must establish its own complete
+  premise and pass in both the idle and the package-in-progress repository
+  states.
+- Resolution + evidence link: the test now explicitly sets M01-W01 to
+  NOT_STARTED alongside M00-W10 before injecting the malformed current
+  package, so no IN_PROGRESS row survives in the fixture regardless of live
+  state. The status suite passes 90/90 and complete `pnpm verify` passes in
+  the M01-W01 IN_PROGRESS state. Evidence: docs/TEST_EVIDENCE.md § M01-W01.
 
 ### KI-0014 — One status negative inherited the post-M00 READY row
 

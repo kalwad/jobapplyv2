@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:location:v1",
+  "title": "Structured locations",
+  "description": "Structured civil location. Minimum content policy: the country is required; region (state/province), locality (city/town), and postal code are optional and, when present, must be non-empty and bounded. Country codes are SYNTACTICALLY checked (two uppercase ASCII letters, the ISO 3166-1 alpha-2 shape) but are NOT validated against the ISO 3166 catalog; postal codes are checked for shape only, never against per-country postal registries. Free-text single-line addresses are not part of this definition.",
+  "x-japp-schema-version": "1.0.0",
+  "$defs": {
+    "countryCode": {
+      "title": "Country code (syntactic ISO 3166-1 alpha-2 shape)",
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "structuredLocation": {
+      "title": "Structured location",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country"],
+      "properties": {
+        "country": {
+          "$ref": "#/$defs/countryCode"
+        },
+        "region": {
+          "description": "State, province, or first-level administrative division name.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "locality": {
+          "description": "City, town, or equivalent locality name.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "postal_code": {
+          "description": "Postal or ZIP code; shape-checked only.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9 -]{0,15}$"
+        }
+      }
+    }
+  }
+}
