@@ -35,9 +35,10 @@ Exact verification commands and summarized results
 
 ### M01-W06 — Define feasibility and benchmark contracts (2026-07-27)
 
-- Revision: implementation working tree based on starting commit
-  `4bfe9f60e37957a7292f4d545bfa0734f9757d00`; the immutable content tree and
-  commit are recorded after the required content commit.
+- Revision: content tree `6ed03405b8e252a583f6f89709722e1bd680d8de`
+  / commit `13231f34ac276695852eb54e375aacfd6d2d4029`. Bootstrap ran at starting
+  commit `4bfe9f60e37957a7292f4d545bfa0734f9757d00` (clean `main`, equal to
+  `origin/main`).
 - Environment: macOS 27.0 (Apple silicon); Node 24.18.0; pnpm 11.17.0; uv
   0.11.32; uv-managed Python 3.12.13; cargo/rustc 1.97.1; Pydantic 2.12.5;
   Playwright 1.62.0 with pinned Chromium.
@@ -173,8 +174,68 @@ Exact verification commands and summarized results
 - Scope: `git diff -- services/native-host` remains empty. No benchmark,
   hidden holdout body, gate evaluation, Workday certification, browser/form
   action, render, model run, platform service, or M01-W07 implementation was
-  introduced. Clean-clone and hosted evidence are recorded after their exact
-  runs below.
+  introduced. Clean-clone and hosted evidence are recorded below.
+
+#### M01-W06 exact clean-clone verification
+
+- A fresh `git clone --no-local` checked out exact content commit
+  `13231f34ac276695852eb54e375aacfd6d2d4029` / tree
+  `6ed03405b8e252a583f6f89709722e1bd680d8de`. Frozen pnpm installation,
+  locked uv synchronization, and both locked Cargo fetches passed.
+- Contract generation ran twice and remained byte-identical at 112 files.
+  The explicit corpus-manifest and structural-baseline update commands each
+  ran twice; their reviewed bytes stabilized, compatibility remained clean,
+  and normal verification performed no update.
+- The clone passed the real 287-test contract suite with
+  `typescript=198 python=194 rust=193 rust-build=locked-offline`,
+  traceability at 157 requirements / 286 packages, all 36 status groups,
+  doctor at 22 PASS / 0 WARNING / 0 FAIL / 1 honest visual
+  NOT_YET_APPLICABLE, and the complete aggregate verifier. The aggregate run
+  included 637 contract-package tests, 547 Python tests, the controlled
+  browser smoke, the unchanged native-host test, and all 8 test-only Rust
+  harness tests. `git diff --check` passed and final porcelain was empty.
+
+#### M01-W06 fail-closed hosted precursor
+
+- Required content commit
+  `d8109d048fb8fd03c5fb56b9703011d26521b576` / tree
+  `53d354352ede61eee43e0b0b11865b5b273ec099`, with message
+  `contracts: define feasibility and benchmark contracts for M01-W06`, was
+  pushed without force. Run
+  [30302580411](https://github.com/kalwad/jobapplyv2/actions/runs/30302580411)
+  passed macos-15 job 90098837928 but failed ubuntu-24.04 job 90098837824
+  and windows-2025 job 90098837923.
+- Both failed logs showed only the existing deterministic double-build
+  compatibility proof exceeding Vitest's generic 5-second case limit under
+  full parallel package load (5.903 seconds on Ubuntu and 6.215 seconds on
+  Windows); no assertion, contract verdict, adapter, generator, or Rust proof
+  failed. No closeout state changed. A non-force follow-up commit
+  `13231f34ac276695852eb54e375aacfd6d2d4029` set a bounded 15-second deadline
+  for that case without changing its assertions or product/contract behavior.
+
+#### M01-W06 hosted content verification
+
+- GitHub Actions run
+  [30303334967](https://github.com/kalwad/jobapplyv2/actions/runs/30303334967)
+  checked out exact content commit
+  `13231f34ac276695852eb54e375aacfd6d2d4029` and passed:
+  macos-15 job 90101389069, ubuntu-24.04 job 90101389082, and windows-2025
+  job 90101389128.
+- The actual Windows log was inspected. It records the exact checkout; Node
+  24.18.0, pnpm 11.17.0, uv 0.11.32, and Rust 1.97.1; frozen/locked
+  dependency reconstruction; 112 generated files byte-identical; two real
+  adapter summaries with
+  `typescript=198 python=194 rust=193 rust-build=locked-offline`; 637/637
+  package tests; 287/287 focused contract tests; 547/547 Python tests; 8/8
+  Rust-harness tests; contract-gen and contract ACTIVE/PASS; visual
+  NOT_YET_APPLICABLE; verification exit 0; and a successful no-tracked-change
+  assertion. The test-only Rust adapter did not skip.
+- Closeout state changes only M01-W06 to VERIFIED at content tree
+  `6ed03405b8e252a583f6f89709722e1bd680d8de` and M01-W07 to the sole READY
+  package. M01 remains IN_PROGRESS, current work is NONE, M00 remains
+  ACCEPTED, all four gates remain NOT_EVALUATED, and release remains
+  NOT_READY. `REQ-GATE-006` remains honestly SCAFFOLD_ONLY /
+  NOT_YET_APPLICABLE; no benchmark or gate was executed.
 
 ### M01-W05 — Build contract compatibility tests (2026-07-27)
 

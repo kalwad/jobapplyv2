@@ -5651,8 +5651,8 @@
       "id": "M01-W06",
       "milestone": "M01",
       "title": "Define feasibility and benchmark contracts",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 6ed03405b8e252a583f6f89709722e1bd680d8de",
       "direct_package_prerequisites": [
         "M01-W05"
       ],
@@ -5689,14 +5689,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W06"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W07",
       "milestone": "M01",
       "title": "Define cross-platform capability and platform-service contracts",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "primary_deliverables": [
         "Define cross-platform capability and platform-service contracts"
