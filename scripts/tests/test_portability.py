@@ -231,6 +231,63 @@ def test_verify_run_command_decodes_child_output_as_utf8(
     assert output == "portable \u019d\n"
     assert captured["encoding"] == "utf-8"
     assert captured["errors"] == "strict"
+    # The strict decode above is only sound if Python children are also told
+    # to emit UTF-8; otherwise a Windows child falls back to the console code
+    # page and the decode fails (M00-W11).
+    child_env = captured["env"]
+    assert isinstance(child_env, dict)
+    assert child_env["PYTHONIOENCODING"] == "utf-8"
+
+
+def test_verify_run_command_fails_closed_on_undecodable_child_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A stream dropped to None by a dead reader thread must fail legibly.
+
+    Windows decodes captured output on reader threads, so a byte the strict
+    UTF-8 decode rejects kills the thread and ``subprocess`` yields ``None``
+    instead of raising. A zero return code must not then be reported as
+    success, and the harness must not raise an opaque ``TypeError`` that
+    would replace the command's real result (M00-W11).
+    """
+
+    def fake_run(*_args: object, **_kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess("tool", 0, None, None)
+
+    monkeypatch.setattr("verify.portability.host_resolve_executable", lambda _: "tool")
+    monkeypatch.setattr("verify.subprocess.run", fake_run)
+    ctx = verify.Context(
+        repo=tmp_path,
+        registry_path=tmp_path / "unused.json",
+        status_path=tmp_path / "unused.md",
+    )
+
+    code, output = verify.run_command(ctx, ("tool",))
+
+    assert code == 1
+    assert "not decodable as UTF-8" in output
+
+
+def test_verify_run_command_fails_closed_when_decode_raises(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """POSIX decodes in-thread, so the same corruption raises instead."""
+
+    def fake_run(*_args: object, **_kwargs: object) -> subprocess.CompletedProcess[str]:
+        raise UnicodeDecodeError("utf-8", b"\xe9", 0, 1, "invalid continuation byte")
+
+    monkeypatch.setattr("verify.portability.host_resolve_executable", lambda _: "tool")
+    monkeypatch.setattr("verify.subprocess.run", fake_run)
+    ctx = verify.Context(
+        repo=tmp_path,
+        registry_path=tmp_path / "unused.json",
+        status_path=tmp_path / "unused.md",
+    )
+
+    code, output = verify.run_command(ctx, ("tool",))
+
+    assert code == 1
+    assert "not decodable as UTF-8" in output
 
 
 def test_verify_configures_aggregate_output_as_utf8(

@@ -206,8 +206,38 @@ Exact verification commands and summarized results
     `allowStderr` and discards child stderr, so cargo's own diagnostic is not
     recoverable from the log; the exact cause is therefore not claimed.
     Nothing was weakened or retried in code to accommodate it.
-- Hosted exact-content re-verification after the narrow Windows repair:
-  pending; no result claimed yet.
+- Hosted run 30314449915 at `4314f3100d552e67ebb276c9887183921b263470`:
+  macos-15 job 90136934826 and ubuntu-24.04 job 90136934907 succeeded, which
+  also confirms the earlier macOS `unit-ts` Rust-harness failure was
+  transient. windows-2025 job 90136934806 failed differently and was
+  inspected in its raw log:
+  - `mypy` passed on Windows (23 source files), confirming the first repair.
+    That unblocked `uv run pytest`, which had never reached execution on
+    Windows in the previous run because the python suite stopped at mypy.
+  - `pnpm verify` then crashed with `TypeError: unsupported operand type(s)
+    for +: 'NoneType' and 'str'` at `scripts/verify.py`, preceded by
+    `UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position
+    2661` raised inside a `subprocess` reader thread.
+  - Root cause: `run_command` captures child output with `encoding="utf-8",
+    errors="strict"` — a deliberate, test-pinned contract — but nothing told
+    Python children to *emit* UTF-8. A Windows child falls back to the console
+    code page and writes `é` as a single `0xe9`. Windows decodes captured
+    output on reader threads, so the strict decode killed the thread,
+    `proc.stdout` became `None`, and the concatenation raised, destroying the
+    real suite report. The undecodable byte originates in a pytest traceback
+    echoing a test source line; the harness crash is what made that
+    underlying report unreadable.
+  - Repaired in two parts, both reproduced locally before and after the edit:
+    `PYTHONIOENCODING=utf-8` is now set for child processes, completing the
+    existing strict-decode contract; and an undecodable result now fails
+    closed with an explicit diagnostic instead of an opaque `TypeError`.
+    Windows drops the stream to `None` while POSIX raises in-thread, so both
+    paths are handled and both are covered by new portability tests. The
+    strict decode was deliberately kept: nothing was relaxed to
+    `errors="replace"`, no test was weakened, and an undecodable command is
+    still a failure.
+- Hosted exact-content re-verification after both repairs: pending; no result
+  claimed yet.
 - Closeout stamp and exact-final-HEAD hosted proof: pending; no result claimed
   yet.
 

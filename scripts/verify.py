@@ -60,6 +60,10 @@ STARTED_STATES = frozenset(
 PYTEST_EXIT_NO_TESTS = 5
 COMMAND_TIMEOUT_SECONDS = 1800
 C0_CONTROL_LIMIT = 0x20
+UNDECODABLE_OUTPUT = (
+    "child output for %s was not decodable as UTF-8; "
+    "the command result is unusable and is treated as a failure"
+)
 
 
 def configure_utf8_output() -> None:
@@ -409,7 +413,18 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
     # Deterministic, parseable child output: disable color codes so
     # discovery-proof regexes match real counts (some tools ignore
     # NO_COLOR, so combined output is ANSI-stripped as well).
-    env = {**os.environ, "NO_COLOR": "1", "FORCE_COLOR": "0"}
+    # PYTHONIOENCODING completes the decoding contract below: child output is
+    # read as strict UTF-8, so Python children must not fall back to the host
+    # console code page. Without it a Windows child emits cp1252 (for example
+    # a single 0xe9 for "é" inside a pytest traceback), the strict decode
+    # fails inside subprocess's reader thread, and the real suite failure is
+    # replaced by an unreadable crash (M00-W11).
+    env = {
+        **os.environ,
+        "NO_COLOR": "1",
+        "FORCE_COLOR": "0",
+        "PYTHONIOENCODING": "utf-8",
+    }
     # Registry commands stay platform-neutral (M00-W09, REQ-PLAT-025):
     # the literal interpreter name "python3" runs as this runner's own
     # pinned interpreter (identical semantics on hosts without a python3
@@ -440,7 +455,22 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
     except subprocess.TimeoutExpired:
         print(f"  TIMEOUT after {COMMAND_TIMEOUT_SECONDS}s", flush=True)
         return 124, "timeout"
-    combined = proc.stdout + ("\n" + proc.stderr if proc.stderr else "")
+    except UnicodeDecodeError:
+        # POSIX decodes in this thread, so the strict decode surfaces here.
+        print(f"  {UNDECODABLE_OUTPUT % argv[0]}", flush=True)
+        return 1, UNDECODABLE_OUTPUT % argv[0]
+    # Windows decodes on reader threads instead, so a rejected byte kills the
+    # thread and subprocess yields None rather than raising. The stubs type
+    # both streams as non-optional str, so the runtime possibility is stated
+    # explicitly rather than assumed away.
+    stdout: str | None = proc.stdout
+    stderr: str | None = proc.stderr
+    if stdout is None or stderr is None:
+        # Fail closed with a legible diagnostic instead of raising an opaque
+        # TypeError that would hide the command's real result (M00-W11).
+        print(f"  {UNDECODABLE_OUTPUT % argv[0]}", flush=True)
+        return proc.returncode or 1, UNDECODABLE_OUTPUT % argv[0]
+    combined = stdout + ("\n" + stderr if stderr else "")
     if combined.strip():
         print(combined.rstrip(), flush=True)
     return proc.returncode, ANSI_ESCAPE_RE.sub("", combined)
