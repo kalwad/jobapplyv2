@@ -593,8 +593,7 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
 
 
 def test_next_ready_none_must_be_exact(repo_copy: Path) -> None:
-    set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
-    set_current_package(repo_copy, "NONE")
+    prepare_m00_closeout(repo_copy, m01_ready=False)
     set_next_ready(repo_copy, "NONE nonsense")
     result = run_validator(repo_copy)
     assert result.returncode == 1
