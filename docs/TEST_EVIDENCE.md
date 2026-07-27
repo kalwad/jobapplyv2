@@ -164,9 +164,49 @@ Exact verification commands and summarized results
     subtrees remained `44faa277a119765b416a3b12d7b1a5b9257968e9`,
     `deb392dcf0bd1163d2ebb46722ba99ad8fdd6e6f`, and
     `6ed399ca9b9fddd16f8c93e0c1980a168feeec72`.
-- Exact content commit/tree and two clean-clone reconstructions: pending; no
-  result claimed yet.
-- Hosted exact-content macOS/Windows/Ubuntu run and inspected Windows log:
+- Exact content commit/tree and two clean-clone reconstructions: content
+  commit `a71f3a4c29d10cedc3a8230a6f5b61565ed80319` at tree
+  `6a9d50bbfebe6a9f7f042f5e96feca56b0a1d073`. Two independent clean clones of
+  that exact commit passed frozen/locked reconstruction, doctor (22 pass, 0
+  warning, 0 fail, visual NOT_YET_APPLICABLE), `pnpm generate:contracts
+  --check` (112 files byte-identical), traceability generate/check (193/300),
+  `python3 scripts/validate_status.py` (43 check groups), the contract suite
+  (287 tests; TypeScript 198 / Python 194 / Rust 193, Rust locked-offline),
+  full `pnpm verify` (exit 0), the exact canonical hash, and an empty tracked
+  porcelain. The second clone used a path containing spaces and non-ASCII
+  characters. Neither clone read the external approved-source file; the clone
+  contains no reference to it outside the committed ADR and this entry.
+- Hosted exact-content run 30313670536 at
+  `a71f3a4c29d10cedc3a8230a6f5b61565ed80319`: ubuntu-24.04 job 90134540824
+  succeeded; windows-2025 job 90134540814 and macos-15 job 90134540848
+  failed. Both failures were inspected in their raw logs rather than assumed:
+  - Windows — genuine M00-W11 defect. `uv run mypy` failed with two
+    `[attr-defined]` errors at `scripts/tests/test_v14_migration.py:337` and
+    `:341`: `os.mkfifo` and `socket.AF_UNIX` do not exist in the Windows
+    typeshed stubs. `NON_REGULAR_SOURCE_KINDS` already excluded both cases at
+    runtime through `hasattr`, so the suite behaved correctly on Windows, but
+    strict static analysis still resolved the POSIX-only attributes. The
+    failure was reproduced locally with `uv run mypy --platform win32` before
+    any edit. Repaired by narrowing both references behind a `sys.platform !=
+    "win32"` guard, which mypy resolves natively; `warn_unreachable` does not
+    fire for platform-excluded blocks. No case, assertion, or parameter was
+    removed, skipped, or weakened: all six `missing/directory/symlink/device/
+    fifo/socket` cases still execute on POSIX, and `mypy --platform`
+    win32/linux/darwin now all report success.
+  - macOS — transient hosted failure, not an M00-W11 content defect. The
+    `unit-ts` suite's first `cargo build --quiet --locked --offline` of the
+    contract Rust harness exited nonzero (`ADAPTER_EXIT_NONZERO` raised from
+    `buildRustHarness`). The identical build of the identical manifest then
+    succeeded twice later in the same job at the same commit: the `contract`
+    suite executed the real Rust adapter (`rust=193
+    rust-build=locked-offline`) and the `rust` suite passed. Windows
+    `unit-ts` passed, Ubuntu passed entirely, the same suite passes locally,
+    and M00-W11 changed no file under `packages/`, no lockfile, no
+    `rust-toolchain.toml`, and no workflow. The harness runner sets
+    `allowStderr` and discards child stderr, so cargo's own diagnostic is not
+    recoverable from the log; the exact cause is therefore not claimed.
+    Nothing was weakened or retried in code to accommodate it.
+- Hosted exact-content re-verification after the narrow Windows repair:
   pending; no result claimed yet.
 - Closeout stamp and exact-final-HEAD hosted proof: pending; no result claimed
   yet.

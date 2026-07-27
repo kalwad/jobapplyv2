@@ -334,12 +334,17 @@ def test_atomic_adoption_rejects_non_regular_source(tmp_path: Path, kind: str) -
         target.write_bytes(b"approved")
         source.symlink_to(target)
     elif kind == "fifo":
-        os.mkfifo(source)
+        # NON_REGULAR_SOURCE_KINDS already drops this case where os.mkfifo is
+        # absent; the sys.platform guard additionally narrows the POSIX-only
+        # attribute for Windows static analysis without changing behavior.
+        if sys.platform != "win32":
+            os.mkfifo(source)
     elif kind == "socket":
         socket_source_dir = Path(tempfile.mkdtemp(prefix="japp-v14-"))
         source = socket_source_dir / "approved"
-        unix_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        unix_socket.bind(str(source))
+        if sys.platform != "win32":
+            unix_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            unix_socket.bind(str(source))
     elif kind == "device":
         source = Path(os.devnull)
     try:
