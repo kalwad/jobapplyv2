@@ -175,9 +175,8 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
     """Create a valid future post-M00-W10 state in an isolated fixture.
 
     Establishes its own complete premise (KI-0014/KI-0015/KI-0016/KI-0017
-    class): as M01 advances the live repository holds M01-W01/M01-W02
-    VERIFIED and M01-W03 READY, so every advanceable M01 row is reset to
-    the exact M00-closeout boundary here.
+    class): as M01 advances, live repository rows no longer represent the
+    historical M00-closeout boundary, so every M01 row is reset here.
     """
     metadata = load_metadata(repo)
     evidence = repo / "docs" / "TEST_EVIDENCE.md"
@@ -201,7 +200,14 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
         )
     set_package_status(repo, "M01-W01", "READY")
     set_metadata_package(metadata, "M01-W01", "READY")
-    for later_package in ("M01-W02", "M01-W03", "M01-W04", "M01-W05"):
+    for later_package in (
+        "M01-W02",
+        "M01-W03",
+        "M01-W04",
+        "M01-W05",
+        "M01-W06",
+        "M01-W07",
+    ):
         set_package_status(repo, later_package, "NOT_STARTED")
         set_metadata_package(metadata, later_package, "NOT_STARTED")
     replace_status(repo, r"^Current work package: .*$", "Current work package: NONE")

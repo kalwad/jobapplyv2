@@ -405,16 +405,21 @@ def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
     """Create either the accepted-M00 boundary or its exact next-ready state.
 
     The fixture establishes its own complete premise instead of inheriting
-    live repository state: as M01 work advances (M01-W01 VERIFIED, then
-    M01-W02 VERIFIED with M01-W03 READY, milestone M01 IN_PROGRESS), the
-    inherited rows would otherwise break the boundary invariants these
-    tests assert (KI-0014/KI-0015/KI-0016/KI-0017 class), so every M01 row
-    that can legitimately advance is reset here.
+    live repository state. As M01 work advances, inherited rows would
+    otherwise break the historical boundary invariants these tests assert
+    (KI-0014/KI-0015/KI-0016/KI-0017 class), so every M01 row is reset here.
     """
     promote_milestones(repo, ["M00"])
     set_current_package(repo, "NONE")
     set_pkg_state(repo, "M01-W01", "READY" if m01_ready else "NOT_STARTED")
-    for later_package in ("M01-W02", "M01-W03", "M01-W04", "M01-W05"):
+    for later_package in (
+        "M01-W02",
+        "M01-W03",
+        "M01-W04",
+        "M01-W05",
+        "M01-W06",
+        "M01-W07",
+    ):
         set_pkg_state(repo, later_package, "NOT_STARTED")
     set_ms_state(repo, "M01", "READY" if m01_ready else "NOT_STARTED")
     set_next_ready(repo, "`M01-W01`" if m01_ready else "NONE")

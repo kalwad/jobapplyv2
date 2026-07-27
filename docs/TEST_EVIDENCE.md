@@ -33,12 +33,12 @@ Exact verification commands and summarized results
 
 ## Entries
 
-### M01-W05 — Build contract compatibility tests (2026-07-27; content validation)
+### M01-W05 — Build contract compatibility tests (2026-07-27)
 
-- Revision: working tree based on starting commit
-  `0d8805c52c6801b2d65489c2007b715bcdfb86c2`; exact content tree/commit and
-  hosted job IDs are recorded in the post-content closeout revision only
-  after that exact commit passes macos-15, windows-2025, and ubuntu-24.04.
+- Revision: content tree `77fb23c61482ff87643db30f10ed27263254a7b2`
+  / commit `791a4735a2b43e7f98f5be7d6e0f64a7412fc8f5`. Bootstrap ran at
+  starting commit `0d8805c52c6801b2d65489c2007b715bcdfb86c2`
+  (clean `main`, equal to `origin/main`).
 - Environment: macOS 27.0 (Apple silicon); Node 24.18.0; pnpm 11.17.0; uv
   0.11.32; uv-managed Python 3.12.13; cargo/rustc 1.97.1; Pydantic 2.12.5;
   Playwright 1.62.0 with pinned Chromium.
@@ -107,31 +107,59 @@ Exact verification commands and summarized results
   - `pnpm generate:contracts --check` twice → exit 0, 55 files
     byte-identical. `pnpm contracts:compatibility:check` → compatible, zero
     findings/additions.
-  - Focused contract tests → 4 files / 159 passed with deterministic proof
+  - Focused contract tests → 4 files / 160 passed with deterministic proof
     `typescript=112 python=108 rust=107 rust-build=locked-offline`. Focused
     Python adapter → 2 passed. Rust harness → 5 passed; clippy/build/fmt
     locked/offline passed.
   - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
     `pnpm test:contract`, `pnpm test:e2e`, `pnpm test:python`, and
-    `pnpm test:rust` → exit 0. `@japp/contracts` ran 497 tests; pytest ran
-    541; Playwright ran 1; native-host ran 1; harness ran 5.
+    `pnpm test:rust` → exit 0. `@japp/contracts` ran 498 tests; pytest ran
+    543; Playwright ran 1; native-host ran 1; harness ran 5.
   - `pnpm traceability:generate`; `pnpm traceability:check`; `python3
     scripts/validate_status.py` → exit 0 (157/286; 36 status groups).
     `pnpm run doctor` → 21 PASS / expected dirty-tree WARNING / 0 FAIL / 1
     honest visual NOT_YET_APPLICABLE.
   - `pnpm verify` → exit 0: contract and contract-gen ACTIVE/PASS, all other
-    active suites PASS, visual alone NOT_YET_APPLICABLE; 497 contract-package
-    Vitest tests and 541 Python tests; no tracked mutation by verification.
-  - Fresh temporary clone with the exact staged content: frozen pnpm install,
-    locked uv sync, both locked Cargo fetches, 55-file generated check,
-    compatibility baseline check, 159-test real contract suite, status and
-    157/286 traceability checks → exit 0; real adapter proof
+    active suites PASS, visual alone NOT_YET_APPLICABLE; 498 contract-package
+    Vitest tests and 543 Python tests; no tracked mutation by verification.
+  - Fresh temporary clone at exact content commit `791a4735…` / tree
+    `77fb23c6…`: frozen pnpm install, locked uv sync, both locked Cargo
+    fetches, 55-file generated check, compatibility baseline check, 160-test
+    real contract suite, status, and 157/286 traceability checks → exit 0;
+    real adapter proof
     `typescript=112 python=108 rust=107 rust-build=locked-offline`; no tracked
     mutation; temporary clone removed.
+- Hosted portability correction evidence: precursor runs 30260255917,
+  30260943487, and 30261419998 exposed and then proved fixes for fresh Cargo
+  build diagnostics on stderr, strict UTF-8 verification capture/output under
+  a Windows CP1252 default, and a cold/concurrent Rust-negative compilation
+  exceeding Vitest's generic five-second outer deadline. Adapter stderr
+  remains fail-closed, verification output is explicitly UTF-8, the Rust
+  child remains bounded at 30 seconds, and only that child test has a
+  45-second outer deadline. None of the precursor runs triggered closeout.
+
+#### M01-W05 hosted content verification
+
+- GitHub Actions run
+  [30262000801](https://github.com/kalwad/jobapplyv2/actions/runs/30262000801)
+  checked out exact content commit
+  `791a4735a2b43e7f98f5be7d6e0f64a7412fc8f5` and passed:
+  windows-2025 job 89963838456, macos-15 job 89963838490, and
+  ubuntu-24.04 job 89963838519.
+- The actual Windows log was inspected. It records the exact checkout; locked
+  native-host and test-harness dependency fetches; clean doctor with 22 PASS
+  / 0 WARNING / 0 FAIL / 1 honest NOT_YET_APPLICABLE; the cold/concurrent
+  Rust compile-failure negative passing; two real adapter summaries with
+  `typescript=112 python=108 rust=107 rust-build=locked-offline`; 498/498
+  package tests; 160/160 focused contract tests; 543/543 Python tests;
+  contract and contract-gen ACTIVE/PASS; Rust ACTIVE/PASS; visual
+  NOT_YET_APPLICABLE; verification exit 0; and a successful no-tracked-change
+  assertion. The Rust adapter did not skip.
 - Traceability/scope: only M01-W05 package state/evidence changes because it
   owns no requirement. Reviewed requirement hashes/states remain unchanged.
-  M01 remains IN_PROGRESS; W06/W07 and later work are not begun; all four
-  gates remain NOT_EVALUATED; release remains NOT_READY. No M01-W06 schema,
+  M01 remains IN_PROGRESS; M01-W06 becomes the sole READY package; W07 and
+  later work are not begun; all four gates remain NOT_EVALUATED; release
+  remains NOT_READY. No M01-W06 schema,
   M01-W07 service API, product/native-host/browser/storage/model/platform/
   submission/UI implementation, or canonical-spec edit exists.
 

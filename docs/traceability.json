@@ -5584,8 +5584,8 @@
       "id": "M01-W05",
       "milestone": "M01",
       "title": "Build contract compatibility tests",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 77fb23c61482ff87643db30f10ed27263254a7b2",
       "direct_package_prerequisites": [
         "M01-W04"
       ],
@@ -5622,14 +5622,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W05"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W06",
       "milestone": "M01",
       "title": "Define feasibility and benchmark contracts",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W05"
