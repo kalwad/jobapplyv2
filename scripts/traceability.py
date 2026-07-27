@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Generate and validate the JAPP-MASTER-001 v1.3 traceability view.
+"""Generate and validate the JAPP-MASTER-001 v1.4 traceability view.
 
 M00-W07 established the architecture and reviewed v1.2 mappings. M00-W08
 mechanically extended it with visibly provisional v1.3 records; M00-W10 then
-performed the complete human review and locked the expanded v1.3 mappings:
+performed the complete human review and locked the expanded v1.3 mappings.
+M00-W11 preserves those layers and adds the independently reviewed v1.4
+familiarity/provider extension:
 
 * docs/MASTER_IMPLEMENTATION_SPEC.md owns requirement text, milestone/package
   IDs and titles, and milestone/gate dependency declarations.
@@ -33,11 +35,11 @@ from typing import cast
 
 import validate_status
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SPECIFICATION_ID = "JAPP-MASTER-001"
-SPECIFICATION_VERSION = "1.3"
-EXPECTED_REQUIREMENTS = 157
-EXPECTED_PACKAGES = 286
+SPECIFICATION_VERSION = "1.4"
+EXPECTED_REQUIREMENTS = 193
+EXPECTED_PACKAGES = 300
 MIN_GATE_ROW_CELLS = 2
 
 PRESERVED_REQUIREMENT_MAPPING_SHA256 = (
@@ -67,13 +69,27 @@ FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 = (
 FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
     "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760"
 )
+FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
+    "125f294cfed48baaac5f7425fedfa46940d1fe76ba40e6cfa64d6418a8cce360"
+)
+FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
+    "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"
+)
+PRESERVED_V1_3_REQUIREMENT_INVENTORY_SHA256 = (
+    "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e"
+)
 REVIEWED_V1_2 = "REVIEWED_V1_2"
 REVIEWED_V1_3 = "REVIEWED_V1_3"
-MAPPING_REVIEW_STATES = (REVIEWED_V1_2, REVIEWED_V1_3)
+REVIEWED_V1_4 = "REVIEWED_V1_4"
+MAPPING_REVIEW_STATES = (REVIEWED_V1_2, REVIEWED_V1_3, REVIEWED_V1_4)
 
-NEW_REQUIREMENT_IDS = frozenset(
+V1_3_NEW_REQUIREMENT_IDS = frozenset(
     [f"REQ-PLAT-{number:03d}" for number in range(11, 27)]
     + [f"REQ-GATE-{number:03d}" for number in range(17, 23)]
+)
+V1_4_NEW_REQUIREMENT_IDS = frozenset(
+    [f"REQ-UX-{number:03d}" for number in range(1, 19)]
+    + [f"REQ-AI-{number:03d}" for number in range(1, 19)]
 )
 V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS = frozenset(
     {
@@ -85,7 +101,16 @@ V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS = frozenset(
     }
 )
 V1_3_SCAFFOLD_REQUIREMENT_IDS = frozenset({"REQ-PLAT-025"})
-NEW_PACKAGE_IDS = frozenset(
+V1_4_SCAFFOLD_REQUIREMENT_IDS = frozenset(
+    {
+        "REQ-UX-001",
+        "REQ-UX-014",
+        "REQ-UX-018",
+        "REQ-AI-005",
+        "REQ-AI-018",
+    }
+)
+V1_3_NEW_PACKAGE_IDS = frozenset(
     {
         "M00-W08",
         "M00-W09",
@@ -112,6 +137,36 @@ NEW_PACKAGE_IDS = frozenset(
         "M27-W09",
         "M27-W10",
         "M27-W11",
+        "M27-W12",
+    }
+)
+V1_4_NEW_PACKAGE_IDS = frozenset(
+    {
+        "M00-W11",
+        "M03-W11",
+        "M05-W17",
+        "M08-W07",
+        "M09-W07",
+        "M12-W07",
+        "M17-W11",
+        "M25-W08",
+        "M27-W13",
+        "M27-W14",
+        "M28-W06",
+        "M33-W07",
+        "M34-W07",
+        "M38-W08",
+    }
+)
+V1_4_INTENTIONALLY_CHANGED_PACKAGE_IDS = frozenset(
+    {
+        "M03-W01",
+        "M05-W03",
+        "M05-W12",
+        "M17-W01",
+        "M17-W05",
+        "M19-W11",
+        "M20-W11",
         "M27-W12",
     }
 )
@@ -143,6 +198,7 @@ GATE_EFFECTS = (
 DEPENDENCY_BASES = (
     "NO_DIRECT_PACKAGE_PREREQUISITE",
     "REVIEWED_DERIVED_SEQUENTIAL",
+    "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
     "SPEC_MILESTONE_DEPENDENCY",
     "SPEC_CRITICAL_GATE_QUALIFIER",
     "SPEC_ACCEPTED_MILESTONE_QUALIFIER",
@@ -249,7 +305,7 @@ def _inventory_hash(rows: object) -> str:
 def _expanded_requirement_review_rows(
     requirements: list[dict[str, object]],
 ) -> list[list[object]]:
-    """Return the final v1.3 requirement mapping and honesty projection."""
+    """Return the complete current requirement mapping/honesty projection."""
     return [
         [
             record.get("id"),
@@ -273,7 +329,7 @@ def _expanded_requirement_review_rows(
 def _expanded_package_review_rows(
     packages: list[dict[str, object]],
 ) -> list[list[object]]:
-    """Return the final v1.3 package dependency and proof-plan projection."""
+    """Return the complete current package dependency/proof-plan projection."""
     return [
         [
             record.get("id"),
@@ -447,14 +503,11 @@ def _expected_package_records(
     inventory: dict[str, tuple[str, str]] = {}
     expected_direct: dict[str, list[str]] = {}
     expected_downstream: dict[str, list[str]] = {}
+    expected_direct = validate_status.expected_package_prerequisites(spec)
+    expected_downstream = validate_status.expected_downstream_packages(spec)
     for milestone_id, milestone in spec.milestones.items():
-        ids = [package_id for package_id, _ in milestone.packages]
-        for index, (package_id, title) in enumerate(milestone.packages):
+        for package_id, title in milestone.packages:
             inventory[package_id] = (milestone_id, title)
-            expected_direct[package_id] = [] if index == 0 else [ids[index - 1]]
-            expected_downstream[package_id] = (
-                [ids[index + 1]] if index + 1 < len(ids) else []
-            )
     return inventory, expected_direct, expected_downstream
 
 
@@ -575,11 +628,12 @@ def _validate_policy(metadata: dict[str, object], errors: list[str]) -> None:
         "package_inventory_source": f"{SPEC_REL} §9",
         "package_state_source": f"{STATUS_REL} work-package table",
         "gate_state_source": f"{STATUS_REL} critical-gates table + {GATES_REL}",
-        "sequential_package_order": "REVIEWED_DERIVED",
+        "sequential_package_order": "REVIEWED_WITH_SPEC_EXCEPTIONS",
         "sequential_derivation": (
             "Each package after W01 directly requires the immediately preceding "
             "package in the same milestone unless the specification explicitly "
-            "permits otherwise; v1.3 contains no such exception."
+            "overrides that edge. v1.4 explicitly orders M00-W11 after M01-W06, "
+            "M01-W07 after M00-W11, and M27 as W01…W11, W13, W14, W12."
         ),
         "milestone_readiness_state": "ACCEPTED",
         "critical_gate_readiness_state": "PASS",
@@ -589,9 +643,9 @@ def _validate_policy(metadata: dict[str, object], errors: list[str]) -> None:
             "package READY."
         ),
         "downstream_package_derivation": (
-            "Reverse of direct sequential package prerequisites; cross-milestone "
-            "effects remain milestone dependencies and are not invented as "
-            "direct package edges."
+            "Reverse of the complete reviewed direct-package prerequisite graph; "
+            "cross-milestone edges are present only when v1.4 explicitly requires "
+            "them."
         ),
     }
     _check_keys(policy, set(expected), "dependency_policy", errors)
@@ -614,11 +668,17 @@ def _validate_review(
         "reviewed_in_work_package",
         "mechanically_extended_in_work_package",
         "v1_3_reviewed_in_work_package",
+        "v1_4_reviewed_in_work_package",
         "requirements_mapping_sha256",
         "work_package_dependency_sha256",
         "expanded_requirements_mapping_sha256",
         "expanded_work_package_dependency_sha256",
+        "v1_4_requirements_mapping_sha256",
+        "v1_4_work_package_dependency_sha256",
+        "v1_4_prior_requirement_inventory_sha256",
+        "v1_4_intentionally_changed_packages",
         "v1_3_extension_review_state",
+        "v1_4_extension_review_state",
         "derived_dependency_review",
     }
     _check_keys(review, expected_keys, "review", errors)
@@ -628,98 +688,87 @@ def _validate_review(
         errors.append("review.mechanically_extended_in_work_package must be M00-W08")
     if review.get("v1_3_reviewed_in_work_package") != "M00-W10":
         errors.append("review.v1_3_reviewed_in_work_package must be M00-W10")
+    if review.get("v1_4_reviewed_in_work_package") != "M00-W11":
+        errors.append("review.v1_4_reviewed_in_work_package must be M00-W11")
     if review.get("v1_3_extension_review_state") != REVIEWED_V1_3:
         errors.append(f"review.v1_3_extension_review_state must be {REVIEWED_V1_3}")
-    legacy_requirement_rows = [
-        [
-            record.get("id"),
-            record.get("owning_packages"),
-            record.get("planned_components"),
-            record.get("automated_test_layers"),
-            record.get("manual_evidence"),
-            record.get("gate_effects"),
-        ]
-        for record in requirements
-        if record.get("id") not in NEW_REQUIREMENT_IDS
-    ]
-    expanded_requirement_rows = _expanded_requirement_review_rows(requirements)
+    if review.get("v1_4_extension_review_state") != REVIEWED_V1_4:
+        errors.append(f"review.v1_4_extension_review_state must be {REVIEWED_V1_4}")
 
-    def legacy_package_row(record: dict[str, object]) -> list[object]:
-        package_id = record.get("id")
-        direct = [
-            value
-            for value in cast(list[str], record.get("direct_package_prerequisites", []))
-            if value not in NEW_PACKAGE_IDS
-        ]
-        gates = [
-            value
-            for value in cast(list[str], record.get("critical_gate_prerequisites", []))
-            if value != "CROSS_PLATFORM_CORE"
-        ]
-        accepted = list(
-            cast(list[str], record.get("accepted_milestone_prerequisites", []))
-        )
-        if isinstance(package_id, str) and package_id.startswith("M28-"):
-            accepted = [value for value in accepted if value != "M27"]
-        downstream = [
-            value
-            for value in cast(list[str], record.get("downstream_packages", []))
-            if value not in NEW_PACKAGE_IDS
-        ]
-        return [
-            package_id,
-            direct,
-            record.get("milestone_prerequisites"),
-            gates,
-            accepted,
-            downstream,
-            record.get("downstream_milestones"),
-        ]
-
-    legacy_package_rows = [
-        legacy_package_row(record)
-        for record in packages
-        if record.get("id") not in NEW_PACKAGE_IDS
-    ]
-    expanded_package_rows = _expanded_package_review_rows(packages)
-    expected_hashes = {
-        "requirements_mapping_sha256": _inventory_hash(legacy_requirement_rows),
-        "work_package_dependency_sha256": _inventory_hash(legacy_package_rows),
-        "expanded_requirements_mapping_sha256": _inventory_hash(
-            expanded_requirement_rows
-        ),
-        "expanded_work_package_dependency_sha256": _inventory_hash(
-            expanded_package_rows
+    historical_hashes = {
+        "requirements_mapping_sha256": PRESERVED_REQUIREMENT_MAPPING_SHA256,
+        "work_package_dependency_sha256": PRESERVED_PACKAGE_DEPENDENCY_SHA256,
+        "expanded_requirements_mapping_sha256": (FINAL_V1_3_REQUIREMENT_MAPPING_SHA256),
+        "expanded_work_package_dependency_sha256": (
+            FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256
         ),
     }
-    for key, expected in expected_hashes.items():
+    for key, expected in historical_hashes.items():
         if review.get(key) != expected:
             errors.append(
-                f"review.{key} drift: expected {expected!r}, "
-                f"found {review.get(key)!r}; explicit reviewed update required"
+                f"review.{key} historical layer changed: expected {expected!r}, "
+                f"found {review.get(key)!r}"
             )
-    if review.get("requirements_mapping_sha256") != (
-        PRESERVED_REQUIREMENT_MAPPING_SHA256
+    if (
+        review.get("requirements_mapping_sha256")
+        != PRESERVED_REQUIREMENT_MAPPING_SHA256
     ):
         errors.append("preserved v1.2 requirement-mapping hash changed")
-    if review.get("work_package_dependency_sha256") != (
-        PRESERVED_PACKAGE_DEPENDENCY_SHA256
+    if (
+        review.get("work_package_dependency_sha256")
+        != PRESERVED_PACKAGE_DEPENDENCY_SHA256
     ):
         errors.append("preserved v1.2 dependency-map hash changed")
-    if review.get("expanded_requirements_mapping_sha256") != (
-        FINAL_V1_3_REQUIREMENT_MAPPING_SHA256
+    if (
+        review.get("expanded_requirements_mapping_sha256")
+        != FINAL_V1_3_REQUIREMENT_MAPPING_SHA256
     ):
         errors.append("final reviewed v1.3 requirement-mapping hash changed")
-    if review.get("expanded_work_package_dependency_sha256") != (
-        FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256
+    if (
+        review.get("expanded_work_package_dependency_sha256")
+        != FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256
     ):
         errors.append("final reviewed v1.3 dependency-map hash changed")
+
+    v1_4_requirement_hash = _inventory_hash(
+        _expanded_requirement_review_rows(requirements)
+    )
+    v1_4_package_hash = _inventory_hash(_expanded_package_review_rows(packages))
+    if review.get("v1_4_requirements_mapping_sha256") != v1_4_requirement_hash:
+        errors.append(
+            "review.v1_4_requirements_mapping_sha256 drift; explicit reviewed "
+            "update required"
+        )
+    if review.get("v1_4_work_package_dependency_sha256") != v1_4_package_hash:
+        errors.append(
+            "review.v1_4_work_package_dependency_sha256 drift; explicit reviewed "
+            "update required"
+        )
+    if v1_4_requirement_hash != FINAL_V1_4_REQUIREMENT_MAPPING_SHA256:
+        errors.append("final reviewed v1.4 requirement-mapping hash changed")
+    if v1_4_package_hash != FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256:
+        errors.append("final reviewed v1.4 dependency-map hash changed")
+    if review.get("v1_4_prior_requirement_inventory_sha256") != (
+        PRESERVED_V1_3_REQUIREMENT_INVENTORY_SHA256
+    ):
+        errors.append("preserved v1.3 requirement inventory hash changed")
+    changed = _strings(
+        review.get("v1_4_intentionally_changed_packages"),
+        "review.v1_4_intentionally_changed_packages",
+        errors,
+    )
+    if changed != sorted(V1_4_INTENTIONALLY_CHANGED_PACKAGE_IDS):
+        errors.append(
+            "review.v1_4_intentionally_changed_packages must equal the exact "
+            "eight reviewed v1.4 changes"
+        )
     expected_review = (
-        "Sequential direct-package edges are the reviewed derivation of "
-        "specification §1 ordering plus each §9 listed package order; milestone "
-        "and gate edges remain exact specification data. The final v1.3 hashes "
-        "also lock reviewed requirement honesty fields and package deliverable, "
-        "automated-verification, and manual-evidence plans."
+        "The complete v1.4 direct-package graph is reviewed from specification "
+        "§1/§9, including explicit M00-W11, M01-W07, and M27 exceptions; reverse "
+        "downstream edges are derived from that graph. Historical v1.2/v1.3 "
+        "hashes remain immutable snapshots. The v1.4 hashes lock requirement "
+        "honesty, ownership, gate effects, package dependencies, deliverables, "
+        "automated verification, and manual evidence plans."
     )
     if review.get("derived_dependency_review") != expected_review:
         errors.append("review.derived_dependency_review drift")
@@ -855,9 +904,12 @@ def _validate_requirements(
             f"{label}.mapping_review_state",
             errors,
         )
-        expected_review_state = (
-            REVIEWED_V1_3 if requirement_id in NEW_REQUIREMENT_IDS else REVIEWED_V1_2
-        )
+        if requirement_id in V1_4_NEW_REQUIREMENT_IDS:
+            expected_review_state = REVIEWED_V1_4
+        elif requirement_id in V1_3_NEW_REQUIREMENT_IDS:
+            expected_review_state = REVIEWED_V1_3
+        else:
+            expected_review_state = REVIEWED_V1_2
         if review_state != expected_review_state:
             errors.append(
                 f"{requirement_id}: mapping review state must be "
@@ -894,7 +946,7 @@ def _validate_requirements(
                     f"{requirement_id}: future NOT_STARTED requirement falsely "
                     "claims implementation or evidence"
                 )
-        if requirement_id in NEW_REQUIREMENT_IDS:
+        if requirement_id in V1_3_NEW_REQUIREMENT_IDS:
             if requirement_id in V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS:
                 expected_states = ("VERIFIED", "VERIFIED")
             elif requirement_id in V1_3_SCAFFOLD_REQUIREMENT_IDS:
@@ -913,6 +965,25 @@ def _validate_requirements(
                 errors.append(
                     f"{requirement_id}: SCAFFOLD_ONLY claim requires real "
                     "code, test, and evidence references"
+                )
+        if requirement_id in V1_4_NEW_REQUIREMENT_IDS:
+            expected_states = (
+                ("SCAFFOLD_ONLY", "NOT_YET_APPLICABLE")
+                if requirement_id in V1_4_SCAFFOLD_REQUIREMENT_IDS
+                else ("NOT_STARTED", "NOT_YET_APPLICABLE")
+            )
+            if (implementation_state, verification_state) != expected_states:
+                errors.append(
+                    f"{requirement_id}: reviewed v1.4 state must be "
+                    f"{expected_states[0]}/{expected_states[1]}, found "
+                    f"{implementation_state}/{verification_state}"
+                )
+            if requirement_id in V1_4_SCAFFOLD_REQUIREMENT_IDS and (
+                not code_paths or not test_paths or not evidence
+            ):
+                errors.append(
+                    f"{requirement_id}: v1.4 SCAFFOLD_ONLY claim requires real "
+                    "governance, test, and evidence references"
                 )
         for kind, paths in (("code", code_paths), ("test", test_paths)):
             for relative in paths:
@@ -960,6 +1031,11 @@ def _validate_packages(
         )
 
     direct_graph: dict[str, list[str]] = {}
+    migration_active = (
+        milestone_states.get("M00") == "IN_PROGRESS"
+        and package_status.get("M00-W11", PackageStatus("", "", "")).state
+        == "IN_PROGRESS"
+    )
     for index, record in enumerate(records):
         label = f"work_packages[{index}]"
         _check_keys(record, PACKAGE_KEYS, label, errors)
@@ -1054,13 +1130,16 @@ def _validate_packages(
         invalid_bases = sorted(set(bases) - set(DEPENDENCY_BASES))
         if invalid_bases:
             errors.append(f"{package_id}: invalid dependency bases {invalid_bases}")
-        expected_bases = [
-            (
-                "REVIEWED_DERIVED_SEQUENTIAL"
-                if expected_direct[package_id]
-                else "NO_DIRECT_PACKAGE_PREREQUISITE"
-            )
-        ]
+        if package_id in validate_status.EXPLICIT_PACKAGE_PREREQUISITES:
+            expected_bases = ["SPEC_EXPLICIT_PACKAGE_DEPENDENCY"]
+        else:
+            expected_bases = [
+                (
+                    "REVIEWED_DERIVED_SEQUENTIAL"
+                    if expected_direct[package_id]
+                    else "NO_DIRECT_PACKAGE_PREREQUISITE"
+                )
+            ]
         if expected_milestones:
             expected_bases.append("SPEC_MILESTONE_DEPENDENCY")
         if expected_gates:
@@ -1152,9 +1231,12 @@ def _validate_packages(
             f"{label}.dependency_review_state",
             errors,
         )
-        expected_review_state = (
-            REVIEWED_V1_3 if package_id in NEW_PACKAGE_IDS else REVIEWED_V1_2
-        )
+        if package_id in V1_4_NEW_PACKAGE_IDS:
+            expected_review_state = REVIEWED_V1_4
+        elif package_id in V1_3_NEW_PACKAGE_IDS:
+            expected_review_state = REVIEWED_V1_3
+        else:
+            expected_review_state = REVIEWED_V1_2
         if review_state != expected_review_state:
             errors.append(
                 f"{package_id}: dependency review state must be "
@@ -1173,12 +1255,26 @@ def _validate_packages(
                         f"{prerequisite} is verified"
                     )
             for prerequisite in milestone_dependencies:
+                if (
+                    migration_active
+                    and package_id in validate_status.PRESERVED_M01_SEQUENCE
+                    and status.state == "VERIFIED"
+                    and prerequisite == "M00"
+                ):
+                    continue
                 if milestone_states.get(prerequisite) != "ACCEPTED":
                     errors.append(
                         f"{package_id} is {status.state} before milestone "
                         f"{prerequisite} is ACCEPTED"
                     )
             for prerequisite in accepted_dependencies:
+                if (
+                    migration_active
+                    and package_id in validate_status.PRESERVED_M01_SEQUENCE
+                    and status.state == "VERIFIED"
+                    and prerequisite == "M00"
+                ):
+                    continue
                 if milestone_states.get(prerequisite) != "ACCEPTED":
                     errors.append(
                         f"{package_id} is {status.state} before explicit accepted "
@@ -1488,6 +1584,15 @@ def render_view(
             f"`{review['expanded_work_package_dependency_sha256']}`"
         ),
         (f"- v1.3 extension review state: `{review['v1_3_extension_review_state']}`"),
+        (
+            f"- Reviewed v1.4 requirement-mapping SHA-256: "
+            f"`{review['v1_4_requirements_mapping_sha256']}`"
+        ),
+        (
+            f"- Reviewed v1.4 dependency/proof-plan SHA-256: "
+            f"`{review['v1_4_work_package_dependency_sha256']}`"
+        ),
+        (f"- v1.4 extension review state: `{review['v1_4_extension_review_state']}`"),
         "",
         (
             "The specification owns exact text, IDs, titles, and explicit milestone/"
@@ -1496,13 +1601,13 @@ def render_view(
             "remains hash-locked. M00-W08 mechanically introduced the v1.3 delta in "
             "a provisional migration state; M00-W10 completed the human review, and "
             "all 22 new requirement mappings plus all 26 new package review records "
-            "are now `REVIEWED_V1_3`. The final expanded requirement hash also locks "
-            "the audited implementation/verification state, completed code/test "
-            "paths, current evidence, and honesty notes. The final expanded package "
-            "hash also locks primary deliverables and required automated/manual "
-            "proof plans; live package state, revision, and evidence remain "
-            "status-owned. Package state is copied from `PROJECT_STATUS.md` and "
-            "validated for exact agreement."
+            "are `REVIEWED_V1_3`. M00-W11 independently reviews the exact 36/14 "
+            "v1.4 delta as `REVIEWED_V1_4`, while prior records retain historical "
+            "review provenance. Distinct v1.4 hashes lock the complete current "
+            "requirement honesty/ownership/gate-effect projection and package "
+            "dependency/deliverable/verification/evidence plans. Live package "
+            "state, revision, and evidence remain status-owned and are validated "
+            "for exact agreement."
         ),
         "",
         "## Deterministic next work",
@@ -1511,7 +1616,7 @@ def render_view(
         f"- Next READY package: `{status.next_ready or 'MISSING'}`",
         (
             "- Readiness rule: every milestone prerequisite must be `ACCEPTED`, every "
-            "direct sequential package prerequisite must be `VERIFIED` or `ACCEPTED`, "
+            "reviewed direct package prerequisite must be `VERIFIED` or `ACCEPTED`, "
             "and every critical-gate prerequisite must be `PASS`."
         ),
         "",
@@ -1633,10 +1738,11 @@ def render_view(
                 "reviewed ownership, plan, state, dependency, or evidence change."
             ),
             (
-                "3. Preserve legacy records as `REVIEWED_V1_2` and the audited v1.3 "
-                "delta as `REVIEWED_V1_3`; any intentional requirement mapping/"
-                "honesty or package dependency/proof-plan change requires an explicit "
-                "validator hash update and renewed review."
+                "3. Preserve legacy records as `REVIEWED_V1_2`, the audited v1.3 "
+                "delta as `REVIEWED_V1_3`, and only the v1.4 additions as "
+                "`REVIEWED_V1_4`; any intentional mapping/honesty/dependency/"
+                "proof-plan change requires an explicit validator hash update and "
+                "renewed review."
             ),
             (
                 "4. Run `pnpm traceability:generate`; commit the deterministic "
@@ -1698,12 +1804,25 @@ def validate_repository(
     canonical_new_requirements = {
         item.requirement_id
         for item in requirements
-        if item.requirement_id in NEW_REQUIREMENT_IDS
+        if item.requirement_id in V1_4_NEW_REQUIREMENT_IDS
     }
-    if canonical_new_requirements != NEW_REQUIREMENT_IDS:
+    if canonical_new_requirements != V1_4_NEW_REQUIREMENT_IDS:
         errors.append(
-            "canonical v1.3 platform requirement delta drift: expected exactly "
-            f"{sorted(NEW_REQUIREMENT_IDS)}, found {sorted(canonical_new_requirements)}"
+            "canonical v1.4 UX/AI requirement delta drift: expected exactly "
+            f"{sorted(V1_4_NEW_REQUIREMENT_IDS)}, "
+            f"found {sorted(canonical_new_requirements)}"
+        )
+    prior_requirement_inventory_hash = _inventory_hash(
+        [
+            [item.requirement_id, item.text, item.family]
+            for item in requirements
+            if item.requirement_id not in V1_4_NEW_REQUIREMENT_IDS
+        ]
+    )
+    if prior_requirement_inventory_hash != PRESERVED_V1_3_REQUIREMENT_INVENTORY_SHA256:
+        errors.append(
+            "canonical v1.4 changed the preserved 157-requirement v1.3 "
+            "ID/text/family projection"
         )
     requirement_ids = [item.requirement_id for item in requirements]
     duplicate_spec_requirements = sorted(
@@ -1727,16 +1846,16 @@ def validate_repository(
             f"canonical specification contains {len(spec.package_ids())} work "
             f"packages (expected {EXPECTED_PACKAGES})"
         )
-    canonical_new_packages = set(spec.package_ids()) & NEW_PACKAGE_IDS
-    if canonical_new_packages != NEW_PACKAGE_IDS:
+    canonical_new_packages = set(spec.package_ids()) & V1_4_NEW_PACKAGE_IDS
+    if canonical_new_packages != V1_4_NEW_PACKAGE_IDS:
         errors.append(
-            "canonical v1.3 work-package delta drift: expected exactly "
-            f"{sorted(NEW_PACKAGE_IDS)}, found {sorted(canonical_new_packages)}"
+            "canonical v1.4 work-package delta drift: expected exactly "
+            f"{sorted(V1_4_NEW_PACKAGE_IDS)}, found {sorted(canonical_new_packages)}"
         )
     if list(spec.milestones) != [f"M{number:02d}" for number in range(39)]:
         errors.append("canonical milestone inventory/order must be exactly M00…M38")
     if _sha256_bytes(spec_path.read_bytes()) != validate_status.EXPECTED_SPEC_SHA256:
-        errors.append("canonical v1.3 specification hash is not owner-approved hash")
+        errors.append("canonical v1.4 specification hash is not owner-approved hash")
 
     canonical_report = validate_status.Report()
     validate_status.check_single_canonical_spec(repo, canonical_report)

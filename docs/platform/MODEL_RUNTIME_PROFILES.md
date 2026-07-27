@@ -1,7 +1,8 @@
 # Model Runtime Profiles
 
 Planning and future-evidence register. No platform model profile is accepted
-through M00-W10.
+through M00-W11. The v1.4 experimental external-provider registry does not
+replace, certify, or weaken any local runtime profile in this matrix.
 
 | Platform | Current support | Full-AI profile acceptance | Current evidence | Early owning package(s) | Final acceptance owner |
 |---|---|---|---|---|---|

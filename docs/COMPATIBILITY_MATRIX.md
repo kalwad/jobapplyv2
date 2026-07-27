@@ -8,7 +8,7 @@ ATS/browser/OS support and measured pass rates
 - Only measured, evidence-linked results may appear here. No claimed support
   without fixtures, a recorded test run, and a `docs/TEST_EVIDENCE.md` entry.
 - Untested or unsupported variants must be listed and labeled as such rather
-  than omitted (spec v1.3: M19-W01/M20 Workday certification, M23-W05
+  than omitted (spec v1.4: M19-W01/M20 Workday certification, M23-W05
   initial adapter matrix, M31-W04 compatibility dashboard, M37-W06 published
   limits): compatibility is published honestly, never inflated.
 - Compatibility claims are limited to measured ATS families, tenant/layout
@@ -78,3 +78,19 @@ M27-W10). No Windows or Ubuntu full-AI profile is accepted.
 | Runtime | Model tag | Digest | Benchmark result | Last verified revision | Evidence |
 |---|---|---|---|---|---|
 | — | — | — | — | — | — |
+
+## Familiarity and experimental-provider compatibility
+
+M00-W11 adds governance records only. No UI surface has an owner-approved
+baseline or measured familiarity result, and no experimental external provider
+is implemented, evaluated, enabled, or release-supported. These states cannot
+be promoted by prose in this matrix; they require the revision-scoped evidence
+and decisions in `docs/UI_FAMILIARITY.md`,
+`docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md`, and
+`docs/EXPERIMENTAL_AI_PROVIDERS.md`.
+
+| Capability | Current state | Last verified revision | Evidence |
+|---|---|---|---|
+| Familiarity-first product surfaces | NOT_YET_IMPLEMENTED | — | — |
+| Owner-approved visual baselines | NOT_APPROVED | — | — |
+| Experimental ChatGPT-account provider | NOT_SUPPORTED / DISABLED_BY_DEFAULT / NOT_IMPLEMENTED / NOT_EVALUATED | — | — |

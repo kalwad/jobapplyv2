@@ -1,38 +1,37 @@
 # Master Implementation Specification: Local-First Job Application Platform
 
 **Specification ID:** JAPP-MASTER-001  
-**Version:** 1.3  
-**Revision:** Cross-platform production, packaging, and runtime rebaseline  
-**Research and architecture snapshot:** July 26, 2026  
+**Version:** 1.4  
+**Revision:** Owner-approved v1.4 final — aesthetic familiarity, provider-neutral generation, and experimental external-model rebaseline  
+**Research and architecture snapshot:** July 26–27, 2026  
 **Canonical repository path:** `docs/MASTER_IMPLEMENTATION_SPEC.md`  
-**Implementation-agent policy:** Owner-selected per package. The currently selected agent remains active until the owner explicitly changes it; the specification must not automatically route work between Claude, Codex, or reasoning modes.  
+**Implementation-agent policy:** Owner-selected per package. The currently selected implementation agent, model, and reasoning mode remain active until the owner explicitly changes them; the specification must not automatically route work between agents, model families, or reasoning modes.  
 **Primary development machine:** Apple-silicon laptop with an M5 chip and 24 GB unified memory  
 **Certified first-release operating-system targets:** macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64  
-**Document authority:** This is the canonical product, architecture, implementation, validation, platform-support, and completion contract for the project.
+**Document authority:** This is the canonical product, architecture, implementation, validation, platform-support, user-experience, AI-provider, and completion contract for the project.
 
 > **Fresh repository:** copy this file directly to `docs/MASTER_IMPLEMENTATION_SPEC.md` and begin with `M00-W01`.  
-> **Existing v1.2 repository with `M00-W07` in progress:** finish that package under v1.2, verify, commit, push, and restore a clean tree. Do not introduce v1.3 into the active package.  
-> **Existing v1.2 repository that has completed through `M00-W07`:** keep this owner-approved file outside the repository at an immutable path and verify its SHA-256. The v1.2 fail-closed validator deliberately rejects any second canonical-looking specification under `docs/`, so do not place a proposed copy in the active tree. Execute `M00-W08` to import these exact bytes directly into the canonical path, `M00-W09` to add the Windows/platform-portability baseline, and `M00-W10` to regenerate traceability and re-accept M00. Git history remains the archive of v1.2.  
-> **Unadopted earlier drafts:** do not add v1.1 or another duplicate master specification to the repository.  
-> Claude or Codex must reread the canonical specification at the start of every implementation session together with the project-memory files defined below. Do not rename the product or invent branding while following this specification.
+> **Historical v1.2/v1.3 repositories:** follow the adoption records preserved in Git history; do not recreate superseded migration packages.  
+> **Current v1.3 repository while `M01-W06` is in progress:** finish `M01-W06` completely under v1.3, verify, commit, push, restore a clean tree, and stop before `M01-W07`. Do not introduce v1.4 into the active package.  
+> **Current v1.3 repository after `M01-W06`:** keep this owner-approved v1.4 file outside the repository at an immutable path and verify its SHA-256. The fail-closed validator deliberately rejects a second canonical-looking specification under `docs/`. Execute `M00-W11` to import these exact bytes, migrate the 39-milestone/300-work-package/193-requirement inventory, preserve every completed M00 and M01 revision/evidence record, re-accept M00, and make `M01-W07` ready again.  
+> **Unadopted drafts:** do not add v1.1, v1.2, v1.3, or another duplicate master specification beside the canonical file.  
+> The owner-selected implementation agent must reread the canonical specification at the start of every implementation session together with the project-memory files defined below. Do not rename the product or invent branding while following this specification.
 
-### Version 1.3 change summary
+### Version 1.4 change summary
 
-Version 1.3 preserves the complete v1.2 Workday-first product scope, every existing requirement, all three existing critical gates, and all completed M00 evidence. It corrects a remaining architectural risk: v1.2 mentions later Windows support and macOS/Linux CI, but does not make full Windows, Linux, and macOS behavior a sufficiently early, explicit, blocking contract. This revision therefore:
+Version 1.4 preserves the complete v1.3 Workday-first, cross-platform, local-first product contract, all four existing critical gates, the exact completed M00 evidence, and every M01 package completed before adoption. It adds two owner-requested capabilities without weakening the dominant autofill, Workday, resume/PageFit, privacy, or cross-platform promises:
 
-- Defines three certified first-release targets: **macOS 14+ on Apple Silicon arm64**, **Windows 11 x64**, and **Ubuntu 24.04 LTS x64**, using current Google Chrome stable on each platform.
-- Adds a fourth blocking **Cross-Platform Core Gate** that must pass before the core closed alpha in `M28`.
-- Adds typed platform abstractions for secure secret storage, paths, process supervision, native-messaging registration, browser/runtime discovery, model-runtime selection, diagnostics, installers, and updates.
-- Adds required Windows CI during M00 and preserves the existing macOS and Ubuntu jobs; canonical repository commands must work without Bash-only or POSIX-only assumptions.
-- Requires packaged desktop lifecycle proof on all three operating systems rather than deferring Windows/Linux discovery to the final release.
-- Requires macOS Keychain, Windows Credential Manager/DPAPI, and Linux Secret Service implementations with no plaintext fallback.
-- Requires platform-specific Chrome native-messaging installation and removal, including Windows registry registration and binary-mode protocol verification.
-- Replaces the single Apple-MLX runtime assumption with a staged platform-profile model lock: accept the primary Apple-Silicon profile and prove Windows/Ubuntu capability detection and safe no-model behavior in `M05`; complete native Windows/Ubuntu full-AI certification before the Cross-Platform Core Gate in `M27`.
-- Requires deterministic cross-platform PDF/DOCX behavior using controlled fonts and renderer versions, plus portable encrypted backups across certified platforms.
-- Requires signed/notarized or appropriately verified platform installers, update, rollback, repair, and uninstall behavior before the cross-platform gate can pass.
-- Keeps the current Codex-authored v1.2 traceability work useful: v1.3 extends and regenerates it through `M00-W10` rather than discarding it.
-- Makes implementation-agent selection **owner-controlled and model-agnostic**. The active owner-selected agent continues across clean package boundaries until the owner explicitly changes it; the repository contract must not automatically switch between Claude, Codex, or reasoning modes. Independent audits still use a separate clean session or worktree.
-- Expands M00 from seven to ten work packages while preserving every verified v1.2 revision and evidence record.
+- Establishes a **familiarity-first, visually polished user-experience program** based on public, normal-user observation of Simplify's navigation, extension panel, resume workspace, job board, and tracker. The objective is near-zero migration friction by matching hierarchy, information density, spatial proportions, task grouping, and primary interaction placement as closely as legally, accessibly, and independently appropriate—not by creating screenshot indistinguishability or a deceptive clone.
+- Prohibits copying Simplify source code, private APIs, authenticated data, trademarks, logos, illustrations, proprietary copy, exact screenshot-derived assets, or distinctive trade dress. All UI components, icons, tokens, and code must be independently authored, accessible, and visually distinguishable as an independent product.
+- Adds a dated, hashed UI reference log; a surface-by-surface familiarity matrix; shared design tokens established before downstream shell work; explicit anti-bloat rules; owner-approved visual baselines; desktop, extension, resume, tracker, job-board, onboarding, and queue mappings; visual-regression coverage; and a blocking Simplify-experienced-user migration study before the core closed alpha.
+- Keeps the existing product advantages visible inside familiar workflows: evidence links, uncertainty, safety pauses, exact document versions, multidimensional matching, and user-controlled review must never be hidden merely to resemble Simplify.
+- Preserves `gemma4:12b-mlx` through Ollama as the primary local development candidate and keeps the accepted local model profile as the default release path.
+- Moves the provider-neutral generation boundary into `M05-W03`, before the resume/PageFit benchmark, so Gate B evaluates the architecture actually used by the completed milestone. `M05-W17` becomes a final provider-boundary/settings regression and re-anchors Gate B evidence to the final M05 revision without adding live OAuth.
+- Adds an **experimental, disabled-by-default, local-only ChatGPT-account OAuth bridge** inspired by the Apache-2.0 `EvanZhouDev/openai-oauth` project. It is explicitly unofficial, non-core, non-guaranteed, and may be shipped disabled if terms, security, compatibility, or endpoint stability are not accepted.
+- Requires the experimental bridge to use the user's own account only, preserve rate limits and safeguards, store tokens only through platform-native secret storage, route requests through trusted native/local-service networking rather than a browser renderer, expose exact data-egress consent, and provide immediate disconnect/revocation.
+- Prohibits credential pooling, proxying one account for other users, plaintext token files, dependence on `~/.codex/auth.json`, automatic provider fallback, silent cloud egress, or any claim that a ChatGPT subscription is an official general-purpose API entitlement.
+- Adds an independent terms/security/compatibility and ship-enabled-or-disabled decision late in hardening. The core product and every critical gate remain fully operable with the experimental provider absent or disabled.
+- Expands the exact inventory to **39 milestones, 300 work packages, 193 requirements, and four critical gates**. `M00-W11` performs the controlled migration after v1.3 `M01-W06`; Git history remains the archive of v1.3.
 
 
 ---
@@ -69,6 +68,15 @@ The following decisions are final unless the owner explicitly changes them later
 26. **Implementation-agent choice is controlled by the owner, not by this specification.** Continue using the currently owner-selected implementation agent until the owner explicitly changes it. Do not infer a switch from rate limits, elapsed time, package type, or model availability. Any capable agent may implement a package after reconstructing repository state and obeying the same tests and evidence contract; independent critical-gate audits must use a separate clean session or worktree from the implementation session.
 27. Only one implementation agent may modify a working tree at a time. Agent changes occur at clean package boundaries whenever possible; a separate worktree is used for independent audits.
 
+28. **The user experience must be beautiful, cohesive, easy to use, and migration-familiar to Simplify users.** Match the reference product's publicly observable hierarchy, information density, spatial proportions, task grouping, and primary interaction placement as closely as legally and accessibly appropriate so an experienced Simplify user can complete equivalent tasks with minimal retraining. Independently select and implement the palette, icons, copy, assets, motion, and component code; the product must remain clearly original and non-affiliated.
+29. **Familiarity does not authorize deceptive copying.** Do not use Simplify's name as the product name, logo, trademarks, exact icons, illustrations, proprietary text, source code, private APIs, authenticated scraping, or screenshot-derived assets. Independently implement common functional patterns with an original design system and an explicit non-affiliation disclosure.
+30. **The local Ollama model remains the default AI path and release baseline.** Experimental external providers may improve quality or convenience, but deterministic core workflows and accepted local-model workflows must remain available without them.
+31. **A ChatGPT-account provider is experimental and disabled by default.** It is a local, single-user research feature—not a promised free API, not a shared service, and not a dependency of autofill, storage, rendering, tracking, or any critical gate.
+32. **External-account credentials are secrets equivalent to passwords.** They must use the platform-native `SecretStore`, must never be committed, logged, synchronized to the product's cloud job index, stored in plaintext files, or read from a user's unrelated `~/.codex/auth.json` as a production shortcut.
+33. **Provider selection and data egress require explicit user control.** The product must show the provider, model, exact task category, data classes leaving the device, retention caveat, and fallback policy before first use. It must not silently switch providers after errors, quotas, or model changes.
+34. **The experimental ChatGPT-account bridge ships enabled only after an independent terms, security, privacy, compatibility, and account-risk review.** A verified decision to keep it disabled satisfies the experimental package; no core milestone or release claim may be weakened to force enablement.
+35. **External AI output never gains application authority.** Regardless of provider, model output is untrusted candidate data subject to the same schemas, evidence retrieval, atomic-claim verification, sensitive-field policy, review, and no-submit boundaries as local output.
+
 ---
 
 ## 1. How implementation agents must use this specification
@@ -90,6 +98,10 @@ docs/PLATFORM_SUPPORT.md              # certified OS/architecture/runtime/instal
 docs/REQUIREMENTS_TRACEABILITY.md     # generated/validated human-readable traceability view
 docs/traceability.json                # reviewed machine-readable requirement/package mapping created by v1.2 M00-W07
 docs/CRITICAL_GATES.md                # autofill, resume/PageFit, Workday, and cross-platform gate state/evidence
+docs/UI_FAMILIARITY.md                # public-reference matrix, original-design rules, usability evidence
+docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md  # approved screenshot/state hashes, token decisions, and change history
+docs/ui/ANTI_BLOAT_CHECKLIST.md            # prohibited generic UI patterns and per-surface audit results
+docs/EXPERIMENTAL_AI_PROVIDERS.md     # provider status, data-egress matrix, legal/security decisions
 ```
 
 `PROJECT_STATUS.md` must always contain exactly one state for every work package:
@@ -102,7 +114,7 @@ A work package is not `VERIFIED` merely because code exists. Its required tests 
 
 ### 1.2 Mandatory session bootstrap
 
-At the beginning of every new prompt or resumed session, Claude or Codex must:
+At the beginning of every new prompt or resumed session, the owner-selected implementation agent must:
 
 1. Read `CLAUDE.md`.
 2. Read this specification.
@@ -152,7 +164,7 @@ NOT_EVALUATED -> IN_PROGRESS -> PASS
 
 For the current repository:
 
-1. Finish `M00-W07` completely under v1.2. Preserve the in-flight Codex traceability implementation, run its full tests, commit, push, and stop before `M01-W01` implementation.
+1. Finish `M00-W07` completely under v1.2. Preserve the in-flight traceability implementation, run its full tests, commit, push, and stop before `M01-W01` implementation.
 2. If v1.2 marks M00 `ACCEPTED` and `M01-W01` `READY`, treat those states as historical v1.2 evidence. Do not begin M01 until v1.3 adoption and the expanded M00 exit gate finish.
 3. Keep this complete owner-approved file outside the repository at an immutable absolute path, record its SHA-256, and leave `docs/MASTER_IMPLEMENTATION_SPEC.md` unchanged until M00-W08 performs the atomic replacement. Do not place a second canonical-looking specification under `docs/`; the v1.2 fail-closed validator correctly rejects that state.
 4. Execute `M00-W08` as the owner-approved v1.3 migration. After a clean v1.2 preflight, it reads and hashes the external owner-approved file, copies those exact bytes directly over the canonical path without ever creating a second canonical-looking file in the repository, records the ADR, adds the fourth gate and platform memory files, migrates status and validators, preserves all completed v1.2 revisions/evidence, and reopens M00 as `IN_PROGRESS` with `M01-W01` no longer ready. Because the v1.2 traceability check is already mandatory, M00-W08 must also perform a mechanical exact-inventory extension of `docs/traceability.json` and its validator for the 22 new requirements and 26 new packages, marking every new future item honestly `NOT_STARTED`/`NOT_YET_APPLICABLE`; M00-W10 performs the full reviewed mapping and acceptance audit.
@@ -160,6 +172,20 @@ For the current repository:
 6. Execute `M00-W10` to extend—not discard—the v1.2 `docs/traceability.json`, `scripts/traceability.py`, generated Markdown view, and validation tests to the exact v1.3 inventory, rerun the complete M00 fresh-clone matrix, re-accept M00, and make `M01-W01` ready again.
 7. Git history preserves v1.2. The external owner-approved source is not committed; after adoption the repository still contains exactly one canonical master specification.
 8. Do not modify the canonical specification or traceability inventory in the active v1.2 `M00-W07` working tree.
+
+
+#### 1.4.2 Version 1.4 adoption protocol after completing v1.3 `M01-W06`
+
+For the current repository:
+
+1. Finish `M01-W06` completely under v1.3. Run the full generated-contract and three-language compatibility suites, commit, push, observe all three hosted operating-system jobs, and stop before `M01-W07`.
+2. Keep the owner-approved v1.4 file outside the repository at an immutable path. Record its SHA-256. Do not place a proposed copy under `docs/`; the current single-canonical-spec validator must continue to fail closed.
+3. Execute `M00-W11` as the owner-approved v1.4 migration. It compares the external v1.4 file with canonical v1.3, records an accepted ADR with the external path/hash and owner approval, copies the exact approved bytes directly over `docs/MASTER_IMPLEMENTATION_SPEC.md`, and never creates two canonical-looking files.
+4. Preserve every M00-W01 through M00-W10 and M01-W01 through M01-W06 state, tree revision, commit, evidence heading, compatibility result, reviewed mapping, and historical hash. The migration must not regenerate or restamp completed content merely to make it look current.
+5. Extend `docs/traceability.json`, `scripts/traceability.py`, status validation, doctor/integrity checks, and generated Markdown to exactly 39 milestones, 300 work packages, 193 requirements, and four gates. New future packages remain `NOT_STARTED`; new requirements remain honest `NOT_STARTED` or partial states.
+6. Reopen M00 only for `M00-W11`, temporarily remove readiness from `M01-W07`, and keep all four gates `NOT_EVALUATED`. No UI or external-provider product code is implemented during adoption.
+7. After migration tests, clean-clone verification, and macOS/Windows/Ubuntu CI pass on the exact content revision, mark `M00-W11` `VERIFIED`, return M00 to `ACCEPTED`, restore M01 to `IN_PROGRESS`, and make `M01-W07` the sole `READY` package.
+8. Run a separate clean-session audit of the migration before continuing M01. Git history is the archive of v1.3; the repository contains exactly one canonical specification.
 
 ### 1.5 Non-negotiable engineering behavior
 
@@ -201,6 +227,19 @@ Every implementation agent must obey all of the following:
 - Do not permit production Greenhouse, Lever, or Ashby work to become ready while the Workday production gate is not `PASS`.
 - Do not automatically select or switch implementation models. Use the owner-selected agent for the active package, preserve clean handoffs at package boundaries, and use a separate clean session or worktree for independent audits when required.
 
+- Do not imitate Simplify by copying its assets, source, private APIs, authenticated DOM/CSS, proprietary wording, or distinctive trade dress. Familiar task architecture must be independently implemented and explicitly non-affiliated.
+- Do not treat screenshot similarity as UI completion. Familiarity work requires accessibility, real-task usability, state/error coverage, visual regression, owner visual approval, and evidence that Simplify-experienced users can transfer their mental model.
+- Do not ship generic AI-generated application bloat: no marketing-style hero sections, purposeless statistic cards, unapproved gradients or decorative animation, oversized headings, redundant title/subtitle/explainer stacks, single-value cards, duplicate primary actions, excessive badges/pills, or page-local copies of established shared components.
+- Do not freeze design tokens or a production visual baseline until the owner has reviewed representative desktop and extension states and recorded approval. Every visible sentence and decorative element must justify its presence in a real workflow.
+- Do not hide evidence, uncertainty, safety pauses, or multi-dimensional match explanations merely to reproduce a simpler competitor screen.
+- Do not call an unofficial ChatGPT-account bridge an official API, a free API entitlement, or a guaranteed feature of a ChatGPT subscription.
+- Do not store ChatGPT/OAuth access, refresh, or identity tokens in plaintext files, browser local storage, logs, diagnostics, backups, or the cloud job-index service.
+- Do not read or mutate a user's unrelated Codex credential file as the production credential store. Use a dedicated provider session protected by the platform `SecretStore`.
+- Do not pool accounts, proxy one user's account for another user, bypass provider rate limits, retry restrictions, safety systems, or account-plan limitations.
+- Do not silently send profile, resume, job, answer, evidence, demographic, or application content to an external model provider. Provider selection and bounded data classes require explicit consent and a visible active-provider indicator.
+- Do not make deterministic autofill, local profile/resume management, tracking, rendering, or critical-gate execution depend on an experimental external provider.
+- Do not automatically fall back between local and external providers after a failure unless the user previously approved the exact fallback policy and the request is rebuilt and re-verified under the destination provider profile.
+
 - Do not claim a platform supported from compilation alone. Certified support requires packaged execution on the actual operating-system family and architecture.
 - Do not put platform checks throughout business logic. Platform selection must occur through typed interfaces and capability records.
 - Do not use plaintext secret, database-key, token, or credential fallback when a platform secret store is unavailable.
@@ -240,12 +279,13 @@ A vague statement such as “implemented and tested” is not acceptable.
 
 Build a local-first applicant application that is faster and more convenient than manual job applications while being measurably more accurate, truthful, transparent, controllable, and useful than Simplify on the workflows included in this specification.
 
-The product has four non-negotiable promises:
+The product has five non-negotiable promises:
 
 1. **Autofill:** identify, resolve, fill, and verify ordinary fields accurately and quickly across measured major ATS patterns while refusing unsafe guesses and reporting every unresolved required field.
 2. **Workday complete-to-review:** on certified Workday tenant patterns, after the user opens the application under an active prior opt-in or starts the current run, complete every safe page with no manual data entry, advance through pages automatically, and stop at the final review boundary for the user to inspect and submit.
 3. **Resume tailoring and PageFit:** create a stronger job-specific resume that uses only supported experience, avoids keyword stuffing and incoherence, and fits to one readable page when doing so is genuinely beneficial.
 4. **Certified cross-platform reliability:** provide the same trustworthy core workflows on macOS arm64, Windows x64, and Ubuntu Linux x64, with platform-native security, installers, extension/native-host integration, and explicit local-AI capability profiles.
+5. **Beautiful, familiar migration experience:** deliver a polished, calm, cohesive, information-dense interface that Simplify-experienced users recognize immediately, while preserving an original, accessible, non-deceptive visual identity and making the product's stronger evidence, safety, and transparency controls easy to discover.
 
 No secondary feature can compensate for failure of any promise.
 
@@ -264,6 +304,7 @@ Project success is measured as a sequence of increasingly difficult proofs, not 
 ```text
 reproducible repository
     -> typed contracts and frozen evaluation system
+    -> original familiarity-first UI reference system and provider-neutral AI boundary
     -> early generic + Workday-stress autofill feasibility PASS
     -> secure local platform abstraction, Windows CI, and accepted local-model profiles
     -> early resume/PageFit feasibility PASS
@@ -310,6 +351,15 @@ The project is complete only when all mandatory milestones are `ACCEPTED` and th
 | Tailored one-page resume generation | **p95 <= 90 s** on target hardware |
 | Extension crash-free test sessions | **>= 99.5%** |
 | Main desktop workflow accessible by keyboard | **100% of required controls** |
+| Simplify-experienced user completion of mapped core tasks without coaching | **>= 90% overall; 100% for onboarding, resume selection, autofill review, and tracker update critical paths** |
+| Median mapped-task completion time versus same-version Simplify observation | **no worse than 15% slower, with a measured improvement on at least evidence review or uncertainty handling** |
+| Visual clarity, aesthetic polish, and ease-of-use ratings in the mapped-task study | **mean >= 4.2/5 for each dimension; median >= 4/5 for each; no critical mapped surface mean below 4.0/5** |
+| Required owner-approved desktop and extension visual-baseline states | **100% approved before the applicable token/component baseline is frozen** |
+| High-severity anti-bloat or shared-component-consistency defects at release | **0 open** |
+| Users who incorrectly believe the product is Simplify or officially affiliated after disclosure | **0** |
+| Experimental external-provider plaintext credential artifacts | **0** |
+| Core deterministic workflows blocked by external-provider outage, quota, auth failure, or removal | **0** |
+| Experimental ChatGPT-account provider enabled without accepted terms/security/compatibility decision | **0** |
 | Certified platform clean install and first launch | **100%** on macOS arm64, Windows x64, and Ubuntu x64 release fixtures |
 | Packaged desktop/local-service lifecycle matrix | **100%** on all certified platforms |
 | Extension-to-native-host authenticated connection | **100%** on all certified platforms |
@@ -320,7 +370,7 @@ The project is complete only when all mandatory milestones are `ACCEPTED` and th
 | Update/rollback/uninstall data-loss defects | **0** in the platform release matrix |
 | Critical security findings at release | **0 open** |
 
-“Better than Simplify” must not be asserted from opinion alone. The final gate includes manual, terms-compliant side-by-side evaluation on the same forms and content examples, with a dedicated Workday comparison. The benchmark must compare accuracy, omissions, manual corrections, page progression, factuality, quality, explainability, performance, and recovery behavior. No automated extraction of Simplify’s private APIs or code is permitted.
+“Better than Simplify” must not be asserted from opinion alone. The final gate includes manual, terms-compliant side-by-side evaluation on the same forms and content examples, with a dedicated Workday comparison and a separate familiarity/usability study on equivalent public workflows. The benchmark must compare accuracy, omissions, manual corrections, page progression, factuality, quality, explainability, performance, recovery behavior, learnability, task completion, and accessibility. Public screenshots and normal user interaction may inform an independently authored familiarity matrix; automated extraction of Simplify’s private APIs, source, authenticated data, proprietary assets, or code is prohibited.
 
 ### 2.3 Critical-risk progression contract
 
@@ -420,7 +470,7 @@ Before `M28` becomes `READY`, the product must demonstrate the following on pack
 | Critical or high platform-specific defects | **0 open** |
 | Platform claim not backed by a dated compatibility row and artifact | **0** |
 
-The gate requires native packaged evidence, not only compilation, emulation, containers, or cross-compilation. A separate high-capability session audits each platform evidence bundle, and the owner records the gate decision.
+The gate requires native packaged evidence, not only compilation, emulation, containers, or cross-compilation. A separate high-capability session audits each platform evidence bundle, and the owner records the gate decision. In M27, that audit is `M27-W12` and must execute after `M27-W13` and `M27-W14` against the final M27 candidate revision. The evaluated content revision/tree must match the final accepted M27 content revision/tree unless an independent gate-neutral re-anchoring is recorded.
 
 #### Gate decision rules
 
@@ -441,6 +491,9 @@ The following are not part of the mandatory project:
 - Networking graphs, contact imports, connection paths, or referral discovery.
 - LinkedIn session automation, authenticated scraping, or private API use.
 - Product naming, logo, brand system, or marketing-site design.
+- A deceptive Simplify clone, reuse of Simplify trademarks/assets/copy, or any representation of affiliation.
+- A guaranteed or officially supported ChatGPT-subscription API. The ChatGPT-account bridge is experimental and may remain disabled.
+- Credential pooling, account sharing, reselling provider access, or routing one user's tokens for another user.
 - Employer-side applicant tracking or recruiting software.
 - A recruiter marketplace or priority recruiter introductions.
 - CAPTCHA solving or anti-bot evasion.
@@ -519,6 +572,19 @@ The user can approve jobs and add them to a queue. The product prepares a per-jo
 ### 3.14 Certified cross-platform desktop and extension
 
 The user can install and run the product on a certified macOS, Windows, or Ubuntu machine without using a terminal. The desktop app starts and authenticates the local service, accesses the platform-native secret store, connects the Chrome extension to the native host, reports local-model capability, exports equivalent documents, preserves encrypted backups across platforms, updates and rolls back safely, and uninstalls without deleting user data unless explicitly requested. Unsupported operating systems, architectures, browsers, or hardware profiles are shown honestly rather than silently attempted.
+
+### 3.15 Familiarity-first migration experience
+
+The desktop app and extension use independently authored but migration-familiar information architecture. A Simplify-experienced user should recognize the equivalent paths for Profile, Documents/Resumes, Jobs, Tracker, Settings, Autofill, Resume Match, Questions, and application review without a tutorial. Familiarity is measured through real tasks, not pixel resemblance. Original branding, icons, copy, evidence views, safety states, and accessibility remain mandatory.
+
+The product supports a privacy-safe migration path using user-owned resumes, exported tracker CSV files, and manually entered profile data. It does not log into Simplify, scrape authenticated Simplify pages, import private Simplify APIs, or imply that data can be transferred when no user-controlled export exists.
+
+### 3.16 AI provider choice and experimental ChatGPT-account connection
+
+The user can view the active AI provider for each writing task. The default is the accepted local Ollama profile. A later experimental setting may let the user connect their own ChatGPT account, discover account-available Codex models, select an allowed model, preview which data classes will leave the device, test the connection, disconnect, and revoke the local session.
+
+The experimental provider is never used for deterministic field resolution, sensitive-field policy, browser actions, navigation, submission, storage, or gate decisions. It is disabled by default and can be removed or remain disabled without degrading the core product.
+
 
 ---
 
@@ -713,6 +779,49 @@ Every requirement below must appear in `docs/REQUIREMENTS_TRACEABILITY.md` with 
 - `REQ-GATE-021`: Require complete cross-platform gate regression after changes to platform abstractions, secure storage, native messaging, model runtime, renderer/fonts, installers, updater, Chrome, or certified OS versions.
 - `REQ-GATE-022`: Restrict platform support claims to the exact certified matrix and evidence bundle; experimental targets must be labeled explicitly.
 
+### 4.11 Familiarity-first user-experience requirements
+
+- `REQ-UX-001`: Maintain a dated, hashed, public-observation UI reference log for equivalent Simplify workflows, account tier, browser, source URL, screenshot provenance, and known uncertainty.
+- `REQ-UX-002`: Implement all production UI through an independently authored, owner-approved, accessible design system that is polished, cohesive, aesthetically strong, and appropriately close to the reference hierarchy/density/proportions; do not reuse Simplify trademarks, logos, icons, illustrations, proprietary copy, source code, private APIs, or screenshot-derived assets.
+- `REQ-UX-003`: Provide a familiar desktop information architecture for Home/Dashboard, Jobs, Tracker, Documents/Resumes, Profile, Settings, model/provider status, and diagnostics.
+- `REQ-UX-004`: Provide a familiar extension panel hierarchy for site status, Autofill, Resume/Match, Questions, Profile, and Settings while exposing filled, unresolved, sensitive, unsupported, and evidence states more clearly than the reference product.
+- `REQ-UX-005`: Provide a familiar resume workspace with version selection, target-job binding, editor/preview, match/missing-term panel, layout controls, tailoring review, PageFit, export, and original-version preservation.
+- `REQ-UX-006`: Provide familiar tracker Columns, List, and Flow views; filters, saved views, favorites, archive, CSV import/export, drag/drop where accessible, and an inspectable application detail timeline.
+- `REQ-UX-007`: Provide a familiar job-board list/detail experience with search, filter chips, saved searches, save/hide/already-applied actions, source/freshness, and explainable match details.
+- `REQ-UX-008`: Provide familiar profile/onboarding sectioning, resume import, progress preservation, editable preferences, and explicit sensitive-answer controls without copying competitor wording or coercive scoring.
+- `REQ-UX-009`: Provide consistent inline AI affordances for narrative questions and resume edits with preview, evidence, provider, limit, and accept/reject state before insertion.
+- `REQ-UX-010`: Keep artifact/version selection, primary actions, status indicators, empty/loading/error states, confirmation patterns, keyboard shortcuts, and undo behavior consistent across desktop and extension surfaces; prohibit duplicate primary actions, excessive badges/pills, redundant explanatory copy, and page-local replacements for established shared components.
+- `REQ-UX-011`: Keep stronger product distinctions visible inside familiar workflows: evidence links, unsupported gaps, multidimensional match dimensions, uncertainty, exact document versions, policy confirmations, and no-submit boundaries.
+- `REQ-UX-012`: Support migration from user-owned resumes and tracker CSV files with mapping preview, deduplication, validation, rollback, and no authenticated competitor scraping.
+- `REQ-UX-013`: Meet keyboard, focus, screen-reader, zoom, reduced-motion, contrast, and error-announcement requirements on every mapped critical workflow.
+- `REQ-UX-014`: Maintain deterministic component and visual-regression coverage for desktop, extension, resume, tracker, job-board, onboarding, provider settings, and queue states across certified platforms, including owner-approved baselines for desktop shell, Dashboard, Jobs, Tracker, Documents/Resumes, Profile, Settings, extension default, extension autofill, and extension review states.
+- `REQ-UX-015`: Test responsive behavior, localization expansion, long names/URLs, high zoom, empty/large datasets, offline state, stale data, permission denial, model unavailability, and extension disconnection.
+- `REQ-UX-016`: Run a blinded or counterbalanced usability study with Simplify-experienced users on mapped tasks and record task success, time, navigation errors, assistance, confidence, accessibility issues, qualitative transfer friction, and separate visual-clarity, polish, and ease-of-use ratings.
+- `REQ-UX-017`: Require an originality/non-confusion review proving that users understand the product is independent and that no protected asset, trademark, or deceptive affiliation is present.
+- `REQ-UX-018`: Block core closed-alpha acceptance when the familiarity study, owner aesthetic approval, anti-bloat audit, critical UI accessibility, actual UI inspection, shared-component consistency, or visual-regression requirements fail.
+
+### 4.12 AI-provider and experimental external-account requirements
+
+- `REQ-AI-001`: Keep the accepted local Ollama profile as the default provider and preserve deterministic/local core operation when every external provider is absent.
+- `REQ-AI-002`: Route generation through a typed provider-neutral interface—implemented before the Gate B benchmark—covering capabilities, model identity, context limits, request normalization, structured output, cancellation, streaming, usage state, latency, and provider-specific errors; re-anchor affected Gate B evidence after any later provider-boundary change.
+- `REQ-AI-003`: Let the user select an allowed provider/model globally or by task category; show the active selection on every generation and persist it as versioned profile data.
+- `REQ-AI-004`: Never silently fall back between providers. A fallback requires a previously approved policy, visible reason, bounded context rebuild, and complete downstream verification.
+- `REQ-AI-005`: Keep the ChatGPT-account OAuth bridge disabled by default, labeled experimental/unofficial, and architecturally removable without schema, evidence, or product-data loss.
+- `REQ-AI-006`: Permit only the account owner to use their own session; prohibit credential sharing, token pooling, resale, multi-user proxying, or server-side account brokering.
+- `REQ-AI-007`: Store external-provider access, refresh, and identity tokens only through the certified platform `SecretStore`; prohibit plaintext files, browser storage, logs, diagnostics, backups, and cloud synchronization.
+- `REQ-AI-008`: Use PKCE, unpredictable state, loopback-only callback handling, bounded timeout, cancellation, exact redirect validation, token refresh rotation, logout, revocation/clear, and no non-loopback listener for desktop OAuth.
+- `REQ-AI-009`: Perform model requests through trusted native/local-service networking; browser content scripts, the extension service worker, and the Tauri WebView must never receive provider bearer tokens.
+- `REQ-AI-010`: Discover account-available models but expose only a versioned task-capability allowlist whose models pass structured-output, factuality, context, latency, and safety evaluation; unknown model IDs fail closed.
+- `REQ-AI-011`: Show a preflight data-egress inventory and explicit consent for profile facts, resume content, job text, answer context, evidence snippets, and optional sensitive data before first use and whenever policy materially changes.
+- `REQ-AI-012`: Respect provider quotas, account-plan limits, rate limits, restrictions, and safety systems; bound retries and never use endpoint rotation or other circumvention.
+- `REQ-AI-013`: Apply the same strict schemas, evidence links, stale-context checks, atomic-claim verification, sensitive policy, length checks, and bounded repair rules to every provider.
+- `REQ-AI-014`: Provide health, auth-expired, quota, model-removed, endpoint-changed, policy-disabled, and offline states with safe local fallback options and an immediate local kill switch.
+- `REQ-AI-015`: Ensure autofill, profile, evidence, tracker, rendering, backup, gate evaluation, and approved local-model workflows never depend on the experimental bridge.
+- `REQ-AI-016`: Pin every experimental dependency/commit, record Apache-2.0 attribution and modifications, maintain SBOM/provenance, and prohibit unreviewed remote code or automatic package-version drift.
+- `REQ-AI-017`: Use synthetic fake-provider tests in CI; live account tests are owner-controlled, low-volume, no-token-log, no-real-application, and tied to exact provider/model/account-tier/date evidence.
+- `REQ-AI-018`: Require an independent legal/terms, security, privacy, provider-compatibility, account-risk, and maintenance review whose accepted outcome is either `ENABLED_EXPERIMENTAL` or `DISABLED_BY_POLICY`; no release may imply official OpenAI endorsement.
+
+
 ---
 
 ## 5. System architecture
@@ -736,16 +845,26 @@ The target monorepo is:
 │   ├── traceability.json
 │   ├── CRITICAL_GATES.md
 │   ├── gates/
-│       ├── AUTOFILL_FEASIBILITY_GATE.md
-│       ├── RESUME_PAGEFIT_FEASIBILITY_GATE.md
-│       ├── WORKDAY_GUIDED_PRE_SUBMIT_GATE.md
-│       ├── CROSS_PLATFORM_CORE_GATE.md
-│       └── HOLDOUT_EXECUTION_LOG.md
-│   └── platform/
-│       ├── CERTIFIED_MATRIX.md
-│       ├── MODEL_RUNTIME_PROFILES.md
-│       ├── NATIVE_MESSAGING_MATRIX.md
-│       └── PACKAGING_UPDATE_MATRIX.md
+│   │   ├── AUTOFILL_FEASIBILITY_GATE.md
+│   │   ├── RESUME_PAGEFIT_FEASIBILITY_GATE.md
+│   │   ├── WORKDAY_GUIDED_PRE_SUBMIT_GATE.md
+│   │   ├── CROSS_PLATFORM_CORE_GATE.md
+│   │   └── HOLDOUT_EXECUTION_LOG.md
+│   ├── platform/
+│   │   ├── CERTIFIED_MATRIX.md
+│   │   ├── MODEL_RUNTIME_PROFILES.md
+│   │   ├── NATIVE_MESSAGING_MATRIX.md
+│   │   └── PACKAGING_UPDATE_MATRIX.md
+│   ├── ui/
+│   │   ├── SIMPLIFY_FAMILIARITY_MATRIX.md
+│   │   ├── PUBLIC_REFERENCE_LOG.md
+│   │   ├── OWNER_APPROVED_VISUAL_BASELINE.md
+│   │   ├── ANTI_BLOAT_CHECKLIST.md
+│   │   └── ORIGINALITY_AND_NONCONFUSION_AUDIT.md
+│   └── providers/
+│       ├── PROVIDER_COMPATIBILITY.md
+│       ├── DATA_EGRESS_MATRIX.md
+│       └── EXPERIMENTAL_CHATGPT_OAUTH.md
 ├── apps/
 │   ├── desktop/                 # Tauri 2 + React + TypeScript
 │   ├── extension/               # WXT + React + TypeScript, real MV3 feasibility in M02; productionized in M17
@@ -759,6 +878,7 @@ The target monorepo is:
 │   ├── contracts/               # JSON Schema, generated TS and Python models
 │   ├── domain/                  # shared pure domain logic
 │   ├── ui/                      # shared UI components and accessibility helpers
+│   ├── ai-providers/            # provider-neutral generation boundary; local default, experimental adapters isolated
 │   ├── platform/                # typed OS capabilities, paths, process, key store, installer interfaces
 │   ├── resume-schema/           # feasibility subset in M05; complete semantic document model later
 │   ├── form-engine/             # early M02 field identity/scanner/resolver/drivers; productionized later
@@ -775,7 +895,14 @@ The target monorepo is:
 │   │   ├── development/
 │   │   ├── result-schema/
 │   │   └── reports/
-│   └── holdout-manifests/       # hashes/metadata only; owner-controlled cases remain outside agent workspace
+│   ├── holdout-manifests/       # hashes/metadata only; owner-controlled cases remain outside agent workspace
+│   ├── ui-familiarity/
+│   │   ├── task-matrix/
+│   │   ├── synthetic-scenarios/
+│   │   └── reports/
+│   └── provider-compatibility/
+│       ├── synthetic/
+│       └── reports/
 ├── prompts/
 │   ├── registry.yaml
 │   ├── resume/
@@ -810,6 +937,7 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 |---|---|
 | Monorepo | pnpm workspaces + Turborepo |
 | Desktop | Tauri 2, React, TypeScript, Vite |
+| UI foundation | React accessibility-first headless primitives, repository-owned CSS-variable design tokens, independently authored icons, Storybook-equivalent component harness when adopted, and Playwright visual regression |
 | Browser extension | WXT, React, TypeScript, Manifest V3 |
 | Local API/orchestration | Python 3.12, FastAPI, Pydantic v2 |
 | Native bridge | Rust binary registered as a Chrome native-messaging host |
@@ -825,6 +953,8 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 | DOCX import/export | python-docx or an approved deterministic DOCX library |
 | PDF rendering | Pinned Playwright Chromium using semantic HTML/CSS |
 | Local model runtime | Versioned provider profiles: Ollama MLX on Apple Silicon and benchmarked Ollama GGUF accelerator/CPU profiles on Windows/Linux |
+| Generation-provider boundary | Typed local-service provider interface; accepted local Ollama profile is default and mandatory |
+| Experimental ChatGPT-account bridge | Pinned/reviewed `@openai-oauth/core`-class OAuth/transport primitives or an independently implemented equivalent, custom platform-secret session store, native/local-service networking, disabled by default; never `@openai-oauth/local` plaintext-file defaults in production |
 | Search | SQLite FTS5 + local embeddings initially; PostgreSQL FTS/pgvector for public job index |
 | Cloud job index | Containerized ingestion workers + PostgreSQL; no private user profile data stored there |
 | Certified desktop platforms | macOS 14+ arm64; Windows 11 x64; Ubuntu 24.04 LTS x64 |
@@ -840,6 +970,7 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 - Starts, monitors, and stops the local orchestrator and native host.
 - Manages model download/status through the runtime adapter.
 - Never reads raw database files directly; it uses typed local APIs.
+- Owns the familiarity-first navigation shell, original design tokens, provider-selection/data-egress settings, and explicit independent-product disclosure.
 
 #### Local orchestrator
 
@@ -847,6 +978,7 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 - Exposes versioned loopback APIs.
 - Contains no browser DOM logic.
 - Never performs a submission itself; it issues typed execution plans to the extension/native host.
+- Owns the generation-provider router, bounded context construction, provider capability checks, external data-egress policy, and post-generation verification; provider adapters never receive browser or submission authority.
 
 #### Browser extension
 
@@ -875,6 +1007,7 @@ The owner-controlled hidden holdout cases must not be committed to the implement
 - Owns operating-system-specific implementations; shared domain code cannot call platform APIs directly.
 - Detects certified, experimental, and unsupported targets and reports capability without claiming support.
 - Ensures GUI-launched processes find bundled/configured runtimes without relying on interactive-shell `PATH`.
+- Protects external-provider sessions in the native secret store and exposes typed login/logout/revocation and capability state without giving tokens to the WebView or extension.
 - Provides test seams so platform negative cases do not require corrupting the real machine.
 
 ### 5.4 Trust boundaries
@@ -1854,6 +1987,180 @@ Resume rendering uses controlled, legally distributable font assets or an approv
 
 Each platform gate bundle records OS build, architecture, runner or physical-machine identity, package hash/signature, browser/version, webview version, native-host registration evidence, secret-store test, runtime/model profile, document matrix, backup/restore result, update/rollback result, diagnostics, raw logs, screenshots/traces containing synthetic data only, independent reviewer, and owner decision.
 
+
+### 5.15 Familiarity-first UI architecture
+
+#### 5.15.1 Objective and legal/originality boundary
+
+The UI target is **beautiful, polished, low-friction familiarity**. Match the reference product's hierarchy, information density, spatial proportions, task grouping, and primary interaction placement as closely as legally, accessibly, and independently appropriate because experienced users already understand that task sequence. The target is immediate recognition and effortless transfer—not screenshot indistinguishability. Palette, typography details, icons, copy, illustrations, assets, motion, and component implementation must be independently selected and must not create likely confusion about source, sponsorship, or affiliation.
+
+Permitted research:
+
+- Normal unauthenticated or owner-account interaction through the public product.
+- Official public help articles, product pages, release notes, and user-owned screenshots.
+- Manual measurement of task steps, panel hierarchy, control placement, and state transitions.
+- Recording a dated screenshot hash, browser, account tier, feature state, and observer notes.
+
+Prohibited research:
+
+- Extracting source code, private APIs, authenticated network payloads, proprietary CSS/assets, design files, or hidden data.
+- Automated scraping of authenticated pages.
+- Reusing Simplify logo, wordmark, illustrations, exact icons, proprietary copy, or distinctive asset composition.
+- Presenting the product as Simplify, a Simplify client, or an affiliated service.
+
+#### 5.15.2 Public-reference familiarity matrix
+
+`docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md` maps each observed reference task to an independently implemented product task, including:
+
+```text
+reference surface
+reference date/account tier/browser
+public source or user-owned screenshot hash
+observed task goal and ordered steps
+familiar terminology that is functional/common
+our route, component, and keyboard path
+intentional differences and safety improvements
+accessibility behavior
+empty/loading/error/offline variants
+test and visual-snapshot IDs
+originality/non-confusion notes
+```
+
+The reference matrix is regression-sensitive. A competitor UI change does not automatically change this product. Updating the matrix requires review, dated evidence, task-level rationale, accessibility impact, and no degradation of accepted product workflows.
+
+#### 5.15.3 Global desktop information architecture
+
+The desktop app uses a compact, predictable primary navigation with equivalent destinations for:
+
+```text
+Home
+Jobs
+Tracker
+Documents / Resumes
+Profile
+Settings
+Diagnostics
+```
+
+The visual language is independently authored, aesthetically deliberate, and intentionally familiar: compact navigation, clear content hierarchy, restrained elevation, efficient split panes/drawers, consistent status treatment, balanced whitespace, and high information density without clutter. Initial explorations may use light neutral surfaces and restrained cool accents, but no palette, radius, shadow, typography scale, or motion language becomes canonical until the owner approves the representative visual baseline. Exact competitor colors, measurements, assets, and CSS are not copied.
+
+Every surface includes:
+
+- One concise page title or context label; do not repeat the same idea through a title, subtitle, and explanatory paragraph.
+- One clearly dominant primary action in a consistent top-right or context-appropriate action zone; do not duplicate it elsewhere on the same state.
+- Search/filter controls before result content.
+- Empty, loading, offline, stale, permission-denied, and error states.
+- Keyboard-visible focus, screen-reader names, zoom/reflow, and reduced motion.
+- Evidence, uncertainty, version, and provider status where relevant.
+
+#### 5.15.4 Browser extension panel
+
+The extension panel uses a familiar compact structure while remaining safer and more explicit:
+
+```text
+header: current site/job/support status + connection state + settings
+primary tabs/sections: Autofill | Resume / Match | Questions | Profile
+primary action: scan/autofill/reconcile for the current page
+status inventory: filled | needs review | sensitive | unsupported | unresolved required
+footer/secondary actions: undo, diagnostics, open desktop, pause/cancel
+```
+
+Resume selection, match/missing terms, common questions, unique/narrative questions, and per-field settings remain easy to find. Unlike a superficial clone, every field action exposes provenance, confidence/policy, post-rerender verification, and exact unresolved reasons. The panel never hides final-submit boundaries or represents a button click as success.
+
+#### 5.15.5 Resume workspace
+
+The resume workspace provides a familiar target-job-oriented flow:
+
+- Resume/version selector with original preserved.
+- Target-job binding from tracker/job board or pasted description.
+- Semantic editor and deterministic page preview.
+- Match panel showing eligibility, evidence coverage, terminology alignment, parseability, readability, supported terms, and unsupported gaps.
+- AI tailoring controls, evidence-backed diff review, per-change accept/reject, and provider/model visibility.
+- Layout controls and PageFit with exact removals/shortenings/typography changes.
+- Export PDF/DOCX and artifact hash/version.
+
+A single opaque “ATS score” may be displayed only as a clearly labeled product heuristic alongside the required dimensions; it must never be represented as an employer score.
+
+#### 5.15.6 Tracker and job-board surfaces
+
+The tracker supports familiar `Columns`, `List`, and `Flow` views, top-row add/import/export actions, filters, saved views, favorites, archive, accessible drag/drop alternatives, status editing, and a detail timeline. The job board uses search, filter chips, result list, detail pane, save/hide/already-applied actions, source/freshness, and an explainable “why this matches” panel.
+
+Shared behaviors—job card, company/title/location metadata, document/version badges, duplicate state, application status, and open-in-extension actions—use one component contract across Jobs, Matches, Tracker, and Queue.
+
+#### 5.15.7 Onboarding, profile, and migration
+
+Onboarding follows a familiar progressive sequence: resume import, identity/contact, experience, education, projects/skills, eligibility, preferences, documents, and autofill/provider setup. Progress is resumable; no step forces completion of every optional field.
+
+Migration imports only user-controlled artifacts:
+
+- PDF/DOCX resumes.
+- Simplify or other tracker CSV exports supplied by the user.
+- Manually exported or copied facts.
+
+Every import has mapping preview, duplicate/conflict review, rollback, source attribution, and no hidden authenticated scraping.
+
+#### 5.15.8 Interaction tokens, aesthetic quality, and anti-bloat contract
+
+The repository owns a tokenized component system for typography, spacing, radius, border, elevation, color roles, motion, density, icon sizing, breakpoints, and z-index. Components include buttons, tabs, segmented controls, chips, cards, list rows, split panes, drawers, dialogs, toasts, forms, comboboxes, progress, status badges, tables, kanban cards, diff viewers, evidence links, and provider indicators.
+
+The design system must feel polished, calm, cohesive, premium, and easy to scan. It must achieve high information density through hierarchy and alignment rather than through visual noise. The following anti-bloat rules are mandatory:
+
+- No marketing-style hero sections inside the application.
+- No decorative statistics or KPI cards without a concrete workflow decision they support.
+- No gradients, oversized headings, glass effects, or decorative animation unless the owner-approved baseline explicitly justifies them.
+- No repeated page title, subtitle, and explanatory paragraph communicating the same thing.
+- No card whose only purpose is to contain one label or value when a row, inline value, or existing component is clearer.
+- No duplicate primary actions in one UI state.
+- No excessive badge, chip, or pill use; reserve them for compact state, filter, or taxonomy information.
+- No page-local reinvention of an established shared component or interaction pattern.
+- Prefer concise labels and short actionable empty-state copy. Every visible sentence must justify its presence.
+- Match the approved density and hierarchy instead of filling screens with explanatory prose, oversized whitespace, or generic AI-dashboard decoration.
+
+Tokens are selected through independent design work, accessibility tests, and owner visual review. Screenshot sampling may inform hierarchy, density, proportions, task grouping, and placement but cannot be sampled into exact colors or assets. Before the applicable token baseline is frozen, the owner must approve representative deterministic fixtures or screenshots for:
+
+```text
+desktop shell
+Dashboard / Home
+Jobs
+Tracker
+Documents / Resumes
+Profile
+Settings
+extension default state
+extension autofill state
+extension review / unresolved state
+```
+
+`docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md` records artifact hashes, viewport/zoom/theme, token version, approval date, approved exceptions, and change history. `docs/ui/ANTI_BLOAT_CHECKLIST.md` records the per-surface audit. Desktop states are first approved and frozen by `M03-W11`; extension states are first approved and frozen by `M17-W11`; later owning milestones update only their relevant states through reviewed visual diffs. Fixtures must be truthful component/application states and must not introduce dead buttons, fake success, or pretend completed product behavior. All components have deterministic stories/fixtures and visual snapshots on certified platforms when the owning UI exists.
+
+#### 5.15.9 Familiarity and originality acceptance
+
+The M28 study uses Simplify-experienced participants and a counterbalanced task set covering onboarding/profile edit, resume version selection, target-job binding, match interpretation, tailoring review, PageFit, extension autofill review, question generation, tracker update, job search/save, and queue approval. It records:
+
+- Unassisted completion.
+- Time and navigation errors.
+- Requests for help.
+- Confidence and perceived familiarity.
+- Separate ratings for visual clarity, aesthetic polish, information density, and ease of use.
+- Evidence/safety comprehension.
+- Keyboard/screen-reader findings.
+- Whether the participant incorrectly believes the product is Simplify or affiliated.
+
+The mapped-task study uses the same anchored five-point scale for visual clarity, aesthetic polish, and ease of use:
+
+```text
+1 = actively confusing, visually poor, or obstructive; major redesign required
+2 = substantial clarity, consistency, or usability problems
+3 = usable and understandable, but ordinary, inconsistent, or noticeably rough
+4 = clear, polished, attractive, and easy to use with only minor issues
+5 = exceptionally clear, cohesive, beautiful, and frictionless for the tested task
+```
+
+Participants rate each dimension separately after each mapped task and again for each critical surface. Reports include raw responses, means, medians, sample size, dispersion, and surface-level results; they may not average the three dimensions into one number to hide a weak dimension.
+
+The study must meet Section 2 metrics. A separate originality audit checks assets, copy, iconography, layout composition, disclosure, and source provenance. The anti-bloat audit and owner-approved visual-baseline record are blocking evidence, not optional taste notes. Familiarity or aesthetic preference may not be used to waive accessibility, safety, or intellectual-property concerns.
+
+
 ## 6. Local AI model family and certified platform runtime profiles
 
 ### 6.1 Required initial macOS development candidate
@@ -1871,7 +2178,7 @@ Role: resume planning and rewriting, short-answer drafting, cover-letter draftin
 This is the best practical default for the stated machine because:
 
 - Google describes Gemma 4 12B as laptop-ready and small enough for 16 GB of VRAM or unified memory.
-- Ollama publishes an MLX build of the 12B model at roughly 7.6 GB, leaving necessary memory for macOS, the browser, Claude, the desktop app, document rendering, embeddings, and KV cache.
+- Ollama publishes an MLX build of the 12B model at roughly 7.6 GB, leaving necessary memory for macOS, the browser, development tooling, the desktop app, document rendering, embeddings, and KV cache.
 - Ollama’s 2026 MLX engine is optimized for Apple Silicon and specifically advertises acceleration on M5-family chips.
 - A Qwen3.6 27B Q4 build is about 17 GB and a Qwen3.6 35B default build is about 24 GB. Those may run in isolation, but they leave too little reliable headroom on a 24 GB unified-memory laptop for this product’s normal workload and are therefore not the production default.
 
@@ -1972,6 +2279,122 @@ classify task and sensitivity
 - The model receives no database credentials, browser tool, submission tool, filesystem shell, or secret tokens.
 - Prompt and response logs are disabled by default; test logs use synthetic redacted data.
 - Model upgrades require full regression evaluation and an explicit model-lock change.
+
+### 6.8 Provider-neutral generation and experimental ChatGPT-account bridge
+
+#### 6.8.1 Provider hierarchy
+
+The accepted local Ollama profile is the default and mandatory provider. All writing/extraction calls pass through a typed `GenerationProvider` boundary equivalent to:
+
+```ts
+interface GenerationProvider {
+  describe(): ProviderCapabilityProfile;
+  listAllowedModels(task: GenerationTask): Promise<AllowedModel[]>;
+  health(): Promise<ProviderHealth>;
+  generate(request: TypedGenerationRequest): Promise<TypedGenerationResponse>;
+  cancel(requestId: string): Promise<void>;
+  disconnect(): Promise<void>;
+}
+```
+
+The boundary records provider ID, model ID/digest or service snapshot, task category, prompt version, context policy, output schema, latency, usage/quota state, and error taxonomy. Evidence retrieval, prompt construction, output parsing, claim verification, PageFit, and release policy remain provider-independent.
+
+Initial provider states:
+
+```text
+LOCAL_OLLAMA                 mandatory, default, release-supported after M05 acceptance
+OFFICIAL_API_BYOK            reserved for a future approved package; not implemented by this revision
+CHATGPT_OAUTH_EXPERIMENTAL   disabled by default; unofficial; non-core; late hardening decision
+```
+
+#### 6.8.2 Research snapshot for the experimental bridge
+
+The July 27, 2026 research baseline is `EvanZhouDev/openai-oauth` at reviewed commit `ec7dab2fcd8dab9da970a7a2b5dc34046c94905e`, licensed Apache-2.0. Its public documentation describes:
+
+- Local and browser credential sources.
+- PKCE OAuth through a loopback callback.
+- OpenAI-compatible transport and model discovery against Codex-authenticated ChatGPT endpoints.
+- A local proxy and TypeScript client adapters.
+- Account-dependent model availability and rate limits.
+- An explicit disclaimer that the project is unofficial and may break if upstream services change.
+
+This repository is a research reference, not an automatic dependency approval. Apache-2.0 permits reuse subject to license/notice obligations but grants no trademark permission. Before adoption, record the exact package versions/commit, dependency tree, source provenance, modified files, NOTICE obligations, threat model, maintenance owner, rollback, and endpoint/terms review.
+
+#### 6.8.3 Desktop authentication and secret storage
+
+Do not use the reference project's default local auth-file behavior in production. The product must use lower-level reviewed OAuth/transport primitives or an independently authored equivalent with a custom `SessionStore` backed by the certified platform `SecretStore`.
+
+Authentication flow:
+
+```text
+user enables experimental provider
+  -> product shows unofficial-status, data-egress, account-risk, and terms disclosure
+  -> native/local service creates PKCE verifier + unpredictable state
+  -> loopback-only callback listener opens for the exact approved redirect
+  -> system browser completes user sign-in
+  -> callback validates host, path, state, code, timeout, and one-time use
+  -> local service exchanges code
+  -> access/refresh/id tokens stored only in SecretStore
+  -> WebView receives only typed provider state, never tokens
+  -> logout/revoke clears SecretStore material and cached account/model metadata
+```
+
+The implementation must reject callback-port conflicts safely, non-loopback binding, state mismatch, replay, wrong redirect, expired login, missing refresh rotation, multiple-account ambiguity, unsupported workspace/account types, and token migration from unrelated Codex files. Tokens are excluded from backups and diagnostics.
+
+#### 6.8.4 Native request path and capability isolation
+
+Browser-renderer CORS and credential exposure make direct Tauri WebView requests unacceptable. Model requests use:
+
+```text
+desktop UI
+  -> authenticated typed loopback request
+local orchestrator/provider router
+  -> native HTTP transport with SecretStore-backed session
+provider endpoint
+```
+
+The extension and page content never invoke the external provider directly. The provider receives no browser tool, filesystem shell, secret-store command, database credential, navigation capability, or submit capability. It returns candidate structured output only.
+
+#### 6.8.5 Data-egress and consent policy
+
+`docs/providers/DATA_EGRESS_MATRIX.md` lists each task and possible outbound classes:
+
+```text
+job text
+approved evidence snippets
+resume semantic blocks
+answer context
+style profile
+company/role metadata
+sensitive or demographic data
+attachments
+```
+
+Sensitive/demographic data is denied by default. Attachments are not sent unless a separately reviewed task requires them. Before first use and after any policy expansion, the UI shows exact classes, purpose, provider/model, local alternatives, retention caveat, and disconnect control. Every request records a redacted local audit event with hashes and IDs, not raw prompt content.
+
+#### 6.8.6 Model discovery, selection, and fallback
+
+Account model discovery is untrusted provider metadata. Discovered IDs are intersected with a signed/versioned compatibility allowlist. A model becomes selectable for a task only after synthetic evaluation of structured-output validity, factuality, unsupported-claim rate, context, latency, cancellation, and policy behavior.
+
+No silent fallback occurs. If auth expires, quota is exhausted, a model disappears, or an endpoint changes, the task stops with a typed error. The user may retry, choose another accepted model, or switch to local. A preapproved fallback must rebuild the bounded request and rerun every verifier; partial output is never merged across providers.
+
+#### 6.8.7 Terms, limits, and ship-or-disable decision
+
+The experimental bridge must not be marketed as an official OpenAI API or as a guaranteed benefit of a ChatGPT subscription. Official OpenAI documentation states that ChatGPT and API billing are separate, while Codex access through a ChatGPT plan is governed as Codex use. OpenAI terms and help guidance restrict credential sharing, automated extraction, using ChatGPT to power third-party services in some contexts, and bypassing usage restrictions. Because the reference project relies on unofficial Codex/ChatGPT endpoints, endpoint availability and permission to ship may change.
+
+`M27-W14` therefore requires an independent review of then-current OpenAI terms, official documentation, account-plan behavior, security, privacy, maintenance burden, and live compatibility. The accepted decision is one of:
+
+```text
+ENABLED_EXPERIMENTAL   exact supported account/model scope, dated evidence, warnings, kill switch
+DISABLED_BY_POLICY     implementation remains off or is removed; local provider remains complete
+```
+
+The decision is not a critical-gate PASS and cannot weaken any release requirement. Endpoint breakage, policy uncertainty, or account risk defaults to disabled.
+
+#### 6.8.8 Testing
+
+CI uses a deterministic fake OAuth issuer, fake provider endpoint, synthetic tokens, injected SecretStore, quota/errors, model discovery drift, malformed streams, cancellation, and data-egress assertions. No real account credential exists in CI. Owner-controlled live tests are low-volume, tied to an exact account tier/model/date/client version, contain only synthetic or owner-approved data, and never exercise live employer submission.
+
 
 ---
 
@@ -2125,6 +2548,18 @@ After every fill pass:
 5. Show four explicit groups: filled, needs review, sensitive, unsupported/skipped.
 6. Block “ready to submit” while any unresolved required field remains.
 
+### 7.8 Familiarity-first UI rules
+
+- Map public competitor workflows by user goal and step order, not by copying source or assets.
+- Preserve common functional labels where necessary for transfer learning, but independently author explanatory copy and visual identity.
+- Keep navigation, primary actions, filters, version selectors, status indicators, and review affordances consistent across desktop and extension.
+- Every familiar shortcut must still surface the product's evidence, uncertainty, provider, policy, and safety state.
+- Every screen must have deterministic empty, loading, offline, stale, permission-denied, model-unavailable, extension-disconnected, and failure states.
+- Actual UI inspection and visual snapshots are required on the certified platform matrix for the owning milestone.
+- UI changes that materially alter mapped task paths require a familiarity regression study or an explicit reviewed rationale.
+- A Simplify reference change does not automatically cause product churn; accepted user tasks and independent design tokens are the source of truth.
+
+
 ---
 
 ## 8. Test and validation architecture
@@ -2142,6 +2577,8 @@ After every fill pass:
 9. **Security tests:** prompt injection, message forgery, capability abuse, PII redaction, malformed documents, path traversal.
 10. **Platform-native package tests:** install, launch, process lifecycle, secret store, native messaging, update/rollback, backup portability, and uninstall on macOS, Windows, and Ubuntu.
 11. **Manual real-site validation:** terms-compliant, low-volume, controlled checks on public application pages.
+12. **Familiarity/usability tests:** counterbalanced mapped-task studies, keyboard/screen-reader walkthroughs, visual-originality review, and migration-friction measurement with Simplify-experienced users.
+13. **Provider-boundary tests:** fake OAuth/provider infrastructure, SecretStore, egress, model discovery, quota/auth failure, no-silent-fallback, and owner-controlled live experimental checks.
 
 ### 8.2 Mock ATS lab
 
@@ -2273,6 +2710,29 @@ Before `CROSS_PLATFORM_CORE` can pass:
 - At least one full-AI profile per operating system plus explicit no-model/insufficient-hardware behavior.
 - Physical or native hosted evidence; containers and cross-compilation are supplemental only.
 
+
+#### Familiarity and migration corpus
+
+Before the M28 familiarity package can pass:
+
+- At least 12 mapped core tasks covering onboarding/profile, resume versioning, target-job binding, match interpretation, tailoring review, PageFit, extension autofill review, question generation, tracker status, job search/save, application detail, and queue approval.
+- Deterministic synthetic data and screenshots for every normal, empty, loading, offline, stale, error, permission, model-unavailable, and extension-disconnected state.
+- At least 12 Simplify-experienced participants or an owner-approved statistically justified pilot, counterbalanced where direct reference comparison is possible.
+- Task success, completion time, navigation errors, help requests, confidence, accessibility defects, safety/evidence comprehension, and affiliation confusion.
+- Public-reference logs with account tier/browser/date and no authenticated scraping or third-party PII.
+- A visual-originality audit and a permanent regression case for every confirmed migration-friction defect.
+
+#### Experimental provider compatibility corpus
+
+Before `CHATGPT_OAUTH_EXPERIMENTAL` can be enabled:
+
+- Fake OAuth success, cancellation, timeout, replay, state mismatch, redirect mismatch, port conflict, refresh rotation, revocation, SecretStore denial/corruption, and multiple-account ambiguity.
+- Fake provider model discovery, model removal, quota exhaustion, rate limits, malformed streams, schema failure, cancellation, endpoint changes, and account-plan restrictions.
+- Data-egress allow/deny cases for every task and sensitive-data class.
+- Provider-equivalence cases proving the same evidence, schema, factuality, stale-context, length, and atomic-claim rules apply as local generation.
+- Owner-controlled live synthetic smoke cases tied to exact dependency commit/version, account tier, model, date, and terms review.
+- No real tokens, prompts, or private application data in committed fixtures or CI.
+
 ### 8.4 Quality baseline and side-by-side comparison
 
 Freeze baselines before optimizing. They include:
@@ -2283,6 +2743,8 @@ Freeze baselines before optimizing. They include:
 - One-shot local-model resume and answer generator.
 - Legacy CareerPulse/JobApply autofill behavior, measured in isolation where runnable and legally permitted.
 - Manually captured Simplify behavior/output for the same synthetic profile, public form, and user-owned content examples.
+- Publicly observed Simplify task paths and user-owned screenshots for the familiarity matrix, with dated account-tier/browser scope and no asset extraction.
+- Local Ollama provider output versus any enabled experimental provider on the same bounded evidence/context and verifier pipeline.
 
 Blind human raters compare factuality, relevance, specificity, naturalness, coherence, readability, information retention, and usefulness. Evaluation data must be synthetic or user-consented and redacted.
 
@@ -2425,14 +2887,14 @@ Milestone numbers remain stable. Cross-platform behavior is implemented progress
 9. Automatic submission remains blocked until manual application review, exact snapshots, duplicate prevention, and receipt behavior are accepted. Workday guided pre-submit does not grant submit authority.
 10. The status validator must enforce all four critical-gate prerequisites and downstream readiness rules after `M00-W08`.
 11. `M01-W01` cannot be ready after v1.3 adoption until `M00-W10` re-accepts M00.
-12. `M28` cannot be ready or later unless `M27` is accepted and `CROSS_PLATFORM_CORE = PASS`.
+12. `M28` cannot be ready or later unless `M27` is accepted and `CROSS_PLATFORM_CORE = PASS`. The gate's evaluated content revision/tree must equal the final accepted M27 content revision/tree. Any intervening M27 change requires a separate independent re-anchoring that proves the change cannot affect packaging, SecretStore behavior, dependencies/SBOM, native networking, provider isolation, security, cross-platform runtime behavior, or core workflows; otherwise Gate D returns to `BLOCKED` until the full audit reruns.
 
 ---
 
 ## M00 — Repository contract, persistent project memory, and reproducible scaffold
 
 **Dependencies:** None  
-**Goal:** Create the repository foundation and persistent workflow that allows Fable 5 to continue accurately across many prompts without losing scope, state, verification evidence, or critical-gate governance.
+**Goal:** Create the repository foundation and persistent workflow that allows the owner-selected implementation agent to continue accurately across many prompts without losing scope, state, verification evidence, or critical-gate governance.
 
 ### Work packages
 
@@ -2448,6 +2910,7 @@ Milestone numbers remain stable. Cross-platform behavior is implemented progress
 | `M00-W08` | Adopt and migrate the v1.3 cross-platform rebaseline | Compare canonical v1.2 with the immutable owner-approved external v1.3 file, record owner approval and the source hash in an accepted ADR, atomically copy those exact bytes into the canonical path without introducing a second canonical-looking repository file, add platform memory and the fourth gate, migrate status/validators and mechanically extend the existing traceability source to the exact 39-milestone/286-work-package/157-requirement inventory with honest future states, preserve W01–W07 evidence, reopen M00, and prove consistency. Detailed reviewed platform mappings remain owned by M00-W10. |
 | `M00-W09` | Add Windows CI and platform-portability baseline | Extend CI/doctor/preflight to windows-2025 x64; create the empty `packages/platform` scaffold if absent; validate platform-neutral scripts, path/line-ending/case assumptions, PowerShell execution, exact toolchains, Chrome/Playwright, Rust/Python/Node, and generated-contract lifecycle. Add no product behavior. |
 | `M00-W10` | Extend traceability and re-accept M00 under v1.3 | Extend and regenerate the existing `docs/traceability.json` through `scripts/traceability.py` for the exact v1.3 inventory, map all new platform requirements/packages/gate effects, preserve the existing human-readable view and tests, rerun three-OS fresh-clone evidence, mark M00 accepted only when the expanded exit gate passes, and make M01-W01 ready. |
+| `M00-W11` | Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline | After v1.3 M01-W06 finishes and before M01-W07, compare canonical v1.3 with the immutable owner-approved external v1.4 file, record owner approval/hash in an accepted ADR, copy exact bytes directly into the canonical path, add UI/provider memory files including the visual-baseline and anti-bloat ledgers, migrate validators/status/traceability to 39 milestones, 300 packages, 193 requirements, preserve every M00 and M01-W01…W06 evidence anchor, rerun three-OS clean-clone verification, re-accept M00, and make M01-W07 ready. Add no UI or provider product behavior. |
 
 The `windows-2025` hosted job is a repository portability baseline, not proof of Windows 11 desktop certification. Gate D still requires the native packaged Windows 11 evidence defined in M03, M04, M05, M17, and M27.
 
@@ -2458,6 +2921,8 @@ The `windows-2025` hosted job is a repository portability baseline, not proof of
 - Status validation rejects invalid states, multiple `IN_PROGRESS` packages, stale inventories, missing platform memory, and critical-gate readiness violations.
 - Historical v1.2 M00-W01 through M00-W07 revisions and evidence remain byte-for-byte or semantically preserved according to the recorded anchors.
 - v1.3 adoption produces exactly one canonical specification, four gate records, 39 milestones, 286 work packages, and 157 requirements.
+- v1.4 adoption produces exactly one canonical specification, four gate records, 39 milestones, 300 work packages, and 193 requirements while preserving the v1.3 inventory and every completed M01-W01 through M01-W06 anchor as historical evidence.
+- UI/provider memory files, new requirement families, package dependencies, and M01-W07 readiness are validated without implementing product UI or an external provider.
 - `M03`, `M06`, `M21`, and `M28` readiness is blocked by the correct critical-gate and accepted-milestone prerequisites.
 - Windows, macOS, and Ubuntu CI run the same canonical doctor/preflight/verify implementation.
 - Windows negative tests reject POSIX-only scripts, shell masking, case/path/line-ending assumptions, and missing platform dependencies.
@@ -2465,11 +2930,11 @@ The `windows-2025` hosted job is a repository portability baseline, not proof of
 
 ### Milestone exit gate
 
-A fresh clone on each certified CI operating-system family can install with locked dependencies, run doctor/preflight/aggregate verification, reconstruct the next task solely from repository files, and enforce all four critical-gate readiness rules. M00-W01 through W07 evidence remains unchanged, the exact v1.3 traceability inventory validates, and M01-W01 is ready only after M00-W10 re-accepts M00.
+A fresh clone on each certified CI operating-system family can install with locked dependencies, run doctor/preflight/aggregate verification, reconstruct the next task solely from repository files, and enforce all four critical-gate readiness rules. Historical v1.2/v1.3 evidence remains unchanged, the exact v1.4 39/300/193 traceability inventory validates, and after the current migration M01-W07 is ready only after M00-W11 re-accepts M00.
 
 ### Prohibited shortcut
 
-Do not implement profile, AI, resume, autofill, desktop platform adapters, secure stores, model profiles, native-host installers, or other product behavior in M00. M00 establishes contracts, CI portability, project memory, migration integrity, and traceability only.
+Do not implement profile, UI components, external-provider authentication, AI, resume, autofill, desktop platform adapters, secure stores, model profiles, native-host installers, or other product behavior in M00. M00 establishes contracts, CI portability, project memory, migration integrity, and traceability only.
 
 ### Closeout record
 
@@ -2603,7 +3068,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 
 | ID | Package | Required implementation and proof |
 |---|---|---|
-| `M03-W01` | Create Tauri desktop shell | Implement navigation shell, error boundary, loading states, keyboard foundation, and development diagnostics page. |
+| `M03-W01` | Create Tauri desktop shell and initial design foundation | Implement the navigation shell, error boundary, loading states, keyboard foundation, and development diagnostics page using an initial repository-owned token architecture, accessibility primitives, navigation-component contract, approved public-reference inputs, anti-bloat rules, and a compact shell-layout baseline from the first desktop code. Do not build throwaway page-local components that M03-W11 must replace. |
 | `M03-W02` | Create FastAPI service skeleton | Add versioned /health, /ready, /version endpoints, structured errors, lifespan management, and no external network binding. |
 | `M03-W03` | Implement sidecar lifecycle | Tauri selects a random loopback port, generates an ephemeral session token, starts the service, waits for readiness, and shuts it down cleanly. |
 | `M03-W04` | Implement authenticated API client | Desktop requests include bounded timeouts, token auth, correlation IDs, cancellation, retries only for idempotent operations, and user-safe errors. |
@@ -2613,6 +3078,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M03-W08` | Package Ubuntu x64 development build | Produce an Ubuntu 24.04 x64 development package that validates WebKitGTK/system dependencies, launches without shell-profile dependence, starts/authenticates the service, and exits cleanly. |
 | `M03-W09` | Implement platform lifecycle, path, and process adapters | Move spawn, executable discovery, app-data/cache/temp paths, termination, cancellation, and diagnostics behind typed adapters. Cover Windows process groups/file locks and POSIX signals without leaking OS logic into shared code. |
 | `M03-W10` | Run cross-platform desktop lifecycle matrix | Execute packaged launch, port collision, unauthorized request, crash/restart, update-neutral relaunch, Unicode/spaces path, and orphan-process tests on all certified platforms; publish capability rows without yet passing Gate D. |
+| `M03-W11` | Finalize and certify familiarity-first design system and desktop shell baseline | Refine, consolidate, and freeze the M03-W01 token/component/navigation foundation rather than replacing it. Complete the compact global navigation, mapped loading/empty/error states, Storybook-equivalent harness, public-reference log, anti-bloat audit, and truthful Home/Jobs/Tracker/Documents/Profile/Settings shell fixtures. Obtain and record owner visual approval for desktop shell, Dashboard, Jobs, Tracker, Documents/Resumes, Profile, and Settings baselines; prove familiarity, beauty, accessibility, and originality without hiding product safety states. |
 
 ### Required verification
 
@@ -2624,10 +3090,11 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Platform path/process adapter contracts and no shared-domain direct OS API imports.
 - GUI launch and runtime discovery work without interactive-shell `PATH` inheritance.
 - Spaces, Unicode, quoting, cancellation, locked-file, and platform termination cases.
+- UI token/component tests, keyboard/screen-reader shell, zoom/reflow, original-asset provenance, public-reference matrix, anti-bloat audit, owner-approved desktop baseline record, and cross-platform visual snapshots for the implemented shell.
 
 ### Milestone exit gate
 
-All three development packages launch the authenticated local service, display health/version, survive a forced service crash, handle platform path/process semantics, and exit without orphan processes.
+All three development packages launch the authenticated local service, display health/version, survive a forced service crash, handle platform path/process semantics, exit without orphan processes, and render the original familiarity-first accessible desktop shell consistently. The owner-approved desktop baseline, anti-bloat audit, and shared-component continuity from M03-W01 through M03-W11 must pass before the design tokens are treated as frozen.
 
 ### Prohibited shortcut
 
@@ -2693,7 +3160,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 |---|---|---|
 | `M05-W01` | Implement runtime adapter | Detect Ollama, start/check runtime, list/pull models, report progress, health, memory errors, and model digest through the desktop UI. |
 | `M05-W02` | Create candidate model lock | Pin the initial `gemma4:12b-mlx` candidate, Ollama version range, runtime engine, context limits, default parameters, license/source metadata, and candidate-comparison policy in model-lock.json. |
-| `M05-W03` | Implement typed generation client | Support cancellation, streaming, schema validation, timeouts, one retry for malformed structured output, bounded thinking, and no raw prompt logging. |
+| `M05-W03` | Implement provider-neutral typed generation client and local adapter | Establish the provider-neutral request/response boundary before any Gate B benchmark. Define provider/task/model capabilities, deterministic request normalization, structured-output handling, cancellation, streaming, timeouts, one bounded malformed-output retry, bounded thinking, provider/model audit metadata, data-egress classes, explicit local-default/no-silent-fallback policy, the local Ollama adapter, and a deterministic fake external-provider seam. Do not implement live ChatGPT OAuth or send live external requests. |
 | `M05-W04` | Integrate embeddings | Add the pinned embedding model, bounded vector storage, deterministic normalization, and FTS fallback. |
 | `M05-W05` | Build comparative domain model benchmark | Evaluate the candidate and at least one feasible 12B–14B alternative on extraction, planning, writing, claim decomposition, contradiction detection, exact limits, JSON validity, latency, memory pressure, swap behavior, and user preference. |
 | `M05-W06` | Select and lock the exact production model | Record comparative results. Lock the winner only if all hardware and quality gates pass; otherwise propose an ADR with feasible alternatives. Update the exact digest and runtime policy. |
@@ -2702,11 +3169,12 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M05-W09` | Implement bounded writer and atomic claim verifier | Generate only planned candidate changes with evidence IDs; decompose names, dates, organizations, tools, actions, metrics, scope, and outcomes; block partial/unsupported/contradicted output; lint duplication, skills bloat, stale context, and coherence. |
 | `M05-W10` | Implement controlled ATS-safe render and measured PageFit prototype | Build one production-intended single-column template, deterministic render/extraction validation, block measurement, content-utility scoring, fact-preserving shortening, mandated optimization order, typography floors, explanation, and correct two-page recommendation. |
 | `M05-W11` | Execute blind and side-by-side resume benchmark | Compare original, keyword-stuffing, one-shot local-model, Simplify where manually captured, and product outputs. Run atomic-claim audit, keyword/repetition audit, render/extraction audit, PageFit utility retention, latency/memory tests, and blind human review. |
-| `M05-W12` | Independent Resume Tailoring/PageFit Gate audit and decision | A separate high-capability session reproduces key cases, runs the owner-controlled holdout, audits model selection and every changed module, validates no unsupported claims or fact-changing compression, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. |
+| `M05-W12` | Independent Resume Tailoring/PageFit Gate audit and decision | A separate owner-selected high-capability session reproduces key cases through the provider-neutral M05-W03 path, runs the owner-controlled holdout, audits model selection and every changed module, validates no unsupported claims or fact-changing compression, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. This decision is valid only for its evaluated revision and must be re-anchored after M05-W13…W17 before M05 acceptance. |
 | `M05-W13` | Define versioned platform model-runtime profiles | Add exact profile schema for OS/architecture/artifact/runtime/accelerator/driver/context/quantization/RAM/VRAM/license/digest/quality/latency/fallback metadata. Preserve the accepted Mac candidate as one profile, not a universal lock. |
 | `M05-W14` | Validate Windows model-runtime capability and core fallback | On Windows 11 x64, prove profile-schema compatibility, runtime and accelerator detection, unsupported-hardware handling, explicit no-model behavior, and at least one feasible candidate GGUF smoke/structured-output run when suitable native hardware is available. Record candidates for later full certification; absence of a qualifying full-AI machine does not block Gate B. |
 | `M05-W15` | Validate Ubuntu model-runtime capability and core fallback | On Ubuntu 24.04 x64, prove profile-schema compatibility, runtime and accelerator detection, unsupported-hardware handling, explicit no-model behavior, and at least one feasible candidate GGUF smoke/structured-output run when suitable native hardware is available. Record candidates for later full certification; absence of a qualifying full-AI machine does not block Gate B. |
 | `M05-W16` | Implement cross-platform model capability UX and graceful degradation | Detect profile capability, memory/accelerator/runtime state, present exact remediation, prevent unsupported downloads, and keep deterministic core workflows usable when AI is unavailable. |
+| `M05-W17` | Finalize provider boundary, selection UX, and Gate B re-anchoring | Audit and finalize the provider-neutral boundary first implemented in M05-W03. Verify explicit provider/task/model selection and settings state, local Ollama mandatory/default behavior, no silent fallback, identical context/evidence/schema/verifier semantics, cancellation and output handling, provider/model audit metadata, and deterministic fake-external-provider behavior. Rerun every affected Gate B benchmark, holdout, and negative path; update the Gate B evaluated revision to the final M05 revision only when all original thresholds still pass and an independent review accepts the re-anchoring. Do not implement live ChatGPT OAuth or send live external requests. |
 
 ### Required verification
 
@@ -2717,10 +3185,12 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Deterministic plan schema, requirement allocation, zero unsupported claims/skills, locks, chronology, and no keyword bloat.
 - Render extraction order, clipping/overlap/missing glyph, PageFit fact preservation, utility retention, and correct two-page recommendations.
 - Blind baseline/Simplify comparison, owner-controlled holdout, and independent audit.
+- Provider-neutral client/router tests proving the M05-W03 architecture is used by the benchmark, the local profile remains default, fake external failures cannot break deterministic/core workflows, provider switches are explicit, and every output follows the identical context/evidence/schema/verifier pipeline.
+- M05-W17 final-provider regression and independent Gate B re-anchoring prove the accepted gate revision contains the completed generation architecture; a regression changes the gate to `BLOCKED` or `REDESIGN_REQUIRED` rather than preserving a stale PASS.
 
 ### Milestone exit gate
 
-The primary Mac model family and exact Mac profile are selected through comparative evidence and run alongside the desktop/browser on the M5/24 GB target. Windows and Ubuntu must already have the common profile contract, native capability detection, explicit no-model/insufficient-hardware behavior, and recorded candidate paths, but their final `CERTIFIED_FULL` profiles are not prerequisites for Gate B. `RESUME_PAGEFIT_FEASIBILITY` is `PASS` only when every resume/PageFit threshold, holdout, and independent review passes on the primary accepted profile. Only then may M06 become ready. At least one full-AI Windows profile and one full-AI Ubuntu profile remain mandatory before `CROSS_PLATFORM_CORE` can pass in `M27`.
+The primary Mac model family and exact Mac profile are selected through comparative evidence and run alongside the desktop/browser on the M5/24 GB target. The provider-neutral architecture introduced in M05-W03 is the only generation path used by the Gate B benchmark; it preserves the local profile as the mandatory default and proves external-provider absence cannot affect core behavior. Windows and Ubuntu must already have the common profile contract, native capability detection, explicit no-model/insufficient-hardware behavior, and recorded candidate paths, but their final `CERTIFIED_FULL` profiles are not prerequisites for Gate B. `RESUME_PAGEFIT_FEASIBILITY` is `PASS` only when every resume/PageFit threshold, holdout, and independent review passes on the primary accepted profile and M05-W17 re-anchors the evidence to the final M05 revision after provider-boundary/settings regression. Only then may M05 be accepted and M06 become ready. At least one full-AI Windows profile and one full-AI Ubuntu profile remain mandatory before `CROSS_PLATFORM_CORE` can pass in `M27`.
 
 ### Prohibited shortcut
 
@@ -2729,6 +3199,7 @@ The primary Mac model family and exact Mac profile are selected through comparat
 - Do not accept elegant prose with unverifiable claims.
 - Do not shrink typography before content-level optimization.
 - Do not tune expected results to the selected model.
+- Do not introduce or materially change the provider routing, request normalization, cancellation, or output-handling architecture after Gate B without rerunning and re-anchoring the complete affected gate evidence.
 
 ### Closeout record
 
@@ -2829,6 +3300,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M08-W04` | Build voluntary-demographic policy | Allow prefer-not-to-answer/default policies and application-scoped review. Never infer demographics. |
 | `M08-W05` | Build voice-sample workflow | Collect user writing samples, accepted answers, style preferences, and banned phrases with deletion controls. |
 | `M08-W06` | Profile completeness and freshness | Show actionable missing/expired records without coercive magic scores. |
+| `M08-W07` | Build familiarity-first onboarding/profile workspace and migration | Implement the mapped Simplify-familiar section hierarchy, resumable progress, resume/CSV/manual import with mapping preview, sensitive-policy visibility, edit/save patterns, accessibility, and original-design visual tests. No authenticated competitor scraping. |
 
 ### Required verification
 
@@ -2838,6 +3310,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - No demographic inference.
 - Onboarding resume/restart.
 - Keyboard/screen-reader flow.
+- Simplify-experienced onboarding/profile task transfer, migration preview/rollback, long-data/zoom states, and originality/non-affiliation checks.
 
 ### Milestone exit gate
 
@@ -2868,6 +3341,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M09-W04` | Implement immutable versions and branches | Create variants, parent lineage, labels, compare, restore, and rollback without destructive overwrite. |
 | `M09-W05` | Implement semantic diffs | Classify factual, wording, ordering, formatting, evidence, addition, and removal changes. |
 | `M09-W06` | Protect locked content | User can lock facts, bullets, sections, wording, and order against AI or PageFit changes. |
+| `M09-W07` | Build familiarity-first resume workspace shell | Create the original but migration-familiar version selector, target-job binding, semantic editor/preview split, layout tab, match-panel slot, AI/provider status, diff/review entry points, export actions, accessibility, and visual fixtures used by M10/M12/M13/M14. |
 
 ### Required verification
 
@@ -2877,6 +3351,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Diff goldens.
 - Lock enforcement.
 - Undo/redo and keyboard tests.
+- Resume-workspace mapped-task familiarity, target-job/version preservation, provider status, long-content/zoom, and independent visual-originality tests.
 
 ### Milestone exit gate
 
@@ -2984,6 +3459,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M12-W04` | Implement parseability checks | Section recognition, extraction order, contact visibility, date consistency, file type, and ATS-hostile layout patterns. |
 | `M12-W05` | Implement readability checks | Density, repetition, vague claims, overly long bullets, inconsistent tense, and weak evidence. |
 | `M12-W06` | Build explainable UI | Requirement-by-requirement evidence, gaps, uncertainty, suggested actions, and no false employer-score language. |
+| `M12-W07` | Build familiar match and keyword-analysis panel | Integrate the mapped score/missing-term workflow inside the resume workspace and Jobs surfaces while showing eligibility, evidence coverage, terminology, parseability, readability, supported/unsupported terms, source spans, and actionable next steps. |
 
 ### Required verification
 
@@ -2993,6 +3469,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Score monotonicity/invariants.
 - Explainability links.
 - Accessibility.
+- Simplify-experienced interpretation study, no employer-score confusion, supported-keyword provenance, keyboard/zoom, and cross-surface consistency.
 
 ### Milestone exit gate
 
@@ -3175,16 +3652,17 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 
 | ID | Package | Required implementation and proof |
 |---|---|---|
-| `M17-W01` | Productionize WXT extension | Migrate the accepted M02 feasibility extension into the production build; add side panel/popup foundation, release configuration, strict CSP, no remotely hosted code, and preserve the real Playwright harness. |
+| `M17-W01` | Productionize WXT extension and stable panel architecture | Migrate the accepted M02 feasibility extension into the production build; establish the stable side-panel/popup layout, tab/section/navigation contract, shared M03 design tokens and accessibility primitives from the first production UI; add release configuration, strict CSP, no remotely hosted code, and preserve the real Playwright harness. Do not build a provisional panel architecture that M17-W11 must replace. |
 | `M17-W02` | Implement permission strategy | Use activeTab/optional host permissions where feasible, explain grants, support per-site disable, and preserve feasibility dry-run permissions separately from production grants. |
 | `M17-W03` | Implement message schemas and validators | Content-script to service-worker and service-worker to native-host contracts with size/capability limits; preserve per-frame identity and deny submit capability to content scripts. |
 | `M17-W04` | Implement Rust native host | Registration, extension allowlist, session handshake, loopback proxy, redaction, timeouts, bounded reconnect, and no selector/value arbitrary command channel. |
-| `M17-W05` | Implement extension status UI | Desktop connection, site support, measured tenant pattern, profile/model readiness, permissions, diagnostics, and no private data shown unnecessarily. |
+| `M17-W05` | Implement extension status states inside the stable shell | Implement desktop connection, site support, measured tenant pattern, profile/model readiness, permissions, diagnostics, and no-private-data states inside the M17-W01 panel/component architecture, including disconnected, offline, loading, stale, permission-denied, and unsupported states. |
 | `M17-W06` | Extend real extension E2E harness | Load the packaged extension in Playwright, retrieve extension ID, test service worker, frame agents, document IDs, content script, side panel, native-host mock, sleep/restart, and rerun the complete accepted M02 autofill gate regression including the Workday challenge slice. |
 | `M17-W07` | Implement macOS native-host registration lifecycle | Install/verify/repair/remove the absolute-path host manifest in supported Chrome locations; test extension allowlist, permissions, updates, uninstall, and synthetic packaged E2E. |
 | `M17-W08` | Implement Windows native-host registration and binary protocol | Register the host manifest through the correct HKCU/HKLM policy decision, verify extension origin, use binary stdin/stdout length framing, handle install paths with spaces, and test repair/update/uninstall. |
 | `M17-W09` | Implement Ubuntu native-host registration lifecycle | Install/verify/repair/remove the absolute-path user/system manifest according to the package mode; validate executable permission, Chrome location, update, and uninstall. |
 | `M17-W10` | Run cross-platform real extension/native-host E2E | On all certified platforms load the built MV3 extension in Chrome/Chromium test harness, connect the real platform host, exercise service-worker restart and typed health messages, and prove no privileged content-script path. |
+| `M17-W11` | Complete, polish, and certify familiarity-first extension experience | Complete and polish—without replacing—the M17-W01 stable panel architecture. Finalize the original compact site/job/connection header, Autofill, Resume/Match, Questions, Profile, Settings, primary scan/fill action, per-field toggles, provider/model indicator, reconciliation groups, undo, diagnostics, pause/cancel, and desktop deep links. Obtain and record owner visual approval for extension default, autofill, and review/unresolved baselines; pass the anti-bloat, accessibility, familiarity, originality, and no-submit audits. |
 
 ### Required verification
 
@@ -3194,10 +3672,11 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Platform-native host registration, verify, repair, update, and uninstall tests.
 - Windows registry and binary-mode length-framing behavior.
 - Real extension-to-native-host E2E on macOS, Windows, and Ubuntu.
+- Mapped extension-panel task familiarity, actual built-extension screenshots, keyboard/focus/zoom, offline/disconnected/model-unavailable states, architecture continuity from M17-W01, anti-bloat audit, owner-approved default/autofill/review baselines, and originality/non-affiliation review.
 
 ### Milestone exit gate
 
-The packaged extension securely exchanges typed requests with the correct local native host on all certified platforms, survives service-worker suspension, preserves the accepted autofill core, and leaves no stale registration after uninstall.
+The packaged extension securely exchanges typed requests with the correct local native host on all certified platforms, survives service-worker suspension, preserves the accepted autofill core, and leaves no stale registration after uninstall. The production panel architecture remains continuous from M17-W01 through M17-W11 and passes owner visual approval, anti-bloat, accessibility, familiarity, and originality evidence.
 
 ### Prohibited shortcut
 
@@ -3273,7 +3752,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M19-W08` | Implement conditional discovery, validation reading, and page reconciliation | Handle controls added after answers, Workday validation summaries and inline errors, page-changed values, stale resolution, required-field inventory, exact answer/document state, and complete manual-assist readiness reporting. |
 | `M19-W09` | Implement Workday diagnostics, performance, and recovery foundation | Bounded observers, nodes/scan/action metrics, long-session memory instrumentation, content-script reinjection, service-worker restart, local-service restart, reload, back navigation, session timeout, and drift detection without duplicate actions. |
 | `M19-W10` | Execute Workday field-coverage matrix | Run the complete M02 Workday challenge regression plus the production synthetic matrix, owner-controlled holdout, public no-submit structural dry-runs, upload/parser cases, repeaters, locales, validation, and fault injection. Record raw counts and artifacts. |
-| `M19-W11` | Independent Workday field-coverage audit | A separate clean session or Codex worktree audits every Workday file, reproduces field/repeater/upload/session positive and negative cases, inspects real browser behavior, validates compatibility claims, and confirms readiness for guided navigation or records defects/redesign. |
+| `M19-W11` | Independent Workday field-coverage audit | A separate owner-selected high-capability session or isolated worktree audits every Workday file, reproduces field/repeater/upload/session positive and negative cases, inspects real browser behavior, validates compatibility claims, and confirms readiness for guided navigation or records defects/redesign. |
 
 ### Required verification
 
@@ -3332,7 +3811,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M20-W08` | Implement checkpointing and fault recovery | Checkpoint after each verified page/confirmed transition; recover from content-script reinjection, service-worker suspension, local-service restart, reload, back, browser restart where supported, delayed transitions, validation loops, and session expiration without repeated destructive action. |
 | `M20-W09` | Build Workday guided-flow fixture, holdout, and soak matrix | Add manual-start, consent expiry/revocation, auto-start-on-open, cancel countdown, uncertified-page no-start, navigation, final-review, login/boundary, validation, no-transition timeout, ambiguous button, duplicate prevention, upload/parser, multi-locale, and fault-injection flows. Run at least 100 navigation transactions, 20 repeated full flows, and the defined long-session soak. |
 | `M20-W10` | Execute controlled end-to-review and Simplify comparison | Run at least the defined owner-controlled end-to-review set without automated submission, public no-submit structural checks, hidden holdout, and same-input manual Simplify comparison. Record manual corrections, progression, pauses, timings, and raw field/navigation outcomes. |
-| `M20-W11` | Independent Workday Gate C audit and owner decision | A separate clean Claude Max session or GPT-5.6 Ultra Codex worktree re-reads the specification, audits every changed file, reruns fresh positive/negative paths and holdout, manually inspects browser traces and final review, validates the Simplify comparison, and records `PASS`, `REDESIGN_REQUIRED`, or `BLOCKED` with owner approval. |
+| `M20-W11` | Independent Workday Gate C audit and owner decision | A separate owner-selected high-capability session or isolated worktree re-reads the specification, audits every changed file, reruns fresh positive/negative paths and holdout, manually inspects browser traces and final review, validates the Simplify comparison, and records `PASS`, `REDESIGN_REQUIRED`, or `BLOCKED` with owner approval. |
 
 ### Required verification
 
@@ -3552,6 +4031,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M25-W05` | Build tracker UI | List/board views, filters, saved filters, favorites, archive, detail timeline, manual status changes, and document/answer links. |
 | `M25-W06` | Implement CSV import/export | Mapping preview, dedupe, validation, export manifest, and no silent data loss. |
 | `M25-W07` | Implement honest analytics | Funnel, response rate, time-to-stage, resume variant, source, cohort/date filters, sample-size warnings, and no causal claims. |
+| `M25-W08` | Build familiarity-first tracker views and migration | Deliver original Columns, List, and Flow views; filters/saved views; add/import/export; favorites/archive; accessible drag/drop alternatives; detail timeline; document/answer links; CSV migration preview/rollback; and visual/usability regression. |
 
 ### Required verification
 
@@ -3562,6 +4042,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - CSV round trip.
 - Analytics calculations.
 - Deletion/export.
+- Simplify-experienced tracker task transfer, CSV migration, Columns/List/Flow consistency, bulk/archive recovery, keyboard drag/drop alternative, and large-dataset performance.
 
 ### Milestone exit gate
 
@@ -3635,7 +4116,11 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M27-W09` | Package and validate Ubuntu x64 release candidate | Build certified `.deb` and optional AppImage, validate WebKitGTK/Secret Service/Chrome dependencies, native-host manifest and permissions, and install/upgrade/rollback/uninstall behavior. |
 | `M27-W10` | Finalize full-AI platform profiles, diagnostics, and support publication | On native Windows 11 x64 and Ubuntu 24.04 x64 hardware, benchmark and accept at least one full-AI model/runtime profile per operating system using the frozen factuality and structured-output corpus; retain certified-core/no-model fallbacks. Expose certified/experimental/unsupported OS, architecture, Chrome, webview, secret store, native host, model profile, installer, update, and known-limitation status; never infer support from compilation. |
 | `M27-W11` | Implement signed cross-platform update and rollback | Use platform/architecture-targeted signed update metadata, interrupted-update recovery, rollback, version/schema compatibility checks, and native-host/extension coordination on all certified platforms. |
-| `M27-W12` | Independent Cross-Platform Core Gate audit and decision | A separate session audits native packages and evidence on all certified targets, reruns required install/lifecycle/security/native-host/model/document/backup/update cases, validates support claims, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. |
+| `M27-W12` | Independent Cross-Platform Core Gate audit and decision | **Execute this package last.** It depends on `M27-W01` through `M27-W11` and `M27-W13` through `M27-W14`. A separate session audits the final M27 candidate revision on all certified targets, reruns required install/lifecycle/security/native-host/model/document/backup/update/provider-isolation cases, validates support claims, and records PASS, REDESIGN_REQUIRED, or BLOCKED with owner approval. If the external provider is `DISABLED_BY_POLICY`, the audit still proves that its retained code or removed/disabled state does not alter packaging, SecretStore behavior, dependencies, SBOM/provenance, security, or core workflows. |
+| `M27-W13` | Prototype isolated experimental ChatGPT-account OAuth provider | After `M27-W01` through `M27-W11`, use the M05 provider boundary to build a disabled-by-default local adapter with PKCE/loopback login, dedicated SecretStore-backed session, account/model discovery allowlist, native request transport, data-egress consent, fake-provider test matrix, disconnect/revocation, provider kill switch, exact pinned dependency/provenance, and no core dependency. Do not use plaintext auth files or expose tokens to the WebView/extension. |
+| `M27-W14` | Independent external-provider terms, security, compatibility, and ship decision | After `M27-W13`, a separate session reviews current OpenAI terms/official documentation, the pinned open-source dependency and modifications, token/session threat model, account-plan/model/rate behavior, synthetic and owner-controlled live evidence, privacy disclosure, maintenance/rollback, and decides `ENABLED_EXPERIMENTAL` or `DISABLED_BY_POLICY`. Either result must preserve complete local functionality and no implication of endorsement. No M27 product code may change after this decision without invalidating or rerunning `M27-W12`. |
+
+Work-package identifiers remain stable, but the mandatory execution order is `M27-W01` through `M27-W11`, then `M27-W13`, then `M27-W14`, and finally `M27-W12`. Traceability and status validation must encode these direct dependencies rather than assuming numeric order. `M27-W12` evaluates the final M27 candidate content revision after the provider prototype and ship-or-disable decision.
 
 ### Required verification
 
@@ -3644,14 +4129,17 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Secret-store, native-host, document/font, backup/restore, model capability, accepted full-AI Windows/Ubuntu profiles, installer, update, rollback, repair, and uninstall evidence.
 - Signed/verified artifact and update metadata checks.
 - Independent `CROSS_PLATFORM_CORE` audit and owner decision.
+- Experimental-provider fake OAuth/transport/SecretStore/data-egress suite and, if live-tested, owner-controlled account evidence with no tokens/logs; accepted ship decision may keep the feature disabled.
+- `M27-W12` runs after `M27-W13` and `M27-W14` against the final M27 candidate content revision and verifies packaged dependencies, SBOM/provenance, SecretStore integration, native networking, installers, security boundaries, and core no-provider behavior whether the experimental provider is enabled, disabled, or removed.
 
 ### Milestone exit gate
 
-No critical or high defect remains; all core workflows work in native packages on every certified target; at least one full-AI model/runtime profile is accepted for each certified operating system while certified-core/no-model behavior remains safe; private data is absent from diagnostics by default; performance/accessibility budgets pass; and `CROSS_PLATFORM_CORE = PASS`.
+No critical or high defect remains; all core workflows work in native packages on every certified target; at least one full-AI model/runtime profile is accepted for each certified operating system while certified-core/no-model behavior remains safe; private data is absent from diagnostics by default; performance/accessibility budgets pass; and `CROSS_PLATFORM_CORE = PASS`. The experimental ChatGPT-account provider is either independently accepted as `ENABLED_EXPERIMENTAL` within its exact scope or safely `DISABLED_BY_POLICY`; it is never required for Gate D. The Gate D evaluated content revision/tree must be the same final content revision/tree accepted for M27, unless a separate independent re-anchoring proves that every intervening change is gate-neutral under the readiness rule in Section 9.1.
 
 ### Prohibited shortcut
 
 Do not add private-content telemetry or mark Gate D passed from CI compilation, cross-compilation, containers, emulation, or one operating system. Native packaged evidence for all three targets is required.
+Do not enable the experimental ChatGPT-account provider merely to complete its package, and do not treat an unofficial endpoint as an official API entitlement. Disabled-by-policy is the safe default when evidence is unresolved.
 
 ### Closeout record
 
@@ -3661,7 +4149,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 
 ## M28 — Core closed-alpha acceptance gate
 
-**Dependencies:** M00–M27 with `CROSS_PLATFORM_CORE = PASS`  
+**Dependencies:** M00–M27 with `CROSS_PLATFORM_CORE = PASS` at the final accepted M27 content revision/tree, or with an accepted independent gate re-anchoring for any later gate-neutral change  
 **Goal:** Prove the complete non-autopilot product is genuinely usable and superior on its core trust dimensions before broad ATS and job-index work.
 
 ### Work packages
@@ -3673,6 +4161,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M28-W03` | External alpha pilot | Small consented cohort using synthetic or their own data; collect structured defect reports and user edits without private telemetry. |
 | `M28-W04` | Defect burn-down | Fix all critical/high defects and all release-gate failures; rerun complete verification. |
 | `M28-W05` | Freeze core v1 interfaces | Version API/contracts, adapter interface, document schema, event schema, and model lock before expansion. |
+| `M28-W06` | Run Simplify-user migration familiarity and originality study | Execute the mapped-task study with Simplify-experienced users, keyboard/screen-reader paths, actual desktop/extension/resume/tracker/job-board UI, migration fixtures, safety/evidence comprehension, visual-originality audit, non-affiliation disclosure, and defect burn-down. |
 
 ### Required verification
 
@@ -3681,10 +4170,11 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - No critical/high open defect.
 - Regression report.
 - Backup/restore on packaged build.
+- Section 2 familiarity metrics, mapped-task usability report, originality/non-confusion audit, accessibility defects, and permanent regression cases.
 
 ### Milestone exit gate
 
-Core product meets all applicable Section 2 metrics, all four critical gates remain PASS, and the product is accepted before M29 becomes READY.
+Core product meets all applicable Section 2 metrics, all four critical gates remain PASS, the familiarity/originality study passes without hiding safety distinctions, and the product is accepted before M29 becomes READY.
 
 ### Prohibited shortcut
 
@@ -3865,6 +4355,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M33-W04` | Implement explainability | Why recommended, strongest matches, gaps, hard conflicts, freshness, and source provenance. |
 | `M33-W05` | Build saved/dismissed/list UI | Save, favorite, dismiss with reason, hide company, saved searches, local in-app alerts, and no Gmail/email dependency. |
 | `M33-W06` | Evaluate ranking | Offline labeled set, NDCG/precision at K, hard-conflict leakage, diversity, freshness, and user preference study. |
+| `M33-W07` | Build familiarity-first job-board and matches workspace | Implement the original split list/detail experience, search, filter chips, counts, sort, saved searches, save/hide/company-hide/already-applied actions, source/freshness, match reasons, tracker integration, keyboard/zoom, and mapped-task visual/usability regression. |
 
 ### Required verification
 
@@ -3875,6 +4366,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Dismissal persistence.
 - Offline sync.
 - Accessibility.
+- Simplify-experienced job-search/save/filter task transfer, list/detail state restoration, long-list performance, offline/stale states, and originality audit.
 
 ### Milestone exit gate
 
@@ -3905,6 +4397,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M34-W04` | Implement explicit approval | User reviews plan summary and chooses DRY_RUN, PRE_SUBMIT, or eligible AUTO_SUBMIT. Store approval timestamp and plan hash. |
 | `M34-W05` | Build queue UI | Order, priority, status, pause/resume/cancel, retry policy, reason for block, estimated required intervention, and global stop. |
 | `M34-W06` | Implement plan invalidation | Job changed/closed, profile fact changed, document changed, policy expired, adapter changed, or duplicate discovered. |
+| `M34-W07` | Build familiar job-review-to-queue transition | Reuse Jobs/Tracker/Resume interaction patterns for application preparation, explicit approval, plan summary, mode selection, queue status, pause/resume/cancel/global stop, intervention reasons, and provider/document evidence without implying implicit approval. |
 
 ### Required verification
 
@@ -3915,6 +4408,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Sensitive readiness.
 - Mode permissions.
 - Global stop.
+- Mapped transition from saved job to reviewed plan to queue, no implicit approval, keyboard/screen-reader, stale-plan recovery, and familiarity/originality regression.
 
 ### Milestone exit gate
 
@@ -4072,6 +4566,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | `M38-W05` | Independent review | Security/privacy review and external usability/quality review; resolve all critical/high issues. |
 | `M38-W06` | Release documentation | Install, model requirements, privacy, supported sites, job sources, auto-submit consent, troubleshooting, data export/delete, backup/restore, and known limitations. |
 | `M38-W07` | Freeze release candidate | Version all components, schemas, prompts, model lock, compatibility matrix, source policy, migration path, and signed artifacts. |
+| `M38-W08` | Final familiarity, originality, and experimental-provider audit | Rerun mapped Simplify-experienced tasks, actual UI/accessibility/visual regression, migration import, non-affiliation/originality review, provider data-egress/credential/kill-switch tests, and verify that any enabled experimental provider remains optional, dated, scoped, and non-core. |
 
 ### Required verification
 
@@ -4082,10 +4577,11 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - Full requirements audit.
 - Reproducible benchmark.
 - Signed artifact verification.
+- Final familiarity/usability metrics, visual-originality/non-confusion evidence, and experimental-provider enabled-or-disabled decision regression.
 
 ### Milestone exit gate
 
-All mandatory milestones are ACCEPTED, all release metrics and all four critical gates pass, no critical/high defect remains, and the side-by-side evidence supports the claim that the product is more accurate, truthful, transparent, and controllable on included workflows.
+All mandatory milestones are ACCEPTED, all release metrics and all four critical gates pass, no critical/high defect remains, the familiarity/originality audit passes, any experimental provider is safely scoped or disabled, and the side-by-side evidence supports the claim that the product is more accurate, truthful, transparent, controllable, and easy to adopt on included workflows.
 
 ### Prohibited shortcut
 
@@ -4169,7 +4665,36 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 - No shell-profile, Bash-only, path-separator, case-sensitivity, or line-ending assumption remains in canonical flows.
 - Cross-platform gate regression remains valid.
 
-### 10.5 Data migration checklist
+
+### 10.5 Familiarity-first UI completion checklist
+
+- Public-reference task and screenshot provenance is dated, hashed, tier/browser scoped, and free of third-party PII.
+- Components and assets are independently authored and pass originality/non-affiliation review.
+- The mapped task path is recognizable to Simplify-experienced users without hiding evidence, uncertainty, or safety states.
+- Empty, loading, offline, stale, error, permission, model-unavailable, and disconnected states exist.
+- Keyboard, focus, screen reader, zoom/reflow, contrast, reduced motion, and localization expansion pass.
+- Actual desktop/extension UI is manually inspected; unit tests alone are insufficient.
+- Visual regression passes on every affected certified platform.
+- Migration import has preview, validation, deduplication, rollback, and source attribution.
+- Familiarity study or mapped-task regression passes before a major navigation change is accepted.
+- No user can reasonably mistake the product for Simplify or an affiliated client after disclosure.
+
+### 10.6 External AI-provider completion checklist
+
+- Local Ollama remains default, supported, and sufficient for all mandatory AI workflows.
+- Provider/model/task capability is versioned and visible.
+- OAuth uses PKCE/state/loopback, certified SecretStore, cancellation, expiration, refresh, disconnect, and revocation.
+- No token reaches the WebView, extension, logs, diagnostics, backup, cloud job index, or plaintext file.
+- Data-egress classes and consent are explicit, bounded, and testable.
+- Provider absence, auth failure, quota, model removal, endpoint drift, and policy disable preserve core workflows.
+- No silent fallback; any approved fallback rebuilds and re-verifies the request.
+- Structured output, evidence, atomic claims, stale-context, sensitive policy, and exact limits match the local path.
+- CI uses fake infrastructure; owner-controlled live tests use synthetic/approved data and record exact account/model/date scope.
+- Dependency license/provenance/SBOM and OpenAI terms/security/compatibility review are current.
+- The accepted ship state is explicit: `ENABLED_EXPERIMENTAL` or `DISABLED_BY_POLICY`.
+- UI never implies official OpenAI endorsement or that a ChatGPT plan is a general-purpose API subscription.
+
+### 10.7 Data migration checklist
 
 - Forward migration tested from every supported schema version.
 - Interrupted migration recovery tested.
@@ -4198,7 +4723,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | Job aggregation contains duplicates/stale jobs | Bad recommendations and duplicate applies | Cross-source IDs/hashes, freshness, tombstones, reconciliation |
 | Autopilot becomes mass-spam | User harm/site blocks | Approved jobs only, caps, eligibility display, concurrency one, no stealth |
 | Private data leaks through diagnostics | Severe privacy breach | Local-first, redaction, user-previewed bundles, no content telemetry |
-| Claude loses context across sessions | Architectural drift | Canonical spec/status/ADR/test files and one-package protocol |
+| Implementation agent loses context across sessions | Architectural drift | Canonical spec/status/ADR/test files and one-package protocol |
 | Tests become ceremonial | False confidence | Frozen corpora, clean-clone gates, manual UI validation, independent review |
 | Core autofill risk is validated too late | Months of surrounding work around a broken extension | Blocking M02 real-extension feasibility gate before M03 |
 | Core resume/PageFit risk is validated too late | Complete UI/data system around weak generation | Blocking M05 feasibility gate before M06 |
@@ -4221,6 +4746,18 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 | MLX artifact treated as universal | Windows/Linux AI features cannot run | Versioned model family with platform-specific runtime/artifact profiles |
 | Platform fonts differ | Resume clipping or extraction drift | Controlled font policy and three-OS render/extraction matrix |
 | Installer/update deletes user data | Severe irreversible loss | Signed packages, backup, update/rollback/repair/uninstall matrix and Gate D |
+| UI copies Simplify too literally | Trademark/trade-dress confusion, brittle imitation, legal and trust risk | Public task matrix, independent design tokens/assets/copy, non-affiliation disclosure, originality audit |
+| UI diverges too far from familiar workflows | Simplify users face avoidable learning cost and abandon migration | Match hierarchy, density, proportions, task grouping, and action placement; surface mapping; shared component contracts; Simplify-experienced task study; regression thresholds |
+| UI becomes generic, bloated, or aesthetically inconsistent | Product feels like an AI-generated dashboard, wastes space, and becomes harder to scan | Early token/navigation foundation, explicit anti-bloat rules, owner-approved visual baselines, shared-component enforcement, visual ratings, and blocking audits |
+| Familiarity hides stronger safety/evidence states | Users repeat competitor mistakes and miss product advantages | Evidence/uncertainty/provider/policy states remain mandatory in every mapped workflow |
+| Competitor UI changes after capture | Endless reactive churn or stale assumptions | Dated reference log; accepted user tasks/design system remain source of truth; reviewed updates only |
+| Unofficial ChatGPT-account endpoint changes or is disabled | Experimental provider breaks or risks accounts | Disabled-by-default adapter, exact compatibility scope, kill switch, local default, ship-or-disable review |
+| External provider use conflicts with terms or account policy | Account suspension, legal or reputational harm | Current official-terms review, no rate-limit bypass/pooling, own-account-only, disabled-by-policy default |
+| OAuth tokens leak through files, WebView, logs, or backups | Account compromise | PKCE/loopback, platform SecretStore, native networking, token redaction, no plaintext auth files, revocation tests |
+| External provider silently receives sensitive data | Privacy breach and loss of local-first promise | Data-egress matrix, per-class consent, sensitive deny-by-default, request audit hashes, no browser tokens |
+| External model output changes facts or gains authority | False resumes/answers or unsafe application behavior | Provider-independent schemas, evidence/claim verification, no browser/submission capability, bounded repair |
+| External quota/model drift triggers silent fallback | Nondeterministic content and hidden privacy changes | No silent fallback, task allowlist, exact provider/model record, explicit user-approved fallback |
+| Provider routing is introduced or changes after Gate B evidence | Accepted resume/PageFit evidence no longer represents the final generation architecture | Provider-neutral boundary in M05-W03, benchmark through that path, M05-W17 regression and independent final-revision Gate B re-anchoring |
 | Workday step is misclassified | Wrong answers, wrong page behavior, or unsafe navigation | Multi-signal tenant/session/step identity, confidence threshold, ambiguity pause, fixture/holdout matrix |
 | Workday `Next` is clicked before the page settles | Validation loss, skipped questions, or stale values | Typed page-readiness proof covering required fields, rerender, validation, parser, repeaters, sensitive policy, and unique navigation target |
 | Workday transition times out and is clicked again | Duplicate or corrupted navigation/action | One action per generation/proof hash, transition postconditions, no blind retry, checkpointed recovery |
@@ -4239,7 +4776,7 @@ Before marking this milestone `ACCEPTED`, the implementation agent must update `
 ```markdown
 # Project Status
 
-Spec version: 1.3
+Spec version: 1.4
 Repository revision: <hash>
 Last updated: <ISO timestamp>
 Current phase: <phase>
@@ -4287,21 +4824,24 @@ The validation system must ensure:
 - Status enums are valid.
 - Dependencies are not skipped.
 - No more than one package is `IN_PROGRESS`.
-- Every work package in the canonical v1.3 specification appears exactly once, with exactly 39 milestones, 286 work packages, and 157 requirements.
+- Every work package in the canonical v1.4 specification appears exactly once, with exactly 39 milestones, 300 work packages, and 193 requirements.
 - Completed v1.0 revisions remain attached to their unchanged package IDs after migration.
 - `M03` cannot be `READY` or later unless `AUTOFILL_FEASIBILITY = PASS`.
 - `M06` cannot be `READY` or later unless `RESUME_PAGEFIT_FEASIBILITY = PASS`.
 - `M21` cannot be `READY` or later unless M19 and M20 are `ACCEPTED` and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
+- `M28` cannot be `READY` or later unless M27 is `ACCEPTED`, `CROSS_PLATFORM_CORE = PASS`, and the gate evaluated content revision/tree equals the final accepted M27 content revision/tree or an accepted independent re-anchoring proves every intervening change is gate-neutral.
 - A gate report, corpus hash, revision, independent reviewer, holdout result, and owner decision are present before `PASS`.
 - `REDESIGN_REQUIRED` or `BLOCKED` prevents downstream readiness.
 - Exactly one canonical specification exists after `M00-W08`.
 - M00 cannot return to `ACCEPTED` and M01-W01 cannot become ready after migration until M00-W10 verifies the v1.3 inventory and three-OS baseline.
+- After v1.4 adoption starts, M00 cannot return to `ACCEPTED` and M01-W07 cannot become ready until M00-W11 verifies the exact v1.4 inventory, preserves M01-W01…W06 evidence, and passes the three-OS baseline.
+- The experimental provider cannot be represented as release-supported without an accepted `ENABLED_EXPERIMENTAL` decision; `DISABLED_BY_POLICY` must leave every core readiness rule unchanged.
 
 `docs/CRITICAL_GATES.md` is the authoritative narrative decision ledger for all four gates and must contain the metric table, zero-tolerance failures, holdout result, independent review, owner decision, known limitations, and next permitted action for each of the four gates.
 
 ---
 
-## 13. Reusable prompts for Claude and Codex
+## 13. Reusable prompts for owner-selected implementation agents
 
 ### 13.1 Start or continue one work package
 
@@ -4416,9 +4956,22 @@ synthetic regression cases. If code reuse is proposed, stop and create a provena
 architecture ADR before touching production code.
 ```
 
+### 13.10 Adopt v1.4 after completing v1.3 M01-W06
+
+```text
+The owner approves JAPP-MASTER-001 v1.4 as the new canonical specification. Execute only M00-W11.
+
+First verify that v1.3 M01-W06 finished, all M00 and M01-W01 through M01-W06 evidence is pushed, all three hosted jobs passed, the working tree is clean, and M01-W07 has not begun. Read the canonical v1.3 specification and the complete owner-approved v1.4 file from its external immutable path; verify the owner-provided SHA-256 before editing. Do not place a second canonical-looking file under docs/.
+
+Record an accepted ADR with the external path/hash and owner approval. Copy the approved v1.4 bytes directly over docs/MASTER_IMPLEMENTATION_SPEC.md. Add the UI familiarity, owner-approved visual-baseline, anti-bloat, and experimental-provider project-memory files. Extend status, traceability, generator/validator, doctor, integrity checks, and tests to exactly 39 milestones, 300 work packages, 193 requirements, and four gates. Preserve every M00-W01 through M00-W10 and M01-W01 through M01-W06 state, tree, commit, evidence heading, compatibility record, and reviewed hash. Reopen M00 only for W11, keep all gates NOT_EVALUATED, and block M01-W07 until migration completion.
+
+Add no UI components, OAuth flow, provider network request, or other product behavior. Run positive and negative migration tests, deterministic traceability generation, status validation, doctor, pnpm verify, clean-clone locked installs, and macOS/Windows/Ubuntu hosted CI. After the exact content revision succeeds, mark M00-W11 VERIFIED, return M00 to ACCEPTED, return M01 to IN_PROGRESS, make M01-W07 the sole READY package, create the revision stamp, require final-head three-OS success, and stop.
+```
+
+
 ---
 
-## 14. Commands for introducing this specification
+## 14. Commands for introducing or migrating this specification
 
 ### 14.1 Fresh repository
 
@@ -4428,7 +4981,7 @@ Read docs/MASTER_IMPLEMENTATION_SPEC.md in full. This file is the canonical cont
 
 ### 14.2 Current repository while v1.2 M00-W07 is running
 
-Do not copy or attach v1.3 to the active working tree. Let Codex finish v1.2 M00-W07, validate, commit, push, observe CI, and stop before M01-W01. Preserve its traceability implementation.
+Do not copy or attach v1.3 to the active working tree. Let the active owner-selected implementation agent finish v1.2 M00-W07, validate, commit, push, observe CI, and stop before M01-W01. Preserve its traceability implementation.
 
 ### 14.3 Existing repository after v1.2 M00-W07
 
@@ -4451,11 +5004,26 @@ Independent audit      separate clean session or worktree from implementation
 
 One agent writes to a working tree at a time. Any capable agent must obey the same repository reconstruction, test, evidence, and package-boundary rules.
 
+### 14.5 Current v1.3 repository while M01-W06 is running
+
+Do not copy or attach v1.4 to the active working tree. Let the owner-selected agent finish v1.3 M01-W06, run all contract/generation/status checks, commit, push, observe macOS/Windows/Ubuntu CI, and stop before M01-W07.
+
+### 14.6 Current v1.3 repository after M01-W06
+
+Keep this file outside the repository at an immutable owner-controlled path, for example:
+
+```text
+/Users/<owner>/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.4_owner_approved.md
+```
+
+Verify and record its SHA-256. The current validator intentionally rejects any second canonical-looking specification under `docs/`. Execute the exact `13.10` adoption prompt with the owner-selected implementation agent. `M00-W11` imports the external file directly, migrates the 39/300/193 inventory, preserves M01-W01 through M01-W06 evidence, re-accepts M00, and restores M01-W07 readiness. Do not begin UI or provider implementation during adoption.
+
+
 ---
 
 ## 15. Research references supporting time-sensitive technical decisions
 
-These references are included so future model or architecture changes can be checked against the July 26, 2026 snapshot:
+These references are included so future model or architecture changes can be checked against the July 26–27, 2026 research and architecture snapshot:
 
 - Google DeepMind, “Gemma 4” model overview and performance page.
 - Google, “Introducing Gemma 4 12B: a unified, encoder-free multimodal model,” June 3, 2026.
@@ -4480,7 +5048,17 @@ These references are included so future model or architecture changes can be che
 - Freedesktop Secret Service specification and platform credential-store documentation.
 - Ollama installation and hardware-acceleration documentation for macOS, Windows, and Linux.
 
-When a dependency, model, browser API, ATS API, or source policy changes materially, create an ADR and rerun the affected acceptance benchmarks before updating this snapshot.
+- Simplify official Help Center, “Building and Tailoring your Resume on Simplify,” observed resume versions, target-job binding, Keyword Match, ATS checker, AI settings, Layout, Fit to Page, and export behavior, July 2026 snapshot.
+- Simplify official Help Center, “Using Copilot to Autofill Applications,” observed extension sections for Resume, Cover Letter, Common Questions, Unique Questions, autofill, manual review, and tracker handoff, July 2026 snapshot.
+- Simplify official Help Center, “Manage Autofill Settings in the Simplify Extension,” observed Settings gear, AI-question toggle, multipage toggle, and per-field controls, July 2026 snapshot.
+- Simplify official Help Center, “Using the Job Tracker” and “Flow Chart Insights,” observed add/import/export, filters, Columns/List/Flow views, drag/status interactions, detail/archive behavior, July 2026 snapshot.
+- Simplify official Help Center, “Searching and Filtering Jobs on Simplify,” “Using your Job Matches,” “Navigating your Dashboard,” and “Understanding the Keywords Score,” observed job-board, filters, saved searches, match explanations, dashboard, and cross-surface score behavior, July 2026 snapshot.
+- `EvanZhouDev/openai-oauth`, reviewed commit `ec7dab2fcd8dab9da970a7a2b5dc34046c94905e`, README, core/local/web/login implementation, and Apache-2.0 license, July 27, 2026 snapshot.
+- OpenAI official Help Center, “Using Codex with your ChatGPT plan,” for supported Codex sign-in/account scope and governing terms at the research date.
+- OpenAI official Help Center, “How can I move my ChatGPT subscription to the API?”, confirming ChatGPT and API billing are separate.
+- OpenAI Terms of Use and account-sharing guidance current at the research date, including credential, automated extraction, rate-limit, protective-measure, and third-party-service restrictions relevant to the experimental provider decision.
+
+When a dependency, model, browser API, ATS API, external-account endpoint, OpenAI term/policy, Simplify reference workflow, or source policy changes materially, create an ADR and rerun the affected acceptance benchmarks before updating this snapshot.
 
 ---
 
@@ -4502,5 +5080,7 @@ The project is finished only when the user can:
 10. Let the product apply to those approved jobs automatically on separately certified flows.
 11. Trust that the product pauses instead of guessing whenever the situation is uncertain or consequential.
 12. Install, update, use, back up, restore, and uninstall the complete certified product on macOS 14+ arm64, Windows 11 x64, and Ubuntu 24.04 LTS x64 with accurate platform capability reporting and no plaintext-secret fallback.
+13. Move from Simplify with a familiar mental model for profile, resumes, jobs, tracker, extension autofill, questions, and review while clearly using an original, independent, accessible product with stronger evidence and safety visibility.
+14. Use the accepted local Ollama model by default and, only when independently approved and explicitly enabled, connect a personal ChatGPT account through the experimental local provider without plaintext credentials, silent data egress, provider authority, or core-feature dependence.
 
-No individual milestone, model benchmark, UI screenshot, successful application, test-count claim, or agent completion report is sufficient by itself. Completion is the aggregate, reproducible evidence from every gate in this document, with all four critical gates remaining green through the final release revision.
+No individual milestone, model benchmark, UI screenshot, superficial competitor resemblance, experimental provider connection, successful application, test-count claim, or agent completion report is sufficient by itself. Completion is the aggregate, reproducible evidence from every gate and acceptance program in this document, with all four critical gates, the familiarity/originality study, and any enabled experimental-provider decision remaining valid through the final release revision.

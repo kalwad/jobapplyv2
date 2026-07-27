@@ -6,6 +6,11 @@ Gate report for the blocking Workday Production and Guided Pre-Submit Gate
 authoritative state ledger is `docs/CRITICAL_GATES.md`, and the state must
 agree with the `## Critical gates` table in `docs/PROJECT_STATUS.md`.
 
+The v1.4 familiarity/provider governance migration does not change Gate C's
+metrics or evaluate it. Familiar UI and any future external provider remain
+subject to the same final-review stop, uncertainty, consent, and no-submit
+boundaries.
+
 ## Identity
 
 - Gate: WORKDAY_GUIDED_PRE_SUBMIT

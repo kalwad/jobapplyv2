@@ -26,6 +26,10 @@ reports live in `docs/gates/`.
   holdout evidence are mandatory.
 - Any change to gate-relevant components triggers the complete affected
   gate regression (spec §1.5; REQ-WD-023 for Workday).
+- Gate B must evaluate the provider-neutral M05-W03 path. M05-W17 reruns every
+  affected benchmark/negative path and re-anchors the decision to the final
+  accepted M05 content revision; stale M05-W12 evidence cannot satisfy M05
+  acceptance.
 - Gate D requires actual native packaged evidence on all three certified
   targets. Compilation, cross-compilation, containers, emulation, or one
   operating system cannot substitute for that evidence.
@@ -42,6 +46,15 @@ reports live in `docs/gates/`.
   files/headings, and placeholders such as `pending` or `TBD` do not count.
   M00-W10 added fail-closed validation for this contract; it did not create or
   imply any native product evidence.
+- Gate D's evaluated revision must equal the final accepted M27/M27-W12
+  content tree unless an explicit independent gate-neutral re-anchoring is
+  accepted. M27-W12 executes after M27-W13 and M27-W14 and audits provider
+  isolation, SecretStore, dependencies/SBOM, native networking, packaging,
+  and core no-provider behavior. `DISABLED_BY_POLICY` is a valid provider
+  outcome and does not waive any Gate D evidence.
+- Familiarity/originality is a separate blocking M28/M38 acceptance
+  obligation, not a fifth critical gate. M00-W11 records no visual pass or
+  study result.
 
 ## Summary
 

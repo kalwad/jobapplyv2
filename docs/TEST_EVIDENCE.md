@@ -33,6 +33,144 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M00-W11 — Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline (2026-07-27)
+
+- State: IN_PROGRESS. This entry records migration facts as they are proven.
+  It does not claim a verified package, owner-approved UI, provider
+  implementation, critical-gate result, or hosted M00-W11 success.
+- Starting repository proof:
+  - branch `main`, clean tree, local HEAD and `origin/main` both
+    `211c02e1b9a1f7032a8c0ad387516fc46d9cead4`;
+  - prior canonical JAPP-MASTER-001 v1.3 SHA-256
+    `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`
+    and size 296,021 bytes;
+  - M00 ACCEPTED; M01 IN_PROGRESS; M00-W01…W10 and M01-W01…W06
+    VERIFIED at their preserved anchors; M01-W07 sole READY; no package
+    IN_PROGRESS; all four gates NOT_EVALUATED; release NOT_READY;
+  - inventory exactly 39 milestones / 286 packages / 157 requirements /
+    four gates; contract-gen and contract ACTIVE/PASS; visual
+    NOT_YET_APPLICABLE;
+  - prior final run 30304145833 passed macos-15 job 90104117225,
+    ubuntu-24.04 job 90104117255, and windows-2025 job 90104117393.
+- Approved external source:
+  `/Users/tanishkalwad/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.4_owner_approved.md`.
+  It was a regular, non-symlink file, 367,893 bytes, with owner-required
+  SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Atomic exact-byte adoption:
+  - the external source was rehashed immediately before mutation;
+  - bytes were copied to a hidden same-filesystem `docs/` temporary file,
+    which independently matched the approved hash and `cmp`;
+  - atomic replacement installed the canonical path;
+  - the installed file has the same 367,893-byte size and approved hash and
+    is byte-identical to the external source;
+  - no alternate canonical-looking specification exists under `docs/`.
+- Independently reviewed semantic diff:
+  - M00–M38 and all four critical gates are unchanged;
+  - exactly fourteen packages were added: `M00-W11`, `M03-W11`,
+    `M05-W17`, `M08-W07`, `M09-W07`, `M12-W07`, `M17-W11`, `M25-W08`,
+    `M27-W13`, `M27-W14`, `M28-W06`, `M33-W07`, `M34-W07`, `M38-W08`;
+  - exactly 36 requirements were added: `REQ-UX-001…018` and
+    `REQ-AI-001…018`;
+  - all 157 prior requirement ID/text/family rows remain exact and ordered;
+    their independently locked projection digest is
+    `383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e`;
+  - exactly eight prior future package descriptions intentionally changed:
+    `M03-W01`, `M05-W03`, `M05-W12`, `M17-W01`, `M17-W05`, `M19-W11`,
+    `M20-W11`, and `M27-W12`;
+  - M27 now executes W01…W11 → W13 → W14 → W12; M28 Gate-D readiness
+    binds to the final accepted M27 content revision or an explicit accepted
+    independent gate-neutral re-anchoring.
+- Governance-only scope:
+  - added `docs/UI_FAMILIARITY.md`,
+    `docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md`,
+    `docs/ui/ANTI_BLOAT_CHECKLIST.md`, and
+    `docs/EXPERIMENTAL_AI_PROVIDERS.md`;
+  - every visual surface remains NOT_YET_APPLICABLE / NOT_APPROVED and every
+    anti-bloat rule remains NOT_EVALUATED;
+  - the experimental external provider remains DISABLED_BY_DEFAULT /
+    NOT_IMPLEMENTED / NOT_EVALUATED / NOT_SUPPORTED; no endpoint,
+    credential, token, model, OAuth flow, egress, or request was added;
+  - Ollama remains the mandatory/default future local path and no-silent-
+    fallback policy;
+  - no UI component, product runtime, browser behavior, platform service,
+    provider networking, dependency, or lockfile change is in scope.
+  - `.gitattributes` adds one path-scoped `-whitespace` rule because the
+    immutable approved specification contains intentional Markdown
+    hard-break spaces (52 affected lines); LF checkout remains mandatory
+    (`git check-attr` reports `text: auto`, `eol: lf`, `whitespace: unset`
+    for that path only) and `git diff --check` continues to enforce every
+    other path. Removing the rule reproducibly fails `git diff --check`;
+    editing the approved bytes is prohibited.
+  - `README.md` is corrected because its reconstruction section still
+    asserted the superseded v1.3 `157/286` inventory as current repository
+    fact; the counts and the review-layer description now match v1.4.
+- Interrupted-session recovery repairs (defects found and fixed in the
+  current tree before any commit, each reproduced rather than assumed):
+  - `scripts/tests/test_validate_status.py` failed `ruff format --check` on
+    the final unvalidated edit; reformatted with no assertion change;
+  - `docs/UI_FAMILIARITY.md` coined a product name, which specification
+    §0(3) and `CLAUDE.md` prohibit; replaced with a neutral label;
+  - `docs/UI_FAMILIARITY.md`, `docs/ui/ANTI_BLOAT_CHECKLIST.md`, and
+    `docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md` ended with a blank line,
+    which made the mandatory `git diff --check` step fail once the new files
+    were visible to the index; normalized to a single trailing newline;
+  - the previously drafted focused-test and Python-test counts in this
+    entry were stale; they are replaced above with counts observed in this
+    repository state.
+- Historical preservation: exact status trees, content commits, evidence
+  headings/links, reviewed v1.2/v1.3 hashes, existing requirement claims,
+  KI-0018/KI-0020/KI-0021 evidence, compatibility records, generated
+  contract corpus, and all four gate states remain preserved.
+- Specification risk recorded, not silently weakened: M28-W06 calls for
+  job-board and queue familiarity tasks whose dedicated UI packages are
+  M33-W07/M34-W07. This reproducible future sequencing conflict does not
+  authorize early product work or a false M28 result.
+- Local validation on macOS 27.0 / Apple silicon, Node 24.18.0, pnpm
+  11.17.0, uv 0.11.32, Python 3.12.13, and Rust 1.97.1:
+  - frozen/locked reconstruction commands passed: `pnpm install
+    --frozen-lockfile`, `uv sync --locked`, and both native-host and
+    contract-harness `cargo fetch --locked` commands;
+  - `shasum -a 256` returned the approved
+    `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+    for both external and canonical files; portable `cmp -s` passed;
+  - focused pytest passed, 432 tests total: v1.4 migration 31, traceability
+    62, status validator 126, doctor 50, integrity 17, CI-workflow 41,
+    portability 88, and suite-state 17. Negative coverage includes source
+    drift/special files/replacement
+    failure, byte corruption, inventory duplicates/drift, historical-anchor
+    mutation, false UI/provider completion, M27 ordering, M28/Gate-D
+    revision mismatch, canonical Unicode/case/content/symlink variants,
+    raw C0 bytes, and review-hash self-rehash attempts;
+  - two consecutive `pnpm generate:contracts --check` runs passed with 112
+    files byte-identical; `pnpm traceability:generate` and
+    `pnpm traceability:check` passed with 193 requirements / 300 packages;
+    `python3 scripts/validate_status.py` passed 43 check groups;
+  - `pnpm run doctor` reported 21 PASS, zero FAIL, one expected
+    working-tree WARNING, and visual honestly NOT_YET_APPLICABLE;
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:contract`, `pnpm test:e2e`, `pnpm test:python`, and
+    `pnpm test:rust` all passed. Observed counts were 637 TypeScript contract
+    package tests, 287 focused contract tests (TypeScript 198 / Python 194 /
+    Rust 193 adapters, Rust build locked-offline), one Chromium smoke test,
+    621 Python tests, one native-host Rust test, and eight locked/offline Rust
+    contract-harness tests;
+  - aggregate `pnpm verify` passed every ACTIVE suite; visual remained
+    NOT_YET_APPLICABLE rather than a mocked pass. `git diff --check` passed;
+    no flaky or skipped mandatory case was recorded.
+  - dependency lockfiles and contract artifacts remained byte-identical.
+    The `packages/contracts` tree remained
+    `c2bcc5af07d638ae6d1f26ff25021a8453d6ced3`; generated/corpus/baseline
+    subtrees remained `44faa277a119765b416a3b12d7b1a5b9257968e9`,
+    `deb392dcf0bd1163d2ebb46722ba99ad8fdd6e6f`, and
+    `6ed399ca9b9fddd16f8c93e0c1980a168feeec72`.
+- Exact content commit/tree and two clean-clone reconstructions: pending; no
+  result claimed yet.
+- Hosted exact-content macOS/Windows/Ubuntu run and inspected Windows log:
+  pending; no result claimed yet.
+- Closeout stamp and exact-final-HEAD hosted proof: pending; no result claimed
+  yet.
+
 ### M01-W06 — Define feasibility and benchmark contracts (2026-07-27)
 
 - Revision: content tree `6ed03405b8e252a583f6f89709722e1bd680d8de`

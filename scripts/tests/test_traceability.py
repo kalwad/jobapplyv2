@@ -1,4 +1,4 @@
-"""M00-W10 reviewed v1.3 traceability, honesty, dependency, and drift tests.
+"""M00-W11 reviewed v1.4 traceability, honesty, dependency, and drift tests.
 
 Every negative case mutates an isolated docs/scripts fixture. The tracked
 project-memory files are read-only except for the explicit deterministic
@@ -54,6 +54,7 @@ def trace_repo(tmp_path: Path) -> Path:
         "scripts/tests/test_ci_workflow.py",
         "scripts/tests/test_doctor.py",
         "scripts/tests/test_portability.py",
+        "scripts/tests/test_v14_migration.py",
         # M01-W01/M01-W02 REQ-PLAT-005 completed-path anchors (schema
         # versioning + generated-model version propagation); the fixture
         # repo must contain every referenced file.
@@ -126,22 +127,20 @@ def errors(repo: Path, *, check_view: bool = False) -> str:
     return "\n".join(result.errors)
 
 
-def refresh_expanded_requirement_hash(metadata: dict[str, object]) -> None:
+def refresh_v1_4_requirement_hash(metadata: dict[str, object]) -> None:
     rows = traceability._expanded_requirement_review_rows(
         records(metadata, "requirements")
     )
     review = cast(dict[str, object], metadata["review"])
-    review["expanded_requirements_mapping_sha256"] = traceability._inventory_hash(rows)
+    review["v1_4_requirements_mapping_sha256"] = traceability._inventory_hash(rows)
 
 
-def refresh_expanded_dependency_hash(metadata: dict[str, object]) -> None:
+def refresh_v1_4_dependency_hash(metadata: dict[str, object]) -> None:
     rows = traceability._expanded_package_review_rows(
         records(metadata, "work_packages")
     )
     review = cast(dict[str, object], metadata["review"])
-    review["expanded_work_package_dependency_sha256"] = traceability._inventory_hash(
-        rows
-    )
+    review["v1_4_work_package_dependency_sha256"] = traceability._inventory_hash(rows)
 
 
 def replace_status(repo: Path, pattern: str, replacement: str) -> None:
@@ -185,48 +184,39 @@ def set_metadata_package(
 
 
 def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
-    """Create a valid future post-M00-W10 state in an isolated fixture.
+    """Create a valid future post-M00-W11 state in an isolated fixture.
 
-    Establishes its own complete premise (KI-0014/KI-0015/KI-0016/KI-0017
-    class): as M01 advances, live repository rows no longer represent the
-    historical M00-closeout boundary, so every M01 row is reset here.
+    M00-W01…W10 and M01-W01…W06 remain immutable verified anchors.
+    M00-W11 becomes verified, M00 is accepted, and M01-W07 is sole READY.
     """
     metadata = load_metadata(repo)
     evidence = repo / "docs" / "TEST_EVIDENCE.md"
     with evidence.open("a", encoding="utf-8") as handle:
-        for package_id in ("M00-W08", "M00-W09", "M00-W10"):
-            handle.write(f"\n### {package_id} — traceability closeout fixture\n")
-    for package_id in ("M00-W08", "M00-W09", "M00-W10"):
-        set_package_status(
-            repo,
-            package_id,
-            "VERIFIED",
-            revision=FAKE_TREE,
-            evidence=f"docs/TEST_EVIDENCE.md § {package_id}",
-        )
-        set_metadata_package(
-            metadata,
-            package_id,
-            "VERIFIED",
-            revision=FAKE_TREE,
-            evidence=True,
-        )
-    set_package_status(repo, "M01-W01", "READY")
-    set_metadata_package(metadata, "M01-W01", "READY")
-    for later_package in (
-        "M01-W02",
-        "M01-W03",
-        "M01-W04",
-        "M01-W05",
-        "M01-W06",
-        "M01-W07",
-    ):
-        set_package_status(repo, later_package, "NOT_STARTED")
-        set_metadata_package(metadata, later_package, "NOT_STARTED")
+        handle.write("\n### M00-W11 — traceability closeout fixture\n")
+    set_package_status(
+        repo,
+        "M00-W11",
+        "VERIFIED",
+        revision=FAKE_TREE,
+        evidence="docs/TEST_EVIDENCE.md § M00-W11",
+    )
+    set_metadata_package(
+        metadata,
+        "M00-W11",
+        "VERIFIED",
+        revision=FAKE_TREE,
+        evidence=True,
+    )
+    set_package_status(repo, "M01-W07", "READY")
+    set_metadata_package(metadata, "M01-W07", "READY")
     replace_status(repo, r"^Current work package: .*$", "Current work package: NONE")
-    replace_status(repo, r"^\| M00 \|[^\n]*$", "| M00 | ACCEPTED | — | fixture |")
-    replace_status(repo, r"^\| M01 \|[^\n]*$", "| M01 | READY | — | fixture |")
-    replace_status(repo, r"^- ID: .*$", "- ID: `M01-W01`")
+    replace_status(
+        repo,
+        r"^\| M00 \|[^\n]*$",
+        f"| M00 | ACCEPTED | {FAKE_TREE} | fixture |",
+    )
+    replace_status(repo, r"^\| M01 \|[^\n]*$", "| M01 | IN_PROGRESS | — | fixture |")
+    replace_status(repo, r"^- ID: .*$", "- ID: `M01-W07`")
     save_metadata(repo, metadata)
     return metadata
 
@@ -234,16 +224,16 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
 def test_real_repository_has_exact_inventories_and_clean_generated_view() -> None:
     result = traceability.validate_repository(REPO_ROOT)
     assert result.ok, "\n".join(result.errors)
-    assert result.requirement_count == 157
-    assert result.package_count == 286
+    assert result.requirement_count == 193
+    assert result.package_count == 300
 
 
 def test_every_id_is_unique_and_every_future_claim_is_honest() -> None:
     metadata = load_metadata(REPO_ROOT)
     requirement_ids = [record["id"] for record in records(metadata, "requirements")]
     package_ids = [record["id"] for record in records(metadata, "work_packages")]
-    assert len(requirement_ids) == len(set(requirement_ids)) == 157
-    assert len(package_ids) == len(set(package_ids)) == 286
+    assert len(requirement_ids) == len(set(requirement_ids)) == 193
+    assert len(package_ids) == len(set(package_ids)) == 300
     for requirement in records(metadata, "requirements"):
         if requirement["implementation_state"] == "NOT_STARTED":
             assert requirement["verification_state"] == "NOT_YET_APPLICABLE"
@@ -252,7 +242,7 @@ def test_every_id_is_unique_and_every_future_claim_is_honest() -> None:
             assert requirement["current_evidence"] == []
 
 
-def test_v13_delta_and_preserved_v12_hashes_are_exact() -> None:
+def test_v14_delta_and_preserved_v12_v13_hashes_are_exact() -> None:
     metadata = load_metadata(REPO_ROOT)
     requirement_ids = {
         cast(str, record["id"]) for record in records(metadata, "requirements")
@@ -260,12 +250,14 @@ def test_v13_delta_and_preserved_v12_hashes_are_exact() -> None:
     package_ids = {
         cast(str, record["id"]) for record in records(metadata, "work_packages")
     }
-    assert requirement_ids & traceability.NEW_REQUIREMENT_IDS == (
-        traceability.NEW_REQUIREMENT_IDS
+    assert requirement_ids & traceability.V1_4_NEW_REQUIREMENT_IDS == (
+        traceability.V1_4_NEW_REQUIREMENT_IDS
     )
-    assert package_ids & traceability.NEW_PACKAGE_IDS == traceability.NEW_PACKAGE_IDS
-    assert len(requirement_ids - traceability.NEW_REQUIREMENT_IDS) == 135
-    assert len(package_ids - traceability.NEW_PACKAGE_IDS) == 260
+    assert package_ids & traceability.V1_4_NEW_PACKAGE_IDS == (
+        traceability.V1_4_NEW_PACKAGE_IDS
+    )
+    assert len(requirement_ids - traceability.V1_4_NEW_REQUIREMENT_IDS) == 157
+    assert len(package_ids - traceability.V1_4_NEW_PACKAGE_IDS) == 286
     review = cast(dict[str, object], metadata["review"])
     assert review["requirements_mapping_sha256"] == (
         traceability.PRESERVED_REQUIREMENT_MAPPING_SHA256
@@ -281,15 +273,26 @@ def test_v13_delta_and_preserved_v12_hashes_are_exact() -> None:
     )
     assert review["v1_3_reviewed_in_work_package"] == "M00-W10"
     assert review["v1_3_extension_review_state"] == traceability.REVIEWED_V1_3
+    assert review["v1_4_reviewed_in_work_package"] == "M00-W11"
+    assert review["v1_4_extension_review_state"] == traceability.REVIEWED_V1_4
+    assert review["v1_4_requirements_mapping_sha256"] == (
+        traceability.FINAL_V1_4_REQUIREMENT_MAPPING_SHA256
+    )
+    assert review["v1_4_work_package_dependency_sha256"] == (
+        traceability.FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256
+    )
+    assert review["v1_4_prior_requirement_inventory_sha256"] == (
+        traceability.PRESERVED_V1_3_REQUIREMENT_INVENTORY_SHA256
+    )
 
 
 def test_adopted_spec_hash_schema_and_gate_inventory_are_exact() -> None:
     metadata = load_metadata(REPO_ROOT)
     spec_path = REPO_ROOT / traceability.SPEC_REL
     assert hashlib.sha256(spec_path.read_bytes()).hexdigest() == (
-        "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+        "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
     )
-    assert metadata["schema_version"] == 2
+    assert metadata["schema_version"] == 3
     gate_ids = [record["id"] for record in records(metadata, "critical_gates")]
     assert gate_ids == [
         "AUTOFILL_FEASIBILITY",
@@ -337,18 +340,12 @@ def test_agent_neutral_bootstrap_and_historical_v12_routing_facts_are_preserved(
     assert "ADR-0002/OD-026 prospectively supersedes" in normalized_decisions
 
 
-def test_every_new_record_is_reviewed_v13_and_no_live_provisional_record_remains() -> (
-    None
-):
+def test_every_v14_record_is_reviewed_and_no_live_provisional_record_remains() -> None:
     metadata = load_metadata(REPO_ROOT)
     for record in records(metadata, "requirements"):
-        if record["id"] in traceability.NEW_REQUIREMENT_IDS:
-            assert record["mapping_review_state"] == traceability.REVIEWED_V1_3
-            assert record["mapping_review_state"] != "PROVISIONAL_PENDING_M00_W10"
-            if record["id"] in (traceability.V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS):
-                assert record["implementation_state"] == "VERIFIED"
-                assert record["verification_state"] == "VERIFIED"
-            elif record["id"] in traceability.V1_3_SCAFFOLD_REQUIREMENT_IDS:
+        if record["id"] in traceability.V1_4_NEW_REQUIREMENT_IDS:
+            assert record["mapping_review_state"] == traceability.REVIEWED_V1_4
+            if record["id"] in traceability.V1_4_SCAFFOLD_REQUIREMENT_IDS:
                 assert record["implementation_state"] == "SCAFFOLD_ONLY"
                 assert record["verification_state"] == "NOT_YET_APPLICABLE"
             else:
@@ -356,27 +353,34 @@ def test_every_new_record_is_reviewed_v13_and_no_live_provisional_record_remains
                 assert record["verification_state"] == "NOT_YET_APPLICABLE"
                 assert record["current_evidence"] == []
     for record in records(metadata, "work_packages"):
-        if record["id"] in traceability.NEW_PACKAGE_IDS:
-            assert record["dependency_review_state"] == traceability.REVIEWED_V1_3
-            assert record["dependency_review_state"] != ("PROVISIONAL_PENDING_M00_W10")
-    legacy_requirements = [
+        if record["id"] in traceability.V1_4_NEW_PACKAGE_IDS:
+            assert record["dependency_review_state"] == traceability.REVIEWED_V1_4
+    historical_requirements = [
         record
         for record in records(metadata, "requirements")
-        if record["id"] not in traceability.NEW_REQUIREMENT_IDS
+        if record["id"] not in traceability.V1_4_NEW_REQUIREMENT_IDS
     ]
-    legacy_packages = [
+    historical_packages = [
         record
         for record in records(metadata, "work_packages")
-        if record["id"] not in traceability.NEW_PACKAGE_IDS
+        if record["id"] not in traceability.V1_4_NEW_PACKAGE_IDS
     ]
-    assert len(legacy_requirements) == 135
-    assert len(legacy_packages) == 260
-    assert {record["mapping_review_state"] for record in legacy_requirements} == {
-        traceability.REVIEWED_V1_2
-    }
-    assert {record["dependency_review_state"] for record in legacy_packages} == {
-        traceability.REVIEWED_V1_2
-    }
+    assert len(historical_requirements) == 157
+    assert len(historical_packages) == 286
+    for record in historical_requirements:
+        expected = (
+            traceability.REVIEWED_V1_3
+            if record["id"] in traceability.V1_3_NEW_REQUIREMENT_IDS
+            else traceability.REVIEWED_V1_2
+        )
+        assert record["mapping_review_state"] == expected
+    for record in historical_packages:
+        expected = (
+            traceability.REVIEWED_V1_3
+            if record["id"] in traceability.V1_3_NEW_PACKAGE_IDS
+            else traceability.REVIEWED_V1_2
+        )
+        assert record["dependency_review_state"] == expected
 
 
 def test_verified_m00_requirements_have_real_code_test_and_evidence_links() -> None:
@@ -473,15 +477,15 @@ def test_reviewed_plat_005_evidence_tamper_fails_after_self_rehash(
     record = record_by_id(metadata, "requirements", "REQ-PLAT-005")
     record["implementation_state"] = "VERIFIED"
     record["verification_state"] = "VERIFIED"
-    refresh_expanded_requirement_hash(metadata)
+    refresh_v1_4_requirement_hash(metadata)
     save_metadata(trace_repo, metadata)
-    assert "final reviewed v1.3 requirement-mapping hash changed" in errors(trace_repo)
+    assert "final reviewed v1.4 requirement-mapping hash changed" in errors(trace_repo)
 
 
 def test_new_package_proof_plans_are_specific_not_provisional_placeholders() -> None:
     metadata = load_metadata(REPO_ROOT)
     for record in records(metadata, "work_packages"):
-        if record["id"] not in traceability.NEW_PACKAGE_IDS:
+        if record["id"] not in traceability.V1_4_NEW_PACKAGE_IDS:
             continue
         automated = " ".join(cast(list[str], record["required_automated_verification"]))
         manual = " ".join(cast(list[str], record["required_manual_evidence"]))
@@ -495,7 +499,7 @@ def test_missing_requirement_fails(trace_repo: Path) -> None:
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
     assert "missing canonical requirement" in output
-    assert "expected 157" in output
+    assert "expected 193" in output
 
 
 def test_missing_platform_requirement_fails(trace_repo: Path) -> None:
@@ -558,13 +562,13 @@ def test_reviewed_new_requirement_tamper_fails_even_if_claimed_hash_is_updated(
     trace_repo: Path,
 ) -> None:
     metadata = load_metadata(trace_repo)
-    record_by_id(metadata, "requirements", "REQ-PLAT-012")["planned_components"] = [
+    record_by_id(metadata, "requirements", "REQ-AI-001")["planned_components"] = [
         "tampered platform boundary"
     ]
-    refresh_expanded_requirement_hash(metadata)
+    refresh_v1_4_requirement_hash(metadata)
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
-    assert "final reviewed v1.3 requirement-mapping hash changed" in output
+    assert "final reviewed v1.4 requirement-mapping hash changed" in output
 
 
 @pytest.mark.parametrize(
@@ -587,10 +591,10 @@ def test_reviewed_governance_honesty_tamper_fails_after_self_rehash(
     replacement: object,
 ) -> None:
     metadata = load_metadata(trace_repo)
-    record_by_id(metadata, "requirements", "REQ-PLAT-013")[field] = replacement
-    refresh_expanded_requirement_hash(metadata)
+    record_by_id(metadata, "requirements", "REQ-AI-006")[field] = replacement
+    refresh_v1_4_requirement_hash(metadata)
     save_metadata(trace_repo, metadata)
-    assert "final reviewed v1.3 requirement-mapping hash changed" in errors(trace_repo)
+    assert "final reviewed v1.4 requirement-mapping hash changed" in errors(trace_repo)
 
 
 def test_missing_work_package_fails(trace_repo: Path) -> None:
@@ -599,7 +603,7 @@ def test_missing_work_package_fails(trace_repo: Path) -> None:
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
     assert "missing canonical work-package record" in output
-    assert "expected 286" in output
+    assert "expected 300" in output
 
 
 def test_missing_platform_work_package_fails(trace_repo: Path) -> None:
@@ -658,14 +662,14 @@ def test_reviewed_new_package_dependency_tamper_fails_even_if_hash_is_updated(
     trace_repo: Path,
 ) -> None:
     metadata = load_metadata(trace_repo)
-    record_by_id(metadata, "work_packages", "M03-W08")[
+    record_by_id(metadata, "work_packages", "M27-W14")[
         "direct_package_prerequisites"
-    ] = ["M03-W06"]
-    refresh_expanded_dependency_hash(metadata)
+    ] = ["M27-W11"]
+    refresh_v1_4_dependency_hash(metadata)
     save_metadata(trace_repo, metadata)
     output = errors(trace_repo)
-    assert "M03-W08: direct package prerequisites drift" in output
-    assert "final reviewed v1.3 dependency-map hash changed" in output
+    assert "M27-W14: direct package prerequisites drift" in output
+    assert "final reviewed v1.4 dependency-map hash changed" in output
 
 
 @pytest.mark.parametrize(
@@ -682,10 +686,10 @@ def test_reviewed_new_package_proof_plan_tamper_fails_after_self_rehash(
     replacement: list[str],
 ) -> None:
     metadata = load_metadata(trace_repo)
-    record_by_id(metadata, "work_packages", "M03-W10")[field] = replacement
-    refresh_expanded_dependency_hash(metadata)
+    record_by_id(metadata, "work_packages", "M27-W13")[field] = replacement
+    refresh_v1_4_dependency_hash(metadata)
     save_metadata(trace_repo, metadata)
-    assert "final reviewed v1.3 dependency-map hash changed" in errors(trace_repo)
+    assert "final reviewed v1.4 dependency-map hash changed" in errors(trace_repo)
 
 
 def test_completed_package_must_reference_its_own_evidence_heading(
@@ -772,11 +776,27 @@ def test_final_platform_profile_and_gate_d_decision_owners_are_exact() -> None:
     assert "Independent Cross-Platform Core Gate audit and decision" in " ".join(
         cast(list[str], gate_decision["primary_deliverables"])
     )
-    assert "independent reviewer" in " ".join(
+    assert "Independent terminal Gate D decision" in " ".join(
         cast(list[str], gate_decision["required_manual_evidence"])
     )
     gate_requirement = record_by_id(metadata, "requirements", "REQ-GATE-020")
     assert gate_requirement["owning_packages"] == ["M27-W12"]
+
+    m27_w11 = record_by_id(metadata, "work_packages", "M27-W11")
+    m27_w13 = record_by_id(metadata, "work_packages", "M27-W13")
+    m27_w14 = record_by_id(metadata, "work_packages", "M27-W14")
+    assert m27_w13["direct_package_prerequisites"] == [
+        f"M27-W{number:02d}" for number in range(1, 12)
+    ]
+    assert m27_w14["direct_package_prerequisites"] == ["M27-W13"]
+    assert gate_decision["direct_package_prerequisites"] == [
+        *[f"M27-W{number:02d}" for number in range(1, 12)],
+        "M27-W13",
+        "M27-W14",
+    ]
+    assert m27_w11["downstream_packages"] == ["M27-W12", "M27-W13"]
+    assert m27_w13["downstream_packages"] == ["M27-W12", "M27-W14"]
+    assert m27_w14["downstream_packages"] == ["M27-W12"]
 
 
 @pytest.mark.parametrize(
@@ -898,7 +918,7 @@ def test_multiple_canonical_specifications_fail_traceability(
 ) -> None:
     shutil.copy2(
         trace_repo / traceability.SPEC_REL,
-        trace_repo / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md",
+        trace_repo / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.4.proposed.md",
     )
     assert "second canonical-looking specification" in errors(trace_repo)
 
@@ -919,15 +939,15 @@ def test_spec_inventory_change_without_metadata_update_fails(trace_repo: Path) -
     assert "requirements_inventory_sha256 drift" in output
 
 
-def test_m01_w01_cannot_be_ready_before_m00_is_accepted(
+def test_m01_w07_cannot_be_ready_before_m00_is_accepted(
     trace_repo: Path,
 ) -> None:
     prepare_valid_m00_closeout(trace_repo)
     replace_status(trace_repo, r"^\| M00 \|[^\n]*$", "| M00 | VERIFIED | — | fixture |")
-    assert "M01-W01 is READY before milestone M00 is ACCEPTED" in errors(trace_repo)
+    assert "M01-W07 is READY before milestone M00 is ACCEPTED" in errors(trace_repo)
 
 
-def test_m01_w01_is_the_only_valid_ready_package_after_m00_acceptance(
+def test_m01_w07_is_the_only_valid_ready_package_after_m00_acceptance(
     trace_repo: Path,
 ) -> None:
     prepare_valid_m00_closeout(trace_repo)
@@ -939,16 +959,14 @@ def test_m01_w01_is_the_only_valid_ready_package_after_m00_acceptance(
         for record in records(metadata, "work_packages")
         if record["current_state"] == "READY"
     ]
-    assert ready == ["M01-W01"]
+    assert ready == ["M01-W07"]
 
 
-def test_no_other_m01_package_can_become_prematurely_ready(
+def test_m02_cannot_become_ready_at_the_m01_w07_boundary(
     trace_repo: Path,
 ) -> None:
     metadata = prepare_valid_m00_closeout(trace_repo)
-    set_package_status(trace_repo, "M01-W02", "READY")
-    set_metadata_package(metadata, "M01-W02", "READY")
+    set_package_status(trace_repo, "M02-W01", "READY")
+    set_metadata_package(metadata, "M02-W01", "READY")
     save_metadata(trace_repo, metadata)
-    assert "M01-W02 is READY before direct prerequisite M01-W01 is verified" in errors(
-        trace_repo
-    )
+    assert "READY package derivation drift: expected M01-W07" in errors(trace_repo)

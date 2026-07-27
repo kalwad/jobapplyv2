@@ -53,6 +53,14 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-024 | Stage local-AI certification: accept the primary Mac profile and Windows/Ubuntu capability plus safe fallback in M05; defer required full-AI Windows and Ubuntu acceptance to M27-W10 before Gate D. | ACCEPTED | Spec v1.3 §6.2, M05, M27-W10 |
 | OD-025 | Preserve and mechanically extend the v1.2 traceability architecture and historical evidence; M00-W10 owns the complete reviewed platform mapping and M00 re-acceptance. | ACCEPTED | Spec v1.3 §1.4.1, M00-W08…W10 |
 | OD-026 | The owner selects the implementation agent. The active selection persists until the owner explicitly changes it; the repository must not automatically route between Claude, Codex, or reasoning modes. Independent audits use a separate clean session or worktree. | ACCEPTED | Spec v1.3 §0(26–27) |
+| OD-027 | The user experience must be cohesive, accessible, original, and migration-familiar to experienced Simplify users through publicly observable task patterns, without copying protected expression or implying affiliation. | ACCEPTED | Spec v1.4 §0(28–29) |
+| OD-028 | The accepted local Ollama profile remains the mandatory/default AI path and release baseline; every deterministic and accepted local workflow remains operable without an external provider. | ACCEPTED | Spec v1.4 §0(30) |
+| OD-029 | A ChatGPT-account provider is experimental, local, single-user, non-core, and disabled by default; it is not a promised API entitlement or a critical-gate dependency. | ACCEPTED | Spec v1.4 §0(31) |
+| OD-030 | External-account credentials are password-equivalent secrets held only through platform-native `SecretStore`; plaintext files, logs, cloud-index synchronization, and production use of unrelated `~/.codex/auth.json` are prohibited. | ACCEPTED | Spec v1.4 §0(32) |
+| OD-031 | Provider/model selection, data classes leaving the device, retention caveats, and fallback policy require explicit user control; provider switching and cloud egress may not be silent. | ACCEPTED | Spec v1.4 §0(33) |
+| OD-032 | The experimental provider ships enabled only after an independent terms/security/privacy/compatibility/account-risk review; an accepted `DISABLED_BY_POLICY` outcome satisfies the experimental package without weakening core scope. | ACCEPTED | Spec v1.4 §0(34) |
+| OD-033 | External AI output remains untrusted candidate data under the same schemas, evidence, verifier, sensitive-field, review, and no-submit boundaries as local output. | ACCEPTED | Spec v1.4 §0(35) |
+| OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
 
 ## Architecture decision records
 
@@ -60,6 +68,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 |---|---|---|---|---|
 | ADR-0001 | Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification | ACCEPTED | 2026-07-26 | Entire specification (v1.0 → v1.2); §0–§16 |
 | ADR-0002 | Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport | ACCEPTED | 2026-07-26 | Entire specification (v1.2 → v1.3); platform governance; Gate D; M00 readiness |
+| ADR-0003 | Adopt JAPP-MASTER-001 v1.4 familiarity and provider rebaseline through external exact-byte transport | ACCEPTED | 2026-07-27 | Entire specification (v1.3 → v1.4); familiarity/provider governance; M00/M01/M27/M28 readiness |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -226,6 +235,96 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Owner approval: the owner supplied the external file and exact hash and
   explicitly directed M00-W08 to proceed using the corrected external
   adoption protocol on 2026-07-26.
+
+### ADR-0003 — Adopt JAPP-MASTER-001 v1.4 familiarity and provider rebaseline through external exact-byte transport
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-07-27 / 2026-07-27
+- Owner-approved external source:
+  `/Users/tanishkalwad/Downloads/MASTER_IMPLEMENTATION_SPEC_v1.4_owner_approved.md`
+- Verified external source SHA-256:
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+- Starting repository stamp revision:
+  `211c02e1b9a1f7032a8c0ad387516fc46d9cead4`
+- Previous canonical version and SHA-256: JAPP-MASTER-001 v1.3,
+  `fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867`.
+- Observed constraint: the owner approved the exact external v1.4 bytes and
+  directed execution of only M00-W11 after M01-W06 and its final three-OS
+  hosted proof. The single-canonical rule prohibited staging a second proposed
+  master specification under `docs/`.
+- Exact-byte transport: immediately before mutation the external regular,
+  non-symlink file rehashed to the approved digest. Its 367,893 bytes were
+  copied to a hidden same-filesystem temporary file, rehashed and compared,
+  then atomically replaced `docs/MASTER_IMPLEMENTATION_SPEC.md`. The installed
+  file was rehashed and byte-compared to the source. No normalization,
+  formatting, punctuation, date, or line-ending rewrite occurred; no duplicate
+  specification was retained. Because the approved bytes contain intentional
+  Markdown hard-break spaces, `.gitattributes` disables Git patch-whitespace
+  diagnostics only for this canonical path while retaining LF checkout;
+  `git diff --check` continues to enforce every other path.
+- Reviewed comparison:
+  - milestone order remains exactly M00–M38 and the critical-gate set remains
+    exactly the existing four;
+  - packages expand 286 → 300 by exactly `M00-W11`, `M03-W11`, `M05-W17`,
+    `M08-W07`, `M09-W07`, `M12-W07`, `M17-W11`, `M25-W08`, `M27-W13`,
+    `M27-W14`, `M28-W06`, `M33-W07`, `M34-W07`, and `M38-W08`;
+  - requirements expand 157 → 193 by exactly `REQ-UX-001…018` and
+    `REQ-AI-001…018`; every prior requirement ID/statement pair remains exact
+    and in the same order;
+  - exactly eight prior future package rows intentionally change:
+    `M03-W01`, `M05-W03`, `M05-W12`, `M17-W01`, `M17-W05`, `M19-W11`,
+    `M20-W11`, and `M27-W12`;
+  - M27 executes W01…W11 → W13 → W14 → W12, and M28 binds Gate D to
+    the final accepted M27 content revision unless an explicit accepted
+    independent gate-neutral re-anchoring exists.
+- Decision: adopt JAPP-MASTER-001 v1.4 and add the required UI familiarity,
+  owner-approved visual-baseline, anti-bloat, and experimental-provider
+  memories. Every new ledger begins honestly unapproved/unevaluated and
+  contains no fabricated reference observation, capture, result, endpoint,
+  credential, token, model, or compatibility claim.
+- Traceability impact: retain the v1.2 and post-M01-W06 v1.3 reviewed hash
+  lineage as immutable historical layers and add a separately named v1.4
+  reviewed projection. Only the 36/14 v1.4 additions use `REVIEWED_V1_4`;
+  existing records retain their historical review provenance.
+- Status impact: preserve M00-W01…W10 and M01-W01…W06 as VERIFIED at exact
+  content trees/commits/evidence headings. Reopen only M00-W11, keep M01
+  IN_PROGRESS, temporarily return M01-W07 to NOT_STARTED, and keep all gates
+  NOT_EVALUATED. Re-acceptance and restored sole readiness require the exact
+  M00-W11 content tree to pass local, clean-clone, and hosted three-OS proof.
+- Security/privacy impact: strengthened through original/non-affiliated UI
+  rules, native secret storage, explicit provider/egress consent, no silent
+  fallback, default-off isolation, dependency/SBOM review, and a valid
+  `DISABLED_BY_POLICY` outcome. M00-W11 adds no UI, OAuth, provider networking,
+  model routing, browser, native, or other product behavior.
+- Data-migration impact: none. No product schema or user data changes. Git
+  history remains the v1.3 archive.
+- Benchmark and gate impact: no gate is evaluated and no threshold changes.
+  Familiarity/originality is a separate M28/M38 obligation, not a fifth gate.
+  Gate B later uses and re-anchors the provider-neutral M05 path; Gate D later
+  audits final M27 isolation whether the external provider is enabled or
+  disabled.
+- Test impact: inventories, explicit dependency order, historical anchors,
+  memory semantics, canonical uniqueness, provider support state, M28 revision
+  binding, raw-byte integrity, atomic migration failures, deterministic
+  generation, doctor, portability, clean clones, and hosted CI are expanded.
+- Known specification sequencing risk: M28-W06 requires actual job-board and
+  queue tasks while dedicated UI packages are M33-W07/M34-W07. This migration
+  records rather than silently weakens the approved contract; it must be
+  resolved before M28 acceptance.
+- Alternatives considered: retain v1.3; stage a repository proposal; normalize
+  or hand-edit v1.4; or implement future UI/provider behavior during migration.
+  All conflict with the owner's exact-byte, single-canonical, M00-W11-only
+  instruction.
+- Rollback plan: revert the M00-W11 content and closeout commits. Git history
+  restores the complete v1.3 bytes, status, traceability, and validators; never
+  create a rollback copy beside the canonical file.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility
+  promises affected: all of JAPP-MASTER-001; new `REQ-UX-001…018` and
+  `REQ-AI-001…018`; fourteen new packages; M27 ordering; M28 revision binding;
+  project-memory and release-evidence rules.
+- Owner approval: the owner supplied the exact external path and SHA-256 in
+  the M00-W11 execution package and approved that immutable file as
+  JAPP-MASTER-001 v1.4 on 2026-07-27.
 
 ## ADR template
 

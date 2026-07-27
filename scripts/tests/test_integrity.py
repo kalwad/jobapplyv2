@@ -6,6 +6,7 @@ import json
 import sys
 from pathlib import Path
 
+import validate_status
 import verify
 from conftest import GOOD_SCRIPTS, REPO_ROOT, make_suite, run_git, write_registry
 
@@ -59,6 +60,10 @@ def test_traceability_commands_and_source_are_repository_integrity_requirements(
     assert "docs/PLATFORM_SUPPORT.md" in verify.MEMORY_FILES
     assert "docs/gates/CROSS_PLATFORM_CORE_GATE.md" in verify.MEMORY_FILES
     assert "docs/platform/MODEL_RUNTIME_PROFILES.md" in verify.MEMORY_FILES
+    assert "docs/UI_FAMILIARITY.md" in verify.MEMORY_FILES
+    assert "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md" in verify.MEMORY_FILES
+    assert "docs/ui/ANTI_BLOAT_CHECKLIST.md" in verify.MEMORY_FILES
+    assert "docs/EXPERIMENTAL_AI_PROVIDERS.md" in verify.MEMORY_FILES
     assert "scripts/traceability.py" in verify.REQUIRED_SCRIPT_FILES
 
 
@@ -170,7 +175,7 @@ def test_python_skip_marker_rejected_end_to_end(
     fixture_repo: verify.Context,
 ) -> None:
     probe = fixture_repo.repo / "services" / "orchestrator" / "tests" / "test_probe.py"
-    probe.parent.mkdir(parents=True)
+    probe.parent.mkdir(parents=True, exist_ok=True)
     marker = "@pytest" + ".mark.skip"
     probe.write_text(f"{marker}\ndef test_probe() -> None: ...\n", encoding="utf-8")
     failures = verify.check_focused_tests(fixture_repo, ())
@@ -201,26 +206,9 @@ def test_workspace_package_noop_script_rejected(
 # reviewability and can hide adversarial content; escaped source
 # representations such as "\\0" or "\\u0007" remain the required form.
 
-TEXT_SOURCE_SUFFIXES = (
-    ".cjs",
-    ".js",
-    ".json",
-    ".md",
-    ".mjs",
-    ".py",
-    ".toml",
-    ".ts",
-    ".tsx",
-    ".yaml",
-    ".yml",
-)
-ALLOWED_TEXT_CONTROL_BYTES = frozenset({0x09, 0x0A, 0x0D})
-
 
 def _raw_control_bytes(data: bytes) -> set[int]:
-    return {
-        byte for byte in data if byte < 0x20 and byte not in ALLOWED_TEXT_CONTROL_BYTES
-    }
+    return verify.raw_control_bytes(data)
 
 
 def _tracked_text_files() -> list[Path]:
@@ -232,7 +220,7 @@ def _tracked_text_files() -> list[Path]:
     return [
         REPO_ROOT / rel
         for rel in verify.git_tracked_files(ctx)
-        if rel.endswith(TEXT_SOURCE_SUFFIXES)
+        if Path(rel).suffix in verify.TEXT_SOURCE_SUFFIXES
     ]
 
 
@@ -282,3 +270,34 @@ def test_raw_control_byte_detector_bans_c0_but_respects_text_policy() -> None:
     # Escaped source representations are ordinary printable characters.
     escaped_only = b'separator = "\\0"; bell = "\\u0007"'
     assert _raw_control_bytes(escaped_only) == set()
+
+
+def test_integrity_builtin_rejects_raw_control_byte(
+    fixture_repo: verify.Context,
+) -> None:
+    probe = fixture_repo.repo / "scripts" / "control_probe.PY"
+    probe.parent.mkdir(parents=True, exist_ok=True)
+    probe.write_bytes(b'probe = "visible"\n# hidden bell: \x07\n')
+    run_git(fixture_repo.repo, "add", "-A")
+    run_git(fixture_repo.repo, "commit", "-q", "-m", "add raw control")
+    failures = verify.check_integrity(fixture_repo, _registry())
+    assert any("raw C0 control byte" in failure for failure in failures)
+
+
+def test_integrity_builtin_rejects_canonical_filename_variant(
+    fixture_repo: verify.Context,
+) -> None:
+    docs = fixture_repo.repo / "docs"
+    (docs / "MASTER_IMPLEMENTATION_SPEC.md").write_text(
+        validate_status.SPEC_HEADER_MARKER, encoding="utf-8"
+    )
+    duplicate = docs / "Master Implementation Spec.draft.txt"
+    duplicate.write_text("draft", encoding="utf-8")
+    run_git(fixture_repo.repo, "add", "-A")
+    run_git(fixture_repo.repo, "commit", "-q", "-m", "add duplicate spec")
+    failures = verify.check_integrity(fixture_repo, _registry())
+    assert any(
+        "second canonical-looking specification" in failure
+        and "Master Implementation Spec.draft.txt" in failure
+        for failure in failures
+    )

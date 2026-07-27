@@ -12,6 +12,10 @@ Append-only report for Gate D. The authoritative current state is mirrored in
 - Owner decision: pending
 - Holdout result: pending
 - Evidence bundle: —
+- Final accepted M27 content revision: —
+- Independent gate-neutral re-anchoring: NOT_EVALUATED
+- Re-anchored evaluated revision: —
+- Re-anchoring owner decision: pending
 - Next permitted action: Complete the owning M03–M05, M10, M17, and M27
   packages; Gate D does not authorize M28 while unevaluated.
 
@@ -33,6 +37,9 @@ Required evidence includes:
 - controlled PDF/DOCX and font results;
 - portable encrypted backup/restore;
 - update, rollback, repair, uninstall, and user-data preservation;
+- provider isolation, platform SecretStore session handling, native
+  networking, dependency/SBOM provenance, and complete core behavior with the
+  experimental provider absent or `DISABLED_BY_POLICY`;
 - exact OS, architecture, browser, artifact, date, raw logs, independent
   review, and owner decision.
 
@@ -53,11 +60,15 @@ passing holdout result, and owner decision. All certified rows in
 `PLATFORM_SUPPORT.md` and `CERTIFIED_MATRIX.md` must be `CERTIFIED_FULL`;
 model profiles must be `CERTIFIED_FULL`/`ACCEPTED`; native-messaging and
 packaging/update rows must be `VERIFIED`; every one must carry scoped,
-resolving evidence. `M27-W12` owns the independent terminal decision.
+resolving evidence. `M27-W12` owns the independent terminal decision and must
+execute after M27-W13/M27-W14 against the final accepted M27 content tree. A
+different evaluated tree is rejected unless the structured re-anchoring fields
+above record an explicit accepted independent gate-neutral re-anchoring.
 
-No such product evidence exists through M00-W10. Windows and Ubuntu full-AI
-profiles are explicitly not accepted. M00-W10 only made the future evidence
-checks fail closed; it did not add platform evidence.
+No such product evidence exists through M00-W11. Windows and Ubuntu full-AI
+profiles are explicitly not accepted. M00-W10 made the native evidence checks
+fail closed; M00-W11 adds final-M27 revision/provider-isolation validation
+only. Neither package adds platform or provider product evidence.
 
 ## Run history
 

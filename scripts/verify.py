@@ -39,6 +39,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import portability
+import validate_status
 
 VALID_PACKAGE_STATES = frozenset(
     {
@@ -58,6 +59,7 @@ STARTED_STATES = frozenset(
 )
 PYTEST_EXIT_NO_TESTS = 5
 COMMAND_TIMEOUT_SECONDS = 1800
+C0_CONTROL_LIMIT = 0x20
 
 
 def configure_utf8_output() -> None:
@@ -92,6 +94,10 @@ MEMORY_FILES = (
     "docs/TEST_EVIDENCE.md",
     "docs/KNOWN_ISSUES.md",
     "docs/COMPATIBILITY_MATRIX.md",
+    "docs/UI_FAMILIARITY.md",
+    "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+    "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+    "docs/EXPERIMENTAL_AI_PROVIDERS.md",
     "docs/PLATFORM_SUPPORT.md",
     "docs/REQUIREMENTS_TRACEABILITY.md",
     "docs/traceability.json",
@@ -131,6 +137,22 @@ BYPASS_TOKENS = (
 BYPASS_SCAN_SUFFIXES = frozenset(
     {".json", ".ts", ".tsx", ".mjs", ".cjs", ".yaml", ".yml", ".toml"}
 )
+TEXT_SOURCE_SUFFIXES = frozenset(
+    {
+        ".cjs",
+        ".js",
+        ".json",
+        ".md",
+        ".mjs",
+        ".py",
+        ".toml",
+        ".ts",
+        ".tsx",
+        ".yaml",
+        ".yml",
+    }
+)
+ALLOWED_TEXT_CONTROL_BYTES = frozenset({0x09, 0x0A, 0x0D})
 
 TS_TEST_GLOBS = ("packages/*/test/**/*.test.ts", "e2e/**/*.spec.ts")
 PY_TEST_GLOBS = (
@@ -781,14 +803,46 @@ def check_focused_tests(ctx: Context, allowed_skips: tuple[str, ...]) -> list[st
     return failures
 
 
-def check_integrity(ctx: Context, registry: Registry) -> list[str]:
+def raw_control_bytes(data: bytes) -> set[int]:
+    return {
+        byte
+        for byte in data
+        if byte < C0_CONTROL_LIMIT and byte not in ALLOWED_TEXT_CONTROL_BYTES
+    }
+
+
+def check_raw_control_bytes(ctx: Context, tracked: list[str]) -> list[str]:
+    failures: list[str] = []
+    for rel in tracked:
+        if Path(rel).suffix.casefold() not in TEXT_SOURCE_SUFFIXES:
+            continue
+        path = ctx.repo / rel
+        try:
+            data = path.read_bytes()
+        except OSError as exc:
+            failures.append(f"tracked text source cannot be read: {rel}: {exc}")
+            continue
+        controls = raw_control_bytes(data)
+        if controls:
+            rendered = ", ".join(f"0x{byte:02x}" for byte in sorted(controls))
+            failures.append(f"raw C0 control byte(s) {rendered} found in {rel}")
+    return failures
+
+
+def check_integrity(  # noqa: PLR0912 - explicit independent integrity checks
+    ctx: Context, registry: Registry
+) -> list[str]:
     failures: list[str] = []
     for rel in MEMORY_FILES:
         if not (ctx.repo / rel).is_file():
             failures.append(f"canonical project-memory file missing: {rel}")
     spec = ctx.repo / "docs/MASTER_IMPLEMENTATION_SPEC.md"
-    if spec.is_file() and "JAPP-MASTER-001" not in spec.read_text(encoding="utf-8"):
+    if spec.is_symlink() or not spec.is_file():
+        failures.append("canonical specification must be a regular non-symlink file")
+    elif "JAPP-MASTER-001" not in spec.read_text(encoding="utf-8"):
         failures.append("canonical specification lost its JAPP-MASTER-001 identity")
+    for offender in validate_status.canonical_spec_offenders(ctx.repo):
+        failures.append(f"second canonical-looking specification present: {offender}")
     for rel in LOCKFILES:
         if not (ctx.repo / rel).is_file():
             failures.append(f"lockfile missing for active ecosystem: {rel}")
@@ -808,6 +862,7 @@ def check_integrity(ctx: Context, registry: Registry) -> list[str]:
         return [*failures, str(exc)]
     failures.extend(check_bypass_tokens(ctx, tracked))
     failures.extend(check_focused_tests(ctx, registry.allowed_skips))
+    failures.extend(check_raw_control_bytes(ctx, tracked))
     return failures
 
 

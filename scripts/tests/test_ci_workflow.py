@@ -137,7 +137,7 @@ def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
     assert len(jobs) == 1
     matrix_os = next(iter(jobs.values()))["strategy"]["matrix"]["os"]
     assert matrix_os == ["macos-15", "windows-2025", "ubuntu-24.04"], (
-        "required CI must run exactly the v1.3 hosted baselines: macos-15, "
+        "required CI must run exactly the certified hosted baselines: macos-15, "
         f"windows-2025, ubuntu-24.04 (found {matrix_os})"
     )
     assert next(iter(jobs.values()))["runs-on"] == "${{ matrix.os }}", (
@@ -148,7 +148,7 @@ def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
         assert "latest" not in os_name, "runner labels must be explicit versions"
 
 
-def test_windows_runner_is_exactly_the_v13_hosted_baseline() -> None:
+def test_windows_runner_is_exactly_the_certified_hosted_baseline() -> None:
     matrix_os = next(iter(load_ci()["jobs"].values()))["strategy"]["matrix"]["os"]
     assert "windows-2025" in matrix_os
     assert not any(

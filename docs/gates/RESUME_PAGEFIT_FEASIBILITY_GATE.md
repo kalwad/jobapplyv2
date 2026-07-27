@@ -6,6 +6,12 @@ This file records evaluation runs and the decision trail; the authoritative
 state ledger is `docs/CRITICAL_GATES.md`, and the state must agree with the
 `## Critical gates` table in `docs/PROJECT_STATUS.md`.
 
+JAPP-MASTER-001 v1.4 requires this gate to execute through the
+provider-neutral M05-W03 path. A later M05 provider-boundary change invalidates
+stale evidence; M05-W17 must rerun affected cases and independently re-anchor
+a passing decision to the final accepted M05 content revision. M00-W11
+implements no provider path and supplies no Gate B result.
+
 ## Identity
 
 - Gate: RESUME_PAGEFIT_FEASIBILITY

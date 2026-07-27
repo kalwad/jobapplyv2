@@ -407,7 +407,7 @@
       "proofs": [],
       "discovery_globs": [],
       "artifacts": [],
-      "explanation": "Read-only, fail-closed validation of the exact v1.3 157-requirement and 286-work-package inventories, preserved v1.2 reviewed hashes, final M00-W10-reviewed v1.3 mapping/dependency hashes, dependencies, four critical-gate effects, honest states/evidence, deterministic generated view, and next-work derivation."
+      "explanation": "Read-only, fail-closed validation of the exact v1.4 193-requirement and 300-work-package inventories, immutable v1.2/v1.3 reviewed hash layers, the M00-W11-reviewed v1.4 mapping/dependency hashes, explicit M00/M01/M27 dependencies, four critical-gate effects, honest UX/provider states/evidence, deterministic generated view, and next-work derivation."
     },
     {
       "id": "status",
@@ -436,7 +436,7 @@
       "proofs": [],
       "discovery_globs": [],
       "artifacts": [],
-      "explanation": "Built-in checks: canonical project-memory files exist; the canonical spec stays at docs/MASTER_IMPLEMENTATION_SPEC.md; lockfiles exist for every active ecosystem; every required root script exists and is not a no-op; no passWithNoTests-style bypass in tracked config; no focused (.only) or skipped (.skip / @pytest.mark.skip) tests outside allowed_skips; pnpm verify is status-neutral (git status --porcelain identical before and after)."
+      "explanation": "Built-in checks: all v1.4 canonical project-memory files exist; the canonical spec is one regular non-symlink file with no case/Unicode/content variant; lockfiles exist for every active ecosystem; every required root script exists and is not a no-op; tracked text has no prohibited raw C0 bytes; no passWithNoTests-style bypass in tracked config; no focused (.only) or skipped (.skip / @pytest.mark.skip) tests outside allowed_skips; pnpm verify is status-neutral (git status --porcelain identical before and after)."
     }
   ]
 }

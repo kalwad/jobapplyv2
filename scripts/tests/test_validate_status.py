@@ -1,4 +1,4 @@
-"""Black-box tests for the v1.3-aware scripts/validate_status.py (M00-W10).
+"""Black-box tests for the v1.4-aware scripts/validate_status.py (M00-W11).
 
 The validator is exercised exactly as production runs it (a subprocess with
 ``--repo``), against full temporary copies of the repository's project-memory
@@ -7,9 +7,9 @@ prove every §12/§13.8-mandated rejection: invalid gate states, missing
 platform packages/requirements, stale inventory, a second
 canonical-looking specification, a missing Workday gate report, dropped
 preserved revisions, gate-based readiness blocking for M03/M06/M21, and the
-structural rules carried over from v1.2 (enums, single IN_PROGRESS,
-dependencies, completeness). M00-W10 adds exact closeout/readiness checks and
-fail-closed Gate D repository-evidence resolution.
+structural rules carried over from v1.2/v1.3 (enums, single IN_PROGRESS,
+dependencies, completeness). M00-W11 adds exact migration/readiness checks,
+the explicit M27-W13/W14/W12 graph, and fail-closed Gate D revision binding.
 """
 
 from __future__ import annotations
@@ -34,6 +34,7 @@ GATES = (
     "CROSS_PLATFORM_CORE",
 )
 FAKE_TREE = "tree " + "0" * 40
+OTHER_FAKE_TREE = "tree " + "1" * 40
 GATE_D_EVIDENCE_REL = "docs/gates/evidence/SYNTHETIC_GATE_D_EVIDENCE.md"
 FAKE_EVIDENCE_HASH = "sha256:" + "0" * 64
 FAKE_REVIEWER = "clean-session fixture reviewer"
@@ -85,6 +86,20 @@ def set_ms_state(repo: Path, mid: str, state: str) -> None:
     path.write_text(pattern.sub(rf"\g<1>{state}\g<2>", text), encoding="utf-8")
 
 
+def set_ms_revision(repo: Path, mid: str, revision: str) -> None:
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"^(\| {re.escape(mid)} \| [A-Z_]+ \| )[^|]+(\|)",
+        flags=re.MULTILINE,
+    )
+    assert pattern.search(text), f"no milestone row for {mid}"
+    path.write_text(
+        pattern.sub(rf"\g<1>{revision} \g<2>", text, count=1),
+        encoding="utf-8",
+    )
+
+
 def set_current_package(repo: Path, value: str) -> None:
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
@@ -134,9 +149,9 @@ def promote(repo: Path, pid: str) -> None:
     """Mark a package done with a synthetic revision and evidence entry.
 
     M00's acceptance contract is intentionally stricter than later
-    milestones: all ten direct packages must remain exactly VERIFIED.
+    milestones: all eleven direct packages must remain exactly VERIFIED.
     """
-    if pid in validate_status.PRESERVED_M00_REVISIONS:
+    if pid in validate_status.PRESERVED_PACKAGE_ANCHORS:
         return
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
@@ -162,7 +177,12 @@ def promote_milestones(repo: Path, mids: list[str]) -> None:
 
 
 def set_status_gate_row(
-    repo: Path, gate: str, state: str, *, filled: bool = False
+    repo: Path,
+    gate: str,
+    state: str,
+    *,
+    filled: bool = False,
+    revision: str = FAKE_TREE,
 ) -> None:
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
@@ -170,7 +190,7 @@ def set_status_gate_row(
     assert pattern.search(text), f"no critical-gates row for {gate}"
     if filled:
         row = (
-            f"| {gate} | {state} | {FAKE_TREE} | {FAKE_EVIDENCE_HASH} | "
+            f"| {gate} | {state} | {revision} | {FAKE_EVIDENCE_HASH} | "
             f"{FAKE_REVIEWER} | docs/gates/{gate}_GATE.md |"
         )
     else:
@@ -197,13 +217,15 @@ def set_ledger_gate_state(repo: Path, gate: str, state: str) -> None:
     path.write_text("\n## ".join(sections), encoding="utf-8")
 
 
-def set_ledger_gate_pass_evidence(repo: Path, gate: str) -> None:
+def set_ledger_gate_pass_evidence(
+    repo: Path, gate: str, *, revision: str = FAKE_TREE
+) -> None:
     path = repo / "docs" / "CRITICAL_GATES.md"
     text = path.read_text(encoding="utf-8")
     sections = text.split("\n## ")
     replacements = {
         "State": "PASS",
-        "Evaluated revision": FAKE_TREE,
+        "Evaluated revision": revision,
         "Corpus/holdout hash": FAKE_EVIDENCE_HASH,
         "Independent reviewer": FAKE_REVIEWER,
         "Owner decision": "PASS",
@@ -311,10 +333,10 @@ Fixture-only packaging/update evidence.
     )
 
 
-def pass_gate(repo: Path, gate: str) -> None:
+def pass_gate(repo: Path, gate: str, *, revision: str = FAKE_TREE) -> None:
     """Flip a gate to PASS coherently across status, ledger, and report."""
-    set_status_gate_row(repo, gate, "PASS", filled=True)
-    set_ledger_gate_pass_evidence(repo, gate)
+    set_status_gate_row(repo, gate, "PASS", filled=True, revision=revision)
+    set_ledger_gate_pass_evidence(repo, gate, revision=revision)
     report = repo / "docs" / "gates" / f"{gate}_GATE.md"
     gate_d_bundle = ""
     if gate == "CROSS_PLATFORM_CORE":
@@ -325,7 +347,7 @@ def pass_gate(repo: Path, gate: str) -> None:
     with report.open("a", encoding="utf-8") as handle:
         handle.write(
             "\n- State: PASS\n"
-            f"- Evaluated revision: {FAKE_TREE}\n"
+            f"- Evaluated revision: {revision}\n"
             f"- Corpus/holdout hash: {FAKE_EVIDENCE_HASH}\n"
             f"- Independent reviewer: {FAKE_REVIEWER}\n"
             "- Owner decision: PASS (synthetic fixture)\n"
@@ -402,40 +424,47 @@ def accept_full_ai_profiles(repo: Path) -> None:
 
 
 def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
-    """Create either the accepted-M00 boundary or its exact next-ready state.
+    """Create the accepted-M00-W11 boundary and optional exact next-ready state.
 
     The fixture establishes its own complete premise instead of inheriting
-    live repository state. As M01 work advances, inherited rows would
-    otherwise break the historical boundary invariants these tests assert
-    (KI-0014/KI-0015/KI-0016/KI-0017 class), so every M01 row is reset here.
+    live repository state. M01-W01…W06 are immutable verified anchors, and
+    M01-W07 is the only package whose readiness changes at this boundary.
     """
     promote_milestones(repo, ["M00"])
     set_current_package(repo, "NONE")
-    set_pkg_state(repo, "M01-W01", "READY" if m01_ready else "NOT_STARTED")
-    for later_package in (
-        "M01-W02",
-        "M01-W03",
-        "M01-W04",
-        "M01-W05",
-        "M01-W06",
-        "M01-W07",
-    ):
-        set_pkg_state(repo, later_package, "NOT_STARTED")
-    set_ms_state(repo, "M01", "READY" if m01_ready else "NOT_STARTED")
-    set_next_ready(repo, "`M01-W01`" if m01_ready else "NONE")
+    set_pkg_state(repo, "M01-W07", "READY" if m01_ready else "NOT_STARTED")
+    set_ms_state(repo, "M01", "IN_PROGRESS")
+    set_next_ready(repo, "`M01-W07`" if m01_ready else "NONE")
 
 
-def prepare_gate_d_pass(repo: Path) -> None:
+def prepare_gate_d_pass(repo: Path, *, gate_d_revision: str = FAKE_TREE) -> None:
     promote_milestones(repo, [f"M{number:02d}" for number in range(27)])
     for number in range(1, 12):
         promote(repo, f"M27-W{number:02d}")
+    promote(repo, "M27-W13")
+    promote(repo, "M27-W14")
     set_ms_state(repo, "M27", "IN_PROGRESS")
     set_pkg_state(repo, "M27-W12", "IN_PROGRESS")
     set_current_package(repo, "M27-W12")
     set_next_ready(repo, "NONE")
     for gate in GATES:
-        pass_gate(repo, gate)
+        pass_gate(
+            repo,
+            gate,
+            revision=gate_d_revision if gate == "CROSS_PLATFORM_CORE" else FAKE_TREE,
+        )
     accept_full_ai_profiles(repo)
+
+
+def prepare_m28_ready(repo: Path, *, gate_d_revision: str = FAKE_TREE) -> None:
+    prepare_gate_d_pass(repo, gate_d_revision=gate_d_revision)
+    promote(repo, "M27-W12")
+    set_ms_state(repo, "M27", "ACCEPTED")
+    set_ms_revision(repo, "M27", FAKE_TREE)
+    set_current_package(repo, "NONE")
+    set_ms_state(repo, "M28", "READY")
+    set_pkg_state(repo, "M28-W01", "READY")
+    set_next_ready(repo, "`M28-W01`")
 
 
 # ---------------------------------------------------------------- positive
@@ -447,17 +476,17 @@ def test_migrated_repository_passes() -> None:
     assert "PASS" in result.stdout
 
 
-def test_owner_approved_hash_and_exact_v13_inventory() -> None:
+def test_owner_approved_hash_and_exact_v14_inventory() -> None:
     spec_path = REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.md"
     assert hashlib.sha256(spec_path.read_bytes()).hexdigest() == (
-        "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+        "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
     )
     spec = validate_status.parse_spec(spec_path)
     assert list(spec.milestones) == [f"M{number:02d}" for number in range(39)]
-    assert len(spec.package_ids()) == len(set(spec.package_ids())) == 286
-    assert len(spec.requirement_ids) == 157
+    assert len(spec.package_ids()) == len(set(spec.package_ids())) == 300
+    assert len(spec.requirement_ids) == 193
     assert [pid for pid, _ in spec.milestones["M00"].packages] == [
-        f"M00-W{number:02d}" for number in range(1, 11)
+        f"M00-W{number:02d}" for number in range(1, 12)
     ]
 
 
@@ -466,7 +495,7 @@ def test_owner_controlled_agent_and_staged_ai_policy_are_present() -> None:
         encoding="utf-8"
     )
     assert "**Implementation-agent policy:** Owner-selected per package." in text
-    assert "must not automatically route work between Claude, Codex" in text
+    assert "must not automatically route work between agents, model families" in text
     assert "does not block the resume/PageFit feasibility architecture or `M06`" in text
     assert (
         "Final acceptance of at least one `CERTIFIED_FULL` Windows profile "
@@ -500,53 +529,55 @@ def test_invalid_package_state_rejected(repo_copy: Path) -> None:
 
 def test_skipped_dependency_rejected(repo_copy: Path) -> None:
     promote_milestones(repo_copy, ["M00"])
-    set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
+    set_pkg_state(repo_copy, "M00-W11", "NOT_STARTED")
     set_ms_state(repo_copy, "M00", "IN_PROGRESS")
-    set_pkg_state(repo_copy, "M01-W01", "READY")
+    set_pkg_state(repo_copy, "M01-W07", "READY")
     set_current_package(repo_copy, "NONE")
-    set_next_ready(repo_copy, "`M01-W01`")
+    set_next_ready(repo_copy, "`M01-W07`")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "dependency milestone M00 has unfinished packages" in result.stdout
+    assert "before M00-W11 is exactly VERIFIED" in result.stdout
 
 
-def test_m01_w01_requires_m00_milestone_acceptance_not_only_done_packages(
+def test_m01_w07_requires_m00_milestone_acceptance_not_only_done_packages(
     repo_copy: Path,
 ) -> None:
     promote_milestones(repo_copy, ["M00"])
     set_ms_state(repo_copy, "M00", "VERIFIED")
     set_current_package(repo_copy, "NONE")
-    set_ms_state(repo_copy, "M01", "READY")
-    set_pkg_state(repo_copy, "M01-W01", "READY")
-    set_next_ready(repo_copy, "`M01-W01`")
+    set_ms_state(repo_copy, "M01", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M01-W07", "READY")
+    set_next_ready(repo_copy, "`M01-W07`")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "milestone M00 is 'VERIFIED' (ACCEPTED required)" in result.stdout
 
 
-def test_m01_w01_becomes_ready_after_valid_m00_acceptance(repo_copy: Path) -> None:
+def test_m01_w07_becomes_ready_after_valid_m00_acceptance(repo_copy: Path) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=True)
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
 
 
-def test_valid_m00_closeout_makes_only_m01_w01_ready(repo_copy: Path) -> None:
+def test_valid_m00_closeout_makes_only_m01_w07_ready(repo_copy: Path) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=True)
     parsed = validate_status.parse_status(status_path(repo_copy))
     ready = [cells[0] for cells in parsed.package_rows if cells[1] == "READY"]
-    assert ready == ["M01-W01"]
+    assert ready == ["M01-W07"]
     assert all(cells[1] == "NOT_EVALUATED" for cells in parsed.gate_rows)
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
 
 
-def test_accepted_m00_cannot_leave_every_m01_package_not_started(
+def test_completed_m00_w11_closeout_requires_m01_w07_ready(
     repo_copy: Path,
 ) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=False)
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "accepted M00 closeout must make M01-W01" in result.stdout
+    assert (
+        "completed M00-W11 closeout cannot leave M01-W07 NOT_STARTED" in result.stdout
+    )
 
 
 def test_post_m00_closeout_keeps_every_gate_not_evaluated(
@@ -556,7 +587,7 @@ def test_post_m00_closeout_keeps_every_gate_not_evaluated(
     pass_gate(repo_copy, "AUTOFILL_FEASIBILITY")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "post-M00 closeout boundary" in result.stdout
+    assert "post-M00-W11 closeout boundary" in result.stdout
     assert "AUTOFILL_FEASIBILITY" in result.stdout
 
 
@@ -571,14 +602,15 @@ def test_m00_acceptance_requires_every_direct_package_exactly_verified(
     assert "'M00-W09': 'ACCEPTED'" in result.stdout
 
 
-def test_m01_w01_rejects_accepted_instead_of_verified_m00_w10(
+def test_m01_w07_rejects_accepted_instead_of_verified_m00_w11(
     repo_copy: Path,
 ) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=True)
-    set_pkg_state(repo_copy, "M00-W10", "ACCEPTED")
+    set_pkg_state(repo_copy, "M00-W11", "ACCEPTED")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "M00-W10 is exactly VERIFIED" in result.stdout
+    assert "M00-W11" in result.stdout
+    assert "exactly VERIFIED" in result.stdout
 
 
 def test_next_ready_none_rejected_when_ready_row_exists(repo_copy: Path) -> None:
@@ -591,7 +623,7 @@ def test_next_ready_none_rejected_when_ready_row_exists(repo_copy: Path) -> None
 
 def test_named_next_ready_rejected_when_no_ready_row_exists(repo_copy: Path) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=False)
-    set_next_ready(repo_copy, "`M01-W01`")
+    set_next_ready(repo_copy, "`M01-W07`")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "no work-package row is READY" in result.stdout
@@ -601,21 +633,12 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
     repo_copy: Path,
 ) -> None:
     # Establish the complete premise (no IN_PROGRESS row) regardless of the
-    # live repository state: M01 packages become IN_PROGRESS as the milestone
-    # advances (M01-W01, then M01-W02, then M01-W03, …), and an inherited
+    # live repository state: packages become IN_PROGRESS as the milestone
+    # advances, and an inherited
     # IN_PROGRESS row would divert the validator to the
     # current-package-mismatch error instead of the exactness error
     # (KI-0014/KI-0015/KI-0017 class).
-    set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
-    for m01_package in (
-        "M01-W01",
-        "M01-W02",
-        "M01-W03",
-        "M01-W04",
-        "M01-W05",
-        "M01-W06",
-    ):
-        set_pkg_state(repo_copy, m01_package, "NOT_STARTED")
+    set_pkg_state(repo_copy, "M00-W11", "NOT_STARTED")
     set_current_package(repo_copy, "garbage")
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -657,10 +680,10 @@ def test_all_gates_remain_not_evaluated_while_m00_is_unfinished(
     repo_copy: Path,
 ) -> None:
     set_ms_state(repo_copy, "M00", "IN_PROGRESS")
-    set_pkg_state(repo_copy, "M00-W10", "IN_PROGRESS")
-    set_current_package(repo_copy, "M00-W10")
-    set_ms_state(repo_copy, "M01", "NOT_STARTED")
-    set_pkg_state(repo_copy, "M01-W01", "NOT_STARTED")
+    set_pkg_state(repo_copy, "M00-W11", "IN_PROGRESS")
+    set_current_package(repo_copy, "M00-W11")
+    set_ms_state(repo_copy, "M01", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M01-W07", "NOT_STARTED")
     set_next_ready(repo_copy, "NONE")
     set_status_gate_row(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
     set_ledger_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
@@ -671,15 +694,15 @@ def test_all_gates_remain_not_evaluated_while_m00_is_unfinished(
 
 def test_no_other_m01_package_becomes_prematurely_ready(repo_copy: Path) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=True)
-    set_pkg_state(repo_copy, "M01-W02", "READY")
+    set_pkg_state(repo_copy, "M02-W01", "READY")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "earlier package M01-W01 is 'READY'" in result.stdout
+    assert "M01-W07 must be the only READY package" in result.stdout
 
 
 def test_two_in_progress_rejected(repo_copy: Path) -> None:
-    set_pkg_state(repo_copy, "M01-W01", "IN_PROGRESS")
-    set_pkg_state(repo_copy, "M01-W02", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M00-W11", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M01-W07", "IN_PROGRESS")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "more than one work package IN_PROGRESS" in result.stdout
@@ -721,7 +744,7 @@ def test_missing_workday_requirement_rejected(repo_copy: Path) -> None:
     spec.write_text(pattern.sub("", text, count=1), encoding="utf-8")
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "expected 157" in result.stdout
+    assert "expected 193" in result.stdout
 
 
 def test_missing_milestone_section_rejected(repo_copy: Path) -> None:
@@ -739,16 +762,16 @@ def test_second_canonical_spec_rejected(repo_copy: Path) -> None:
     canonical = repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.md"
     shutil.copy2(
         canonical,
-        repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md",
+        repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.4.proposed.md",
     )
     result = run_validator(repo_copy)
     assert result.returncode == 1
-    assert "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md" in result.stdout
+    assert "MASTER_IMPLEMENTATION_SPEC.v1.4.proposed.md" in result.stdout
 
 
 def test_final_tree_has_no_proposed_specification() -> None:
     assert not (
-        REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.3.proposed.md"
+        REPO_ROOT / "docs" / "MASTER_IMPLEMENTATION_SPEC.v1.4.proposed.md"
     ).exists()
 
 
@@ -780,6 +803,196 @@ def test_renamed_canonical_lookalike_rejected(repo_copy: Path) -> None:
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "ARCHIVED_NOTES.md" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("relative", "old", "new", "message"),
+    [
+        (
+            "docs/UI_FAMILIARITY.md",
+            (
+                "| `DESKTOP_SHELL` | Desktop shell and global navigation | "
+                "`M03-W01`, `M03-W11` | `NOT_YET_APPLICABLE` |"
+            ),
+            (
+                "| `DESKTOP_SHELL` | Desktop shell and global navigation | "
+                "`M03-W01`, `M03-W11` | `OWNER_APPROVED` |"
+            ),
+            "UI familiarity surface DESKTOP_SHELL must remain NOT_YET_APPLICABLE",
+        ),
+        (
+            "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+            "| `DESKTOP_SHELL` | `M03-W01`, `M03-W11` | `NOT_YET_APPLICABLE` | — |",
+            "| `DESKTOP_SHELL` | `M03-W01`, `M03-W11` | `APPROVED` | fake.png |",
+            "visual baseline surface DESKTOP_SHELL must remain NOT_YET_APPLICABLE",
+        ),
+        (
+            "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+            (
+                "| `AB-01` | No marketing hero treatment on authenticated "
+                "product surfaces. | `NOT_EVALUATED` |"
+            ),
+            (
+                "| `AB-01` | No marketing hero treatment on authenticated "
+                "product surfaces. | `PASS` |"
+            ),
+            "anti-bloat rule AB-01 must have one NOT_EVALUATED row",
+        ),
+        (
+            "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+            "`DISABLED_BY_DEFAULT` | `NOT_IMPLEMENTED`",
+            "`ENABLED_EXPERIMENTAL` | `NOT_IMPLEMENTED`",
+            "provider CHATGPT_ACCOUNT_OAUTH state drift",
+        ),
+    ],
+)
+def test_v14_governance_ledger_false_completion_rejected(
+    repo_copy: Path, relative: str, old: str, new: str, message: str
+) -> None:
+    """Each ledger mutation must be rejected by its own exact diagnostic.
+
+    A loose ``"v1.4" in stdout`` assertion would pass for any failure at all,
+    because the validator's own ``ok:`` lines mention v1.4 and the provider
+    boundary; the expected message is therefore pinned per case.
+    """
+    edit(repo_copy / relative, old, new, count=1)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert f"ERROR: {message}" in result.stdout
+
+
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "docs/UI_FAMILIARITY.md",
+        "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+    ],
+)
+def test_empty_v14_governance_memory_rejected(repo_copy: Path, relative: str) -> None:
+    (repo_copy / relative).write_text("", encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert f"missing or empty project-memory file: {relative}" in result.stdout
+
+
+def test_missing_or_duplicate_familiarity_surface_rejected(
+    repo_copy: Path,
+) -> None:
+    path = repo_copy / "docs/UI_FAMILIARITY.md"
+    text = path.read_text(encoding="utf-8")
+    row = next(
+        line for line in text.splitlines() if line.startswith("| `DESKTOP_SHELL` |")
+    )
+    path.write_text(text.replace(f"{row}\n", "", 1), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "UI familiarity surface DESKTOP_SHELL" in result.stdout
+
+    path.write_text(text.replace(row, f"{row}\n{row}", 1), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "UI familiarity surface DESKTOP_SHELL" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("cell_index", "value", "message"),
+    [
+        (4, "sha256:" + "a" * 64, "invents capture metadata"),
+        (10, "`APPROVED`", "falsely claims approval"),
+    ],
+)
+def test_unapproved_visual_baseline_cannot_claim_artifact_or_decision(
+    repo_copy: Path, cell_index: int, value: str, message: str
+) -> None:
+    _set_markdown_table_cell(
+        repo_copy / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        "DESKTOP_SHELL",
+        cell_index,
+        value,
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert message in result.stdout
+
+
+def test_removed_anti_bloat_rule_rejected(repo_copy: Path) -> None:
+    path = repo_copy / "docs/ui/ANTI_BLOAT_CHECKLIST.md"
+    text = path.read_text(encoding="utf-8")
+    row = next(line for line in text.splitlines() if line.startswith("| `AB-12` |"))
+    path.write_text(text.replace(f"{row}\n", "", 1), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "anti-bloat rule AB-12" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("provider_id", "cell_index", "value"),
+    [
+        ("CHATGPT_ACCOUNT_OAUTH", 3, "`IMPLEMENTED`"),
+        ("CHATGPT_ACCOUNT_OAUTH", 4, "`PASS`"),
+        ("CHATGPT_ACCOUNT_OAUTH", 5, "`ENABLED_EXPERIMENTAL`"),
+        ("CHATGPT_ACCOUNT_OAUTH", 6, "`SUPPORTED`"),
+        ("OLLAMA_LOCAL", 2, "`DISABLED_BY_DEFAULT`"),
+    ],
+)
+def test_provider_registry_false_state_rejected(
+    repo_copy: Path, provider_id: str, cell_index: int, value: str
+) -> None:
+    _set_markdown_table_cell(
+        repo_copy / "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+        provider_id,
+        cell_index,
+        value,
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert f"provider {provider_id} state drift" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "message"),
+    [
+        (
+            "There is no silent provider fallback.",
+            "Silent provider fallback is allowed.",
+            "There is no silent provider fallback.",
+        ),
+        (
+            "`M27-W12` executes last",
+            "`M27-W14` executes last",
+            "M27-W12` executes last",
+        ),
+    ],
+)
+def test_provider_policy_weakening_rejected(
+    repo_copy: Path, old: str, new: str, message: str
+) -> None:
+    edit(
+        repo_copy / "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+        old,
+        new,
+        count=1,
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert message in result.stdout
+
+
+def test_duplicate_requirement_definition_rejected(repo_copy: Path) -> None:
+    spec = repo_copy / "docs" / "MASTER_IMPLEMENTATION_SPEC.md"
+    text = spec.read_text(encoding="utf-8")
+    definition = next(
+        line for line in text.splitlines() if line.startswith("- `REQ-AI-018`:")
+    )
+    spec.write_text(
+        text.replace(definition, f"{definition}\n{definition}", 1),
+        encoding="utf-8",
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "194 requirement rows, 193 unique IDs" in result.stdout
 
 
 # ------------------------------------------------------------ gate checks
@@ -1387,6 +1600,40 @@ def test_m28_blocked_without_m27_acceptance_even_when_gate_d_passes(
     assert "ACCEPTED required" in result.stdout
 
 
+def test_m27_w12_waits_for_w13_and_w14(repo_copy: Path) -> None:
+    promote_milestones(repo_copy, [f"M{number:02d}" for number in range(27)])
+    for number in range(1, 12):
+        promote(repo_copy, f"M27-W{number:02d}")
+    set_ms_state(repo_copy, "M27", "IN_PROGRESS")
+    set_current_package(repo_copy, "NONE")
+    set_pkg_state(repo_copy, "M27-W12", "READY")
+    set_next_ready(repo_copy, "`M27-W12`")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert (
+        "M27-W12 is READY but direct package prerequisite M27-W13 is 'NOT_STARTED'"
+    ) in result.stdout
+    assert (
+        "M27-W12 is READY but direct package prerequisite M27-W14 is 'NOT_STARTED'"
+    ) in result.stdout
+
+
+def test_m28_accepts_gate_d_bound_to_final_m27_tree(repo_copy: Path) -> None:
+    prepare_m28_ready(repo_copy)
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_m28_rejects_stale_gate_d_revision(repo_copy: Path) -> None:
+    prepare_m28_ready(repo_copy, gate_d_revision=OTHER_FAKE_TREE)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert (
+        "M28 requires Gate D evaluated revision to equal the final accepted "
+        "M27/M27-W12 content tree"
+    ) in result.stdout
+
+
 def test_m21_blocked_without_workday_gate_and_accepted_m19_m20(
     repo_copy: Path,
 ) -> None:
@@ -1409,7 +1656,9 @@ def test_m21_blocked_without_workday_gate_and_accepted_m19_m20(
 # ------------------------------------------------- evidence preservation
 
 
-@pytest.mark.parametrize("package_id", ["M00-W03", "M00-W08", "M00-W09"])
+@pytest.mark.parametrize(
+    "package_id", sorted(validate_status.PRESERVED_PACKAGE_ANCHORS)
+)
 def test_dropped_preserved_revision_rejected(repo_copy: Path, package_id: str) -> None:
     path = status_path(repo_copy)
     text = path.read_text(encoding="utf-8")

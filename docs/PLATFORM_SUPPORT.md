@@ -1,6 +1,6 @@
 # Platform Support
 
-Canonical platform-governance memory for JAPP-MASTER-001 v1.3. This file
+Canonical platform-governance memory for JAPP-MASTER-001 v1.4. This file
 records intended certification scope and current evidence honestly; it is not
 evidence that a product package, secure store, model runtime, native host,
 installer, updater, or compatibility target already works.
@@ -42,6 +42,9 @@ claim exists yet, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`.
   does not block `M06`.
 - `M27-W10` owns final acceptance of at least one full-AI Windows profile and
   one full-AI Ubuntu profile.
+- The provider-neutral M05-W03 path and M05-W17 re-anchoring must preserve the
+  local Ollama default. The future experimental external provider remains
+  non-core and cannot substitute for any required local profile.
 - Neither Windows nor Ubuntu has an accepted full-AI profile today.
 - `CROSS_PLATFORM_CORE` cannot pass until those later full-AI acceptances and
   every other Gate D requirement have real native packaged evidence.
@@ -65,7 +68,14 @@ claim exists yet, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`.
 - Cross-platform rendering: `M10-W07`.
 - Native-messaging registration/E2E: `M17-W07` through `M17-W10`.
 - Native release candidates, full-AI certification, updater, and Gate D:
-  `M27-W08` through `M27-W12`.
+  `M27-W08` through `M27-W12`, with the explicit terminal order
+  `M27-W01…W11` → `M27-W13` → `M27-W14` → `M27-W12`.
+
+Gate D must be evaluated at the final accepted M27 content tree. If an
+intervening change is claimed gate-neutral, M28 remains blocked until the
+independent re-anchoring record is explicitly accepted. An experimental
+provider decision of `DISABLED_BY_POLICY` is valid and must leave every
+certified-platform and core-readiness obligation unchanged.
 
 Detailed matrices live under `docs/platform/`. Compatibility claims require a
 dated evidence reference and remain `NOT_YET_IMPLEMENTED` until their owning

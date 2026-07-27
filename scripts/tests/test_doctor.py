@@ -329,13 +329,23 @@ def test_missing_playwright_browser_fails() -> None:
 # --------------------------------------------------- repository-file failures
 
 
-def test_missing_memory_file_fails(doctor_repo: Path) -> None:
-    (doctor_repo / "docs" / "KNOWN_ISSUES.md").unlink()
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "docs/KNOWN_ISSUES.md",
+        "docs/UI_FAMILIARITY.md",
+        "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+    ],
+)
+def test_missing_memory_file_fails(doctor_repo: Path, relative: str) -> None:
+    (doctor_repo / relative).unlink()
     pins = doctor.read_pins(doctor_repo)
     results = doctor.check_repository_files(ctx_with(doctor_repo), pins)
     memory = result_by_id(results, "memory-files")
     assert memory.status == doctor.STATUS_FAIL
-    assert "KNOWN_ISSUES.md" in memory.detail
+    assert Path(relative).name in memory.detail
     assert memory.remediation
 
 
@@ -362,6 +372,25 @@ def test_invalid_project_status_fails(doctor_repo: Path) -> None:
     status.write_text(
         status.read_text(encoding="utf-8").replace(
             "| `M03-W02` | NOT_STARTED |", "| `M03-W02` | DONE |"
+        ),
+        encoding="utf-8",
+    )
+    pins = doctor.read_pins(doctor_repo)
+    ctx = doctor.DoctorContext(repo=doctor_repo, run=doctor.default_runner(doctor_repo))
+    results = doctor.check_status_validator(ctx, pins)
+    validator = result_by_id(results, "status-validator")
+    assert validator.status == doctor.STATUS_FAIL
+
+
+def test_invalid_provider_governance_fails_status_validator(
+    doctor_repo: Path,
+) -> None:
+    providers = doctor_repo / "docs" / "EXPERIMENTAL_AI_PROVIDERS.md"
+    providers.write_text(
+        providers.read_text(encoding="utf-8").replace(
+            "`DISABLED_BY_DEFAULT` | `NOT_IMPLEMENTED`",
+            "`ENABLED_EXPERIMENTAL` | `NOT_IMPLEMENTED`",
+            1,
         ),
         encoding="utf-8",
     )

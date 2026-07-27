@@ -6,6 +6,10 @@ This file records evaluation runs and the decision trail; the authoritative
 state ledger is `docs/CRITICAL_GATES.md`, and the state must agree with the
 `## Critical gates` table in `docs/PROJECT_STATUS.md`.
 
+The v1.4 familiarity/provider governance migration does not change Gate A's
+metrics or evaluate it. Familiar visual treatment cannot hide unresolved
+fields, safety pauses, or other Gate A evidence.
+
 ## Identity
 
 - Gate: AUTOFILL_FEASIBILITY

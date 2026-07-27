@@ -5,3 +5,8 @@
 # macOS, Windows, and Ubuntu. Binary content is auto-detected by Git and
 # left untouched.
 * text=auto eol=lf
+
+# The owner-approved canonical specification is byte-locked and contains
+# intentional Markdown hard-break spaces. Preserve LF checkout while excluding
+# only this path from Git's patch whitespace diagnostics.
+docs/MASTER_IMPLEMENTATION_SPEC.md -whitespace

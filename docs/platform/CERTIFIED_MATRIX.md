@@ -1,6 +1,6 @@
 # Certified Platform Matrix
 
-Planning matrix created by M00-W08. Rows describe the v1.3 certification
+Planning matrix created by M00-W08 and retained under v1.4. Rows describe the certification
 contract, not completed compatibility claims.
 
 | Target ID | OS / architecture | Browser | Intended support | Current product state | Native evidence | Owning packages |
@@ -13,11 +13,11 @@ contract, not completed compatibility claims.
 
 | Target | State | Evidence / reason |
 |---|---|---|
-| Windows 10 | `UNSUPPORTED` | Outside v1.3 first-release scope. |
-| Intel macOS | `UNSUPPORTED` | Outside v1.3 first-release scope. |
-| Windows ARM64 | `UNSUPPORTED` | Outside v1.3 first-release scope. |
+| Windows 10 | `UNSUPPORTED` | Outside v1.4 first-release scope. |
+| Intel macOS | `UNSUPPORTED` | Outside v1.4 first-release scope. |
+| Windows ARM64 | `UNSUPPORTED` | Outside v1.4 first-release scope. |
 | Non-Ubuntu Linux distributions | `EXPERIMENTAL` at most | No certification package or evidence. |
-| Firefox, Safari, ChromeOS, mobile | `UNSUPPORTED` | Outside v1.3 first-release scope. |
+| Firefox, Safari, ChromeOS, mobile | `UNSUPPORTED` | Outside v1.4 first-release scope. |
 
 M00 CI evidence is repository-infrastructure evidence only and must never be
 promoted into these native-product rows. That includes the required

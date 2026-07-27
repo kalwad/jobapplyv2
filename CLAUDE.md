@@ -2,8 +2,8 @@
 
 This repository implements the local-first job application platform governed by
 one canonical contract: **`docs/MASTER_IMPLEMENTATION_SPEC.md`**
-(Specification ID `JAPP-MASTER-001`, version 1.3 — the cross-platform
-production, packaging, and runtime rebaseline, adopted by ADR-0002). That file
+(Specification ID `JAPP-MASTER-001`, version 1.4 — the familiarity-first UI
+and experimental-provider rebaseline, adopted by ADR-0003). That file
 is the single source of authority for product scope, architecture, stack,
 milestones, work packages, critical gates, validation, and completion. Do not
 silently rewrite it. Do not choose or discuss a product name; use neutral
@@ -21,6 +21,8 @@ At the beginning of every new prompt or resumed session, the implementation agen
 2. Read `docs/MASTER_IMPLEMENTATION_SPEC.md`.
 3. Read `docs/PROJECT_STATUS.md`, `docs/DECISIONS.md`, `docs/TEST_EVIDENCE.md`,
    `docs/KNOWN_ISSUES.md`, `docs/COMPATIBILITY_MATRIX.md`,
+   `docs/UI_FAMILIARITY.md`, `docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md`,
+   `docs/ui/ANTI_BLOAT_CHECKLIST.md`, `docs/EXPERIMENTAL_AI_PROVIDERS.md`,
    `docs/traceability.json`, `docs/REQUIREMENTS_TRACEABILITY.md`, and
    `docs/CRITICAL_GATES.md`, then read `docs/PLATFORM_SUPPORT.md`, every file
    under `docs/platform/`, and every report under `docs/gates/`.
@@ -42,8 +44,10 @@ At the beginning of every new prompt or resumed session, the implementation agen
 | `docs/TEST_EVIDENCE.md` | Exact verification commands and results | Appended at every package verification; never record a command that was not run and inspected in the current repository state |
 | `docs/KNOWN_ISSUES.md` | Reproducible defects, deferred risks, parked ideas | Updated whenever discovered; scope ideas are parked here instead of broadening a package |
 | `docs/COMPATIBILITY_MATRIX.md` | ATS/browser/OS support and measured pass rates | Measured, evidence-linked data only |
+| `docs/UI_FAMILIARITY.md` and `docs/ui/` | Familiarity/reference governance, revision-scoped owner visual baselines, and anti-bloat review | Never invent observations, captures, hashes, approvals, or pass results; accessibility/safety/originality take precedence |
+| `docs/EXPERIMENTAL_AI_PROVIDERS.md` | Local-default and experimental-provider state, isolation, egress, and ship/disable governance | External providers remain non-core/default-off and cannot be called release-supported without an accepted revision-scoped decision |
 | `docs/PLATFORM_SUPPORT.md` and `docs/platform/` | Certified target policy and planning/future-evidence registers | Never convert planned support to certified evidence without the owning package and native proof |
-| `docs/traceability.json` | Canonical machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | v1.2 mappings remain `REVIEWED_V1_2` and hash-locked; the M00-W10-audited v1.3 delta remains `REVIEWED_V1_3` and hash-locked; regenerate/check the Markdown view after every intentional update |
+| `docs/traceability.json` | Canonical machine-readable requirement/package mappings, dependencies, planned verification/evidence, and honest current states | v1.2 and v1.3 reviewed hashes remain immutable historical layers; only the M00-W11 v1.4 additions are `REVIEWED_V1_4`; regenerate/check the Markdown view after every intentional update |
 | `docs/REQUIREMENTS_TRACEABILITY.md` | Generated requirement and work-package traceability/readiness view | Never edit by hand; regenerate with `pnpm traceability:generate` and require `pnpm traceability:check` |
 | `docs/CRITICAL_GATES.md` | Autofill, resume/PageFit, Workday, and Cross-Platform Core gate state, corpus/evidence hash, reviewer, decision | Gate states change only with recorded evidence; PASS additionally requires independent review and the owner decision (spec §12) |
 | `docs/gates/` | Per-gate run reports and the holdout execution log | Append-only run records; states mirror `docs/CRITICAL_GATES.md` |
@@ -62,7 +66,8 @@ Critical-gate states:
 NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
 ```
 
-- No more than one work package is `IN_PROGRESS` at any time.
+- No more than one work package is `IN_PROGRESS` or `READY` at any time, and
+  `READY` cannot coexist with `IN_PROGRESS`.
 - A package is not `VERIFIED` merely because code exists: its required tests
   must pass and its evidence must be recorded in `docs/TEST_EVIDENCE.md`.
 - A package is not `ACCEPTED` until all milestone exit gates pass.
@@ -70,16 +75,18 @@ NOT_EVALUATED | IN_PROGRESS | PASS | REDESIGN_REQUIRED | BLOCKED
   PASS` and `M02` ACCEPTED; `M06` requires `RESUME_PAGEFIT_FEASIBILITY = PASS`
   and `M05` ACCEPTED; `M21` (and later production ATS expansion) requires
   `M19` and `M20` ACCEPTED and `WORKDAY_GUIDED_PRE_SUBMIT = PASS`.
-  `M28` requires `M27` ACCEPTED and `CROSS_PLATFORM_CORE = PASS`.
-  `M01-W01` cannot become READY after v1.3 adoption until `M00-W10` is
-  VERIFIED and M00 is re-ACCEPTED. Final Windows/Ubuntu full-AI acceptance
+  `M28` requires `M27` ACCEPTED and `CROSS_PLATFORM_CORE = PASS` at the final
+  accepted M27 content tree (or an explicit accepted independent gate-neutral
+  re-anchoring). M00-W11 follows M01-W06; M01-W07 cannot become READY after
+  v1.4 adoption until M00-W11 is VERIFIED and M00 is re-ACCEPTED. M27 uses
+  the explicit order W01…W11 → W13 → W14 → W12. Final Windows/Ubuntu full-AI acceptance
   belongs to M27-W10/Gate D and is not an M05-to-M06 readiness prerequisite.
   `REDESIGN_REQUIRED` or `BLOCKED` on a gate prevents downstream readiness.
 - Validate structure with `python3 scripts/validate_status.py` and
   `pnpm traceability:check` before
   reporting any package complete. The script enforces valid enums, the exact
-  v1.3 inventory (39 milestones, 286 work packages, 157 requirements), the
-  single-`IN_PROGRESS` rule, unskipped dependencies, acceptance of every
+  v1.4 inventory (39 milestones, 300 work packages, 193 requirements), the
+  single-`IN_PROGRESS`/single-`READY` rules, unskipped dependencies, acceptance of every
   dependency milestone, gate-based readiness blocking, verified-evidence
   preservation, deterministic next-work selection, and that exactly one
   canonical specification exists. The traceability check additionally

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "review": {
     "reviewed_in_work_package": "M00-W07",
     "mechanically_extended_in_work_package": "M00-W08",
@@ -8,16 +8,31 @@
     "expanded_requirements_mapping_sha256": "e6c477f3083b07555dff66b1e7e281a8719785b606d93cce80289eca2505a355",
     "expanded_work_package_dependency_sha256": "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760",
     "v1_3_extension_review_state": "REVIEWED_V1_3",
-    "derived_dependency_review": "Sequential direct-package edges are the reviewed derivation of specification §1 ordering plus each §9 listed package order; milestone and gate edges remain exact specification data. The final v1.3 hashes also lock reviewed requirement honesty fields and package deliverable, automated-verification, and manual-evidence plans.",
-    "v1_3_reviewed_in_work_package": "M00-W10"
+    "derived_dependency_review": "The complete v1.4 direct-package graph is reviewed from specification §1/§9, including explicit M00-W11, M01-W07, and M27 exceptions; reverse downstream edges are derived from that graph. Historical v1.2/v1.3 hashes remain immutable snapshots. The v1.4 hashes lock requirement honesty, ownership, gate effects, package dependencies, deliverables, automated verification, and manual evidence plans.",
+    "v1_3_reviewed_in_work_package": "M00-W10",
+    "v1_4_reviewed_in_work_package": "M00-W11",
+    "v1_4_requirements_mapping_sha256": "125f294cfed48baaac5f7425fedfa46940d1fe76ba40e6cfa64d6418a8cce360",
+    "v1_4_work_package_dependency_sha256": "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1",
+    "v1_4_prior_requirement_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
+    "v1_4_intentionally_changed_packages": [
+      "M03-W01",
+      "M05-W03",
+      "M05-W12",
+      "M17-W01",
+      "M17-W05",
+      "M19-W11",
+      "M20-W11",
+      "M27-W12"
+    ],
+    "v1_4_extension_review_state": "REVIEWED_V1_4"
   },
   "specification": {
     "id": "JAPP-MASTER-001",
-    "version": "1.3",
+    "version": "1.4",
     "path": "docs/MASTER_IMPLEMENTATION_SPEC.md",
-    "sha256": "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867",
-    "requirements_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
-    "work_packages_inventory_sha256": "795f42dd7120401f58d97e7bcdaef0d6669c27b3f38c0602e9d64a4bfd9838c8"
+    "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943",
+    "requirements_inventory_sha256": "4f6974d012bfc41abf31fb3de4cdf06215dea9cdeb70ebe900fbfa563967302e",
+    "work_packages_inventory_sha256": "d7c2a4ad523e885476099b0361abacee09befafe5d428b5d25da769cabdd1345"
   },
   "enums": {
     "requirement_implementation_states": [
@@ -61,25 +76,27 @@
     "dependency_bases": [
       "NO_DIRECT_PACKAGE_PREREQUISITE",
       "REVIEWED_DERIVED_SEQUENTIAL",
+      "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
       "SPEC_MILESTONE_DEPENDENCY",
       "SPEC_CRITICAL_GATE_QUALIFIER",
       "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
     ],
     "mapping_review_states": [
       "REVIEWED_V1_2",
-      "REVIEWED_V1_3"
+      "REVIEWED_V1_3",
+      "REVIEWED_V1_4"
     ]
   },
   "dependency_policy": {
     "package_inventory_source": "docs/MASTER_IMPLEMENTATION_SPEC.md §9",
     "package_state_source": "docs/PROJECT_STATUS.md work-package table",
     "gate_state_source": "docs/PROJECT_STATUS.md critical-gates table + docs/CRITICAL_GATES.md",
-    "sequential_package_order": "REVIEWED_DERIVED",
-    "sequential_derivation": "Each package after W01 directly requires the immediately preceding package in the same milestone unless the specification explicitly permits otherwise; v1.3 contains no such exception.",
+    "sequential_package_order": "REVIEWED_WITH_SPEC_EXCEPTIONS",
+    "sequential_derivation": "Each package after W01 directly requires the immediately preceding package in the same milestone unless the specification explicitly overrides that edge. v1.4 explicitly orders M00-W11 after M01-W06, M01-W07 after M00-W11, and M27 as W01…W11, W13, W14, W12.",
     "milestone_readiness_state": "ACCEPTED",
     "critical_gate_readiness_state": "PASS",
     "ready_tie_breaker": "When no package is IN_PROGRESS, choose the first eligible unfinished package in canonical milestone/package order; mark exactly that package READY.",
-    "downstream_package_derivation": "Reverse of direct sequential package prerequisites; cross-milestone effects remain milestone dependencies and are not invented as direct package edges."
+    "downstream_package_derivation": "Reverse of the complete reviewed direct-package prerequisite graph; cross-milestone edges are present only when v1.4 explicitly requires them."
   },
   "requirements": [
     {
@@ -4979,6 +4996,1340 @@
       ],
       "notes": "M00-W08 established evidence-bounded claim policy and honest NOT_YET_IMPLEMENTED rows; M00-W10 added fail-closed reference/claim validation. This verifies governance only and creates no certified platform, installer, model, or Gate D claim.",
       "mapping_review_state": "REVIEWED_V1_3"
+    },
+    {
+      "id": "REQ-UX-001",
+      "text": "Maintain a dated, hashed, public-observation UI reference log for equivalent Simplify workflows, account tier, browser, source URL, screenshot provenance, and known uncertainty.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M00-W11",
+        "M03-W11",
+        "M28-W06",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Dated UI reference log",
+        "Surface familiarity matrix"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "SCAFFOLD_ONLY",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/UI_FAMILIARITY.md",
+        "scripts/validate_status.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_v14_migration.py",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W11 supplies only the machine-validated governance schema and fail-closed state/readiness rule for this requirement. No product UI/provider behavior, result, approval, or release support is implemented; future owning packages remain required.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-002",
+      "text": "Implement all production UI through an independently authored, owner-approved, accessible design system that is polished, cohesive, aesthetically strong, and appropriately close to the reference hierarchy/density/proportions; do not reuse Simplify trademarks, logos, icons, illustrations, proprietary copy, source code, private APIs, or screenshot-derived assets.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M03-W01",
+        "M03-W11",
+        "M17-W01",
+        "M17-W11",
+        "M28-W06",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Repository-owned design tokens",
+        "Shared accessible component system"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-003",
+      "text": "Provide a familiar desktop information architecture for Home/Dashboard, Jobs, Tracker, Documents/Resumes, Profile, Settings, model/provider status, and diagnostics.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M03-W01",
+        "M03-W11"
+      ],
+      "planned_components": [
+        "Desktop navigation shell",
+        "Desktop surface hierarchy"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-004",
+      "text": "Provide a familiar extension panel hierarchy for site status, Autofill, Resume/Match, Questions, Profile, and Settings while exposing filled, unresolved, sensitive, unsupported, and evidence states more clearly than the reference product.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M17-W01",
+        "M17-W11"
+      ],
+      "planned_components": [
+        "Stable extension panel shell",
+        "Extension task navigation"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-005",
+      "text": "Provide a familiar resume workspace with version selection, target-job binding, editor/preview, match/missing-term panel, layout controls, tailoring review, PageFit, export, and original-version preservation.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M09-W07",
+        "M10-W03",
+        "M10-W04",
+        "M10-W05",
+        "M12-W07",
+        "M13-W06",
+        "M14-W05"
+      ],
+      "planned_components": [
+        "Resume editor/preview workspace",
+        "Document export surfaces"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-006",
+      "text": "Provide familiar tracker Columns, List, and Flow views; filters, saved views, favorites, archive, CSV import/export, drag/drop where accessible, and an inspectable application detail timeline.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M25-W08"
+      ],
+      "planned_components": [
+        "Tracker columns/list/flow views",
+        "Tracker detail timeline"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-007",
+      "text": "Provide a familiar job-board list/detail experience with search, filter chips, saved searches, save/hide/already-applied actions, source/freshness, and explainable match details.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M33-W07"
+      ],
+      "planned_components": [
+        "Job-board list/detail workspace",
+        "Saved-search controls"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-008",
+      "text": "Provide familiar profile/onboarding sectioning, resume import, progress preservation, editable preferences, and explicit sensitive-answer controls without copying competitor wording or coercive scoring.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M08-W07"
+      ],
+      "planned_components": [
+        "Onboarding/profile workspace",
+        "Migration preview and rollback"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-009",
+      "text": "Provide consistent inline AI affordances for narrative questions and resume edits with preview, evidence, provider, limit, and accept/reject state before insertion.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M09-W07",
+        "M13-W06",
+        "M16-W06"
+      ],
+      "planned_components": [
+        "Resume/answer review affordances",
+        "Evidence and uncertainty display"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-010",
+      "text": "Keep artifact/version selection, primary actions, status indicators, empty/loading/error states, confirmation patterns, keyboard shortcuts, and undo behavior consistent across desktop and extension surfaces; prohibit duplicate primary actions, excessive badges/pills, redundant explanatory copy, and page-local replacements for established shared components.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M03-W11",
+        "M09-W07",
+        "M17-W11",
+        "M25-W08",
+        "M33-W07",
+        "M34-W07",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Anti-bloat rules",
+        "Shared hierarchy and density contract"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-011",
+      "text": "Keep stronger product distinctions visible inside familiar workflows: evidence links, unsupported gaps, multidimensional match dimensions, uncertainty, exact document versions, policy confirmations, and no-submit boundaries.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M09-W07",
+        "M12-W07",
+        "M13-W06",
+        "M17-W11",
+        "M34-W07"
+      ],
+      "planned_components": [
+        "Loading/empty/error/offline states",
+        "Unresolved-field review states"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-012",
+      "text": "Support migration from user-owned resumes and tracker CSV files with mapping preview, deduplication, validation, rollback, and no authenticated competitor scraping.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M08-W07",
+        "M25-W06",
+        "M25-W08"
+      ],
+      "planned_components": [
+        "Profile/tracker import mapping",
+        "Migration preview and rollback"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-013",
+      "text": "Meet keyboard, focus, screen-reader, zoom, reduced-motion, contrast, and error-announcement requirements on every mapped critical workflow.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M27-W05",
+        "M28-W06",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Keyboard/zoom/reduced-motion behavior",
+        "Accessibility audit"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-014",
+      "text": "Maintain deterministic component and visual-regression coverage for desktop, extension, resume, tracker, job-board, onboarding, provider settings, and queue states across certified platforms, including owner-approved baselines for desktop shell, Dashboard, Jobs, Tracker, Documents/Resumes, Profile, Settings, extension default, extension autofill, and extension review states.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M00-W11",
+        "M03-W11",
+        "M05-W17",
+        "M08-W07",
+        "M09-W07",
+        "M12-W07",
+        "M17-W11",
+        "M25-W08",
+        "M27-W13",
+        "M33-W07",
+        "M34-W07",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Revision-scoped visual baseline ledger",
+        "Visual regression fixtures"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "SCAFFOLD_ONLY",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+        "scripts/validate_status.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_v14_migration.py",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W11 supplies only the machine-validated governance schema and fail-closed state/readiness rule for this requirement. No product UI/provider behavior, result, approval, or release support is implemented; future owning packages remain required.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-015",
+      "text": "Test responsive behavior, localization expansion, long names/URLs, high zoom, empty/large datasets, offline state, stale data, permission denial, model unavailability, and extension disconnection.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M03-W11",
+        "M08-W07",
+        "M09-W07",
+        "M12-W07",
+        "M17-W05",
+        "M17-W11",
+        "M25-W08",
+        "M27-W05",
+        "M28-W06",
+        "M33-W07",
+        "M34-W07",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Safety/evidence/status affordances",
+        "Cross-surface product advantages"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-016",
+      "text": "Run a blinded or counterbalanced usability study with Simplify-experienced users on mapped tasks and record task success, time, navigation errors, assistance, confidence, accessibility issues, qualitative transfer friction, and separate visual-clarity, polish, and ease-of-use ratings.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M28-W06",
+        "M33-W07",
+        "M34-W07",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Mapped-task familiarity study",
+        "Comparative task-time analysis"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-017",
+      "text": "Require an originality/non-confusion review proving that users understand the product is independent and that no protected asset, trademark, or deceptive affiliation is present.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M03-W11",
+        "M17-W11",
+        "M28-W06",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Originality/non-affiliation review",
+        "Asset and provenance audit"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-UX-018",
+      "text": "Block core closed-alpha acceptance when the familiarity study, owner aesthetic approval, anti-bloat audit, critical UI accessibility, actual UI inspection, shared-component consistency, or visual-regression requirements fail.",
+      "family": "Familiarity-first user-experience",
+      "owning_packages": [
+        "M00-W11",
+        "M28-W06",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "M28/M38 familiarity acceptance record",
+        "Fail-closed readiness validation"
+      ],
+      "automated_test_layers": [
+        "Unit/component/accessibility/visual governance tests",
+        "Mapped-task familiarity and originality acceptance checks"
+      ],
+      "manual_evidence": [
+        "Revision-scoped owner visual decision",
+        "Simplify-experienced-user study and independent originality review"
+      ],
+      "gate_effects": [
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "SCAFFOLD_ONLY",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/UI_FAMILIARITY.md",
+        "scripts/validate_status.py",
+        "scripts/traceability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_v14_migration.py",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W11 supplies only the machine-validated governance schema and fail-closed state/readiness rule for this requirement. No product UI/provider behavior, result, approval, or release support is implemented; future owning packages remain required.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-001",
+      "text": "Keep the accepted local Ollama profile as the default provider and preserve deterministic/local core operation when every external provider is absent.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Provider-neutral generation boundary",
+        "Mandatory local Ollama adapter"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-002",
+      "text": "Route generation through a typed provider-neutral interface—implemented before the Gate B benchmark—covering capabilities, model identity, context limits, request normalization, structured output, cancellation, streaming, usage state, latency, and provider-specific errors; re-anchor affected Gate B evidence after any later provider-boundary change.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Provider capability contract",
+        "Normalized request/response envelope"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-003",
+      "text": "Let the user select an allowed provider/model globally or by task category; show the active selection on every generation and persist it as versioned profile data.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W17",
+        "M09-W07",
+        "M17-W11",
+        "M27-W13"
+      ],
+      "planned_components": [
+        "Provider/model settings state",
+        "Provider indicator surfaces"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-004",
+      "text": "Never silently fall back between providers. A fallback requires a previously approved policy, visible reason, bounded context rebuild, and complete downstream verification.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W13",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Typed provider failure policy",
+        "No-silent-fallback enforcement"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-005",
+      "text": "Keep the ChatGPT-account OAuth bridge disabled by default, labeled experimental/unofficial, and architecturally removable without schema, evidence, or product-data loss.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M00-W11",
+        "M27-W13",
+        "M27-W14",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Default-off experimental-provider registry",
+        "Provider kill switch"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "SCAFFOLD_ONLY",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+        "scripts/validate_status.py",
+        "scripts/traceability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_v14_migration.py",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W11 supplies only the machine-validated governance schema and fail-closed state/readiness rule for this requirement. No product UI/provider behavior, result, approval, or release support is implemented; future owning packages remain required.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-006",
+      "text": "Permit only the account owner to use their own session; prohibit credential sharing, token pooling, resale, multi-user proxying, or server-side account brokering.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "PKCE loopback account session",
+        "Disconnect and revocation"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-007",
+      "text": "Store external-provider access, refresh, and identity tokens only through the certified platform `SecretStore`; prohibit plaintext files, browser storage, logs, diagnostics, backups, and cloud synchronization.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W12",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Platform SecretStore session",
+        "Credential leak prevention"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-008",
+      "text": "Use PKCE, unpredictable state, loopback-only callback handling, bounded timeout, cancellation, exact redirect validation, token refresh rotation, logout, revocation/clear, and no non-loopback listener for desktop OAuth.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Native/local-service request transport",
+        "Renderer isolation"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-009",
+      "text": "Perform model requests through trusted native/local-service networking; browser content scripts, the extension service worker, and the Tauri WebView must never receive provider bearer tokens.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "Data-egress consent record",
+        "Per-task disclosure"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-010",
+      "text": "Discover account-available models but expose only a versioned task-capability allowlist whose models pass structured-output, factuality, context, latency, and safety evaluation; unknown model IDs fail closed.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14"
+      ],
+      "planned_components": [
+        "Account model discovery allowlist",
+        "Capability filtering"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-011",
+      "text": "Show a preflight data-egress inventory and explicit consent for profile facts, resume content, job text, answer context, evidence snippets, and optional sensitive data before first use and whenever policy materially changes.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Rate/quota/account-state handling",
+        "Typed provider diagnostics"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-012",
+      "text": "Respect provider quotas, account-plan limits, rate limits, restrictions, and safety systems; bound retries and never use endpoint rotation or other circumvention.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14"
+      ],
+      "planned_components": [
+        "Provider provenance and maintenance record",
+        "Rollback controls"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-013",
+      "text": "Apply the same strict schemas, evidence links, stale-context checks, atomic-claim verification, sensitive policy, length checks, and bounded repair rules to every provider.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W13"
+      ],
+      "planned_components": [
+        "Provider-equivalent schema/verifier pipeline",
+        "Fake provider seam"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-014",
+      "text": "Provide health, auth-expired, quota, model-removed, endpoint-changed, policy-disabled, and offline states with safe local fallback options and an immediate local kill switch.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W17",
+        "M27-W13",
+        "M27-W14",
+        "M27-W12",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Provider security/privacy regression",
+        "Core no-provider isolation"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-015",
+      "text": "Ensure autofill, profile, evidence, tracker, rendering, backup, gate evaluation, and approved local-model workflows never depend on the experimental bridge.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W13",
+        "M27-W12",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Dependency/SBOM/provenance audit",
+        "Packaging isolation"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-016",
+      "text": "Pin every experimental dependency/commit, record Apache-2.0 attribution and modifications, maintain SBOM/provenance, and prohibit unreviewed remote code or automatic package-version drift.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M27-W13",
+        "M27-W14",
+        "M27-W12"
+      ],
+      "planned_components": [
+        "External-provider compatibility evidence",
+        "Owner-controlled live matrix"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-017",
+      "text": "Use synthetic fake-provider tests in CI; live account tests are owner-controlled, low-volume, no-token-log, no-real-application, and tied to exact provider/model/account-tier/date evidence.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M05-W03",
+        "M05-W17",
+        "M27-W13",
+        "M27-W14"
+      ],
+      "planned_components": [
+        "Gate B provider-boundary re-anchoring",
+        "Revision-scoped benchmark evidence"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "NOT_STARTED",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [],
+      "completed_code_paths": [],
+      "completed_test_paths": [],
+      "notes": "Future v1.4 product obligation. M00-W11 reviewed ownership, gate effects, and planned proof only; no implementation or verification evidence exists.",
+      "mapping_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "REQ-AI-018",
+      "text": "Require an independent legal/terms, security, privacy, provider-compatibility, account-risk, and maintenance review whose accepted outcome is either `ENABLED_EXPERIMENTAL` or `DISABLED_BY_POLICY`; no release may imply official OpenAI endorsement.",
+      "family": "AI-provider and experimental external-account",
+      "owning_packages": [
+        "M00-W11",
+        "M27-W14",
+        "M27-W12",
+        "M38-W08"
+      ],
+      "planned_components": [
+        "Independent ship-or-disable decision",
+        "Release-support state validator"
+      ],
+      "automated_test_layers": [
+        "Provider contract/fake-provider/security/failure-isolation tests",
+        "Relevant Gate B/Gate D and cross-platform regression"
+      ],
+      "manual_evidence": [
+        "Independent provider security/privacy/compatibility evidence",
+        "Revision-scoped owner ship-or-disable decision where applicable"
+      ],
+      "gate_effects": [
+        "CROSS_PLATFORM_CORE",
+        "M28_CORE_ALPHA",
+        "M38_RELEASE",
+        "OVERALL_RELEASE"
+      ],
+      "implementation_state": "SCAFFOLD_ONLY",
+      "verification_state": "NOT_YET_APPLICABLE",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
+      "completed_code_paths": [
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+        "scripts/validate_status.py",
+        "scripts/traceability.py"
+      ],
+      "completed_test_paths": [
+        "scripts/tests/test_v14_migration.py",
+        "scripts/tests/test_validate_status.py",
+        "scripts/tests/test_traceability.py"
+      ],
+      "notes": "M00-W11 supplies only the machine-validated governance schema and fail-closed state/readiness rule for this requirement. No product UI/provider behavior, result, approval, or release support is implemented; future owning packages remain required.",
+      "mapping_review_state": "REVIEWED_V1_4"
     }
   ],
   "work_packages": [
@@ -5398,7 +6749,9 @@
       "dependency_basis": [
         "REVIEWED_DERIVED_SEQUENTIAL"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M00-W11"
+      ],
       "downstream_milestones": [
         "M01",
         "M02",
@@ -5406,6 +6759,49 @@
         "M28",
         "M38"
       ]
+    },
+    {
+      "id": "M00-W11",
+      "milestone": "M00",
+      "title": "Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline",
+      "current_state": "IN_PROGRESS",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M00-W10",
+        "M01-W06"
+      ],
+      "milestone_prerequisites": [],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "SPEC_EXPLICIT_PACKAGE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline"
+      ],
+      "required_automated_verification": [
+        "Exact-byte/hash/inventory and historical-anchor migration tests",
+        "Deterministic traceability/status/doctor/integrity/portability verification",
+        "Two exact-commit locked clean-clone reconstructions",
+        "Exact-content and exact-final-HEAD macOS/Windows/Ubuntu CI"
+      ],
+      "required_manual_evidence": [
+        "Approved external source path/hash and atomic byte-identity evidence",
+        "Independent v1.3→v1.4 semantic diff and scope audit",
+        "Hosted Windows log inspection plus final clean-tree proof"
+      ],
+      "downstream_packages": [
+        "M01-W07"
+      ],
+      "downstream_milestones": [
+        "M01",
+        "M02",
+        "M03",
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M01-W01",
@@ -5678,6 +7074,7 @@
         "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
       ],
       "downstream_packages": [
+        "M00-W11",
         "M01-W07"
       ],
       "downstream_milestones": [
@@ -5701,7 +7098,7 @@
       "id": "M01-W07",
       "milestone": "M01",
       "title": "Define cross-platform capability and platform-service contracts",
-      "current_state": "READY",
+      "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "primary_deliverables": [
         "Define cross-platform capability and platform-service contracts"
@@ -5715,7 +7112,8 @@
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
-        "M01-W06"
+        "M01-W06",
+        "M00-W11"
       ],
       "milestone_prerequisites": [
         "M00"
@@ -5723,7 +7121,7 @@
       "critical_gate_prerequisites": [],
       "accepted_milestone_prerequisites": [],
       "dependency_basis": [
-        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "downstream_packages": [],
@@ -6477,7 +7875,7 @@
     {
       "id": "M03-W01",
       "milestone": "M03",
-      "title": "Create Tauri desktop shell",
+      "title": "Create Tauri desktop shell and initial design foundation",
       "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
@@ -6499,14 +7897,13 @@
         "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
       "primary_deliverables": [
-        "Create Tauri desktop shell"
+        "Create Tauri desktop shell and initial design foundation"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M03 exit gate",
-        "pnpm verify with only genuinely activated suites"
+        "Token/component/navigation/accessibility foundation tests"
       ],
       "required_manual_evidence": [
-        "M03 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
+        "Architecture continuity record showing M03-W11 refines rather than replaces it"
       ],
       "downstream_packages": [
         "M03-W02"
@@ -6958,7 +8355,9 @@
         "SPEC_CRITICAL_GATE_QUALIFIER",
         "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M03-W11"
+      ],
       "downstream_milestones": [
         "M04",
         "M05",
@@ -6967,6 +8366,53 @@
         "M28",
         "M38"
       ]
+    },
+    {
+      "id": "M03-W11",
+      "milestone": "M03",
+      "title": "Finalize and certify familiarity-first design system and desktop shell baseline",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M03-W10"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M02"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "primary_deliverables": [
+        "Finalize and certify familiarity-first design system and desktop shell baseline"
+      ],
+      "required_automated_verification": [
+        "Component, visual, accessibility, navigation, and anti-bloat regression"
+      ],
+      "required_manual_evidence": [
+        "Owner-approved desktop surface baselines and originality review"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M04",
+        "M05",
+        "M17",
+        "M27",
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M04-W01",
@@ -7483,7 +8929,7 @@
     {
       "id": "M05-W03",
       "milestone": "M05",
-      "title": "Implement typed generation client",
+      "title": "Implement provider-neutral typed generation client and local adapter",
       "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [
@@ -7501,14 +8947,13 @@
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "primary_deliverables": [
-        "Implement typed generation client"
+        "Implement provider-neutral typed generation client and local adapter"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M05 exit gate",
-        "pnpm verify with only genuinely activated suites"
+        "Provider-neutral contract, local adapter, fake provider, and no-fallback tests"
       ],
       "required_manual_evidence": [
-        "M05 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
+        "Provider data-egress and Gate B architecture review"
       ],
       "downstream_packages": [
         "M05-W04"
@@ -7966,15 +9411,10 @@
         "Independent Resume Tailoring/PageFit Gate audit and decision"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M05 exit gate",
-        "pnpm verify with only genuinely activated suites",
-        "Browser/document integration or E2E verification when the real surface exists",
-        "Measured corpus/holdout assertions and reproducible negative paths"
+        "Gate B audit through the provider-neutral path"
       ],
       "required_manual_evidence": [
-        "M05 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
-        "Browser/manual workflow evidence on declared supported scope",
-        "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
+        "Revision-scoped decision explicitly requiring later M05-W17 re-anchoring"
       ],
       "downstream_packages": [
         "M05-W13"
@@ -8174,7 +9614,9 @@
         "REVIEWED_DERIVED_SEQUENTIAL",
         "SPEC_MILESTONE_DEPENDENCY"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M05-W17"
+      ],
       "downstream_milestones": [
         "M06",
         "M07",
@@ -8189,6 +9631,53 @@
         "M28",
         "M38"
       ]
+    },
+    {
+      "id": "M05-W17",
+      "milestone": "M05",
+      "title": "Finalize provider boundary, selection UX, and Gate B re-anchoring",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M05-W16"
+      ],
+      "milestone_prerequisites": [
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Finalize provider boundary, selection UX, and Gate B re-anchoring"
+      ],
+      "required_automated_verification": [
+        "Provider-boundary/fake-provider/no-fallback regression and Gate B rerun"
+      ],
+      "required_manual_evidence": [
+        "Independent final-M05 Gate B re-anchoring decision"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M06",
+        "M07",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M27",
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M06-W01",
@@ -9017,7 +10506,9 @@
       "required_manual_evidence": [
         "M08 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M08-W07"
+      ],
       "downstream_milestones": [
         "M09",
         "M16",
@@ -9029,6 +10520,47 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M08-W07",
+      "milestone": "M08",
+      "title": "Build familiarity-first onboarding/profile workspace and migration",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M08-W06"
+      ],
+      "milestone_prerequisites": [
+        "M06",
+        "M07"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiarity-first onboarding/profile workspace and migration"
+      ],
+      "required_automated_verification": [
+        "Onboarding/profile migration, accessibility, and visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner baseline review and migration usability evidence"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M09",
+        "M16",
+        "M18",
+        "M27",
+        "M28",
+        "M33",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M09-W01",
@@ -9287,7 +10819,9 @@
       "required_manual_evidence": [
         "M09 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M09-W07"
+      ],
       "downstream_milestones": [
         "M10",
         "M12",
@@ -9299,6 +10833,48 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M09-W07",
+      "milestone": "M09",
+      "title": "Build familiarity-first resume workspace shell",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M09-W06"
+      ],
+      "milestone_prerequisites": [
+        "M05",
+        "M06",
+        "M08"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiarity-first resume workspace shell"
+      ],
+      "required_automated_verification": [
+        "Resume-workspace state, accessibility, and visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner resume-workspace baseline review"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M10",
+        "M12",
+        "M13",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M10-W01",
@@ -10155,7 +11731,9 @@
         "M12 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Browser/manual workflow evidence on declared supported scope"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M12-W07"
+      ],
       "downstream_milestones": [
         "M13",
         "M14",
@@ -10168,6 +11746,49 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M12-W07",
+      "milestone": "M12",
+      "title": "Build familiar match and keyword-analysis panel",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M12-W06"
+      ],
+      "milestone_prerequisites": [
+        "M09",
+        "M10",
+        "M11"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiar match and keyword-analysis panel"
+      ],
+      "required_automated_verification": [
+        "Match-panel explanation, accessibility, and visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner match-panel baseline review"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M13",
+        "M14",
+        "M15",
+        "M25",
+        "M27",
+        "M28",
+        "M33",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M13-W01",
@@ -11314,7 +12935,7 @@
     {
       "id": "M17-W01",
       "milestone": "M17",
-      "title": "Productionize WXT extension",
+      "title": "Productionize WXT extension and stable panel architecture",
       "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
@@ -11333,16 +12954,13 @@
         "SPEC_CRITICAL_GATE_QUALIFIER"
       ],
       "primary_deliverables": [
-        "Productionize WXT extension"
+        "Productionize WXT extension and stable panel architecture"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M17 exit gate",
-        "pnpm verify with only genuinely activated suites",
-        "Browser/document integration or E2E verification when the real surface exists"
+        "Stable panel/component/token/accessibility foundation tests"
       ],
       "required_manual_evidence": [
-        "M17 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
-        "Browser/manual workflow evidence on declared supported scope"
+        "Architecture continuity review for the M17-W11 refinement"
       ],
       "downstream_packages": [
         "M17-W02"
@@ -11498,7 +13116,7 @@
     {
       "id": "M17-W05",
       "milestone": "M17",
-      "title": "Implement extension status UI",
+      "title": "Implement extension status states inside the stable shell",
       "current_state": "NOT_STARTED",
       "verified_revision": "—",
       "direct_package_prerequisites": [
@@ -11519,16 +13137,13 @@
         "SPEC_CRITICAL_GATE_QUALIFIER"
       ],
       "primary_deliverables": [
-        "Implement extension status UI"
+        "Implement extension status states inside the stable shell"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M17 exit gate",
-        "pnpm verify with only genuinely activated suites",
-        "Browser/document integration or E2E verification when the real surface exists"
+        "Disconnected/offline/loading/stale/permission/unsupported state tests"
       ],
       "required_manual_evidence": [
-        "M17 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
-        "Browser/manual workflow evidence on declared supported scope"
+        "Extension status-state accessibility review"
       ],
       "downstream_packages": [
         "M17-W06"
@@ -11760,7 +13375,9 @@
         "SPEC_MILESTONE_DEPENDENCY",
         "SPEC_CRITICAL_GATE_QUALIFIER"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M17-W11"
+      ],
       "downstream_milestones": [
         "M18",
         "M25",
@@ -11768,6 +13385,49 @@
         "M28",
         "M38"
       ]
+    },
+    {
+      "id": "M17-W11",
+      "milestone": "M17",
+      "title": "Complete, polish, and certify familiarity-first extension experience",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M17-W10"
+      ],
+      "milestone_prerequisites": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "critical_gate_prerequisites": [
+        "AUTOFILL_FEASIBILITY"
+      ],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER"
+      ],
+      "primary_deliverables": [
+        "Complete, polish, and certify familiarity-first extension experience"
+      ],
+      "required_automated_verification": [
+        "Extension E2E, visual, accessibility, no-submit, and anti-bloat regression"
+      ],
+      "required_manual_evidence": [
+        "Owner extension baseline approval and originality review"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M18",
+        "M25",
+        "M27",
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M18-W01",
@@ -12663,15 +14323,10 @@
         "Independent Workday field-coverage audit"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M19 exit gate",
-        "pnpm verify with only genuinely activated suites",
-        "Browser/document integration or E2E verification when the real surface exists",
-        "Measured corpus/holdout assertions and reproducible negative paths"
+        "Complete Workday field-coverage audit checks"
       ],
       "required_manual_evidence": [
-        "M19 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
-        "Browser/manual workflow evidence on declared supported scope",
-        "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
+        "Independent owner-selected clean-session/worktree review"
       ],
       "downstream_packages": [],
       "downstream_milestones": [
@@ -13224,15 +14879,10 @@
         "Independent Workday Gate C audit and owner decision"
       ],
       "required_automated_verification": [
-        "Package-specific unit/contract/integration verification required by the M20 exit gate",
-        "pnpm verify with only genuinely activated suites",
-        "Browser/document integration or E2E verification when the real surface exists",
-        "Measured corpus/holdout assertions and reproducible negative paths"
+        "Complete Gate C evidence and threshold checks"
       ],
       "required_manual_evidence": [
-        "M20 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
-        "Browser/manual workflow evidence on declared supported scope",
-        "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
+        "Independent owner-selected clean-session/worktree decision"
       ],
       "downstream_packages": [],
       "downstream_milestones": [
@@ -14710,7 +16360,9 @@
       "required_manual_evidence": [
         "M25 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M25-W08"
+      ],
       "downstream_milestones": [
         "M27",
         "M28",
@@ -14720,6 +16372,59 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M25-W08",
+      "milestone": "M25",
+      "title": "Build familiarity-first tracker views and migration",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M25-W07"
+      ],
+      "milestone_prerequisites": [
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiarity-first tracker views and migration"
+      ],
+      "required_automated_verification": [
+        "Tracker view/migration/accessibility/visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner tracker baseline and migration evidence"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M27",
+        "M28",
+        "M34",
+        "M35",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M26-W01",
@@ -14974,7 +16679,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W02"
+        "M27-W02",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15035,7 +16742,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W03"
+        "M27-W03",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15096,7 +16805,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W04"
+        "M27-W04",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15158,7 +16869,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W05"
+        "M27-W05",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15219,7 +16932,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W06"
+        "M27-W06",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15280,7 +16995,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W07"
+        "M27-W07",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15341,7 +17058,9 @@
         "M27 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
       "downstream_packages": [
-        "M27-W08"
+        "M27-W08",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15403,7 +17122,9 @@
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "downstream_packages": [
-        "M27-W09"
+        "M27-W09",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15463,7 +17184,9 @@
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "downstream_packages": [
-        "M27-W10"
+        "M27-W10",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15523,7 +17246,9 @@
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "downstream_packages": [
-        "M27-W11"
+        "M27-W11",
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15583,7 +17308,8 @@
         "SPEC_MILESTONE_DEPENDENCY"
       ],
       "downstream_packages": [
-        "M27-W12"
+        "M27-W12",
+        "M27-W13"
       ],
       "downstream_milestones": [
         "M28",
@@ -15600,14 +17326,83 @@
         "Independent Cross-Platform Core Gate audit and decision"
       ],
       "required_automated_verification": [
-        "Complete Gate D metric, state, role-separation, and resolvable-evidence validation plus full affected regression; pnpm verify with genuinely activated suites"
+        "Final-tree native/provider-isolation/SBOM/SecretStore/networking Gate D regression"
       ],
       "required_manual_evidence": [
-        "Actual native packaged bundles on all three certified platforms, an independent reviewer in a separate clean-session audit, and explicit owner decision"
+        "Independent terminal Gate D decision after M27-W13/M27-W14"
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
+        "M27-W01",
+        "M27-W02",
+        "M27-W03",
+        "M27-W04",
+        "M27-W05",
+        "M27-W06",
+        "M27-W07",
+        "M27-W08",
+        "M27-W09",
+        "M27-W10",
+        "M27-W11",
+        "M27-W13",
+        "M27-W14"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ]
+    },
+    {
+      "id": "M27-W13",
+      "milestone": "M27",
+      "title": "Prototype isolated experimental ChatGPT-account OAuth provider",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M27-W01",
+        "M27-W02",
+        "M27-W03",
+        "M27-W04",
+        "M27-W05",
+        "M27-W06",
+        "M27-W07",
+        "M27-W08",
+        "M27-W09",
+        "M27-W10",
         "M27-W11"
       ],
       "milestone_prerequisites": [
@@ -15639,14 +17434,88 @@
       "critical_gate_prerequisites": [],
       "accepted_milestone_prerequisites": [],
       "dependency_basis": [
-        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
         "SPEC_MILESTONE_DEPENDENCY"
       ],
-      "downstream_packages": [],
+      "primary_deliverables": [
+        "Prototype isolated experimental ChatGPT-account OAuth provider"
+      ],
+      "required_automated_verification": [
+        "Fake/live-isolated provider, PKCE, SecretStore, egress, kill-switch, and leak tests"
+      ],
+      "required_manual_evidence": [
+        "Owner-controlled local prototype evidence; no release-support claim"
+      ],
+      "downstream_packages": [
+        "M27-W12",
+        "M27-W14"
+      ],
       "downstream_milestones": [
         "M28",
         "M38"
-      ]
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
+    },
+    {
+      "id": "M27-W14",
+      "milestone": "M27",
+      "title": "Independent external-provider terms, security, compatibility, and ship decision",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M27-W13"
+      ],
+      "milestone_prerequisites": [
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "SPEC_EXPLICIT_PACKAGE_DEPENDENCY",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Independent external-provider terms, security, compatibility, and ship decision"
+      ],
+      "required_automated_verification": [
+        "Provider compatibility, failure-isolation, dependency, and rollback regression"
+      ],
+      "required_manual_evidence": [
+        "Independent current terms/security/privacy/account-risk ship-or-disable decision"
+      ],
+      "downstream_packages": [
+        "M27-W12"
+      ],
+      "downstream_milestones": [
+        "M28",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M28-W01",
@@ -16010,7 +17879,9 @@
       "required_manual_evidence": [
         "M28 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M28-W06"
+      ],
       "downstream_milestones": [
         "M29",
         "M30",
@@ -16021,6 +17892,78 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M28-W06",
+      "milestone": "M28",
+      "title": "Run Simplify-user migration familiarity and originality study",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M28-W05"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27"
+      ],
+      "critical_gate_prerequisites": [
+        "CROSS_PLATFORM_CORE"
+      ],
+      "accepted_milestone_prerequisites": [
+        "M27"
+      ],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY",
+        "SPEC_CRITICAL_GATE_QUALIFIER",
+        "SPEC_ACCEPTED_MILESTONE_QUALIFIER"
+      ],
+      "primary_deliverables": [
+        "Run Simplify-user migration familiarity and originality study"
+      ],
+      "required_automated_verification": [
+        "Study fixture integrity and deterministic metric calculation"
+      ],
+      "required_manual_evidence": [
+        "Simplify-experienced-user mapped-task familiarity/originality study"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M35",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M29-W01",
@@ -17092,7 +19035,9 @@
         "M33 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation",
         "Raw measured artifacts, hashes, reviewer identity, and decision evidence"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M33-W07"
+      ],
       "downstream_milestones": [
         "M34",
         "M35",
@@ -17100,6 +19045,44 @@
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M33-W07",
+      "milestone": "M33",
+      "title": "Build familiarity-first job-board and matches workspace",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M33-W06"
+      ],
+      "milestone_prerequisites": [
+        "M08",
+        "M12",
+        "M32"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiarity-first job-board and matches workspace"
+      ],
+      "required_automated_verification": [
+        "Job-board task, accessibility, and visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner job-board baseline and mapped-task usability evidence"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M34",
+        "M35",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M34-W01",
@@ -17353,13 +19336,55 @@
       "required_manual_evidence": [
         "M34 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M34-W07"
+      ],
       "downstream_milestones": [
         "M35",
         "M38"
       ],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M34-W07",
+      "milestone": "M34",
+      "title": "Build familiar job-review-to-queue transition",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M34-W06"
+      ],
+      "milestone_prerequisites": [
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M25",
+        "M33"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Build familiar job-review-to-queue transition"
+      ],
+      "required_automated_verification": [
+        "Review-to-queue task, safety, accessibility, and visual regression"
+      ],
+      "required_manual_evidence": [
+        "Owner queue-transition baseline and usability evidence"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [
+        "M35",
+        "M38"
+      ],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     },
     {
       "id": "M35-W01",
@@ -18702,10 +20727,81 @@
       "required_manual_evidence": [
         "M38 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation"
       ],
-      "downstream_packages": [],
+      "downstream_packages": [
+        "M38-W08"
+      ],
       "downstream_milestones": [],
       "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
+    },
+    {
+      "id": "M38-W08",
+      "milestone": "M38",
+      "title": "Final familiarity, originality, and experimental-provider audit",
+      "current_state": "NOT_STARTED",
+      "verified_revision": "—",
+      "direct_package_prerequisites": [
+        "M38-W07"
+      ],
+      "milestone_prerequisites": [
+        "M00",
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27",
+        "M28",
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37"
+      ],
+      "critical_gate_prerequisites": [],
+      "accepted_milestone_prerequisites": [],
+      "dependency_basis": [
+        "REVIEWED_DERIVED_SEQUENTIAL",
+        "SPEC_MILESTONE_DEPENDENCY"
+      ],
+      "primary_deliverables": [
+        "Final familiarity, originality, and experimental-provider audit"
+      ],
+      "required_automated_verification": [
+        "Final visual/provider/governance drift and release-readiness regression"
+      ],
+      "required_manual_evidence": [
+        "Independent familiarity, originality, provider-state, and owner-decision audit"
+      ],
+      "downstream_packages": [],
+      "downstream_milestones": [],
+      "current_evidence": [],
+      "dependency_review_state": "REVIEWED_V1_4"
     }
   ],
   "critical_gates": [
@@ -18730,6 +20826,7 @@
         "M03-W08",
         "M03-W09",
         "M03-W10",
+        "M03-W11",
         "M17-W01",
         "M17-W02",
         "M17-W03",
@@ -18740,6 +20837,7 @@
         "M17-W08",
         "M17-W09",
         "M17-W10",
+        "M17-W11",
         "M18-W01",
         "M18-W02",
         "M18-W03",
@@ -18816,7 +20914,8 @@
         "M28-W02",
         "M28-W03",
         "M28-W04",
-        "M28-W05"
+        "M28-W05",
+        "M28-W06"
       ]
     }
   ]

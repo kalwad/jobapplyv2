@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """Validate the structure of the canonical project-memory files.
 
-Required by docs/MASTER_IMPLEMENTATION_SPEC.md (JAPP-MASTER-001 v1.3) §1.1 and
+Required by docs/MASTER_IMPLEMENTATION_SPEC.md (JAPP-MASTER-001 v1.4) §1.1 and
 §12. Created in M00-W01, rewritten for the v1.2 Workday-first rebaseline in
-M00-W05, and mechanically extended for the v1.3 platform rebaseline in
-M00-W08; M00-W10 completed the human-reviewed v1.3 closeout hardening.
+M00-W05, extended for v1.3 in M00-W08…W10, and extended for the v1.4
+familiarity/provider governance rebaseline in M00-W11.
 
 Checks performed
   1.  Every canonical project-memory file exists, is non-empty, and contains
       its required top-level structure (CLAUDE.md, the docs/ files including
       docs/CRITICAL_GATES.md, platform-governance memory, and gate reports).
   2.  The canonical specification parses and defines exactly 39 milestones
-      (M00-M38), 286 unique work packages, and 157 unique requirement IDs;
+      (M00-M38), 300 unique work packages, and 193 unique requirement IDs;
       the four §12 gate rules (M03/M06/M21/M28) are derivable from it.
   3.  docs/PROJECT_STATUS.md structure: header fields, required sections,
       milestone/work-package table completeness against the spec, valid
       state enums, no duplicates, no more than one IN_PROGRESS package,
       current-package and next-READY consistency, and the canonical current
       release-gate value.
-  4.  Critical-gates table: exactly the four v1.3 gates, valid gate-state
+  4.  Critical-gates table: exactly the four v1.4 gates, valid gate-state
       enums, report paths present on disk, state agreement with the
       docs/CRITICAL_GATES.md ledger, and full evidence fields (revision,
       corpus/holdout hash, reviewer, owner decision, holdout result) before
@@ -32,16 +32,17 @@ Checks performed
       M21<-M19+M20, M36<-M35), and gate-based readiness blocking
       (a package with a declared M03/M06/M21/M28 gate prerequisite may be
       READY or started only while its required critical gate is PASS).
-      M01-W01 also requires M00-W10 exactly VERIFIED and M00 ACCEPTED; M00
-      acceptance requires all ten direct packages to be exactly VERIFIED.
+      the M00-W11/M01-W07 migration boundary is enforced; M00 acceptance
+      requires all eleven M00 packages to be exactly VERIFIED; and M27 uses
+      its explicit W01…W11 -> W13 -> W14 -> W12 terminal order.
   6.  Milestone-state consistency with package states.
   7.  Verified evidence preservation: every VERIFIED/ACCEPTED package row
       carries a `tree <hash>` revision (or the explicit `stamp pending`
       marker used between the content and stamp commits), links evidence in
       docs/TEST_EVIDENCE.md, and has a matching evidence heading there.
-  8.  Exactly one canonical specification exists under docs/ (no second
-      MASTER_IMPLEMENTATION_SPEC* file and no other file carrying the
-      canonical specification header).
+  8.  Exactly one regular, non-symlink canonical specification exists under
+      docs/ (including case/Unicode/editor-backup filename variants and files
+      of any extension carrying the canonical specification header).
 
 Exit codes: 0 = PASS, 1 = FAIL (violations listed), 2 = cannot parse/usage.
 Usage: python3 scripts/validate_status.py [--repo DIR] [--status FILE]
@@ -54,6 +55,7 @@ import argparse
 import hashlib
 import re
 import sys
+import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
@@ -71,10 +73,10 @@ DONE = {"VERIFIED", "ACCEPTED"}
 GATE_STATES = {"NOT_EVALUATED", "IN_PROGRESS", "PASS", "REDESIGN_REQUIRED", "BLOCKED"}
 
 EXPECTED_MILESTONES = 39
-EXPECTED_PACKAGES = 286
-EXPECTED_REQUIREMENTS = 157
+EXPECTED_PACKAGES = 300
+EXPECTED_REQUIREMENTS = 193
 EXPECTED_SPEC_SHA256 = (
-    "fa2a147722a0839673efcec300a9a3640ee1d269d0918f407f38352b32bda867"
+    "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
 )
 
 GATES = (
@@ -113,30 +115,98 @@ GATE_EVALUATION_PACKAGES = {
     "CROSS_PLATFORM_CORE": "M27-W12",
 }
 
-PRESERVED_M00_REVISIONS = {
-    "M00-W01": "tree e1dd209417af97b3cab320b4ab01fbd702547136",
-    "M00-W02": "tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140",
-    "M00-W03": "tree 323df745c419d8cc7809e88f10bbeca018fdfbb2",
-    "M00-W04": "tree 6c798abfd76824fd43c09c72615a3a976406f081",
-    "M00-W05": "tree 0c6fe779cc56755983d39951cabcdf201867bae2",
-    "M00-W06": "tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf",
-    "M00-W07": "tree fee2902010eb90704c05e584fb6ff7964327cb0b",
-    "M00-W08": "tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7",
-    "M00-W09": "tree ae69a908cc31e0f1282c136c25fb7f92752680dd",
+PRESERVED_PACKAGE_ANCHORS = {
+    "M00-W01": (
+        "tree e1dd209417af97b3cab320b4ab01fbd702547136",
+        "63d9442258c68a9dd8ecb9a20810e5740679557c",
+    ),
+    "M00-W02": (
+        "tree 15cc0edec64e4b4f986e7c1ee210d88a1e448140",
+        "b64f54da8ec3c302bd28efac68afd80ea5efc142",
+    ),
+    "M00-W03": (
+        "tree 323df745c419d8cc7809e88f10bbeca018fdfbb2",
+        "aa6b3503405651f915d21027524b112bce11f2a2",
+    ),
+    "M00-W04": (
+        "tree 6c798abfd76824fd43c09c72615a3a976406f081",
+        "5181538ba8d76fc8b75155dd2e8514797a13647b",
+    ),
+    "M00-W05": (
+        "tree 0c6fe779cc56755983d39951cabcdf201867bae2",
+        "c2c834ef44892b70706e0ee1985d1fda1fb8f4da",
+    ),
+    "M00-W06": (
+        "tree 9f9adc79cea15cb2f3a855b2b66463467822b5bf",
+        "124418f3a34389c4c56dced60a9fff9a5947adc4",
+    ),
+    "M00-W07": (
+        "tree fee2902010eb90704c05e584fb6ff7964327cb0b",
+        "22e6f0ae826ef551edfaf025fbc523411ef62637",
+    ),
+    "M00-W08": (
+        "tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7",
+        "9bb12322b993d233017d53bfa14f853c5fc86e34",
+    ),
+    "M00-W09": (
+        "tree ae69a908cc31e0f1282c136c25fb7f92752680dd",
+        "0e27802802b2397169c74d0f0c563506980041b0",
+    ),
+    "M00-W10": (
+        "tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75",
+        "ef830d91e7a6bffe3c74825b98405ce379cc7187",
+    ),
+    "M01-W01": (
+        "tree 20c25e66d5792506870531aa4a8cd01971b362c9",
+        "a77a01d52fb6be9cd535c6878b902146bf637632",
+    ),
+    "M01-W02": (
+        "tree 8a081776719d02ee7aeceb99bfe731f5663883c4",
+        "349fc7c16fee98d85ed547ade045baeb4f68afec",
+    ),
+    "M01-W03": (
+        "tree 2a56ed518797e811f8a0506e7834401c50eda166",
+        "c4ed1407083cf1e1d296a5763b1842322e9b90f7",
+    ),
+    "M01-W04": (
+        "tree 9ec01d8f8a734c703a943ea08012a10df023bf67",
+        "d0d0abd70fd5d82a294a9c9e8167d9702b8d0217",
+    ),
+    "M01-W05": (
+        "tree 77fb23c61482ff87643db30f10ed27263254a7b2",
+        "791a4735a2b43e7f98f5be7d6e0f64a7412fc8f5",
+    ),
+    "M01-W06": (
+        "tree 6ed03405b8e252a583f6f89709722e1bd680d8de",
+        "13231f34ac276695852eb54e375aacfd6d2d4029",
+    ),
 }
-REQUIRED_M00_SEQUENCE = tuple(f"M00-W{number:02d}" for number in range(1, 11))
+REQUIRED_M00_SEQUENCE = tuple(f"M00-W{number:02d}" for number in range(1, 12))
+PRESERVED_M01_SEQUENCE = tuple(f"M01-W{number:02d}" for number in range(1, 7))
+
+EXPLICIT_PACKAGE_PREREQUISITES = {
+    "M00-W11": ["M00-W10", "M01-W06"],
+    "M01-W07": ["M01-W06", "M00-W11"],
+    "M27-W13": [f"M27-W{number:02d}" for number in range(1, 12)],
+    "M27-W14": ["M27-W13"],
+    "M27-W12": [
+        *[f"M27-W{number:02d}" for number in range(1, 12)],
+        "M27-W13",
+        "M27-W14",
+    ],
+}
 
 STAMP_PENDING = "stamp pending"
 SPEC_HEADER_MARKER = "**Specification ID:** JAPP-MASTER-001"
 CANONICAL_SPEC_REL = "docs/MASTER_IMPLEMENTATION_SPEC.md"
 CANONICAL_RELEASE_GATE = "NOT_READY"
 MIN_ROW_CELLS = 2
+REVISION_ROW_CELLS = 3
 FULL_EVIDENCE_ROW_CELLS = 4
 PLATFORM_MATRIX_EVIDENCE_ROW_CELLS = 6
 GATE_REPORT_CELL_INDEX = 5
 MARKDOWN_METRIC_ROW_CELLS = 3
 MISSING_PREVIEW_LIMIT = 8
-SPEC_HEADER_SCAN_LINES = 60
 CERTIFIED_PLATFORM_IDS = ("macos-arm64", "windows-x64", "ubuntu-x64")
 APPROVED_EVIDENCE_FILES = {
     "docs/TEST_EVIDENCE.md",
@@ -144,6 +214,24 @@ APPROVED_EVIDENCE_FILES = {
 }
 APPROVED_EVIDENCE_PREFIXES = ("docs/gates/evidence/",)
 PASS_HOLDOUT_TOKENS = {"pass", "passed", "valid", "met", "meets"}
+UI_SURFACE_IDS = (
+    "DESKTOP_SHELL",
+    "HOME_DASHBOARD",
+    "JOBS",
+    "TRACKER",
+    "DOCUMENTS_RESUMES",
+    "PROFILE",
+    "SETTINGS",
+    "EXTENSION_DEFAULT",
+    "EXTENSION_AUTOFILL",
+    "EXTENSION_REVIEW_UNRESOLVED",
+)
+ANTI_BLOAT_RULE_IDS = tuple(f"AB-{number:02d}" for number in range(1, 13))
+FAMILIARITY_ROW_CELLS = 8
+VISUAL_BASELINE_ROW_CELLS = 13
+ANTI_BLOAT_RULE_ROW_CELLS = 3
+ANTI_BLOAT_SURFACE_ROW_CELLS = 7
+PROVIDER_REGISTRY_ROW_CELLS = 9
 
 MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("CLAUDE.md", ("Mandatory session bootstrap", CANONICAL_SPEC_REL)),
@@ -151,7 +239,7 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
         CANONICAL_SPEC_REL,
         (
             "JAPP-MASTER-001",
-            "**Version:** 1.3",
+            "**Version:** 1.4",
             "## 12. Required project-status format",
         ),
     ),
@@ -161,13 +249,43 @@ MEMORY_FILES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("docs/KNOWN_ISSUES.md", ("# Known Issues", "## Entry template")),
     ("docs/COMPATIBILITY_MATRIX.md", ("# Compatibility Matrix",)),
     (
+        "docs/UI_FAMILIARITY.md",
+        (
+            "# UI Familiarity Governance",
+            "## Familiarity matrix",
+            "NOT_YET_APPLICABLE",
+            "Originality and non-affiliation",
+        ),
+    ),
+    (
+        "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        (
+            "# Owner-Approved Visual Baseline",
+            "## Surface ledger",
+            "NOT_APPROVED",
+        ),
+    ),
+    (
+        "docs/ui/ANTI_BLOAT_CHECKLIST.md",
+        ("# Anti-Bloat Checklist", "## Mandatory rules", "NOT_EVALUATED"),
+    ),
+    (
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
+        (
+            "# Experimental AI Providers",
+            "OLLAMA_LOCAL",
+            "CHATGPT_ACCOUNT_OAUTH",
+            "DISABLED_BY_DEFAULT",
+        ),
+    ),
+    (
         "docs/PLATFORM_SUPPORT.md",
         ("# Platform Support", "CERTIFIED_FULL", "First-release target contract"),
     ),
     ("docs/REQUIREMENTS_TRACEABILITY.md", ("# Requirements Traceability",)),
     (
         "docs/traceability.json",
-        ('"schema_version": 2', '"requirements": [', '"work_packages": ['),
+        ('"schema_version": 3', '"requirements": [', '"work_packages": ['),
     ),
     ("docs/CRITICAL_GATES.md", ("# Critical Gates", *GATES)),
     ("docs/gates/AUTOFILL_FEASIBILITY_GATE.md", ("AUTOFILL_FEASIBILITY",)),
@@ -228,6 +346,7 @@ PKG_ID_RE = re.compile(r"M\d{2}-W\d{2}")
 ID_TOKEN_RE = re.compile(r"M(\d{2})")
 RANGE_RE = re.compile(r"M(\d{2})\s*[–-]\s*M(\d{2})")
 REQ_ID_RE = re.compile(r"`(REQ-[A-Z]+-\d{3})`")
+REQ_DEFINITION_RE = re.compile(r"^- `(REQ-[A-Z]+-\d{3})`: .+$")
 GATE_QUALIFIER_RE = re.compile(r"with\s+`([A-Z_]+)\s*=\s*PASS`")
 ACCEPTED_QUALIFIER_RE = re.compile(r"\b(M\d{2}) accepted\b")
 TREE_REVISION_RE = re.compile(r"^tree [0-9a-f]{40}(\s.*)?$")
@@ -283,6 +402,7 @@ class Status:
     sections: dict[str, list[str]]
     header: dict[str, str]
     milestone_rows: list[tuple[str, str]]
+    milestone_revisions: dict[str, str]
     package_rows: list[list[str]]
     gate_rows: list[list[str]]
     next_ready: str | None
@@ -349,11 +469,28 @@ def _parse_dependency_line(
     return deps, gates, accepted
 
 
-def parse_spec(spec_path: Path) -> Spec:
+def parse_spec(  # noqa: PLR0912, PLR0915 - two scoped canonical ledgers
+    spec_path: Path,
+) -> Spec:
     text = spec_path.read_text(encoding="utf-8")
     milestones: dict[str, Milestone] = {}
     current: str | None = None
+    in_milestone_map = False
+    in_fence = False
     for raw in text.splitlines():
+        if raw.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        if raw.startswith("## 9. "):
+            in_milestone_map = True
+            current = None
+            continue
+        if in_milestone_map and raw.startswith("## 10. "):
+            break
+        if not in_milestone_map:
+            continue
         heading = MS_RE.match(raw)
         if heading:
             current = heading.group(1)
@@ -384,12 +521,55 @@ def parse_spec(spec_path: Path) -> Spec:
     if not milestones:
         raise ValueError("spec parse: no milestone sections found")
     requirement_ids: list[str] = []
-    seen: set[str] = set()
-    for req_id in REQ_ID_RE.findall(text):
-        if req_id not in seen:
-            seen.add(req_id)
-            requirement_ids.append(req_id)
+    in_catalog = False
+    in_fence = False
+    for raw in text.splitlines():
+        if raw.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        if raw.startswith("## 4. "):
+            in_catalog = True
+            continue
+        if in_catalog and raw.startswith("## 5. "):
+            break
+        if not in_catalog:
+            continue
+        match = REQ_DEFINITION_RE.match(raw)
+        if match:
+            requirement_ids.append(match.group(1))
     return Spec(milestones=milestones, requirement_ids=requirement_ids)
+
+
+def expected_package_prerequisites(spec: Spec) -> dict[str, list[str]]:
+    """Return the reviewed v1.4 direct package prerequisite graph."""
+    result: dict[str, list[str]] = {}
+    inventory = set(spec.package_ids())
+    for milestone in spec.milestones.values():
+        ids = [package_id for package_id, _ in milestone.packages]
+        for index, package_id in enumerate(ids):
+            result[package_id] = [] if index == 0 else [ids[index - 1]]
+    for package_id, prerequisites in EXPLICIT_PACKAGE_PREREQUISITES.items():
+        if package_id in inventory:
+            result[package_id] = list(prerequisites)
+    return result
+
+
+def expected_downstream_packages(spec: Spec) -> dict[str, list[str]]:
+    """Reverse the reviewed prerequisite graph without inventing extra edges."""
+    downstream: dict[str, list[str]] = {
+        package_id: [] for package_id in spec.package_ids()
+    }
+    for package_id, prerequisites in expected_package_prerequisites(spec).items():
+        for prerequisite in prerequisites:
+            if prerequisite in downstream:
+                downstream[prerequisite].append(package_id)
+    order = {package_id: index for index, package_id in enumerate(spec.package_ids())}
+    return {
+        package_id: sorted(values, key=lambda value: order[value])
+        for package_id, values in downstream.items()
+    }
 
 
 def _table_rows(lines: list[str]) -> list[list[str]]:
@@ -437,10 +617,14 @@ def parse_status(status_path: Path) -> Status:
         sections[current].append(raw)
 
     milestone_rows: list[tuple[str, str]] = []
+    milestone_revisions: dict[str, str] = {}
     for cells in _table_rows(sections.get("## Milestone table", [])):
         mid = cells[0].strip("`")
         if re.fullmatch(r"M\d{2}", mid) and len(cells) >= MIN_ROW_CELLS:
             milestone_rows.append((mid, cells[1]))
+            milestone_revisions[mid] = (
+                cells[2] if len(cells) >= REVISION_ROW_CELLS else ""
+            )
 
     package_rows: list[list[str]] = []
     for cells in _table_rows(sections.get("## Work-package table", [])):
@@ -457,6 +641,7 @@ def parse_status(status_path: Path) -> Status:
         sections=sections,
         header=_parse_header(sections["__header__"]),
         milestone_rows=milestone_rows,
+        milestone_revisions=milestone_revisions,
         package_rows=package_rows,
         gate_rows=gate_rows,
         next_ready=_parse_next_ready(sections.get("## Next READY package", [])),
@@ -484,6 +669,152 @@ def check_memory_files(
             report.ok(f"{rel}: present with required structure")
 
 
+def _id_table_rows(path: Path, valid_ids: tuple[str, ...]) -> dict[str, list[str]]:
+    """Return unique Markdown table rows whose first cell is a requested ID."""
+    rows: dict[str, list[str]] = {}
+    for cells in _table_rows(path.read_text(encoding="utf-8").splitlines()):
+        row_id = cells[0].strip("`")
+        if row_id in valid_ids:
+            if row_id in rows:
+                rows[row_id] = []
+            else:
+                rows[row_id] = cells
+    return rows
+
+
+def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
+    repo: Path, spec: Spec, report: Report
+) -> None:
+    """Fail closed on fabricated UI/provider state during M00-W11."""
+    errors = 0
+    package_ids = set(spec.package_ids())
+
+    familiarity = repo / "docs/UI_FAMILIARITY.md"
+    familiarity_rows = _id_table_rows(familiarity, UI_SURFACE_IDS)
+    for surface_id in UI_SURFACE_IDS:
+        cells = familiarity_rows.get(surface_id, [])
+        if len(cells) != FAMILIARITY_ROW_CELLS:
+            report.fail(
+                f"UI familiarity surface {surface_id} must have one complete row"
+            )
+            errors += 1
+            continue
+        owners = PKG_ID_RE.findall(cells[2])
+        if not owners or any(owner not in package_ids for owner in owners):
+            report.fail(f"UI familiarity surface {surface_id} has invalid owners")
+            errors += 1
+        if cells[3] != "`NOT_YET_APPLICABLE`":
+            report.fail(
+                f"UI familiarity surface {surface_id} must remain "
+                "NOT_YET_APPLICABLE during M00-W11"
+            )
+            errors += 1
+        if cells[4:7] != ["—", "—", "—"] or cells[7] != "`NOT_APPROVED`":
+            report.fail(
+                f"UI familiarity surface {surface_id} invents reference, "
+                "comparison, or owner-approval evidence"
+            )
+            errors += 1
+
+    baseline = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
+    baseline_rows = _id_table_rows(baseline, UI_SURFACE_IDS)
+    for surface_id in UI_SURFACE_IDS:
+        cells = baseline_rows.get(surface_id, [])
+        if len(cells) != VISUAL_BASELINE_ROW_CELLS:
+            report.fail(
+                f"visual baseline surface {surface_id} must have one complete row"
+            )
+            errors += 1
+            continue
+        owners = PKG_ID_RE.findall(cells[1])
+        if not owners or any(owner not in package_ids for owner in owners):
+            report.fail(f"visual baseline surface {surface_id} has invalid owners")
+            errors += 1
+        if cells[2] != "`NOT_YET_APPLICABLE`":
+            report.fail(
+                f"visual baseline surface {surface_id} must remain "
+                "NOT_YET_APPLICABLE during M00-W11"
+            )
+            errors += 1
+        if any(cells[index] != "—" for index in range(3, 10)):
+            report.fail(
+                f"visual baseline surface {surface_id} invents capture metadata"
+            )
+            errors += 1
+        if cells[10] != "`NOT_APPROVED`":
+            report.fail(f"visual baseline surface {surface_id} falsely claims approval")
+            errors += 1
+
+    anti_bloat = repo / "docs/ui/ANTI_BLOAT_CHECKLIST.md"
+    rule_rows = _id_table_rows(anti_bloat, ANTI_BLOAT_RULE_IDS)
+    for rule_id in ANTI_BLOAT_RULE_IDS:
+        cells = rule_rows.get(rule_id, [])
+        if len(cells) != ANTI_BLOAT_RULE_ROW_CELLS or cells[2] != "`NOT_EVALUATED`":
+            report.fail(f"anti-bloat rule {rule_id} must have one NOT_EVALUATED row")
+            errors += 1
+    anti_surface_rows = _id_table_rows(anti_bloat, UI_SURFACE_IDS)
+    for surface_id in UI_SURFACE_IDS:
+        cells = anti_surface_rows.get(surface_id, [])
+        if len(cells) != ANTI_BLOAT_SURFACE_ROW_CELLS or cells[2] != "`NOT_EVALUATED`":
+            report.fail(f"anti-bloat surface {surface_id} must remain NOT_EVALUATED")
+            errors += 1
+
+    providers = repo / "docs/EXPERIMENTAL_AI_PROVIDERS.md"
+    provider_ids = ("OLLAMA_LOCAL", "CHATGPT_ACCOUNT_OAUTH")
+    provider_rows = _id_table_rows(providers, provider_ids)
+    expected_provider_states = {
+        "OLLAMA_LOCAL": (
+            "`ENABLED_LOCAL_DEFAULT`",
+            "`NOT_IMPLEMENTED`",
+            "`NOT_EVALUATED`",
+            "`REQUIRED_FUTURE_CORE`",
+            "`REQUIRED_FUTURE_CORE`",
+            "`LOCAL_CORE`",
+        ),
+        "CHATGPT_ACCOUNT_OAUTH": (
+            "`DISABLED_BY_DEFAULT`",
+            "`NOT_IMPLEMENTED`",
+            "`NOT_EVALUATED`",
+            "`NOT_EVALUATED`",
+            "`NOT_SUPPORTED`",
+            "`PROHIBITED`",
+        ),
+    }
+    for provider_id, expected_states in expected_provider_states.items():
+        cells = provider_rows.get(provider_id, [])
+        if len(cells) != PROVIDER_REGISTRY_ROW_CELLS:
+            report.fail(f"provider {provider_id} must have one complete registry row")
+            errors += 1
+            continue
+        if tuple(cells[2:8]) != expected_states:
+            report.fail(
+                f"provider {provider_id} state drift: expected "
+                f"{expected_states}, found {tuple(cells[2:8])}"
+            )
+            errors += 1
+        owners = PKG_ID_RE.findall(cells[8])
+        if not owners or any(owner not in package_ids for owner in owners):
+            report.fail(f"provider {provider_id} has invalid owners")
+            errors += 1
+    provider_text = " ".join(providers.read_text(encoding="utf-8").split())
+    required_provider_policy = (
+        "There is no silent provider fallback.",
+        "`DISABLED_BY_POLICY` is a valid final outcome",
+        "must never be used as a production application credential source",
+        "M27-W12` executes last",
+    )
+    for needle in required_provider_policy:
+        if needle not in provider_text:
+            report.fail(f"provider governance policy missing: {needle!r}")
+            errors += 1
+
+    if errors == 0:
+        report.ok(
+            "v1.4 UI/provider governance ledgers have exact owners and honest "
+            "NOT_YET_APPLICABLE/NOT_EVALUATED states"
+        )
+
+
 def check_spec_inventory(spec: Spec, report: Report) -> None:
     milestone_count = len(spec.milestones)
     milestone_ids = list(spec.milestones)
@@ -506,10 +837,15 @@ def check_spec_inventory(spec: Spec, report: Report) -> None:
             f"spec defines {len(package_ids)} work packages, "
             f"{len(set(package_ids))} unique (expected {EXPECTED_PACKAGES} unique)"
         )
-    if len(spec.requirement_ids) != EXPECTED_REQUIREMENTS:
+    unique_requirements = set(spec.requirement_ids)
+    if (
+        len(spec.requirement_ids) != EXPECTED_REQUIREMENTS
+        or len(unique_requirements) != EXPECTED_REQUIREMENTS
+    ):
         report.fail(
-            f"spec defines {len(spec.requirement_ids)} unique requirement IDs "
-            f"(expected {EXPECTED_REQUIREMENTS})"
+            f"spec defines {len(spec.requirement_ids)} requirement rows, "
+            f"{len(unique_requirements)} unique IDs "
+            f"(expected {EXPECTED_REQUIREMENTS} unique)"
         )
     rule_errors = [
         f"spec integrity: §12 gate rule for {mid} ({gate}) is not derivable "
@@ -528,7 +864,7 @@ def check_spec_inventory(spec: Spec, report: Report) -> None:
 
 
 def check_spec_contract(spec_path: Path, spec: Spec, report: Report) -> None:
-    """Validate the exact owner-approved v1.3 adoption and governance floor."""
+    """Validate the exact owner-approved v1.4 adoption and governance floor."""
     content = spec_path.read_text(encoding="utf-8")
     digest = hashlib.sha256(spec_path.read_bytes()).hexdigest()
     if digest != EXPECTED_SPEC_SHA256:
@@ -545,20 +881,23 @@ def check_spec_contract(spec_path: Path, spec: Spec, report: Report) -> None:
         )
     required_policy = (
         "**Implementation-agent policy:** Owner-selected per package.",
-        "must not automatically route work between Claude, Codex, or reasoning modes",
         (
-            "Lack of a qualifying Windows or Ubuntu full-AI machine during `M05` "
-            "does not block the resume/PageFit feasibility architecture or `M06`."
+            "must not automatically route work between agents, model families, "
+            "or reasoning modes"
         ),
+        "The local Ollama model remains the default AI path and release baseline.",
+        "No silent fallback occurs.",
         (
-            "Final acceptance of at least one `CERTIFIED_FULL` Windows profile "
-            "and one `CERTIFIED_FULL` Ubuntu profile is deferred to `M27-W10`"
+            "mandatory execution order is `M27-W01` through `M27-W11`, then "
+            "`M27-W13`, then `M27-W14`, and finally `M27-W12`"
         ),
-        ("the v1.2 fail-closed validator correctly rejects that state"),
+        "After v1.4 adoption starts, M00 cannot return to `ACCEPTED`",
+        "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
+        "docs/EXPERIMENTAL_AI_PROVIDERS.md",
     )
     for needle in required_policy:
         if needle not in content:
-            report.fail(f"canonical v1.3 governance text missing: {needle!r}")
+            report.fail(f"canonical v1.4 governance text missing: {needle!r}")
     if "Implementation sessions use Claude Fable 5 Max" in content:
         report.fail("obsolete hard-coded implementation-agent routing policy present")
     if (
@@ -567,8 +906,8 @@ def check_spec_contract(spec_path: Path, spec: Spec, report: Report) -> None:
         and all(needle in content for needle in required_policy)
     ):
         report.ok(
-            "canonical v1.3 hash, M00-W01…W10 table, owner-controlled agent "
-            "policy, and staged model-profile policy verified"
+            "canonical v1.4 hash, M00-W01…W11 table, owner-controlled agent "
+            "policy, provider boundary, and explicit M27 terminal order verified"
         )
 
 
@@ -1387,10 +1726,20 @@ def check_progress_consistency(  # noqa: PLR0912 - explicit state agreement
     status: Status, pkg_states: dict[str, str], report: Report
 ) -> None:
     in_progress = [pid for pid, state in pkg_states.items() if state == "IN_PROGRESS"]
+    ready = [pid for pid, state in pkg_states.items() if state == "READY"]
     if len(in_progress) > 1:
         report.fail(f"more than one work package IN_PROGRESS: {sorted(in_progress)}")
     else:
         report.ok(f"IN_PROGRESS count ok ({len(in_progress)})")
+    if len(ready) > 1:
+        report.fail(f"more than one work package READY: {sorted(ready)}")
+    elif in_progress and ready:
+        report.fail(
+            f"READY package(s) {sorted(ready)} present while "
+            f"{sorted(in_progress)} is IN_PROGRESS"
+        )
+    else:
+        report.ok(f"READY count/coexistence ok ({len(ready)})")
 
     current = status.header.get("Current work package:", "")
     current_match = PKG_ID_RE.search(current)
@@ -1460,11 +1809,26 @@ def _started_or_ready(
 
 
 def _check_dependency_order(
-    spec: Spec, pkg_states: dict[str, str], report: Report
+    spec: Spec,
+    ms_states: dict[str, str],
+    pkg_states: dict[str, str],
+    report: Report,
 ) -> int:
     errors = 0
+    direct_graph = expected_package_prerequisites(spec)
+    migration_active = (
+        ms_states.get("M00") == "IN_PROGRESS"
+        and pkg_states.get("M00-W11") == "IN_PROGRESS"
+    )
     for pid, state, milestone in _started_or_ready(spec, pkg_states):
         for dep in sorted(milestone.deps):
+            if (
+                migration_active
+                and pid in PRESERVED_M01_SEQUENCE
+                and state == "VERIFIED"
+                and dep == "M00"
+            ):
+                continue
             unfinished = [
                 dep_pid
                 for dep_pid, _ in spec.milestones[dep].packages
@@ -1476,15 +1840,13 @@ def _check_dependency_order(
                     f"unfinished packages (e.g. {unfinished[:3]})"
                 )
                 errors += 1
-        sequence = [seq_pid for seq_pid, _ in milestone.packages]
-        if pid in sequence:
-            for lower in sequence[: sequence.index(pid)]:
-                if pkg_states.get(lower) not in DONE:
-                    report.fail(
-                        f"{pid} is {state} but earlier package {lower} is "
-                        f"'{pkg_states.get(lower)}' (sequential convention)"
-                    )
-                    errors += 1
+        for prerequisite in direct_graph.get(pid, []):
+            if pkg_states.get(prerequisite) not in DONE:
+                report.fail(
+                    f"{pid} is {state} but direct package prerequisite "
+                    f"{prerequisite} is '{pkg_states.get(prerequisite)}'"
+                )
+                errors += 1
     return errors
 
 
@@ -1496,6 +1858,10 @@ def _check_readiness_prerequisites(
     report: Report,
 ) -> int:
     errors = 0
+    migration_active = (
+        ms_states.get("M00") == "IN_PROGRESS"
+        and pkg_states.get("M00-W11") == "IN_PROGRESS"
+    )
     for pid, state, milestone in _started_or_ready(spec, pkg_states):
         mid = pid[:3]
         # Spec §1 completion rules make milestone acceptance, not merely a set
@@ -1507,6 +1873,13 @@ def _check_readiness_prerequisites(
             | set(HARD_ACCEPTED_DEPS.get(mid, ()))
         )
         for dep in sorted(accepted_required):
+            if (
+                migration_active
+                and pid in PRESERVED_M01_SEQUENCE
+                and state == "VERIFIED"
+                and dep == "M00"
+            ):
+                continue
             if ms_states.get(dep) != "ACCEPTED":
                 report.fail(
                     f"{pid} is {state} but milestone {dep} is "
@@ -1533,25 +1906,25 @@ def check_dependencies(
     gate_states: dict[str, str],
     report: Report,
 ) -> None:
-    errors = _check_dependency_order(spec, pkg_states, report)
+    errors = _check_dependency_order(spec, ms_states, pkg_states, report)
     errors += _check_readiness_prerequisites(
         spec, ms_states, pkg_states, gate_states, report
     )
     if errors == 0:
         report.ok(
             "dependency order respected (milestone deps, ACCEPTED prerequisites, "
-            "critical gates, sequential convention)"
+            "critical gates, and reviewed explicit package graph)"
         )
 
 
-def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
+def check_v14_readiness_contract(  # noqa: PLR0912, PLR0915 - explicit gates
     spec: Spec,
     ms_states: dict[str, str],
     pkg_states: dict[str, str],
     gate_states: dict[str, str],
     report: Report,
 ) -> None:
-    """Enforce the v1.3 migration-specific readiness boundaries."""
+    """Enforce the v1.4 M00-W11/M01-W07 readiness boundaries."""
     errors = 0
     m00_exactly_verified = all(
         pkg_states.get(pid) == "VERIFIED" for pid in REQUIRED_M00_SEQUENCE
@@ -1564,7 +1937,7 @@ def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
             if pkg_states.get(pid) != "VERIFIED"
         }
         report.fail(
-            "M00 cannot be ACCEPTED unless M00-W01 through M00-W10 are "
+            "M00 cannot be ACCEPTED unless M00-W01 through M00-W11 are "
             f"exactly VERIFIED; nonconforming rows: {wrong}"
         )
         errors += 1
@@ -1581,46 +1954,72 @@ def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
             )
             errors += 1
 
-    m01_state = pkg_states.get("M01-W01")
-    if m01_state in (STARTED | {"READY"}):
-        if pkg_states.get("M00-W10") != "VERIFIED":
+    migration_active = pkg_states.get("M00-W11") == "IN_PROGRESS"
+    if migration_active:
+        if ms_states.get("M00") != "IN_PROGRESS":
+            report.fail("M00-W11 IN_PROGRESS requires milestone M00 IN_PROGRESS")
+            errors += 1
+        if ms_states.get("M01") != "IN_PROGRESS":
+            report.fail("M00-W11 migration must preserve milestone M01 as IN_PROGRESS")
+            errors += 1
+        preserved_wrong = {
+            package_id: pkg_states.get(package_id)
+            for package_id in (
+                *REQUIRED_M00_SEQUENCE[:-1],
+                *PRESERVED_M01_SEQUENCE,
+            )
+            if pkg_states.get(package_id) != "VERIFIED"
+        }
+        if preserved_wrong:
             report.fail(
-                "M01-W01 cannot be READY or started before M00-W10 is exactly VERIFIED"
+                "M00-W11 migration changed a completed M00/M01 package state: "
+                f"{preserved_wrong}"
+            )
+            errors += 1
+        if pkg_states.get("M01-W07") != "NOT_STARTED":
+            report.fail("M01-W07 must be NOT_STARTED while M00-W11 is IN_PROGRESS")
+            errors += 1
+
+    m01_w07_state = pkg_states.get("M01-W07")
+    if m00_accepted and m00_exactly_verified and m01_w07_state == "NOT_STARTED":
+        report.fail(
+            "completed M00-W11 closeout cannot leave M01-W07 NOT_STARTED; "
+            "M01-W07 must become the sole READY package"
+        )
+        errors += 1
+    if m01_w07_state in (STARTED | {"READY"}):
+        if pkg_states.get("M00-W11") != "VERIFIED":
+            report.fail(
+                "M01-W07 cannot be READY or started before M00-W11 is exactly VERIFIED"
             )
             errors += 1
         if ms_states.get("M00") != "ACCEPTED":
-            report.fail("M01-W01 cannot be READY or started before M00 is ACCEPTED")
+            report.fail("M01-W07 cannot be READY or started before M00 is ACCEPTED")
             errors += 1
-    m01 = spec.milestones.get("M01")
-    m01_package_ids = (
-        [package_id for package_id, _ in m01.packages] if m01 is not None else []
-    )
-    if (
-        m01_package_ids
-        and m00_accepted
-        and m00_exactly_verified
-        and all(
-            pkg_states.get(package_id) == "NOT_STARTED"
-            for package_id in m01_package_ids
-        )
-    ):
-        report.fail(
-            "accepted M00 closeout must make M01-W01 the exact next READY "
-            "package; every M01 package is still NOT_STARTED"
-        )
-        errors += 1
-    if m01_state == "READY":
+        if any(
+            pkg_states.get(package_id) != "VERIFIED"
+            for package_id in PRESERVED_M01_SEQUENCE
+        ):
+            report.fail(
+                "M01-W07 cannot be READY or started unless M01-W01 through "
+                "M01-W06 remain exactly VERIFIED"
+            )
+            errors += 1
+    if m01_w07_state == "READY":
         ready = sorted(
             package_id for package_id, state in pkg_states.items() if state == "READY"
         )
-        if ready != ["M01-W01"]:
+        if ready != ["M01-W07"]:
             report.fail(
-                "at the post-M00 closeout boundary M01-W01 must be the only "
+                "at the post-M00-W11 closeout boundary M01-W07 must be the only "
                 f"READY package; found {ready}"
             )
             errors += 1
-        if ms_states.get("M01") != "READY":
-            report.fail("at the post-M00 closeout boundary milestone M01 must be READY")
+        if ms_states.get("M01") != "IN_PROGRESS":
+            report.fail(
+                "at the post-M00-W11 closeout boundary milestone M01 must "
+                "remain IN_PROGRESS"
+            )
             errors += 1
         evaluated = {
             gate: state
@@ -1630,7 +2029,7 @@ def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
         if evaluated:
             report.fail(
                 "all four critical gates must remain NOT_EVALUATED at the "
-                f"post-M00 closeout boundary; nonconforming gates: {evaluated}"
+                f"post-M00-W11 closeout boundary; nonconforming gates: {evaluated}"
             )
             errors += 1
 
@@ -1647,44 +2046,132 @@ def check_v13_readiness_contract(  # noqa: PLR0912 - explicit readiness gates
 
     if errors == 0:
         report.ok(
-            "v1.3 readiness contract valid (M00 exact closeout, M01 waits for "
-            "M00-W10 VERIFIED plus M00 acceptance, pre-closeout gates remain "
-            "unevaluated, and M06 remains independent of Gate D)"
+            "v1.4 readiness contract valid (M00-W11 is the only migration "
+            "work, M01-W07 waits for exact verification plus M00 acceptance, "
+            "pre-closeout gates remain unevaluated, and M06 remains "
+            "independent of Gate D)"
         )
 
 
-def check_preserved_m00_history(status: Status, repo: Path, report: Report) -> None:
-    """Prevent the verified M00-W01…W09 anchors from being rewritten."""
+def check_m28_gate_revision_binding(  # noqa: PLR0913, PLR0917 - state inputs
+    status: Status,
+    ms_states: dict[str, str],
+    pkg_states: dict[str, str],
+    gate_states: dict[str, str],
+    repo: Path,
+    report: Report,
+) -> None:
+    """Bind any M28 readiness claim to the final accepted M27 content tree."""
+    m28_active = any(
+        package_id.startswith("M28-") and state in (STARTED | {"READY"})
+        for package_id, state in pkg_states.items()
+    )
+    if not m28_active:
+        report.ok("M28/Gate-D final-revision binding is not yet applicable")
+        return
+
+    errors = 0
+    if ms_states.get("M27") != "ACCEPTED":
+        report.fail("M28 cannot be READY or started before M27 is ACCEPTED")
+        errors += 1
+    if gate_states.get("CROSS_PLATFORM_CORE") != "PASS":
+        report.fail("M28 cannot be READY or started before Gate D is PASS")
+        errors += 1
+
+    package_rows = {cells[0]: cells for cells in status.package_rows}
+    m27_w12 = package_rows.get("M27-W12", [])
+    w12_revision = m27_w12[2] if len(m27_w12) >= REVISION_ROW_CELLS else ""
+    milestone_revision = status.milestone_revisions.get("M27", "")
+    gate_row = next(
+        (cells for cells in status.gate_rows if cells[0] == "CROSS_PLATFORM_CORE"),
+        [],
+    )
+    gate_revision = gate_row[2] if len(gate_row) >= REVISION_ROW_CELLS else ""
+    direct_match = (
+        TREE_REVISION_RE.match(w12_revision) is not None
+        and milestone_revision == w12_revision
+        and gate_revision == w12_revision
+    )
+    if not direct_match:
+        report_path = repo / GATE_REPORTS["CROSS_PLATFORM_CORE"]
+        report_text = report_path.read_text(encoding="utf-8", errors="replace")
+        reanchor_fields = (
+            "- Independent gate-neutral re-anchoring: ACCEPTED",
+            f"- Final accepted M27 content revision: {milestone_revision}",
+            f"- Re-anchored evaluated revision: {gate_revision}",
+            "- Re-anchoring owner decision: ACCEPTED",
+        )
+        if not (
+            TREE_REVISION_RE.match(w12_revision)
+            and milestone_revision == w12_revision
+            and all(field in report_text for field in reanchor_fields)
+        ):
+            report.fail(
+                "M28 requires Gate D evaluated revision to equal the final "
+                "accepted M27/M27-W12 content tree, or an explicit accepted "
+                "gate-neutral re-anchoring record; found "
+                f"M27={milestone_revision!r}, M27-W12={w12_revision!r}, "
+                f"Gate-D={gate_revision!r}"
+            )
+            errors += 1
+    if errors == 0:
+        report.ok("M28 readiness is bound to the final accepted M27 content tree")
+
+
+def _evidence_section(text: str, package_id: str) -> str:
+    pattern = re.compile(
+        rf"^### {re.escape(package_id)}(?:\s|$).*?"
+        r"(?=^### M\d{2}-W\d{2}(?:\s|$)|\Z)",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    match = pattern.search(text)
+    return match.group(0) if match else ""
+
+
+def check_preserved_completed_history(
+    status: Status, repo: Path, report: Report
+) -> None:
+    """Prevent any completed pre-v1.4 package anchor from being rewritten."""
     evidence_text = (repo / "docs/TEST_EVIDENCE.md").read_text(
         encoding="utf-8", errors="replace"
     )
     by_id = {cells[0]: cells for cells in status.package_rows}
     errors = 0
-    for package_id, revision in PRESERVED_M00_REVISIONS.items():
+    for package_id, (revision, commit) in PRESERVED_PACKAGE_ANCHORS.items():
         cells = by_id.get(package_id, [])
         if len(cells) < FULL_EVIDENCE_ROW_CELLS:
-            report.fail(f"{package_id}: preserved v1.2 status row is missing")
+            report.fail(f"{package_id}: preserved completed status row is missing")
             errors += 1
             continue
         if cells[1] != "VERIFIED":
             report.fail(
-                f"{package_id}: preserved v1.2 state changed from VERIFIED to "
-                f"{cells[1]!r}"
+                f"{package_id}: preserved state changed from VERIFIED to {cells[1]!r}"
             )
             errors += 1
         if cells[2] != revision:
+            report.fail(f"{package_id}: preserved revision changed from {revision!r}")
+            errors += 1
+        expected_link = f"docs/TEST_EVIDENCE.md § {package_id}"
+        if cells[3] != expected_link:
             report.fail(
-                f"{package_id}: preserved v1.2 revision changed from {revision!r}"
+                f"{package_id}: preserved evidence link changed from {expected_link!r}"
             )
             errors += 1
-        if "docs/TEST_EVIDENCE.md" not in cells[3]:
-            report.fail(f"{package_id}: preserved v1.2 evidence link is missing")
+        section = _evidence_section(evidence_text, package_id)
+        if not section:
+            report.fail(f"{package_id}: preserved evidence heading is missing")
             errors += 1
-        if f"### {package_id}" not in evidence_text:
-            report.fail(f"{package_id}: preserved v1.2 evidence heading is missing")
+        elif commit not in section:
+            report.fail(
+                f"{package_id}: preserved evidence no longer records content "
+                f"commit {commit}"
+            )
             errors += 1
     if errors == 0:
-        report.ok("M00-W01…W09 states, revisions, and evidence are preserved")
+        report.ok(
+            "M00-W01…W10 and M01-W01…W06 states, trees, content commits, "
+            "and evidence anchors are preserved"
+        )
 
 
 def check_milestone_consistency(
@@ -1753,32 +2240,59 @@ def check_evidence_preservation(repo: Path, status: Status, report: Report) -> N
         )
 
 
-def check_single_canonical_spec(repo: Path, report: Report) -> None:
+def _canonicalish_spec_name(name: str) -> bool:
+    normalized = unicodedata.normalize("NFKC", name).casefold()
+    collapsed = re.sub(r"[^a-z0-9]+", "", normalized)
+    return collapsed.startswith("masterimplementationspec")
+
+
+def canonical_spec_offenders(repo: Path) -> list[str]:
+    """Return every non-canonical file that looks or reads like the spec."""
     docs_dir = repo / "docs"
     canonical = repo / CANONICAL_SPEC_REL
     offenders: list[str] = []
-    if docs_dir.is_dir():
-        for path in sorted(docs_dir.rglob("*.md")):
-            if path == canonical:
-                continue
-            rel = path.relative_to(repo).as_posix()
-            if path.name.startswith("MASTER_IMPLEMENTATION_SPEC"):
+    if not docs_dir.is_dir():
+        return offenders
+    marker = SPEC_HEADER_MARKER.encode()
+    for path in sorted(docs_dir.rglob("*")):
+        if path == canonical:
+            continue
+        rel = path.relative_to(repo).as_posix()
+        name_match = _canonicalish_spec_name(path.name)
+        if path.is_symlink():
+            if name_match:
                 offenders.append(rel)
-                continue
-            try:
-                head = "\n".join(
-                    path.read_text(encoding="utf-8", errors="replace").splitlines()[
-                        :SPEC_HEADER_SCAN_LINES
-                    ]
-                )
-            except OSError:
-                continue
-            if SPEC_HEADER_MARKER in head:
+            continue
+        if path.is_dir():
+            continue
+        if not path.is_file():
+            if name_match:
                 offenders.append(rel)
+            continue
+        try:
+            content_match = marker in path.read_bytes()
+        except OSError:
+            content_match = False
+        if name_match or content_match:
+            offenders.append(rel)
+    return offenders
+
+
+def check_single_canonical_spec(repo: Path, report: Report) -> None:
+    canonical = repo / CANONICAL_SPEC_REL
+    if canonical.is_symlink() or not canonical.is_file():
+        report.fail(
+            "canonical specification must be a regular, non-symlink file at "
+            f"{CANONICAL_SPEC_REL}"
+        )
+    offenders = canonical_spec_offenders(repo)
     for rel in offenders:
         report.fail(f"second canonical-looking specification present: {rel}")
-    if not offenders:
-        report.ok("exactly one canonical specification exists under docs/")
+    if canonical.is_file() and not canonical.is_symlink() and not offenders:
+        report.ok(
+            "exactly one regular canonical specification exists under docs/ "
+            "(case/Unicode/content variants checked)"
+        )
 
 
 def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
@@ -1796,15 +2310,19 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
         return report
     check_spec_inventory(spec, report)
     check_spec_contract(spec_path, spec, report)
+    check_v14_governance_memory(repo, spec, report)
     check_status_shell(status, report)
     gate_states = check_gates(repo, status, report)
     ms_states, pkg_states = check_tables(spec, status, report)
     check_progress_consistency(status, pkg_states, report)
     check_dependencies(spec, ms_states, pkg_states, gate_states, report)
-    check_v13_readiness_contract(spec, ms_states, pkg_states, gate_states, report)
+    check_v14_readiness_contract(spec, ms_states, pkg_states, gate_states, report)
+    check_m28_gate_revision_binding(
+        status, ms_states, pkg_states, gate_states, repo, report
+    )
     check_milestone_consistency(spec, ms_states, pkg_states, report)
     check_evidence_preservation(repo, status, report)
-    check_preserved_m00_history(status, repo, report)
+    check_preserved_completed_history(status, repo, report)
     check_single_canonical_spec(repo, report)
     return report
 

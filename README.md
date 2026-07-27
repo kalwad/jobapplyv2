@@ -157,7 +157,7 @@ pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
 pnpm generate:contracts         # regenerate packages/contracts/generated (M01-W02)
 pnpm generate:contracts --check # read-only byte-exact drift check (contract-gen suite)
 pnpm contracts:compatibility:check # read-only M01-W05 historical compatibility check
-pnpm traceability:check     # read-only v1.3 157/286 traceability + drift validation
+pnpm traceability:check     # read-only v1.4 193/300 traceability + drift validation
 pnpm traceability:generate  # regenerate the reviewed human traceability view
 pnpm verify          # aggregate of all of the above + traceability/integrity/status
 python3 scripts/validate_status.py
@@ -168,10 +168,10 @@ services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
 
-## Traceability and next-work derivation (M00-W07, reviewed for v1.3 by M00-W10)
+## Traceability and next-work derivation (M00-W07; v1.3 by M00-W10, v1.4 by M00-W11)
 
 `docs/traceability.json` is the canonical machine-readable mapping.
-It contains all 157 requirement records and all 286 expanded work-package
+It contains all 193 requirement records and all 300 expanded work-package
 records plus four critical gates. Exact requirement text, package IDs/titles,
 and explicit
 milestone/gate dependencies remain owned by the immutable canonical
@@ -181,7 +181,10 @@ records reviewed in M00-W07 retain their exact hashes. M00-W08 mechanically
 added the v1.3 delta in a visibly provisional migration state. M00-W10
 independently reviewed every one of the 22 new requirements and 26 new
 packages, promoted only those records to `REVIEWED_V1_3`, and locked the
-final expanded mapping/dependency hashes. The JSON records ownership, planned
+expanded v1.3 mapping/dependency hashes. M00-W11 adopted the owner-approved
+v1.4 bytes and independently reviewed the exact 36 new requirements and 14 new
+packages as `REVIEWED_V1_4`; the v1.2 and v1.3 reviewed hashes remain
+immutable historical layers. The JSON records ownership, planned
 components/test/evidence layers, honest implementation state, sequential
 dependency derivation, direct downstream edges, and mapping checksums.
 

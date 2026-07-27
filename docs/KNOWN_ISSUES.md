@@ -34,7 +34,31 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-None recorded.
+### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
+
+- Severity: MEDIUM
+- State: DEFERRED
+- Discovered: 2026-07-27 during M00-W11
+- Affects: `M28-W06`, `M33-W07`, `M34-W07`, `REQ-UX-007`,
+  `REQ-UX-010`, `REQ-UX-014`, `REQ-UX-015`, `REQ-UX-016`,
+  `REQ-UX-018`
+- Description: the owner-approved v1.4 contract makes the M28-W06
+  Simplify-experienced-user study a blocking M28 obligation and includes
+  actual job search/save and queue-approval tasks, while the dedicated
+  job-board/matches and review-to-queue UI packages are M33-W07 and M34-W07,
+  which are sequenced after M28.
+- Reproduction: read canonical specification §5.15.9 and the M28-W06 package
+  row, then compare the M33-W07 and M34-W07 package rows and the §9 milestone
+  dependency order. The required study tasks cannot all be exercised in the
+  stated milestone order without an owner-approved sequencing decision.
+- Workaround: none that may be silently applied. Do not fabricate M28 study
+  evidence, weaken `REQ-UX-018`, or implement M33/M34 product behavior during
+  M00-W11. Before M28 acceptance, obtain an owner-approved ADR/spec revision
+  that supplies the required product surfaces or changes their sequencing
+  while preserving the familiarity/originality acceptance standard.
+- Resolution + evidence link: deferred to future planning before M28; the
+  exact conflict and M00-W11 non-workaround are recorded in ADR-0003 and
+  docs/TEST_EVIDENCE.md § M00-W11.
 
 ## M01-W04 review
 
