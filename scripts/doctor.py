@@ -134,7 +134,7 @@ def default_runner(repo: Path) -> Runner:
     return run
 
 
-def _scrub(text: str, home: Path | None = None) -> str:
+def _scrub(text: str, home: Path | str | None = None) -> str:
     """Replace the home-directory prefix so output stays path-minimal.
 
     Both native and forward-slash spellings are redacted: Windows tools mix

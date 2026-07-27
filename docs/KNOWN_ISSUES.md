@@ -34,17 +34,44 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-None recorded.
+### KI-0013 — Doctor redaction tests encoded host-specific `Path` separators
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-26 during M00-W10 hosted content verification
+- Affects: M00-W10; `scripts/doctor.py`; `scripts/tests/test_doctor.py`;
+  required `windows-2025` CI
+- Description: the redaction implementation passed its Windows native,
+  forward-slash, mixed-case, UNC, and boundary cases, but two new tests
+  encoded the test host's separator semantics. On Windows,
+  `Path("/Users/Fixture User")` becomes a Windows-style path and therefore
+  no longer represents the simulated POSIX input; a fatal-path assertion
+  likewise required `/` even though the correctly redacted Windows
+  diagnostic used `\`.
+- Reproduction: M00-W10 content run 30229993787, Windows job 89866914158,
+  collected 358 Python tests and failed only
+  `test_scrub_keeps_posix_case_sensitive_and_component_bounded` and
+  `test_pin_read_fatal_output_scrubs_home`; macOS job 89866914146 and Ubuntu
+  job 89866914187 passed.
+- Workaround: none accepted; required tests must be host-neutral and pass on
+  the actual Windows runner.
+- Resolution + evidence link: `_scrub` now accepts an explicit path string
+  for syntax-preserving simulation, the POSIX test uses that form, and the
+  fatal-path expectation derives the host-native separator with `Path`.
+  Local focused and aggregate verification pass; state remains IN_PROGRESS
+  until a new exact-head Windows job verifies the repair. Evidence:
+  docs/TEST_EVIDENCE.md § M00-W10.
 
 ## M00-W10 independent review
 
 M00-W10 independently re-read the canonical v1.3 specification, the full
 project-memory and platform/gate records, the W08/W09 diffs, implementation
 and tests, and both prior three-operating-system hosted runs. The review
-closed KI-0007 through KI-0012 below. No `CRITICAL` or `HIGH` M00 issue
-remains open. KI-0001, KI-0003, and KI-0006 remain honest `LOW` deferred
-boundaries owned by future packages; none represents implemented product
-behavior or accepted platform evidence.
+closed KI-0007 through KI-0012 below. KI-0013 is the isolated hosted-test
+finding above and remains IN_PROGRESS pending exact-head Windows proof.
+KI-0001, KI-0003, and KI-0006 remain honest `LOW` deferred boundaries owned
+by future packages; none represents implemented product behavior or accepted
+platform evidence.
 
 ## M00-W09 portability review
 

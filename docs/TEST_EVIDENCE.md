@@ -201,6 +201,23 @@ Exact verification commands and summarized results
     were read-only.
 - The content revision and its hosted three-OS results are recorded below
   after those checks run and are inspected.
+- First hosted content attempt and fail-closed response:
+  - Content commit `a8630ccffdfdc4faf037dd3a3d127a7fc50bea11`
+    (tree `467c5398c8d82b0c2885a9e3acffb0cdfdc3876d`) triggered run
+    30229993787. macOS job 89866914146 and Ubuntu job 89866914187 passed
+    the canonical doctor, aggregate verification, and no-tracked-changes
+    assertion. Windows job 89866914158 failed, so M00 was not accepted.
+  - Inspection of the actual Windows log found 356/358 Python tests passed;
+    the only failures were two new doctor-test assertions that converted a
+    simulated POSIX `Path` to Windows syntax and hard-coded `/` in an
+    otherwise correctly redacted native Windows diagnostic. The runtime
+    Windows native/forward-slash, case, UNC, boundary, and fatal redaction
+    cases themselves passed.
+  - KI-0013 records the defect. The repair preserves explicit POSIX test
+    syntax as a string and derives the expected fatal diagnostic path with
+    the host-native `Path` separator. A fresh three-OS content head is
+    required; no rerun or local result can substitute for that Windows
+    proof.
 
 ### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
 

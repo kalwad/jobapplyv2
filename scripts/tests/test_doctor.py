@@ -558,7 +558,9 @@ def test_scrub_does_not_redact_unrelated_windows_path_prefixes(text: str) -> Non
 
 
 def test_scrub_keeps_posix_case_sensitive_and_component_bounded() -> None:
-    home = Path("/Users/Fixture User")
+    # A string preserves POSIX syntax when this test itself runs on Windows;
+    # WindowsPath would otherwise rewrite the simulated leading slash.
+    home = "/Users/Fixture User"
     text = (
         "/Users/Fixture User/.cargo "
         "/users/fixture user/.rustup "
@@ -596,7 +598,8 @@ def test_pin_read_fatal_output_scrubs_home(
     captured = capsys.readouterr()
     assert code == 2
     assert str(home) not in captured.err
-    assert "~/repo/pyproject.toml" in captured.err
+    expected_redacted = str(Path("~") / "repo" / "pyproject.toml")
+    assert expected_redacted in captured.err
 
 
 def test_read_pins_accepts_crlf_pin_files(doctor_repo: Path) -> None:
