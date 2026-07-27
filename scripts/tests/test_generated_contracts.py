@@ -10,7 +10,9 @@ generator/model tests, not the M01-W05 cross-language compatibility corpus.
 
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Any, cast
@@ -20,7 +22,15 @@ import portability
 import pydantic
 import pytest
 from conftest import REPO_ROOT
-from japp_contracts import FixtureTestRecordV1
+from japp_contracts import (
+    ERROR_CATALOG_V1,
+    ERROR_CODES_V1,
+    ErrorRecordV1,
+    FixtureTestRecordV1,
+    error_default_message_v1,
+    is_error_code_v1,
+    require_error_catalog_entry_v1,
+)
 from japp_contracts._runtime import ContractModel
 
 GENERATED_ROOT = REPO_ROOT / "packages" / "contracts" / "generated"
@@ -221,3 +231,151 @@ def test_cli_check_passes_on_committed_tree_and_is_read_only() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert "byte-identical" in result.stdout
     assert _porcelain_status() == before
+
+
+# ------------------------------------------------------- M01-W03 error layer
+
+ERROR_TAXONOMY_REF = "urn:japp:schema:error:taxonomy:v1"
+ERROR_FAMILIES = (
+    "VALIDATION",
+    "CONFLICT",
+    "UNSUPPORTED",
+    "SENSITIVE",
+    "MODEL",
+    "STORAGE",
+    "TRANSPORT",
+    "RENDERING",
+    "SITE",
+    "BENCHMARK",
+    "GATE",
+    "SUBMISSION",
+)
+
+
+def _taxonomy_schema() -> dict[str, Any]:
+    path = (
+        REPO_ROOT
+        / "packages"
+        / "contracts"
+        / "schemas"
+        / "error"
+        / "taxonomy.v1.schema.json"
+    )
+    return _load_json(path)
+
+
+def test_error_catalog_covers_every_family_and_code_exactly_once() -> None:
+
+    assert len(ERROR_CODES_V1) == 80
+    assert list(ERROR_CODES_V1) == sorted(ERROR_CODES_V1)
+    assert len(set(ERROR_CODES_V1)) == len(ERROR_CODES_V1)
+    families = {entry.family for entry in ERROR_CATALOG_V1.values()}
+    assert families == set(ERROR_FAMILIES)
+    declared = _taxonomy_schema()["$defs"]["errorCode"]["enum"]
+    assert list(ERROR_CODES_V1) == sorted(declared)
+    for code, entry in ERROR_CATALOG_V1.items():
+        assert entry.code == code
+        assert code.startswith(entry.family + "_")
+        family_lower = entry.family.lower()
+        remainder = code[len(entry.family) + 1 :].lower()
+        assert entry.message_key == f"error.{family_lower}.{remainder}"
+
+
+def test_error_catalog_messages_are_user_safe() -> None:
+
+    forbidden = re.compile(r"[{}<>%$\\`]|://|https?|Traceback", re.IGNORECASE)
+    keys: set[str] = set()
+    for entry in ERROR_CATALOG_V1.values():
+        assert entry.message_key not in keys
+        keys.add(entry.message_key)
+        texts = [entry.default_message]
+        if entry.remediation is not None:
+            texts.append(entry.remediation)
+        for text in texts:
+            assert 0 < len(text) <= 200, entry.code
+            assert forbidden.search(text) is None, (entry.code, text)
+            assert all(0x20 <= ord(char) < 0x7F for char in text), entry.code
+
+
+def test_error_family_invariants_hold_in_python_surface() -> None:
+
+    for entry in ERROR_CATALOG_V1.values():
+        if entry.transient:
+            assert entry.retry_disposition == "SAFE_RETRY", entry.code
+        if entry.retry_disposition in ("PAUSE_FOR_USER", "NO_RETRY_PROHIBITED"):
+            assert entry.user_action_required, entry.code
+        if entry.family == "SENSITIVE":
+            assert entry.user_action_required, entry.code
+            assert entry.retry_disposition in (
+                "PAUSE_FOR_USER",
+                "NO_RETRY_PROHIBITED",
+            ), entry.code
+        if entry.family == "SITE":
+            assert entry.retry_disposition == "PAUSE_FOR_USER", entry.code
+        if entry.family in (
+            "UNSUPPORTED",
+            "SENSITIVE",
+            "GATE",
+            "BENCHMARK",
+            "SUBMISSION",
+        ):
+            assert entry.retry_disposition != "SAFE_RETRY", entry.code
+        if entry.family in ("GATE", "BENCHMARK"):
+            assert not entry.transient, entry.code
+
+
+def test_error_lookups_are_deterministic_and_fail_closed() -> None:
+
+    first = require_error_catalog_entry_v1("SITE_CAPTCHA_BOUNDARY")
+    second = require_error_catalog_entry_v1("SITE_CAPTCHA_BOUNDARY")
+    assert first is second
+    assert error_default_message_v1("SITE_CAPTCHA_BOUNDARY") == (first.default_message)
+    assert is_error_code_v1("MODEL_TIMEOUT")
+    assert not is_error_code_v1("MODEL_TIME_TRAVEL")
+    assert not is_error_code_v1(None)
+    assert not is_error_code_v1(80)
+    hostile = "SITE_<script>alert(1)</script>"
+    with pytest.raises(KeyError) as caught:
+        require_error_catalog_entry_v1(hostile)
+    assert "script" not in str(caught.value)
+
+
+def test_error_record_serializes_code_only_and_rejects_metadata() -> None:
+
+    record = ErrorRecordV1.model_validate(
+        {
+            "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+            "code": "SUBMISSION_RECEIPT_MISSING",
+            "occurred_at": "2026-07-27T06:00:00Z",
+            "origin": "EXTENSION_SERVICE_WORKER",
+            "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        }
+    )
+    wire = record.wire_dict()
+    assert set(wire) == {
+        "error_id",
+        "code",
+        "occurred_at",
+        "origin",
+        "correlation_id",
+    }
+    metadata = require_error_catalog_entry_v1(record.code)
+    assert metadata.retry_disposition == "PAUSE_FOR_USER"
+    assert metadata.user_action_required
+    for extra_field in ("severity", "family", "retry_disposition", "message"):
+        with pytest.raises(pydantic.ValidationError):
+            ErrorRecordV1.model_validate({**wire, extra_field: "ERROR"})
+
+
+def test_generated_error_manifest_provenance_matches_committed_catalog() -> None:
+
+    data_inputs = cast("list[dict[str, Any]]", MANIFEST["dataInputs"])
+    assert len(data_inputs) == 1
+    entry = data_inputs[0]
+    assert entry["path"] == "packages/contracts/catalog/error-catalog.v1.json"
+    assert entry["validatedAgainst"] == "urn:japp:schema:error:catalog:v1"
+    committed = (REPO_ROOT / cast("str", entry["path"])).read_bytes()
+    assert hashlib.sha256(committed).hexdigest() == entry["sha256"]
+    catalog_document = _load_json(REPO_ROOT / cast("str", entry["path"]))
+    assert catalog_document["catalog_version"] == entry["version"]
+    assert len(cast("list[Any]", catalog_document["entries"])) == 80

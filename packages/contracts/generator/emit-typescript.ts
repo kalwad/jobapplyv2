@@ -120,6 +120,14 @@ function constraintNotes(type: IrType): string[] {
       notes.push(`Maximum: ${String(type.maximum)}.`);
     }
   }
+  if (type.kind === "array") {
+    if (type.minItems !== null) {
+      notes.push(`Minimum items: ${String(type.minItems)}.`);
+    }
+    if (type.maxItems !== null) {
+      notes.push(`Maximum items: ${String(type.maxItems)}.`);
+    }
+  }
   if (type.kind === "enum") {
     notes.push("Closed token set; undeclared tokens are rejected.");
   }
@@ -189,17 +197,31 @@ function renderType(
       return "string";
     case "number":
       return "number";
+    case "boolean":
+      return "boolean";
     case "enum":
       return type.tokens.map((token) => JSON.stringify(token)).join(" | ");
     case "any":
       return "unknown";
     case "ref":
       return referenceType(emission, type);
+    case "array":
+      return `readonly ${renderArrayItem(emission, type.items, indent)}[]`;
     case "nullable":
       return `${renderType(emission, type.inner, indent)} | null`;
     case "object":
       return renderObjectType(emission, type, indent);
   }
+}
+
+/** Array item expression, parenthesized when the item type is a union. */
+function renderArrayItem(
+  emission: ModuleEmission,
+  item: IrType,
+  indent: string,
+): string {
+  const rendered = renderType(emission, item, indent);
+  return rendered.includes("|") ? `(${rendered})` : rendered;
 }
 
 function renderObjectType(
@@ -438,12 +460,24 @@ ${wrapperFunctions}
   return { path: "typescript/validators.ts", content };
 }
 
-function emitIndexModule(catalog: IrCatalog): GeneratedFile {
+/** Additional generated runtime modules re-exported from the index. */
+export interface TypescriptEmitOptions {
+  /** Paths relative to the typescript root, e.g. "error/catalog-data.v1.ts". */
+  readonly dataModules?: readonly string[];
+}
+
+function emitIndexModule(
+  catalog: IrCatalog,
+  options: TypescriptEmitOptions,
+): GeneratedFile {
   const exportLines = catalog.documents
     .map(
       (document) => `export type * from "./${typescriptModulePath(document)}";`,
     )
     .sort();
+  const dataExportLines = [...(options.dataModules ?? [])]
+    .sort()
+    .map((modulePath) => `export * from "./${modulePath}";`);
   const content = `${generatedHeader(
     "packages/contracts/schemas/ (complete catalog)",
     "generated TypeScript export surface",
@@ -451,12 +485,15 @@ function emitIndexModule(catalog: IrCatalog): GeneratedFile {
 
 ${exportLines.join("\n")}
 export * from "./validators.ts";
-`;
+${dataExportLines.join("\n")}${dataExportLines.length > 0 ? "\n" : ""}`;
   return { path: "typescript/index.ts", content };
 }
 
 /** Emit every TypeScript artifact for the catalog, sorted by path. */
-export function emitTypescript(catalog: IrCatalog): GeneratedFile[] {
+export function emitTypescript(
+  catalog: IrCatalog,
+  options: TypescriptEmitOptions = {},
+): GeneratedFile[] {
   const documentsById = new Map<string, IrDocument>(
     catalog.documents.map((document) => [document.id, document]),
   );
@@ -464,7 +501,7 @@ export function emitTypescript(catalog: IrCatalog): GeneratedFile[] {
     emitDocumentModule(document, documentsById),
   );
   files.push(emitValidatorsModule(catalog));
-  files.push(emitIndexModule(catalog));
+  files.push(emitIndexModule(catalog, options));
   files.sort((left, right) => (left.path < right.path ? -1 : 1));
   return files;
 }

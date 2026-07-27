@@ -36,6 +36,26 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
+## M01-W03 review
+
+M01-W03 introduced the machine-readable error taxonomy: the twelve-family
+vocabulary and 80 stable codes (`schemas/error/taxonomy.v1.schema.json`),
+the canonical validated per-code metadata catalog
+(`catalog/error-catalog.v1.json` + `schemas/error/catalog.v1.schema.json`),
+the strict code-only wire record (`schemas/error/record.v1.schema.json`),
+narrow generator support for strict booleans and uniform arrays, and the
+generated TypeScript/Pydantic catalog-data surfaces with fail-closed
+unknown-code lookups. One reproducible defect was discovered and fixed
+during package validation (KI-0019 below — a single recurrence of the
+KI-0014…KI-0017 boundary-fixture premise-inheritance class, after which
+the shared closeout helpers were generalized through the M01-W05
+boundary). Deliberate, documented scope boundaries (not defects): the
+catalog defines exactly the specification-derived near-term codes (no
+speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
+and `integer` remain fail-closed generator constructs; capability/command
+allowlists are M01-W04; cross-language round-trip certification is
+M01-W05. No CRITICAL or HIGH issue is open.
+
 ## M01-W02 review
 
 M01-W02 introduced the deterministic contract generator
@@ -107,6 +127,33 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0019 — Status exactness negative inherited the pre-M01-W03 premise
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-27 during M01-W03 package validation
+- Affects: M01-W03; `scripts/tests/test_validate_status.py`
+  (`test_current_work_package_must_be_exact_none_or_blocked_id`);
+  `pnpm verify`
+- Description: the exactness negative reset M00-W10, M01-W01, and M01-W02
+  before injecting a malformed current-package value, but did not reset
+  M01-W03; once M01-W03 legitimately became IN_PROGRESS, the inherited row
+  diverted the validator to the current-package-mismatch error instead of
+  the asserted exactness error. A single recurrence of the
+  KI-0014/KI-0015/KI-0016/KI-0017 premise-inheritance class.
+- Reproduction: mark M01-W03 IN_PROGRESS and run
+  `uv run pytest scripts/tests`; exactly this fixture assertion failed
+  (491 passed) while the real validators correctly passed.
+- Workaround: none accepted; boundary fixtures must establish their own
+  complete premise in every legitimate live repository state.
+- Resolution + evidence link: the negative now resets every M01 row
+  through M01-W04, and both M00-closeout boundary helpers
+  (`prepare_m00_closeout`, `prepare_valid_m00_closeout`) were generalized
+  to reset every M01 row through M01-W05 so the upcoming M01-W03/M01-W04
+  stamp boundaries cannot re-trigger the class. The scripts suite passes
+  492/492 in the M01-W03 IN_PROGRESS state. Evidence:
+  docs/TEST_EVIDENCE.md § M01-W03.
 
 ### KI-0018 — Generated-tree replacement was not rollback-safe; tracked source carried literal control bytes
 

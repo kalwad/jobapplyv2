@@ -185,7 +185,7 @@ describe("generated surface completeness", () => {
 
   test("the wrapper runtime is the canonical catalog validator", () => {
     const runtime = contractRuntime();
-    expect(runtime.catalog.entries.length).toBe(13);
+    expect(runtime.catalog.entries.length).toBe(16);
     // The canonical validator rejects references that leave the catalog.
     expect(() =>
       runtime.validator.validateInstance("https://example.invalid/x", {}),

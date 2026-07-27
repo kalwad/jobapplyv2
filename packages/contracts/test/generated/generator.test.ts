@@ -161,7 +161,7 @@ describe("determinism", () => {
       inputs: { path: string; sha256: string }[];
       outputs: { path: string; sha256: string }[];
     };
-    expect(parsed.inputs.length).toBe(13);
+    expect(parsed.inputs.length).toBe(16);
     expect(parsed.outputs.length).toBe(tree.files.size - 1);
     for (const entry of [...parsed.inputs, ...parsed.outputs]) {
       expect(entry.path.includes("\\")).toBe(false);
@@ -403,9 +403,10 @@ describe("input safety", () => {
         };
       };
     };
+    // "integer" stays outside the supported construct set (numbers are the
+    // JSON "number" type; arrays/booleans joined the set in M01-W03).
     document.$defs.structuredLocation.properties.former_names = {
-      type: "array",
-      items: { type: "string" },
+      type: "integer",
     };
     writeFileSync(location, `${JSON.stringify(document, null, 2)}\n`);
     const result = runCliProcess("--check", "--schemas-root", schemas);
@@ -414,7 +415,7 @@ describe("input safety", () => {
     expect(result.output).toContain(
       "#/$defs/structuredLocation/properties/former_names",
     );
-    expect(result.output).toContain('type "array" is not supported');
+    expect(result.output).toContain('type "integer" is not supported');
   });
 
   test("general anyOf beyond the nullability form fails closed", () => {

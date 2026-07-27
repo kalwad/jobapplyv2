@@ -13,16 +13,19 @@ packages/contracts/
 ├── README.md          # this normative convention document
 ├── schemas/           # CANONICAL hand-authored JSON Schema source (M01-W01)
 │   ├── common/        # foundational shared definitions (listed below)
+│   ├── error/         # M01-W03 error taxonomy/catalog/record documents
 │   └── fixture/       # test-only composition fixtures; never product data
+├── catalog/           # CANONICAL validated data instances (M01-W03):
+│   └── error-catalog.v1.json   # one metadata entry per error code
 ├── src/               # deterministic catalog loader + strict validation layer
 ├── generator/         # M01-W02 deterministic generator engine (hand-authored)
 ├── generated/         # GENERATOR-OWNED output trees; never edited by hand
-│   ├── MANIFEST.json  # provenance: inputs/outputs/hashes/type-identity map
+│   ├── MANIFEST.json  # provenance: inputs/data-inputs/outputs/type map
 │   ├── typescript/    # generated types + typed Ajv-delegating validators
 │   └── python/        # generated strict Pydantic v2 package (japp_contracts)
 └── test/
     ├── schema/        # M01-W01 convention and definition tests
-    ├── generated/     # M01-W02 generator + generated-TypeScript tests
+    ├── generated/     # M01-W02/M01-W03 generator + generated-surface tests
     ├── fixtures/      # shared synthetic instance corpus for both languages
     └── contract/      # RESERVED for M01-W05 cross-language contract tests
 ```
@@ -273,19 +276,21 @@ pnpm generate:contracts --check  # read-only byte-exact drift check
   `pattern`/`minLength`/`maxLength`; `format: date | date-time` with the
   full-mode calendar/time assertions (mirrored in Python, including the
   `23:59:60Z` leap-second slot and proleptic year 0000); number
-  `minimum`/`maximum`; closed string enums; closed objects
+  `minimum`/`maximum`; `boolean` (strict — never coerced from strings or
+  integers); uniform arrays (single object `items` schema plus
+  `minItems`/`maxItems`); closed string enums; closed objects
   (`additionalProperties: false`, `required`, `properties`); the marked
   extension surface (`x-japp-extension-point` + `propertyNames` +
   `maxProperties`); two-member `anyOf` nullability; the boolean schema
   `true` for deliberately opaque payloads; `title`/`description`/`$comment`,
   `deprecated`, and the five `x-japp-*` annotations as metadata.
 - **Everything else fails closed** with the document path and JSON pointer:
-  arrays (`items`/`prefixItems` — none exist in the catalog yet), general
-  `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, exclusive bounds,
-  numeric enums, `format` values beyond date/date-time, non-identifier or
-  `model_`/underscore-leading property names, recursive `$defs` cycles, and
-  any unlisted keyword. Extending support is a deliberate generator change
-  with tests, never a silent approximation.
+  tuple arrays (`prefixItems`), `uniqueItems`/`contains`, general
+  `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, `integer`, exclusive
+  bounds, numeric enums, `format` values beyond date/date-time,
+  non-identifier or `model_`/underscore-leading property names, recursive
+  `$defs` cycles, and any unlisted keyword. Extending support is a
+  deliberate generator change with tests, never a silent approximation.
 - **TypeScript output** (`generated/typescript/`): one module per schema
   document mirroring the schema layout; fully-qualified deterministic type
   names (`CommonMoneyV1DecimalAmount`, root payloads like
@@ -341,13 +346,76 @@ unconstrained schema). Stable import surface:`@japp/contracts/generated`→`gene
   extra files all fail with actionable paths) without ever touching the
   working tree.
 
+## 10b. Error taxonomy (M01-W03)
+
+The machine-readable error taxonomy lives in three schema documents plus
+one canonical validated data instance:
+
+- `schemas/error/taxonomy.v1.schema.json`
+  (`urn:japp:schema:error:taxonomy:v1`) — the closed vocabulary: the twelve
+  required families (`VALIDATION`, `CONFLICT`, `UNSUPPORTED`, `SENSITIVE`,
+  `MODEL`, `STORAGE`, `TRANSPORT`, `RENDERING`, `SITE`, `BENCHMARK`,
+  `GATE`, `SUBMISSION`), the 80 stable family-prefixed UPPER_SNAKE_CASE
+  error codes, severities (`WARNING | ERROR | CRITICAL`), retry/recovery
+  dispositions (`SAFE_RETRY | RETRY_AFTER_REMEDIATION | PAUSE_FOR_USER |
+NO_RETRY_PROHIBITED | NO_RETRY_TERMINAL`), reporting origins (spec
+  §5.4/§5.5 components/boundaries), the derived message-key grammar, and
+  the bounded user-safe message shape.
+- `schemas/error/catalog.v1.schema.json`
+  (`urn:japp:schema:error:catalog:v1`) — the structure of the catalog
+  instance, and `catalog/error-catalog.v1.json` — the ONE source of truth
+  for per-code metadata: derived message key, safe default English
+  message, optional remediation, severity, disposition,
+  `user_action_required`, `transient`, diagnostic policy (the canonical
+  redaction vocabulary), optional owning boundary, and version metadata.
+  The generator validates the instance through the strict catalog
+  validator and fails closed on: schema violations, unsorted or duplicate
+  entries, any disagreement with the taxonomy `errorCode` enum (both
+  directions), family/prefix mismatch, non-derived message keys, message
+  lint violations (URLs, paths, stack-trace references, doubled spaces —
+  on top of the schema's charset/bounds that already exclude
+  interpolation, HTML, and control characters), and the family invariant
+  matrix (SENSITIVE ⇒ user action + pause/prohibit; SITE ⇒ pause;
+  UNSUPPORTED/SENSITIVE/GATE/BENCHMARK/SUBMISSION ⇒ never `SAFE_RETRY`;
+  `transient` ⇒ `SAFE_RETRY`; GATE/BENCHMARK never transient). Independent
+  handwritten TypeScript/Python catalogs are prohibited — both surfaces
+  are generated from this instance.
+- `schemas/error/record.v1.schema.json`
+  (`urn:japp:schema:error:record:v1`) — the strict wire record. It
+  serializes ONLY the stable code plus occurrence identity/trace data
+  (`error_id`, `occurred_at`, `origin`, `correlation_id`, optional
+  `causation_id`, optional `diagnostic_digest`); family, severity,
+  disposition, flags, and user-safe text are always derived from the
+  catalog by the consumer, so contradictory caller-supplied metadata and
+  free-form user-facing messages are structurally unrepresentable. The
+  record is closed with no extension surface; diagnostics travel out of
+  band (redacted, bounded) and are referenced only by SHA-256 digest.
+
+Evolution rules: codes follow the §4 enum rules — adding a code (with its
+catalog entry) is a MINOR change; removing, renaming, or semantically
+reassigning one is a MAJOR change; deprecated codes carry
+`deprecated_since` and remain defined for the rest of their major version.
+No generic `UNKNOWN` code exists and none may be added as a substitute for
+classification.
+
+Generated surfaces (`generated/typescript/error/catalog-data.v1.ts`,
+`generated/python/.../error/catalog_data_v1.py`): the frozen
+`ERROR_CATALOG_V1` metadata map keyed by code, the sorted
+`ERROR_CODES_V1`, `isErrorCodeV1`/`is_error_code_v1`,
+`requireErrorCatalogEntryV1`/`require_error_catalog_entry_v1` (unknown
+codes fail closed without echoing the untrusted value), and
+`errorDefaultMessageV1`/`error_default_message_v1`. Wire validation stays
+with the standard generated validators (`validateErrorRecordV1`,
+`ErrorRecordV1`), which delegate to the strict canonical Ajv catalog and
+strict Pydantic v2 respectively. The taxonomy defines errors only —
+executable capabilities and command allowlists are M01-W04.
+
 ## 10. Boundaries owned by later packages
 
-- **M01-W03** — error taxonomy schemas. **M01-W04** — capability/command
-  allowlists. **M01-W05** — cross-language round-trip tests (the
-  `test/contract/` suite and compatibility corpus; M01-W02's shared
-  instance corpus is generator/model evidence, not cross-language
-  certification).
+- **M01-W04** — capability/command allowlists. **M01-W05** —
+  cross-language round-trip tests (the `test/contract/` suite and
+  compatibility corpus; the shared instance corpus here is generator/model
+  evidence, not cross-language certification).
 - **M04** — the real migration framework that consumes the
   `UPGRADE_REQUIRED_NEWER_MINOR` / major-version signals.
 - Product/domain payload schemas arrive with their owning milestones.

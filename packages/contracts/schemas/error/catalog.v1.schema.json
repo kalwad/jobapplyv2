@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:error:catalog:v1",
+  "title": "Canonical error-catalog document",
+  "description": "Structure of the canonical machine-readable error catalog (M01-W03). The single committed instance lives at packages/contracts/catalog/error-catalog.v1.json and is the one source of truth for every error code's metadata: stable message key, safe default English user message, optional remediation, severity, retry/recovery disposition, user-action and transience flags, diagnostic/logging policy, optional owning boundary, and version/deprecation metadata. The contract generator validates the instance against this schema through the strict catalog validator, enforces catalog integrity (unique codes, exact agreement with the taxonomy errorCode enum, family-prefix consistency, deterministic message keys, user-safe message lint, family invariants), and derives the generated TypeScript and Python catalog surfaces from it — independent handwritten per-language catalogs are prohibited. Entry evolution: adding an entry (with its code) is a MINOR change; removing, renaming, or semantically reassigning an entry is a MAJOR change; a deprecated entry keeps deprecated_since and remains defined for the rest of its major version.",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog_version", "entries"],
+  "properties": {
+    "catalog_version": {
+      "description": "Version triple of this catalog instance; its major must match this schema's major.",
+      "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+    },
+    "entries": {
+      "description": "Every catalog entry, exactly one per taxonomy error code, sorted by code in ascending code-point order.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/catalogEntry"
+      }
+    }
+  },
+  "$defs": {
+    "catalogEntry": {
+      "title": "Error-catalog entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "family",
+        "message_key",
+        "default_message",
+        "severity",
+        "retry_disposition",
+        "user_action_required",
+        "transient",
+        "diagnostic_policy",
+        "added_in"
+      ],
+      "properties": {
+        "code": {
+          "description": "Stable family-prefixed error code this entry defines.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+        },
+        "family": {
+          "description": "Owning family; must equal the code's prefix (enforced by the generator).",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily"
+        },
+        "message_key": {
+          "description": "Stable localization key deterministically derived from the code.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey"
+        },
+        "default_message": {
+          "description": "Safe default English user message; linted against interpolation, HTML, URLs, paths, stack traces, and control characters.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage"
+        },
+        "remediation": {
+          "description": "Optional actionable, non-deceptive remediation description shown alongside the default message.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage"
+        },
+        "severity": {
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity"
+        },
+        "retry_disposition": {
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition"
+        },
+        "user_action_required": {
+          "description": "Whether safe progress requires an explicit user action.",
+          "type": "boolean"
+        },
+        "transient": {
+          "description": "Whether the condition is expected to clear on its own.",
+          "type": "boolean"
+        },
+        "diagnostic_policy": {
+          "description": "How diagnostics/logging must treat details of this condition; reuses the canonical redaction vocabulary. Internal diagnostic data is separate, redacted, and bounded — it never becomes user-facing text automatically.",
+          "$ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionPolicy"
+        },
+        "owning_boundary": {
+          "description": "Component or trust boundary that primarily raises this code, where one applies.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin"
+        },
+        "added_in": {
+          "description": "Catalog version that introduced this entry.",
+          "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+        },
+        "deprecated_since": {
+          "description": "Catalog version that deprecated this entry; the code remains defined for the rest of its major version.",
+          "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+        }
+      }
+    }
+  }
+}

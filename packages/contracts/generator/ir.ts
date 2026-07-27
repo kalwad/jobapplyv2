@@ -72,6 +72,19 @@ export interface IrNumberType {
   readonly maximum: number | null;
 }
 
+export interface IrBooleanType {
+  readonly kind: "boolean";
+  readonly metadata: IrMetadata;
+}
+
+export interface IrArrayType {
+  readonly kind: "array";
+  readonly metadata: IrMetadata;
+  readonly items: IrType;
+  readonly minItems: number | null;
+  readonly maxItems: number | null;
+}
+
 export interface IrRefType {
   readonly kind: "ref";
   readonly metadata: IrMetadata;
@@ -118,6 +131,8 @@ export type IrType =
   | IrStringType
   | IrEnumType
   | IrNumberType
+  | IrBooleanType
+  | IrArrayType
   | IrRefType
   | IrNullableType
   | IrAnyType
@@ -311,6 +326,44 @@ function extractNumber(node: JsonObject, context: NodeContext): IrNumberType {
       node.maximum === undefined
         ? null
         : requireNumber(node.maximum, context, "maximum"),
+  };
+}
+
+function extractBoolean(node: JsonObject, context: NodeContext): IrBooleanType {
+  assertOnlyKeywords(node, context, new Set(["type"]));
+  return { kind: "boolean", metadata: extractMetadata(node) };
+}
+
+function extractArray(
+  node: JsonObject,
+  context: NodeContext,
+  documentId: string,
+): IrArrayType {
+  assertOnlyKeywords(
+    node,
+    context,
+    new Set(["type", "items", "minItems", "maxItems"]),
+  );
+  const itemsNode = node.items;
+  if (!isJsonObject(itemsNode)) {
+    fail(
+      context,
+      "arrays require a single object items schema (tuples/prefixItems are " +
+        "not supported)",
+    );
+  }
+  return {
+    kind: "array",
+    metadata: extractMetadata(node),
+    items: extractType(itemsNode, child(context, "items"), documentId),
+    minItems:
+      node.minItems === undefined
+        ? null
+        : requireInteger(node.minItems, context, "minItems"),
+    maxItems:
+      node.maxItems === undefined
+        ? null
+        : requireInteger(node.maxItems, context, "maxItems"),
   };
 }
 
@@ -553,6 +606,12 @@ function extractType(
   if (type === "number") {
     return extractNumber(node, context);
   }
+  if (type === "boolean") {
+    return extractBoolean(node, context);
+  }
+  if (type === "array") {
+    return extractArray(node, context, documentId);
+  }
   if (type === "object") {
     return extractObject(node, context, documentId);
   }
@@ -560,7 +619,8 @@ function extractType(
     context,
     type === undefined
       ? "schema node declares no supported construct " +
-          "($ref, anyOf-nullability, enum, string, number, or object)"
+          "($ref, anyOf-nullability, enum, string, number, boolean, array, " +
+          "or object)"
       : `type ${JSON.stringify(type)} is not supported`,
   );
 }
@@ -688,6 +748,10 @@ function assertResolvable(documents: readonly IrDocument[]): void {
       visit(document, type.inner, `${pointer}/anyOf`);
       return;
     }
+    if (type.kind === "array") {
+      visit(document, type.items, `${pointer}/items`);
+      return;
+    }
     if (type.kind === "object") {
       for (const property of type.properties) {
         visit(
@@ -724,6 +788,10 @@ function collectIntraDocumentDependencies(
   }
   if (type.kind === "nullable") {
     collectIntraDocumentDependencies(documentId, type.inner, out);
+    return;
+  }
+  if (type.kind === "array") {
+    collectIntraDocumentDependencies(documentId, type.items, out);
     return;
   }
   if (type.kind === "object") {

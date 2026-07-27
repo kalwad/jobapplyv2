@@ -27,14 +27,27 @@ import { buildIrCatalog, type IrCatalog } from "./ir.ts";
 import { emitPython } from "./emit-python.ts";
 import { emitTypescript, type GeneratedFile } from "./emit-typescript.ts";
 import {
+  emitPythonCatalogData,
+  emitTypescriptCatalogData,
+  ERROR_CATALOG_SCHEMA_ID,
+  loadErrorCatalog,
+  PYTHON_CATALOG_DATA_EXPORTS,
+  type LoadedErrorCatalog,
+} from "./error-catalog.ts";
+import {
   pythonModuleName,
   schemaRef,
   typeName,
   typescriptModulePath,
 } from "./naming.ts";
 
-/** Bump on any change to generated output shape or content rules. */
-export const GENERATOR_FORMAT_VERSION = "1.0.0";
+/**
+ * Bump on any change to generated output shape or content rules.
+ * 1.1.0 (M01-W03): array/boolean schema constructs, the canonical
+ * error-catalog data input, generated catalog-data modules, and the
+ * manifest dataInputs provenance section.
+ */
+export const GENERATOR_FORMAT_VERSION = "1.1.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {
@@ -100,6 +113,7 @@ function buildManifest(
   ir: IrCatalog,
   files: readonly GeneratedFile[],
   schemaBytes: ReadonlyMap<string, string>,
+  errorCatalog: LoadedErrorCatalog,
 ): string {
   const inputs: ManifestInput[] = [...catalog.entries]
     .sort((left, right) => (left.id < right.id ? -1 : 1))
@@ -147,6 +161,14 @@ function buildManifest(
 
   const manifest = {
     config: GENERATOR_CONFIG,
+    dataInputs: [
+      {
+        path: errorCatalog.repositoryPath,
+        sha256: sha256Hex(errorCatalog.rawText),
+        validatedAgainst: ERROR_CATALOG_SCHEMA_ID,
+        version: errorCatalog.version,
+      },
+    ],
     formatVersion: GENERATOR_FORMAT_VERSION,
     generator: "scripts/generate-contracts.ts",
     inputs,
@@ -190,21 +212,25 @@ fails \`pnpm verify\`.
 Layout:
 
 - \`MANIFEST.json\` — provenance: generator format/config, every input
-  schema id/version/SHA-256, every output path/SHA-256, and the
+  schema id/version/SHA-256, every validated data input (the canonical
+  error catalog) with its SHA-256, every output path/SHA-256, and the
   schema-reference → generated-type identity map.
 - \`typescript/\` — one module per schema document (mirroring the schema
   layout), \`validators.ts\` (typed wrappers whose runtime truth is the
-  strict canonical Ajv catalog in \`packages/contracts/src/\`), and
-  \`index.ts\` (the stable export surface re-exported by
-  \`@japp/contracts/generated\`).
+  strict canonical Ajv catalog in \`packages/contracts/src/\`),
+  \`error/catalog-data.v1.ts\` (canonical error-catalog metadata and
+  lookups derived from \`packages/contracts/catalog/\`), and \`index.ts\`
+  (the stable export surface re-exported by \`@japp/contracts/generated\`).
 - \`python/src/japp_contracts/\` — the generated strict Pydantic v2 package
-  (one module per schema document plus \`_runtime.py\`); importable as
-  \`japp_contracts\` through the repository mypy/pytest path configuration.
+  (one module per schema document plus \`_runtime.py\` and
+  \`error/catalog_data_v1.py\`); importable as \`japp_contracts\` through
+  the repository mypy/pytest path configuration.
 
-Determinism contract: output depends only on the committed schema catalog
-and the generator version — no timestamps, absolute paths, usernames,
-hostnames, random values, or platform separators. Two generations of the
-same catalog are byte-identical on every certified platform.
+Determinism contract: output depends only on the committed schema catalog,
+the committed canonical error catalog, and the generator version — no
+timestamps, absolute paths, usernames, hostnames, random values, or
+platform separators. Two generations of the same inputs are byte-identical
+on every certified platform.
 `;
 
 export interface GenerationResult {
@@ -220,14 +246,27 @@ export interface GenerationResult {
  * construct — nothing is emitted from an invalid input state.
  */
 export function generateContracts(
-  options: { readonly schemasRoot?: string } = {},
+  options: {
+    readonly schemasRoot?: string;
+    readonly catalogRoot?: string;
+  } = {},
 ): GenerationResult {
   const schemasRoot = options.schemasRoot ?? DEFAULT_SCHEMAS_ROOT;
   const catalog = loadSchemaCatalog({ schemasRoot });
   // Input gate: the strict Ajv validator compiles every document eagerly;
   // meta-schema, keyword, format, and reference failures abort generation.
-  createContractValidator(catalog);
+  const validator = createContractValidator(catalog);
   const ir = buildIrCatalog(catalog);
+
+  // Second validated input: the canonical error catalog (fail-closed
+  // schema validation plus integrity/invariant checks).
+  const errorCatalog = loadErrorCatalog({
+    ...(options.catalogRoot === undefined
+      ? {}
+      : { catalogRoot: options.catalogRoot }),
+    catalog,
+    validator,
+  });
 
   // Input provenance hashes cover the exact committed schema bytes
   // (LF-enforced by .gitattributes), not a reserialization.
@@ -240,13 +279,22 @@ export function generateContracts(
   }
 
   const files: GeneratedFile[] = [
-    ...emitTypescript(ir),
-    ...emitPython(ir),
+    ...emitTypescript(ir, { dataModules: ["error/catalog-data.v1.ts"] }),
+    ...emitPython(ir, {
+      dataModules: [
+        {
+          module: "japp_contracts.error.catalog_data_v1",
+          exports: PYTHON_CATALOG_DATA_EXPORTS,
+        },
+      ],
+    }),
+    emitTypescriptCatalogData(errorCatalog),
+    emitPythonCatalogData(errorCatalog),
     { path: README_PATH, content: GENERATED_README },
   ];
   files.push({
     path: MANIFEST_PATH,
-    content: buildManifest(catalog, ir, files, schemaBytes),
+    content: buildManifest(catalog, ir, files, schemaBytes, errorCatalog),
   });
 
   const map = new Map<string, string>();

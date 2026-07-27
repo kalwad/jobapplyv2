@@ -33,6 +33,144 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W03 — Define error taxonomy (2026-07-27)
+
+- Revision: content working tree (commit recorded post-commit). Bootstrap
+  ran at starting HEAD `c5ce7e9fdf35f3bd972b1d4782bd7785cc105958` (clean
+  `main`, equal to `origin/main`).
+- Environment: macOS (Apple silicon, Darwin 27.0.0); Node v24.18.0;
+  pnpm 11.17.0; uv 0.11.32 with uv-managed Python 3.12.13; rustup
+  toolchain 1.97.1; @playwright/test 1.62.0 with pinned Chromium;
+  pydantic 2.12.5. No new dependencies.
+- Clean-session bootstrap (all inspected at starting HEAD): `git fetch
+  origin` / `git status --short` / branch / `git rev-parse HEAD` /
+  `origin/main` / `git log --oneline -8` → clean `main` at
+  `c5ce7e9…`, equal to origin; `gh run view 30240403625` → final M01-W02
+  restamp run green on windows-2025 job 89896226525, ubuntu-24.04 job
+  89896226555, macos-15 job 89896226592; the completed M01-W02 and
+  KI-0018 ranges (`be476d6..efd41b2`, `efd41b2..c5ce7e9`) inspected;
+  `python3 scripts/validate_status.py` → exit 0 (36 groups);
+  `pnpm traceability:check` → exit 0 (157/286); `pnpm run doctor` →
+  exit 0, 21 PASS / 0 WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE;
+  `pnpm generate:contracts --check` → "35 files, byte-identical";
+  `pnpm verify` → exit 0 with contract-gen ACTIVE and PASS. Only after
+  every prerequisite passed was M01-W03 marked IN_PROGRESS (status +
+  traceability mirror + regenerated view; validators re-run → exit 0).
+  Requirement-ownership inspection: no requirement in
+  docs/traceability.json lists M01-W03 as an owning package, so no
+  requirement state/evidence rows change in this package (package rows
+  only; the reviewed hashes cover requirement/dependency projections and
+  are untouched).
+- Implementation delivered:
+  - `schemas/error/taxonomy.v1.schema.json`
+    (`urn:japp:schema:error:taxonomy:v1`) — the twelve required families,
+    80 stable family-prefixed UPPER_SNAKE_CASE codes (VALIDATION 6,
+    CONFLICT 5, UNSUPPORTED 6, SENSITIVE 6, MODEL 6, STORAGE 6,
+    TRANSPORT 8, RENDERING 6, SITE 9, BENCHMARK 7, GATE 7, SUBMISSION 8 —
+    every distinction required by the package contract, no speculative
+    codes, no generic UNKNOWN), severities, retry/recovery dispositions,
+    reporting origins, message-key grammar, bounded user-safe message
+    shape.
+  - `schemas/error/catalog.v1.schema.json` + the canonical instance
+    `catalog/error-catalog.v1.json` — one metadata entry per code (derived
+    message key, safe default English message, optional remediation,
+    severity, disposition, user-action/transient flags, diagnostic policy
+    on the canonical redaction vocabulary, optional owning boundary,
+    added_in/deprecated_since); single source of truth for both language
+    surfaces.
+  - `schemas/error/record.v1.schema.json` — strict closed wire record
+    serializing ONLY the stable code plus occurrence identity/trace data;
+    metadata is always catalog-derived, so contradictory caller-supplied
+    family/severity/retry/message data is unrepresentable; diagnostics are
+    referenced only by SHA-256 digest.
+  - Generator (format 1.0.0 → 1.1.0): narrow strict `boolean` and uniform
+    `array` (`items` + `minItems`/`maxItems`) support across IR and both
+    emitters (tuples, `uniqueItems`, `integer` stay fail-closed with path
+    + pointer); the catalog pipeline (`generator/error-catalog.ts`) —
+    strict schema validation of the instance, fail-closed integrity gate
+    (sorted unique codes, exact two-direction agreement with the taxonomy
+    enum, family/prefix and derived-key checks, user-safe message lint,
+    family invariant matrix), `--catalog-root` CLI override, MANIFEST
+    `dataInputs` provenance (path, validating schema, version, SHA-256 of
+    exact committed bytes), and generated catalog-data emission.
+  - Regenerated `generated/` (35 → 44 files): taxonomy/catalog/record
+    types and validators in both languages plus
+    `typescript/error/catalog-data.v1.ts` and
+    `python/src/japp_contracts/error/catalog_data_v1.py` — frozen
+    `ERROR_CATALOG_V1` map, sorted `ERROR_CODES_V1`, membership guard,
+    fail-closed `requireErrorCatalogEntryV1`/`require_error_catalog_entry_v1`
+    (unknown input never echoed), default-message lookup; Python entries
+    are constructed through strict model validation at import time.
+    Prior generated modules are byte-identical except the legitimately
+    affected index/`__init__`/README/MANIFEST surfaces.
+- Tests added:
+  - `packages/contracts/test/generated/error-taxonomy.test.ts` (28 tests):
+    catalog integrity (families, unique complete codes, derived keys,
+    schema-enum agreement in both representations), user-safe message
+    policy (lint clean, no interpolation/HTML/URL/path/trace syntax, no
+    control characters), family invariants (SENSITIVE pause/prohibit +
+    user action; SITE pause; MODEL messages preserve accepted results;
+    GATE never reads as PASS after negation stripping; SUBMISSION never
+    claims success; UNSUPPORTED/BENCHMARK never SAFE_RETRY;
+    threshold-failure messages state thresholds are never lowered;
+    transient ⟺ SAFE_RETRY), generated-TS lookup determinism, frozen
+    metadata, unknown/prototype-key rejection without echo, record
+    narrowing with catalog-derived metadata, and fail-closed generator
+    behavior on tampered catalogs (removed entry, undeclared code stopped
+    by the schema enum, family mismatch, non-derived key, unsorted
+    entries, sensitive fallback, smuggled URL, real-CLI tamper and
+    missing-file paths) plus array/boolean construct positives and
+    negatives (tuple/prefixItems, uniqueItems, stray boolean keywords).
+  - Shared corpus +30 cases (84 → 114) driving BOTH languages: taxonomy
+    token positives/negatives, message-key and user-safe-message shapes,
+    error-record positives (minimal, full trace + digest) and negatives
+    (unknown code, caller-supplied user message/severity/retry metadata,
+    missing correlation, free-text diagnostic, invalid id, offset
+    timestamp, null causation), and catalog-shape cases exercising strict
+    arrays/booleans (entries-as-object rejected, "true"/1 not coerced to
+    booleans, unknown member rejected, empty entries rejected).
+  - `scripts/tests/test_generated_contracts.py` (+6 tests, 129 total in
+    module): Python catalog integrity mirror (80 codes, 12 families,
+    sorted, prefix/derived-key agreement with the schema enum),
+    user-safe-message sweep, family invariant matrix, deterministic
+    fail-closed lookups (hostile input not echoed), record
+    code-only serialization with catalog-derived metadata and
+    caller-metadata rejection, and MANIFEST dataInputs provenance
+    verification against the committed catalog bytes.
+  - Premise repair (KI-0019): the status exactness negative resets every
+    M01 row through M01-W04, and both M00-closeout helpers were
+    generalized through M01-W05 to preempt the class at the upcoming
+    stamp boundaries.
+- Commands and observed results (local, uncommitted working tree):
+  - `pnpm install --frozen-lockfile` → exit 0 ("Already up to date").
+  - `uv sync --locked` → exit 0. `cargo fetch --locked
+    --manifest-path services/native-host/Cargo.toml` → exit 0.
+  - `pnpm generate:contracts` → exit 0 (44 files; 35 prior + 9: three
+    error documents × two languages, two catalog-data modules — index and
+    __init__ surfaces regenerate in place).
+  - `pnpm generate:contracts --check` run twice → exit 0 both times,
+    "44 files, byte-identical"; also re-run after all doc edits → exit 0.
+  - `pnpm lint` → exit 0. `pnpm format:check` → exit 0.
+  - `pnpm typecheck` → exit 0 (generated error modules included).
+  - Focused: `pnpm --filter @japp/contracts exec vitest run` → exit 0,
+    8 files, 258 tests (199 prior + 28 error-taxonomy + 30 new shared
+    corpus cases + KI-0018 fsops/control-byte regressions all green);
+    `uv run pytest scripts/tests -q` → exit 0, 492 passed (455 prior +
+    30 corpus + 6 error-layer + 1 KI-0019-adjusted premise).
+  - `pnpm test` → exit 0 (unit-ts, 266 tests across 9 packages).
+    `pnpm test:e2e` → exit 0 (1). `pnpm test:python` → exit 0 (full
+    pytest 493 = 492 scripts/tests + 1 orchestrator). `pnpm test:rust` →
+    exit 0.
+  - `python3 scripts/validate_status.py` → exit 0 (36 groups).
+    `pnpm traceability:generate` + `pnpm traceability:check` → exit 0
+    (157/286; package rows only — no requirement rows changed and every
+    reviewed hash is untouched).
+  - `pnpm run doctor` → exit 0, 20 PASS / 1 WARNING (expected
+    uncommitted implementation state) / 0 FAIL / 2 NOT_YET_APPLICABLE.
+  - `pnpm verify` → exit 0; contract-gen ACTIVE and PASS; contract
+    (M01-W05) and visual (M10-W06) honestly NOT_YET_APPLICABLE;
+    status-neutral. `git diff --check` → exit 0.
+
 ### M01-W02 — Generate TypeScript and Python contracts (2026-07-27)
 
 - Revision: content working tree (commit recorded post-commit). Bootstrap ran

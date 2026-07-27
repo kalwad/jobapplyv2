@@ -65,6 +65,22 @@ import type {
   CommonTimestampUtcV1UtcTimestamp,
 } from "./common/timestamp-utc.v1.ts";
 import type {
+  ErrorCatalogV1,
+  ErrorCatalogV1CatalogEntry,
+} from "./error/catalog.v1.ts";
+import type {
+  ErrorRecordV1,
+} from "./error/record.v1.ts";
+import type {
+  ErrorTaxonomyV1ErrorCode,
+  ErrorTaxonomyV1ErrorFamily,
+  ErrorTaxonomyV1ErrorOrigin,
+  ErrorTaxonomyV1ErrorSeverity,
+  ErrorTaxonomyV1MessageKey,
+  ErrorTaxonomyV1RetryDisposition,
+  ErrorTaxonomyV1UserSafeMessage,
+} from "./error/taxonomy.v1.ts";
+import type {
   FixtureTestRecordV1,
 } from "./fixture/test-record.v1.ts";
 
@@ -110,6 +126,16 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix": CommonStableIdV1IdPrefix;
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/stableId": CommonStableIdV1StableId;
   readonly "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp": CommonTimestampUtcV1UtcTimestamp;
+  readonly "urn:japp:schema:error:catalog:v1": ErrorCatalogV1;
+  readonly "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry": ErrorCatalogV1CatalogEntry;
+  readonly "urn:japp:schema:error:record:v1": ErrorRecordV1;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode": ErrorTaxonomyV1ErrorCode;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily": ErrorTaxonomyV1ErrorFamily;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin": ErrorTaxonomyV1ErrorOrigin;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity": ErrorTaxonomyV1ErrorSeverity;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey": ErrorTaxonomyV1MessageKey;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition": ErrorTaxonomyV1RetryDisposition;
+  readonly "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage": ErrorTaxonomyV1UserSafeMessage;
   readonly "urn:japp:schema:fixture:test-record:v1": FixtureTestRecordV1;
 }
 
@@ -140,6 +166,16 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix",
   "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
   "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+  "urn:japp:schema:error:catalog:v1",
+  "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry",
+  "urn:japp:schema:error:record:v1",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition",
+  "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage",
   "urn:japp:schema:fixture:test-record:v1",
 ];
 
@@ -457,6 +493,116 @@ export function validateCommonTimestampUtcV1UtcTimestamp(
   data: unknown,
 ): ContractValidationOutcome<CommonTimestampUtcV1UtcTimestamp> {
   return validateContractInstance("urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:catalog:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorCatalogV1 type only after validation succeeds.
+ */
+export function validateErrorCatalogV1(
+  data: unknown,
+): ContractValidationOutcome<ErrorCatalogV1> {
+  return validateContractInstance("urn:japp:schema:error:catalog:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:catalog:v1#/$defs/catalogEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorCatalogV1CatalogEntry type only after validation succeeds.
+ */
+export function validateErrorCatalogV1CatalogEntry(
+  data: unknown,
+): ContractValidationOutcome<ErrorCatalogV1CatalogEntry> {
+  return validateContractInstance("urn:japp:schema:error:catalog:v1#/$defs/catalogEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:record:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorRecordV1 type only after validation succeeds.
+ */
+export function validateErrorRecordV1(
+  data: unknown,
+): ContractValidationOutcome<ErrorRecordV1> {
+  return validateContractInstance("urn:japp:schema:error:record:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/errorCode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1ErrorCode type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1ErrorCode(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1ErrorCode> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/errorCode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1ErrorFamily type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1ErrorFamily(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1ErrorFamily> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1ErrorOrigin type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1ErrorOrigin(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1ErrorOrigin> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1ErrorSeverity type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1ErrorSeverity(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1ErrorSeverity> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/messageKey
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1MessageKey type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1MessageKey(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1MessageKey> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/messageKey", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1RetryDisposition type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1RetryDisposition(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1RetryDisposition> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ErrorTaxonomyV1UserSafeMessage type only after validation succeeds.
+ */
+export function validateErrorTaxonomyV1UserSafeMessage(
+  data: unknown,
+): ContractValidationOutcome<ErrorTaxonomyV1UserSafeMessage> {
+  return validateContractInstance("urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage", data);
 }
 
 /**

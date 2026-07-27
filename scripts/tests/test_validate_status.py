@@ -414,8 +414,8 @@ def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
     promote_milestones(repo, ["M00"])
     set_current_package(repo, "NONE")
     set_pkg_state(repo, "M01-W01", "READY" if m01_ready else "NOT_STARTED")
-    set_pkg_state(repo, "M01-W02", "NOT_STARTED")
-    set_pkg_state(repo, "M01-W03", "NOT_STARTED")
+    for later_package in ("M01-W02", "M01-W03", "M01-W04", "M01-W05"):
+        set_pkg_state(repo, later_package, "NOT_STARTED")
     set_ms_state(repo, "M01", "READY" if m01_ready else "NOT_STARTED")
     set_next_ready(repo, "`M01-W01`" if m01_ready else "NONE")
 
@@ -597,12 +597,13 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
 ) -> None:
     # Establish the complete premise (no IN_PROGRESS row) regardless of the
     # live repository state: M01 packages become IN_PROGRESS as the milestone
-    # advances (M01-W01, then M01-W02, …), and an inherited IN_PROGRESS row
-    # would divert the validator to the current-package-mismatch error
-    # instead of the exactness error (KI-0014/KI-0015/KI-0017 class).
+    # advances (M01-W01, then M01-W02, then M01-W03, …), and an inherited
+    # IN_PROGRESS row would divert the validator to the
+    # current-package-mismatch error instead of the exactness error
+    # (KI-0014/KI-0015/KI-0017 class).
     set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
-    set_pkg_state(repo_copy, "M01-W01", "NOT_STARTED")
-    set_pkg_state(repo_copy, "M01-W02", "NOT_STARTED")
+    for m01_package in ("M01-W01", "M01-W02", "M01-W03", "M01-W04"):
+        set_pkg_state(repo_copy, m01_package, "NOT_STARTED")
     set_current_package(repo_copy, "garbage")
     result = run_validator(repo_copy)
     assert result.returncode == 1

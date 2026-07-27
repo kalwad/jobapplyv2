@@ -185,25 +185,37 @@
       "label": "money: canonical value",
       "ref": "urn:japp:schema:common:money:v1#/$defs/money",
       "valid": true,
-      "instance": { "amount": "98000.00", "currency": "USD" }
+      "instance": {
+        "amount": "98000.00",
+        "currency": "USD"
+      }
     },
     {
       "label": "money: lowercase currency rejected",
       "ref": "urn:japp:schema:common:money:v1#/$defs/money",
       "valid": false,
-      "instance": { "amount": "98000.00", "currency": "usd" }
+      "instance": {
+        "amount": "98000.00",
+        "currency": "usd"
+      }
     },
     {
       "label": "money: unknown member rejected",
       "ref": "urn:japp:schema:common:money:v1#/$defs/money",
       "valid": false,
-      "instance": { "amount": "98000.00", "currency": "USD", "rounding": "UP" }
+      "instance": {
+        "amount": "98000.00",
+        "currency": "USD",
+        "rounding": "UP"
+      }
     },
     {
       "label": "money: missing currency rejected",
       "ref": "urn:japp:schema:common:money:v1#/$defs/money",
       "valid": false,
-      "instance": { "amount": "98000.00" }
+      "instance": {
+        "amount": "98000.00"
+      }
     },
     {
       "label": "confidence: zero boundary",
@@ -263,7 +275,9 @@
       "label": "location: country only",
       "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
       "valid": true,
-      "instance": { "country": "CA" }
+      "instance": {
+        "country": "CA"
+      }
     },
     {
       "label": "location: full structured value",
@@ -280,19 +294,27 @@
       "label": "location: missing country rejected",
       "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
       "valid": false,
-      "instance": { "region": "California" }
+      "instance": {
+        "region": "California"
+      }
     },
     {
       "label": "location: empty region rejected",
       "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
       "valid": false,
-      "instance": { "country": "US", "region": "" }
+      "instance": {
+        "country": "US",
+        "region": ""
+      }
     },
     {
       "label": "location: overlong postal code rejected",
       "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
       "valid": false,
-      "instance": { "country": "US", "postal_code": "94105-94105-94105-94105" }
+      "instance": {
+        "country": "US",
+        "postal_code": "94105-94105-94105-94105"
+      }
     },
     {
       "label": "source-kind: declared token",
@@ -364,19 +386,27 @@
       "label": "redaction: declared pair",
       "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
       "valid": true,
-      "instance": { "sensitivity": "SECRET", "policy": "FORBID_CAPTURE" }
+      "instance": {
+        "sensitivity": "SECRET",
+        "policy": "FORBID_CAPTURE"
+      }
     },
     {
       "label": "redaction: undeclared sensitivity rejected",
       "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
       "valid": false,
-      "instance": { "sensitivity": "TOP_SECRET", "policy": "FORBID_CAPTURE" }
+      "instance": {
+        "sensitivity": "TOP_SECRET",
+        "policy": "FORBID_CAPTURE"
+      }
     },
     {
       "label": "redaction: missing policy rejected",
       "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
       "valid": false,
-      "instance": { "sensitivity": "SECRET" }
+      "instance": {
+        "sensitivity": "SECRET"
+      }
     },
     {
       "label": "schema-id: canonical URN",
@@ -430,13 +460,19 @@
       "label": "extensions: opaque nested values preserved",
       "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensions",
       "valid": true,
-      "instance": { "x-trace": { "nested": [1, "two", null, true] } }
+      "instance": {
+        "x-trace": {
+          "nested": [1, "two", null, true]
+        }
+      }
     },
     {
       "label": "extensions: invalid key grammar rejected",
       "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensions",
       "valid": false,
-      "instance": { "not_namespaced": 1 }
+      "instance": {
+        "not_namespaced": 1
+      }
     },
     {
       "label": "envelope-metadata: minimal",
@@ -460,7 +496,9 @@
         "created_at": "2026-07-27T04:00:00Z",
         "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
         "causation_id": "msg_00000000000000000000000000",
-        "extensions": { "x-origin": "fixture" }
+        "extensions": {
+          "x-origin": "fixture"
+        }
       }
     },
     {
@@ -522,15 +560,24 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US", "region": "California" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US",
+          "region": "California"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": 0.9975,
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "ACTIVE",
         "superseded_by": null,
         "note": "synthetic fixture note",
@@ -545,8 +592,13 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-06-30T23:59:60Z",
         "effective_date": "2028-02-29",
-        "budget": { "amount": "-12.75", "currency": "EUR" },
-        "location": { "country": "DE" },
+        "budget": {
+          "amount": "-12.75",
+          "currency": "EUR"
+        },
+        "location": {
+          "country": "DE"
+        },
         "provenance": {
           "source_kind": "GENERATED",
           "source_id": "gen_0123456789ABCDEFGHJKMNPQRS",
@@ -554,7 +606,10 @@
           "confidence": 1
         },
         "match_confidence": 1,
-        "redaction": { "sensitivity": "PUBLIC", "policy": "NONE" },
+        "redaction": {
+          "sensitivity": "PUBLIC",
+          "policy": "NONE"
+        },
         "status": "ARCHIVED",
         "superseded_by": "rec_ZZZZZZZZZZZZZZZZZZZZZZZZZZ"
       }
@@ -567,15 +622,23 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": 0.5,
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "ACTIVE",
         "superseded_by": null,
         "note": null
@@ -589,15 +652,23 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": 0.5,
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "ACTIVE"
       }
     },
@@ -609,15 +680,23 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": 0.5,
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "PENDING",
         "superseded_by": null
       }
@@ -630,15 +709,23 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": 0.5,
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "ACTIVE",
         "superseded_by": null,
         "surprise": true
@@ -652,15 +739,23 @@
         "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
         "captured_at": "2026-07-27T04:00:00Z",
         "effective_date": "2026-07-27",
-        "budget": { "amount": "1250.50", "currency": "USD" },
-        "location": { "country": "US" },
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US"
+        },
         "provenance": {
           "source_kind": "USER_INPUT",
           "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
           "observed_at": "2026-07-27T04:00:00Z"
         },
         "match_confidence": "0.5",
-        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
         "status": "ACTIVE",
         "superseded_by": null
       }
@@ -670,6 +765,353 @@
       "ref": "urn:japp:schema:fixture:test-record:v1",
       "valid": false,
       "instance": []
+    },
+    {
+      "label": "error-family: declared token",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily",
+      "valid": true,
+      "instance": "SUBMISSION"
+    },
+    {
+      "label": "error-family: undeclared token rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily",
+      "valid": false,
+      "instance": "NETWORK"
+    },
+    {
+      "label": "error-code: declared code",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode",
+      "valid": true,
+      "instance": "SUBMISSION_RECEIPT_MISSING"
+    },
+    {
+      "label": "error-code: undeclared code rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode",
+      "valid": false,
+      "instance": "SUBMISSION_TOTALLY_MADE_UP"
+    },
+    {
+      "label": "error-code: lowercase rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode",
+      "valid": false,
+      "instance": "model_timeout"
+    },
+    {
+      "label": "retry-disposition: declared token",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition",
+      "valid": true,
+      "instance": "PAUSE_FOR_USER"
+    },
+    {
+      "label": "retry-disposition: undeclared token rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition",
+      "valid": false,
+      "instance": "RETRY_FOREVER"
+    },
+    {
+      "label": "error-origin: declared boundary",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin",
+      "valid": true,
+      "instance": "NATIVE_HOST"
+    },
+    {
+      "label": "error-origin: undeclared boundary rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin",
+      "valid": false,
+      "instance": "MAINFRAME"
+    },
+    {
+      "label": "message-key: canonical derived shape",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey",
+      "valid": true,
+      "instance": "error.site.captcha_boundary"
+    },
+    {
+      "label": "message-key: missing error prefix rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey",
+      "valid": false,
+      "instance": "site.captcha_boundary"
+    },
+    {
+      "label": "user-safe-message: placeholder syntax rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage",
+      "valid": false,
+      "instance": "Value {name} is invalid"
+    },
+    {
+      "label": "user-safe-message: html rejected",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage",
+      "valid": false,
+      "instance": "See <b>details</b>"
+    },
+    {
+      "label": "user-safe-message: plain text accepted",
+      "ref": "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage",
+      "valid": true,
+      "instance": "The connection to a component was lost."
+    },
+    {
+      "label": "error-record: minimal valid occurrence",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": true,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    {
+      "label": "error-record: full occurrence with trace and digest",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": true,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "causation_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "diagnostic_digest": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      }
+    },
+    {
+      "label": "error-record: unknown code rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_IMPROVISED_FAILURE",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    {
+      "label": "error-record: caller-supplied user message rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "user_message": "Everything is fine, click submit again"
+      }
+    },
+    {
+      "label": "error-record: caller-supplied severity rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "severity": "WARNING"
+      }
+    },
+    {
+      "label": "error-record: caller-supplied retry policy rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "retry_disposition": "SAFE_RETRY"
+      }
+    },
+    {
+      "label": "error-record: missing correlation rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT"
+      }
+    },
+    {
+      "label": "error-record: free-text diagnostic rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "diagnostic_digest": "Traceback (most recent call last): boom"
+      }
+    },
+    {
+      "label": "error-record: invalid occurrence id rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "ERR-123",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    {
+      "label": "error-record: offset timestamp rejected",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00+02:00",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    {
+      "label": "error-record: null causation rejected (optional non-nullable)",
+      "ref": "urn:japp:schema:error:record:v1",
+      "valid": false,
+      "instance": {
+        "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+        "code": "SITE_CAPTCHA_BOUNDARY",
+        "occurred_at": "2026-07-27T06:00:00Z",
+        "origin": "EXTENSION_CONTENT_SCRIPT",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "causation_id": null
+      }
+    },
+    {
+      "label": "error-catalog-shape: single-entry document accepted",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": true,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": [
+          {
+            "code": "MODEL_TIMEOUT",
+            "family": "MODEL",
+            "message_key": "error.model.timeout",
+            "default_message": "The local AI model took too long; nothing already accepted was changed.",
+            "severity": "WARNING",
+            "retry_disposition": "SAFE_RETRY",
+            "user_action_required": false,
+            "transient": true,
+            "diagnostic_policy": "NONE",
+            "owning_boundary": "MODEL_RUNTIME",
+            "added_in": "1.0.0"
+          }
+        ]
+      }
+    },
+    {
+      "label": "error-catalog-shape: empty entries rejected",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": false,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": []
+      }
+    },
+    {
+      "label": "error-catalog-shape: entries object rejected (array required)",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": false,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": {
+          "MODEL_TIMEOUT": {
+            "code": "MODEL_TIMEOUT",
+            "family": "MODEL",
+            "message_key": "error.model.timeout",
+            "default_message": "The local AI model took too long; nothing already accepted was changed.",
+            "severity": "WARNING",
+            "retry_disposition": "SAFE_RETRY",
+            "user_action_required": false,
+            "transient": true,
+            "diagnostic_policy": "NONE",
+            "owning_boundary": "MODEL_RUNTIME",
+            "added_in": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "label": "error-catalog-shape: string boolean not coerced",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": false,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": [
+          {
+            "code": "MODEL_TIMEOUT",
+            "family": "MODEL",
+            "message_key": "error.model.timeout",
+            "default_message": "The local AI model took too long; nothing already accepted was changed.",
+            "severity": "WARNING",
+            "retry_disposition": "SAFE_RETRY",
+            "user_action_required": false,
+            "transient": "true",
+            "diagnostic_policy": "NONE",
+            "owning_boundary": "MODEL_RUNTIME",
+            "added_in": "1.0.0"
+          }
+        ]
+      }
+    },
+    {
+      "label": "error-catalog-shape: integer boolean not coerced",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": false,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": [
+          {
+            "code": "MODEL_TIMEOUT",
+            "family": "MODEL",
+            "message_key": "error.model.timeout",
+            "default_message": "The local AI model took too long; nothing already accepted was changed.",
+            "severity": "WARNING",
+            "retry_disposition": "SAFE_RETRY",
+            "user_action_required": 1,
+            "transient": true,
+            "diagnostic_policy": "NONE",
+            "owning_boundary": "MODEL_RUNTIME",
+            "added_in": "1.0.0"
+          }
+        ]
+      }
+    },
+    {
+      "label": "error-catalog-shape: unknown entry member rejected",
+      "ref": "urn:japp:schema:error:catalog:v1",
+      "valid": false,
+      "instance": {
+        "catalog_version": "1.0.0",
+        "entries": [
+          {
+            "code": "MODEL_TIMEOUT",
+            "family": "MODEL",
+            "message_key": "error.model.timeout",
+            "default_message": "The local AI model took too long; nothing already accepted was changed.",
+            "severity": "WARNING",
+            "retry_disposition": "SAFE_RETRY",
+            "user_action_required": false,
+            "transient": true,
+            "diagnostic_policy": "NONE",
+            "owning_boundary": "MODEL_RUNTIME",
+            "added_in": "1.0.0",
+            "http_status": 504
+          }
+        ]
+      }
     }
   ]
 }

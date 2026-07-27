@@ -232,12 +232,38 @@ function numberExpr(
   return `Annotated[int${suffix} | Annotated[float${suffix}`;
 }
 
+function arrayExpr(
+  emission: PyEmission,
+  type: Extract<IrType, { kind: "array" }>,
+): string {
+  const itemExpr = typeExpr(emission, type.items);
+  const listExpr = `list[${itemExpr}]`;
+  const constraints: string[] = [];
+  if (type.minItems !== null) {
+    emission.imports.annotatedTypes.add("MinLen");
+    constraints.push(`MinLen(${String(type.minItems)})`);
+  }
+  if (type.maxItems !== null) {
+    emission.imports.annotatedTypes.add("MaxLen");
+    constraints.push(`MaxLen(${String(type.maxItems)})`);
+  }
+  if (constraints.length === 0) {
+    return listExpr;
+  }
+  emission.imports.typing.add("Annotated");
+  return `Annotated[${listExpr}, ${constraints.join(", ")}]`;
+}
+
 function typeExpr(emission: PyEmission, type: IrType): string {
   switch (type.kind) {
     case "string":
       return stringExpr(emission, type);
     case "number":
       return numberExpr(emission, type);
+    case "boolean":
+      return "bool";
+    case "array":
+      return arrayExpr(emission, type);
     case "enum": {
       emission.imports.typing.add("Literal");
       const tokens = type.tokens
@@ -579,7 +605,19 @@ def validate_utc_timestamp(value: str) -> str:
     return value
 `;
 
-function emitInitModules(catalog: IrCatalog): GeneratedFile[] {
+/** Additional generated runtime modules exported from the package root. */
+export interface PythonEmitOptions {
+  readonly dataModules?: readonly {
+    /** Dotted module name, e.g. "japp_contracts.error.catalog_data_v1". */
+    readonly module: string;
+    readonly exports: readonly string[];
+  }[];
+}
+
+function emitInitModules(
+  catalog: IrCatalog,
+  options: PythonEmitOptions,
+): GeneratedFile[] {
   const files: GeneratedFile[] = [];
   const exportsByModule = new Map<string, string[]>();
   const packages = new Set<string>();
@@ -596,6 +634,9 @@ function emitInitModules(catalog: IrCatalog): GeneratedFile[] {
     for (let index = 1; index < parts.length - 1; index += 1) {
       packages.add(parts.slice(0, index + 1).join("/"));
     }
+  }
+  for (const dataModule of options.dataModules ?? []) {
+    exportsByModule.set(dataModule.module, [...dataModule.exports].sort());
   }
 
   const importLines: string[] = [];
@@ -663,7 +704,10 @@ function emitInitModules(catalog: IrCatalog): GeneratedFile[] {
 }
 
 /** Emit every Python artifact for the catalog, sorted by path. */
-export function emitPython(catalog: IrCatalog): GeneratedFile[] {
+export function emitPython(
+  catalog: IrCatalog,
+  options: PythonEmitOptions = {},
+): GeneratedFile[] {
   const documentsById = new Map<string, IrDocument>(
     catalog.documents.map((document) => [document.id, document]),
   );
@@ -674,7 +718,7 @@ export function emitPython(catalog: IrCatalog): GeneratedFile[] {
     path: "python/src/japp_contracts/_runtime.py",
     content: RUNTIME_MODULE,
   });
-  files.push(...emitInitModules(catalog));
+  files.push(...emitInitModules(catalog, options));
   files.sort((left, right) => (left.path < right.path ? -1 : 1));
   return files;
 }

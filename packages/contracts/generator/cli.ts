@@ -39,6 +39,7 @@ export const DEFAULT_GENERATED_ROOT = fileURLToPath(
 export interface CliOptions {
   readonly check: boolean;
   readonly schemasRoot: string | undefined;
+  readonly catalogRoot: string | undefined;
   readonly generatedRoot: string;
 }
 
@@ -47,6 +48,7 @@ export class CliUsageError extends Error {}
 export function parseCliArguments(argv: readonly string[]): CliOptions {
   let check = false;
   let schemasRoot: string | undefined;
+  let catalogRoot: string | undefined;
   let generatedRoot = DEFAULT_GENERATED_ROOT;
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
@@ -54,6 +56,7 @@ export function parseCliArguments(argv: readonly string[]): CliOptions {
       check = true;
     } else if (
       argument === "--schemas-root" ||
+      argument === "--catalog-root" ||
       argument === "--generated-root"
     ) {
       const value = argv[index + 1];
@@ -62,6 +65,8 @@ export function parseCliArguments(argv: readonly string[]): CliOptions {
       }
       if (argument === "--schemas-root") {
         schemasRoot = value;
+      } else if (argument === "--catalog-root") {
+        catalogRoot = value;
       } else {
         generatedRoot = value;
       }
@@ -70,11 +75,11 @@ export function parseCliArguments(argv: readonly string[]): CliOptions {
       throw new CliUsageError(
         `unknown argument ${JSON.stringify(argument ?? "")}; usage: ` +
           "generate-contracts [--check] [--schemas-root <dir>] " +
-          "[--generated-root <dir>]",
+          "[--catalog-root <dir>] [--generated-root <dir>]",
       );
     }
   }
-  return { check, schemasRoot, generatedRoot };
+  return { check, schemasRoot, catalogRoot, generatedRoot };
 }
 
 function renderFinding(finding: DriftFinding): string {
@@ -108,11 +113,14 @@ export function runCli(
   }
   let generation;
   try {
-    generation = generateContracts(
-      options.schemasRoot === undefined
+    generation = generateContracts({
+      ...(options.schemasRoot === undefined
         ? {}
-        : { schemasRoot: options.schemasRoot },
-    );
+        : { schemasRoot: options.schemasRoot }),
+      ...(options.catalogRoot === undefined
+        ? {}
+        : { catalogRoot: options.catalogRoot }),
+    });
   } catch (error) {
     log("contract generation failed (fail closed):");
     log(error instanceof Error ? error.message : String(error));

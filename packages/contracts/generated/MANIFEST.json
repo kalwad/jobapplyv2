@@ -8,7 +8,15 @@
     ],
     "typescriptRuntime": "canonical-ajv-catalog"
   },
-  "formatVersion": "1.0.0",
+  "dataInputs": [
+    {
+      "path": "packages/contracts/catalog/error-catalog.v1.json",
+      "sha256": "a46ff7dd1530eecfb7dcc3462ce9b9e63b2eff07e72fb888fca460a9ac508f77",
+      "validatedAgainst": "urn:japp:schema:error:catalog:v1",
+      "version": "1.0.0"
+    }
+  ],
+  "formatVersion": "1.1.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -84,6 +92,24 @@
       "sha256": "a8a37fd4cb55ea0b48b73ed9dc031ed14955bb9345dbdefccc3b63ff46bd68ac"
     },
     {
+      "id": "urn:japp:schema:error:catalog:v1",
+      "path": "packages/contracts/schemas/error/catalog.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "9936d84f4f17450282dc5f897b406543b296b5bec145a54b07065c066c3d567d"
+    },
+    {
+      "id": "urn:japp:schema:error:record:v1",
+      "path": "packages/contracts/schemas/error/record.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "2959811cc92e1d12807e706e1017e7c4d974ae70ba8fbc6f9eba5cd71a5a2a53"
+    },
+    {
+      "id": "urn:japp:schema:error:taxonomy:v1",
+      "path": "packages/contracts/schemas/error/taxonomy.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "815d0eeab696f73a30892053d121872b7dae6d394d6a72331cc62d3cddf8f137"
+    },
+    {
       "id": "urn:japp:schema:fixture:test-record:v1",
       "path": "packages/contracts/schemas/fixture/test-record.v1.schema.json",
       "schemaVersion": "1.1.0",
@@ -93,11 +119,11 @@
   "outputs": [
     {
       "path": "README.md",
-      "sha256": "135d2030195bbe5f4767c1334ec8c6a2b174e680490c453de1209b0bd599c3d5"
+      "sha256": "097d9905436b5c5866648cd5c42d3ec7510af2c747a2ee40ccad9dcaff8592bf"
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "8963afbdcbc94505fe47d542187aaa4272467a66c546ed6d36106384608d58a9"
+      "sha256": "bf2a9b82e51e22fd2e9249482db85ecfe3de7a7a739e7411fe524b50f9fcc5e3"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -154,6 +180,26 @@
     {
       "path": "python/src/japp_contracts/common/timestamp_utc_v1.py",
       "sha256": "ec7ed257181d676d862750c713db9af833fda9c6585dd16ff34e6ffa1ab8dbdc"
+    },
+    {
+      "path": "python/src/japp_contracts/error/__init__.py",
+      "sha256": "3124fec72c1da5f5a537325ae345a5481ec0e34d5b8142a1e9cbfb8277767304"
+    },
+    {
+      "path": "python/src/japp_contracts/error/catalog_data_v1.py",
+      "sha256": "25b0d1486a8e2eae7f76918d72c712cf1cbc456f08394882c32968b33940b568"
+    },
+    {
+      "path": "python/src/japp_contracts/error/catalog_v1.py",
+      "sha256": "07a7e42601927df7f03557953a89d1bb061c84ba67cd33145c8507857b006072"
+    },
+    {
+      "path": "python/src/japp_contracts/error/record_v1.py",
+      "sha256": "7a635a61daded18e05b485a9189bfecbd4fd2ce6d5ab8356e2d68c5c60984721"
+    },
+    {
+      "path": "python/src/japp_contracts/error/taxonomy_v1.py",
+      "sha256": "f30300cd9f0eda4c6b3ecc15a5a07240e12de05b2876ecc1537c62b276cd3499"
     },
     {
       "path": "python/src/japp_contracts/fixture/__init__.py",
@@ -216,16 +262,32 @@
       "sha256": "02397bfa04942688b2d7ad8716cecddd69fbc9a7b8be022ec417ec44429a35d4"
     },
     {
+      "path": "typescript/error/catalog-data.v1.ts",
+      "sha256": "6a399450b461947d945ef43490bb99d1bdc85af48b8ddc33094fd92192c8b8ff"
+    },
+    {
+      "path": "typescript/error/catalog.v1.ts",
+      "sha256": "5457da39e859c1a986ab5af150f12a5ba40f8267798017fe9559ffd831834e82"
+    },
+    {
+      "path": "typescript/error/record.v1.ts",
+      "sha256": "6df7ba4e4030efab45e0d8cc798cc82ca1b7456174edcdc275f909608c521fec"
+    },
+    {
+      "path": "typescript/error/taxonomy.v1.ts",
+      "sha256": "9edfc7fa72158c48e7d20ec74a059dd7156bc241977d83105ae3c02099a89911"
+    },
+    {
       "path": "typescript/fixture/test-record.v1.ts",
       "sha256": "3664d7a7289282b4963dc4f3f9ae6ee7ca4edc81e118913056b91e3f7e58ac30"
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "190cf5755de4055b6a074804a16cad2eb3bc7676bfbe3314faa7c108f66ac6fe"
+      "sha256": "2e7ccaed05de66b864167b56daacdb735f16dd243d2cbd6252c48af5f028c91a"
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "608f72c7c1cc609aa6c2ca78581d19f7f5a938d090528187490e65bd89b16611"
+      "sha256": "c883e1959d7a411f7a24859a12620ee4e778104cedf5d3d5d5ce14c3a2df611b"
     }
   ],
   "types": {
@@ -477,6 +539,106 @@
       "typescript": {
         "export": "CommonTimestampUtcV1UtcTimestamp",
         "module": "typescript/common/timestamp-utc.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:catalog:v1": {
+      "python": {
+        "module": "japp_contracts.error.catalog_v1",
+        "symbol": "ErrorCatalogV1"
+      },
+      "typescript": {
+        "export": "ErrorCatalogV1",
+        "module": "typescript/error/catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry": {
+      "python": {
+        "module": "japp_contracts.error.catalog_v1",
+        "symbol": "ErrorCatalogV1CatalogEntry"
+      },
+      "typescript": {
+        "export": "ErrorCatalogV1CatalogEntry",
+        "module": "typescript/error/catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:record:v1": {
+      "python": {
+        "module": "japp_contracts.error.record_v1",
+        "symbol": "ErrorRecordV1"
+      },
+      "typescript": {
+        "export": "ErrorRecordV1",
+        "module": "typescript/error/record.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1ErrorCode"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1ErrorCode",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/errorFamily": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1ErrorFamily"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1ErrorFamily",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1ErrorOrigin"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1ErrorOrigin",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/errorSeverity": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1ErrorSeverity"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1ErrorSeverity",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/messageKey": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1MessageKey"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1MessageKey",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1RetryDisposition"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1RetryDisposition",
+        "module": "typescript/error/taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage": {
+      "python": {
+        "module": "japp_contracts.error.taxonomy_v1",
+        "symbol": "ErrorTaxonomyV1UserSafeMessage"
+      },
+      "typescript": {
+        "export": "ErrorTaxonomyV1UserSafeMessage",
+        "module": "typescript/error/taxonomy.v1.ts"
       }
     },
     "urn:japp:schema:fixture:test-record:v1": {

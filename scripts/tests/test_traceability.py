@@ -201,10 +201,9 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
         )
     set_package_status(repo, "M01-W01", "READY")
     set_metadata_package(metadata, "M01-W01", "READY")
-    set_package_status(repo, "M01-W02", "NOT_STARTED")
-    set_metadata_package(metadata, "M01-W02", "NOT_STARTED")
-    set_package_status(repo, "M01-W03", "NOT_STARTED")
-    set_metadata_package(metadata, "M01-W03", "NOT_STARTED")
+    for later_package in ("M01-W02", "M01-W03", "M01-W04", "M01-W05"):
+        set_package_status(repo, later_package, "NOT_STARTED")
+        set_metadata_package(metadata, later_package, "NOT_STARTED")
     replace_status(repo, r"^Current work package: .*$", "Current work package: NONE")
     replace_status(repo, r"^\| M00 \|[^\n]*$", "| M00 | ACCEPTED | — | fixture |")
     replace_status(repo, r"^\| M01 \|[^\n]*$", "| M01 | READY | — | fixture |")

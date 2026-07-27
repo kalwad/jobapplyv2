@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:error:record:v1",
+  "title": "Wire error record",
+  "description": "Strict versioned error record exchanged across trust boundaries (M01-W03). The record serializes ONLY the stable error code plus occurrence identity/trace data; family, severity, retry disposition, user-action state, transience, diagnostic policy, and the user-safe message are derived by the consumer from the canonical error catalog, so a caller can never pair a code with contradictory metadata and free-form user-facing message text is unrepresentable on the wire. The record is a closed object with no extension surface; when transported inside the standard envelope, envelope-level versioning applies (schema_id urn:japp:schema:error:record:v1). Internal diagnostic detail travels out of band, redacted and bounded, referenced here only by an optional content digest — it never becomes UI text automatically.",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error_id", "code", "occurred_at", "origin", "correlation_id"],
+  "properties": {
+    "error_id": {
+      "description": "Stable identity of this error occurrence.",
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "code": {
+      "description": "Stable taxonomy code; the only classification data on the wire.",
+      "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+    },
+    "occurred_at": {
+      "description": "Instant the condition was observed, always UTC.",
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "origin": {
+      "description": "Component or trust boundary reporting the error.",
+      "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorOrigin"
+    },
+    "correlation_id": {
+      "description": "Workflow the occurrence belongs to.",
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "causation_id": {
+      "description": "Message or event that directly produced this error, when known.",
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+    },
+    "diagnostic_digest": {
+      "description": "SHA-256 digest of the separately stored, redacted, bounded diagnostic artifact for this occurrence, where one exists.",
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    }
+  }
+}
