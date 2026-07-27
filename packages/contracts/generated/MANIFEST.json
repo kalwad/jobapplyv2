@@ -11,7 +11,7 @@
   "dataInputs": [
     {
       "path": "packages/contracts/catalog/error-catalog.v1.json",
-      "sha256": "a46ff7dd1530eecfb7dcc3462ce9b9e63b2eff07e72fb888fca460a9ac508f77",
+      "sha256": "987d72cdebc54987aa656353a94d7c7d228e42e5639edb6297df6b59fb0eada3",
       "validatedAgainst": "urn:japp:schema:error:catalog:v1",
       "version": "1.0.0"
     }
@@ -187,7 +187,7 @@
     },
     {
       "path": "python/src/japp_contracts/error/catalog_data_v1.py",
-      "sha256": "25b0d1486a8e2eae7f76918d72c712cf1cbc456f08394882c32968b33940b568"
+      "sha256": "68f877124ec5903da2b6099bd8ee2a3cd2361cbfd1c0c0bae68f8ce96f6a13d6"
     },
     {
       "path": "python/src/japp_contracts/error/catalog_v1.py",
@@ -263,7 +263,7 @@
     },
     {
       "path": "typescript/error/catalog-data.v1.ts",
-      "sha256": "6a399450b461947d945ef43490bb99d1bdc85af48b8ddc33094fd92192c8b8ff"
+      "sha256": "c45f42664bedbc9bc987cb2cc45dd844070a3bca07161f4053b97bacc5ab9c12"
     },
     {
       "path": "typescript/error/catalog.v1.ts",

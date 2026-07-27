@@ -208,6 +208,97 @@ Exact verification commands and summarized results
   revision-stamp commit records this closeout; its own three-OS run is
   required to pass at the final head.
 
+#### M01-W03 corrective closeout — KI-0020 (2026-07-27)
+
+- Starting revision: tree `07f9e088bef77af4a32c2204c88c493be8fed7a5` /
+  commit `b21c098e306b89da4ac4d503882a42b8be83c6e0`; clean `main`, equal
+  to `origin/main`.
+- Independent reproduction: direct enumeration of all 80 canonical catalog
+  entries found five `transient=true` entries but seven `SAFE_RETRY`
+  entries. Exactly `MODEL_MALFORMED_OUTPUT` and
+  `MODEL_VALIDATION_FAILED` were `SAFE_RETRY` with `transient=false`.
+  The canonical validator, the TypeScript test titled as an exact
+  equivalence, and the generated-Python invariant test all checked only
+  `transient=true` implies `SAFE_RETRY`.
+- Bootstrap commands and observed results before any edit:
+  - `git fetch origin`; `git status --short`; branch/HEAD/origin/log
+    inspection → exit 0; clean `main`; HEAD and `origin/main` both the
+    expected starting commit.
+  - `gh run view 30243192705` → exit 0; the final prior M01-W03 run passed
+    macos-15 job 89904527736, windows-2025 job 89904527768, and
+    ubuntu-24.04 job 89904527835.
+  - `python3 scripts/validate_status.py` → exit 0 (36 groups);
+    `pnpm traceability:check` → exit 0 (157 requirements / 286 packages);
+    `pnpm run doctor` → exit 0 (21 PASS / 0 WARNING / 0 FAIL /
+    2 NOT_YET_APPLICABLE); `pnpm generate:contracts --check` → exit 0
+    (44 files, byte-identical); `pnpm verify` → exit 0 with contract-gen
+    ACTIVE and PASS, contract and visual honestly NOT_YET_APPLICABLE, and
+    all active suites PASS.
+- Temporary governance transition: only M01-W03 was reopened as
+  IN_PROGRESS; M01-W04 returned to NOT_STARTED, no package is READY, M01
+  remains IN_PROGRESS, M00 remains ACCEPTED, all four critical gates remain
+  NOT_EVALUATED, and the release remains NOT_READY.
+- Reviewed semantics: `MODEL_MALFORMED_OUTPUT` is a rejected, side-effect-free
+  draft for which M05-W03 already specifies one bounded retry, so it remains
+  `SAFE_RETRY` and becomes `transient=true`.
+  `MODEL_VALIDATION_FAILED` can represent policy, factuality, evidence, or
+  deterministic-postcondition rejection; an unchanged blind retry is not
+  safe, so it becomes non-transient `RETRY_AFTER_REMEDIATION`. All accepted
+  deterministic results remain usable and unchanged after every MODEL
+  failure.
+- Corrective implementation:
+  - The canonical catalog validator now evaluates the exact equality
+    `entry.transient === (entry.retry_disposition === "SAFE_RETRY")` and emits distinct
+    fail-closed violations for each invalid direction.
+  - The canonical catalog marks `MODEL_MALFORMED_OUTPUT` as transient and
+    keeps its bounded `SAFE_RETRY`; it marks `MODEL_VALIDATION_FAILED`
+    non-transient with `RETRY_AFTER_REMEDIATION` and directs correction of
+    source evidence or the generation request before another attempt.
+  - Every MODEL default message carries the exact positive guarantee that
+    all accepted deterministic results remain usable and unchanged.
+  - Existing generation updated only the canonical-derived TypeScript and
+    Python catalog-data modules plus MANIFEST input/output hashes. The
+    taxonomy and catalog schemas, strict wire record, user-message safety
+    rules, and generator safety/rollback implementation were not weakened.
+- Tests added or strengthened:
+  - The committed-catalog test now asserts the bidirectional equality
+    directly for every entry, and the Python surface independently mirrors
+    it.
+  - Separate generation tests tamper a non-`SAFE_RETRY` entry to
+    `transient=true` and a `SAFE_RETRY` entry to `transient=false`; both
+    fail with direction-specific violations.
+  - Both generated-language suites compare every generated catalog value
+    with the corrected canonical JSON, assert the intentionally reviewed
+    semantics of both MODEL entries, and positively require the
+    deterministic-result preservation guarantee for all six MODEL codes.
+  - Existing byte-identical repeated-generation, read-only check mode,
+    KI-0018 rollback, and tracked control-byte regressions remain active.
+- Commands and observed results on the corrective working tree:
+  - `pnpm install --frozen-lockfile` → exit 0, already up to date;
+    `uv sync --locked` → exit 0.
+  - `pnpm generate:contracts` → exit 0 (44 files);
+    `pnpm generate:contracts --check` twice → exit 0 both times,
+    "44 files, byte-identical".
+  - Focused TypeScript: error taxonomy/catalog → 32 passed; generated
+    models → 123 passed; generator determinism/read-only suite → 25 passed;
+    KI-0018 rollback suite → 11 passed. Focused control-byte regressions →
+    3 passed.
+  - Focused generated Python suite → 132 passed.
+  - `pnpm traceability:generate` and `pnpm traceability:check` → exit 0
+    (157 requirements / 286 packages; package-state mirror only);
+    `python3 scripts/validate_status.py` → exit 0 (36 groups).
+  - `pnpm run doctor` → exit 0, 20 PASS / 1 expected uncommitted-tree
+    WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE.
+  - `pnpm lint`, `pnpm format:check`, and `pnpm typecheck` → exit 0.
+  - `pnpm test` → exit 0 (262 @japp/contracts tests; 270 unit-ts tests
+    across the workspace); `pnpm test:e2e` → exit 0 (1);
+    `pnpm test:python` → exit 0 (496); `pnpm test:rust` → exit 0 (1).
+  - `pnpm verify` → exit 0; contract-gen ACTIVE and PASS; contract remains
+    NOT_YET_APPLICABLE under M01-W05; visual remains NOT_YET_APPLICABLE
+    under M10-W06; every active suite PASS. Pre/post hashes of the complete
+    binary diff and `git status --porcelain=v1 -uall` were identical,
+    explicitly proving the aggregate verification remained read-only.
+
 ### M01-W02 — Generate TypeScript and Python contracts (2026-07-27)
 
 - Revision: content working tree (commit recorded post-commit). Bootstrap ran

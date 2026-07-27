@@ -43,6 +43,8 @@ const CLI_PATH = join(REPO_ROOT, "scripts", "generate-contracts.ts");
 const SCHEMAS_ROOT = fileURLToPath(new URL("../../schemas", import.meta.url));
 const CATALOG_ROOT = fileURLToPath(new URL("../../catalog", import.meta.url));
 const CATALOG_FILE = "error-catalog.v1.json";
+const MODEL_RESULT_PRESERVATION =
+  "All accepted deterministic results remain usable and unchanged.";
 
 const REQUIRED_FAMILIES: readonly ErrorTaxonomyV1ErrorFamily[] = [
   "VALIDATION",
@@ -154,6 +156,10 @@ function loadTampered(mutate: (catalog: CatalogJson) => void): () => void {
 describe("catalog integrity (committed data)", () => {
   const catalog = readCommittedCatalog();
 
+  test("generated TypeScript catalog values exactly match canonical data", () => {
+    expect(Object.values(ERROR_CATALOG_V1)).toEqual(catalog.entries);
+  });
+
   test("all twelve required families exist and no other family appears", () => {
     const present = new Set(catalog.entries.map((entry) => entry.family));
     expect([...present].sort()).toEqual([...REQUIRED_FAMILIES].sort());
@@ -254,12 +260,25 @@ describe("family invariants", () => {
     for (const entry of byFamily.get("MODEL") ?? []) {
       const text = `${entry.default_message} ${entry.remediation ?? ""}`;
       expect(/discard|erase|reset your|deleted your/i.test(text)).toBe(false);
+      expect(entry.default_message, entry.code).toContain(
+        MODEL_RESULT_PRESERVATION,
+      );
     }
-    expect(
-      ERROR_CATALOG_V1.MODEL_TIMEOUT.default_message.includes(
-        "nothing already accepted was changed",
-      ),
-    ).toBe(true);
+  });
+
+  test("reviewed model retry semantics distinguish retry from remediation", () => {
+    const malformed = ERROR_CATALOG_V1.MODEL_MALFORMED_OUTPUT;
+    expect(malformed.retry_disposition).toBe("SAFE_RETRY");
+    expect(malformed.transient).toBe(true);
+    expect(malformed.user_action_required).toBe(false);
+
+    const validation = ERROR_CATALOG_V1.MODEL_VALIDATION_FAILED;
+    expect(validation.retry_disposition).toBe("RETRY_AFTER_REMEDIATION");
+    expect(validation.transient).toBe(false);
+    expect(validation.user_action_required).toBe(false);
+    expect(validation.remediation).toBe(
+      "Correct the source evidence or generation request before trying again.",
+    );
   });
 
   /** Remove honestly-negated phrases, leaving any positive claim behind. */
@@ -314,9 +333,9 @@ describe("family invariants", () => {
 
   test("transient conditions are exactly the safe-retry conditions", () => {
     for (const entry of readCommittedCatalog().entries) {
-      if (entry.transient) {
-        expect(entry.retry_disposition, entry.code).toBe("SAFE_RETRY");
-      }
+      expect(entry.transient, entry.code).toBe(
+        entry.retry_disposition === "SAFE_RETRY",
+      );
     }
   });
 });
@@ -378,6 +397,34 @@ describe("generated TypeScript surfaces", () => {
 });
 
 describe("fail-closed generator behavior", () => {
+  test("generation rejects transient=true with a non-safe-retry disposition", () => {
+    const catalogRoot = tamperedCatalogRoot((catalog) => {
+      const entry = catalog.entries.find(
+        (candidate) => candidate.code === "MODEL_RUNTIME_UNAVAILABLE",
+      );
+      if (entry !== undefined) {
+        entry.transient = true;
+      }
+    });
+    expect(() => generateContracts({ catalogRoot })).toThrow(
+      /MODEL_RUNTIME_UNAVAILABLE: transient=true requires retry_disposition=SAFE_RETRY \(found RETRY_AFTER_REMEDIATION\)/,
+    );
+  });
+
+  test("generation rejects safe-retry with transient=false", () => {
+    const catalogRoot = tamperedCatalogRoot((catalog) => {
+      const entry = catalog.entries.find(
+        (candidate) => candidate.code === "MODEL_TIMEOUT",
+      );
+      if (entry !== undefined) {
+        entry.transient = false;
+      }
+    });
+    expect(() => generateContracts({ catalogRoot })).toThrow(
+      /MODEL_TIMEOUT: retry_disposition=SAFE_RETRY requires transient=true/,
+    );
+  });
+
   test("a catalog entry removed without regeneration fails the catalog gate", () => {
     const attempt = loadTampered((catalog) => {
       catalog.entries = catalog.entries.filter(

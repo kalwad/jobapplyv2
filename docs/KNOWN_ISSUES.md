@@ -34,7 +34,34 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-None recorded.
+### KI-0020 — Retry/transience equivalence was enforced in only one direction
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-27 during the M01-W03 post-verification review
+- Affects: M01-W03; `packages/contracts/generator/error-catalog.ts`;
+  `packages/contracts/catalog/error-catalog.v1.json`; generated TypeScript
+  and Python error catalogs; error-taxonomy regression tests
+- Description: the taxonomy defines `SAFE_RETRY` as a transient condition
+  whose same operation may be repeated without user involvement, and the
+  M01-W03 evidence claimed `transient` if and only if `SAFE_RETRY`.
+  The canonical catalog validator and both language-surface tests enforced
+  only `transient=true` implies `SAFE_RETRY`. Consequently,
+  `MODEL_MALFORMED_OUTPUT` and `MODEL_VALIDATION_FAILED` were committed as
+  `SAFE_RETRY` with `transient=false`, contradicting the documented
+  semantics.
+- Reproduction: at starting revision
+  `b21c098e306b89da4ac4d503882a42b8be83c6e0`, compare every canonical
+  entry's `transient` value with
+  `(retry_disposition == "SAFE_RETRY")`; exactly the two MODEL entries above
+  differ. Tampering any `SAFE_RETRY` entry to `transient=false` also passes
+  the pre-repair family-invariant branch because the converse is absent.
+- Workaround: none accepted; consumers must not infer retry policy from an
+  internally contradictory catalog.
+- Resolution + evidence link: in progress. The focused M01-W03 correction
+  restores the already documented v1 equivalence rather than introducing a
+  new contract meaning. Evidence: docs/TEST_EVIDENCE.md § M01-W03,
+  corrective-closeout subsection.
 
 ## M01-W03 review
 
@@ -45,13 +72,16 @@ the canonical validated per-code metadata catalog
 the strict code-only wire record (`schemas/error/record.v1.schema.json`),
 narrow generator support for strict booleans and uniform arrays, and the
 generated TypeScript/Pydantic catalog-data surfaces with fail-closed
-unknown-code lookups. One reproducible defect was discovered and fixed
-during package validation (KI-0019 below — a single recurrence of the
-KI-0014…KI-0017 boundary-fixture premise-inheritance class, after which
-the shared closeout helpers were generalized through the M01-W05
-boundary). Deliberate, documented scope boundaries (not defects): the
-catalog defines exactly the specification-derived near-term codes (no
-speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
+unknown-code lookups. KI-0019 below was discovered and fixed during
+package validation (a single recurrence of the KI-0014…KI-0017
+boundary-fixture premise-inheritance class, after which the shared
+closeout helpers were generalized through the M01-W05 boundary).
+Post-verification review then found KI-0020: the claimed
+`transient`/`SAFE_RETRY` equivalence was enforced in only one direction,
+and two committed MODEL entries contradicted it; M01-W03 is reopened for
+the focused correction. Deliberate, documented scope boundaries (not
+defects): the catalog defines exactly the specification-derived near-term
+codes (no speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
 and `integer` remain fail-closed generator constructs; capability/command
 allowlists are M01-W04; cross-language round-trip certification is
 M01-W05. No CRITICAL or HIGH issue is open.

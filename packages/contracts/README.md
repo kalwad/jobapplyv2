@@ -377,7 +377,7 @@ NO_RETRY_PROHIBITED | NO_RETRY_TERMINAL`), reporting origins (spec
   interpolation, HTML, and control characters), and the family invariant
   matrix (SENSITIVE ⇒ user action + pause/prohibit; SITE ⇒ pause;
   UNSUPPORTED/SENSITIVE/GATE/BENCHMARK/SUBMISSION ⇒ never `SAFE_RETRY`;
-  `transient` ⇒ `SAFE_RETRY`; GATE/BENCHMARK never transient). Independent
+  `transient` ⇔ `SAFE_RETRY`; GATE/BENCHMARK never transient). Independent
   handwritten TypeScript/Python catalogs are prohibited — both surfaces
   are generated from this instance.
 - `schemas/error/record.v1.schema.json`
@@ -397,6 +397,19 @@ reassigning one is a MAJOR change; deprecated codes carry
 `deprecated_since` and remain defined for the rest of their major version.
 No generic `UNKNOWN` code exists and none may be added as a substitute for
 classification.
+
+`SAFE_RETRY` and `transient` are an exact equivalence: a safe retry is a
+transient condition whose same operation may be repeated without user
+involvement, while every other disposition is non-transient. Retry policy
+may still bound the number of attempts. `MODEL_MALFORMED_OUTPUT` is the
+bounded, side-effect-free retry case and is therefore `SAFE_RETRY` plus
+`transient=true`. `MODEL_VALIDATION_FAILED` may represent policy,
+factuality, evidence, or deterministic-postcondition rejection, so an
+unchanged blind retry is unsafe; it is non-transient
+`RETRY_AFTER_REMEDIATION`. Every MODEL default message explicitly states
+that accepted deterministic results remain usable and unchanged. KI-0020
+restores these already-declared v1 semantics and corrects invalid v1 data;
+it does not introduce a new retry meaning.
 
 Generated surfaces (`generated/typescript/error/catalog-data.v1.ts`,
 `generated/python/.../error/catalog_data_v1.py`): the frozen

@@ -38,6 +38,12 @@ CORPUS_PATH = (
     REPO_ROOT / "packages" / "contracts" / "test" / "fixtures" / "instance-corpus.json"
 )
 CLI_PATH = REPO_ROOT / "scripts" / "generate-contracts.ts"
+ERROR_CATALOG_PATH = (
+    REPO_ROOT / "packages" / "contracts" / "catalog" / "error-catalog.v1.json"
+)
+MODEL_RESULT_PRESERVATION = (
+    "All accepted deterministic results remain usable and unchanged."
+)
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -297,11 +303,30 @@ def test_error_catalog_messages_are_user_safe() -> None:
             assert all(0x20 <= ord(char) < 0x7F for char in text), entry.code
 
 
+def test_generated_python_error_catalog_exactly_matches_canonical_data() -> None:
+
+    catalog_document = _load_json(ERROR_CATALOG_PATH)
+    canonical_entries = cast("list[dict[str, Any]]", catalog_document["entries"])
+    assert list(ERROR_CODES_V1) == [entry["code"] for entry in canonical_entries]
+    for canonical_entry in canonical_entries:
+        code = cast("str", canonical_entry["code"])
+        assert (
+            require_error_catalog_entry_v1(code).model_dump(
+                mode="json", exclude_none=True
+            )
+            == canonical_entry
+        )
+
+
+def test_transient_conditions_are_exactly_safe_retry_conditions_in_python() -> None:
+
+    for entry in ERROR_CATALOG_V1.values():
+        assert entry.transient == (entry.retry_disposition == "SAFE_RETRY"), entry.code
+
+
 def test_error_family_invariants_hold_in_python_surface() -> None:
 
     for entry in ERROR_CATALOG_V1.values():
-        if entry.transient:
-            assert entry.retry_disposition == "SAFE_RETRY", entry.code
         if entry.retry_disposition in ("PAUSE_FOR_USER", "NO_RETRY_PROHIBITED"):
             assert entry.user_action_required, entry.code
         if entry.family == "SENSITIVE":
@@ -322,6 +347,29 @@ def test_error_family_invariants_hold_in_python_surface() -> None:
             assert entry.retry_disposition != "SAFE_RETRY", entry.code
         if entry.family in ("GATE", "BENCHMARK"):
             assert not entry.transient, entry.code
+
+
+def test_reviewed_model_semantics_and_deterministic_results_are_preserved() -> None:
+
+    model_entries = [
+        entry for entry in ERROR_CATALOG_V1.values() if entry.family == "MODEL"
+    ]
+    assert len(model_entries) == 6
+    for entry in model_entries:
+        assert MODEL_RESULT_PRESERVATION in entry.default_message, entry.code
+
+    malformed = ERROR_CATALOG_V1["MODEL_MALFORMED_OUTPUT"]
+    assert malformed.retry_disposition == "SAFE_RETRY"
+    assert malformed.transient
+    assert not malformed.user_action_required
+
+    validation = ERROR_CATALOG_V1["MODEL_VALIDATION_FAILED"]
+    assert validation.retry_disposition == "RETRY_AFTER_REMEDIATION"
+    assert not validation.transient
+    assert not validation.user_action_required
+    assert validation.remediation == (
+        "Correct the source evidence or generation request before trying again."
+    )
 
 
 def test_error_lookups_are_deterministic_and_fail_closed() -> None:

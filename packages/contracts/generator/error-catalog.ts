@@ -120,11 +120,18 @@ function checkFamilyInvariants(
   violations: string[],
 ): void {
   const label = entry.code;
-  if (entry.transient && entry.retry_disposition !== "SAFE_RETRY") {
-    violations.push(
-      `${label}: transient conditions must use SAFE_RETRY (found ` +
-        `${entry.retry_disposition})`,
-    );
+  const isSafeRetry = entry.retry_disposition === "SAFE_RETRY";
+  if (entry.transient !== isSafeRetry) {
+    if (entry.transient) {
+      violations.push(
+        `${label}: transient=true requires retry_disposition=SAFE_RETRY ` +
+          `(found ${entry.retry_disposition})`,
+      );
+    } else {
+      violations.push(
+        `${label}: retry_disposition=SAFE_RETRY requires transient=true`,
+      );
+    }
   }
   if (
     (entry.retry_disposition === "PAUSE_FOR_USER" ||
