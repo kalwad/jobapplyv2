@@ -50,9 +50,15 @@ PRESERVED_PACKAGE_DEPENDENCY_SHA256 = (
 # M00-W10 locked 4e18c9533e49cfc4eefd5774bb17cb51a19b8f51b97e430900ee06a8fce7445b;
 # M01-W01 recorded the implemented schema-versioning portion of REQ-PLAT-005
 # (SCAFFOLD_ONLY evidence/paths/notes only — no state, mapping, or dependency
-# change) and re-locked the hash below.
+# change) and re-locked
+# 2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf;
+# M01-W02 additionally recorded the generated-model version-propagation
+# portion of REQ-PLAT-005 (evidence anchor, generator/generated code paths,
+# generator test paths, and notes only — the requirement stays
+# SCAFFOLD_ONLY/NOT_YET_APPLICABLE and no state, mapping, or dependency
+# changed) and re-locked the hash below.
 FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 = (
-    "2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf"
+    "158fb68a58eab46f3339248e5e34897a9f5881c48b5a1e1275b9dfbd2cf45d34"
 )
 FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
     "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760"

@@ -54,9 +54,12 @@ def trace_repo(tmp_path: Path) -> Path:
         "scripts/tests/test_ci_workflow.py",
         "scripts/tests/test_doctor.py",
         "scripts/tests/test_portability.py",
-        # M01-W01 REQ-PLAT-005 completed-path anchors (schema-versioning
-        # portion); the fixture repo must contain every referenced file.
+        # M01-W01/M01-W02 REQ-PLAT-005 completed-path anchors (schema
+        # versioning + generated-model version propagation); the fixture
+        # repo must contain every referenced file.
         "packages/contracts/README.md",
+        "packages/contracts/generated/MANIFEST.json",
+        "packages/contracts/generator/generate.ts",
         "packages/contracts/schemas/common/envelope.v1.schema.json",
         "packages/contracts/schemas/common/schema-version.v1.schema.json",
         "packages/contracts/src/conventions.ts",
@@ -64,6 +67,9 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/src/versioning.ts",
         "packages/contracts/test/schema/conventions.test.ts",
         "packages/contracts/test/schema/envelope.test.ts",
+        "packages/contracts/test/generated/generator.test.ts",
+        "scripts/generate-contracts.ts",
+        "scripts/tests/test_generated_contracts.py",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path
@@ -402,10 +408,11 @@ def test_platform_scaffold_claim_is_partial_and_product_honest() -> None:
 
 
 def test_versioning_requirement_claim_stays_partial_after_m01_w01() -> None:
-    """REQ-PLAT-005: M01-W01 recorded only the schema-versioning portion.
+    """REQ-PLAT-005: only the implemented versioning portions are recorded.
 
-    The M01-W01 reviewed hash update (see FINAL_V1_3_REQUIREMENT_MAPPING_SHA256)
-    added evidence, code, and test anchors for schema versioning while prompt,
+    M01-W01 recorded the schema-versioning portion and M01-W02 added the
+    generated-model version-propagation portion (each through the reviewed
+    FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 update procedure), while prompt,
     model-configuration, platform-profile, and migration versioning remain
     future work — the requirement must stay SCAFFOLD_ONLY with honest notes.
     """
@@ -414,7 +421,8 @@ def test_versioning_requirement_claim_stays_partial_after_m01_w01() -> None:
     assert record["implementation_state"] == "SCAFFOLD_ONLY"
     assert record["verification_state"] == "NOT_YET_APPLICABLE"
     assert record["current_evidence"] == [
-        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M01-W01"}
+        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M01-W01"},
+        {"path": "docs/TEST_EVIDENCE.md", "heading": "### M01-W02"},
     ]
     code_paths = cast(list[str], record["completed_code_paths"])
     test_paths = cast(list[str], record["completed_test_paths"])
@@ -422,12 +430,18 @@ def test_versioning_requirement_claim_stays_partial_after_m01_w01() -> None:
     assert (
         "packages/contracts/schemas/common/schema-version.v1.schema.json" in code_paths
     )
+    assert "packages/contracts/generator/generate.ts" in code_paths
+    assert "packages/contracts/generated/MANIFEST.json" in code_paths
+    assert "scripts/generate-contracts.ts" in code_paths
     assert "packages/contracts/test/schema/envelope.test.ts" in test_paths
+    assert "packages/contracts/test/generated/generator.test.ts" in test_paths
+    assert "scripts/tests/test_generated_contracts.py" in test_paths
     for relative in (*code_paths, *test_paths):
         assert (REPO_ROOT / relative).is_file(), relative
     notes = cast(str, record["notes"])
-    for future_owner in ("M01-W02", "M04-W02", "M05"):
-        assert future_owner in notes
+    for owner in ("M01-W02", "M04-W02", "M05"):
+        assert owner in notes
+    assert "MANIFEST.json" in notes
 
 
 def test_reviewed_plat_005_evidence_tamper_fails_after_self_rehash(

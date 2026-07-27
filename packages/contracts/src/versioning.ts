@@ -18,7 +18,7 @@
  * validity.
  */
 
-import { parseSchemaVersion, type SchemaVersionTriple } from "./conventions.js";
+import { parseSchemaVersion, type SchemaVersionTriple } from "./conventions.ts";
 
 export type VersionCompatibilityOutcome =
   | "COMPATIBLE"

@@ -15,8 +15,15 @@ packages/contracts/
 │   ├── common/        # foundational shared definitions (listed below)
 │   └── fixture/       # test-only composition fixtures; never product data
 ├── src/               # deterministic catalog loader + strict validation layer
+├── generator/         # M01-W02 deterministic generator engine (hand-authored)
+├── generated/         # GENERATOR-OWNED output trees; never edited by hand
+│   ├── MANIFEST.json  # provenance: inputs/outputs/hashes/type-identity map
+│   ├── typescript/    # generated types + typed Ajv-delegating validators
+│   └── python/        # generated strict Pydantic v2 package (japp_contracts)
 └── test/
     ├── schema/        # M01-W01 convention and definition tests
+    ├── generated/     # M01-W02 generator + generated-TypeScript tests
+    ├── fixtures/      # shared synthetic instance corpus for both languages
     └── contract/      # RESERVED for M01-W05 cross-language contract tests
 ```
 
@@ -28,14 +35,12 @@ packages/contracts/
   milestones); they must not be added ahead of their owning package.
 - `schemas/fixture/` is test-only. Nothing under it may carry product data or
   be depended on by product code.
-- `generated/` (reserved, does not exist yet): M01-W02 will emit generated
-  TypeScript and Pydantic models below `packages/contracts/generated/` from
-  this schema source through `scripts/generate-contracts.*` and the
-  `contract-gen` verification suite. **Hand-authored or hand-maintained
-  copies of generated TypeScript/Python contract models are prohibited** —
-  models are produced by the M01-W02 generator or they do not exist. Until
-  M01-W02 begins, the `contract-gen` suite stays honestly
-  `NOT_YET_APPLICABLE` and no generated artifact may be committed.
+- `generated/` is produced exclusively by the M01-W02 generator (§10a).
+  **Hand-authored or hand-maintained copies of generated TypeScript/Python
+  contract models are prohibited** — models are produced by the generator or
+  they do not exist. The `contract-gen` verification suite regenerates into
+  an isolated temporary directory and byte-compares the complete committed
+  inventory on every `pnpm verify`.
 
 ## 2. Document conventions
 
@@ -237,19 +242,102 @@ across the three certified CI operating systems.
 5. Update this document when a convention (not merely a definition) changes.
    Convention changes follow spec §1.4 change control.
 
-Test placement rule: M01-W01 schema tests live in `test/schema/`.
+Test placement rule: M01-W01 schema tests live in `test/schema/`; M01-W02
+generator and generated-model tests live in `test/generated/` (TypeScript)
+and `scripts/tests/test_generated_contracts.py` (Python), sharing the
+synthetic corpus in `test/fixtures/instance-corpus.json`.
 `test/contract/` is reserved for the M01-W05 cross-language suite and must
 stay empty until that package begins (the `contract` verification suite
 activates on M01-W05 and would otherwise report dishonest state).
 
+## 10a. Generated contracts (M01-W02)
+
+The generator is deterministic and fail-closed. Its engine lives in
+`generator/` (part of this package, unit-tested by Vitest); the canonical
+entry point is `scripts/generate-contracts.ts`, executed directly by the
+repository-pinned Node (native type stripping — no Bash wrapper, no compile
+step, no shell profile):
+
+```bash
+pnpm generate:contracts          # regenerate packages/contracts/generated/
+pnpm generate:contracts --check  # read-only byte-exact drift check
+```
+
+- **Input gate.** Generation loads the catalog through `loadSchemaCatalog()`
+  and compiles it through `createContractValidator()` — the unweakened
+  M01-W01 convention/strict-Ajv gate — before any output is planned. Any
+  violation aborts with no writes.
+- **Supported construct set** (exactly what the committed catalog uses):
+  `$defs`; local `#/$defs/…` and absolute catalog `$ref` (with optional
+  `#/$defs/…` fragment, siblings limited to metadata); string
+  `pattern`/`minLength`/`maxLength`; `format: date | date-time` with the
+  full-mode calendar/time assertions (mirrored in Python, including the
+  `23:59:60Z` leap-second slot and proleptic year 0000); number
+  `minimum`/`maximum`; closed string enums; closed objects
+  (`additionalProperties: false`, `required`, `properties`); the marked
+  extension surface (`x-japp-extension-point` + `propertyNames` +
+  `maxProperties`); two-member `anyOf` nullability; the boolean schema
+  `true` for deliberately opaque payloads; `title`/`description`/`$comment`,
+  `deprecated`, and the five `x-japp-*` annotations as metadata.
+- **Everything else fails closed** with the document path and JSON pointer:
+  arrays (`items`/`prefixItems` — none exist in the catalog yet), general
+  `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, exclusive bounds,
+  numeric enums, `format` values beyond date/date-time, non-identifier or
+  `model_`/underscore-leading property names, recursive `$defs` cycles, and
+  any unlisted keyword. Extending support is a deliberate generator change
+  with tests, never a silent approximation.
+- **TypeScript output** (`generated/typescript/`): one module per schema
+  document mirroring the schema layout; fully-qualified deterministic type
+  names (`CommonMoneyV1DecimalAmount`, root payloads like
+  `FixtureTestRecordV1`); optional members use real optional properties
+  (missing ≠ undefined under `exactOptionalPropertyTypes`), required
+  nullable members are `T | null`, extension surfaces are
+  `readonly [key: \`x-${string}\`]: unknown` (never `any`), opaque payloads
+  are `unknown`. `validators.ts` provides `validateContractInstance` plus a
+  typed wrapper per generated reference; wrappers delegate runtime truth to
+  the strict canonical Ajv catalog in `src/` (no re-implemented rules),
+  narrow only after success, preserve the structured error list, and throw
+  on references outside the catalog. Definitions-only document ids are
+  deliberately absent from the wrapper map (their bare `$id`compiles to an
+unconstrained schema). Stable import surface:`@japp/contracts/generated`→`generated/typescript/index.ts`.
+- **Python output** (`generated/python/src/japp_contracts/`): strict
+  Pydantic v2 (pinned `pydantic==2.12.5` in the root uv dev group; models
+  use `extra="forbid"`, `strict=True`, no defaults injected, no coercion —
+  JSON integers stay `int`, floats stay `float`, `bool` is rejected for
+  numbers). Missing and explicit null stay distinct: optional non-nullable
+  members reject explicit null before validation; required nullable members
+  accept a deliberate null. Decimal amounts and date/timestamp values keep
+  their exact string wire form; `wire_dict()` emits the canonical wire
+  representation (absent members stay absent). Importability is wired
+  through the repository `pythonpath`/`mypy_path` configuration
+  (`pyproject.toml`), the generated package ships `py.typed`, and strict
+  mypy checks it through the test imports.
+- **Determinism and provenance.** Output depends only on the committed
+  catalog and the generator version: documents are processed in sorted `$id`
+  order, definitions in dependency order (alphabetical tiebreak), imports/
+  exports/manifest keys explicitly sorted, all text LF UTF-8. No
+  timestamps, absolute paths, usernames, hostnames, random values, or
+  platform separators exist in any output (`__pycache__/` interpreter
+  caches are outside the compared inventory). `generated/MANIFEST.json`
+  records the generator format/config, every input schema id/version/
+  SHA-256 (exact committed bytes), every output path/SHA-256, and the
+  schema-reference → generated-type identity map for both languages.
+- **Write mode** builds the complete tree in memory, materializes it into a
+  same-volume staging directory, and installs it with a single directory
+  rename — the installed tree is always one complete generation, and stale
+  outputs of deleted schemas cannot survive. **Check mode** regenerates into
+  an isolated temporary directory, verifies the materialized bytes, and
+  byte-compares the complete inventory against `generated/` (missing, stale,
+  modified, and unexpected extra files all fail with actionable paths)
+  without ever touching the working tree.
+
 ## 10. Boundaries owned by later packages
 
-- **M01-W02** — TypeScript/Pydantic generation into `generated/`, the
-  `scripts/generate-contracts.*` generator, and the `contract-gen` drift
-  suite. Nothing may pre-create these.
 - **M01-W03** — error taxonomy schemas. **M01-W04** — capability/command
-  allowlists. **M01-W05** — cross-language round-trip tests.
-  **M01-W06/W07** — feasibility, benchmark, and platform-service contracts.
+  allowlists. **M01-W05** — cross-language round-trip tests (the
+  `test/contract/` suite and compatibility corpus; M01-W02's shared
+  instance corpus is generator/model evidence, not cross-language
+  certification).
 - **M04** — the real migration framework that consumes the
   `UPGRADE_REQUIRED_NEWER_MINOR` / major-version signals.
 - Product/domain payload schemas arrive with their owning milestones.

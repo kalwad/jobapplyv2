@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import re
 import tomllib
+from pathlib import Path
 from typing import Any
 
 import check_portability
@@ -691,9 +692,17 @@ def test_contract_gen_not_yet_applicable_before_owner_begins() -> None:
         assert derived is verify.SuiteState.NOT_YET_APPLICABLE, idle_state
 
 
-def test_contract_gen_required_missing_once_owner_begins() -> None:
+def test_contract_gen_required_missing_once_owner_begins(
+    tmp_path: Path,
+) -> None:
+    # Premise isolation (KI-0014/KI-0015/KI-0017 class): the live repository
+    # now legitimately contains the real generator at
+    # scripts/generate-contracts.ts, so the "no generator exists" negative
+    # must derive discovery against an isolated repo without it.
+    empty_repo = tmp_path / "repo"
+    empty_repo.mkdir()
     ctx = verify.Context(
-        repo=REPO_ROOT,
+        repo=empty_repo,
         registry_path=REPO_ROOT / "scripts" / "verification-suites.json",
         status_path=REPO_ROOT / "docs" / "PROJECT_STATUS.md",
     )
@@ -706,8 +715,23 @@ def test_contract_gen_required_missing_once_owner_begins() -> None:
     )
 
 
+def test_contract_gen_becomes_active_with_real_generator() -> None:
+    ctx = verify.Context(
+        repo=REPO_ROOT,
+        registry_path=REPO_ROOT / "scripts" / "verification-suites.json",
+        status_path=REPO_ROOT / "docs" / "PROJECT_STATUS.md",
+    )
+    states = verify.parse_package_states(ctx.status_path)
+    assert (REPO_ROOT / "scripts" / "generate-contracts.ts").is_file()
+    for started_state in ("IN_PROGRESS", "IMPLEMENTED", "VERIFIED"):
+        states["M01-W02"] = started_state
+        derived = verify.derive_state(ctx, registry_suite("contract-gen"), states)
+        assert derived is verify.SuiteState.ACTIVE, started_state
+
+
 def test_contract_gen_explanation_documents_drift_vs_compat() -> None:
     suite = registry_suite("contract-gen")
     assert "M01-W05" in suite.explanation
     assert "stale" in suite.explanation
-    assert "No placeholder generator" in suite.explanation
+    assert "byte-compare" in suite.explanation
+    assert "No hand-maintained generated files" in suite.explanation

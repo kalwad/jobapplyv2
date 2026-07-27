@@ -20,6 +20,10 @@ export default tseslint.config(
       "test-results/**",
       "playwright-report/**",
       "blob-report/**",
+      // Generated contract trees are byte-exact generator output (M01-W02):
+      // integrity is enforced by the contract-gen drift suite and strict
+      // typechecking, not by style lint over emitted code.
+      "packages/contracts/generated/**",
     ],
   },
   {

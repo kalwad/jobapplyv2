@@ -14,6 +14,11 @@
     "useUnknownInCatchVariables": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    // Repository TypeScript executes without a compile step (Vitest, and —
+    // since M01-W02 — the contract generator under the pinned Node's native
+    // type stripping). Explicit .ts specifiers are therefore the canonical
+    // import form; noEmit (above) keeps this flag valid.
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": false,
     "types": ["node"]

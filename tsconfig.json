@@ -7,5 +7,9 @@
     // skipLibCheck:false. Workspace packages deliberately stay DOM-free.
     "lib": ["ES2023", "DOM", "DOM.Iterable"]
   },
-  "include": ["playwright.config.ts", "e2e/**/*.ts"]
+  "include": [
+    "playwright.config.ts",
+    "e2e/**/*.ts",
+    "scripts/generate-contracts.ts"
+  ]
 }

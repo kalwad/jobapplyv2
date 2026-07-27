@@ -4,6 +4,11 @@ CLAUDE.md
 docs/
 MASTER_IMPLEMENTATION_SPEC(1).md
 
+# Generated contract trees are byte-exact generator output (M01-W02).
+# Reformatting them would create permanent drift against the deterministic
+# emitter; integrity is enforced by `pnpm generate:contracts --check`.
+packages/contracts/generated/
+
 # Lockfiles and tool/build output
 pnpm-lock.yaml
 uv.lock

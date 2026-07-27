@@ -20,8 +20,8 @@ import {
   SCHEMA_VERSION_KEYWORD,
   type SchemaDocumentInput,
   type SchemaVersionTriple,
-} from "./conventions.js";
-import { isJsonObject, type JsonObject, type JsonValue } from "./json.js";
+} from "./conventions.ts";
+import { isJsonObject, type JsonObject, type JsonValue } from "./json.ts";
 
 /** Default schemas root: packages/contracts/schemas. */
 export const DEFAULT_SCHEMAS_ROOT = fileURLToPath(

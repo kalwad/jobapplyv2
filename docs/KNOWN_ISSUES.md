@@ -36,6 +36,25 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
+## M01-W02 review
+
+M01-W02 introduced the deterministic contract generator
+(`scripts/generate-contracts.ts` + `packages/contracts/generator/`), the
+committed generated TypeScript/Pydantic trees under
+`packages/contracts/generated/`, and the ACTIVE contract-gen drift suite.
+One reproducible defect class was discovered and fixed during package
+validation (KI-0017 below — the same boundary-fixture premise-inheritance
+class as KI-0014/KI-0015/KI-0016). Deliberate, documented scope boundaries
+(not defects): the generator supports exactly the construct set committed by
+M01-W01 and fails closed on everything else (arrays, general combinators,
+exclusive bounds, non-date formats — see packages/contracts/README.md §10a);
+array support arrives with the first package that commits an array-bearing
+schema. Cross-language round-trip certification remains owned by M01-W05.
+The generated Python package is wired through pytest/mypy path
+configuration rather than an installable distribution; a packaging decision
+belongs to the milestone that first consumes it from product code. No
+CRITICAL or HIGH issue is open.
+
 ## M01-W01 review
 
 M01-W01 introduced the JSON Schema convention layer in `packages/contracts`
@@ -85,6 +104,46 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0017 — Four boundary fixtures inherited the pre-M01-W02 premise
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-27 during M01-W02 package validation
+- Affects: M01-W02; `scripts/tests/test_suite_states.py`
+  (`test_real_registry_loads_and_states_match_project_state`),
+  `scripts/tests/test_ci_workflow.py`
+  (`test_contract_gen_required_missing_once_owner_begins`,
+  `test_contract_gen_explanation_documents_drift_vs_compat`),
+  `scripts/tests/test_doctor.py` (`doctor_repo` fixture),
+  `scripts/tests/test_validate_status.py`
+  (`test_current_work_package_must_be_exact_none_or_blocked_id`);
+  `pnpm verify`
+- Description: once M01-W02 legitimately became IN_PROGRESS and the real
+  generator landed at `scripts/generate-contracts.ts`, four fixtures that
+  had inherited the pre-M01-W02 premise failed: the live-registry test
+  asserted an ACTIVE suite set without contract-gen; the REQUIRED_MISSING
+  negative derived discovery against the real repository, which now
+  contains the generator; the explanation assertion pinned the retired
+  NOT_YET_APPLICABLE wording; the doctor's healthy fixture repo lacked the
+  generator file, so its simulated environment reported
+  suite-contract-gen REQUIRED_MISSING; and the status exactness negative
+  left the inherited M01-W02 IN_PROGRESS row in place. Same
+  premise-inheritance class as KI-0014/KI-0015/KI-0016.
+- Reproduction: mark M01-W02 IN_PROGRESS with the generator present and run
+  `uv run pytest scripts/tests`; 4 fixture assertions failed (448 passed)
+  while the real validators and suites correctly passed.
+- Workaround: none accepted; boundary fixtures must establish their own
+  complete premise in every legitimate live repository state.
+- Resolution + evidence link: the live-registry expectation now includes
+  the permanently ACTIVE contract-gen suite; the REQUIRED_MISSING negative
+  isolates an empty fixture repo (and a new positive proves ACTIVE
+  derivation with the real generator across started states); the
+  explanation assertions track the accurate ACTIVE-state wording; the
+  doctor fixture carries `scripts/generate-contracts.ts`; the exactness
+  negative resets M01-W02 alongside the other rows. The scripts suite
+  passes 452/452 and complete `pnpm verify` passes with contract-gen
+  ACTIVE and PASS. Evidence: docs/TEST_EVIDENCE.md § M01-W02.
 
 ### KI-0016 — M00-closeout fixture helpers inherited pre-M01 boundary rows
 

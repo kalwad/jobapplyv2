@@ -132,6 +132,10 @@ def doctor_repo(tmp_path: Path) -> Path:
         "traceability.py",
         "verify.py",
         "verification-suites.json",
+        # The contract-gen suite discovers scripts/generate-contracts.*;
+        # a healthy fixture repo must carry it now that M01-W02 activated
+        # the suite (KI-0014/KI-0015/KI-0017 premise class).
+        "generate-contracts.ts",
     ):
         shutil.copy2(REPO_ROOT / "scripts" / rel, repo / "scripts" / rel)
     playwright_manifest = repo / "node_modules" / "@playwright" / "test"

@@ -16,7 +16,7 @@ import {
   SchemaCatalogError,
   type JsonObject,
   type SchemaDocumentInput,
-} from "../../src/index.js";
+} from "../../src/index.ts";
 
 const catalog = loadSchemaCatalog();
 

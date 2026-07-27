@@ -7,7 +7,7 @@
  * dependence.
  */
 
-import { isJsonObject, type JsonObject, type JsonValue } from "./json.js";
+import { isJsonObject, type JsonObject, type JsonValue } from "./json.ts";
 
 /** The only supported JSON Schema dialect for hand-authored contract schemas. */
 export const JSON_SCHEMA_DIALECT =

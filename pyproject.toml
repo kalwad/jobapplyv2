@@ -28,6 +28,13 @@ members = ["services/orchestrator"]
 [dependency-groups]
 dev = [
     "mypy==2.3.0",
+    # Pydantic backs the generated strict contract models under
+    # packages/contracts/generated/python (M01-W02). It lives in the dev
+    # group because no Python product runtime exists yet; the generated
+    # package is imported by scripts/tests and strict mypy through the
+    # pythonpath/mypy_path entries below. Exact pin; deterministic offline
+    # behavior after locked install.
+    "pydantic==2.12.5",
     "pytest==9.1.1",
     # PyYAML is required by scripts/check_portability.py and
     # scripts/tests/test_ci_workflow.py to parse and validate GitHub Actions
@@ -39,6 +46,10 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["services/orchestrator/tests", "scripts/tests"]
+# The generated strict Pydantic contract package (M01-W02) is imported by
+# scripts/tests through this path entry; the generated tree is committed,
+# so collection works identically on a clean clone.
+pythonpath = ["packages/contracts/generated/python/src"]
 # --strict-markers: unknown markers are errors, not silent no-ops.
 # --strict-config: unknown/typo'd ini options are errors.
 # -ra: always summarize non-passing outcomes.
@@ -153,5 +164,13 @@ files = [
     "scripts/portability.py",
     "scripts/tests",
 ]
-mypy_path = ["services/orchestrator/src", "scripts", "scripts/tests"]
+mypy_path = [
+    "services/orchestrator/src",
+    "scripts",
+    "scripts/tests",
+    # Generated strict Pydantic contract package (M01-W02): strict mypy
+    # follows imports from scripts/tests into japp_contracts through this
+    # path, so the generated code itself must stay strict-clean.
+    "packages/contracts/generated/python/src",
+]
 explicit_package_bases = true

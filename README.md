@@ -153,6 +153,8 @@ pnpm test:e2e        # Playwright browser tests (pinned Chromium)
 pnpm test:visual     # visual suite state (NOT_YET_APPLICABLE until M10-W06)
 pnpm test:python     # Ruff + mypy + pytest via uv (pinned interpreter)
 pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
+pnpm generate:contracts         # regenerate packages/contracts/generated (M01-W02)
+pnpm generate:contracts --check # read-only byte-exact drift check (contract-gen suite)
 pnpm traceability:check     # read-only v1.3 157/286 traceability + drift validation
 pnpm traceability:generate  # regenerate the reviewed human traceability view
 pnpm verify          # aggregate of all of the above + traceability/integrity/status

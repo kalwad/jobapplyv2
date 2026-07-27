@@ -30,30 +30,30 @@ export {
   parseSchemaId,
   parseSchemaVersion,
   walkSchemaNodes,
-} from "./conventions.js";
+} from "./conventions.ts";
 export type {
   CollectedRef,
   ParsedSchemaId,
   SchemaDocumentInput,
   SchemaVersionTriple,
-} from "./conventions.js";
+} from "./conventions.ts";
 export {
   DEFAULT_SCHEMAS_ROOT,
   SchemaCatalogError,
   loadSchemaCatalog,
-} from "./catalog.js";
-export type { SchemaCatalog, SchemaCatalogEntry } from "./catalog.js";
-export { isJsonObject } from "./json.js";
-export type { JsonObject, JsonValue } from "./json.js";
-export { buildStrictAjv, createContractValidator } from "./validator.js";
+} from "./catalog.ts";
+export type { SchemaCatalog, SchemaCatalogEntry } from "./catalog.ts";
+export { isJsonObject } from "./json.ts";
+export type { JsonObject, JsonValue } from "./json.ts";
+export { buildStrictAjv, createContractValidator } from "./validator.ts";
 export type {
   ContractValidator,
   InstanceValidationResult,
-} from "./validator.js";
-export { evaluateVersionCompatibility } from "./versioning.js";
+} from "./validator.ts";
+export { evaluateVersionCompatibility } from "./versioning.ts";
 export type {
   VersionCompatibility,
   VersionCompatibilityOutcome,
-} from "./versioning.js";
-export { ENVELOPED_RECORD_REF, validateEnvelopedRecord } from "./envelope.js";
-export type { EnvelopeValidationResult } from "./envelope.js";
+} from "./versioning.ts";
+export { ENVELOPED_RECORD_REF, validateEnvelopedRecord } from "./envelope.ts";
+export type { EnvelopeValidationResult } from "./envelope.ts";

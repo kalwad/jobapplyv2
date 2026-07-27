@@ -9,10 +9,10 @@
  * fail-closed outcome — nothing is coerced, defaulted, or guessed.
  */
 
-import type { SchemaCatalog } from "./catalog.js";
-import { isJsonObject, type JsonObject } from "./json.js";
-import type { ContractValidator } from "./validator.js";
-import { evaluateVersionCompatibility } from "./versioning.js";
+import type { SchemaCatalog } from "./catalog.ts";
+import { isJsonObject, type JsonObject } from "./json.ts";
+import type { ContractValidator } from "./validator.ts";
+import { evaluateVersionCompatibility } from "./versioning.ts";
 
 /** Catalog reference of the enveloped-record shape. */
 export const ENVELOPED_RECORD_REF =

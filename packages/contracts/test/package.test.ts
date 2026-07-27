@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { PACKAGE_NAME } from "../src/index.js";
+import { PACKAGE_NAME } from "../src/index.ts";
 
 interface PackageManifest {
   name: string;

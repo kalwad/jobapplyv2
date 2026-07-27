@@ -25,7 +25,7 @@ import addFormatsModule from "ajv-formats";
 // and bundler interop.
 const addFormats = addFormatsModule.default;
 
-import type { SchemaCatalog } from "./catalog.js";
+import type { SchemaCatalog } from "./catalog.ts";
 import {
   DEPRECATED_SINCE_KEYWORD,
   EXTENSION_POINT_KEYWORD,
@@ -35,7 +35,7 @@ import {
   SCHEMA_VERSION_PATTERN,
   SENSITIVITY_CLASSES,
   SENSITIVITY_KEYWORD,
-} from "./conventions.js";
+} from "./conventions.ts";
 
 /** Outcome of validating one instance against one schema reference. */
 export type InstanceValidationResult =

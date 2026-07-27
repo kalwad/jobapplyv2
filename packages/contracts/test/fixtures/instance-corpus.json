@@ -1,0 +1,675 @@
+{
+  "$comment": "Hand-authored M01-W02 generator/model test corpus. Synthetic data only. Each case names a generated catalog reference, one instance, and the single expected verdict that BOTH the generated TypeScript typed wrappers (canonical Ajv truth) and the generated strict Pydantic v2 models must produce. Consumed by packages/contracts/test/generated/typescript-models.test.ts and scripts/tests/test_generated_contracts.py. This is not the M01-W05 cross-language compatibility corpus.",
+  "cases": [
+    {
+      "label": "stable-id: canonical identifier",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
+      "valid": true,
+      "instance": "clm_0123456789ABCDEFGHJKMNPQRS"
+    },
+    {
+      "label": "stable-id: excluded Crockford letters rejected",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
+      "valid": false,
+      "instance": "clm_0123456789ABCDEFGHIJKLMNOP"
+    },
+    {
+      "label": "stable-id: missing underscore rejected",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
+      "valid": false,
+      "instance": "clm0123456789ABCDEFGHJKMNPQRS"
+    },
+    {
+      "label": "stable-id: uppercase prefix rejected",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
+      "valid": false,
+      "instance": "CLM_0123456789ABCDEFGHJKMNPQRS"
+    },
+    {
+      "label": "stable-id: non-string rejected",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
+      "valid": false,
+      "instance": 12345
+    },
+    {
+      "label": "id-prefix: canonical",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix",
+      "valid": true,
+      "instance": "clm"
+    },
+    {
+      "label": "id-prefix: single character rejected",
+      "ref": "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix",
+      "valid": false,
+      "instance": "c"
+    },
+    {
+      "label": "calendar-date: leap day in leap year",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": true,
+      "instance": "2028-02-29"
+    },
+    {
+      "label": "calendar-date: leap day in common year rejected",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": false,
+      "instance": "2026-02-29"
+    },
+    {
+      "label": "calendar-date: month 13 rejected",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": false,
+      "instance": "2026-13-01"
+    },
+    {
+      "label": "calendar-date: day zero rejected",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": false,
+      "instance": "2026-01-00"
+    },
+    {
+      "label": "calendar-date: year zero is proleptically valid",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": true,
+      "instance": "0000-02-29"
+    },
+    {
+      "label": "calendar-date: timestamp is not a date",
+      "ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate",
+      "valid": false,
+      "instance": "2026-07-27T00:00:00Z"
+    },
+    {
+      "label": "timestamp: canonical UTC instant",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": true,
+      "instance": "2026-07-27T04:00:00Z"
+    },
+    {
+      "label": "timestamp: nine fractional digits",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": true,
+      "instance": "2026-07-27T04:00:00.123456789Z"
+    },
+    {
+      "label": "timestamp: ten fractional digits rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-07-27T04:00:00.1234567890Z"
+    },
+    {
+      "label": "timestamp: UTC end-of-day leap second",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": true,
+      "instance": "2026-06-30T23:59:60Z"
+    },
+    {
+      "label": "timestamp: mid-hour second sixty rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-06-30T12:30:60Z"
+    },
+    {
+      "label": "timestamp: hour twenty-four rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-07-27T24:00:00Z"
+    },
+    {
+      "label": "timestamp: local offset rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-07-27T04:00:00+02:00"
+    },
+    {
+      "label": "timestamp: lowercase z rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-07-27T04:00:00z"
+    },
+    {
+      "label": "timestamp: invalid calendar day rejected",
+      "ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+      "valid": false,
+      "instance": "2026-02-29T04:00:00Z"
+    },
+    {
+      "label": "enum-token: canonical token",
+      "ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken",
+      "valid": true,
+      "instance": "GUIDED_PRE_SUBMIT"
+    },
+    {
+      "label": "enum-token: lowercase rejected",
+      "ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken",
+      "valid": false,
+      "instance": "guided_pre_submit"
+    },
+    {
+      "label": "decimal-amount: integer string",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": true,
+      "instance": "1250"
+    },
+    {
+      "label": "decimal-amount: negative six-digit fraction",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": true,
+      "instance": "-0.123456"
+    },
+    {
+      "label": "decimal-amount: seven-digit fraction rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": false,
+      "instance": "0.1234567"
+    },
+    {
+      "label": "decimal-amount: leading zero rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": false,
+      "instance": "01.5"
+    },
+    {
+      "label": "decimal-amount: exponent rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": false,
+      "instance": "1e6"
+    },
+    {
+      "label": "decimal-amount: JSON number rejected (amounts travel as strings)",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/decimalAmount",
+      "valid": false,
+      "instance": 1250.5
+    },
+    {
+      "label": "money: canonical value",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/money",
+      "valid": true,
+      "instance": { "amount": "98000.00", "currency": "USD" }
+    },
+    {
+      "label": "money: lowercase currency rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/money",
+      "valid": false,
+      "instance": { "amount": "98000.00", "currency": "usd" }
+    },
+    {
+      "label": "money: unknown member rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/money",
+      "valid": false,
+      "instance": { "amount": "98000.00", "currency": "USD", "rounding": "UP" }
+    },
+    {
+      "label": "money: missing currency rejected",
+      "ref": "urn:japp:schema:common:money:v1#/$defs/money",
+      "valid": false,
+      "instance": { "amount": "98000.00" }
+    },
+    {
+      "label": "confidence: zero boundary",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": true,
+      "instance": 0
+    },
+    {
+      "label": "confidence: one boundary",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": true,
+      "instance": 1
+    },
+    {
+      "label": "confidence: interior double",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": true,
+      "instance": 0.9975
+    },
+    {
+      "label": "confidence: above one rejected",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": false,
+      "instance": 1.0001
+    },
+    {
+      "label": "confidence: negative rejected",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": false,
+      "instance": -0.25
+    },
+    {
+      "label": "confidence: numeric string rejected (no coercion)",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": false,
+      "instance": "0.5"
+    },
+    {
+      "label": "confidence: boolean rejected",
+      "ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence",
+      "valid": false,
+      "instance": true
+    },
+    {
+      "label": "country-code: syntactic alpha-2",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/countryCode",
+      "valid": true,
+      "instance": "US"
+    },
+    {
+      "label": "country-code: alpha-3 rejected",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/countryCode",
+      "valid": false,
+      "instance": "USA"
+    },
+    {
+      "label": "location: country only",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
+      "valid": true,
+      "instance": { "country": "CA" }
+    },
+    {
+      "label": "location: full structured value",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
+      "valid": true,
+      "instance": {
+        "country": "US",
+        "region": "California",
+        "locality": "San Francisco",
+        "postal_code": "94105"
+      }
+    },
+    {
+      "label": "location: missing country rejected",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
+      "valid": false,
+      "instance": { "region": "California" }
+    },
+    {
+      "label": "location: empty region rejected",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
+      "valid": false,
+      "instance": { "country": "US", "region": "" }
+    },
+    {
+      "label": "location: overlong postal code rejected",
+      "ref": "urn:japp:schema:common:location:v1#/$defs/structuredLocation",
+      "valid": false,
+      "instance": { "country": "US", "postal_code": "94105-94105-94105-94105" }
+    },
+    {
+      "label": "source-kind: declared token",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/sourceKind",
+      "valid": true,
+      "instance": "PAGE_CAPTURE"
+    },
+    {
+      "label": "source-kind: undeclared token rejected",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/sourceKind",
+      "valid": false,
+      "instance": "TELEPATHY"
+    },
+    {
+      "label": "content-digest: canonical sha256 rendering",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest",
+      "valid": true,
+      "instance": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "label": "content-digest: uppercase hex rejected",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest",
+      "valid": false,
+      "instance": "sha256:6B86B273FF34FCE19D6B804EFF5A3F5747ADA4EAA22F1D49C01E52DDB7875B4B"
+    },
+    {
+      "label": "provenance: minimal record",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance",
+      "valid": true,
+      "instance": {
+        "source_kind": "DOCUMENT_IMPORT",
+        "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    {
+      "label": "provenance: full record",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance",
+      "valid": true,
+      "instance": {
+        "source_kind": "PAGE_CAPTURE",
+        "source_id": "cap_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z",
+        "source_digest": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "confidence": 0.875
+      }
+    },
+    {
+      "label": "provenance: missing observed_at rejected",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance",
+      "valid": false,
+      "instance": {
+        "source_kind": "DOCUMENT_IMPORT",
+        "source_id": "doc_0123456789ABCDEFGHJKMNPQRS"
+      }
+    },
+    {
+      "label": "provenance: out-of-range confidence rejected",
+      "ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance",
+      "valid": false,
+      "instance": {
+        "source_kind": "DOCUMENT_IMPORT",
+        "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z",
+        "confidence": 1.5
+      }
+    },
+    {
+      "label": "redaction: declared pair",
+      "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
+      "valid": true,
+      "instance": { "sensitivity": "SECRET", "policy": "FORBID_CAPTURE" }
+    },
+    {
+      "label": "redaction: undeclared sensitivity rejected",
+      "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
+      "valid": false,
+      "instance": { "sensitivity": "TOP_SECRET", "policy": "FORBID_CAPTURE" }
+    },
+    {
+      "label": "redaction: missing policy rejected",
+      "ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation",
+      "valid": false,
+      "instance": { "sensitivity": "SECRET" }
+    },
+    {
+      "label": "schema-id: canonical URN",
+      "ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaId",
+      "valid": true,
+      "instance": "urn:japp:schema:common:money:v1"
+    },
+    {
+      "label": "schema-id: zero-padded major rejected",
+      "ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaId",
+      "valid": false,
+      "instance": "urn:japp:schema:common:money:v01"
+    },
+    {
+      "label": "schema-version: canonical triple",
+      "ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion",
+      "valid": true,
+      "instance": "1.1.0"
+    },
+    {
+      "label": "schema-version: zero-padded minor rejected",
+      "ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion",
+      "valid": false,
+      "instance": "1.02.0"
+    },
+    {
+      "label": "schema-version: prerelease rejected",
+      "ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion",
+      "valid": false,
+      "instance": "1.1.0-beta"
+    },
+    {
+      "label": "correlation-id: stable-id grammar",
+      "ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId",
+      "valid": true,
+      "instance": "wf_0123456789ABCDEFGHJKMNPQRS"
+    },
+    {
+      "label": "extension-key: canonical namespaced key",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensionKey",
+      "valid": true,
+      "instance": "x-japp-trace"
+    },
+    {
+      "label": "extension-key: missing namespace rejected",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensionKey",
+      "valid": false,
+      "instance": "japp-trace"
+    },
+    {
+      "label": "extensions: opaque nested values preserved",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensions",
+      "valid": true,
+      "instance": { "x-trace": { "nested": [1, "two", null, true] } }
+    },
+    {
+      "label": "extensions: invalid key grammar rejected",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/extensions",
+      "valid": false,
+      "instance": { "not_namespaced": 1 }
+    },
+    {
+      "label": "envelope-metadata: minimal",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopeMetadata",
+      "valid": true,
+      "instance": {
+        "schema_id": "urn:japp:schema:fixture:test-record:v1",
+        "schema_version": "1.1.0",
+        "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "created_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    {
+      "label": "envelope-metadata: trace identifiers and extensions",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopeMetadata",
+      "valid": true,
+      "instance": {
+        "schema_id": "urn:japp:schema:fixture:test-record:v1",
+        "schema_version": "1.1.0",
+        "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "created_at": "2026-07-27T04:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "causation_id": "msg_00000000000000000000000000",
+        "extensions": { "x-origin": "fixture" }
+      }
+    },
+    {
+      "label": "envelope-metadata: null correlation_id rejected (optional non-nullable)",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopeMetadata",
+      "valid": false,
+      "instance": {
+        "schema_id": "urn:japp:schema:fixture:test-record:v1",
+        "schema_version": "1.1.0",
+        "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "created_at": "2026-07-27T04:00:00Z",
+        "correlation_id": null
+      }
+    },
+    {
+      "label": "envelope-metadata: unknown member rejected",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopeMetadata",
+      "valid": false,
+      "instance": {
+        "schema_id": "urn:japp:schema:fixture:test-record:v1",
+        "schema_version": "1.1.0",
+        "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "created_at": "2026-07-27T04:00:00Z",
+        "routing_key": "queue-7"
+      }
+    },
+    {
+      "label": "enveloped-record: opaque null payload",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "valid": true,
+      "instance": {
+        "envelope": {
+          "schema_id": "urn:japp:schema:fixture:test-record:v1",
+          "schema_version": "1.1.0",
+          "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+          "created_at": "2026-07-27T04:00:00Z"
+        },
+        "payload": null
+      }
+    },
+    {
+      "label": "enveloped-record: missing payload rejected",
+      "ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "valid": false,
+      "instance": {
+        "envelope": {
+          "schema_id": "urn:japp:schema:fixture:test-record:v1",
+          "schema_version": "1.1.0",
+          "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+          "created_at": "2026-07-27T04:00:00Z"
+        }
+      }
+    },
+    {
+      "label": "test-record: complete valid instance",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": true,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US", "region": "California" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": 0.9975,
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "ACTIVE",
+        "superseded_by": null,
+        "note": "synthetic fixture note",
+        "legacy_tag": "legacy"
+      }
+    },
+    {
+      "label": "test-record: absent optionals with explicit known-none successor",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": true,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-06-30T23:59:60Z",
+        "effective_date": "2028-02-29",
+        "budget": { "amount": "-12.75", "currency": "EUR" },
+        "location": { "country": "DE" },
+        "provenance": {
+          "source_kind": "GENERATED",
+          "source_id": "gen_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z",
+          "confidence": 1
+        },
+        "match_confidence": 1,
+        "redaction": { "sensitivity": "PUBLIC", "policy": "NONE" },
+        "status": "ARCHIVED",
+        "superseded_by": "rec_ZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+      }
+    },
+    {
+      "label": "test-record: explicit null note rejected (optional non-nullable)",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": 0.5,
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "ACTIVE",
+        "superseded_by": null,
+        "note": null
+      }
+    },
+    {
+      "label": "test-record: missing required nullable successor rejected",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": 0.5,
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "label": "test-record: undeclared status token rejected",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": 0.5,
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "PENDING",
+        "superseded_by": null
+      }
+    },
+    {
+      "label": "test-record: unknown member rejected",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": 0.5,
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "ACTIVE",
+        "superseded_by": null,
+        "surprise": true
+      }
+    },
+    {
+      "label": "test-record: stringified confidence rejected (no coercion)",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": { "amount": "1250.50", "currency": "USD" },
+        "location": { "country": "US" },
+        "provenance": {
+          "source_kind": "USER_INPUT",
+          "source_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        },
+        "match_confidence": "0.5",
+        "redaction": { "sensitivity": "PERSONAL", "policy": "REDACT_VALUE" },
+        "status": "ACTIVE",
+        "superseded_by": null
+      }
+    },
+    {
+      "label": "test-record: array instance rejected",
+      "ref": "urn:japp:schema:fixture:test-record:v1",
+      "valid": false,
+      "instance": []
+    }
+  ]
+}

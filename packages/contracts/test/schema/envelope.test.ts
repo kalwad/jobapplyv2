@@ -7,7 +7,7 @@ import {
   loadSchemaCatalog,
   validateEnvelopedRecord,
   type JsonObject,
-} from "../../src/index.js";
+} from "../../src/index.ts";
 
 const catalog = loadSchemaCatalog();
 const validator = createContractValidator(catalog);

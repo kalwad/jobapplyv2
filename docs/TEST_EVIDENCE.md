@@ -33,6 +33,188 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W02 — Generate TypeScript and Python contracts (2026-07-27)
+
+- Revision: content working tree (commit recorded post-commit). Bootstrap ran
+  at starting HEAD `be476d636b554b698a996b6851d4a7fa7293dd2d` (clean `main`,
+  equal to `origin/main`).
+- Environment: macOS (Apple silicon, Darwin 27.0.0); Node v24.18.0;
+  pnpm 11.17.0; uv 0.11.32 with uv-managed Python 3.12.13; rustup toolchain
+  1.97.1; @playwright/test 1.62.0 with pinned Chromium; new exact Python
+  pins pydantic 2.12.5 (+ pydantic-core 2.41.5, annotated-types 0.8.0,
+  typing-inspection 0.4.2) in the root uv dev group and uv.lock.
+- Clean-session bootstrap (all inspected at starting HEAD):
+  - `git fetch origin`, `git status --short`, `git branch --show-current`,
+    `git rev-parse HEAD`, `git rev-parse origin/main`, `git log --oneline -8`
+    → exit 0; clean tree; branch `main`; local HEAD and `origin/main` both
+    `be476d636b554b698a996b6851d4a7fa7293dd2d`.
+  - `gh run view 30235026395` → final M01-W01 stamp run succeeded on all
+    three required jobs: macos-15 job 89881105283, ubuntu-24.04 job
+    89881105287, windows-2025 job 89881105290.
+  - `python3 scripts/validate_status.py` → exit 0 (36 groups; M00 ACCEPTED,
+    M01-W01 VERIFIED, M01-W02 sole READY, no IN_PROGRESS package, four
+    gates NOT_EVALUATED).
+  - `pnpm traceability:check` → exit 0 (157 requirements, 286 packages).
+  - `pnpm run doctor` → exit 0, 20 PASS / 0 WARNING / 0 FAIL and honest
+    NOT_YET_APPLICABLE for contract-gen, contract, and visual.
+  - `pnpm verify` → exit 0 with every ACTIVE suite PASS.
+  - Only after every prerequisite passed was M01-W02 marked IN_PROGRESS
+    (docs/PROJECT_STATUS.md + docs/traceability.json + regenerated view;
+    `python3 scripts/validate_status.py` and `pnpm traceability:check`
+    re-run → exit 0).
+- Implementation delivered:
+  - `scripts/generate-contracts.ts` — canonical platform-neutral entry
+    point, executed directly by the pinned Node's native type stripping
+    (no Bash wrapper, no compile step, no shell profile); root command
+    `pnpm generate:contracts` (write) and `pnpm generate:contracts --check`
+    (read-only byte-exact drift check; exit 0/1/2 =
+    clean/drift/usage-or-generation-failure).
+  - `packages/contracts/generator/` — deterministic engine: `ir.ts`
+    (fail-closed keyword-allowlist IR with document path + JSON pointer in
+    every unsupported-construct error; deterministic dependency ordering of
+    $defs, cycles rejected), `naming.ts` (schema-identity → fully-qualified
+    type/module mapping), `emit-typescript.ts`, `emit-python.ts`,
+    `generate.ts` (orchestration, provenance manifest, LF/path-containment
+    guards), `fsops.ts` (staging + single-rename install; complete-inventory
+    byte compare; `__pycache__` interpreter caches excluded), `cli.ts`.
+    The unweakened M01-W01 gate (`loadSchemaCatalog` +
+    `createContractValidator`) runs before any output is planned.
+  - `packages/contracts/generated/` — 35 committed generated files:
+    `MANIFEST.json` (generator format/config, 13 input schema
+    ids/versions/SHA-256 over exact committed bytes, 34 output
+    paths/SHA-256, cross-language type-identity map), generated `README.md`,
+    `typescript/` (13 document modules + `validators.ts` + `index.ts`; 26
+    typed Ajv-delegating wrappers; extension surfaces typed
+    `readonly [key: \`x-${string}\`]: unknown`, opaque payloads `unknown`,
+    no `any` anywhere), `python/src/japp_contracts/` (13 document modules +
+    `_runtime.py` + package/subpackage `__init__.py` + `py.typed`; strict
+    Pydantic v2: extra="forbid", strict=True, no defaults, no coercion,
+    missing ≠ null via explicit-null rejection on optional non-nullable
+    members, string wire forms preserved, Ajv-parity date/date-time
+    validators including the 23:59:60Z leap-second slot and proleptic year
+    0000 — semantics probed against ajv-formats full mode before
+    implementation).
+  - Source integration: package-internal import specifiers moved to
+    explicit `.ts` form (same modules now execute under Vitest and plain
+    pinned Node), `allowImportingTsExtensions` in tsconfig.base.json,
+    generated tree included in package typecheck, `@japp/contracts/generated`
+    export surface, ESLint/Prettier exemptions for the byte-exact generated
+    tree, pytest `pythonpath` + mypy `mypy_path` wiring for
+    `japp_contracts`, contract-gen registry explanation updated to accurate
+    ACTIVE-state wording (activation rule, command, owner, and mandatory
+    state unchanged).
+- Tests added:
+  - `packages/contracts/test/generated/generator.test.ts` (25 tests):
+    double-generation byte identity; reversed-enumeration-order identity;
+    committed-tree equality; no environment identity (repo/home/temp paths,
+    hostname, current date) or platform separators in any output; real-CLI
+    check passes read-only on the committed tree; hand-edit → MODIFIED;
+    deleted file → MISSING; extra file → EXTRA; schema-change-without-regen
+    fails; empty root reports the complete missing inventory; unknown flag
+    usage error; deleted schema leaves no stale output and the follow-up
+    check passes; stray pre-existing content replaced wholesale; symlinked
+    generated root removed, never written through (capability-probed);
+    convention violation (`default`) fails closed with zero writes;
+    duplicate `$id` fails; unresolved and remote references fail;
+    unsupported construct (array) fails with path + pointer; general anyOf
+    fails; adversarial descriptions cannot inject TS (diagnostics-free
+    transpile, `*\/`-escaped) or Python (escaped literals only); path
+    traversal (`..`, absolute, backslash) rejected; stray non-schema files
+    rejected; install/compare invariants.
+  - `packages/contracts/test/generated/typescript-models.test.ts` (92
+    tests): all 84 shared-corpus verdicts through the typed wrappers with
+    input-mutation guards; narrowing after success; structured
+    instance-path failures; frozen-input validation; unknown reference
+    throws; opaque payload stays `unknown`; optional-vs-null semantics;
+    generated reference map exactly covers every catalog definition and
+    root payload; wrapper runtime is the canonical catalog validator.
+  - `packages/contracts/test/fixtures/instance-corpus.json` — 84
+    hand-authored synthetic cases (valid + invalid per definition family)
+    consumed by BOTH the TypeScript and Python suites so both languages
+    are proven against identical inputs and identical expected verdicts
+    (M01-W02 generator/model evidence, not the M01-W05 corpus).
+  - `scripts/tests/test_generated_contracts.py` (92 tests): the same 84
+    corpus verdicts through the generated Pydantic models (strict
+    TypeAdapter for aliases, model_validate for models, resolved through
+    the MANIFEST type map); wire round-trip preservation (int confidence
+    stays int, float stays float, decimal strings exact); absent optionals
+    stay absent while explicit null successor survives; missing ≠ null
+    (validate and constructor paths); extra members and coercion rejected;
+    field order matches schema property order; sorted importable `__all__`
+    + `py.typed`; every committed generated module compiles; generated-file
+    headers present; real CLI `--check` passes and `git status --porcelain`
+    is unchanged by it.
+  - Premise repairs (KI-0017, same class as KI-0014/15/16):
+    `test_suite_states.py` ACTIVE set now includes contract-gen;
+    `test_ci_workflow.py` REQUIRED_MISSING negative isolates an empty repo
+    (plus a new positive proving ACTIVE with the real generator);
+    `test_doctor.py` healthy fixture carries the generator file;
+    `test_validate_status.py` exactness negative resets M01-W02.
+- Commands and observed results (local, uncommitted working tree):
+  - `pnpm install --frozen-lockfile` → exit 0 ("Already up to date").
+  - `uv sync --locked` → exit 0 (21 packages resolved; pydantic 2.12.5,
+    pydantic-core 2.41.5, annotated-types 0.8.0, typing-inspection 0.4.2
+    added from uv.lock).
+  - `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`
+    → exit 0.
+  - `pnpm generate:contracts` → exit 0 (35 files).
+  - `pnpm generate:contracts --check` run twice → exit 0 both times,
+    "35 files, byte-identical"; `git status --porcelain` unchanged.
+  - `pnpm lint` → exit 0. `pnpm format:check` → exit 0.
+  - `pnpm typecheck` → exit 0 (turbo tsc over all packages including the
+    generated TypeScript tree, root project including the generator entry,
+    strict mypy over services/scripts — mypy follows the test imports into
+    `japp_contracts`, so the generated Python is strict-checked; verified
+    with `uv run mypy` over the full registry file set → "no issues found
+    in 18 source files").
+  - `pnpm test` → exit 0 (unit-ts; per-package Vitest proofs; 196 tests
+    across 9 packages — @japp/contracts now reports 188).
+  - Focused: `pnpm --filter @japp/contracts exec vitest run` → exit 0,
+    6 files, 188 tests (71 M01-W01 schema/convention + 117 new generator/
+    generated-TypeScript). `uv run pytest scripts/tests -q` → exit 0,
+    452 passed (359 prior + 92 new generated-contract tests + 1 new
+    contract-gen ACTIVE-derivation test).
+  - `pnpm test:e2e` → exit 0 (1 Playwright pinned-Chromium smoke test).
+  - `pnpm test:python` → exit 0 (Ruff + Ruff format + strict mypy; full
+    pytest 453 passed = 452 scripts/tests + 1 orchestrator scaffold test);
+    before the KI-0017 premise repairs this suite honestly FAILED with
+    4 failed / 448 passed (initial run exposing the inherited fixtures).
+  - `pnpm test:rust` → exit 0 (fmt, clippy -D warnings, 1 test, build).
+  - `pnpm test:contract` → NOT_YET_APPLICABLE (honest; owner M01-W05).
+    `pnpm test:visual` → NOT_YET_APPLICABLE (honest; owner M10-W06).
+  - `pnpm run doctor` → exit 0, 20 PASS / 1 WARNING / 0 FAIL / 2
+    NOT_YET_APPLICABLE; the only warning is the expected "uncommitted
+    changes present" implementation-state warning; contract-gen now
+    reports "PASS — ACTIVE (runs inside pnpm verify)".
+  - `pnpm verify` → exit 0; toolchain, format, lint, typecheck, unit-ts,
+    **contract-gen (ACTIVE, PASS)**, e2e-browser, python, rust,
+    portability, traceability, status, and integrity all PASS; contract
+    (M01-W05) and visual (M10-W06) honestly NOT_YET_APPLICABLE; verify
+    remained status-neutral (worktree snapshot identical before/after).
+- Traceability and governance updates in this package:
+  - M01-W02 marked IN_PROGRESS in docs/PROJECT_STATUS.md and mirrored in
+    docs/traceability.json; docs/REQUIREMENTS_TRACEABILITY.md regenerated;
+    validators re-run after every edit.
+  - REQ-PLAT-005 stays honestly `SCAFFOLD_ONLY`/`NOT_YET_APPLICABLE` and now
+    additionally records the generated-model version-propagation portion
+    implemented here (schema ids/versions propagate into generated modules
+    and MANIFEST.json provenance; prompt versioning (M05),
+    model-configuration/platform-profile versioning (M05-W02/M05-W06), and
+    migration versioning (M04-W02) remain future work). This is a reviewed
+    intentional update of the expanded requirement hash performed through
+    the independently pinned procedure: docs/traceability.json and
+    `FINAL_V1_3_REQUIREMENT_MAPPING_SHA256` in scripts/traceability.py
+    moved together from
+    `2f6fcd94dcf6b7aa9e2a686683cc8243d25138addc0fac049f2bfc0a7416bcaf` to
+    `158fb68a58eab46f3339248e5e34897a9f5881c48b5a1e1275b9dfbd2cf45d34`;
+    the preserved v1.2 hashes and the v1.3 package-dependency hash are
+    unchanged; the regression tests were updated in the same change and the
+    trace-repo fixture now carries the newly referenced generator/generated
+    files.
+  - KI-0017 (MEDIUM, FIXED) recorded in docs/KNOWN_ISSUES.md: four
+    boundary fixtures inherited the pre-M01-W02 premise and were repaired
+    to establish their own complete premises.
+
 ### M01-W01 — Define JSON Schema conventions (2026-07-26)
 
 - Revision: tree `20c25e66d5792506870531aa4a8cd01971b362c9` / commit

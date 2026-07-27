@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createContractValidator, loadSchemaCatalog } from "../../src/index.js";
+import { createContractValidator, loadSchemaCatalog } from "../../src/index.ts";
 
 const catalog = loadSchemaCatalog();
 const validator = createContractValidator(catalog);
