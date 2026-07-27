@@ -1,0 +1,50 @@
+{
+  "corpus_format_version": "1.0.0",
+  "files": [
+    {
+      "path": "cases.v1.json",
+      "bytes": 116628,
+      "sha256": "f0a093f6f68c8434c42e6e780fa2aa3e65587fc134bec230e13ca6e3c70c7350"
+    },
+    {
+      "path": "raw-wire.v1.json",
+      "bytes": 2235,
+      "sha256": "418a4d9d6211edffe76c61d5c9c68ef684a609022fd93e6a1f97a2700248486e"
+    },
+    {
+      "path": "values.v1.json",
+      "bytes": 4424,
+      "sha256": "9032ae3b08362c4ba335612e55b3957b411ad7431a6647c5b64cb9bad05b0263"
+    }
+  ],
+  "case_count": 113,
+  "category_counts": {
+    "authorization": 13,
+    "authorization-escalation": 42,
+    "constraint": 2,
+    "enum": 1,
+    "format": 4,
+    "live-object": 6,
+    "malicious-input": 5,
+    "missing-null": 3,
+    "payload-boundary": 3,
+    "raw-wire": 11,
+    "round-trip": 4,
+    "schema-reference": 2,
+    "strictness": 9,
+    "versioning": 8
+  },
+  "language_counts": {
+    "python": 108,
+    "rust": 107,
+    "typescript": 112
+  },
+  "operation_counts": {
+    "AUTHORIZE": 57,
+    "ROUND_TRIP": 6,
+    "VALIDATE": 42,
+    "VERSION_CHECK": 8
+  },
+  "synthetic_only": true,
+  "manifest_sha256": "8f70bc7b9f24ddedd2462da4e1cd91c544a4ab7fca7eaedabc2b6a0031e5b41d"
+}

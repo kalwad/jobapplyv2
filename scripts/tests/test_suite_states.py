@@ -25,7 +25,7 @@ def test_real_registry_loads_and_states_match_project_state(
         suite.suite_id: verify.derive_state(real_ctx, suite, states)
         for suite in registry.suites
     }
-    assert derived["contract"] is verify.SuiteState.NOT_YET_APPLICABLE
+    assert derived["contract"] is verify.SuiteState.ACTIVE
     assert derived["visual"] is verify.SuiteState.NOT_YET_APPLICABLE
     active = {sid for sid, st in derived.items() if st is verify.SuiteState.ACTIVE}
     # contract-gen activated when M01-W02 began and its generator landed at
@@ -37,6 +37,7 @@ def test_real_registry_loads_and_states_match_project_state(
         "typecheck",
         "unit-ts",
         "contract-gen",
+        "contract",
         "e2e-browser",
         "python",
         "rust",
@@ -47,17 +48,14 @@ def test_real_registry_loads_and_states_match_project_state(
     }
 
 
-def test_nya_contract_is_reported_honestly_not_as_pass(
+def test_started_contract_is_active_with_real_discovery(
     real_ctx: verify.Context,
 ) -> None:
-    outcomes, exit_code = verify.run_verification(real_ctx, ["contract"])
-    assert exit_code == 0
-    (outcome,) = outcomes
-    assert outcome.verdict is verify.Verdict.NOT_YET_APPLICABLE
-    summary = verify.summarize(outcomes)
-    assert "NOT_YET_APPLICABLE" in summary
-    assert "not a passing suite" in summary
-    assert "M01-W05" in summary
+    registry = verify.load_registry(real_ctx.registry_path)
+    suite = next(suite for suite in registry.suites if suite.suite_id == "contract")
+    states = verify.parse_package_states(real_ctx.status_path)
+    assert verify.derive_state(real_ctx, suite, states) is verify.SuiteState.ACTIVE
+    assert verify.discovery_matches(real_ctx, suite.discovery_globs)
 
 
 def test_nya_visual_is_reported_honestly_not_as_pass(
@@ -74,11 +72,27 @@ def test_activated_but_empty_contract_suite_fails(
     real_ctx: verify.Context, tmp_path: Path
 ) -> None:
     fake_status = tmp_path / "status.md"
+    fake_registry = tmp_path / "registry.json"
     states = verify.parse_package_states(real_ctx.status_path)
     states["M01-W05"] = "IN_PROGRESS"
     write_status(fake_status, states)
+    write_registry(
+        fake_registry,
+        [
+            make_suite(
+                id="contract",
+                activation={
+                    "type": "packages_started",
+                    "packages": ["M01-W05"],
+                },
+                discovery_globs=["deliberately-empty/**/*.test.ts"],
+            )
+        ],
+    )
     ctx = verify.Context(
-        repo=REPO_ROOT, registry_path=real_ctx.registry_path, status_path=fake_status
+        repo=REPO_ROOT,
+        registry_path=fake_registry,
+        status_path=fake_status,
     )
     outcomes, exit_code = verify.run_verification(ctx, ["contract"])
     assert exit_code == 1

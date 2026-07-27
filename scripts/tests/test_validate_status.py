@@ -602,7 +602,13 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
     # current-package-mismatch error instead of the exactness error
     # (KI-0014/KI-0015/KI-0017 class).
     set_pkg_state(repo_copy, "M00-W10", "NOT_STARTED")
-    for m01_package in ("M01-W01", "M01-W02", "M01-W03", "M01-W04"):
+    for m01_package in (
+        "M01-W01",
+        "M01-W02",
+        "M01-W03",
+        "M01-W04",
+        "M01-W05",
+    ):
         set_pkg_state(repo_copy, m01_package, "NOT_STARTED")
     set_current_package(repo_copy, "garbage")
     result = run_validator(repo_copy)

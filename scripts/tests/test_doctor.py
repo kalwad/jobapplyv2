@@ -127,6 +127,22 @@ def doctor_repo(tmp_path: Path) -> Path:
         REPO_ROOT / "services" / "native-host" / "Cargo.lock",
         repo / "services" / "native-host" / "Cargo.lock",
     )
+    contract_harness = (
+        repo / "packages" / "contracts" / "test" / "contract" / "rust-harness"
+    )
+    contract_harness.mkdir(parents=True)
+    shutil.copy2(
+        REPO_ROOT
+        / "packages"
+        / "contracts"
+        / "test"
+        / "contract"
+        / "rust-harness"
+        / "Cargo.lock",
+        contract_harness / "Cargo.lock",
+    )
+    contract_test = contract_harness.parent / "fixture.test.ts"
+    contract_test.write_text("export {};\n", encoding="utf-8")
     for rel in (
         "validate_status.py",
         "traceability.py",

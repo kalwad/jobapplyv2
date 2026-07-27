@@ -2,7 +2,7 @@
   "name": "@japp/contracts",
   "version": "0.0.1",
   "private": true,
-  "description": "JSON Schema source of truth and generated TypeScript/Python models (spec §5.1). M01-W01 owns the hand-authored Draft 2020-12 schema source under schemas/ and the strict offline validation conventions; M01-W02 owns the deterministic generator (packages/contracts/generator, scripts/generate-contracts.ts) and the generated trees under generated/.",
+  "description": "Canonical JSON Schema contracts, generated TypeScript/Python models, and the representative M01-W05 cross-language compatibility suite.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -10,7 +10,8 @@
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:contract": "vitest run test/contract"
   },
   "dependencies": {
     "ajv": "catalog:",

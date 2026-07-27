@@ -33,6 +33,108 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W05 — Build contract compatibility tests (2026-07-27; content validation)
+
+- Revision: working tree based on starting commit
+  `0d8805c52c6801b2d65489c2007b715bcdfb86c2`; exact content tree/commit and
+  hosted job IDs are recorded in the post-content closeout revision only
+  after that exact commit passes macos-15, windows-2025, and ubuntu-24.04.
+- Environment: macOS 27.0 (Apple silicon); Node 24.18.0; pnpm 11.17.0; uv
+  0.11.32; uv-managed Python 3.12.13; cargo/rustc 1.97.1; Pydantic 2.12.5;
+  Playwright 1.62.0 with pinned Chromium.
+- Bootstrap: clean `main`, `HEAD == origin/main ==
+  0d8805c52c6801b2d65489c2007b715bcdfb86c2`; M00 ACCEPTED, M01
+  IN_PROGRESS, M01-W01…W04 VERIFIED, M01-W05 sole READY, later packages
+  NOT_STARTED, all gates NOT_EVALUATED, release NOT_READY, traceability
+  exactly 157 requirements/286 packages, and no requirement owned by
+  M01-W05. Final M01-W04 run 30254220815 passed macos-15 job 89938935415,
+  windows-2025 job 89938935446, and ubuntu-24.04 job 89938935477. The
+  requested M01-W04 range and complete mandatory source/doc inventory were
+  inspected before M01-W05 alone became IN_PROGRESS.
+- Canonical corpus/protocol: format `1.0.0`, 113 sorted unique synthetic
+  cases, 14 categories, 57 AUTHORIZE / 6 ROUND_TRIP / 42 VALIDATE / 8
+  VERSION_CHECK operations, and applicability counts TypeScript 112, Python
+  108, Rust 107. Manifest SHA-256 is
+  `8f70bc7b9f24ddedd2462da4e1cd91c544a4ab7fca7eaedabc2b6a0031e5b41d`;
+  file hashes are `f0a093f6…` (cases), `418a4d9d…` (raw wire), and
+  `9032ae3b…` (values). Protocol `JAPP_CONTRACT_ADAPTER_V1` carries bounded
+  base64 raw bytes and separate trusted context; all children use explicit
+  argv, no shell, timeouts, bounded output, and stable non-echoing results.
+- Compatibility results: all applicable languages agreed on strict schema
+  verdicts, normalized valid values, version outcomes, authorization
+  allow/deny outcomes, and M01-W03 denial codes. Coverage includes composed
+  fixture/error/envelope records; exact string/date/time/money/ID/digest/enum
+  preservation; missing versus nullable; integer versus fractional numbers;
+  the content-report route; FEASIBILITY and GUIDED_PRE_SUBMIT bounded
+  fill/verify/upload/navigation; desktop/model/public-index/verification
+  requests; exact/over payload limits; supported old and rejected new/major/
+  malformed/mismatched versions; strict structural failures; duplicate keys,
+  prototype names, invalid UTF-8/Unicode/control data, excessive depth/size,
+  hostile inert strings, huge numbers, and trailing data; and default-deny
+  escalation across principals, routes, profiles, final-submit, and platform
+  authority. All four platform commands are denied under all four current
+  profiles. Every structurally valid authorization/version request is
+  typed-reserialized and its canonical form agrees across applicable
+  languages, including the supported older-minor case.
+- Real adapters: TypeScript uses generated wrappers backed by canonical
+  strict Ajv plus generated error/security APIs and descriptor snapshots.
+  Python uses generated strict Pydantic v2, `wire_dict()`, and fresh model
+  revalidation. Rust is a private `publish = false` test harness using local
+  Draft 2020-12 registration, typed representative records, canonical
+  catalogs/policy, and mechanical enum checks. Exact direct pins:
+  `base64=0.22.1`, `jsonschema=0.49.1` with default features disabled,
+  `serde=1.0.229`, `serde_json=1.0.151`; its Cargo.lock contains 106 locked
+  packages. `services/native-host` remains the unchanged fail-closed M17-W04
+  scaffold.
+- Breaking evidence: historical baseline digest
+  `fb659b1e1921a3209836364131130bb437dd99898724f9763ed348dedcf05243`.
+  Read-only check mode matched canonical truth. Mutation tests rejected
+  schema/definition/property removal or rename, required/type/null/ref/enum/
+  pattern/bound/openness changes, semantic reassignment, command capability/
+  target/denial/payload changes, profile/final/platform broadening, and valid
+  wire-case removal; separately versioned schema/optional-property/minor/
+  enum/deprecation/valid-case additions passed. Baseline update is explicit
+  and absent from CI/verify.
+- Infrastructure negatives: passed missing executable, nonzero exit, timeout,
+  nonempty stderr, malformed JSON, Rust compile failure,
+  omitted/duplicate/wrong case, verdict/normalization/error-code disagreement,
+  bad corpus hash, extra corpus file, baseline drift, breaking mutation, and
+  activated-empty discovery tests.
+- Commands/results inspected:
+  - Frozen installs/fetch: `pnpm install --frozen-lockfile`; `uv sync
+    --locked`; both native-host and test-harness `cargo fetch --locked` →
+    exit 0.
+  - `pnpm generate:contracts --check` twice → exit 0, 55 files
+    byte-identical. `pnpm contracts:compatibility:check` → compatible, zero
+    findings/additions.
+  - Focused contract tests → 4 files / 159 passed with deterministic proof
+    `typescript=112 python=108 rust=107 rust-build=locked-offline`. Focused
+    Python adapter → 2 passed. Rust harness → 5 passed; clippy/build/fmt
+    locked/offline passed.
+  - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:contract`, `pnpm test:e2e`, `pnpm test:python`, and
+    `pnpm test:rust` → exit 0. `@japp/contracts` ran 497 tests; pytest ran
+    541; Playwright ran 1; native-host ran 1; harness ran 5.
+  - `pnpm traceability:generate`; `pnpm traceability:check`; `python3
+    scripts/validate_status.py` → exit 0 (157/286; 36 status groups).
+    `pnpm run doctor` → 21 PASS / expected dirty-tree WARNING / 0 FAIL / 1
+    honest visual NOT_YET_APPLICABLE.
+  - `pnpm verify` → exit 0: contract and contract-gen ACTIVE/PASS, all other
+    active suites PASS, visual alone NOT_YET_APPLICABLE; 497 contract-package
+    Vitest tests and 541 Python tests; no tracked mutation by verification.
+  - Fresh temporary clone with the exact staged content: frozen pnpm install,
+    locked uv sync, both locked Cargo fetches, 55-file generated check,
+    compatibility baseline check, 159-test real contract suite, status and
+    157/286 traceability checks → exit 0; real adapter proof
+    `typescript=112 python=108 rust=107 rust-build=locked-offline`; no tracked
+    mutation; temporary clone removed.
+- Traceability/scope: only M01-W05 package state/evidence changes because it
+  owns no requirement. Reviewed requirement hashes/states remain unchanged.
+  M01 remains IN_PROGRESS; W06/W07 and later work are not begun; all four
+  gates remain NOT_EVALUATED; release remains NOT_READY. No M01-W06 schema,
+  M01-W07 service API, product/native-host/browser/storage/model/platform/
+  submission/UI implementation, or canonical-spec edit exists.
+
 ### M01-W04 — Define capability and command allowlists (2026-07-27)
 
 - Revision: content tree `9ec01d8f8a734c703a943ea08012a10df023bf67`

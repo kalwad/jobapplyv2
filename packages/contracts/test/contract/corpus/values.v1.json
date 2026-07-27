@@ -1,0 +1,132 @@
+{
+  "format_version": "1.0.0",
+  "values": {
+    "authorization.base": {
+      "request_version": "AUTHORIZATION_REQUEST_V1",
+      "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "ORCHESTRATOR",
+      "authorization_profile": "FEASIBILITY",
+      "occurred_at": "2026-07-27T04:00:00Z",
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS",
+      "payload_size_bytes": 1024
+    },
+    "context.base": {
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "authenticated_sender_principal": "EXTENSION_CONTENT_SCRIPT",
+      "authenticated_originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "active_profile": "FEASIBILITY",
+      "observed_payload_size_bytes": 1024
+    },
+    "envelope.fixture": {
+      "envelope": {
+        "schema_id": "urn:japp:schema:fixture:test-record:v1",
+        "schema_version": "1.1.0",
+        "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+        "created_at": "2026-07-27T04:00:00Z",
+        "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS",
+        "causation_id": "cau_0123456789ABCDEFGHJKMNPQRS",
+        "extensions": {
+          "x-suite-version": "synthetic-v1"
+        }
+      },
+      "payload": {
+        "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+        "captured_at": "2026-07-27T04:00:00Z",
+        "effective_date": "2026-07-27",
+        "budget": {
+          "amount": "1250.50",
+          "currency": "USD"
+        },
+        "location": {
+          "country": "US",
+          "region": "Michigan",
+          "locality": "Detroit",
+          "postal_code": "48201"
+        },
+        "provenance": {
+          "source_kind": "GENERATED",
+          "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z",
+          "source_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+          "confidence": 0.75
+        },
+        "match_confidence": 1,
+        "redaction": {
+          "sensitivity": "PERSONAL",
+          "policy": "REDACT_VALUE"
+        },
+        "status": "ACTIVE",
+        "superseded_by": null,
+        "note": "Synthetic compatibility fixture",
+        "legacy_tag": "SUPPORTED_DEPRECATED_FIELD"
+      }
+    },
+    "error.valid": {
+      "error_id": "err_0123456789ABCDEFGHJKMNPQRS",
+      "code": "TRANSPORT_FORBIDDEN",
+      "occurred_at": "2026-07-27T04:00:00Z",
+      "origin": "ORCHESTRATOR",
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS",
+      "causation_id": "cau_0123456789ABCDEFGHJKMNPQRS",
+      "diagnostic_digest": "sha256:abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+    },
+    "fixture.full": {
+      "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+      "captured_at": "2026-07-27T04:00:00Z",
+      "effective_date": "2026-07-27",
+      "budget": {
+        "amount": "1250.50",
+        "currency": "USD"
+      },
+      "location": {
+        "country": "US",
+        "region": "Michigan",
+        "locality": "Detroit",
+        "postal_code": "48201"
+      },
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z",
+        "source_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "confidence": 0.75
+      },
+      "match_confidence": 1,
+      "redaction": {
+        "sensitivity": "PERSONAL",
+        "policy": "REDACT_VALUE"
+      },
+      "status": "ACTIVE",
+      "superseded_by": null,
+      "note": "Synthetic compatibility fixture",
+      "legacy_tag": "SUPPORTED_DEPRECATED_FIELD"
+    },
+    "fixture.minimal": {
+      "record_id": "rec_0123456789ABCDEFGHJKMNPQRS",
+      "captured_at": "2026-07-27T04:00:00Z",
+      "effective_date": "2026-07-27",
+      "budget": {
+        "amount": "1250.50",
+        "currency": "USD"
+      },
+      "location": {
+        "country": "US"
+      },
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "match_confidence": 0.25,
+      "redaction": {
+        "sensitivity": "PERSONAL",
+        "policy": "REDACT_VALUE"
+      },
+      "status": "ARCHIVED",
+      "superseded_by": "rec_1123456789ABCDEFGHJKMNPQRS"
+    }
+  }
+}

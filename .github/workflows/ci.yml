@@ -200,7 +200,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock') }}
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock', 'packages/contracts/test/contract/rust-harness/Cargo.lock') }}
 
       - name: Cache pinned Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -231,6 +231,9 @@ jobs:
 
       - name: Fetch Rust dependencies (locked)
         run: cargo fetch --locked --manifest-path services/native-host/Cargo.toml
+
+      - name: Fetch test-only contract harness dependencies (locked)
+        run: cargo fetch --locked --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml
 
       - name: Environment doctor (same command as local `pnpm run doctor`)
         # `run` is required: pnpm has an unrelated built-in `pnpm doctor`

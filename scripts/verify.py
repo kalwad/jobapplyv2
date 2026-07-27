@@ -98,7 +98,12 @@ MEMORY_FILES = (
     "docs/platform/PACKAGING_UPDATE_MATRIX.md",
 )
 
-LOCKFILES = ("pnpm-lock.yaml", "uv.lock", "services/native-host/Cargo.lock")
+LOCKFILES = (
+    "pnpm-lock.yaml",
+    "uv.lock",
+    "services/native-host/Cargo.lock",
+    "packages/contracts/test/contract/rust-harness/Cargo.lock",
+)
 
 REQUIRED_SCRIPT_FILES = (
     "scripts/validate_status.py",

@@ -1,0 +1,3616 @@
+{
+  "corpus_format_version": "1.0.0",
+  "cases": [
+    {
+      "id": "auth.allow.content-report.content-to-worker",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": { "value_ref": "authorization.base" },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The content script may report bounded page state to the service worker while its origin remains preserved.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.content-report.native-to-orchestrator",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/immediate_sender", "value": "NATIVE_HOST" }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "NATIVE_HOST"
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The native host may forward a content-script page-state report to the orchestrator without becoming the origin.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.content-report.worker-to-native",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "NATIVE_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The service worker may forward a content-script page-state report to the native host while preserving origin.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.desktop-artifact-read",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "ARTIFACT_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "DESKTOP_APP"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "DESKTOP_APP" },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 65536 }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "DESKTOP_APP"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "DESKTOP_APP"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 65536
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A typed desktop-to-orchestrator artifact read is permitted at its exact payload ceiling.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.feasibility-bounded-fill",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 262144 },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 262144
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "FEASIBILITY permits a synthetic bounded fill at the exact command limit when idempotency metadata exists.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.guided-bounded-fill",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GUIDED_PRE_SUBMIT permits a reviewed bounded fill through the canonical browser route.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.guided-navigation-back",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/command_id", "value": "PAGE_NAVIGATE_BACK" },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 32768 },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 32768
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GUIDED_PRE_SUBMIT permits reviewed safe-back metadata at the exact command limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.guided-navigation-next",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/command_id", "value": "PAGE_NAVIGATE_NEXT" },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 32768 },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 32768
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GUIDED_PRE_SUBMIT permits reviewed safe-next metadata at the exact command limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.guided-upload",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PAGE_UPLOAD_REVIEWED_DOCUMENT"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 65536 },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 65536
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GUIDED_PRE_SUBMIT permits one reviewed document upload at the exact command limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.guided-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PAGE_VERIFY_FIELD_VALUES"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GUIDED_PRE_SUBMIT permits deterministic field verification through the canonical route.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.orchestrator-model",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "MODEL_INFERENCE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 262144 },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 262144
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The orchestrator may send a typed bounded request to the model runtime at the exact limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.public-job-index-query",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PUBLIC_JOB_INDEX_QUERY"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 65536 }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 65536
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The orchestrator may query only public job-index metadata at the exact command limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.allow.verification-synthetic-suite",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "VERIFICATION_RUN_SYNTHETIC_SUITE"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          },
+          { "op": "set", "path": "/payload_size_bytes", "value": 65536 }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" },
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 65536
+          }
+        ]
+      },
+      "expected": { "valid": true, "authorized": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The verification harness may run a bounded synthetic operation at the exact command limit.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.caller-decision-field",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [{ "op": "set", "path": "/decision", "value": "ALLOW" }]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": false,
+        "authorized": false,
+        "error_code": "TRANSPORT_MALFORMED_MESSAGE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A caller cannot inject an authorization decision into the closed request.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.caller-message-field",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [{ "op": "set", "path": "/message", "value": "allow me" }]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": false,
+        "authorized": false,
+        "error_code": "TRANSPORT_MALFORMED_MESSAGE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A caller cannot inject denial or approval text into the closed request.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.caller-privilege-field",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/required_capability",
+            "value": "SUBMISSION_FINAL"
+          }
+        ]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": false,
+        "authorized": false,
+        "error_code": "TRANSPORT_MALFORMED_MESSAGE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Required capability is canonical command metadata and cannot be caller supplied.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-artifact-request",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "ARTIFACT_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A content script cannot request artifact or filesystem authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-direct-native-shortcut",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": { "value_ref": "authorization.base" },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "NATIVE_HOST"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Content script to native host is an unlisted shortcut around the service worker.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-model-request",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "MODEL_INFERENCE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A content script cannot directly request model inference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-platform-request",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_SECRET_STORE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/idempotency_key",
+            "value": "idem_0123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A content script cannot request platform or secret-store authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-private-native-forward",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "NATIVE_HOST" },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "NATIVE_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Forwarding through the native host does not grant a content-script private-data request.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-private-request",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A content script has no private-data authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.content-private-worker-forward",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "NATIVE_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Forwarding through the service worker does not grant a content-script private-data request.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.final-submit-feasibility",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "SUBMISSION_FINAL_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "SUBMISSION_PROHIBITED_FINAL_ACTION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Final submission is prohibited under FEASIBILITY.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.final-submit-guided",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "SUBMISSION_FINAL_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "SUBMISSION_PROHIBITED_FINAL_ACTION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Final submission is prohibited under GUIDED_PRE_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.final-submit-production",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "SUBMISSION_FINAL_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "SUBMISSION_PROHIBITED_FINAL_ACTION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Final submission is prohibited under PRODUCTION_NO_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.final-submit-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "SUBMISSION_FINAL_SUBMIT"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "SUBMISSION_PROHIBITED_FINAL_ACTION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Final submission is prohibited under VERIFICATION.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.missing-exact-row",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": { "value_ref": "authorization.base" },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Authorization defaults to deny when the exact six-dimensional allow row is absent.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.missing-idempotency-key",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "EXTENSION_CONTENT_SCRIPT"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "EXTENSION_SERVICE_WORKER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "VALIDATION_MISSING_REQUIRED_DATA"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A command marked idempotency-key-required fails closed when the key is absent.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.model-originated-command",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "MODEL_RUNTIME" }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "MODEL_RUNTIME"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "MODEL_RUNTIME"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Model output is untrusted data and the model runtime cannot originate product commands.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.native-originated-privileged-request",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "NATIVE_HOST"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "NATIVE_HOST" },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "NATIVE_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "NATIVE_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The native host is a proxy and cannot originate privileged requests.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.one-byte-over-limit",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "payload-boundary",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/payload_size_bytes", "value": 262145 }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/observed_payload_size_bytes",
+            "value": 262145
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_PAYLOAD_TOO_LARGE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "One byte above PAGE_REPORT_STATE's ceiling is rejected identically.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-browser-runtime-feasibility",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "No current FEASIBILITY profile grants platform authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-browser-runtime-guided",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "No current GUIDED_PRE_SUBMIT profile grants platform authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-browser-runtime-production",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "No current PRODUCTION_NO_SUBMIT profile grants platform authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-browser-runtime-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "No current VERIFICATION profile grants platform authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-native-messaging-feasibility",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "FEASIBILITY"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "FEASIBILITY" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Native-messaging registration remains denied under FEASIBILITY.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-native-messaging-guided",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Native-messaging registration remains denied under GUIDED_PRE_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-native-messaging-production",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Native-messaging registration remains denied under PRODUCTION_NO_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-native-messaging-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Native-messaging registration remains denied under VERIFICATION.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-process-supervision-feasibility",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_PROCESS_SUPERVISION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "FEASIBILITY"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "FEASIBILITY" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Process supervision remains denied under FEASIBILITY.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-process-supervision-guided",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_PROCESS_SUPERVISION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Process supervision remains denied under GUIDED_PRE_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-process-supervision-production",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_PROCESS_SUPERVISION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Process supervision remains denied under PRODUCTION_NO_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-process-supervision-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_PROCESS_SUPERVISION_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Process supervision remains denied under VERIFICATION.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-secret-store-feasibility",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_SECRET_STORE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "FEASIBILITY"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "FEASIBILITY" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Secret-store access remains denied under FEASIBILITY.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-secret-store-guided",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_SECRET_STORE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Secret-store access remains denied under GUIDED_PRE_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-secret-store-production",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_SECRET_STORE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Secret-store access remains denied under PRODUCTION_NO_SUBMIT.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-command-secret-store-verification",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PLATFORM_SECRET_STORE_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/immediate_sender", "value": "ORCHESTRATOR" },
+          {
+            "op": "set",
+            "path": "/target_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "VERIFICATION"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "ORCHESTRATOR"
+          },
+          { "op": "set", "path": "/active_profile", "value": "VERIFICATION" }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Secret-store access remains denied under VERIFICATION.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.platform-originated-product-command",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "PLATFORM_ADAPTER"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "PLATFORM_ADAPTER"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "PLATFORM_ADAPTER"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The platform adapter cannot originate product commands.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.public-index-private-data",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "PUBLIC_JOB_INDEX"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The public job index cannot request private data.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.rewritten-origin",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "ORCHESTRATOR"
+          }
+        ]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A forwarded request cannot rewrite its authenticated origin.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.size-mismatch",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "payload-boundary",
+      "operation": "AUTHORIZE",
+      "input": { "value_ref": "authorization.base" },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          { "op": "set", "path": "/observed_payload_size_bytes", "value": 1025 }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_MALFORMED_MESSAGE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Caller-declared and transport-observed payload sizes must agree exactly.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.verification-production-data",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/command_id",
+            "value": "PRIVATE_DATA_READ_REQUEST"
+          },
+          {
+            "op": "set",
+            "path": "/originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "ORCHESTRATOR"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_sender_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/authenticated_originating_principal",
+            "value": "VERIFICATION_HARNESS"
+          },
+          {
+            "op": "set",
+            "path": "/active_profile",
+            "value": "PRODUCTION_NO_SUBMIT"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The verification harness cannot acquire production private-data authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.wrong-profile",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/authorization_profile",
+            "value": "GUIDED_PRE_SUBMIT"
+          }
+        ]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The untrusted requested profile must equal the trusted active profile.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.wrong-receiver",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": { "value_ref": "authorization.base" },
+      "authorization_context": {
+        "value_ref": "context.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/receiving_principal",
+            "value": "MODEL_RUNTIME"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unlisted receiver cannot reuse another route's allow row.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.wrong-sender",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/immediate_sender",
+            "value": "EXTENSION_SERVICE_WORKER"
+          }
+        ]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The claimed immediate sender must match the authenticated sender.",
+      "synthetic_data": true
+    },
+    {
+      "id": "auth.deny.wrong-target",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "authorization-escalation",
+      "operation": "AUTHORIZE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/target_principal", "value": "NATIVE_HOST" }
+        ]
+      },
+      "authorization_context": { "value_ref": "context.base" },
+      "expected": {
+        "valid": true,
+        "authorized": false,
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The target must equal the command catalog's intended target.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.constructor-key",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "constructor" },
+      "expected": {
+        "valid": false,
+        "error_category": "FORBIDDEN_PROPERTY_NAME"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A constructor-shaped key is rejected at the raw JSON trust boundary before object construction.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.control-character-escaped",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "control_escaped" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An escaped control character parses only as data and the incomplete closed record is rejected.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.control-character-unescaped",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "control_raw" },
+      "expected": { "valid": false, "error_category": "MALFORMED_JSON" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unescaped raw control byte is malformed JSON in every adapter.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.deeply-nested",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "deeply_nested" },
+      "expected": { "valid": false, "error_category": "MAX_DEPTH_EXCEEDED" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Raw JSON deeper than the adapter's documented bound is rejected before schema use.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.duplicate-object-key",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "duplicate_keys" },
+      "expected": { "valid": false, "error_category": "DUPLICATE_KEY" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Duplicate object keys fail closed instead of using language-specific last-key-wins behavior.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.html-script-looking",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "malicious-input",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "html_script" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Script-looking text is never executed or echoed and cannot substitute for a complete record.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.huge-numeric-literal",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "huge_numeric_literal" },
+      "expected": { "valid": false, "error_category": "NUMBER_OUT_OF_RANGE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A numeric literal that cannot be represented finitely and safely is rejected at the wire boundary.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.invalid-utf8",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "invalid_utf8" },
+      "expected": { "valid": false, "error_category": "INVALID_UTF8" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Invalid UTF-8 bytes fail before JSON parsing without replacement characters.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.javascript-looking",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "malicious-input",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "javascript_looking" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "JavaScript-looking text is inert and cannot substitute for a complete record.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.lone-surrogate",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "lone_surrogate" },
+      "expected": { "valid": false, "error_category": "INVALID_UNICODE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A lone UTF-16 surrogate escape is not a Unicode scalar and is rejected consistently.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.oversized-input",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "payload-boundary",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "oversized" },
+      "expected": { "valid": false, "error_category": "INPUT_TOO_LARGE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Adapter input above the fixed one-mebibyte raw-value bound fails closed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.path-looking",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "malicious-input",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "path_looking" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Filesystem-looking text is inert, is not opened, and cannot substitute for a complete record.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.proto-key",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "proto_key" },
+      "expected": {
+        "valid": false,
+        "error_category": "FORBIDDEN_PROPERTY_NAME"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A __proto__ key is rejected at the raw JSON trust boundary before object construction.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.prototype-key",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "prototype" },
+      "expected": {
+        "valid": false,
+        "error_category": "FORBIDDEN_PROPERTY_NAME"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A prototype-shaped key is rejected at the raw JSON trust boundary before object construction.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.shell-looking",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "malicious-input",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "shell_looking" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Shell-looking text is inert, never executed, and cannot substitute for a complete record.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.sql-looking",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "malicious-input",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "sql_looking" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "SQL-looking text is inert, never queried, and cannot substitute for a complete record.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.trailing-data",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "raw-wire",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "trailing_data" },
+      "expected": { "valid": false, "error_category": "MALFORMED_JSON" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Trailing bytes after one JSON value are rejected.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.wire-remote-schema-reference",
+      "schema_ref": "https://synthetic.invalid/contracts/fixture.json",
+      "category": "schema-reference",
+      "operation": "VALIDATE",
+      "input": { "value_ref": "fixture.full" },
+      "expected": {
+        "valid": false,
+        "error_category": "REMOTE_SCHEMA_REFERENCE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Adapters never resolve or fetch a remote schema reference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "raw.wire-unknown-schema-reference",
+      "schema_ref": "urn:japp:schema:unknown:not-committed:v1",
+      "category": "schema-reference",
+      "operation": "VALIDATE",
+      "input": { "value_ref": "fixture.full" },
+      "expected": {
+        "valid": false,
+        "error_category": "UNKNOWN_SCHEMA_REFERENCE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unknown local-looking schema reference fails closed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.python-mutated-model",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "ROUND_TRIP",
+      "input": { "adapter_fixture": "MUTATED_MODEL" },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python"],
+      "rationale": "A subsequently mutated Pydantic model is dumped and freshly revalidated before use.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.typescript-accessor",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "VALIDATE",
+      "input": { "adapter_fixture": "ACCESSOR" },
+      "expected": { "valid": false, "error_category": "MALFORMED_OBJECT" },
+      "languages": ["typescript"],
+      "rationale": "An accessor property is rejected without invoking it.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.typescript-live-mutation",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "ROUND_TRIP",
+      "input": { "adapter_fixture": "LIVE_MUTATION" },
+      "expected": { "valid": true, "normalized_ref": "fixture.full" },
+      "languages": ["typescript"],
+      "rationale": "A descriptor snapshot prevents post-validation source mutation from changing normalized output.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.typescript-proxy",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "VALIDATE",
+      "input": { "adapter_fixture": "PROXY" },
+      "expected": { "valid": false, "error_category": "MALFORMED_OBJECT" },
+      "languages": ["typescript"],
+      "rationale": "A proxy whose reflection traps throw is rejected without exception detail leakage.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.typescript-symbol",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "VALIDATE",
+      "input": { "adapter_fixture": "SYMBOL" },
+      "expected": { "valid": false, "error_category": "MALFORMED_OBJECT" },
+      "languages": ["typescript"],
+      "rationale": "Symbol keys are outside JSON and are rejected at the adapter snapshot boundary.",
+      "synthetic_data": true
+    },
+    {
+      "id": "runtime.typescript-unusual-prototype",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "live-object",
+      "operation": "VALIDATE",
+      "input": { "adapter_fixture": "UNUSUAL_PROTOTYPE" },
+      "expected": { "valid": false, "error_category": "MALFORMED_OBJECT" },
+      "languages": ["typescript"],
+      "rationale": "Objects with an unusual prototype are not accepted as untrusted plain JSON records.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.authorization-boolean-as-integer",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [{ "op": "set", "path": "/payload_size_bytes", "value": true }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "JSON booleans are not integers.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.authorization-fractional-size",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [{ "op": "set", "path": "/payload_size_bytes", "value": 1.5 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Payload size must be an exact integer.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.authorization-negative-size",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [{ "op": "set", "path": "/payload_size_bytes", "value": -1 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Payload size cannot be negative.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.authorization-numeric-string-size",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "authorization.base",
+        "patch": [
+          { "op": "set", "path": "/payload_size_bytes", "value": "1024" }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Numeric strings are never coerced to numbers.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.authorization-unsafe-size",
+      "schema_ref": "urn:japp:schema:security:authorization-request:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": { "raw_ref": "unsafe_integer" },
+      "expected": { "valid": false, "error_category": "NUMBER_OUT_OF_RANGE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Integer values beyond the TypeScript safe-integer boundary are rejected before use.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.error-caller-message",
+      "schema_ref": "urn:japp:schema:error:record:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "error.valid",
+        "patch": [
+          { "op": "set", "path": "/message", "value": "hostile raw value" }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Wire errors cannot carry caller-authored user-facing messages.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-confidence-above-one",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "constraint",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/match_confidence", "value": 1.01 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Confidence values are bounded by one.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-confidence-below-zero",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "constraint",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/match_confidence", "value": -0.01 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Confidence values cannot be negative.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-explicit-null-optional",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "missing-null",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/note", "value": null }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Optional non-nullable note distinguishes explicit null from missing.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-calendar-date",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "format",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [
+          { "op": "set", "path": "/effective_date", "value": "2026-02-30" }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Calendar dates require a real Gregorian date.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-enum",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "enum",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/status", "value": "DELETED" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Unknown enum tokens are rejected.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-money-currency",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "format",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/budget/currency", "value": "usd" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Currency tokens require the exact uppercase wire form.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-money-number",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/budget/amount", "value": 1250.5 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Money amounts are exact decimal strings, never floating-point values.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-stable-id",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "format",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/record_id", "value": "record-1" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Stable identifiers require the canonical prefix and Crockford body.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-invalid-timestamp",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "format",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/captured_at",
+            "value": "2026-07-27T04:00:00-04:00"
+          }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Wire timestamps require the exact UTC Z form.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-missing-required",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "missing-null",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "remove", "path": "/record_id" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Required fields cannot be omitted.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-missing-required-nullable",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "missing-null",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "remove", "path": "/superseded_by" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Required-nullable superseded_by must be present even when its value is null.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-unknown-field",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/unexpected", "value": true }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Unknown fields are forbidden on representative typed records.",
+      "synthetic_data": true
+    },
+    {
+      "id": "struct.fixture-wrong-primitive",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "strictness",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "fixture.full",
+        "patch": [{ "op": "set", "path": "/status", "value": 1 }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Wrong primitive types are rejected without coercion.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.deprecated-field-supported",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": { "value_ref": "envelope.fixture" },
+      "expected": { "valid": true, "version_outcome": "COMPATIBLE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The deprecated legacy_tag remains supported for the lifetime of the current major version.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.malformed",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          { "op": "set", "path": "/envelope/schema_version", "value": "1" }
+        ]
+      },
+      "expected": { "valid": false, "version_outcome": "MALFORMED_VERSION" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Malformed semantic versions fail closed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.newer-minor",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          { "op": "set", "path": "/envelope/schema_version", "value": "1.2.0" }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "version_outcome": "UPGRADE_REQUIRED_NEWER_MINOR"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A newer minor requires an upgraded reader.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.schema-id-version-mismatch",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/envelope/schema_id",
+            "value": "urn:japp:schema:error:record:v1"
+          },
+          { "op": "set", "path": "/envelope/schema_version", "value": "1.0.0" }
+        ]
+      },
+      "expected": { "valid": false, "version_outcome": "PAYLOAD_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A schema identity cannot be paired with a payload belonging to another schema.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.supported-current",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": { "value_ref": "envelope.fixture" },
+      "expected": { "valid": true, "version_outcome": "COMPATIBLE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The exact supported schema version is compatible.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.supported-older-minor",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          { "op": "set", "path": "/envelope/schema_version", "value": "1.0.0" },
+          { "op": "remove", "path": "/payload/note" },
+          { "op": "remove", "path": "/payload/legacy_tag" }
+        ]
+      },
+      "expected": { "valid": true, "version_outcome": "COMPATIBLE" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An older minor remains compatible because later fields were additive and optional.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.unknown-major",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          { "op": "set", "path": "/envelope/schema_version", "value": "2.0.0" }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "version_outcome": "UNKNOWN_MAJOR_VERSION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unknown major requires explicit migration treatment and is rejected.",
+      "synthetic_data": true
+    },
+    {
+      "id": "version.unknown-schema-id",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "versioning",
+      "operation": "VERSION_CHECK",
+      "input": {
+        "value_ref": "envelope.fixture",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/envelope/schema_id",
+            "value": "urn:japp:schema:fixture:test-record:v2"
+          }
+        ]
+      },
+      "expected": { "valid": false, "version_outcome": "UNKNOWN_SCHEMA_ID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A schema identity absent from the committed local catalog is rejected without resolution.",
+      "synthetic_data": true
+    },
+    {
+      "id": "wire.round-trip.enveloped-fixture",
+      "schema_ref": "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord",
+      "category": "round-trip",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "envelope.fixture" },
+      "expected": { "valid": true, "normalized_ref": "envelope.fixture" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Standard envelope metadata and its representative opaque payload preserve their canonical wire form.",
+      "synthetic_data": true
+    },
+    {
+      "id": "wire.round-trip.error-record",
+      "schema_ref": "urn:japp:schema:error:record:v1",
+      "category": "round-trip",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "error.valid" },
+      "expected": { "valid": true, "normalized_ref": "error.valid" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The representative wire error preserves only stable code and trace metadata.",
+      "synthetic_data": true
+    },
+    {
+      "id": "wire.round-trip.fixture-full",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "round-trip",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "fixture.full" },
+      "expected": { "valid": true, "normalized_ref": "fixture.full" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The composed fixture preserves IDs, time/date, money, location, provenance, confidence, redaction, enum, null, and optional fields.",
+      "synthetic_data": true
+    },
+    {
+      "id": "wire.round-trip.fixture-minimal",
+      "schema_ref": "urn:japp:schema:fixture:test-record:v1",
+      "category": "round-trip",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "fixture.minimal" },
+      "expected": { "valid": true, "normalized_ref": "fixture.minimal" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Missing optionals stay missing, required nullable semantics stay explicit, and a fractional JSON number stays fractional.",
+      "synthetic_data": true
+    }
+  ]
+}

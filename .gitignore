@@ -17,8 +17,9 @@ dist/
 .turbo/
 coverage/
 
-# Rust (scoped per crate; broadened if more crates arrive)
+# Rust (scoped per crate)
 services/native-host/target/
+packages/contracts/test/contract/rust-harness/target/
 
 # Playwright browser-test artifacts (traces/screenshots/videos are
 # failure-only per playwright.config.ts and never committed)

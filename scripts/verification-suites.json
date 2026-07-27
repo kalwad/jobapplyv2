@@ -41,13 +41,21 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
-          "scripts/tests"
+          "scripts/tests",
+          "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
         [
           "cargo",
           "fmt",
           "--manifest-path",
           "services/native-host/Cargo.toml",
+          "--check"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "packages/contracts/test/contract/rust-harness/Cargo.toml",
           "--check"
         ]
       ],
@@ -92,7 +100,8 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
-          "scripts/tests"
+          "scripts/tests",
+          "packages/contracts/test/contract/adapters/python_adapter.py"
         ]
       ],
       "proofs": [
@@ -171,7 +180,7 @@
       ],
       "discovery_globs": ["packages/contracts/test/contract/**/*.test.ts"],
       "artifacts": [],
-      "explanation": "NOT_YET_APPLICABLE: the contract suite is owned by M01-W05 (Build contract compatibility tests) and that work package has not begun in docs/PROJECT_STATUS.md. This is an honest suite-state classification, NOT a passing test suite — zero contract tests have run. The moment M01-W05 is marked IN_PROGRESS or later, this suite becomes REQUIRED_MISSING (a hard verify failure) until real contract tests exist at the discovery globs; M01 seeds tests and updates the commands here without restructuring the runner."
+      "explanation": "ACTIVE since M01-W05 began. One versioned, hash-locked synthetic corpus drives the canonical strict Ajv/generated TypeScript path, generated Pydantic v2 path, and a private test-only Rust harness built --locked --offline. The suite proves bounded protocol execution, normalization, representative round trips, version behavior, authorization/default-deny escalation, hostile raw-wire rejection, historical compatibility mutations, infrastructure failure propagation, and deterministic non-empty discovery. It does not expose production Rust contracts or claim coverage beyond the committed representative set."
     },
     {
       "id": "e2e-browser",
@@ -241,7 +250,8 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
-          "scripts/tests"
+          "scripts/tests",
+          "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
         [
           "uv",
@@ -256,7 +266,8 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
-          "scripts/tests"
+          "scripts/tests",
+          "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
         [
           "uv",
@@ -269,7 +280,8 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
-          "scripts/tests"
+          "scripts/tests",
+          "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
         ["uv", "run", "pytest"]
       ],
@@ -314,7 +326,47 @@
           "warnings"
         ],
         ["cargo", "test", "--manifest-path", "services/native-host/Cargo.toml"],
-        ["cargo", "build", "--manifest-path", "services/native-host/Cargo.toml"]
+        [
+          "cargo",
+          "build",
+          "--manifest-path",
+          "services/native-host/Cargo.toml"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "packages/contracts/test/contract/rust-harness/Cargo.toml",
+          "--check"
+        ],
+        [
+          "cargo",
+          "clippy",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "packages/contracts/test/contract/rust-harness/Cargo.toml",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        [
+          "cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "packages/contracts/test/contract/rust-harness/Cargo.toml"
+        ],
+        [
+          "cargo",
+          "build",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "packages/contracts/test/contract/rust-harness/Cargo.toml"
+        ]
       ],
       "proofs": [
         {
@@ -322,9 +374,12 @@
           "min": 1
         }
       ],
-      "discovery_globs": ["services/native-host/src/**/*.rs"],
+      "discovery_globs": [
+        "services/native-host/src/**/*.rs",
+        "packages/contracts/test/contract/rust-harness/src/**/*.rs"
+      ],
       "artifacts": [],
-      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. cargo build additionally proves the real (non-test-harness) binary links; it compiles only code that exists — no fake build target (KI-0001 remains about the JS/TS side)."
+      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. The native-host scaffold remains fail-closed and is built independently. M01-W05 also formats, lints, tests, and builds its private compatibility harness --locked --offline; this adds test evidence only and no native-host runtime behavior or production Rust contract API."
     },
     {
       "id": "portability",

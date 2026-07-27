@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.3
-Repository revision: tree 9ec01d8f8a734c703a943ea08012a10df023bf67 (commit d0d0abd70fd5d82a294a9c9e8167d9702b8d0217)
-Last updated: 2026-07-27T09:28:11Z
+Repository revision: working tree based on commit 0d8805c52c6801b2d65489c2007b715bcdfb86c2
+Last updated: 2026-07-27T09:55:55Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M01
-Current work package: NONE
+Current work package: M01-W05
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,19 +23,21 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: no package is IN_PROGRESS. M01-W04 is VERIFIED at content tree `9ec01d8f8a734c703a943ea08012a10df023bf67` (commit `d0d0abd70fd5d82a294a9c9e8167d9702b8d0217`); M01-W03 remains VERIFIED at the KI-0020 repair content tree `2a56ed518797e811f8a0506e7834401c50eda166`; M01-W02 remains VERIFIED at the KI-0018 repair content tree `8a081776719d02ee7aeceb99bfe731f5663883c4`; M01-W01 remains VERIFIED at content tree `20c25e66d5792506870531aa4a8cd01971b362c9`; M00-W01 through M00-W10 remain VERIFIED at their preserved revisions; M00 remains ACCEPTED. M01-W05 is the sole READY package.
-- Objective: stop after M01-W04. The canonical capability/command/policy contracts and generated TypeScript/Python fail-closed authorization surfaces are complete and hosted-verified; M01-W05 (Build contract compatibility tests) is the exact next package and has not begun.
-- Dependencies and hosted proof: M01-W01 through M01-W04 are VERIFIED and M00 is ACCEPTED. Content run 30253769824 at `d0d0abd70fd5d82a294a9c9e8167d9702b8d0217` passed windows-2025 job 89937537082, ubuntu-24.04 job 89937537118, and macos-15 job 89937537130. The inspected Windows log confirms the exact checkout, clean doctor (21 PASS / 0 WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE), 55 byte-identical generated files, 338 TypeScript contract tests, 539 Python tests, contract-gen ACTIVE/PASS, verification exit 0, and no tracked changes.
-- Critical-gate prerequisites: none for M01-W04. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M01-W04 records the bootstrap, canonical policy architecture, generated surfaces, fail-closed and confused-deputy tests, deterministic/read-only verification, and clean-clone proof without rewriting prior evidence.
-- Blockers: none prevent the exact next package, M01-W05, but it remains unstarted. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS.
+- State: M01-W05 is the sole IN_PROGRESS package. M01-W01 through M01-W04 remain VERIFIED at their preserved content trees; M00-W01 through M00-W10 remain VERIFIED at their preserved revisions; M00 remains ACCEPTED. M01-W06 and M01-W07 remain NOT_STARTED, and no package is READY while M01-W05 is active.
+- Objective: build the deterministic M01-W05 representative cross-language compatibility corpus, adapter protocol, strict TypeScript and Python adapters, isolated test-only Rust harness, normalization rules, authorization-escalation coverage, and breaking-change checker; activate and pass the mandatory contract suite without defining M01-W06/M01-W07 contracts or implementing native-host/product behavior.
+- Dependencies and hosted proof: M01-W04 is VERIFIED, all earlier M01 packages are VERIFIED, and M00 is ACCEPTED. Final M01-W04 run 30254220815 at exact starting HEAD `0d8805c52c6801b2d65489c2007b715bcdfb86c2` passed macos-15 job 89938935415, windows-2025 job 89938935446, and ubuntu-24.04 job 89938935477. Bootstrap status, traceability, doctor, generated-contract drift, and aggregate verification all passed on the clean starting tree.
+- Critical-gate prerequisites: none for M01-W05. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
+- Files expected to change: packages/contracts/test/contract/**; the narrow contract-suite registry/package-script wiring; test-only dependency lockfiles if required; packages/contracts/README.md; docs/PROJECT_STATUS.md; docs/TEST_EVIDENCE.md; docs/traceability.json; generated docs/REQUIREMENTS_TRACEABILITY.md; docs/KNOWN_ISSUES.md only if a reproducible defect is discovered. The canonical specification and production native-host runtime remain unchanged.
+- Required tests: corpus/manifest integrity and determinism; real TypeScript/Python/Rust adapters; strict validation, round-trip, version, authorization, raw-wire, malicious-input, payload-limit, escalation, normalization, and breaking/additive mutation cases; every infrastructure-negative required by the package; twice-repeated generated-contract drift; focused and aggregate repository verification; clean-clone locked-install contract simulation; hosted three-operating-system verification.
+- Required manual/hosted evidence: inspect all real adapter execution summaries; inspect exact hosted content and final-head Windows logs and prove the Rust path did not skip; record exact commands, counts, hashes, job IDs, and clean-tree results. No UI, browser product, critical-gate holdout, or native product evidence applies.
+- Blockers: none. The mandatory contract suite now has real non-placeholder discovery and is ACTIVE/PASS locally; exact hosted content and final-head proof remain required before closeout.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
 | M00 | ACCEPTED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | Phase A. v1.3 M00-W08…W10 migration and complete M00 exit gate accepted; v1.2 acceptance remains historical evidence |
-| M01 | IN_PROGRESS | — | Phase A. M01-W01 through M01-W04 VERIFIED with hosted three-OS evidence; M01-W05 is the sole READY package; M01-W06 and M01-W07 remain NOT_STARTED |
+| M01 | IN_PROGRESS | — | Phase A. M01-W01 through M01-W04 VERIFIED with hosted three-OS evidence; M01-W05 is the sole IN_PROGRESS package; M01-W06 and M01-W07 remain NOT_STARTED |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -92,7 +94,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W02` | VERIFIED | tree 8a081776719d02ee7aeceb99bfe731f5663883c4 | docs/TEST_EVIDENCE.md § M01-W02 | Generate TypeScript and Python contracts; KI-0018 corrective closeout |
 | `M01-W03` | VERIFIED | tree 2a56ed518797e811f8a0506e7834401c50eda166 | docs/TEST_EVIDENCE.md § M01-W03 | Define error taxonomy; KI-0020 corrective closeout |
 | `M01-W04` | VERIFIED | tree 9ec01d8f8a734c703a943ea08012a10df023bf67 | docs/TEST_EVIDENCE.md § M01-W04 | Define capability and command allowlists |
-| `M01-W05` | READY | — | — | Build contract compatibility tests; exact next package, not begun |
+| `M01-W05` | IN_PROGRESS | — | — | Build contract compatibility tests; sole active package |
 | `M01-W06` | NOT_STARTED | — | — | Define feasibility and benchmark contracts |
 | `M01-W07` | NOT_STARTED | — | — | Define cross-platform capability and platform-service contracts |
 | `M02-W01` | NOT_STARTED | — | — | Create synthetic profile/job/resume fixtures |
@@ -367,13 +369,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: `M01-W05`
-- Reason: M01-W01 through M01-W04 are VERIFIED with hosted three-OS evidence and M00 is ACCEPTED; dependency and sequential-readiness validation derives M01-W05 as the only READY package.
-- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.2, §8.5, §9 M01 (especially M01-W05), and §12; packages/contracts/README.md (generated architecture, security-policy layer, and M01-W05 boundary); docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: NONE
+- Reason: M01-W05 is IN_PROGRESS; no later package may become READY until it is VERIFIED.
+- Required reading: continue the active M01-W05 contract above; do not begin M01-W06.
 
 ## Known release blockers
 
-- No M00 blocker remains. M01-W01 through M01-W04 are VERIFIED; M01-W05 is READY but deliberately unstarted at the M01-W04 handoff.
+- No M00 blocker remains. M01-W01 through M01-W04 are VERIFIED; M01-W05 is IN_PROGRESS and its now-mandatory contract suite must become ACTIVE/PASS before closeout.
 - Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
 - CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS.
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.

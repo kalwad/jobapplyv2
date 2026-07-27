@@ -1,0 +1,80 @@
+{
+  "format_version": "1.0.0",
+  "raw_values": {
+    "constructor": {
+      "encoding": "utf8",
+      "text": "{\"constructor\":{\"prototype\":{\"polluted\":true}}}"
+    },
+    "control_escaped": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"escaped-\\u0000-control\"}"
+    },
+    "control_raw": {
+      "base64": "eyJub3RlIjoicmF3LQEtY29udHJvbCJ9",
+      "encoding": "base64"
+    },
+    "deeply_nested": {
+      "encoding": "utf8",
+      "text": "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[0]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]"
+    },
+    "duplicate_keys": {
+      "encoding": "utf8",
+      "text": "{\"status\":\"ACTIVE\",\"status\":\"ARCHIVED\"}"
+    },
+    "html_script": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"<script>globalThis.pwned=true</script>\"}"
+    },
+    "huge_numeric_literal": {
+      "encoding": "utf8",
+      "text": "{\"payload_size_bytes\":1e400}"
+    },
+    "invalid_utf8": {
+      "base64": "eyJub3RlIjoi/yJ9",
+      "encoding": "base64"
+    },
+    "javascript_looking": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"javascript:alert(1)\"}"
+    },
+    "lone_surrogate": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"\\ud800\"}"
+    },
+    "oversized": {
+      "count": 1048600,
+      "encoding": "repeat",
+      "prefix": "{\"note\":\"",
+      "repeated": "x",
+      "suffix": "\"}"
+    },
+    "path_looking": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"..\\\\synthetic\\\\fixture.txt\"}"
+    },
+    "prototype": {
+      "encoding": "utf8",
+      "text": "{\"prototype\":{\"polluted\":true}}"
+    },
+    "proto_key": {
+      "encoding": "utf8",
+      "text": "{\"__proto__\":{\"polluted\":true}}"
+    },
+    "shell_looking": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"$(touch synthetic-marker); rm -rf synthetic\"}"
+    },
+    "sql_looking": {
+      "encoding": "utf8",
+      "text": "{\"note\":\"' OR 1=1; DROP TABLE synthetic; --\"}"
+    },
+    "trailing_data": {
+      "encoding": "utf8",
+      "text": "{\"status\":\"ACTIVE\"} {\"status\":\"ARCHIVED\"}"
+    },
+    "unsafe_integer": {
+      "encoding": "utf8",
+      "text": "{\"payload_size_bytes\":9007199254740992}"
+    }
+  }
+}

@@ -105,6 +105,7 @@ pnpm install --frozen-lockfile
 pnpm exec playwright install chromium
 uv sync --locked
 cargo fetch --locked --manifest-path services/native-host/Cargo.toml
+cargo fetch --locked --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml
 ```
 
 (On Ubuntu CI the browser step is `pnpm exec playwright install
@@ -148,13 +149,14 @@ pnpm lint            # typed strict ESLint over all TypeScript
 pnpm format:check    # Prettier + Ruff format + rustfmt (check-only)
 pnpm typecheck       # tsc (all TS projects) + strict mypy
 pnpm test            # TypeScript unit tests (Vitest, fresh runs, count-proofed)
-pnpm test:contract   # contract suite state (NOT_YET_APPLICABLE until M01-W05)
+pnpm test:contract   # active representative TS/Python/Rust contract suite
 pnpm test:e2e        # Playwright browser tests (pinned Chromium)
 pnpm test:visual     # visual suite state (NOT_YET_APPLICABLE until M10-W06)
 pnpm test:python     # Ruff + mypy + pytest via uv (pinned interpreter)
 pnpm test:rust       # cargo fmt/clippy/test/build (pinned toolchain)
 pnpm generate:contracts         # regenerate packages/contracts/generated (M01-W02)
 pnpm generate:contracts --check # read-only byte-exact drift check (contract-gen suite)
+pnpm contracts:compatibility:check # read-only M01-W05 historical compatibility check
 pnpm traceability:check     # read-only v1.3 157/286 traceability + drift validation
 pnpm traceability:generate  # regenerate the reviewed human traceability view
 pnpm verify          # aggregate of all of the above + traceability/integrity/status
@@ -308,7 +310,8 @@ Generated-contract lifecycle: the `contract-gen` registry suite (owner
 `M01-W02`) is the drift check — once real generators exist it regenerates
 contracts and fails on any tracked diff. It is distinct from the
 `contract` suite (owner `M01-W05`), which runs cross-language
-compatibility tests. Today both are honestly `NOT_YET_APPLICABLE`; each
-becomes `REQUIRED_MISSING` (a hard `pnpm verify` failure, locally and in
-CI) as soon as its owner package begins without real artifacts. No
-placeholder generators or fake generated files are permitted (spec §1.5).
+compatibility tests. Both are ACTIVE and mandatory after M01-W05 began;
+`contract` executes the real generated TypeScript/Python adapters and private
+locked/offline Rust harness against one canonical corpus. Visual verification
+remains honestly `NOT_YET_APPLICABLE`. No placeholder generators or fake
+generated files are permitted (spec §1.5).

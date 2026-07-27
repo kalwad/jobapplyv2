@@ -31,7 +31,7 @@ packages/contracts/
     ├── schema/        # M01-W01 convention and definition tests
     ├── generated/     # M01-W02…W04 generator + generated-surface tests
     ├── fixtures/      # shared synthetic instance corpus for both languages
-    └── contract/      # RESERVED for M01-W05 cross-language contract tests
+    └── contract/      # M01-W05 representative cross-language compatibility
 ```
 
 - `schemas/` is the **single source of truth**. A contract exists when — and
@@ -257,9 +257,11 @@ tests live in `test/generated/security-policy.test.ts` and
 `scripts/tests/test_generated_security_policy.py`; they prove generated
 policy behavior in both languages without claiming M01-W05 wire-round-trip
 certification.
-`test/contract/` is reserved for the M01-W05 cross-language suite and must
-stay empty until that package begins (the `contract` verification suite
-activates on M01-W05 and would otherwise report dishonest state).
+`test/contract/` is the active M01-W05 representative cross-language suite.
+Its versioned hash-locked synthetic corpus drives the real generated
+TypeScript/Ajv and Python/Pydantic paths plus a private test-only Rust
+harness. See `test/contract/README.md`; this evidence does not create a
+production Rust contract surface or claim coverage of future schemas.
 
 ## 10a. Generated contracts (M01-W02)
 
@@ -507,11 +509,22 @@ request-model instance into a fresh strict validation input, so accessors,
 proxies, or post-validation model mutation cannot create time-of-check/time-
 of-use drift. No handwritten per-language policy map exists.
 
-## 10d. Boundaries owned by later packages
+## 10d. Cross-language compatibility evidence (M01-W05)
 
-- **M01-W05** — cross-language round-trip tests (the `test/contract/` suite and
-  compatibility corpus; the shared instance corpus here is generator/model
-  evidence, not cross-language certification).
+`pnpm test:contract` runs the 113-case canonical corpus and the failure
+infrastructure/breaking-change tests. Protocol, normalization, exact
+representative scope, dependency pins, baseline lifecycle, and reconstruction
+commands are documented in `test/contract/README.md`. Normal compatibility
+and manifest checks are read-only; their separately named update commands are
+never part of `pnpm verify`.
+
+The Rust crate under the suite is private, `publish = false`, locked, offline
+after fetch, and test-only. It mechanically compares its representative typed
+vocabulary with canonical schema/catalog data and exports nothing to the
+native host.
+
+## 10e. Boundaries owned by later packages
+
 - **M01-W06** — detailed feasibility, page, navigation, benchmark, and gate
   payload contracts.
 - **M01-W07** — concrete typed cross-platform capability/service contracts;

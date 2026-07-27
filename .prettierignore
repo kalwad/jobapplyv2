@@ -19,6 +19,8 @@ coverage/
 .venv/
 services/native-host/target/
 services/native-host/Cargo.lock
+packages/contracts/test/contract/rust-harness/target/
+packages/contracts/test/contract/rust-harness/Cargo.lock
 test-results/
 playwright-report/
 blob-report/
