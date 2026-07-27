@@ -3,7 +3,7 @@ name = "japp-contract-compat-harness"
 version = "0.1.0"
 edition = "2024"
 publish = false
-description = "Private M01-W05 test-only cross-language compatibility adapter"
+description = "Private M01-W06 test-only cross-language compatibility adapter"
 
 [dependencies]
 base64 = "=0.22.1"

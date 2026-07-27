@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:session:navigation-record:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "NavigationRecord",
+  "description": "Auditable evidence for one bounded next/back navigation attempt. Clicks alone are not transition evidence and final submission is not representable.",
+  "$defs": {
+    "navigationAction": {
+      "title": "Bounded navigation action",
+      "type": "string",
+      "enum": ["BACK", "NEXT"]
+    },
+    "navigationOutcome": {
+      "title": "Observed navigation outcome",
+      "type": "string",
+      "enum": [
+        "FAILED",
+        "NO_TRANSITION",
+        "PAUSED_BOUNDARY",
+        "UNCERTAIN_TRANSITION",
+        "VERIFIED_TRANSITION"
+      ]
+    },
+    "reasonCode": {
+      "title": "Reviewed navigation reason",
+      "type": "string",
+      "enum": [
+        "CONTROL_RESOLUTION_FAILED",
+        "DESTINATION_NOT_ALLOWED",
+        "DESTINATION_NOT_RECOGNIZED",
+        "NAVIGATION_ATTEMPT_FAILED",
+        "NO_TRANSITION_OBSERVED",
+        "POSTCONDITIONS_INCOMPLETE",
+        "POSTCONDITIONS_VERIFIED",
+        "PROTECTED_BOUNDARY_PAUSE",
+        "READINESS_PROOF_INVALID",
+        "SOURCE_GENERATION_MISMATCH",
+        "TRANSITION_UNCERTAIN"
+      ]
+    },
+    "transitionPostconditions": {
+      "title": "Observed transition postconditions",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_generation_changed",
+        "destination_recognized",
+        "source_control_absent_or_inactive"
+      ],
+      "properties": {
+        "source_generation_changed": {
+          "type": "boolean"
+        },
+        "destination_recognized": {
+          "type": "boolean"
+        },
+        "source_control_absent_or_inactive": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "navigation_record_id",
+    "session_id",
+    "source_step_identity",
+    "allowed_destination_families",
+    "source_page_generation",
+    "readiness_proof_ref",
+    "readiness_proof_digest",
+    "navigation_control",
+    "action",
+    "idempotency_key",
+    "initiating_run_kind",
+    "initiating_start_policy",
+    "attempted_at",
+    "postconditions",
+    "safe_retry_allowed",
+    "outcome",
+    "reason_codes",
+    "correlation_id"
+  ],
+  "properties": {
+    "navigation_record_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "source_step_identity": {
+      "$ref": "urn:japp:schema:workday:step-identity:v1"
+    },
+    "expected_destination_family": {
+      "$ref": "urn:japp:schema:workday:step-identity:v1#/$defs/stepFamily"
+    },
+    "allowed_destination_families": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:workday:step-identity:v1#/$defs/stepFamily"
+      },
+      "minItems": 1,
+      "maxItems": 12
+    },
+    "source_page_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "readiness_proof_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "readiness_proof_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "navigation_control": {
+      "$ref": "urn:japp:schema:session:page-readiness-proof:v1#/$defs/navigationControlIdentity"
+    },
+    "action": {
+      "$ref": "#/$defs/navigationAction"
+    },
+    "idempotency_key": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "initiating_run_kind": {
+      "$ref": "urn:japp:schema:session:guided-run-mode:v1#/$defs/runKind"
+    },
+    "initiating_start_policy": {
+      "$ref": "urn:japp:schema:session:guided-run-mode:v1#/$defs/startPolicy"
+    },
+    "attempted_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "postconditions": {
+      "$ref": "#/$defs/transitionPostconditions"
+    },
+    "observed_destination_identity": {
+      "$ref": "urn:japp:schema:workday:step-identity:v1"
+    },
+    "observed_resulting_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "safe_retry_allowed": {
+      "type": "boolean"
+    },
+    "outcome": {
+      "$ref": "#/$defs/navigationOutcome"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reasonCode"
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    }
+  }
+}

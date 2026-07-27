@@ -29,6 +29,10 @@ import {
   type AuthorizationAllowRowData,
   type CommandEntryData,
 } from "../../../generator/security-policy.ts";
+import {
+  loadSemanticRules,
+  type SemanticRuleEntryData,
+} from "../../../generator/semantic-rules.ts";
 import { adapterBatchFor, loadCorpus } from "../adapters/corpus-loader.ts";
 import { canonicalJson, type PlainJson } from "../adapters/normalization.ts";
 
@@ -124,6 +128,20 @@ export interface SupportedCaseSignature {
   semantic_sha256: string;
 }
 
+export interface SemanticRuleSignature {
+  rule_id: string;
+  rule_version: string;
+  schema_ref: string;
+  rule_kind: string;
+  failure_error_code: string;
+}
+
+export interface SemanticRuleCatalogSignature {
+  repository_path: string;
+  catalog_version: string;
+  canonical_sha256: string;
+}
+
 export interface CompatibilitySignature {
   documents: DocumentSignature[];
   error_bindings: ErrorBindingSignature[];
@@ -132,6 +150,8 @@ export interface CompatibilitySignature {
   capability_ids: string[];
   commands: CommandSignature[];
   allow_rows: AllowRowSignature[];
+  semantic_rule_catalog: SemanticRuleCatalogSignature;
+  semantic_rules: SemanticRuleSignature[];
   supported_valid_cases: SupportedCaseSignature[];
 }
 
@@ -311,6 +331,18 @@ function allowRowSignature(
   };
 }
 
+function semanticRuleSignature(
+  entry: SemanticRuleEntryData,
+): SemanticRuleSignature {
+  return {
+    rule_id: entry.rule_id,
+    rule_version: entry.rule_version,
+    schema_ref: entry.schema_ref,
+    rule_kind: entry.rule_kind,
+    failure_error_code: entry.failure_error_code,
+  };
+}
+
 function rowKey(row: AllowRowSignature): string {
   return canonicalJson(row);
 }
@@ -332,6 +364,12 @@ export function buildCompatibilitySignature(
     catalogRoot,
     catalog,
     validator,
+  });
+  const semanticRules = loadSemanticRules({
+    catalogRoot,
+    catalog,
+    validator,
+    errorCatalog,
   });
   const security = loadSecurityPolicy({
     catalogRoot,
@@ -406,6 +444,14 @@ export function buildCompatibilitySignature(
     capability_ids: security.capabilities.map((entry) => entry.id),
     commands: security.commands.map((entry) => commandSignature(entry)),
     allow_rows: security.allow.map((entry) => allowRowSignature(entry)),
+    semantic_rule_catalog: {
+      repository_path: semanticRules.repositoryPath,
+      catalog_version: semanticRules.version,
+      canonical_sha256: digest(JSON.parse(semanticRules.rawText) as PlainJson),
+    },
+    semantic_rules: semanticRules.entries.map((entry) =>
+      semanticRuleSignature(entry),
+    ),
     supported_valid_cases: supportedCases,
   };
 }
@@ -849,6 +895,131 @@ function compareVocabulary(
   }
 }
 
+function semanticCatalogOf(
+  signature: CompatibilitySignature,
+): SemanticRuleCatalogSignature | null {
+  const legacyCompatible: Partial<CompatibilitySignature> = signature;
+  return legacyCompatible.semantic_rule_catalog ?? null;
+}
+
+function semanticRulesOf(
+  signature: CompatibilitySignature,
+): readonly SemanticRuleSignature[] {
+  const legacyCompatible: Partial<CompatibilitySignature> = signature;
+  return legacyCompatible.semantic_rules ?? [];
+}
+
+/**
+ * Compare the finite semantic-rule bindings introduced in M01-W06.
+ *
+ * A legacy M01-W05 baseline has no semantic section. Its first reviewed
+ * semantic catalog is therefore an additive baseline extension. Once the
+ * section exists, removing or changing a rule changes accepted v1 meaning
+ * and is breaking. A rule accompanying an entirely new schema remains an
+ * additive contract introduction.
+ */
+function compareSemanticRules(
+  baseline: CompatibilitySignature,
+  current: CompatibilitySignature,
+  findings: CompatibilityFinding[],
+  additive: CompatibilityFinding[],
+): void {
+  const baselineCatalog = semanticCatalogOf(baseline);
+  const currentCatalog = semanticCatalogOf(current);
+  const baselineRules = semanticRulesOf(baseline);
+  const currentRules = semanticRulesOf(current);
+
+  if (baselineCatalog === null) {
+    if (currentCatalog !== null) {
+      finding(
+        additive,
+        "SEMANTIC_RULE_CATALOG_ADDED",
+        currentCatalog.repository_path,
+      );
+      for (const rule of currentRules) {
+        finding(additive, "SEMANTIC_RULE_ADDED", rule.rule_id);
+      }
+    }
+    return;
+  }
+  if (currentCatalog === null) {
+    finding(
+      findings,
+      "SEMANTIC_RULE_CATALOG_REMOVED",
+      baselineCatalog.repository_path,
+    );
+    for (const rule of baselineRules) {
+      finding(findings, "SEMANTIC_RULE_REMOVED", rule.rule_id);
+    }
+    return;
+  }
+
+  if (baselineCatalog.repository_path !== currentCatalog.repository_path) {
+    finding(
+      findings,
+      "SEMANTIC_RULE_CATALOG_PATH_CHANGED",
+      baselineCatalog.repository_path,
+    );
+  }
+  if (baselineCatalog.catalog_version !== currentCatalog.catalog_version) {
+    finding(
+      findings,
+      "SEMANTIC_RULE_CATALOG_VERSION_CHANGED",
+      baselineCatalog.repository_path,
+    );
+  }
+
+  const currentById = asMap(currentRules, (rule) => rule.rule_id);
+  const baselineIds = new Set(baselineRules.map((rule) => rule.rule_id));
+  for (const rule of baselineRules) {
+    const candidate = currentById.get(rule.rule_id);
+    if (candidate === undefined) {
+      finding(findings, "SEMANTIC_RULE_REMOVED", rule.rule_id);
+      continue;
+    }
+    if (rule.schema_ref !== candidate.schema_ref) {
+      finding(findings, "SEMANTIC_RULE_SCHEMA_REBOUND", rule.rule_id);
+    }
+    if (rule.rule_kind !== candidate.rule_kind) {
+      finding(findings, "SEMANTIC_RULE_KIND_CHANGED", rule.rule_id);
+    }
+    if (rule.failure_error_code !== candidate.failure_error_code) {
+      finding(findings, "SEMANTIC_RULE_ERROR_CODE_CHANGED", rule.rule_id);
+    }
+    if (rule.rule_version !== candidate.rule_version) {
+      finding(findings, "SEMANTIC_RULE_VERSION_CHANGED", rule.rule_id);
+    }
+  }
+
+  const baselineSchemaIds = new Set(
+    baseline.documents.map((document) => document.id),
+  );
+  for (const rule of currentRules) {
+    if (!baselineIds.has(rule.rule_id)) {
+      finding(
+        baselineSchemaIds.has(rule.schema_ref) ? findings : additive,
+        "SEMANTIC_RULE_ADDED",
+        rule.rule_id,
+      );
+    }
+  }
+
+  const bindingsUnchanged =
+    canonicalJson(baselineRules) === canonicalJson(currentRules);
+  if (
+    bindingsUnchanged &&
+    baselineCatalog.repository_path === currentCatalog.repository_path &&
+    baselineCatalog.catalog_version === currentCatalog.catalog_version &&
+    baselineCatalog.canonical_sha256 !== currentCatalog.canonical_sha256
+  ) {
+    finding(
+      findings,
+      "SEMANTIC_RULE_CATALOG_HASH_CHANGED",
+      baselineCatalog.repository_path,
+    );
+  }
+}
+
 function compareCases(
   baseline: CompatibilitySignature,
   current: CompatibilitySignature,
@@ -909,6 +1080,7 @@ export function compareCompatibilitySignatures(
     findings,
     additive,
   );
+  compareSemanticRules(baseline, current, findings, additive);
   compareCases(baseline, current, findings, additive);
   const sorter = (
     left: CompatibilityFinding,
@@ -965,6 +1137,14 @@ export function currentCanonicalInputHashes(): Readonly<
         join(
           REPOSITORY_ROOT,
           "packages/contracts/catalog/error-catalog.v1.json",
+        ),
+      ),
+    ),
+    semantic_rule_catalog: digest(
+      readJson(
+        join(
+          REPOSITORY_ROOT,
+          "packages/contracts/catalog/semantic-rules.v1.json",
         ),
       ),
     ),

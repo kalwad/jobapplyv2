@@ -93,18 +93,65 @@ const PYTHON_KEYWORDS = new Set([
 ]);
 const PYTHON_IDENTIFIER = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
+/**
+ * Public members exposed by Pydantic 2.12.5 BaseModel.
+ *
+ * This is a deliberately reviewed snapshot of
+ * `dir(pydantic.BaseModel)` with underscore-leading names removed. A schema
+ * property that collides with one of these members is either rejected or
+ * shadows model behavior, usually with a warning. The generated ContractModel
+ * also owns `wire_dict`, so that serializer must remain callable. Keep the set
+ * explicit and update it alongside the pinned Pydantic version or generated
+ * base-class surface.
+ */
+const GENERATED_CONTRACT_MODEL_MEMBERS = new Set([
+  "construct",
+  "copy",
+  "dict",
+  "from_orm",
+  "json",
+  "model_computed_fields",
+  "model_config",
+  "model_construct",
+  "model_copy",
+  "model_dump",
+  "model_dump_json",
+  "model_extra",
+  "model_fields",
+  "model_fields_set",
+  "model_json_schema",
+  "model_parametrized_name",
+  "model_post_init",
+  "model_rebuild",
+  "model_validate",
+  "model_validate_json",
+  "model_validate_strings",
+  "parse_file",
+  "parse_obj",
+  "parse_raw",
+  "schema",
+  "schema_json",
+  "update_forward_refs",
+  "validate",
+  "wire_dict",
+]);
+
 function assertFieldName(document: IrDocument, name: string): void {
   if (
     !PYTHON_IDENTIFIER.test(name) ||
     PYTHON_KEYWORDS.has(name) ||
-    name.startsWith("model_") ||
-    name.startsWith("_")
+    name.startsWith("_") ||
+    // These are Pydantic's default protected namespace prefixes. Pydantic
+    // only warns for a non-member collision, so the generator rejects it.
+    name.startsWith("model_validate") ||
+    name.startsWith("model_dump") ||
+    GENERATED_CONTRACT_MODEL_MEMBERS.has(name)
   ) {
     throw new Error(
       `cannot generate a Pydantic field for property ` +
         `${JSON.stringify(name)} of ${document.id}: the name is not a safe ` +
-        "Python field identifier (aliasing is not implemented; extend the " +
-        "generator deliberately)",
+        "Python/Pydantic field identifier (aliasing is not implemented; " +
+        "extend the generator deliberately)",
     );
   }
 }

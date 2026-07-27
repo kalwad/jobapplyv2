@@ -9,6 +9,11 @@ MASTER_IMPLEMENTATION_SPEC(1).md
 # emitter; integrity is enforced by `pnpm generate:contracts --check`.
 packages/contracts/generated/
 
+# The compatibility baseline is deterministic explicit-tool output. Its
+# serializer and integrity are tested; generic formatting would make the
+# reviewed update command dirty a clean checkout.
+packages/contracts/test/contract/baseline/structural-signature.v1.json
+
 # Lockfiles and tool/build output
 pnpm-lock.yaml
 uv.lock

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:semantic:rule-catalog:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Semantic rule catalog",
+  "description": "Closed reviewed mapping from contract roots to finite built-in semantic rule kinds. It contains no paths, operators, expressions, code, or executable content.",
+  "$defs": {
+    "ruleKind": {
+      "title": "Finite semantic rule kind",
+      "type": "string",
+      "enum": [
+        "APPLICATION_SESSION_CONSISTENCY",
+        "ATOMIC_CLAIM_INTEGRITY",
+        "ATS_VARIANT_SCOPE",
+        "BENCHMARK_CASE_INTEGRITY",
+        "BENCHMARK_RESULT_INTEGRITY",
+        "DRIVER_VERIFIED_EVIDENCE",
+        "FIELD_ADDRESS_IDENTITY",
+        "FIELD_DECISION_AUTHORITY",
+        "FIELD_DESCRIPTOR_OBSERVATION",
+        "GATE_DECISION_INTEGRITY",
+        "GATE_EVIDENCE_COMPLETENESS",
+        "GUIDED_RUN_SAFETY",
+        "HOLDOUT_MANIFEST_INTEGRITY",
+        "INERT_TEXT_SAFETY",
+        "LAYOUT_MEASUREMENT_INTEGRITY",
+        "NAVIGATION_SAFETY",
+        "PAGE_READINESS_INTEGRITY",
+        "RECONCILIATION_READINESS",
+        "RESUME_PLAN_EVIDENCE",
+        "WORKDAY_CERTIFICATION_SCOPE",
+        "WORKDAY_STEP_BOUNDARY",
+        "WORKDAY_TENANT_IDENTITY"
+      ]
+    },
+    "ruleEntry": {
+      "title": "One semantic rule binding",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "rule_version",
+        "schema_ref",
+        "rule_kind",
+        "failure_error_code"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "rule_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        },
+        "schema_ref": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/schemaReference"
+        },
+        "rule_kind": {
+          "$ref": "#/$defs/ruleKind"
+        },
+        "failure_error_code": {
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog_version", "entries"],
+  "properties": {
+    "catalog_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ruleEntry"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    }
+  }
+}

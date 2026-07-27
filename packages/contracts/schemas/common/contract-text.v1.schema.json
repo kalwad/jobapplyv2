@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:common:contract-text:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Bounded contract text and numeric primitives",
+  "description": "Shared bounded wire primitives for feasibility and benchmark evidence. These values are inert data and never executable authority.",
+  "$defs": {
+    "boundedToken": {
+      "title": "Bounded machine token",
+      "description": "Compact inert token. It cannot carry whitespace, markup, scripts, selectors, or shell syntax.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+/-]{0,127}$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "normalizedText": {
+      "title": "Bounded normalized untrusted text",
+      "description": "Normalized page or document text retained only as bounded untrusted data. Markup delimiters, backslashes, braces, dollar signs, and executable punctuation are excluded.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 .,:!?()'&+/@_-]{0,511}$",
+      "minLength": 1,
+      "maxLength": 512,
+      "x-japp-sensitivity": "INTERNAL",
+      "x-japp-redaction": "HASH_ONLY"
+    },
+    "versionText": {
+      "title": "Strict semantic version",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+      "minLength": 5,
+      "maxLength": 32
+    },
+    "gitObjectId": {
+      "title": "Git object identifier",
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$",
+      "minLength": 40,
+      "maxLength": 40
+    },
+    "schemaReference": {
+      "title": "Canonical schema reference",
+      "type": "string",
+      "pattern": "^urn:japp:schema:[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?::[a-z][a-z0-9]*(?:-[a-z0-9]+)*)*:v(0|[1-9][0-9]*)(?:#\\/\\$defs\\/[A-Za-z][A-Za-z0-9]*)?$",
+      "minLength": 24,
+      "maxLength": 256
+    },
+    "locale": {
+      "title": "Reviewed locale tag",
+      "type": "string",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "minLength": 2,
+      "maxLength": 5
+    },
+    "nonNegativeSafeInteger": {
+      "title": "Non-negative safe integer",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "positiveSafeInteger": {
+      "title": "Positive safe integer",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "metricValue": {
+      "title": "Bounded deterministic metric value",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000000000000
+    }
+  }
+}

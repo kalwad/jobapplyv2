@@ -56,9 +56,13 @@ PRESERVED_PACKAGE_DEPENDENCY_SHA256 = (
 # portion of REQ-PLAT-005 (evidence anchor, generator/generated code paths,
 # generator test paths, and notes only — the requirement stays
 # SCAFFOLD_ONLY/NOT_YET_APPLICABLE and no state, mapping, or dependency
-# changed) and re-locked the hash below.
+# changed); M01-W06 additionally recorded the benchmark/holdout/gate-record
+# contract portion of REQ-GATE-006 (evidence anchor, schema/catalog code paths,
+# semantic/corpus test paths, and notes only — the requirement stays
+# SCAFFOLD_ONLY/NOT_YET_APPLICABLE and no ownership, state, mapping, or
+# dependency changed) and re-locked the hash below.
 FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 = (
-    "158fb68a58eab46f3339248e5e34897a9f5881c48b5a1e1275b9dfbd2cf45d34"
+    "e6c477f3083b07555dff66b1e7e281a8719785b606d93cce80289eca2505a355"
 )
 FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
     "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760"

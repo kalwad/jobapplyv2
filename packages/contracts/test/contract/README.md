@@ -1,15 +1,15 @@
-# M01-W05 representative cross-language compatibility suite
+# M01-W05/W06 representative cross-language compatibility suite
 
 This directory is a private verification system, not a product contract API.
 It proves that the representative schemas and security decisions committed
-through M01-W04 behave consistently in generated TypeScript, generated
+through M01-W06 behave consistently in generated TypeScript, generated
 Python, and an isolated test-only Rust executable. It deliberately makes no
 claim that every future schema has a production Rust representation.
 
 ## Canonical corpus
 
 `corpus/manifest.v1.json` is the single inventory. Corpus format `1.0.0`
-currently locks 113 sorted, unique, synthetic cases across three files:
+currently locks 199 sorted, unique, synthetic cases across three files:
 
 - `cases.v1.json` describes schema reference, category, operation, input
   reference or raw bytes, expected verdict/normal form/version/authorization
@@ -53,22 +53,25 @@ fractional values remain distinct.
 
 - `adapters/typescript-adapter.ts` snapshots unknown JavaScript values through
   descriptors, rejects accessors/proxies/symbols/unusual prototypes, then
-  delegates to generated wrappers backed by the canonical strict Ajv runtime.
-  It uses the M01-W01 version policy and the generated M01-W03/M01-W04
-  catalog/policy APIs. It does not coerce, default, remove, or mutate fields.
+  delegates to generated wrappers backed by the canonical strict Ajv runtime,
+  then applies the generated finite M01-W06 semantic rules. It uses the
+  M01-W01 version policy and generated catalog/policy APIs. It does not
+  coerce, default, remove, or mutate fields.
 - `adapters/python_adapter.py` imports the generated strict Pydantic v2
   package. It forbids extra fields and coercion, preserves missing versus
   null, serializes with `wire_dict()`, and freshly validates serialized model
-  state before compatibility or authorization use.
+  state before compatibility, finite semantic validation, or authorization
+  use.
 - `rust-harness/` is a `publish = false` test executable pinned by its own
   `Cargo.lock`. It uses exact `base64 0.22.1`, `jsonschema 0.49.1` with
   default features disabled, `serde 1.0.229`, and `serde_json 1.0.151`.
   Draft 2020-12 schemas and references are registered locally. Typed
-  representative fixture/error/envelope/authorization records reject unknown
-  fields, round-trip through Serde, and mechanically check their enums
-  against the canonical schema/catalog vocabulary. Authorization loads the
-  canonical command, capability, policy, and error data. Nothing is exported
-  to `services/native-host`, whose fail-closed scaffold is unchanged.
+  representative fixture/error/envelope/authorization and W06 feasibility
+  records reject unknown fields, round-trip through Serde, and mechanically
+  check their enums and finite semantic-rule bindings against canonical
+  schema/catalog vocabulary. Authorization loads canonical command,
+  capability, policy, and error data. Nothing is exported to
+  `services/native-host`, whose fail-closed scaffold is unchanged.
 
 ## Coverage and negative proof
 

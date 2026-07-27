@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:workday:certification-record:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Workday certification record",
+  "description": "Future evidence record for one exact measured Workday pattern tuple. This schema creates no current certification.",
+  "$defs": {
+    "platformProfile": {
+      "title": "Measured operating-system and architecture profile",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operating_system", "architecture"],
+      "properties": {
+        "operating_system": {
+          "type": "string",
+          "enum": ["MACOS", "UBUNTU", "WINDOWS"]
+        },
+        "architecture": {
+          "type": "string",
+          "enum": ["ARM64", "X86_64"]
+        }
+      }
+    },
+    "certificationMetrics": {
+      "title": "Measured certification metrics",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "fill_accuracy",
+        "verified_fill_rate",
+        "navigation_success_rate",
+        "progression_success_rate",
+        "manual_correction_count",
+        "failure_count",
+        "intervention_count"
+      ],
+      "properties": {
+        "case_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/positiveSafeInteger"
+        },
+        "fill_accuracy": {
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        },
+        "verified_fill_rate": {
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        },
+        "navigation_success_rate": {
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        },
+        "progression_success_rate": {
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        },
+        "manual_correction_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "failure_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "intervention_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    },
+    "certificationState": {
+      "title": "Certification evidence state",
+      "type": "string",
+      "enum": [
+        "CERTIFIED",
+        "DRAFT_EVIDENCE",
+        "EXPIRED",
+        "MEASURED_CANDIDATE",
+        "REJECTED",
+        "REVOKED"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "certification_record_id",
+    "tenant_fingerprint",
+    "locale",
+    "session_mode",
+    "route_page_sequence",
+    "control_families",
+    "adapter_version",
+    "browser_version",
+    "platform_profile",
+    "corpus_manifest_digest",
+    "holdout_manifest_digest",
+    "metrics",
+    "last_tested_on",
+    "known_limitations",
+    "evidence_report_refs",
+    "measured_scope_digest",
+    "certified_scope_digest",
+    "certification_state",
+    "provenance"
+  ],
+  "properties": {
+    "certification_record_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "tenant_fingerprint": {
+      "$ref": "urn:japp:schema:workday:tenant-fingerprint:v1"
+    },
+    "locale": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/locale"
+    },
+    "session_mode": {
+      "$ref": "urn:japp:schema:workday:tenant-fingerprint:v1#/$defs/candidateSessionMode"
+    },
+    "route_page_sequence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "control_families": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "adapter_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "browser_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "platform_profile": {
+      "$ref": "#/$defs/platformProfile"
+    },
+    "corpus_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "holdout_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "metrics": {
+      "$ref": "#/$defs/certificationMetrics"
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText"
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "evidence_report_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "measured_scope_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "certified_scope_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "certification_state": {
+      "$ref": "#/$defs/certificationState"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:workday:tenant-fingerprint:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "WorkdayTenantFingerprint",
+  "description": "Independent bounded signals identifying one exact Workday tenant-pattern family. Authentication material and universal-support claims are not representable.",
+  "$defs": {
+    "hostnameFamily": {
+      "title": "Reviewed hostname-family classification",
+      "type": "string",
+      "enum": [
+        "REVIEWED_ALIAS_FAMILY",
+        "UNKNOWN",
+        "WORKDAY_CANONICAL_FAMILY",
+        "WORKDAY_TENANT_FAMILY"
+      ]
+    },
+    "candidateSessionMode": {
+      "title": "Candidate session mode",
+      "type": "string",
+      "enum": ["AUTHENTICATED", "GUEST", "UNKNOWN"]
+    },
+    "browserFamily": {
+      "title": "Measured browser family",
+      "type": "string",
+      "enum": ["CHROMIUM", "EDGE_CHROMIUM", "UNKNOWN"]
+    },
+    "browserCompatibility": {
+      "title": "Evidence-bounded browser compatibility",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "browser_family",
+        "minimum_version",
+        "maximum_tested_version",
+        "evidence_digest"
+      ],
+      "properties": {
+        "browser_family": {
+          "$ref": "#/$defs/browserFamily"
+        },
+        "minimum_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "maximum_tested_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "evidence_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tenant_fingerprint_id",
+    "hostname_family",
+    "locale",
+    "candidate_session_mode",
+    "route_family",
+    "page_sequence_family",
+    "control_family_inventory",
+    "control_family_fingerprint",
+    "tenant_pattern_version",
+    "adapter_version",
+    "browser_compatibility",
+    "evidence_digest"
+  ],
+  "properties": {
+    "tenant_fingerprint_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "hostname_family": {
+      "$ref": "#/$defs/hostnameFamily"
+    },
+    "locale": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/locale"
+    },
+    "candidate_session_mode": {
+      "$ref": "#/$defs/candidateSessionMode"
+    },
+    "route_family": {
+      "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+    },
+    "page_sequence_family": {
+      "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+    },
+    "control_family_inventory": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "control_family_fingerprint": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "tenant_pattern_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "adapter_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "browser_compatibility": {
+      "$ref": "#/$defs/browserCompatibility"
+    },
+    "evidence_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    }
+  }
+}

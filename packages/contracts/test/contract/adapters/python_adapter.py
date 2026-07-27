@@ -31,6 +31,7 @@ from japp_contracts import (  # noqa: E402
     FixtureTestRecordV1,
     authorize_command_request_v1,
     require_error_catalog_entry_v1,
+    validate_semantic_contract_v1,
 )
 from japp_contracts._runtime import ContractModel  # noqa: E402
 
@@ -270,6 +271,25 @@ def _invalid(request: dict[str, JsonValue], category: str) -> Result:
     }
 
 
+def _semantic_invalid(
+    request: dict[str, JsonValue],
+    schema_ref: str,
+    wire: JsonValue,
+) -> Result | None:
+    outcome = validate_semantic_contract_v1(schema_ref, wire)
+    if outcome.valid:
+        return None
+    if not outcome.issues:
+        raise AdapterBoundaryError("ADAPTER_CONFIGURATION_INVALID")
+    first_issue = outcome.issues[0]
+    # Expose one stable catalog code without returning the full issue list,
+    # implementation diagnostics, or any part of the untrusted instance.
+    require_error_catalog_entry_v1(first_issue.error_code)
+    result = _invalid(request, "SEMANTIC_INVALID")
+    result["error_code"] = first_issue.error_code
+    return result
+
+
 def _validate_or_round_trip(request: dict[str, JsonValue], value: JsonValue) -> Result:
     ref = cast("str", request["schema_ref"])
     if ref.startswith(("http:", "https:")):
@@ -279,6 +299,9 @@ def _validate_or_round_trip(request: dict[str, JsonValue], value: JsonValue) -> 
     valid, wire = _validate(ref, value)
     if not valid or wire is None:
         return _invalid(request, "SCHEMA_INVALID")
+    semantic_failure = _semantic_invalid(request, ref, wire)
+    if semantic_failure is not None:
+        return semantic_failure
     result: Result = {
         "case_id": cast("str", request["case_id"]),
         "operation": cast("str", request["operation"]),
@@ -336,10 +359,16 @@ def _version_result(  # noqa: PLR0911 - explicit outcomes are the protocol contr
             **_invalid(request, "SCHEMA_INVALID"),
             "version_outcome": "MALFORMED_VERSION",
         }
-    valid, _wire = _validate(schema_id, envelope_wire["payload"])
-    if not valid:
+    valid, payload_wire = _validate(schema_id, envelope_wire["payload"])
+    if not valid or payload_wire is None:
         return {
             **_invalid(request, "SCHEMA_INVALID"),
+            "version_outcome": "PAYLOAD_INVALID",
+        }
+    semantic_failure = _semantic_invalid(request, schema_id, payload_wire)
+    if semantic_failure is not None:
+        return {
+            **semantic_failure,
             "version_outcome": "PAYLOAD_INVALID",
         }
     return {

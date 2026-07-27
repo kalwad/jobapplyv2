@@ -3611,6 +3611,1953 @@
       "languages": ["python", "rust", "typescript"],
       "rationale": "Missing optionals stay missing, required nullable semantics stay explicit, and a fractional JSON number stays fractional.",
       "synthetic_data": true
+    },
+    {
+      "id": "x-w06.application-session",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "category": "w06-session",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.application-session" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.application-session"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The representative active application session binds its ATS, tenant, run mode, snapshots, and current Workday step.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.ats-variant",
+      "schema_ref": "urn:japp:schema:ats:variant-identity:v1",
+      "category": "w06-workday",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.ats-variant" },
+      "expected": { "valid": true, "normalized_ref": "w06.ats-variant" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An exact reviewed ATS variant retains bounded adapter, pattern, locale, route, and evidence identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.ats-z-atomic-claim-contradicted",
+      "schema_ref": "urn:japp:schema:resume:atomic-claim:v1",
+      "category": "w06-resume",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.atomic-claim",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/verification_status",
+            "value": "CONTRADICTED"
+          },
+          { "op": "set", "path": "/release_eligible", "value": false },
+          {
+            "op": "set",
+            "path": "/user_action",
+            "value": "REJECT_CLAIM"
+          },
+          {
+            "op": "set",
+            "path": "/rejection_error_codes",
+            "value": ["MODEL_VALIDATION_FAILED"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A contradicted atomic claim remains retained for review but is not release eligible and requires explicit rejection.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.ats-z-atomic-claim-supported",
+      "schema_ref": "urn:japp:schema:resume:atomic-claim:v1",
+      "category": "w06-resume",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.atomic-claim" },
+      "expected": { "valid": true, "normalized_ref": "w06.atomic-claim" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A supported atomic claim preserves explicit evidence, model provenance, verification digest, and release eligibility.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.benchmark-case",
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "category": "w06-benchmark",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.benchmark-case" },
+      "expected": { "valid": true, "normalized_ref": "w06.benchmark-case" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The immutable synthetic benchmark case records corpus, artifacts, threshold set, environment, and platform applicability.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.benchmark-result",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-benchmark",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.benchmark-result" },
+      "expected": { "valid": true, "normalized_ref": "w06.benchmark-result" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The synthetic result preserves revision, tree, schema, corpus, holdout, runtime, threshold, and artifact commitments.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.benchmark-result-environment-mismatch-pass",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/environment_match_state",
+            "value": "MISMATCH"
+          },
+          { "op": "set", "path": "/comparable", "value": false }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_THRESHOLD_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A result cannot claim PASS when its measured environment does not match the immutable case environment.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.benchmark-result-threshold-mutation",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/evaluated_threshold_set_digest",
+            "value": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_THRESHOLD_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A benchmark result cannot substitute a different threshold-set digest after the case has been fixed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.driver-result-uncertain",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.driver-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/resolution_result",
+            "value": "AMBIGUOUS"
+          },
+          { "op": "set", "path": "/site_acceptance", "value": "UNKNOWN" },
+          { "op": "set", "path": "/persistence_verified", "value": false },
+          { "op": "set", "path": "/outcome", "value": "NEEDS_REVIEW" },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["AMBIGUOUS_RESOLUTION"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An ambiguous driver observation is honestly represented as needing review without implying a safe retry or verified fill.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.driver-result-verified",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.driver-result" },
+      "expected": { "valid": true, "normalized_ref": "w06.driver-result" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A verified fill requires unique resolution, permitted preconditions, equal observations, persistence, and site acceptance.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-address-full",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.field-address-full" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.field-address-full"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The full FieldAddress combines independent semantic and structural fingerprints without executable selector authority.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-address-insufficient-identity",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-address-minimal",
+        "patch": [
+          { "op": "remove", "path": "/route_signature" },
+          { "op": "set", "path": "/section_path", "value": [] }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_AMBIGUOUS_CONTROL"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A structurally shaped address with fewer than two independent identity signals fails the finite semantic identity rule.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-address-minimal",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.field-address-minimal" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.field-address-minimal"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The minimal FieldAddress remains durable by combining a route commitment with a semantic section path.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-address-raw-selector-only",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-address-minimal",
+        "patch": [
+          { "op": "remove", "path": "/route_signature" },
+          { "op": "set", "path": "/section_path", "value": [] },
+          { "op": "set", "path": "/raw_selector", "value": "email-field" }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A raw selector is an unknown prohibited field and cannot substitute for semantic or structural FieldAddress identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-decision-fill",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.field-decision" },
+      "expected": { "valid": true, "normalized_ref": "w06.field-decision" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A sensitive FILL is valid only with reviewed source evidence, strong confidence, policy permission, and live confirmation.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-decision-pause",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.field-decision",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/final_decision",
+            "value": "PAUSE_FOR_CONFIRMATION"
+          },
+          {
+            "op": "set",
+            "path": "/confirmation_state",
+            "value": "MISSING"
+          },
+          { "op": "remove", "path": "/user_confirmation_ref" },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["CONFIRMATION_MISSING"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Missing consequential confirmation produces an explicit pause decision rather than silently filling the field.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-decision-sensitive-fill-without-confirmation",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-decision",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/confirmation_state",
+            "value": "MISSING"
+          },
+          { "op": "remove", "path": "/user_confirmation_ref" },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["CONFIRMATION_MISSING"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_CONFIRMATION_REQUIRED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A sensitive FILL cannot remain authorized after its required user confirmation becomes missing.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.field-descriptor",
+      "schema_ref": "urn:japp:schema:form:field-descriptor:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.field-descriptor" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.field-descriptor"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The field descriptor retains bounded untrusted text, redacted value evidence, validation state, and observation generation.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.gate-decision-blocked",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "category": "w06-gate",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.gate-decision",
+        "patch": [
+          { "op": "set", "path": "/decision", "value": "BLOCKED" },
+          {
+            "op": "set",
+            "path": "/threshold_evidence_summary",
+            "value": {
+              "evidence_complete": false,
+              "required_benchmark_results_complete": false,
+              "thresholds_passed": false,
+              "corpus_valid": true,
+              "holdout_valid": true
+            }
+          },
+          {
+            "op": "set",
+            "path": "/independent_review_state",
+            "value": "MISSING"
+          },
+          {
+            "op": "set",
+            "path": "/owner_decision_state",
+            "value": "MISSING"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["MISSING_EVIDENCE"]
+          },
+          {
+            "op": "set",
+            "path": "/error_codes",
+            "value": ["GATE_EVIDENCE_MISSING"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An incomplete synthetic evidence state is represented as BLOCKED with stable reasons rather than as a passing gate.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.gate-decision-pass",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "category": "w06-gate",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.gate-decision" },
+      "expected": { "valid": true, "normalized_ref": "w06.gate-decision" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The synthetic PASS fixture carries complete evidence, thresholds, corpus, holdout, and independent review state.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.gate-decision-pass-missing-evidence",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.gate-decision",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/threshold_evidence_summary/evidence_complete",
+            "value": false
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_THRESHOLD_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "PASS is rejected when the decision summary admits that the required evidence bundle is incomplete.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.gate-evidence",
+      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
+      "category": "w06-gate",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.gate-evidence" },
+      "expected": { "valid": true, "normalized_ref": "w06.gate-evidence" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The complete synthetic evidence bundle commits all benchmark, raw-artifact, inspection, reviewer, and owner references.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.guided-run-auto-submit",
+      "schema_ref": "urn:japp:schema:session:guided-run-mode:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.guided-run-mode",
+        "patch": [{ "op": "set", "path": "/run_kind", "value": "AUTO_SUBMIT" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "AUTO_SUBMIT is absent from the closed guided-run vocabulary and therefore cannot be granted by wire input.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.guided-run-mode",
+      "schema_ref": "urn:japp:schema:session:guided-run-mode:v1",
+      "category": "w06-session",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.guided-run-mode" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.guided-run-mode"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Automatic guided start is bounded to prior opt-in, certified pattern, ready snapshots, visible cancellation, and active revocation state.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.holdout-manifest",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-benchmark",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.holdout-manifest" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.holdout-manifest"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The holdout manifest exposes only identities, counts, digests, schema versions, visibility, and review provenance.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.holdout-manifest-with-case-body",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/case_bodies",
+            "value": ["hidden synthetic body"]
+          }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Hidden holdout case bodies are not representable in the closed manifest and are rejected as an unknown field.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.layout-accepted",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-rendering",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.layout-measurement" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.layout-measurement"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An accepted layout records renderer, browser, controlled fonts, dimensions, bounds, extraction order, and evidence digest.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.layout-clipped",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-rendering",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [
+          { "op": "set", "path": "/clipping_detected", "value": true },
+          { "op": "set", "path": "/layout_result", "value": "CLIPPED" },
+          {
+            "op": "set",
+            "path": "/error_reason_codes",
+            "value": ["RENDERING_FAILURE"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A clipped one-page layout remains valid evidence only when it is honestly classified as CLIPPED with a stable error reason.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.navigation-missing-proof-digest",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [{ "op": "remove", "path": "/readiness_proof_digest" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A navigation record is structurally invalid without the immutable readiness-proof digest authorizing that attempt.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.navigation-record",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-session",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.navigation-record" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.navigation-record"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Verified navigation binds the source generation, proof digest, unique control, idempotency key, destination, and postconditions.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.navigation-uncertain-safe-retry",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/outcome",
+            "value": "UNCERTAIN_TRANSITION"
+          },
+          { "op": "set", "path": "/safe_retry_allowed", "value": true }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An uncertain transition cannot claim that a retry is safe because the prior navigation outcome is not proven.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.page-readiness",
+      "schema_ref": "urn:japp:schema:session:page-readiness-proof:v1",
+      "category": "w06-session",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.page-readiness" },
+      "expected": { "valid": true, "normalized_ref": "w06.page-readiness" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "READY binds one ordinary step generation to zero blockers, accepted site validation, and a uniquely resolved next control.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.page-readiness-with-unresolved-field",
+      "schema_ref": "urn:japp:schema:session:page-readiness-proof:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.page-readiness",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/blocking_counts/unresolved_count",
+            "value": 1
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_VALIDATION_REJECTED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A page cannot remain READY when its deterministic blocker inventory contains an unresolved required field.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.reconciliation-not-ready",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.reconciliation",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/items",
+            "value": [
+              {
+                "item_id": "item_0123456789ABCDEFGHJKMNPQRS",
+                "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+                "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "required": true,
+                "visible": true,
+                "enabled": true,
+                "category": "REQUIRED_UNRESOLVED",
+                "document_state": "CURRENT",
+                "changed_value": false,
+                "confirmation_state": "NOT_APPLICABLE",
+                "mandatory_uncertain": false
+              }
+            ]
+          },
+          {
+            "op": "set",
+            "path": "/counts/verified_filled",
+            "value": 0
+          },
+          {
+            "op": "set",
+            "path": "/counts/required_unresolved",
+            "value": 1
+          },
+          { "op": "set", "path": "/readiness", "value": "NOT_READY" }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A required unresolved field is counted exactly and produces an honest NOT_READY reconciliation state.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.reconciliation-ready",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.reconciliation" },
+      "expected": { "valid": true, "normalized_ref": "w06.reconciliation" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The ready reconciliation fixture recomputes exact category and blocker counts from a verified required field.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.resume-plan",
+      "schema_ref": "urn:japp:schema:resume:plan:v1",
+      "category": "w06-resume",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.resume-plan" },
+      "expected": { "valid": true, "normalized_ref": "w06.resume-plan" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The resume plan assigns only supported requirements to evidence and keeps unsupported requirements as explicit gaps.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.step-identity-protected",
+      "schema_ref": "urn:japp:schema:workday:step-identity:v1",
+      "category": "w06-workday",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.step-identity",
+        "patch": [
+          { "op": "set", "path": "/step_family", "value": "LOGIN" },
+          {
+            "op": "set",
+            "path": "/boundary_class",
+            "value": "PROTECTED_AUTHENTICATION"
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A recognized login step is mechanically classified as a protected authentication boundary, never an ordinary application page.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.step-identity-single-signal",
+      "schema_ref": "urn:japp:schema:workday:step-identity:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.step-identity",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/recognition_signals",
+            "value": [
+              {
+                "kind": "ROUTE_FAMILY",
+                "signal_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "confidence": 0.95
+              }
+            ]
+          }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "One route signal is insufficient for Workday step recognition and fails the structural multi-signal minimum.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.tenant-fingerprint",
+      "schema_ref": "urn:japp:schema:workday:tenant-fingerprint:v1",
+      "category": "w06-workday",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.tenant-fingerprint" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.tenant-fingerprint"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The tenant fingerprint scopes support to one hostname, locale, session mode, route, sequence, controls, adapter, and browser range.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.workday-certification-candidate",
+      "schema_ref": "urn:japp:schema:workday:certification-record:v1",
+      "category": "w06-workday",
+      "operation": "ROUND_TRIP",
+      "input": { "value_ref": "w06.workday-certification" },
+      "expected": {
+        "valid": true,
+        "normalized_ref": "w06.workday-certification"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The measured-candidate record scopes future certification evidence without asserting that this synthetic pattern is certified.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-01-application-session-nested-unsafe-start",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.application-session",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/guided_run_mode/page_eligibility",
+            "value": "UNCERTIFIED_PATTERN"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "ApplicationSession composes nested run-mode semantics and rejects start permission on an uncertified page pattern.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-02-atomic-unsupported-release-eligible",
+      "schema_ref": "urn:japp:schema:resume:atomic-claim:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.atomic-claim",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/verification_status",
+            "value": "UNSUPPORTED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "MODEL_VALIDATION_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unsupported model-produced claim cannot retain automatic release eligibility under the atomic-claim contract.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-03-ats-unknown-scope",
+      "schema_ref": "urn:japp:schema:ats:variant-identity:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.ats-variant",
+        "patch": [{ "op": "set", "path": "/session_mode", "value": "UNKNOWN" }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_SITE_PATTERN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unknown candidate-session mode cannot be promoted into a reviewed ATS variant identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-04-benchmark-incomplete-pass",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/completeness_state",
+            "value": "PARTIAL"
+          },
+          { "op": "set", "path": "/comparable", "value": false }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_THRESHOLD_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A partial benchmark run is not comparable and cannot be represented with an overall PASS outcome.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-05-certification-scope-overclaim",
+      "schema_ref": "urn:japp:schema:workday:certification-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.workday-certification",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/certification_state",
+            "value": "CERTIFIED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_COMPARISON_EVIDENCE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A certification claim is rejected when its certified-scope digest differs from the exact measured-scope digest.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-06-driver-verified-without-persistence",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.driver-result",
+        "patch": [
+          { "op": "set", "path": "/persistence_verified", "value": false }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_VALIDATION_REJECTED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A driver result cannot remain VERIFIED when the intended value did not persist through the settle observation.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-07-field-decision-unsupported-proposal",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-decision",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/policy_decision",
+            "value": "UNSUPPORTED"
+          },
+          { "op": "set", "path": "/final_decision", "value": "PROPOSE" }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_CONFIRMATION_REQUIRED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unsupported field cannot silently fall back to a proposal and bypass its reviewed policy decision.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-08-field-descriptor-trusted-page-text",
+      "schema_ref": "urn:japp:schema:form:field-descriptor:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-descriptor",
+        "patch": [{ "op": "set", "path": "/label/untrusted", "value": false }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Page-derived label text must stay explicitly untrusted and cannot become system authority through a descriptor flag.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-09-gate-evidence-count-mismatch",
+      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.gate-evidence",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/completeness_inventory/required_benchmark_count",
+            "value": 2
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A COMPLETE evidence bundle cannot claim two required benchmark results while carrying only one result reference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-10-gate-owner-decision-not-required",
+      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
+      "category": "w06-gate",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.gate-evidence",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/completeness_inventory/owner_decision_requirement",
+            "value": "NOT_REQUIRED"
+          },
+          { "op": "remove", "path": "/owner_decision_ref" }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A complete bundle can explicitly record that an owner decision is not required without inventing an owner-decision reference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-11-guided-uncertified-start",
+      "schema_ref": "urn:japp:schema:session:guided-run-mode:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.guided-run-mode",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/page_eligibility",
+            "value": "UNCERTIFIED_PATTERN"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An uncertified page cannot retain START_ALLOWED even when prior opt-in and cancellation references are present.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-12-holdout-file-without-hash",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/files",
+            "value": [
+              {
+                "file_id": "file_0123456789ABCDEFGHJKMNPQRS",
+                "byte_count": 128,
+                "case_count": 1
+              }
+            ]
+          }
+        ]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Every holdout file commitment requires its cryptographic content digest; counts alone are insufficient.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-13-layout-accepted-while-clipped",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [{ "op": "set", "path": "/clipping_detected", "value": true }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "RENDERING_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A one-page layout cannot remain ACCEPTED after deterministic clipping evidence becomes true.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-14-navigation-ambiguous-control",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/navigation_control/resolution",
+            "value": "AMBIGUOUS"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Navigation cannot proceed from an ambiguously resolved next control even when all other postconditions look successful.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-15-navigation-missing-idempotency",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [{ "op": "remove", "path": "/idempotency_key" }]
+      },
+      "expected": { "valid": false, "error_category": "SCHEMA_INVALID" },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A navigation request without its required idempotency key is structurally incomplete and rejected.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-16-reconciliation-count-mismatch",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.reconciliation",
+        "patch": [{ "op": "set", "path": "/counts/total", "value": 2 }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Caller-supplied reconciliation totals must agree exactly with the deterministic item inventory.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-17-reconciliation-ready-with-changed-value",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.reconciliation",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/items",
+            "value": [
+              {
+                "item_id": "item_0123456789ABCDEFGHJKMNPQRS",
+                "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+                "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "required": true,
+                "visible": true,
+                "enabled": true,
+                "category": "PAGE_CHANGED_VALUE",
+                "document_state": "CURRENT",
+                "changed_value": true,
+                "confirmation_state": "NOT_APPLICABLE",
+                "mandatory_uncertain": false
+              }
+            ]
+          },
+          {
+            "op": "set",
+            "path": "/counts/verified_filled",
+            "value": 0
+          },
+          {
+            "op": "set",
+            "path": "/counts/page_changed_value",
+            "value": 1
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A reconciliation inventory with a page-changed intended value cannot retain a READY result.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-18-step-protected-as-ordinary",
+      "schema_ref": "urn:japp:schema:workday:step-identity:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.step-identity",
+        "patch": [{ "op": "set", "path": "/step_family", "value": "LOGIN" }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A login step cannot be mislabeled as an ordinary application boundary by contradictory caller data.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-19-field-decision-proposal-without-source",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-decision",
+        "patch": [
+          { "op": "set", "path": "/value_source_type", "value": "NONE" },
+          { "op": "remove", "path": "/value_source_ref" },
+          { "op": "set", "path": "/final_decision", "value": "PROPOSE" }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_CONFIRMATION_REQUIRED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A proposal requires a bounded reviewed or model-proposal source reference; NONE cannot silently create proposal evidence.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-20-field-decision-valid-confirmation-without-reference",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.field-decision",
+        "patch": [{ "op": "remove", "path": "/user_confirmation_ref" }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_CONFIRMATION_REQUIRED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A VALID confirmation state cannot exist without the exact confirmation evidence reference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-21-navigation-expected-destination-mismatch",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/allowed_destination_families",
+            "value": ["AUTHENTICATED_APPLICATION", "GUEST_APPLICATION"]
+          },
+          {
+            "op": "set",
+            "path": "/observed_destination_identity/step_family",
+            "value": "GUEST_APPLICATION"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A VERIFIED transition must reach the exact expected family when one is declared, not merely another broadly allowed family.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-22-navigation-destination-session-mismatch",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/observed_destination_identity/session_id",
+            "value": "session_1123456789ABCDEFGHJKMNPQRS"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Destination evidence from another application session cannot prove this session's transition.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-23-navigation-destination-generation-mismatch",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          { "op": "set", "path": "/observed_resulting_generation", "value": 9 }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The resulting generation must equal the generation carried by the observed destination identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-24-navigation-verified-from-protected-source",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/source_step_identity/step_family",
+            "value": "LOGIN"
+          },
+          {
+            "op": "set",
+            "path": "/source_step_identity/boundary_class",
+            "value": "PROTECTED_AUTHENTICATION"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Protected authentication state cannot be represented as the source of an automated VERIFIED navigation.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-25-navigation-paused-without-boundary",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          { "op": "set", "path": "/outcome", "value": "PAUSED_BOUNDARY" },
+          { "op": "remove", "path": "/observed_destination_identity" },
+          { "op": "remove", "path": "/observed_resulting_generation" }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_UNCERTAIN_TRANSITION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "PAUSED_BOUNDARY requires an observed, machine-distinguishable protected destination rather than an evidence-free label.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-26-application-session-workday-without-tenant",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "category": "w06-session",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.application-session",
+        "patch": [
+          { "op": "remove", "path": "/workday_tenant_fingerprint" },
+          {
+            "op": "set",
+            "path": "/updated_at",
+            "value": "2026-07-27T04:00:00.1Z"
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The explicitly optional tenant fingerprint may be absent during a Workday session, and a fractional update after a whole-second creation remains chronologically valid.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-27-resume-supported-requirement-without-assignment",
+      "schema_ref": "urn:japp:schema:resume:plan:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.resume-plan",
+        "patch": [{ "op": "set", "path": "/evidence_assignments", "value": [] }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "MODEL_VALIDATION_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Every requirement marked supported must have one exact bounded evidence assignment.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-28-resume-unsupported-requirement-without-gap",
+      "schema_ref": "urn:japp:schema:resume:plan:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.resume-plan",
+        "patch": [{ "op": "set", "path": "/unsupported_gap_refs", "value": [] }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "MODEL_VALIDATION_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Every unsupported requirement must remain explicit in the unsupported-gap inventory.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-29-reconciliation-required-blocked-sensitive-not-ready",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-form",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.reconciliation",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/items",
+            "value": [
+              {
+                "item_id": "item_0123456789ABCDEFGHJKMNPQRS",
+                "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+                "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "required": true,
+                "visible": true,
+                "enabled": true,
+                "category": "BLOCKED_SENSITIVE",
+                "document_state": "CURRENT",
+                "changed_value": false,
+                "confirmation_state": "NOT_APPLICABLE",
+                "mandatory_uncertain": false
+              }
+            ]
+          },
+          { "op": "set", "path": "/counts/verified_filled", "value": 0 },
+          { "op": "set", "path": "/counts/blocked_sensitive", "value": 1 },
+          { "op": "set", "path": "/readiness", "value": "NOT_READY" }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A required sensitive field may be honestly categorized as blocked while the inventory remains NOT_READY.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-30-reconciliation-ready-with-blocked-sensitive",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.reconciliation",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/items",
+            "value": [
+              {
+                "item_id": "item_0123456789ABCDEFGHJKMNPQRS",
+                "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+                "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "required": true,
+                "visible": true,
+                "enabled": true,
+                "category": "BLOCKED_SENSITIVE",
+                "document_state": "CURRENT",
+                "changed_value": false,
+                "confirmation_state": "NOT_APPLICABLE",
+                "mandatory_uncertain": false
+              }
+            ]
+          },
+          { "op": "set", "path": "/counts/verified_filled", "value": 0 },
+          { "op": "set", "path": "/counts/blocked_sensitive", "value": 1 }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A sensitive field that remains blocked is an explicit READY blocker.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-31-layout-accepted-with-out-of-page-bounds",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/page_content_bounds",
+            "value": [
+              {
+                "page_number": 1,
+                "x": 36,
+                "y": 36,
+                "width": 600,
+                "height": 720
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "RENDERING_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "ACCEPTED is impossible when measured content bounds extend beyond the physical page dimensions.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-32-layout-noncontiguous-page-number",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/page_content_bounds",
+            "value": [
+              {
+                "page_number": 2,
+                "x": 36,
+                "y": 36,
+                "width": 540,
+                "height": 720
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "RENDERING_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Per-page bounds must cover the exact contiguous one-based page inventory.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-33-benchmark-equivalent-fractional-timestamps",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-benchmark",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/started_at",
+            "value": "2026-07-27T04:00:00.1Z"
+          },
+          {
+            "op": "set",
+            "path": "/ended_at",
+            "value": "2026-07-27T04:00:00.10Z"
+          },
+          { "op": "set", "path": "/duration_ms", "value": 0 }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Equivalent RFC 3339 fractional-second encodings compare as the same UTC instant instead of by raw string length.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-34-application-session-non-workday-with-tenant",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.application-session",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/ats_variant/ats_family",
+            "value": "GREENHOUSE"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Workday tenant evidence cannot be attached to a session explicitly identified as another ATS family.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-35-driver-made-up-reason-code",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.driver-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["MADE_UP_REASON"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SCHEMA_INVALID"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Driver evidence accepts only the reviewed closed reason-code vocabulary.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-36-gate-made-up-reason-code",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.gate-decision",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["MADE_UP_REASON"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SCHEMA_INVALID"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Gate decisions cannot introduce unreviewed reason semantics on the wire.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-37-navigation-made-up-reason-code",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "category": "w06-structural-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.navigation-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["MADE_UP_REASON"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SCHEMA_INVALID"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Navigation evidence accepts only reviewed transition and boundary reasons.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-38-layout-render-failed-with-zero-pages",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-rendering",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [
+          { "op": "set", "path": "/page_count", "value": 0 },
+          { "op": "set", "path": "/page_content_bounds", "value": [] },
+          { "op": "set", "path": "/renderer_succeeded", "value": false },
+          { "op": "set", "path": "/layout_result", "value": "RENDER_FAILED" },
+          {
+            "op": "set",
+            "path": "/error_reason_codes",
+            "value": ["RENDERING_FAILURE"]
+          }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A renderer that produces no pages can still emit honest bounded failure evidence.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-39-layout-accepted-with-zero-pages",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.layout-measurement",
+        "patch": [
+          { "op": "set", "path": "/page_count", "value": 0 },
+          { "op": "set", "path": "/page_content_bounds", "value": [] }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "RENDERING_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "ACCEPTED always requires at least one page and one exact bound per page.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-40-benchmark-fail-without-cause",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [{ "op": "set", "path": "/overall_outcome", "value": "FAIL" }]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_THRESHOLD_FAILED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "FAIL must identify a non-comparable run, a failed metric, or a failure error rather than contradicting all-pass evidence.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-41-benchmark-fail-with-failed-metric",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "category": "w06-benchmark",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w06.benchmark-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/metric_results",
+            "value": [
+              {
+                "metric_id": "VERDICT_AGREEMENT",
+                "measured_value": 0,
+                "unit": "RATIO",
+                "threshold_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+                "passed": false
+              }
+            ]
+          },
+          { "op": "set", "path": "/overall_outcome", "value": "FAIL" }
+        ]
+      },
+      "expected": { "valid": true },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A failed metric is explicit evidence supporting the benchmark FAIL outcome.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-42-holdout-duplicate-schema-version",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/schema_versions",
+            "value": [
+              {
+                "schema_ref": "urn:japp:schema:benchmark:case:v1",
+                "schema_version": "1.0.0"
+              },
+              {
+                "schema_ref": "urn:japp:schema:benchmark:case:v1",
+                "schema_version": "1.0.0"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A deterministic holdout manifest carries one version commitment per schema reference.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-43-holdout-unsorted-schema-versions",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/schema_versions",
+            "value": [
+              {
+                "schema_ref": "urn:japp:schema:benchmark:result:v1",
+                "schema_version": "1.0.0"
+              },
+              {
+                "schema_ref": "urn:japp:schema:benchmark:case:v1",
+                "schema_version": "1.0.0"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Schema-version commitments are strictly sorted by schema_ref for deterministic hashing.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-44-holdout-unsorted-case-ids",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/case_ids",
+            "value": [
+              "case_1123456789ABCDEFGHJKMNPQRS",
+              "case_0123456789ABCDEFGHJKMNPQRS"
+            ]
+          },
+          { "op": "set", "path": "/case_count", "value": 2 },
+          {
+            "op": "set",
+            "path": "/category_counts",
+            "value": [{ "category": "CONTRACT_COMPATIBILITY", "count": 2 }]
+          },
+          {
+            "op": "set",
+            "path": "/files",
+            "value": [
+              {
+                "file_id": "file_0123456789ABCDEFGHJKMNPQRS",
+                "content_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "byte_count": 128,
+                "case_count": 2
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Case identities are strictly sorted so manifest hashes do not depend on insertion order.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-45-holdout-unsorted-categories",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/case_ids",
+            "value": [
+              "case_0123456789ABCDEFGHJKMNPQRS",
+              "case_1123456789ABCDEFGHJKMNPQRS"
+            ]
+          },
+          { "op": "set", "path": "/case_count", "value": 2 },
+          {
+            "op": "set",
+            "path": "/category_counts",
+            "value": [
+              { "category": "Z_CATEGORY", "count": 1 },
+              { "category": "A_CATEGORY", "count": 1 }
+            ]
+          },
+          {
+            "op": "set",
+            "path": "/files",
+            "value": [
+              {
+                "file_id": "file_0123456789ABCDEFGHJKMNPQRS",
+                "content_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                "byte_count": 128,
+                "case_count": 2
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Category inventories are strictly sorted for deterministic manifest serialization.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w06.zz-46-holdout-unsorted-files",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "category": "w06-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w06.holdout-manifest",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/case_ids",
+            "value": [
+              "case_0123456789ABCDEFGHJKMNPQRS",
+              "case_1123456789ABCDEFGHJKMNPQRS"
+            ]
+          },
+          { "op": "set", "path": "/case_count", "value": 2 },
+          {
+            "op": "set",
+            "path": "/category_counts",
+            "value": [{ "category": "CONTRACT_COMPATIBILITY", "count": 2 }]
+          },
+          {
+            "op": "set",
+            "path": "/files",
+            "value": [
+              {
+                "file_id": "file_1123456789ABCDEFGHJKMNPQRS",
+                "content_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+                "byte_count": 64,
+                "case_count": 1
+              },
+              {
+                "file_id": "file_0123456789ABCDEFGHJKMNPQRS",
+                "content_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+                "byte_count": 64,
+                "case_count": 1
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "File commitments are strictly sorted by file_id for deterministic manifest hashing.",
+      "synthetic_data": true
     }
   ]
 }

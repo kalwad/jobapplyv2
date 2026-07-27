@@ -613,6 +613,7 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
         "M01-W03",
         "M01-W04",
         "M01-W05",
+        "M01-W06",
     ):
         set_pkg_state(repo_copy, m01_package, "NOT_STARTED")
     set_current_package(repo_copy, "garbage")

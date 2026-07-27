@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:form:field-address:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "FieldAddress",
+  "description": "Durable semantic and structural identity for one observed field. Resolution hints are inert hints and never authority.",
+  "$defs": {
+    "atsFamily": {
+      "title": "ATS family",
+      "type": "string",
+      "enum": [
+        "ASHBY",
+        "GREENHOUSE",
+        "ICIMS",
+        "LEVER",
+        "OTHER_REVIEWED",
+        "SMARTRECRUITERS",
+        "SUCCESSFACTORS",
+        "TALEO",
+        "UNKNOWN",
+        "WORKDAY"
+      ]
+    },
+    "stabilityClass": {
+      "title": "Resolution-hint stability",
+      "type": "string",
+      "enum": ["SESSION_STABLE", "PAGE_STABLE", "OBSERVATION_ONLY"]
+    },
+    "resolutionHintKind": {
+      "title": "Bounded non-selector resolution hint kind",
+      "type": "string",
+      "enum": [
+        "ACCESSIBLE_NAME_DIGEST",
+        "ATTRIBUTE_DIGEST",
+        "CONTROL_KIND",
+        "OPTION_DIGEST",
+        "ROLE_TOKEN",
+        "SECTION_TOKEN"
+      ]
+    },
+    "repeaterPathEntry": {
+      "title": "Repeater path entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_concept", "stable_item_key"],
+      "properties": {
+        "semantic_concept": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "stable_item_key": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        }
+      }
+    },
+    "resolutionHint": {
+      "title": "Bounded resolution hint",
+      "description": "A non-executable hint. CSS selectors, XPath, JavaScript, HTML, and caller-supplied expressions are not representable.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value_fingerprint", "stability_class"],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/resolutionHintKind"
+        },
+        "value_fingerprint": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "stability_class": {
+          "$ref": "#/$defs/stabilityClass"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "address_schema_version",
+    "session_id",
+    "frame_id",
+    "document_id",
+    "ats_family",
+    "section_path",
+    "repeater_path",
+    "resolution_hints",
+    "observed_dom_generation"
+  ],
+  "properties": {
+    "address_schema_version": {
+      "type": "string",
+      "enum": ["FIELD_ADDRESS_V1"]
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "frame_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "document_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "ats_family": {
+      "$ref": "#/$defs/atsFamily"
+    },
+    "tenant_pattern_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "route_signature": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "application_root_fingerprint": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "section_path": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "repeater_path": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/repeaterPathEntry"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "accessible_name_fingerprint": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "attribute_fingerprint": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "option_fingerprint": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "resolution_hints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resolutionHint"
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "observed_dom_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    }
+  }
+}

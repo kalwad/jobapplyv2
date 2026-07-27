@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:resume:atomic-claim:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Atomic resume claim",
+  "description": "One bounded generated or shortened claim with explicit evidence and verification state. Model output cannot mutate canonical evidence.",
+  "$defs": {
+    "claimType": {
+      "title": "Atomic claim type",
+      "type": "string",
+      "enum": [
+        "ACHIEVEMENT",
+        "EXPERIENCE",
+        "QUALIFICATION",
+        "RESPONSIBILITY",
+        "SKILL"
+      ]
+    },
+    "verificationStatus": {
+      "title": "Atomic claim verification status",
+      "type": "string",
+      "enum": [
+        "CONTRADICTED",
+        "NEEDS_USER_INPUT",
+        "PARTIALLY_SUPPORTED",
+        "SUPPORTED",
+        "UNSUPPORTED"
+      ]
+    },
+    "userAction": {
+      "title": "Required user action",
+      "type": "string",
+      "enum": ["EDIT_AND_APPROVE", "NONE", "PROVIDE_EVIDENCE", "REJECT_CLAIM"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "claim_type",
+    "claim_text",
+    "evidence_refs",
+    "verification_status",
+    "prompt_version_ref",
+    "model_digest",
+    "model_profile_ref",
+    "verified_at",
+    "verification_result_digest",
+    "rejection_error_codes",
+    "release_eligible",
+    "user_action",
+    "canonical_evidence_mutation"
+  ],
+  "properties": {
+    "claim_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "claim_type": {
+      "$ref": "#/$defs/claimType"
+    },
+    "claim_text": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "verification_status": {
+      "$ref": "#/$defs/verificationStatus"
+    },
+    "prompt_version_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "model_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "model_profile_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "verified_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "verification_result_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "rejection_error_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "release_eligible": {
+      "type": "boolean"
+    },
+    "user_action": {
+      "$ref": "#/$defs/userAction"
+    },
+    "canonical_evidence_mutation": {
+      "type": "boolean"
+    }
+  }
+}

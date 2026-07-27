@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:benchmark:result:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Benchmark result",
+  "description": "Measured result for one immutable benchmark case. A result cannot alter thresholds or change a critical gate.",
+  "$defs": {
+    "runtimeMetadata": {
+      "title": "Bounded measured runtime metadata",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_family",
+        "runtime_version",
+        "toolchain_digest",
+        "platform_profile"
+      ],
+      "properties": {
+        "runtime_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "runtime_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "toolchain_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "platform_profile": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "model_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "adapter_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        },
+        "browser_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "browser_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "operating_system": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "architecture": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        }
+      }
+    },
+    "metricResult": {
+      "title": "One deterministic measured metric",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "measured_value",
+        "unit",
+        "threshold_digest",
+        "passed"
+      ],
+      "properties": {
+        "metric_id": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "measured_value": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/metricValue"
+        },
+        "unit": {
+          "$ref": "urn:japp:schema:benchmark:case:v1#/$defs/metricUnit"
+        },
+        "threshold_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "completenessState": {
+      "title": "Benchmark completeness",
+      "type": "string",
+      "enum": ["COMPLETE", "FAILED_SETUP", "PARTIAL"]
+    },
+    "environmentMatchState": {
+      "title": "Environment comparison state",
+      "type": "string",
+      "enum": ["MATCH", "MISMATCH", "UNKNOWN"]
+    },
+    "hashState": {
+      "title": "Artifact hash state",
+      "type": "string",
+      "enum": ["MATCH", "MISMATCH", "UNKNOWN"]
+    },
+    "holdoutState": {
+      "title": "Holdout state",
+      "type": "string",
+      "enum": ["INVALID", "NOT_APPLICABLE", "UNAVAILABLE", "VALID"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_id",
+    "case_id",
+    "case_digest",
+    "repository_commit",
+    "repository_tree",
+    "schema_manifest_digest",
+    "generator_format_version",
+    "corpus_digest",
+    "holdout_manifest_digest",
+    "runtime_metadata",
+    "started_at",
+    "ended_at",
+    "duration_ms",
+    "metric_results",
+    "case_threshold_set_digest",
+    "evaluated_threshold_set_digest",
+    "failure_error_codes",
+    "artifact_report_digests",
+    "completeness_state",
+    "environment_match_state",
+    "hash_state",
+    "holdout_state",
+    "comparable",
+    "overall_outcome"
+  ],
+  "properties": {
+    "result_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "case_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "case_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "repository_commit": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "repository_tree": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "schema_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "generator_format_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "corpus_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "holdout_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "runtime_metadata": {
+      "$ref": "#/$defs/runtimeMetadata"
+    },
+    "started_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "ended_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 86400000
+    },
+    "metric_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metricResult"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "case_threshold_set_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "evaluated_threshold_set_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "failure_error_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "artifact_report_digests": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "completeness_state": {
+      "$ref": "#/$defs/completenessState"
+    },
+    "environment_match_state": {
+      "$ref": "#/$defs/environmentMatchState"
+    },
+    "hash_state": {
+      "$ref": "#/$defs/hashState"
+    },
+    "holdout_state": {
+      "$ref": "#/$defs/holdoutState"
+    },
+    "comparable": {
+      "type": "boolean"
+    },
+    "comparison_baseline_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "overall_outcome": {
+      "type": "string",
+      "enum": ["FAIL", "INVALID", "PASS"]
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@japp/contracts",
   "version": "0.0.1",
   "private": true,
-  "description": "Canonical JSON Schema contracts, generated TypeScript/Python models, and the representative M01-W05 cross-language compatibility suite.",
+  "description": "Canonical JSON Schema contracts, generated TypeScript/Python models, and the representative M01-W05/W06 cross-language compatibility suite.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",

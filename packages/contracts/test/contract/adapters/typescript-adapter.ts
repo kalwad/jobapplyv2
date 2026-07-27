@@ -11,6 +11,7 @@ import {
   contractRuntime,
   requireErrorCatalogEntryV1,
   validateContractInstance,
+  validateSemanticContractV1,
   type GeneratedTypeByRef,
 } from "../../../generated/typescript/index.ts";
 import {
@@ -136,6 +137,29 @@ function knownSchemaRef(ref: string): ref is keyof GeneratedTypeByRef {
   return SCHEMA_REF_SET.has(ref);
 }
 
+function semanticInvalidResult(
+  request: AdapterRequest,
+  schemaRef: string,
+  value: unknown,
+): AdapterResult | undefined {
+  const outcome = validateSemanticContractV1(schemaRef, value);
+  if (outcome.valid) {
+    return undefined;
+  }
+  const firstIssue = outcome.issues[0];
+  if (firstIssue === undefined) {
+    throw new ProtocolError();
+  }
+  // Semantic failures expose only the first canonical error code. The full
+  // ordered issue inventory stays inside the generated helper and no
+  // instance data or implementation diagnostic crosses the adapter boundary.
+  requireErrorCatalogEntryV1(firstIssue.error_code);
+  return {
+    ...invalidResult(request, "SEMANTIC_INVALID"),
+    error_code: firstIssue.error_code,
+  };
+}
+
 function scenarioValue(
   scenario: string | undefined,
   parsed: PlainJson,
@@ -198,6 +222,14 @@ function validateOrRoundTrip(
   const result = validateContractInstance(request.schema_ref, value);
   if (!result.valid) {
     return invalidResult(request, "SCHEMA_INVALID");
+  }
+  const semanticFailure = semanticInvalidResult(
+    request,
+    request.schema_ref,
+    result.value,
+  );
+  if (semanticFailure !== undefined) {
+    return semanticFailure;
   }
   return {
     case_id: request.case_id,
@@ -268,6 +300,17 @@ function versionResult(
         result.reason === "PAYLOAD_INVALID"
           ? "PAYLOAD_INVALID"
           : "MALFORMED_VERSION",
+    };
+  }
+  const semanticFailure = semanticInvalidResult(
+    request,
+    schemaId,
+    value.payload,
+  );
+  if (semanticFailure !== undefined) {
+    return {
+      ...semanticFailure,
+      version_outcome: "PAYLOAD_INVALID",
     };
   }
   return {

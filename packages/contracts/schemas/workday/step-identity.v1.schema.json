@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:workday:step-identity:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "WorkdayStepIdentity",
+  "description": "Multi-signal identity for an application step or protected boundary, first owned by the Workday-guided contract family. The boundary vocabulary is intentionally ATS-neutral when embedded in ApplicationSession; the Workday name does not claim a tenant certification. A single URL, heading, selector, or attribute is insufficient.",
+  "$defs": {
+    "stepFamily": {
+      "title": "Workday step family",
+      "type": "string",
+      "enum": [
+        "ACCOUNT_CREATION",
+        "AUTHENTICATED_APPLICATION",
+        "CAPTCHA",
+        "DUPLICATE_APPLICATION",
+        "EMAIL_VERIFICATION",
+        "EXPIRED_SESSION",
+        "FINAL_REVIEW",
+        "GUEST_APPLICATION",
+        "LEGAL_CONSENT_BOUNDARY",
+        "LOGIN",
+        "MFA",
+        "UNKNOWN_UNSUPPORTED"
+      ]
+    },
+    "boundaryClass": {
+      "title": "Machine-distinguishable boundary class",
+      "type": "string",
+      "enum": [
+        "FINAL_REVIEW_BOUNDARY",
+        "ORDINARY_APPLICATION",
+        "PROTECTED_AUTHENTICATION",
+        "PROTECTED_HUMAN_VERIFICATION",
+        "PROTECTED_LEGAL_OR_CONSENT",
+        "UNKNOWN_OR_UNSUPPORTED"
+      ]
+    },
+    "recognitionSignalKind": {
+      "title": "Independent recognition signal kind",
+      "type": "string",
+      "enum": [
+        "BOUNDARY_INDICATOR",
+        "CONTROL_FAMILY",
+        "HEADING_DIGEST",
+        "PAGE_SEQUENCE",
+        "ROUTE_FAMILY",
+        "VALIDATION_STATE"
+      ]
+    },
+    "recognitionSignal": {
+      "title": "One bounded recognition signal",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "signal_digest", "confidence"],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/recognitionSignalKind"
+        },
+        "signal_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "confidence": {
+          "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "step_identity_id",
+    "session_id",
+    "step_family",
+    "boundary_class",
+    "recognition_signals",
+    "recognition_confidence",
+    "observed_dom_generation",
+    "recognized_at",
+    "evidence_digest"
+  ],
+  "properties": {
+    "step_identity_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "step_family": {
+      "$ref": "#/$defs/stepFamily"
+    },
+    "boundary_class": {
+      "$ref": "#/$defs/boundaryClass"
+    },
+    "recognition_signals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recognitionSignal"
+      },
+      "minItems": 2,
+      "maxItems": 12
+    },
+    "recognition_confidence": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "observed_dom_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "recognized_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "evidence_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    }
+  }
+}

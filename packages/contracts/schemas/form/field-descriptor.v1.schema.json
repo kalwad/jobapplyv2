@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:form:field-descriptor:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "FieldDescriptor",
+  "description": "Bounded observed-field description. Page-derived text is explicitly untrusted data and never executable authority or a system message.",
+  "$defs": {
+    "controlKind": {
+      "title": "Observed control kind",
+      "type": "string",
+      "enum": [
+        "CHECKBOX",
+        "COMBOBOX",
+        "DATE",
+        "FILE",
+        "MULTI_SELECT",
+        "RADIO_GROUP",
+        "SELECT",
+        "TEXT",
+        "TEXTAREA",
+        "UNKNOWN"
+      ]
+    },
+    "untrustedTextRepresentation": {
+      "title": "Bounded normalized untrusted text representation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text_digest", "untrusted"],
+      "properties": {
+        "normalized_text": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText"
+        },
+        "text_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "untrusted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "optionSemantic": {
+      "title": "Bounded option semantic",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value_digest", "label", "disabled"],
+      "properties": {
+        "stable_value_token": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "value_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "label": {
+          "$ref": "#/$defs/untrustedTextRepresentation"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "observedValue": {
+      "title": "Synthetic-safe observed value",
+      "description": "Only a bounded semantic token and/or digest is exchanged; credentials and raw sensitive values are not representable.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value_digest", "presence"],
+      "properties": {
+        "semantic_token": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "value_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "presence": {
+          "type": "string",
+          "enum": ["ABSENT", "EMPTY", "PRESENT_REDACTED"]
+        }
+      }
+    },
+    "validationState": {
+      "title": "Observed validation state",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "message_digests"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["ACCEPTED", "REJECTED", "UNKNOWN", "NOT_APPLICABLE"]
+        },
+        "message_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+          },
+          "minItems": 0,
+          "maxItems": 8
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "field_id",
+    "address",
+    "control_kind",
+    "visible",
+    "enabled",
+    "required",
+    "sensitive_candidate",
+    "label",
+    "section_context",
+    "options",
+    "validation_state",
+    "observed_at",
+    "observed_dom_generation"
+  ],
+  "properties": {
+    "field_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "address": {
+      "$ref": "urn:japp:schema:form:field-address:v1"
+    },
+    "control_kind": {
+      "$ref": "#/$defs/controlKind"
+    },
+    "visible": {
+      "type": "boolean"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "required": {
+      "type": "boolean"
+    },
+    "sensitive_candidate": {
+      "type": "boolean"
+    },
+    "label": {
+      "$ref": "#/$defs/untrustedTextRepresentation"
+    },
+    "description": {
+      "$ref": "#/$defs/untrustedTextRepresentation"
+    },
+    "section_context": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/optionSemantic"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "current_value": {
+      "$ref": "#/$defs/observedValue"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/validationState"
+    },
+    "observed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "observed_dom_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    }
+  }
+}

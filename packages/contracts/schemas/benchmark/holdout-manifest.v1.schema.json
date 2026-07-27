@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:benchmark:holdout-manifest:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Holdout manifest",
+  "description": "Deterministic commitment to owner-controlled holdout identities and hashes. Hidden case bodies, keys, paths, usernames, tokens, and PII are not representable.",
+  "$defs": {
+    "schemaVersionEntry": {
+      "title": "Referenced schema version",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_ref", "schema_version"],
+      "properties": {
+        "schema_ref": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/schemaReference"
+        },
+        "schema_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        }
+      }
+    },
+    "categoryCount": {
+      "title": "Holdout category count",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "count"],
+      "properties": {
+        "category": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    },
+    "fileCommitment": {
+      "title": "Holdout file commitment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_id", "content_digest", "byte_count", "case_count"],
+      "properties": {
+        "file_id": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "content_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "byte_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "case_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    },
+    "encryptedBundleMetadata": {
+      "title": "Optional encrypted-bundle commitment without keys",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bundle_ref", "cipher_suite", "bundle_digest"],
+      "properties": {
+        "bundle_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "cipher_suite": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "bundle_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_id",
+    "holdout_format_version",
+    "case_ids",
+    "schema_versions",
+    "case_count",
+    "category_counts",
+    "files",
+    "synthetic_only",
+    "storage_policy",
+    "visibility_class",
+    "creation_provenance",
+    "review_provenance",
+    "manifest_digest"
+  ],
+  "properties": {
+    "manifest_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "holdout_format_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "case_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 1,
+      "maxItems": 4096
+    },
+    "schema_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/schemaVersionEntry"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "case_count": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/positiveSafeInteger"
+    },
+    "category_counts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/categoryCount"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fileCommitment"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "synthetic_only": {
+      "type": "boolean"
+    },
+    "storage_policy": {
+      "type": "string",
+      "enum": ["ENCRYPTED_BUNDLE_REFERENCE", "OWNER_CONTROLLED_EXTERNAL"]
+    },
+    "visibility_class": {
+      "type": "string",
+      "enum": ["OWNER_ONLY", "OWNER_REVIEWER", "REVIEWER_ONLY"]
+    },
+    "creation_provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "review_provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "encrypted_bundle": {
+      "$ref": "#/$defs/encryptedBundleMetadata"
+    },
+    "manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    }
+  }
+}

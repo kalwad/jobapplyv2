@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:session:page-readiness-proof:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "PageReadinessProof",
+  "description": "Hashable strict proof that a page is or is not ready for one bounded navigation decision. It is not a critical-gate decision.",
+  "$defs": {
+    "blockingCounts": {
+      "title": "Readiness blocker counts",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_field_count",
+        "unresolved_count",
+        "changed_value_count",
+        "stale_document_count",
+        "sensitive_confirmation_count",
+        "mandatory_uncertain_count"
+      ],
+      "properties": {
+        "required_field_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "unresolved_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "changed_value_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "stale_document_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "sensitive_confirmation_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "mandatory_uncertain_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    },
+    "navigationControlIdentity": {
+      "title": "Bounded navigation-control identity",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control_id", "identity_digest", "resolution"],
+      "properties": {
+        "control_id": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "identity_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "resolution": {
+          "type": "string",
+          "enum": ["AMBIGUOUS", "MISSING", "UNIQUE"]
+        }
+      }
+    },
+    "siteValidationStatus": {
+      "title": "Site validation status",
+      "type": "string",
+      "enum": ["ACCEPTED", "REJECTED", "UNKNOWN"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proof_id",
+    "proof_version",
+    "session_id",
+    "page_id",
+    "step_identity",
+    "page_generation",
+    "reconciliation_digest",
+    "blocking_counts",
+    "site_validation_status",
+    "created_at",
+    "proof_digest",
+    "readiness"
+  ],
+  "properties": {
+    "proof_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "proof_version": {
+      "type": "string",
+      "enum": ["PAGE_READINESS_PROOF_V1"]
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "page_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "step_identity": {
+      "$ref": "urn:japp:schema:workday:step-identity:v1"
+    },
+    "page_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "reconciliation_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "blocking_counts": {
+      "$ref": "#/$defs/blockingCounts"
+    },
+    "site_validation_status": {
+      "$ref": "#/$defs/siteValidationStatus"
+    },
+    "next_control": {
+      "$ref": "#/$defs/navigationControlIdentity"
+    },
+    "back_control": {
+      "$ref": "#/$defs/navigationControlIdentity"
+    },
+    "created_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "proof_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["NOT_READY", "READY"]
+    }
+  }
+}

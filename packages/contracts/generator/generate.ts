@@ -27,6 +27,7 @@ import { buildIrCatalog, type IrCatalog } from "./ir.ts";
 import { emitPython } from "./emit-python.ts";
 import { emitTypescript, type GeneratedFile } from "./emit-typescript.ts";
 import {
+  DEFAULT_CATALOG_ROOT,
   emitPythonCatalogData,
   emitTypescriptCatalogData,
   ERROR_CATALOG_SCHEMA_ID,
@@ -42,6 +43,14 @@ import {
   type LoadedSecurityPolicy,
 } from "./security-policy.ts";
 import {
+  emitPythonSemanticRules,
+  emitTypescriptSemanticRules,
+  loadSemanticRules,
+  PYTHON_SEMANTIC_RULE_EXPORTS,
+  SEMANTIC_RULE_CATALOG_SCHEMA_ID,
+  type LoadedSemanticRules,
+} from "./semantic-rules.ts";
+import {
   pythonModuleName,
   schemaRef,
   typeName,
@@ -56,8 +65,10 @@ import {
  * 1.2.0 (M01-W04): bounded safe-integer schemas plus canonical capability,
  * command, and authorization-policy data inputs and generated policy
  * lookup/authorization surfaces.
+ * 1.3.0 (M01-W06): feasibility/benchmark roots plus the canonical finite
+ * semantic-rule catalog and generated matching TypeScript/Python evaluators.
  */
-export const GENERATOR_FORMAT_VERSION = "1.2.0";
+export const GENERATOR_FORMAT_VERSION = "1.3.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {
@@ -132,6 +143,7 @@ function buildManifest(
   schemaBytes: ReadonlyMap<string, string>,
   errorCatalog: LoadedErrorCatalog,
   securityPolicy: LoadedSecurityPolicy,
+  semanticRules: LoadedSemanticRules,
 ): string {
   const inputs: ManifestInput[] = [...catalog.entries]
     .sort((left, right) => (left.id < right.id ? -1 : 1))
@@ -190,6 +202,12 @@ function buildManifest(
       validatedAgainst: input.schemaId,
       version: input.version,
     })),
+    {
+      path: semanticRules.repositoryPath,
+      sha256: sha256Hex(semanticRules.rawText),
+      validatedAgainst: SEMANTIC_RULE_CATALOG_SCHEMA_ID,
+      version: semanticRules.version,
+    },
   ].sort((left, right) => (left.path < right.path ? -1 : 1));
 
   const manifest = {
@@ -239,24 +257,27 @@ Layout:
 
 - \`MANIFEST.json\` — provenance: generator format/config, every input
   schema id/version/SHA-256, every validated data input (the canonical
-  error, capability, command, and authorization-policy catalogs) with its
-  SHA-256, every output path/SHA-256, and the
+  error, capability, command, authorization-policy, and finite semantic-rule
+  catalogs) with its SHA-256, every output path/SHA-256, and the
   schema-reference → generated-type identity map.
 - \`typescript/\` — one module per schema document (mirroring the schema
   layout), \`validators.ts\` (typed wrappers whose runtime truth is the
   strict canonical Ajv catalog in \`packages/contracts/src/\`),
   \`error/catalog-data.v1.ts\` (canonical error-catalog metadata),
   \`security/policy-data.v1.ts\` (immutable authorization catalogs,
-  lookups, and fail-closed authorization), and \`index.ts\`
+  lookups, and fail-closed authorization),
+  \`semantic/rules.v1.ts\` (finite reviewed semantic-rule evaluators), and
+  \`index.ts\`
   (the stable export surface re-exported by \`@japp/contracts/generated\`).
 - \`python/src/japp_contracts/\` — the generated strict Pydantic v2 package
   (one module per schema document plus \`_runtime.py\` and
-  \`error/catalog_data_v1.py\` and \`security/policy_data_v1.py\`);
+  \`error/catalog_data_v1.py\`, \`security/policy_data_v1.py\`, and
+  \`semantic/rules_v1.py\`);
   importable as \`japp_contracts\` through
   the repository mypy/pytest path configuration.
 
 Determinism contract: output depends only on the committed schema catalog,
-the committed canonical data catalogs/policy, and the generator version —
+the committed canonical data catalogs/policy/rules, and the generator version —
 no timestamps, absolute paths, usernames, hostnames, random values, or
 platform separators. Two generations of the same inputs are byte-identical
 on every certified platform.
@@ -304,6 +325,12 @@ export function generateContracts(
     validator,
     errorCatalog,
   });
+  const semanticRules = loadSemanticRules({
+    catalogRoot: options.catalogRoot ?? DEFAULT_CATALOG_ROOT,
+    catalog,
+    validator,
+    errorCatalog,
+  });
 
   // Input provenance hashes cover the exact committed schema bytes
   // (LF-enforced by .gitattributes), not a reserialization.
@@ -317,7 +344,11 @@ export function generateContracts(
 
   const files: GeneratedFile[] = [
     ...emitTypescript(ir, {
-      dataModules: ["error/catalog-data.v1.ts", "security/policy-data.v1.ts"],
+      dataModules: [
+        "error/catalog-data.v1.ts",
+        "security/policy-data.v1.ts",
+        "semantic/rules.v1.ts",
+      ],
     }),
     ...emitPython(ir, {
       dataModules: [
@@ -329,12 +360,18 @@ export function generateContracts(
           module: "japp_contracts.security.policy_data_v1",
           exports: PYTHON_SECURITY_POLICY_EXPORTS,
         },
+        {
+          module: "japp_contracts.semantic.rules_v1",
+          exports: PYTHON_SEMANTIC_RULE_EXPORTS,
+        },
       ],
     }),
     emitTypescriptCatalogData(errorCatalog),
     emitPythonCatalogData(errorCatalog),
     emitTypescriptSecurityPolicy(securityPolicy),
     emitPythonSecurityPolicy(securityPolicy),
+    emitTypescriptSemanticRules(semanticRules),
+    emitPythonSemanticRules(semanticRules),
     { path: README_PATH, content: GENERATED_README },
   ];
   files.push({
@@ -346,6 +383,7 @@ export function generateContracts(
       schemaBytes,
       errorCatalog,
       securityPolicy,
+      semanticRules,
     ),
   });
 

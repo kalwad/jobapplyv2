@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:resume:plan:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Resume feasibility plan",
+  "description": "Evidence-linked feasibility plan for future resume work. It carries no generated final prose and does not treat unsupported claims as evidence.",
+  "$defs": {
+    "requirementEntry": {
+      "title": "Ordered job requirement",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_ref", "priority", "supported"],
+      "properties": {
+        "requirement_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "supported": {
+          "type": "boolean"
+        }
+      }
+    },
+    "evidenceAssignment": {
+      "title": "Requirement-to-evidence assignment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_ref", "evidence_refs"],
+      "properties": {
+        "requirement_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+          },
+          "minItems": 1,
+          "maxItems": 32
+        }
+      }
+    },
+    "budget": {
+      "title": "Resume word and page budgets",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["section_word_budget", "global_word_budget", "page_budget"],
+      "properties": {
+        "section_word_budget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "global_word_budget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20000
+        },
+        "page_budget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        }
+      }
+    },
+    "terminologyDecision": {
+      "title": "Evidence-bounded terminology decision",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["term", "decision", "evidence_refs"],
+      "properties": {
+        "term": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["AVOID", "REVIEW", "USE"]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+          },
+          "minItems": 0,
+          "maxItems": 16
+        }
+      }
+    },
+    "editDecision": {
+      "title": "Removal or ordering decision",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_ref", "decision", "reason_code"],
+      "properties": {
+        "content_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["KEEP", "LOCK", "REMOVE", "REORDER"]
+        },
+        "reason_code": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plan_id",
+    "plan_schema_version",
+    "job_ref",
+    "job_version_ref",
+    "resume_source_ref",
+    "resume_version_ref",
+    "ordered_requirements",
+    "evidence_assignments",
+    "unsupported_gap_refs",
+    "locked_content_refs",
+    "budget",
+    "terminology_decisions",
+    "edit_decisions",
+    "expected_verification_checks",
+    "provenance",
+    "correlation_id"
+  ],
+  "properties": {
+    "plan_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "plan_schema_version": {
+      "type": "string",
+      "enum": ["RESUME_PLAN_V1"]
+    },
+    "job_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "job_version_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "resume_source_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "resume_version_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "ordered_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirementEntry"
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "evidence_assignments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceAssignment"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "unsupported_gap_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "locked_content_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "budget": {
+      "$ref": "#/$defs/budget"
+    },
+    "terminology_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/terminologyDecision"
+      },
+      "minItems": 0,
+      "maxItems": 128
+    },
+    "edit_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/editDecision"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "expected_verification_checks": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "prompt_version_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "model_profile_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    }
+  }
+}

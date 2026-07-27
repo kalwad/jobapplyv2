@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:gate:decision:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Gate decision artifact",
+  "description": "Reviewed future decision artifact for one exact candidate and evidence bundle. It is distinct from current repository gate status.",
+  "$defs": {
+    "gateDecision": {
+      "title": "Reviewed gate decision",
+      "type": "string",
+      "enum": ["BLOCKED", "PASS", "REDESIGN_REQUIRED"]
+    },
+    "thresholdEvidenceSummary": {
+      "title": "Threshold and evidence completeness summary",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_complete",
+        "required_benchmark_results_complete",
+        "thresholds_passed",
+        "corpus_valid",
+        "holdout_valid"
+      ],
+      "properties": {
+        "evidence_complete": {
+          "type": "boolean"
+        },
+        "required_benchmark_results_complete": {
+          "type": "boolean"
+        },
+        "thresholds_passed": {
+          "type": "boolean"
+        },
+        "corpus_valid": {
+          "type": "boolean"
+        },
+        "holdout_valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "independentReviewState": {
+      "title": "Independent review state",
+      "type": "string",
+      "enum": ["COMPLETE", "MISSING", "REJECTED"]
+    },
+    "ownerDecisionState": {
+      "title": "Owner decision state",
+      "type": "string",
+      "enum": ["COMPLETE", "MISSING", "NOT_REQUIRED", "REJECTED"]
+    },
+    "reasonCode": {
+      "title": "Reviewed gate-decision reason",
+      "type": "string",
+      "enum": [
+        "CORPUS_INVALID",
+        "ERROR_STATE_PRESENT",
+        "HOLDOUT_INVALID",
+        "INDEPENDENT_REVIEW_INCOMPLETE",
+        "MISSING_EVIDENCE",
+        "OWNER_DECISION_INCOMPLETE",
+        "REQUIRED_BENCHMARK_RESULTS_INCOMPLETE",
+        "REVIEWED_PASS",
+        "REVIEWED_REDESIGN_REQUIRED",
+        "THRESHOLD_FAILED"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_record_id",
+    "gate_id",
+    "candidate_commit",
+    "candidate_tree",
+    "evidence_bundle_digest",
+    "decision",
+    "threshold_evidence_summary",
+    "independent_review_state",
+    "owner_decision_state",
+    "decided_at",
+    "reason_codes",
+    "error_codes"
+  ],
+  "properties": {
+    "decision_record_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "gate_id": {
+      "$ref": "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId"
+    },
+    "candidate_commit": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "candidate_tree": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "evidence_bundle_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "decision": {
+      "$ref": "#/$defs/gateDecision"
+    },
+    "threshold_evidence_summary": {
+      "$ref": "#/$defs/thresholdEvidenceSummary"
+    },
+    "independent_review_state": {
+      "$ref": "#/$defs/independentReviewState"
+    },
+    "owner_decision_state": {
+      "$ref": "#/$defs/ownerDecisionState"
+    },
+    "decided_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reasonCode"
+      },
+      "minItems": 1,
+      "maxItems": 16
+    },
+    "error_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "redesign_adr_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    }
+  }
+}

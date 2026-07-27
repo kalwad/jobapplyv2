@@ -52,6 +52,22 @@ def _run(path: Path) -> subprocess.CompletedProcess[str]:
     )
 
 
+def _field_address() -> dict[str, object]:
+    return {
+        "address_schema_version": "FIELD_ADDRESS_V1",
+        "session_id": "ses_0123456789ABCDEFGHJKMNPQRS",
+        "frame_id": "frm_0123456789ABCDEFGHJKMNPQRS",
+        "document_id": "doc_0123456789ABCDEFGHJKMNPQRS",
+        "ats_family": "WORKDAY",
+        "route_signature": f"sha256:{'a' * 64}",
+        "application_root_fingerprint": f"sha256:{'b' * 64}",
+        "section_path": [],
+        "repeater_path": [],
+        "resolution_hints": [],
+        "observed_dom_generation": 1,
+    }
+
+
 def test_real_python_adapter_is_strict_and_revalidates_mutated_models(
     tmp_path: Path,
 ) -> None:
@@ -111,6 +127,105 @@ def test_real_python_adapter_is_strict_and_revalidates_mutated_models(
     valid = results["python.valid-round-trip"]
     assert valid["validation_verdict"] == "VALID"
     assert json.loads(valid["canonical_json"]) == fixture
+
+
+def test_real_python_adapter_runs_semantics_after_structural_validation(
+    tmp_path: Path,
+) -> None:
+    field_address_ref = "urn:japp:schema:form:field-address:v1"
+    envelope_ref = "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord"
+    valid = _field_address()
+    structural_invalid = {**valid, "observed_dom_generation": -1}
+    semantic_invalid = {
+        key: value
+        for key, value in valid.items()
+        if key != "application_root_fingerprint"
+    }
+    semantic_envelope = {
+        "envelope": {
+            "schema_id": field_address_ref,
+            "schema_version": "1.0.0",
+            "message_id": "msg_0123456789ABCDEFGHJKMNPQRS",
+            "created_at": "2026-07-27T12:00:00Z",
+        },
+        "payload": semantic_invalid,
+    }
+    requests: list[dict[str, Any]] = [
+        {
+            "case_id": "semantic.round-trip-valid",
+            "schema_ref": field_address_ref,
+            "operation": "ROUND_TRIP",
+            "input_bytes_base64": _encoded(valid),
+        },
+        {
+            "case_id": "semantic.structural-invalid",
+            "schema_ref": field_address_ref,
+            "operation": "VALIDATE",
+            "input_bytes_base64": _encoded(structural_invalid),
+        },
+        {
+            "case_id": "semantic.validate-invalid",
+            "schema_ref": field_address_ref,
+            "operation": "VALIDATE",
+            "input_bytes_base64": _encoded(semantic_invalid),
+        },
+        {
+            "case_id": "semantic.version-invalid",
+            "schema_ref": envelope_ref,
+            "operation": "VERSION_CHECK",
+            "input_bytes_base64": _encoded(semantic_envelope),
+        },
+    ]
+    path = tmp_path / "semantic-request.json"
+    path.write_text(
+        json.dumps(
+            {
+                "protocol_version": "JAPP_CONTRACT_ADAPTER_V1",
+                "requests": requests,
+            },
+            separators=(",", ":"),
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    completed = _run(path)
+    assert completed.returncode == 0
+    assert completed.stderr == ""
+    response = json.loads(completed.stdout)
+    assert response["language"] == "python"
+    results = {entry["case_id"]: entry for entry in response["results"]}
+    assert results["semantic.round-trip-valid"] == {
+        "case_id": "semantic.round-trip-valid",
+        "canonical_json": json.dumps(
+            valid,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        ),
+        "operation": "ROUND_TRIP",
+        "validation_verdict": "VALID",
+    }
+    assert results["semantic.structural-invalid"] == {
+        "case_id": "semantic.structural-invalid",
+        "error_category": "SCHEMA_INVALID",
+        "operation": "VALIDATE",
+        "validation_verdict": "INVALID",
+    }
+    assert results["semantic.validate-invalid"] == {
+        "case_id": "semantic.validate-invalid",
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_AMBIGUOUS_CONTROL",
+        "operation": "VALIDATE",
+        "validation_verdict": "INVALID",
+    }
+    assert results["semantic.version-invalid"] == {
+        "case_id": "semantic.version-invalid",
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SITE_AMBIGUOUS_CONTROL",
+        "operation": "VERSION_CHECK",
+        "validation_verdict": "INVALID",
+        "version_outcome": "PAYLOAD_INVALID",
+    }
 
 
 def test_real_python_adapter_rejects_duplicate_protocol_keys_without_echo(

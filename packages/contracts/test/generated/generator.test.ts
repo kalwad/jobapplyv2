@@ -161,7 +161,7 @@ describe("determinism", () => {
       inputs: { path: string; sha256: string }[];
       outputs: { path: string; sha256: string }[];
     };
-    expect(parsed.inputs.length).toBe(20);
+    expect(parsed.inputs.length).toBe(43);
     expect(parsed.outputs.length).toBe(tree.files.size - 1);
     for (const entry of [...parsed.inputs, ...parsed.outputs]) {
       expect(entry.path.includes("\\")).toBe(false);
@@ -448,6 +448,107 @@ describe("input safety", () => {
       "Integer; runtime validation rejects fractions and coercion.",
     );
     expect(python).toContain("Annotated[int, Ge(0), Le(10)]");
+  });
+
+  test("every reviewed generated model member collision fails closed", () => {
+    // Exact public `dir(BaseModel)` snapshot for the repository-pinned
+    // Pydantic 2.12.5, plus ContractModel.wire_dict. Keeping the expectation
+    // independent from the emitter makes dropping any reviewed collision a
+    // visible mutation failure.
+    const collisions = [
+      "construct",
+      "copy",
+      "dict",
+      "from_orm",
+      "json",
+      "model_computed_fields",
+      "model_config",
+      "model_construct",
+      "model_copy",
+      "model_dump",
+      "model_dump_json",
+      "model_extra",
+      "model_fields",
+      "model_fields_set",
+      "model_json_schema",
+      "model_parametrized_name",
+      "model_post_init",
+      "model_rebuild",
+      "model_validate",
+      "model_validate_json",
+      "model_validate_strings",
+      "parse_file",
+      "parse_obj",
+      "parse_raw",
+      "schema",
+      "schema_json",
+      "update_forward_refs",
+      "validate",
+      "wire_dict",
+    ] as const;
+    const catalog = loadSchemaCatalog();
+    const fixtureEntry = catalog.entries.find((entry) =>
+      entry.id.includes("test-record"),
+    );
+    expect(fixtureEntry).toBeDefined();
+    if (fixtureEntry === undefined) {
+      return;
+    }
+
+    for (const collision of collisions) {
+      const mutated = structuredClone(fixtureEntry.document);
+      const properties = mutated.properties as Record<string, unknown>;
+      properties[collision] = {
+        type: "string",
+        minLength: 1,
+        maxLength: 16,
+      };
+      const mutatedEntry = { ...fixtureEntry, document: mutated };
+      const entries = catalog.entries.map((entry) =>
+        entry.id === fixtureEntry.id ? mutatedEntry : entry,
+      );
+      const byId = new Map(entries.map((entry) => [entry.id, entry]));
+      expect(
+        () => emitPython(buildIrCatalog({ entries, byId })),
+        collision,
+      ).toThrow(/not a safe Python\/Pydantic field identifier/);
+    }
+  });
+
+  test("Pydantic protected prefixes fail while safe model fields emit", () => {
+    const catalog = loadSchemaCatalog();
+    const fixtureEntry = catalog.entries.find((entry) =>
+      entry.id.includes("test-record"),
+    );
+    expect(fixtureEntry).toBeDefined();
+    if (fixtureEntry === undefined) {
+      return;
+    }
+
+    for (const collision of ["model_validate_custom", "model_dump_custom"]) {
+      const mutated = structuredClone(fixtureEntry.document);
+      const properties = mutated.properties as Record<string, unknown>;
+      properties[collision] = {
+        type: "string",
+        minLength: 1,
+        maxLength: 16,
+      };
+      const mutatedEntry = { ...fixtureEntry, document: mutated };
+      const entries = catalog.entries.map((entry) =>
+        entry.id === fixtureEntry.id ? mutatedEntry : entry,
+      );
+      const byId = new Map(entries.map((entry) => [entry.id, entry]));
+      expect(
+        () => emitPython(buildIrCatalog({ entries, byId })),
+        collision,
+      ).toThrow(/not a safe Python\/Pydantic field identifier/);
+    }
+
+    const generated = generateContracts().tree.files.get(
+      "python/src/japp_contracts/resume/atomic_claim_v1.py",
+    );
+    expect(generated).toContain("    model_digest:");
+    expect(generated).toContain("    model_profile_ref:");
   });
 
   test("unsupported or unsafe integer variants fail closed", () => {

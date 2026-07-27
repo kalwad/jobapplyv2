@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:form:field-decision:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "FieldDecision",
+  "description": "Canonical reviewed decision for one field. It records policy evidence but does not implement a resolver or grant authority from model output.",
+  "$defs": {
+    "valueSourceType": {
+      "title": "Value source type",
+      "type": "string",
+      "enum": [
+        "ANSWER_POLICY",
+        "APPROVED_DOCUMENT",
+        "DETERMINISTIC_DERIVATION",
+        "MODEL_PROPOSAL",
+        "NONE",
+        "USER_CONFIRMATION",
+        "USER_RECORD"
+      ]
+    },
+    "policyDecision": {
+      "title": "Policy decision",
+      "type": "string",
+      "enum": ["DENY", "PERMIT", "REQUIRE_CONFIRMATION", "UNSUPPORTED"]
+    },
+    "finalDecision": {
+      "title": "Final field decision",
+      "type": "string",
+      "enum": [
+        "BLOCK_UNSUPPORTED",
+        "FILL",
+        "PAUSE_FOR_CONFIRMATION",
+        "PROPOSE",
+        "SKIP_OPTIONAL"
+      ]
+    },
+    "confirmationState": {
+      "title": "User-confirmation state",
+      "type": "string",
+      "enum": ["EXPIRED", "MISSING", "NOT_REQUIRED", "REVOKED", "VALID"]
+    },
+    "reasonCode": {
+      "title": "Stable field-decision reason",
+      "type": "string",
+      "enum": [
+        "CONFIRMATION_EXPIRED",
+        "CONFIRMATION_MISSING",
+        "CONFIRMATION_REVOKED",
+        "DETERMINISTIC_EVIDENCE",
+        "LOW_CLASSIFICATION_CONFIDENCE",
+        "LOW_VALUE_CONFIDENCE",
+        "MODEL_PROPOSAL_ONLY",
+        "OPTIONAL_UNANSWERED",
+        "POLICY_DENIED",
+        "REVIEWED_SOURCE",
+        "SENSITIVE_CONFIRMATION_REQUIRED",
+        "UNSUPPORTED_FIELD"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_id",
+    "field_id",
+    "field_address_digest",
+    "field_concept",
+    "classification_confidence",
+    "value_source_type",
+    "value_confidence",
+    "sensitivity_class",
+    "policy_decision",
+    "final_decision",
+    "confirmation_state",
+    "reason_codes",
+    "provenance",
+    "correlation_id"
+  ],
+  "properties": {
+    "decision_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "field_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "field_address_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "field_concept": {
+      "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+    },
+    "classification_confidence": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "value_source_type": {
+      "$ref": "#/$defs/valueSourceType"
+    },
+    "value_source_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "value_confidence": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "sensitivity_class": {
+      "$ref": "urn:japp:schema:common:redaction:v1#/$defs/sensitivityClass"
+    },
+    "policy_decision": {
+      "$ref": "#/$defs/policyDecision"
+    },
+    "final_decision": {
+      "$ref": "#/$defs/finalDecision"
+    },
+    "confirmation_state": {
+      "$ref": "#/$defs/confirmationState"
+    },
+    "user_confirmation_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reasonCode"
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "causation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+    }
+  }
+}

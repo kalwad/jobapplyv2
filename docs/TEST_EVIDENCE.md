@@ -33,6 +33,145 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W06 — Define feasibility and benchmark contracts (2026-07-27)
+
+- Revision: implementation working tree based on starting commit
+  `4bfe9f60e37957a7292f4d545bfa0734f9757d00`; the immutable content tree and
+  commit are recorded after the required content commit.
+- Environment: macOS 27.0 (Apple silicon); Node 24.18.0; pnpm 11.17.0; uv
+  0.11.32; uv-managed Python 3.12.13; cargo/rustc 1.97.1; Pydantic 2.12.5;
+  Playwright 1.62.0 with pinned Chromium.
+- Bootstrap: clean `main`, `HEAD == origin/main ==
+  4bfe9f60e37957a7292f4d545bfa0734f9757d00`; M00 ACCEPTED, M01
+  IN_PROGRESS, M01-W01…W05 VERIFIED, M01-W06 sole READY, later packages
+  NOT_STARTED, all gates NOT_EVALUATED, release NOT_READY, and traceability
+  exactly 157 requirements / 286 packages. Final M01-W05 run 30262892902
+  passed Ubuntu job 89966710857, macOS job 89966710899, and Windows job
+  89966710918. Status, traceability, generated drift, doctor, full verify,
+  the requested M01-W05 diff, mandatory sources, and the unchanged
+  fail-closed native-host scaffold were inspected before M01-W06 alone became
+  IN_PROGRESS.
+- Canonical contracts: 21 strict Draft 2020-12 root schemas across form (5),
+  ATS (1), Workday (3), session (4), benchmark (3), gate (2), resume (2), and
+  rendering (1), plus bounded shared contract-text primitives and the
+  semantic-rule-catalog schema. All roots are closed, versioned, path-ID
+  exact, bounded, local-reference-only, default-free, and prohibit executable,
+  secret, raw-selector, HTML, and arbitrary-path vocabulary.
+- Semantic architecture: JSON Schema remains structural truth. The validated
+  `semantic-rules.v1.json` contains 42 sorted exact-schema bindings over a
+  closed 22-kind finite vocabulary: one family invariant and one inert-text
+  rule per root. The generator rejects expression languages, unknown/rebound
+  schema vocabulary, raw selector/script/HTML/credential/key tokens,
+  AUTO_SUBMIT, and FINAL_SUBMIT before emitting identical finite TypeScript
+  and Python evaluators. Structural validation runs before semantic
+  validation in both real adapters; the Rust harness checks the same bindings
+  and representative outcomes without becoming production code.
+- Safety coverage: multiple independent FieldAddress/Workday-step signals;
+  resolution hints without authority; bounded untrusted FieldDescriptor text;
+  evidence/policy/confirmation-gated field decisions; verified-fill
+  persistence/site/generation proof; exact reconciliation counts and blocker
+  readiness; proof/idempotency/postcondition-bound navigation; protected-step
+  pauses and unsafe-uncertain retry rejection; guided pre-submit start
+  prerequisites with no submit authority; exact measured certification scope;
+  immutable benchmark thresholds and complete/matching/comparable PASS;
+  body-free deterministic holdout manifests; complete independent gate
+  evidence and reviewed decisions; evidence-bounded resume claims; and layout
+  acceptance blocked independently by overflow, clipping, extraction, fonts,
+  or renderer failure.
+- Generation: format `1.2.0` → `1.3.0` because validated semantic-catalog
+  provenance and generated semantic modules change the generated format.
+  Manifest inventory is 43 schema inputs, five data inputs, 111 generated
+  outputs, and 177 type entries. TypeScript and Python are generator-owned;
+  no handwritten per-language model and no production Rust surface exists.
+- Corpus: explicit reviewed expansion from 113 to 199 sorted synthetic cases;
+  language applicability TypeScript 198, Python 194, Rust 193; operations 57
+  AUTHORIZE / 40 ROUND_TRIP / 94 VALIDATE / 8 VERSION_CHECK. Manifest digest
+  `216cbfd2ad23e8bfe932e952487d37a8cdd50212fcb7fcfb0d135231f1e42016`;
+  files `cases.v1.json` 187954 bytes /
+  `dd1ee13b369618ab0d4847be794e2263f18ec85d83bc2c83ab4ae6ea059d7501`,
+  `raw-wire.v1.json` 2235 bytes /
+  `418a4d9d6211edffe76c61d5c9c68ef684a609022fd93e6a1f97a2700248486e`,
+  and `values.v1.json` 40005 bytes /
+  `66f4fe308f4e1b9ad60ea66b437d2a7514b4b58a8cf4893c0f77e2af9f55aec8`.
+  Representative positive and negative cases cover every W06 family and all
+  critical cross-field invariants while preserving all M01-W05 hostile-wire,
+  authorization, infrastructure, and KI regressions.
+- Compatibility baseline: explicitly updated only after additive schema,
+  generated, and cross-language review. The signature includes the new roots,
+  semantic catalog digest, and exact rule bindings. Read-only mutation tests
+  reject W06 root/required/type/enum/evidence removal, identity/readiness/PASS
+  weakening, raw-selector/script/submission vocabulary, semantic removal or
+  rebind, and valid-case removal; compatible additive schema/optional-field
+  behavior remains accepted. Normal verification cannot update the corpus
+  manifest or baseline.
+- Scope/traceability: only `REQ-GATE-006` lists M01-W06 as an owner. It remains
+  honestly SCAFFOLD_ONLY / NOT_YET_APPLICABLE: this package defines bounded
+  benchmark/holdout/gate evidence records but executes no gate, produces no
+  measured artifact or manual scorer decision, and leaves future execution
+  to M02-W05, M05-W05, and M20-W09. The preserved v1.2 requirement and
+  package-dependency hashes are unchanged; the expanded v1.3 mapping pin was
+  intentionally updated for the W06 evidence anchors and notes. All four
+  actual gates remain NOT_EVALUATED; visual evidence remains
+  NOT_YET_APPLICABLE.
+- Known issues: four pre-closeout regressions discovered by the complete
+  verification/audit pass
+  were fixed in this revision: the generated Python semantic module now
+  carries the mandatory reconstruction command, and isolated governance test
+  fixtures now carry/reset the M01-W06 evidence paths/state, while the Python
+  generator rejects every reviewed Pydantic/ContractModel member collision
+  and protected namespace prefix without banning safe W06 `model_*` fields.
+  The explicit structural-baseline update now owns and tests its exact
+  deterministic serialization, so generic formatting cannot make its update
+  command dirty a clean checkout. No reproducible open defect was added to
+  `docs/KNOWN_ISSUES.md`.
+
+#### M01-W06 local verification
+
+- Frozen reconstruction: `pnpm install --frozen-lockfile`; `uv sync --locked`;
+  `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`; and
+  `cargo fetch --locked --manifest-path
+  packages/contracts/test/contract/rust-harness/Cargo.toml` → exit 0.
+- Deterministic generation/provenance: `pnpm generate:contracts`; two
+  consecutive `pnpm generate:contracts --check` runs → 112 files
+  byte-identical. Explicit corpus-manifest update stabilized byte-for-byte;
+  explicit compatibility-baseline update produced format `1.1.0`, integrity
+  digest `417cf44b110dd74fe17b2e41bd9c1322f089cd16e07b44740097dcf36d4f72e2`;
+  `pnpm contracts:compatibility:check` → compatible, zero findings/additions.
+  Normal verification did not update either reviewed artifact.
+- Focused TypeScript/contract: `pnpm --filter @japp/contracts test` → 16
+  files / 637 passed, including 70 breaking/additive mutation cases, five
+  W06 schema tests, five semantic generator/runtime tests, all M01-W01…W05
+  regressions, rollback/control-byte cases, infrastructure negatives, and
+  the complete corpus. `pnpm test:contract` → ACTIVE/PASS, 5 files / 287
+  passed, protocol 1 proof `typescript=198 python=194 rust=193
+  rust-build=locked-offline`.
+- Focused Python: generated/semantic/adapter/security tests → 181 passed;
+  strict generated-package/adapter mypy → 62 source files with no issues.
+  Full `pnpm test:python` → ACTIVE/PASS, 547 passed; Ruff check/format and
+  repository mypy passed.
+- Focused Rust harness: fmt; locked/offline clippy with `-D warnings`; build;
+  and test → exit 0, 8 passed. `pnpm test:rust` → ACTIVE/PASS: unchanged
+  native-host scaffold 1 passed plus harness 8 passed; no Rust path skipped.
+- Repository gates: `pnpm lint`, `pnpm format:check`, `pnpm typecheck`,
+  `pnpm test`, `pnpm test:contract`, `pnpm test:e2e`, `pnpm test:python`,
+  and `pnpm test:rust` → exit 0. Browser smoke ran 1 controlled Chromium
+  test. TypeScript unit execution ran nine package tasks; contracts alone
+  ran 637 tests.
+- Governance: `pnpm traceability:generate`; `pnpm traceability:check` → 157
+  requirements / 286 packages; `python3 scripts/validate_status.py` → 36
+  groups passed. `pnpm run doctor` → 21 PASS / expected dirty-tree WARNING /
+  0 FAIL / visual alone honestly NOT_YET_APPLICABLE.
+- Aggregate: `pnpm verify` → exit 0; contract-gen and contract ACTIVE/PASS;
+  all other active suites PASS; visual alone NOT_YET_APPLICABLE; 637
+  contract-package tests, 287 focused contract tests, 547 Python tests, 1
+  browser test, 1 native-host test, and 8 locked/offline Rust-harness tests;
+  real adapters ran in all three languages.
+- Scope: `git diff -- services/native-host` remains empty. No benchmark,
+  hidden holdout body, gate evaluation, Workday certification, browser/form
+  action, render, model run, platform service, or M01-W07 implementation was
+  introduced. Clean-clone and hosted evidence are recorded after their exact
+  runs below.
+
 ### M01-W05 — Build contract compatibility tests (2026-07-27)
 
 - Revision: content tree `77fb23c61482ff87643db30f10ed27263254a7b2`

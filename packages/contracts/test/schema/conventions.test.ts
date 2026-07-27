@@ -41,8 +41,14 @@ describe("committed schema source conventions", () => {
   it("loads the canonical catalog with every foundational definition", () => {
     const ids = catalog.entries.map((entry) => entry.id);
     expect(ids).toEqual([
+      // M01-W06 feasibility and benchmark roots joined the canonical catalog.
+      "urn:japp:schema:ats:variant-identity:v1",
+      "urn:japp:schema:benchmark:case:v1",
+      "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "urn:japp:schema:benchmark:result:v1",
       "urn:japp:schema:common:calendar-date:v1",
       "urn:japp:schema:common:confidence:v1",
+      "urn:japp:schema:common:contract-text:v1",
       "urn:japp:schema:common:correlation:v1",
       "urn:japp:schema:common:enum-token:v1",
       "urn:japp:schema:common:envelope:v1",
@@ -58,11 +64,29 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:error:record:v1",
       "urn:japp:schema:error:taxonomy:v1",
       "urn:japp:schema:fixture:test-record:v1",
+      "urn:japp:schema:form:driver-result:v1",
+      "urn:japp:schema:form:field-address:v1",
+      "urn:japp:schema:form:field-decision:v1",
+      "urn:japp:schema:form:field-descriptor:v1",
+      "urn:japp:schema:form:reconciliation-inventory:v1",
+      "urn:japp:schema:gate:decision:v1",
+      "urn:japp:schema:gate:evidence-bundle:v1",
+      "urn:japp:schema:rendering:layout-measurement:v1",
+      "urn:japp:schema:resume:atomic-claim:v1",
+      "urn:japp:schema:resume:plan:v1",
       // M01-W04 security-policy documents joined the canonical catalog.
       "urn:japp:schema:security:authorization-policy:v1",
       "urn:japp:schema:security:authorization-request:v1",
       "urn:japp:schema:security:capability-taxonomy:v1",
       "urn:japp:schema:security:command-taxonomy:v1",
+      "urn:japp:schema:semantic:rule-catalog:v1",
+      "urn:japp:schema:session:application-session:v1",
+      "urn:japp:schema:session:guided-run-mode:v1",
+      "urn:japp:schema:session:navigation-record:v1",
+      "urn:japp:schema:session:page-readiness-proof:v1",
+      "urn:japp:schema:workday:certification-record:v1",
+      "urn:japp:schema:workday:step-identity:v1",
+      "urn:japp:schema:workday:tenant-fingerprint:v1",
     ]);
   });
 

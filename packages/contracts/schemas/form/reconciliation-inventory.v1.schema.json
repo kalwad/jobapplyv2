@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:form:reconciliation-inventory:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Page reconciliation inventory",
+  "description": "Deterministic page-level inventory from which final readiness is recomputed. Caller-supplied contradictory counts cannot be accepted semantically.",
+  "$defs": {
+    "reconciliationCategory": {
+      "title": "Reconciliation category",
+      "type": "string",
+      "enum": [
+        "BLOCKED_SENSITIVE",
+        "NEEDS_REVIEW",
+        "PAGE_CHANGED_VALUE",
+        "REQUIRED_UNRESOLVED",
+        "UNSUPPORTED_OR_SKIPPED",
+        "VERIFIED_FILLED"
+      ]
+    },
+    "confirmationState": {
+      "title": "Sensitive confirmation state",
+      "type": "string",
+      "enum": ["CONFIRMED", "EXPIRED", "MISSING", "NOT_APPLICABLE", "REVOKED"]
+    },
+    "inventoryItem": {
+      "title": "One deterministic reconciliation item",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "field_id",
+        "field_address_digest",
+        "required",
+        "visible",
+        "enabled",
+        "category",
+        "document_state",
+        "changed_value",
+        "confirmation_state",
+        "mandatory_uncertain"
+      ],
+      "properties": {
+        "item_id": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "field_id": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "field_address_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "category": {
+          "$ref": "#/$defs/reconciliationCategory"
+        },
+        "document_state": {
+          "type": "string",
+          "enum": ["CURRENT", "NOT_APPLICABLE", "STALE"]
+        },
+        "changed_value": {
+          "type": "boolean"
+        },
+        "confirmation_state": {
+          "$ref": "#/$defs/confirmationState"
+        },
+        "mandatory_uncertain": {
+          "type": "boolean"
+        }
+      }
+    },
+    "inventoryCounts": {
+      "title": "Claimed reconciliation counts",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "verified_filled",
+        "needs_review",
+        "blocked_sensitive",
+        "unsupported_or_skipped",
+        "required_unresolved",
+        "page_changed_value",
+        "stale_document",
+        "unconfirmed_consequential",
+        "mandatory_uncertain"
+      ],
+      "properties": {
+        "total": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "verified_filled": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "needs_review": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "blocked_sensitive": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "unsupported_or_skipped": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "required_unresolved": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "page_changed_value": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "stale_document": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "unconfirmed_consequential": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "mandatory_uncertain": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "inventory_id",
+    "session_id",
+    "page_id",
+    "document_id",
+    "page_generation",
+    "proof_generation",
+    "items",
+    "counts",
+    "readiness",
+    "evidence_digest",
+    "correlation_id"
+  ],
+  "properties": {
+    "inventory_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "page_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "document_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "page_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "proof_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inventoryItem"
+      },
+      "minItems": 0,
+      "maxItems": 512
+    },
+    "counts": {
+      "$ref": "#/$defs/inventoryCounts"
+    },
+    "readiness": {
+      "type": "string",
+      "enum": ["NOT_READY", "READY"]
+    },
+    "evidence_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:session:application-session:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "ApplicationSession",
+  "description": "Bounded application-session identity and lifecycle snapshot. It defines no run execution behavior.",
+  "$defs": {
+    "runtimeMetadata": {
+      "title": "Bounded browser and runtime version metadata",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "browser_family",
+        "browser_version",
+        "runtime_family",
+        "runtime_version"
+      ],
+      "properties": {
+        "browser_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "browser_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "runtime_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "runtime_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        }
+      }
+    },
+    "snapshotDigests": {
+      "title": "Reviewed input snapshot digests",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_digest", "document_digest", "answer_policy_digest"],
+      "properties": {
+        "profile_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "document_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "answer_policy_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    },
+    "sessionLifecycleState": {
+      "title": "Application-session lifecycle state",
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "CANCELED",
+        "COMPLETED_PRE_SUBMIT",
+        "EXPIRED",
+        "PAUSED",
+        "REVALIDATION_REQUIRED"
+      ]
+    },
+    "revalidationState": {
+      "title": "Expiration and revalidation state",
+      "type": "string",
+      "enum": ["CURRENT", "EXPIRED", "REVALIDATED", "REVALIDATION_REQUIRED"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "job_id",
+    "application_id",
+    "ats_variant",
+    "guided_run_mode",
+    "authorization_profile",
+    "adapter_version",
+    "runtime_metadata",
+    "snapshot_digests",
+    "current_step",
+    "current_page_generation",
+    "correlation_id",
+    "lifecycle_state",
+    "created_at",
+    "updated_at",
+    "revalidation_state"
+  ],
+  "properties": {
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "job_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "application_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "ats_variant": {
+      "$ref": "urn:japp:schema:ats:variant-identity:v1"
+    },
+    "workday_tenant_fingerprint": {
+      "$ref": "urn:japp:schema:workday:tenant-fingerprint:v1"
+    },
+    "guided_run_mode": {
+      "$ref": "urn:japp:schema:session:guided-run-mode:v1"
+    },
+    "authorization_profile": {
+      "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId"
+    },
+    "adapter_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "runtime_metadata": {
+      "$ref": "#/$defs/runtimeMetadata"
+    },
+    "snapshot_digests": {
+      "$ref": "#/$defs/snapshotDigests"
+    },
+    "current_step": {
+      "$ref": "urn:japp:schema:workday:step-identity:v1",
+      "description": "Current multi-signal application/boundary identity. M01-W06 first owns this ATS-neutral boundary vocabulary under the Workday contract family."
+    },
+    "current_page_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/sessionLifecycleState"
+    },
+    "created_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "updated_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "pause_or_cancel_reason": {
+      "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+    },
+    "revalidation_state": {
+      "$ref": "#/$defs/revalidationState"
+    }
+  }
+}

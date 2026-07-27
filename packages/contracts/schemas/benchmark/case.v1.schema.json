@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:benchmark:case:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Benchmark case",
+  "description": "Immutable expected behavior, threshold, corpus, environment, and provenance contract for one future benchmark case.",
+  "$defs": {
+    "benchmarkFamily": {
+      "title": "Benchmark family",
+      "type": "string",
+      "enum": [
+        "AUTOFILL_FEASIBILITY",
+        "CONTRACT_COMPATIBILITY",
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "WORKDAY_GUIDED_PRE_SUBMIT"
+      ]
+    },
+    "expectedBehavior": {
+      "title": "Expected case behavior",
+      "type": "string",
+      "enum": ["ACCEPT", "BLOCK", "MEASURE", "REJECT"]
+    },
+    "thresholdComparator": {
+      "title": "Threshold comparator",
+      "type": "string",
+      "enum": ["AT_LEAST", "AT_MOST", "EXACT"]
+    },
+    "metricUnit": {
+      "title": "Metric unit",
+      "type": "string",
+      "enum": ["BYTES", "COUNT", "MILLISECONDS", "RATIO", "SCORE"]
+    },
+    "threshold": {
+      "title": "One immutable expected threshold",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric_id", "comparator", "expected_value", "unit"],
+      "properties": {
+        "metric_id": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "comparator": {
+          "$ref": "#/$defs/thresholdComparator"
+        },
+        "expected_value": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/metricValue"
+        },
+        "unit": {
+          "$ref": "#/$defs/metricUnit"
+        }
+      }
+    },
+    "inputArtifact": {
+      "title": "Benchmark input artifact commitment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_ref", "artifact_digest", "schema_ref"],
+      "properties": {
+        "artifact_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "artifact_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "schema_ref": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/schemaReference"
+        }
+      }
+    },
+    "environmentRequirements": {
+      "title": "Bounded benchmark environment requirements",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime_profile", "platform_profile", "toolchain_digest"],
+      "properties": {
+        "runtime_profile": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "platform_profile": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "toolchain_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "model_profile_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "adapter_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+        },
+        "browser_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "browser_version": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "case_schema_version",
+    "benchmark_family",
+    "corpus_version",
+    "corpus_digest",
+    "input_artifacts",
+    "expected_behavior",
+    "threshold_set_ref",
+    "threshold_set_digest",
+    "thresholds",
+    "environment_requirements",
+    "synthetic_data",
+    "provenance",
+    "holdout_visibility",
+    "applicable_platform_profiles"
+  ],
+  "properties": {
+    "case_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "case_schema_version": {
+      "type": "string",
+      "enum": ["BENCHMARK_CASE_V1"]
+    },
+    "benchmark_family": {
+      "$ref": "#/$defs/benchmarkFamily"
+    },
+    "corpus_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "corpus_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "input_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inputArtifact"
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "expected_behavior": {
+      "$ref": "#/$defs/expectedBehavior"
+    },
+    "threshold_set_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "threshold_set_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "thresholds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/threshold"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "environment_requirements": {
+      "$ref": "#/$defs/environmentRequirements"
+    },
+    "synthetic_data": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "holdout_visibility": {
+      "type": "string",
+      "enum": ["OWNER_CONTROLLED_HIDDEN", "PUBLIC_SYNTHETIC", "REVIEWER_ONLY"]
+    },
+    "applicable_platform_profiles": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 1,
+      "maxItems": 16
+    }
+  }
+}

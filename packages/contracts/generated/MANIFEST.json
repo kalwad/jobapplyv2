@@ -32,11 +32,41 @@
       "sha256": "987d72cdebc54987aa656353a94d7c7d228e42e5639edb6297df6b59fb0eada3",
       "validatedAgainst": "urn:japp:schema:error:catalog:v1",
       "version": "1.0.0"
+    },
+    {
+      "path": "packages/contracts/catalog/semantic-rules.v1.json",
+      "sha256": "21d234c8d0b94a35ee3760e9113d3feed808681b4d412c56b085fddc9ba4690a",
+      "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
+      "version": "1.0.0"
     }
   ],
-  "formatVersion": "1.2.0",
+  "formatVersion": "1.3.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
+    {
+      "id": "urn:japp:schema:ats:variant-identity:v1",
+      "path": "packages/contracts/schemas/ats/variant-identity.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "8be674249728b6cf40643b2a07b520e0d5ba394444b9489d1060313deb9d9749"
+    },
+    {
+      "id": "urn:japp:schema:benchmark:case:v1",
+      "path": "packages/contracts/schemas/benchmark/case.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "83122bef37c57220caf3467e2ba915a436111ac478817ecc9ddf414503ee9d53"
+    },
+    {
+      "id": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "path": "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "139441d5b1bbcd44b35dafe8103d671825b6e9cfb79008a3dfd94d9b4927c738"
+    },
+    {
+      "id": "urn:japp:schema:benchmark:result:v1",
+      "path": "packages/contracts/schemas/benchmark/result.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "8ab75abe179c4fc29f8f057dc40023665edb7e79d6d6ab75134eaa56068e286f"
+    },
     {
       "id": "urn:japp:schema:common:calendar-date:v1",
       "path": "packages/contracts/schemas/common/calendar-date.v1.schema.json",
@@ -48,6 +78,12 @@
       "path": "packages/contracts/schemas/common/confidence.v1.schema.json",
       "schemaVersion": "1.0.0",
       "sha256": "bc9314800ff05d7ae0bd99149a998c3760063e084a5a1bd49b06c11422f6b2c7"
+    },
+    {
+      "id": "urn:japp:schema:common:contract-text:v1",
+      "path": "packages/contracts/schemas/common/contract-text.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "94f461e99d94614fa7fa982bfab36f0d80198eb613b8ca266d98ee4f942a4638"
     },
     {
       "id": "urn:japp:schema:common:correlation:v1",
@@ -134,6 +170,66 @@
       "sha256": "ad76c8065be7ee8ee899235d14bdc192afaf172916c67bea530651e67dc6ab51"
     },
     {
+      "id": "urn:japp:schema:form:driver-result:v1",
+      "path": "packages/contracts/schemas/form/driver-result.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "6329db76b948bc44169c076200fe8a69ab1b53c781d82ee3a0c5f76e521e578c"
+    },
+    {
+      "id": "urn:japp:schema:form:field-address:v1",
+      "path": "packages/contracts/schemas/form/field-address.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "f0d80556c17adeb586ffeeabde9b9d84d2049badab1744539dd0a9be7a5f8594"
+    },
+    {
+      "id": "urn:japp:schema:form:field-decision:v1",
+      "path": "packages/contracts/schemas/form/field-decision.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "0d06a51a9183790fca25f74187b3f313cda1e311283a317f143b17402c34caab"
+    },
+    {
+      "id": "urn:japp:schema:form:field-descriptor:v1",
+      "path": "packages/contracts/schemas/form/field-descriptor.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "4cea2fb8a8e8b1411798c1ef7cc5ec64559424249ce3ce6e05d325090cfe1e0f"
+    },
+    {
+      "id": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "path": "packages/contracts/schemas/form/reconciliation-inventory.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "6f9b0406ba320486a4dea938aef0e53fd32391ec382fd7cd6ed077e793ad1258"
+    },
+    {
+      "id": "urn:japp:schema:gate:decision:v1",
+      "path": "packages/contracts/schemas/gate/decision.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "3f9698a5247bd923d4bb33ff241a971c11d23bf595f0d28befda68bebeaff354"
+    },
+    {
+      "id": "urn:japp:schema:gate:evidence-bundle:v1",
+      "path": "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "be9d0679e830fdf17236d6791f8e1b6bc9e0a3fabd4e77c4e7884683355f40fd"
+    },
+    {
+      "id": "urn:japp:schema:rendering:layout-measurement:v1",
+      "path": "packages/contracts/schemas/rendering/layout-measurement.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c526b565b575d0be3b4321f9cc985ccc6b07480514f66d761324750053521a38"
+    },
+    {
+      "id": "urn:japp:schema:resume:atomic-claim:v1",
+      "path": "packages/contracts/schemas/resume/atomic-claim.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "40176078ead5bb43ae8ce6681626e04ec151b666d9b03eed50b85d6a51b20ff8"
+    },
+    {
+      "id": "urn:japp:schema:resume:plan:v1",
+      "path": "packages/contracts/schemas/resume/plan.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c09bbbfa94979f6a8cf3d8a61923d634205293c80d873107221659d812d982f9"
+    },
+    {
       "id": "urn:japp:schema:security:authorization-policy:v1",
       "path": "packages/contracts/schemas/security/authorization-policy.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -156,20 +252,92 @@
       "path": "packages/contracts/schemas/security/command-taxonomy.v1.schema.json",
       "schemaVersion": "1.0.0",
       "sha256": "f93080d67d5fb0b6d686548045a843b474235fd291838ceacd3793907948cc6a"
+    },
+    {
+      "id": "urn:japp:schema:semantic:rule-catalog:v1",
+      "path": "packages/contracts/schemas/semantic/rule-catalog.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "ea377bf2863bb78f72fb3d05955610cdc7e09fd6d91dc38971016180e43cb15c"
+    },
+    {
+      "id": "urn:japp:schema:session:application-session:v1",
+      "path": "packages/contracts/schemas/session/application-session.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "e7ed95be5d40da772a1665050505f8165569e1dfbfa30d19f0a4a3166faeb83d"
+    },
+    {
+      "id": "urn:japp:schema:session:guided-run-mode:v1",
+      "path": "packages/contracts/schemas/session/guided-run-mode.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "46bace3da26af21e0e1e722598cd90f51cedf66181bef713976a5005e8a50fb0"
+    },
+    {
+      "id": "urn:japp:schema:session:navigation-record:v1",
+      "path": "packages/contracts/schemas/session/navigation-record.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "d5f730ec547518a94a169cf190d0c7e342cfb900fe2f9f4074139efd67832de2"
+    },
+    {
+      "id": "urn:japp:schema:session:page-readiness-proof:v1",
+      "path": "packages/contracts/schemas/session/page-readiness-proof.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "dc69363eeef267fe2641770438c87a19441e542e8a7dd05fbbf58e4b2f69c061"
+    },
+    {
+      "id": "urn:japp:schema:workday:certification-record:v1",
+      "path": "packages/contracts/schemas/workday/certification-record.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c260fd24301b6f8af4e4bc32883c0518bdbb199fd01bfd7a6962475b5fc901a1"
+    },
+    {
+      "id": "urn:japp:schema:workday:step-identity:v1",
+      "path": "packages/contracts/schemas/workday/step-identity.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "41371da1dbc69b758938deac449dad140fbd94bd510fa48c452e6212e4d20446"
+    },
+    {
+      "id": "urn:japp:schema:workday:tenant-fingerprint:v1",
+      "path": "packages/contracts/schemas/workday/tenant-fingerprint.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "096f61f6239ca79726a4bc0b45a47b9d42b8af89c580fc01f7c28a4bf7fb218c"
     }
   ],
   "outputs": [
     {
       "path": "README.md",
-      "sha256": "af2301d42cffef9a9649cd99e3e81fd4efae44cba0e85a99e7b5a91b078923aa"
+      "sha256": "dd6207b6628e9462cd8035abfc0c47df66bb9381b8b38deec8376ef979976e12"
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "1bbd2f94490e58f5df417253bae8c183c9235a262052a60f7822fef7461a6cdb"
+      "sha256": "d99d86ce21429ffc2b7eadd8fe5617434324a30c65ae7abfce8846bb4a7ad6b6"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
       "sha256": "57400a3ac6a16b94ed08104764278be0fa3a2d0a9bf46721e37055cf315b1c6c"
+    },
+    {
+      "path": "python/src/japp_contracts/ats/__init__.py",
+      "sha256": "e94560b63a28725106c7eaa663b8f6fc5fef4d68cdaf32bc8aa26b915718cb7a"
+    },
+    {
+      "path": "python/src/japp_contracts/ats/variant_identity_v1.py",
+      "sha256": "f47879321b0c505be36f601635590dc5ed10401bbcc538b6e68113676d90c530"
+    },
+    {
+      "path": "python/src/japp_contracts/benchmark/__init__.py",
+      "sha256": "bcbdf9f6035305da40b5d308a6f31ac900d3ec4e98649b59aa2f272aaf1c4f9e"
+    },
+    {
+      "path": "python/src/japp_contracts/benchmark/case_v1.py",
+      "sha256": "a6e9441ff83a82941bd3c3686ee4a0efcf41cdaf671dfc877a626237b427a091"
+    },
+    {
+      "path": "python/src/japp_contracts/benchmark/holdout_manifest_v1.py",
+      "sha256": "94c4cba09b153f08145d4edc66471494cbaf4da3799eb3ae70c8948830dfc78d"
+    },
+    {
+      "path": "python/src/japp_contracts/benchmark/result_v1.py",
+      "sha256": "a9fad78fd6eacddda0e0d93d17d1963e60c1affe64d2ec93468fe0d660c179a3"
     },
     {
       "path": "python/src/japp_contracts/common/__init__.py",
@@ -182,6 +350,10 @@
     {
       "path": "python/src/japp_contracts/common/confidence_v1.py",
       "sha256": "3b91a7fe1803109cb7f214757549aea25585de3c3f829c3190bfe3f668da4b26"
+    },
+    {
+      "path": "python/src/japp_contracts/common/contract_text_v1.py",
+      "sha256": "67b10553806935c40042f56e40e68ddd2ba3b64295ae580c93fafabaf29e3ffc"
     },
     {
       "path": "python/src/japp_contracts/common/correlation_v1.py",
@@ -252,8 +424,64 @@
       "sha256": "14d13e348643ef55c0133e280dc39b4ed90dc1d271d98f0ac409b5a9588f243e"
     },
     {
+      "path": "python/src/japp_contracts/form/__init__.py",
+      "sha256": "699bab8f4b1e3d3341780a58ea355265af7868c298242800c7dc64d78bdbae4e"
+    },
+    {
+      "path": "python/src/japp_contracts/form/driver_result_v1.py",
+      "sha256": "a8bd5c2cf3742a8faefbab2ebb111ef4ca664550f87c658b65be22480de74d59"
+    },
+    {
+      "path": "python/src/japp_contracts/form/field_address_v1.py",
+      "sha256": "8e83aba6a9750395d08eee918e89eeac6d5555d9f2b523409085e32e296eb83b"
+    },
+    {
+      "path": "python/src/japp_contracts/form/field_decision_v1.py",
+      "sha256": "1f2924a3c4d4b65235683bf097356494b6aecfbf97e240ff88064ec48a8fea04"
+    },
+    {
+      "path": "python/src/japp_contracts/form/field_descriptor_v1.py",
+      "sha256": "5c1587926f01bb5428077581515894a77223e432e76bc24bc302b9945706766a"
+    },
+    {
+      "path": "python/src/japp_contracts/form/reconciliation_inventory_v1.py",
+      "sha256": "87cd16e01f47e9e9898f82c1d54aefa5a2d9e671c16de5ef13a65e1e87b6569e"
+    },
+    {
+      "path": "python/src/japp_contracts/gate/__init__.py",
+      "sha256": "510264090c1769b2d6b45a520c1bdbec8c4462e4674ef512ac4ea36a79af9ae0"
+    },
+    {
+      "path": "python/src/japp_contracts/gate/decision_v1.py",
+      "sha256": "18e7cfaba7aed6cac77808349e446fc826008278bb4268606d08b4a7d6fe31fb"
+    },
+    {
+      "path": "python/src/japp_contracts/gate/evidence_bundle_v1.py",
+      "sha256": "1d973367d76ee436e5dfe8647339656216db0fd526aa2b9255007997fe208077"
+    },
+    {
       "path": "python/src/japp_contracts/py.typed",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "python/src/japp_contracts/rendering/__init__.py",
+      "sha256": "c101e0e648d4985d8db263ffc1bb438f39a5cc88b22856a122b37daf1afbf89a"
+    },
+    {
+      "path": "python/src/japp_contracts/rendering/layout_measurement_v1.py",
+      "sha256": "059ef51091a46989db6f4d6f3b70c6953f169d1ca916522ef905234f248b9806"
+    },
+    {
+      "path": "python/src/japp_contracts/resume/__init__.py",
+      "sha256": "b03eb26cf39577d56daed9785f7391ea0695951cc4c6c0a91786499cf2e24091"
+    },
+    {
+      "path": "python/src/japp_contracts/resume/atomic_claim_v1.py",
+      "sha256": "32c4642a9da275c7ae8d05a1246ca9cff8defa678828ad3d27c820e51c879d4f"
+    },
+    {
+      "path": "python/src/japp_contracts/resume/plan_v1.py",
+      "sha256": "099d49d2630ae136604f64268aa617fc3f8b18baca0633a6d75961e2aef1fc60"
     },
     {
       "path": "python/src/japp_contracts/security/__init__.py",
@@ -280,12 +508,80 @@
       "sha256": "d36f89ea038d628af4f5fd7e3e96327b810503902389feb0f34baf85b94abec9"
     },
     {
+      "path": "python/src/japp_contracts/semantic/__init__.py",
+      "sha256": "b4791c59e8cda382efac5cde3f1307cf98a134d099e8ace4cb7180b04cc60196"
+    },
+    {
+      "path": "python/src/japp_contracts/semantic/rule_catalog_v1.py",
+      "sha256": "e1565e04f1f8adc15108b7ef85fd3d84cde7d4e4954ff0d8665c6baba94dbc3b"
+    },
+    {
+      "path": "python/src/japp_contracts/semantic/rules_v1.py",
+      "sha256": "f46d816173d1d74700b550ad3a87dd40193122b3617b65916e9b9d02eabe50b7"
+    },
+    {
+      "path": "python/src/japp_contracts/session/__init__.py",
+      "sha256": "dff81e01afb9f20d1b9b287a75a9085f88ceae4775ce2a66ef3b59181a9213e9"
+    },
+    {
+      "path": "python/src/japp_contracts/session/application_session_v1.py",
+      "sha256": "92ec067514a768953b398e71e3a2f9cfdbd09570f01cff4fd344f2dd8d8e4d89"
+    },
+    {
+      "path": "python/src/japp_contracts/session/guided_run_mode_v1.py",
+      "sha256": "b7c5406eda42976f05c897e10986789ae462c5e6457b16d40cdf4c25fae172cc"
+    },
+    {
+      "path": "python/src/japp_contracts/session/navigation_record_v1.py",
+      "sha256": "302f8fe038e401cbfb37a0e48178f2a8d3097d3dd36f9b9257b846971348a0d2"
+    },
+    {
+      "path": "python/src/japp_contracts/session/page_readiness_proof_v1.py",
+      "sha256": "14dfa475a8fe76a1817070c1fe25e344b8947045efb312b5ad06408ac2e25d4e"
+    },
+    {
+      "path": "python/src/japp_contracts/workday/__init__.py",
+      "sha256": "4c6e6829f9e3aa9aaefbab5e710998448ec18defd39f1e56e17d33c83e65285e"
+    },
+    {
+      "path": "python/src/japp_contracts/workday/certification_record_v1.py",
+      "sha256": "5fed70eb08927bdfdfe4089179d8985232ee329c230ccc1f5e4ace514cca5935"
+    },
+    {
+      "path": "python/src/japp_contracts/workday/step_identity_v1.py",
+      "sha256": "d049f0c8f00e1a9e2f7fdf101ee2cd920e0ecb9ce50f43d0cd0089e2ba3ffe76"
+    },
+    {
+      "path": "python/src/japp_contracts/workday/tenant_fingerprint_v1.py",
+      "sha256": "fa7ec57b55e7c9ef77d57cd1e3885066e2b5406c18a0d3b110cbe01f9a5f8d79"
+    },
+    {
+      "path": "typescript/ats/variant-identity.v1.ts",
+      "sha256": "a7e6861b7bac9c53e52c747b647939b04ed0a07fb9cd89a735793ec1da014e76"
+    },
+    {
+      "path": "typescript/benchmark/case.v1.ts",
+      "sha256": "f533cca982ae21f9477cab09c6edceaf109887154ac6f56e840a6c867e2acb46"
+    },
+    {
+      "path": "typescript/benchmark/holdout-manifest.v1.ts",
+      "sha256": "14b91bbd4aa551af81b8591e8f928781adb896c40827cff4a3df96aa3959043c"
+    },
+    {
+      "path": "typescript/benchmark/result.v1.ts",
+      "sha256": "d67256e540762b54a9ce1870575f7d35c2417815f2ccda8811d764209beccd81"
+    },
+    {
       "path": "typescript/common/calendar-date.v1.ts",
       "sha256": "1ce87fca387a7b61f1d2d4a77760068a54ccf55e6fe4317a4a95305eaec1827c"
     },
     {
       "path": "typescript/common/confidence.v1.ts",
       "sha256": "71c584cb12147442c6398b5e00f85eed84fa3740ca2c21ef47beaf274daee477"
+    },
+    {
+      "path": "typescript/common/contract-text.v1.ts",
+      "sha256": "2fe84b0b70cfc7616dc6dda21bb62f77f612c981a449f1f9683828ce7f475463"
     },
     {
       "path": "typescript/common/correlation.v1.ts",
@@ -348,8 +644,48 @@
       "sha256": "3664d7a7289282b4963dc4f3f9ae6ee7ca4edc81e118913056b91e3f7e58ac30"
     },
     {
+      "path": "typescript/form/driver-result.v1.ts",
+      "sha256": "28fa8843ae0c909f06b98333ea9317afa9824563fc39a4f87088a6c1f735f4cf"
+    },
+    {
+      "path": "typescript/form/field-address.v1.ts",
+      "sha256": "57f59e607fd72160bbb0ec0b834850ba2e0d009d45573cbb13f86bf8e9d5d95c"
+    },
+    {
+      "path": "typescript/form/field-decision.v1.ts",
+      "sha256": "7c3386bf15f599bcbabc78e862462d5dcfc5d4a9a4e8cee4b2ddfcdd69bfede0"
+    },
+    {
+      "path": "typescript/form/field-descriptor.v1.ts",
+      "sha256": "56c741fba43e0776e4fc6c333162d96d4a0afb036c7b9d96b9ca9ffef75059ff"
+    },
+    {
+      "path": "typescript/form/reconciliation-inventory.v1.ts",
+      "sha256": "6f3a42efa3570ba71ff08af78c0b82f93cb1fa3708af87fbeb3471c3d4caeba1"
+    },
+    {
+      "path": "typescript/gate/decision.v1.ts",
+      "sha256": "04f622fe930a94300237d8e6964788740edec4e6188b6f17ab99eb5cdd14a428"
+    },
+    {
+      "path": "typescript/gate/evidence-bundle.v1.ts",
+      "sha256": "495f04036427d35774d402465104b4aca152f28f6174e66d1208a7979f588ac7"
+    },
+    {
       "path": "typescript/index.ts",
-      "sha256": "59dfccf1ea2ae7a78be838764f47b9926ebbfcef217f97707dcd48979a2c048a"
+      "sha256": "c5a23796ec141aaa698c11fb52aa3fdbf9d63f4211415a0c0a53ed686decc74e"
+    },
+    {
+      "path": "typescript/rendering/layout-measurement.v1.ts",
+      "sha256": "622d84f2bd8431924582f8f1457a31d603d4406e7871cddb0d56324ba55b0ebc"
+    },
+    {
+      "path": "typescript/resume/atomic-claim.v1.ts",
+      "sha256": "ed4b9b8067f424df08b6ab866c23d550fe20838fdf837564fec0350c357cf250"
+    },
+    {
+      "path": "typescript/resume/plan.v1.ts",
+      "sha256": "3c79eff1150b05081134de2b99603ea52987eb7cffdefa456d1e80b5e57a8a1e"
     },
     {
       "path": "typescript/security/authorization-policy.v1.ts",
@@ -372,11 +708,267 @@
       "sha256": "0bfb944ff0ef545fa108324a3c64dba8a2414bb4e7a922b9be3085aa0d05a0e9"
     },
     {
+      "path": "typescript/semantic/rule-catalog.v1.ts",
+      "sha256": "a30f471e96fc88427f075c96989c17b0ca1fdb45212277ac8462dca333dbdd21"
+    },
+    {
+      "path": "typescript/semantic/rules.v1.ts",
+      "sha256": "a9b2d7aba9788b264c5d9f709cf5372b3b8c958d0a23b6e2a860c2e73b43cd05"
+    },
+    {
+      "path": "typescript/session/application-session.v1.ts",
+      "sha256": "480ea5cec7145b752a709a5c6b0b1783eca73bb1ef64cf7951d57440ad97850f"
+    },
+    {
+      "path": "typescript/session/guided-run-mode.v1.ts",
+      "sha256": "ade932bf90370745c74144acfcfcd1bff73e037ba4b821e2ec52346f6d254143"
+    },
+    {
+      "path": "typescript/session/navigation-record.v1.ts",
+      "sha256": "2e7308b4be4ba7c60f802c8cfea79e5ed76f57d8465a00748c7416f7369a5081"
+    },
+    {
+      "path": "typescript/session/page-readiness-proof.v1.ts",
+      "sha256": "2403b13ff37dd68c11b1e1e101e3d61e58bd2b1bb7c5bc29b83d0adb6204554f"
+    },
+    {
       "path": "typescript/validators.ts",
-      "sha256": "c120d81e85e5446434d0486de653fb451a8d46f0839c95f18a1cfe6b794ee4cb"
+      "sha256": "09e00bc1ece40a961e6f7123aaa1d69d562236d191a000a4d5f93b351b2fc006"
+    },
+    {
+      "path": "typescript/workday/certification-record.v1.ts",
+      "sha256": "4f0c8105bc6a721c4ad4fc5b4a47a2fa6db544c53e2814ab8d0068637ccd6788"
+    },
+    {
+      "path": "typescript/workday/step-identity.v1.ts",
+      "sha256": "6fa237a394c47a820f89416bb8c76dfa1e0cfcbdfd9e52dde3d0bea93c74c6b5"
+    },
+    {
+      "path": "typescript/workday/tenant-fingerprint.v1.ts",
+      "sha256": "d14711c59b41b09f5de68a781ee3ff10a96061c3e3ec17915b725820c346caf1"
     }
   ],
   "types": {
+    "urn:japp:schema:ats:variant-identity:v1": {
+      "python": {
+        "module": "japp_contracts.ats.variant_identity_v1",
+        "symbol": "AtsVariantIdentityV1"
+      },
+      "typescript": {
+        "export": "AtsVariantIdentityV1",
+        "module": "typescript/ats/variant-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:ats:variant-identity:v1#/$defs/sessionMode": {
+      "python": {
+        "module": "japp_contracts.ats.variant_identity_v1",
+        "symbol": "AtsVariantIdentityV1SessionMode"
+      },
+      "typescript": {
+        "export": "AtsVariantIdentityV1SessionMode",
+        "module": "typescript/ats/variant-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/benchmarkFamily": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1BenchmarkFamily"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1BenchmarkFamily",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/environmentRequirements": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1EnvironmentRequirements"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1EnvironmentRequirements",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/expectedBehavior": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1ExpectedBehavior"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1ExpectedBehavior",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/inputArtifact": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1InputArtifact"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1InputArtifact",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/metricUnit": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1MetricUnit"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1MetricUnit",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/threshold": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1Threshold"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1Threshold",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:case:v1#/$defs/thresholdComparator": {
+      "python": {
+        "module": "japp_contracts.benchmark.case_v1",
+        "symbol": "BenchmarkCaseV1ThresholdComparator"
+      },
+      "typescript": {
+        "export": "BenchmarkCaseV1ThresholdComparator",
+        "module": "typescript/benchmark/case.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:holdout-manifest:v1": {
+      "python": {
+        "module": "japp_contracts.benchmark.holdout_manifest_v1",
+        "symbol": "BenchmarkHoldoutManifestV1"
+      },
+      "typescript": {
+        "export": "BenchmarkHoldoutManifestV1",
+        "module": "typescript/benchmark/holdout-manifest.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:holdout-manifest:v1#/$defs/categoryCount": {
+      "python": {
+        "module": "japp_contracts.benchmark.holdout_manifest_v1",
+        "symbol": "BenchmarkHoldoutManifestV1CategoryCount"
+      },
+      "typescript": {
+        "export": "BenchmarkHoldoutManifestV1CategoryCount",
+        "module": "typescript/benchmark/holdout-manifest.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:holdout-manifest:v1#/$defs/encryptedBundleMetadata": {
+      "python": {
+        "module": "japp_contracts.benchmark.holdout_manifest_v1",
+        "symbol": "BenchmarkHoldoutManifestV1EncryptedBundleMetadata"
+      },
+      "typescript": {
+        "export": "BenchmarkHoldoutManifestV1EncryptedBundleMetadata",
+        "module": "typescript/benchmark/holdout-manifest.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:holdout-manifest:v1#/$defs/fileCommitment": {
+      "python": {
+        "module": "japp_contracts.benchmark.holdout_manifest_v1",
+        "symbol": "BenchmarkHoldoutManifestV1FileCommitment"
+      },
+      "typescript": {
+        "export": "BenchmarkHoldoutManifestV1FileCommitment",
+        "module": "typescript/benchmark/holdout-manifest.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:holdout-manifest:v1#/$defs/schemaVersionEntry": {
+      "python": {
+        "module": "japp_contracts.benchmark.holdout_manifest_v1",
+        "symbol": "BenchmarkHoldoutManifestV1SchemaVersionEntry"
+      },
+      "typescript": {
+        "export": "BenchmarkHoldoutManifestV1SchemaVersionEntry",
+        "module": "typescript/benchmark/holdout-manifest.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/completenessState": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1CompletenessState"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1CompletenessState",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/environmentMatchState": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1EnvironmentMatchState"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1EnvironmentMatchState",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/hashState": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1HashState"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1HashState",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/holdoutState": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1HoldoutState"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1HoldoutState",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/metricResult": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1MetricResult"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1MetricResult",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
+    "urn:japp:schema:benchmark:result:v1#/$defs/runtimeMetadata": {
+      "python": {
+        "module": "japp_contracts.benchmark.result_v1",
+        "symbol": "BenchmarkResultV1RuntimeMetadata"
+      },
+      "typescript": {
+        "export": "BenchmarkResultV1RuntimeMetadata",
+        "module": "typescript/benchmark/result.v1.ts"
+      }
+    },
     "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate": {
       "python": {
         "module": "japp_contracts.common.calendar_date_v1",
@@ -395,6 +987,96 @@
       "typescript": {
         "export": "CommonConfidenceV1Confidence",
         "module": "typescript/common/confidence.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1BoundedToken"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1BoundedToken",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1GitObjectId"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1GitObjectId",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/locale": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1Locale"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1Locale",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/metricValue": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1MetricValue"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1MetricValue",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1NonNegativeSafeInteger"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1NonNegativeSafeInteger",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1NormalizedText"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1NormalizedText",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/positiveSafeInteger": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1PositiveSafeInteger"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1PositiveSafeInteger",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/schemaReference": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1SchemaReference"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1SchemaReference",
+        "module": "typescript/common/contract-text.v1.ts"
+      }
+    },
+    "urn:japp:schema:common:contract-text:v1#/$defs/versionText": {
+      "python": {
+        "module": "japp_contracts.common.contract_text_v1",
+        "symbol": "CommonContractTextV1VersionText"
+      },
+      "typescript": {
+        "export": "CommonContractTextV1VersionText",
+        "module": "typescript/common/contract-text.v1.ts"
       }
     },
     "urn:japp:schema:common:correlation:v1#/$defs/causationId": {
@@ -737,6 +1419,576 @@
         "module": "typescript/fixture/test-record.v1.ts"
       }
     },
+    "urn:japp:schema:form:driver-result:v1": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/actionAttempt": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1ActionAttempt"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1ActionAttempt",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/driverOutcome": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1DriverOutcome"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1DriverOutcome",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/preconditionsResult": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1PreconditionsResult"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1PreconditionsResult",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1ReasonCode"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1ReasonCode",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/recoveryResult": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1RecoveryResult"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1RecoveryResult",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/resolutionResult": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1ResolutionResult"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1ResolutionResult",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/siteAcceptance": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1SiteAcceptance"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1SiteAcceptance",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:driver-result:v1#/$defs/valueEvidence": {
+      "python": {
+        "module": "japp_contracts.form.driver_result_v1",
+        "symbol": "FormDriverResultV1ValueEvidence"
+      },
+      "typescript": {
+        "export": "FormDriverResultV1ValueEvidence",
+        "module": "typescript/form/driver-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1#/$defs/atsFamily": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1AtsFamily"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1AtsFamily",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1#/$defs/repeaterPathEntry": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1RepeaterPathEntry"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1RepeaterPathEntry",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1#/$defs/resolutionHint": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1ResolutionHint"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1ResolutionHint",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1#/$defs/resolutionHintKind": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1ResolutionHintKind"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1ResolutionHintKind",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-address:v1#/$defs/stabilityClass": {
+      "python": {
+        "module": "japp_contracts.form.field_address_v1",
+        "symbol": "FormFieldAddressV1StabilityClass"
+      },
+      "typescript": {
+        "export": "FormFieldAddressV1StabilityClass",
+        "module": "typescript/form/field-address.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1#/$defs/confirmationState": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1ConfirmationState"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1ConfirmationState",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1#/$defs/finalDecision": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1FinalDecision"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1FinalDecision",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1#/$defs/policyDecision": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1PolicyDecision"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1PolicyDecision",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1ReasonCode"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1ReasonCode",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-decision:v1#/$defs/valueSourceType": {
+      "python": {
+        "module": "japp_contracts.form.field_decision_v1",
+        "symbol": "FormFieldDecisionV1ValueSourceType"
+      },
+      "typescript": {
+        "export": "FormFieldDecisionV1ValueSourceType",
+        "module": "typescript/form/field-decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1#/$defs/controlKind": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1ControlKind"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1ControlKind",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1#/$defs/observedValue": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1ObservedValue"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1ObservedValue",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1#/$defs/optionSemantic": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1OptionSemantic"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1OptionSemantic",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1#/$defs/untrustedTextRepresentation": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1UntrustedTextRepresentation"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1UntrustedTextRepresentation",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:field-descriptor:v1#/$defs/validationState": {
+      "python": {
+        "module": "japp_contracts.form.field_descriptor_v1",
+        "symbol": "FormFieldDescriptorV1ValidationState"
+      },
+      "typescript": {
+        "export": "FormFieldDescriptorV1ValidationState",
+        "module": "typescript/form/field-descriptor.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:reconciliation-inventory:v1": {
+      "python": {
+        "module": "japp_contracts.form.reconciliation_inventory_v1",
+        "symbol": "FormReconciliationInventoryV1"
+      },
+      "typescript": {
+        "export": "FormReconciliationInventoryV1",
+        "module": "typescript/form/reconciliation-inventory.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:reconciliation-inventory:v1#/$defs/confirmationState": {
+      "python": {
+        "module": "japp_contracts.form.reconciliation_inventory_v1",
+        "symbol": "FormReconciliationInventoryV1ConfirmationState"
+      },
+      "typescript": {
+        "export": "FormReconciliationInventoryV1ConfirmationState",
+        "module": "typescript/form/reconciliation-inventory.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:reconciliation-inventory:v1#/$defs/inventoryCounts": {
+      "python": {
+        "module": "japp_contracts.form.reconciliation_inventory_v1",
+        "symbol": "FormReconciliationInventoryV1InventoryCounts"
+      },
+      "typescript": {
+        "export": "FormReconciliationInventoryV1InventoryCounts",
+        "module": "typescript/form/reconciliation-inventory.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:reconciliation-inventory:v1#/$defs/inventoryItem": {
+      "python": {
+        "module": "japp_contracts.form.reconciliation_inventory_v1",
+        "symbol": "FormReconciliationInventoryV1InventoryItem"
+      },
+      "typescript": {
+        "export": "FormReconciliationInventoryV1InventoryItem",
+        "module": "typescript/form/reconciliation-inventory.v1.ts"
+      }
+    },
+    "urn:japp:schema:form:reconciliation-inventory:v1#/$defs/reconciliationCategory": {
+      "python": {
+        "module": "japp_contracts.form.reconciliation_inventory_v1",
+        "symbol": "FormReconciliationInventoryV1ReconciliationCategory"
+      },
+      "typescript": {
+        "export": "FormReconciliationInventoryV1ReconciliationCategory",
+        "module": "typescript/form/reconciliation-inventory.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1"
+      },
+      "typescript": {
+        "export": "GateDecisionV1",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1#/$defs/gateDecision": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1GateDecision"
+      },
+      "typescript": {
+        "export": "GateDecisionV1GateDecision",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1#/$defs/independentReviewState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1IndependentReviewState"
+      },
+      "typescript": {
+        "export": "GateDecisionV1IndependentReviewState",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1#/$defs/ownerDecisionState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1OwnerDecisionState"
+      },
+      "typescript": {
+        "export": "GateDecisionV1OwnerDecisionState",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1ReasonCode"
+      },
+      "typescript": {
+        "export": "GateDecisionV1ReasonCode",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v1#/$defs/thresholdEvidenceSummary": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v1",
+        "symbol": "GateDecisionV1ThresholdEvidenceSummary"
+      },
+      "typescript": {
+        "export": "GateDecisionV1ThresholdEvidenceSummary",
+        "module": "typescript/gate/decision.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v1": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v1",
+        "symbol": "GateEvidenceBundleV1"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV1",
+        "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v1#/$defs/completenessInventory": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v1",
+        "symbol": "GateEvidenceBundleV1CompletenessInventory"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV1CompletenessInventory",
+        "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v1",
+        "symbol": "GateEvidenceBundleV1GateId"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV1GateId",
+        "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1#/$defs/contentBounds": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1ContentBounds"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1ContentBounds",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1#/$defs/environmentMetadata": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1EnvironmentMetadata"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1EnvironmentMetadata",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1#/$defs/fontCommitment": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1FontCommitment"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1FontCommitment",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1#/$defs/layoutResult": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1LayoutResult"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1LayoutResult",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:rendering:layout-measurement:v1#/$defs/pageDimensions": {
+      "python": {
+        "module": "japp_contracts.rendering.layout_measurement_v1",
+        "symbol": "RenderingLayoutMeasurementV1PageDimensions"
+      },
+      "typescript": {
+        "export": "RenderingLayoutMeasurementV1PageDimensions",
+        "module": "typescript/rendering/layout-measurement.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:atomic-claim:v1": {
+      "python": {
+        "module": "japp_contracts.resume.atomic_claim_v1",
+        "symbol": "ResumeAtomicClaimV1"
+      },
+      "typescript": {
+        "export": "ResumeAtomicClaimV1",
+        "module": "typescript/resume/atomic-claim.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:atomic-claim:v1#/$defs/claimType": {
+      "python": {
+        "module": "japp_contracts.resume.atomic_claim_v1",
+        "symbol": "ResumeAtomicClaimV1ClaimType"
+      },
+      "typescript": {
+        "export": "ResumeAtomicClaimV1ClaimType",
+        "module": "typescript/resume/atomic-claim.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:atomic-claim:v1#/$defs/userAction": {
+      "python": {
+        "module": "japp_contracts.resume.atomic_claim_v1",
+        "symbol": "ResumeAtomicClaimV1UserAction"
+      },
+      "typescript": {
+        "export": "ResumeAtomicClaimV1UserAction",
+        "module": "typescript/resume/atomic-claim.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:atomic-claim:v1#/$defs/verificationStatus": {
+      "python": {
+        "module": "japp_contracts.resume.atomic_claim_v1",
+        "symbol": "ResumeAtomicClaimV1VerificationStatus"
+      },
+      "typescript": {
+        "export": "ResumeAtomicClaimV1VerificationStatus",
+        "module": "typescript/resume/atomic-claim.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1"
+      },
+      "typescript": {
+        "export": "ResumePlanV1",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1#/$defs/budget": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1Budget"
+      },
+      "typescript": {
+        "export": "ResumePlanV1Budget",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1#/$defs/editDecision": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1EditDecision"
+      },
+      "typescript": {
+        "export": "ResumePlanV1EditDecision",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1#/$defs/evidenceAssignment": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1EvidenceAssignment"
+      },
+      "typescript": {
+        "export": "ResumePlanV1EvidenceAssignment",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1#/$defs/requirementEntry": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1RequirementEntry"
+      },
+      "typescript": {
+        "export": "ResumePlanV1RequirementEntry",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:resume:plan:v1#/$defs/terminologyDecision": {
+      "python": {
+        "module": "japp_contracts.resume.plan_v1",
+        "symbol": "ResumePlanV1TerminologyDecision"
+      },
+      "typescript": {
+        "export": "ResumePlanV1TerminologyDecision",
+        "module": "typescript/resume/plan.v1.ts"
+      }
+    },
     "urn:japp:schema:security:authorization-policy:v1": {
       "python": {
         "module": "japp_contracts.security.authorization_policy_v1",
@@ -885,6 +2137,386 @@
       "typescript": {
         "export": "SecurityCommandTaxonomyV1IdempotencyExpectation",
         "module": "typescript/security/command-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v1": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v1",
+        "symbol": "SemanticRuleCatalogV1"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV1",
+        "module": "typescript/semantic/rule-catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleEntry": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v1",
+        "symbol": "SemanticRuleCatalogV1RuleEntry"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV1RuleEntry",
+        "module": "typescript/semantic/rule-catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleKind": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v1",
+        "symbol": "SemanticRuleCatalogV1RuleKind"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV1RuleKind",
+        "module": "typescript/semantic/rule-catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:application-session:v1": {
+      "python": {
+        "module": "japp_contracts.session.application_session_v1",
+        "symbol": "SessionApplicationSessionV1"
+      },
+      "typescript": {
+        "export": "SessionApplicationSessionV1",
+        "module": "typescript/session/application-session.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:application-session:v1#/$defs/revalidationState": {
+      "python": {
+        "module": "japp_contracts.session.application_session_v1",
+        "symbol": "SessionApplicationSessionV1RevalidationState"
+      },
+      "typescript": {
+        "export": "SessionApplicationSessionV1RevalidationState",
+        "module": "typescript/session/application-session.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:application-session:v1#/$defs/runtimeMetadata": {
+      "python": {
+        "module": "japp_contracts.session.application_session_v1",
+        "symbol": "SessionApplicationSessionV1RuntimeMetadata"
+      },
+      "typescript": {
+        "export": "SessionApplicationSessionV1RuntimeMetadata",
+        "module": "typescript/session/application-session.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:application-session:v1#/$defs/sessionLifecycleState": {
+      "python": {
+        "module": "japp_contracts.session.application_session_v1",
+        "symbol": "SessionApplicationSessionV1SessionLifecycleState"
+      },
+      "typescript": {
+        "export": "SessionApplicationSessionV1SessionLifecycleState",
+        "module": "typescript/session/application-session.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:application-session:v1#/$defs/snapshotDigests": {
+      "python": {
+        "module": "japp_contracts.session.application_session_v1",
+        "symbol": "SessionApplicationSessionV1SnapshotDigests"
+      },
+      "typescript": {
+        "export": "SessionApplicationSessionV1SnapshotDigests",
+        "module": "typescript/session/application-session.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/pageEligibility": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1PageEligibility"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1PageEligibility",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/revocationState": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1RevocationState"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1RevocationState",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/runKind": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1RunKind"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1RunKind",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/snapshotReadiness": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1SnapshotReadiness"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1SnapshotReadiness",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/snapshotState": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1SnapshotState"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1SnapshotState",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:guided-run-mode:v1#/$defs/startPolicy": {
+      "python": {
+        "module": "japp_contracts.session.guided_run_mode_v1",
+        "symbol": "SessionGuidedRunModeV1StartPolicy"
+      },
+      "typescript": {
+        "export": "SessionGuidedRunModeV1StartPolicy",
+        "module": "typescript/session/guided-run-mode.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:navigation-record:v1": {
+      "python": {
+        "module": "japp_contracts.session.navigation_record_v1",
+        "symbol": "SessionNavigationRecordV1"
+      },
+      "typescript": {
+        "export": "SessionNavigationRecordV1",
+        "module": "typescript/session/navigation-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:navigation-record:v1#/$defs/navigationAction": {
+      "python": {
+        "module": "japp_contracts.session.navigation_record_v1",
+        "symbol": "SessionNavigationRecordV1NavigationAction"
+      },
+      "typescript": {
+        "export": "SessionNavigationRecordV1NavigationAction",
+        "module": "typescript/session/navigation-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:navigation-record:v1#/$defs/navigationOutcome": {
+      "python": {
+        "module": "japp_contracts.session.navigation_record_v1",
+        "symbol": "SessionNavigationRecordV1NavigationOutcome"
+      },
+      "typescript": {
+        "export": "SessionNavigationRecordV1NavigationOutcome",
+        "module": "typescript/session/navigation-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:navigation-record:v1#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.session.navigation_record_v1",
+        "symbol": "SessionNavigationRecordV1ReasonCode"
+      },
+      "typescript": {
+        "export": "SessionNavigationRecordV1ReasonCode",
+        "module": "typescript/session/navigation-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:navigation-record:v1#/$defs/transitionPostconditions": {
+      "python": {
+        "module": "japp_contracts.session.navigation_record_v1",
+        "symbol": "SessionNavigationRecordV1TransitionPostconditions"
+      },
+      "typescript": {
+        "export": "SessionNavigationRecordV1TransitionPostconditions",
+        "module": "typescript/session/navigation-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:page-readiness-proof:v1": {
+      "python": {
+        "module": "japp_contracts.session.page_readiness_proof_v1",
+        "symbol": "SessionPageReadinessProofV1"
+      },
+      "typescript": {
+        "export": "SessionPageReadinessProofV1",
+        "module": "typescript/session/page-readiness-proof.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:page-readiness-proof:v1#/$defs/blockingCounts": {
+      "python": {
+        "module": "japp_contracts.session.page_readiness_proof_v1",
+        "symbol": "SessionPageReadinessProofV1BlockingCounts"
+      },
+      "typescript": {
+        "export": "SessionPageReadinessProofV1BlockingCounts",
+        "module": "typescript/session/page-readiness-proof.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:page-readiness-proof:v1#/$defs/navigationControlIdentity": {
+      "python": {
+        "module": "japp_contracts.session.page_readiness_proof_v1",
+        "symbol": "SessionPageReadinessProofV1NavigationControlIdentity"
+      },
+      "typescript": {
+        "export": "SessionPageReadinessProofV1NavigationControlIdentity",
+        "module": "typescript/session/page-readiness-proof.v1.ts"
+      }
+    },
+    "urn:japp:schema:session:page-readiness-proof:v1#/$defs/siteValidationStatus": {
+      "python": {
+        "module": "japp_contracts.session.page_readiness_proof_v1",
+        "symbol": "SessionPageReadinessProofV1SiteValidationStatus"
+      },
+      "typescript": {
+        "export": "SessionPageReadinessProofV1SiteValidationStatus",
+        "module": "typescript/session/page-readiness-proof.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:certification-record:v1": {
+      "python": {
+        "module": "japp_contracts.workday.certification_record_v1",
+        "symbol": "WorkdayCertificationRecordV1"
+      },
+      "typescript": {
+        "export": "WorkdayCertificationRecordV1",
+        "module": "typescript/workday/certification-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:certification-record:v1#/$defs/certificationMetrics": {
+      "python": {
+        "module": "japp_contracts.workday.certification_record_v1",
+        "symbol": "WorkdayCertificationRecordV1CertificationMetrics"
+      },
+      "typescript": {
+        "export": "WorkdayCertificationRecordV1CertificationMetrics",
+        "module": "typescript/workday/certification-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:certification-record:v1#/$defs/certificationState": {
+      "python": {
+        "module": "japp_contracts.workday.certification_record_v1",
+        "symbol": "WorkdayCertificationRecordV1CertificationState"
+      },
+      "typescript": {
+        "export": "WorkdayCertificationRecordV1CertificationState",
+        "module": "typescript/workday/certification-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:certification-record:v1#/$defs/platformProfile": {
+      "python": {
+        "module": "japp_contracts.workday.certification_record_v1",
+        "symbol": "WorkdayCertificationRecordV1PlatformProfile"
+      },
+      "typescript": {
+        "export": "WorkdayCertificationRecordV1PlatformProfile",
+        "module": "typescript/workday/certification-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:step-identity:v1": {
+      "python": {
+        "module": "japp_contracts.workday.step_identity_v1",
+        "symbol": "WorkdayStepIdentityV1"
+      },
+      "typescript": {
+        "export": "WorkdayStepIdentityV1",
+        "module": "typescript/workday/step-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:step-identity:v1#/$defs/boundaryClass": {
+      "python": {
+        "module": "japp_contracts.workday.step_identity_v1",
+        "symbol": "WorkdayStepIdentityV1BoundaryClass"
+      },
+      "typescript": {
+        "export": "WorkdayStepIdentityV1BoundaryClass",
+        "module": "typescript/workday/step-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:step-identity:v1#/$defs/recognitionSignal": {
+      "python": {
+        "module": "japp_contracts.workday.step_identity_v1",
+        "symbol": "WorkdayStepIdentityV1RecognitionSignal"
+      },
+      "typescript": {
+        "export": "WorkdayStepIdentityV1RecognitionSignal",
+        "module": "typescript/workday/step-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:step-identity:v1#/$defs/recognitionSignalKind": {
+      "python": {
+        "module": "japp_contracts.workday.step_identity_v1",
+        "symbol": "WorkdayStepIdentityV1RecognitionSignalKind"
+      },
+      "typescript": {
+        "export": "WorkdayStepIdentityV1RecognitionSignalKind",
+        "module": "typescript/workday/step-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:step-identity:v1#/$defs/stepFamily": {
+      "python": {
+        "module": "japp_contracts.workday.step_identity_v1",
+        "symbol": "WorkdayStepIdentityV1StepFamily"
+      },
+      "typescript": {
+        "export": "WorkdayStepIdentityV1StepFamily",
+        "module": "typescript/workday/step-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:tenant-fingerprint:v1": {
+      "python": {
+        "module": "japp_contracts.workday.tenant_fingerprint_v1",
+        "symbol": "WorkdayTenantFingerprintV1"
+      },
+      "typescript": {
+        "export": "WorkdayTenantFingerprintV1",
+        "module": "typescript/workday/tenant-fingerprint.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:tenant-fingerprint:v1#/$defs/browserCompatibility": {
+      "python": {
+        "module": "japp_contracts.workday.tenant_fingerprint_v1",
+        "symbol": "WorkdayTenantFingerprintV1BrowserCompatibility"
+      },
+      "typescript": {
+        "export": "WorkdayTenantFingerprintV1BrowserCompatibility",
+        "module": "typescript/workday/tenant-fingerprint.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:tenant-fingerprint:v1#/$defs/browserFamily": {
+      "python": {
+        "module": "japp_contracts.workday.tenant_fingerprint_v1",
+        "symbol": "WorkdayTenantFingerprintV1BrowserFamily"
+      },
+      "typescript": {
+        "export": "WorkdayTenantFingerprintV1BrowserFamily",
+        "module": "typescript/workday/tenant-fingerprint.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:tenant-fingerprint:v1#/$defs/candidateSessionMode": {
+      "python": {
+        "module": "japp_contracts.workday.tenant_fingerprint_v1",
+        "symbol": "WorkdayTenantFingerprintV1CandidateSessionMode"
+      },
+      "typescript": {
+        "export": "WorkdayTenantFingerprintV1CandidateSessionMode",
+        "module": "typescript/workday/tenant-fingerprint.v1.ts"
+      }
+    },
+    "urn:japp:schema:workday:tenant-fingerprint:v1#/$defs/hostnameFamily": {
+      "python": {
+        "module": "japp_contracts.workday.tenant_fingerprint_v1",
+        "symbol": "WorkdayTenantFingerprintV1HostnameFamily"
+      },
+      "typescript": {
+        "export": "WorkdayTenantFingerprintV1HostnameFamily",
+        "module": "typescript/workday/tenant-fingerprint.v1.ts"
       }
     }
   }

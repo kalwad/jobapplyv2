@@ -127,6 +127,848 @@
       },
       "status": "ARCHIVED",
       "superseded_by": "rec_1123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.application-session": {
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "job_id": "job_0123456789ABCDEFGHJKMNPQRS",
+      "application_id": "application_0123456789ABCDEFGHJKMNPQRS",
+      "ats_variant": {
+        "variant_identity_id": "variant_0123456789ABCDEFGHJKMNPQRS",
+        "ats_family": "WORKDAY",
+        "adapter_id": "adapter_0123456789ABCDEFGHJKMNPQRS",
+        "adapter_version": "1.0.0",
+        "pattern_id": "pattern_0123456789ABCDEFGHJKMNPQRS",
+        "locale": "en-US",
+        "session_mode": "GUEST",
+        "route_page_family": "GUEST_APPLICATION",
+        "evidence_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "provenance": {
+          "source_kind": "GENERATED",
+          "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+          "observed_at": "2026-07-27T04:00:00Z"
+        }
+      },
+      "workday_tenant_fingerprint": {
+        "tenant_fingerprint_id": "tenant_0123456789ABCDEFGHJKMNPQRS",
+        "hostname_family": "WORKDAY_TENANT_FAMILY",
+        "locale": "en-US",
+        "candidate_session_mode": "GUEST",
+        "route_family": "CANDIDATE_HOME_TO_APPLICATION",
+        "page_sequence_family": "GUEST_APPLICATION_FLOW",
+        "control_family_inventory": ["NEXT_BUTTON", "TEXT_INPUT"],
+        "control_family_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "tenant_pattern_version": "1.0.0",
+        "adapter_version": "1.0.0",
+        "browser_compatibility": {
+          "browser_family": "CHROMIUM",
+          "minimum_version": "120.0.0",
+          "maximum_tested_version": "128.0.0",
+          "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "evidence_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "guided_run_mode": {
+        "run_mode_id": "runmode_0123456789ABCDEFGHJKMNPQRS",
+        "run_kind": "GUIDED_PRE_SUBMIT",
+        "start_policy": "AUTO_START_ON_OPEN",
+        "prior_opt_in_ref": "optin_0123456789ABCDEFGHJKMNPQRS",
+        "certified_pattern_ref": "pattern_0123456789ABCDEFGHJKMNPQRS",
+        "snapshot_readiness": {
+          "profile": "READY",
+          "document": "READY",
+          "answer_policy": "READY"
+        },
+        "cancelable_start_ref": "cancel_0123456789ABCDEFGHJKMNPQRS",
+        "visible_cancel_control": true,
+        "revocation_state": "ACTIVE",
+        "page_eligibility": "CERTIFIED_APPLICATION_PAGE",
+        "start_permission": "START_ALLOWED"
+      },
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "adapter_version": "1.0.0",
+      "runtime_metadata": {
+        "browser_family": "CHROMIUM",
+        "browser_version": "128.0.0",
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0"
+      },
+      "snapshot_digests": {
+        "profile_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "document_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "answer_policy_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      },
+      "current_step": {
+        "step_identity_id": "step_0123456789ABCDEFGHJKMNPQRS",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "step_family": "GUEST_APPLICATION",
+        "boundary_class": "ORDINARY_APPLICATION",
+        "recognition_signals": [
+          {
+            "kind": "ROUTE_FAMILY",
+            "signal_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+            "confidence": 0.95
+          },
+          {
+            "kind": "CONTROL_FAMILY",
+            "signal_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+            "confidence": 0.95
+          }
+        ],
+        "recognition_confidence": 0.95,
+        "observed_dom_generation": 7,
+        "recognized_at": "2026-07-27T04:00:00Z",
+        "evidence_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "current_page_generation": 7,
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS",
+      "lifecycle_state": "ACTIVE",
+      "created_at": "2026-07-27T04:00:00Z",
+      "updated_at": "2026-07-27T04:00:01Z",
+      "revalidation_state": "CURRENT"
+    },
+    "w06.ats-variant": {
+      "variant_identity_id": "variant_0123456789ABCDEFGHJKMNPQRS",
+      "ats_family": "WORKDAY",
+      "adapter_id": "adapter_0123456789ABCDEFGHJKMNPQRS",
+      "adapter_version": "1.0.0",
+      "pattern_id": "pattern_0123456789ABCDEFGHJKMNPQRS",
+      "locale": "en-US",
+      "session_mode": "GUEST",
+      "route_page_family": "GUEST_APPLICATION",
+      "evidence_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "last_tested_on": "2026-07-27",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    "w06.atomic-claim": {
+      "claim_id": "claim_0123456789ABCDEFGHJKMNPQRS",
+      "claim_type": "ACHIEVEMENT",
+      "claim_text": "Improved deterministic processing",
+      "evidence_refs": ["evidence_0123456789ABCDEFGHJKMNPQRS"],
+      "verification_status": "SUPPORTED",
+      "prompt_version_ref": "prompt_0123456789ABCDEFGHJKMNPQRS",
+      "model_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "model_profile_ref": "model_0123456789ABCDEFGHJKMNPQRS",
+      "verified_at": "2026-07-27T04:00:00Z",
+      "verification_result_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "rejection_error_codes": [],
+      "release_eligible": true,
+      "user_action": "NONE",
+      "canonical_evidence_mutation": false
+    },
+    "w06.benchmark-case": {
+      "case_id": "case_0123456789ABCDEFGHJKMNPQRS",
+      "case_schema_version": "BENCHMARK_CASE_V1",
+      "benchmark_family": "CONTRACT_COMPATIBILITY",
+      "corpus_version": "1.0.0",
+      "corpus_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "input_artifacts": [
+        {
+          "artifact_ref": "artifact_0123456789ABCDEFGHJKMNPQRS",
+          "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "schema_ref": "urn:japp:schema:fixture:test-record:v1"
+        }
+      ],
+      "expected_behavior": "ACCEPT",
+      "threshold_set_ref": "threshold_0123456789ABCDEFGHJKMNPQRS",
+      "threshold_set_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "thresholds": [
+        {
+          "metric_id": "VERDICT_AGREEMENT",
+          "comparator": "EXACT",
+          "expected_value": 1,
+          "unit": "RATIO"
+        }
+      ],
+      "environment_requirements": {
+        "runtime_profile": "NODE_PYTHON_RUST",
+        "platform_profile": "UBUNTU_X86_64",
+        "toolchain_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "synthetic_data": true,
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "holdout_visibility": "PUBLIC_SYNTHETIC",
+      "applicable_platform_profiles": ["UBUNTU_X86_64"]
+    },
+    "w06.benchmark-result": {
+      "result_id": "result_0123456789ABCDEFGHJKMNPQRS",
+      "case_id": "case_0123456789ABCDEFGHJKMNPQRS",
+      "case_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "repository_commit": "0123456789abcdef0123456789abcdef01234567",
+      "repository_tree": "1111111111111111111111111111111111111111",
+      "schema_manifest_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "generator_format_version": "1.3.0",
+      "corpus_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "holdout_manifest_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "platform_profile": "UBUNTU_X86_64",
+        "operating_system": "UBUNTU",
+        "architecture": "X86_64"
+      },
+      "started_at": "2026-07-27T04:00:00Z",
+      "ended_at": "2026-07-27T04:00:01Z",
+      "duration_ms": 1000,
+      "metric_results": [
+        {
+          "metric_id": "VERDICT_AGREEMENT",
+          "measured_value": 1,
+          "unit": "RATIO",
+          "threshold_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "passed": true
+        }
+      ],
+      "case_threshold_set_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "evaluated_threshold_set_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "failure_error_codes": [],
+      "artifact_report_digests": [
+        "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      ],
+      "completeness_state": "COMPLETE",
+      "environment_match_state": "MATCH",
+      "hash_state": "MATCH",
+      "holdout_state": "VALID",
+      "comparable": true,
+      "overall_outcome": "PASS"
+    },
+    "w06.driver-result": {
+      "result_id": "result_1123456789ABCDEFGHJKMNPQRS",
+      "driver_id": "driver_0123456789ABCDEFGHJKMNPQRS",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "field_address": {
+        "address_schema_version": "FIELD_ADDRESS_V1",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "frame_id": "frame_0123456789ABCDEFGHJKMNPQRS",
+        "document_id": "document_0123456789ABCDEFGHJKMNPQRS",
+        "ats_family": "WORKDAY",
+        "route_signature": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "application_root_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "section_path": ["CONTACT_INFORMATION"],
+        "repeater_path": [],
+        "resolution_hints": [],
+        "observed_dom_generation": 7
+      },
+      "resolution_result": "UNIQUE",
+      "preconditions": {
+        "visible": true,
+        "enabled": true,
+        "generation_matched": true,
+        "policy_permitted": true
+      },
+      "action_attempt": {
+        "attempt_id": "attempt_0123456789ABCDEFGHJKMNPQRS",
+        "attempted_at": "2026-07-27T04:00:00Z",
+        "action_count": 1,
+        "duration_ms": 25,
+        "idempotency_key": "idem_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "intended_value": {
+        "semantic_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "presence": "PRESENT_REDACTED"
+      },
+      "observed_value_immediate": {
+        "semantic_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "presence": "PRESENT_REDACTED"
+      },
+      "observed_value_settled": {
+        "semantic_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "presence": "PRESENT_REDACTED"
+      },
+      "site_acceptance": "ACCEPTED",
+      "validation_message_digests": [],
+      "conditional_field_ids": [],
+      "starting_dom_generation": 7,
+      "settled_dom_generation": 7,
+      "persistence_verified": true,
+      "safe_retry_allowed": false,
+      "outcome": "VERIFIED",
+      "reason_codes": ["VERIFIED_PERSISTENCE"],
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.field-address-full": {
+      "address_schema_version": "FIELD_ADDRESS_V1",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "frame_id": "frame_0123456789ABCDEFGHJKMNPQRS",
+      "document_id": "document_0123456789ABCDEFGHJKMNPQRS",
+      "ats_family": "WORKDAY",
+      "tenant_pattern_id": "pattern_0123456789ABCDEFGHJKMNPQRS",
+      "route_signature": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "application_root_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "section_path": ["CONTACT_INFORMATION"],
+      "repeater_path": [
+        {
+          "semantic_concept": "WORK_HISTORY",
+          "stable_item_key": "item_0123456789ABCDEFGHJKMNPQRS"
+        }
+      ],
+      "accessible_name_fingerprint": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "attribute_fingerprint": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "option_fingerprint": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "resolution_hints": [
+        {
+          "kind": "ROLE_TOKEN",
+          "value_fingerprint": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+          "stability_class": "PAGE_STABLE"
+        }
+      ],
+      "observed_dom_generation": 7
+    },
+    "w06.field-address-minimal": {
+      "address_schema_version": "FIELD_ADDRESS_V1",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "frame_id": "frame_0123456789ABCDEFGHJKMNPQRS",
+      "document_id": "document_0123456789ABCDEFGHJKMNPQRS",
+      "ats_family": "WORKDAY",
+      "route_signature": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "section_path": ["CONTACT_INFORMATION"],
+      "repeater_path": [],
+      "resolution_hints": [],
+      "observed_dom_generation": 7
+    },
+    "w06.field-decision": {
+      "decision_id": "decision_0123456789ABCDEFGHJKMNPQRS",
+      "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+      "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "field_concept": "EMAIL_ADDRESS",
+      "classification_confidence": 0.95,
+      "value_source_type": "USER_CONFIRMATION",
+      "value_source_ref": "source_0123456789ABCDEFGHJKMNPQRS",
+      "value_confidence": 0.95,
+      "sensitivity_class": "SENSITIVE",
+      "policy_decision": "REQUIRE_CONFIRMATION",
+      "final_decision": "FILL",
+      "confirmation_state": "VALID",
+      "user_confirmation_ref": "confirm_0123456789ABCDEFGHJKMNPQRS",
+      "reason_codes": ["SENSITIVE_CONFIRMATION_REQUIRED"],
+      "provenance": {
+        "source_kind": "USER_INPUT",
+        "source_id": "source_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.field-descriptor": {
+      "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+      "address": {
+        "address_schema_version": "FIELD_ADDRESS_V1",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "frame_id": "frame_0123456789ABCDEFGHJKMNPQRS",
+        "document_id": "document_0123456789ABCDEFGHJKMNPQRS",
+        "ats_family": "WORKDAY",
+        "route_signature": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "application_root_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "section_path": ["CONTACT_INFORMATION"],
+        "repeater_path": [],
+        "resolution_hints": [],
+        "observed_dom_generation": 7
+      },
+      "control_kind": "TEXT",
+      "visible": true,
+      "enabled": true,
+      "required": true,
+      "sensitive_candidate": false,
+      "label": {
+        "normalized_text": "Email address",
+        "text_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "untrusted": true
+      },
+      "section_context": ["CONTACT_INFORMATION"],
+      "options": [],
+      "current_value": {
+        "semantic_token": "EMPTY",
+        "value_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "presence": "EMPTY"
+      },
+      "validation_state": {
+        "state": "NOT_APPLICABLE",
+        "message_digests": []
+      },
+      "observed_at": "2026-07-27T04:00:00Z",
+      "observed_dom_generation": 7
+    },
+    "w06.gate-decision": {
+      "decision_record_id": "decision_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "evidence_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "decision": "PASS",
+      "threshold_evidence_summary": {
+        "evidence_complete": true,
+        "required_benchmark_results_complete": true,
+        "thresholds_passed": true,
+        "corpus_valid": true,
+        "holdout_valid": true
+      },
+      "independent_review_state": "COMPLETE",
+      "owner_decision_state": "COMPLETE",
+      "decided_at": "2026-07-27T04:00:00Z",
+      "reason_codes": ["REVIEWED_PASS"],
+      "error_codes": []
+    },
+    "w06.gate-evidence": {
+      "evidence_bundle_id": "evidence_1123456789ABCDEFGHJKMNPQRS",
+      "gate_id": "AUTOFILL_FEASIBILITY",
+      "candidate_commit": "0123456789abcdef0123456789abcdef01234567",
+      "candidate_tree": "1111111111111111111111111111111111111111",
+      "corpus_manifest_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "holdout_manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "runtime_metadata": {
+        "runtime_family": "NODE",
+        "runtime_version": "22.0.0",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "platform_profile": "UBUNTU_X86_64"
+      },
+      "benchmark_result_refs": ["result_0123456789ABCDEFGHJKMNPQRS"],
+      "raw_artifact_report_digests": [
+        "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      ],
+      "manual_inspection_evidence_refs": ["inspect_0123456789ABCDEFGHJKMNPQRS"],
+      "independent_review_ref": "review_0123456789ABCDEFGHJKMNPQRS",
+      "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      "owner_decision_ref": "owner_0123456789ABCDEFGHJKMNPQRS",
+      "completeness_inventory": {
+        "required_benchmark_count": 1,
+        "present_benchmark_count": 1,
+        "corpus_valid": true,
+        "holdout_valid": true,
+        "raw_artifacts_complete": true,
+        "manual_inspection_complete": true,
+        "independent_review_complete": true,
+        "owner_decision_requirement": "REQUIRED",
+        "owner_decision_complete": true
+      },
+      "known_limitations": [],
+      "bundle_state": "COMPLETE",
+      "evidence_bundle_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    "w06.guided-run-mode": {
+      "run_mode_id": "runmode_0123456789ABCDEFGHJKMNPQRS",
+      "run_kind": "GUIDED_PRE_SUBMIT",
+      "start_policy": "AUTO_START_ON_OPEN",
+      "prior_opt_in_ref": "optin_0123456789ABCDEFGHJKMNPQRS",
+      "certified_pattern_ref": "pattern_0123456789ABCDEFGHJKMNPQRS",
+      "snapshot_readiness": {
+        "profile": "READY",
+        "document": "READY",
+        "answer_policy": "READY"
+      },
+      "cancelable_start_ref": "cancel_0123456789ABCDEFGHJKMNPQRS",
+      "visible_cancel_control": true,
+      "revocation_state": "ACTIVE",
+      "page_eligibility": "CERTIFIED_APPLICATION_PAGE",
+      "start_permission": "START_ALLOWED"
+    },
+    "w06.holdout-manifest": {
+      "manifest_id": "manifest_0123456789ABCDEFGHJKMNPQRS",
+      "holdout_format_version": "1.0.0",
+      "case_ids": ["case_0123456789ABCDEFGHJKMNPQRS"],
+      "schema_versions": [
+        {
+          "schema_ref": "urn:japp:schema:benchmark:case:v1",
+          "schema_version": "1.0.0"
+        }
+      ],
+      "case_count": 1,
+      "category_counts": [
+        {
+          "category": "CONTRACT_COMPATIBILITY",
+          "count": 1
+        }
+      ],
+      "files": [
+        {
+          "file_id": "file_0123456789ABCDEFGHJKMNPQRS",
+          "content_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+          "byte_count": 128,
+          "case_count": 1
+        }
+      ],
+      "synthetic_only": true,
+      "storage_policy": "OWNER_CONTROLLED_EXTERNAL",
+      "visibility_class": "OWNER_REVIEWER",
+      "creation_provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "review_provenance": {
+        "source_kind": "USER_INPUT",
+        "source_id": "reviewer_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:01Z"
+      },
+      "manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "w06.layout-measurement": {
+      "measurement_id": "measure_0123456789ABCDEFGHJKMNPQRS",
+      "render_artifact_id": "render_0123456789ABCDEFGHJKMNPQRS",
+      "render_artifact_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "source_document_ref": "document_0123456789ABCDEFGHJKMNPQRS",
+      "renderer_version": "1.0.0",
+      "browser_version": "128.0.0",
+      "controlled_fonts": [
+        {
+          "font_family": "INTER",
+          "font_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ],
+      "page_dimensions": {
+        "width_points": 612,
+        "height_points": 792
+      },
+      "page_count": 1,
+      "page_content_bounds": [
+        {
+          "page_number": 1,
+          "x": 36,
+          "y": 36,
+          "width": 540,
+          "height": 720
+        }
+      ],
+      "overflow_detected": false,
+      "clipping_detected": false,
+      "extraction_order_result": "MATCH",
+      "missing_font_families": [],
+      "renderer_succeeded": true,
+      "parseability_score": 1,
+      "readability_score": 1,
+      "word_count": 300,
+      "character_count": 1800,
+      "duration_ms": 100,
+      "environment_metadata": {
+        "platform_profile": "UBUNTU_X86_64",
+        "toolchain_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "layout_result": "ACCEPTED",
+      "error_reason_codes": [],
+      "evidence_report_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "w06.navigation-record": {
+      "navigation_record_id": "nav_0123456789ABCDEFGHJKMNPQRS",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "source_step_identity": {
+        "step_identity_id": "step_0123456789ABCDEFGHJKMNPQRS",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "step_family": "GUEST_APPLICATION",
+        "boundary_class": "ORDINARY_APPLICATION",
+        "recognition_signals": [
+          {
+            "kind": "ROUTE_FAMILY",
+            "signal_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "confidence": 0.95
+          },
+          {
+            "kind": "CONTROL_FAMILY",
+            "signal_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "confidence": 0.95
+          }
+        ],
+        "recognition_confidence": 0.95,
+        "observed_dom_generation": 7,
+        "recognized_at": "2026-07-27T04:00:00Z",
+        "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "expected_destination_family": "AUTHENTICATED_APPLICATION",
+      "allowed_destination_families": ["AUTHENTICATED_APPLICATION"],
+      "source_page_generation": 7,
+      "readiness_proof_ref": "proof_0123456789ABCDEFGHJKMNPQRS",
+      "readiness_proof_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "navigation_control": {
+        "control_id": "control_0123456789ABCDEFGHJKMNPQRS",
+        "identity_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "resolution": "UNIQUE"
+      },
+      "action": "NEXT",
+      "idempotency_key": "idem_0123456789ABCDEFGHJKMNPQRS",
+      "initiating_run_kind": "GUIDED_PRE_SUBMIT",
+      "initiating_start_policy": "MANUAL_START",
+      "attempted_at": "2026-07-27T04:00:01Z",
+      "postconditions": {
+        "source_generation_changed": true,
+        "destination_recognized": true,
+        "source_control_absent_or_inactive": true
+      },
+      "observed_destination_identity": {
+        "step_identity_id": "step_1123456789ABCDEFGHJKMNPQRS",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "step_family": "AUTHENTICATED_APPLICATION",
+        "boundary_class": "ORDINARY_APPLICATION",
+        "recognition_signals": [
+          {
+            "kind": "PAGE_SEQUENCE",
+            "signal_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+            "confidence": 0.95
+          },
+          {
+            "kind": "CONTROL_FAMILY",
+            "signal_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+            "confidence": 0.95
+          }
+        ],
+        "recognition_confidence": 0.95,
+        "observed_dom_generation": 8,
+        "recognized_at": "2026-07-27T04:00:01Z",
+        "evidence_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "observed_resulting_generation": 8,
+      "safe_retry_allowed": false,
+      "outcome": "VERIFIED_TRANSITION",
+      "reason_codes": ["POSTCONDITIONS_VERIFIED"],
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.page-readiness": {
+      "proof_id": "proof_0123456789ABCDEFGHJKMNPQRS",
+      "proof_version": "PAGE_READINESS_PROOF_V1",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "page_id": "page_0123456789ABCDEFGHJKMNPQRS",
+      "step_identity": {
+        "step_identity_id": "step_0123456789ABCDEFGHJKMNPQRS",
+        "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+        "step_family": "GUEST_APPLICATION",
+        "boundary_class": "ORDINARY_APPLICATION",
+        "recognition_signals": [
+          {
+            "kind": "ROUTE_FAMILY",
+            "signal_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "confidence": 0.95
+          },
+          {
+            "kind": "CONTROL_FAMILY",
+            "signal_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "confidence": 0.95
+          }
+        ],
+        "recognition_confidence": 0.95,
+        "observed_dom_generation": 7,
+        "recognized_at": "2026-07-27T04:00:00Z",
+        "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "page_generation": 7,
+      "reconciliation_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "blocking_counts": {
+        "required_field_count": 1,
+        "unresolved_count": 0,
+        "changed_value_count": 0,
+        "stale_document_count": 0,
+        "sensitive_confirmation_count": 0,
+        "mandatory_uncertain_count": 0
+      },
+      "site_validation_status": "ACCEPTED",
+      "next_control": {
+        "control_id": "control_0123456789ABCDEFGHJKMNPQRS",
+        "identity_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "resolution": "UNIQUE"
+      },
+      "created_at": "2026-07-27T04:00:00Z",
+      "proof_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "readiness": "READY"
+    },
+    "w06.reconciliation": {
+      "inventory_id": "inventory_0123456789ABCDEFGHJKMNPQRS",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "page_id": "page_0123456789ABCDEFGHJKMNPQRS",
+      "document_id": "document_0123456789ABCDEFGHJKMNPQRS",
+      "page_generation": 7,
+      "proof_generation": 7,
+      "items": [
+        {
+          "item_id": "item_0123456789ABCDEFGHJKMNPQRS",
+          "field_id": "field_0123456789ABCDEFGHJKMNPQRS",
+          "field_address_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+          "required": true,
+          "visible": true,
+          "enabled": true,
+          "category": "VERIFIED_FILLED",
+          "document_state": "CURRENT",
+          "changed_value": false,
+          "confirmation_state": "NOT_APPLICABLE",
+          "mandatory_uncertain": false
+        }
+      ],
+      "counts": {
+        "total": 1,
+        "verified_filled": 1,
+        "needs_review": 0,
+        "blocked_sensitive": 0,
+        "unsupported_or_skipped": 0,
+        "required_unresolved": 0,
+        "page_changed_value": 0,
+        "stale_document": 0,
+        "unconfirmed_consequential": 0,
+        "mandatory_uncertain": 0
+      },
+      "readiness": "READY",
+      "evidence_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.resume-plan": {
+      "plan_id": "plan_0123456789ABCDEFGHJKMNPQRS",
+      "plan_schema_version": "RESUME_PLAN_V1",
+      "job_ref": "job_0123456789ABCDEFGHJKMNPQRS",
+      "job_version_ref": "jobver_0123456789ABCDEFGHJKMNPQRS",
+      "resume_source_ref": "resume_0123456789ABCDEFGHJKMNPQRS",
+      "resume_version_ref": "resumever_0123456789ABCDEFGHJKMNPQRS",
+      "ordered_requirements": [
+        {
+          "requirement_ref": "requirement_0123456789ABCDEFGHJKMNPQRS",
+          "priority": 1,
+          "supported": true
+        },
+        {
+          "requirement_ref": "requirement_1123456789ABCDEFGHJKMNPQRS",
+          "priority": 2,
+          "supported": false
+        }
+      ],
+      "evidence_assignments": [
+        {
+          "requirement_ref": "requirement_0123456789ABCDEFGHJKMNPQRS",
+          "evidence_refs": ["evidence_0123456789ABCDEFGHJKMNPQRS"]
+        }
+      ],
+      "unsupported_gap_refs": ["requirement_1123456789ABCDEFGHJKMNPQRS"],
+      "locked_content_refs": ["content_0123456789ABCDEFGHJKMNPQRS"],
+      "budget": {
+        "section_word_budget": 300,
+        "global_word_budget": 800,
+        "page_budget": 2
+      },
+      "terminology_decisions": [
+        {
+          "term": "TypeScript",
+          "decision": "USE",
+          "evidence_refs": ["evidence_0123456789ABCDEFGHJKMNPQRS"]
+        }
+      ],
+      "edit_decisions": [
+        {
+          "content_ref": "content_0123456789ABCDEFGHJKMNPQRS",
+          "decision": "LOCK",
+          "reason_code": "CANONICAL_EVIDENCE"
+        }
+      ],
+      "expected_verification_checks": ["ATOMIC_CLAIM_SUPPORT"],
+      "prompt_version_ref": "prompt_0123456789ABCDEFGHJKMNPQRS",
+      "model_profile_ref": "model_0123456789ABCDEFGHJKMNPQRS",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      },
+      "correlation_id": "cor_0123456789ABCDEFGHJKMNPQRS"
+    },
+    "w06.step-identity": {
+      "step_identity_id": "step_0123456789ABCDEFGHJKMNPQRS",
+      "session_id": "session_0123456789ABCDEFGHJKMNPQRS",
+      "step_family": "GUEST_APPLICATION",
+      "boundary_class": "ORDINARY_APPLICATION",
+      "recognition_signals": [
+        {
+          "kind": "ROUTE_FAMILY",
+          "signal_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+          "confidence": 0.95
+        },
+        {
+          "kind": "CONTROL_FAMILY",
+          "signal_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "confidence": 0.95
+        }
+      ],
+      "recognition_confidence": 0.95,
+      "observed_dom_generation": 7,
+      "recognized_at": "2026-07-27T04:00:00Z",
+      "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "w06.tenant-fingerprint": {
+      "tenant_fingerprint_id": "tenant_0123456789ABCDEFGHJKMNPQRS",
+      "hostname_family": "WORKDAY_TENANT_FAMILY",
+      "locale": "en-US",
+      "candidate_session_mode": "GUEST",
+      "route_family": "CANDIDATE_HOME_TO_APPLICATION",
+      "page_sequence_family": "GUEST_APPLICATION_FLOW",
+      "control_family_inventory": ["NEXT_BUTTON", "TEXT_INPUT"],
+      "control_family_fingerprint": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "tenant_pattern_version": "1.0.0",
+      "adapter_version": "1.0.0",
+      "browser_compatibility": {
+        "browser_family": "CHROMIUM",
+        "minimum_version": "120.0.0",
+        "maximum_tested_version": "128.0.0",
+        "evidence_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "last_tested_on": "2026-07-27"
+    },
+    "w06.workday-certification": {
+      "certification_record_id": "cert_0123456789ABCDEFGHJKMNPQRS",
+      "tenant_fingerprint": {
+        "tenant_fingerprint_id": "tenant_0123456789ABCDEFGHJKMNPQRS",
+        "hostname_family": "WORKDAY_TENANT_FAMILY",
+        "locale": "en-US",
+        "candidate_session_mode": "GUEST",
+        "route_family": "CANDIDATE_HOME_TO_APPLICATION",
+        "page_sequence_family": "GUEST_APPLICATION_FLOW",
+        "control_family_inventory": ["NEXT_BUTTON", "TEXT_INPUT"],
+        "control_family_fingerprint": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "tenant_pattern_version": "1.0.0",
+        "adapter_version": "1.0.0",
+        "browser_compatibility": {
+          "browser_family": "CHROMIUM",
+          "minimum_version": "120.0.0",
+          "maximum_tested_version": "128.0.0",
+          "evidence_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "evidence_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "last_tested_on": "2026-07-27"
+      },
+      "locale": "en-US",
+      "session_mode": "GUEST",
+      "route_page_sequence": ["GUEST_APPLICATION"],
+      "control_families": ["NEXT_BUTTON", "TEXT_INPUT"],
+      "adapter_version": "1.0.0",
+      "browser_version": "128.0.0",
+      "platform_profile": {
+        "operating_system": "UBUNTU",
+        "architecture": "X86_64"
+      },
+      "corpus_manifest_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "holdout_manifest_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "metrics": {
+        "case_count": 1,
+        "fill_accuracy": 1,
+        "verified_fill_rate": 1,
+        "navigation_success_rate": 1,
+        "progression_success_rate": 1,
+        "manual_correction_count": 0,
+        "failure_count": 0,
+        "intervention_count": 0
+      },
+      "last_tested_on": "2026-07-27",
+      "known_limitations": ["Synthetic evidence candidate only"],
+      "evidence_report_refs": ["report_0123456789ABCDEFGHJKMNPQRS"],
+      "measured_scope_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "certified_scope_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "certification_state": "MEASURED_CANDIDATE",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-27T04:00:00Z"
+      }
     }
   }
 }

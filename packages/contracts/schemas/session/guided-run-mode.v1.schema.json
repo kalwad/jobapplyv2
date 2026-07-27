@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:session:guided-run-mode:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "GuidedRunMode",
+  "description": "Bounded future run-mode and start-policy vocabulary. AUTO_SUBMIT and final-submit authority are deliberately absent.",
+  "$defs": {
+    "runKind": {
+      "title": "Guided run kind",
+      "type": "string",
+      "enum": ["DRY_RUN", "FEASIBILITY", "GUIDED_PRE_SUBMIT"]
+    },
+    "startPolicy": {
+      "title": "Run start policy",
+      "type": "string",
+      "enum": ["AUTO_START_ON_OPEN", "MANUAL_START"]
+    },
+    "snapshotState": {
+      "title": "Reviewed snapshot readiness",
+      "type": "string",
+      "enum": ["MISSING", "READY", "STALE"]
+    },
+    "snapshotReadiness": {
+      "title": "Profile, document, and answer snapshot readiness",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "document", "answer_policy"],
+      "properties": {
+        "profile": {
+          "$ref": "#/$defs/snapshotState"
+        },
+        "document": {
+          "$ref": "#/$defs/snapshotState"
+        },
+        "answer_policy": {
+          "$ref": "#/$defs/snapshotState"
+        }
+      }
+    },
+    "pageEligibility": {
+      "title": "Observed page eligibility for a start",
+      "type": "string",
+      "enum": [
+        "CERTIFIED_APPLICATION_PAGE",
+        "EXPIRED_SESSION",
+        "HUMAN_VERIFICATION",
+        "LOGIN_OR_ACCOUNT",
+        "PROTECTED_BOUNDARY",
+        "STALE_PAGE",
+        "UNCERTIFIED_PATTERN",
+        "UNKNOWN_PAGE"
+      ]
+    },
+    "revocationState": {
+      "title": "Immediate disable or revocation state",
+      "type": "string",
+      "enum": ["ACTIVE", "DISABLED", "REVOKED"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_mode_id",
+    "run_kind",
+    "start_policy",
+    "snapshot_readiness",
+    "visible_cancel_control",
+    "revocation_state",
+    "page_eligibility",
+    "start_permission"
+  ],
+  "properties": {
+    "run_mode_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "run_kind": {
+      "$ref": "#/$defs/runKind"
+    },
+    "start_policy": {
+      "$ref": "#/$defs/startPolicy"
+    },
+    "prior_opt_in_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "certified_pattern_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "snapshot_readiness": {
+      "$ref": "#/$defs/snapshotReadiness"
+    },
+    "cancelable_start_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "visible_cancel_control": {
+      "type": "boolean"
+    },
+    "revocation_state": {
+      "$ref": "#/$defs/revocationState"
+    },
+    "page_eligibility": {
+      "$ref": "#/$defs/pageEligibility"
+    },
+    "start_permission": {
+      "type": "string",
+      "enum": ["START_ALLOWED", "START_BLOCKED"]
+    }
+  }
+}

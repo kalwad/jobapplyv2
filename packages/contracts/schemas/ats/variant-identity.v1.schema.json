@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:ats:variant-identity:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "ATS variant identity",
+  "description": "Evidence-bounded identity for an exact reviewed ATS pattern. It does not claim universal support.",
+  "$defs": {
+    "sessionMode": {
+      "title": "ATS candidate session mode",
+      "type": "string",
+      "enum": ["AUTHENTICATED", "GUEST", "UNKNOWN"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "variant_identity_id",
+    "ats_family",
+    "adapter_id",
+    "adapter_version",
+    "pattern_id",
+    "locale",
+    "session_mode",
+    "route_page_family",
+    "evidence_digest",
+    "provenance"
+  ],
+  "properties": {
+    "variant_identity_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "ats_family": {
+      "$ref": "urn:japp:schema:form:field-address:v1#/$defs/atsFamily"
+    },
+    "adapter_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "adapter_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/versionText"
+    },
+    "pattern_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "locale": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/locale"
+    },
+    "session_mode": {
+      "$ref": "#/$defs/sessionMode"
+    },
+    "route_page_family": {
+      "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+    },
+    "evidence_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

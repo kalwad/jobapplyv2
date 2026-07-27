@@ -15,12 +15,16 @@ packages/contracts/
 │   ├── common/        # foundational shared definitions (listed below)
 │   ├── error/         # M01-W03 error taxonomy/catalog/record documents
 │   ├── fixture/       # test-only composition fixtures; never product data
-│   └── security/      # M01-W04 capability/command/authorization documents
+│   ├── security/      # M01-W04 capability/command/authorization documents
+│   ├── semantic/      # schema for the finite semantic-rule catalog
+│   └── {form,ats,workday,benchmark,gate,resume,rendering,session}/
+│                      # M01-W06 feasibility/evidence wire contracts
 ├── catalog/           # CANONICAL validated data instances:
 │   ├── error-catalog.v1.json        # M01-W03 error metadata
 │   ├── capability-catalog.v1.json   # principals/profiles/capabilities
 │   ├── command-catalog.v1.json      # bounded command metadata
-│   └── authorization-policy.v1.json # exact positive allow rows
+│   ├── authorization-policy.v1.json # exact positive allow rows
+│   └── semantic-rules.v1.json       # M01-W06 finite cross-field rules
 ├── src/               # deterministic catalog loader + strict validation layer
 ├── generator/         # M01-W02 deterministic generator engine (hand-authored)
 ├── generated/         # GENERATOR-OWNED output trees; never edited by hand
@@ -29,17 +33,18 @@ packages/contracts/
 │   └── python/        # generated strict Pydantic v2 package (japp_contracts)
 └── test/
     ├── schema/        # M01-W01 convention and definition tests
-    ├── generated/     # M01-W02…W04 generator + generated-surface tests
+    ├── generated/     # M01-W02…W06 generator + generated-surface tests
     ├── fixtures/      # shared synthetic instance corpus for both languages
-    └── contract/      # M01-W05 representative cross-language compatibility
+    └── contract/      # M01-W05/W06 cross-language compatibility evidence
 ```
 
 - `schemas/` is the **single source of truth**. A contract exists when — and
   only when — its schema document is committed here.
 - `schemas/common/` holds the foundational reusable definitions. Payload
-  schemas for profile, resume, application, field, Workday, benchmark, and
-  platform domains are future packages (M01-W06, M01-W07, and later
-  milestones); they must not be added ahead of their owning package.
+  schemas reuse those definitions rather than restating IDs, versions,
+  timestamps, digests, confidence, provenance, redaction, or correlation.
+  M01-W06 adds only feasibility/evidence wire shapes; production platform
+  service contracts and product-domain behavior remain future work.
 - `schemas/fixture/` is test-only. Nothing under it may carry product data or
   be depended on by product code.
 - `generated/` is produced exclusively by the M01-W02 generator (§10a).
@@ -257,7 +262,10 @@ tests live in `test/generated/security-policy.test.ts` and
 `scripts/tests/test_generated_security_policy.py`; they prove generated
 policy behavior in both languages without claiming M01-W05 wire-round-trip
 certification.
-`test/contract/` is the active M01-W05 representative cross-language suite.
+M01-W06 semantic-runtime tests live in `test/generated/`,
+`scripts/tests/test_generated_semantic_rules.py`, and the adapters.
+`test/contract/` is the active M01-W05/W06 representative cross-language
+suite.
 Its versioned hash-locked synthetic corpus drives the real generated
 TypeScript/Ajv and Python/Pydantic paths plus a private test-only Rust
 harness. See `test/contract/README.md`; this evidence does not create a
@@ -301,7 +309,8 @@ pnpm generate:contracts --check  # read-only byte-exact drift check
   `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, unbounded,
   fractional-bound, reversed-bound, or unsafe-integer schemas, exclusive
   bounds, `multipleOf`, numeric enums, `format` values beyond date/date-time,
-  non-identifier or `model_`/underscore-leading property names, recursive
+  non-identifier or underscore-leading property names and actual reserved
+  Pydantic model-member collisions, recursive
   `$defs` cycles, and any unlisted keyword. Extending support is a
   deliberate generator change with tests, never a silent approximation.
 - **TypeScript output** (`generated/typescript/`): one module per schema
@@ -511,7 +520,7 @@ of-use drift. No handwritten per-language policy map exists.
 
 ## 10d. Cross-language compatibility evidence (M01-W05)
 
-`pnpm test:contract` runs the 113-case canonical corpus and the failure
+`pnpm test:contract` runs the 199-case canonical corpus and the failure
 infrastructure/breaking-change tests. Protocol, normalization, exact
 representative scope, dependency pins, baseline lifecycle, and reconstruction
 commands are documented in `test/contract/README.md`. Normal compatibility
@@ -523,10 +532,36 @@ after fetch, and test-only. It mechanically compares its representative typed
 vocabulary with canonical schema/catalog data and exports nothing to the
 native host.
 
-## 10e. Boundaries owned by later packages
+## 10e. Feasibility and benchmark contracts (M01-W06)
 
-- **M01-W06** — detailed feasibility, page, navigation, benchmark, and gate
-  payload contracts.
+M01-W06 adds 21 strict root wire contracts across form, ATS, Workday,
+session, benchmark, gate, resume, and rendering families. JSON Schema remains
+the structural source of truth. Cross-field conditions that the deliberately
+bounded generator subset cannot express are represented by the validated,
+non-executable `catalog/semantic-rules.v1.json`. Generator format `1.3.0`
+emits identical finite TypeScript and Python dispatchers after validating
+each rule binding against the exact schema vocabulary. The catalog contains
+no expressions and cannot execute schema or catalog content.
+
+Structural validation always runs before semantic validation. The semantic
+layer rejects, among other contradictions, an insufficient or raw-selector
+field identity, unauthorized/sensitive fill decisions, an unverified driver
+success, inconsistent reconciliation counts, READY with blockers, navigation
+without proof/control/idempotency, unsafe retry after an uncertain
+transition, benchmark PASS with incomplete or mismatched evidence, a holdout
+body in a manifest, gate PASS without complete review/evidence, unsupported
+claims marked release-eligible, accepted clipped/overflowing layout, and a
+certification scope broader than its measured tuple.
+
+The canonical inventory, rule architecture, generated surfaces, invariants,
+and explicit non-claims are recorded in
+[`M01-W06.md`](./M01-W06.md). The expanded cross-language corpus and private
+Rust representative coverage are documented in `test/contract/README.md`.
+These contracts do not fill forms, navigate, render, run models or benchmarks,
+evaluate gates, or certify any Workday pattern.
+
+## 10f. Boundaries owned by later packages
+
 - **M01-W07** — concrete typed cross-platform capability/service contracts;
   W04 intentionally grants no current platform operation.
 - **M04** — the real migration framework that consumes the

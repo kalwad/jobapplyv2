@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:form:driver-result:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Driver verified-fill result",
+  "description": "Bounded transaction evidence for a future controlled field driver. No selector, script, DOM command, or execution payload is representable.",
+  "$defs": {
+    "resolutionResult": {
+      "title": "Field resolution result",
+      "type": "string",
+      "enum": ["UNIQUE", "AMBIGUOUS", "MISSING", "STALE"]
+    },
+    "preconditionsResult": {
+      "title": "Driver preconditions",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visible",
+        "enabled",
+        "generation_matched",
+        "policy_permitted"
+      ],
+      "properties": {
+        "visible": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "generation_matched": {
+          "type": "boolean"
+        },
+        "policy_permitted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "valueEvidence": {
+      "title": "Synthetic-safe semantic value evidence",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_digest", "presence"],
+      "properties": {
+        "semantic_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "presence": {
+          "type": "string",
+          "enum": ["ABSENT", "EMPTY", "PRESENT_REDACTED"]
+        }
+      }
+    },
+    "actionAttempt": {
+      "title": "Bounded action-attempt metadata",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_id",
+        "attempted_at",
+        "action_count",
+        "duration_ms",
+        "idempotency_key"
+      ],
+      "properties": {
+        "attempt_id": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "attempted_at": {
+          "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+        },
+        "action_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600000
+        },
+        "idempotency_key": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        }
+      }
+    },
+    "siteAcceptance": {
+      "title": "Observed site acceptance",
+      "type": "string",
+      "enum": ["ACCEPTED", "REJECTED", "UNKNOWN"]
+    },
+    "driverOutcome": {
+      "title": "Driver result outcome",
+      "type": "string",
+      "enum": [
+        "BLOCKED_SENSITIVE",
+        "FAILED",
+        "NEEDS_REVIEW",
+        "UNSUPPORTED",
+        "VERIFIED"
+      ]
+    },
+    "reasonCode": {
+      "title": "Reviewed driver-result reason",
+      "type": "string",
+      "enum": [
+        "ACTION_FAILED",
+        "AMBIGUOUS_RESOLUTION",
+        "CONDITIONAL_FIELDS_DISCOVERED",
+        "PAGE_GENERATION_CHANGED",
+        "PERSISTENCE_NOT_VERIFIED",
+        "PRECONDITIONS_FAILED",
+        "RESOLUTION_MISSING",
+        "RESOLUTION_STALE",
+        "SENSITIVE_ACTION_BLOCKED",
+        "SITE_ACCEPTANCE_UNKNOWN",
+        "SITE_REJECTED",
+        "UNSUPPORTED_CONTROL",
+        "VALUE_MISMATCH",
+        "VERIFIED_PERSISTENCE"
+      ]
+    },
+    "recoveryResult": {
+      "title": "Optional bounded recovery result",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempted", "restored", "evidence_digest"],
+      "properties": {
+        "attempted": {
+          "type": "boolean"
+        },
+        "restored": {
+          "type": "boolean"
+        },
+        "evidence_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_id",
+    "driver_id",
+    "session_id",
+    "field_address",
+    "resolution_result",
+    "preconditions",
+    "action_attempt",
+    "intended_value",
+    "observed_value_immediate",
+    "observed_value_settled",
+    "site_acceptance",
+    "validation_message_digests",
+    "conditional_field_ids",
+    "starting_dom_generation",
+    "settled_dom_generation",
+    "persistence_verified",
+    "safe_retry_allowed",
+    "outcome",
+    "reason_codes",
+    "correlation_id"
+  ],
+  "properties": {
+    "result_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "driver_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "session_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "field_address": {
+      "$ref": "urn:japp:schema:form:field-address:v1"
+    },
+    "resolution_result": {
+      "$ref": "#/$defs/resolutionResult"
+    },
+    "preconditions": {
+      "$ref": "#/$defs/preconditionsResult"
+    },
+    "action_attempt": {
+      "$ref": "#/$defs/actionAttempt"
+    },
+    "intended_value": {
+      "$ref": "#/$defs/valueEvidence"
+    },
+    "observed_value_immediate": {
+      "$ref": "#/$defs/valueEvidence"
+    },
+    "observed_value_settled": {
+      "$ref": "#/$defs/valueEvidence"
+    },
+    "site_acceptance": {
+      "$ref": "#/$defs/siteAcceptance"
+    },
+    "validation_message_digests": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "conditional_field_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 64
+    },
+    "starting_dom_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "settled_dom_generation": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "persistence_verified": {
+      "type": "boolean"
+    },
+    "safe_retry_allowed": {
+      "type": "boolean"
+    },
+    "outcome": {
+      "$ref": "#/$defs/driverOutcome"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reasonCode"
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "recovery": {
+      "$ref": "#/$defs/recoveryResult"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "causation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+    }
+  }
+}

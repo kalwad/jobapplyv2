@@ -9,8 +9,13 @@
  * Manual edits are prohibited and fail the contract-gen drift suite.
  */
 
+export type * from "./ats/variant-identity.v1.ts";
+export type * from "./benchmark/case.v1.ts";
+export type * from "./benchmark/holdout-manifest.v1.ts";
+export type * from "./benchmark/result.v1.ts";
 export type * from "./common/calendar-date.v1.ts";
 export type * from "./common/confidence.v1.ts";
+export type * from "./common/contract-text.v1.ts";
 export type * from "./common/correlation.v1.ts";
 export type * from "./common/enum-token.v1.ts";
 export type * from "./common/envelope.v1.ts";
@@ -25,10 +30,29 @@ export type * from "./error/catalog.v1.ts";
 export type * from "./error/record.v1.ts";
 export type * from "./error/taxonomy.v1.ts";
 export type * from "./fixture/test-record.v1.ts";
+export type * from "./form/driver-result.v1.ts";
+export type * from "./form/field-address.v1.ts";
+export type * from "./form/field-decision.v1.ts";
+export type * from "./form/field-descriptor.v1.ts";
+export type * from "./form/reconciliation-inventory.v1.ts";
+export type * from "./gate/decision.v1.ts";
+export type * from "./gate/evidence-bundle.v1.ts";
+export type * from "./rendering/layout-measurement.v1.ts";
+export type * from "./resume/atomic-claim.v1.ts";
+export type * from "./resume/plan.v1.ts";
 export type * from "./security/authorization-policy.v1.ts";
 export type * from "./security/authorization-request.v1.ts";
 export type * from "./security/capability-taxonomy.v1.ts";
 export type * from "./security/command-taxonomy.v1.ts";
+export type * from "./semantic/rule-catalog.v1.ts";
+export type * from "./session/application-session.v1.ts";
+export type * from "./session/guided-run-mode.v1.ts";
+export type * from "./session/navigation-record.v1.ts";
+export type * from "./session/page-readiness-proof.v1.ts";
+export type * from "./workday/certification-record.v1.ts";
+export type * from "./workday/step-identity.v1.ts";
+export type * from "./workday/tenant-fingerprint.v1.ts";
 export * from "./validators.ts";
 export * from "./error/catalog-data.v1.ts";
 export * from "./security/policy-data.v1.ts";
+export * from "./semantic/rules.v1.ts";

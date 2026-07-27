@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:rendering:layout-measurement:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Layout measurement",
+  "description": "Deterministic future rendering and layout evidence. This contract performs no rendering and creates no visual snapshots.",
+  "$defs": {
+    "fontCommitment": {
+      "title": "Controlled font commitment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["font_family", "font_digest"],
+      "properties": {
+        "font_family": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "font_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    },
+    "pageDimensions": {
+      "title": "Page dimensions in points",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width_points", "height_points"],
+      "properties": {
+        "width_points": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "height_points": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "contentBounds": {
+      "title": "Measured per-page content bounds in points",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["page_number", "x", "y", "width", "height"],
+      "properties": {
+        "page_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        }
+      }
+    },
+    "environmentMetadata": {
+      "title": "Measured rendering environment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform_profile", "toolchain_digest"],
+      "properties": {
+        "platform_profile": {
+          "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+        },
+        "toolchain_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    },
+    "layoutResult": {
+      "title": "Layout result",
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "CLIPPED",
+        "EXTRACTION_ORDER_MISMATCH",
+        "FONT_MISSING",
+        "OVERFLOW",
+        "RENDER_FAILED"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "measurement_id",
+    "render_artifact_id",
+    "render_artifact_digest",
+    "source_document_ref",
+    "renderer_version",
+    "browser_version",
+    "controlled_fonts",
+    "page_dimensions",
+    "page_count",
+    "page_content_bounds",
+    "overflow_detected",
+    "clipping_detected",
+    "extraction_order_result",
+    "missing_font_families",
+    "renderer_succeeded",
+    "word_count",
+    "character_count",
+    "duration_ms",
+    "environment_metadata",
+    "layout_result",
+    "error_reason_codes",
+    "evidence_report_digest"
+  ],
+  "properties": {
+    "measurement_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "render_artifact_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "render_artifact_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "source_document_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "renderer_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "browser_version": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "controlled_fonts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fontCommitment"
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "page_dimensions": {
+      "$ref": "#/$defs/pageDimensions"
+    },
+    "page_count": {
+      "description": "Rendered page count. Zero permits a structurally honest RENDER_FAILED record; its relationship to layout_result is a cross-field semantic invariant.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "page_content_bounds": {
+      "description": "One bounded measurement per rendered page. An empty inventory permits RENDER_FAILED evidence; its relationship to page_count and layout_result is a cross-field semantic invariant.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contentBounds"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "overflow_detected": {
+      "type": "boolean"
+    },
+    "clipping_detected": {
+      "type": "boolean"
+    },
+    "extraction_order_result": {
+      "type": "string",
+      "enum": ["MATCH", "MISMATCH", "UNKNOWN"]
+    },
+    "missing_font_families": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:enum-token:v1#/$defs/enumToken"
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "renderer_succeeded": {
+      "type": "boolean"
+    },
+    "parseability_score": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "readability_score": {
+      "$ref": "urn:japp:schema:common:confidence:v1#/$defs/confidence"
+    },
+    "word_count": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "character_count": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 86400000
+    },
+    "environment_metadata": {
+      "$ref": "#/$defs/environmentMetadata"
+    },
+    "layout_result": {
+      "$ref": "#/$defs/layoutResult"
+    },
+    "error_reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "evidence_report_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    }
+  }
+}

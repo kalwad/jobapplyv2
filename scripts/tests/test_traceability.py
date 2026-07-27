@@ -70,6 +70,19 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/test/generated/generator.test.ts",
         "scripts/generate-contracts.ts",
         "scripts/tests/test_generated_contracts.py",
+        # M01-W06 REQ-GATE-006 completed-path anchors (benchmark/holdout/gate
+        # record contracts and finite semantic validation); isolated
+        # traceability fixtures must contain every canonical referenced path.
+        "packages/contracts/catalog/semantic-rules.v1.json",
+        "packages/contracts/schemas/benchmark/case.v1.schema.json",
+        "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
+        "packages/contracts/schemas/benchmark/result.v1.schema.json",
+        "packages/contracts/schemas/gate/decision.v1.schema.json",
+        "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
+        "packages/contracts/test/contract/corpus/cases.v1.json",
+        "packages/contracts/test/contract/semantic-adapters.test.ts",
+        "packages/contracts/test/generated/semantic-rules.test.ts",
+        "scripts/tests/test_generated_semantic_rules.py",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

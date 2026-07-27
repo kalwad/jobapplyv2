@@ -1,0 +1,299 @@
+{
+  "catalog_version": "1.0.0",
+  "entries": [
+    {
+      "rule_id": "APPLICATION_SESSION_CONSISTENCY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "rule_kind": "APPLICATION_SESSION_CONSISTENCY",
+      "failure_error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+    },
+    {
+      "rule_id": "APPLICATION_SESSION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:application-session:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "ATOMIC_CLAIM_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:resume:atomic-claim:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "ATOMIC_CLAIM_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:resume:atomic-claim:v1",
+      "rule_kind": "ATOMIC_CLAIM_INTEGRITY",
+      "failure_error_code": "MODEL_VALIDATION_FAILED"
+    },
+    {
+      "rule_id": "ATS_VARIANT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:ats:variant-identity:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "ATS_VARIANT_SCOPE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:ats:variant-identity:v1",
+      "rule_kind": "ATS_VARIANT_SCOPE",
+      "failure_error_code": "UNSUPPORTED_SITE_PATTERN"
+    },
+    {
+      "rule_id": "BENCHMARK_CASE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "BENCHMARK_CASE_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "rule_kind": "BENCHMARK_CASE_INTEGRITY",
+      "failure_error_code": "BENCHMARK_INVALID_CORPUS"
+    },
+    {
+      "rule_id": "BENCHMARK_RESULT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "BENCHMARK_RESULT_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "rule_kind": "BENCHMARK_RESULT_INTEGRITY",
+      "failure_error_code": "BENCHMARK_THRESHOLD_FAILED"
+    },
+    {
+      "rule_id": "DRIVER_RESULT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "DRIVER_VERIFIED_EVIDENCE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:driver-result:v1",
+      "rule_kind": "DRIVER_VERIFIED_EVIDENCE",
+      "failure_error_code": "SITE_VALIDATION_REJECTED"
+    },
+    {
+      "rule_id": "FIELD_ADDRESS_IDENTITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "rule_kind": "FIELD_ADDRESS_IDENTITY",
+      "failure_error_code": "SITE_AMBIGUOUS_CONTROL"
+    },
+    {
+      "rule_id": "FIELD_ADDRESS_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-address:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "FIELD_DECISION_AUTHORITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "rule_kind": "FIELD_DECISION_AUTHORITY",
+      "failure_error_code": "SENSITIVE_CONFIRMATION_REQUIRED"
+    },
+    {
+      "rule_id": "FIELD_DECISION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-decision:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "FIELD_DESCRIPTOR_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-descriptor:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "FIELD_DESCRIPTOR_OBSERVATION",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:field-descriptor:v1",
+      "rule_kind": "FIELD_DESCRIPTOR_OBSERVATION",
+      "failure_error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+    },
+    {
+      "rule_id": "GATE_DECISION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "GATE_DECISION_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:gate:decision:v1",
+      "rule_kind": "GATE_DECISION_INTEGRITY",
+      "failure_error_code": "GATE_THRESHOLD_FAILED"
+    },
+    {
+      "rule_id": "GATE_EVIDENCE_COMPLETENESS",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
+      "rule_kind": "GATE_EVIDENCE_COMPLETENESS",
+      "failure_error_code": "GATE_EVIDENCE_MISSING"
+    },
+    {
+      "rule_id": "GATE_EVIDENCE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "GUIDED_RUN_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:guided-run-mode:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "GUIDED_RUN_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:guided-run-mode:v1",
+      "rule_kind": "GUIDED_RUN_SAFETY",
+      "failure_error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+    },
+    {
+      "rule_id": "HOLDOUT_MANIFEST_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "HOLDOUT_MANIFEST_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "rule_kind": "HOLDOUT_MANIFEST_INTEGRITY",
+      "failure_error_code": "BENCHMARK_INVALID_HOLDOUT_STATE"
+    },
+    {
+      "rule_id": "LAYOUT_MEASUREMENT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "LAYOUT_MEASUREMENT_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:rendering:layout-measurement:v1",
+      "rule_kind": "LAYOUT_MEASUREMENT_INTEGRITY",
+      "failure_error_code": "RENDERING_FAILURE"
+    },
+    {
+      "rule_id": "NAVIGATION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "NAVIGATION_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:navigation-record:v1",
+      "rule_kind": "NAVIGATION_SAFETY",
+      "failure_error_code": "SITE_UNCERTAIN_TRANSITION"
+    },
+    {
+      "rule_id": "PAGE_READINESS_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:page-readiness-proof:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PAGE_READINESS_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:session:page-readiness-proof:v1",
+      "rule_kind": "PAGE_READINESS_INTEGRITY",
+      "failure_error_code": "SITE_VALIDATION_REJECTED"
+    },
+    {
+      "rule_id": "RECONCILIATION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "RECONCILIATION_READINESS",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",
+      "rule_kind": "RECONCILIATION_READINESS",
+      "failure_error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+    },
+    {
+      "rule_id": "RESUME_PLAN_EVIDENCE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:resume:plan:v1",
+      "rule_kind": "RESUME_PLAN_EVIDENCE",
+      "failure_error_code": "MODEL_VALIDATION_FAILED"
+    },
+    {
+      "rule_id": "RESUME_PLAN_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:resume:plan:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "WORKDAY_CERTIFICATION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:certification-record:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "WORKDAY_CERTIFICATION_SCOPE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:certification-record:v1",
+      "rule_kind": "WORKDAY_CERTIFICATION_SCOPE",
+      "failure_error_code": "BENCHMARK_INVALID_COMPARISON_EVIDENCE"
+    },
+    {
+      "rule_id": "WORKDAY_STEP_BOUNDARY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:step-identity:v1",
+      "rule_kind": "WORKDAY_STEP_BOUNDARY",
+      "failure_error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+    },
+    {
+      "rule_id": "WORKDAY_STEP_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:step-identity:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "WORKDAY_TENANT_IDENTITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:tenant-fingerprint:v1",
+      "rule_kind": "WORKDAY_TENANT_IDENTITY",
+      "failure_error_code": "SITE_UNSUPPORTED_STRUCTURE"
+    },
+    {
+      "rule_id": "WORKDAY_TENANT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:workday:tenant-fingerprint:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    }
+  ]
+}
