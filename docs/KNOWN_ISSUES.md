@@ -105,11 +105,12 @@ validator exception or weakening was introduced.
 
 ## Fixed defects
 
-### KI-0017 — Four boundary fixtures inherited the pre-M01-W02 premise
+### KI-0017 — Boundary fixtures inherited the pre-M01-W02 premises
 
 - Severity: MEDIUM
 - State: FIXED
-- Discovered: 2026-07-27 during M01-W02 package validation
+- Discovered: 2026-07-27 during M01-W02 package validation (four fixtures)
+  and the M01-W02 revision-stamp validation (the two M00-closeout helpers)
 - Affects: M01-W02; `scripts/tests/test_suite_states.py`
   (`test_real_registry_loads_and_states_match_project_state`),
   `scripts/tests/test_ci_workflow.py`
@@ -117,8 +118,9 @@ validator exception or weakening was introduced.
   `test_contract_gen_explanation_documents_drift_vs_compat`),
   `scripts/tests/test_doctor.py` (`doctor_repo` fixture),
   `scripts/tests/test_validate_status.py`
-  (`test_current_work_package_must_be_exact_none_or_blocked_id`);
-  `pnpm verify`
+  (`test_current_work_package_must_be_exact_none_or_blocked_id`,
+  `prepare_m00_closeout`), `scripts/tests/test_traceability.py`
+  (`prepare_valid_m00_closeout`); `pnpm verify`
 - Description: once M01-W02 legitimately became IN_PROGRESS and the real
   generator landed at `scripts/generate-contracts.ts`, four fixtures that
   had inherited the pre-M01-W02 premise failed: the live-registry test
@@ -128,11 +130,17 @@ validator exception or weakening was introduced.
   NOT_YET_APPLICABLE wording; the doctor's healthy fixture repo lacked the
   generator file, so its simulated environment reported
   suite-contract-gen REQUIRED_MISSING; and the status exactness negative
-  left the inherited M01-W02 IN_PROGRESS row in place. Same
-  premise-inheritance class as KI-0014/KI-0015/KI-0016.
+  left the inherited M01-W02 IN_PROGRESS row in place. When the stamp then
+  legitimately marked M01-W02 VERIFIED and M01-W03 READY, the two
+  M00-closeout boundary helpers (which reset only M01-W01/M01-W02)
+  additionally inherited the live M01-W03 READY row, breaking seven
+  closeout-boundary assertions. Same premise-inheritance class as
+  KI-0014/KI-0015/KI-0016.
 - Reproduction: mark M01-W02 IN_PROGRESS with the generator present and run
-  `uv run pytest scripts/tests`; 4 fixture assertions failed (448 passed)
-  while the real validators and suites correctly passed.
+  `uv run pytest`; 4 fixture assertions failed (448 passed) while the real
+  validators and suites correctly passed. Then mark M01-W02 VERIFIED with
+  M01-W03 READY and run `uv run pytest scripts/tests`; 7 closeout-boundary
+  assertions failed (445 passed).
 - Workaround: none accepted; boundary fixtures must establish their own
   complete premise in every legitimate live repository state.
 - Resolution + evidence link: the live-registry expectation now includes
@@ -141,9 +149,12 @@ validator exception or weakening was introduced.
   derivation with the real generator across started states); the
   explanation assertions track the accurate ACTIVE-state wording; the
   doctor fixture carries `scripts/generate-contracts.ts`; the exactness
-  negative resets M01-W02 alongside the other rows. The scripts suite
-  passes 452/452 and complete `pnpm verify` passes with contract-gen
-  ACTIVE and PASS. Evidence: docs/TEST_EVIDENCE.md § M01-W02.
+  negative resets M01-W02 alongside the other rows; and both M00-closeout
+  helpers now reset every advanceable M01 row (M01-W01 through M01-W03) so
+  their boundary premises stay isolated at future package boundaries. The
+  scripts suite passes 452/452 in the stamped state and complete
+  `pnpm verify` passes with contract-gen ACTIVE and PASS. Evidence:
+  docs/TEST_EVIDENCE.md § M01-W02.
 
 ### KI-0016 — M00-closeout fixture helpers inherited pre-M01 boundary rows
 

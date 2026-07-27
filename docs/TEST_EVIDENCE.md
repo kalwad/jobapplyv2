@@ -215,6 +215,58 @@ Exact verification commands and summarized results
     boundary fixtures inherited the pre-M01-W02 premise and were repaired
     to establish their own complete premises.
 
+#### M01-W02 clean-clone simulation (local, committed content revision)
+
+- `git clone <repository> <fresh directory>` at
+  `981826764dc0793f7ddc984f49888afb7657d3b5` → exit 0.
+- `pnpm install --frozen-lockfile` → exit 0 in the fresh clone.
+- `uv sync --locked` → exit 0 (uv-managed 3.12.13 environment recreated
+  including pydantic 2.12.5 / pydantic-core 2.41.5 / annotated-types 0.8.0 /
+  typing-inspection 0.4.2 from uv.lock).
+- `pnpm exec playwright install chromium` → exit 0 (pinned browser cache).
+- `pnpm generate:contracts --check` → exit 0, "generated contracts are up
+  to date (35 files, byte-identical)" — the committed generated tree
+  reproduces exactly from a clean locked install.
+- `pnpm run doctor` → exit 0, 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE (contract-gen ACTIVE and PASS); working tree clean.
+- `pnpm verify` → exit 0; every ACTIVE suite PASS including contract-gen;
+  contract and visual honestly NOT_YET_APPLICABLE.
+- `pnpm generate:contracts` (write mode) in the clone followed by
+  `git status --porcelain` → zero changes: regeneration is a byte-exact
+  no-op on a clean clone.
+
+#### M01-W02 hosted three-OS content verification
+
+- Content run 30238366390 at commit
+  `981826764dc0793f7ddc984f49888afb7657d3b5` succeeded on all three
+  required jobs: ubuntu-24.04 job 89890399400 (2m20s), windows-2025 job
+  89890399405 (3m44s), and macos-15 job 89890399463 (1m37s).
+- The complete Windows job log was downloaded and inspected: the job
+  checked out exactly `981826764dc0793f7ddc984f49888afb7657d3b5`; the
+  canonical doctor reported 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE with contract-gen "PASS — ACTIVE (runs inside pnpm
+  verify)" and a clean working tree; aggregate verification reported
+  "generated contracts are up to date (35 files, byte-identical)" — the
+  deterministic generator therefore reproduces the committed trees
+  byte-exactly on windows-2025 — plus contract-gen ACTIVE PASS, 188
+  @japp/contracts Vitest tests, 453 Python tests
+  (`453 passed in 76.45s`), `verification exit code: 0`, and the
+  no-tracked-changes assertion passing (REQ-PLAT-013 infrastructure
+  evidence only — not Windows 11 product certification).
+- After this hosted success, M01-W02 was marked VERIFIED at content tree
+  `3d4b0f16990decf6bb8dfa7e59e3b89a1628903d`, M01-W03 became the sole
+  READY package, and M01 remains IN_PROGRESS. The conventional
+  revision-stamp commit records this closeout; its own three-OS run is
+  required to pass at the final head.
+- Stamp-state validation exposed the second half of KI-0017 (the two
+  M00-closeout boundary helpers inherited the live M01-W03 READY row;
+  seven closeout-boundary assertions failed, 445 passed). After extending
+  both helpers to reset every advanceable M01 row:
+  `uv run pytest scripts/tests` → exit 0, 452 passed;
+  `python3 scripts/validate_status.py` → exit 0 (36 groups);
+  `pnpm traceability:check` → exit 0 (157/286); complete `pnpm verify` →
+  exit 0 in the stamped state with contract-gen ACTIVE and PASS.
+
 ### M01-W01 — Define JSON Schema conventions (2026-07-26)
 
 - Revision: tree `20c25e66d5792506870531aa4a8cd01971b362c9` / commit
