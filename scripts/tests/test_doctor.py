@@ -597,11 +597,12 @@ def test_pin_read_fatal_output_scrubs_home(
     code = doctor.main(["--repo", str(repo)], home=home)
     captured = capsys.readouterr()
     assert code == 2
-    assert str(home) not in captured.err
-    expected_redacted = str(Path("~") / "repo" / "pyproject.toml")
     # FileNotFoundError renders a Windows filename with escaped backslashes;
-    # normalize that exception-formatting detail before checking the path.
-    assert expected_redacted in captured.err.replace("\\\\", "\\")
+    # normalize that exception-formatting detail before both assertions.
+    normalized_err = captured.err.replace("\\\\", "\\")
+    assert str(home) not in normalized_err
+    expected_redacted = str(Path("~") / "repo" / "pyproject.toml")
+    assert expected_redacted in normalized_err
 
 
 def test_read_pins_accepts_crlf_pin_files(doctor_repo: Path) -> None:

@@ -64,7 +64,7 @@ broadening a work package (spec §1.5).
   for syntax-preserving simulation, the POSIX test uses that form, and the
   fatal-path expectation derives the host-native separator with `Path` and
   normalizes only duplicated backslashes in the exception-rendered text
-  before asserting the redacted path. It separately proves the sensitive
+  before asserting both that the redacted path remains and that the sensitive
   home is absent. Local focused and aggregate verification pass; state
   remains IN_PROGRESS until a new exact-head Windows job verifies the
   repair. Evidence: docs/TEST_EVIDENCE.md § M00-W10.

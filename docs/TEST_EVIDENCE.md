@@ -228,8 +228,8 @@ Exact verification commands and summarized results
     escaped them when rendering its filename. All runtime redaction cases
     and every other active verification suite passed.
   - The second repair normalizes only duplicated backslashes in the
-    exception-rendered diagnostic before asserting the redacted path; the
-    independent assertion that the sensitive home is absent remains. A
+    exception-rendered diagnostic before asserting both the redacted path
+    and the independent guarantee that the sensitive home is absent. A
     fresh three-OS content head is required; no rerun or local result can
     substitute for that Windows proof.
 
