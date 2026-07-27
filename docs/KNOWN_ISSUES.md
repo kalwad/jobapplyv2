@@ -86,6 +86,37 @@ validator exception or weakening was introduced.
 
 ## Fixed defects
 
+### KI-0016 — M00-closeout fixture helpers inherited pre-M01 boundary rows
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-26 during the M01-W01 revision-stamp validation
+- Affects: M01-W01; `scripts/tests/test_validate_status.py`
+  (`prepare_m00_closeout`), `scripts/tests/test_traceability.py`
+  (`prepare_valid_m00_closeout`), `scripts/tests/test_ci_workflow.py`
+  (`test_contract_gen_not_yet_applicable_before_owner_begins`); `pnpm verify`
+- Description: the M00-closeout boundary helpers were written while the live
+  repository sat exactly at that boundary. After the M01-W01 closeout
+  legitimately marked M01-W01 VERIFIED and M01-W02 READY, the helpers
+  inherited those rows: fixtures asserting "M01-W01 is the only READY
+  package" saw a second READY row, negatives expecting "no READY row" found
+  one, and one CI test asserted the live M01-W02 row was literally
+  NOT_STARTED. Eight tests failed; same premise-inheritance class as
+  KI-0014/KI-0015.
+- Reproduction: mark M01-W01 VERIFIED and M01-W02 READY in
+  docs/PROJECT_STATUS.md and docs/traceability.json, then run
+  `uv run pytest scripts/tests`; 8 fixture assertions failed while the real
+  validators correctly passed.
+- Workaround: none accepted; boundary fixtures must establish their own
+  complete premise in every legitimate live repository state.
+- Resolution + evidence link: both closeout helpers now explicitly reset
+  M01-W02 to NOT_STARTED alongside the flagged M01-W01 state, and the
+  contract-gen suite test derives its state for both not-begun premises
+  (NOT_STARTED and READY) instead of asserting the live row. The scripts
+  suite passes 359/359 and complete `pnpm verify` passes in the stamped
+  M01-W01 VERIFIED / M01-W02 READY state. Evidence:
+  docs/TEST_EVIDENCE.md § M01-W01.
+
 ### KI-0015 — Current-package exactness negative inherited the pre-M01 idle state
 
 - Severity: MEDIUM

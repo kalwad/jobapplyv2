@@ -5385,8 +5385,8 @@
       "id": "M01-W01",
       "milestone": "M01",
       "title": "Define JSON Schema conventions",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 20c25e66d5792506870531aa4a8cd01971b362c9",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [
         "M00"
@@ -5419,14 +5419,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W01"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W02",
       "milestone": "M01",
       "title": "Generate TypeScript and Python contracts",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W01"

@@ -402,10 +402,17 @@ def accept_full_ai_profiles(repo: Path) -> None:
 
 
 def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
-    """Create either the accepted-M00 boundary or its exact next-ready state."""
+    """Create either the accepted-M00 boundary or its exact next-ready state.
+
+    The fixture establishes its own complete premise instead of inheriting
+    live repository state: once M01 work begins (M01-W01 VERIFIED, M01-W02
+    READY, milestone M01 IN_PROGRESS), the inherited rows would otherwise
+    break the boundary invariants these tests assert (KI-0014/KI-0015 class).
+    """
     promote_milestones(repo, ["M00"])
     set_current_package(repo, "NONE")
     set_pkg_state(repo, "M01-W01", "READY" if m01_ready else "NOT_STARTED")
+    set_pkg_state(repo, "M01-W02", "NOT_STARTED")
     set_ms_state(repo, "M01", "READY" if m01_ready else "NOT_STARTED")
     set_next_ready(repo, "`M01-W01`" if m01_ready else "NONE")
 

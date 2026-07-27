@@ -682,9 +682,13 @@ def test_contract_gen_not_yet_applicable_before_owner_begins() -> None:
         status_path=REPO_ROOT / "docs" / "PROJECT_STATUS.md",
     )
     states = verify.parse_package_states(ctx.status_path)
-    assert states["M01-W02"] == "NOT_STARTED"
-    derived = verify.derive_state(ctx, registry_suite("contract-gen"), states)
-    assert derived is verify.SuiteState.NOT_YET_APPLICABLE
+    # Establish the premise for both not-begun states instead of asserting
+    # the live row (which legitimately moved from NOT_STARTED to READY at the
+    # M01-W01 closeout; KI-0014/KI-0015 class).
+    for idle_state in ("NOT_STARTED", "READY"):
+        states["M01-W02"] = idle_state
+        derived = verify.derive_state(ctx, registry_suite("contract-gen"), states)
+        assert derived is verify.SuiteState.NOT_YET_APPLICABLE, idle_state
 
 
 def test_contract_gen_required_missing_once_owner_begins() -> None:

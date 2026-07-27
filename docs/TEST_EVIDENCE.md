@@ -35,8 +35,11 @@ Exact verification commands and summarized results
 
 ### M01-W01 — Define JSON Schema conventions (2026-07-26)
 
-- Revision: recorded at content-commit time below; bootstrap ran at starting
-  HEAD `ae01f1136a9990cd06f4271b5216148542e04097` (clean `main`, equal to
+- Revision: tree `20c25e66d5792506870531aa4a8cd01971b362c9` / commit
+  `a77a01d52fb6be9cd535c6878b902146bf637632` (verified content head; stamped
+  in the conventional follow-up commit after its hosted three-OS run
+  passed). Bootstrap ran at starting HEAD
+  `ae01f1136a9990cd06f4271b5216148542e04097` (clean `main`, equal to
   `origin/main`).
 - Environment: macOS (Apple silicon, Darwin 27.0.0); Node v24.18.0;
   pnpm 11.17.0; uv 0.11.32 with uv-managed Python 3.12.13; rustup toolchain
@@ -147,6 +150,46 @@ Exact verification commands and summarized results
   portability, traceability, status, and integrity suites all PASS;
   contract-gen (M01-W02), contract (M01-W05), and visual (M10-W06) remain
   honestly NOT_YET_APPLICABLE and inactive.
+
+#### M01-W01 clean-clone simulation (local, committed content revision)
+
+- `git clone <repository> <fresh directory>` at
+  `a77a01d52fb6be9cd535c6878b902146bf637632` → exit 0.
+- `pnpm install --frozen-lockfile` → exit 0 in the fresh clone.
+- `uv sync --locked` → exit 0 (uv-managed 3.12.13 environment recreated).
+- `pnpm exec playwright install chromium` → exit 0 (pinned browser cache).
+- `pnpm run doctor` → exit 0, 20 PASS / 0 WARNING / 0 FAIL / 3
+  NOT_YET_APPLICABLE; working tree clean.
+- `pnpm verify` → exit 0; every ACTIVE suite PASS; contract-gen, contract,
+  and visual honestly NOT_YET_APPLICABLE.
+
+#### M01-W01 hosted three-OS content verification
+
+- Content run 30234552561 at commit
+  `a77a01d52fb6be9cd535c6878b902146bf637632` succeeded on all three
+  required jobs: windows-2025 job 89879728959 (4m53s), macos-15 job
+  89879728973 (2m58s), and ubuntu-24.04 job 89879729025 (2m21s).
+- The complete Windows job log was downloaded and inspected: the job checked
+  out exactly `a77a01d52fb6be9cd535c6878b902146bf637632`; the canonical
+  doctor reported 20 PASS / 0 WARNING / 0 FAIL / 3 NOT_YET_APPLICABLE with a
+  clean working tree; aggregate verification reported every ACTIVE suite
+  PASS with 71 @japp/contracts Vitest tests, 360 Python tests
+  (`360 passed in 75.95s`), and `verification exit code: 0`; the schema
+  suites therefore execute identically on Windows (deterministic
+  catalog/loading behavior, REQ-PLAT-013 infrastructure evidence only — not
+  Windows 11 product certification).
+- After this hosted success, M01-W01 was marked VERIFIED at content tree
+  `20c25e66d5792506870531aa4a8cd01971b362c9`, M01-W02 became the sole READY
+  package, and M01 remains IN_PROGRESS. The conventional revision-stamp
+  commit records this closeout; its own three-OS run is required to pass at
+  the final head.
+- Stamp-state validation exposed and fixed KI-0016 (M00-closeout fixture
+  helpers inherited pre-M01 boundary rows; eight fixture assertions).
+  After the premise repairs: `uv run pytest scripts/tests` → exit 0,
+  359 passed; `python3 scripts/validate_status.py` → exit 0 (36 groups);
+  `pnpm traceability:check` → exit 0 (157/286); complete `pnpm verify` →
+  exit 0 in the stamped state with contract-gen still honestly
+  NOT_YET_APPLICABLE while M01-W02 is READY-but-unbegun.
 
 ### M00-W10 — Extend traceability and re-accept M00 under v1.3 (2026-07-26)
 

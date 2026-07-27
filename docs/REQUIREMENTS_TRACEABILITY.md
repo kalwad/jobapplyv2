@@ -23,8 +23,8 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 
 ## Deterministic next work
 
-- Current package: `M01-W01`
-- Next READY package: `NONE`
+- Current package: `NONE`
+- Next READY package: `M01-W02`
 - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every direct sequential package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
 
 ## Critical-gate effects
@@ -219,8 +219,8 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 
 | Package | Exact title | State | Direct package prerequisite(s) | Milestone prerequisite(s) | Critical gate(s) | Explicit accepted qualifier(s) | Primary deliverable(s) | Automated verification | Manual/browser/document/holdout/hosted evidence | Direct downstream package(s) | Downstream milestone(s) | Current evidence | Dependency review |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| M01-W01 | Define JSON Schema conventions | IN_PROGRESS | — | M00 | — | — | Define JSON Schema conventions | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W02 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
-| M01-W02 | Generate TypeScript and Python contracts | NOT_STARTED | M01-W01 | M00 | — | — | Generate TypeScript and Python contracts | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W03 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
+| M01-W01 | Define JSON Schema conventions | VERIFIED | — | M00 | — | — | Define JSON Schema conventions | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W02 | M02, M03, M04, M06, M17, M28, M38 | docs/TEST_EVIDENCE.md (### M01-W01) | REVIEWED_V1_2 |
+| M01-W02 | Generate TypeScript and Python contracts | READY | M01-W01 | M00 | — | — | Generate TypeScript and Python contracts | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W03 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
 | M01-W03 | Define error taxonomy | NOT_STARTED | M01-W02 | M00 | — | — | Define error taxonomy | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W04 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
 | M01-W04 | Define capability and command allowlists | NOT_STARTED | M01-W03 | M00 | — | — | Define capability and command allowlists | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M01-W05 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
 | M01-W05 | Build contract compatibility tests | NOT_STARTED | M01-W04 | M00 | — | — | Build contract compatibility tests | Package-specific unit/contract/integration verification required by the M01 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists | M01 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope | M01-W06 | M02, M03, M04, M06, M17, M28, M38 | — | REVIEWED_V1_2 |
