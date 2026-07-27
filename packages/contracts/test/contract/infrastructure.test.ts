@@ -87,6 +87,19 @@ describe("contract compatibility infrastructure fails closed", () => {
     ).toThrow(expect.objectContaining({ code: "ADAPTER_MALFORMED_OUTPUT" }));
   });
 
+  test("successful build-tool stderr requires an explicit opt-in", () => {
+    expect(
+      runChild({
+        executable: process.execPath,
+        args: [FAKE_ADAPTER, "stderr"],
+        cwd: REPOSITORY_ROOT,
+        timeoutMs: 5_000,
+        maxOutputBytes: 8_192,
+        allowStderr: true,
+      }),
+    ).toBe("{}\n");
+  });
+
   test("a missing executable has a stable missing-adapter code", () => {
     expect(() =>
       runChild({

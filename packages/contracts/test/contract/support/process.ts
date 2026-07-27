@@ -24,6 +24,12 @@ export interface ChildSpec {
   readonly cwd: string;
   readonly timeoutMs: number;
   readonly maxOutputBytes: number;
+  /**
+   * Build tools may write progress or environment notices to stderr on a
+   * successful invocation. Adapters must leave this unset so their stderr
+   * remains a fail-closed protocol violation.
+   */
+  readonly allowStderr?: boolean;
 }
 
 /**
@@ -61,7 +67,7 @@ export function runChild(spec: ChildSpec): string {
   if (result.status !== 0) {
     throw new ProcessFailure("ADAPTER_EXIT_NONZERO");
   }
-  if (result.stderr.byteLength !== 0) {
+  if (!spec.allowStderr && result.stderr.byteLength !== 0) {
     throw new ProcessFailure("ADAPTER_STDERR_NONEMPTY");
   }
   const stdout = result.stdout;

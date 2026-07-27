@@ -398,7 +398,8 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
             cwd=ctx.repo,
             env=env,
             capture_output=True,
-            text=True,
+            encoding="utf-8",
+            errors="strict",
             timeout=COMMAND_TIMEOUT_SECONDS,
             check=False,
         )

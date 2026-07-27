@@ -207,6 +207,31 @@ def test_verify_run_command_maps_python3_to_pinned_interpreter(
     assert output.strip().splitlines()[-1] == sys.executable
 
 
+def test_verify_run_command_decodes_child_output_as_utf8(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_run(*_args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
+        captured.update(kwargs)
+        return subprocess.CompletedProcess("tool", 0, "portable \u019d\n", "")
+
+    monkeypatch.setattr("verify.portability.host_resolve_executable", lambda _: "tool")
+    monkeypatch.setattr("verify.subprocess.run", fake_run)
+    ctx = verify.Context(
+        repo=tmp_path,
+        registry_path=tmp_path / "unused.json",
+        status_path=tmp_path / "unused.md",
+    )
+
+    code, output = verify.run_command(ctx, ("tool",))
+
+    assert code == 0
+    assert output == "portable \u019d\n"
+    assert captured["encoding"] == "utf-8"
+    assert captured["errors"] == "strict"
+
+
 # ------------------------------------------- policy checker fixtures (§H/§I)
 
 

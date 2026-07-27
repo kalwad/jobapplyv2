@@ -64,6 +64,7 @@ function buildRustHarness(): void {
     cwd: REPOSITORY_ROOT,
     timeoutMs: 300_000,
     maxOutputBytes: MAX_PROTOCOL_BYTES,
+    allowStderr: true,
   });
 }
 
