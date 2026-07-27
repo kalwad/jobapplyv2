@@ -338,6 +338,34 @@ Exact verification commands and summarized results
   - `pnpm verify` → exit 0; contract-gen ACTIVE and PASS; contract and
     visual honestly NOT_YET_APPLICABLE; status-neutral.
   - `git diff --check` → exit 0 (no whitespace/conflict markers).
+- Reviewability proof: before the repair, git rendered
+  `packages/contracts/test/generated/generator.test.ts` as a BINARY blob
+  in diffs (the literal NUL suppressed text review); the repair diff shows
+  `Bin 19947 -> 20657 bytes`, and from the repair commit onward the module
+  diffs as ordinary text.
+- Clean-clone simulation at repair commit
+  `349fc7c16fee98d85ed547ade045baeb4f68afec`: fresh
+  `git clone` → `pnpm install --frozen-lockfile` → `uv sync --locked` →
+  `pnpm exec playwright install chromium` → `pnpm generate:contracts
+  --check` ("35 files, byte-identical") → write-mode
+  `pnpm generate:contracts` followed by `git status --porcelain` → zero
+  changes → `pnpm run doctor` (21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE) → `pnpm verify` → exit 0; clean tree throughout.
+- Hosted three-OS repair verification: run 30240026519 at repair commit
+  `349fc7c16fee98d85ed547ade045baeb4f68afec` succeeded on all three
+  required jobs: ubuntu-24.04 job 89895114904 (2m21s), windows-2025 job
+  89895114913 (4m50s), and macos-15 job 89895114914 (2m34s). The complete
+  Windows job log was downloaded and inspected: exact checkout of the
+  repair commit; doctor 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE; "generated contracts are up to date (35 files,
+  byte-identical)"; 456 Python tests (`456 passed in 96.08s`);
+  contract-gen ACTIVE and PASS; `verification exit code: 0`.
+- After this hosted success, M01-W02 was re-marked VERIFIED at the repair
+  content tree `8a081776719d02ee7aeceb99bfe731f5663883c4`, M01-W03
+  returned to the sole READY package, M01 remains IN_PROGRESS, M00
+  remains ACCEPTED, and all four critical gates remain NOT_EVALUATED. The
+  conventional restamp commit records this closeout; its own three-OS run
+  is required to pass at the final head.
 
 ### M01-W01 — Define JSON Schema conventions (2026-07-26)
 
