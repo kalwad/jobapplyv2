@@ -1,0 +1,1021 @@
+{
+  "policy_version": "1.0.0",
+  "allow": [
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "VERIFICATION_RUN_SYNTHETIC_SUITE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "VERIFICATION_HARNESS",
+      "target_principal": "VERIFICATION_HARNESS"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "WORKFLOW_CANCEL",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "FEASIBILITY",
+      "command_id": "WORKFLOW_PAUSE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "WORKFLOW_CANCEL",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "GUIDED_PRE_SUBMIT",
+      "command_id": "WORKFLOW_PAUSE",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "ARTIFACT_READ_REQUEST",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "ARTIFACT_WRITE_REQUEST",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "MODEL_INFERENCE_REQUEST",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "MODEL_RUNTIME",
+      "target_principal": "MODEL_RUNTIME"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PRIVATE_DATA_READ_REQUEST",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PRIVATE_DATA_WRITE_REQUEST",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "PUBLIC_JOB_INDEX_QUERY",
+      "originating_principal": "ORCHESTRATOR",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "PUBLIC_JOB_INDEX",
+      "target_principal": "PUBLIC_JOB_INDEX"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "WORKFLOW_CANCEL",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "PRODUCTION_NO_SUBMIT",
+      "command_id": "WORKFLOW_PAUSE",
+      "originating_principal": "DESKTOP_APP",
+      "immediate_sender": "DESKTOP_APP",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_BACK",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_NAVIGATE_NEXT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_RECONCILE_STATE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_FINAL_REVIEW",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_REPORT_STATE",
+      "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "EXTENSION_SERVICE_WORKER",
+      "receiving_principal": "EXTENSION_CONTENT_SCRIPT",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "NATIVE_HOST",
+      "receiving_principal": "EXTENSION_SERVICE_WORKER",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "ORCHESTRATOR",
+      "receiving_principal": "NATIVE_HOST",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "PAGE_VERIFY_FIELD_VALUES",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "EXTENSION_CONTENT_SCRIPT"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "VERIFICATION_RUN_SYNTHETIC_SUITE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "VERIFICATION_HARNESS",
+      "target_principal": "VERIFICATION_HARNESS"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "WORKFLOW_CANCEL",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    },
+    {
+      "authorization_profile": "VERIFICATION",
+      "command_id": "WORKFLOW_PAUSE",
+      "originating_principal": "VERIFICATION_HARNESS",
+      "immediate_sender": "VERIFICATION_HARNESS",
+      "receiving_principal": "ORCHESTRATOR",
+      "target_principal": "ORCHESTRATOR"
+    }
+  ]
+}

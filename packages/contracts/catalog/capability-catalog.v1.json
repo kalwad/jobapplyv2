@@ -1,0 +1,233 @@
+{
+  "catalog_version": "1.0.0",
+  "principals": [
+    {
+      "id": "DESKTOP_APP",
+      "description": "The local user-facing desktop client, which may request bounded orchestrator services through typed contracts.",
+      "non_goals": [
+        "Does not read raw database or artifact files.",
+        "Does not invoke secret-store, process, registration, or platform operations directly."
+      ]
+    },
+    {
+      "id": "EXTENSION_CONTENT_SCRIPT",
+      "description": "The least-privileged page-world boundary that inspects and performs reviewed bounded browser operations.",
+      "non_goals": [
+        "Does not request private data, model, artifact, platform, credential, or submission authority.",
+        "Does not open native messaging or rewrite its originating identity."
+      ]
+    },
+    {
+      "id": "EXTENSION_SERVICE_WORKER",
+      "description": "The extension control boundary that validates content-script messages and owns the extension side of native messaging.",
+      "non_goals": [
+        "Does not convert a content-script origin into a service-worker origin.",
+        "Does not gain product authority merely by forwarding."
+      ]
+    },
+    {
+      "id": "MODEL_RUNTIME",
+      "description": "A bounded inference target whose outputs remain untrusted data requiring deterministic validation.",
+      "non_goals": [
+        "Does not originate or authorize executable product commands.",
+        "Does not receive browser, storage, platform, or submission authority."
+      ]
+    },
+    {
+      "id": "NATIVE_HOST",
+      "description": "The bounded typed proxy between extension native messaging and the authenticated loopback orchestrator.",
+      "non_goals": [
+        "Does not originate privileged product requests.",
+        "Does not overwrite the preserved origin or act as a confused deputy."
+      ]
+    },
+    {
+      "id": "ORCHESTRATOR",
+      "description": "The local service boundary that owns private data access and AI orchestration through reviewed typed services.",
+      "non_goals": [
+        "Does not directly manipulate browser pages.",
+        "Does not perform or authorize final submission."
+      ]
+    },
+    {
+      "id": "PLATFORM_ADAPTER",
+      "description": "A narrow target for reviewed typed operating-system and runtime integration operations.",
+      "non_goals": [
+        "Does not accept arbitrary commands, paths, registry data, executable names, or shell strings.",
+        "Does not originate product workflow commands."
+      ]
+    },
+    {
+      "id": "PUBLIC_JOB_INDEX",
+      "description": "The public-data search boundary for permitted public job-index reads.",
+      "non_goals": [
+        "Does not request, receive, infer, or expose private user data.",
+        "Does not originate product workflow commands."
+      ]
+    },
+    {
+      "id": "VERIFICATION_HARNESS",
+      "description": "The synthetic fixture, benchmark, and gate execution boundary.",
+      "non_goals": [
+        "Does not acquire private production-data authority.",
+        "Does not acquire final-submission authority."
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "FEASIBILITY",
+      "description": "Synthetic/local feasibility operations limited to bounded inspection, filling, validation, reconciliation, workflow control, and evidence collection.",
+      "non_goals": [
+        "Does not enable production private-data, model, platform, or final-submission authority.",
+        "Does not enable safe-next or safe-back navigation."
+      ]
+    },
+    {
+      "id": "GUIDED_PRE_SUBMIT",
+      "description": "Reviewed guided operations that may reach a complete final-review state but stop before submission.",
+      "non_goals": [
+        "Does not express passwords, account creation, email verification, MFA, CAPTCHA solving, unexpected legal consent, or unapproved consequential answers.",
+        "Does not enable final submission or blind retry after uncertain navigation."
+      ]
+    },
+    {
+      "id": "PRODUCTION_NO_SUBMIT",
+      "description": "Reviewed production operations and typed local services with final submission intentionally absent.",
+      "non_goals": [
+        "Does not enable final submission.",
+        "Does not turn bounded service authority into raw database, filesystem, registry, process, or shell access."
+      ]
+    },
+    {
+      "id": "VERIFICATION",
+      "description": "Synthetic fixture, benchmark, and gate operations used to prove contract and policy behavior.",
+      "non_goals": [
+        "Does not access private production data.",
+        "Does not enable final submission."
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "ARTIFACT_READ",
+      "description": "Read a reviewed artifact through a bounded orchestrator-owned service.",
+      "non_goals": ["Does not grant arbitrary path or raw filesystem access."]
+    },
+    {
+      "id": "ARTIFACT_WRITE",
+      "description": "Write a reviewed artifact through a bounded orchestrator-owned service.",
+      "non_goals": [
+        "Does not grant arbitrary path, overwrite, delete, or raw filesystem access."
+      ]
+    },
+    {
+      "id": "MODEL_INFERENCE",
+      "description": "Request bounded model inference whose result remains untrusted data.",
+      "non_goals": [
+        "Does not grant the model command authority or permit unvalidated output to execute."
+      ]
+    },
+    {
+      "id": "PAGE_DOCUMENT_UPLOAD",
+      "description": "Attach one previously reviewed document through a bounded page control.",
+      "non_goals": [
+        "Does not browse arbitrary paths or select an unreviewed document."
+      ]
+    },
+    {
+      "id": "PAGE_INSPECT",
+      "description": "Read bounded page state, descriptors, and visible control metadata.",
+      "non_goals": [
+        "Does not capture raw page HTML, secrets, tokens, or unrestricted DOM data."
+      ]
+    },
+    {
+      "id": "PAGE_MUTATE_BOUNDED",
+      "description": "Propose or apply reviewed field operations through bounded control drivers.",
+      "non_goals": [
+        "Does not permit arbitrary selectors, JavaScript, credentials, legal consent, or consequential answers."
+      ]
+    },
+    {
+      "id": "PAGE_NAVIGATE_BOUNDED",
+      "description": "Navigate only to a reviewed safe next or back step.",
+      "non_goals": [
+        "Does not authorize uncertain navigation, final submission, or blind replay."
+      ]
+    },
+    {
+      "id": "PAGE_VALIDATE_RECONCILE_REVIEW",
+      "description": "Verify field values, reconcile page state, and report reviewed final state.",
+      "non_goals": [
+        "Does not treat model text or untrusted page text as an authorization decision."
+      ]
+    },
+    {
+      "id": "PLATFORM_BROWSER_RUNTIME_DISCOVERY",
+      "description": "Query bounded browser/runtime availability through a reviewed platform adapter operation.",
+      "non_goals": [
+        "Does not launch arbitrary executables or accept arbitrary paths."
+      ]
+    },
+    {
+      "id": "PLATFORM_NATIVE_MESSAGING_REGISTRATION",
+      "description": "Represent reviewed native-messaging registration as a known future bounded platform authority.",
+      "non_goals": [
+        "Does not currently grant a registration operation or accept arbitrary registry data."
+      ]
+    },
+    {
+      "id": "PLATFORM_PROCESS_SUPERVISION",
+      "description": "Request one reviewed process-lifecycle operation through the platform adapter.",
+      "non_goals": [
+        "Does not execute arbitrary programs, arguments, shell commands, or scripts."
+      ]
+    },
+    {
+      "id": "PLATFORM_SECRET_STORE_ACCESS",
+      "description": "Request one reviewed secret-store operation through the platform adapter.",
+      "non_goals": [
+        "Does not expose secret values to callers that lack the exact typed operation."
+      ]
+    },
+    {
+      "id": "PRIVATE_DATA_READ",
+      "description": "Read private application data through a bounded orchestrator service.",
+      "non_goals": [
+        "Does not grant raw database, SQL, file, or secret-store access."
+      ]
+    },
+    {
+      "id": "PRIVATE_DATA_WRITE",
+      "description": "Write private application data through a bounded orchestrator service.",
+      "non_goals": [
+        "Does not grant raw database, SQL, migration, deletion, or filesystem access."
+      ]
+    },
+    {
+      "id": "PUBLIC_JOB_INDEX_READ",
+      "description": "Query the permitted public job index without private-user context.",
+      "non_goals": ["Does not transmit or retrieve private user data."]
+    },
+    {
+      "id": "SUBMISSION_FINAL",
+      "description": "Represent the known consequential final-submit authority so current policy can prove it has zero grants.",
+      "non_goals": ["Does not grant final submission in any current profile."]
+    },
+    {
+      "id": "VERIFICATION_EXECUTION",
+      "description": "Run bounded synthetic fixtures, benchmarks, and verification gates.",
+      "non_goals": [
+        "Does not run arbitrary code or access private production data."
+      ]
+    },
+    {
+      "id": "WORKFLOW_CONTROL",
+      "description": "Pause or cancel a bounded workflow safely.",
+      "non_goals": [
+        "Does not continue, submit, or repeat a consequential action."
+      ]
+    }
+  ]
+}

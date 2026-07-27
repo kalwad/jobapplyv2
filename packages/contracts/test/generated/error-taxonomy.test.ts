@@ -134,7 +134,7 @@ function readCommittedCatalog(): CatalogJson {
 /** Copy the committed catalog into a mutable temp dir and mutate it. */
 function tamperedCatalogRoot(mutate: (catalog: CatalogJson) => void): string {
   const root = join(makeTemporaryRoot(), "catalog");
-  mkdirSync(root, { recursive: true });
+  cpSync(CATALOG_ROOT, root, { recursive: true });
   const catalog = readCommittedCatalog();
   mutate(catalog);
   writeFileSync(

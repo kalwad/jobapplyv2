@@ -83,6 +83,29 @@ import type {
 import type {
   FixtureTestRecordV1,
 } from "./fixture/test-record.v1.ts";
+import type {
+  SecurityAuthorizationPolicyV1,
+  SecurityAuthorizationPolicyV1AuthorizationAllowRow,
+} from "./security/authorization-policy.v1.ts";
+import type {
+  SecurityAuthorizationRequestV1,
+} from "./security/authorization-request.v1.ts";
+import type {
+  SecurityCapabilityTaxonomyV1,
+  SecurityCapabilityTaxonomyV1AuthorizationProfileId,
+  SecurityCapabilityTaxonomyV1CapabilityEntry,
+  SecurityCapabilityTaxonomyV1CapabilityId,
+  SecurityCapabilityTaxonomyV1PrincipalEntry,
+  SecurityCapabilityTaxonomyV1PrincipalId,
+  SecurityCapabilityTaxonomyV1ProfileEntry,
+} from "./security/capability-taxonomy.v1.ts";
+import type {
+  SecurityCommandTaxonomyV1,
+  SecurityCommandTaxonomyV1CommandEntry,
+  SecurityCommandTaxonomyV1CommandId,
+  SecurityCommandTaxonomyV1ConsequenceClass,
+  SecurityCommandTaxonomyV1IdempotencyExpectation,
+} from "./security/command-taxonomy.v1.ts";
 
 /**
  * Typed validation outcome. Failures preserve the structured error list
@@ -137,6 +160,21 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition": ErrorTaxonomyV1RetryDisposition;
   readonly "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage": ErrorTaxonomyV1UserSafeMessage;
   readonly "urn:japp:schema:fixture:test-record:v1": FixtureTestRecordV1;
+  readonly "urn:japp:schema:security:authorization-policy:v1": SecurityAuthorizationPolicyV1;
+  readonly "urn:japp:schema:security:authorization-policy:v1#/$defs/authorizationAllowRow": SecurityAuthorizationPolicyV1AuthorizationAllowRow;
+  readonly "urn:japp:schema:security:authorization-request:v1": SecurityAuthorizationRequestV1;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1": SecurityCapabilityTaxonomyV1;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId": SecurityCapabilityTaxonomyV1AuthorizationProfileId;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityEntry": SecurityCapabilityTaxonomyV1CapabilityEntry;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId": SecurityCapabilityTaxonomyV1CapabilityId;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalEntry": SecurityCapabilityTaxonomyV1PrincipalEntry;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId": SecurityCapabilityTaxonomyV1PrincipalId;
+  readonly "urn:japp:schema:security:capability-taxonomy:v1#/$defs/profileEntry": SecurityCapabilityTaxonomyV1ProfileEntry;
+  readonly "urn:japp:schema:security:command-taxonomy:v1": SecurityCommandTaxonomyV1;
+  readonly "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandEntry": SecurityCommandTaxonomyV1CommandEntry;
+  readonly "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId": SecurityCommandTaxonomyV1CommandId;
+  readonly "urn:japp:schema:security:command-taxonomy:v1#/$defs/consequenceClass": SecurityCommandTaxonomyV1ConsequenceClass;
+  readonly "urn:japp:schema:security:command-taxonomy:v1#/$defs/idempotencyExpectation": SecurityCommandTaxonomyV1IdempotencyExpectation;
 }
 
 /** Every generated catalog reference, sorted. */
@@ -177,6 +215,21 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:error:taxonomy:v1#/$defs/retryDisposition",
   "urn:japp:schema:error:taxonomy:v1#/$defs/userSafeMessage",
   "urn:japp:schema:fixture:test-record:v1",
+  "urn:japp:schema:security:authorization-policy:v1",
+  "urn:japp:schema:security:authorization-policy:v1#/$defs/authorizationAllowRow",
+  "urn:japp:schema:security:authorization-request:v1",
+  "urn:japp:schema:security:capability-taxonomy:v1",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityEntry",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalEntry",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId",
+  "urn:japp:schema:security:capability-taxonomy:v1#/$defs/profileEntry",
+  "urn:japp:schema:security:command-taxonomy:v1",
+  "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandEntry",
+  "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId",
+  "urn:japp:schema:security:command-taxonomy:v1#/$defs/consequenceClass",
+  "urn:japp:schema:security:command-taxonomy:v1#/$defs/idempotencyExpectation",
 ];
 
 let runtimeSingleton: {
@@ -614,4 +667,169 @@ export function validateFixtureTestRecordV1(
   data: unknown,
 ): ContractValidationOutcome<FixtureTestRecordV1> {
   return validateContractInstance("urn:japp:schema:fixture:test-record:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:authorization-policy:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityAuthorizationPolicyV1 type only after validation succeeds.
+ */
+export function validateSecurityAuthorizationPolicyV1(
+  data: unknown,
+): ContractValidationOutcome<SecurityAuthorizationPolicyV1> {
+  return validateContractInstance("urn:japp:schema:security:authorization-policy:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:authorization-policy:v1#/$defs/authorizationAllowRow
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityAuthorizationPolicyV1AuthorizationAllowRow type only after validation succeeds.
+ */
+export function validateSecurityAuthorizationPolicyV1AuthorizationAllowRow(
+  data: unknown,
+): ContractValidationOutcome<SecurityAuthorizationPolicyV1AuthorizationAllowRow> {
+  return validateContractInstance("urn:japp:schema:security:authorization-policy:v1#/$defs/authorizationAllowRow", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:authorization-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityAuthorizationRequestV1 type only after validation succeeds.
+ */
+export function validateSecurityAuthorizationRequestV1(
+  data: unknown,
+): ContractValidationOutcome<SecurityAuthorizationRequestV1> {
+  return validateContractInstance("urn:japp:schema:security:authorization-request:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1 type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1AuthorizationProfileId type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1AuthorizationProfileId(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1AuthorizationProfileId> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1CapabilityEntry type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1CapabilityEntry(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1CapabilityEntry> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1CapabilityId type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1CapabilityId(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1CapabilityId> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1PrincipalEntry type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1PrincipalEntry(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1PrincipalEntry> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1PrincipalId type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1PrincipalId(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1PrincipalId> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:capability-taxonomy:v1#/$defs/profileEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCapabilityTaxonomyV1ProfileEntry type only after validation succeeds.
+ */
+export function validateSecurityCapabilityTaxonomyV1ProfileEntry(
+  data: unknown,
+): ContractValidationOutcome<SecurityCapabilityTaxonomyV1ProfileEntry> {
+  return validateContractInstance("urn:japp:schema:security:capability-taxonomy:v1#/$defs/profileEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:command-taxonomy:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCommandTaxonomyV1 type only after validation succeeds.
+ */
+export function validateSecurityCommandTaxonomyV1(
+  data: unknown,
+): ContractValidationOutcome<SecurityCommandTaxonomyV1> {
+  return validateContractInstance("urn:japp:schema:security:command-taxonomy:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:command-taxonomy:v1#/$defs/commandEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCommandTaxonomyV1CommandEntry type only after validation succeeds.
+ */
+export function validateSecurityCommandTaxonomyV1CommandEntry(
+  data: unknown,
+): ContractValidationOutcome<SecurityCommandTaxonomyV1CommandEntry> {
+  return validateContractInstance("urn:japp:schema:security:command-taxonomy:v1#/$defs/commandEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCommandTaxonomyV1CommandId type only after validation succeeds.
+ */
+export function validateSecurityCommandTaxonomyV1CommandId(
+  data: unknown,
+): ContractValidationOutcome<SecurityCommandTaxonomyV1CommandId> {
+  return validateContractInstance("urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:command-taxonomy:v1#/$defs/consequenceClass
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCommandTaxonomyV1ConsequenceClass type only after validation succeeds.
+ */
+export function validateSecurityCommandTaxonomyV1ConsequenceClass(
+  data: unknown,
+): ContractValidationOutcome<SecurityCommandTaxonomyV1ConsequenceClass> {
+  return validateContractInstance("urn:japp:schema:security:command-taxonomy:v1#/$defs/consequenceClass", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:security:command-taxonomy:v1#/$defs/idempotencyExpectation
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SecurityCommandTaxonomyV1IdempotencyExpectation type only after validation succeeds.
+ */
+export function validateSecurityCommandTaxonomyV1IdempotencyExpectation(
+  data: unknown,
+): ContractValidationOutcome<SecurityCommandTaxonomyV1IdempotencyExpectation> {
+  return validateContractInstance("urn:japp:schema:security:command-taxonomy:v1#/$defs/idempotencyExpectation", data);
 }

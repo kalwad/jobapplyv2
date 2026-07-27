@@ -33,6 +33,212 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W04 — Define capability and command allowlists (2026-07-27)
+
+- Revision: content working tree (commit recorded post-commit). Bootstrap ran
+  at starting tree `1171f6af2fcb1a8057023fcdaf914ae232575223`
+  (commit `11b3202d247859ab1345b170d20087ecc1f23e08`, clean `main`,
+  equal to `origin/main`).
+- Environment: macOS 27.0 (Apple silicon, Darwin 27.0.0); Node v24.18.0;
+  pnpm 11.17.0; uv 0.11.32 with uv-managed Python 3.12.13; rustc/cargo
+  1.97.1; @playwright/test 1.62.0 with pinned Chromium; pydantic 2.12.5.
+  No new dependencies.
+- Clean-session bootstrap (all inspected at starting HEAD): `git fetch
+  origin`; `git status --short`; `git branch --show-current`; `git
+  rev-parse HEAD`; `git rev-parse origin/main`; `git log --oneline -8` →
+  clean `main` at `11b3202d…`, equal to origin; `gh run view
+  30246992024` → final M01-W03 repair restamp green on macos-15 job
+  89916167019, ubuntu-24.04 job 89916167071, and windows-2025 job
+  89916167072; both requested M01-W03/KI-0020 ranges
+  (`c5ce7e9..b21c098`, `b21c098..11b3202`) inspected; `python3
+  scripts/validate_status.py` → exit 0 (36 groups); `pnpm
+  traceability:check` → exit 0 (157 requirements / 286 packages);
+  `pnpm run doctor` → exit 0, 21 PASS / 0 WARNING / 0 FAIL / 2
+  NOT_YET_APPLICABLE; `pnpm generate:contracts --check` → exit 0, 44
+  files byte-identical; `pnpm verify` → exit 0 with contract-gen ACTIVE
+  and PASS, contract and visual honestly NOT_YET_APPLICABLE, and no
+  tracked/untracked change. Only after every prerequisite passed was
+  M01-W04 made the sole IN_PROGRESS package; M01-W05 remained
+  NOT_STARTED and no package remained READY.
+- Governance and scope: M00 remains ACCEPTED, M01 remains IN_PROGRESS,
+  all four critical gates remain NOT_EVALUATED, and release remains
+  NOT_READY. No requirement in `docs/traceability.json` names M01-W04 as
+  an owner, so only the package state changes; all 157 requirement
+  implementation/verification states, evidence, dependency projections,
+  and reviewed hashes remain byte-identical to the starting revision.
+  No M01-W05 contract-suite, M01-W06/M01-W07 contract, Rust contract,
+  product, browser, storage, model, native-transport, platform, UI, or
+  submission implementation was begun.
+- Canonical architecture delivered:
+  - Four strict security schemas define the closed principal/profile and
+    capability vocabularies, command vocabulary, authorization-request
+    metadata, and positive authorization rows. Three validated canonical
+    JSON data documents define capability metadata, command metadata, and
+    the policy. TypeScript and Python maps and authorization logic are
+    generated from those sources; there is no independently handwritten
+    language policy.
+  - The exact principal set is `DESKTOP_APP`,
+    `EXTENSION_CONTENT_SCRIPT`, `EXTENSION_SERVICE_WORKER`,
+    `MODEL_RUNTIME`, `NATIVE_HOST`, `ORCHESTRATOR`,
+    `PLATFORM_ADAPTER`, `PUBLIC_JOB_INDEX`, and
+    `VERIFICATION_HARNESS`. The exact profile set is `FEASIBILITY`,
+    `GUIDED_PRE_SUBMIT`, `PRODUCTION_NO_SUBMIT`, and `VERIFICATION`;
+    there is no AUTO_SUBMIT profile.
+  - The 18 bounded capabilities are artifact read/write, model
+    inference, page document upload/inspection/bounded mutation/bounded
+    navigation/validation-reconciliation-review, four reviewed platform
+    categories (browser-runtime discovery, native-messaging
+    registration, process supervision, secret-store access), private
+    data read/write, public job-index read, final submission, synthetic
+    verification, and workflow control. No broad command, arbitrary
+    filesystem, shell, SQL, JavaScript, selector, registry, executable,
+    URL, or code authority exists.
+  - The 24 commands cover bounded artifact/model/private-data/public-index
+    requests, page reporting/scanning/proposal/application/verification/
+    reconciliation/review/upload/safe navigation, pause/cancel, four
+    abstract platform-service requests, synthetic-suite execution, and a
+    known final-submit command. Each has one capability, reviewed target,
+    supported-profile set, safe-integer byte limit, consequence class,
+    idempotency expectation, safe M01-W03 denial code, description, and
+    explicit non-goals.
+  - The 127 sorted positive rows authorize exact
+    `(profile, command, preserved origin, immediate sender, trusted
+    receiver, target)` hops. Absence denies; wildcards, regexes,
+    inheritance, transitive authority, duplicate rows, target rewrites,
+    and origin rewriting are invalid. Complete multi-hop routes are
+    required where applicable, including content script → service worker
+    → native host → authenticated loopback orchestrator.
+  - Generator integrity checks independently pin immutable profile
+    capability ceilings, command capability/target mapping,
+    consequence/idempotency semantics, complete routes, content-script,
+    desktop, orchestrator, model, public-index, native-host,
+    platform-adapter, verification, and final-submit prohibitions. Thus
+    coordinated catalog edits cannot grant prohibited authority merely
+    by making the schema-valid JSON documents agree.
+  - FEASIBILITY permits only the exact synthetic/local inspection,
+    bounded fill, verification, reconciliation, workflow-control, and
+    evidence route; it excludes safe navigation and all final,
+    production-private, model, artifact, and platform authority.
+    GUIDED_PRE_SUBMIT permits only reviewed bounded fill, verification,
+    upload, safe next/back, pause, cancel, reconciliation, and final
+    review; its vocabulary cannot express credentials, account creation,
+    email verification, MFA, CAPTCHA solving, unexpected legal consent,
+    unapproved consequential answers, arbitrary selectors/scripts, or
+    final submission. No current profile supports or contains a row for
+    any platform command or `SUBMISSION_FINAL_SUBMIT`.
+  - The closed request contains only version, IDs, preserved origin,
+    immediate sender, target, profile, UTC/correlation metadata, exact
+    safe-integer payload byte count, and optional causation, SHA-256
+    digest, and idempotency metadata. Capability/decision/error text and
+    payload are unrepresentable. Authorization additionally requires
+    trusted runtime context for the authenticated original principal,
+    receiving principal, active profile, and independently observed byte
+    count; every trusted value must agree with wire metadata and the
+    exact row before dispatch.
+- Generator and generated outputs:
+  - Generator format `1.1.0` → `1.2.0` because M01-W04 adds bounded
+    JSON-Schema integers and canonical security-policy data provenance/
+    language surfaces. The narrow integer IR/emitter support requires
+    exact safe integers in TypeScript and strict Pydantic integers in
+    Python and rejects booleans, floats, strings, negative values,
+    unsafe integers, contradictory bounds, and unsupported integer
+    keywords fail closed.
+  - Generation now validates 20 schemas and four data inputs (the
+    preserved error catalog plus three security documents) before
+    emitting 55 deterministic files. `MANIFEST.json` records exact source
+    paths, validating schemas, versions, SHA-256 input hashes, 51
+    resolved type references, and output hashes. The new generated
+    inventory is four security schema modules per language, Python's
+    security package initializer, and policy-data modules; prior
+    generated outputs change only where indexes, runtime integer
+    validation, README, or MANIFEST inventory require it.
+  - Generated `CAPABILITY_CATALOG_V1`, `COMMAND_CATALOG_V1`,
+    `AUTHORIZATION_POLICY_V1`, sorted identifier lists, membership and
+    required-entry lookups, allowed-command queries, and typed
+    authorization outcomes are immutable/frozen where supported.
+    Unknown/hostile values are denied without echo. TypeScript uses the
+    strict canonical Ajv catalog with own-property validation and a
+    frozen null-prototype descriptor snapshot, rejecting inherited,
+    accessor, symbol, non-enumerable, and trapping-Proxy input before
+    policy use. Python copies model input to a fresh canonical record and
+    strictly revalidates it, so post-validation mutation cannot bypass
+    checks.
+- Focused and regression coverage:
+  - TypeScript security-policy tests exercise exact inventories and
+    canonical/generated agreement; every positive row; FEASIBILITY,
+    GUIDED_PRE_SUBMIT, production, verification, platform, and final
+    boundaries; content-script/service-worker/native-host multi-hop
+    routing; confused-deputy cases; trusted origin/sender/receiver/
+    profile/size binding; exact/over-limit and invalid integer sizes;
+    wrong/unknown/missing/duplicate/wildcard/tampered rows; hostile
+    prototype/accessor/Proxy/property inputs; immutable generated maps;
+    protected authentication/legal/CAPTCHA concepts; and every current
+    profile denying final submit.
+  - Python mirrors valid routes, every positive row, confused-deputy and
+    platform/final denials, strict/coercion/additional/null/hostile input,
+    valid model input, post-validation mutation, immutable maps, trusted
+    context, and byte-limit behavior. Shared instance-corpus cases prove
+    the strict authorization-request schema in both languages.
+  - Generator negatives cover unsupported/bounded integers; missing,
+    reordered, duplicate, wildcard, unknown, retargeted, capability-
+    expanded, final-disguised, idempotency-weakened, and coordinated
+    tampering; real check-mode drift; atomic rollback; generated
+    control-byte rejection; repeated byte identity; and check-mode
+    read-only behavior. Existing M01-W01 schema, M01-W02/KI-0018
+    generation/rollback/control-byte, and M01-W03/KI-0020
+    transient/retry taxonomy tests remain green.
+- Commands and observed results (local content working tree):
+  - `pnpm install --frozen-lockfile`; `uv sync --locked`; `cargo fetch
+    --locked --manifest-path services/native-host/Cargo.toml` → exit 0.
+  - `pnpm generate:contracts` → exit 0 (55 files). `pnpm
+    generate:contracts --check` run repeatedly, including two consecutive
+    runs after final implementation changes → exit 0 each time, 55 files
+    byte-identical.
+  - `pnpm traceability:generate`; `pnpm traceability:check` → exit 0
+    (157 requirements / 286 packages). `python3
+    scripts/validate_status.py` → exit 0 (36 groups).
+  - `pnpm --filter @japp/contracts exec vitest run
+    test/generated/security-policy.test.ts
+    test/generated/typescript-models.test.ts
+    test/generated/generator.test.ts test/generated/fsops-install.test.ts
+    test/generated/error-taxonomy.test.ts` → exit 0, 5 files / 267
+    tests. `uv run pytest scripts/tests/test_generated_security_policy.py
+    scripts/tests/test_generated_contracts.py
+    scripts/tests/test_integrity.py -q` → exit 0, 190 tests.
+  - `pnpm lint`; `pnpm format:check`; `pnpm typecheck`; `pnpm test`;
+    `pnpm test:e2e`; `pnpm test:python`; `pnpm test:rust` → exit 0.
+    The final full run contains 338 TypeScript contract tests, 539 Python
+    tests, one browser smoke test, and one Rust test.
+  - `pnpm run doctor` → exit 0, 20 PASS / 1 expected dirty-tree WARNING /
+    0 FAIL / 2 NOT_YET_APPLICABLE. `git diff --check` → exit 0.
+  - Final `pnpm verify` → exit 0: every ACTIVE suite PASS; contract-gen
+    ACTIVE/PASS; contract (M01-W05) and visual (M10-W06)
+    NOT_YET_APPLICABLE. Binary tracked-diff and sorted-untracked
+    fingerprints were identical before/after, proving the verifier is
+    read-only.
+  - Independent read-only audits found no remaining semantic/security or
+    test blocker. The original TypeScript accessor/Proxy
+    privilege-escalation reproduction and mutated Python-model
+    reproduction both fail closed; the focused policy suites pass 63/63
+    TypeScript and 32/32 Python.
+- Clean-clone simulation: staged candidate tree
+  `2967f3c2f1d3dd18c0e6881eaed189b9dec1ec14` was transported through a
+  temporary local-only commit into a fresh detached clone without moving
+  `main`. `pnpm install --frozen-lockfile`; `uv sync --locked`; and
+  `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`
+  → exit 0. `pnpm generate:contracts` → exit 0 (55 files); two consecutive
+  `pnpm generate:contracts --check` runs → exit 0, byte-identical.
+  Traceability (157/286) and status (36 groups) passed; doctor reported 21
+  PASS / 0 WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE. `pnpm verify` passed
+  every active suite with 338 TypeScript contract tests, 539 Python
+  tests, browser and Rust tests, contract-gen ACTIVE/PASS, and contract/
+  visual NOT_YET_APPLICABLE. Final `git diff --check` and `git status
+  --short` were empty.
+- Artifacts: the canonical security schemas and catalogs, generated
+  TypeScript/Python security trees, MANIFEST, test corpus, focused tests,
+  and this evidence entry. No screenshots or benchmark artifacts apply.
+- Known flaky behavior: none observed.
+
 ### M01-W03 — Define error taxonomy (2026-07-27)
 
 - Revision: content working tree (commit recorded post-commit). Bootstrap

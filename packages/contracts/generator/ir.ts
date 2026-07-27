@@ -72,6 +72,13 @@ export interface IrNumberType {
   readonly maximum: number | null;
 }
 
+export interface IrIntegerType {
+  readonly kind: "integer";
+  readonly metadata: IrMetadata;
+  readonly minimum: number;
+  readonly maximum: number;
+}
+
 export interface IrBooleanType {
   readonly kind: "boolean";
   readonly metadata: IrMetadata;
@@ -131,6 +138,7 @@ export type IrType =
   | IrStringType
   | IrEnumType
   | IrNumberType
+  | IrIntegerType
   | IrBooleanType
   | IrArrayType
   | IrRefType
@@ -326,6 +334,31 @@ function extractNumber(node: JsonObject, context: NodeContext): IrNumberType {
       node.maximum === undefined
         ? null
         : requireNumber(node.maximum, context, "maximum"),
+  };
+}
+
+function extractInteger(node: JsonObject, context: NodeContext): IrIntegerType {
+  assertOnlyKeywords(node, context, new Set(["type", "minimum", "maximum"]));
+  if (node.minimum === undefined || node.maximum === undefined) {
+    fail(
+      context,
+      "integer schemas require inclusive minimum and maximum safe-integer bounds",
+    );
+  }
+  if (typeof node.minimum !== "number" || !Number.isSafeInteger(node.minimum)) {
+    fail(context, "integer minimum must be a safe integer");
+  }
+  if (typeof node.maximum !== "number" || !Number.isSafeInteger(node.maximum)) {
+    fail(context, "integer maximum must be a safe integer");
+  }
+  if (node.minimum > node.maximum) {
+    fail(context, "integer minimum must be less than or equal to maximum");
+  }
+  return {
+    kind: "integer",
+    metadata: extractMetadata(node),
+    minimum: node.minimum,
+    maximum: node.maximum,
   };
 }
 
@@ -606,6 +639,9 @@ function extractType(
   if (type === "number") {
     return extractNumber(node, context);
   }
+  if (type === "integer") {
+    return extractInteger(node, context);
+  }
   if (type === "boolean") {
     return extractBoolean(node, context);
   }
@@ -619,8 +655,8 @@ function extractType(
     context,
     type === undefined
       ? "schema node declares no supported construct " +
-          "($ref, anyOf-nullability, enum, string, number, boolean, array, " +
-          "or object)"
+          "($ref, anyOf-nullability, enum, string, number, bounded integer, " +
+          "boolean, array, or object)"
       : `type ${JSON.stringify(type)} is not supported`,
   );
 }

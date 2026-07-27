@@ -39,7 +39,7 @@ class ContractModel(BaseModel):
         """
         return cast(
             "dict[str, JsonValue]",
-            self.model_dump(mode="json", exclude_unset=True),
+            self.model_dump(mode="json", exclude_unset=True, warnings="error"),
         )
 
 

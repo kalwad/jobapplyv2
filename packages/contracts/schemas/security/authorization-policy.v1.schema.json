@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:security:authorization-policy:v1",
+  "title": "Default-deny authorization policy",
+  "description": "Canonical M01-W04 positive allowlist. Each row authorizes one exact profile, command, preserved origin, immediate sender, trusted receiver, and final target tuple. Absence denies. Wildcards, regexes, inheritance, transitive authority, caller-supplied decisions, and negative rows are not representable. The generator independently enforces architectural prohibitions and complete forwarding routes.",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["policy_version", "allow"],
+  "properties": {
+    "policy_version": {
+      "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+    },
+    "allow": {
+      "description": "Exact positive rows sorted by profile, command, origin, sender, receiver, and target.",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 500,
+      "items": {
+        "$ref": "#/$defs/authorizationAllowRow"
+      }
+    }
+  },
+  "$defs": {
+    "authorizationAllowRow": {
+      "title": "Exact authorization allow row",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_profile",
+        "command_id",
+        "originating_principal",
+        "immediate_sender",
+        "receiving_principal",
+        "target_principal"
+      ],
+      "properties": {
+        "authorization_profile": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId"
+        },
+        "command_id": {
+          "$ref": "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId"
+        },
+        "originating_principal": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        },
+        "immediate_sender": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        },
+        "receiving_principal": {
+          "description": "Trusted runtime context for the component evaluating this hop; not caller metadata.",
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        },
+        "target_principal": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        }
+      }
+    }
+  }
+}

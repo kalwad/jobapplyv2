@@ -1,0 +1,405 @@
+{
+  "catalog_version": "1.0.0",
+  "commands": [
+    {
+      "id": "ARTIFACT_READ_REQUEST",
+      "required_capability": "ARTIFACT_READ",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 65536,
+      "consequence_class": "SENSITIVE_SERVICE",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request one reviewed artifact through the orchestrator artifact service.",
+      "non_goals": [
+        "Does not carry or authorize an arbitrary filesystem path.",
+        "Does not permit direct desktop or extension filesystem access."
+      ]
+    },
+    {
+      "id": "ARTIFACT_WRITE_REQUEST",
+      "required_capability": "ARTIFACT_WRITE",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 1048576,
+      "consequence_class": "SENSITIVE_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request one reviewed artifact write through the orchestrator artifact service.",
+      "non_goals": [
+        "Does not carry or authorize an arbitrary filesystem path.",
+        "Does not authorize delete, recursive overwrite, or raw filesystem access."
+      ]
+    },
+    {
+      "id": "MODEL_INFERENCE_REQUEST",
+      "required_capability": "MODEL_INFERENCE",
+      "intended_target": "MODEL_RUNTIME",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "SENSITIVE_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request bounded local model inference from the orchestrator.",
+      "non_goals": [
+        "Does not grant command authority to model output.",
+        "Does not permit direct extension, desktop, or native-host model access."
+      ]
+    },
+    {
+      "id": "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+      "required_capability": "PAGE_MUTATE_BOUNDED",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "REVERSIBLE_MUTATION",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Apply a reviewed bounded set of field operations through controlled page drivers.",
+      "non_goals": [
+        "Does not authorize arbitrary selectors, scripts, passwords, legal consent, or final submission.",
+        "Does not authorize blind replay after an uncertain result."
+      ]
+    },
+    {
+      "id": "PAGE_NAVIGATE_BACK",
+      "required_capability": "PAGE_NAVIGATE_BOUNDED",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 32768,
+      "consequence_class": "CONTROL_FLOW",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Navigate to one reviewed safe previous step.",
+      "non_goals": [
+        "Does not authorize arbitrary URLs, selectors, scripts, or replay after uncertain navigation."
+      ]
+    },
+    {
+      "id": "PAGE_NAVIGATE_NEXT",
+      "required_capability": "PAGE_NAVIGATE_BOUNDED",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 32768,
+      "consequence_class": "CONTROL_FLOW",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Navigate to one reviewed safe next step that is not a final-submit action.",
+      "non_goals": [
+        "Does not authorize final submission, uncertain navigation, arbitrary selectors, or blind replay."
+      ]
+    },
+    {
+      "id": "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+      "required_capability": "PAGE_MUTATE_BOUNDED",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Ask the orchestrator to propose bounded field operations from already reviewed data and page descriptors.",
+      "non_goals": [
+        "Does not execute a proposal or accept capability claims from model output.",
+        "Does not authorize credentials, account creation, MFA, CAPTCHA, legal consent, or consequential answers."
+      ]
+    },
+    {
+      "id": "PAGE_RECONCILE_STATE",
+      "required_capability": "PAGE_VALIDATE_RECONCILE_REVIEW",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 131072,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Re-read bounded page state and reconcile it against the expected reviewed state.",
+      "non_goals": ["Does not silently mutate controls, navigate, or submit."]
+    },
+    {
+      "id": "PAGE_REPORT_FINAL_REVIEW",
+      "required_capability": "PAGE_VALIDATE_RECONCILE_REVIEW",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": [
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Report bounded final-review descriptors to the orchestrator while stopping before submission.",
+      "non_goals": [
+        "Does not authorize or imply final submission.",
+        "Does not include raw page HTML, secrets, tokens, or caller-supplied decisions."
+      ]
+    },
+    {
+      "id": "PAGE_REPORT_STATE",
+      "required_capability": "PAGE_INSPECT",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Report bounded page state and descriptors through the service-worker and native-host route to the orchestrator.",
+      "non_goals": [
+        "Does not include raw page HTML, secrets, tokens, or executable content.",
+        "Does not change the preserved content-script origin while forwarding."
+      ]
+    },
+    {
+      "id": "PAGE_SCAN_VISIBLE_CONTROLS",
+      "required_capability": "PAGE_INSPECT",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 32768,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Scan visible controls and bounded descriptors without mutation.",
+      "non_goals": [
+        "Does not collect raw page HTML, secrets, hidden credentials, or arbitrary DOM data."
+      ]
+    },
+    {
+      "id": "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+      "required_capability": "PAGE_DOCUMENT_UPLOAD",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 65536,
+      "consequence_class": "REVERSIBLE_MUTATION",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Attach one previously reviewed document through a bounded file control.",
+      "non_goals": [
+        "Does not carry an arbitrary path or permit browsing the filesystem.",
+        "Does not upload an unreviewed document or submit the application."
+      ]
+    },
+    {
+      "id": "PAGE_VERIFY_FIELD_VALUES",
+      "required_capability": "PAGE_VALIDATE_RECONCILE_REVIEW",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 131072,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Verify bounded field values against the reviewed expected state.",
+      "non_goals": ["Does not repair mismatches silently, navigate, or submit."]
+    },
+    {
+      "id": "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST",
+      "required_capability": "PLATFORM_BROWSER_RUNTIME_DISCOVERY",
+      "intended_target": "PLATFORM_ADAPTER",
+      "supported_profiles": [],
+      "max_encoded_payload_size_bytes": 16384,
+      "consequence_class": "PLATFORM_SERVICE",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request bounded browser/runtime discovery from the platform adapter.",
+      "non_goals": [
+        "Does not carry arbitrary paths, executable names, arguments, registry data, or shell text."
+      ]
+    },
+    {
+      "id": "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST",
+      "required_capability": "PLATFORM_NATIVE_MESSAGING_REGISTRATION",
+      "intended_target": "PLATFORM_ADAPTER",
+      "supported_profiles": [],
+      "max_encoded_payload_size_bytes": 16384,
+      "consequence_class": "PLATFORM_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Represent native-messaging registration as a known bounded future platform command with no current grant.",
+      "non_goals": [
+        "Does not currently authorize registration.",
+        "Does not carry arbitrary registry keys, manifest paths, executable paths, or shell commands."
+      ]
+    },
+    {
+      "id": "PLATFORM_PROCESS_SUPERVISION_REQUEST",
+      "required_capability": "PLATFORM_PROCESS_SUPERVISION",
+      "intended_target": "PLATFORM_ADAPTER",
+      "supported_profiles": [],
+      "max_encoded_payload_size_bytes": 16384,
+      "consequence_class": "PLATFORM_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request one reviewed bounded lifecycle operation for a known application-owned process.",
+      "non_goals": [
+        "Does not carry arbitrary executable names, paths, arguments, scripts, or shell commands."
+      ]
+    },
+    {
+      "id": "PLATFORM_SECRET_STORE_REQUEST",
+      "required_capability": "PLATFORM_SECRET_STORE_ACCESS",
+      "intended_target": "PLATFORM_ADAPTER",
+      "supported_profiles": [],
+      "max_encoded_payload_size_bytes": 16384,
+      "consequence_class": "PLATFORM_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request one reviewed typed secret-store operation from the platform adapter.",
+      "non_goals": [
+        "Does not carry a caller-defined backend, command, path, registry key, or arbitrary secret identifier."
+      ]
+    },
+    {
+      "id": "PRIVATE_DATA_READ_REQUEST",
+      "required_capability": "PRIVATE_DATA_READ",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 65536,
+      "consequence_class": "SENSITIVE_SERVICE",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request bounded private application data through the orchestrator service.",
+      "non_goals": [
+        "Does not carry SQL, a database path, a filesystem path, or a secret-store operation.",
+        "Does not permit extension or native-host origin."
+      ]
+    },
+    {
+      "id": "PRIVATE_DATA_WRITE_REQUEST",
+      "required_capability": "PRIVATE_DATA_WRITE",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 262144,
+      "consequence_class": "SENSITIVE_SERVICE",
+      "idempotency_expectation": "IDEMPOTENCY_KEY_REQUIRED",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Request one bounded private-data write through the orchestrator service.",
+      "non_goals": [
+        "Does not carry SQL, migration commands, raw database records, paths, or delete-all authority.",
+        "Does not permit extension or native-host origin."
+      ]
+    },
+    {
+      "id": "PUBLIC_JOB_INDEX_QUERY",
+      "required_capability": "PUBLIC_JOB_INDEX_READ",
+      "intended_target": "PUBLIC_JOB_INDEX",
+      "supported_profiles": ["PRODUCTION_NO_SUBMIT"],
+      "max_encoded_payload_size_bytes": 65536,
+      "consequence_class": "READ_ONLY",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Query permitted public job-index data without private-user context.",
+      "non_goals": [
+        "Does not transmit private user data or grant the public index product authority."
+      ]
+    },
+    {
+      "id": "SUBMISSION_FINAL_SUBMIT",
+      "required_capability": "SUBMISSION_FINAL",
+      "intended_target": "EXTENSION_CONTENT_SCRIPT",
+      "supported_profiles": [],
+      "max_encoded_payload_size_bytes": 4096,
+      "consequence_class": "CONSEQUENTIAL_FINAL_ACTION",
+      "idempotency_expectation": "NOT_REPEATABLE",
+      "denial_error_code": "SUBMISSION_PROHIBITED_FINAL_ACTION",
+      "description": "Name the consequential final-submit action so every current profile can prove it has zero authority.",
+      "non_goals": [
+        "Does not authorize final submission in any current profile.",
+        "Does not imply a future auto-submit profile or bypass later prerequisites."
+      ]
+    },
+    {
+      "id": "VERIFICATION_RUN_SYNTHETIC_SUITE",
+      "required_capability": "VERIFICATION_EXECUTION",
+      "intended_target": "VERIFICATION_HARNESS",
+      "supported_profiles": ["FEASIBILITY", "VERIFICATION"],
+      "max_encoded_payload_size_bytes": 65536,
+      "consequence_class": "SYNTHETIC_VERIFICATION",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Run one declared synthetic fixture, benchmark, or verification-gate operation.",
+      "non_goals": [
+        "Does not run arbitrary code, production data, OS commands, or final submission."
+      ]
+    },
+    {
+      "id": "WORKFLOW_CANCEL",
+      "required_capability": "WORKFLOW_CONTROL",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 8192,
+      "consequence_class": "CONTROL_FLOW",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Cancel a bounded workflow and prevent further dispatch.",
+      "non_goals": [
+        "Does not delete accepted results or trigger compensating product actions automatically."
+      ]
+    },
+    {
+      "id": "WORKFLOW_PAUSE",
+      "required_capability": "WORKFLOW_CONTROL",
+      "intended_target": "ORCHESTRATOR",
+      "supported_profiles": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ],
+      "max_encoded_payload_size_bytes": 8192,
+      "consequence_class": "CONTROL_FLOW",
+      "idempotency_expectation": "IDEMPOTENT",
+      "denial_error_code": "TRANSPORT_FORBIDDEN",
+      "description": "Pause a bounded workflow before another operation is dispatched.",
+      "non_goals": [
+        "Does not resume, retry, navigate, or submit automatically."
+      ]
+    }
+  ]
+}

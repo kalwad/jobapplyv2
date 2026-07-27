@@ -1112,6 +1112,198 @@
           }
         ]
       }
+    },
+    {
+      "label": "authorization-request: minimal bounded metadata accepted",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": true,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 0
+      }
+    },
+    {
+      "label": "authorization-request: maximum safe integer accepted by schema",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": true,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 9007199254740991
+      }
+    },
+    {
+      "label": "authorization-request: negative payload size rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": -1
+      }
+    },
+    {
+      "label": "authorization-request: fractional payload size rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 1.5
+      }
+    },
+    {
+      "label": "authorization-request: numeric string payload size rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": "1"
+      }
+    },
+    {
+      "label": "authorization-request: boolean payload size rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": true
+      }
+    },
+    {
+      "label": "authorization-request: unsafe integer payload size rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 9007199254740992
+      }
+    },
+    {
+      "label": "authorization-request: arbitrary payload rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 10,
+        "payload": {
+          "selector": "#submit"
+        }
+      }
+    },
+    {
+      "label": "authorization-request: caller capability claim rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 10,
+        "required_capability": "PRIVATE_DATA_READ"
+      }
+    },
+    {
+      "label": "authorization-request: caller decision rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PAGE_REPORT_STATE",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 10,
+        "decision": "ALLOW"
+      }
+    },
+    {
+      "label": "authorization-request: unknown command rejected",
+      "ref": "urn:japp:schema:security:authorization-request:v1",
+      "valid": false,
+      "instance": {
+        "request_version": "AUTHORIZATION_REQUEST_V1",
+        "request_id": "req_0123456789ABCDEFGHJKMNPQRS",
+        "command_id": "PASSWORD_FILL",
+        "originating_principal": "EXTENSION_CONTENT_SCRIPT",
+        "immediate_sender": "EXTENSION_CONTENT_SCRIPT",
+        "target_principal": "ORCHESTRATOR",
+        "authorization_profile": "GUIDED_PRE_SUBMIT",
+        "occurred_at": "2026-07-27T08:00:00Z",
+        "correlation_id": "wf_0123456789ABCDEFGHJKMNPQRS",
+        "payload_size_bytes": 10
+      }
     }
   ]
 }

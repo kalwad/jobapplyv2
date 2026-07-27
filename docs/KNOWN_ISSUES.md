@@ -36,6 +36,19 @@ broadening a work package (spec §1.5).
 
 None recorded.
 
+## M01-W04 review
+
+M01-W04 introduced the canonical capability, command, and authorization
+policy catalogs; strict authorization-request metadata; bounded safe-integer
+generator support; and generated TypeScript/Python policy lookups and
+fail-closed authorization. KI-0021 below was reproduced and fixed during
+independent package validation: both language authorizers had trusted live
+validated objects in ways that could let values change between validation
+and policy use. The TypeScript surface now authorizes only a frozen
+descriptor snapshot of plain own data, and Python serializes model input to a
+fresh record and strictly revalidates it. No product dispatcher or M01-W05
+contract suite was added. No CRITICAL or HIGH issue remains open.
+
 ## M01-W03 review
 
 M01-W03 introduced the machine-readable error taxonomy: the twelve-family
@@ -55,9 +68,10 @@ and two committed MODEL entries contradicted it; the focused correction is
 fixed and hosted-verified below. Deliberate, documented scope boundaries (not
 defects): the catalog defines exactly the specification-derived near-term
 codes (no speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
-and `integer` remain fail-closed generator constructs; capability/command
-allowlists are M01-W04; cross-language round-trip certification is
-M01-W05. No CRITICAL or HIGH issue is open.
+and unbounded, unsafe, or otherwise unsupported `integer` variants remain
+fail-closed generator constructs (M01-W04 deliberately added only bounded
+safe integers); capability/command allowlists are M01-W04; cross-language
+round-trip certification is M01-W05. No CRITICAL or HIGH issue is open.
 
 ## M01-W02 review
 
@@ -130,6 +144,50 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0021 — Authorization trusted live validated objects across policy use
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-07-27 during M01-W04 independent package validation
+- Affects: M01-W04; generated TypeScript/Python security-policy
+  authorizers; the strict canonical Ajv validator
+- Description: the initial TypeScript authorizer validated the caller's
+  object and then read from that same live object during policy evaluation.
+  An enumerable accessor or adversarial Proxy could therefore return safe
+  metadata while Ajv validated it and different metadata during later
+  command/row lookup, creating time-of-check/time-of-use authorization
+  drift; descriptor traps could also escape as exceptions. The initial
+  Python authorizer passed an already-created Pydantic request instance
+  directly back to `model_validate`; Pydantic may accept an instance without
+  revalidating fields mutated after construction, so the nominal model type
+  was not proof that its current data still satisfied the wire contract.
+- Reproduction: against the pre-fix M01-W04 working tree, create an
+  otherwise valid `PAGE_REPORT_STATE` request whose enumerable `command_id`
+  getter returns the safe command for its early reads and
+  `PRIVATE_DATA_READ_REQUEST` on a later read, or wrap the request in a Proxy
+  whose descriptor enumeration traps; call `authorizeCommandRequestV1` and
+  observe that validation and policy use consult the adversarial live
+  object. In Python, construct a valid
+  `SecurityAuthorizationRequestV1`, mutate `payload_size_bytes` to `-1`,
+  `-1.5`, `True`, or an unsafe integer (or mutate `command_id` to
+  `__proto__`), then pass the instance to `authorize_command_request_v1`;
+  the initial implementation did not force a fresh strict validation of
+  the mutated values.
+- Workaround: none accepted; authorization boundaries must not rely on
+  caller discipline or mutable nominal types.
+- Resolution + evidence link: TypeScript now rejects non-plain objects and
+  takes one frozen null-prototype snapshot using own enumerable data
+  descriptors before schema validation or policy use; accessors, symbols,
+  non-enumerable members, inherited metadata, and trapping Proxies fail
+  closed as `TRANSPORT_MALFORMED_MESSAGE`. Ajv additionally uses
+  `ownProperties: true`. Python dumps model input to a fresh canonical
+  Python record with `exclude_unset=True` and `warnings="error"`, then
+  strictly revalidates that record before policy use. Regression tests cover
+  the original accessor/Proxy case, inherited/hostile properties, a valid
+  model, each mutated-model case, no hostile-value echo, and TypeScript/
+  Python outcome parity. The focused suites, full verifier, and clean-clone
+  simulation pass. Evidence: docs/TEST_EVIDENCE.md § M01-W04.
 
 ### KI-0020 — Retry/transience equivalence was enforced in only one direction
 

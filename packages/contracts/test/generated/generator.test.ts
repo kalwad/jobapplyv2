@@ -161,7 +161,7 @@ describe("determinism", () => {
       inputs: { path: string; sha256: string }[];
       outputs: { path: string; sha256: string }[];
     };
-    expect(parsed.inputs.length).toBe(16);
+    expect(parsed.inputs.length).toBe(20);
     expect(parsed.outputs.length).toBe(tree.files.size - 1);
     for (const entry of [...parsed.inputs, ...parsed.outputs]) {
       expect(entry.path.includes("\\")).toBe(false);
@@ -403,8 +403,8 @@ describe("input safety", () => {
         };
       };
     };
-    // "integer" stays outside the supported construct set (numbers are the
-    // JSON "number" type; arrays/booleans joined the set in M01-W03).
+    // M01-W04 adds only bounded safe integers; an unbounded integer fails
+    // closed rather than silently weakening exact byte-count semantics.
     document.$defs.structuredLocation.properties.former_names = {
       type: "integer",
     };
@@ -415,7 +415,99 @@ describe("input safety", () => {
     expect(result.output).toContain(
       "#/$defs/structuredLocation/properties/former_names",
     );
-    expect(result.output).toContain('type "integer" is not supported');
+    expect(result.output).toContain(
+      "integer schemas require inclusive minimum and maximum",
+    );
+  });
+
+  test("bounded safe integers emit strict TypeScript and Python semantics", () => {
+    const schemas = copySchemas();
+    const location = join(schemas, "common", "location.v1.schema.json");
+    const document = JSON.parse(readFileSync(location, "utf8")) as {
+      $defs: {
+        structuredLocation: {
+          properties: Record<string, unknown>;
+        };
+      };
+    };
+    document.$defs.structuredLocation.properties.priority = {
+      type: "integer",
+      minimum: 0,
+      maximum: 10,
+    };
+    writeFileSync(location, `${JSON.stringify(document, null, 2)}\n`);
+    const generation = generateContracts({ schemasRoot: schemas });
+    const typescript = generation.tree.files.get(
+      "typescript/common/location.v1.ts",
+    );
+    const python = generation.tree.files.get(
+      "python/src/japp_contracts/common/location_v1.py",
+    );
+    expect(typescript).toContain("readonly priority?: number;");
+    expect(typescript).toContain(
+      "Integer; runtime validation rejects fractions and coercion.",
+    );
+    expect(python).toContain("Annotated[int, Ge(0), Le(10)]");
+  });
+
+  test("unsupported or unsafe integer variants fail closed", () => {
+    const variants: readonly [
+      label: string,
+      schema: Record<string, unknown>,
+      expected: RegExp,
+    ][] = [
+      [
+        "missing bound",
+        { type: "integer", minimum: 0 },
+        /require inclusive minimum and maximum/,
+      ],
+      [
+        "fractional bound",
+        { type: "integer", minimum: 0.5, maximum: 10 },
+        /minimum must be a safe integer/,
+      ],
+      [
+        "unsafe bound",
+        { type: "integer", minimum: 0, maximum: 9_007_199_254_740_992 },
+        /maximum must be a safe integer/,
+      ],
+      [
+        "reversed bounds",
+        { type: "integer", minimum: 10, maximum: 0 },
+        /minimum must be less than or equal to maximum/,
+      ],
+      [
+        "exclusive bound",
+        {
+          type: "integer",
+          minimum: 0,
+          maximum: 10,
+          exclusiveMinimum: 0,
+        },
+        /keyword "exclusiveMinimum" is not supported/,
+      ],
+      [
+        "multiple",
+        { type: "integer", minimum: 0, maximum: 10, multipleOf: 2 },
+        /keyword "multipleOf" is not supported/,
+      ],
+    ];
+    for (const [label, integerSchema, expected] of variants) {
+      const schemas = copySchemas();
+      const location = join(schemas, "common", "location.v1.schema.json");
+      const document = JSON.parse(readFileSync(location, "utf8")) as {
+        $defs: {
+          structuredLocation: {
+            properties: Record<string, unknown>;
+          };
+        };
+      };
+      document.$defs.structuredLocation.properties.priority = integerSchema;
+      writeFileSync(location, `${JSON.stringify(document, null, 2)}\n`);
+      expect(() => generateContracts({ schemasRoot: schemas }), label).toThrow(
+        expected,
+      );
+    }
   });
 
   test("general anyOf beyond the nullability form fails closed", () => {

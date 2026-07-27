@@ -9,7 +9,9 @@
  * - there is no loader hook, so any reference that leaves the registered
  *   catalog fails instead of being fetched;
  * - no type coercion and no default injection: data validates exactly as
- *   written or not at all.
+ *   written or not at all;
+ * - only own enumerable properties satisfy object schemas, so prototype
+ *   inheritance cannot supply required or optional wire members.
  */
 
 import {
@@ -80,6 +82,7 @@ export function buildStrictAjv(): Ajv2020 {
     coerceTypes: false,
     useDefaults: false,
     removeAdditional: false,
+    ownProperties: true,
     allErrors: true,
     addUsedSchema: false,
   });

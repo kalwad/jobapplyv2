@@ -10,13 +10,31 @@
   },
   "dataInputs": [
     {
+      "path": "packages/contracts/catalog/authorization-policy.v1.json",
+      "sha256": "3355b6c9c483c7305d36a668b3e8134b116382f0e842ecced1a2b3007a4bfe21",
+      "validatedAgainst": "urn:japp:schema:security:authorization-policy:v1",
+      "version": "1.0.0"
+    },
+    {
+      "path": "packages/contracts/catalog/capability-catalog.v1.json",
+      "sha256": "099364a65684ec97822bf9b6ac21b12d2df3fb85bcd2e3cacaa87b69d3d6a08d",
+      "validatedAgainst": "urn:japp:schema:security:capability-taxonomy:v1",
+      "version": "1.0.0"
+    },
+    {
+      "path": "packages/contracts/catalog/command-catalog.v1.json",
+      "sha256": "600a4ebb6e1a45092e25408cf71ee3d87856aff98282a3f3092847e5d24f1bdc",
+      "validatedAgainst": "urn:japp:schema:security:command-taxonomy:v1",
+      "version": "1.0.0"
+    },
+    {
       "path": "packages/contracts/catalog/error-catalog.v1.json",
       "sha256": "987d72cdebc54987aa656353a94d7c7d228e42e5639edb6297df6b59fb0eada3",
       "validatedAgainst": "urn:japp:schema:error:catalog:v1",
       "version": "1.0.0"
     }
   ],
-  "formatVersion": "1.1.0",
+  "formatVersion": "1.2.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -114,20 +132,44 @@
       "path": "packages/contracts/schemas/fixture/test-record.v1.schema.json",
       "schemaVersion": "1.1.0",
       "sha256": "ad76c8065be7ee8ee899235d14bdc192afaf172916c67bea530651e67dc6ab51"
+    },
+    {
+      "id": "urn:japp:schema:security:authorization-policy:v1",
+      "path": "packages/contracts/schemas/security/authorization-policy.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "73929e3506a895d65af2914f2d61c583842124332a6d0c0d1710044ae102cd10"
+    },
+    {
+      "id": "urn:japp:schema:security:authorization-request:v1",
+      "path": "packages/contracts/schemas/security/authorization-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "984056556ad9565e707819fa7be10b54563f9edc4fbdcfd027c281946c8aee03"
+    },
+    {
+      "id": "urn:japp:schema:security:capability-taxonomy:v1",
+      "path": "packages/contracts/schemas/security/capability-taxonomy.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "7fec703f99fe75883a7ae24f17e33e699ae688ee637f3efbb166fa77caa688b0"
+    },
+    {
+      "id": "urn:japp:schema:security:command-taxonomy:v1",
+      "path": "packages/contracts/schemas/security/command-taxonomy.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "f93080d67d5fb0b6d686548045a843b474235fd291838ceacd3793907948cc6a"
     }
   ],
   "outputs": [
     {
       "path": "README.md",
-      "sha256": "097d9905436b5c5866648cd5c42d3ec7510af2c747a2ee40ccad9dcaff8592bf"
+      "sha256": "af2301d42cffef9a9649cd99e3e81fd4efae44cba0e85a99e7b5a91b078923aa"
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "bf2a9b82e51e22fd2e9249482db85ecfe3de7a7a739e7411fe524b50f9fcc5e3"
+      "sha256": "1bbd2f94490e58f5df417253bae8c183c9235a262052a60f7822fef7461a6cdb"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
-      "sha256": "b4bfd49378c65a09ad76cada8aa011c5f092cc6f06b43a8cecfed7d7998edea2"
+      "sha256": "57400a3ac6a16b94ed08104764278be0fa3a2d0a9bf46721e37055cf315b1c6c"
     },
     {
       "path": "python/src/japp_contracts/common/__init__.py",
@@ -214,6 +256,30 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "path": "python/src/japp_contracts/security/__init__.py",
+      "sha256": "2b9ae626535356b0736f2f464d49858d24da394bb2aee75f2eae8343d0e29212"
+    },
+    {
+      "path": "python/src/japp_contracts/security/authorization_policy_v1.py",
+      "sha256": "1fad84c29384ee27876deb10a5d02b67e529add527e5243825530b965cb86e81"
+    },
+    {
+      "path": "python/src/japp_contracts/security/authorization_request_v1.py",
+      "sha256": "2754c53a83f4863aa025ef91c97953f38680d0b4c19173c42c9a993bc5fbcfea"
+    },
+    {
+      "path": "python/src/japp_contracts/security/capability_taxonomy_v1.py",
+      "sha256": "48351a4eddf08cf5855cebfd44f12e87b04d09fd064dbb315a067db8bc882302"
+    },
+    {
+      "path": "python/src/japp_contracts/security/command_taxonomy_v1.py",
+      "sha256": "136b6d0e3292663f67dc7c6747a99d5b9889c3f7d4db2798b4446c3dafb8fc0d"
+    },
+    {
+      "path": "python/src/japp_contracts/security/policy_data_v1.py",
+      "sha256": "d36f89ea038d628af4f5fd7e3e96327b810503902389feb0f34baf85b94abec9"
+    },
+    {
       "path": "typescript/common/calendar-date.v1.ts",
       "sha256": "1ce87fca387a7b61f1d2d4a77760068a54ccf55e6fe4317a4a95305eaec1827c"
     },
@@ -283,11 +349,31 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "2e7ccaed05de66b864167b56daacdb735f16dd243d2cbd6252c48af5f028c91a"
+      "sha256": "59dfccf1ea2ae7a78be838764f47b9926ebbfcef217f97707dcd48979a2c048a"
+    },
+    {
+      "path": "typescript/security/authorization-policy.v1.ts",
+      "sha256": "57ab65178559288f4664ff6698fdb1b2c46f2894fdc64b5c6aaed784affdd740"
+    },
+    {
+      "path": "typescript/security/authorization-request.v1.ts",
+      "sha256": "90f2327371f2428483d0ea429026e2afed576e56cca9569e748488cedb7cca06"
+    },
+    {
+      "path": "typescript/security/capability-taxonomy.v1.ts",
+      "sha256": "97bfb56e5fcababe8557941869cb5a2ed34396c247b947ed695be12c5d380556"
+    },
+    {
+      "path": "typescript/security/command-taxonomy.v1.ts",
+      "sha256": "ae147c64b6920612674f302e0986c725961945e9e0b6cb3478f4b3c30880322c"
+    },
+    {
+      "path": "typescript/security/policy-data.v1.ts",
+      "sha256": "0bfb944ff0ef545fa108324a3c64dba8a2414bb4e7a922b9be3085aa0d05a0e9"
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "c883e1959d7a411f7a24859a12620ee4e778104cedf5d3d5d5ce14c3a2df611b"
+      "sha256": "c120d81e85e5446434d0486de653fb451a8d46f0839c95f18a1cfe6b794ee4cb"
     }
   ],
   "types": {
@@ -649,6 +735,156 @@
       "typescript": {
         "export": "FixtureTestRecordV1",
         "module": "typescript/fixture/test-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:authorization-policy:v1": {
+      "python": {
+        "module": "japp_contracts.security.authorization_policy_v1",
+        "symbol": "SecurityAuthorizationPolicyV1"
+      },
+      "typescript": {
+        "export": "SecurityAuthorizationPolicyV1",
+        "module": "typescript/security/authorization-policy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:authorization-policy:v1#/$defs/authorizationAllowRow": {
+      "python": {
+        "module": "japp_contracts.security.authorization_policy_v1",
+        "symbol": "SecurityAuthorizationPolicyV1AuthorizationAllowRow"
+      },
+      "typescript": {
+        "export": "SecurityAuthorizationPolicyV1AuthorizationAllowRow",
+        "module": "typescript/security/authorization-policy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:authorization-request:v1": {
+      "python": {
+        "module": "japp_contracts.security.authorization_request_v1",
+        "symbol": "SecurityAuthorizationRequestV1"
+      },
+      "typescript": {
+        "export": "SecurityAuthorizationRequestV1",
+        "module": "typescript/security/authorization-request.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1AuthorizationProfileId"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1AuthorizationProfileId",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityEntry": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1CapabilityEntry"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1CapabilityEntry",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1CapabilityId"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1CapabilityId",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalEntry": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1PrincipalEntry"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1PrincipalEntry",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1PrincipalId"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1PrincipalId",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:capability-taxonomy:v1#/$defs/profileEntry": {
+      "python": {
+        "module": "japp_contracts.security.capability_taxonomy_v1",
+        "symbol": "SecurityCapabilityTaxonomyV1ProfileEntry"
+      },
+      "typescript": {
+        "export": "SecurityCapabilityTaxonomyV1ProfileEntry",
+        "module": "typescript/security/capability-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:command-taxonomy:v1": {
+      "python": {
+        "module": "japp_contracts.security.command_taxonomy_v1",
+        "symbol": "SecurityCommandTaxonomyV1"
+      },
+      "typescript": {
+        "export": "SecurityCommandTaxonomyV1",
+        "module": "typescript/security/command-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandEntry": {
+      "python": {
+        "module": "japp_contracts.security.command_taxonomy_v1",
+        "symbol": "SecurityCommandTaxonomyV1CommandEntry"
+      },
+      "typescript": {
+        "export": "SecurityCommandTaxonomyV1CommandEntry",
+        "module": "typescript/security/command-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:command-taxonomy:v1#/$defs/commandId": {
+      "python": {
+        "module": "japp_contracts.security.command_taxonomy_v1",
+        "symbol": "SecurityCommandTaxonomyV1CommandId"
+      },
+      "typescript": {
+        "export": "SecurityCommandTaxonomyV1CommandId",
+        "module": "typescript/security/command-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:command-taxonomy:v1#/$defs/consequenceClass": {
+      "python": {
+        "module": "japp_contracts.security.command_taxonomy_v1",
+        "symbol": "SecurityCommandTaxonomyV1ConsequenceClass"
+      },
+      "typescript": {
+        "export": "SecurityCommandTaxonomyV1ConsequenceClass",
+        "module": "typescript/security/command-taxonomy.v1.ts"
+      }
+    },
+    "urn:japp:schema:security:command-taxonomy:v1#/$defs/idempotencyExpectation": {
+      "python": {
+        "module": "japp_contracts.security.command_taxonomy_v1",
+        "symbol": "SecurityCommandTaxonomyV1IdempotencyExpectation"
+      },
+      "typescript": {
+        "export": "SecurityCommandTaxonomyV1IdempotencyExpectation",
+        "module": "typescript/security/command-taxonomy.v1.ts"
       }
     }
   }

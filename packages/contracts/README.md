@@ -14,9 +14,13 @@ packages/contracts/
 ├── schemas/           # CANONICAL hand-authored JSON Schema source (M01-W01)
 │   ├── common/        # foundational shared definitions (listed below)
 │   ├── error/         # M01-W03 error taxonomy/catalog/record documents
-│   └── fixture/       # test-only composition fixtures; never product data
-├── catalog/           # CANONICAL validated data instances (M01-W03):
-│   └── error-catalog.v1.json   # one metadata entry per error code
+│   ├── fixture/       # test-only composition fixtures; never product data
+│   └── security/      # M01-W04 capability/command/authorization documents
+├── catalog/           # CANONICAL validated data instances:
+│   ├── error-catalog.v1.json        # M01-W03 error metadata
+│   ├── capability-catalog.v1.json   # principals/profiles/capabilities
+│   ├── command-catalog.v1.json      # bounded command metadata
+│   └── authorization-policy.v1.json # exact positive allow rows
 ├── src/               # deterministic catalog loader + strict validation layer
 ├── generator/         # M01-W02 deterministic generator engine (hand-authored)
 ├── generated/         # GENERATOR-OWNED output trees; never edited by hand
@@ -25,7 +29,7 @@ packages/contracts/
 │   └── python/        # generated strict Pydantic v2 package (japp_contracts)
 └── test/
     ├── schema/        # M01-W01 convention and definition tests
-    ├── generated/     # M01-W02/M01-W03 generator + generated-surface tests
+    ├── generated/     # M01-W02…W04 generator + generated-surface tests
     ├── fixtures/      # shared synthetic instance corpus for both languages
     └── contract/      # RESERVED for M01-W05 cross-language contract tests
 ```
@@ -248,7 +252,11 @@ across the three certified CI operating systems.
 Test placement rule: M01-W01 schema tests live in `test/schema/`; M01-W02
 generator and generated-model tests live in `test/generated/` (TypeScript)
 and `scripts/tests/test_generated_contracts.py` (Python), sharing the
-synthetic corpus in `test/fixtures/instance-corpus.json`.
+synthetic corpus in `test/fixtures/instance-corpus.json`. M01-W04 policy
+tests live in `test/generated/security-policy.test.ts` and
+`scripts/tests/test_generated_security_policy.py`; they prove generated
+policy behavior in both languages without claiming M01-W05 wire-round-trip
+certification.
 `test/contract/` is reserved for the M01-W05 cross-language suite and must
 stay empty until that package begins (the `contract` verification suite
 activates on M01-W05 and would otherwise report dishonest state).
@@ -276,8 +284,10 @@ pnpm generate:contracts --check  # read-only byte-exact drift check
   `pattern`/`minLength`/`maxLength`; `format: date | date-time` with the
   full-mode calendar/time assertions (mirrored in Python, including the
   `23:59:60Z` leap-second slot and proleptic year 0000); number
-  `minimum`/`maximum`; `boolean` (strict — never coerced from strings or
-  integers); uniform arrays (single object `items` schema plus
+  `minimum`/`maximum`; bounded `integer` with required inclusive
+  safe-integer `minimum` and `maximum` (TypeScript `number` with strict Ajv
+  runtime truth; constrained strict Python `int`); `boolean` (strict — never
+  coerced from strings or integers); uniform arrays (single object `items` schema plus
   `minItems`/`maxItems`); closed string enums; closed objects
   (`additionalProperties: false`, `required`, `properties`); the marked
   extension surface (`x-japp-extension-point` + `propertyNames` +
@@ -286,8 +296,9 @@ pnpm generate:contracts --check  # read-only byte-exact drift check
   `deprecated`, and the five `x-japp-*` annotations as metadata.
 - **Everything else fails closed** with the document path and JSON pointer:
   tuple arrays (`prefixItems`), `uniqueItems`/`contains`, general
-  `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, `integer`, exclusive
-  bounds, numeric enums, `format` values beyond date/date-time,
+  `anyOf`/`oneOf`/`allOf`/`not`/conditionals, `const`, unbounded,
+  fractional-bound, reversed-bound, or unsafe-integer schemas, exclusive
+  bounds, `multipleOf`, numeric enums, `format` values beyond date/date-time,
   non-identifier or `model_`/underscore-leading property names, recursive
   `$defs` cycles, and any unlisted keyword. Extending support is a
   deliberate generator change with tests, never a silent approximation.
@@ -307,9 +318,11 @@ pnpm generate:contracts --check  # read-only byte-exact drift check
 unconstrained schema). Stable import surface:`@japp/contracts/generated`→`generated/typescript/index.ts`.
 - **Python output** (`generated/python/src/japp_contracts/`): strict
   Pydantic v2 (pinned `pydantic==2.12.5` in the root uv dev group; models
-  use `extra="forbid"`, `strict=True`, no defaults injected, no coercion —
-  JSON integers stay `int`, floats stay `float`, `bool` is rejected for
-  numbers). Missing and explicit null stay distinct: optional non-nullable
+  use `extra="forbid"` and `strict=True`; no defaults are injected and no
+  coercion occurs — JSON integers stay `int`, floats stay `float`, `bool` is
+  rejected for numbers; bounded integer schemas are strict constrained `int`
+  and reject bool, floats, numeric strings, and values outside their safe
+  inclusive bounds). Missing and explicit null stay distinct: optional non-nullable
   members reject explicit null before validation; required nullable members
   accept a deliberate null. Decimal amounts and date/timestamp values keep
   their exact string wire form; `wire_dict()` emits the canonical wire
@@ -325,7 +338,9 @@ unconstrained schema). Stable import surface:`@japp/contracts/generated`→`gene
   platform separators exist in any output (`__pycache__/` interpreter
   caches are outside the compared inventory). `generated/MANIFEST.json`
   records the generator format/config, every input schema id/version/
-  SHA-256 (exact committed bytes), every output path/SHA-256, and the
+  SHA-256 (exact committed bytes), all four validated canonical data inputs
+  (error, capability, command, and policy) with their validating schema,
+  version, and SHA-256, every output path/SHA-256, and the
   schema-reference → generated-type identity map for both languages.
 - **Write mode** performs a transactional, rollback-safe whole-tree
   replacement (deliberately not called "atomic": no single indivisible
@@ -423,12 +438,84 @@ with the standard generated validators (`validateErrorRecordV1`,
 strict Pydantic v2 respectively. The taxonomy defines errors only —
 executable capabilities and command allowlists are M01-W04.
 
-## 10. Boundaries owned by later packages
+## 10c. Capability and command allowlists (M01-W04)
 
-- **M01-W04** — capability/command allowlists. **M01-W05** —
-  cross-language round-trip tests (the `test/contract/` suite and
+M01-W04 adds one coordinated canonical authorization layer:
+
+- `schemas/security/capability-taxonomy.v1.schema.json` and
+  `catalog/capability-catalog.v1.json` define exactly nine architectural
+  software principals, four current profiles (`FEASIBILITY`,
+  `GUIDED_PRE_SUBMIT`, `PRODUCTION_NO_SUBMIT`, `VERIFICATION`), and eighteen
+  bounded authority classes. There is no generic `SYSTEM`, `ADMIN`, `USER`,
+  `ANY`, or catch-all capability.
+- `schemas/security/command-taxonomy.v1.schema.json` and
+  `catalog/command-catalog.v1.json` define the bounded command inventory.
+  Every command has exactly one capability, final target, supported-profile
+  set, exact encoded-payload byte limit, consequence class, idempotency
+  expectation, M01-W03 denial code, description, and explicit non-goals.
+  Detailed command payloads remain owned by M01-W06, M01-W07, and later
+  packages.
+- `schemas/security/authorization-request.v1.schema.json` is closed metadata
+  only: version/request identity, command, preserved origin, immediate sender,
+  final target, profile, timestamp/correlation, exact payload byte count, and
+  optional digest/causation/idempotency data. Payload, capability claims,
+  decisions, denial text, paths, selectors, HTML, SQL, scripts, registry data,
+  arbitrary commands, secrets, and tokens are not representable.
+- `schemas/security/authorization-policy.v1.schema.json` and
+  `catalog/authorization-policy.v1.json` are a positive allowlist only. Each
+  row is one exact `(profile, command, origin, sender, receiver, final target)`
+  tuple. Missing rows deny. Wildcards, regex, inheritance, transitive trust,
+  negative rows, and generic internal trust are structurally absent.
+
+The receiver, authenticated immediate sender, authenticated preserved origin,
+active profile, and receiver-observed encoded payload size are trusted runtime
+context passed separately to generated authorization. Caller metadata must
+match the authenticated sender, preserved origin, active profile, and measured
+size before any allow-row lookup. The original requester therefore stays
+bound across the reviewed content-script → service-worker → native-host →
+orchestrator route, and a caller cannot under-report payload size. Complete-hop
+validation rejects shortcuts, origin rewriting, and confused-deputy
+escalation. M01-W04 defines this authorization boundary; M17 owns the concrete
+authenticated transport and byte measurement that supplies the context.
+
+The generator independently enforces architectural ceilings even if policy
+JSON is edited: content scripts can only originate bounded state/review
+reports; service workers and native hosts cannot convert forwarding into
+origin authority; models, platform adapters, and the public index cannot
+originate product commands; desktop requests stay behind typed orchestrator
+services; immutable profile-capability ceilings prevent coordinated catalog
+edits from adding model/private/platform authority to FEASIBILITY or
+GUIDED_PRE_SUBMIT; reviewed command capability/target and critical
+idempotency semantics cannot be relabeled; verification cannot acquire
+production-data/platform/submission authority; and no current profile can
+grant final submission. Platform
+capability/command categories are declared for stable recognition but have
+empty profile sets and zero rows until M01-W07 defines their concrete typed
+contracts. Final submission is likewise a known command with a specific safe
+denial and zero rows.
+
+Generated surfaces live at
+`generated/typescript/security/policy-data.v1.ts` and
+`generated/python/src/japp_contracts/security/policy_data_v1.py`. They expose
+immutable catalogs and sorted inventories, non-echoing type guards/lookups,
+exact-route `allowedCommandsForV1`/`allowed_commands_for_v1`, and typed
+fail-closed `authorizeCommandRequestV1`/`authorize_command_request_v1`.
+TypeScript request validation delegates to the strict canonical Ajv catalog;
+Python uses the generated strict Pydantic v2 model. Authorization snapshots
+JavaScript data properties before validation/use and reserializes any Python
+request-model instance into a fresh strict validation input, so accessors,
+proxies, or post-validation model mutation cannot create time-of-check/time-
+of-use drift. No handwritten per-language policy map exists.
+
+## 10d. Boundaries owned by later packages
+
+- **M01-W05** — cross-language round-trip tests (the `test/contract/` suite and
   compatibility corpus; the shared instance corpus here is generator/model
   evidence, not cross-language certification).
+- **M01-W06** — detailed feasibility, page, navigation, benchmark, and gate
+  payload contracts.
+- **M01-W07** — concrete typed cross-platform capability/service contracts;
+  W04 intentionally grants no current platform operation.
 - **M04** — the real migration framework that consumes the
   `UPGRADE_REQUIRED_NEWER_MINOR` / major-version signals.
 - Product/domain payload schemas arrive with their owning milestones.

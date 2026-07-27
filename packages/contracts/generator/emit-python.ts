@@ -232,6 +232,19 @@ function numberExpr(
   return `Annotated[int${suffix} | Annotated[float${suffix}`;
 }
 
+function integerExpr(
+  emission: PyEmission,
+  type: Extract<IrType, { kind: "integer" }>,
+): string {
+  emission.imports.typing.add("Annotated");
+  emission.imports.annotatedTypes.add("Ge");
+  emission.imports.annotatedTypes.add("Le");
+  return (
+    `Annotated[int, Ge(${pythonNumber(type.minimum)}), ` +
+    `Le(${pythonNumber(type.maximum)})]`
+  );
+}
+
 function arrayExpr(
   emission: PyEmission,
   type: Extract<IrType, { kind: "array" }>,
@@ -260,6 +273,8 @@ function typeExpr(emission: PyEmission, type: IrType): string {
       return stringExpr(emission, type);
     case "number":
       return numberExpr(emission, type);
+    case "integer":
+      return integerExpr(emission, type);
     case "boolean":
       return "bool";
     case "array":
@@ -544,7 +559,7 @@ class ContractModel(BaseModel):
         """
         return cast(
             "dict[str, JsonValue]",
-            self.model_dump(mode="json", exclude_unset=True),
+            self.model_dump(mode="json", exclude_unset=True, warnings="error"),
         )
 
 

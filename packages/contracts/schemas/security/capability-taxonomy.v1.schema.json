@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:security:capability-taxonomy:v1",
+  "title": "Capability, principal, and authorization-profile taxonomy",
+  "description": "Closed M01-W04 vocabulary and canonical catalog shape for software principals, authorization profiles, and bounded authority classes. The committed capability-catalog.v1.json instance must agree exactly with these enums. Capabilities name one narrow authority class and never carry paths, selectors, scripts, shell commands, SQL, registry data, secrets, or other executable payloads.",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog_version", "principals", "profiles", "capabilities"],
+  "properties": {
+    "catalog_version": {
+      "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+    },
+    "principals": {
+      "description": "Every declared software principal, sorted by id.",
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "$ref": "#/$defs/principalEntry"
+      }
+    },
+    "profiles": {
+      "description": "Every current authorization profile, sorted by id.",
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/profileEntry"
+      }
+    },
+    "capabilities": {
+      "description": "Every bounded capability, sorted by id.",
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "$ref": "#/$defs/capabilityEntry"
+      }
+    }
+  },
+  "$defs": {
+    "authorizationProfileId": {
+      "title": "Authorization profile identifier",
+      "description": "Closed policy context. This is not an application-plan, guided-run, benchmark, or platform-profile schema.",
+      "type": "string",
+      "enum": [
+        "FEASIBILITY",
+        "GUIDED_PRE_SUBMIT",
+        "PRODUCTION_NO_SUBMIT",
+        "VERIFICATION"
+      ]
+    },
+    "capabilityEntry": {
+      "title": "Capability catalog entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "non_goals"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "description": {
+          "description": "Bounded authority represented by the capability.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "non_goals": {
+          "description": "Explicit authorities or payload forms this capability does not grant.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        }
+      }
+    },
+    "capabilityId": {
+      "title": "Capability identifier",
+      "description": "Stable visibly namespaced UPPER_SNAKE_CASE authority class.",
+      "type": "string",
+      "enum": [
+        "ARTIFACT_READ",
+        "ARTIFACT_WRITE",
+        "MODEL_INFERENCE",
+        "PAGE_DOCUMENT_UPLOAD",
+        "PAGE_INSPECT",
+        "PAGE_MUTATE_BOUNDED",
+        "PAGE_NAVIGATE_BOUNDED",
+        "PAGE_VALIDATE_RECONCILE_REVIEW",
+        "PLATFORM_BROWSER_RUNTIME_DISCOVERY",
+        "PLATFORM_NATIVE_MESSAGING_REGISTRATION",
+        "PLATFORM_PROCESS_SUPERVISION",
+        "PLATFORM_SECRET_STORE_ACCESS",
+        "PRIVATE_DATA_READ",
+        "PRIVATE_DATA_WRITE",
+        "PUBLIC_JOB_INDEX_READ",
+        "SUBMISSION_FINAL",
+        "VERIFICATION_EXECUTION",
+        "WORKFLOW_CONTROL"
+      ]
+    },
+    "principalEntry": {
+      "title": "Principal catalog entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "non_goals"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/principalId"
+        },
+        "description": {
+          "description": "Architectural component represented by the principal.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "non_goals": {
+          "description": "Authority the principal does not acquire merely by existing or forwarding.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        }
+      }
+    },
+    "principalId": {
+      "title": "Software principal identifier",
+      "description": "Closed vocabulary for actual architectural components. The user is intentionally not an omnipotent software principal.",
+      "type": "string",
+      "enum": [
+        "DESKTOP_APP",
+        "EXTENSION_CONTENT_SCRIPT",
+        "EXTENSION_SERVICE_WORKER",
+        "MODEL_RUNTIME",
+        "NATIVE_HOST",
+        "ORCHESTRATOR",
+        "PLATFORM_ADAPTER",
+        "PUBLIC_JOB_INDEX",
+        "VERIFICATION_HARNESS"
+      ]
+    },
+    "profileEntry": {
+      "title": "Authorization-profile catalog entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "non_goals"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/authorizationProfileId"
+        },
+        "description": {
+          "description": "Bounded policy context represented by the profile.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "non_goals": {
+          "description": "Authority the profile deliberately does not enable.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        }
+      }
+    }
+  }
+}

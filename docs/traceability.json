@@ -5536,7 +5536,7 @@
       "id": "M01-W04",
       "milestone": "M01",
       "title": "Define capability and command allowlists",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W03"

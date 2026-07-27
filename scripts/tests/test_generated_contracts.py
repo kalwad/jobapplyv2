@@ -415,15 +415,35 @@ def test_error_record_serializes_code_only_and_rejects_metadata() -> None:
             ErrorRecordV1.model_validate({**wire, extra_field: "ERROR"})
 
 
-def test_generated_error_manifest_provenance_matches_committed_catalog() -> None:
-
+def test_generated_data_manifest_provenance_matches_all_committed_catalogs() -> None:
     data_inputs = cast("list[dict[str, Any]]", MANIFEST["dataInputs"])
-    assert len(data_inputs) == 1
-    entry = data_inputs[0]
-    assert entry["path"] == "packages/contracts/catalog/error-catalog.v1.json"
-    assert entry["validatedAgainst"] == "urn:japp:schema:error:catalog:v1"
-    committed = (REPO_ROOT / cast("str", entry["path"])).read_bytes()
-    assert hashlib.sha256(committed).hexdigest() == entry["sha256"]
-    catalog_document = _load_json(REPO_ROOT / cast("str", entry["path"]))
-    assert catalog_document["catalog_version"] == entry["version"]
+    expected = {
+        "packages/contracts/catalog/authorization-policy.v1.json": (
+            "urn:japp:schema:security:authorization-policy:v1",
+            "policy_version",
+        ),
+        "packages/contracts/catalog/capability-catalog.v1.json": (
+            "urn:japp:schema:security:capability-taxonomy:v1",
+            "catalog_version",
+        ),
+        "packages/contracts/catalog/command-catalog.v1.json": (
+            "urn:japp:schema:security:command-taxonomy:v1",
+            "catalog_version",
+        ),
+        "packages/contracts/catalog/error-catalog.v1.json": (
+            "urn:japp:schema:error:catalog:v1",
+            "catalog_version",
+        ),
+    }
+    assert [entry["path"] for entry in data_inputs] == sorted(expected)
+    for entry in data_inputs:
+        path = cast("str", entry["path"])
+        schema_id, version_field = expected[path]
+        assert entry["validatedAgainst"] == schema_id
+        committed = (REPO_ROOT / path).read_bytes()
+        assert hashlib.sha256(committed).hexdigest() == entry["sha256"]
+        document = _load_json(REPO_ROOT / path)
+        assert document[version_field] == entry["version"]
+
+    catalog_document = _load_json(ERROR_CATALOG_PATH)
     assert len(cast("list[Any]", catalog_document["entries"])) == 80

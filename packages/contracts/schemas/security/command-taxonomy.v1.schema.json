@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:security:command-taxonomy:v1",
+  "title": "Bounded command taxonomy and catalog",
+  "description": "Canonical M01-W04 command-catalog shape. Every known command maps to exactly one bounded capability, one final target principal, a closed supported-profile set, one exact encoded-payload byte limit, one consequence class, one idempotency expectation, and one safe denial code from the M01-W03 taxonomy. This taxonomy names authorization classes only; detailed command payloads remain owned by later packages.",
+  "x-japp-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog_version", "commands"],
+  "properties": {
+    "catalog_version": {
+      "$ref": "urn:japp:schema:common:schema-version:v1#/$defs/schemaVersion"
+    },
+    "commands": {
+      "description": "Every declared command, sorted by id.",
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {
+        "$ref": "#/$defs/commandEntry"
+      }
+    }
+  },
+  "$defs": {
+    "commandEntry": {
+      "title": "Command catalog entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "required_capability",
+        "intended_target",
+        "supported_profiles",
+        "max_encoded_payload_size_bytes",
+        "consequence_class",
+        "idempotency_expectation",
+        "denial_error_code",
+        "description",
+        "non_goals"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/commandId"
+        },
+        "required_capability": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/capabilityId"
+        },
+        "intended_target": {
+          "description": "Final principal that may execute the command. Intermediate receivers may only proxy an exact authorized route.",
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        },
+        "supported_profiles": {
+          "description": "Closed profiles in which the command may potentially have allow rows. An empty set means known but currently ungrantable.",
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4,
+          "items": {
+            "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId"
+          }
+        },
+        "max_encoded_payload_size_bytes": {
+          "description": "Exact inclusive maximum encoded payload size. Authorization compares request metadata to this command-derived limit before dispatch.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1048576
+        },
+        "consequence_class": {
+          "$ref": "#/$defs/consequenceClass"
+        },
+        "idempotency_expectation": {
+          "$ref": "#/$defs/idempotencyExpectation"
+        },
+        "denial_error_code": {
+          "description": "Stable M01-W03 error code returned when a well-formed request lacks an exact allow row.",
+          "$ref": "urn:japp:schema:error:taxonomy:v1#/$defs/errorCode"
+        },
+        "description": {
+          "description": "Bounded authorization represented by the command.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "non_goals": {
+          "description": "Explicit behavior and payload forms the command does not authorize.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260
+          }
+        }
+      }
+    },
+    "commandId": {
+      "title": "Command identifier",
+      "description": "Stable bounded authorization command.",
+      "type": "string",
+      "enum": [
+        "ARTIFACT_READ_REQUEST",
+        "ARTIFACT_WRITE_REQUEST",
+        "MODEL_INFERENCE_REQUEST",
+        "PAGE_APPLY_BOUNDED_FIELD_OPERATIONS",
+        "PAGE_NAVIGATE_BACK",
+        "PAGE_NAVIGATE_NEXT",
+        "PAGE_PROPOSE_BOUNDED_FIELD_OPERATIONS",
+        "PAGE_RECONCILE_STATE",
+        "PAGE_REPORT_FINAL_REVIEW",
+        "PAGE_REPORT_STATE",
+        "PAGE_SCAN_VISIBLE_CONTROLS",
+        "PAGE_UPLOAD_REVIEWED_DOCUMENT",
+        "PAGE_VERIFY_FIELD_VALUES",
+        "PLATFORM_BROWSER_RUNTIME_DISCOVERY_REQUEST",
+        "PLATFORM_NATIVE_MESSAGING_REGISTRATION_REQUEST",
+        "PLATFORM_PROCESS_SUPERVISION_REQUEST",
+        "PLATFORM_SECRET_STORE_REQUEST",
+        "PRIVATE_DATA_READ_REQUEST",
+        "PRIVATE_DATA_WRITE_REQUEST",
+        "PUBLIC_JOB_INDEX_QUERY",
+        "SUBMISSION_FINAL_SUBMIT",
+        "VERIFICATION_RUN_SYNTHETIC_SUITE",
+        "WORKFLOW_CANCEL",
+        "WORKFLOW_PAUSE"
+      ]
+    },
+    "consequenceClass": {
+      "title": "Command consequence class",
+      "type": "string",
+      "enum": [
+        "CONSEQUENTIAL_FINAL_ACTION",
+        "CONTROL_FLOW",
+        "PLATFORM_SERVICE",
+        "READ_ONLY",
+        "REVERSIBLE_MUTATION",
+        "SENSITIVE_SERVICE",
+        "SYNTHETIC_VERIFICATION"
+      ]
+    },
+    "idempotencyExpectation": {
+      "title": "Command idempotency expectation",
+      "type": "string",
+      "enum": ["IDEMPOTENCY_KEY_REQUIRED", "IDEMPOTENT", "NOT_REPEATABLE"]
+    }
+  }
+}

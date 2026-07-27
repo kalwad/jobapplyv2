@@ -35,6 +35,13 @@ import {
   type LoadedErrorCatalog,
 } from "./error-catalog.ts";
 import {
+  emitPythonSecurityPolicy,
+  emitTypescriptSecurityPolicy,
+  loadSecurityPolicy,
+  PYTHON_SECURITY_POLICY_EXPORTS,
+  type LoadedSecurityPolicy,
+} from "./security-policy.ts";
+import {
   pythonModuleName,
   schemaRef,
   typeName,
@@ -46,8 +53,11 @@ import {
  * 1.1.0 (M01-W03): array/boolean schema constructs, the canonical
  * error-catalog data input, generated catalog-data modules, and the
  * manifest dataInputs provenance section.
+ * 1.2.0 (M01-W04): bounded safe-integer schemas plus canonical capability,
+ * command, and authorization-policy data inputs and generated policy
+ * lookup/authorization surfaces.
  */
-export const GENERATOR_FORMAT_VERSION = "1.1.0";
+export const GENERATOR_FORMAT_VERSION = "1.2.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {
@@ -103,6 +113,13 @@ interface ManifestInput {
   readonly sha256: string;
 }
 
+interface ManifestDataInput {
+  readonly path: string;
+  readonly sha256: string;
+  readonly validatedAgainst: string;
+  readonly version: string;
+}
+
 interface ManifestTypeEntry {
   readonly python: { readonly module: string; readonly symbol: string };
   readonly typescript: { readonly export: string; readonly module: string };
@@ -114,6 +131,7 @@ function buildManifest(
   files: readonly GeneratedFile[],
   schemaBytes: ReadonlyMap<string, string>,
   errorCatalog: LoadedErrorCatalog,
+  securityPolicy: LoadedSecurityPolicy,
 ): string {
   const inputs: ManifestInput[] = [...catalog.entries]
     .sort((left, right) => (left.id < right.id ? -1 : 1))
@@ -159,16 +177,24 @@ function buildManifest(
       sha256: sha256Hex(file.content),
     }));
 
+  const dataInputs: ManifestDataInput[] = [
+    {
+      path: errorCatalog.repositoryPath,
+      sha256: sha256Hex(errorCatalog.rawText),
+      validatedAgainst: ERROR_CATALOG_SCHEMA_ID,
+      version: errorCatalog.version,
+    },
+    ...securityPolicy.dataInputs.map((input) => ({
+      path: input.repositoryPath,
+      sha256: sha256Hex(input.rawText),
+      validatedAgainst: input.schemaId,
+      version: input.version,
+    })),
+  ].sort((left, right) => (left.path < right.path ? -1 : 1));
+
   const manifest = {
     config: GENERATOR_CONFIG,
-    dataInputs: [
-      {
-        path: errorCatalog.repositoryPath,
-        sha256: sha256Hex(errorCatalog.rawText),
-        validatedAgainst: ERROR_CATALOG_SCHEMA_ID,
-        version: errorCatalog.version,
-      },
-    ],
+    dataInputs,
     formatVersion: GENERATOR_FORMAT_VERSION,
     generator: "scripts/generate-contracts.ts",
     inputs,
@@ -213,22 +239,25 @@ Layout:
 
 - \`MANIFEST.json\` — provenance: generator format/config, every input
   schema id/version/SHA-256, every validated data input (the canonical
-  error catalog) with its SHA-256, every output path/SHA-256, and the
+  error, capability, command, and authorization-policy catalogs) with its
+  SHA-256, every output path/SHA-256, and the
   schema-reference → generated-type identity map.
 - \`typescript/\` — one module per schema document (mirroring the schema
   layout), \`validators.ts\` (typed wrappers whose runtime truth is the
   strict canonical Ajv catalog in \`packages/contracts/src/\`),
-  \`error/catalog-data.v1.ts\` (canonical error-catalog metadata and
-  lookups derived from \`packages/contracts/catalog/\`), and \`index.ts\`
+  \`error/catalog-data.v1.ts\` (canonical error-catalog metadata),
+  \`security/policy-data.v1.ts\` (immutable authorization catalogs,
+  lookups, and fail-closed authorization), and \`index.ts\`
   (the stable export surface re-exported by \`@japp/contracts/generated\`).
 - \`python/src/japp_contracts/\` — the generated strict Pydantic v2 package
   (one module per schema document plus \`_runtime.py\` and
-  \`error/catalog_data_v1.py\`); importable as \`japp_contracts\` through
+  \`error/catalog_data_v1.py\` and \`security/policy_data_v1.py\`);
+  importable as \`japp_contracts\` through
   the repository mypy/pytest path configuration.
 
 Determinism contract: output depends only on the committed schema catalog,
-the committed canonical error catalog, and the generator version — no
-timestamps, absolute paths, usernames, hostnames, random values, or
+the committed canonical data catalogs/policy, and the generator version —
+no timestamps, absolute paths, usernames, hostnames, random values, or
 platform separators. Two generations of the same inputs are byte-identical
 on every certified platform.
 `;
@@ -267,6 +296,14 @@ export function generateContracts(
     catalog,
     validator,
   });
+  const securityPolicy = loadSecurityPolicy({
+    ...(options.catalogRoot === undefined
+      ? {}
+      : { catalogRoot: options.catalogRoot }),
+    catalog,
+    validator,
+    errorCatalog,
+  });
 
   // Input provenance hashes cover the exact committed schema bytes
   // (LF-enforced by .gitattributes), not a reserialization.
@@ -279,22 +316,37 @@ export function generateContracts(
   }
 
   const files: GeneratedFile[] = [
-    ...emitTypescript(ir, { dataModules: ["error/catalog-data.v1.ts"] }),
+    ...emitTypescript(ir, {
+      dataModules: ["error/catalog-data.v1.ts", "security/policy-data.v1.ts"],
+    }),
     ...emitPython(ir, {
       dataModules: [
         {
           module: "japp_contracts.error.catalog_data_v1",
           exports: PYTHON_CATALOG_DATA_EXPORTS,
         },
+        {
+          module: "japp_contracts.security.policy_data_v1",
+          exports: PYTHON_SECURITY_POLICY_EXPORTS,
+        },
       ],
     }),
     emitTypescriptCatalogData(errorCatalog),
     emitPythonCatalogData(errorCatalog),
+    emitTypescriptSecurityPolicy(securityPolicy),
+    emitPythonSecurityPolicy(securityPolicy),
     { path: README_PATH, content: GENERATED_README },
   ];
   files.push({
     path: MANIFEST_PATH,
-    content: buildManifest(catalog, ir, files, schemaBytes, errorCatalog),
+    content: buildManifest(
+      catalog,
+      ir,
+      files,
+      schemaBytes,
+      errorCatalog,
+      securityPolicy,
+    ),
   });
 
   const map = new Map<string, string>();

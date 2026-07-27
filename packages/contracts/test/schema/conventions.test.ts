@@ -58,6 +58,11 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:error:record:v1",
       "urn:japp:schema:error:taxonomy:v1",
       "urn:japp:schema:fixture:test-record:v1",
+      // M01-W04 security-policy documents joined the canonical catalog.
+      "urn:japp:schema:security:authorization-policy:v1",
+      "urn:japp:schema:security:authorization-request:v1",
+      "urn:japp:schema:security:capability-taxonomy:v1",
+      "urn:japp:schema:security:command-taxonomy:v1",
     ]);
   });
 

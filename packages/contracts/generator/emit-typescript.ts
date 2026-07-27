@@ -112,7 +112,10 @@ function constraintNotes(type: IrType): string[] {
       notes.push(`Maximum length: ${String(type.maxLength)}.`);
     }
   }
-  if (type.kind === "number") {
+  if (type.kind === "number" || type.kind === "integer") {
+    if (type.kind === "integer") {
+      notes.push("Integer; runtime validation rejects fractions and coercion.");
+    }
     if (type.minimum !== null) {
       notes.push(`Minimum: ${String(type.minimum)}.`);
     }
@@ -196,6 +199,7 @@ function renderType(
     case "string":
       return "string";
     case "number":
+    case "integer":
       return "number";
     case "boolean":
       return "boolean";
