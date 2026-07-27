@@ -5488,8 +5488,8 @@
       "id": "M01-W03",
       "milestone": "M01",
       "title": "Define error taxonomy",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 2a56ed518797e811f8a0506e7834401c50eda166",
       "direct_package_prerequisites": [
         "M01-W02"
       ],
@@ -5524,14 +5524,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W03"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M01-W04",
       "milestone": "M01",
       "title": "Define capability and command allowlists",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [
         "M01-W03"

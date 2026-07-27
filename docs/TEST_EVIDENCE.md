@@ -298,6 +298,32 @@ Exact verification commands and summarized results
     under M10-W06; every active suite PASS. Pre/post hashes of the complete
     binary diff and `git status --porcelain=v1 -uall` were identical,
     explicitly proving the aggregate verification remained read-only.
+- Repair content revision: tree
+  `2a56ed518797e811f8a0506e7834401c50eda166` / commit
+  `c4ed1407083cf1e1d296a5763b1842322e9b90f7`.
+- Clean-clone simulation at that exact commit:
+  - Fresh local clone plus `pnpm install --frozen-lockfile` and
+    `uv sync --locked` → exit 0.
+  - `pnpm generate:contracts --check` → exit 0 (44 files,
+    byte-identical); write-mode `pnpm generate:contracts` followed by a
+    second check → exit 0; `git status --short` remained empty.
+- Hosted repair content verification:
+  - Run 30246548320 succeeded at the exact repair commit on ubuntu-24.04
+    job 89914804733 (2m24s), windows-2025 job 89914804805 (3m50s), and
+    macos-15 job 89914804843 (2m59s).
+  - The actual Windows log was downloaded and inspected. It confirms exact
+    checkout `c4ed1407083cf1e1d296a5763b1842322e9b90f7`; doctor 21 PASS /
+    0 WARNING / 0 FAIL / 2 NOT_YET_APPLICABLE; 262 contracts Vitest
+    tests; 496 Python tests; "generated contracts are up to date (44 files,
+    byte-identical)"; contract-gen ACTIVE and PASS; contract and visual
+    honestly NOT_YET_APPLICABLE; verification exit 0; and the post-verify
+    tracked-change assertion passed.
+- After that hosted success, KI-0020 is FIXED, M01-W03 is VERIFIED at the
+  repair content tree, M01-W04 is restored as the sole READY package, M01
+  remains IN_PROGRESS, M00 remains ACCEPTED, all four critical gates remain
+  NOT_EVALUATED, and release remains NOT_READY. The conventional
+  revision-restamp commit records this closeout; its own exact-HEAD
+  three-OS run is required to pass.
 
 ### M01-W02 — Generate TypeScript and Python contracts (2026-07-27)
 
