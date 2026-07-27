@@ -35,7 +35,10 @@ Exact verification commands and summarized results
 
 ### M00-W10 — Extend traceability and re-accept M00 under v1.3 (2026-07-26)
 
-- Revision: content tree/commit pending completion and hosted verification.
+- Revision: tree `30c575dcc142a8276f0aed754cac50ed1fc3ab75` / commit
+  `ef830d91e7a6bffe3c74825b98405ce379cc7187` (final verified content head
+  after fail-closed Windows and closeout-fixture repairs; stamped in the
+  conventional follow-up commit after its hosted three-OS run passed).
 - Independent clean-session bootstrap:
   - `git fetch origin`, `git status --short`, `git branch --show-current`,
     `git rev-parse HEAD`, and `git rev-parse origin/main` → exit 0; clean
@@ -199,8 +202,8 @@ Exact verification commands and summarized results
     with 358 Python, nine workspace Vitest, one Chromium, and one Rust test.
     Final `git status --short` was empty, proving installs and verification
     were read-only.
-- The content revision and its hosted three-OS results are recorded below
-  after those checks run and are inspected.
+- Hosted verification was fail-closed: no local result, partial OS result,
+  rerun, or superseded head was treated as M00 acceptance.
 - First hosted content attempt and fail-closed response:
   - Content commit `a8630ccffdfdc4faf037dd3a3d127a7fc50bea11`
     (tree `467c5398c8d82b0c2885a9e3acffb0cdfdc3876d`) triggered run
@@ -229,9 +232,79 @@ Exact verification commands and summarized results
     and every other active verification suite passed.
   - The second repair normalizes only duplicated backslashes in the
     exception-rendered diagnostic before asserting both the redacted path
-    and the independent guarantee that the sensitive home is absent. A
-    fresh three-OS content head is required; no rerun or local result can
-    substitute for that Windows proof.
+    and the independent guarantee that the sensitive home is absent.
+- Superseded repair proof:
+  - Commit `f8d054ca946b784a771c3a9bed7bbec6b92f465f` (tree
+    `21f0801fc08d1f0f4224ce9a1bf5a2c4f713fbc6`) passed run 30230595021:
+    macOS job 89868613527, Windows job 89868613536, and Ubuntu job
+    89868613559 all succeeded. Before acceptance, an independent review
+    found that normalizing only the expected-path assertion could let an
+    escaped sensitive home evade the separate absence check. That head was
+    therefore superseded despite green CI.
+  - The final assertion normalizes the exception-rendered diagnostic once
+    and applies both the sensitive-home absence check and the expected
+    redacted-path check to the normalized text. Focused doctor tests
+    (45/45) and a fresh complete local `pnpm verify` (358/358 Python plus
+    every other active suite) passed before the stronger head was pushed.
+- Hosted reviewed-content proof:
+  - Reviewed-content commit `a26f9a8f58ab2d63a377cd8f1839a83495f00272`
+    (tree `34a8c104a42b56f31834b9302d7084a6084b7633`) passed workflow run
+    30230657314: `doctor + verify (macos-15)` job 89869050876,
+    `doctor + verify (windows-2025)` job 89869050915, and
+    `doctor + verify (ubuntu-24.04)` job 89869050931 all concluded SUCCESS.
+  - The inspected Windows log proves the exact commit checkout, pinned
+    installs, doctor result 20 PASS / zero WARNING / zero FAIL / three
+    honest NOT_YET_APPLICABLE suites, 358/358 Python tests, portability and
+    36-group status validation, aggregate verification exit 0, and a
+    successful no-tracked-changes assertion. This remains
+    repository/toolchain infrastructure evidence, not Windows 11 product,
+    secure-store, native-messaging, model-runtime, installer, updater, or
+    Gate D evidence.
+- Closeout-fixture finding and final content repair:
+  - When the acceptance-only state was applied locally, the first complete
+    `pnpm verify` failed closed with 357/358 Python tests. The sole failure,
+    `test_next_ready_none_must_be_exact`, inherited the repository's new
+    accepted-M00 baseline, changed M00-W10 to NOT_STARTED, but left
+    M01-W01 READY; its asserted “no READY row” condition was therefore not
+    isolated. The validator itself continued to reject the invalid state,
+    and standalone 36-group status validation passed.
+  - KI-0014 records the fixture defect. The test now uses the existing
+    `prepare_m00_closeout(..., m01_ready=False)` fixture to establish its
+    exact no-READY premise before injecting malformed `NONE nonsense`.
+    The complete status suite passed 90/90 and `pnpm verify` passed all 358
+    Python tests plus every other active suite in the actual accepted-M00
+    closeout state.
+  - Final content repair commit
+    `ef830d91e7a6bffe3c74825b98405ce379cc7187` (tree
+    `30c575dcc142a8276f0aed754cac50ed1fc3ab75`) passed workflow run
+    30231197511: Ubuntu job 89870307756, Windows job 89870307759, and
+    macOS job 89870307817 all concluded SUCCESS. The inspected Windows log
+    proves exact checkout, doctor 20/0/0 with three honest
+    NOT_YET_APPLICABLE suites, 358/358 Python tests, portability and status
+    success, aggregate verification exit 0, and the no-tracked-changes
+    assertion.
+- Acceptance decision:
+  - All 39 milestones, 286 packages, 157 requirements, four gate records,
+    required project-memory/platform files, preserved W01…W09
+    revisions/evidence, reviewed v1.3 mappings, stable hashes,
+    deterministic generation, local/clean-clone verification, negative
+    paths, and hosted three-OS content proof satisfy the complete v1.3 M00
+    exit gate at content tree
+    `30c575dcc142a8276f0aed754cac50ed1fc3ab75`.
+  - A final `git clone --no-local` accepted-state simulation applied the
+    complete pre-stamp closeout diff over that content revision and committed
+    fixture tree `ba9d605fe3d34844aba6e16222e7abeb59456be2`. Fresh frozen/locked
+    pnpm, uv, and Cargo setup passed; traceability validated 157/286; status
+    passed 36 groups; doctor reported 20 PASS / zero WARNING / zero FAIL /
+    three honest NOT_YET_APPLICABLE suites; `pnpm verify` passed 358 Python,
+    nine workspace Vitest, one Chromium, and one Rust test; final porcelain
+    was empty.
+  - M00-W10 is VERIFIED; M00 is ACCEPTED; M01 and only M01-W01 are READY;
+    no package is IN_PROGRESS; all four gates remain NOT_EVALUATED; overall
+    release remains NOT_READY. No M01 implementation began. The
+    conventional revision-stamp HEAD must independently pass all three
+    hosted jobs before handoff; its terminal run is reported at handoff
+    rather than creating another evidence-only successor commit.
 
 ### M00-W09 — Add Windows CI and platform-portability baseline (2026-07-26)
 

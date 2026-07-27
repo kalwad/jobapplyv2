@@ -5330,8 +5330,8 @@
       "id": "M00-W10",
       "milestone": "M00",
       "title": "Extend traceability and re-accept M00 under v1.3",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75",
       "primary_deliverables": [
         "Extend traceability and re-accept M00 under v1.3"
       ],
@@ -5341,7 +5341,12 @@
       "required_manual_evidence": [
         "Independent history/diff/evidence audit, local clean-clone simulation, and hosted content/stamp matrices on macos-15, windows-2025, and ubuntu-24.04"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W10"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M00-W09"
@@ -5365,7 +5370,7 @@
       "id": "M01-W01",
       "milestone": "M01",
       "title": "Define JSON Schema conventions",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [

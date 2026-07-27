@@ -34,48 +34,15 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-### KI-0013 — Doctor redaction tests encoded host-specific path rendering
-
-- Severity: HIGH
-- State: IN_PROGRESS
-- Discovered: 2026-07-26 during M00-W10 hosted content verification
-- Affects: M00-W10; `scripts/doctor.py`; `scripts/tests/test_doctor.py`;
-  required `windows-2025` CI
-- Description: the redaction implementation passed its Windows native,
-  forward-slash, mixed-case, UNC, and boundary cases, but two new tests
-  encoded the test host's separator semantics. On Windows,
-  `Path("/Users/Fixture User")` becomes a Windows-style path and therefore
-  no longer represents the simulated POSIX input; a fatal-path assertion
-  likewise required `/` even though the correctly redacted Windows
-  diagnostic used `\`. The first repair derived the native separator but
-  did not account for `FileNotFoundError` escaping that separator when it
-  renders the missing filename.
-- Reproduction: M00-W10 content run 30229993787, Windows job 89866914158,
-  collected 358 Python tests and failed only
-  `test_scrub_keeps_posix_case_sensitive_and_component_bounded` and
-  `test_pin_read_fatal_output_scrubs_home`; macOS job 89866914146 and Ubuntu
-  job 89866914187 passed. Repair run 30230286865 then passed macOS job
-  89867742632 and Ubuntu job 89867742629, but Windows job 89867742638
-  reported 357/358 Python tests passed: the remaining failure was solely the
-  escaped-backslash rendering in `test_pin_read_fatal_output_scrubs_home`.
-- Workaround: none accepted; required tests must be host-neutral and pass on
-  the actual Windows runner.
-- Resolution + evidence link: `_scrub` now accepts an explicit path string
-  for syntax-preserving simulation, the POSIX test uses that form, and the
-  fatal-path expectation derives the host-native separator with `Path` and
-  normalizes only duplicated backslashes in the exception-rendered text
-  before asserting both that the redacted path remains and that the sensitive
-  home is absent. Local focused and aggregate verification pass; state
-  remains IN_PROGRESS until a new exact-head Windows job verifies the
-  repair. Evidence: docs/TEST_EVIDENCE.md § M00-W10.
+None recorded.
 
 ## M00-W10 independent review
 
 M00-W10 independently re-read the canonical v1.3 specification, the full
 project-memory and platform/gate records, the W08/W09 diffs, implementation
 and tests, and both prior three-operating-system hosted runs. The review
-closed KI-0007 through KI-0012 below. KI-0013 is the isolated hosted-test
-finding above and remains IN_PROGRESS pending exact-head Windows proof.
+closed KI-0007 through KI-0014 below. No CRITICAL or HIGH M00 issue remains
+open.
 KI-0001, KI-0003, and KI-0006 remain honest `LOW` deferred boundaries owned
 by future packages; none represents implemented product behavior or accepted
 platform evidence.
@@ -109,6 +76,69 @@ with an exact-hash external transport. ADR-0002 records the resolution; no
 validator exception or weakening was introduced.
 
 ## Fixed defects
+
+### KI-0014 — One status negative inherited the post-M00 READY row
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-07-26 during M00-W10 acceptance-only closeout validation
+- Affects: M00-W10; `scripts/tests/test_validate_status.py`;
+  `pnpm verify`
+- Description: `test_next_ready_none_must_be_exact` assumed the repository's
+  pre-closeout state. After M00 was validly accepted and M01-W01 became the
+  sole READY row, the test changed M00-W10 to NOT_STARTED and injected
+  malformed `NONE nonsense` but did not remove M01-W01 readiness. The
+  asserted no-READY premise was no longer isolated.
+- Reproduction: apply the valid accepted-M00 closeout state and run
+  `pnpm verify`; status validation itself passes, but the Python suite reports
+  only this fixture assertion failed (357/358 passed).
+- Workaround: none accepted; the negative must establish its own complete
+  premise and pass in both pre-closeout and post-closeout repository states.
+- Resolution + evidence link: the test now uses
+  `prepare_m00_closeout(..., m01_ready=False)` before injecting the malformed
+  next-ready value. The status suite passes 90/90 and complete local
+  `pnpm verify` passes 358/358 Python tests in the accepted-M00 state.
+  Content repair run 30231197511 passed Ubuntu job 89870307756, Windows job
+  89870307759, and macOS job 89870307817; the inspected Windows log confirms
+  exact commit `ef830d91e7a6bffe3c74825b98405ce379cc7187`, aggregate verification
+  exit 0, and no tracked changes. Evidence: docs/TEST_EVIDENCE.md § M00-W10.
+
+### KI-0013 — Doctor redaction tests encoded host-specific path rendering
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-07-26 during M00-W10 hosted content verification
+- Affects: M00-W10; `scripts/doctor.py`; `scripts/tests/test_doctor.py`;
+  required `windows-2025` CI
+- Description: the redaction implementation passed its Windows native,
+  forward-slash, mixed-case, UNC, and boundary cases, but two new tests
+  encoded the test host's separator semantics. On Windows,
+  `Path("/Users/Fixture User")` becomes a Windows-style path and therefore
+  no longer represents the simulated POSIX input; a fatal-path assertion
+  likewise required `/` even though the correctly redacted Windows
+  diagnostic used `\`. The first repair derived the native separator but
+  did not account for `FileNotFoundError` escaping that separator when it
+  renders the missing filename.
+- Reproduction: M00-W10 content run 30229993787, Windows job 89866914158,
+  collected 358 Python tests and failed only
+  `test_scrub_keeps_posix_case_sensitive_and_component_bounded` and
+  `test_pin_read_fatal_output_scrubs_home`; macOS job 89866914146 and Ubuntu
+  job 89866914187 passed. Repair run 30230286865 then passed macOS job
+  89867742632 and Ubuntu job 89867742629, but Windows job 89867742638
+  reported 357/358 Python tests passed: the remaining failure was solely the
+  escaped-backslash rendering in `test_pin_read_fatal_output_scrubs_home`.
+- Workaround: none accepted; required tests had to be host-neutral and pass
+  on the actual Windows runner before M00 acceptance.
+- Resolution + evidence link: `_scrub` accepts an explicit path string for
+  syntax-preserving simulation, the POSIX test uses that form, and the
+  fatal-path expectation derives the host-native separator with `Path` and
+  normalizes only duplicated backslashes in the exception-rendered text
+  before asserting both that the redacted path remains and that the sensitive
+  home is absent. Content run 30230657314 passed macOS job 89869050876,
+  Windows job 89869050915, and Ubuntu job 89869050931. The inspected Windows
+  log confirms exact revision `a26f9a8f58ab2d63a377cd8f1839a83495f00272`,
+  358/358 Python tests, canonical verification exit 0, and no tracked changes.
+  Evidence: docs/TEST_EVIDENCE.md § M00-W10.
 
 ### KI-0007 — Provisional v1.3 traceability could be self-rehashed after mapping drift
 
