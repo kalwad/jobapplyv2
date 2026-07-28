@@ -226,6 +226,22 @@
       "updated_at": "2026-07-27T04:00:01Z",
       "revalidation_state": "CURRENT"
     },
+    "w06.atomic-claim": {
+      "claim_id": "claim_0123456789ABCDEFGHJKMNPQRS",
+      "claim_type": "ACHIEVEMENT",
+      "claim_text": "Improved deterministic processing",
+      "evidence_refs": ["evidence_0123456789ABCDEFGHJKMNPQRS"],
+      "verification_status": "SUPPORTED",
+      "prompt_version_ref": "prompt_0123456789ABCDEFGHJKMNPQRS",
+      "model_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "model_profile_ref": "model_0123456789ABCDEFGHJKMNPQRS",
+      "verified_at": "2026-07-27T04:00:00Z",
+      "verification_result_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "rejection_error_codes": [],
+      "release_eligible": true,
+      "user_action": "NONE",
+      "canonical_evidence_mutation": false
+    },
     "w06.ats-variant": {
       "variant_identity_id": "variant_0123456789ABCDEFGHJKMNPQRS",
       "ats_family": "WORKDAY",
@@ -242,22 +258,6 @@
         "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
         "observed_at": "2026-07-27T04:00:00Z"
       }
-    },
-    "w06.atomic-claim": {
-      "claim_id": "claim_0123456789ABCDEFGHJKMNPQRS",
-      "claim_type": "ACHIEVEMENT",
-      "claim_text": "Improved deterministic processing",
-      "evidence_refs": ["evidence_0123456789ABCDEFGHJKMNPQRS"],
-      "verification_status": "SUPPORTED",
-      "prompt_version_ref": "prompt_0123456789ABCDEFGHJKMNPQRS",
-      "model_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-      "model_profile_ref": "model_0123456789ABCDEFGHJKMNPQRS",
-      "verified_at": "2026-07-27T04:00:00Z",
-      "verification_result_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-      "rejection_error_codes": [],
-      "release_eligible": true,
-      "user_action": "NONE",
-      "canonical_evidence_mutation": false
     },
     "w06.benchmark-case": {
       "case_id": "case_0123456789ABCDEFGHJKMNPQRS",
@@ -968,6 +968,494 @@
         "source_kind": "GENERATED",
         "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
         "observed_at": "2026-07-27T04:00:00Z"
+      }
+    },
+    "w07.browser-discovery-request": {
+      "browser_discovery_request_id": "browsreq_0123456789ABCDEFGHJKMNPQRS",
+      "request_context": {
+        "requesting_principal": "ORCHESTRATOR",
+        "authorization_profile": "PRODUCTION_NO_SUBMIT",
+        "requested_at": "2026-07-28T04:00:00Z",
+        "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "platform_id": "MACOS_ARM64",
+      "browser_family": "CHROME",
+      "browser_channel": "STABLE",
+      "include_capability_probe": true,
+      "minimum_version": "120.0.0.0"
+    },
+    "w07.browser-record": {
+      "browser_record_id": "browsrec_0123456789ABCDEFGHJKMNPQRS",
+      "request_ref": "browsreq_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "browser_family": "CHROME",
+      "browser_channel": "STABLE",
+      "detected_version": "141.0.7390.55",
+      "detection_method": "STATIC_INSPECTION",
+      "presence": "AVAILABLE",
+      "sanitized_install_location": "<BROWSER_INSTALL_ROOT>/chrome",
+      "certified_for_platform": false,
+      "native_messaging_capability": {
+        "capability": "NATIVE_MESSAGING",
+        "availability": "AVAILABLE",
+        "evaluation_method": "STATIC_INSPECTION",
+        "reason_codes": [],
+        "identity_token": "native-messaging",
+        "detected_version": "141.0.7390.55",
+        "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observed_at": "2026-07-28T04:00:00Z"
+      },
+      "reason_codes": ["TARGET_NOT_CERTIFIED"],
+      "last_tested_on": "2026-07-28",
+      "observed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.capability-report": {
+      "capability_report_id": "capreport_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "support_claim": {
+        "claimed_tier": "CERTIFIED_CORE",
+        "reviewed_tier": "CERTIFIED_CORE",
+        "review_state": "REVIEW_COMPLETE",
+        "evaluated_commit": "0123456789abcdef0123456789abcdef01234567",
+        "evaluated_tree": "1111111111111111111111111111111111111111",
+        "evidence_refs": ["evid_0123456789ABCDEFGHJKMNPQRS"],
+        "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "capabilities": [
+        {
+          "capability": "BROWSER_PRESENCE",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "browser-presence",
+          "detected_version": "141.0.7390.55",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        },
+        {
+          "capability": "DIAGNOSTICS",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "diagnostics",
+          "detected_version": "1.0.0",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        },
+        {
+          "capability": "MODEL_RUNTIME",
+          "availability": "NOT_EVALUATED",
+          "evaluation_method": "NOT_EVALUATED",
+          "reason_codes": ["EVALUATION_NOT_RUN"]
+        },
+        {
+          "capability": "NATIVE_MESSAGING",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "native-messaging",
+          "detected_version": "1.0.0",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        },
+        {
+          "capability": "PACKAGING_UPDATE_CHANNEL",
+          "availability": "UNAVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": ["NOT_INSTALLED"]
+        },
+        {
+          "capability": "PLATFORM_PATHS",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "platform-paths",
+          "detected_version": "1.0.0",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        },
+        {
+          "capability": "PROCESS_SUPERVISION",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "process-supervision",
+          "detected_version": "1.0.0",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        },
+        {
+          "capability": "SECURE_STORE",
+          "availability": "AVAILABLE",
+          "evaluation_method": "MEASURED_NATIVE_RUN",
+          "reason_codes": [],
+          "identity_token": "secure-store",
+          "detected_version": "1.0.0",
+          "evidence_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "observed_at": "2026-07-28T04:00:00Z"
+        }
+      ],
+      "packaging_channel": "NOT_CONFIGURED",
+      "model_profile_refs": [],
+      "diagnostic_refs": ["diag_0123456789ABCDEFGHJKMNPQRS"],
+      "reported_at": "2026-07-28T04:00:00Z",
+      "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.certification-input": {
+      "certification_input_id": "certin_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "architecture": "ARM64",
+      "support_claim": {
+        "claimed_tier": "CERTIFIED_CORE",
+        "reviewed_tier": "UNSUPPORTED",
+        "review_state": "NOT_REVIEWED"
+      },
+      "capability_report_ref": "capreport_0123456789ABCDEFGHJKMNPQRS",
+      "evidence_record_refs": [],
+      "required_evidence_kinds": [
+        "INSTALL_LAUNCH_REPORT",
+        "SECRET_STORE_TEST_REPORT"
+      ],
+      "present_evidence_kinds": [],
+      "inventory_complete": false,
+      "owner_decision_state": "PENDING",
+      "known_limitations": ["No native platform evidence exists yet"],
+      "reason_codes": ["EVALUATION_NOT_RUN"],
+      "prepared_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.diagnostic-report": {
+      "diagnostic_report_id": "diag_0123456789ABCDEFGHJKMNPQRS",
+      "component": "SECRET_STORE",
+      "capability": "SECURE_STORE",
+      "platform_id": "MACOS_ARM64",
+      "severity": "INFO",
+      "result": "SUCCESS",
+      "reason_codes": [],
+      "blocking": false,
+      "user_message": "The platform secure store responded normally",
+      "redaction": {
+        "sensitivity": "INTERNAL",
+        "policy": "NONE"
+      },
+      "detail_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "evidence_refs": [],
+      "evaluated_at": "2026-07-28T04:00:00Z",
+      "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.evidence-record": {
+      "evidence_record_id": "evid_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "architecture": "ARM64",
+      "machine_class": "SYNTHETIC_FIXTURE",
+      "artifact_kind": "SECRET_STORE_TEST_REPORT",
+      "evaluation_method": "SYNTHETIC_FIXTURE",
+      "synthetic_only": true,
+      "artifact_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "secret_store_result_ref": "secres_0123456789ABCDEFGHJKMNPQRS",
+      "result": "SUCCESS",
+      "reason_codes": [],
+      "review_state": "NOT_REVIEWED",
+      "owner_decision_state": "PENDING",
+      "recorded_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.installer-state": {
+      "installer_state_id": "installst_0123456789ABCDEFGHJKMNPQRS",
+      "package_token": "desktop-shell",
+      "package_version": "0.1.0",
+      "platform_id": "MACOS_ARM64",
+      "architecture": "ARM64",
+      "package_format": "APPLE_DISK_IMAGE",
+      "artifact": {
+        "artifact_token": "desktop-shell-dmg",
+        "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "artifact_bytes": 120000000
+      },
+      "signature_state": "NOT_EVALUATED",
+      "channel": "NOT_CONFIGURED",
+      "scope": "USER",
+      "state": "NOT_INSTALLED",
+      "interrupted": false,
+      "user_data_preservation": "NOT_EVALUATED",
+      "native_host_cleanup": "NOT_EVALUATED",
+      "reason_codes": ["EVALUATION_NOT_RUN"],
+      "evidence_refs": [],
+      "observed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.model-runtime-profile": {
+      "model_profile_id": "modelprof_0123456789ABCDEFGHJKMNPQRS",
+      "profile_token": "macos-arm64-mlx",
+      "platform_id": "MACOS_ARM64",
+      "runtime_family": "OLLAMA_MLX",
+      "runtime_version": "0.5.0",
+      "accelerator": "APPLE_SILICON_GPU",
+      "artifact": {
+        "artifact_token": "local-candidate-mlx",
+        "artifact_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "artifact_bytes": 8000000000
+      },
+      "context_tokens": 8192,
+      "quantization_token": "q4",
+      "minimum_ram_mib": 16384,
+      "license_token": "vendor-model-terms",
+      "core_capability_behavior": "CORE_PRESERVED_AI_DEGRADED",
+      "availability": "NOT_EVALUATED",
+      "acceptance_state": "NOT_EVALUATED",
+      "evidence_refs": [],
+      "reason_codes": ["EVALUATION_NOT_RUN"],
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.native-messaging-registration": {
+      "registration_intent_id": "regintent_0123456789ABCDEFGHJKMNPQRS",
+      "request_context": {
+        "requesting_principal": "ORCHESTRATOR",
+        "authorization_profile": "PRODUCTION_NO_SUBMIT",
+        "requested_at": "2026-07-28T04:00:00Z",
+        "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "operation": "INSTALL",
+      "platform_id": "MACOS_ARM64",
+      "browser_family": "CHROME",
+      "browser_channel": "STABLE",
+      "host_name": "local.japp.native_host",
+      "host_version": "1.0.0",
+      "allowed_extension_ids": [
+        "abcdefghijklmnopabcdefghijklmnop",
+        "bcdefghijklmnopabcdefghijklmnopa"
+      ],
+      "scope": "USER",
+      "manifest_location_role": "NATIVE_HOST_REGISTRATION",
+      "expected_manifest_digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_host_binary_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "binary_stdio_mode": "BINARY_LENGTH_PREFIXED",
+      "max_message_bytes": 1048576
+    },
+    "w07.native-messaging-result": {
+      "registration_result_id": "regresult_0123456789ABCDEFGHJKMNPQRS",
+      "intent_ref": "regintent_0123456789ABCDEFGHJKMNPQRS",
+      "operation": "INSTALL",
+      "platform_id": "MACOS_ARM64",
+      "browser_family": "CHROME",
+      "host_name": "local.japp.native_host",
+      "observed_state": "PRESENT_VALID",
+      "observed_manifest_digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "observed_host_version": "1.0.0",
+      "changed": true,
+      "idempotent_repeat_safe": true,
+      "reason_codes": [],
+      "evidence_ref": "evid_0123456789ABCDEFGHJKMNPQRS",
+      "completed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.path-request": {
+      "path_request_id": "pathreq_0123456789ABCDEFGHJKMNPQRS",
+      "request_context": {
+        "requesting_principal": "ORCHESTRATOR",
+        "authorization_profile": "PRODUCTION_NO_SUBMIT",
+        "requested_at": "2026-07-28T04:00:00Z",
+        "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "role": "APPLICATION_DATA",
+      "scope": "USER",
+      "relative_segments": ["artifacts", "resumes"],
+      "create_if_missing": true
+    },
+    "w07.path-resolution": {
+      "path_resolution_id": "pathres_0123456789ABCDEFGHJKMNPQRS",
+      "request_ref": "pathreq_0123456789ABCDEFGHJKMNPQRS",
+      "role": "APPLICATION_DATA",
+      "scope": "USER",
+      "resolution_state": "RESOLVED",
+      "sanitized_path": "<APPLICATION_DATA>/artifacts/resumes",
+      "path_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "exists": true,
+      "writable": true,
+      "reason_codes": [],
+      "resolved_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.process-plan": {
+      "process_plan_id": "procplan_0123456789ABCDEFGHJKMNPQRS",
+      "request_context": {
+        "requesting_principal": "ORCHESTRATOR",
+        "authorization_profile": "PRODUCTION_NO_SUBMIT",
+        "requested_at": "2026-07-28T04:00:00Z",
+        "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "profile": "LOCAL_ORCHESTRATOR",
+      "profile_version": "1.0.0",
+      "executable_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "arguments": ["serve", "mode=loopback"],
+      "environment_allowlist": [
+        {
+          "variable": "JAPP_SERVICE_PORT",
+          "value": "8420"
+        },
+        {
+          "variable": "JAPP_LOG_LEVEL",
+          "value": "info"
+        }
+      ],
+      "inherit_parent_environment": false,
+      "working_directory_role": "APPLICATION_DATA",
+      "stdin_mode": "INHERIT_NONE",
+      "stdout_mode": "PIPE_BOUNDED",
+      "stderr_mode": "PIPE_BOUNDED",
+      "lifecycle_mode": "SUPERVISED_LONG_RUNNING",
+      "startup_timeout_ms": 30000,
+      "shutdown_timeout_ms": 10000,
+      "max_restart_attempts": 3,
+      "max_memory_mib": 2048
+    },
+    "w07.process-status": {
+      "process_status_id": "procstat_0123456789ABCDEFGHJKMNPQRS",
+      "process_handle": "prochandle_0123456789ABCDEFGHJKMNPQRS",
+      "plan_ref": "procplan_0123456789ABCDEFGHJKMNPQRS",
+      "profile": "LOCAL_ORCHESTRATOR",
+      "state": "RUNNING",
+      "termination_requested": "NONE",
+      "started_at": "2026-07-28T04:00:00Z",
+      "restart_count": 0,
+      "orphan_detected": false,
+      "idempotency_key": "run-0001",
+      "reason_codes": [],
+      "observed_at": "2026-07-28T04:05:00Z",
+      "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.runtime-capability": {
+      "runtime_capability_id": "runtimecap_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "runtime_availability": "NOT_EVALUATED",
+      "detection_method": "NOT_EVALUATED",
+      "available_profile_refs": [],
+      "accepted_profile_refs": [],
+      "core_capability_behavior": "CORE_PRESERVED_AI_UNAVAILABLE",
+      "reason_codes": ["EVALUATION_NOT_RUN"],
+      "remediation_message": "Deterministic workflows remain available without a local model",
+      "observed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.secret-store-request": {
+      "secret_request_id": "secreq_0123456789ABCDEFGHJKMNPQRS",
+      "request_context": {
+        "requesting_principal": "ORCHESTRATOR",
+        "authorization_profile": "PRODUCTION_NO_SUBMIT",
+        "requested_at": "2026-07-28T04:00:00Z",
+        "correlation_id": "corr_0123456789ABCDEFGHJKMNPQRS"
+      },
+      "operation": "GET",
+      "key_role": "DATABASE_ENCRYPTION_KEY",
+      "scope": "USER"
+    },
+    "w07.secret-store-result": {
+      "secret_result_id": "secres_0123456789ABCDEFGHJKMNPQRS",
+      "request_ref": "secreq_0123456789ABCDEFGHJKMNPQRS",
+      "operation": "GET",
+      "key_role": "DATABASE_ENCRYPTION_KEY",
+      "store_availability": "AVAILABLE",
+      "store_identity_token": "platform-secure-store",
+      "result_state": "RETRIEVED",
+      "material_reference": "secref_0123456789ABCDEFGHJKMNPQRS",
+      "material_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "reason_codes": [],
+      "completed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.target-identity": {
+      "target_identity_id": "target_0123456789ABCDEFGHJKMNPQRS",
+      "platform_id": "MACOS_ARM64",
+      "architecture": "ARM64",
+      "os_version": "15.2",
+      "os_build": "24C101",
+      "detection_method": "STATIC_INSPECTION",
+      "detected_at": "2026-07-28T04:00:00Z",
+      "support_claim": {
+        "claimed_tier": "CERTIFIED_CORE",
+        "reviewed_tier": "UNSUPPORTED",
+        "review_state": "NOT_REVIEWED"
+      },
+      "reason_codes": ["EVALUATION_NOT_RUN"],
+      "remediation_message": "Run the certified platform evidence matrix",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
+      }
+    },
+    "w07.update-state": {
+      "update_state_id": "updatest_0123456789ABCDEFGHJKMNPQRS",
+      "package_token": "desktop-shell",
+      "platform_id": "MACOS_ARM64",
+      "architecture": "ARM64",
+      "channel": "NOT_CONFIGURED",
+      "current_version": "0.1.0",
+      "state": "NO_UPDATE_AVAILABLE",
+      "signature_state": "NOT_EVALUATED",
+      "interrupted": false,
+      "rollback_available": false,
+      "user_data_preservation": "PRESERVED",
+      "native_host_cleanup": "NOT_APPLICABLE",
+      "reason_codes": [],
+      "evidence_refs": [],
+      "observed_at": "2026-07-28T04:00:00Z",
+      "provenance": {
+        "source_kind": "GENERATED",
+        "source_id": "src_0123456789ABCDEFGHJKMNPQRS",
+        "observed_at": "2026-07-28T04:00:00Z"
       }
     }
   }

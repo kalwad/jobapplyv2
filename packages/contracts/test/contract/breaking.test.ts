@@ -1276,3 +1276,494 @@ describe("M01-W06 objective mutation coverage", () => {
     }
   });
 });
+
+describe("M01-W07 platform mutation coverage", () => {
+  const vocabularyId = "urn:japp:schema:platform:vocabulary:v1";
+  const targetIdentityId = "urn:japp:schema:platform:target-identity:v1";
+  const capabilityReportId = "urn:japp:schema:platform:capability-report:v1";
+  const pathRequestId = "urn:japp:schema:platform:path-request:v1";
+  const pathResolutionId = "urn:japp:schema:platform:path-resolution:v1";
+  const secretRequestId = "urn:japp:schema:platform:secret-store-request:v1";
+  const secretResultId = "urn:japp:schema:platform:secret-store-result:v1";
+  const processPlanId = "urn:japp:schema:platform:process-plan:v1";
+  const processStatusId = "urn:japp:schema:platform:process-status:v1";
+  const registrationId =
+    "urn:japp:schema:platform:native-messaging-registration:v1";
+  const browserRecordId = "urn:japp:schema:platform:browser-record:v1";
+  const modelProfileId = "urn:japp:schema:platform:model-runtime-profile:v1";
+  const installerStateId = "urn:japp:schema:platform:installer-state:v1";
+  const updateStateId = "urn:japp:schema:platform:update-state:v1";
+  const diagnosticReportId = "urn:japp:schema:platform:diagnostic-report:v1";
+  const evidenceRecordId = "urn:japp:schema:platform:evidence-record:v1";
+  const certificationInputId =
+    "urn:japp:schema:platform:certification-input:v1";
+
+  function removeVocabularyToken(
+    signature: CompatibilitySignature,
+    definition: string,
+    token: string,
+  ): void {
+    const tokens = contractDefinition(
+      signature,
+      vocabularyId,
+      definition,
+    ).tokens;
+    const index = tokens.indexOf(token);
+    if (index < 0) {
+      throw new Error(`${definition}/${token} token missing`);
+    }
+    tokens.splice(index, 1);
+  }
+
+  test.each([
+    [
+      "dropping a certified platform identifier",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(signature, "certifiedPlatformId", "WINDOWS_X64");
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/certifiedPlatformId/WINDOWS_X64`,
+    ],
+    [
+      "dropping a support tier",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(signature, "supportTier", "CERTIFIED_CORE");
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/supportTier/CERTIFIED_CORE`,
+    ],
+    [
+      "dropping the unevaluated capability state",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(
+          signature,
+          "capabilityAvailability",
+          "NOT_EVALUATED",
+        );
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/capabilityAvailability/NOT_EVALUATED`,
+    ],
+    [
+      "dropping the native-host registration path role",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(
+          signature,
+          "pathRole",
+          "NATIVE_HOST_REGISTRATION",
+        );
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/pathRole/NATIVE_HOST_REGISTRATION`,
+    ],
+    [
+      "dropping the Windows-safe binary stdio mode",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(signature, "stdioMode", "BINARY_LENGTH_PREFIXED");
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/stdioMode/BINARY_LENGTH_PREFIXED`,
+    ],
+    [
+      "dropping the orphaned process state",
+      (signature: CompatibilitySignature) => {
+        removeVocabularyToken(signature, "processState", "ORPHANED");
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/processState/ORPHANED`,
+    ],
+    [
+      "renaming a reviewed secret key role",
+      (signature: CompatibilitySignature) => {
+        const tokens = contractDefinition(
+          signature,
+          vocabularyId,
+          "secretKeyRole",
+        ).tokens;
+        const index = tokens.indexOf("DATABASE_ENCRYPTION_KEY");
+        if (index < 0) {
+          throw new Error("secretKeyRole/DATABASE_ENCRYPTION_KEY missing");
+        }
+        tokens[index] = "DB_KEY";
+      },
+      "ENUM_TOKEN_REMOVED",
+      `${vocabularyId}#/$defs/secretKeyRole/DATABASE_ENCRYPTION_KEY`,
+    ],
+    [
+      "removing the reviewed support claim from platform identity",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, targetIdentityId).properties,
+          "support_claim",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${targetIdentityId}/support_claim`,
+    ],
+    [
+      "removing capability reporting from the platform capability report",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, capabilityReportId).properties,
+          "capabilities",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${capabilityReportId}/capabilities`,
+    ],
+    [
+      "removing the typed path role from a path request",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, pathRequestId).properties,
+          "role",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${pathRequestId}/role`,
+    ],
+    [
+      "retyping the sanitized resolved location",
+      (signature: CompatibilitySignature) => {
+        contractProperty(
+          contractRoot(signature, pathResolutionId),
+          "sanitized_path",
+        ).node.kind = "any";
+      },
+      "TYPE_CHANGED",
+      `${pathResolutionId}/sanitized_path`,
+    ],
+    [
+      "removing the secret-store operation vocabulary",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, secretRequestId).properties,
+          "operation",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${secretRequestId}/operation`,
+    ],
+    [
+      "removing explicit secret-store availability",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, secretResultId).properties,
+          "store_availability",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${secretResultId}/store_availability`,
+    ],
+    [
+      "removing the spawn-plan environment allowlist",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, processPlanId).properties,
+          "environment_allowlist",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${processPlanId}/environment_allowlist`,
+    ],
+    [
+      "retyping the spawn-plan argument array",
+      (signature: CompatibilitySignature) => {
+        contractProperty(
+          contractRoot(signature, processPlanId),
+          "arguments",
+        ).node.kind = "string";
+      },
+      "TYPE_CHANGED",
+      `${processPlanId}/arguments`,
+    ],
+    [
+      "removing the orphan indicator from process status",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, processStatusId).properties,
+          "orphan_detected",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${processStatusId}/orphan_detected`,
+    ],
+    [
+      "removing the registration extension allowlist",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, registrationId).properties,
+          "allowed_extension_ids",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${registrationId}/allowed_extension_ids`,
+    ],
+    [
+      "widening the registration extension allowlist bound",
+      (signature: CompatibilitySignature) => {
+        contractProperty(
+          contractRoot(signature, registrationId),
+          "allowed_extension_ids",
+        ).node.max_items = 2;
+      },
+      "CONSTRAINT_TIGHTENED",
+      `${registrationId}/allowed_extension_ids`,
+    ],
+    [
+      "removing the browser certification indicator",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, browserRecordId).properties,
+          "certified_for_platform",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${browserRecordId}/certified_for_platform`,
+    ],
+    [
+      "removing the model-profile artifact identity",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, modelProfileId).properties,
+          "artifact",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${modelProfileId}/artifact`,
+    ],
+    [
+      "removing the model-profile core fallback behavior",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, modelProfileId).properties,
+          "core_capability_behavior",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${modelProfileId}/core_capability_behavior`,
+    ],
+    [
+      "removing the installer signature state",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, installerStateId).properties,
+          "signature_state",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${installerStateId}/signature_state`,
+    ],
+    [
+      "removing the updater user-data preservation indicator",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, updateStateId).properties,
+          "user_data_preservation",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${updateStateId}/user_data_preservation`,
+    ],
+    [
+      "removing diagnostic redaction metadata",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, diagnosticReportId).properties,
+          "redaction",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${diagnosticReportId}/redaction`,
+    ],
+    [
+      "retyping the diagnostic blocking indicator",
+      (signature: CompatibilitySignature) => {
+        contractProperty(
+          contractRoot(signature, diagnosticReportId),
+          "blocking",
+        ).node.kind = "string";
+      },
+      "TYPE_CHANGED",
+      `${diagnosticReportId}/blocking`,
+    ],
+    [
+      "removing the synthetic-only platform evidence guarantee",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, evidenceRecordId).properties,
+          "synthetic_only",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${evidenceRecordId}/synthetic_only`,
+    ],
+    [
+      "removing the certification evidence inventory",
+      (signature: CompatibilitySignature) => {
+        Reflect.deleteProperty(
+          contractRoot(signature, certificationInputId).properties,
+          "required_evidence_kinds",
+        );
+      },
+      "PROPERTY_REMOVED",
+      `${certificationInputId}/required_evidence_kinds`,
+    ],
+  ] as const)("%s is breaking", (_label, mutate, code, subject) => {
+    expectCurrentFinding(mutate, code, subject);
+  });
+
+  test.each([
+    [
+      "reviewed support claims",
+      "PLATFORM_TARGET_SUPPORT_CLAIM",
+      targetIdentityId,
+    ],
+    [
+      "capability and tier consistency",
+      "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+      capabilityReportId,
+    ],
+    ["spawn-plan safety", "PLATFORM_PROCESS_PLAN_SAFETY", processPlanId],
+    [
+      "secret-store request authority",
+      "PLATFORM_SECRET_REQUEST_AUTHORITY",
+      secretRequestId,
+    ],
+    [
+      "model-profile acceptance evidence",
+      "PLATFORM_MODEL_PROFILE_EVIDENCE",
+      modelProfileId,
+    ],
+  ] as const)(
+    "cannot weaken %s by removing its canonical semantic rule",
+    (_label, ruleId, schemaId) => {
+      expectCurrentFinding(
+        (signature) => {
+          const rule = semanticRule(signature, ruleId);
+          signature.semantic_rules = signature.semantic_rules.filter(
+            (candidate) => candidate !== rule,
+          );
+        },
+        "SEMANTIC_RULE_REMOVED",
+        ruleId,
+      );
+
+      const root = mkdtempSync(join(tmpdir(), "japp-w07-rule-removal-"));
+      try {
+        copyCompatibilityInputs(root);
+        mutateCopiedJson(
+          root,
+          "packages/contracts/catalog/semantic-rules.v1.json",
+          (catalog) => {
+            catalog.entries = mutableArray(catalog, "entries").filter(
+              (entry) =>
+                typeof entry !== "object" ||
+                entry === null ||
+                Array.isArray(entry) ||
+                (entry as MutableJsonObject).rule_id !== ruleId,
+            );
+          },
+        );
+        expect(() => buildCompatibilitySignature(root)).toThrow(
+          new RegExp(`${schemaId}: expected rule kinds`),
+        );
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test.each(["executable", "raw_selector", "password", "private_key"] as const)(
+    "rejects the additive executable or secret platform field %s",
+    (fieldName) => {
+      const root = mkdtempSync(join(tmpdir(), "japp-w07-field-"));
+      try {
+        copyCompatibilityInputs(root);
+        mutateCopiedJson(
+          root,
+          "packages/contracts/schemas/platform/process-plan.v1.schema.json",
+          (schema) => {
+            schema["x-japp-schema-version"] = "1.1.0";
+            mutableObject(schema, "properties")[fieldName] = {
+              title: "Prohibited executable or secret field",
+              type: "string",
+              maxLength: 512,
+            };
+          },
+        );
+        expect(() => buildCompatibilitySignature(root)).toThrow(
+          new RegExp(`prohibited executable/secret field ${fieldName}`),
+        );
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test("accepts a bounded platform addition with a minor version bump", () => {
+    const root = mkdtempSync(join(tmpdir(), "japp-w07-additive-"));
+    try {
+      copyCompatibilityInputs(root);
+      mutateCopiedJson(
+        root,
+        "packages/contracts/schemas/platform/target-identity.v1.schema.json",
+        (schema) => {
+          schema["x-japp-schema-version"] = "1.1.0";
+          mutableObject(schema, "properties").future_platform_note = {
+            title: "Bounded future platform note",
+            description:
+              "Synthetic optional field used only by compatibility tests.",
+            type: "string",
+            maxLength: 64,
+          };
+        },
+      );
+      const report = compareCompatibilitySignatures(
+        currentSignature(),
+        buildCompatibilitySignature(root),
+      );
+      expect(report.compatible).toBe(true);
+      expect(report.findings).toEqual([]);
+      expect(report.additive_changes).toEqual([
+        {
+          code: "OPTIONAL_PROPERTY_ADDED",
+          subject: `${targetIdentityId}/future_platform_note`,
+        },
+      ]);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("a platform addition without a minor bump is rejected", () => {
+    const root = mkdtempSync(join(tmpdir(), "japp-w07-no-bump-"));
+    try {
+      copyCompatibilityInputs(root);
+      mutateCopiedJson(
+        root,
+        "packages/contracts/schemas/platform/target-identity.v1.schema.json",
+        (schema) => {
+          mutableObject(schema, "properties").future_platform_note = {
+            title: "Bounded future platform note",
+            description:
+              "Synthetic optional field used only by compatibility tests.",
+            type: "string",
+            maxLength: 64,
+          };
+        },
+      );
+      const report = compareCompatibilitySignatures(
+        currentSignature(),
+        buildCompatibilitySignature(root),
+      );
+      expect(report.compatible).toBe(false);
+      expect(report.findings).toContainEqual({
+        code: "MINOR_BUMP_REQUIRED",
+        subject: targetIdentityId,
+      });
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+});

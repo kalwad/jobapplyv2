@@ -69,8 +69,14 @@ FINAL_V1_3_REQUIREMENT_MAPPING_SHA256 = (
 FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
     "549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760"
 )
+# Reviewed intentional update history for the v1.4 requirement hash:
+# M00-W11 locked 125f294cfed48baaac5f7425fedfa46940d1fe76ba40e6cfa64d6418a8cce360;
+# M01-W07 recorded the typed platform-contract portion of REQ-PLAT-012
+# (state SCAFFOLD_ONLY plus evidence anchor, schema/catalog/generator code
+# paths, schema/corpus/breaking/Python test paths, and notes — no ownership,
+# mapping, gate effect, or dependency changed) and re-locked the hash below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "125f294cfed48baaac5f7425fedfa46940d1fe76ba40e6cfa64d6418a8cce360"
+    "61fd4e0f3e4fafca89893974f00ee487e9adb67eede9562113275e67fea78c52"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"
@@ -100,7 +106,12 @@ V1_3_VERIFIED_GOVERNANCE_REQUIREMENT_IDS = frozenset(
         "REQ-GATE-022",
     }
 )
-V1_3_SCAFFOLD_REQUIREMENT_IDS = frozenset({"REQ-PLAT-025"})
+# REQ-PLAT-012 joined this set in M01-W07: the typed platform-contract half of
+# the requirement is implemented and cross-language tested, while the adapter
+# half (M03-W09) and all native per-platform evidence remain future work.
+# SCAFFOLD_ONLY is strictly stronger than NOT_STARTED here — it *requires* real
+# code, test, and evidence references below.
+V1_3_SCAFFOLD_REQUIREMENT_IDS = frozenset({"REQ-PLAT-012", "REQ-PLAT-025"})
 V1_4_SCAFFOLD_REQUIREMENT_IDS = frozenset(
     {
         "REQ-UX-001",

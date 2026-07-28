@@ -448,7 +448,18 @@ def test_fixed_issue_sections_remain_byte_exact() -> None:
         assert _sha256(match.group(0).encode()) == digest
 
 
+M00_W11_CONTENT_COMMIT = "bde8ad49c31e63a7e09b50ad7cdf9af51416c182"
+
+
 def test_contract_artifact_trees_and_files_remain_exact() -> None:
+    """M00-W11 changed no contract artifact.
+
+    The oracle is anchored to the exact M00-W11 content commit rather than to
+    a moving HEAD: later packages (M01-W07 onward) legitimately extend these
+    artifacts, and re-pointing the assertion at HEAD would either delete this
+    historical proof or force a restamp on every contract change. Reading the
+    committed objects keeps the migration evidence permanent and exact.
+    """
     expected_trees = {
         "packages/contracts": "c2bcc5af07d638ae6d1f26ff25021a8453d6ced3",
         "packages/contracts/generated": "44faa277a119765b416a3b12d7b1a5b9257968e9",
@@ -461,7 +472,7 @@ def test_contract_artifact_trees_and_files_remain_exact() -> None:
     }
     for relative, digest in expected_trees.items():
         actual = subprocess.run(
-            ["git", "rev-parse", f"HEAD:{relative}"],
+            ["git", "rev-parse", f"{M00_W11_CONTENT_COMMIT}:{relative}"],
             cwd=REPO_ROOT,
             check=True,
             capture_output=True,
@@ -490,4 +501,10 @@ def test_contract_artifact_trees_and_files_remain_exact() -> None:
         ),
     }
     for relative, digest in expected_files.items():
-        assert _sha256((REPO_ROOT / relative).read_bytes()) == digest
+        committed = subprocess.run(
+            ["git", "show", f"{M00_W11_CONTENT_COMMIT}:{relative}"],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+        ).stdout
+        assert _sha256(committed) == digest

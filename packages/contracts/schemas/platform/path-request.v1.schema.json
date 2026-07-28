@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:path-request:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Typed logical platform path request",
+  "description": "A caller selects a logical role and bounded relative segments. An absolute path, traversal path, UNC or device path, registry path, shell expansion, environment expansion, executable lookup input, or arbitrary working directory is structurally unrepresentable.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "path_request_id",
+    "request_context",
+    "role",
+    "scope",
+    "relative_segments",
+    "create_if_missing"
+  ],
+  "properties": {
+    "path_request_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_context": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext"
+    },
+    "role": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole"
+    },
+    "scope": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope"
+    },
+    "relative_segments": {
+      "description": "Bounded normalized segments appended below the role root.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "create_if_missing": {
+      "type": "boolean"
+    }
+  }
+}

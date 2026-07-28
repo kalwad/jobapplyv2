@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:evidence-record:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Cross-platform evidence record",
+  "description": "One future per-platform evidence element for the Cross-Platform Core Gate bundle: operating-system build and architecture, machine class, package identity and signature state, browser and WebView versions, native-host registration, secret-store test, model profile, document matrix, backup/restore, update/rollback, and synthetic-safe log, screenshot, or trace references. Every artifact is a digest reference; raw secrets, unrestricted logs, raw local paths, complete environment dumps, registry exports, and machine-specific identity are structurally unrepresentable. M01-W07 creates no certification bundle and evaluates no gate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_record_id",
+    "platform_id",
+    "architecture",
+    "machine_class",
+    "artifact_kind",
+    "evaluation_method",
+    "synthetic_only",
+    "artifact_digest",
+    "result",
+    "reason_codes",
+    "recorded_at",
+    "provenance"
+  ],
+  "properties": {
+    "evidence_record_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "architecture": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture"
+    },
+    "os_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "os_build": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken"
+    },
+    "machine_class": {
+      "description": "Coarse machine class only. Hostnames, serial numbers, user names, and network identity are never represented.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass"
+    },
+    "runner_image_token": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "artifact_kind": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind"
+    },
+    "evaluation_method": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod"
+    },
+    "synthetic_only": {
+      "description": "Always true: every committed platform evidence artifact contains synthetic data only.",
+      "type": "boolean"
+    },
+    "artifact_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "package_artifact": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity"
+    },
+    "signature_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState"
+    },
+    "browser_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "webview_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "native_messaging_result_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "secret_store_result_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "model_profile_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "installer_state_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "update_state_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "result": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "reviewer_identity_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "review_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState"
+    },
+    "owner_decision_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState"
+    },
+    "recorded_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

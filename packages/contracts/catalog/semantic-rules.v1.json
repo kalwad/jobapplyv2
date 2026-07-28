@@ -226,6 +226,272 @@
       "failure_error_code": "SITE_VALIDATION_REJECTED"
     },
     {
+      "rule_id": "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:browser-discovery-request:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:browser-discovery-request:v1",
+      "rule_kind": "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+      "failure_error_code": "TRANSPORT_FORBIDDEN"
+    },
+    {
+      "rule_id": "PLATFORM_BROWSER_RECORD_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:browser-record:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_BROWSER_RECORD_SCOPE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:browser-record:v1",
+      "rule_kind": "PLATFORM_BROWSER_RECORD_SCOPE",
+      "failure_error_code": "UNSUPPORTED_PLATFORM"
+    },
+    {
+      "rule_id": "PLATFORM_CAPABILITY_REPORT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:capability-report:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:capability-report:v1",
+      "rule_kind": "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+      "failure_error_code": "UNSUPPORTED_CAPABILITY"
+    },
+    {
+      "rule_id": "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:certification-input:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:certification-input:v1",
+      "rule_kind": "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+      "failure_error_code": "GATE_EVIDENCE_MISSING"
+    },
+    {
+      "rule_id": "PLATFORM_DIAGNOSTIC_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:diagnostic-report:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_DIAGNOSTIC_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:diagnostic-report:v1",
+      "rule_kind": "PLATFORM_DIAGNOSTIC_INTEGRITY",
+      "failure_error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+    },
+    {
+      "rule_id": "PLATFORM_EVIDENCE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_EVIDENCE_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "rule_kind": "PLATFORM_EVIDENCE_INTEGRITY",
+      "failure_error_code": "GATE_EVIDENCE_MISSING"
+    },
+    {
+      "rule_id": "PLATFORM_INSTALLER_STATE_EVIDENCE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "rule_kind": "PLATFORM_PACKAGE_STATE_EVIDENCE",
+      "failure_error_code": "STORAGE_INTEGRITY_FAILURE"
+    },
+    {
+      "rule_id": "PLATFORM_INSTALLER_STATE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_MODEL_PROFILE_EVIDENCE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:model-runtime-profile:v1",
+      "rule_kind": "PLATFORM_MODEL_PROFILE_EVIDENCE",
+      "failure_error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+    },
+    {
+      "rule_id": "PLATFORM_MODEL_PROFILE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:model-runtime-profile:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_NATIVE_REGISTRATION_BINDING",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-registration:v1",
+      "rule_kind": "PLATFORM_NATIVE_REGISTRATION_BINDING",
+      "failure_error_code": "TRANSPORT_FORBIDDEN"
+    },
+    {
+      "rule_id": "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-registration:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_NATIVE_REGISTRATION_RESULT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "rule_kind": "PLATFORM_NATIVE_REGISTRATION_RESULT",
+      "failure_error_code": "CONFLICT_INCOMPATIBLE_STATE"
+    },
+    {
+      "rule_id": "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_PATH_REQUEST_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:path-request:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_PATH_REQUEST_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:path-request:v1",
+      "rule_kind": "PLATFORM_PATH_REQUEST_SAFETY",
+      "failure_error_code": "TRANSPORT_FORBIDDEN"
+    },
+    {
+      "rule_id": "PLATFORM_PATH_RESOLUTION_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_PATH_RESOLUTION_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "rule_kind": "PLATFORM_PATH_RESOLUTION_SAFETY",
+      "failure_error_code": "STORAGE_IO_FAILURE"
+    },
+    {
+      "rule_id": "PLATFORM_PROCESS_PLAN_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_PROCESS_PLAN_SAFETY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "rule_kind": "PLATFORM_PROCESS_PLAN_SAFETY",
+      "failure_error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+    },
+    {
+      "rule_id": "PLATFORM_PROCESS_STATUS_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_PROCESS_STATUS_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "rule_kind": "PLATFORM_PROCESS_STATUS_INTEGRITY",
+      "failure_error_code": "CONFLICT_INCOMPATIBLE_STATE"
+    },
+    {
+      "rule_id": "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "rule_kind": "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+      "failure_error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+    },
+    {
+      "rule_id": "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_SECRET_REQUEST_AUTHORITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:secret-store-request:v1",
+      "rule_kind": "PLATFORM_SECRET_REQUEST_AUTHORITY",
+      "failure_error_code": "TRANSPORT_FORBIDDEN"
+    },
+    {
+      "rule_id": "PLATFORM_SECRET_REQUEST_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:secret-store-request:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_SECRET_RESULT_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_SECRET_RESULT_INTEGRITY",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "rule_kind": "PLATFORM_SECRET_RESULT_INTEGRITY",
+      "failure_error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+    },
+    {
+      "rule_id": "PLATFORM_TARGET_IDENTITY_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:target-identity:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
+      "rule_id": "PLATFORM_TARGET_SUPPORT_CLAIM",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:target-identity:v1",
+      "rule_kind": "PLATFORM_TARGET_SUPPORT_CLAIM",
+      "failure_error_code": "UNSUPPORTED_PLATFORM"
+    },
+    {
+      "rule_id": "PLATFORM_UPDATE_STATE_EVIDENCE",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:update-state:v1",
+      "rule_kind": "PLATFORM_PACKAGE_STATE_EVIDENCE",
+      "failure_error_code": "STORAGE_INTEGRITY_FAILURE"
+    },
+    {
+      "rule_id": "PLATFORM_UPDATE_STATE_INERT_TEXT",
+      "rule_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:platform:update-state:v1",
+      "rule_kind": "INERT_TEXT_SAFETY",
+      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
+    },
+    {
       "rule_id": "RECONCILIATION_INERT_TEXT",
       "rule_version": "1.0.0",
       "schema_ref": "urn:japp:schema:form:reconciliation-inventory:v1",

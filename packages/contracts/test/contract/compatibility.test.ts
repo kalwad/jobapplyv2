@@ -61,9 +61,9 @@ function assertExpected(corpusCase: CorpusCase, result: AdapterResult): void {
 
 describe("real TypeScript, Python, and test-only Rust adapters", () => {
   test("all real adapters execute the exact applicable inventory", () => {
-    expect(realRun.responses.typescript.results).toHaveLength(198);
-    expect(realRun.responses.python.results).toHaveLength(194);
-    expect(realRun.responses.rust.results).toHaveLength(193);
+    expect(realRun.responses.typescript.results).toHaveLength(362);
+    expect(realRun.responses.python.results).toHaveLength(358);
+    expect(realRun.responses.rust.results).toHaveLength(357);
   });
 
   for (const corpusCase of loadCorpus().cases) {

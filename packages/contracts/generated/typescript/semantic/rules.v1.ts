@@ -30,13 +30,31 @@ export type SemanticRuleKindV1 =
   | "LAYOUT_MEASUREMENT_INTEGRITY"
   | "NAVIGATION_SAFETY"
   | "PAGE_READINESS_INTEGRITY"
+  | "PLATFORM_BROWSER_DISCOVERY_SAFETY"
+  | "PLATFORM_BROWSER_RECORD_SCOPE"
+  | "PLATFORM_CAPABILITY_REPORT_INTEGRITY"
+  | "PLATFORM_CERTIFICATION_INPUT_SCOPE"
+  | "PLATFORM_DIAGNOSTIC_INTEGRITY"
+  | "PLATFORM_EVIDENCE_INTEGRITY"
+  | "PLATFORM_MODEL_PROFILE_EVIDENCE"
+  | "PLATFORM_NATIVE_REGISTRATION_BINDING"
+  | "PLATFORM_NATIVE_REGISTRATION_RESULT"
+  | "PLATFORM_PACKAGE_STATE_EVIDENCE"
+  | "PLATFORM_PATH_REQUEST_SAFETY"
+  | "PLATFORM_PATH_RESOLUTION_SAFETY"
+  | "PLATFORM_PROCESS_PLAN_SAFETY"
+  | "PLATFORM_PROCESS_STATUS_INTEGRITY"
+  | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK"
+  | "PLATFORM_SECRET_REQUEST_AUTHORITY"
+  | "PLATFORM_SECRET_RESULT_INTEGRITY"
+  | "PLATFORM_TARGET_SUPPORT_CLAIM"
   | "RECONCILIATION_READINESS"
   | "RESUME_PLAN_EVIDENCE"
   | "WORKDAY_CERTIFICATION_SCOPE"
   | "WORKDAY_STEP_BOUNDARY"
   | "WORKDAY_TENANT_IDENTITY";
 
-export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INTEGRITY" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_INERT_TEXT" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
+export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INTEGRITY" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_INERT_TEXT" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT" | "PLATFORM_BROWSER_DISCOVERY_SAFETY" | "PLATFORM_BROWSER_RECORD_INERT_TEXT" | "PLATFORM_BROWSER_RECORD_SCOPE" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT" | "PLATFORM_CERTIFICATION_INPUT_SCOPE" | "PLATFORM_DIAGNOSTIC_INERT_TEXT" | "PLATFORM_DIAGNOSTIC_INTEGRITY" | "PLATFORM_EVIDENCE_INERT_TEXT" | "PLATFORM_EVIDENCE_INTEGRITY" | "PLATFORM_INSTALLER_STATE_EVIDENCE" | "PLATFORM_INSTALLER_STATE_INERT_TEXT" | "PLATFORM_MODEL_PROFILE_EVIDENCE" | "PLATFORM_MODEL_PROFILE_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_BINDING" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_RESULT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT" | "PLATFORM_PATH_REQUEST_INERT_TEXT" | "PLATFORM_PATH_REQUEST_SAFETY" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT" | "PLATFORM_PATH_RESOLUTION_SAFETY" | "PLATFORM_PROCESS_PLAN_INERT_TEXT" | "PLATFORM_PROCESS_PLAN_SAFETY" | "PLATFORM_PROCESS_STATUS_INERT_TEXT" | "PLATFORM_PROCESS_STATUS_INTEGRITY" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT" | "PLATFORM_SECRET_REQUEST_AUTHORITY" | "PLATFORM_SECRET_REQUEST_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INTEGRITY" | "PLATFORM_TARGET_IDENTITY_INERT_TEXT" | "PLATFORM_TARGET_SUPPORT_CLAIM" | "PLATFORM_UPDATE_STATE_EVIDENCE" | "PLATFORM_UPDATE_STATE_INERT_TEXT" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
 
 export interface SemanticRuleEntryV1 {
   readonly rule_id: SemanticRuleIdV1;
@@ -273,6 +291,272 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "SITE_VALIDATION_REJECTED",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-discovery-request:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-discovery-request:v1",
+    rule_kind: "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+    failure_error_code: "TRANSPORT_FORBIDDEN",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_BROWSER_RECORD_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-record:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_BROWSER_RECORD_SCOPE",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-record:v1",
+    rule_kind: "PLATFORM_BROWSER_RECORD_SCOPE",
+    failure_error_code: "UNSUPPORTED_PLATFORM",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CAPABILITY_REPORT_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:capability-report:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:capability-report:v1",
+    rule_kind: "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+    failure_error_code: "UNSUPPORTED_CAPABILITY",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:certification-input:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:certification-input:v1",
+    rule_kind: "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+    failure_error_code: "GATE_EVIDENCE_MISSING",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_DIAGNOSTIC_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:diagnostic-report:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_DIAGNOSTIC_INTEGRITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:diagnostic-report:v1",
+    rule_kind: "PLATFORM_DIAGNOSTIC_INTEGRITY",
+    failure_error_code: "VALIDATION_CONSTRAINT_VIOLATION",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_EVIDENCE_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:evidence-record:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_EVIDENCE_INTEGRITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:evidence-record:v1",
+    rule_kind: "PLATFORM_EVIDENCE_INTEGRITY",
+    failure_error_code: "GATE_EVIDENCE_MISSING",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_INSTALLER_STATE_EVIDENCE",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:installer-state:v1",
+    rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE",
+    failure_error_code: "STORAGE_INTEGRITY_FAILURE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_INSTALLER_STATE_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:installer-state:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_MODEL_PROFILE_EVIDENCE",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:model-runtime-profile:v1",
+    rule_kind: "PLATFORM_MODEL_PROFILE_EVIDENCE",
+    failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_MODEL_PROFILE_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:model-runtime-profile:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_BINDING",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-registration:v1",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_BINDING",
+    failure_error_code: "TRANSPORT_FORBIDDEN",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-registration:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_RESULT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-result:v1",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_RESULT",
+    failure_error_code: "CONFLICT_INCOMPATIBLE_STATE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-result:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PATH_REQUEST_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:path-request:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PATH_REQUEST_SAFETY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:path-request:v1",
+    rule_kind: "PLATFORM_PATH_REQUEST_SAFETY",
+    failure_error_code: "TRANSPORT_FORBIDDEN",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PATH_RESOLUTION_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:path-resolution:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PATH_RESOLUTION_SAFETY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:path-resolution:v1",
+    rule_kind: "PLATFORM_PATH_RESOLUTION_SAFETY",
+    failure_error_code: "STORAGE_IO_FAILURE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_PLAN_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:process-plan:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_PLAN_SAFETY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:process-plan:v1",
+    rule_kind: "PLATFORM_PROCESS_PLAN_SAFETY",
+    failure_error_code: "SENSITIVE_AUTOMATION_PROHIBITED",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_STATUS_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:process-status:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_STATUS_INTEGRITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:process-status:v1",
+    rule_kind: "PLATFORM_PROCESS_STATUS_INTEGRITY",
+    failure_error_code: "CONFLICT_INCOMPATIBLE_STATE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:runtime-capability:v1",
+    rule_kind: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+    failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:runtime-capability:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_SECRET_REQUEST_AUTHORITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-request:v1",
+    rule_kind: "PLATFORM_SECRET_REQUEST_AUTHORITY",
+    failure_error_code: "TRANSPORT_FORBIDDEN",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_SECRET_REQUEST_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-request:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_SECRET_RESULT_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-result:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_SECRET_RESULT_INTEGRITY",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-result:v1",
+    rule_kind: "PLATFORM_SECRET_RESULT_INTEGRITY",
+    failure_error_code: "STORAGE_SECURE_STORE_UNAVAILABLE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_TARGET_IDENTITY_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:target-identity:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_TARGET_SUPPORT_CLAIM",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:target-identity:v1",
+    rule_kind: "PLATFORM_TARGET_SUPPORT_CLAIM",
+    failure_error_code: "UNSUPPORTED_PLATFORM",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_UPDATE_STATE_EVIDENCE",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:update-state:v1",
+    rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE",
+    failure_error_code: "STORAGE_INTEGRITY_FAILURE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_UPDATE_STATE_INERT_TEXT",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:platform:update-state:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
     rule_id: "RECONCILIATION_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:form:reconciliation-inventory:v1",
@@ -388,6 +672,27 @@ function uniqueStrings(values: readonly unknown[]): boolean {
     return false;
   }
   return new Set(values).size === values.length;
+}
+
+function present(value: unknown, name: string): boolean {
+  const candidate = member(value, name);
+  return candidate !== undefined && candidate !== null;
+}
+
+function textOneOf(
+  value: unknown,
+  name: string,
+  allowed: readonly string[],
+): boolean {
+  const candidate = text(value, name);
+  return candidate !== null && allowed.includes(candidate);
+}
+
+function subsetOf(
+  inner: readonly unknown[],
+  outer: readonly unknown[],
+): boolean {
+  return inner.every((item) => outer.includes(item));
 }
 
 function uniqueField(values: readonly unknown[], name: string): boolean {
@@ -1304,6 +1609,854 @@ function layoutMeasurementIntegrity(value: unknown): boolean {
   return (pageCount ?? 0) >= 1 && flag(value, "renderer_succeeded") === true;
 }
 
+const CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const PLATFORM_CAPABILITY_FAMILIES = [
+  "BROWSER_PRESENCE",
+  "DIAGNOSTICS",
+  "MODEL_RUNTIME",
+  "NATIVE_MESSAGING",
+  "PACKAGING_UPDATE_CHANNEL",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const MANDATORY_CORE_CAPABILITIES = [
+  "BROWSER_PRESENCE",
+  "NATIVE_MESSAGING",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const PLATFORM_INTERPRETER_TOKENS = [
+  "bash",
+  "cmd",
+  "cscript",
+  "eval",
+  "exec",
+  "powershell",
+  "pwsh",
+  "sh",
+  "wscript",
+  "zsh",
+];
+const PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
+  MACOS_ARM64: "ARM64",
+  UBUNTU_X64: "X86_64",
+  WINDOWS_X64: "X86_64",
+};
+const DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
+  BROWSER_LOCATOR: "BROWSER_PRESENCE",
+  INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
+  MODEL_RUNTIME_PROVIDER: "MODEL_RUNTIME",
+  NATIVE_MESSAGING_REGISTRAR: "NATIVE_MESSAGING",
+  PLATFORM_DIAGNOSTICS: "DIAGNOSTICS",
+  PLATFORM_PATHS: "PLATFORM_PATHS",
+  PROCESS_SUPERVISOR: "PROCESS_SUPERVISION",
+  SECRET_STORE: "SECURE_STORE",
+  UPDATER_PROVIDER: "PACKAGING_UPDATE_CHANNEL",
+};
+const PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+];
+const PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+];
+const EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
+  INSTALL_LAUNCH_REPORT: "installer_state_ref",
+  MODEL_PROFILE_REPORT: "model_profile_ref",
+  NATIVE_HOST_REGISTRATION_REPORT: "native_messaging_result_ref",
+  SECRET_STORE_TEST_REPORT: "secret_store_result_ref",
+  UPDATE_ROLLBACK_REPORT: "update_state_ref",
+};
+
+function platformRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  return (
+    context !== null &&
+    textOneOf(context, "requesting_principal", PLATFORM_REQUEST_PRINCIPALS) &&
+    textOneOf(context, "authorization_profile", PLATFORM_REQUEST_PROFILES)
+  );
+}
+
+function platformCapabilityStateSound(state: unknown): boolean {
+  const availability = text(state, "availability");
+  const reasons = items(state, "reason_codes");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    return (
+      reasons.length === 0 &&
+      present(state, "identity_token") &&
+      present(state, "detected_version") &&
+      present(state, "evidence_digest") &&
+      text(state, "evaluation_method") !== "NOT_EVALUATED"
+    );
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (availability === "NOT_EVALUATED") {
+    return (
+      text(state, "evaluation_method") === "NOT_EVALUATED" &&
+      reasons.includes("EVALUATION_NOT_RUN")
+    );
+  }
+  if (availability === "DEGRADED_LIMITED") {
+    return present(state, "identity_token") && present(state, "detected_version");
+  }
+  return true;
+}
+
+function platformSupportClaimSound(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  const platformId = text(value, "platform_id");
+  if (claim === null || platformId === null) {
+    return false;
+  }
+  const reviewed = text(claim, "reviewed_tier") ?? "";
+  const evidence = items(claim, "evidence_refs");
+  if (!uniqueStrings(evidence)) {
+    return false;
+  }
+  if (
+    UNCERTIFIABLE_PLATFORM_IDS.includes(platformId) &&
+    reviewed !== "UNSUPPORTED"
+  ) {
+    return false;
+  }
+  if (!CERTIFIED_SUPPORT_TIERS.includes(reviewed)) {
+    return true;
+  }
+  return (
+    CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    text(claim, "review_state") === "REVIEW_COMPLETE" &&
+    present(claim, "evaluated_commit") &&
+    present(claim, "evaluated_tree") &&
+    present(claim, "reviewer_identity_ref") &&
+    evidence.length > 0
+  );
+}
+
+function platformReviewedTierIsCertified(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  return CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
+}
+
+function platformTargetSupportClaim(value: unknown): boolean {
+  const platformId = text(value, "platform_id");
+  const reasons = items(value, "reason_codes");
+  if (
+    platformId === null ||
+    !uniqueStrings(reasons) ||
+    !platformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const expectedArchitecture = PLATFORM_ARCHITECTURE_BY_ID[platformId];
+  if (
+    expectedArchitecture !== undefined &&
+    text(value, "architecture") !== expectedArchitecture
+  ) {
+    return false;
+  }
+  if (!platformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN"
+  );
+}
+
+function platformCapabilityReportIntegrity(value: unknown): boolean {
+  const capabilities = items(value, "capabilities");
+  if (
+    !uniqueField(capabilities, "capability") ||
+    capabilities.length !== PLATFORM_CAPABILITY_FAMILIES.length ||
+    !PLATFORM_CAPABILITY_FAMILIES.every((family) =>
+      capabilities.some((state) => text(state, "capability") === family),
+    ) ||
+    !capabilities.every(platformCapabilityStateSound) ||
+    !uniqueStrings(items(value, "model_profile_refs")) ||
+    !uniqueStrings(items(value, "diagnostic_refs")) ||
+    !platformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const availabilityOf = (family: string): string | null => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return found === undefined ? null : text(found, "availability");
+  };
+  if (
+    text(value, "packaging_channel") === "RELEASE_STABLE" &&
+    availabilityOf("PACKAGING_UPDATE_CHANNEL") !== "AVAILABLE"
+  ) {
+    return false;
+  }
+  if (!platformReviewedTierIsCertified(value)) {
+    return true;
+  }
+  if (
+    !MANDATORY_CORE_CAPABILITIES.every(
+      (family) => availabilityOf(family) === "AVAILABLE",
+    )
+  ) {
+    return false;
+  }
+  const claim = objectMember(value, "support_claim");
+  if (text(claim, "reviewed_tier") !== "CERTIFIED_FULL") {
+    // A missing or unavailable local-AI profile never downgrades the
+    // deterministic core tier; CERTIFIED_CORE deliberately imposes no
+    // MODEL_RUNTIME requirement.
+    return true;
+  }
+  return (
+    availabilityOf("MODEL_RUNTIME") === "AVAILABLE" &&
+    items(value, "model_profile_refs").length > 0
+  );
+}
+
+function platformPathRequestSafety(value: unknown): boolean {
+  if (!platformRequestAuthority(value)) {
+    return false;
+  }
+  return (
+    text(value, "scope") !== "SYSTEM" ||
+    text(value, "role") === "NATIVE_HOST_REGISTRATION"
+  );
+}
+
+function platformPathResolutionSafety(value: unknown): boolean {
+  const role = text(value, "role");
+  const reasons = items(value, "reason_codes");
+  const sanitized = text(value, "sanitized_path");
+  if (
+    role === null ||
+    !uniqueStrings(reasons) ||
+    (text(value, "scope") === "SYSTEM" && role !== "NATIVE_HOST_REGISTRATION")
+  ) {
+    return false;
+  }
+  if (text(value, "resolution_state") !== "RESOLVED") {
+    return (
+      sanitized === null &&
+      !present(value, "path_digest") &&
+      flag(value, "exists") === false &&
+      flag(value, "writable") === false &&
+      reasons.length > 0
+    );
+  }
+  return (
+    sanitized !== null &&
+    sanitized.startsWith("<" + role + ">") &&
+    present(value, "path_digest") &&
+    reasons.length === 0 &&
+    (flag(value, "writable") !== true || flag(value, "exists") === true)
+  );
+}
+
+function platformSecretRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  const operation = text(value, "operation");
+  const redaction = objectMember(value, "redaction");
+  if (!platformRequestAuthority(value)) {
+    return false;
+  }
+  if (
+    text(context, "authorization_profile") === "VERIFICATION" &&
+    operation !== "STATUS"
+  ) {
+    return false;
+  }
+  if (
+    redaction !== null &&
+    (text(redaction, "sensitivity") !== "SECRET" ||
+      text(redaction, "policy") !== "FORBID_CAPTURE")
+  ) {
+    return false;
+  }
+  if (operation === "PUT") {
+    return (
+      present(value, "material_reference") && present(value, "material_digest")
+    );
+  }
+  return (
+    !present(value, "material_reference") && !present(value, "material_digest")
+  );
+}
+
+function platformSecretResultIntegrity(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const availability = text(value, "store_availability");
+  const state = text(value, "result_state");
+  const reasons = items(value, "reason_codes");
+  const hasMaterial = present(value, "material_reference");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    if (!present(value, "store_identity_token")) {
+      return false;
+    }
+  } else if (hasMaterial) {
+    return false;
+  }
+  if (operation === "STATUS") {
+    return (
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      ["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"].includes(
+        state ?? "",
+      ) &&
+      (state !== "STORE_AVAILABLE" ||
+        (availability === "AVAILABLE" && reasons.length === 0))
+    );
+  }
+  if (state === "STORE_AVAILABLE") {
+    return false;
+  }
+  if (state === "RETRIEVED") {
+    return (
+      operation === "GET" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "STORED") {
+    return (
+      operation === "PUT" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DELETED") {
+    return (
+      operation === "DELETE" &&
+      availability === "AVAILABLE" &&
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DENIED_PERMISSION") {
+    return (
+      !hasMaterial &&
+      reasons.includes("PERMISSION_DENIED") &&
+      ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(availability ?? "")
+    );
+  }
+  return !hasMaterial && reasons.length > 0;
+}
+
+function platformProcessPlanSafety(value: unknown): boolean {
+  const profile = text(value, "profile");
+  const environment = items(value, "environment_allowlist");
+  const commandArguments = items(value, "arguments");
+  const binary = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+  if (
+    !platformRequestAuthority(value) ||
+    flag(value, "inherit_parent_environment") !== false ||
+    !present(value, "executable_digest") ||
+    !uniqueField(environment, "variable") ||
+    text(value, "working_directory_role") === "NATIVE_HOST_REGISTRATION"
+  ) {
+    return false;
+  }
+  if (
+    commandArguments.some(
+      (argument) =>
+        typeof argument === "string" &&
+        PLATFORM_INTERPRETER_TOKENS.includes(argument.toLowerCase()),
+    )
+  ) {
+    return false;
+  }
+  for (const entry of environment) {
+    const variable = text(entry, "variable");
+    const entryValue = text(entry, "value");
+    if (entryValue === null) {
+      return false;
+    }
+    if (variable === "JAPP_SERVICE_PORT" && !/^[0-9]{1,5}$/.test(entryValue)) {
+      return false;
+    }
+    if (
+      variable === "JAPP_PATH_ROLE" &&
+      !/^[A-Z][A-Z0-9_]{1,63}$/.test(entryValue)
+    ) {
+      return false;
+    }
+  }
+  if (
+    text(value, "lifecycle_mode") === "ONE_SHOT" &&
+    numberValue(value, "max_restart_attempts") !== 0
+  ) {
+    return false;
+  }
+  if (profile === "NATIVE_MESSAGING_HOST") {
+    return binary.every((mode) => mode === "BINARY_LENGTH_PREFIXED");
+  }
+  return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
+}
+
+function platformProcessStatusIntegrity(value: unknown): boolean {
+  const state = text(value, "state");
+  const reasons = items(value, "reason_codes");
+  const ended = present(value, "ended_at");
+  const started = present(value, "started_at");
+  const exited = present(value, "exit_code");
+  const orphan = flag(value, "orphan_detected");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (ended && started && !timestampNotBefore(value, "ended_at", "started_at")) {
+    return false;
+  }
+  if (orphan === true && state !== "ORPHANED") {
+    return false;
+  }
+  if (state === "STARTING" || state === "RUNNING") {
+    return !ended && !exited && orphan === false;
+  }
+  if (state === "TERMINATING") {
+    return (
+      !ended && !exited && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "EXITED") {
+    return started && ended && exited && reasons.length === 0;
+  }
+  if (state === "TERMINATED") {
+    return (
+      started && ended && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "ORPHANED") {
+    return orphan === true && reasons.length > 0;
+  }
+  if (state === "UNAVAILABLE") {
+    return !started && !ended && !exited && reasons.length > 0;
+  }
+  return reasons.length > 0;
+}
+
+function platformNativeRegistrationBinding(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const extensions = items(value, "allowed_extension_ids");
+  if (
+    !platformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE" ||
+    text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
+    text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
+    !strictlySortedStrings(extensions)
+  ) {
+    return false;
+  }
+  if (operation === "REMOVE") {
+    return (
+      !present(value, "expected_manifest_digest") &&
+      !present(value, "expected_host_binary_digest")
+    );
+  }
+  if (operation === "VERIFY") {
+    return present(value, "expected_manifest_digest");
+  }
+  return (
+    present(value, "expected_manifest_digest") &&
+    present(value, "expected_host_binary_digest")
+  );
+}
+
+function platformNativeRegistrationResult(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const observed = text(value, "observed_state");
+  const reasons = items(value, "reason_codes");
+  const changed = flag(value, "changed");
+  if (
+    !uniqueStrings(reasons) ||
+    text(value, "browser_family") !== "CHROME" ||
+    (operation === "VERIFY" && changed !== false)
+  ) {
+    return false;
+  }
+  if (observed === "PRESENT_VALID") {
+    if (
+      !present(value, "observed_manifest_digest") ||
+      !present(value, "observed_host_version") ||
+      reasons.length > 0
+    ) {
+      return false;
+    }
+  } else if (reasons.length === 0) {
+    return false;
+  }
+  if (observed === "MISMATCHED_IDENTITY" && !reasons.includes("IDENTITY_MISMATCH")) {
+    return false;
+  }
+  if (observed === "NOT_EVALUATED") {
+    return changed === false && reasons.includes("EVALUATION_NOT_RUN");
+  }
+  if (reasons.length === 0) {
+    const expected = operation === "REMOVE" ? "ABSENT" : "PRESENT_VALID";
+    return (
+      observed === expected && flag(value, "idempotent_repeat_safe") === true
+    );
+  }
+  return true;
+}
+
+function platformBrowserDiscoverySafety(value: unknown): boolean {
+  if (
+    !platformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE"
+  ) {
+    return false;
+  }
+  return (
+    flag(value, "include_capability_probe") !== true ||
+    CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+  );
+}
+
+function platformBrowserRecordScope(value: unknown): boolean {
+  const presence = text(value, "presence");
+  const reasons = items(value, "reason_codes");
+  const capability = objectMember(value, "native_messaging_capability");
+  if (
+    !uniqueStrings(reasons) ||
+    capability === null ||
+    !platformCapabilityStateSound(capability) ||
+    text(capability, "capability") !== "NATIVE_MESSAGING"
+  ) {
+    return false;
+  }
+  if (presence === "AVAILABLE") {
+    if (!present(value, "detected_version")) {
+      return false;
+    }
+  } else if (present(value, "sanitized_install_location")) {
+    return false;
+  }
+  if (flag(value, "certified_for_platform") !== true) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    presence === "AVAILABLE" &&
+    text(value, "browser_family") === "CHROME" &&
+    text(value, "browser_channel") === "STABLE" &&
+    CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    text(capability, "availability") === "AVAILABLE" &&
+    present(value, "last_tested_on")
+  );
+}
+
+function platformModelProfileEvidence(value: unknown): boolean {
+  const platformId = text(value, "platform_id") ?? "";
+  const accelerator = text(value, "accelerator");
+  const family = text(value, "runtime_family");
+  const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
+  if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
+    return false;
+  }
+  if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (
+    accelerator === "NVIDIA_CUDA" &&
+    (!present(value, "minimum_vram_mib") ||
+      !present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (accelerator === "CPU_ONLY" && present(value, "minimum_vram_mib")) {
+    return false;
+  }
+  if (
+    family === "OLLAMA_MLX" &&
+    (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  if (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU") {
+    return false;
+  }
+  if (text(value, "acceptance_state") !== "ACCEPTED") {
+    return (
+      reasons.length > 0 &&
+      text(value, "core_capability_behavior") !== "FULL_AI_AVAILABLE"
+    );
+  }
+  return (
+    CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    reasons.length === 0 &&
+    evidence.length > 0 &&
+    text(value, "availability") === "AVAILABLE" &&
+    text(value, "core_capability_behavior") === "FULL_AI_AVAILABLE" &&
+    present(value, "structured_output_evidence_ref") &&
+    present(value, "factuality_evidence_ref") &&
+    present(value, "latency_evidence_ref") &&
+    present(value, "memory_evidence_ref") &&
+    present(value, "last_tested_on")
+  );
+}
+
+function platformRuntimeCapabilityFallback(value: unknown): boolean {
+  const available = items(value, "available_profile_refs");
+  const accepted = items(value, "accepted_profile_refs");
+  const reasons = items(value, "reason_codes");
+  const behavior = text(value, "core_capability_behavior");
+  if (
+    !uniqueStrings(available) ||
+    !uniqueStrings(accepted) ||
+    !uniqueStrings(reasons) ||
+    !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  if (
+    text(value, "detection_method") === "NOT_EVALUATED" &&
+    text(value, "runtime_availability") !== "NOT_EVALUATED"
+  ) {
+    return false;
+  }
+  if (text(value, "runtime_availability") !== "AVAILABLE") {
+    return (
+      available.length === 0 &&
+      accepted.length === 0 &&
+      reasons.length > 0 &&
+      behavior !== "FULL_AI_AVAILABLE"
+    );
+  }
+  if (
+    !present(value, "runtime_family") ||
+    !present(value, "runtime_version") ||
+    !present(value, "accelerator")
+  ) {
+    return false;
+  }
+  return behavior === "FULL_AI_AVAILABLE"
+    ? accepted.length > 0
+    : accepted.length === 0;
+}
+
+function platformPackageStateEvidence(value: unknown): boolean {
+  const state = text(value, "state") ?? "";
+  const reasons = items(value, "reason_codes");
+  const signature = text(value, "signature_state");
+  const interrupted = flag(value, "interrupted");
+  const preservation = text(value, "user_data_preservation");
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (interrupted === true && !reasons.includes("INTERRUPTED")) ||
+    (flag(value, "recovery_completed") === true && interrupted !== true) ||
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
+  ) {
+    return false;
+  }
+  if (
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING") &&
+    !reasons.includes("SIGNATURE_NOT_VERIFIED")
+  ) {
+    return false;
+  }
+  if (PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
+    return false;
+  }
+  if (PACKAGE_SUCCESS_STATES.includes(state)) {
+    if (
+      signature !== "SIGNATURE_VALID" ||
+      reasons.length > 0 ||
+      interrupted !== false ||
+      !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
+        preservation ?? "",
+      ) ||
+      items(value, "evidence_refs").length === 0
+    ) {
+      return false;
+    }
+  }
+  if (state === "UNINSTALLED") {
+    return ["NOT_APPLICABLE", "REMOVED"].includes(
+      text(value, "native_host_cleanup") ?? "",
+    );
+  }
+  if (state === "INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      text(value, "installed_version") === text(value, "package_version")
+    );
+  }
+  if (state === "NOT_INSTALLED") {
+    return !present(value, "installed_version");
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    return !present(value, "available_version");
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    return present(value, "available_version");
+  }
+  if (state === "UPDATE_INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      present(value, "available_version") &&
+      present(value, "target_artifact")
+    );
+  }
+  if (state === "ROLLED_BACK") {
+    return (
+      present(value, "rolled_back_to_version") &&
+      flag(value, "rollback_available") === true
+    );
+  }
+  return true;
+}
+
+function platformDiagnosticIntegrity(value: unknown): boolean {
+  const result = text(value, "result");
+  const severity = text(value, "severity");
+  const reasons = items(value, "reason_codes");
+  const blocking = flag(value, "blocking");
+  const component = text(value, "component") ?? "";
+  const expectedCapability = DIAGNOSTIC_CAPABILITY_BY_COMPONENT[component];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (expectedCapability !== undefined &&
+      text(value, "capability") !== expectedCapability)
+  ) {
+    return false;
+  }
+  if (
+    present(value, "user_message") &&
+    text(objectMember(value, "redaction"), "policy") !== "NONE"
+  ) {
+    return false;
+  }
+  if (blocking === true && result !== "BLOCKED" && result !== "FAILURE") {
+    return false;
+  }
+  if (result === "SUCCESS") {
+    return blocking === false && reasons.length === 0 && severity === "INFO";
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (result === "WARNING") {
+    return blocking === false && ["INFO", "WARNING"].includes(severity ?? "");
+  }
+  if (result === "FAILURE") {
+    return ["CRITICAL", "ERROR"].includes(severity ?? "");
+  }
+  return blocking === true;
+}
+
+function platformEvidenceIntegrity(value: unknown): boolean {
+  const reasons = items(value, "reason_codes");
+  const method = text(value, "evaluation_method");
+  const artifactKind = text(value, "artifact_kind") ?? "";
+  const requiredReference = EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
+  if (
+    !uniqueStrings(reasons) ||
+    flag(value, "synthetic_only") !== true ||
+    (requiredReference !== undefined && !present(value, requiredReference)) ||
+    (present(value, "package_artifact") && !present(value, "signature_state"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "review_state") === "REVIEW_COMPLETE" &&
+    !present(value, "reviewer_identity_ref")
+  ) {
+    return false;
+  }
+  if (
+    text(value, "owner_decision_state") === "RECORDED" &&
+    text(value, "review_state") !== "REVIEW_COMPLETE"
+  ) {
+    return false;
+  }
+  if (method === "MEASURED_NATIVE_RUN") {
+    if (
+      !present(value, "os_version") ||
+      !present(value, "os_build") ||
+      text(value, "machine_class") === "SYNTHETIC_FIXTURE" ||
+      !CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+    ) {
+      return false;
+    }
+  } else if (
+    text(value, "machine_class") === "PHYSICAL_DEVELOPMENT_MACHINE" ||
+    text(value, "machine_class") === "HOSTED_CI_RUNNER"
+  ) {
+    if (method !== "STATIC_INSPECTION") {
+      return false;
+    }
+  }
+  return text(value, "result") === "SUCCESS"
+    ? reasons.length === 0
+    : reasons.length > 0;
+}
+
+function platformCertificationInputScope(value: unknown): boolean {
+  const required = items(value, "required_evidence_kinds");
+  const presentKinds = items(value, "present_evidence_kinds");
+  const records = items(value, "evidence_record_refs");
+  const reasons = items(value, "reason_codes");
+  if (
+    !strictlySortedStrings(required) ||
+    !strictlySortedStrings(presentKinds) ||
+    !uniqueStrings(records) ||
+    !uniqueStrings(reasons) ||
+    !platformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (flag(value, "inventory_complete") !== complete) {
+    return false;
+  }
+  if (
+    (text(value, "owner_decision_state") === "RECORDED") !==
+    present(value, "owner_decision_ref")
+  ) {
+    return false;
+  }
+  if (!platformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    complete &&
+    text(value, "owner_decision_state") === "RECORDED"
+  );
+}
+
 const RULE_EVALUATORS: Readonly<Record<SemanticRuleKindV1, RuleEvaluator>> =
   Object.freeze({
     APPLICATION_SESSION_CONSISTENCY: applicationSessionConsistency,
@@ -1323,6 +2476,24 @@ const RULE_EVALUATORS: Readonly<Record<SemanticRuleKindV1, RuleEvaluator>> =
     LAYOUT_MEASUREMENT_INTEGRITY: layoutMeasurementIntegrity,
     NAVIGATION_SAFETY: navigationSafety,
     PAGE_READINESS_INTEGRITY: pageReadinessIntegrity,
+    PLATFORM_BROWSER_DISCOVERY_SAFETY: platformBrowserDiscoverySafety,
+    PLATFORM_BROWSER_RECORD_SCOPE: platformBrowserRecordScope,
+    PLATFORM_CAPABILITY_REPORT_INTEGRITY: platformCapabilityReportIntegrity,
+    PLATFORM_CERTIFICATION_INPUT_SCOPE: platformCertificationInputScope,
+    PLATFORM_DIAGNOSTIC_INTEGRITY: platformDiagnosticIntegrity,
+    PLATFORM_EVIDENCE_INTEGRITY: platformEvidenceIntegrity,
+    PLATFORM_MODEL_PROFILE_EVIDENCE: platformModelProfileEvidence,
+    PLATFORM_NATIVE_REGISTRATION_BINDING: platformNativeRegistrationBinding,
+    PLATFORM_NATIVE_REGISTRATION_RESULT: platformNativeRegistrationResult,
+    PLATFORM_PACKAGE_STATE_EVIDENCE: platformPackageStateEvidence,
+    PLATFORM_PATH_REQUEST_SAFETY: platformPathRequestSafety,
+    PLATFORM_PATH_RESOLUTION_SAFETY: platformPathResolutionSafety,
+    PLATFORM_PROCESS_PLAN_SAFETY: platformProcessPlanSafety,
+    PLATFORM_PROCESS_STATUS_INTEGRITY: platformProcessStatusIntegrity,
+    PLATFORM_RUNTIME_CAPABILITY_FALLBACK: platformRuntimeCapabilityFallback,
+    PLATFORM_SECRET_REQUEST_AUTHORITY: platformSecretRequestAuthority,
+    PLATFORM_SECRET_RESULT_INTEGRITY: platformSecretResultIntegrity,
+    PLATFORM_TARGET_SUPPORT_CLAIM: platformTargetSupportClaim,
     RECONCILIATION_READINESS: reconciliationReadiness,
     RESUME_PLAN_EVIDENCE: resumePlanEvidence,
     WORKDAY_CERTIFICATION_SCOPE: workdayCertificationScope,

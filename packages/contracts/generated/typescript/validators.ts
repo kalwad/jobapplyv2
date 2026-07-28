@@ -180,6 +180,125 @@ import type {
   GateEvidenceBundleV1GateId,
 } from "./gate/evidence-bundle.v1.ts";
 import type {
+  PlatformBrowserDiscoveryRequestV1,
+} from "./platform/browser-discovery-request.v1.ts";
+import type {
+  PlatformBrowserRecordV1,
+} from "./platform/browser-record.v1.ts";
+import type {
+  PlatformCapabilityReportV1,
+} from "./platform/capability-report.v1.ts";
+import type {
+  PlatformCertificationInputV1,
+} from "./platform/certification-input.v1.ts";
+import type {
+  PlatformDiagnosticReportV1,
+} from "./platform/diagnostic-report.v1.ts";
+import type {
+  PlatformEvidenceRecordV1,
+} from "./platform/evidence-record.v1.ts";
+import type {
+  PlatformInstallerStateV1,
+} from "./platform/installer-state.v1.ts";
+import type {
+  PlatformModelRuntimeProfileV1,
+} from "./platform/model-runtime-profile.v1.ts";
+import type {
+  PlatformNativeMessagingRegistrationV1,
+} from "./platform/native-messaging-registration.v1.ts";
+import type {
+  PlatformNativeMessagingResultV1,
+} from "./platform/native-messaging-result.v1.ts";
+import type {
+  PlatformPathRequestV1,
+} from "./platform/path-request.v1.ts";
+import type {
+  PlatformPathResolutionV1,
+} from "./platform/path-resolution.v1.ts";
+import type {
+  PlatformProcessPlanV1,
+} from "./platform/process-plan.v1.ts";
+import type {
+  PlatformProcessStatusV1,
+} from "./platform/process-status.v1.ts";
+import type {
+  PlatformRuntimeCapabilityV1,
+} from "./platform/runtime-capability.v1.ts";
+import type {
+  PlatformSecretStoreRequestV1,
+} from "./platform/secret-store-request.v1.ts";
+import type {
+  PlatformSecretStoreResultV1,
+} from "./platform/secret-store-result.v1.ts";
+import type {
+  PlatformTargetIdentityV1,
+} from "./platform/target-identity.v1.ts";
+import type {
+  PlatformUpdateStateV1,
+} from "./platform/update-state.v1.ts";
+import type {
+  PlatformVocabularyV1AcceleratorClass,
+  PlatformVocabularyV1Architecture,
+  PlatformVocabularyV1ArtifactIdentity,
+  PlatformVocabularyV1BoundedUserMessage,
+  PlatformVocabularyV1BrowserChannel,
+  PlatformVocabularyV1BrowserFamily,
+  PlatformVocabularyV1BuildToken,
+  PlatformVocabularyV1CapabilityAvailability,
+  PlatformVocabularyV1CapabilityState,
+  PlatformVocabularyV1CertifiedPlatformId,
+  PlatformVocabularyV1ContextTokens,
+  PlatformVocabularyV1CoreCapabilityBehavior,
+  PlatformVocabularyV1DiagnosticResult,
+  PlatformVocabularyV1DistributionChannel,
+  PlatformVocabularyV1EnvironmentEntry,
+  PlatformVocabularyV1EnvironmentVariableId,
+  PlatformVocabularyV1EvaluationMethod,
+  PlatformVocabularyV1EvidenceArtifactKind,
+  PlatformVocabularyV1ExtensionId,
+  PlatformVocabularyV1InstallationScope,
+  PlatformVocabularyV1InstallerState,
+  PlatformVocabularyV1LifecycleMode,
+  PlatformVocabularyV1MachineClass,
+  PlatformVocabularyV1MemoryMebibytes,
+  PlatformVocabularyV1NativeHostCleanupState,
+  PlatformVocabularyV1NativeHostName,
+  PlatformVocabularyV1OwnerDecisionState,
+  PlatformVocabularyV1PackageFormat,
+  PlatformVocabularyV1PathResolutionState,
+  PlatformVocabularyV1PathRole,
+  PlatformVocabularyV1PathSegment,
+  PlatformVocabularyV1PlatformCapabilityId,
+  PlatformVocabularyV1PlatformComponentId,
+  PlatformVocabularyV1PlatformId,
+  PlatformVocabularyV1PlatformReasonCode,
+  PlatformVocabularyV1ProcessArgument,
+  PlatformVocabularyV1ProcessExitCode,
+  PlatformVocabularyV1ProcessProfileId,
+  PlatformVocabularyV1ProcessState,
+  PlatformVocabularyV1ProductVersion,
+  PlatformVocabularyV1ProfileAcceptanceState,
+  PlatformVocabularyV1RedactedPathReference,
+  PlatformVocabularyV1RegistrationOperation,
+  PlatformVocabularyV1RegistrationState,
+  PlatformVocabularyV1RequestContext,
+  PlatformVocabularyV1ReviewState,
+  PlatformVocabularyV1RuntimeFamily,
+  PlatformVocabularyV1SecretKeyRole,
+  PlatformVocabularyV1SecretOperation,
+  PlatformVocabularyV1SecretReference,
+  PlatformVocabularyV1SecretResultState,
+  PlatformVocabularyV1Severity,
+  PlatformVocabularyV1SignatureState,
+  PlatformVocabularyV1StdioMode,
+  PlatformVocabularyV1SupportClaim,
+  PlatformVocabularyV1SupportTier,
+  PlatformVocabularyV1TerminationRequest,
+  PlatformVocabularyV1TimeoutMilliseconds,
+  PlatformVocabularyV1UpdateState,
+  PlatformVocabularyV1UserDataPreservation,
+} from "./platform/vocabulary.v1.ts";
+import type {
   RenderingLayoutMeasurementV1,
   RenderingLayoutMeasurementV1ContentBounds,
   RenderingLayoutMeasurementV1EnvironmentMetadata,
@@ -404,6 +523,85 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:gate:evidence-bundle:v1": GateEvidenceBundleV1;
   readonly "urn:japp:schema:gate:evidence-bundle:v1#/$defs/completenessInventory": GateEvidenceBundleV1CompletenessInventory;
   readonly "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId": GateEvidenceBundleV1GateId;
+  readonly "urn:japp:schema:platform:browser-discovery-request:v1": PlatformBrowserDiscoveryRequestV1;
+  readonly "urn:japp:schema:platform:browser-record:v1": PlatformBrowserRecordV1;
+  readonly "urn:japp:schema:platform:capability-report:v1": PlatformCapabilityReportV1;
+  readonly "urn:japp:schema:platform:certification-input:v1": PlatformCertificationInputV1;
+  readonly "urn:japp:schema:platform:diagnostic-report:v1": PlatformDiagnosticReportV1;
+  readonly "urn:japp:schema:platform:evidence-record:v1": PlatformEvidenceRecordV1;
+  readonly "urn:japp:schema:platform:installer-state:v1": PlatformInstallerStateV1;
+  readonly "urn:japp:schema:platform:model-runtime-profile:v1": PlatformModelRuntimeProfileV1;
+  readonly "urn:japp:schema:platform:native-messaging-registration:v1": PlatformNativeMessagingRegistrationV1;
+  readonly "urn:japp:schema:platform:native-messaging-result:v1": PlatformNativeMessagingResultV1;
+  readonly "urn:japp:schema:platform:path-request:v1": PlatformPathRequestV1;
+  readonly "urn:japp:schema:platform:path-resolution:v1": PlatformPathResolutionV1;
+  readonly "urn:japp:schema:platform:process-plan:v1": PlatformProcessPlanV1;
+  readonly "urn:japp:schema:platform:process-status:v1": PlatformProcessStatusV1;
+  readonly "urn:japp:schema:platform:runtime-capability:v1": PlatformRuntimeCapabilityV1;
+  readonly "urn:japp:schema:platform:secret-store-request:v1": PlatformSecretStoreRequestV1;
+  readonly "urn:japp:schema:platform:secret-store-result:v1": PlatformSecretStoreResultV1;
+  readonly "urn:japp:schema:platform:target-identity:v1": PlatformTargetIdentityV1;
+  readonly "urn:japp:schema:platform:update-state:v1": PlatformUpdateStateV1;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass": PlatformVocabularyV1AcceleratorClass;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture": PlatformVocabularyV1Architecture;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity": PlatformVocabularyV1ArtifactIdentity;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage": PlatformVocabularyV1BoundedUserMessage;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel": PlatformVocabularyV1BrowserChannel;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily": PlatformVocabularyV1BrowserFamily;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken": PlatformVocabularyV1BuildToken;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability": PlatformVocabularyV1CapabilityAvailability;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState": PlatformVocabularyV1CapabilityState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId": PlatformVocabularyV1CertifiedPlatformId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens": PlatformVocabularyV1ContextTokens;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior": PlatformVocabularyV1CoreCapabilityBehavior;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult": PlatformVocabularyV1DiagnosticResult;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel": PlatformVocabularyV1DistributionChannel;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry": PlatformVocabularyV1EnvironmentEntry;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentVariableId": PlatformVocabularyV1EnvironmentVariableId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod": PlatformVocabularyV1EvaluationMethod;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind": PlatformVocabularyV1EvidenceArtifactKind;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId": PlatformVocabularyV1ExtensionId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope": PlatformVocabularyV1InstallationScope;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/installerState": PlatformVocabularyV1InstallerState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode": PlatformVocabularyV1LifecycleMode;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass": PlatformVocabularyV1MachineClass;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes": PlatformVocabularyV1MemoryMebibytes;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState": PlatformVocabularyV1NativeHostCleanupState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName": PlatformVocabularyV1NativeHostName;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState": PlatformVocabularyV1OwnerDecisionState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/packageFormat": PlatformVocabularyV1PackageFormat;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState": PlatformVocabularyV1PathResolutionState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole": PlatformVocabularyV1PathRole;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment": PlatformVocabularyV1PathSegment;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId": PlatformVocabularyV1PlatformCapabilityId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId": PlatformVocabularyV1PlatformComponentId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId": PlatformVocabularyV1PlatformId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode": PlatformVocabularyV1PlatformReasonCode;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument": PlatformVocabularyV1ProcessArgument;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode": PlatformVocabularyV1ProcessExitCode;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId": PlatformVocabularyV1ProcessProfileId;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/processState": PlatformVocabularyV1ProcessState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion": PlatformVocabularyV1ProductVersion;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState": PlatformVocabularyV1ProfileAcceptanceState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference": PlatformVocabularyV1RedactedPathReference;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation": PlatformVocabularyV1RegistrationOperation;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState": PlatformVocabularyV1RegistrationState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext": PlatformVocabularyV1RequestContext;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState": PlatformVocabularyV1ReviewState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily": PlatformVocabularyV1RuntimeFamily;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/secretKeyRole": PlatformVocabularyV1SecretKeyRole;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/secretOperation": PlatformVocabularyV1SecretOperation;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/secretReference": PlatformVocabularyV1SecretReference;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/secretResultState": PlatformVocabularyV1SecretResultState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/severity": PlatformVocabularyV1Severity;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState": PlatformVocabularyV1SignatureState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode": PlatformVocabularyV1StdioMode;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim": PlatformVocabularyV1SupportClaim;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/supportTier": PlatformVocabularyV1SupportTier;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest": PlatformVocabularyV1TerminationRequest;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds": PlatformVocabularyV1TimeoutMilliseconds;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/updateState": PlatformVocabularyV1UpdateState;
+  readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation": PlatformVocabularyV1UserDataPreservation;
   readonly "urn:japp:schema:rendering:layout-measurement:v1": RenderingLayoutMeasurementV1;
   readonly "urn:japp:schema:rendering:layout-measurement:v1#/$defs/contentBounds": RenderingLayoutMeasurementV1ContentBounds;
   readonly "urn:japp:schema:rendering:layout-measurement:v1#/$defs/environmentMetadata": RenderingLayoutMeasurementV1EnvironmentMetadata;
@@ -585,6 +783,85 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:gate:evidence-bundle:v1",
   "urn:japp:schema:gate:evidence-bundle:v1#/$defs/completenessInventory",
   "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId",
+  "urn:japp:schema:platform:browser-discovery-request:v1",
+  "urn:japp:schema:platform:browser-record:v1",
+  "urn:japp:schema:platform:capability-report:v1",
+  "urn:japp:schema:platform:certification-input:v1",
+  "urn:japp:schema:platform:diagnostic-report:v1",
+  "urn:japp:schema:platform:evidence-record:v1",
+  "urn:japp:schema:platform:installer-state:v1",
+  "urn:japp:schema:platform:model-runtime-profile:v1",
+  "urn:japp:schema:platform:native-messaging-registration:v1",
+  "urn:japp:schema:platform:native-messaging-result:v1",
+  "urn:japp:schema:platform:path-request:v1",
+  "urn:japp:schema:platform:path-resolution:v1",
+  "urn:japp:schema:platform:process-plan:v1",
+  "urn:japp:schema:platform:process-status:v1",
+  "urn:japp:schema:platform:runtime-capability:v1",
+  "urn:japp:schema:platform:secret-store-request:v1",
+  "urn:japp:schema:platform:secret-store-result:v1",
+  "urn:japp:schema:platform:target-identity:v1",
+  "urn:japp:schema:platform:update-state:v1",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentVariableId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/installerState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/packageFormat",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/processState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/secretKeyRole",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/secretOperation",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/secretReference",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/secretResultState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/severity",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/supportTier",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/updateState",
+  "urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation",
   "urn:japp:schema:rendering:layout-measurement:v1",
   "urn:japp:schema:rendering:layout-measurement:v1#/$defs/contentBounds",
   "urn:japp:schema:rendering:layout-measurement:v1#/$defs/environmentMetadata",
@@ -1883,6 +2160,875 @@ export function validateGateEvidenceBundleV1GateId(
   data: unknown,
 ): ContractValidationOutcome<GateEvidenceBundleV1GateId> {
   return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:browser-discovery-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformBrowserDiscoveryRequestV1 type only after validation succeeds.
+ */
+export function validatePlatformBrowserDiscoveryRequestV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformBrowserDiscoveryRequestV1> {
+  return validateContractInstance("urn:japp:schema:platform:browser-discovery-request:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:browser-record:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformBrowserRecordV1 type only after validation succeeds.
+ */
+export function validatePlatformBrowserRecordV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformBrowserRecordV1> {
+  return validateContractInstance("urn:japp:schema:platform:browser-record:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:capability-report:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformCapabilityReportV1 type only after validation succeeds.
+ */
+export function validatePlatformCapabilityReportV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformCapabilityReportV1> {
+  return validateContractInstance("urn:japp:schema:platform:capability-report:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:certification-input:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformCertificationInputV1 type only after validation succeeds.
+ */
+export function validatePlatformCertificationInputV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformCertificationInputV1> {
+  return validateContractInstance("urn:japp:schema:platform:certification-input:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:diagnostic-report:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformDiagnosticReportV1 type only after validation succeeds.
+ */
+export function validatePlatformDiagnosticReportV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformDiagnosticReportV1> {
+  return validateContractInstance("urn:japp:schema:platform:diagnostic-report:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:evidence-record:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformEvidenceRecordV1 type only after validation succeeds.
+ */
+export function validatePlatformEvidenceRecordV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformEvidenceRecordV1> {
+  return validateContractInstance("urn:japp:schema:platform:evidence-record:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:installer-state:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformInstallerStateV1 type only after validation succeeds.
+ */
+export function validatePlatformInstallerStateV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformInstallerStateV1> {
+  return validateContractInstance("urn:japp:schema:platform:installer-state:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:model-runtime-profile:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformModelRuntimeProfileV1 type only after validation succeeds.
+ */
+export function validatePlatformModelRuntimeProfileV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformModelRuntimeProfileV1> {
+  return validateContractInstance("urn:japp:schema:platform:model-runtime-profile:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:native-messaging-registration:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformNativeMessagingRegistrationV1 type only after validation succeeds.
+ */
+export function validatePlatformNativeMessagingRegistrationV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformNativeMessagingRegistrationV1> {
+  return validateContractInstance("urn:japp:schema:platform:native-messaging-registration:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:native-messaging-result:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformNativeMessagingResultV1 type only after validation succeeds.
+ */
+export function validatePlatformNativeMessagingResultV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformNativeMessagingResultV1> {
+  return validateContractInstance("urn:japp:schema:platform:native-messaging-result:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:path-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformPathRequestV1 type only after validation succeeds.
+ */
+export function validatePlatformPathRequestV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformPathRequestV1> {
+  return validateContractInstance("urn:japp:schema:platform:path-request:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:path-resolution:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformPathResolutionV1 type only after validation succeeds.
+ */
+export function validatePlatformPathResolutionV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformPathResolutionV1> {
+  return validateContractInstance("urn:japp:schema:platform:path-resolution:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:process-plan:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformProcessPlanV1 type only after validation succeeds.
+ */
+export function validatePlatformProcessPlanV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformProcessPlanV1> {
+  return validateContractInstance("urn:japp:schema:platform:process-plan:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:process-status:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformProcessStatusV1 type only after validation succeeds.
+ */
+export function validatePlatformProcessStatusV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformProcessStatusV1> {
+  return validateContractInstance("urn:japp:schema:platform:process-status:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:runtime-capability:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformRuntimeCapabilityV1 type only after validation succeeds.
+ */
+export function validatePlatformRuntimeCapabilityV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformRuntimeCapabilityV1> {
+  return validateContractInstance("urn:japp:schema:platform:runtime-capability:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:secret-store-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformSecretStoreRequestV1 type only after validation succeeds.
+ */
+export function validatePlatformSecretStoreRequestV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformSecretStoreRequestV1> {
+  return validateContractInstance("urn:japp:schema:platform:secret-store-request:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:secret-store-result:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformSecretStoreResultV1 type only after validation succeeds.
+ */
+export function validatePlatformSecretStoreResultV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformSecretStoreResultV1> {
+  return validateContractInstance("urn:japp:schema:platform:secret-store-result:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:target-identity:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformTargetIdentityV1 type only after validation succeeds.
+ */
+export function validatePlatformTargetIdentityV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformTargetIdentityV1> {
+  return validateContractInstance("urn:japp:schema:platform:target-identity:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:update-state:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformUpdateStateV1 type only after validation succeeds.
+ */
+export function validatePlatformUpdateStateV1(
+  data: unknown,
+): ContractValidationOutcome<PlatformUpdateStateV1> {
+  return validateContractInstance("urn:japp:schema:platform:update-state:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1AcceleratorClass type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1AcceleratorClass(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1AcceleratorClass> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/architecture
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1Architecture type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1Architecture(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1Architecture> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/architecture", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ArtifactIdentity type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ArtifactIdentity(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ArtifactIdentity> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1BoundedUserMessage type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1BoundedUserMessage(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1BoundedUserMessage> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1BrowserChannel type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1BrowserChannel(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1BrowserChannel> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1BrowserFamily type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1BrowserFamily(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1BrowserFamily> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1BuildToken type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1BuildToken(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1BuildToken> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1CapabilityAvailability type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1CapabilityAvailability(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1CapabilityAvailability> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1CapabilityState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1CapabilityState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1CapabilityState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1CertifiedPlatformId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1CertifiedPlatformId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1CertifiedPlatformId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ContextTokens type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ContextTokens(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ContextTokens> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1CoreCapabilityBehavior type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1CoreCapabilityBehavior(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1CoreCapabilityBehavior> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1DiagnosticResult type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1DiagnosticResult(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1DiagnosticResult> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1DistributionChannel type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1DistributionChannel(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1DistributionChannel> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1EnvironmentEntry type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1EnvironmentEntry(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1EnvironmentEntry> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/environmentVariableId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1EnvironmentVariableId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1EnvironmentVariableId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1EnvironmentVariableId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/environmentVariableId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1EvaluationMethod type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1EvaluationMethod(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1EvaluationMethod> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1EvidenceArtifactKind type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1EvidenceArtifactKind(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1EvidenceArtifactKind> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ExtensionId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ExtensionId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ExtensionId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1InstallationScope type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1InstallationScope(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1InstallationScope> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/installerState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1InstallerState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1InstallerState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1InstallerState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/installerState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1LifecycleMode type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1LifecycleMode(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1LifecycleMode> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1MachineClass type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1MachineClass(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1MachineClass> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1MemoryMebibytes type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1MemoryMebibytes(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1MemoryMebibytes> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1NativeHostCleanupState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1NativeHostCleanupState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1NativeHostCleanupState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1NativeHostName type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1NativeHostName(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1NativeHostName> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1OwnerDecisionState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1OwnerDecisionState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1OwnerDecisionState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/packageFormat
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PackageFormat type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PackageFormat(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PackageFormat> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/packageFormat", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PathResolutionState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PathResolutionState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PathResolutionState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PathRole type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PathRole(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PathRole> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PathSegment type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PathSegment(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PathSegment> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PlatformCapabilityId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PlatformCapabilityId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PlatformCapabilityId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PlatformComponentId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PlatformComponentId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PlatformComponentId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/platformId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PlatformId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PlatformId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PlatformId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/platformId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1PlatformReasonCode type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1PlatformReasonCode(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1PlatformReasonCode> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProcessArgument type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProcessArgument(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProcessArgument> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProcessExitCode type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProcessExitCode(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProcessExitCode> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProcessProfileId type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProcessProfileId(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProcessProfileId> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/processState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProcessState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProcessState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProcessState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/processState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProductVersion type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProductVersion(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProductVersion> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ProfileAcceptanceState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ProfileAcceptanceState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ProfileAcceptanceState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1RedactedPathReference type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1RedactedPathReference(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1RedactedPathReference> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1RegistrationOperation type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1RegistrationOperation(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1RegistrationOperation> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1RegistrationState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1RegistrationState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1RegistrationState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1RequestContext type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1RequestContext(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1RequestContext> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1ReviewState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1ReviewState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1ReviewState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1RuntimeFamily type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1RuntimeFamily(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1RuntimeFamily> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/secretKeyRole
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SecretKeyRole type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SecretKeyRole(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SecretKeyRole> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/secretKeyRole", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/secretOperation
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SecretOperation type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SecretOperation(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SecretOperation> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/secretOperation", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/secretReference
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SecretReference type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SecretReference(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SecretReference> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/secretReference", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/secretResultState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SecretResultState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SecretResultState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SecretResultState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/secretResultState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/severity
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1Severity type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1Severity(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1Severity> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/severity", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SignatureState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SignatureState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SignatureState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1StdioMode type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1StdioMode(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1StdioMode> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SupportClaim type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SupportClaim(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SupportClaim> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/supportTier
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1SupportTier type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1SupportTier(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1SupportTier> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/supportTier", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1TerminationRequest type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1TerminationRequest(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1TerminationRequest> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1TimeoutMilliseconds type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1TimeoutMilliseconds(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1TimeoutMilliseconds> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/updateState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1UpdateState type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1UpdateState(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1UpdateState> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/updateState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformVocabularyV1UserDataPreservation type only after validation succeeds.
+ */
+export function validatePlatformVocabularyV1UserDataPreservation(
+  data: unknown,
+): ContractValidationOutcome<PlatformVocabularyV1UserDataPreservation> {
+  return validateContractInstance("urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation", data);
 }
 
 /**

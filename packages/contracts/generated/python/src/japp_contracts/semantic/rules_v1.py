@@ -250,6 +250,272 @@ SEMANTIC_RULES_V1: Final[tuple[SemanticRuleEntryV1, ...]] = (
         failure_error_code="SITE_VALIDATION_REJECTED",
     ),
     SemanticRuleEntryV1(
+        rule_id="PLATFORM_BROWSER_DISCOVERY_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:browser-discovery-request:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_BROWSER_DISCOVERY_SAFETY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:browser-discovery-request:v1",
+        rule_kind="PLATFORM_BROWSER_DISCOVERY_SAFETY",
+        failure_error_code="TRANSPORT_FORBIDDEN",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_BROWSER_RECORD_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:browser-record:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_BROWSER_RECORD_SCOPE",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:browser-record:v1",
+        rule_kind="PLATFORM_BROWSER_RECORD_SCOPE",
+        failure_error_code="UNSUPPORTED_PLATFORM",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_CAPABILITY_REPORT_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:capability-report:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:capability-report:v1",
+        rule_kind="PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+        failure_error_code="UNSUPPORTED_CAPABILITY",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_CERTIFICATION_INPUT_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:certification-input:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_CERTIFICATION_INPUT_SCOPE",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:certification-input:v1",
+        rule_kind="PLATFORM_CERTIFICATION_INPUT_SCOPE",
+        failure_error_code="GATE_EVIDENCE_MISSING",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_DIAGNOSTIC_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:diagnostic-report:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_DIAGNOSTIC_INTEGRITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:diagnostic-report:v1",
+        rule_kind="PLATFORM_DIAGNOSTIC_INTEGRITY",
+        failure_error_code="VALIDATION_CONSTRAINT_VIOLATION",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_EVIDENCE_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:evidence-record:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_EVIDENCE_INTEGRITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:evidence-record:v1",
+        rule_kind="PLATFORM_EVIDENCE_INTEGRITY",
+        failure_error_code="GATE_EVIDENCE_MISSING",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_INSTALLER_STATE_EVIDENCE",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:installer-state:v1",
+        rule_kind="PLATFORM_PACKAGE_STATE_EVIDENCE",
+        failure_error_code="STORAGE_INTEGRITY_FAILURE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_INSTALLER_STATE_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:installer-state:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_MODEL_PROFILE_EVIDENCE",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:model-runtime-profile:v1",
+        rule_kind="PLATFORM_MODEL_PROFILE_EVIDENCE",
+        failure_error_code="UNSUPPORTED_RUNTIME_PROFILE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_MODEL_PROFILE_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:model-runtime-profile:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_NATIVE_REGISTRATION_BINDING",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:native-messaging-registration:v1",
+        rule_kind="PLATFORM_NATIVE_REGISTRATION_BINDING",
+        failure_error_code="TRANSPORT_FORBIDDEN",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_NATIVE_REGISTRATION_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:native-messaging-registration:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_NATIVE_REGISTRATION_RESULT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:native-messaging-result:v1",
+        rule_kind="PLATFORM_NATIVE_REGISTRATION_RESULT",
+        failure_error_code="CONFLICT_INCOMPATIBLE_STATE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:native-messaging-result:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PATH_REQUEST_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:path-request:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PATH_REQUEST_SAFETY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:path-request:v1",
+        rule_kind="PLATFORM_PATH_REQUEST_SAFETY",
+        failure_error_code="TRANSPORT_FORBIDDEN",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PATH_RESOLUTION_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:path-resolution:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PATH_RESOLUTION_SAFETY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:path-resolution:v1",
+        rule_kind="PLATFORM_PATH_RESOLUTION_SAFETY",
+        failure_error_code="STORAGE_IO_FAILURE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PROCESS_PLAN_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:process-plan:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PROCESS_PLAN_SAFETY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:process-plan:v1",
+        rule_kind="PLATFORM_PROCESS_PLAN_SAFETY",
+        failure_error_code="SENSITIVE_AUTOMATION_PROHIBITED",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PROCESS_STATUS_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:process-status:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_PROCESS_STATUS_INTEGRITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:process-status:v1",
+        rule_kind="PLATFORM_PROCESS_STATUS_INTEGRITY",
+        failure_error_code="CONFLICT_INCOMPATIBLE_STATE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:runtime-capability:v1",
+        rule_kind="PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+        failure_error_code="UNSUPPORTED_RUNTIME_PROFILE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:runtime-capability:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_SECRET_REQUEST_AUTHORITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:secret-store-request:v1",
+        rule_kind="PLATFORM_SECRET_REQUEST_AUTHORITY",
+        failure_error_code="TRANSPORT_FORBIDDEN",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_SECRET_REQUEST_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:secret-store-request:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_SECRET_RESULT_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:secret-store-result:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_SECRET_RESULT_INTEGRITY",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:secret-store-result:v1",
+        rule_kind="PLATFORM_SECRET_RESULT_INTEGRITY",
+        failure_error_code="STORAGE_SECURE_STORE_UNAVAILABLE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_TARGET_IDENTITY_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:target-identity:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_TARGET_SUPPORT_CLAIM",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:target-identity:v1",
+        rule_kind="PLATFORM_TARGET_SUPPORT_CLAIM",
+        failure_error_code="UNSUPPORTED_PLATFORM",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_UPDATE_STATE_EVIDENCE",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:update-state:v1",
+        rule_kind="PLATFORM_PACKAGE_STATE_EVIDENCE",
+        failure_error_code="STORAGE_INTEGRITY_FAILURE",
+    ),
+    SemanticRuleEntryV1(
+        rule_id="PLATFORM_UPDATE_STATE_INERT_TEXT",
+        rule_version="1.0.0",
+        schema_ref="urn:japp:schema:platform:update-state:v1",
+        rule_kind="INERT_TEXT_SAFETY",
+        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
+    ),
+    SemanticRuleEntryV1(
         rule_id="RECONCILIATION_INERT_TEXT",
         rule_version="1.0.0",
         schema_ref="urn:japp:schema:form:reconciliation-inventory:v1",
@@ -370,6 +636,19 @@ def _unique_strings(values: list[object]) -> bool:
 def _unique_field(values: list[object], name: str) -> bool:
     selected: list[object] = [_text(value, name) for value in values]
     return all(value is not None for value in selected) and _unique_strings(selected)
+
+
+def _present(value: object, name: str) -> bool:
+    return _member(value, name) is not None
+
+
+def _text_one_of(value: object, name: str, allowed: frozenset[str]) -> bool:
+    candidate = _text(value, name)
+    return candidate is not None and candidate in allowed
+
+
+def _subset_of(inner: list[object], outer: list[object]) -> bool:
+    return all(item in outer for item in inner)
 
 
 def _strictly_sorted_strings(values: list[object]) -> bool:
@@ -1194,6 +1473,769 @@ def _layout_measurement_integrity(value: object) -> bool:
     return (page_count or 0) >= 1 and _flag(value, "renderer_succeeded") is True
 
 
+_CERTIFIED_PLATFORM_IDS: Final = frozenset(
+    {"MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"}
+)
+_UNCERTIFIABLE_PLATFORM_IDS: Final = frozenset(
+    {"UNKNOWN_TARGET", "UNSUPPORTED_TARGET"}
+)
+_CERTIFIED_SUPPORT_TIERS: Final = frozenset({"CERTIFIED_CORE", "CERTIFIED_FULL"})
+_PLATFORM_CAPABILITY_FAMILIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "DIAGNOSTICS",
+        "MODEL_RUNTIME",
+        "NATIVE_MESSAGING",
+        "PACKAGING_UPDATE_CHANNEL",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_MANDATORY_CORE_CAPABILITIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "NATIVE_MESSAGING",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_PLATFORM_REQUEST_PRINCIPALS: Final = frozenset(
+    {"ORCHESTRATOR", "VERIFICATION_HARNESS"}
+)
+_PLATFORM_REQUEST_PROFILES: Final = frozenset(
+    {"PRODUCTION_NO_SUBMIT", "VERIFICATION"}
+)
+_PLATFORM_INTERPRETER_TOKENS: Final = frozenset(
+    {
+        "bash",
+        "cmd",
+        "cscript",
+        "eval",
+        "exec",
+        "powershell",
+        "pwsh",
+        "sh",
+        "wscript",
+        "zsh",
+    }
+)
+_PLATFORM_ARCHITECTURE_BY_ID: Final[dict[str, str]] = {
+    "MACOS_ARM64": "ARM64",
+    "UBUNTU_X64": "X86_64",
+    "WINDOWS_X64": "X86_64",
+}
+_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Final[dict[str, str]] = {
+    "BROWSER_LOCATOR": "BROWSER_PRESENCE",
+    "INSTALLER_STATE": "PACKAGING_UPDATE_CHANNEL",
+    "MODEL_RUNTIME_PROVIDER": "MODEL_RUNTIME",
+    "NATIVE_MESSAGING_REGISTRAR": "NATIVE_MESSAGING",
+    "PLATFORM_DIAGNOSTICS": "DIAGNOSTICS",
+    "PLATFORM_PATHS": "PLATFORM_PATHS",
+    "PROCESS_SUPERVISOR": "PROCESS_SUPERVISION",
+    "SECRET_STORE": "SECURE_STORE",
+    "UPDATER_PROVIDER": "PACKAGING_UPDATE_CHANNEL",
+}
+_PACKAGE_SUCCESS_STATES: Final = frozenset(
+    {"INSTALLED", "REPAIRED", "ROLLED_BACK", "UNINSTALLED", "UPDATE_INSTALLED"}
+)
+_PACKAGE_FAILURE_STATES: Final = frozenset(
+    {
+        "INSTALL_FAILED",
+        "INSTALL_INTERRUPTED",
+        "REPAIR_FAILED",
+        "ROLLBACK_FAILED",
+        "UNINSTALL_FAILED",
+        "UPDATE_FAILED",
+        "UPDATE_INTERRUPTED",
+    }
+)
+_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Final[dict[str, str]] = {
+    "INSTALL_LAUNCH_REPORT": "installer_state_ref",
+    "MODEL_PROFILE_REPORT": "model_profile_ref",
+    "NATIVE_HOST_REGISTRATION_REPORT": "native_messaging_result_ref",
+    "SECRET_STORE_TEST_REPORT": "secret_store_result_ref",
+    "UPDATE_ROLLBACK_REPORT": "update_state_ref",
+}
+_SERVICE_PORT_RE: Final = re.compile(r"^[0-9]{1,5}$")
+_PATH_ROLE_VALUE_RE: Final = re.compile(r"^[A-Z][A-Z0-9_]{1,63}$")
+
+
+def _platform_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    return (
+        context is not None
+        and _text_one_of(
+            context, "requesting_principal", _PLATFORM_REQUEST_PRINCIPALS
+        )
+        and _text_one_of(
+            context, "authorization_profile", _PLATFORM_REQUEST_PROFILES
+        )
+    )
+
+
+def _platform_capability_state_sound(state: object) -> bool:
+    availability = _text(state, "availability")
+    reasons = _items(state, "reason_codes")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        return (
+            not reasons
+            and _present(state, "identity_token")
+            and _present(state, "detected_version")
+            and _present(state, "evidence_digest")
+            and _text(state, "evaluation_method") != "NOT_EVALUATED"
+        )
+    if not reasons:
+        return False
+    if availability == "NOT_EVALUATED":
+        return (
+            _text(state, "evaluation_method") == "NOT_EVALUATED"
+            and "EVALUATION_NOT_RUN" in reasons
+        )
+    if availability == "DEGRADED_LIMITED":
+        return _present(state, "identity_token") and _present(
+            state, "detected_version"
+        )
+    return True
+
+
+def _platform_support_claim_sound(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    platform_id = _text(value, "platform_id")
+    if claim is None or platform_id is None:
+        return False
+    reviewed = _text(claim, "reviewed_tier") or ""
+    evidence = _items(claim, "evidence_refs")
+    if not _unique_strings(evidence):
+        return False
+    if platform_id in _UNCERTIFIABLE_PLATFORM_IDS and reviewed != "UNSUPPORTED":
+        return False
+    if reviewed not in _CERTIFIED_SUPPORT_TIERS:
+        return True
+    return (
+        platform_id in _CERTIFIED_PLATFORM_IDS
+        and _text(claim, "review_state") == "REVIEW_COMPLETE"
+        and _present(claim, "evaluated_commit")
+        and _present(claim, "evaluated_tree")
+        and _present(claim, "reviewer_identity_ref")
+        and bool(evidence)
+    )
+
+
+def _platform_reviewed_tier_is_certified(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    return (_text(claim, "reviewed_tier") or "") in _CERTIFIED_SUPPORT_TIERS
+
+
+def _platform_target_support_claim(value: object) -> bool:
+    platform_id = _text(value, "platform_id")
+    reasons = _items(value, "reason_codes")
+    if (
+        platform_id is None
+        or not _unique_strings(reasons)
+        or not _platform_support_claim_sound(value)
+    ):
+        return False
+    expected_architecture = _PLATFORM_ARCHITECTURE_BY_ID.get(platform_id)
+    if (
+        expected_architecture is not None
+        and _text(value, "architecture") != expected_architecture
+    ):
+        return False
+    if not _platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    return not reasons and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+
+
+def _platform_capability_report_integrity(value: object) -> bool:
+    capabilities = _items(value, "capabilities")
+    families = {_text(state, "capability") for state in capabilities}
+    if (
+        not _unique_field(capabilities, "capability")
+        or families != _PLATFORM_CAPABILITY_FAMILIES
+        or not all(
+            _platform_capability_state_sound(state) for state in capabilities
+        )
+        or not _unique_strings(_items(value, "model_profile_refs"))
+        or not _unique_strings(_items(value, "diagnostic_refs"))
+        or not _platform_support_claim_sound(value)
+    ):
+        return False
+
+    def availability_of(family: str) -> str | None:
+        for state in capabilities:
+            if _text(state, "capability") == family:
+                return _text(state, "availability")
+        return None
+
+    if (
+        _text(value, "packaging_channel") == "RELEASE_STABLE"
+        and availability_of("PACKAGING_UPDATE_CHANNEL") != "AVAILABLE"
+    ):
+        return False
+    if not _platform_reviewed_tier_is_certified(value):
+        return True
+    if not all(
+        availability_of(family) == "AVAILABLE"
+        for family in _MANDATORY_CORE_CAPABILITIES
+    ):
+        return False
+    claim = _object_member(value, "support_claim")
+    if _text(claim, "reviewed_tier") != "CERTIFIED_FULL":
+        # A missing or unavailable local-AI profile never downgrades the
+        # deterministic core tier; CERTIFIED_CORE deliberately imposes no
+        # MODEL_RUNTIME requirement.
+        return True
+    return availability_of("MODEL_RUNTIME") == "AVAILABLE" and bool(
+        _items(value, "model_profile_refs")
+    )
+
+
+def _platform_path_request_safety(value: object) -> bool:
+    if not _platform_request_authority(value):
+        return False
+    return (
+        _text(value, "scope") != "SYSTEM"
+        or _text(value, "role") == "NATIVE_HOST_REGISTRATION"
+    )
+
+
+def _platform_path_resolution_safety(value: object) -> bool:
+    role = _text(value, "role")
+    reasons = _items(value, "reason_codes")
+    sanitized = _text(value, "sanitized_path")
+    if (
+        role is None
+        or not _unique_strings(reasons)
+        or (
+            _text(value, "scope") == "SYSTEM"
+            and role != "NATIVE_HOST_REGISTRATION"
+        )
+    ):
+        return False
+    if _text(value, "resolution_state") != "RESOLVED":
+        return (
+            sanitized is None
+            and not _present(value, "path_digest")
+            and _flag(value, "exists") is False
+            and _flag(value, "writable") is False
+            and bool(reasons)
+        )
+    return (
+        sanitized is not None
+        and sanitized.startswith("<" + role + ">")
+        and _present(value, "path_digest")
+        and not reasons
+        and (_flag(value, "writable") is not True or _flag(value, "exists") is True)
+    )
+
+
+def _platform_secret_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    operation = _text(value, "operation")
+    redaction = _object_member(value, "redaction")
+    if not _platform_request_authority(value):
+        return False
+    if (
+        _text(context, "authorization_profile") == "VERIFICATION"
+        and operation != "STATUS"
+    ):
+        return False
+    if redaction is not None and (
+        _text(redaction, "sensitivity") != "SECRET"
+        or _text(redaction, "policy") != "FORBID_CAPTURE"
+    ):
+        return False
+    if operation == "PUT":
+        return _present(value, "material_reference") and _present(
+            value, "material_digest"
+        )
+    return not _present(value, "material_reference") and not _present(
+        value, "material_digest"
+    )
+
+
+def _platform_secret_result_integrity(value: object) -> bool:
+    operation = _text(value, "operation")
+    availability = _text(value, "store_availability")
+    state = _text(value, "result_state")
+    reasons = _items(value, "reason_codes")
+    has_material = _present(value, "material_reference")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        if not _present(value, "store_identity_token"):
+            return False
+    elif has_material:
+        return False
+    if operation == "STATUS":
+        return (
+            not has_material
+            and not _present(value, "material_digest")
+            and state
+            in {"DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"}
+            and (
+                state != "STORE_AVAILABLE"
+                or (availability == "AVAILABLE" and not reasons)
+            )
+        )
+    if state == "STORE_AVAILABLE":
+        return False
+    if state == "RETRIEVED":
+        return (
+            operation == "GET"
+            and availability == "AVAILABLE"
+            and has_material
+            and _present(value, "material_digest")
+            and not reasons
+        )
+    if state == "STORED":
+        return (
+            operation == "PUT"
+            and availability == "AVAILABLE"
+            and has_material
+            and not reasons
+        )
+    if state == "DELETED":
+        return (
+            operation == "DELETE"
+            and availability == "AVAILABLE"
+            and not has_material
+            and not _present(value, "material_digest")
+            and not reasons
+        )
+    if state == "DENIED_PERMISSION":
+        return (
+            not has_material
+            and "PERMISSION_DENIED" in reasons
+            and availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+        )
+    return not has_material and bool(reasons)
+
+
+def _platform_process_plan_safety(value: object) -> bool:
+    profile = _text(value, "profile")
+    environment = _items(value, "environment_allowlist")
+    command_arguments = _items(value, "arguments")
+    binary_modes = [_text(value, "stdin_mode"), _text(value, "stdout_mode")]
+    if (
+        not _platform_request_authority(value)
+        or _flag(value, "inherit_parent_environment") is not False
+        or not _present(value, "executable_digest")
+        or not _unique_field(environment, "variable")
+        or _text(value, "working_directory_role") == "NATIVE_HOST_REGISTRATION"
+    ):
+        return False
+    if any(
+        isinstance(argument, str)
+        and argument.lower() in _PLATFORM_INTERPRETER_TOKENS
+        for argument in command_arguments
+    ):
+        return False
+    for entry in environment:
+        variable = _text(entry, "variable")
+        entry_value = _text(entry, "value")
+        if entry_value is None:
+            return False
+        if variable == "JAPP_SERVICE_PORT" and not _SERVICE_PORT_RE.match(
+            entry_value
+        ):
+            return False
+        if variable == "JAPP_PATH_ROLE" and not _PATH_ROLE_VALUE_RE.match(
+            entry_value
+        ):
+            return False
+    if (
+        _text(value, "lifecycle_mode") == "ONE_SHOT"
+        and _number(value, "max_restart_attempts") != 0
+    ):
+        return False
+    if profile == "NATIVE_MESSAGING_HOST":
+        return all(mode == "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+    return all(mode != "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+
+
+def _platform_process_status_integrity(value: object) -> bool:
+    state = _text(value, "state")
+    reasons = _items(value, "reason_codes")
+    ended = _present(value, "ended_at")
+    started = _present(value, "started_at")
+    exited = _present(value, "exit_code")
+    orphan = _flag(value, "orphan_detected")
+    if not _unique_strings(reasons):
+        return False
+    if (
+        ended
+        and started
+        and not _timestamp_not_before(value, "ended_at", "started_at")
+    ):
+        return False
+    if orphan is True and state != "ORPHANED":
+        return False
+    if state in {"STARTING", "RUNNING"}:
+        return not ended and not exited and orphan is False
+    if state == "TERMINATING":
+        return (
+            not ended
+            and not exited
+            and _text(value, "termination_requested") != "NONE"
+        )
+    if state == "EXITED":
+        return started and ended and exited and not reasons
+    if state == "TERMINATED":
+        return (
+            started and ended and _text(value, "termination_requested") != "NONE"
+        )
+    if state == "ORPHANED":
+        return orphan is True and bool(reasons)
+    if state == "UNAVAILABLE":
+        return not started and not ended and not exited and bool(reasons)
+    return bool(reasons)
+
+
+def _platform_native_registration_binding(value: object) -> bool:
+    operation = _text(value, "operation")
+    extensions = _items(value, "allowed_extension_ids")
+    if (
+        not _platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+        or _text(value, "binary_stdio_mode") != "BINARY_LENGTH_PREFIXED"
+        or _text(value, "manifest_location_role") != "NATIVE_HOST_REGISTRATION"
+        or not _strictly_sorted_strings(extensions)
+    ):
+        return False
+    if operation == "REMOVE":
+        return not _present(value, "expected_manifest_digest") and not _present(
+            value, "expected_host_binary_digest"
+        )
+    if operation == "VERIFY":
+        return _present(value, "expected_manifest_digest")
+    return _present(value, "expected_manifest_digest") and _present(
+        value, "expected_host_binary_digest"
+    )
+
+
+def _platform_native_registration_result(value: object) -> bool:
+    operation = _text(value, "operation")
+    observed = _text(value, "observed_state")
+    reasons = _items(value, "reason_codes")
+    changed = _flag(value, "changed")
+    if (
+        not _unique_strings(reasons)
+        or _text(value, "browser_family") != "CHROME"
+        or (operation == "VERIFY" and changed is not False)
+    ):
+        return False
+    if observed == "PRESENT_VALID":
+        if (
+            not _present(value, "observed_manifest_digest")
+            or not _present(value, "observed_host_version")
+            or reasons
+        ):
+            return False
+    elif not reasons:
+        return False
+    if observed == "MISMATCHED_IDENTITY" and "IDENTITY_MISMATCH" not in reasons:
+        return False
+    if observed == "NOT_EVALUATED":
+        return changed is False and "EVALUATION_NOT_RUN" in reasons
+    if not reasons:
+        expected = "ABSENT" if operation == "REMOVE" else "PRESENT_VALID"
+        return (
+            observed == expected
+            and _flag(value, "idempotent_repeat_safe") is True
+        )
+    return True
+
+
+def _platform_browser_discovery_safety(value: object) -> bool:
+    if (
+        not _platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+    ):
+        return False
+    return (
+        _flag(value, "include_capability_probe") is not True
+        or (_text(value, "platform_id") or "") in _CERTIFIED_PLATFORM_IDS
+    )
+
+
+def _platform_browser_record_scope(value: object) -> bool:
+    presence = _text(value, "presence")
+    reasons = _items(value, "reason_codes")
+    capability = _object_member(value, "native_messaging_capability")
+    if (
+        not _unique_strings(reasons)
+        or capability is None
+        or not _platform_capability_state_sound(capability)
+        or _text(capability, "capability") != "NATIVE_MESSAGING"
+    ):
+        return False
+    if presence == "AVAILABLE":
+        if not _present(value, "detected_version"):
+            return False
+    elif _present(value, "sanitized_install_location"):
+        return False
+    if _flag(value, "certified_for_platform") is not True:
+        return bool(reasons)
+    return (
+        not reasons
+        and presence == "AVAILABLE"
+        and _text(value, "browser_family") == "CHROME"
+        and _text(value, "browser_channel") == "STABLE"
+        and (_text(value, "platform_id") or "") in _CERTIFIED_PLATFORM_IDS
+        and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+        and _text(capability, "availability") == "AVAILABLE"
+        and _present(value, "last_tested_on")
+    )
+
+
+def _platform_model_profile_evidence(value: object) -> bool:
+    platform_id = _text(value, "platform_id") or ""
+    accelerator = _text(value, "accelerator")
+    family = _text(value, "runtime_family")
+    reasons = _items(value, "reason_codes")
+    evidence = _items(value, "evidence_refs")
+    if not _unique_strings(reasons) or not _unique_strings(evidence):
+        return False
+    if accelerator == "APPLE_SILICON_GPU" and platform_id != "MACOS_ARM64":
+        return False
+    if accelerator == "NVIDIA_CUDA" and (
+        not _present(value, "minimum_vram_mib")
+        or not _present(value, "minimum_driver_version")
+    ):
+        return False
+    if accelerator == "CPU_ONLY" and _present(value, "minimum_vram_mib"):
+        return False
+    if family == "OLLAMA_MLX" and (
+        platform_id != "MACOS_ARM64" or accelerator != "APPLE_SILICON_GPU"
+    ):
+        return False
+    if family == "OLLAMA_GGUF" and accelerator == "APPLE_SILICON_GPU":
+        return False
+    if _text(value, "acceptance_state") != "ACCEPTED":
+        return (
+            bool(reasons)
+            and _text(value, "core_capability_behavior") != "FULL_AI_AVAILABLE"
+        )
+    return (
+        platform_id in _CERTIFIED_PLATFORM_IDS
+        and not reasons
+        and bool(evidence)
+        and _text(value, "availability") == "AVAILABLE"
+        and _text(value, "core_capability_behavior") == "FULL_AI_AVAILABLE"
+        and _present(value, "structured_output_evidence_ref")
+        and _present(value, "factuality_evidence_ref")
+        and _present(value, "latency_evidence_ref")
+        and _present(value, "memory_evidence_ref")
+        and _present(value, "last_tested_on")
+    )
+
+
+def _platform_runtime_capability_fallback(value: object) -> bool:
+    available = _items(value, "available_profile_refs")
+    accepted = _items(value, "accepted_profile_refs")
+    reasons = _items(value, "reason_codes")
+    behavior = _text(value, "core_capability_behavior")
+    if (
+        not _unique_strings(available)
+        or not _unique_strings(accepted)
+        or not _unique_strings(reasons)
+        or not _subset_of(accepted, available)
+    ):
+        return False
+    if (
+        _text(value, "detection_method") == "NOT_EVALUATED"
+        and _text(value, "runtime_availability") != "NOT_EVALUATED"
+    ):
+        return False
+    if _text(value, "runtime_availability") != "AVAILABLE":
+        return (
+            not available
+            and not accepted
+            and bool(reasons)
+            and behavior != "FULL_AI_AVAILABLE"
+        )
+    if (
+        not _present(value, "runtime_family")
+        or not _present(value, "runtime_version")
+        or not _present(value, "accelerator")
+    ):
+        return False
+    return bool(accepted) if behavior == "FULL_AI_AVAILABLE" else not accepted
+
+
+def _platform_package_state_evidence(value: object) -> bool:
+    state = _text(value, "state") or ""
+    reasons = _items(value, "reason_codes")
+    signature = _text(value, "signature_state")
+    interrupted = _flag(value, "interrupted")
+    preservation = _text(value, "user_data_preservation")
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or (interrupted is True and "INTERRUPTED" not in reasons)
+        or (_flag(value, "recovery_completed") is True and interrupted is not True)
+        or (preservation == "PRESERVATION_FAILED" and not reasons)
+    ):
+        return False
+    if (
+        signature in {"SIGNATURE_INVALID", "SIGNATURE_MISSING"}
+        and "SIGNATURE_NOT_VERIFIED" not in reasons
+    ):
+        return False
+    if state in _PACKAGE_FAILURE_STATES and not reasons:
+        return False
+    if state in _PACKAGE_SUCCESS_STATES:
+        if (
+            signature != "SIGNATURE_VALID"
+            or reasons
+            or interrupted is not False
+            or preservation not in {"EXPLICIT_DELETION_REQUESTED", "PRESERVED"}
+            or not _items(value, "evidence_refs")
+        ):
+            return False
+    if state == "UNINSTALLED":
+        return _text(value, "native_host_cleanup") in {
+            "NOT_APPLICABLE",
+            "REMOVED",
+        }
+    if state == "INSTALLED":
+        return _present(value, "installed_version") and _text(
+            value, "installed_version"
+        ) == _text(value, "package_version")
+    if state == "NOT_INSTALLED":
+        return not _present(value, "installed_version")
+    if state == "NO_UPDATE_AVAILABLE":
+        return not _present(value, "available_version")
+    if state == "UPDATE_AVAILABLE":
+        return _present(value, "available_version")
+    if state == "UPDATE_INSTALLED":
+        return (
+            _present(value, "installed_version")
+            and _present(value, "available_version")
+            and _present(value, "target_artifact")
+        )
+    if state == "ROLLED_BACK":
+        return (
+            _present(value, "rolled_back_to_version")
+            and _flag(value, "rollback_available") is True
+        )
+    return True
+
+
+def _platform_diagnostic_integrity(value: object) -> bool:
+    result = _text(value, "result")
+    severity = _text(value, "severity")
+    reasons = _items(value, "reason_codes")
+    blocking = _flag(value, "blocking")
+    component = _text(value, "component") or ""
+    expected_capability = _DIAGNOSTIC_CAPABILITY_BY_COMPONENT.get(component)
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or (
+            expected_capability is not None
+            and _text(value, "capability") != expected_capability
+        )
+    ):
+        return False
+    if (
+        _present(value, "user_message")
+        and _text(_object_member(value, "redaction"), "policy") != "NONE"
+    ):
+        return False
+    if blocking is True and result not in {"BLOCKED", "FAILURE"}:
+        return False
+    if result == "SUCCESS":
+        return blocking is False and not reasons and severity == "INFO"
+    if not reasons:
+        return False
+    if result == "WARNING":
+        return blocking is False and severity in {"INFO", "WARNING"}
+    if result == "FAILURE":
+        return severity in {"CRITICAL", "ERROR"}
+    return blocking is True
+
+
+def _platform_evidence_integrity(value: object) -> bool:
+    reasons = _items(value, "reason_codes")
+    method = _text(value, "evaluation_method")
+    artifact_kind = _text(value, "artifact_kind") or ""
+    required_reference = _EVIDENCE_REFERENCE_BY_ARTIFACT_KIND.get(artifact_kind)
+    if (
+        not _unique_strings(reasons)
+        or _flag(value, "synthetic_only") is not True
+        or (
+            required_reference is not None
+            and not _present(value, required_reference)
+        )
+        or (
+            _present(value, "package_artifact")
+            and not _present(value, "signature_state")
+        )
+    ):
+        return False
+    if _text(value, "review_state") == "REVIEW_COMPLETE" and not _present(
+        value, "reviewer_identity_ref"
+    ):
+        return False
+    if (
+        _text(value, "owner_decision_state") == "RECORDED"
+        and _text(value, "review_state") != "REVIEW_COMPLETE"
+    ):
+        return False
+    if method == "MEASURED_NATIVE_RUN":
+        if (
+            not _present(value, "os_version")
+            or not _present(value, "os_build")
+            or _text(value, "machine_class") == "SYNTHETIC_FIXTURE"
+            or (_text(value, "platform_id") or "") not in _CERTIFIED_PLATFORM_IDS
+        ):
+            return False
+    elif _text(value, "machine_class") in {
+        "HOSTED_CI_RUNNER",
+        "PHYSICAL_DEVELOPMENT_MACHINE",
+    }:
+        if method != "STATIC_INSPECTION":
+            return False
+    return not reasons if _text(value, "result") == "SUCCESS" else bool(reasons)
+
+
+def _platform_certification_input_scope(value: object) -> bool:
+    required = _items(value, "required_evidence_kinds")
+    present_kinds = _items(value, "present_evidence_kinds")
+    records = _items(value, "evidence_record_refs")
+    reasons = _items(value, "reason_codes")
+    if (
+        not _strictly_sorted_strings(required)
+        or not _strictly_sorted_strings(present_kinds)
+        or not _unique_strings(records)
+        or not _unique_strings(reasons)
+        or not _platform_support_claim_sound(value)
+    ):
+        return False
+    complete = _subset_of(required, present_kinds) and bool(records)
+    if _flag(value, "inventory_complete") is not complete:
+        return False
+    if (_text(value, "owner_decision_state") == "RECORDED") is not _present(
+        value, "owner_decision_ref"
+    ):
+        return False
+    if not _platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    return (
+        not reasons
+        and complete
+        and _text(value, "owner_decision_state") == "RECORDED"
+    )
+
+
 RuleEvaluator = Callable[[object], bool]
 RULE_EVALUATORS: Final[dict[str, RuleEvaluator]] = {
     "APPLICATION_SESSION_CONSISTENCY": _application_session_consistency,
@@ -1213,6 +2255,24 @@ RULE_EVALUATORS: Final[dict[str, RuleEvaluator]] = {
     "LAYOUT_MEASUREMENT_INTEGRITY": _layout_measurement_integrity,
     "NAVIGATION_SAFETY": _navigation_safety,
     "PAGE_READINESS_INTEGRITY": _page_readiness_integrity,
+    "PLATFORM_BROWSER_DISCOVERY_SAFETY": _platform_browser_discovery_safety,
+    "PLATFORM_BROWSER_RECORD_SCOPE": _platform_browser_record_scope,
+    "PLATFORM_CAPABILITY_REPORT_INTEGRITY": _platform_capability_report_integrity,
+    "PLATFORM_CERTIFICATION_INPUT_SCOPE": _platform_certification_input_scope,
+    "PLATFORM_DIAGNOSTIC_INTEGRITY": _platform_diagnostic_integrity,
+    "PLATFORM_EVIDENCE_INTEGRITY": _platform_evidence_integrity,
+    "PLATFORM_MODEL_PROFILE_EVIDENCE": _platform_model_profile_evidence,
+    "PLATFORM_NATIVE_REGISTRATION_BINDING": _platform_native_registration_binding,
+    "PLATFORM_NATIVE_REGISTRATION_RESULT": _platform_native_registration_result,
+    "PLATFORM_PACKAGE_STATE_EVIDENCE": _platform_package_state_evidence,
+    "PLATFORM_PATH_REQUEST_SAFETY": _platform_path_request_safety,
+    "PLATFORM_PATH_RESOLUTION_SAFETY": _platform_path_resolution_safety,
+    "PLATFORM_PROCESS_PLAN_SAFETY": _platform_process_plan_safety,
+    "PLATFORM_PROCESS_STATUS_INTEGRITY": _platform_process_status_integrity,
+    "PLATFORM_RUNTIME_CAPABILITY_FALLBACK": _platform_runtime_capability_fallback,
+    "PLATFORM_SECRET_REQUEST_AUTHORITY": _platform_secret_request_authority,
+    "PLATFORM_SECRET_RESULT_INTEGRITY": _platform_secret_result_integrity,
+    "PLATFORM_TARGET_SUPPORT_CLAIM": _platform_target_support_claim,
     "RECONCILIATION_READINESS": _reconciliation_readiness,
     "RESUME_PLAN_EVIDENCE": _resume_plan_evidence,
     "WORKDAY_CERTIFICATION_SCOPE": _workday_certification_scope,

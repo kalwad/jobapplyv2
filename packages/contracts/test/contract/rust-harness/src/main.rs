@@ -19,7 +19,7 @@ use serde::{
 use serde_json::{Map, Number, Value, json};
 
 const PROTOCOL_VERSION: &str = "JAPP_CONTRACT_ADAPTER_V1";
-const MAX_CASES: usize = 256;
+const MAX_CASES: usize = 512;
 const MAX_PROTOCOL_BYTES: usize = 4 * 1024 * 1024;
 const MAX_RAW_BYTES: usize = 1024 * 1024;
 const MAX_DEPTH: usize = 64;
@@ -723,6 +723,24 @@ enum SemanticRuleKind {
     LayoutMeasurementIntegrity,
     NavigationSafety,
     PageReadinessIntegrity,
+    PlatformBrowserDiscoverySafety,
+    PlatformBrowserRecordScope,
+    PlatformCapabilityReportIntegrity,
+    PlatformCertificationInputScope,
+    PlatformDiagnosticIntegrity,
+    PlatformEvidenceIntegrity,
+    PlatformModelProfileEvidence,
+    PlatformNativeRegistrationBinding,
+    PlatformNativeRegistrationResult,
+    PlatformPackageStateEvidence,
+    PlatformPathRequestSafety,
+    PlatformPathResolutionSafety,
+    PlatformProcessPlanSafety,
+    PlatformProcessStatusIntegrity,
+    PlatformRuntimeCapabilityFallback,
+    PlatformSecretRequestAuthority,
+    PlatformSecretResultIntegrity,
+    PlatformTargetSupportClaim,
     ReconciliationReadiness,
     ResumePlanEvidence,
     WorkdayCertificationScope,
@@ -731,7 +749,7 @@ enum SemanticRuleKind {
 }
 
 impl SemanticRuleKind {
-    const TOKENS: [&'static str; 22] = [
+    const TOKENS: [&'static str; 40] = [
         "APPLICATION_SESSION_CONSISTENCY",
         "ATOMIC_CLAIM_INTEGRITY",
         "ATS_VARIANT_SCOPE",
@@ -749,6 +767,24 @@ impl SemanticRuleKind {
         "LAYOUT_MEASUREMENT_INTEGRITY",
         "NAVIGATION_SAFETY",
         "PAGE_READINESS_INTEGRITY",
+        "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+        "PLATFORM_BROWSER_RECORD_SCOPE",
+        "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+        "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+        "PLATFORM_DIAGNOSTIC_INTEGRITY",
+        "PLATFORM_EVIDENCE_INTEGRITY",
+        "PLATFORM_MODEL_PROFILE_EVIDENCE",
+        "PLATFORM_NATIVE_REGISTRATION_BINDING",
+        "PLATFORM_NATIVE_REGISTRATION_RESULT",
+        "PLATFORM_PACKAGE_STATE_EVIDENCE",
+        "PLATFORM_PATH_REQUEST_SAFETY",
+        "PLATFORM_PATH_RESOLUTION_SAFETY",
+        "PLATFORM_PROCESS_PLAN_SAFETY",
+        "PLATFORM_PROCESS_STATUS_INTEGRITY",
+        "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+        "PLATFORM_SECRET_REQUEST_AUTHORITY",
+        "PLATFORM_SECRET_RESULT_INTEGRITY",
+        "PLATFORM_TARGET_SUPPORT_CLAIM",
         "RECONCILIATION_READINESS",
         "RESUME_PLAN_EVIDENCE",
         "WORKDAY_CERTIFICATION_SCOPE",
@@ -775,6 +811,24 @@ impl SemanticRuleKind {
             Self::LayoutMeasurementIntegrity => "LAYOUT_MEASUREMENT_INTEGRITY",
             Self::NavigationSafety => "NAVIGATION_SAFETY",
             Self::PageReadinessIntegrity => "PAGE_READINESS_INTEGRITY",
+            Self::PlatformBrowserDiscoverySafety => "PLATFORM_BROWSER_DISCOVERY_SAFETY",
+            Self::PlatformBrowserRecordScope => "PLATFORM_BROWSER_RECORD_SCOPE",
+            Self::PlatformCapabilityReportIntegrity => "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+            Self::PlatformCertificationInputScope => "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+            Self::PlatformDiagnosticIntegrity => "PLATFORM_DIAGNOSTIC_INTEGRITY",
+            Self::PlatformEvidenceIntegrity => "PLATFORM_EVIDENCE_INTEGRITY",
+            Self::PlatformModelProfileEvidence => "PLATFORM_MODEL_PROFILE_EVIDENCE",
+            Self::PlatformNativeRegistrationBinding => "PLATFORM_NATIVE_REGISTRATION_BINDING",
+            Self::PlatformNativeRegistrationResult => "PLATFORM_NATIVE_REGISTRATION_RESULT",
+            Self::PlatformPackageStateEvidence => "PLATFORM_PACKAGE_STATE_EVIDENCE",
+            Self::PlatformPathRequestSafety => "PLATFORM_PATH_REQUEST_SAFETY",
+            Self::PlatformPathResolutionSafety => "PLATFORM_PATH_RESOLUTION_SAFETY",
+            Self::PlatformProcessPlanSafety => "PLATFORM_PROCESS_PLAN_SAFETY",
+            Self::PlatformProcessStatusIntegrity => "PLATFORM_PROCESS_STATUS_INTEGRITY",
+            Self::PlatformRuntimeCapabilityFallback => "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+            Self::PlatformSecretRequestAuthority => "PLATFORM_SECRET_REQUEST_AUTHORITY",
+            Self::PlatformSecretResultIntegrity => "PLATFORM_SECRET_RESULT_INTEGRITY",
+            Self::PlatformTargetSupportClaim => "PLATFORM_TARGET_SUPPORT_CLAIM",
             Self::ReconciliationReadiness => "RECONCILIATION_READINESS",
             Self::ResumePlanEvidence => "RESUME_PLAN_EVIDENCE",
             Self::WorkdayCertificationScope => "WORKDAY_CERTIFICATION_SCOPE",
@@ -806,7 +860,7 @@ struct SemanticRules {
     entries: Vec<SemanticRuleEntry>,
 }
 
-const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 21] = [
+const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 40] = [
     (
         "urn:japp:schema:ats:variant-identity:v1",
         SemanticRuleKind::AtsVariantScope,
@@ -850,6 +904,82 @@ const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 21] = [
     (
         "urn:japp:schema:gate:evidence-bundle:v1",
         SemanticRuleKind::GateEvidenceCompleteness,
+    ),
+    (
+        "urn:japp:schema:platform:browser-discovery-request:v1",
+        SemanticRuleKind::PlatformBrowserDiscoverySafety,
+    ),
+    (
+        "urn:japp:schema:platform:browser-record:v1",
+        SemanticRuleKind::PlatformBrowserRecordScope,
+    ),
+    (
+        "urn:japp:schema:platform:capability-report:v1",
+        SemanticRuleKind::PlatformCapabilityReportIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:certification-input:v1",
+        SemanticRuleKind::PlatformCertificationInputScope,
+    ),
+    (
+        "urn:japp:schema:platform:diagnostic-report:v1",
+        SemanticRuleKind::PlatformDiagnosticIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:evidence-record:v1",
+        SemanticRuleKind::PlatformEvidenceIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:installer-state:v1",
+        SemanticRuleKind::PlatformPackageStateEvidence,
+    ),
+    (
+        "urn:japp:schema:platform:model-runtime-profile:v1",
+        SemanticRuleKind::PlatformModelProfileEvidence,
+    ),
+    (
+        "urn:japp:schema:platform:native-messaging-registration:v1",
+        SemanticRuleKind::PlatformNativeRegistrationBinding,
+    ),
+    (
+        "urn:japp:schema:platform:native-messaging-result:v1",
+        SemanticRuleKind::PlatformNativeRegistrationResult,
+    ),
+    (
+        "urn:japp:schema:platform:path-request:v1",
+        SemanticRuleKind::PlatformPathRequestSafety,
+    ),
+    (
+        "urn:japp:schema:platform:path-resolution:v1",
+        SemanticRuleKind::PlatformPathResolutionSafety,
+    ),
+    (
+        "urn:japp:schema:platform:process-plan:v1",
+        SemanticRuleKind::PlatformProcessPlanSafety,
+    ),
+    (
+        "urn:japp:schema:platform:process-status:v1",
+        SemanticRuleKind::PlatformProcessStatusIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:runtime-capability:v1",
+        SemanticRuleKind::PlatformRuntimeCapabilityFallback,
+    ),
+    (
+        "urn:japp:schema:platform:secret-store-request:v1",
+        SemanticRuleKind::PlatformSecretRequestAuthority,
+    ),
+    (
+        "urn:japp:schema:platform:secret-store-result:v1",
+        SemanticRuleKind::PlatformSecretResultIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:target-identity:v1",
+        SemanticRuleKind::PlatformTargetSupportClaim,
+    ),
+    (
+        "urn:japp:schema:platform:update-state:v1",
+        SemanticRuleKind::PlatformPackageStateEvidence,
     ),
     (
         "urn:japp:schema:rendering:layout-measurement:v1",
@@ -1033,7 +1163,7 @@ fn load_semantic_rules(
     })
 }
 
-macro_rules! w06_record {
+macro_rules! wire_record {
     (
         $name:ident {
             $($required:ident: $required_type:ty,)*
@@ -1054,7 +1184,7 @@ macro_rules! w06_record {
     };
 }
 
-w06_record! {
+wire_record! {
     FieldAddress {
         address_schema_version: String,
         session_id: String,
@@ -1076,7 +1206,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     FieldDescriptor {
         field_id: String,
         address: FieldAddress,
@@ -1098,7 +1228,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     FieldDecision {
         decision_id: String,
         field_id: String,
@@ -1122,7 +1252,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     DriverResult {
         result_id: String,
         driver_id: String,
@@ -1151,7 +1281,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     ReconciliationInventory {
         inventory_id: String,
         session_id: String,
@@ -1168,7 +1298,7 @@ w06_record! {
     optional {}
 }
 
-w06_record! {
+wire_record! {
     AtsVariantIdentity {
         variant_identity_id: String,
         ats_family: String,
@@ -1186,7 +1316,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     WorkdayTenantFingerprint {
         tenant_fingerprint_id: String,
         hostname_family: String,
@@ -1206,7 +1336,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     WorkdayStepIdentity {
         step_identity_id: String,
         session_id: String,
@@ -1221,7 +1351,7 @@ w06_record! {
     optional {}
 }
 
-w06_record! {
+wire_record! {
     WorkdayCertificationRecord {
         certification_record_id: String,
         tenant_fingerprint: WorkdayTenantFingerprint,
@@ -1246,7 +1376,7 @@ w06_record! {
     optional {}
 }
 
-w06_record! {
+wire_record! {
     GuidedRunMode {
         run_mode_id: String,
         run_kind: String,
@@ -1264,7 +1394,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     PageReadinessProof {
         proof_id: String,
         proof_version: String,
@@ -1285,7 +1415,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     NavigationRecord {
         navigation_record_id: String,
         session_id: String,
@@ -1313,7 +1443,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     ApplicationSession {
         session_id: String,
         job_id: String,
@@ -1338,7 +1468,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     BenchmarkCase {
         case_id: String,
         case_schema_version: String,
@@ -1359,7 +1489,7 @@ w06_record! {
     optional {}
 }
 
-w06_record! {
+wire_record! {
     BenchmarkResult {
         result_id: String,
         case_id: String,
@@ -1391,7 +1521,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     HoldoutManifest {
         manifest_id: String,
         holdout_format_version: String,
@@ -1412,7 +1542,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     GateEvidenceBundle {
         evidence_bundle_id: String,
         gate_id: String,
@@ -1437,7 +1567,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     GateDecision {
         decision_record_id: String,
         gate_id: String,
@@ -1457,7 +1587,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     ResumePlan {
         plan_id: String,
         plan_schema_version: String,
@@ -1482,7 +1612,7 @@ w06_record! {
     }
 }
 
-w06_record! {
+wire_record! {
     AtomicClaim {
         claim_id: String,
         claim_type: String,
@@ -1502,7 +1632,7 @@ w06_record! {
     optional {}
 }
 
-w06_record! {
+wire_record! {
     LayoutMeasurement {
         measurement_id: String,
         render_artifact_id: String,
@@ -1530,6 +1660,485 @@ w06_record! {
     optional {
         parseability_score: Number,
         readability_score: Number,
+    }
+}
+
+// --- M01-W07 platform-service representatives -------------------------------
+
+wire_record! {
+    PlatformCapabilityState {
+        capability: String,
+        availability: String,
+        evaluation_method: String,
+        reason_codes: Vec<String>,
+    }
+    optional {
+        identity_token: String,
+        detected_version: String,
+        evidence_digest: String,
+        observed_at: String,
+    }
+}
+
+wire_record! {
+    PlatformSupportClaim {
+        claimed_tier: String,
+        reviewed_tier: String,
+        review_state: String,
+    }
+    optional {
+        evaluated_commit: String,
+        evaluated_tree: String,
+        evidence_refs: Vec<String>,
+        reviewer_identity_ref: String,
+    }
+}
+
+wire_record! {
+    PlatformRequestContext {
+        requesting_principal: String,
+        authorization_profile: String,
+        requested_at: String,
+        correlation_id: String,
+    }
+    optional {
+        causation_id: String,
+        idempotency_key: String,
+    }
+}
+
+wire_record! {
+    PlatformArtifactIdentity {
+        artifact_token: String,
+        artifact_digest: String,
+    }
+    optional {
+        artifact_bytes: u64,
+    }
+}
+
+wire_record! {
+    PlatformTargetIdentity {
+        target_identity_id: String,
+        platform_id: String,
+        architecture: String,
+        os_version: String,
+        detection_method: String,
+        detected_at: String,
+        support_claim: PlatformSupportClaim,
+        reason_codes: Vec<String>,
+        provenance: Provenance,
+    }
+    optional {
+        os_build: String,
+        remediation_message: String,
+    }
+}
+
+wire_record! {
+    PlatformCapabilityReport {
+        capability_report_id: String,
+        platform_id: String,
+        support_claim: PlatformSupportClaim,
+        capabilities: Vec<PlatformCapabilityState>,
+        packaging_channel: String,
+        model_profile_refs: Vec<String>,
+        diagnostic_refs: Vec<String>,
+        reported_at: String,
+        correlation_id: String,
+        provenance: Provenance,
+    }
+    optional {}
+}
+
+wire_record! {
+    PlatformPathRequest {
+        path_request_id: String,
+        request_context: PlatformRequestContext,
+        role: String,
+        scope: String,
+        relative_segments: Vec<String>,
+        create_if_missing: bool,
+    }
+    optional {}
+}
+
+wire_record! {
+    PlatformPathResolution {
+        path_resolution_id: String,
+        request_ref: String,
+        role: String,
+        scope: String,
+        resolution_state: String,
+        exists: bool,
+        writable: bool,
+        reason_codes: Vec<String>,
+        resolved_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        sanitized_path: String,
+        path_digest: String,
+        remediation_message: String,
+    }
+}
+
+wire_record! {
+    PlatformSecretStoreRequest {
+        secret_request_id: String,
+        request_context: PlatformRequestContext,
+        operation: String,
+        key_role: String,
+        scope: String,
+    }
+    optional {
+        material_reference: String,
+        material_digest: String,
+        redaction: Redaction,
+    }
+}
+
+wire_record! {
+    PlatformSecretStoreResult {
+        secret_result_id: String,
+        request_ref: String,
+        operation: String,
+        key_role: String,
+        store_availability: String,
+        result_state: String,
+        reason_codes: Vec<String>,
+        completed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        store_identity_token: String,
+        material_reference: String,
+        material_digest: String,
+        remediation_message: String,
+    }
+}
+
+wire_record! {
+    PlatformProcessPlan {
+        process_plan_id: String,
+        request_context: PlatformRequestContext,
+        profile: String,
+        arguments: Vec<String>,
+        environment_allowlist: Vec<Value>,
+        working_directory_role: String,
+        stdin_mode: String,
+        stdout_mode: String,
+        stderr_mode: String,
+        lifecycle_mode: String,
+        startup_timeout_ms: u64,
+        shutdown_timeout_ms: u64,
+        max_restart_attempts: u64,
+        inherit_parent_environment: bool,
+    }
+    optional {
+        profile_version: String,
+        executable_digest: String,
+        max_memory_mib: u64,
+    }
+}
+
+wire_record! {
+    PlatformProcessStatus {
+        process_status_id: String,
+        process_handle: String,
+        plan_ref: String,
+        profile: String,
+        state: String,
+        termination_requested: String,
+        restart_count: u64,
+        orphan_detected: bool,
+        reason_codes: Vec<String>,
+        observed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        started_at: String,
+        ended_at: String,
+        exit_code: u64,
+        idempotency_key: String,
+        remediation_message: String,
+        diagnostic_digest: String,
+        correlation_id: String,
+    }
+}
+
+wire_record! {
+    PlatformNativeMessagingRegistration {
+        registration_intent_id: String,
+        request_context: PlatformRequestContext,
+        operation: String,
+        platform_id: String,
+        browser_family: String,
+        browser_channel: String,
+        host_name: String,
+        host_version: String,
+        allowed_extension_ids: Vec<String>,
+        scope: String,
+        manifest_location_role: String,
+        binary_stdio_mode: String,
+    }
+    optional {
+        expected_manifest_digest: String,
+        expected_host_binary_digest: String,
+        max_message_bytes: u64,
+    }
+}
+
+wire_record! {
+    PlatformNativeMessagingResult {
+        registration_result_id: String,
+        intent_ref: String,
+        operation: String,
+        platform_id: String,
+        browser_family: String,
+        host_name: String,
+        observed_state: String,
+        changed: bool,
+        idempotent_repeat_safe: bool,
+        reason_codes: Vec<String>,
+        completed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        observed_manifest_digest: String,
+        observed_host_version: String,
+        remediation_message: String,
+        evidence_ref: String,
+    }
+}
+
+wire_record! {
+    PlatformBrowserDiscoveryRequest {
+        browser_discovery_request_id: String,
+        request_context: PlatformRequestContext,
+        platform_id: String,
+        browser_family: String,
+        browser_channel: String,
+        include_capability_probe: bool,
+    }
+    optional {
+        minimum_version: String,
+    }
+}
+
+wire_record! {
+    PlatformBrowserRecord {
+        browser_record_id: String,
+        platform_id: String,
+        browser_family: String,
+        browser_channel: String,
+        detection_method: String,
+        presence: String,
+        certified_for_platform: bool,
+        native_messaging_capability: PlatformCapabilityState,
+        reason_codes: Vec<String>,
+        observed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        request_ref: String,
+        detected_version: String,
+        sanitized_install_location: String,
+        last_tested_on: String,
+    }
+}
+
+wire_record! {
+    PlatformModelRuntimeProfile {
+        model_profile_id: String,
+        profile_token: String,
+        platform_id: String,
+        runtime_family: String,
+        runtime_version: String,
+        accelerator: String,
+        artifact: PlatformArtifactIdentity,
+        context_tokens: u64,
+        quantization_token: String,
+        minimum_ram_mib: u64,
+        license_token: String,
+        core_capability_behavior: String,
+        availability: String,
+        acceptance_state: String,
+        evidence_refs: Vec<String>,
+        reason_codes: Vec<String>,
+        provenance: Provenance,
+    }
+    optional {
+        minimum_driver_version: String,
+        minimum_vram_mib: u64,
+        structured_output_evidence_ref: String,
+        factuality_evidence_ref: String,
+        latency_evidence_ref: String,
+        memory_evidence_ref: String,
+        last_tested_on: String,
+    }
+}
+
+wire_record! {
+    PlatformRuntimeCapability {
+        runtime_capability_id: String,
+        platform_id: String,
+        runtime_availability: String,
+        detection_method: String,
+        available_profile_refs: Vec<String>,
+        accepted_profile_refs: Vec<String>,
+        core_capability_behavior: String,
+        reason_codes: Vec<String>,
+        observed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        runtime_family: String,
+        runtime_version: String,
+        accelerator: String,
+        detected_ram_mib: u64,
+        detected_vram_mib: u64,
+        remediation_message: String,
+    }
+}
+
+wire_record! {
+    PlatformInstallerState {
+        installer_state_id: String,
+        package_token: String,
+        package_version: String,
+        platform_id: String,
+        architecture: String,
+        package_format: String,
+        artifact: PlatformArtifactIdentity,
+        signature_state: String,
+        channel: String,
+        scope: String,
+        state: String,
+        interrupted: bool,
+        user_data_preservation: String,
+        native_host_cleanup: String,
+        reason_codes: Vec<String>,
+        observed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        installed_version: String,
+        recovery_completed: bool,
+        remediation_message: String,
+        evidence_refs: Vec<String>,
+    }
+}
+
+wire_record! {
+    PlatformUpdateState {
+        update_state_id: String,
+        package_token: String,
+        platform_id: String,
+        architecture: String,
+        channel: String,
+        current_version: String,
+        state: String,
+        signature_state: String,
+        interrupted: bool,
+        rollback_available: bool,
+        user_data_preservation: String,
+        native_host_cleanup: String,
+        reason_codes: Vec<String>,
+        observed_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        available_version: String,
+        installed_version: String,
+        rolled_back_to_version: String,
+        target_artifact: PlatformArtifactIdentity,
+        recovery_completed: bool,
+        remediation_message: String,
+        evidence_refs: Vec<String>,
+    }
+}
+
+wire_record! {
+    PlatformDiagnosticReport {
+        diagnostic_report_id: String,
+        component: String,
+        capability: String,
+        platform_id: String,
+        severity: String,
+        result: String,
+        reason_codes: Vec<String>,
+        blocking: bool,
+        redaction: Redaction,
+        evaluated_at: String,
+        correlation_id: String,
+        provenance: Provenance,
+    }
+    optional {
+        user_message: String,
+        remediation_message: String,
+        detail_digest: String,
+        evidence_refs: Vec<String>,
+        causation_id: String,
+    }
+}
+
+wire_record! {
+    PlatformEvidenceRecord {
+        evidence_record_id: String,
+        platform_id: String,
+        architecture: String,
+        machine_class: String,
+        artifact_kind: String,
+        evaluation_method: String,
+        synthetic_only: bool,
+        artifact_digest: String,
+        result: String,
+        reason_codes: Vec<String>,
+        recorded_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        os_version: String,
+        os_build: String,
+        runner_image_token: String,
+        package_artifact: PlatformArtifactIdentity,
+        signature_state: String,
+        browser_version: String,
+        webview_version: String,
+        native_messaging_result_ref: String,
+        secret_store_result_ref: String,
+        model_profile_ref: String,
+        installer_state_ref: String,
+        update_state_ref: String,
+        reviewer_identity_ref: String,
+        review_state: String,
+        owner_decision_state: String,
+    }
+}
+
+wire_record! {
+    PlatformCertificationInput {
+        certification_input_id: String,
+        platform_id: String,
+        architecture: String,
+        support_claim: PlatformSupportClaim,
+        capability_report_ref: String,
+        evidence_record_refs: Vec<String>,
+        required_evidence_kinds: Vec<String>,
+        present_evidence_kinds: Vec<String>,
+        inventory_complete: bool,
+        owner_decision_state: String,
+        reason_codes: Vec<String>,
+        prepared_at: String,
+        provenance: Provenance,
+    }
+    optional {
+        browser_record_ref: String,
+        runtime_capability_ref: String,
+        owner_decision_ref: String,
+        known_limitations: Vec<String>,
+        last_tested_on: String,
     }
 }
 
@@ -1585,6 +2194,63 @@ fn typed_round_trip(schema_ref: &str, value: Value) -> AdapterResult<Value> {
         "urn:japp:schema:resume:atomic-claim:v1" => serde_round_trip::<AtomicClaim>(value),
         "urn:japp:schema:rendering:layout-measurement:v1" => {
             serde_round_trip::<LayoutMeasurement>(value)
+        }
+        "urn:japp:schema:platform:browser-discovery-request:v1" => {
+            serde_round_trip::<PlatformBrowserDiscoveryRequest>(value)
+        }
+        "urn:japp:schema:platform:browser-record:v1" => {
+            serde_round_trip::<PlatformBrowserRecord>(value)
+        }
+        "urn:japp:schema:platform:capability-report:v1" => {
+            serde_round_trip::<PlatformCapabilityReport>(value)
+        }
+        "urn:japp:schema:platform:certification-input:v1" => {
+            serde_round_trip::<PlatformCertificationInput>(value)
+        }
+        "urn:japp:schema:platform:diagnostic-report:v1" => {
+            serde_round_trip::<PlatformDiagnosticReport>(value)
+        }
+        "urn:japp:schema:platform:evidence-record:v1" => {
+            serde_round_trip::<PlatformEvidenceRecord>(value)
+        }
+        "urn:japp:schema:platform:installer-state:v1" => {
+            serde_round_trip::<PlatformInstallerState>(value)
+        }
+        "urn:japp:schema:platform:model-runtime-profile:v1" => {
+            serde_round_trip::<PlatformModelRuntimeProfile>(value)
+        }
+        "urn:japp:schema:platform:native-messaging-registration:v1" => {
+            serde_round_trip::<PlatformNativeMessagingRegistration>(value)
+        }
+        "urn:japp:schema:platform:native-messaging-result:v1" => {
+            serde_round_trip::<PlatformNativeMessagingResult>(value)
+        }
+        "urn:japp:schema:platform:path-request:v1" => {
+            serde_round_trip::<PlatformPathRequest>(value)
+        }
+        "urn:japp:schema:platform:path-resolution:v1" => {
+            serde_round_trip::<PlatformPathResolution>(value)
+        }
+        "urn:japp:schema:platform:process-plan:v1" => {
+            serde_round_trip::<PlatformProcessPlan>(value)
+        }
+        "urn:japp:schema:platform:process-status:v1" => {
+            serde_round_trip::<PlatformProcessStatus>(value)
+        }
+        "urn:japp:schema:platform:runtime-capability:v1" => {
+            serde_round_trip::<PlatformRuntimeCapability>(value)
+        }
+        "urn:japp:schema:platform:secret-store-request:v1" => {
+            serde_round_trip::<PlatformSecretStoreRequest>(value)
+        }
+        "urn:japp:schema:platform:secret-store-result:v1" => {
+            serde_round_trip::<PlatformSecretStoreResult>(value)
+        }
+        "urn:japp:schema:platform:target-identity:v1" => {
+            serde_round_trip::<PlatformTargetIdentity>(value)
+        }
+        "urn:japp:schema:platform:update-state:v1" => {
+            serde_round_trip::<PlatformUpdateState>(value)
         }
         _ => Err(AdapterError),
     }
@@ -2512,6 +3178,805 @@ fn layout_measurement_integrity(value: &Value) -> bool {
     }
 }
 
+// --- M01-W07 platform semantic rules ----------------------------------------
+
+const CERTIFIED_PLATFORM_IDS: [&str; 3] = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const UNCERTIFIABLE_PLATFORM_IDS: [&str; 2] = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const CERTIFIED_SUPPORT_TIERS: [&str; 2] = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const PLATFORM_CAPABILITY_FAMILIES: [&str; 8] = [
+    "BROWSER_PRESENCE",
+    "DIAGNOSTICS",
+    "MODEL_RUNTIME",
+    "NATIVE_MESSAGING",
+    "PACKAGING_UPDATE_CHANNEL",
+    "PLATFORM_PATHS",
+    "PROCESS_SUPERVISION",
+    "SECURE_STORE",
+];
+const MANDATORY_CORE_CAPABILITIES: [&str; 5] = [
+    "BROWSER_PRESENCE",
+    "NATIVE_MESSAGING",
+    "PLATFORM_PATHS",
+    "PROCESS_SUPERVISION",
+    "SECURE_STORE",
+];
+const PLATFORM_REQUEST_PRINCIPALS: [&str; 2] = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const PLATFORM_REQUEST_PROFILES: [&str; 2] = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const PLATFORM_INTERPRETER_TOKENS: [&str; 10] = [
+    "bash",
+    "cmd",
+    "cscript",
+    "eval",
+    "exec",
+    "powershell",
+    "pwsh",
+    "sh",
+    "wscript",
+    "zsh",
+];
+const PACKAGE_SUCCESS_STATES: [&str; 5] = [
+    "INSTALLED",
+    "REPAIRED",
+    "ROLLED_BACK",
+    "UNINSTALLED",
+    "UPDATE_INSTALLED",
+];
+const PACKAGE_FAILURE_STATES: [&str; 7] = [
+    "INSTALL_FAILED",
+    "INSTALL_INTERRUPTED",
+    "REPAIR_FAILED",
+    "ROLLBACK_FAILED",
+    "UNINSTALL_FAILED",
+    "UPDATE_FAILED",
+    "UPDATE_INTERRUPTED",
+];
+
+fn platform_expected_architecture(platform_id: &str) -> Option<&'static str> {
+    match platform_id {
+        "MACOS_ARM64" => Some("ARM64"),
+        "UBUNTU_X64" | "WINDOWS_X64" => Some("X86_64"),
+        _ => None,
+    }
+}
+
+fn diagnostic_expected_capability(component: &str) -> Option<&'static str> {
+    match component {
+        "BROWSER_LOCATOR" => Some("BROWSER_PRESENCE"),
+        "INSTALLER_STATE" | "UPDATER_PROVIDER" => Some("PACKAGING_UPDATE_CHANNEL"),
+        "MODEL_RUNTIME_PROVIDER" => Some("MODEL_RUNTIME"),
+        "NATIVE_MESSAGING_REGISTRAR" => Some("NATIVE_MESSAGING"),
+        "PLATFORM_DIAGNOSTICS" => Some("DIAGNOSTICS"),
+        "PLATFORM_PATHS" => Some("PLATFORM_PATHS"),
+        "PROCESS_SUPERVISOR" => Some("PROCESS_SUPERVISION"),
+        "SECRET_STORE" => Some("SECURE_STORE"),
+        _ => None,
+    }
+}
+
+fn evidence_required_reference(artifact_kind: &str) -> Option<&'static str> {
+    match artifact_kind {
+        "INSTALL_LAUNCH_REPORT" => Some("installer_state_ref"),
+        "MODEL_PROFILE_REPORT" => Some("model_profile_ref"),
+        "NATIVE_HOST_REGISTRATION_REPORT" => Some("native_messaging_result_ref"),
+        "SECRET_STORE_TEST_REPORT" => Some("secret_store_result_ref"),
+        "UPDATE_ROLLBACK_REPORT" => Some("update_state_ref"),
+        _ => None,
+    }
+}
+
+fn platform_request_authority(value: &Value) -> bool {
+    let Some(context) = object_member(value, "request_context") else {
+        return false;
+    };
+    token_in(
+        text(context, "requesting_principal"),
+        &PLATFORM_REQUEST_PRINCIPALS,
+    ) && token_in(
+        text(context, "authorization_profile"),
+        &PLATFORM_REQUEST_PROFILES,
+    )
+}
+
+fn platform_capability_state_sound(state: &Value) -> bool {
+    let availability = text(state, "availability");
+    let reasons = items(state, "reason_codes");
+    if !unique_strings(reasons) {
+        return false;
+    }
+    if availability == Some("AVAILABLE") {
+        return reasons.is_empty()
+            && present(state, "identity_token")
+            && present(state, "detected_version")
+            && present(state, "evidence_digest")
+            && text(state, "evaluation_method") != Some("NOT_EVALUATED");
+    }
+    if reasons.is_empty() {
+        return false;
+    }
+    if availability == Some("NOT_EVALUATED") {
+        return text(state, "evaluation_method") == Some("NOT_EVALUATED")
+            && contains_value(reasons, "EVALUATION_NOT_RUN");
+    }
+    if availability == Some("DEGRADED_LIMITED") {
+        return present(state, "identity_token") && present(state, "detected_version");
+    }
+    true
+}
+
+fn platform_support_claim_sound(value: &Value) -> bool {
+    let (Some(claim), Some(platform_id)) = (
+        object_member(value, "support_claim"),
+        text(value, "platform_id"),
+    ) else {
+        return false;
+    };
+    let reviewed = text(claim, "reviewed_tier").unwrap_or_default();
+    let evidence = items(claim, "evidence_refs");
+    if !unique_strings(evidence) {
+        return false;
+    }
+    if UNCERTIFIABLE_PLATFORM_IDS.contains(&platform_id) && reviewed != "UNSUPPORTED" {
+        return false;
+    }
+    if !CERTIFIED_SUPPORT_TIERS.contains(&reviewed) {
+        return true;
+    }
+    CERTIFIED_PLATFORM_IDS.contains(&platform_id)
+        && text(claim, "review_state") == Some("REVIEW_COMPLETE")
+        && present(claim, "evaluated_commit")
+        && present(claim, "evaluated_tree")
+        && present(claim, "reviewer_identity_ref")
+        && !evidence.is_empty()
+}
+
+fn platform_reviewed_tier_is_certified(value: &Value) -> bool {
+    object_member(value, "support_claim").is_some_and(|claim| {
+        CERTIFIED_SUPPORT_TIERS.contains(&text(claim, "reviewed_tier").unwrap_or_default())
+    })
+}
+
+fn platform_target_support_claim(value: &Value) -> bool {
+    let Some(platform_id) = text(value, "platform_id") else {
+        return false;
+    };
+    let reasons = items(value, "reason_codes");
+    if !unique_strings(reasons) || !platform_support_claim_sound(value) {
+        return false;
+    }
+    if let Some(expected) = platform_expected_architecture(platform_id)
+        && text(value, "architecture") != Some(expected)
+    {
+        return false;
+    }
+    if !platform_reviewed_tier_is_certified(value) {
+        return !reasons.is_empty();
+    }
+    reasons.is_empty() && text(value, "detection_method") == Some("MEASURED_NATIVE_RUN")
+}
+
+fn platform_capability_availability<'a>(
+    capabilities: &'a [Value],
+    family: &str,
+) -> Option<&'a str> {
+    capabilities
+        .iter()
+        .find(|state| text(state, "capability") == Some(family))
+        .and_then(|state| text(state, "availability"))
+}
+
+fn platform_capability_report_integrity(value: &Value) -> bool {
+    let capabilities = items(value, "capabilities");
+    if !unique_field(capabilities, "capability")
+        || capabilities.len() != PLATFORM_CAPABILITY_FAMILIES.len()
+        || !PLATFORM_CAPABILITY_FAMILIES.iter().all(|family| {
+            capabilities
+                .iter()
+                .any(|state| text(state, "capability") == Some(*family))
+        })
+        || !capabilities.iter().all(platform_capability_state_sound)
+        || !unique_strings(items(value, "model_profile_refs"))
+        || !unique_strings(items(value, "diagnostic_refs"))
+        || !platform_support_claim_sound(value)
+    {
+        return false;
+    }
+    if text(value, "packaging_channel") == Some("RELEASE_STABLE")
+        && platform_capability_availability(capabilities, "PACKAGING_UPDATE_CHANNEL")
+            != Some("AVAILABLE")
+    {
+        return false;
+    }
+    if !platform_reviewed_tier_is_certified(value) {
+        return true;
+    }
+    if !MANDATORY_CORE_CAPABILITIES
+        .iter()
+        .all(|family| platform_capability_availability(capabilities, family) == Some("AVAILABLE"))
+    {
+        return false;
+    }
+    let reviewed =
+        object_member(value, "support_claim").and_then(|claim| text(claim, "reviewed_tier"));
+    if reviewed != Some("CERTIFIED_FULL") {
+        // A missing or unavailable local-AI profile never downgrades the
+        // deterministic core tier; CERTIFIED_CORE imposes no MODEL_RUNTIME
+        // requirement.
+        return true;
+    }
+    platform_capability_availability(capabilities, "MODEL_RUNTIME") == Some("AVAILABLE")
+        && !items(value, "model_profile_refs").is_empty()
+}
+
+fn platform_path_request_safety(value: &Value) -> bool {
+    platform_request_authority(value)
+        && (text(value, "scope") != Some("SYSTEM")
+            || text(value, "role") == Some("NATIVE_HOST_REGISTRATION"))
+}
+
+fn platform_path_resolution_safety(value: &Value) -> bool {
+    let Some(role) = text(value, "role") else {
+        return false;
+    };
+    let reasons = items(value, "reason_codes");
+    let sanitized = text(value, "sanitized_path");
+    if !unique_strings(reasons)
+        || (text(value, "scope") == Some("SYSTEM") && role != "NATIVE_HOST_REGISTRATION")
+    {
+        return false;
+    }
+    if text(value, "resolution_state") != Some("RESOLVED") {
+        return sanitized.is_none()
+            && !present(value, "path_digest")
+            && flag(value, "exists") == Some(false)
+            && flag(value, "writable") == Some(false)
+            && !reasons.is_empty();
+    }
+    let mut prefix = String::with_capacity(role.len() + 2);
+    prefix.push('<');
+    prefix.push_str(role);
+    prefix.push('>');
+    sanitized.is_some_and(|path| path.starts_with(&prefix))
+        && present(value, "path_digest")
+        && reasons.is_empty()
+        && (flag(value, "writable") != Some(true) || flag(value, "exists") == Some(true))
+}
+
+fn platform_secret_request_authority(value: &Value) -> bool {
+    let operation = text(value, "operation");
+    if !platform_request_authority(value) {
+        return false;
+    }
+    let profile = object_member(value, "request_context")
+        .and_then(|context| text(context, "authorization_profile"));
+    if profile == Some("VERIFICATION") && operation != Some("STATUS") {
+        return false;
+    }
+    if let Some(redaction) = object_member(value, "redaction")
+        && (text(redaction, "sensitivity") != Some("SECRET")
+            || text(redaction, "policy") != Some("FORBID_CAPTURE"))
+    {
+        return false;
+    }
+    if operation == Some("PUT") {
+        return present(value, "material_reference") && present(value, "material_digest");
+    }
+    !present(value, "material_reference") && !present(value, "material_digest")
+}
+
+fn platform_secret_result_integrity(value: &Value) -> bool {
+    let operation = text(value, "operation");
+    let availability = text(value, "store_availability");
+    let state = text(value, "result_state");
+    let reasons = items(value, "reason_codes");
+    let has_material = present(value, "material_reference");
+    if !unique_strings(reasons) {
+        return false;
+    }
+    if availability == Some("AVAILABLE") {
+        if !present(value, "store_identity_token") {
+            return false;
+        }
+    } else if has_material {
+        return false;
+    }
+    if operation == Some("STATUS") {
+        return !has_material
+            && !present(value, "material_digest")
+            && token_in(
+                state,
+                &["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"],
+            )
+            && (state != Some("STORE_AVAILABLE")
+                || (availability == Some("AVAILABLE") && reasons.is_empty()));
+    }
+    match state {
+        Some("STORE_AVAILABLE") => false,
+        Some("RETRIEVED") => {
+            operation == Some("GET")
+                && availability == Some("AVAILABLE")
+                && has_material
+                && present(value, "material_digest")
+                && reasons.is_empty()
+        }
+        Some("STORED") => {
+            operation == Some("PUT")
+                && availability == Some("AVAILABLE")
+                && has_material
+                && reasons.is_empty()
+        }
+        Some("DELETED") => {
+            operation == Some("DELETE")
+                && availability == Some("AVAILABLE")
+                && !has_material
+                && !present(value, "material_digest")
+                && reasons.is_empty()
+        }
+        Some("DENIED_PERMISSION") => {
+            !has_material
+                && contains_value(reasons, "PERMISSION_DENIED")
+                && token_in(availability, &["PERMISSION_REQUIRED", "UNAVAILABLE"])
+        }
+        _ => !has_material && !reasons.is_empty(),
+    }
+}
+
+fn platform_process_plan_safety(value: &Value) -> bool {
+    let environment = items(value, "environment_allowlist");
+    let command_arguments = items(value, "arguments");
+    if !platform_request_authority(value)
+        || flag(value, "inherit_parent_environment") != Some(false)
+        || !present(value, "executable_digest")
+        || !unique_field(environment, "variable")
+        || text(value, "working_directory_role") == Some("NATIVE_HOST_REGISTRATION")
+    {
+        return false;
+    }
+    if command_arguments.iter().any(|argument| {
+        argument.as_str().is_some_and(|token| {
+            PLATFORM_INTERPRETER_TOKENS.contains(&token.to_lowercase().as_str())
+        })
+    }) {
+        return false;
+    }
+    for entry in environment {
+        let Some(entry_value) = text(entry, "value") else {
+            return false;
+        };
+        match text(entry, "variable") {
+            Some("JAPP_SERVICE_PORT") => {
+                if entry_value.is_empty()
+                    || entry_value.len() > 5
+                    || !entry_value.bytes().all(|byte| byte.is_ascii_digit())
+                {
+                    return false;
+                }
+            }
+            Some("JAPP_PATH_ROLE") => {
+                let bytes = entry_value.as_bytes();
+                if bytes.len() < 2
+                    || bytes.len() > 64
+                    || !bytes[0].is_ascii_uppercase()
+                    || !bytes.iter().all(|byte| {
+                        byte.is_ascii_uppercase() || byte.is_ascii_digit() || *byte == b'_'
+                    })
+                {
+                    return false;
+                }
+            }
+            _ => {}
+        }
+    }
+    if text(value, "lifecycle_mode") == Some("ONE_SHOT")
+        && member(value, "max_restart_attempts").and_then(Value::as_u64) != Some(0)
+    {
+        return false;
+    }
+    let modes = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+    if text(value, "profile") == Some("NATIVE_MESSAGING_HOST") {
+        return modes
+            .iter()
+            .all(|mode| *mode == Some("BINARY_LENGTH_PREFIXED"));
+    }
+    modes
+        .iter()
+        .all(|mode| *mode != Some("BINARY_LENGTH_PREFIXED"))
+}
+
+fn platform_process_status_integrity(value: &Value) -> bool {
+    let state = text(value, "state");
+    let reasons = items(value, "reason_codes");
+    let ended = present(value, "ended_at");
+    let started = present(value, "started_at");
+    let exited = present(value, "exit_code");
+    let orphan = flag(value, "orphan_detected");
+    if !unique_strings(reasons) {
+        return false;
+    }
+    if ended
+        && started
+        && !canonical_utc_not_before(text(value, "ended_at"), text(value, "started_at"))
+    {
+        return false;
+    }
+    if orphan == Some(true) && state != Some("ORPHANED") {
+        return false;
+    }
+    match state {
+        Some("STARTING" | "RUNNING") => !ended && !exited && orphan == Some(false),
+        Some("TERMINATING") => {
+            !ended && !exited && text(value, "termination_requested") != Some("NONE")
+        }
+        Some("EXITED") => started && ended && exited && reasons.is_empty(),
+        Some("TERMINATED") => {
+            started && ended && text(value, "termination_requested") != Some("NONE")
+        }
+        Some("ORPHANED") => orphan == Some(true) && !reasons.is_empty(),
+        Some("UNAVAILABLE") => !started && !ended && !exited && !reasons.is_empty(),
+        _ => !reasons.is_empty(),
+    }
+}
+
+fn platform_native_registration_binding(value: &Value) -> bool {
+    let operation = text(value, "operation");
+    if !platform_request_authority(value)
+        || text(value, "browser_family") != Some("CHROME")
+        || text(value, "browser_channel") != Some("STABLE")
+        || text(value, "binary_stdio_mode") != Some("BINARY_LENGTH_PREFIXED")
+        || text(value, "manifest_location_role") != Some("NATIVE_HOST_REGISTRATION")
+        || !strictly_sorted_strings(items(value, "allowed_extension_ids"))
+    {
+        return false;
+    }
+    match operation {
+        Some("REMOVE") => {
+            !present(value, "expected_manifest_digest")
+                && !present(value, "expected_host_binary_digest")
+        }
+        Some("VERIFY") => present(value, "expected_manifest_digest"),
+        _ => {
+            present(value, "expected_manifest_digest")
+                && present(value, "expected_host_binary_digest")
+        }
+    }
+}
+
+fn platform_native_registration_result(value: &Value) -> bool {
+    let operation = text(value, "operation");
+    let observed = text(value, "observed_state");
+    let reasons = items(value, "reason_codes");
+    let changed = flag(value, "changed");
+    if !unique_strings(reasons)
+        || text(value, "browser_family") != Some("CHROME")
+        || (operation == Some("VERIFY") && changed != Some(false))
+    {
+        return false;
+    }
+    if observed == Some("PRESENT_VALID") {
+        if !present(value, "observed_manifest_digest")
+            || !present(value, "observed_host_version")
+            || !reasons.is_empty()
+        {
+            return false;
+        }
+    } else if reasons.is_empty() {
+        return false;
+    }
+    if observed == Some("MISMATCHED_IDENTITY") && !contains_value(reasons, "IDENTITY_MISMATCH") {
+        return false;
+    }
+    if observed == Some("NOT_EVALUATED") {
+        return changed == Some(false) && contains_value(reasons, "EVALUATION_NOT_RUN");
+    }
+    if reasons.is_empty() {
+        let expected = if operation == Some("REMOVE") {
+            "ABSENT"
+        } else {
+            "PRESENT_VALID"
+        };
+        return observed == Some(expected) && flag(value, "idempotent_repeat_safe") == Some(true);
+    }
+    true
+}
+
+fn platform_browser_discovery_safety(value: &Value) -> bool {
+    if !platform_request_authority(value)
+        || text(value, "browser_family") != Some("CHROME")
+        || text(value, "browser_channel") != Some("STABLE")
+    {
+        return false;
+    }
+    flag(value, "include_capability_probe") != Some(true)
+        || token_in(text(value, "platform_id"), &CERTIFIED_PLATFORM_IDS)
+}
+
+fn platform_browser_record_scope(value: &Value) -> bool {
+    let presence = text(value, "presence");
+    let reasons = items(value, "reason_codes");
+    let Some(capability) = object_member(value, "native_messaging_capability") else {
+        return false;
+    };
+    if !unique_strings(reasons)
+        || !platform_capability_state_sound(capability)
+        || text(capability, "capability") != Some("NATIVE_MESSAGING")
+    {
+        return false;
+    }
+    if presence == Some("AVAILABLE") {
+        if !present(value, "detected_version") {
+            return false;
+        }
+    } else if present(value, "sanitized_install_location") {
+        return false;
+    }
+    if flag(value, "certified_for_platform") != Some(true) {
+        return !reasons.is_empty();
+    }
+    reasons.is_empty()
+        && presence == Some("AVAILABLE")
+        && text(value, "browser_family") == Some("CHROME")
+        && text(value, "browser_channel") == Some("STABLE")
+        && token_in(text(value, "platform_id"), &CERTIFIED_PLATFORM_IDS)
+        && text(value, "detection_method") == Some("MEASURED_NATIVE_RUN")
+        && text(capability, "availability") == Some("AVAILABLE")
+        && present(value, "last_tested_on")
+}
+
+fn platform_model_profile_evidence(value: &Value) -> bool {
+    let platform_id = text(value, "platform_id").unwrap_or_default();
+    let accelerator = text(value, "accelerator");
+    let family = text(value, "runtime_family");
+    let reasons = items(value, "reason_codes");
+    let evidence = items(value, "evidence_refs");
+    if !unique_strings(reasons) || !unique_strings(evidence) {
+        return false;
+    }
+    if accelerator == Some("APPLE_SILICON_GPU") && platform_id != "MACOS_ARM64" {
+        return false;
+    }
+    if accelerator == Some("NVIDIA_CUDA")
+        && (!present(value, "minimum_vram_mib") || !present(value, "minimum_driver_version"))
+    {
+        return false;
+    }
+    if accelerator == Some("CPU_ONLY") && present(value, "minimum_vram_mib") {
+        return false;
+    }
+    if family == Some("OLLAMA_MLX")
+        && (platform_id != "MACOS_ARM64" || accelerator != Some("APPLE_SILICON_GPU"))
+    {
+        return false;
+    }
+    if family == Some("OLLAMA_GGUF") && accelerator == Some("APPLE_SILICON_GPU") {
+        return false;
+    }
+    if text(value, "acceptance_state") != Some("ACCEPTED") {
+        return !reasons.is_empty()
+            && text(value, "core_capability_behavior") != Some("FULL_AI_AVAILABLE");
+    }
+    CERTIFIED_PLATFORM_IDS.contains(&platform_id)
+        && reasons.is_empty()
+        && !evidence.is_empty()
+        && text(value, "availability") == Some("AVAILABLE")
+        && text(value, "core_capability_behavior") == Some("FULL_AI_AVAILABLE")
+        && present(value, "structured_output_evidence_ref")
+        && present(value, "factuality_evidence_ref")
+        && present(value, "latency_evidence_ref")
+        && present(value, "memory_evidence_ref")
+        && present(value, "last_tested_on")
+}
+
+fn platform_runtime_capability_fallback(value: &Value) -> bool {
+    let available = items(value, "available_profile_refs");
+    let accepted = items(value, "accepted_profile_refs");
+    let reasons = items(value, "reason_codes");
+    let behavior = text(value, "core_capability_behavior");
+    if !unique_strings(available)
+        || !unique_strings(accepted)
+        || !unique_strings(reasons)
+        || !subset_of(accepted, available)
+    {
+        return false;
+    }
+    if text(value, "detection_method") == Some("NOT_EVALUATED")
+        && text(value, "runtime_availability") != Some("NOT_EVALUATED")
+    {
+        return false;
+    }
+    if text(value, "runtime_availability") != Some("AVAILABLE") {
+        return available.is_empty()
+            && accepted.is_empty()
+            && !reasons.is_empty()
+            && behavior != Some("FULL_AI_AVAILABLE");
+    }
+    if !present(value, "runtime_family")
+        || !present(value, "runtime_version")
+        || !present(value, "accelerator")
+    {
+        return false;
+    }
+    if behavior == Some("FULL_AI_AVAILABLE") {
+        !accepted.is_empty()
+    } else {
+        accepted.is_empty()
+    }
+}
+
+fn platform_package_state_evidence(value: &Value) -> bool {
+    let state = text(value, "state").unwrap_or_default();
+    let reasons = items(value, "reason_codes");
+    let signature = text(value, "signature_state");
+    let interrupted = flag(value, "interrupted");
+    let preservation = text(value, "user_data_preservation");
+    if !unique_strings(reasons)
+        || !unique_strings(items(value, "evidence_refs"))
+        || (interrupted == Some(true) && !contains_value(reasons, "INTERRUPTED"))
+        || (flag(value, "recovery_completed") == Some(true) && interrupted != Some(true))
+        || (preservation == Some("PRESERVATION_FAILED") && reasons.is_empty())
+    {
+        return false;
+    }
+    if token_in(signature, &["SIGNATURE_INVALID", "SIGNATURE_MISSING"])
+        && !contains_value(reasons, "SIGNATURE_NOT_VERIFIED")
+    {
+        return false;
+    }
+    if PACKAGE_FAILURE_STATES.contains(&state) && reasons.is_empty() {
+        return false;
+    }
+    if PACKAGE_SUCCESS_STATES.contains(&state)
+        && (signature != Some("SIGNATURE_VALID")
+            || !reasons.is_empty()
+            || interrupted != Some(false)
+            || !token_in(preservation, &["EXPLICIT_DELETION_REQUESTED", "PRESERVED"])
+            || items(value, "evidence_refs").is_empty())
+    {
+        return false;
+    }
+    match state {
+        "UNINSTALLED" => token_in(
+            text(value, "native_host_cleanup"),
+            &["NOT_APPLICABLE", "REMOVED"],
+        ),
+        "INSTALLED" => {
+            present(value, "installed_version")
+                && text(value, "installed_version") == text(value, "package_version")
+        }
+        "NOT_INSTALLED" => !present(value, "installed_version"),
+        "NO_UPDATE_AVAILABLE" => !present(value, "available_version"),
+        "UPDATE_AVAILABLE" => present(value, "available_version"),
+        "UPDATE_INSTALLED" => {
+            present(value, "installed_version")
+                && present(value, "available_version")
+                && present(value, "target_artifact")
+        }
+        "ROLLED_BACK" => {
+            present(value, "rolled_back_to_version")
+                && flag(value, "rollback_available") == Some(true)
+        }
+        _ => true,
+    }
+}
+
+fn platform_diagnostic_integrity(value: &Value) -> bool {
+    let result = text(value, "result");
+    let severity = text(value, "severity");
+    let reasons = items(value, "reason_codes");
+    let blocking = flag(value, "blocking");
+    let expected_capability =
+        diagnostic_expected_capability(text(value, "component").unwrap_or_default());
+    if !unique_strings(reasons)
+        || !unique_strings(items(value, "evidence_refs"))
+        || expected_capability
+            .is_some_and(|capability| text(value, "capability") != Some(capability))
+    {
+        return false;
+    }
+    if present(value, "user_message")
+        && object_member(value, "redaction").and_then(|redaction| text(redaction, "policy"))
+            != Some("NONE")
+    {
+        return false;
+    }
+    if blocking == Some(true) && !token_in(result, &["BLOCKED", "FAILURE"]) {
+        return false;
+    }
+    if result == Some("SUCCESS") {
+        return blocking == Some(false) && reasons.is_empty() && severity == Some("INFO");
+    }
+    if reasons.is_empty() {
+        return false;
+    }
+    match result {
+        Some("WARNING") => blocking == Some(false) && token_in(severity, &["INFO", "WARNING"]),
+        Some("FAILURE") => token_in(severity, &["CRITICAL", "ERROR"]),
+        _ => blocking == Some(true),
+    }
+}
+
+fn platform_evidence_integrity(value: &Value) -> bool {
+    let reasons = items(value, "reason_codes");
+    let method = text(value, "evaluation_method");
+    let required_reference =
+        evidence_required_reference(text(value, "artifact_kind").unwrap_or_default());
+    if !unique_strings(reasons)
+        || flag(value, "synthetic_only") != Some(true)
+        || required_reference.is_some_and(|name| !present(value, name))
+        || (present(value, "package_artifact") && !present(value, "signature_state"))
+    {
+        return false;
+    }
+    if text(value, "review_state") == Some("REVIEW_COMPLETE")
+        && !present(value, "reviewer_identity_ref")
+    {
+        return false;
+    }
+    if text(value, "owner_decision_state") == Some("RECORDED")
+        && text(value, "review_state") != Some("REVIEW_COMPLETE")
+    {
+        return false;
+    }
+    if method == Some("MEASURED_NATIVE_RUN") {
+        if !present(value, "os_version")
+            || !present(value, "os_build")
+            || text(value, "machine_class") == Some("SYNTHETIC_FIXTURE")
+            || !token_in(text(value, "platform_id"), &CERTIFIED_PLATFORM_IDS)
+        {
+            return false;
+        }
+    } else if token_in(
+        text(value, "machine_class"),
+        &["HOSTED_CI_RUNNER", "PHYSICAL_DEVELOPMENT_MACHINE"],
+    ) && method != Some("STATIC_INSPECTION")
+    {
+        return false;
+    }
+    if text(value, "result") == Some("SUCCESS") {
+        reasons.is_empty()
+    } else {
+        !reasons.is_empty()
+    }
+}
+
+fn platform_certification_input_scope(value: &Value) -> bool {
+    let required = items(value, "required_evidence_kinds");
+    let present_kinds = items(value, "present_evidence_kinds");
+    let records = items(value, "evidence_record_refs");
+    let reasons = items(value, "reason_codes");
+    if !strictly_sorted_strings(required)
+        || !strictly_sorted_strings(present_kinds)
+        || !unique_strings(records)
+        || !unique_strings(reasons)
+        || !platform_support_claim_sound(value)
+    {
+        return false;
+    }
+    let complete = subset_of(required, present_kinds) && !records.is_empty();
+    if flag(value, "inventory_complete") != Some(complete) {
+        return false;
+    }
+    if (text(value, "owner_decision_state") == Some("RECORDED"))
+        != present(value, "owner_decision_ref")
+    {
+        return false;
+    }
+    if !platform_reviewed_tier_is_certified(value) {
+        return !reasons.is_empty();
+    }
+    reasons.is_empty() && complete && text(value, "owner_decision_state") == Some("RECORDED")
+}
+
+fn present(value: &Value, name: &str) -> bool {
+    member(value, name).is_some_and(|candidate| !candidate.is_null())
+}
+
+fn subset_of(inner: &[Value], outer: &[Value]) -> bool {
+    inner.iter().all(|item| outer.contains(item))
+}
+
+fn contains_value(values: &[Value], expected: &str) -> bool {
+    values.iter().any(|value| value.as_str() == Some(expected))
+}
+
 fn evaluate_semantic_rule(kind: SemanticRuleKind, value: &Value) -> bool {
     match kind {
         SemanticRuleKind::ApplicationSessionConsistency => application_session_consistency(value),
@@ -2531,6 +3996,40 @@ fn evaluate_semantic_rule(kind: SemanticRuleKind, value: &Value) -> bool {
         SemanticRuleKind::LayoutMeasurementIntegrity => layout_measurement_integrity(value),
         SemanticRuleKind::NavigationSafety => navigation_safety(value),
         SemanticRuleKind::PageReadinessIntegrity => page_readiness_integrity(value),
+        SemanticRuleKind::PlatformBrowserDiscoverySafety => {
+            platform_browser_discovery_safety(value)
+        }
+        SemanticRuleKind::PlatformBrowserRecordScope => platform_browser_record_scope(value),
+        SemanticRuleKind::PlatformCapabilityReportIntegrity => {
+            platform_capability_report_integrity(value)
+        }
+        SemanticRuleKind::PlatformCertificationInputScope => {
+            platform_certification_input_scope(value)
+        }
+        SemanticRuleKind::PlatformDiagnosticIntegrity => platform_diagnostic_integrity(value),
+        SemanticRuleKind::PlatformEvidenceIntegrity => platform_evidence_integrity(value),
+        SemanticRuleKind::PlatformModelProfileEvidence => platform_model_profile_evidence(value),
+        SemanticRuleKind::PlatformNativeRegistrationBinding => {
+            platform_native_registration_binding(value)
+        }
+        SemanticRuleKind::PlatformNativeRegistrationResult => {
+            platform_native_registration_result(value)
+        }
+        SemanticRuleKind::PlatformPackageStateEvidence => platform_package_state_evidence(value),
+        SemanticRuleKind::PlatformPathRequestSafety => platform_path_request_safety(value),
+        SemanticRuleKind::PlatformPathResolutionSafety => platform_path_resolution_safety(value),
+        SemanticRuleKind::PlatformProcessPlanSafety => platform_process_plan_safety(value),
+        SemanticRuleKind::PlatformProcessStatusIntegrity => {
+            platform_process_status_integrity(value)
+        }
+        SemanticRuleKind::PlatformRuntimeCapabilityFallback => {
+            platform_runtime_capability_fallback(value)
+        }
+        SemanticRuleKind::PlatformSecretRequestAuthority => {
+            platform_secret_request_authority(value)
+        }
+        SemanticRuleKind::PlatformSecretResultIntegrity => platform_secret_result_integrity(value),
+        SemanticRuleKind::PlatformTargetSupportClaim => platform_target_support_claim(value),
         SemanticRuleKind::ReconciliationReadiness => reconciliation_readiness(value),
         SemanticRuleKind::ResumePlanEvidence => resume_plan_evidence(value),
         SemanticRuleKind::WorkdayCertificationScope => workday_certification_scope(value),
@@ -3037,6 +4536,85 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    const W07_REPRESENTATIVES: [(&str, &str); 19] = [
+        (
+            "w07.browser-discovery-request",
+            "urn:japp:schema:platform:browser-discovery-request:v1",
+        ),
+        (
+            "w07.browser-record",
+            "urn:japp:schema:platform:browser-record:v1",
+        ),
+        (
+            "w07.capability-report",
+            "urn:japp:schema:platform:capability-report:v1",
+        ),
+        (
+            "w07.certification-input",
+            "urn:japp:schema:platform:certification-input:v1",
+        ),
+        (
+            "w07.diagnostic-report",
+            "urn:japp:schema:platform:diagnostic-report:v1",
+        ),
+        (
+            "w07.evidence-record",
+            "urn:japp:schema:platform:evidence-record:v1",
+        ),
+        (
+            "w07.installer-state",
+            "urn:japp:schema:platform:installer-state:v1",
+        ),
+        (
+            "w07.model-runtime-profile",
+            "urn:japp:schema:platform:model-runtime-profile:v1",
+        ),
+        (
+            "w07.native-messaging-registration",
+            "urn:japp:schema:platform:native-messaging-registration:v1",
+        ),
+        (
+            "w07.native-messaging-result",
+            "urn:japp:schema:platform:native-messaging-result:v1",
+        ),
+        (
+            "w07.path-request",
+            "urn:japp:schema:platform:path-request:v1",
+        ),
+        (
+            "w07.path-resolution",
+            "urn:japp:schema:platform:path-resolution:v1",
+        ),
+        (
+            "w07.process-plan",
+            "urn:japp:schema:platform:process-plan:v1",
+        ),
+        (
+            "w07.process-status",
+            "urn:japp:schema:platform:process-status:v1",
+        ),
+        (
+            "w07.runtime-capability",
+            "urn:japp:schema:platform:runtime-capability:v1",
+        ),
+        (
+            "w07.secret-store-request",
+            "urn:japp:schema:platform:secret-store-request:v1",
+        ),
+        (
+            "w07.secret-store-result",
+            "urn:japp:schema:platform:secret-store-result:v1",
+        ),
+        (
+            "w07.target-identity",
+            "urn:japp:schema:platform:target-identity:v1",
+        ),
+        (
+            "w07.update-state",
+            "urn:japp:schema:platform:update-state:v1",
+        ),
+    ];
+
     use super::*;
 
     fn repository_root() -> PathBuf {
@@ -3151,7 +4729,7 @@ mod tests {
         let catalog = load_catalog(&repo).expect("schema catalog loads");
         let security = load_security_data(&repo).expect("security data loads");
         let rules = load_semantic_rules(&repo, &catalog, &security).expect("semantic rules load");
-        assert_eq!(rules.entries.len(), 42);
+        assert_eq!(rules.entries.len(), 80);
         assert_eq!(
             rules
                 .entries
@@ -3484,6 +5062,126 @@ mod tests {
         assert!(!canonical_utc_not_before(
             Some("2026-07-27T04:00:00Z"),
             Some("2026-07-27T04:00:00.1Z")
+        ));
+    }
+
+    #[test]
+    fn w07_platform_representatives_round_trip_and_validate() {
+        let repo = repository_root();
+        let catalog = load_catalog(&repo).expect("schema catalog loads");
+        let security = load_security_data(&repo).expect("security data loads");
+        let rules = load_semantic_rules(&repo, &catalog, &security).expect("rules load");
+        let document: Value =
+            read_json(repo.join("packages/contracts/test/contract/corpus/values.v1.json"))
+                .expect("corpus values read");
+        let values = document["values"].as_object().expect("values object");
+        for (value_ref, schema_ref) in W07_REPRESENTATIVES {
+            let value = values
+                .get(value_ref)
+                .unwrap_or_else(|| panic!("{value_ref} exists"))
+                .clone();
+            assert_eq!(
+                schema_valid(&catalog, schema_ref, &value),
+                Ok(true),
+                "{value_ref} structurally validates"
+            );
+            assert_eq!(
+                semantic_failure(&rules, schema_ref, &value),
+                None,
+                "{value_ref} semantically validates"
+            );
+            assert_eq!(
+                typed_round_trip(schema_ref, value.clone()),
+                Ok(value),
+                "{value_ref} serde round-trips"
+            );
+        }
+    }
+
+    #[test]
+    fn w07_platform_trust_boundaries_fail_closed() {
+        let repo = repository_root();
+        let document: Value =
+            read_json(repo.join("packages/contracts/test/contract/corpus/values.v1.json"))
+                .expect("corpus values read");
+        let values = document["values"].as_object().expect("values object");
+
+        // A support tier is never self-asserted by an untrusted record.
+        let mut certified_without_review = values["w07.target-identity"].clone();
+        certified_without_review["support_claim"]["reviewed_tier"] =
+            Value::String("CERTIFIED_CORE".to_owned());
+        assert!(!platform_target_support_claim(&certified_without_review));
+
+        let mut unsupported_certified = values["w07.target-identity"].clone();
+        unsupported_certified["platform_id"] = Value::String("UNSUPPORTED_TARGET".to_owned());
+        unsupported_certified["architecture"] = Value::String("UNKNOWN_ARCHITECTURE".to_owned());
+        unsupported_certified["support_claim"]["reviewed_tier"] =
+            Value::String("CERTIFIED_FULL".to_owned());
+        assert!(!platform_target_support_claim(&unsupported_certified));
+
+        // A missing local-AI profile degrades AI only; the core tier survives.
+        let core_report = values["w07.capability-report"].clone();
+        assert!(platform_capability_report_integrity(&core_report));
+        let mut full_without_runtime = core_report.clone();
+        full_without_runtime["support_claim"]["reviewed_tier"] =
+            Value::String("CERTIFIED_FULL".to_owned());
+        assert!(!platform_capability_report_integrity(&full_without_runtime));
+
+        // Platform authority is never reachable from the page world.
+        let mut content_script_path = values["w07.path-request"].clone();
+        content_script_path["request_context"]["requesting_principal"] =
+            Value::String("EXTENSION_CONTENT_SCRIPT".to_owned());
+        assert!(!platform_path_request_safety(&content_script_path));
+
+        let mut content_script_secret = values["w07.secret-store-request"].clone();
+        content_script_secret["request_context"]["requesting_principal"] =
+            Value::String("EXTENSION_CONTENT_SCRIPT".to_owned());
+        assert!(!platform_secret_request_authority(&content_script_secret));
+
+        // A resolved location must stay anchored to the requested role.
+        let mut mismatched_role = values["w07.path-resolution"].clone();
+        mismatched_role["sanitized_path"] = Value::String("<CACHE>/artifacts".to_owned());
+        assert!(!platform_path_resolution_safety(&mismatched_role));
+
+        // An interpreter plus free-form arguments is refused even when every
+        // token satisfies the bounded argument grammar.
+        let mut interpreter_plan = values["w07.process-plan"].clone();
+        interpreter_plan["arguments"] = json!(["sh", "serve"]);
+        assert!(!platform_process_plan_safety(&interpreter_plan));
+        let mut inherited_environment = values["w07.process-plan"].clone();
+        inherited_environment["inherit_parent_environment"] = json!(true);
+        assert!(!platform_process_plan_safety(&inherited_environment));
+
+        // The native host must use Windows-safe length-prefixed binary stdio.
+        let mut text_mode_host = values["w07.native-messaging-registration"].clone();
+        text_mode_host["binary_stdio_mode"] = Value::String("PIPE_BOUNDED".to_owned());
+        assert!(!platform_native_registration_binding(&text_mode_host));
+
+        // No profile is acceptable without measured evidence.
+        let mut accepted_without_evidence = values["w07.model-runtime-profile"].clone();
+        accepted_without_evidence["acceptance_state"] = Value::String("ACCEPTED".to_owned());
+        accepted_without_evidence["availability"] = Value::String("AVAILABLE".to_owned());
+        accepted_without_evidence["core_capability_behavior"] =
+            Value::String("FULL_AI_AVAILABLE".to_owned());
+        accepted_without_evidence["reason_codes"] = json!([]);
+        assert!(!platform_model_profile_evidence(&accepted_without_evidence));
+
+        // A diagnostic cannot report success while carrying a blocking reason.
+        let mut contradictory_diagnostic = values["w07.diagnostic-report"].clone();
+        contradictory_diagnostic["blocking"] = json!(true);
+        contradictory_diagnostic["reason_codes"] = json!(["PERMISSION_DENIED"]);
+        assert!(!platform_diagnostic_integrity(&contradictory_diagnostic));
+
+        // Committed platform evidence stays synthetic.
+        let mut real_evidence = values["w07.evidence-record"].clone();
+        real_evidence["synthetic_only"] = json!(false);
+        assert!(!platform_evidence_integrity(&real_evidence));
+
+        // Certification needs a complete inventory and a recorded decision.
+        let mut premature_certification = values["w07.certification-input"].clone();
+        premature_certification["inventory_complete"] = json!(true);
+        assert!(!platform_certification_input_scope(
+            &premature_certification
         ));
     }
 }

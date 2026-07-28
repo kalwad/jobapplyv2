@@ -117,7 +117,7 @@ describe("generated finite semantic rules", () => {
     expect(loaded.version).toBe(document.catalog_version);
     expect(loaded.entries).toEqual(document.entries);
     expect(SEMANTIC_RULES_V1).toEqual(document.entries);
-    expect(SEMANTIC_RULES_V1).toHaveLength(42);
+    expect(SEMANTIC_RULES_V1).toHaveLength(80);
     expect(SEMANTIC_RULES_V1.map((entry) => entry.rule_id)).toEqual(
       [...SEMANTIC_RULES_V1.map((entry) => entry.rule_id)].sort(),
     );

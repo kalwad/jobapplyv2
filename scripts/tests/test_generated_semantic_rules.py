@@ -43,7 +43,7 @@ def _corpus_value(name: str) -> dict[str, Any]:
 def test_generated_python_semantic_bindings_match_canonical_data() -> None:
     document = _catalog()
     assert document["catalog_version"] == "1.0.0"
-    assert len(SEMANTIC_RULES_V1) == 42
+    assert len(SEMANTIC_RULES_V1) == 80
     assert [entry._asdict() for entry in SEMANTIC_RULES_V1] == document["entries"]
     rule_ids = [entry.rule_id for entry in SEMANTIC_RULES_V1]
     assert rule_ids == sorted(rule_ids)

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:path-resolution:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Trusted platform path resolution result",
+  "description": "A trusted adapter result. It is deliberately a different contract from a request: it may report a location only as a sanitized role-anchored reference plus a digest, so an ordinary diagnostic, telemetry record, holdout, or evidence bundle never exposes a private local path.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "path_resolution_id",
+    "request_ref",
+    "role",
+    "scope",
+    "resolution_state",
+    "exists",
+    "writable",
+    "reason_codes",
+    "resolved_at",
+    "provenance"
+  ],
+  "properties": {
+    "path_resolution_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "role": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole"
+    },
+    "scope": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope"
+    },
+    "resolution_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState"
+    },
+    "sanitized_path": {
+      "description": "Role-anchored sanitized reference. Present only for a resolved location.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference"
+    },
+    "path_digest": {
+      "description": "Digest of the exact resolved location, so two records can be correlated without revealing either location.",
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "exists": {
+      "type": "boolean"
+    },
+    "writable": {
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "resolved_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

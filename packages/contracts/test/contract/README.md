@@ -1,15 +1,15 @@
-# M01-W05/W06 representative cross-language compatibility suite
+# M01-W05…W07 representative cross-language compatibility suite
 
 This directory is a private verification system, not a product contract API.
 It proves that the representative schemas and security decisions committed
-through M01-W06 behave consistently in generated TypeScript, generated
+through M01-W07 behave consistently in generated TypeScript, generated
 Python, and an isolated test-only Rust executable. It deliberately makes no
 claim that every future schema has a production Rust representation.
 
 ## Canonical corpus
 
 `corpus/manifest.v1.json` is the single inventory. Corpus format `1.0.0`
-currently locks 199 sorted, unique, synthetic cases across three files:
+currently locks 363 sorted, unique, synthetic cases across three files:
 
 - `cases.v1.json` describes schema reference, category, operation, input
   reference or raw bytes, expected verdict/normal form/version/authorization
@@ -33,7 +33,7 @@ That explicit write command is never used by `pnpm verify`.
 
 ## Adapter protocol and normalization
 
-Protocol `JAPP_CONTRACT_ADAPTER_V1` is a bounded batch of at most 256 cases.
+Protocol `JAPP_CONTRACT_ADAPTER_V1` is a bounded batch of at most 512 cases.
 Each request carries a stable case ID, complete local schema reference,
 `VALIDATE`, `ROUND_TRIP`, `VERSION_CHECK`, or `AUTHORIZE`, base64 raw JSON
 bytes, and—only for authorization—a separate trusted-context snapshot.
@@ -66,10 +66,10 @@ fractional values remain distinct.
   `Cargo.lock`. It uses exact `base64 0.22.1`, `jsonschema 0.49.1` with
   default features disabled, `serde 1.0.229`, and `serde_json 1.0.151`.
   Draft 2020-12 schemas and references are registered locally. Typed
-  representative fixture/error/envelope/authorization and W06 feasibility
-  records reject unknown fields, round-trip through Serde, and mechanically
-  check their enums and finite semantic-rule bindings against canonical
-  schema/catalog vocabulary. Authorization loads canonical command,
+  representative fixture/error/envelope/authorization, W06 feasibility, and
+  W07 platform records reject unknown fields, round-trip through Serde, and
+  mechanically check their enums and finite semantic-rule bindings against
+  canonical schema/catalog vocabulary. Authorization loads canonical command,
   capability, policy, and error data. Nothing is exported to
   `services/native-host`, whose fail-closed scaffold is unchanged.
 
@@ -85,7 +85,22 @@ Every structurally valid ordinary wire case resolves its expected canonical
 form from its canonical value plus patch; TypeScript, Python, and Rust return
 and compare that form for authorization and compatible-version operations as
 well as explicit `ROUND_TRIP`. All four current platform commands are denied
-under each of the four current profiles.
+under each of the four current profiles, and a content script is separately
+denied secret-store, process-supervision, native-messaging-registration, and
+browser/runtime-discovery authority.
+
+M01-W07 adds representative coverage for all nineteen platform roots: one
+round trip each, twenty-two strong-branch positives (reviewed certification,
+full certification, permission denial, verification-only probes, binary-stdio
+native-host plans, orphan detection, accepted model profiles, rollback, and a
+complete certification inventory), forty structural negatives (absolute,
+traversal, UNC, and drive paths; shell text, chaining, interpreter flags, and
+executable-path arguments; raw environment dictionaries; registry keys and
+manifest bodies; plaintext secret and keychain members; unreviewed or wildcard
+extension identifiers; browser executables and launch URLs; case-variant
+platform identifiers and unknown support tiers; markup and oversized
+messages; out-of-range, fractional, and boolean integers), and seventy-eight
+semantic negatives covering every platform rule kind.
 
 `breaking/` derives an exhaustive structural/semantic signature from the
 canonical IR, catalogs, and valid corpus cases. The checked-in v1 baseline is

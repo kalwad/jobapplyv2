@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:capability-report:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Platform capability report",
+  "description": "The typed PlatformCapabilities record of specification §5.14.2. It reports one explicit state for every specification-owned platform capability family and never treats an unevaluated capability as success. A missing local-AI profile degrades AI features only; it cannot reduce deterministic core capability below the reviewed core tier.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "capability_report_id",
+    "platform_id",
+    "support_claim",
+    "capabilities",
+    "packaging_channel",
+    "model_profile_refs",
+    "diagnostic_refs",
+    "reported_at",
+    "correlation_id",
+    "provenance"
+  ],
+  "properties": {
+    "capability_report_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "support_claim": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim"
+    },
+    "capabilities": {
+      "description": "Exactly one state per specification-owned capability family, with no duplicates.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState"
+      },
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "packaging_channel": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel"
+    },
+    "model_profile_refs": {
+      "description": "References to platform model-runtime profile records. An empty list is honest; it never downgrades the deterministic core tier.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "diagnostic_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "reported_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

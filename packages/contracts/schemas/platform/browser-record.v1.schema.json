@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:browser-record:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Browser identity, location, and capability record",
+  "description": "A sanitized record of one observed browser: family, channel, version, sanitized install location, and native-messaging capability. Only Chrome stable on a certified platform may ever be marked certified; the contract deliberately cannot express Firefox, Safari, ChromeOS, ARM Windows, Intel macOS, or another Linux distribution as certified. It contains no executable path, launch argument, profile directory, or browsing data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "browser_record_id",
+    "platform_id",
+    "browser_family",
+    "browser_channel",
+    "detection_method",
+    "presence",
+    "certified_for_platform",
+    "native_messaging_capability",
+    "reason_codes",
+    "observed_at",
+    "provenance"
+  ],
+  "properties": {
+    "browser_record_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "browser_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily"
+    },
+    "browser_channel": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel"
+    },
+    "detected_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "detection_method": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod"
+    },
+    "presence": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability"
+    },
+    "sanitized_install_location": {
+      "description": "Role-anchored sanitized reference only. A real installation path is never represented.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference"
+    },
+    "certified_for_platform": {
+      "description": "Whether this observation is inside the certified browser matrix. Only Chrome stable on a certified platform, with a measured detection method and an observed version, may be true.",
+      "type": "boolean"
+    },
+    "native_messaging_capability": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "observed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:native-messaging-registration:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Native-messaging registration intent",
+  "description": "A typed install, verify, repair, update, or remove intent that binds a certified platform, a certified browser and channel, an allowlisted extension identifier set, the host identity and version, an installation scope, and the expected manifest digest. Arbitrary registry keys or values, manifest JSON bodies, executable paths, shell commands, and unreviewed extension identifiers are structurally unrepresentable. No registry, manifest, browser, or filesystem modification occurs in M01-W07.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registration_intent_id",
+    "request_context",
+    "operation",
+    "platform_id",
+    "browser_family",
+    "browser_channel",
+    "host_name",
+    "host_version",
+    "allowed_extension_ids",
+    "scope",
+    "manifest_location_role",
+    "binary_stdio_mode"
+  ],
+  "properties": {
+    "registration_intent_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_context": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext"
+    },
+    "operation": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId"
+    },
+    "browser_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily"
+    },
+    "browser_channel": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel"
+    },
+    "host_name": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName"
+    },
+    "host_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "allowed_extension_ids": {
+      "description": "Reviewed extension-identifier allowlist. Registration cannot widen it and cannot express a wildcard.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId"
+      },
+      "minItems": 1,
+      "maxItems": 4
+    },
+    "scope": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope"
+    },
+    "manifest_location_role": {
+      "description": "Typed location role for the platform-appropriate manifest or registry entry. It is never a literal path or registry key.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole"
+    },
+    "expected_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "expected_host_binary_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "binary_stdio_mode": {
+      "description": "Windows-safe transport requirement. Length-prefixed binary stdio is mandatory so newline translation cannot corrupt messages.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode"
+    },
+    "max_message_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1048576
+    }
+  }
+}

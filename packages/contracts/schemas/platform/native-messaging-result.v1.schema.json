@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:native-messaging-result:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Native-messaging registration result",
+  "description": "The idempotent outcome of one registration intent, including the observed registration state, whether the operation changed anything, the observed manifest identity digest, finite remediation reasons, and an evidence reference. It never contains a registry export, a manifest body, a filesystem path, or an executable name.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registration_result_id",
+    "intent_ref",
+    "operation",
+    "platform_id",
+    "browser_family",
+    "host_name",
+    "observed_state",
+    "changed",
+    "idempotent_repeat_safe",
+    "reason_codes",
+    "completed_at",
+    "provenance"
+  ],
+  "properties": {
+    "registration_result_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "intent_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "operation": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId"
+    },
+    "browser_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily"
+    },
+    "host_name": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName"
+    },
+    "observed_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState"
+    },
+    "observed_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "observed_host_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "changed": {
+      "description": "Whether this execution modified registration state. A verify operation can never report a change.",
+      "type": "boolean"
+    },
+    "idempotent_repeat_safe": {
+      "description": "Whether repeating the same intent is guaranteed to be a no-op.",
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "evidence_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "completed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

@@ -84,6 +84,17 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/test/contract/semantic-adapters.test.ts",
         "packages/contracts/test/generated/semantic-rules.test.ts",
         "scripts/tests/test_generated_semantic_rules.py",
+        # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
+        # capability and platform-service contracts).
+        "packages/contracts/generator/semantic-rules.ts",
+        "packages/contracts/schemas/platform/capability-report.v1.schema.json",
+        "packages/contracts/schemas/platform/path-request.v1.schema.json",
+        "packages/contracts/schemas/platform/process-plan.v1.schema.json",
+        "packages/contracts/schemas/platform/secret-store-request.v1.schema.json",
+        "packages/contracts/schemas/platform/vocabulary.v1.schema.json",
+        "packages/contracts/test/contract/breaking.test.ts",
+        "packages/contracts/test/schema/w07-platform.test.ts",
+        "scripts/tests/test_generated_platform_contracts.py",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

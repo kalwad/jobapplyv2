@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:model-runtime-profile:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Versioned platform model-runtime profile",
+  "description": "Platform-scoped runtime and artifact metadata for a local model profile, including exact artifact digest, runtime family and version, accelerator and driver bounds, context, quantization, memory requirements, license and provenance, evidence references, and the deterministic-core fallback behavior. A profile may be ACCEPTED only on a certified target with artifact and runtime evidence; no Windows or Ubuntu profile is accepted today. This contract does not invoke, download, select, or control any model runtime, and it does not change the model lock.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model_profile_id",
+    "profile_token",
+    "platform_id",
+    "runtime_family",
+    "runtime_version",
+    "accelerator",
+    "artifact",
+    "context_tokens",
+    "quantization_token",
+    "minimum_ram_mib",
+    "license_token",
+    "core_capability_behavior",
+    "availability",
+    "acceptance_state",
+    "evidence_refs",
+    "reason_codes",
+    "provenance"
+  ],
+  "properties": {
+    "model_profile_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "profile_token": {
+      "description": "Stable profile name such as the macos-arm64-mlx, windows-x64-nvidia, or ubuntu-x64-cpu families named by the specification.",
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "runtime_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily"
+    },
+    "runtime_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "accelerator": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass"
+    },
+    "minimum_driver_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "artifact": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity"
+    },
+    "context_tokens": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens"
+    },
+    "quantization_token": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "minimum_ram_mib": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
+    },
+    "minimum_vram_mib": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
+    },
+    "license_token": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "structured_output_evidence_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "factuality_evidence_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "latency_evidence_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "memory_evidence_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "core_capability_behavior": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior"
+    },
+    "availability": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability"
+    },
+    "acceptance_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

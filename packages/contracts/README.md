@@ -15,6 +15,7 @@ packages/contracts/
 │   ├── common/        # foundational shared definitions (listed below)
 │   ├── error/         # M01-W03 error taxonomy/catalog/record documents
 │   ├── fixture/       # test-only composition fixtures; never product data
+│   ├── platform/      # M01-W07 cross-platform capability/service contracts
 │   ├── security/      # M01-W04 capability/command/authorization documents
 │   ├── semantic/      # schema for the finite semantic-rule catalog
 │   └── {form,ats,workday,benchmark,gate,resume,rendering,session}/
@@ -35,7 +36,7 @@ packages/contracts/
     ├── schema/        # M01-W01 convention and definition tests
     ├── generated/     # M01-W02…W06 generator + generated-surface tests
     ├── fixtures/      # shared synthetic instance corpus for both languages
-    └── contract/      # M01-W05/W06 cross-language compatibility evidence
+    └── contract/      # M01-W05…W07 cross-language compatibility evidence
 ```
 
 - `schemas/` is the **single source of truth**. A contract exists when — and
@@ -43,8 +44,9 @@ packages/contracts/
 - `schemas/common/` holds the foundational reusable definitions. Payload
   schemas reuse those definitions rather than restating IDs, versions,
   timestamps, digests, confidence, provenance, redaction, or correlation.
-  M01-W06 adds only feasibility/evidence wire shapes; production platform
-  service contracts and product-domain behavior remain future work.
+  M01-W06 adds feasibility/evidence wire shapes and M01-W07 adds the
+  platform-service boundary; operating-system implementations and
+  product-domain behavior remain future work.
 - `schemas/fixture/` is test-only. Nothing under it may carry product data or
   be depended on by product code.
 - `generated/` is produced exclusively by the M01-W02 generator (§10a).
@@ -264,7 +266,9 @@ policy behavior in both languages without claiming M01-W05 wire-round-trip
 certification.
 M01-W06 semantic-runtime tests live in `test/generated/`,
 `scripts/tests/test_generated_semantic_rules.py`, and the adapters.
-`test/contract/` is the active M01-W05/W06 representative cross-language
+M01-W07 platform tests live in `test/schema/w07-platform.test.ts` and
+`scripts/tests/test_generated_platform_contracts.py`.
+`test/contract/` is the active M01-W05…W07 representative cross-language
 suite.
 Its versioned hash-locked synthetic corpus drives the real generated
 TypeScript/Ajv and Python/Pydantic paths plus a private test-only Rust
@@ -500,9 +504,10 @@ GUIDED_PRE_SUBMIT; reviewed command capability/target and critical
 idempotency semantics cannot be relabeled; verification cannot acquire
 production-data/platform/submission authority; and no current profile can
 grant final submission. Platform
-capability/command categories are declared for stable recognition but have
-empty profile sets and zero rows until M01-W07 defines their concrete typed
-contracts. Final submission is likewise a known command with a specific safe
+capability/command categories are declared for stable recognition and keep
+empty profile sets and zero rows. M01-W07 (§10f) defines their concrete typed
+payload contracts without granting any of them operational authority; a later
+package that needs a platform operation must extend this catalog explicitly. Final submission is likewise a known command with a specific safe
 denial and zero rows.
 
 Generated surfaces live at
@@ -520,7 +525,7 @@ of-use drift. No handwritten per-language policy map exists.
 
 ## 10d. Cross-language compatibility evidence (M01-W05)
 
-`pnpm test:contract` runs the 199-case canonical corpus and the failure
+`pnpm test:contract` runs the 363-case canonical corpus and the failure
 infrastructure/breaking-change tests. Protocol, normalization, exact
 representative scope, dependency pins, baseline lifecycle, and reconstruction
 commands are documented in `test/contract/README.md`. Normal compatibility
@@ -560,10 +565,51 @@ Rust representative coverage are documented in `test/contract/README.md`.
 These contracts do not fill forms, navigate, render, run models or benchmarks,
 evaluate gates, or certify any Workday pattern.
 
-## 10f. Boundaries owned by later packages
+## 10f. Cross-platform capability and platform-service contracts (M01-W07)
 
-- **M01-W07** — concrete typed cross-platform capability/service contracts;
-  W04 intentionally grants no current platform operation.
+M01-W07 adds 19 strict root wire contracts under `schemas/platform/` plus the
+definitions-only `urn:japp:schema:platform:vocabulary:v1` supporting document.
+They cover certified platform identity and support tiers, platform capability
+and capability-state reporting, typed logical paths and trusted resolution
+results, the secret-store boundary, process-supervisor plans/handles/results,
+native-messaging registration intents and results, browser discovery and
+browser records, model-runtime profiles and runtime capability,
+installer/updater state, platform diagnostics, and cross-platform
+evidence/certification-input records.
+
+Generator format `1.4.0` records that the finite semantic-rule vocabulary grew
+by eighteen platform rule kinds (22 → 40) with matching TypeScript and Python
+evaluators; the canonical rule catalog grows from 42 to 80 bindings and
+`urn:japp:schema:semantic:rule-catalog:v1` takes the required MINOR bump to
+`1.1.0`. Every platform request carries a typed principal/profile context, and
+the semantic layer restricts platform operations to the orchestrator and
+verification harness — content scripts, service workers, models, the public
+index, the desktop app, the native host, and the platform adapter itself can
+never originate one.
+
+**Authority is deliberately unchanged.** The M01-W04 capability, command, and
+authorization-policy catalogs are untouched: the four platform commands keep
+empty supported-profile sets and zero allow rows, all 127 positive rows and
+every negative case are preserved, and defining a payload contract grants no
+operational authority.
+
+The canonical inventory, per-boundary invariants, generator decision,
+compatibility classification, and explicit non-claims are recorded in
+[`M01-W07.md`](./M01-W07.md). These contracts detect no platform, certify no
+platform, resolve no path, open no secret store, spawn no process, register no
+host, locate no browser, run no model, install or update nothing, and evaluate
+no gate.
+
+## 10g. Boundaries owned by later packages
+
+- **M03-W07 … M03-W10** — the operating-system adapters that implement the
+  M01-W07 lifecycle, path, and process contracts.
+- **M04-W07 … M04-W10** — the native Keychain, Credential Manager/DPAPI, and
+  Secret Service stores behind the M01-W07 secret contracts.
+- **M05-W13 … M05-W16** — measured model-runtime profiles and fallback UX.
+- **M17-W07 … M17-W10** — native-messaging registration and cross-platform E2E.
+- **M27-W07 … M27-W12** — packaging, signing, update/rollback, and the
+  Cross-Platform Core Gate evidence bundle.
 - **M04** — the real migration framework that consumes the
   `UPGRADE_REQUIRED_NEWER_MINOR` / major-version signals.
 - Product/domain payload schemas arrive with their owning milestones.

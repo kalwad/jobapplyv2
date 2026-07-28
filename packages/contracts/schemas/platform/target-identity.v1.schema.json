@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:target-identity:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Certified platform target identity and support claim",
+  "description": "Detected platform identity separated from any claimed or reviewed support tier. This record cannot certify a platform: certification requires a completed independent review, an evaluated revision, and evidence references, none of which exist for any target today.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_identity_id",
+    "platform_id",
+    "architecture",
+    "os_version",
+    "detection_method",
+    "detected_at",
+    "support_claim",
+    "reason_codes",
+    "provenance"
+  ],
+  "properties": {
+    "target_identity_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "architecture": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture"
+    },
+    "os_version": {
+      "description": "Observed operating-system release version. It is an observation, not a support claim.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "os_build": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken"
+    },
+    "detection_method": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod"
+    },
+    "detected_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "support_claim": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim"
+    },
+    "reason_codes": {
+      "description": "Finite reasons explaining why the reviewed tier is not certified. Empty only when the reviewed tier is certified.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

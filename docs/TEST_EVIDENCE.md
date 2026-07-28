@@ -33,6 +33,186 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
+
+- State: IN_PROGRESS. This entry records contract facts as they are proven.
+  It does not claim a verified package, any platform implementation,
+  certified platform support, secret-store or process behavior,
+  native-messaging registration, model-runtime capability, packaging
+  result, critical-gate result, or hosted M01-W07 success.
+- Revision: pending; the content tree and commit are stamped after hosted
+  three-OS verification of the exact content revision.
+- Environment: macOS 15 (Darwin 27.0.0, Apple silicon), Node 24.18.0,
+  pnpm 11.17.0, uv 0.11.32, Python 3.12.13 (uv-managed), cargo/rustc 1.97.1.
+- Starting-state proof (run before any edit):
+  - `git status --porcelain=v1 -uall` → exit 0, empty (clean tree).
+  - `git rev-parse HEAD` and `git rev-parse origin/main` → both
+    `08749ca4d0334fcb38ba0828ec1ea193c06ce825`; branch `main`.
+  - `find . -type f -name '*MASTER_IMPLEMENTATION_SPEC*'` → exactly one
+    tracked canonical file, `docs/MASTER_IMPLEMENTATION_SPEC.md`.
+  - `shasum -a 256 docs/MASTER_IMPLEMENTATION_SPEC.md` →
+    `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+    (exact owner-approved v1.4 bytes).
+  - `python3 scripts/validate_status.py` → exit 0,
+    `PASS: all checks passed (43 check groups)`; M00 ACCEPTED, M00-W11
+    VERIFIED at tree `7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91`, M01
+    IN_PROGRESS, M01-W01…W06 VERIFIED at their preserved trees, M01-W07 the
+    sole READY package, zero IN_PROGRESS, all four gates NOT_EVALUATED,
+    release NOT_READY.
+  - `pnpm traceability:check` → exit 0,
+    `PASS: traceability validated 193 requirements and 300 work packages`.
+  - `pnpm generate:contracts --check` → exit 0,
+    `generated contracts are up to date (112 files, byte-identical)`.
+  - `pnpm run doctor` → exit 0, `22 pass, 0 warning, 0 fail,
+    1 not-yet-applicable` (visual NOT_YET_APPLICABLE).
+  - `pnpm verify` → exit 0; contract-gen ACTIVE/PASS, contract ACTIVE/PASS,
+    visual NOT_YET_APPLICABLE, every other active suite PASS.
+  - `gh run view 30316803920` → the final M00-W11 stamp run at
+    `08749ca4d0334fcb38ba0828ec1ea193c06ce825` succeeded on macos-15 job
+    90143959215, windows-2025 job 90143959244, and ubuntu-24.04 job
+    90143959299.
+- Contract inventory: 19 strict roots under
+  `packages/contracts/schemas/platform/` plus the definitions-only
+  `urn:japp:schema:platform:vocabulary:v1`. The canonical catalog grows from
+  43 to 63 documents. See `packages/contracts/M01-W07.md` for the exact
+  inventory, per-boundary invariants, and explicit non-claims.
+- Locked dependency and toolchain commands:
+  - `pnpm install --frozen-lockfile` → exit 0, `Already up to date`
+    (13 workspace projects; no lockfile change).
+  - `uv sync --locked` → exit 0, 21 packages resolved, 19 checked.
+  - `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`
+    → exit 0, no output (already vendored).
+  - `cargo fetch --locked --manifest-path
+    packages/contracts/test/contract/rust-harness/Cargo.toml` → exit 0.
+- Generation and determinism:
+  - `pnpm generate:contracts` → exit 0, `generated 153 files`.
+  - `pnpm generate:contracts --check` (run twice) → exit 0 both times,
+    `generated contracts are up to date (153 files, byte-identical)`. Two
+    independent generations are byte-identical; check mode never touched the
+    working tree.
+  - `packages/contracts/generated/MANIFEST.json`: generator format `1.4.0`,
+    63 schema inputs, 5 validated data inputs, 152 outputs, 256 generated
+    type entries.
+- Compatibility classification (run **before** any baseline write):
+  - `pnpm contracts:compatibility:check` → `"compatible":true`,
+    `"findings":[]`, and exactly 18 `ENUM_TOKEN_ADDED`, 20 `SCHEMA_ADDED`,
+    38 `SEMANTIC_RULE_ADDED`, 44 `SUPPORTED_WIRE_CASE_ADDED` additive
+    changes. An earlier run correctly reported one breaking
+    `MINOR_BUMP_REQUIRED` finding for
+    `urn:japp:schema:semantic:rule-catalog:v1`; that was resolved by the
+    required MINOR bump to `1.1.0`, not by overwriting the baseline.
+  - `pnpm contracts:compatibility:update-baseline` → run only after the
+    change was proven additive; the follow-up
+    `pnpm contracts:compatibility:check` → `{"additive_changes":[],
+    "compatible":true,"findings":[]}`. Neither update command runs inside
+    `pnpm verify`.
+  - `pnpm contracts:corpus:update-manifest` → explicit corpus-manifest write;
+    also outside `pnpm verify`.
+- Corpus: 199 → 363 sorted synthetic cases; all 199 prior cases and their
+  expected verdicts are preserved unchanged. Applicability TypeScript 362 /
+  Python 358 / Rust 357; operations 60 AUTHORIZE, 81 ROUND_TRIP,
+  214 VALIDATE, 8 VERSION_CHECK. Manifest digest
+  `9b2413cff49b853c97a8c385ebbd4fb9645d560396bdbe7969a97dc2f3f5c808`
+  (`cases.v1.json` 367007 bytes /
+  `f1ace60f714ccb897de9432bf53bc81694c6a310ba1339da627e31a3b4990950`,
+  `raw-wire.v1.json` 2235 bytes /
+  `418a4d9d6211edffe76c61d5c9c68ef684a609022fd93e6a1f97a2700248486e`,
+  `values.v1.json` 59157 bytes /
+  `d42842b8a8270bdfbffa123476ec32b757bbbcf55a5fc921272e24e7f0180bea`).
+  The 164 new cases are 41 platform positives, 40 structural negatives,
+  78 semantic negatives, and 3 additional content-script platform-authority
+  denials.
+- Focused suites:
+  - `pnpm --filter @japp/contracts test` → 17 files, 874 tests passed
+    (was 16 files / 637). Includes the new
+    `test/schema/w07-platform.test.ts` (35 tests) and the extended
+    `test/contract/breaking.test.ts` (70 → 108 tests).
+  - `pnpm test:contract` → 5 files, 489 tests passed;
+    `contract-adapters protocol=1 typescript=362 python=358 rust=357
+    rust-build=locked-offline`. All three real adapters agree on every case.
+  - `cargo test --locked --offline --manifest-path
+    packages/contracts/test/contract/rust-harness/Cargo.toml` → 10 tests
+    passed (was 8), including
+    `w07_platform_representatives_round_trip_and_validate` and
+    `w07_platform_trust_boundaries_fail_closed`.
+  - `cargo clippy --locked --offline --all-targets --all-features -- -D
+    warnings` and `cargo fmt --check` on the harness → exit 0.
+  - `uv run pytest scripts/tests/test_generated_platform_contracts.py` →
+    26 tests passed.
+- Aggregate verification:
+  - `pnpm format:check`, `pnpm lint`, `pnpm typecheck` → exit 0.
+  - `pnpm test` → 9 workspace projects successful.
+  - `pnpm test:e2e` → 1 passed. `pnpm test:python` → 649 passed
+    (was 621). `pnpm test:rust` → 1 native-host + 10 harness tests passed.
+  - `pnpm traceability:generate` and `pnpm traceability:check` → exit 0,
+    `PASS: traceability validated 193 requirements and 300 work packages`.
+  - `python3 scripts/validate_status.py` → exit 0,
+    `PASS: all checks passed (43 check groups)`.
+  - `pnpm run doctor` → exit 0, `21 pass, 1 warning, 0 fail,
+    1 not-yet-applicable`; the single warning is the expected
+    "uncommitted changes present" working-tree state during the package and
+    clears at the content commit.
+  - `pnpm verify` → exit 0. contract-gen ACTIVE/PASS, contract ACTIVE/PASS,
+    visual NOT_YET_APPLICABLE, every other active suite PASS.
+  - `git diff --check` → exit 0, no whitespace defects.
+- Test counts: TypeScript 874 package + 489 contract; Python 649;
+  Rust 1 native-host + 10 harness; cross-language corpus 363 cases
+  (TypeScript 362 / Python 358 / Rust 357).
+- Artifacts: none. This package creates no benchmark artifact, evidence
+  bundle, screenshot, or certification record.
+- Notes:
+  - Scope decision (Rust): specification §9 `M01-W07` requires
+    "TypeScript/Python/**Rust-compatible** contracts", and the reviewed
+    traceability entry requires "Generated TypeScript/Python/Rust
+    platform-contract round trips". The established, documented mechanism
+    for that proof is the private `publish = false`, locked/offline
+    test-only harness under
+    `packages/contracts/test/contract/rust-harness/`
+    (`packages/contracts/README.md` §10d and
+    `packages/contracts/M01-W06.md`). `services/native-host` consumes no
+    generated contract surface. M01-W07 therefore extends the representative
+    test-only Rust proof and deliberately adds no production Rust generator.
+  - Scope decision (authority): M01-W04 already declares the four platform
+    capability/command categories with empty supported-profile sets and zero
+    allow rows. The reviewed M01-W07 mapping requires typed platform
+    contracts, not new operation vocabulary, so the capability, command, and
+    authorization-policy catalogs are unchanged and all 127 positive allow
+    rows plus every existing negative case are preserved. The Rust harness
+    re-asserts 24 commands / 127 allow rows / 9 principals / 4 profiles /
+    18 capabilities on every run.
+  - Generator version: bumped `1.3.0` → `1.4.0` because the built-in finite
+    semantic-rule vocabulary grew by eighteen platform rule kinds, so the
+    emitted TypeScript and Python evaluator modules contain new
+    generator-owned logic rather than only new data rows. No IR construct,
+    emitter shape, manifest field, or naming rule changed. Locked by
+    `packages/contracts/test/generated/generator.test.ts`.
+  - Adapter batch bound: raised 256 → 512 in `adapters/protocol.ts`,
+    `adapters/python_adapter.py`, and the Rust harness so the 363-case corpus
+    still runs as one deterministic batch per language. The bound's purpose is
+    unchanged — an over-cap batch is still rejected, all three adapters
+    enforce the same value, and `MAX_PROTOCOL_BYTES` (4 MiB),
+    `MAX_RAW_INPUT_BYTES` (1 MiB), and `MAX_JSON_DEPTH` (64) are untouched.
+  - Test-oracle re-anchoring (no weakening):
+    `scripts/tests/test_v14_migration.py::test_contract_artifact_trees_and_files_remain_exact`
+    proves M00-W11 changed no contract artifact. It previously read `HEAD`,
+    which M01-W07 legitimately advances. It now reads the same objects at the
+    exact M00-W11 content commit `bde8ad49c31e63a7e09b50ad7cdf9af51416c182`,
+    where every pinned tree and file digest is byte-identical to the value it
+    already asserted, so the historical proof becomes permanent instead of
+    being deleted or restamped.
+    `scripts/tests/test_validate_status.py::test_current_work_package_must_be_exact_none_or_blocked_id`
+    needs a "no IN_PROGRESS row" premise; it now clears every IN_PROGRESS row
+    through the new `clear_in_progress` helper instead of naming whichever
+    package happened to be active.
+  - Requirement honesty: `REQ-PLAT-012` moves `NOT_STARTED` →
+    `SCAFFOLD_ONLY` (verification stays `NOT_YET_APPLICABLE`) with real code,
+    test, and evidence references. That state is strictly stronger than
+    `NOT_STARTED`, which forbids any evidence claim: the validator now
+    *requires* those references. The adapter half of the requirement and all
+    native per-platform evidence remain future work under `M03-W09`.
+    `scripts/traceability.py` records the reviewed v1.4 requirement-hash
+    update and its rationale.
+
 ### M00-W11 — Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline (2026-07-27)
 
 - State: IN_PROGRESS. This entry records migration facts as they are proven.

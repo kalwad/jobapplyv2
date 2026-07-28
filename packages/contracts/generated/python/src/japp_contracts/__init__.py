@@ -186,6 +186,125 @@ from japp_contracts.gate.evidence_bundle_v1 import (
     GateEvidenceBundleV1CompletenessInventory,
     GateEvidenceBundleV1GateId,
 )
+from japp_contracts.platform.browser_discovery_request_v1 import (
+    PlatformBrowserDiscoveryRequestV1,
+)
+from japp_contracts.platform.browser_record_v1 import (
+    PlatformBrowserRecordV1,
+)
+from japp_contracts.platform.capability_report_v1 import (
+    PlatformCapabilityReportV1,
+)
+from japp_contracts.platform.certification_input_v1 import (
+    PlatformCertificationInputV1,
+)
+from japp_contracts.platform.diagnostic_report_v1 import (
+    PlatformDiagnosticReportV1,
+)
+from japp_contracts.platform.evidence_record_v1 import (
+    PlatformEvidenceRecordV1,
+)
+from japp_contracts.platform.installer_state_v1 import (
+    PlatformInstallerStateV1,
+)
+from japp_contracts.platform.model_runtime_profile_v1 import (
+    PlatformModelRuntimeProfileV1,
+)
+from japp_contracts.platform.native_messaging_registration_v1 import (
+    PlatformNativeMessagingRegistrationV1,
+)
+from japp_contracts.platform.native_messaging_result_v1 import (
+    PlatformNativeMessagingResultV1,
+)
+from japp_contracts.platform.path_request_v1 import (
+    PlatformPathRequestV1,
+)
+from japp_contracts.platform.path_resolution_v1 import (
+    PlatformPathResolutionV1,
+)
+from japp_contracts.platform.process_plan_v1 import (
+    PlatformProcessPlanV1,
+)
+from japp_contracts.platform.process_status_v1 import (
+    PlatformProcessStatusV1,
+)
+from japp_contracts.platform.runtime_capability_v1 import (
+    PlatformRuntimeCapabilityV1,
+)
+from japp_contracts.platform.secret_store_request_v1 import (
+    PlatformSecretStoreRequestV1,
+)
+from japp_contracts.platform.secret_store_result_v1 import (
+    PlatformSecretStoreResultV1,
+)
+from japp_contracts.platform.target_identity_v1 import (
+    PlatformTargetIdentityV1,
+)
+from japp_contracts.platform.update_state_v1 import (
+    PlatformUpdateStateV1,
+)
+from japp_contracts.platform.vocabulary_v1 import (
+    PlatformVocabularyV1AcceleratorClass,
+    PlatformVocabularyV1Architecture,
+    PlatformVocabularyV1ArtifactIdentity,
+    PlatformVocabularyV1BoundedUserMessage,
+    PlatformVocabularyV1BrowserChannel,
+    PlatformVocabularyV1BrowserFamily,
+    PlatformVocabularyV1BuildToken,
+    PlatformVocabularyV1CapabilityAvailability,
+    PlatformVocabularyV1CapabilityState,
+    PlatformVocabularyV1CertifiedPlatformId,
+    PlatformVocabularyV1ContextTokens,
+    PlatformVocabularyV1CoreCapabilityBehavior,
+    PlatformVocabularyV1DiagnosticResult,
+    PlatformVocabularyV1DistributionChannel,
+    PlatformVocabularyV1EnvironmentEntry,
+    PlatformVocabularyV1EnvironmentVariableId,
+    PlatformVocabularyV1EvaluationMethod,
+    PlatformVocabularyV1EvidenceArtifactKind,
+    PlatformVocabularyV1ExtensionId,
+    PlatformVocabularyV1InstallationScope,
+    PlatformVocabularyV1InstallerState,
+    PlatformVocabularyV1LifecycleMode,
+    PlatformVocabularyV1MachineClass,
+    PlatformVocabularyV1MemoryMebibytes,
+    PlatformVocabularyV1NativeHostCleanupState,
+    PlatformVocabularyV1NativeHostName,
+    PlatformVocabularyV1OwnerDecisionState,
+    PlatformVocabularyV1PackageFormat,
+    PlatformVocabularyV1PathResolutionState,
+    PlatformVocabularyV1PathRole,
+    PlatformVocabularyV1PathSegment,
+    PlatformVocabularyV1PlatformCapabilityId,
+    PlatformVocabularyV1PlatformComponentId,
+    PlatformVocabularyV1PlatformId,
+    PlatformVocabularyV1PlatformReasonCode,
+    PlatformVocabularyV1ProcessArgument,
+    PlatformVocabularyV1ProcessExitCode,
+    PlatformVocabularyV1ProcessProfileId,
+    PlatformVocabularyV1ProcessState,
+    PlatformVocabularyV1ProductVersion,
+    PlatformVocabularyV1ProfileAcceptanceState,
+    PlatformVocabularyV1RedactedPathReference,
+    PlatformVocabularyV1RegistrationOperation,
+    PlatformVocabularyV1RegistrationState,
+    PlatformVocabularyV1RequestContext,
+    PlatformVocabularyV1ReviewState,
+    PlatformVocabularyV1RuntimeFamily,
+    PlatformVocabularyV1SecretKeyRole,
+    PlatformVocabularyV1SecretOperation,
+    PlatformVocabularyV1SecretReference,
+    PlatformVocabularyV1SecretResultState,
+    PlatformVocabularyV1Severity,
+    PlatformVocabularyV1SignatureState,
+    PlatformVocabularyV1StdioMode,
+    PlatformVocabularyV1SupportClaim,
+    PlatformVocabularyV1SupportTier,
+    PlatformVocabularyV1TerminationRequest,
+    PlatformVocabularyV1TimeoutMilliseconds,
+    PlatformVocabularyV1UpdateState,
+    PlatformVocabularyV1UserDataPreservation,
+)
 from japp_contracts.rendering.layout_measurement_v1 import (
     RenderingLayoutMeasurementV1,
     RenderingLayoutMeasurementV1ContentBounds,
@@ -451,6 +570,85 @@ __all__ = [
     "JsonValue",
     "PRINCIPAL_CATALOG_V1",
     "PRINCIPAL_IDS_V1",
+    "PlatformBrowserDiscoveryRequestV1",
+    "PlatformBrowserRecordV1",
+    "PlatformCapabilityReportV1",
+    "PlatformCertificationInputV1",
+    "PlatformDiagnosticReportV1",
+    "PlatformEvidenceRecordV1",
+    "PlatformInstallerStateV1",
+    "PlatformModelRuntimeProfileV1",
+    "PlatformNativeMessagingRegistrationV1",
+    "PlatformNativeMessagingResultV1",
+    "PlatformPathRequestV1",
+    "PlatformPathResolutionV1",
+    "PlatformProcessPlanV1",
+    "PlatformProcessStatusV1",
+    "PlatformRuntimeCapabilityV1",
+    "PlatformSecretStoreRequestV1",
+    "PlatformSecretStoreResultV1",
+    "PlatformTargetIdentityV1",
+    "PlatformUpdateStateV1",
+    "PlatformVocabularyV1AcceleratorClass",
+    "PlatformVocabularyV1Architecture",
+    "PlatformVocabularyV1ArtifactIdentity",
+    "PlatformVocabularyV1BoundedUserMessage",
+    "PlatformVocabularyV1BrowserChannel",
+    "PlatformVocabularyV1BrowserFamily",
+    "PlatformVocabularyV1BuildToken",
+    "PlatformVocabularyV1CapabilityAvailability",
+    "PlatformVocabularyV1CapabilityState",
+    "PlatformVocabularyV1CertifiedPlatformId",
+    "PlatformVocabularyV1ContextTokens",
+    "PlatformVocabularyV1CoreCapabilityBehavior",
+    "PlatformVocabularyV1DiagnosticResult",
+    "PlatformVocabularyV1DistributionChannel",
+    "PlatformVocabularyV1EnvironmentEntry",
+    "PlatformVocabularyV1EnvironmentVariableId",
+    "PlatformVocabularyV1EvaluationMethod",
+    "PlatformVocabularyV1EvidenceArtifactKind",
+    "PlatformVocabularyV1ExtensionId",
+    "PlatformVocabularyV1InstallationScope",
+    "PlatformVocabularyV1InstallerState",
+    "PlatformVocabularyV1LifecycleMode",
+    "PlatformVocabularyV1MachineClass",
+    "PlatformVocabularyV1MemoryMebibytes",
+    "PlatformVocabularyV1NativeHostCleanupState",
+    "PlatformVocabularyV1NativeHostName",
+    "PlatformVocabularyV1OwnerDecisionState",
+    "PlatformVocabularyV1PackageFormat",
+    "PlatformVocabularyV1PathResolutionState",
+    "PlatformVocabularyV1PathRole",
+    "PlatformVocabularyV1PathSegment",
+    "PlatformVocabularyV1PlatformCapabilityId",
+    "PlatformVocabularyV1PlatformComponentId",
+    "PlatformVocabularyV1PlatformId",
+    "PlatformVocabularyV1PlatformReasonCode",
+    "PlatformVocabularyV1ProcessArgument",
+    "PlatformVocabularyV1ProcessExitCode",
+    "PlatformVocabularyV1ProcessProfileId",
+    "PlatformVocabularyV1ProcessState",
+    "PlatformVocabularyV1ProductVersion",
+    "PlatformVocabularyV1ProfileAcceptanceState",
+    "PlatformVocabularyV1RedactedPathReference",
+    "PlatformVocabularyV1RegistrationOperation",
+    "PlatformVocabularyV1RegistrationState",
+    "PlatformVocabularyV1RequestContext",
+    "PlatformVocabularyV1ReviewState",
+    "PlatformVocabularyV1RuntimeFamily",
+    "PlatformVocabularyV1SecretKeyRole",
+    "PlatformVocabularyV1SecretOperation",
+    "PlatformVocabularyV1SecretReference",
+    "PlatformVocabularyV1SecretResultState",
+    "PlatformVocabularyV1Severity",
+    "PlatformVocabularyV1SignatureState",
+    "PlatformVocabularyV1StdioMode",
+    "PlatformVocabularyV1SupportClaim",
+    "PlatformVocabularyV1SupportTier",
+    "PlatformVocabularyV1TerminationRequest",
+    "PlatformVocabularyV1TimeoutMilliseconds",
+    "PlatformVocabularyV1UpdateState",
+    "PlatformVocabularyV1UserDataPreservation",
     "PrincipalCatalogEntryV1",
     "RenderingLayoutMeasurementV1",
     "RenderingLayoutMeasurementV1ContentBounds",

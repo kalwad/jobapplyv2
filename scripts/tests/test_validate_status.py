@@ -70,6 +70,26 @@ def edit(path: Path, old: str, new: str, *, count: int = 0) -> None:
     path.write_text(text.replace(old, new, count or -1), encoding="utf-8")
 
 
+def clear_in_progress(repo: Path) -> None:
+    """Drop every IN_PROGRESS work-package row.
+
+    The live repository always has at most one IN_PROGRESS package, but which
+    one it is changes as milestones advance. A test whose premise is "no
+    package is IN_PROGRESS" must therefore clear the state rather than name a
+    package, or an inherited row diverts the validator to a different error
+    (the KI-0014/KI-0015/KI-0017 class).
+    """
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"^(\| `M\d{2}-W\d{2}` \| )IN_PROGRESS( \|)", flags=re.MULTILINE
+    )
+    path.write_text(
+        pattern.sub(r"\g<1>NOT_STARTED\g<2>", text),
+        encoding="utf-8",
+    )
+
+
 def set_pkg_state(repo: Path, pid: str, state: str) -> None:
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
@@ -529,6 +549,7 @@ def test_invalid_package_state_rejected(repo_copy: Path) -> None:
 
 def test_skipped_dependency_rejected(repo_copy: Path) -> None:
     promote_milestones(repo_copy, ["M00"])
+    clear_in_progress(repo_copy)
     set_pkg_state(repo_copy, "M00-W11", "NOT_STARTED")
     set_ms_state(repo_copy, "M00", "IN_PROGRESS")
     set_pkg_state(repo_copy, "M01-W07", "READY")
@@ -633,12 +654,8 @@ def test_current_work_package_must_be_exact_none_or_blocked_id(
     repo_copy: Path,
 ) -> None:
     # Establish the complete premise (no IN_PROGRESS row) regardless of the
-    # live repository state: packages become IN_PROGRESS as the milestone
-    # advances, and an inherited
-    # IN_PROGRESS row would divert the validator to the
-    # current-package-mismatch error instead of the exactness error
-    # (KI-0014/KI-0015/KI-0017 class).
-    set_pkg_state(repo_copy, "M00-W11", "NOT_STARTED")
+    # live repository state.
+    clear_in_progress(repo_copy)
     set_current_package(repo_copy, "garbage")
     result = run_validator(repo_copy)
     assert result.returncode == 1

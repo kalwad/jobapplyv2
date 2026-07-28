@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:update-state:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Updater state and result",
+  "description": "Bounded update, rollback, and recovery state: channel, current and available versions, the target artifact digest and signature state, the lifecycle state, interruption and recovery, user-data preservation, native-host cleanup, and finite failure reasons. No download URL, network request, update script, registry modification, or signing key is representable, and this contract updates nothing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "update_state_id",
+    "package_token",
+    "platform_id",
+    "architecture",
+    "channel",
+    "current_version",
+    "state",
+    "signature_state",
+    "interrupted",
+    "rollback_available",
+    "user_data_preservation",
+    "native_host_cleanup",
+    "reason_codes",
+    "observed_at",
+    "provenance"
+  ],
+  "properties": {
+    "update_state_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "package_token": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId"
+    },
+    "architecture": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture"
+    },
+    "channel": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel"
+    },
+    "current_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "available_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "installed_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "rolled_back_to_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "target_artifact": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity"
+    },
+    "signature_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState"
+    },
+    "state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/updateState"
+    },
+    "interrupted": {
+      "type": "boolean"
+    },
+    "recovery_completed": {
+      "type": "boolean"
+    },
+    "rollback_available": {
+      "type": "boolean"
+    },
+    "user_data_preservation": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation"
+    },
+    "native_host_cleanup": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "observed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

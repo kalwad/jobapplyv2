@@ -111,6 +111,17 @@ reports live in `docs/gates/`.
 - Report: docs/gates/CROSS_PLATFORM_CORE_GATE.md
 - Known limitations: no product platform implementation or certification has
   occurred. Windows and Ubuntu full-AI profiles are not accepted.
+- Governance note (M01-W07, no state change): the typed contract shape a
+  future Gate D evidence bundle and certification decision must carry now
+  exists as canonical schema
+  (`urn:japp:schema:platform:evidence-record:v1` and
+  `urn:japp:schema:platform:certification-input:v1`; see
+  `packages/contracts/M01-W07.md`). Those contracts require synthetic-only
+  artifacts, digest references, an operating-system build for any measured
+  native run, a completed independent review before an owner decision, and a
+  complete evidence inventory before any certified proposal. M01-W07 created
+  no evidence bundle, ran no platform check, certified no target, and left
+  this gate `NOT_EVALUATED`.
 - Next permitted action: complete the staged M03–M05, M10, M17, and M27
   platform work. The independent Gate D audit is M27-W12. M28 must not become
   READY before M27 is ACCEPTED and this gate is PASS.

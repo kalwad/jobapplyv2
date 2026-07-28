@@ -67,8 +67,14 @@ import {
  * lookup/authorization surfaces.
  * 1.3.0 (M01-W06): feasibility/benchmark roots plus the canonical finite
  * semantic-rule catalog and generated matching TypeScript/Python evaluators.
+ * 1.4.0 (M01-W07): the built-in finite semantic-rule vocabulary grows by the
+ * eighteen platform rule kinds, so the emitted TypeScript/Python evaluator
+ * modules contain new generator-owned logic rather than only new data rows.
+ * No IR construct, emitter shape, manifest field, or naming rule changed;
+ * the bump exists so a consumer cannot mistake a 1.3.0 artifact for one that
+ * can evaluate the platform contracts.
  */
-export const GENERATOR_FORMAT_VERSION = "1.3.0";
+export const GENERATOR_FORMAT_VERSION = "1.4.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {

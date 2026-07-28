@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "cases.v1.json",
-      "bytes": 187954,
-      "sha256": "dd1ee13b369618ab0d4847be794e2263f18ec85d83bc2c83ab4ae6ea059d7501"
+      "bytes": 367007,
+      "sha256": "f1ace60f714ccb897de9432bf53bc81694c6a310ba1339da627e31a3b4990950"
     },
     {
       "path": "raw-wire.v1.json",
@@ -13,14 +13,14 @@
     },
     {
       "path": "values.v1.json",
-      "bytes": 40005,
-      "sha256": "66f4fe308f4e1b9ad60ea66b437d2a7514b4b58a8cf4893c0f77e2af9f55aec8"
+      "bytes": 59157,
+      "sha256": "d42842b8a8270bdfbffa123476ec32b757bbbcf55a5fc921272e24e7f0180bea"
     }
   ],
-  "case_count": 199,
+  "case_count": 363,
   "category_counts": {
     "authorization": 13,
-    "authorization-escalation": 42,
+    "authorization-escalation": 45,
     "constraint": 2,
     "enum": 1,
     "format": 4,
@@ -41,19 +41,22 @@
     "w06-semantic-negative": 42,
     "w06-session": 5,
     "w06-structural-negative": 10,
-    "w06-workday": 4
+    "w06-workday": 4,
+    "w07-platform": 41,
+    "w07-platform-semantic-negative": 78,
+    "w07-platform-structural-negative": 42
   },
   "language_counts": {
-    "python": 194,
-    "rust": 193,
-    "typescript": 198
+    "python": 358,
+    "rust": 357,
+    "typescript": 362
   },
   "operation_counts": {
-    "AUTHORIZE": 57,
-    "ROUND_TRIP": 40,
-    "VALIDATE": 94,
+    "AUTHORIZE": 60,
+    "ROUND_TRIP": 81,
+    "VALIDATE": 214,
     "VERSION_CHECK": 8
   },
   "synthetic_only": true,
-  "manifest_sha256": "216cbfd2ad23e8bfe932e952487d37a8cdd50212fcb7fcfb0d135231f1e42016"
+  "manifest_sha256": "9b2413cff49b853c97a8c385ebbd4fb9645d560396bdbe7969a97dc2f3f5c808"
 }

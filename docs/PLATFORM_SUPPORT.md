@@ -59,9 +59,35 @@ claim exists yet, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`.
   before Gate D passes. M00-W10 added this fail-closed validation while
   leaving the gate `NOT_EVALUATED`.
 
+## Contract boundary (M01-W07, contracts only)
+
+`M01-W07` defined the typed cross-platform capability and platform-service
+contracts as canonical JSON Schema under
+`packages/contracts/schemas/platform/`, with generated strict TypeScript and
+Pydantic v2 surfaces and representative test-only Rust agreement. The
+contracts encode this governance policy structurally:
+
+- The certified target vocabulary is exactly `MACOS_ARM64`, `WINDOWS_X64`, and
+  `UBUNTU_X64`; `UNSUPPORTED_TARGET` and `UNKNOWN_TARGET` can never carry a
+  certified tier.
+- A support tier is a reviewed claim, never a self-asserted request field: a
+  certified reviewed tier requires a completed independent review, an
+  evaluated commit and tree, a reviewer identity, evidence references, and a
+  measured native run.
+- A missing, unevaluated, or unavailable local-AI runtime degrades AI features
+  only; it cannot reduce the reviewed deterministic core tier.
+- Only Chrome stable on a certified target is expressible as certified.
+- Platform evidence is synthetic-only and references every artifact by digest.
+
+This changes no support state. Every first-release target row above remains
+`NOT_YET_IMPLEMENTED`, no compatibility row was added, no model profile is
+accepted, and `CROSS_PLATFORM_CORE` remains `NOT_EVALUATED`. Defining a
+contract is not evidence that any platform behavior works.
+
 ## Governance and ownership
 
-- Typed platform contracts: `M01-W07`.
+- Typed platform contracts: `M01-W07` — delivered; see
+  `packages/contracts/M01-W07.md`.
 - Lifecycle/path/process packages: `M03-W07` through `M03-W10`.
 - Native secure stores and portable backup: `M04-W07` through `M04-W10`.
 - Platform model capability and fallback: `M05-W13` through `M05-W16`.

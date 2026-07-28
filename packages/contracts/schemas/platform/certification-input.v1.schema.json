@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:certification-input:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Platform certification input record",
+  "description": "The evidence inventory a future owner decision would consume before a platform support tier could be published. It is an input, never a decision: a certified proposal requires a certified target, a completed independent review, an evaluated revision, a complete evidence inventory, and a recorded owner decision. M01-W07 certifies no platform and changes no critical-gate state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "certification_input_id",
+    "platform_id",
+    "architecture",
+    "support_claim",
+    "capability_report_ref",
+    "evidence_record_refs",
+    "required_evidence_kinds",
+    "present_evidence_kinds",
+    "inventory_complete",
+    "owner_decision_state",
+    "reason_codes",
+    "prepared_at",
+    "provenance"
+  ],
+  "properties": {
+    "certification_input_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "architecture": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture"
+    },
+    "support_claim": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim"
+    },
+    "capability_report_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "browser_record_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "runtime_capability_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "evidence_record_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 64
+    },
+    "required_evidence_kinds": {
+      "description": "Strictly sorted, unique kinds the reviewed policy requires for the proposed tier.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "present_evidence_kinds": {
+      "description": "Strictly sorted, unique kinds actually attached. A complete inventory requires every required kind to be present.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "inventory_complete": {
+      "type": "boolean"
+    },
+    "owner_decision_state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState"
+    },
+    "owner_decision_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "last_tested_on": {
+      "$ref": "urn:japp:schema:common:calendar-date:v1#/$defs/calendarDate"
+    },
+    "prepared_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

@@ -35,12 +35,12 @@
     },
     {
       "path": "packages/contracts/catalog/semantic-rules.v1.json",
-      "sha256": "21d234c8d0b94a35ee3760e9113d3feed808681b4d412c56b085fddc9ba4690a",
+      "sha256": "c56516c20c5d379b75671165c109a958f25a3a1444360f1b91142e77c09ae9af",
       "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
       "version": "1.0.0"
     }
   ],
-  "formatVersion": "1.3.0",
+  "formatVersion": "1.4.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -212,6 +212,126 @@
       "sha256": "be9d0679e830fdf17236d6791f8e1b6bc9e0a3fabd4e77c4e7884683355f40fd"
     },
     {
+      "id": "urn:japp:schema:platform:browser-discovery-request:v1",
+      "path": "packages/contracts/schemas/platform/browser-discovery-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "b9bd7fefdc2613f17083bfbac2051472d05159dcff02addc5cfdbcfeb273770f"
+    },
+    {
+      "id": "urn:japp:schema:platform:browser-record:v1",
+      "path": "packages/contracts/schemas/platform/browser-record.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "5cc37143c622df8f6421714df04fa2a0e865fcce2f0d71262fe7ddb7077d99db"
+    },
+    {
+      "id": "urn:japp:schema:platform:capability-report:v1",
+      "path": "packages/contracts/schemas/platform/capability-report.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "7761dab3c92652dde805feeaf960df637df84a16e570b9306a39ead6e9694eb0"
+    },
+    {
+      "id": "urn:japp:schema:platform:certification-input:v1",
+      "path": "packages/contracts/schemas/platform/certification-input.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "e53c297a18de7e775dd8cee9aed5783f4591728b60f59baa7a7f73094a359a81"
+    },
+    {
+      "id": "urn:japp:schema:platform:diagnostic-report:v1",
+      "path": "packages/contracts/schemas/platform/diagnostic-report.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "32e0f7550cd3ad027e38cd24ce1060aac0968c207be6d9f40e15e43d31ca75b9"
+    },
+    {
+      "id": "urn:japp:schema:platform:evidence-record:v1",
+      "path": "packages/contracts/schemas/platform/evidence-record.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "d94c2f9fc7213c620dfbe6e8578295163208c4e0910a9c9c5bef21da5a7c5aaa"
+    },
+    {
+      "id": "urn:japp:schema:platform:installer-state:v1",
+      "path": "packages/contracts/schemas/platform/installer-state.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "f7cbbaa27cd5b5de6f6770ada985b584cad4374fa78f2d09e6680f38d2d9ed9e"
+    },
+    {
+      "id": "urn:japp:schema:platform:model-runtime-profile:v1",
+      "path": "packages/contracts/schemas/platform/model-runtime-profile.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "7845b9862d2f69955790468c86f1b1b396d137eda16f2499140106511123902e"
+    },
+    {
+      "id": "urn:japp:schema:platform:native-messaging-registration:v1",
+      "path": "packages/contracts/schemas/platform/native-messaging-registration.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "11375cd373bd1c9404ee1cb78f0bd9fddacaf653cada94dc418601c654afa206"
+    },
+    {
+      "id": "urn:japp:schema:platform:native-messaging-result:v1",
+      "path": "packages/contracts/schemas/platform/native-messaging-result.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "d37459e7f5d0c0d363dd69b2931ea039f9f1457d7dc922eac53e825a76e5512d"
+    },
+    {
+      "id": "urn:japp:schema:platform:path-request:v1",
+      "path": "packages/contracts/schemas/platform/path-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c070c9b9c81552b896b0a9e4ddc417512c0aa7c799f26114fbf20dc6e9cdcab7"
+    },
+    {
+      "id": "urn:japp:schema:platform:path-resolution:v1",
+      "path": "packages/contracts/schemas/platform/path-resolution.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "8370b485abc992aaf5d9bb986d154ba8fc4b3530236ec807ccfec470c837b348"
+    },
+    {
+      "id": "urn:japp:schema:platform:process-plan:v1",
+      "path": "packages/contracts/schemas/platform/process-plan.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "13f90afa2aed7cc8f28e573752b23b75028dc30a2b5a6d5c536a62bc28069e68"
+    },
+    {
+      "id": "urn:japp:schema:platform:process-status:v1",
+      "path": "packages/contracts/schemas/platform/process-status.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "6418d48d4f885ec0ca796f41ad7f4e272b7965aadf11300778198ba59accba81"
+    },
+    {
+      "id": "urn:japp:schema:platform:runtime-capability:v1",
+      "path": "packages/contracts/schemas/platform/runtime-capability.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "66693f4a53618850c77c2061cf4da186adaef64623f20533d07f6b016ccd679d"
+    },
+    {
+      "id": "urn:japp:schema:platform:secret-store-request:v1",
+      "path": "packages/contracts/schemas/platform/secret-store-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "5a2b75da5f7e0e7fd42989571ae8efac7e766a42ba33088a25dc3c1d1b490164"
+    },
+    {
+      "id": "urn:japp:schema:platform:secret-store-result:v1",
+      "path": "packages/contracts/schemas/platform/secret-store-result.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "7d8064f8bb6d5cc683f381952de100b2abfc0049cb23a5c9fe022ab9e1d01b96"
+    },
+    {
+      "id": "urn:japp:schema:platform:target-identity:v1",
+      "path": "packages/contracts/schemas/platform/target-identity.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "2b256e3f8e46029e7126f59471a381d150321fee3f1a9fe8f7421727edfe0789"
+    },
+    {
+      "id": "urn:japp:schema:platform:update-state:v1",
+      "path": "packages/contracts/schemas/platform/update-state.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "0366fb027c000bc9536accc0988e9616162f142e11850ad098246f551074d84a"
+    },
+    {
+      "id": "urn:japp:schema:platform:vocabulary:v1",
+      "path": "packages/contracts/schemas/platform/vocabulary.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "7815f5424bfd3d297b9bf7fd290b99094a1dda9ee47dd1ef6abac41ad3ca0654"
+    },
+    {
       "id": "urn:japp:schema:rendering:layout-measurement:v1",
       "path": "packages/contracts/schemas/rendering/layout-measurement.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -256,8 +376,8 @@
     {
       "id": "urn:japp:schema:semantic:rule-catalog:v1",
       "path": "packages/contracts/schemas/semantic/rule-catalog.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "ea377bf2863bb78f72fb3d05955610cdc7e09fd6d91dc38971016180e43cb15c"
+      "schemaVersion": "1.1.0",
+      "sha256": "4c817c3c838ce98ca17ffd332c30aa9587b2b53ea2c172097922473d0706f8da"
     },
     {
       "id": "urn:japp:schema:session:application-session:v1",
@@ -309,7 +429,7 @@
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "d99d86ce21429ffc2b7eadd8fe5617434324a30c65ae7abfce8846bb4a7ad6b6"
+      "sha256": "a63ba0eede85617d7f435f7b8838a45c8ca2718fe452e82557c37237fabdf3ce"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -460,6 +580,90 @@
       "sha256": "1d973367d76ee436e5dfe8647339656216db0fd526aa2b9255007997fe208077"
     },
     {
+      "path": "python/src/japp_contracts/platform/__init__.py",
+      "sha256": "cdcc5546bbb49ffcb28dfae8cd7c367b07dbae9a5fd96a932e10f7d14cea9cdf"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/browser_discovery_request_v1.py",
+      "sha256": "a4fcb2d82bc7f1d98aec4a253fa61eda9bd2cc7e7149196d3fb0a6f0d747f3c7"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/browser_record_v1.py",
+      "sha256": "e949bc6a598cd034e97b026c4b1dfd9144f7d74970b912c79337fc0e8bafc507"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/capability_report_v1.py",
+      "sha256": "51d23136a6acd2475663a38fc2c1c9fec513ebcf22fdff0e56bfa5caa270251f"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/certification_input_v1.py",
+      "sha256": "9d0ea8ffb00388996c3ee9c851795f87fedd587350dab66264476eae7ff4289e"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/diagnostic_report_v1.py",
+      "sha256": "563b83c693c87f68620b6be1793bb38fb539d618b0ba32225bbe333ed2743f0e"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/evidence_record_v1.py",
+      "sha256": "09de728a277e9d2012689f0df15979d90f6280e33770d646e22c6c2a03560935"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/installer_state_v1.py",
+      "sha256": "06767ecec46a754a2bd0da554af4571c619656aa62788b2769d97f10b84e6665"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/model_runtime_profile_v1.py",
+      "sha256": "18a5d877566f4d60d85b38dc5aeb6fe053630beabb9ed10339c4ddd4e35b91ad"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/native_messaging_registration_v1.py",
+      "sha256": "92be557206b5348644f0006383298ed3e485e53653d408eaf58b864ad05b8c83"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/native_messaging_result_v1.py",
+      "sha256": "90bb19060189b4964d62a85ebd579805f7c8e862e9c1526628d2cc06a6bcc720"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/path_request_v1.py",
+      "sha256": "5fc043ec8243ee2411f9585fd120a7f8dd9f932230b8754c3545a2c7640853d2"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/path_resolution_v1.py",
+      "sha256": "49fadd6a89247e8924f10789ae5a11d6a7ece54340db1e25782724540ccc9c99"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/process_plan_v1.py",
+      "sha256": "707d29f57d017a6e238d09fdd30c28ced7849de51a50c16ba5567e7045c1823f"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/process_status_v1.py",
+      "sha256": "0b7eb2e74f057f8d3faba2dd759e2f5922a309a5dc41a0c4fa78ec63322398cb"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/runtime_capability_v1.py",
+      "sha256": "2720b82617d78ee9dfdecb8c4a6cf29dbb488c3a5f5962305eee4d03761d13df"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/secret_store_request_v1.py",
+      "sha256": "44f6f5573d536ce4c8358c7b1ba1647abbe71da439a31a3eda0d5d1e0a30dab9"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/secret_store_result_v1.py",
+      "sha256": "f63fc798eeb77091ae7ef66d4ebd4ccb8fa2317da9e9b962261ffa88fe2a70be"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/target_identity_v1.py",
+      "sha256": "bfe06b53d6f4a905d9ffab300e6662e8cbbb96d0a31997c77a54fc819993ff91"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/update_state_v1.py",
+      "sha256": "1c8531d86358654ecf5702c09631a1926d5bd0e2510bd703f71592a92b30a1d8"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/vocabulary_v1.py",
+      "sha256": "b2280fe31791eefe961d68decbedc30088104203afc16243f71ec5951284126c"
+    },
+    {
       "path": "python/src/japp_contracts/py.typed",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -513,11 +717,11 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rule_catalog_v1.py",
-      "sha256": "e1565e04f1f8adc15108b7ef85fd3d84cde7d4e4954ff0d8665c6baba94dbc3b"
+      "sha256": "e6157901cd8c2047a488ed3c3a845562337558a78bab222a5c4d3ba5455e1701"
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "f46d816173d1d74700b550ad3a87dd40193122b3617b65916e9b9d02eabe50b7"
+      "sha256": "2981a8852a78041319b7443c1bd36149ae69d015a97bb1b2d338adf39ec1ccc9"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -673,7 +877,87 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "c5a23796ec141aaa698c11fb52aa3fdbf9d63f4211415a0c0a53ed686decc74e"
+      "sha256": "0cc9a14dfb9afc57447cb3c78cb138261cdc7e18ca11398b09482709d831af36"
+    },
+    {
+      "path": "typescript/platform/browser-discovery-request.v1.ts",
+      "sha256": "5c8d813918d39203d963738b2b50a663314e2138ca0e7b7625074dca380430ab"
+    },
+    {
+      "path": "typescript/platform/browser-record.v1.ts",
+      "sha256": "735c8111d97f30bb9b03037abcc1e77188be68d561113ee59a040d8aea6bfc76"
+    },
+    {
+      "path": "typescript/platform/capability-report.v1.ts",
+      "sha256": "232e8caf3679a6b120f64f5e8cf400c2ff3be35c4df4a8e0442b9a9f383d97a4"
+    },
+    {
+      "path": "typescript/platform/certification-input.v1.ts",
+      "sha256": "68fd3f9d2b0e087dc16ee1d637229c3e385310a9ab35d41bcc209c63f48b7102"
+    },
+    {
+      "path": "typescript/platform/diagnostic-report.v1.ts",
+      "sha256": "d34d8ede9b64789a24abd58b591c6b6106d93b91555a68753880881a02418e89"
+    },
+    {
+      "path": "typescript/platform/evidence-record.v1.ts",
+      "sha256": "146dc170886815cfdd87bb6f5a5d7d786f47696121485f304ff705a554044034"
+    },
+    {
+      "path": "typescript/platform/installer-state.v1.ts",
+      "sha256": "105cf6c3e5c75635887e3fe8a945aaf543126642d0403d8cc56aed4888c4b53d"
+    },
+    {
+      "path": "typescript/platform/model-runtime-profile.v1.ts",
+      "sha256": "59320088745724b0bd9cb9fc78db3fad6a60c20907e217519fb2bb9b018ceb7a"
+    },
+    {
+      "path": "typescript/platform/native-messaging-registration.v1.ts",
+      "sha256": "edbffc8a2353cacb073a5991c8b1b9a7712bc483db0d448a858e8c47e3c8e250"
+    },
+    {
+      "path": "typescript/platform/native-messaging-result.v1.ts",
+      "sha256": "3721588e3417e2093ae245ccf49275dd3a57d9fa0770e031efb96ac57329423c"
+    },
+    {
+      "path": "typescript/platform/path-request.v1.ts",
+      "sha256": "d77ea3d9cdaf48833dd0110fb617edf6c08a76b901d73f4500f2df342d776f86"
+    },
+    {
+      "path": "typescript/platform/path-resolution.v1.ts",
+      "sha256": "044cbb1cb337ea5fb73edd6afb73d27110c21de9a784e34bf1e9ea94a5e79948"
+    },
+    {
+      "path": "typescript/platform/process-plan.v1.ts",
+      "sha256": "6df9e6ff596023172cf43b76fe3d83832af225b912287932c05d749e9d9fd016"
+    },
+    {
+      "path": "typescript/platform/process-status.v1.ts",
+      "sha256": "848d054e508c475ed39af15426cac64ed655757e8e4a38bf2cd19bdd16fe6671"
+    },
+    {
+      "path": "typescript/platform/runtime-capability.v1.ts",
+      "sha256": "6fb12d3700b6dada3a6de36cadfc645abd5cdebda54fedbec3a7fce55cc29905"
+    },
+    {
+      "path": "typescript/platform/secret-store-request.v1.ts",
+      "sha256": "660d03138104b9b3ea9523a9bd1b78a430f561e771bec709adf9495034659c05"
+    },
+    {
+      "path": "typescript/platform/secret-store-result.v1.ts",
+      "sha256": "231736e09ad36b72a49bf44c043b8cd2ccba6479008cd8ff115e214203508ae8"
+    },
+    {
+      "path": "typescript/platform/target-identity.v1.ts",
+      "sha256": "8891bac4eac2919b4bf34ac142b04d122724c1b1e530dc39f808ecdeb4b14674"
+    },
+    {
+      "path": "typescript/platform/update-state.v1.ts",
+      "sha256": "71802ed263c00b9dd3928e440ce0fc61d570e38ff276a5119be1d18065bb6daa"
+    },
+    {
+      "path": "typescript/platform/vocabulary.v1.ts",
+      "sha256": "d8f13e936bab53ec53aa999d609f29173a9c89577e07fa34956f9886165abecf"
     },
     {
       "path": "typescript/rendering/layout-measurement.v1.ts",
@@ -709,11 +993,11 @@
     },
     {
       "path": "typescript/semantic/rule-catalog.v1.ts",
-      "sha256": "a30f471e96fc88427f075c96989c17b0ca1fdb45212277ac8462dca333dbdd21"
+      "sha256": "031e09ad3ad235732f60121c4a0e8fc598fac89edd8c4fd5499a57cf2ff751ad"
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "a9b2d7aba9788b264c5d9f709cf5372b3b8c958d0a23b6e2a860c2e73b43cd05"
+      "sha256": "8b816d7a1ff842c00b6f10697a71ce83f048474619d6da86e15a5544f211ad3b"
     },
     {
       "path": "typescript/session/application-session.v1.ts",
@@ -733,7 +1017,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "09e00bc1ece40a961e6f7123aaa1d69d562236d191a000a4d5f93b351b2fc006"
+      "sha256": "459790ca393c066f7d642044f99b62caedc0435f5e81232a220d039071dc49d6"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -1827,6 +2111,796 @@
       "typescript": {
         "export": "GateEvidenceBundleV1GateId",
         "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:browser-discovery-request:v1": {
+      "python": {
+        "module": "japp_contracts.platform.browser_discovery_request_v1",
+        "symbol": "PlatformBrowserDiscoveryRequestV1"
+      },
+      "typescript": {
+        "export": "PlatformBrowserDiscoveryRequestV1",
+        "module": "typescript/platform/browser-discovery-request.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:browser-record:v1": {
+      "python": {
+        "module": "japp_contracts.platform.browser_record_v1",
+        "symbol": "PlatformBrowserRecordV1"
+      },
+      "typescript": {
+        "export": "PlatformBrowserRecordV1",
+        "module": "typescript/platform/browser-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:capability-report:v1": {
+      "python": {
+        "module": "japp_contracts.platform.capability_report_v1",
+        "symbol": "PlatformCapabilityReportV1"
+      },
+      "typescript": {
+        "export": "PlatformCapabilityReportV1",
+        "module": "typescript/platform/capability-report.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:certification-input:v1": {
+      "python": {
+        "module": "japp_contracts.platform.certification_input_v1",
+        "symbol": "PlatformCertificationInputV1"
+      },
+      "typescript": {
+        "export": "PlatformCertificationInputV1",
+        "module": "typescript/platform/certification-input.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:diagnostic-report:v1": {
+      "python": {
+        "module": "japp_contracts.platform.diagnostic_report_v1",
+        "symbol": "PlatformDiagnosticReportV1"
+      },
+      "typescript": {
+        "export": "PlatformDiagnosticReportV1",
+        "module": "typescript/platform/diagnostic-report.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:evidence-record:v1": {
+      "python": {
+        "module": "japp_contracts.platform.evidence_record_v1",
+        "symbol": "PlatformEvidenceRecordV1"
+      },
+      "typescript": {
+        "export": "PlatformEvidenceRecordV1",
+        "module": "typescript/platform/evidence-record.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:installer-state:v1": {
+      "python": {
+        "module": "japp_contracts.platform.installer_state_v1",
+        "symbol": "PlatformInstallerStateV1"
+      },
+      "typescript": {
+        "export": "PlatformInstallerStateV1",
+        "module": "typescript/platform/installer-state.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:model-runtime-profile:v1": {
+      "python": {
+        "module": "japp_contracts.platform.model_runtime_profile_v1",
+        "symbol": "PlatformModelRuntimeProfileV1"
+      },
+      "typescript": {
+        "export": "PlatformModelRuntimeProfileV1",
+        "module": "typescript/platform/model-runtime-profile.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:native-messaging-registration:v1": {
+      "python": {
+        "module": "japp_contracts.platform.native_messaging_registration_v1",
+        "symbol": "PlatformNativeMessagingRegistrationV1"
+      },
+      "typescript": {
+        "export": "PlatformNativeMessagingRegistrationV1",
+        "module": "typescript/platform/native-messaging-registration.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:native-messaging-result:v1": {
+      "python": {
+        "module": "japp_contracts.platform.native_messaging_result_v1",
+        "symbol": "PlatformNativeMessagingResultV1"
+      },
+      "typescript": {
+        "export": "PlatformNativeMessagingResultV1",
+        "module": "typescript/platform/native-messaging-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:path-request:v1": {
+      "python": {
+        "module": "japp_contracts.platform.path_request_v1",
+        "symbol": "PlatformPathRequestV1"
+      },
+      "typescript": {
+        "export": "PlatformPathRequestV1",
+        "module": "typescript/platform/path-request.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:path-resolution:v1": {
+      "python": {
+        "module": "japp_contracts.platform.path_resolution_v1",
+        "symbol": "PlatformPathResolutionV1"
+      },
+      "typescript": {
+        "export": "PlatformPathResolutionV1",
+        "module": "typescript/platform/path-resolution.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:process-plan:v1": {
+      "python": {
+        "module": "japp_contracts.platform.process_plan_v1",
+        "symbol": "PlatformProcessPlanV1"
+      },
+      "typescript": {
+        "export": "PlatformProcessPlanV1",
+        "module": "typescript/platform/process-plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:process-status:v1": {
+      "python": {
+        "module": "japp_contracts.platform.process_status_v1",
+        "symbol": "PlatformProcessStatusV1"
+      },
+      "typescript": {
+        "export": "PlatformProcessStatusV1",
+        "module": "typescript/platform/process-status.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:runtime-capability:v1": {
+      "python": {
+        "module": "japp_contracts.platform.runtime_capability_v1",
+        "symbol": "PlatformRuntimeCapabilityV1"
+      },
+      "typescript": {
+        "export": "PlatformRuntimeCapabilityV1",
+        "module": "typescript/platform/runtime-capability.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:secret-store-request:v1": {
+      "python": {
+        "module": "japp_contracts.platform.secret_store_request_v1",
+        "symbol": "PlatformSecretStoreRequestV1"
+      },
+      "typescript": {
+        "export": "PlatformSecretStoreRequestV1",
+        "module": "typescript/platform/secret-store-request.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:secret-store-result:v1": {
+      "python": {
+        "module": "japp_contracts.platform.secret_store_result_v1",
+        "symbol": "PlatformSecretStoreResultV1"
+      },
+      "typescript": {
+        "export": "PlatformSecretStoreResultV1",
+        "module": "typescript/platform/secret-store-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:target-identity:v1": {
+      "python": {
+        "module": "japp_contracts.platform.target_identity_v1",
+        "symbol": "PlatformTargetIdentityV1"
+      },
+      "typescript": {
+        "export": "PlatformTargetIdentityV1",
+        "module": "typescript/platform/target-identity.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:update-state:v1": {
+      "python": {
+        "module": "japp_contracts.platform.update_state_v1",
+        "symbol": "PlatformUpdateStateV1"
+      },
+      "typescript": {
+        "export": "PlatformUpdateStateV1",
+        "module": "typescript/platform/update-state.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1AcceleratorClass"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1AcceleratorClass",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1Architecture"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1Architecture",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ArtifactIdentity"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ArtifactIdentity",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1BoundedUserMessage"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1BoundedUserMessage",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1BrowserChannel"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1BrowserChannel",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1BrowserFamily"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1BrowserFamily",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/buildToken": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1BuildToken"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1BuildToken",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1CapabilityAvailability"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1CapabilityAvailability",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1CapabilityState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1CapabilityState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/certifiedPlatformId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1CertifiedPlatformId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1CertifiedPlatformId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/contextTokens": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ContextTokens"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ContextTokens",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1CoreCapabilityBehavior"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1CoreCapabilityBehavior",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1DiagnosticResult"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1DiagnosticResult",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/distributionChannel": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1DistributionChannel"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1DistributionChannel",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1EnvironmentEntry"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1EnvironmentEntry",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentVariableId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1EnvironmentVariableId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1EnvironmentVariableId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1EvaluationMethod"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1EvaluationMethod",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1EvidenceArtifactKind"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1EvidenceArtifactKind",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/extensionId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ExtensionId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ExtensionId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/installationScope": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1InstallationScope"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1InstallationScope",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/installerState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1InstallerState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1InstallerState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1LifecycleMode"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1LifecycleMode",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1MachineClass"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1MachineClass",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1MemoryMebibytes"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1MemoryMebibytes",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostCleanupState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1NativeHostCleanupState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1NativeHostCleanupState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1NativeHostName"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1NativeHostName",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/ownerDecisionState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1OwnerDecisionState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1OwnerDecisionState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/packageFormat": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PackageFormat"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PackageFormat",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/pathResolutionState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PathResolutionState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PathResolutionState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PathRole"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PathRole",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/pathSegment": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PathSegment"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PathSegment",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PlatformCapabilityId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PlatformCapabilityId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PlatformComponentId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PlatformComponentId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PlatformId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PlatformId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1PlatformReasonCode"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1PlatformReasonCode",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProcessArgument"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProcessArgument",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProcessExitCode"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProcessExitCode",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProcessProfileId"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProcessProfileId",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/processState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProcessState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProcessState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProductVersion"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProductVersion",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/profileAcceptanceState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ProfileAcceptanceState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ProfileAcceptanceState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/redactedPathReference": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1RedactedPathReference"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1RedactedPathReference",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationOperation": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1RegistrationOperation"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1RegistrationOperation",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1RegistrationState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1RegistrationState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1RequestContext"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1RequestContext",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/reviewState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1ReviewState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1ReviewState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1RuntimeFamily"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1RuntimeFamily",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/secretKeyRole": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SecretKeyRole"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SecretKeyRole",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/secretOperation": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SecretOperation"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SecretOperation",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/secretReference": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SecretReference"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SecretReference",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/secretResultState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SecretResultState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SecretResultState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/severity": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1Severity"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1Severity",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/signatureState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SignatureState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SignatureState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1StdioMode"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1StdioMode",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/supportClaim": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SupportClaim"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SupportClaim",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/supportTier": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1SupportTier"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1SupportTier",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1TerminationRequest"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1TerminationRequest",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1TimeoutMilliseconds"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1TimeoutMilliseconds",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/updateState": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1UpdateState"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1UpdateState",
+        "module": "typescript/platform/vocabulary.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:vocabulary:v1#/$defs/userDataPreservation": {
+      "python": {
+        "module": "japp_contracts.platform.vocabulary_v1",
+        "symbol": "PlatformVocabularyV1UserDataPreservation"
+      },
+      "typescript": {
+        "export": "PlatformVocabularyV1UserDataPreservation",
+        "module": "typescript/platform/vocabulary.v1.ts"
       }
     },
     "urn:japp:schema:rendering:layout-measurement:v1": {

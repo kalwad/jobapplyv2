@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:browser-discovery-request:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Browser discovery request",
+  "description": "A request to report whether a reviewed browser family and channel are present on a certified platform. It cannot name an executable, search a path, launch a URL, invoke a shell, or pass browser arguments.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "browser_discovery_request_id",
+    "request_context",
+    "platform_id",
+    "browser_family",
+    "browser_channel",
+    "include_capability_probe"
+  ],
+  "properties": {
+    "browser_discovery_request_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_context": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "browser_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserFamily"
+    },
+    "browser_channel": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/browserChannel"
+    },
+    "include_capability_probe": {
+      "description": "Whether the adapter should additionally report native-messaging capability. A probe never launches the browser.",
+      "type": "boolean"
+    },
+    "minimum_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    }
+  }
+}

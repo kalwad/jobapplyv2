@@ -37,7 +37,7 @@ from japp_contracts._runtime import ContractModel  # noqa: E402
 
 PROTOCOL_VERSION: Final = "JAPP_CONTRACT_ADAPTER_V1"
 LANGUAGE: Final = "python"
-MAX_CASES: Final = 256
+MAX_CASES: Final = 512
 MAX_PROTOCOL_BYTES: Final = 4 * 1024 * 1024
 MAX_RAW_BYTES: Final = 1024 * 1024
 MAX_DEPTH: Final = 64

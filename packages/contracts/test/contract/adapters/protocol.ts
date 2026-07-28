@@ -7,7 +7,15 @@
  */
 
 export const ADAPTER_PROTOCOL_VERSION = "JAPP_CONTRACT_ADAPTER_V1";
-export const MAX_ADAPTER_CASES = 256;
+/**
+ * Maximum cases in one request. M01-W07 raised this from 256 to 512 so the
+ * corpus can cover nineteen additional platform roots and their semantic
+ * invariants in a single deterministic batch. The bound's purpose — refusing
+ * unbounded adapter input — is unchanged: `MAX_PROTOCOL_BYTES`,
+ * `MAX_RAW_INPUT_BYTES`, and `MAX_JSON_DEPTH` still apply, all three adapters
+ * enforce the same value, and an over-cap batch is still rejected.
+ */
+export const MAX_ADAPTER_CASES = 512;
 export const MAX_PROTOCOL_BYTES = 4 * 1024 * 1024;
 export const MAX_RAW_INPUT_BYTES = 1024 * 1024;
 export const MAX_JSON_DEPTH = 64;

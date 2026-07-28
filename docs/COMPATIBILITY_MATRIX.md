@@ -22,6 +22,11 @@ ATS/browser/OS support and measured pass rates
   adapters Workday-first — Workday (M19–M20), then Greenhouse (M21),
   Lever (M22), Ashby (M23), iCIMS/SmartRecruiters (M29),
   Taleo/SuccessFactors (M30).
+- M01-W07 defined the typed contract shape a future row must carry (exact
+  target, architecture, browser family/channel and version, artifact digest
+  and signature state, reviewed support tier, reviewer, evaluated revision,
+  evidence references, and last-tested date). Defining that shape adds no row
+  and grants no support claim; every table below remains empty.
 
 ## Workday tenant patterns (first production ATS — spec §5.11.9.13)
 

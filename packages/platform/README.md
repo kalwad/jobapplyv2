@@ -9,7 +9,12 @@ Ownership boundaries (do not implement these here ahead of their owners):
 - Typed platform contracts (`PlatformCapabilities`, `PlatformPaths`,
   `SecretStore`, `ProcessSupervisor`, `NativeMessagingRegistrar`,
   `BrowserLocator`, `ModelRuntimeProvider`, `InstallerState`,
-  `UpdaterProvider`, `PlatformDiagnostics`): **M01-W07**.
+  `UpdaterProvider`, `PlatformDiagnostics`): **delivered by M01-W07** as
+  canonical JSON Schema under `packages/contracts/schemas/platform/`, with
+  generated strict TypeScript and Pydantic v2 surfaces. See
+  `packages/contracts/M01-W07.md`. This package still contains no interface
+  code, no adapter, and no product behavior; it gains implementation only with
+  the owners below.
 - Lifecycle/path/process adapters: **M03-W07 … M03-W10**.
 - macOS Keychain / Windows Credential Manager+DPAPI / Ubuntu Secret
   Service secret stores and portable backup: **M04-W07 … M04-W10**.

@@ -1,0 +1,669 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:vocabulary:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Cross-platform capability and platform-service vocabulary",
+  "description": "Shared finite vocabularies and bounded supporting records for the M01-W07 platform-service boundary. Enum tokens use the repository UPPER_SNAKE_CASE grammar; MACOS_ARM64, WINDOWS_X64, and UBUNTU_X64 are the exact specification targets macos-arm64, windows-x64, and ubuntu-x64. Nothing here certifies a platform, resolves a path, opens a secret store, spawns a process, registers a native host, locates a browser, runs a model, installs, or updates.",
+  "$defs": {
+    "platformId": {
+      "title": "Detected platform target identifier",
+      "description": "Closed target vocabulary. UNSUPPORTED_TARGET is a recognized but uncertified target; UNKNOWN_TARGET is an unrecognized or unevaluated target. Neither may ever carry a certified support tier.",
+      "type": "string",
+      "enum": [
+        "MACOS_ARM64",
+        "UBUNTU_X64",
+        "UNKNOWN_TARGET",
+        "UNSUPPORTED_TARGET",
+        "WINDOWS_X64"
+      ]
+    },
+    "certifiedPlatformId": {
+      "title": "Certified first-release target identifier",
+      "description": "The exact three certified first-release targets. Windows 10, Intel macOS, Windows ARM64, and non-Ubuntu Linux distributions are deliberately absent.",
+      "type": "string",
+      "enum": ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"]
+    },
+    "architecture": {
+      "title": "Processor architecture",
+      "type": "string",
+      "enum": ["ARM64", "UNKNOWN_ARCHITECTURE", "X86_64"]
+    },
+    "supportTier": {
+      "title": "Platform support tier",
+      "description": "CERTIFIED_FULL is complete core plus an accepted local-AI profile; CERTIFIED_CORE is deterministic core workflows with AI unavailable or below the performance tier; EXPERIMENTAL carries no support promise; UNSUPPORTED is blocked with an explanation. A support tier is a reviewed claim, never a self-asserted request field.",
+      "type": "string",
+      "enum": [
+        "CERTIFIED_CORE",
+        "CERTIFIED_FULL",
+        "EXPERIMENTAL",
+        "UNSUPPORTED"
+      ]
+    },
+    "platformCapabilityId": {
+      "title": "Platform capability family",
+      "description": "Closed set of specification-owned platform capability families reported by the platform service.",
+      "type": "string",
+      "enum": [
+        "BROWSER_PRESENCE",
+        "DIAGNOSTICS",
+        "MODEL_RUNTIME",
+        "NATIVE_MESSAGING",
+        "PACKAGING_UPDATE_CHANNEL",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE"
+      ]
+    },
+    "capabilityAvailability": {
+      "title": "Capability availability state",
+      "description": "AVAILABLE and DEGRADED_LIMITED are the only non-blocking states. NOT_EVALUATED and UNKNOWN are explicitly not success. UNSUPPORTED_TARGET means the capability cannot exist on this target at all.",
+      "type": "string",
+      "enum": [
+        "AVAILABLE",
+        "DEGRADED_LIMITED",
+        "INCOMPATIBLE_VERSION",
+        "NOT_EVALUATED",
+        "NOT_INSTALLED",
+        "PERMISSION_REQUIRED",
+        "UNAVAILABLE",
+        "UNKNOWN",
+        "UNSUPPORTED_TARGET"
+      ]
+    },
+    "platformReasonCode": {
+      "title": "Finite platform reason code",
+      "description": "Closed, user-safe, redaction-safe reason vocabulary. Reason codes never carry host paths, registry values, device identifiers, machine secrets, or free-form operating-system text.",
+      "type": "string",
+      "enum": [
+        "ADAPTER_ERROR",
+        "ARTIFACT_DIGEST_MISMATCH",
+        "CONFIGURATION_INVALID",
+        "DEPENDENCY_MISSING",
+        "EVALUATION_NOT_RUN",
+        "IDENTITY_MISMATCH",
+        "INCOMPATIBLE_RUNTIME_VERSION",
+        "INSUFFICIENT_HARDWARE",
+        "INTERRUPTED",
+        "NOT_INSTALLED",
+        "PERMISSION_DENIED",
+        "POLICY_DISABLED",
+        "SERVICE_UNAVAILABLE",
+        "SIGNATURE_NOT_VERIFIED",
+        "TARGET_NOT_CERTIFIED",
+        "TIMEOUT",
+        "UNKNOWN_ERROR",
+        "USER_CANCELED"
+      ]
+    },
+    "severity": {
+      "title": "Diagnostic severity",
+      "type": "string",
+      "enum": ["CRITICAL", "ERROR", "INFO", "WARNING"]
+    },
+    "platformComponentId": {
+      "title": "Platform component identifier",
+      "description": "The typed platform interfaces defined by specification §5.14.2. Shared domain code addresses these components instead of operating-system APIs.",
+      "type": "string",
+      "enum": [
+        "BROWSER_LOCATOR",
+        "INSTALLER_STATE",
+        "MODEL_RUNTIME_PROVIDER",
+        "NATIVE_MESSAGING_REGISTRAR",
+        "PLATFORM_CAPABILITIES",
+        "PLATFORM_DIAGNOSTICS",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISOR",
+        "SECRET_STORE",
+        "UPDATER_PROVIDER"
+      ]
+    },
+    "evaluationMethod": {
+      "title": "How a platform observation was produced",
+      "description": "NOT_EVALUATED and DECLARED_PLAN are never measured evidence. Only MEASURED_NATIVE_RUN represents execution on the actual operating-system family and architecture.",
+      "type": "string",
+      "enum": [
+        "DECLARED_PLAN",
+        "MEASURED_NATIVE_RUN",
+        "NOT_EVALUATED",
+        "STATIC_INSPECTION",
+        "SYNTHETIC_FIXTURE"
+      ]
+    },
+    "reviewState": {
+      "title": "Independent review state",
+      "type": "string",
+      "enum": ["NOT_REVIEWED", "REVIEW_COMPLETE", "REVIEW_IN_PROGRESS"]
+    },
+    "ownerDecisionState": {
+      "title": "Owner decision state",
+      "type": "string",
+      "enum": ["NOT_REQUIRED", "PENDING", "RECORDED"]
+    },
+    "installationScope": {
+      "title": "Installation scope",
+      "description": "Per-user is the preferred default; SYSTEM scope is a reviewed exception, never a caller-chosen escalation.",
+      "type": "string",
+      "enum": ["SYSTEM", "USER"]
+    },
+    "pathRole": {
+      "title": "Typed logical path role",
+      "description": "The complete caller-facing path vocabulary. A caller selects a role; it can never supply an absolute path, traversal path, UNC or device path, registry path, shell or environment expansion, executable lookup input, or arbitrary working directory.",
+      "type": "string",
+      "enum": [
+        "APPLICATION_DATA",
+        "ARTIFACT_STORE",
+        "BACKUP_STAGING",
+        "CACHE",
+        "DIAGNOSTIC_BUNDLE",
+        "LOG_STORE",
+        "MODEL_ARTIFACT_STORE",
+        "NATIVE_HOST_REGISTRATION",
+        "TEMPORARY"
+      ]
+    },
+    "pathSegment": {
+      "title": "Bounded relative path segment",
+      "description": "One already-normalized relative segment. Separators, traversal, drive letters, device prefixes, home shorthand, and environment expansion cannot be expressed.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "pathResolutionState": {
+      "title": "Path resolution state",
+      "type": "string",
+      "enum": ["DENIED_PERMISSION", "NOT_EVALUATED", "RESOLVED", "UNAVAILABLE"]
+    },
+    "redactedPathReference": {
+      "title": "Sanitized logical path reference",
+      "description": "A trusted adapter result may report a resolved location only in sanitized form: an angle-bracketed role placeholder followed by bounded normalized relative segments. Absolute paths, drive letters, UNC and device prefixes, backslashes, traversal, home-directory shorthand, environment expansion, and registry syntax are structurally unrepresentable.",
+      "type": "string",
+      "pattern": "^<[A-Z][A-Z0-9_]{1,31}>(?:/[A-Za-z0-9][A-Za-z0-9._-]{0,63}){0,8}$",
+      "minLength": 3,
+      "maxLength": 256,
+      "x-japp-sensitivity": "INTERNAL",
+      "x-japp-redaction": "HASH_ONLY"
+    },
+    "productVersion": {
+      "title": "Bounded product version",
+      "description": "One to four dot-separated non-negative components without leading zeros. Covers semantic versions and four-component browser/runtime versions.",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)(?:\\.(0|[1-9][0-9]*)){0,3}$",
+      "minLength": 1,
+      "maxLength": 48
+    },
+    "buildToken": {
+      "title": "Bounded operating-system build token",
+      "description": "Opaque vendor build label. It cannot carry whitespace, path separators, shell syntax, or machine identity.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "browserFamily": {
+      "title": "Browser family",
+      "description": "Chrome stable is the only certified browser. UNKNOWN_BROWSER records a recognized-but-uncertified observation and can never be certified.",
+      "type": "string",
+      "enum": ["CHROME", "UNKNOWN_BROWSER"]
+    },
+    "browserChannel": {
+      "title": "Browser release channel",
+      "description": "Only STABLE is certified. UNKNOWN_CHANNEL is an honest unevaluated observation.",
+      "type": "string",
+      "enum": ["STABLE", "UNKNOWN_CHANNEL"]
+    },
+    "extensionId": {
+      "title": "Chrome extension identifier",
+      "description": "Exactly 32 characters from the Chrome extension alphabet. Only allowlisted identifiers may appear in a registration contract.",
+      "type": "string",
+      "pattern": "^[a-p]{32}$",
+      "minLength": 32,
+      "maxLength": 32
+    },
+    "nativeHostName": {
+      "title": "Native-messaging host name",
+      "description": "Chrome native-messaging host name grammar: lowercase alphanumeric and underscore segments separated by dots. It is an identity, never a filesystem path or executable name.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z0-9_]+)*$",
+      "minLength": 3,
+      "maxLength": 96
+    },
+    "secretKeyRole": {
+      "title": "Bounded secret key role",
+      "description": "Closed set of reviewed secret roles owned by the local product. An untrusted caller cannot name a keychain service/account, a Windows registry location, or a D-Bus request. External-provider tokens are deliberately absent and remain future work.",
+      "type": "string",
+      "enum": [
+        "BACKUP_WRAPPING_KEY",
+        "DATABASE_ENCRYPTION_KEY",
+        "LOCAL_SERVICE_AUTH_TOKEN",
+        "NATIVE_HOST_SESSION_TOKEN"
+      ]
+    },
+    "secretReference": {
+      "title": "Opaque secret reference",
+      "description": "Bounded opaque handle for secret material held by the platform store. It is never the secret itself and never appears in diagnostics or evidence with a value attached.",
+      "type": "string",
+      "pattern": "^secref_[0-9A-HJKMNP-TV-Z]{26}$",
+      "minLength": 33,
+      "maxLength": 33,
+      "x-japp-sensitivity": "SECRET",
+      "x-japp-redaction": "FORBID_CAPTURE"
+    },
+    "secretOperation": {
+      "title": "Secret-store operation",
+      "description": "STATUS is an availability probe that never touches secret material.",
+      "type": "string",
+      "enum": ["DELETE", "GET", "PUT", "STATUS"]
+    },
+    "secretResultState": {
+      "title": "Secret-store result state",
+      "description": "Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference.",
+      "type": "string",
+      "enum": [
+        "DELETED",
+        "DENIED_PERMISSION",
+        "NOT_FOUND",
+        "OPERATION_FAILED",
+        "RETRIEVED",
+        "STORED",
+        "STORE_UNAVAILABLE"
+      ]
+    },
+    "processProfileId": {
+      "title": "Approved process profile",
+      "description": "Closed set of reviewed executable profiles. A spawn plan names a profile; it can never carry an executable path, executable name, interpreter, or command text.",
+      "type": "string",
+      "enum": [
+        "LOCAL_ORCHESTRATOR",
+        "MODEL_RUNTIME_HOST",
+        "NATIVE_MESSAGING_HOST"
+      ]
+    },
+    "environmentVariableId": {
+      "title": "Allowlisted environment variable",
+      "description": "Closed set of reviewed variable identifiers. An arbitrary environment dictionary is structurally unrepresentable, and no allowlisted variable may carry credential material.",
+      "type": "string",
+      "enum": [
+        "JAPP_DIAGNOSTIC_LEVEL",
+        "JAPP_LOG_LEVEL",
+        "JAPP_PATH_ROLE",
+        "JAPP_RUNTIME_PROFILE_ID",
+        "JAPP_SERVICE_BIND_HOST",
+        "JAPP_SERVICE_PORT"
+      ]
+    },
+    "environmentEntry": {
+      "title": "Allowlisted environment entry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["variable", "value"],
+      "properties": {
+        "variable": {
+          "$ref": "#/$defs/environmentVariableId"
+        },
+        "value": {
+          "description": "Bounded inert token. Whitespace, shell metacharacters, markup, and path separators are excluded by the token grammar.",
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        }
+      }
+    },
+    "processArgument": {
+      "title": "Bounded process argument",
+      "description": "One already-separated argument. Arguments are never concatenated into a command line and never interpreted by a shell.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._=:@+-]{0,127}$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "stdioMode": {
+      "title": "Process stdio mode",
+      "description": "BINARY_LENGTH_PREFIXED is the Windows-safe native-messaging mode. Raw file-descriptor numbers are structurally unrepresentable.",
+      "type": "string",
+      "enum": [
+        "BINARY_LENGTH_PREFIXED",
+        "INHERIT_NONE",
+        "NULL_DEVICE",
+        "PIPE_BOUNDED"
+      ]
+    },
+    "lifecycleMode": {
+      "title": "Process lifecycle mode",
+      "type": "string",
+      "enum": ["ONE_SHOT", "SUPERVISED_LONG_RUNNING"]
+    },
+    "processState": {
+      "title": "Process lifecycle state",
+      "description": "UNAVAILABLE means the supervisor itself could not observe the process. ORPHANED means the child outlived its supervising parent and requires cleanup.",
+      "type": "string",
+      "enum": [
+        "EXITED",
+        "FAILED",
+        "ORPHANED",
+        "RUNNING",
+        "STARTING",
+        "TERMINATED",
+        "TERMINATING",
+        "UNAVAILABLE"
+      ]
+    },
+    "terminationRequest": {
+      "title": "Typed termination request",
+      "description": "Typed intent only. Raw signal numbers, signal names, and platform-specific kill semantics are deliberately not representable.",
+      "type": "string",
+      "enum": ["GRACEFUL_STOP", "IMMEDIATE_STOP", "NONE"]
+    },
+    "registrationOperation": {
+      "title": "Native-messaging registration operation",
+      "type": "string",
+      "enum": ["INSTALL", "REMOVE", "REPAIR", "UPDATE", "VERIFY"]
+    },
+    "registrationState": {
+      "title": "Native-messaging registration state",
+      "type": "string",
+      "enum": [
+        "ABSENT",
+        "CORRUPT",
+        "MISMATCHED_IDENTITY",
+        "NOT_EVALUATED",
+        "PRESENT_STALE",
+        "PRESENT_VALID"
+      ]
+    },
+    "packageFormat": {
+      "title": "Certified package format",
+      "type": "string",
+      "enum": [
+        "APPLE_DISK_IMAGE",
+        "APP_IMAGE",
+        "DEBIAN_PACKAGE",
+        "WINDOWS_INSTALLER"
+      ]
+    },
+    "distributionChannel": {
+      "title": "Packaging and update channel",
+      "description": "NOT_CONFIGURED is the honest state while no signed channel exists. TEST_SYNTHETIC is never a release claim.",
+      "type": "string",
+      "enum": ["NOT_CONFIGURED", "RELEASE_STABLE", "TEST_SYNTHETIC"]
+    },
+    "signatureState": {
+      "title": "Artifact signature state",
+      "type": "string",
+      "enum": [
+        "NOT_EVALUATED",
+        "SIGNATURE_INVALID",
+        "SIGNATURE_MISSING",
+        "SIGNATURE_VALID"
+      ]
+    },
+    "installerState": {
+      "title": "Installer lifecycle state",
+      "type": "string",
+      "enum": [
+        "INSTALLED",
+        "INSTALL_FAILED",
+        "INSTALL_INTERRUPTED",
+        "NOT_INSTALLED",
+        "REPAIRED",
+        "REPAIR_FAILED",
+        "UNINSTALLED",
+        "UNINSTALL_FAILED"
+      ]
+    },
+    "updateState": {
+      "title": "Updater lifecycle state",
+      "type": "string",
+      "enum": [
+        "NO_UPDATE_AVAILABLE",
+        "ROLLBACK_FAILED",
+        "ROLLED_BACK",
+        "UPDATE_AVAILABLE",
+        "UPDATE_FAILED",
+        "UPDATE_INSTALLED",
+        "UPDATE_INTERRUPTED"
+      ]
+    },
+    "userDataPreservation": {
+      "title": "User-data preservation indicator",
+      "description": "EXPLICIT_DELETION_REQUESTED is the only state in which user data may be removed, and it requires an explicit user request recorded elsewhere.",
+      "type": "string",
+      "enum": [
+        "EXPLICIT_DELETION_REQUESTED",
+        "NOT_EVALUATED",
+        "PRESERVED",
+        "PRESERVATION_FAILED"
+      ]
+    },
+    "nativeHostCleanupState": {
+      "title": "Native-host cleanup state",
+      "type": "string",
+      "enum": ["CLEANUP_FAILED", "NOT_APPLICABLE", "NOT_EVALUATED", "REMOVED"]
+    },
+    "runtimeFamily": {
+      "title": "Local model runtime family",
+      "description": "Closed runtime vocabulary for the accepted local Ollama paths. External providers are deliberately absent and remain non-core future work.",
+      "type": "string",
+      "enum": ["OLLAMA_GGUF", "OLLAMA_MLX"]
+    },
+    "acceleratorClass": {
+      "title": "Accelerator class",
+      "type": "string",
+      "enum": ["APPLE_SILICON_GPU", "CPU_ONLY", "NVIDIA_CUDA"]
+    },
+    "profileAcceptanceState": {
+      "title": "Model-runtime profile acceptance state",
+      "description": "ACCEPTED requires artifact and runtime evidence and a certified target. No Windows or Ubuntu profile is accepted today.",
+      "type": "string",
+      "enum": ["ACCEPTED", "NOT_EVALUATED", "REJECTED", "UNDER_EVALUATION"]
+    },
+    "coreCapabilityBehavior": {
+      "title": "Deterministic-core behavior when AI is limited",
+      "description": "Deterministic core workflows must remain usable in every state. FULL_AI_AVAILABLE additionally requires an accepted profile.",
+      "type": "string",
+      "enum": [
+        "CORE_PRESERVED_AI_DEGRADED",
+        "CORE_PRESERVED_AI_UNAVAILABLE",
+        "FULL_AI_AVAILABLE"
+      ]
+    },
+    "diagnosticResult": {
+      "title": "Diagnostic outcome",
+      "description": "SUCCESS may not coexist with a blocking reason. BLOCKED means an external boundary prevented evaluation.",
+      "type": "string",
+      "enum": ["BLOCKED", "FAILURE", "SUCCESS", "WARNING"]
+    },
+    "machineClass": {
+      "title": "Evidence machine class",
+      "description": "Coarse machine class only. Hostnames, serial numbers, user names, MAC addresses, and other machine-specific identity are never represented.",
+      "type": "string",
+      "enum": [
+        "HOSTED_CI_RUNNER",
+        "PHYSICAL_DEVELOPMENT_MACHINE",
+        "SYNTHETIC_FIXTURE"
+      ]
+    },
+    "evidenceArtifactKind": {
+      "title": "Cross-platform evidence artifact kind",
+      "description": "Every artifact reference is a digest of a synthetic-safe artifact. Raw logs, environment dumps, registry exports, and machine PII are never embedded.",
+      "type": "string",
+      "enum": [
+        "BACKUP_RESTORE_REPORT",
+        "DIAGNOSTIC_BUNDLE_REPORT",
+        "DOCUMENT_MATRIX_REPORT",
+        "INSTALL_LAUNCH_REPORT",
+        "LOG_EXCERPT_REPORT",
+        "MODEL_PROFILE_REPORT",
+        "NATIVE_HOST_REGISTRATION_REPORT",
+        "SCREENSHOT_REPORT",
+        "SECRET_STORE_TEST_REPORT",
+        "TRACE_REPORT",
+        "UPDATE_ROLLBACK_REPORT"
+      ]
+    },
+    "capabilityState": {
+      "title": "Capability state record",
+      "description": "One capability observation. Availability, the evidence method, and the finite reason list are always explicit; an unevaluated capability is never reported as success.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "availability",
+        "evaluation_method",
+        "reason_codes"
+      ],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/platformCapabilityId"
+        },
+        "availability": {
+          "$ref": "#/$defs/capabilityAvailability"
+        },
+        "evaluation_method": {
+          "$ref": "#/$defs/evaluationMethod"
+        },
+        "reason_codes": {
+          "description": "Finite reasons explaining a non-available state. An AVAILABLE capability carries none.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/platformReasonCode"
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "identity_token": {
+          "description": "Bounded identity of the concrete provider observed (for example a secret-store backend family). Required evidence for an AVAILABLE capability.",
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "detected_version": {
+          "description": "Observed provider version. Required evidence for an AVAILABLE capability.",
+          "$ref": "#/$defs/productVersion"
+        },
+        "evidence_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "observed_at": {
+          "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+        }
+      }
+    },
+    "supportClaim": {
+      "title": "Reviewed support claim",
+      "description": "Separates a claimed tier from the reviewed tier and its evidence. A claim is inert data; only the reviewed tier plus evaluated-revision and evidence references may be treated as certification.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimed_tier", "reviewed_tier", "review_state"],
+      "properties": {
+        "claimed_tier": {
+          "description": "Tier proposed by the producing adapter or record. Untrusted.",
+          "$ref": "#/$defs/supportTier"
+        },
+        "reviewed_tier": {
+          "description": "Tier accepted after independent review. UNSUPPORTED until proven.",
+          "$ref": "#/$defs/supportTier"
+        },
+        "review_state": {
+          "$ref": "#/$defs/reviewState"
+        },
+        "evaluated_commit": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+        },
+        "evaluated_tree": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        },
+        "reviewer_identity_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        }
+      }
+    },
+    "requestContext": {
+      "title": "Platform request context",
+      "description": "Trusted routing metadata attached to every caller-facing platform request. The requesting principal is authenticated elsewhere; content scripts, model runtimes, and the public index can never be valid platform requesters.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requesting_principal",
+        "authorization_profile",
+        "requested_at",
+        "correlation_id"
+      ],
+      "properties": {
+        "requesting_principal": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/principalId"
+        },
+        "authorization_profile": {
+          "$ref": "urn:japp:schema:security:capability-taxonomy:v1#/$defs/authorizationProfileId"
+        },
+        "requested_at": {
+          "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+        },
+        "correlation_id": {
+          "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+        },
+        "causation_id": {
+          "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+        },
+        "idempotency_key": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        }
+      }
+    },
+    "artifactIdentity": {
+      "title": "Bounded artifact identity",
+      "description": "Names a package or model artifact by identity and digest only. No download URL, mirror, signing key, or filesystem location is representable.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_token", "artifact_digest"],
+      "properties": {
+        "artifact_token": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+        },
+        "artifact_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        },
+        "artifact_bytes": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        }
+      }
+    },
+    "processExitCode": {
+      "title": "Bounded process exit code",
+      "description": "Unsigned exit status covering POSIX and Windows ranges. Raw signal values are deliberately absent.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "timeoutMilliseconds": {
+      "title": "Bounded operation timeout",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600000
+    },
+    "memoryMebibytes": {
+      "title": "Bounded memory requirement in MiB",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4194304
+    },
+    "contextTokens": {
+      "title": "Bounded model context window in tokens",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4194304
+    },
+    "boundedUserMessage": {
+      "title": "Bounded user-safe message",
+      "description": "Short remediation text intended for a human. The character set excludes markup, path separators, shell syntax, and interpolation.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ,;:.'()-]{0,239}$",
+      "minLength": 1,
+      "maxLength": 240
+    }
+  }
+}

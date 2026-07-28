@@ -161,7 +161,7 @@ describe("determinism", () => {
       inputs: { path: string; sha256: string }[];
       outputs: { path: string; sha256: string }[];
     };
-    expect(parsed.inputs.length).toBe(43);
+    expect(parsed.inputs.length).toBe(63);
     expect(parsed.outputs.length).toBe(tree.files.size - 1);
     for (const entry of [...parsed.inputs, ...parsed.outputs]) {
       expect(entry.path.includes("\\")).toBe(false);
