@@ -224,6 +224,57 @@ platform/architecture coherence matrix now retargets `package_format` alongside
 `platform_id`, because a positive representative must be coherent across every
 reviewed binding.
 
+#### Final content revision, clean clones, and hosted three-OS proof
+
+Windows repair commit `0659c13ff046c921ca648c50b40e71330abf2e75` /
+tree `211c4b72cae4404dc277d8b31df240e4abfc717c` is the final KI-0025 content
+revision.
+
+Local: `pnpm verify` exit 0 with every ACTIVE suite PASS;
+`pnpm generate:contracts --check` byte-identical; `pnpm
+contracts:compatibility:check` `{"additive_changes":[],"compatible":true,
+"findings":[]}`; `git diff --check` clean.
+
+Both clean clones were recreated at that exact commit and re-run in full, one
+of them under the path
+`.../clone β 空 dir/repo` (spaces plus non-ASCII characters). Each ran
+`pnpm install --frozen-lockfile`, `uv sync --locked`, both
+`cargo fetch --locked` manifests, `pnpm run doctor`
+(`22 pass, 0 warning, 0 fail, 1 not-yet-applicable`),
+`pnpm generate:contracts --check`
+(`generated contracts are up to date (153 files, byte-identical)`),
+`pnpm contracts:compatibility:check`
+(`{"additive_changes":[],"compatible":true,"findings":[]}`), the focused
+matrices (`Tests 625 passed (625)`), the contract suite
+(`Tests 570 passed (570)`), `python3 scripts/validate_status.py`
+(`PASS: all checks passed (43 check groups)`), `pnpm traceability:check`
+(`PASS: traceability validated 193 requirements and 300 work packages`),
+`pnpm verify` (`verification exit code: 0`), the canonical spec SHA-256
+`3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, and a
+clean-tree assertion. Both passed identically.
+
+Hosted run **30383429134** at `0659c13ff046c921ca648c50b40e71330abf2e75`
+succeeded on all three certified targets: macos-15 job 90356653908,
+ubuntu-24.04 job 90356653981, and windows-2025 job 90356653998. The Windows
+log was inspected: it confirms `Check out exact revision`
+`0659c13ff046c921ca648c50b40e71330abf2e75`, the previously failing
+`a Rust adapter that does not compile fails the subprocess boundary` now
+passing in 7635 ms, `Test Files 19 passed (19)` and `Tests 1470 passed (1470)`,
+`contract`/`rust`/`status` suites PASS, `verification exit code: 0`, and the
+`Assert verification left no tracked changes` step succeeding.
+
+#### Closeout
+
+M01-W07 is VERIFIED and M01 is ACCEPTED at tree
+`211c4b72cae4404dc277d8b31df240e4abfc717c`. KI-0024, KI-0025, and KI-0028 are
+FIXED; no CRITICAL or HIGH issue is OPEN (spec §10.1). KI-0022, KI-0026, and
+KI-0027 remain DEFERRED with named owning packages. M02-W01 becomes the sole
+READY package, no package is IN_PROGRESS, M00 remains ACCEPTED, all four
+critical gates remain NOT_EVALUATED, and the release gate remains NOT_READY.
+Every historical M01-W07 anchor is preserved, including
+`44827ae73a04d4ef63ccb40cd93fd14b7e304010` with run 30341428902 and
+`860b6e1e27a790668b7dec4fe8014c9f764106be` with run 30381703907.
+
 #### Hosted three-OS content CI and the Windows defect it exposed
 
 Content commit `860b6e1e27a790668b7dec4fe8014c9f764106be` /

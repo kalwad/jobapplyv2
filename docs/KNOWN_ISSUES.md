@@ -34,10 +34,149 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
+No CRITICAL or HIGH defect is OPEN. KI-0024, KI-0025, and KI-0028 are FIXED
+with recorded evidence; KI-0022, KI-0026, and KI-0027 are DEFERRED with named
+owning packages.
+
+### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
+
+- Severity: MEDIUM
+- State: DEFERRED
+- Discovered: 2026-07-27 during M00-W11
+- Affects: `M28-W06`, `M33-W07`, `M34-W07`, `REQ-UX-007`,
+  `REQ-UX-010`, `REQ-UX-014`, `REQ-UX-015`, `REQ-UX-016`,
+  `REQ-UX-018`
+- Description: the owner-approved v1.4 contract makes the M28-W06
+  Simplify-experienced-user study a blocking M28 obligation and includes
+  actual job search/save and queue-approval tasks, while the dedicated
+  job-board/matches and review-to-queue UI packages are M33-W07 and M34-W07,
+  which are sequenced after M28.
+- Reproduction: read canonical specification §5.15.9 and the M28-W06 package
+  row, then compare the M33-W07 and M34-W07 package rows and the §9 milestone
+  dependency order. The required study tasks cannot all be exercised in the
+  stated milestone order without an owner-approved sequencing decision.
+- Workaround: none that may be silently applied. Do not fabricate M28 study
+  evidence, weaken `REQ-UX-018`, or implement M33/M34 product behavior during
+  M00-W11. Before M28 acceptance, obtain an owner-approved ADR/spec revision
+  that supplies the required product surfaces or changes their sequencing
+  while preserving the familiarity/originality acceptance standard.
+- Resolution + evidence link: deferred to future planning before M28; the
+  exact conflict and M00-W11 non-workaround are recorded in ADR-0003 and
+  docs/TEST_EVIDENCE.md § M00-W11.
+
+## M01-W04 review
+
+M01-W04 introduced the canonical capability, command, and authorization
+policy catalogs; strict authorization-request metadata; bounded safe-integer
+generator support; and generated TypeScript/Python policy lookups and
+fail-closed authorization. KI-0021 below was reproduced and fixed during
+independent package validation: both language authorizers had trusted live
+validated objects in ways that could let values change between validation
+and policy use. The TypeScript surface now authorizes only a frozen
+descriptor snapshot of plain own data, and Python serializes model input to a
+fresh record and strictly revalidates it. No product dispatcher or M01-W05
+contract suite was added. No CRITICAL or HIGH issue remains open.
+
+## M01-W03 review
+
+M01-W03 introduced the machine-readable error taxonomy: the twelve-family
+vocabulary and 80 stable codes (`schemas/error/taxonomy.v1.schema.json`),
+the canonical validated per-code metadata catalog
+(`catalog/error-catalog.v1.json` + `schemas/error/catalog.v1.schema.json`),
+the strict code-only wire record (`schemas/error/record.v1.schema.json`),
+narrow generator support for strict booleans and uniform arrays, and the
+generated TypeScript/Pydantic catalog-data surfaces with fail-closed
+unknown-code lookups. KI-0019 below was discovered and fixed during
+package validation (a single recurrence of the KI-0014…KI-0017
+boundary-fixture premise-inheritance class, after which the shared
+closeout helpers were generalized through the M01-W05 boundary).
+Post-verification review then found KI-0020: the claimed
+`transient`/`SAFE_RETRY` equivalence was enforced in only one direction,
+and two committed MODEL entries contradicted it; the focused correction is
+fixed and hosted-verified below. Deliberate, documented scope boundaries (not
+defects): the catalog defines exactly the specification-derived near-term
+codes (no speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
+and unbounded, unsafe, or otherwise unsupported `integer` variants remain
+fail-closed generator constructs (M01-W04 deliberately added only bounded
+safe integers); capability/command allowlists are M01-W04; cross-language
+round-trip certification is M01-W05. No CRITICAL or HIGH issue is open.
+
+## M01-W02 review
+
+M01-W02 introduced the deterministic contract generator
+(`scripts/generate-contracts.ts` + `packages/contracts/generator/`), the
+committed generated TypeScript/Pydantic trees under
+`packages/contracts/generated/`, and the ACTIVE contract-gen drift suite.
+One reproducible defect class was discovered and fixed during package
+validation (KI-0017 below — the same boundary-fixture premise-inheritance
+class as KI-0014/KI-0015/KI-0016), and a focused corrective closeout then
+fixed KI-0018 below (non-rollback-safe generated-tree replacement plus
+literal control bytes in tracked test source) without changing generated
+output bytes. Deliberate, documented scope boundaries
+(not defects): the generator supports exactly the construct set committed by
+M01-W01 and fails closed on everything else (arrays, general combinators,
+exclusive bounds, non-date formats — see packages/contracts/README.md §10a);
+array support arrives with the first package that commits an array-bearing
+schema. Cross-language round-trip certification remains owned by M01-W05.
+The generated Python package is wired through pytest/mypy path
+configuration rather than an installable distribution; a packaging decision
+belongs to the milestone that first consumes it from product code. No
+CRITICAL or HIGH issue is open.
+
+## M01-W01 review
+
+M01-W01 introduced the JSON Schema convention layer in `packages/contracts`
+(schemas, strict offline validation, convention tests, and the normative
+README). One reproducible fixture defect was discovered and fixed during
+package validation (KI-0015 below). The syntactic-only currency/country
+checks are documented policy in `packages/contracts/README.md` §3, not
+defects. No CRITICAL or HIGH issue is open.
+
+## M00-W10 independent review
+
+M00-W10 independently re-read the canonical v1.3 specification, the full
+project-memory and platform/gate records, the W08/W09 diffs, implementation
+and tests, and both prior three-operating-system hosted runs. The review
+closed KI-0007 through KI-0014 below. No CRITICAL or HIGH M00 issue remains
+open.
+KI-0001, KI-0003, and KI-0006 remain honest `LOW` deferred boundaries owned
+by future packages; none represents implemented product behavior or accepted
+platform evidence.
+
+## M00-W09 portability review
+
+M00-W09 added the required `windows-2025` hosted job, Windows-aware
+doctor/resolution behavior (`scripts/portability.py`), the deterministic
+portability policy suite (`scripts/check_portability.py`), the
+`packages/platform` ownership scaffold, and `.gitattributes` LF
+enforcement. No new open defect was found. The Windows job is a
+repository/toolchain portability baseline only: no Windows product,
+secure-store, native-messaging, model-runtime, installer, or update claim
+exists, and all four critical gates remain `NOT_EVALUATED`. KI-0006 parks
+the one deliberate scope boundary observed during implementation.
+
+## M00-W08 migration review
+
+The earlier M00-W07 audit found no new open product defect. M00 is now
+reopened for v1.3. No product surface, ATS adapter, compatibility result,
+benchmark result, installer, secure-store adapter, platform model profile,
+or critical-gate result exists yet, so none is claimed.
+The two existing LOW deferred risks (KI-0001 and KI-0003) remain assigned to
+their stated future owners and do not weaken an M00 verification or exit
+criterion. All four critical gates remain `NOT_EVALUATED`.
+
+The initially supplied in-repository v1.3 proposal transport was rejected
+before editing because the v1.2 fail-closed validator correctly prohibited a
+second canonical-looking specification under `docs/`. The owner replaced it
+with an exact-hash external transport. ADR-0002 records the resolution; no
+validator exception or weakening was introduced.
+
+## Fixed defects
+
 ### KI-0025 — Platform semantic rules refuse coherent outcomes and admit incoherent ones
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 during the KI-0024 corrective repair of M01-W07, by an
   independent completeness audit that swept every platform rule for the
   KI-0024 defect class rather than only the reported instance; extended on
@@ -202,18 +341,40 @@ broadening a work package (spec §1.5).
   environment, message-size, certification-evidence, accelerator/target,
   browser-presence, diagnostic-severity, or evidence-inventory invariants that
   the contract documentation currently claims, until these rules are repaired.
-- Resolution + evidence link: in progress under the owner-authorized final
-  M01-W07 corrective content lifecycle. F1 through F5 were reproduced
-  independently in TypeScript and Python at `44827ae73a04d4ef63ccb40cd93fd14b7e304010`
-  before any edit, and the Rust harness was inspected and confirmed to mirror
-  each of them; F6 through F13 were reproduced the same way in the same
-  session. This issue is HIGH, so M01 cannot be marked complete until it is
-  FIXED with recorded evidence (spec §10.1).
+- Resolution + evidence link: FIXED. F1 through F5 were reproduced
+  independently in TypeScript and Python at
+  `44827ae73a04d4ef63ccb40cd93fd14b7e304010` before any edit, and the Rust
+  harness was inspected and confirmed to mirror each of them; F6 through F13
+  were reproduced the same way in the same session. The canonical generator
+  was repaired first and the TypeScript and Python evaluators follow only from
+  regeneration, with the Rust harness mirroring them intentionally; thirteen of
+  the eighteen platform rule kinds now carry reviewed truth tables. Seven
+  schemas took a description-only PATCH bump to `1.0.1` recording the field
+  semantics the repair decided; no shape, `required` array, enum token, rule
+  binding, `rule_version`, or generator format changed. The corpus grew
+  additively 402 → 444 with exact TypeScript/Python/Rust agreement, and before
+  the baseline was written the compatibility checker reported
+  `"compatible": true`, zero breaking findings, and exactly ten
+  `SUPPORTED_WIRE_CASE_ADDED` positives. Re-running every reproduction against
+  the repaired evaluators shows each unreachable positive admitted and each
+  fail-open payload refused, while the zero-reason `REMOVE`/`PRESENT_VALID`
+  false-success claim stays refused. First content commit
+  `860b6e1e27a790668b7dec4fe8014c9f764106be` / tree
+  `3d608cd0d9d933869f9dc9ecaa7854a77ca727d1` passed two clean clones and
+  hosted run 30381703907 on macos-15 and ubuntu-24.04, but its windows-2025
+  job exposed KI-0028. The final content commit
+  `0659c13ff046c921ca648c50b40e71330abf2e75` / tree
+  `211c4b72cae4404dc277d8b31df240e4abfc717c` passed both clean clones again —
+  one of them under a path containing spaces and non-ASCII characters — and
+  hosted run 30383429134 on macos-15 job 90356653908, ubuntu-24.04 job
+  90356653981, and windows-2025 job 90356653998. KI-0026 and KI-0027 record
+  the two questions deliberately left to M05-W13 and M03-W09. Evidence:
+  docs/TEST_EVIDENCE.md § M01-W07 corrective repair — KI-0025.
 
 ### KI-0024 — Native-registration removal was an unreachable positive branch, and platform stdio/architecture invariants were incomplete
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 during independent post-closeout assurance review of
   M01-W07
 - Affects: M01-W07; `packages/contracts/generator/semantic-rules.ts`
@@ -279,143 +440,19 @@ broadening a work package (spec §1.5).
   removal outcome, a platform stdio profile, or an architecture-bearing
   certification, packaging, or update claim as contract-validated until the
   corrective revision lands.
-- Resolution + evidence link: in progress under the M01-W07 corrective
-  repair.
-
-### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
-
-- Severity: MEDIUM
-- State: DEFERRED
-- Discovered: 2026-07-27 during M00-W11
-- Affects: `M28-W06`, `M33-W07`, `M34-W07`, `REQ-UX-007`,
-  `REQ-UX-010`, `REQ-UX-014`, `REQ-UX-015`, `REQ-UX-016`,
-  `REQ-UX-018`
-- Description: the owner-approved v1.4 contract makes the M28-W06
-  Simplify-experienced-user study a blocking M28 obligation and includes
-  actual job search/save and queue-approval tasks, while the dedicated
-  job-board/matches and review-to-queue UI packages are M33-W07 and M34-W07,
-  which are sequenced after M28.
-- Reproduction: read canonical specification §5.15.9 and the M28-W06 package
-  row, then compare the M33-W07 and M34-W07 package rows and the §9 milestone
-  dependency order. The required study tasks cannot all be exercised in the
-  stated milestone order without an owner-approved sequencing decision.
-- Workaround: none that may be silently applied. Do not fabricate M28 study
-  evidence, weaken `REQ-UX-018`, or implement M33/M34 product behavior during
-  M00-W11. Before M28 acceptance, obtain an owner-approved ADR/spec revision
-  that supplies the required product surfaces or changes their sequencing
-  while preserving the familiarity/originality acceptance standard.
-- Resolution + evidence link: deferred to future planning before M28; the
-  exact conflict and M00-W11 non-workaround are recorded in ADR-0003 and
-  docs/TEST_EVIDENCE.md § M00-W11.
-
-## M01-W04 review
-
-M01-W04 introduced the canonical capability, command, and authorization
-policy catalogs; strict authorization-request metadata; bounded safe-integer
-generator support; and generated TypeScript/Python policy lookups and
-fail-closed authorization. KI-0021 below was reproduced and fixed during
-independent package validation: both language authorizers had trusted live
-validated objects in ways that could let values change between validation
-and policy use. The TypeScript surface now authorizes only a frozen
-descriptor snapshot of plain own data, and Python serializes model input to a
-fresh record and strictly revalidates it. No product dispatcher or M01-W05
-contract suite was added. No CRITICAL or HIGH issue remains open.
-
-## M01-W03 review
-
-M01-W03 introduced the machine-readable error taxonomy: the twelve-family
-vocabulary and 80 stable codes (`schemas/error/taxonomy.v1.schema.json`),
-the canonical validated per-code metadata catalog
-(`catalog/error-catalog.v1.json` + `schemas/error/catalog.v1.schema.json`),
-the strict code-only wire record (`schemas/error/record.v1.schema.json`),
-narrow generator support for strict booleans and uniform arrays, and the
-generated TypeScript/Pydantic catalog-data surfaces with fail-closed
-unknown-code lookups. KI-0019 below was discovered and fixed during
-package validation (a single recurrence of the KI-0014…KI-0017
-boundary-fixture premise-inheritance class, after which the shared
-closeout helpers were generalized through the M01-W05 boundary).
-Post-verification review then found KI-0020: the claimed
-`transient`/`SAFE_RETRY` equivalence was enforced in only one direction,
-and two committed MODEL entries contradicted it; the focused correction is
-fixed and hosted-verified below. Deliberate, documented scope boundaries (not
-defects): the catalog defines exactly the specification-derived near-term
-codes (no speculative inventory, no generic UNKNOWN); tuple arrays, `uniqueItems`,
-and unbounded, unsafe, or otherwise unsupported `integer` variants remain
-fail-closed generator constructs (M01-W04 deliberately added only bounded
-safe integers); capability/command allowlists are M01-W04; cross-language
-round-trip certification is M01-W05. No CRITICAL or HIGH issue is open.
-
-## M01-W02 review
-
-M01-W02 introduced the deterministic contract generator
-(`scripts/generate-contracts.ts` + `packages/contracts/generator/`), the
-committed generated TypeScript/Pydantic trees under
-`packages/contracts/generated/`, and the ACTIVE contract-gen drift suite.
-One reproducible defect class was discovered and fixed during package
-validation (KI-0017 below — the same boundary-fixture premise-inheritance
-class as KI-0014/KI-0015/KI-0016), and a focused corrective closeout then
-fixed KI-0018 below (non-rollback-safe generated-tree replacement plus
-literal control bytes in tracked test source) without changing generated
-output bytes. Deliberate, documented scope boundaries
-(not defects): the generator supports exactly the construct set committed by
-M01-W01 and fails closed on everything else (arrays, general combinators,
-exclusive bounds, non-date formats — see packages/contracts/README.md §10a);
-array support arrives with the first package that commits an array-bearing
-schema. Cross-language round-trip certification remains owned by M01-W05.
-The generated Python package is wired through pytest/mypy path
-configuration rather than an installable distribution; a packaging decision
-belongs to the milestone that first consumes it from product code. No
-CRITICAL or HIGH issue is open.
-
-## M01-W01 review
-
-M01-W01 introduced the JSON Schema convention layer in `packages/contracts`
-(schemas, strict offline validation, convention tests, and the normative
-README). One reproducible fixture defect was discovered and fixed during
-package validation (KI-0015 below). The syntactic-only currency/country
-checks are documented policy in `packages/contracts/README.md` §3, not
-defects. No CRITICAL or HIGH issue is open.
-
-## M00-W10 independent review
-
-M00-W10 independently re-read the canonical v1.3 specification, the full
-project-memory and platform/gate records, the W08/W09 diffs, implementation
-and tests, and both prior three-operating-system hosted runs. The review
-closed KI-0007 through KI-0014 below. No CRITICAL or HIGH M00 issue remains
-open.
-KI-0001, KI-0003, and KI-0006 remain honest `LOW` deferred boundaries owned
-by future packages; none represents implemented product behavior or accepted
-platform evidence.
-
-## M00-W09 portability review
-
-M00-W09 added the required `windows-2025` hosted job, Windows-aware
-doctor/resolution behavior (`scripts/portability.py`), the deterministic
-portability policy suite (`scripts/check_portability.py`), the
-`packages/platform` ownership scaffold, and `.gitattributes` LF
-enforcement. No new open defect was found. The Windows job is a
-repository/toolchain portability baseline only: no Windows product,
-secure-store, native-messaging, model-runtime, installer, or update claim
-exists, and all four critical gates remain `NOT_EVALUATED`. KI-0006 parks
-the one deliberate scope boundary observed during implementation.
-
-## M00-W08 migration review
-
-The earlier M00-W07 audit found no new open product defect. M00 is now
-reopened for v1.3. No product surface, ATS adapter, compatibility result,
-benchmark result, installer, secure-store adapter, platform model profile,
-or critical-gate result exists yet, so none is claimed.
-The two existing LOW deferred risks (KI-0001 and KI-0003) remain assigned to
-their stated future owners and do not weaken an M00 verification or exit
-criterion. All four critical gates remain `NOT_EVALUATED`.
-
-The initially supplied in-repository v1.3 proposal transport was rejected
-before editing because the v1.2 fail-closed validator correctly prohibited a
-second canonical-looking specification under `docs/`. The owner replaced it
-with an exact-hash external transport. ADR-0002 records the resolution; no
-validator exception or weakening was introduced.
-
-## Fixed defects
+- Resolution + evidence link: FIXED. The executable repair landed in content
+  commit `44827ae73a04d4ef63ccb40cd93fd14b7e304010` / tree
+  `7fcd961fbde2770378248ca68e65526b4480a970`, which passed two clean clones
+  and hosted run 30341428902 on macos-15, ubuntu-24.04, and windows-2025. That
+  revision was deliberately held open rather than stamped, because the same
+  completeness sweep that produced it had already reproduced KI-0025. The
+  combined closeout is anchored at the final KI-0025 content revision
+  `0659c13ff046c921ca648c50b40e71330abf2e75` / tree
+  `211c4b72cae4404dc277d8b31df240e4abfc717c` (hosted run 30383429134, all
+  three operating systems), which additionally proves the KI-0024 repair has
+  not regressed: every KI-0024 branch and corpus case is preserved and passing
+  there. Evidence: docs/TEST_EVIDENCE.md § M01-W07 corrective repair —
+  KI-0024 and § M01-W07 corrective repair — KI-0025.
 
 ### KI-0028 — Temporary-directory cleanup after an external child was not Windows-correct
 
