@@ -29,8 +29,8 @@ class PlatformPathResolutionV1(ContractModel):
     resolution_state: PlatformVocabularyV1PathResolutionState
     sanitized_path: Annotated[PlatformVocabularyV1RedactedPathReference, Field(description="Role-anchored sanitized reference. Present only for a resolved location.")] | None = None
     path_digest: Annotated[CommonProvenanceV1ContentDigest, Field(description="Digest of the exact resolved location, so two records can be correlated without revealing either location.")] | None = None
-    exists: bool
-    writable: bool
+    exists: Annotated[bool, Field(description="Whether the resolver observed the location to exist. A DENIED_PERMISSION result may report an existing location — a permission error is itself that observation — while still never disclosing where it is.")]
+    writable: Annotated[bool, Field(description="Whether the resolver observed the location to be writable. Only a RESOLVED result can be writable.")]
     reason_codes: Annotated[list[PlatformVocabularyV1PlatformReasonCode], MinLen(0), MaxLen(8)]
     remediation_message: PlatformVocabularyV1BoundedUserMessage | None = None
     resolved_at: CommonTimestampUtcV1UtcTimestamp

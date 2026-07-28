@@ -33,6 +33,9 @@ export interface PlatformProcessStatusV1 {
   readonly termination_requested: PlatformVocabularyV1TerminationRequest;
   readonly started_at?: CommonTimestampUtcV1UtcTimestamp;
   readonly ended_at?: CommonTimestampUtcV1UtcTimestamp;
+  /**
+   * Observed exit status of a child that ended on its own. A non-zero status is always accompanied by at least one finite reason.
+   */
   readonly exit_code?: PlatformVocabularyV1ProcessExitCode;
   /**
    * Integer; runtime validation rejects fractions and coercion.
@@ -40,6 +43,9 @@ export interface PlatformProcessStatusV1 {
    * Maximum: 8.
    */
   readonly restart_count: number;
+  /**
+   * Historical: this child was observed to have outlived its supervising parent. It stays true on the terminal record of an orphan that was cleaned up or finally seen to exit.
+   */
   readonly orphan_detected: boolean;
   readonly idempotency_key?: CommonContractTextV1BoundedToken;
   /**

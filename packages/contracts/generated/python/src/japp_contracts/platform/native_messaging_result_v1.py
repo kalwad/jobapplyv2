@@ -28,7 +28,7 @@ class PlatformNativeMessagingResultV1(ContractModel):
     platform_id: PlatformVocabularyV1CertifiedPlatformId
     browser_family: PlatformVocabularyV1BrowserFamily
     host_name: PlatformVocabularyV1NativeHostName
-    observed_state: PlatformVocabularyV1RegistrationState
+    observed_state: Annotated[PlatformVocabularyV1RegistrationState, Field(description="The registration state observed after the operation ran. It is not a claim that the operation succeeded: a removal refused by permission still observes PRESENT_VALID. Success is carried by an empty `reason_codes`.")]
     observed_manifest_digest: CommonProvenanceV1ContentDigest | None = None
     observed_host_version: PlatformVocabularyV1ProductVersion | None = None
     changed: Annotated[bool, Field(description="Whether this execution modified registration state. A verify operation can never report a change.")]

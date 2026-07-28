@@ -1643,6 +1643,44 @@ const PLATFORM_INTERPRETER_TOKENS = [
   "wscript",
   "zsh",
 ];
+/**
+ * Privilege escalation is documented as structurally unrepresentable, so the
+ * launcher that would request it may not travel as an argument either.
+ */
+const PLATFORM_PRIVILEGE_TOKENS = ["doas", "pkexec", "runas", "su", "sudo"];
+/**
+ * A refused command name must stay refused in its executable-suffix spelling:
+ * "cmd" and "cmd.exe" name the same interpreter.
+ */
+const PLATFORM_EXECUTABLE_SUFFIXES = [
+  ".bat",
+  ".cmd",
+  ".com",
+  ".exe",
+  ".ps1",
+  ".sh",
+];
+const PLATFORM_PATH_ROLES = [
+  "APPLICATION_DATA",
+  "ARTIFACT_STORE",
+  "BACKUP_STAGING",
+  "CACHE",
+  "DIAGNOSTIC_BUNDLE",
+  "LOG_STORE",
+  "MODEL_ARTIFACT_STORE",
+  "NATIVE_HOST_REGISTRATION",
+  "TEMPORARY",
+];
+/**
+ * REQ-PLAT-003 binds local services to loopback. The bounded token grammar
+ * cannot start with a colon, so the compressed "::1" spelling is structurally
+ * unrepresentable and only the expanded form appears here.
+ */
+const PLATFORM_LOOPBACK_HOSTS = [
+  "0:0:0:0:0:0:0:1",
+  "127.0.0.1",
+  "localhost",
+];
 const PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
   MACOS_ARM64: "ARM64",
   UBUNTU_X64: "X86_64",
@@ -1682,6 +1720,18 @@ const PACKAGE_FAILURE_STATES = [
   "UPDATE_FAILED",
   "UPDATE_INTERRUPTED",
 ];
+/** The two terminal states whose meaning is "the interruption is unresolved". */
+const PACKAGE_INTERRUPTED_STATES = ["INSTALL_INTERRUPTED", "UPDATE_INTERRUPTED"];
+/** Specification §5.14.8 binds each certified target to its package formats. */
+const PACKAGE_FORMATS_BY_PLATFORM_ID: Readonly<
+  Record<string, readonly string[]>
+> = {
+  MACOS_ARM64: ["APPLE_DISK_IMAGE"],
+  UBUNTU_X64: ["APP_IMAGE", "DEBIAN_PACKAGE"],
+  WINDOWS_X64: ["WINDOWS_INSTALLER"],
+};
+/** The two availability states in which a runtime was actually detected. */
+const OPERABLE_RUNTIME_AVAILABILITY = ["AVAILABLE", "DEGRADED_LIMITED"];
 const EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
   INSTALL_LAUNCH_REPORT: "installer_state_ref",
   MODEL_PROFILE_REPORT: "model_profile_ref",
@@ -1827,11 +1877,21 @@ function platformCapabilityReportIntegrity(value: unknown): boolean {
   if (!platformReviewedTierIsCertified(value)) {
     return true;
   }
-  if (
-    !MANDATORY_CORE_CAPABILITIES.every(
-      (family) => availabilityOf(family) === "AVAILABLE",
-    )
-  ) {
+  const measuredAvailability = (family: string): boolean => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return (
+      found !== undefined &&
+      text(found, "availability") === "AVAILABLE" &&
+      text(found, "evaluation_method") === "MEASURED_NATIVE_RUN"
+    );
+  };
+  // A certified tier is a reviewed claim about a real machine. Only a measured
+  // native run can support it, exactly as platformTargetSupportClaim already
+  // requires of the identical support_claim record, so a declared plan or a
+  // synthetic fixture can never carry a certification.
+  if (!MANDATORY_CORE_CAPABILITIES.every(measuredAvailability)) {
     return false;
   }
   const claim = objectMember(value, "support_claim");
@@ -1842,7 +1902,7 @@ function platformCapabilityReportIntegrity(value: unknown): boolean {
     return true;
   }
   return (
-    availabilityOf("MODEL_RUNTIME") === "AVAILABLE" &&
+    measuredAvailability("MODEL_RUNTIME") &&
     items(value, "model_profile_refs").length > 0
   );
 }
@@ -1859,6 +1919,7 @@ function platformPathRequestSafety(value: unknown): boolean {
 
 function platformPathResolutionSafety(value: unknown): boolean {
   const role = text(value, "role");
+  const state = text(value, "resolution_state");
   const reasons = items(value, "reason_codes");
   const sanitized = text(value, "sanitized_path");
   if (
@@ -1868,13 +1929,26 @@ function platformPathResolutionSafety(value: unknown): boolean {
   ) {
     return false;
   }
-  if (text(value, "resolution_state") !== "RESOLVED") {
+  if (state !== "RESOLVED") {
+    // A location is disclosed only by a resolution that succeeded, and a
+    // resolution that did not succeed can never report a writable location.
+    if (
+      sanitized !== null ||
+      present(value, "path_digest") ||
+      flag(value, "writable") !== false ||
+      reasons.length === 0
+    ) {
+      return false;
+    }
+    if (state === "DENIED_PERMISSION") {
+      // A refusal may report that the location exists — a permission error is
+      // itself that observation — but never where it is.
+      return reasons.includes("PERMISSION_DENIED");
+    }
+    // Nothing was evaluated, or nothing was reachable, so nothing was observed.
     return (
-      sanitized === null &&
-      !present(value, "path_digest") &&
       flag(value, "exists") === false &&
-      flag(value, "writable") === false &&
-      reasons.length > 0
+      (state !== "NOT_EVALUATED" || reasons.includes("EVALUATION_NOT_RUN"))
     );
   }
   return (
@@ -2006,6 +2080,17 @@ function platformSecretResultIntegrity(value: unknown): boolean {
   return !hasMaterial && !hasDigest && reasons.length > 0;
 }
 
+/** Normalize one argument to the command name it would actually invoke. */
+function platformCommandToken(argument: string): string {
+  const lowered = argument.toLowerCase();
+  for (const suffix of PLATFORM_EXECUTABLE_SUFFIXES) {
+    if (lowered.endsWith(suffix)) {
+      return lowered.slice(0, lowered.length - suffix.length);
+    }
+  }
+  return lowered;
+}
+
 function platformProcessPlanSafety(value: unknown): boolean {
   const profile = text(value, "profile");
   const environment = items(value, "environment_allowlist");
@@ -2024,12 +2109,20 @@ function platformProcessPlanSafety(value: unknown): boolean {
   ) {
     return false;
   }
+  // A refused command name stays refused in its executable-suffix spelling:
+  // "cmd" and "cmd.exe" name the same interpreter. Privilege escalation is
+  // documented as unrepresentable, so its launcher cannot travel either.
   if (
-    commandArguments.some(
-      (argument) =>
-        typeof argument === "string" &&
-        PLATFORM_INTERPRETER_TOKENS.includes(argument.toLowerCase()),
-    )
+    commandArguments.some((argument) => {
+      if (typeof argument !== "string") {
+        return false;
+      }
+      const token = platformCommandToken(argument);
+      return (
+        PLATFORM_INTERPRETER_TOKENS.includes(token) ||
+        PLATFORM_PRIVILEGE_TOKENS.includes(token)
+      );
+    })
   ) {
     return false;
   }
@@ -2039,12 +2132,26 @@ function platformProcessPlanSafety(value: unknown): boolean {
     if (entryValue === null) {
       return false;
     }
-    if (variable === "JAPP_SERVICE_PORT" && !/^[0-9]{1,5}$/.test(entryValue)) {
+    if (
+      variable === "JAPP_SERVICE_PORT" &&
+      (!/^[1-9][0-9]{0,4}$/.test(entryValue) || Number(entryValue) > 65535)
+    ) {
       return false;
     }
+    // The path role carried into a child is the same closed vocabulary the
+    // working directory uses, and it cannot re-admit the registration role the
+    // rule refuses two lines above.
     if (
       variable === "JAPP_PATH_ROLE" &&
-      !/^[A-Z][A-Z0-9_]{1,63}$/.test(entryValue)
+      (!PLATFORM_PATH_ROLES.includes(entryValue) ||
+        entryValue === "NATIVE_HOST_REGISTRATION")
+    ) {
+      return false;
+    }
+    // REQ-PLAT-003 binds local services to loopback.
+    if (
+      variable === "JAPP_SERVICE_BIND_HOST" &&
+      !PLATFORM_LOOPBACK_HOSTS.includes(entryValue)
     ) {
       return false;
     }
@@ -2074,39 +2181,68 @@ function platformProcessStatusIntegrity(value: unknown): boolean {
   const ended = present(value, "ended_at");
   const started = present(value, "started_at");
   const exited = present(value, "exit_code");
+  const exitCode = numberValue(value, "exit_code");
   const orphan = flag(value, "orphan_detected");
+  const terminating = text(value, "termination_requested") !== "NONE";
   if (!uniqueStrings(reasons)) {
     return false;
   }
-  if (ended && started && !timestampNotBefore(value, "ended_at", "started_at")) {
+  // A process cannot end without starting, end before it started, be restarted
+  // without starting, or attach a redacted diagnostic to nothing.
+  if (
+    (ended && !started) ||
+    (ended && !timestampNotBefore(value, "ended_at", "started_at")) ||
+    ((numberValue(value, "restart_count") ?? 0) > 0 && !started) ||
+    (present(value, "diagnostic_digest") && reasons.length === 0)
+  ) {
     return false;
   }
-  if (orphan === true && state !== "ORPHANED") {
+  // orphan_detected is a historical observation, not the current state: it
+  // stays true on the terminal record of an orphan that was cleaned up or was
+  // finally seen to exit.
+  if (
+    orphan === true &&
+    state !== "ORPHANED" &&
+    state !== "TERMINATED" &&
+    state !== "EXITED"
+  ) {
     return false;
   }
-  if (state === "STARTING" || state === "RUNNING") {
-    return !ended && !exited && orphan === false;
+  if (state === "STARTING") {
+    return !ended && !exited;
+  }
+  if (state === "RUNNING") {
+    return started && !ended && !exited;
   }
   if (state === "TERMINATING") {
-    return (
-      !ended && !exited && text(value, "termination_requested") !== "NONE"
-    );
+    return started && !ended && !exited && terminating;
   }
   if (state === "EXITED") {
-    return started && ended && exited && reasons.length === 0;
-  }
-  if (state === "TERMINATED") {
+    // The child ended on its own; a supervisor-requested stop is TERMINATED. A
+    // clean exit explains itself, and any other exit status must be explainable
+    // through the finite reason vocabulary.
     return (
-      started && ended && text(value, "termination_requested") !== "NONE"
+      started &&
+      ended &&
+      exited &&
+      !terminating &&
+      (exitCode === 0 ? reasons.length === 0 : reasons.length > 0)
     );
   }
+  if (state === "TERMINATED") {
+    return started && ended && terminating;
+  }
   if (state === "ORPHANED") {
-    return orphan === true && reasons.length > 0;
+    // An orphan outlived its supervising parent and still requires cleanup, so
+    // it has started and has not yet been observed to end.
+    return started && !ended && !exited && orphan === true && reasons.length > 0;
   }
   if (state === "UNAVAILABLE") {
     return !started && !ended && !exited && reasons.length > 0;
   }
-  return reasons.length > 0;
+  // FAILED: supervision itself failed. An observed exit status would make this
+  // an EXITED child instead, so the two stay distinguishable.
+  return !exited && reasons.length > 0;
 }
 
 function platformNativeRegistrationBinding(value: unknown): boolean {
@@ -2118,7 +2254,10 @@ function platformNativeRegistrationBinding(value: unknown): boolean {
     text(value, "browser_channel") !== "STABLE" ||
     text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
     text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
-    !strictlySortedStrings(extensions)
+    !strictlySortedStrings(extensions) ||
+    // Specification §5.14.5 keeps the extension allowlist and the
+    // message-size limit mandatory on every platform.
+    !present(value, "max_message_bytes")
   ) {
     return false;
   }
@@ -2163,11 +2302,17 @@ function platformNativeRegistrationResult(value: unknown): boolean {
   }
   // Observed identity is evidence of a manifest that is really present: it is
   // mandatory for PRESENT_VALID and impossible once nothing is registered or
-  // nothing was evaluated.
-  if (
-    observed === "PRESENT_VALID" &&
-    !(manifestDigest && hostVersion && succeeded)
-  ) {
+  // nothing was evaluated. The observed_state member is the post-operation
+  // state, never a claim that the operation succeeded, so a removal that failed
+  // and left the registration intact still observes PRESENT_VALID.
+  if (observed === "PRESENT_VALID" && !(manifestDigest && hostVersion)) {
+    return false;
+  }
+  // An identity verdict must carry the identity evidence it is about.
+  if (observed === "MISMATCHED_IDENTITY" && !manifestDigest) {
+    return false;
+  }
+  if (observed === "PRESENT_STALE" && !hostVersion) {
     return false;
   }
   if (
@@ -2218,10 +2363,24 @@ function platformBrowserRecordScope(value: unknown): boolean {
     return false;
   }
   if (presence === "AVAILABLE") {
-    if (!present(value, "detected_version")) {
+    // A presence claim is an observation, so it cannot come from an
+    // explicitly unevaluated detection.
+    if (
+      !present(value, "detected_version") ||
+      text(value, "detection_method") === "NOT_EVALUATED"
+    ) {
       return false;
     }
   } else if (present(value, "sanitized_install_location")) {
+    return false;
+  } else if (
+    presence !== "DEGRADED_LIMITED" &&
+    presence !== "INCOMPATIBLE_VERSION" &&
+    present(value, "detected_version")
+  ) {
+    // Only a browser that was actually found reports a version. A degraded or
+    // version-incompatible observation found one; an absent, unevaluated, or
+    // unsupported one did not.
     return false;
   }
   if (flag(value, "certified_for_platform") !== true) {
@@ -2248,7 +2407,15 @@ function platformModelProfileEvidence(value: unknown): boolean {
   if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
     return false;
   }
+  // The accelerator, the runtime family, and the target must agree in both
+  // directions. The certified macOS target is Apple Silicon arm64
+  // (specification §5.14.1) and every CUDA profile the §5.14.6 list names is a
+  // Windows or Ubuntu profile, so a macOS CUDA profile describes hardware that
+  // cannot exist.
   if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") {
     return false;
   }
   if (
@@ -2258,7 +2425,11 @@ function platformModelProfileEvidence(value: unknown): boolean {
   ) {
     return false;
   }
-  if (accelerator === "CPU_ONLY" && present(value, "minimum_vram_mib")) {
+  if (
+    accelerator === "CPU_ONLY" &&
+    (present(value, "minimum_vram_mib") ||
+      present(value, "minimum_driver_version"))
+  ) {
     return false;
   }
   if (
@@ -2291,10 +2462,14 @@ function platformModelProfileEvidence(value: unknown): boolean {
 }
 
 function platformRuntimeCapabilityFallback(value: unknown): boolean {
+  const availability = text(value, "runtime_availability") ?? "";
   const available = items(value, "available_profile_refs");
   const accepted = items(value, "accepted_profile_refs");
   const reasons = items(value, "reason_codes");
   const behavior = text(value, "core_capability_behavior");
+  const platformId = text(value, "platform_id") ?? "";
+  const family = text(value, "runtime_family");
+  const accelerator = text(value, "accelerator");
   if (
     !uniqueStrings(available) ||
     !uniqueStrings(accepted) ||
@@ -2303,30 +2478,62 @@ function platformRuntimeCapabilityFallback(value: unknown): boolean {
   ) {
     return false;
   }
+  // A detected runtime identity must agree with the target, exactly as the
+  // reviewed model-profile rule already requires of a declared profile.
   if (
-    text(value, "detection_method") === "NOT_EVALUATED" &&
-    text(value, "runtime_availability") !== "NOT_EVALUATED"
+    (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") ||
+    (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") ||
+    (family === "OLLAMA_MLX" &&
+      (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")) ||
+    (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU")
   ) {
     return false;
   }
-  if (text(value, "runtime_availability") !== "AVAILABLE") {
-    return (
-      available.length === 0 &&
-      accepted.length === 0 &&
-      reasons.length > 0 &&
-      behavior !== "FULL_AI_AVAILABLE"
-    );
-  }
+  // An unevaluated runtime is exactly an unevaluated detection.
   if (
-    !present(value, "runtime_family") ||
-    !present(value, "runtime_version") ||
-    !present(value, "accelerator")
+    (text(value, "detection_method") === "NOT_EVALUATED") !==
+    (availability === "NOT_EVALUATED")
   ) {
     return false;
   }
-  return behavior === "FULL_AI_AVAILABLE"
-    ? accepted.length > 0
-    : accepted.length === 0;
+  // A capability that was never evaluated, or that cannot exist on this target
+  // at all, observed no runtime identity.
+  if (availability === "NOT_EVALUATED" || availability === "UNSUPPORTED_TARGET") {
+    if (family !== null || present(value, "runtime_version") || accelerator !== null) {
+      return false;
+    }
+    if (
+      availability === "NOT_EVALUATED" &&
+      !reasons.includes("EVALUATION_NOT_RUN")
+    ) {
+      return false;
+    }
+  }
+  // Full AI is the only state with nothing outstanding, and it is exactly the
+  // state that requires an accepted profile on an available certified runtime.
+  if (behavior === "FULL_AI_AVAILABLE") {
+    if (
+      availability !== "AVAILABLE" ||
+      accepted.length === 0 ||
+      reasons.length > 0 ||
+      !CERTIFIED_PLATFORM_IDS.includes(platformId)
+    ) {
+      return false;
+    }
+  } else if (accepted.length > 0 || reasons.length === 0) {
+    return false;
+  }
+  // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
+  // states, so they are the only ones that may enumerate usable profiles and
+  // the only ones that observed a runtime identity. A runtime below the
+  // performance tier still reports what it is and what it offers.
+  if (!OPERABLE_RUNTIME_AVAILABILITY.includes(availability)) {
+    return available.length === 0;
+  }
+  if (family === null || !present(value, "runtime_version")) {
+    return false;
+  }
+  return availability !== "AVAILABLE" || accelerator !== null;
 }
 
 function platformPackageStateEvidence(value: unknown): boolean {
@@ -2335,13 +2542,30 @@ function platformPackageStateEvidence(value: unknown): boolean {
   const signature = text(value, "signature_state");
   const interrupted = flag(value, "interrupted");
   const preservation = text(value, "user_data_preservation");
+  const packageFormat = text(value, "package_format");
+  const allowedFormats =
+    PACKAGE_FORMATS_BY_PLATFORM_ID[text(value, "platform_id") ?? ""];
   if (
     !uniqueStrings(reasons) ||
     !uniqueStrings(items(value, "evidence_refs")) ||
     !platformArchitectureCoherent(value) ||
-    (interrupted === true && !reasons.includes("INTERRUPTED")) ||
-    (flag(value, "recovery_completed") === true && interrupted !== true) ||
-    (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0) ||
+    (allowedFormats !== undefined &&
+      packageFormat !== null &&
+      !allowedFormats.includes(packageFormat))
+  ) {
+    return false;
+  }
+  // The interrupted flag is historical: it records that this operation was
+  // interrupted at some point. The recovery_completed flag records that the
+  // resolved, so it is meaningless without one. The INTERRUPTED reason names
+  // exactly an operation that was interrupted, and the unresolved terminal
+  // outcome is carried by INSTALL_INTERRUPTED / UPDATE_INTERRUPTED, never by
+  // the flag alone.
+  if (
+    (present(value, "recovery_completed") && interrupted !== true) ||
+    reasons.includes("INTERRUPTED") !== (interrupted === true) ||
+    (PACKAGE_INTERRUPTED_STATES.includes(state) && interrupted !== true)
   ) {
     return false;
   }
@@ -2355,10 +2579,17 @@ function platformPackageStateEvidence(value: unknown): boolean {
     return false;
   }
   if (PACKAGE_SUCCESS_STATES.includes(state)) {
+    // A success carries no outstanding reason. A recovered interruption is no
+    // longer outstanding, so exactly the historical INTERRUPTED reason may
+    // remain — and only when the recovery actually completed. Specification
+    // §5.14.8 requires every certified target to pass interrupted update,
+    // repair, rollback, and preservation behaviour, so that outcome must be
+    // reportable as the success it is.
+    const outstanding = reasons.filter((reason) => reason !== "INTERRUPTED");
     if (
       signature !== "SIGNATURE_VALID" ||
-      reasons.length > 0 ||
-      interrupted !== false ||
+      outstanding.length > 0 ||
+      (interrupted === true && flag(value, "recovery_completed") !== true) ||
       !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
         preservation ?? "",
       ) ||
@@ -2388,10 +2619,13 @@ function platformPackageStateEvidence(value: unknown): boolean {
     return present(value, "available_version");
   }
   if (state === "UPDATE_INSTALLED") {
+    // The installed update is the update that was offered, exactly as INSTALLED
+    // binds the installed version to the package version.
     return (
       present(value, "installed_version") &&
       present(value, "available_version") &&
-      present(value, "target_artifact")
+      present(value, "target_artifact") &&
+      text(value, "installed_version") === text(value, "available_version")
     );
   }
   if (state === "ROLLED_BACK") {
@@ -2439,7 +2673,11 @@ function platformDiagnosticIntegrity(value: unknown): boolean {
   if (result === "FAILURE") {
     return ["CRITICAL", "ERROR"].includes(severity ?? "");
   }
-  return blocking === true;
+  // BLOCKED: an external boundary prevented evaluation. It blocks a capability,
+  // so it is never filed as informational.
+  return (
+    blocking === true && ["CRITICAL", "ERROR", "WARNING"].includes(severity ?? "")
+  );
 }
 
 function platformEvidenceIntegrity(value: unknown): boolean {
@@ -2468,26 +2706,55 @@ function platformEvidenceIntegrity(value: unknown): boolean {
   ) {
     return false;
   }
+  // machine_class records *where* an artifact was produced and
+  // evaluation_method records *how*. The axes are independent: a hosted runner
+  // and a physical development machine may each execute synthetic fixtures,
+  // static inspection, or a measured native run. Only a synthetic machine
+  // cannot execute a native run, and only a hosted runner has a runner image.
+  const machineClass = text(value, "machine_class");
+  const succeeded = text(value, "result") === "SUCCESS";
   if (method === "MEASURED_NATIVE_RUN") {
     if (
       !present(value, "os_version") ||
       !present(value, "os_build") ||
-      text(value, "machine_class") === "SYNTHETIC_FIXTURE" ||
-      !CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+      machineClass === "SYNTHETIC_FIXTURE" ||
+      !CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") ||
+      (machineClass === "HOSTED_CI_RUNNER" &&
+        !present(value, "runner_image_token"))
     ) {
       return false;
     }
-  } else if (
-    text(value, "machine_class") === "PHYSICAL_DEVELOPMENT_MACHINE" ||
-    text(value, "machine_class") === "HOSTED_CI_RUNNER"
+  }
+  if (
+    present(value, "runner_image_token") &&
+    machineClass !== "HOSTED_CI_RUNNER"
   ) {
-    if (method !== "STATIC_INSPECTION") {
+    return false;
+  }
+  // NOT_EVALUATED and DECLARED_PLAN are never measured evidence, so neither can
+  // report a passing evidence element, and an unevaluated record observed no
+  // operating-system build at all.
+  if (method === "NOT_EVALUATED" || method === "DECLARED_PLAN") {
+    if (succeeded) {
+      return false;
+    }
+    if (
+      method === "NOT_EVALUATED" &&
+      (present(value, "os_build") || !reasons.includes("EVALUATION_NOT_RUN"))
+    ) {
       return false;
     }
   }
-  return text(value, "result") === "SUCCESS"
-    ? reasons.length === 0
-    : reasons.length > 0;
+  // An artifact whose signature did not verify is not a passing evidence
+  // element, whatever produced it.
+  const signature = text(value, "signature_state");
+  if (
+    succeeded &&
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING")
+  ) {
+    return false;
+  }
+  return succeeded ? reasons.length === 0 : reasons.length > 0;
 }
 
 function platformCertificationInputScope(value: unknown): boolean {
@@ -2518,9 +2785,13 @@ function platformCertificationInputScope(value: unknown): boolean {
   if (!platformReviewedTierIsCertified(value)) {
     return reasons.length > 0;
   }
+  // Completeness is measured against the record's own declared policy, so an
+  // empty required set would make "complete" vacuous. A certified proposal must
+  // name the evidence it required.
   return (
     reasons.length === 0 &&
     complete &&
+    required.length > 0 &&
     text(value, "owner_decision_state") === "RECORDED"
   );
 }

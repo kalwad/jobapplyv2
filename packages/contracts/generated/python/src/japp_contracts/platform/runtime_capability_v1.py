@@ -31,7 +31,7 @@ class PlatformRuntimeCapabilityV1(ContractModel):
     detection_method: PlatformVocabularyV1EvaluationMethod
     detected_ram_mib: PlatformVocabularyV1MemoryMebibytes | None = None
     detected_vram_mib: PlatformVocabularyV1MemoryMebibytes | None = None
-    available_profile_refs: Annotated[list[CommonStableIdV1StableId], MinLen(0), MaxLen(16)]
+    available_profile_refs: Annotated[Annotated[list[CommonStableIdV1StableId], MinLen(0), MaxLen(16)], Field(description="Profiles this runtime can offer. Only the two non-blocking availability states, AVAILABLE and DEGRADED_LIMITED, may enumerate any.")]
     accepted_profile_refs: Annotated[Annotated[list[CommonStableIdV1StableId], MinLen(0), MaxLen(16)], Field(description="Subset of available profiles whose acceptance is already recorded. Empty is the honest current state on every target.")]
     core_capability_behavior: PlatformVocabularyV1CoreCapabilityBehavior
     reason_codes: Annotated[list[PlatformVocabularyV1PlatformReasonCode], MinLen(0), MaxLen(8)]

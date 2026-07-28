@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:path-resolution:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Trusted platform path resolution result",
   "description": "A trusted adapter result. It is deliberately a different contract from a request: it may report a location only as a sanitized role-anchored reference plus a digest, so an ordinary diagnostic, telemetry record, holdout, or evidence bundle never exposes a private local path.",
   "type": "object",
@@ -43,9 +43,11 @@
       "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
     },
     "exists": {
+      "description": "Whether the resolver observed the location to exist. A DENIED_PERMISSION result may report an existing location \u2014 a permission error is itself that observation \u2014 while still never disclosing where it is.",
       "type": "boolean"
     },
     "writable": {
+      "description": "Whether the resolver observed the location to be writable. Only a RESOLVED result can be writable.",
       "type": "boolean"
     },
     "reason_codes": {

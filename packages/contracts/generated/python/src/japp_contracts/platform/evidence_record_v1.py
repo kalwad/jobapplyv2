@@ -29,9 +29,9 @@ class PlatformEvidenceRecordV1(ContractModel):
     os_version: PlatformVocabularyV1ProductVersion | None = None
     os_build: PlatformVocabularyV1BuildToken | None = None
     machine_class: Annotated[PlatformVocabularyV1MachineClass, Field(description="Coarse machine class only. Hostnames, serial numbers, user names, and network identity are never represented.")]
-    runner_image_token: CommonContractTextV1BoundedToken | None = None
+    runner_image_token: Annotated[CommonContractTextV1BoundedToken, Field(description="Coarse hosted-runner image label. It identifies a hosted CI runner and nothing else, and a measured native run on a hosted runner must name it.")] | None = None
     artifact_kind: PlatformVocabularyV1EvidenceArtifactKind
-    evaluation_method: PlatformVocabularyV1EvaluationMethod
+    evaluation_method: Annotated[PlatformVocabularyV1EvaluationMethod, Field(description="How the artifact was produced. Independent of `machine_class`, which records where: any machine class may execute synthetic fixtures or static inspection, and only a non-synthetic machine may execute a measured native run.")]
     synthetic_only: Annotated[bool, Field(description="Always true: every committed platform evidence artifact contains synthetic data only.")]
     artifact_digest: CommonProvenanceV1ContentDigest
     package_artifact: PlatformVocabularyV1ArtifactIdentity | None = None

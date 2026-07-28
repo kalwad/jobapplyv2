@@ -32,9 +32,9 @@ class PlatformProcessStatusV1(ContractModel):
     termination_requested: PlatformVocabularyV1TerminationRequest
     started_at: CommonTimestampUtcV1UtcTimestamp | None = None
     ended_at: CommonTimestampUtcV1UtcTimestamp | None = None
-    exit_code: PlatformVocabularyV1ProcessExitCode | None = None
+    exit_code: Annotated[PlatformVocabularyV1ProcessExitCode, Field(description="Observed exit status of a child that ended on its own. A non-zero status is always accompanied by at least one finite reason.")] | None = None
     restart_count: Annotated[int, Ge(0), Le(8)]
-    orphan_detected: bool
+    orphan_detected: Annotated[bool, Field(description="Historical: this child was observed to have outlived its supervising parent. It stays true on the terminal record of an orphan that was cleaned up or finally seen to exit.")]
     idempotency_key: CommonContractTextV1BoundedToken | None = None
     reason_codes: Annotated[list[PlatformVocabularyV1PlatformReasonCode], MinLen(0), MaxLen(8)]
     remediation_message: PlatformVocabularyV1BoundedUserMessage | None = None

@@ -15292,7 +15292,7 @@
         "path": "platform/evidence-record.v1.schema.json",
         "id": "urn:japp:schema:platform:evidence-record:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -16076,7 +16076,7 @@
         "path": "platform/installer-state.v1.schema.json",
         "id": "urn:japp:schema:platform:installer-state:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -17907,7 +17907,7 @@
         "path": "platform/native-messaging-result.v1.schema.json",
         "id": "urn:japp:schema:platform:native-messaging-result:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -18611,7 +18611,7 @@
         "path": "platform/path-resolution.v1.schema.json",
         "id": "urn:japp:schema:platform:path-resolution:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -19554,7 +19554,7 @@
         "path": "platform/process-status.v1.schema.json",
         "id": "urn:japp:schema:platform:process-status:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -20095,7 +20095,7 @@
         "path": "platform/runtime-capability.v1.schema.json",
         "id": "urn:japp:schema:platform:runtime-capability:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -21634,7 +21634,7 @@
         "path": "platform/update-state.v1.schema.json",
         "id": "urn:japp:schema:platform:update-state:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -39262,6 +39262,17 @@
         "semantic_sha256": "a2938e778a96fa6d83d3d4acf9601a9e6ce1b6f5c153dd4b80d5bbbf08da682e"
       },
       {
+        "id": "x-w07.evidence-record-hosted-synthetic-fixture",
+        "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "08f6148c99a3893226e38faa6c31331fe0d7ab88cfef34d98afed39c406b5875"
+      },
+      {
         "id": "x-w07.evidence-record-measured-native-run",
         "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
         "operation": "ROUND_TRIP",
@@ -39273,6 +39284,17 @@
         "semantic_sha256": "27f4843a2a6860c0fbffe24af29e59a7e0e0261a2080ff82e95ac2a5bd4acb65"
       },
       {
+        "id": "x-w07.evidence-record-physical-machine-synthetic-fixture",
+        "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "494240eb265d377f9260741a12e9c6c159a9b91569095d19b68d2d499ee10c8e"
+      },
+      {
         "id": "x-w07.installer-state-installed",
         "schema_ref": "urn:japp:schema:platform:installer-state:v1",
         "operation": "ROUND_TRIP",
@@ -39282,6 +39304,17 @@
           "typescript"
         ],
         "semantic_sha256": "f39c81c5e1b9ffb707959e78717f6b0a66b0c899351333f6f41da5e0bfda7b5b"
+      },
+      {
+        "id": "x-w07.installer-state-recovered-interruption",
+        "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "d5958d8fec171cca844ae945d059700278c7aea723ca5e571738373a10c4e252"
       },
       {
         "id": "x-w07.installer-state-uninstalled-with-host-cleanup",
@@ -39339,6 +39372,17 @@
         "semantic_sha256": "4768424e0a443ca2530f9f2e5c4c820e001224a05c92db28373335060d205275"
       },
       {
+        "id": "x-w07.native-messaging-result-remove-denied",
+        "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "6dd9109b61588bbb088f6f09f0dc144a88c203c8dc4fdd40925c2a26fb0b0938"
+      },
+      {
         "id": "x-w07.native-messaging-result-repair-present-valid",
         "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
         "operation": "ROUND_TRIP",
@@ -39383,6 +39427,17 @@
         "semantic_sha256": "77abc3245258f8c68d98c21866099e038430e682d448d71b610b9b36f2f9070b"
       },
       {
+        "id": "x-w07.path-resolution-denied-existing-location",
+        "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "63544c9f55d4503db25baff3d3f2cf71b3c5e9bc18cee8bad0172cc2bbc36c57"
+      },
+      {
         "id": "x-w07.path-resolution-permission-denied",
         "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
         "operation": "ROUND_TRIP",
@@ -39392,6 +39447,17 @@
           "typescript"
         ],
         "semantic_sha256": "32ae53c2be3bee97962e498c36c1c7c9f5ab934abb0181b6299888dbd2b86dc3"
+      },
+      {
+        "id": "x-w07.process-plan-loopback-bind-host",
+        "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "ab7f5a41bc379462553531d2519601774af59ce8c990e24c2607c5b496f5b54e"
       },
       {
         "id": "x-w07.process-plan-native-host-binary-stdio",
@@ -39425,6 +39491,28 @@
           "typescript"
         ],
         "semantic_sha256": "941c8777737b21aa7afd1fcb5b5c39c0ab825dc77593cadfb823760c51dab231"
+      },
+      {
+        "id": "x-w07.process-status-explained-nonzero-exit",
+        "schema_ref": "urn:japp:schema:platform:process-status:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "c6ff9bfa3c04948e47c23e83a9a797627fb8e1c38d511ae32ed5b77982a0cfc2"
+      },
+      {
+        "id": "x-w07.process-status-orphan-cleanup-terminal",
+        "schema_ref": "urn:japp:schema:platform:process-status:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "a9858f9acee588ea4c4bcd733cd66df48ea4cb5e7c05def9fabf0e4065b993c7"
       },
       {
         "id": "x-w07.process-status-orphan-detected",
@@ -39647,6 +39735,17 @@
         "semantic_sha256": "b885ed3c0f5b8dcbb47a2cbf09d16f76cd1d178c8d06cfc07b2087d9d72bce56"
       },
       {
+        "id": "x-w07.runtime-capability-degraded-with-profiles",
+        "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "011f342d9ec57e3eda529fa4cd925fa2c58a6954df6956c57c3163688f4aa804"
+      },
+      {
         "id": "x-w07.runtime-capability-full-ai",
         "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
         "operation": "ROUND_TRIP",
@@ -39768,6 +39867,17 @@
         "semantic_sha256": "4b2315caf8208abd195a62f2dc083261db58227b2b9a240ef79de08f3c6640d8"
       },
       {
+        "id": "x-w07.update-state-recovered-interruption",
+        "schema_ref": "urn:japp:schema:platform:update-state:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "1cb1361ce1e3aeb48eb9bf5207941a1a84c51a331b9f43b661059a4740f127ea"
+      },
+      {
         "id": "x-w07.update-state-rolled-back",
         "schema_ref": "urn:japp:schema:platform:update-state:v1",
         "operation": "ROUND_TRIP",
@@ -39780,5 +39890,5 @@
       }
     ]
   },
-  "integrity_sha256": "1ae745c63c5fd54d9ceda8d326b8ddffcae477f999dd3adc373badb1e20cf54b"
+  "integrity_sha256": "81283772d824dcc42f575512c6134c18c626e1404c248d9f8f742eb9a5299b3f"
 }

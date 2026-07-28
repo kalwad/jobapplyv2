@@ -6843,6 +6843,58 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.browser-record-absent-with-version",
+      "schema_ref": "urn:japp:schema:platform:browser-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.browser-record",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/sanitized_install_location"
+          },
+          {
+            "op": "set",
+            "path": "/presence",
+            "value": "NOT_INSTALLED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_PLATFORM"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A browser that was not found reports no version.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.browser-record-available-without-detection",
+      "schema_ref": "urn:japp:schema:platform:browser-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.browser-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "NOT_EVALUATED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_PLATFORM"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A presence claim is an observation and cannot come from an explicitly unevaluated detection.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.browser-record-certified-chrome-stable",
       "schema_ref": "urn:japp:schema:platform:browser-record:v1",
       "category": "w07-platform",
@@ -7666,7 +7718,7 @@
         "error_code": "GATE_EVIDENCE_MISSING"
       },
       "languages": ["python", "rust", "typescript"],
-      "rationale": "A certification input cannot claim an architecture the certified target does not have (specification §5.14.1).",
+      "rationale": "A certification input cannot claim an architecture the certified target does not have (specification \u00a75.14.1).",
       "synthetic_data": true
     },
     {
@@ -7935,6 +7987,49 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.diagnostic-report-blocked-with-info-severity",
+      "schema_ref": "urn:japp:schema:platform:diagnostic-report:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.diagnostic-report",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/user_message"
+          },
+          {
+            "op": "set",
+            "path": "/result",
+            "value": "BLOCKED"
+          },
+          {
+            "op": "set",
+            "path": "/blocking",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/severity",
+            "value": "INFO"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["POLICY_DISABLED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "VALIDATION_CONSTRAINT_VIOLATION"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A diagnostic that blocks a capability is never filed as informational.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.diagnostic-report-component-capability-mismatch",
       "schema_ref": "urn:japp:schema:platform:diagnostic-report:v1",
       "category": "w07-platform-semantic-negative",
@@ -8119,6 +8214,96 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.evidence-record-declared-plan-success",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/evaluation_method",
+            "value": "DECLARED_PLAN"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A declared plan is never measured evidence, so it can never report a passing result.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.evidence-record-hosted-measured-without-runner-image",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/machine_class",
+            "value": "HOSTED_CI_RUNNER"
+          },
+          {
+            "op": "set",
+            "path": "/evaluation_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/os_version",
+            "value": "15.2"
+          },
+          {
+            "op": "set",
+            "path": "/os_build",
+            "value": "24C101"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A measured run on a hosted runner must name the runner image that produced it.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.evidence-record-hosted-synthetic-fixture",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/machine_class",
+            "value": "HOSTED_CI_RUNNER"
+          },
+          {
+            "op": "set",
+            "path": "/runner_image_token",
+            "value": "ubuntu-24.04"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Machine class and evaluation method are independent axes: a hosted runner may execute synthetic fixtures.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.evidence-record-measured-native-run",
       "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
       "category": "w07-platform",
@@ -8281,10 +8466,10 @@
       "synthetic_data": true
     },
     {
-      "id": "x-w07.evidence-record-physical-machine-without-measurement",
+      "id": "x-w07.evidence-record-physical-machine-synthetic-fixture",
       "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
-      "category": "w07-platform-semantic-negative",
-      "operation": "VALIDATE",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
       "input": {
         "value_ref": "w07.evidence-record",
         "patch": [
@@ -8296,12 +8481,10 @@
         ]
       },
       "expected": {
-        "valid": false,
-        "error_category": "SEMANTIC_INVALID",
-        "error_code": "GATE_EVIDENCE_MISSING"
+        "valid": true
       },
       "languages": ["python", "rust", "typescript"],
-      "rationale": "A real machine class cannot be attached to synthetic-fixture evidence.",
+      "rationale": "A physical development machine may also execute synthetic fixtures; where an artifact was produced does not dictate how.",
       "synthetic_data": true
     },
     {
@@ -8351,6 +8534,106 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.evidence-record-runner-image-on-physical-machine",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/machine_class",
+            "value": "PHYSICAL_DEVELOPMENT_MACHINE"
+          },
+          {
+            "op": "set",
+            "path": "/runner_image_token",
+            "value": "macos-15"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A runner image identifies a hosted CI runner and nothing else.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.evidence-record-success-with-invalid-signature",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/package_artifact",
+            "value": {
+              "artifact_token": "desktop-shell-artifact",
+              "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          },
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_INVALID"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An artifact whose signature did not verify is not a passing evidence element.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.evidence-record-synthetic-machine-measured-run",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/machine_class",
+            "value": "SYNTHETIC_FIXTURE"
+          },
+          {
+            "op": "set",
+            "path": "/evaluation_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/os_version",
+            "value": "15.2"
+          },
+          {
+            "op": "set",
+            "path": "/os_build",
+            "value": "24C101"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A synthetic machine cannot execute a run on the actual operating-system family and architecture.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.installer-state-architecture-mismatch",
       "schema_ref": "urn:japp:schema:platform:installer-state:v1",
       "category": "w07-platform-semantic-negative",
@@ -8372,6 +8655,30 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An installation claim cannot report an architecture the certified target does not have.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-foreign-package-format",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/package_format",
+            "value": "DEBIAN_PACKAGE"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Specification 5.14.8 binds each certified target to its own package formats.",
       "synthetic_data": true
     },
     {
@@ -8564,6 +8871,191 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.installer-state-interruption-reason-without-flag",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "0.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INTERRUPTED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The interruption reason names exactly an operation that was interrupted.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-recovered-interruption",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "0.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/recovery_completed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INTERRUPTED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Specification 5.14.8 requires interrupted install recovery to pass, so a recovered interruption is a success that keeps its historical reason.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-recovery-without-interruption",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "0.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/recovery_completed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Recovery has no meaning without an interruption to recover from.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.installer-state-sql-package-token",
       "schema_ref": "urn:japp:schema:platform:installer-state:v1",
       "category": "w07-platform-structural-negative",
@@ -8628,6 +9120,40 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A successful package operation requires evidence references.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-terminal-interruption-without-flag",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "INSTALL_INTERRUPTED"
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["ADAPTER_ERROR"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The terminal interrupted state cannot claim the operation was never interrupted.",
       "synthetic_data": true
     },
     {
@@ -8724,6 +9250,70 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "Uninstall must remove native-host registration or report the failure.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-unrecovered-success",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "0.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/recovery_completed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INTERRUPTED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An interruption that was never resolved is not a completed install.",
       "synthetic_data": true
     },
     {
@@ -8940,6 +9530,50 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.model-runtime-profile-cpu-with-driver-bound",
+      "schema_ref": "urn:japp:schema:platform:model-runtime-profile:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.model-runtime-profile",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/platform_id",
+            "value": "UBUNTU_X64"
+          },
+          {
+            "op": "set",
+            "path": "/profile_token",
+            "value": "ubuntu-x64-cpu"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_GGUF"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "CPU_ONLY"
+          },
+          {
+            "op": "set",
+            "path": "/minimum_driver_version",
+            "value": "550.54.14"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A CPU-only profile has no GPU driver bound to declare.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.model-runtime-profile-cuda-without-vram",
       "schema_ref": "urn:japp:schema:platform:model-runtime-profile:v1",
       "category": "w07-platform-semantic-negative",
@@ -9017,6 +9651,100 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An integer member is never coerced from a fractional number.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.model-runtime-profile-macos-cuda",
+      "schema_ref": "urn:japp:schema:platform:model-runtime-profile:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.model-runtime-profile",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/profile_token",
+            "value": "macos-arm64-nvidia"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_GGUF"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "NVIDIA_CUDA"
+          },
+          {
+            "op": "set",
+            "path": "/minimum_vram_mib",
+            "value": 24576
+          },
+          {
+            "op": "set",
+            "path": "/minimum_driver_version",
+            "value": "550.54.14"
+          },
+          {
+            "op": "set",
+            "path": "/availability",
+            "value": "AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/acceptance_state",
+            "value": "ACCEPTED"
+          },
+          {
+            "op": "set",
+            "path": "/core_capability_behavior",
+            "value": "FULL_AI_AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/structured_output_evidence_ref",
+            "value": "evid_0123456789ABCDEFGHJKMNPQRS"
+          },
+          {
+            "op": "set",
+            "path": "/factuality_evidence_ref",
+            "value": "evid_0123456789ABCDEFGHJKMNPQRS"
+          },
+          {
+            "op": "set",
+            "path": "/latency_evidence_ref",
+            "value": "evid_0123456789ABCDEFGHJKMNPQRS"
+          },
+          {
+            "op": "set",
+            "path": "/memory_evidence_ref",
+            "value": "evid_0123456789ABCDEFGHJKMNPQRS"
+          },
+          {
+            "op": "set",
+            "path": "/last_tested_on",
+            "value": "2026-07-01"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The certified macOS target is Apple Silicon arm64, and specification 5.14.6 names no macOS CUDA profile.",
       "synthetic_data": true
     },
     {
@@ -9339,6 +10067,29 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.native-messaging-registration-without-message-limit",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-registration:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-registration",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/max_message_bytes"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "TRANSPORT_FORBIDDEN"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Specification 5.14.5 keeps the message-size limit mandatory on every platform.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.native-messaging-registration-wrong-location-role",
       "schema_ref": "urn:japp:schema:platform:native-messaging-registration:v1",
       "category": "w07-platform-semantic-negative",
@@ -9636,7 +10387,49 @@
         "valid": true
       },
       "languages": ["python", "rust", "typescript"],
-      "rationale": "Repeating an uninstall that already completed changes nothing and remains a success (specification §5.14.5 idempotency).",
+      "rationale": "Repeating an uninstall that already completed changes nothing and remains a success (specification \u00a75.14.5 idempotency).",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-remove-denied",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "PRESENT_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["PERMISSION_DENIED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "observed_state is the post-operation registration state: a refused removal leaves the registration it failed to remove.",
       "synthetic_data": true
     },
     {
@@ -9775,6 +10568,54 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A successful repair restores the manifest identity it observed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-stale-without-host-version",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "UPDATE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "PRESENT_STALE"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INCOMPATIBLE_RUNTIME_VERSION"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A staleness verdict must carry the version it judged.",
       "synthetic_data": true
     },
     {
@@ -10279,6 +11120,145 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.path-resolution-denied-existing-location",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.path-resolution",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/sanitized_path"
+          },
+          {
+            "op": "remove",
+            "path": "/path_digest"
+          },
+          {
+            "op": "set",
+            "path": "/resolution_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "set",
+            "path": "/writable",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["PERMISSION_DENIED"]
+          },
+          {
+            "op": "set",
+            "path": "/exists",
+            "value": true
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A permission error is itself evidence that the location exists; the refusal reports that without disclosing where it is.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.path-resolution-denied-without-permission-reason",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.path-resolution",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/sanitized_path"
+          },
+          {
+            "op": "remove",
+            "path": "/path_digest"
+          },
+          {
+            "op": "set",
+            "path": "/resolution_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "set",
+            "path": "/exists",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/writable",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_IO_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A permission refusal must name the permission-denied reason.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.path-resolution-denied-writable",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.path-resolution",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/sanitized_path"
+          },
+          {
+            "op": "remove",
+            "path": "/path_digest"
+          },
+          {
+            "op": "set",
+            "path": "/resolution_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "set",
+            "path": "/exists",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/writable",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["PERMISSION_DENIED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_IO_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A refused resolution can never report a writable location.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.path-resolution-permission-denied",
       "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
       "category": "w07-platform",
@@ -10420,6 +11400,53 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A UNC path cannot satisfy the sanitized role-anchored reference grammar.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.path-resolution-unevaluated-claims-existence",
+      "schema_ref": "urn:japp:schema:platform:path-resolution:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.path-resolution",
+        "patch": [
+          {
+            "op": "remove",
+            "path": "/sanitized_path"
+          },
+          {
+            "op": "remove",
+            "path": "/path_digest"
+          },
+          {
+            "op": "set",
+            "path": "/resolution_state",
+            "value": "NOT_EVALUATED"
+          },
+          {
+            "op": "set",
+            "path": "/exists",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/writable",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["EVALUATION_NOT_RUN"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_IO_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A resolution that evaluated nothing observed nothing.",
       "synthetic_data": true
     },
     {
@@ -10596,6 +11623,33 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.process-plan-loopback-bind-host",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/environment_allowlist",
+            "value": [
+              {
+                "variable": "JAPP_SERVICE_BIND_HOST",
+                "value": "127.0.0.1"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A loopback bind address is the reviewed configuration REQ-PLAT-003 requires.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.process-plan-model-runtime-framed-stderr",
       "schema_ref": "urn:japp:schema:platform:process-plan:v1",
       "category": "w07-platform-semantic-negative",
@@ -10744,7 +11798,7 @@
         "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
       },
       "languages": ["python", "rust", "typescript"],
-      "rationale": "Specification §5.14.5 frames stdin and stdout only; stderr must not become a second native-message stream.",
+      "rationale": "Specification \u00a75.14.5 frames stdin and stdout only; stderr must not become a second native-message stream.",
       "synthetic_data": true
     },
     {
@@ -10769,6 +11823,35 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "Text-mode stdio would corrupt length-prefixed native messages on Windows.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-non-loopback-bind-host",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/environment_allowlist",
+            "value": [
+              {
+                "variable": "JAPP_SERVICE_BIND_HOST",
+                "value": "0.0.0.0"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "REQ-PLAT-003 binds local services to loopback.",
       "synthetic_data": true
     },
     {
@@ -10849,6 +11932,59 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.process-plan-out-of-range-service-port",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/environment_allowlist",
+            "value": [
+              {
+                "variable": "JAPP_SERVICE_PORT",
+                "value": "99999"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A service port is a real port number, not any five-digit string.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-privilege-escalation-argument",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/arguments",
+            "value": ["sudo"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Privilege escalation is structurally unrepresentable, so its launcher cannot travel as an argument.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.process-plan-raw-environment-dictionary",
       "schema_ref": "urn:japp:schema:platform:process-plan:v1",
       "category": "w07-platform-structural-negative",
@@ -10898,6 +12034,35 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.process-plan-registration-path-role-environment",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/environment_allowlist",
+            "value": [
+              {
+                "variable": "JAPP_PATH_ROLE",
+                "value": "NATIVE_HOST_REGISTRATION"
+              }
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The environment cannot re-admit the registration role the working directory refuses.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.process-plan-registration-working-directory",
       "schema_ref": "urn:japp:schema:platform:process-plan:v1",
       "category": "w07-platform-semantic-negative",
@@ -10942,6 +12107,30 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A shell command string cannot be expressed as a bounded argument.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-suffixed-interpreter-argument",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/arguments",
+            "value": ["cmd.exe"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A refused interpreter stays refused in its Windows executable-suffix spelling.",
       "synthetic_data": true
     },
     {
@@ -11067,6 +12256,126 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.process-status-exited-after-termination-request",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-status",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "EXITED"
+          },
+          {
+            "op": "set",
+            "path": "/ended_at",
+            "value": "2026-07-28T04:10:00Z"
+          },
+          {
+            "op": "set",
+            "path": "/exit_code",
+            "value": 0
+          },
+          {
+            "op": "set",
+            "path": "/termination_requested",
+            "value": "GRACEFUL_STOP"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A child stopped on request is TERMINATED, not a child that ended on its own.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-status-explained-nonzero-exit",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.process-status",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "EXITED"
+          },
+          {
+            "op": "set",
+            "path": "/ended_at",
+            "value": "2026-07-28T04:10:00Z"
+          },
+          {
+            "op": "set",
+            "path": "/exit_code",
+            "value": 1
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["ADAPTER_ERROR"]
+          },
+          {
+            "op": "set",
+            "path": "/diagnostic_digest",
+            "value": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A non-zero exit is explainable through the finite reason vocabulary and a redacted diagnostic digest.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-status-failed-with-exit-code",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-status",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "FAILED"
+          },
+          {
+            "op": "set",
+            "path": "/exit_code",
+            "value": 3
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["ADAPTER_ERROR"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An observed exit status makes this an EXITED child, not a failed supervision.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.process-status-negative-exit-code",
       "schema_ref": "urn:japp:schema:platform:process-status:v1",
       "category": "w07-platform-structural-negative",
@@ -11092,6 +12401,48 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "Exit codes are bounded unsigned integers.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-status-orphan-cleanup-terminal",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.process-status",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "TERMINATED"
+          },
+          {
+            "op": "set",
+            "path": "/termination_requested",
+            "value": "IMMEDIATE_STOP"
+          },
+          {
+            "op": "set",
+            "path": "/ended_at",
+            "value": "2026-07-28T04:10:00Z"
+          },
+          {
+            "op": "set",
+            "path": "/orphan_detected",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["ADAPTER_ERROR"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "orphan_detected is historical, so the terminal record of an orphan that was cleaned up stays representable.",
       "synthetic_data": true
     },
     {
@@ -11206,6 +12557,45 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An unobservable process cannot report lifecycle timestamps.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-status-unexplained-nonzero-exit",
+      "schema_ref": "urn:japp:schema:platform:process-status:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-status",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "EXITED"
+          },
+          {
+            "op": "set",
+            "path": "/ended_at",
+            "value": "2026-07-28T04:10:00Z"
+          },
+          {
+            "op": "set",
+            "path": "/exit_code",
+            "value": 1
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A non-zero exit that carries no reason is an unexplained failure reported as a clean one.",
       "synthetic_data": true
     },
     {
@@ -11553,6 +12943,132 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.runtime-capability-degraded-claims-full-ai",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.runtime-capability",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/runtime_availability",
+            "value": "DEGRADED_LIMITED"
+          },
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_MLX"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_version",
+            "value": "0.5.0"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "APPLE_SILICON_GPU"
+          },
+          {
+            "op": "set",
+            "path": "/available_profile_refs",
+            "value": ["modelprof_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/accepted_profile_refs",
+            "value": ["modelprof_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/core_capability_behavior",
+            "value": "FULL_AI_AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Full AI requires an available runtime, not a degraded one.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.runtime-capability-degraded-with-profiles",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.runtime-capability",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/runtime_availability",
+            "value": "DEGRADED_LIMITED"
+          },
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_MLX"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_version",
+            "value": "0.5.0"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "APPLE_SILICON_GPU"
+          },
+          {
+            "op": "set",
+            "path": "/available_profile_refs",
+            "value": ["modelprof_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/accepted_profile_refs",
+            "value": []
+          },
+          {
+            "op": "set",
+            "path": "/core_capability_behavior",
+            "value": "CORE_PRESERVED_AI_DEGRADED"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INSUFFICIENT_HARDWARE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Specification 5.14.1 treats a below-tier runtime as CERTIFIED_CORE, so a degraded runtime still reports its identity and its profiles.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.runtime-capability-full-ai",
       "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
       "category": "w07-platform",
@@ -11615,6 +13131,70 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.runtime-capability-full-ai-with-blocking-reason",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.runtime-capability",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/runtime_availability",
+            "value": "AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_MLX"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_version",
+            "value": "0.5.0"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "APPLE_SILICON_GPU"
+          },
+          {
+            "op": "set",
+            "path": "/available_profile_refs",
+            "value": ["modelprof_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/accepted_profile_refs",
+            "value": ["modelprof_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/core_capability_behavior",
+            "value": "FULL_AI_AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Full AI is the only state with nothing outstanding to explain.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.runtime-capability-full-ai-without-accepted-profile",
       "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
       "category": "w07-platform-semantic-negative",
@@ -11666,6 +13246,99 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "Full AI capability requires at least one accepted profile.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.runtime-capability-measured-detection-unevaluated",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.runtime-capability",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "MEASURED_NATIVE_RUN"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unevaluated runtime is exactly an unevaluated detection.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.runtime-capability-mlx-on-windows-target",
+      "schema_ref": "urn:japp:schema:platform:runtime-capability:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.runtime-capability",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/platform_id",
+            "value": "WINDOWS_X64"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_availability",
+            "value": "AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/detection_method",
+            "value": "MEASURED_NATIVE_RUN"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_family",
+            "value": "OLLAMA_MLX"
+          },
+          {
+            "op": "set",
+            "path": "/runtime_version",
+            "value": "0.5.0"
+          },
+          {
+            "op": "set",
+            "path": "/accelerator",
+            "value": "APPLE_SILICON_GPU"
+          },
+          {
+            "op": "set",
+            "path": "/available_profile_refs",
+            "value": []
+          },
+          {
+            "op": "set",
+            "path": "/accepted_profile_refs",
+            "value": []
+          },
+          {
+            "op": "set",
+            "path": "/core_capability_behavior",
+            "value": "CORE_PRESERVED_AI_DEGRADED"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INSUFFICIENT_HARDWARE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "UNSUPPORTED_RUNTIME_PROFILE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A detected runtime identity must agree with the target it was detected on.",
       "synthetic_data": true
     },
     {
@@ -13261,6 +14934,73 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.update-state-installed-version-mismatch",
+      "schema_ref": "urn:japp:schema:platform:update-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.update-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "UPDATE_INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "1.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/available_version",
+            "value": "1.2.0"
+          },
+          {
+            "op": "set",
+            "path": "/target_artifact",
+            "value": {
+              "artifact_token": "desktop-shell-artifact",
+              "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The installed update must be the update that was offered.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.update-state-installed-without-target-artifact",
       "schema_ref": "urn:japp:schema:platform:update-state:v1",
       "category": "w07-platform-semantic-negative",
@@ -13339,6 +15079,81 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An interrupted update is an honest recoverable state, not a silent success.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.update-state-recovered-interruption",
+      "schema_ref": "urn:japp:schema:platform:update-state:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.update-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/signature_state",
+            "value": "SIGNATURE_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/user_data_preservation",
+            "value": "PRESERVED"
+          },
+          {
+            "op": "set",
+            "path": "/native_host_cleanup",
+            "value": "NOT_APPLICABLE"
+          },
+          {
+            "op": "set",
+            "path": "/evidence_refs",
+            "value": ["evid_0123456789ABCDEFGHJKMNPQRS"]
+          },
+          {
+            "op": "set",
+            "path": "/state",
+            "value": "UPDATE_INSTALLED"
+          },
+          {
+            "op": "set",
+            "path": "/installed_version",
+            "value": "1.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/available_version",
+            "value": "1.1.0"
+          },
+          {
+            "op": "set",
+            "path": "/target_artifact",
+            "value": {
+              "artifact_token": "desktop-shell-artifact",
+              "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          },
+          {
+            "op": "set",
+            "path": "/interrupted",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/recovery_completed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["INTERRUPTED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A recovered interrupted update is the success outcome specification 5.14.8 requires each platform to pass.",
       "synthetic_data": true
     },
     {

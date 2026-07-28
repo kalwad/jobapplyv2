@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:update-state:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Updater state and result",
   "description": "Bounded update, rollback, and recovery state: channel, current and available versions, the target artifact digest and signature state, the lifecycle state, interruption and recovery, user-data preservation, native-host cleanup, and finite failure reasons. No download URL, network request, update script, registry modification, or signing key is representable, and this contract updates nothing.",
   "type": "object",
@@ -61,9 +61,11 @@
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/updateState"
     },
     "interrupted": {
+      "description": "Historical: this update or rollback was interrupted at some point. The unresolved terminal outcome is reported as UPDATE_INTERRUPTED, never by this flag alone.",
       "type": "boolean"
     },
     "recovery_completed": {
+      "description": "Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.",
       "type": "boolean"
     },
     "rollback_available": {

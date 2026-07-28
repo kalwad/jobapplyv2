@@ -11,7 +11,7 @@ Manual edits are prohibited and fail the contract-gen drift suite.
 from typing import Annotated
 
 from annotated_types import MaxLen, MinLen
-from pydantic import model_validator
+from pydantic import Field, model_validator
 
 from japp_contracts._runtime import ContractModel, reject_explicit_null
 from japp_contracts.common.contract_text_v1 import CommonContractTextV1BoundedToken
@@ -35,8 +35,8 @@ class PlatformUpdateStateV1(ContractModel):
     target_artifact: PlatformVocabularyV1ArtifactIdentity | None = None
     signature_state: PlatformVocabularyV1SignatureState
     state: PlatformVocabularyV1UpdateState
-    interrupted: bool
-    recovery_completed: bool | None = None
+    interrupted: Annotated[bool, Field(description="Historical: this update or rollback was interrupted at some point. The unresolved terminal outcome is reported as UPDATE_INTERRUPTED, never by this flag alone.")]
+    recovery_completed: Annotated[bool, Field(description="Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.")] | None = None
     rollback_available: bool
     user_data_preservation: PlatformVocabularyV1UserDataPreservation
     native_host_cleanup: PlatformVocabularyV1NativeHostCleanupState

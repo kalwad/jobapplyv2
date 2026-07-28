@@ -33,7 +33,13 @@ export interface PlatformInstallerStateV1 {
   readonly scope: PlatformVocabularyV1InstallationScope;
   readonly state: PlatformVocabularyV1InstallerState;
   readonly installed_version?: PlatformVocabularyV1ProductVersion;
+  /**
+   * Historical: this install, repair, or uninstall was interrupted at some point. The unresolved terminal outcome is reported as INSTALL_INTERRUPTED, never by this flag alone.
+   */
   readonly interrupted: boolean;
+  /**
+   * Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.
+   */
   readonly recovery_completed?: boolean;
   readonly user_data_preservation: PlatformVocabularyV1UserDataPreservation;
   readonly native_host_cleanup: PlatformVocabularyV1NativeHostCleanupState;

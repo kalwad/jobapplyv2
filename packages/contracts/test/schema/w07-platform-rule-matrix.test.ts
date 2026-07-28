@@ -114,6 +114,12 @@ const TERMINAL_STATE: Readonly<
  * The single most coherent reason vocabulary for each non-terminal
  * observation. A state that explains itself through a specific finite reason
  * must carry exactly that reason.
+ *
+ * `PRESENT_VALID` is deliberately empty here because a healthy registration
+ * has nothing wrong with it. That is a fact about the *state*, not about the
+ * *operation*: when an operation fails and leaves a healthy registration
+ * behind, the failure is explained by an operation-level reason instead
+ * (`OPERATION_FAILURE_REASON` below).
  */
 const STATE_REASONS: Readonly<Record<RegistrationState, readonly string[]>> = {
   ABSENT: ["NOT_INSTALLED"],
@@ -123,6 +129,15 @@ const STATE_REASONS: Readonly<Record<RegistrationState, readonly string[]>> = {
   PRESENT_STALE: ["INCOMPATIBLE_RUNTIME_VERSION"],
   PRESENT_VALID: [],
 };
+
+/**
+ * Why an operation can fail while leaving a state that is healthy in itself.
+ * A `REMOVE` refused by the operating system — an unelevated `HKLM` registry
+ * key on Windows, a system-scope manifest on macOS or Linux — is the ordinary
+ * instance: the removal did not happen, so the registration it was asked to
+ * delete is still present and valid.
+ */
+const OPERATION_FAILURE_REASON = "PERMISSION_DENIED";
 
 /** Only a genuinely present, valid registration carries observed identity. */
 const STATES_WITH_IDENTITY: readonly RegistrationState[] = [
@@ -167,6 +182,17 @@ function registrationRepresentative(
   observedState: RegistrationState,
 ): RegistrationCell {
   const succeeds = TERMINAL_STATE[operation] === observedState;
+  // `observed_state` is the registration state observed *after* the operation
+  // ran, never a claim that the operation succeeded. A non-terminal
+  // observation is therefore a failure, and it must be explained: by the
+  // reason its own state implies where one exists, and otherwise by an
+  // operation-level reason.
+  const stateReasons = STATE_REASONS[observedState];
+  const reasonCodes = succeeds
+    ? []
+    : stateReasons.length > 0
+      ? stateReasons
+      : [OPERATION_FAILURE_REASON];
   return {
     operation,
     observed_state: observedState,
@@ -177,19 +203,23 @@ function registrationRepresentative(
         ? false
         : succeeds,
     idempotent_repeat_safe: succeeds,
-    reason_codes: succeeds ? [] : STATE_REASONS[observedState],
+    reason_codes: reasonCodes,
     identity: STATES_WITH_IDENTITY.includes(observedState),
   };
 }
 
 /**
- * `REMOVE` is the only operation whose terminal state is `ABSENT`, so
- * `REMOVE` observing `PRESENT_VALID` is the one operation/state pair that no
- * coherent representative can rescue: a clean `PRESENT_VALID` observation
- * contradicts a successful removal, and `PRESENT_VALID` never carries a
- * failure reason.
+ * Every operation/state cell is reachable. `observed_state` is an observation
+ * of the registration, not an outcome of the operation, so any of the five
+ * operations may end up observing any of the six states — including `REMOVE`
+ * observing `PRESENT_VALID`, which is exactly what a removal refused by the
+ * operating system leaves behind. KI-0025 (F6) records that the previous
+ * matrix rejected that cell only because its representative model keyed
+ * reasons by observed state alone and therefore never offered an
+ * operation-level failure reason. The false-success direction stays refused by
+ * the contradiction table below, not by removing a cell.
  */
-const REJECTED_REGISTRATION_CELLS = new Set(["REMOVE/PRESENT_VALID"]);
+const REJECTED_REGISTRATION_CELLS = new Set<string>();
 
 describe("M01-W07 native-registration operation/state matrix (KI-0024)", () => {
   const cells = REGISTRATION_OPERATIONS.flatMap((operation) =>
@@ -389,14 +419,26 @@ describe("M01-W07 native-registration operation/state matrix (KI-0024)", () => {
       },
     },
     {
-      id: "a valid registration carries a failure reason",
+      // An identity verdict must carry the identity evidence it is about.
+      id: "a mismatched identity omits the observed manifest digest",
       cell: {
-        operation: "INSTALL",
-        observed_state: "PRESENT_VALID",
-        changed: true,
-        idempotent_repeat_safe: true,
-        reason_codes: ["ADAPTER_ERROR"],
-        identity: true,
+        operation: "VERIFY",
+        observed_state: "MISMATCHED_IDENTITY",
+        changed: false,
+        idempotent_repeat_safe: false,
+        reason_codes: ["IDENTITY_MISMATCH"],
+        identity: false,
+      },
+    },
+    {
+      id: "a stale registration omits the observed host version",
+      cell: {
+        operation: "UPDATE",
+        observed_state: "PRESENT_STALE",
+        changed: false,
+        idempotent_repeat_safe: false,
+        reason_codes: ["INCOMPATIBLE_RUNTIME_VERSION"],
+        identity: false,
       },
     },
     {
@@ -432,6 +474,36 @@ describe("M01-W07 native-registration operation/state matrix (KI-0024)", () => {
       });
     },
   );
+
+  /**
+   * KI-0025 (F6). The boundary is between *explaining a failure* and
+   * *claiming a success*, not between healthy and unhealthy states.
+   */
+  test("a refused removal reports the registration it failed to remove", () => {
+    const refused = buildRegistrationResult({
+      operation: "REMOVE",
+      observed_state: "PRESENT_VALID",
+      changed: false,
+      idempotent_repeat_safe: false,
+      reason_codes: [OPERATION_FAILURE_REASON],
+      identity: true,
+    });
+    expect(verdicts(NATIVE_RESULT, refused)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    // The same observation with the failure removed becomes a false success
+    // claim — a removal that reports the registration is still there — and
+    // stays refused.
+    const claimed = structuredClone(refused);
+    claimed.reason_codes = [];
+    claimed.idempotent_repeat_safe = true;
+    expect(verdicts(NATIVE_RESULT, claimed)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
 
   test("the browser family stays bound to the certified browser", () => {
     const value = buildRegistrationResult(
@@ -591,6 +663,35 @@ const ARCHITECTURE_BY_CERTIFIED_TARGET = {
   WINDOWS_X64: "X86_64",
 } as const;
 
+/**
+ * Specification §5.14.8 binds each certified target to its package formats:
+ * a signed macOS bundle/DMG, a signed Windows installer, and a `.deb` with
+ * AppImage as the additional Ubuntu convenience artifact. A representative
+ * that moves a packaging record to another target must move its format too,
+ * otherwise it is not a coherent positive.
+ */
+const PACKAGE_FORMAT_BY_CERTIFIED_TARGET = {
+  MACOS_ARM64: "APPLE_DISK_IMAGE",
+  UBUNTU_X64: "DEBIAN_PACKAGE",
+  WINDOWS_X64: "WINDOWS_INSTALLER",
+} as const;
+
+type CertifiedTarget = keyof typeof ARCHITECTURE_BY_CERTIFIED_TARGET;
+
+/** Retarget one record coherently across every reviewed target binding. */
+function retarget(
+  value: Record<string, unknown>,
+  platformId: CertifiedTarget,
+  architecture: string,
+): Record<string, unknown> {
+  value.platform_id = platformId;
+  value.architecture = architecture;
+  if ("package_format" in value) {
+    value.package_format = PACKAGE_FORMAT_BY_CERTIFIED_TARGET[platformId];
+  }
+  return value;
+}
+
 /** Roots that carry both `platform_id` and `architecture`. */
 const ARCHITECTURE_BEARING_ROOTS = [
   [
@@ -661,9 +762,11 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
   test.each(coherentCases)(
     "%s accepts %s with %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
-      const value = fixture(valueRef);
-      value.platform_id = platformId;
-      value.architecture = architecture;
+      const value = retarget(
+        fixture(valueRef),
+        platformId as CertifiedTarget,
+        architecture,
+      );
       expect(verdicts(schemaRef, value)).toEqual({
         structural: true,
         semantic: true,
@@ -692,9 +795,11 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
   test.each(contradictoryCases)(
     "%s rejects %s claiming %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
-      const value = fixture(valueRef);
-      value.platform_id = platformId;
-      value.architecture = architecture;
+      const value = retarget(
+        fixture(valueRef),
+        platformId as CertifiedTarget,
+        architecture,
+      );
       expect(verdicts(schemaRef, value)).toEqual({
         structural: true,
         semantic: false,
@@ -1324,4 +1429,1299 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
       ).toEqual({ structural: true, semantic: false });
     },
   );
+});
+
+// ---------------------------------------------------------------------------
+// 5. KI-0025 exhaustive platform state matrices
+//
+// Every expectation below is declared from the canonical specification and the
+// committed vocabulary before it is asserted. Nothing here runs the evaluator
+// to discover what it should expect.
+// ---------------------------------------------------------------------------
+
+const INSTALLER_STATE = "urn:japp:schema:platform:installer-state:v1";
+const UPDATE_STATE = "urn:japp:schema:platform:update-state:v1";
+const EVIDENCE_RECORD = "urn:japp:schema:platform:evidence-record:v1";
+const RUNTIME_CAPABILITY = "urn:japp:schema:platform:runtime-capability:v1";
+const PATH_RESOLUTION = "urn:japp:schema:platform:path-resolution:v1";
+const PROCESS_STATUS = "urn:japp:schema:platform:process-status:v1";
+
+const EVIDENCE_REF = "evid_0123456789ABCDEFGHJKMNPQRS";
+const MODEL_PROFILE_REF = "modelprof_0123456789ABCDEFGHJKMNPQRS";
+const SYNTHETIC_DIGEST =
+  "sha256:2222222222222222222222222222222222222222222222222222222222222222";
+const SYNTHETIC_ARTIFACT = {
+  artifact_token: "desktop-shell-artifact",
+  artifact_digest: SYNTHETIC_DIGEST,
+};
+
+// ---------------------------------------------------------------------------
+// 5a. Package interruption and recovery (KI-0025 F1)
+//
+// Specification §5.14.8 requires every certified target to pass install, first
+// launch, upgrade, rollback, interrupted update, repair, uninstall,
+// native-host cleanup, and user-data preservation. A recovered interruption is
+// therefore an outcome the contract must be able to report as the success it
+// is. `interrupted` is historical ("this operation was interrupted");
+// `recovery_completed` says the interruption was resolved; and the *unresolved*
+// outcome is carried by the INSTALL_INTERRUPTED / UPDATE_INTERRUPTED states.
+// ---------------------------------------------------------------------------
+
+const INSTALLER_STATES = [
+  "INSTALLED",
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "NOT_INSTALLED",
+  "REPAIRED",
+  "REPAIR_FAILED",
+  "UNINSTALLED",
+  "UNINSTALL_FAILED",
+] as const;
+
+const UPDATE_STATES = [
+  "NO_UPDATE_AVAILABLE",
+  "ROLLBACK_FAILED",
+  "ROLLED_BACK",
+  "UPDATE_AVAILABLE",
+  "UPDATE_FAILED",
+  "UPDATE_INSTALLED",
+  "UPDATE_INTERRUPTED",
+] as const;
+
+/** States that report a completed operation and therefore claim success. */
+const PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+] as const;
+
+/** States whose whole meaning is "the interruption is still unresolved". */
+const PACKAGE_INTERRUPTED_STATES = [
+  "INSTALL_INTERRUPTED",
+  "UPDATE_INTERRUPTED",
+] as const;
+
+/** States that report a failed operation and therefore need an explanation. */
+const PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+] as const;
+
+type InterruptionShape = "CLEAN" | "UNRECOVERED" | "RECOVERED";
+
+const INTERRUPTION_SHAPES: readonly InterruptionShape[] = [
+  "CLEAN",
+  "UNRECOVERED",
+  "RECOVERED",
+];
+
+/**
+ * The reviewed expectation, stated from the semantics above:
+ *  - a success state cannot carry an interruption that was never resolved;
+ *  - a terminal interrupted state cannot claim it was never interrupted;
+ *  - every other observation is independent of the interruption history.
+ */
+function packageStateAdmitted(
+  state: string,
+  shape: InterruptionShape,
+): boolean {
+  if ((PACKAGE_SUCCESS_STATES as readonly string[]).includes(state)) {
+    return shape !== "UNRECOVERED";
+  }
+  if ((PACKAGE_INTERRUPTED_STATES as readonly string[]).includes(state)) {
+    return shape !== "CLEAN";
+  }
+  return true;
+}
+
+function buildPackageState(
+  root: "installer" | "update",
+  state: string,
+  shape: InterruptionShape,
+): Record<string, unknown> {
+  const value = fixture(
+    root === "installer" ? "w07.installer-state" : "w07.update-state",
+  );
+  value.state = state;
+  value.signature_state = "SIGNATURE_VALID";
+  value.user_data_preservation = "PRESERVED";
+  value.native_host_cleanup =
+    state === "UNINSTALLED" ? "REMOVED" : "NOT_APPLICABLE";
+  value.evidence_refs = [EVIDENCE_REF];
+
+  const reasons: string[] = [];
+  if (shape === "CLEAN") {
+    value.interrupted = false;
+    delete value.recovery_completed;
+  } else {
+    value.interrupted = true;
+    value.recovery_completed = shape === "RECOVERED";
+    reasons.push("INTERRUPTED");
+  }
+  // A failure state always needs an explanation of its own; the interruption
+  // reason alone explains only the two interrupted states.
+  if (
+    (PACKAGE_FAILURE_STATES as readonly string[]).includes(state) &&
+    !(PACKAGE_INTERRUPTED_STATES as readonly string[]).includes(state) &&
+    reasons.length === 0
+  ) {
+    reasons.push("ADAPTER_ERROR");
+  }
+  value.reason_codes = reasons;
+
+  // Per-state members the reviewed rule requires independently.
+  if (state === "INSTALLED" || state === "REPAIRED") {
+    value.installed_version = value.package_version;
+  }
+  if (state === "NOT_INSTALLED" || state === "UNINSTALLED") {
+    delete value.installed_version;
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    value.available_version = "1.1.0";
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    delete value.available_version;
+  }
+  if (state === "UPDATE_INSTALLED") {
+    value.installed_version = "1.1.0";
+    value.available_version = "1.1.0";
+    value.target_artifact = structuredClone(SYNTHETIC_ARTIFACT);
+  }
+  if (state === "ROLLED_BACK") {
+    value.rolled_back_to_version = "0.0.9";
+    value.rollback_available = true;
+  }
+  return value;
+}
+
+describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => {
+  test("the matrix covers every installer and update state", () => {
+    expect(enumTokens("installerState")).toEqual([...INSTALLER_STATES]);
+    expect(enumTokens("updateState")).toEqual([...UPDATE_STATES]);
+  });
+
+  const cells = [
+    ...INSTALLER_STATES.map((state) => ["installer", state] as const),
+    ...UPDATE_STATES.map((state) => ["update", state] as const),
+  ].flatMap(([root, state]) =>
+    INTERRUPTION_SHAPES.map((shape) => [root, state, shape] as const),
+  );
+
+  test("the matrix visits every state and interruption shape", () => {
+    expect(cells).toHaveLength(
+      (INSTALLER_STATES.length + UPDATE_STATES.length) *
+        INTERRUPTION_SHAPES.length,
+    );
+  });
+
+  test.each(cells)("%s %s is %s-representable", (root, state, shape) => {
+    const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+    expect(verdicts(schemaRef, buildPackageState(root, state, shape))).toEqual({
+      structural: true,
+      semantic: packageStateAdmitted(state, shape),
+    });
+  });
+
+  test("a recovered interruption is a success and an unrecovered one is not", () => {
+    const recovered = buildPackageState(
+      "update",
+      "UPDATE_INSTALLED",
+      "RECOVERED",
+    );
+    expect(verdicts(UPDATE_STATE, recovered)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+    expect(recovered.reason_codes).toEqual(["INTERRUPTED"]);
+
+    const unrecovered = structuredClone(recovered);
+    unrecovered.recovery_completed = false;
+    expect(verdicts(UPDATE_STATE, unrecovered)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  const PACKAGE_CONTRADICTIONS: readonly {
+    readonly id: string;
+    readonly root: "installer" | "update";
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      id: "recovery is claimed without an interruption",
+      root: "installer",
+      mutate: (value) => {
+        value.interrupted = false;
+        value.recovery_completed = true;
+        value.reason_codes = [];
+      },
+    },
+    {
+      id: "recovery is denied without an interruption",
+      root: "installer",
+      mutate: (value) => {
+        value.interrupted = false;
+        value.recovery_completed = false;
+        value.reason_codes = [];
+      },
+    },
+    {
+      id: "the interruption reason appears without an interruption",
+      root: "installer",
+      mutate: (value) => {
+        value.interrupted = false;
+        value.reason_codes = ["INTERRUPTED"];
+      },
+    },
+    {
+      id: "an interruption carries no interruption reason",
+      root: "installer",
+      mutate: (value) => {
+        value.interrupted = true;
+        value.reason_codes = ["ADAPTER_ERROR"];
+      },
+    },
+    {
+      id: "a success carries an unrelated reason alongside the interruption",
+      root: "installer",
+      mutate: (value) => {
+        value.reason_codes = ["INTERRUPTED", "ADAPTER_ERROR"];
+      },
+    },
+    {
+      id: "a macOS package reports a Debian format",
+      root: "installer",
+      mutate: (value) => {
+        value.package_format = "DEBIAN_PACKAGE";
+      },
+    },
+    {
+      id: "an installed update differs from the update that was offered",
+      root: "update",
+      mutate: (value) => {
+        value.available_version = "1.2.0";
+      },
+    },
+  ];
+
+  test.each(PACKAGE_CONTRADICTIONS)("rejects a record where $id", (entry) => {
+    const state = entry.root === "installer" ? "INSTALLED" : "UPDATE_INSTALLED";
+    const value = buildPackageState(entry.root, state, "RECOVERED");
+    entry.mutate(value);
+    expect(
+      verdicts(
+        entry.root === "installer" ? INSTALLER_STATE : UPDATE_STATE,
+        value,
+      ),
+    ).toEqual({ structural: true, semantic: false });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5b. Evidence machine class x evaluation method (KI-0025 F2)
+//
+// `machine_class` records *where* an artifact was produced; `evaluation_method`
+// records *how*. The vocabulary describes them as independent, and this
+// repository's own three-OS evidence is the exact shape the fused rule refused:
+// synthetic fixtures executed on a hosted CI runner.
+// ---------------------------------------------------------------------------
+
+const MACHINE_CLASSES = [
+  "HOSTED_CI_RUNNER",
+  "PHYSICAL_DEVELOPMENT_MACHINE",
+  "SYNTHETIC_FIXTURE",
+] as const;
+
+const EVALUATION_METHODS = [
+  "DECLARED_PLAN",
+  "MEASURED_NATIVE_RUN",
+  "NOT_EVALUATED",
+  "STATIC_INSPECTION",
+  "SYNTHETIC_FIXTURE",
+] as const;
+
+function buildEvidenceRecord(
+  machineClass: string,
+  method: string,
+): Record<string, unknown> {
+  const value = fixture("w07.evidence-record");
+  value.machine_class = machineClass;
+  value.evaluation_method = method;
+  if (machineClass === "HOSTED_CI_RUNNER") {
+    value.runner_image_token = "macos-15";
+  } else {
+    delete value.runner_image_token;
+  }
+  if (method === "MEASURED_NATIVE_RUN") {
+    value.platform_id = "MACOS_ARM64";
+    value.architecture = "ARM64";
+    value.os_version = "15.2";
+    value.os_build = "24C101";
+  } else {
+    delete value.os_build;
+  }
+  // NOT_EVALUATED and DECLARED_PLAN are never measured evidence, so they never
+  // report a passing result.
+  if (method === "NOT_EVALUATED") {
+    value.result = "BLOCKED";
+    value.reason_codes = ["EVALUATION_NOT_RUN"];
+  } else if (method === "DECLARED_PLAN") {
+    value.result = "BLOCKED";
+    value.reason_codes = ["EVALUATION_NOT_RUN"];
+  } else {
+    value.result = "SUCCESS";
+    value.reason_codes = [];
+  }
+  return value;
+}
+
+describe("M01-W07 evidence machine/method matrix (KI-0025 F2)", () => {
+  test("the matrix covers every machine class and evaluation method", () => {
+    expect(enumTokens("machineClass")).toEqual([...MACHINE_CLASSES]);
+    expect(enumTokens("evaluationMethod")).toEqual([...EVALUATION_METHODS]);
+  });
+
+  const cells = MACHINE_CLASSES.flatMap((machineClass) =>
+    EVALUATION_METHODS.map((method) => [machineClass, method] as const),
+  );
+
+  test.each(cells)("%s executing %s", (machineClass, method) => {
+    // The only refused combination: a synthetic machine cannot execute a run
+    // on the actual operating-system family and architecture.
+    const admitted = !(
+      machineClass === "SYNTHETIC_FIXTURE" && method === "MEASURED_NATIVE_RUN"
+    );
+    expect(
+      verdicts(EVIDENCE_RECORD, buildEvidenceRecord(machineClass, method)),
+    ).toEqual({ structural: true, semantic: admitted });
+  });
+
+  const EVIDENCE_CONTRADICTIONS: readonly {
+    readonly id: string;
+    readonly machine_class: string;
+    readonly method: string;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      id: "a hosted measured run does not name its runner image",
+      machine_class: "HOSTED_CI_RUNNER",
+      method: "MEASURED_NATIVE_RUN",
+      mutate: (value) => {
+        delete value.runner_image_token;
+      },
+    },
+    {
+      id: "a runner image is attached to a physical machine",
+      machine_class: "PHYSICAL_DEVELOPMENT_MACHINE",
+      method: "STATIC_INSPECTION",
+      mutate: (value) => {
+        value.runner_image_token = "macos-15";
+      },
+    },
+    {
+      id: "a declared plan reports a passing result",
+      machine_class: "SYNTHETIC_FIXTURE",
+      method: "DECLARED_PLAN",
+      mutate: (value) => {
+        value.result = "SUCCESS";
+        value.reason_codes = [];
+      },
+    },
+    {
+      id: "an unevaluated record reports an operating-system build",
+      machine_class: "SYNTHETIC_FIXTURE",
+      method: "NOT_EVALUATED",
+      mutate: (value) => {
+        value.os_build = "24C101";
+      },
+    },
+    {
+      id: "an unevaluated record omits the evaluation-not-run reason",
+      machine_class: "SYNTHETIC_FIXTURE",
+      method: "NOT_EVALUATED",
+      mutate: (value) => {
+        value.reason_codes = ["ADAPTER_ERROR"];
+      },
+    },
+    {
+      id: "a passing record carries an unverified package signature",
+      machine_class: "SYNTHETIC_FIXTURE",
+      method: "SYNTHETIC_FIXTURE",
+      mutate: (value) => {
+        value.package_artifact = structuredClone(SYNTHETIC_ARTIFACT);
+        value.signature_state = "SIGNATURE_INVALID";
+      },
+    },
+    {
+      id: "a measured run reports an uncertified target",
+      machine_class: "PHYSICAL_DEVELOPMENT_MACHINE",
+      method: "MEASURED_NATIVE_RUN",
+      mutate: (value) => {
+        value.platform_id = "UNKNOWN_TARGET";
+        value.architecture = "UNKNOWN_ARCHITECTURE";
+      },
+    },
+  ];
+
+  test.each(EVIDENCE_CONTRADICTIONS)("rejects a record where $id", (entry) => {
+    const value = buildEvidenceRecord(entry.machine_class, entry.method);
+    entry.mutate(value);
+    expect(verdicts(EVIDENCE_RECORD, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5c. Runtime availability (KI-0025 F3)
+//
+// The vocabulary states that AVAILABLE and DEGRADED_LIMITED are the only
+// non-blocking availability states, and specification §5.14.1 describes
+// CERTIFIED_CORE as "AI unavailable or below performance tier". A runtime that
+// is present but below the tier therefore still reports what it is and what it
+// offers; it simply accepts nothing and never claims full AI.
+// ---------------------------------------------------------------------------
+
+const RUNTIME_AVAILABILITY_STATES = [
+  "AVAILABLE",
+  "DEGRADED_LIMITED",
+  "INCOMPATIBLE_VERSION",
+  "NOT_EVALUATED",
+  "NOT_INSTALLED",
+  "PERMISSION_REQUIRED",
+  "UNAVAILABLE",
+  "UNKNOWN",
+  "UNSUPPORTED_TARGET",
+] as const;
+
+/** The two states in which a runtime was actually detected. */
+const OPERABLE_AVAILABILITY: readonly string[] = [
+  "AVAILABLE",
+  "DEGRADED_LIMITED",
+];
+
+/** The states that observed nothing at all and so report no identity. */
+const UNOBSERVED_AVAILABILITY: readonly string[] = [
+  "NOT_EVALUATED",
+  "UNSUPPORTED_TARGET",
+];
+
+function buildRuntimeCapability(
+  availability: string,
+  withProfiles: boolean,
+): Record<string, unknown> {
+  const value = fixture("w07.runtime-capability");
+  value.platform_id = "MACOS_ARM64";
+  value.runtime_availability = availability;
+  value.detection_method =
+    availability === "NOT_EVALUATED" ? "NOT_EVALUATED" : "MEASURED_NATIVE_RUN";
+  value.available_profile_refs = withProfiles ? [MODEL_PROFILE_REF] : [];
+  value.accepted_profile_refs = [];
+  value.core_capability_behavior = OPERABLE_AVAILABILITY.includes(availability)
+    ? "CORE_PRESERVED_AI_DEGRADED"
+    : "CORE_PRESERVED_AI_UNAVAILABLE";
+  value.reason_codes =
+    availability === "NOT_EVALUATED"
+      ? ["EVALUATION_NOT_RUN"]
+      : ["INSUFFICIENT_HARDWARE"];
+  if (UNOBSERVED_AVAILABILITY.includes(availability)) {
+    delete value.runtime_family;
+    delete value.runtime_version;
+    delete value.accelerator;
+  } else {
+    value.runtime_family = "OLLAMA_MLX";
+    value.runtime_version = "0.5.0";
+    value.accelerator = "APPLE_SILICON_GPU";
+  }
+  return value;
+}
+
+describe("M01-W07 runtime availability matrix (KI-0025 F3)", () => {
+  test("the matrix covers every capability availability state", () => {
+    expect(enumTokens("capabilityAvailability")).toEqual([
+      ...RUNTIME_AVAILABILITY_STATES,
+    ]);
+  });
+
+  const cells = RUNTIME_AVAILABILITY_STATES.flatMap((availability) =>
+    [true, false].map((withProfiles) => [availability, withProfiles] as const),
+  );
+
+  test.each(cells)(
+    "%s with available profiles = %s",
+    (availability, withProfiles) => {
+      // Only a runtime that was actually detected may enumerate usable
+      // profiles; every other state has nothing to offer.
+      const admitted =
+        !withProfiles || OPERABLE_AVAILABILITY.includes(availability);
+      expect(
+        verdicts(
+          RUNTIME_CAPABILITY,
+          buildRuntimeCapability(availability, withProfiles),
+        ),
+      ).toEqual({ structural: true, semantic: admitted });
+    },
+  );
+
+  test("a degraded runtime reports its identity and its profiles", () => {
+    const degraded = buildRuntimeCapability("DEGRADED_LIMITED", true);
+    expect(verdicts(RUNTIME_CAPABILITY, degraded)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+    expect(degraded.core_capability_behavior).toBe(
+      "CORE_PRESERVED_AI_DEGRADED",
+    );
+    expect(degraded.accepted_profile_refs).toEqual([]);
+  });
+
+  test("full AI is exactly an accepted profile on an available certified runtime", () => {
+    const full = buildRuntimeCapability("AVAILABLE", true);
+    full.accepted_profile_refs = [MODEL_PROFILE_REF];
+    full.core_capability_behavior = "FULL_AI_AVAILABLE";
+    full.reason_codes = [];
+    expect(verdicts(RUNTIME_CAPABILITY, full)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+  });
+
+  const RUNTIME_CONTRADICTIONS: readonly {
+    readonly id: string;
+    readonly availability: string;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      id: "full AI carries a blocking reason",
+      availability: "AVAILABLE",
+      mutate: (value) => {
+        value.accepted_profile_refs = [MODEL_PROFILE_REF];
+        value.core_capability_behavior = "FULL_AI_AVAILABLE";
+        value.reason_codes = ["SERVICE_UNAVAILABLE"];
+      },
+    },
+    {
+      id: "full AI is claimed on a degraded runtime",
+      availability: "DEGRADED_LIMITED",
+      mutate: (value) => {
+        value.accepted_profile_refs = [MODEL_PROFILE_REF];
+        value.core_capability_behavior = "FULL_AI_AVAILABLE";
+        value.reason_codes = [];
+      },
+    },
+    {
+      id: "full AI is claimed on an uncertified target",
+      availability: "AVAILABLE",
+      mutate: (value) => {
+        value.platform_id = "UNKNOWN_TARGET";
+        value.runtime_family = "OLLAMA_GGUF";
+        value.accelerator = "CPU_ONLY";
+        value.accepted_profile_refs = [MODEL_PROFILE_REF];
+        value.core_capability_behavior = "FULL_AI_AVAILABLE";
+        value.reason_codes = [];
+      },
+    },
+    {
+      id: "a measured detection reports an unevaluated runtime",
+      availability: "NOT_EVALUATED",
+      mutate: (value) => {
+        value.detection_method = "MEASURED_NATIVE_RUN";
+      },
+    },
+    {
+      id: "an unevaluated runtime reports a detected identity",
+      availability: "NOT_EVALUATED",
+      mutate: (value) => {
+        value.runtime_family = "OLLAMA_MLX";
+        value.runtime_version = "0.5.0";
+        value.accelerator = "APPLE_SILICON_GPU";
+      },
+    },
+    {
+      id: "a Windows target reports an Apple Silicon runtime",
+      availability: "AVAILABLE",
+      mutate: (value) => {
+        value.platform_id = "WINDOWS_X64";
+      },
+    },
+    {
+      id: "an accepted profile is not an available profile",
+      availability: "AVAILABLE",
+      mutate: (value) => {
+        value.available_profile_refs = [];
+        value.accepted_profile_refs = [MODEL_PROFILE_REF];
+        value.core_capability_behavior = "FULL_AI_AVAILABLE";
+        value.reason_codes = [];
+      },
+    },
+  ];
+
+  test.each(RUNTIME_CONTRADICTIONS)("rejects a record where $id", (entry) => {
+    const value = buildRuntimeCapability(entry.availability, true);
+    entry.mutate(value);
+    expect(verdicts(RUNTIME_CAPABILITY, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5d. Path resolution states (KI-0025 F4)
+//
+// The privacy guarantee is that a location is disclosed only by a resolution
+// that succeeded. That is independent of whether the location exists: a
+// permission error is itself an observation that something is there, and the
+// contract must be able to record it without revealing where.
+// ---------------------------------------------------------------------------
+
+const PATH_RESOLUTION_STATES = [
+  "DENIED_PERMISSION",
+  "NOT_EVALUATED",
+  "RESOLVED",
+  "UNAVAILABLE",
+] as const;
+
+const PATH_STATE_REASONS: Readonly<Record<string, readonly string[]>> = {
+  DENIED_PERMISSION: ["PERMISSION_DENIED"],
+  NOT_EVALUATED: ["EVALUATION_NOT_RUN"],
+  RESOLVED: [],
+  UNAVAILABLE: ["SERVICE_UNAVAILABLE"],
+};
+
+function buildPathResolution(
+  state: string,
+  exists: boolean,
+): Record<string, unknown> {
+  const value = fixture("w07.path-resolution");
+  value.resolution_state = state;
+  value.exists = exists;
+  value.reason_codes = [...(PATH_STATE_REASONS[state] ?? [])];
+  if (state === "RESOLVED") {
+    value.writable = exists;
+  } else {
+    delete value.sanitized_path;
+    delete value.path_digest;
+    value.writable = false;
+  }
+  return value;
+}
+
+describe("M01-W07 path resolution matrix (KI-0025 F4)", () => {
+  test("the matrix covers every resolution state", () => {
+    expect(enumTokens("pathResolutionState")).toEqual([
+      ...PATH_RESOLUTION_STATES,
+    ]);
+  });
+
+  const cells = PATH_RESOLUTION_STATES.flatMap((state) =>
+    [true, false].map((exists) => [state, exists] as const),
+  );
+
+  test.each(cells)("%s reporting exists = %s", (state, exists) => {
+    // A resolved location exists. A refused resolution may report either, since
+    // a permission error proves the location is there while ENOENT does not.
+    // A state that evaluated nothing, or reached nothing, observed nothing.
+    const admitted =
+      state === "RESOLVED" || state === "DENIED_PERMISSION" ? true : !exists;
+    expect(
+      verdicts(PATH_RESOLUTION, buildPathResolution(state, exists)),
+    ).toEqual({ structural: true, semantic: admitted });
+  });
+
+  test("a refusal reports an existing location without disclosing it", () => {
+    const denied = buildPathResolution("DENIED_PERMISSION", true);
+    expect(verdicts(PATH_RESOLUTION, denied)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+    expect(denied.sanitized_path).toBeUndefined();
+    expect(denied.path_digest).toBeUndefined();
+    expect(denied.writable).toBe(false);
+  });
+
+  const PATH_CONTRADICTIONS: readonly {
+    readonly id: string;
+    readonly state: string;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      id: "a refusal reports the location it refused",
+      state: "DENIED_PERMISSION",
+      mutate: (value) => {
+        value.sanitized_path = "<APPLICATION_DATA>/artifacts";
+        value.path_digest = SYNTHETIC_DIGEST;
+      },
+    },
+    {
+      id: "a refusal reports a writable location",
+      state: "DENIED_PERMISSION",
+      mutate: (value) => {
+        value.writable = true;
+      },
+    },
+    {
+      id: "a refusal omits the permission-denied reason",
+      state: "DENIED_PERMISSION",
+      mutate: (value) => {
+        value.reason_codes = ["SERVICE_UNAVAILABLE"];
+      },
+    },
+    {
+      id: "an unevaluated resolution omits the evaluation-not-run reason",
+      state: "NOT_EVALUATED",
+      mutate: (value) => {
+        value.reason_codes = ["ADAPTER_ERROR"];
+      },
+    },
+    {
+      id: "an unreachable resolution carries no reason at all",
+      state: "UNAVAILABLE",
+      mutate: (value) => {
+        value.reason_codes = [];
+      },
+    },
+  ];
+
+  test.each(PATH_CONTRADICTIONS)("rejects a resolution where $id", (entry) => {
+    const value = buildPathResolution(entry.state, false);
+    entry.mutate(value);
+    expect(verdicts(PATH_RESOLUTION, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5e. Process lifecycle states (KI-0025 F5)
+//
+// Specification §5.14.4 requires signal/termination semantics, parent death,
+// and orphan detection to be covered on every certified platform. An exit
+// status is only useful if the record can also say why: a clean exit explains
+// itself, and any other exit must carry a finite reason. `orphan_detected` is
+// historical, exactly like the package `interrupted` flag, so the terminal
+// record of an orphan that was cleaned up remains representable.
+// ---------------------------------------------------------------------------
+
+const PROCESS_STATES = [
+  "EXITED",
+  "FAILED",
+  "ORPHANED",
+  "RUNNING",
+  "STARTING",
+  "TERMINATED",
+  "TERMINATING",
+  "UNAVAILABLE",
+] as const;
+
+const STARTED_AT = "2026-07-28T04:00:00Z";
+const ENDED_AT = "2026-07-28T04:10:00Z";
+
+/** The reviewed representative for each lifecycle state. */
+function buildProcessStatus(state: string): Record<string, unknown> {
+  const value = fixture("w07.process-status");
+  value.state = state;
+  value.started_at = STARTED_AT;
+  value.termination_requested = "NONE";
+  value.orphan_detected = false;
+  value.reason_codes = [];
+  delete value.ended_at;
+  delete value.exit_code;
+  switch (state) {
+    case "STARTING":
+    case "RUNNING":
+      break;
+    case "TERMINATING":
+      value.termination_requested = "GRACEFUL_STOP";
+      break;
+    case "EXITED":
+      value.ended_at = ENDED_AT;
+      value.exit_code = 0;
+      break;
+    case "TERMINATED":
+      value.termination_requested = "GRACEFUL_STOP";
+      value.ended_at = ENDED_AT;
+      break;
+    case "ORPHANED":
+      value.orphan_detected = true;
+      value.reason_codes = ["ADAPTER_ERROR"];
+      break;
+    case "UNAVAILABLE":
+      delete value.started_at;
+      value.reason_codes = ["ADAPTER_ERROR"];
+      break;
+    default:
+      // FAILED: supervision itself failed, so there is no observed exit status.
+      value.reason_codes = ["ADAPTER_ERROR"];
+      break;
+  }
+  return value;
+}
+
+describe("M01-W07 process lifecycle matrix (KI-0025 F5)", () => {
+  test("the matrix covers every process state", () => {
+    expect(enumTokens("processState")).toEqual([...PROCESS_STATES]);
+  });
+
+  test.each(PROCESS_STATES)(
+    "%s admits its reviewed representative",
+    (state) => {
+      expect(verdicts(PROCESS_STATUS, buildProcessStatus(state))).toEqual({
+        structural: true,
+        semantic: true,
+      });
+    },
+  );
+
+  test("a non-zero exit is explainable and a clean exit is not explained away", () => {
+    const clean = buildProcessStatus("EXITED");
+    expect(verdicts(PROCESS_STATUS, clean)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const failed = structuredClone(clean);
+    failed.exit_code = 1;
+    failed.reason_codes = ["ADAPTER_ERROR"];
+    failed.diagnostic_digest = SYNTHETIC_DIGEST;
+    expect(verdicts(PROCESS_STATUS, failed)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    // An unexplained non-zero exit and an explained clean exit are both refused.
+    const unexplained = structuredClone(clean);
+    unexplained.exit_code = 1;
+    expect(verdicts(PROCESS_STATUS, unexplained)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+
+    const overExplained = structuredClone(clean);
+    overExplained.reason_codes = ["ADAPTER_ERROR"];
+    expect(verdicts(PROCESS_STATUS, overExplained)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  test("an orphan that was cleaned up keeps its historical detection", () => {
+    const cleanedUp = buildProcessStatus("TERMINATED");
+    cleanedUp.orphan_detected = true;
+    cleanedUp.termination_requested = "IMMEDIATE_STOP";
+    cleanedUp.reason_codes = ["ADAPTER_ERROR"];
+    expect(verdicts(PROCESS_STATUS, cleanedUp)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    // A running process is not an orphan, whatever the flag says.
+    const running = buildProcessStatus("RUNNING");
+    running.orphan_detected = true;
+    running.reason_codes = ["ADAPTER_ERROR"];
+    expect(verdicts(PROCESS_STATUS, running)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  const PROCESS_CONTRADICTIONS: readonly {
+    readonly id: string;
+    readonly state: string;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      id: "a process ends without ever starting",
+      state: "EXITED",
+      mutate: (value) => {
+        delete value.started_at;
+      },
+    },
+    {
+      id: "an exited child is credited to a termination request",
+      state: "EXITED",
+      mutate: (value) => {
+        value.termination_requested = "GRACEFUL_STOP";
+      },
+    },
+    {
+      id: "a diagnostic digest explains nothing",
+      state: "EXITED",
+      mutate: (value) => {
+        value.diagnostic_digest = SYNTHETIC_DIGEST;
+      },
+    },
+    {
+      id: "a restart is counted for a process that never started",
+      state: "UNAVAILABLE",
+      mutate: (value) => {
+        value.restart_count = 2;
+      },
+    },
+    {
+      id: "an orphan has already been seen to exit",
+      state: "ORPHANED",
+      mutate: (value) => {
+        value.ended_at = ENDED_AT;
+        value.exit_code = 0;
+      },
+    },
+    {
+      id: "a failed supervision reports an observed exit status",
+      state: "FAILED",
+      mutate: (value) => {
+        value.exit_code = 3;
+      },
+    },
+    {
+      id: "an unobservable process reports timestamps",
+      state: "UNAVAILABLE",
+      mutate: (value) => {
+        value.started_at = STARTED_AT;
+      },
+    },
+    {
+      id: "a running process reports no start",
+      state: "RUNNING",
+      mutate: (value) => {
+        delete value.started_at;
+      },
+    },
+    {
+      id: "a termination is requested but not recorded",
+      state: "TERMINATED",
+      mutate: (value) => {
+        value.termination_requested = "NONE";
+      },
+    },
+  ];
+
+  test.each(PROCESS_CONTRADICTIONS)("rejects a status where $id", (entry) => {
+    const value = buildProcessStatus(entry.state);
+    entry.mutate(value);
+    expect(verdicts(PROCESS_STATUS, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 5f. Remaining KI-0025 fail-open repairs (F7 through F13)
+//
+// Each of these admitted a payload asserting something untrue. The positive
+// alongside every negative proves the repair narrowed the contract without
+// making an ordinary outcome unreachable.
+// ---------------------------------------------------------------------------
+
+const REGISTRATION_INTENT =
+  "urn:japp:schema:platform:native-messaging-registration:v1";
+const CAPABILITY_REPORT = "urn:japp:schema:platform:capability-report:v1";
+const MODEL_PROFILE = "urn:japp:schema:platform:model-runtime-profile:v1";
+const BROWSER_RECORD = "urn:japp:schema:platform:browser-record:v1";
+const DIAGNOSTIC_REPORT = "urn:japp:schema:platform:diagnostic-report:v1";
+const CERTIFICATION_INPUT = "urn:japp:schema:platform:certification-input:v1";
+
+describe("M01-W07 spawn-plan argument and environment safety (KI-0025 F7)", () => {
+  /**
+   * The reviewed interpreter vocabulary, refused whether or not it is spelled
+   * with an executable suffix, plus the privilege launchers the schema
+   * describes as structurally unrepresentable.
+   */
+  const REFUSED_COMMAND_TOKENS = [
+    "bash",
+    "cmd",
+    "cscript",
+    "eval",
+    "exec",
+    "powershell",
+    "pwsh",
+    "sh",
+    "wscript",
+    "zsh",
+    "doas",
+    "pkexec",
+    "runas",
+    "su",
+    "sudo",
+  ] as const;
+
+  const EXECUTABLE_SUFFIXES = [".bat", ".cmd", ".com", ".exe", ".ps1", ".sh"];
+
+  const spellings = REFUSED_COMMAND_TOKENS.flatMap((token) => [
+    token,
+    token.toUpperCase(),
+    ...EXECUTABLE_SUFFIXES.map((suffix) => token + suffix),
+  ]);
+
+  test.each(spellings)("refuses the argument %s", (argument) => {
+    const value = fixture("w07.process-plan");
+    value.arguments = [argument];
+    expect(verdicts(PROCESS_PLAN, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  test("an ordinary argument is still admitted", () => {
+    const value = fixture("w07.process-plan");
+    value.arguments = ["serve", "mode=loopback"];
+    expect(verdicts(PROCESS_PLAN, value)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+  });
+
+  const ENVIRONMENT_CASES: readonly {
+    readonly variable: string;
+    readonly value: string;
+    readonly admitted: boolean;
+  }[] = [
+    // A service port is a real port: no zero, no leading zero, no overflow.
+    { variable: "JAPP_SERVICE_PORT", value: "8420", admitted: true },
+    { variable: "JAPP_SERVICE_PORT", value: "1", admitted: true },
+    { variable: "JAPP_SERVICE_PORT", value: "65535", admitted: true },
+    { variable: "JAPP_SERVICE_PORT", value: "0", admitted: false },
+    { variable: "JAPP_SERVICE_PORT", value: "007", admitted: false },
+    { variable: "JAPP_SERVICE_PORT", value: "65536", admitted: false },
+    { variable: "JAPP_SERVICE_PORT", value: "99999", admitted: false },
+    // The path role is the closed vocabulary, minus the registration role the
+    // same rule refuses on the working directory.
+    { variable: "JAPP_PATH_ROLE", value: "APPLICATION_DATA", admitted: true },
+    { variable: "JAPP_PATH_ROLE", value: "TEMPORARY", admitted: true },
+    {
+      variable: "JAPP_PATH_ROLE",
+      value: "NATIVE_HOST_REGISTRATION",
+      admitted: false,
+    },
+    { variable: "JAPP_PATH_ROLE", value: "NOT_A_ROLE", admitted: false },
+    // REQ-PLAT-003 binds local services to loopback.
+    { variable: "JAPP_SERVICE_BIND_HOST", value: "127.0.0.1", admitted: true },
+    { variable: "JAPP_SERVICE_BIND_HOST", value: "localhost", admitted: true },
+    { variable: "JAPP_SERVICE_BIND_HOST", value: "0.0.0.0", admitted: false },
+    {
+      variable: "JAPP_SERVICE_BIND_HOST",
+      value: "192.168.1.10",
+      admitted: false,
+    },
+  ];
+
+  test.each(ENVIRONMENT_CASES)(
+    "$variable = $value is admitted: $admitted",
+    (entry) => {
+      const value = fixture("w07.process-plan");
+      value.environment_allowlist = [
+        { variable: entry.variable, value: entry.value },
+      ];
+      expect(verdicts(PROCESS_PLAN, value)).toEqual({
+        structural: true,
+        semantic: entry.admitted,
+      });
+    },
+  );
+});
+
+describe("M01-W07 remaining platform fail-open repairs (KI-0025 F8-F13)", () => {
+  test("a registration intent must carry its message-size limit (F8)", () => {
+    const intent = fixture("w07.native-messaging-registration");
+    expect(verdicts(REGISTRATION_INTENT, intent)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+    delete intent.max_message_bytes;
+    expect(verdicts(REGISTRATION_INTENT, intent)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  test("a certified tier requires measured core capabilities (F9)", () => {
+    const measured = fixture("w07.capability-report");
+    expect(verdicts(CAPABILITY_REPORT, measured)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const declared = fixture("w07.capability-report");
+    declared.capabilities = (
+      declared.capabilities as Record<string, unknown>[]
+    ).map((capability) =>
+      capability.availability === "AVAILABLE"
+        ? { ...capability, evaluation_method: "SYNTHETIC_FIXTURE" }
+        : capability,
+    );
+    expect(verdicts(CAPABILITY_REPORT, declared)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  const MODEL_PROFILE_CASES: readonly {
+    readonly id: string;
+    readonly admitted: boolean;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [
+    {
+      // The committed representative is already the reviewed positive, so this
+      // row deliberately changes nothing.
+      id: "an accepted Apple Silicon MLX profile",
+      admitted: true,
+      mutate: (value) => {
+        value.profile_token = "macos-arm64-mlx";
+      },
+    },
+    {
+      id: "an accepted Windows CUDA profile",
+      admitted: true,
+      mutate: (value) => {
+        value.platform_id = "WINDOWS_X64";
+        value.profile_token = "windows-x64-nvidia";
+        value.runtime_family = "OLLAMA_GGUF";
+        value.accelerator = "NVIDIA_CUDA";
+        value.minimum_vram_mib = 24576;
+        value.minimum_driver_version = "550.54.14";
+      },
+    },
+    {
+      id: "an accepted macOS CUDA profile",
+      admitted: false,
+      mutate: (value) => {
+        value.profile_token = "macos-arm64-nvidia";
+        value.runtime_family = "OLLAMA_GGUF";
+        value.accelerator = "NVIDIA_CUDA";
+        value.minimum_vram_mib = 24576;
+        value.minimum_driver_version = "550.54.14";
+      },
+    },
+    {
+      id: "a CPU-only profile carrying a GPU driver bound",
+      admitted: false,
+      mutate: (value) => {
+        value.platform_id = "UBUNTU_X64";
+        value.profile_token = "ubuntu-x64-cpu";
+        value.runtime_family = "OLLAMA_GGUF";
+        value.accelerator = "CPU_ONLY";
+        value.minimum_driver_version = "550.54.14";
+      },
+    },
+  ];
+
+  test.each(MODEL_PROFILE_CASES)(
+    "$id is admitted: $admitted (F10)",
+    (entry) => {
+      const value = fixture("w07.model-runtime-profile");
+      Object.assign(value, {
+        availability: "AVAILABLE",
+        acceptance_state: "ACCEPTED",
+        core_capability_behavior: "FULL_AI_AVAILABLE",
+        reason_codes: [],
+        evidence_refs: [EVIDENCE_REF],
+        structured_output_evidence_ref: EVIDENCE_REF,
+        factuality_evidence_ref: EVIDENCE_REF,
+        latency_evidence_ref: EVIDENCE_REF,
+        memory_evidence_ref: EVIDENCE_REF,
+        last_tested_on: "2026-07-01",
+      });
+      entry.mutate(value);
+      expect(verdicts(MODEL_PROFILE, value)).toEqual({
+        structural: true,
+        semantic: entry.admitted,
+      });
+    },
+  );
+
+  test("a browser presence is an observation, not a guess (F11)", () => {
+    const found = fixture("w07.browser-record");
+    expect(verdicts(BROWSER_RECORD, found)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const unevaluated = fixture("w07.browser-record");
+    unevaluated.detection_method = "NOT_EVALUATED";
+    expect(verdicts(BROWSER_RECORD, unevaluated)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+
+    const absent = fixture("w07.browser-record");
+    absent.presence = "NOT_INSTALLED";
+    delete absent.sanitized_install_location;
+    expect(verdicts(BROWSER_RECORD, absent)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+
+    const absentHonest = structuredClone(absent);
+    delete absentHonest.detected_version;
+    expect(verdicts(BROWSER_RECORD, absentHonest)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+  });
+
+  test("a blocking diagnostic is never informational (F12)", () => {
+    const blocked = fixture("w07.diagnostic-report");
+    Object.assign(blocked, {
+      result: "BLOCKED",
+      blocking: true,
+      severity: "WARNING",
+      reason_codes: ["POLICY_DISABLED"],
+    });
+    delete blocked.user_message;
+    expect(verdicts(DIAGNOSTIC_REPORT, blocked)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const informational = structuredClone(blocked);
+    informational.severity = "INFO";
+    expect(verdicts(DIAGNOSTIC_REPORT, informational)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+
+  test("a certified proposal names the evidence it required (F13)", () => {
+    const value = fixture("w07.certification-input");
+    Object.assign(value, {
+      support_claim: {
+        claimed_tier: "CERTIFIED_CORE",
+        reviewed_tier: "CERTIFIED_CORE",
+        review_state: "REVIEW_COMPLETE",
+        evaluated_commit: "0123456789abcdef0123456789abcdef01234567",
+        evaluated_tree: "1111111111111111111111111111111111111111",
+        evidence_refs: [EVIDENCE_REF],
+        reviewer_identity_ref: "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      },
+      required_evidence_kinds: ["INSTALL_LAUNCH_REPORT"],
+      present_evidence_kinds: ["INSTALL_LAUNCH_REPORT"],
+      evidence_record_refs: [EVIDENCE_REF],
+      inventory_complete: true,
+      owner_decision_state: "RECORDED",
+      owner_decision_ref: "ownerdec_0123456789ABCDEFGHJKMNPQRS",
+      reason_codes: [],
+    });
+    expect(verdicts(CERTIFICATION_INPUT, value)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const vacuous = structuredClone(value);
+    vacuous.required_evidence_kinds = [];
+    vacuous.present_evidence_kinds = [];
+    expect(verdicts(CERTIFICATION_INPUT, vacuous)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
 });

@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:runtime-capability:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Detected model-runtime capability",
-  "description": "The RuntimeCapability record of specification §5.14.2: what the local runtime reports on this target, which profiles are available, and how the deterministic core behaves when full AI is unavailable. Deterministic autofill, profile, matching, tracking, and document workflows must never depend on this record reporting availability.",
+  "description": "The RuntimeCapability record of specification \u00a75.14.2: what the local runtime reports on this target, which profiles are available, and how the deterministic core behaves when full AI is unavailable. Deterministic autofill, profile, matching, tracking, and document workflows must never depend on this record reporting availability.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -47,6 +47,7 @@
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
     },
     "available_profile_refs": {
+      "description": "Profiles this runtime can offer. Only the two non-blocking availability states, AVAILABLE and DEGRADED_LIMITED, may enumerate any.",
       "type": "array",
       "items": {
         "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"

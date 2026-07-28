@@ -30,8 +30,14 @@ export interface PlatformEvidenceRecordV1 {
    * Coarse machine class only. Hostnames, serial numbers, user names, and network identity are never represented.
    */
   readonly machine_class: PlatformVocabularyV1MachineClass;
+  /**
+   * Coarse hosted-runner image label. It identifies a hosted CI runner and nothing else, and a measured native run on a hosted runner must name it.
+   */
   readonly runner_image_token?: CommonContractTextV1BoundedToken;
   readonly artifact_kind: PlatformVocabularyV1EvidenceArtifactKind;
+  /**
+   * How the artifact was produced. Independent of `machine_class`, which records where: any machine class may execute synthetic fixtures or static inspection, and only a non-synthetic machine may execute a measured native run.
+   */
   readonly evaluation_method: PlatformVocabularyV1EvaluationMethod;
   /**
    * Always true: every committed platform evidence artifact contains synthetic data only.

@@ -33,7 +33,13 @@ export interface PlatformUpdateStateV1 {
   readonly target_artifact?: PlatformVocabularyV1ArtifactIdentity;
   readonly signature_state: PlatformVocabularyV1SignatureState;
   readonly state: PlatformVocabularyV1UpdateState;
+  /**
+   * Historical: this update or rollback was interrupted at some point. The unresolved terminal outcome is reported as UPDATE_INTERRUPTED, never by this flag alone.
+   */
   readonly interrupted: boolean;
+  /**
+   * Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.
+   */
   readonly recovery_completed?: boolean;
   readonly rollback_available: boolean;
   readonly user_data_preservation: PlatformVocabularyV1UserDataPreservation;

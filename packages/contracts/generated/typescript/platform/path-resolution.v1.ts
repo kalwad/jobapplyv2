@@ -33,7 +33,13 @@ export interface PlatformPathResolutionV1 {
    * Digest of the exact resolved location, so two records can be correlated without revealing either location.
    */
   readonly path_digest?: CommonProvenanceV1ContentDigest;
+  /**
+   * Whether the resolver observed the location to exist. A DENIED_PERMISSION result may report an existing location — a permission error is itself that observation — while still never disclosing where it is.
+   */
   readonly exists: boolean;
+  /**
+   * Whether the resolver observed the location to be writable. Only a RESOLVED result can be writable.
+   */
   readonly writable: boolean;
   /**
    * Minimum items: 0.

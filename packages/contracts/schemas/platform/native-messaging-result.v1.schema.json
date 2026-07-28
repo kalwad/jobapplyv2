@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:native-messaging-result:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Native-messaging registration result",
   "description": "The idempotent outcome of one registration intent, including the observed registration state, whether the operation changed anything, the observed manifest identity digest, finite remediation reasons, and an evidence reference. It never contains a registry export, a manifest body, a filesystem path, or an executable name.",
   "type": "object",
@@ -40,6 +40,7 @@
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/nativeHostName"
     },
     "observed_state": {
+      "description": "The registration state observed after the operation ran. It is not a claim that the operation succeeded: a removal refused by permission still observes PRESENT_VALID. Success is carried by an empty `reason_codes`.",
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/registrationState"
     },
     "observed_manifest_digest": {

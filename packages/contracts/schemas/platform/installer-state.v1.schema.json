@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:installer-state:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Installer state and result",
   "description": "Bounded installer state for a packaged build: package identity, version, platform, architecture, format, artifact digest and signature state, channel, installed version, lifecycle state, interruption and recovery state, user-data preservation, native-host cleanup, and finite failure reasons. No installer command, script, registry modification, download URL, network request, signing key, or filesystem path is representable, and this contract installs nothing.",
   "type": "object",
@@ -63,9 +63,11 @@
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
     },
     "interrupted": {
+      "description": "Historical: this install, repair, or uninstall was interrupted at some point. The unresolved terminal outcome is reported as INSTALL_INTERRUPTED, never by this flag alone.",
       "type": "boolean"
     },
     "recovery_completed": {
+      "description": "Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.",
       "type": "boolean"
     },
     "user_data_preservation": {

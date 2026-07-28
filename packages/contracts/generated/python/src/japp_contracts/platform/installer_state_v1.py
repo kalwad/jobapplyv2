@@ -11,7 +11,7 @@ Manual edits are prohibited and fail the contract-gen drift suite.
 from typing import Annotated
 
 from annotated_types import MaxLen, MinLen
-from pydantic import model_validator
+from pydantic import Field, model_validator
 
 from japp_contracts._runtime import ContractModel, reject_explicit_null
 from japp_contracts.common.contract_text_v1 import CommonContractTextV1BoundedToken
@@ -35,8 +35,8 @@ class PlatformInstallerStateV1(ContractModel):
     scope: PlatformVocabularyV1InstallationScope
     state: PlatformVocabularyV1InstallerState
     installed_version: PlatformVocabularyV1ProductVersion | None = None
-    interrupted: bool
-    recovery_completed: bool | None = None
+    interrupted: Annotated[bool, Field(description="Historical: this install, repair, or uninstall was interrupted at some point. The unresolved terminal outcome is reported as INSTALL_INTERRUPTED, never by this flag alone.")]
+    recovery_completed: Annotated[bool, Field(description="Whether the recorded interruption was subsequently resolved. Meaningless without an interruption, so it may appear only when `interrupted` is true.")] | None = None
     user_data_preservation: PlatformVocabularyV1UserDataPreservation
     native_host_cleanup: PlatformVocabularyV1NativeHostCleanupState
     reason_codes: Annotated[list[PlatformVocabularyV1PlatformReasonCode], MinLen(0), MaxLen(8)]

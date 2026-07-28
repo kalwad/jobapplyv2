@@ -30,6 +30,8 @@ export interface PlatformRuntimeCapabilityV1 {
   readonly detected_ram_mib?: PlatformVocabularyV1MemoryMebibytes;
   readonly detected_vram_mib?: PlatformVocabularyV1MemoryMebibytes;
   /**
+   * Profiles this runtime can offer. Only the two non-blocking availability states, AVAILABLE and DEGRADED_LIMITED, may enumerate any.
+   *
    * Minimum items: 0.
    * Maximum items: 16.
    */

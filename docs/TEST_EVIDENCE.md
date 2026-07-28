@@ -33,6 +33,197 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W07 corrective repair — KI-0025 platform semantic state matrices (2026-07-28)
+
+- Starting revision: commit `44827ae73a04d4ef63ccb40cd93fd14b7e304010` /
+  tree `7fcd961fbde2770378248ca68e65526b4480a970`; clean `main`, equal to
+  `origin/main`. Canonical spec SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, exactly
+  one `docs/MASTER_IMPLEMENTATION_SPEC.md`
+  (`find . -name '*MASTER_IMPLEMENTATION_SPEC*'` returned that single path).
+  Starting-state validation: `python3 scripts/validate_status.py` → exit 0,
+  `PASS: all checks passed (43 check groups)`; `pnpm traceability:check` →
+  `PASS: traceability validated 193 requirements and 300 work packages`.
+- Scope: the owner-authorized final corrective content lifecycle for KI-0025.
+  No operating-system implementation, adapter, secret store, process spawn,
+  registration, browser detection, model runtime, installer, updater, UI, or
+  provider behaviour is added; no schema shape, `required` array, or enum token
+  changes; no authority is granted; no lockfile, workflow, toolchain, timeout,
+  or M02 file is touched.
+
+#### Independent reproduction before any edit
+
+Each defect was reproduced at the starting revision by loading the canonical
+schema catalog and the generated evaluators directly and running structurally
+valid payloads through both. `S+`/`S-` is the structural verdict and `M+`/`M-`
+the semantic one.
+
+- F1 `platformPackageStateEvidence` — `w07.installer-state` with
+  `state = INSTALLED`, `interrupted = true`, `recovery_completed = true`,
+  `reason_codes = ["INTERRUPTED"]`, `SIGNATURE_VALID`, `PRESERVED`, one
+  evidence reference: `S+ M-`; the same record without the interruption:
+  `S+ M+`. The equivalent `w07.update-state` `UPDATE_INSTALLED` record behaved
+  identically. Sweeping the full state × interruption grid showed every one of
+  the five package success states rejecting `interrupted = true` regardless of
+  `recovery_completed`.
+- F2 `platformEvidenceIntegrity` — the full `machine_class` ×
+  `evaluation_method` grid. `HOSTED_CI_RUNNER` and
+  `PHYSICAL_DEVELOPMENT_MACHINE` accepted only `STATIC_INSPECTION` and
+  `MEASURED_NATIVE_RUN`; `SYNTHETIC_FIXTURE`, `DECLARED_PLAN`, and
+  `NOT_EVALUATED` were `S+ M-` on both.
+- F3 `platformRuntimeCapabilityFallback` — every one of the nine
+  `capabilityAvailability` states other than `AVAILABLE`, including
+  `DEGRADED_LIMITED`, was `S+ M-` with one available profile reference and
+  `S+ M+` with none.
+- F4 `platformPathResolutionSafety` — `DENIED_PERMISSION` with `exists = true`,
+  `writable = false`, `["PERMISSION_DENIED"]`, and no location: `S+ M-`; the
+  same record with `exists = false`: `S+ M+`.
+- F5 `platformProcessStatusIntegrity` — `EXITED` with `exit_code = 1` and
+  `["ADAPTER_ERROR"]`: `S+ M-`; with `exit_code = 1` and no reasons: `S+ M+`.
+  An unexplained failure passed while an explained one failed.
+- Mandatory `REMOVE`/`PRESENT_VALID` recheck — `operation = REMOVE`,
+  `observed_state = PRESENT_VALID`, `changed = false`,
+  `idempotent_repeat_safe = false`, `["PERMISSION_DENIED"]`, observed manifest
+  digest and host version present: `S+ M-`.
+- The exhaustive final audit then reproduced eight further defects of the same
+  class, six of them fail-open (`S+ M+` on a payload that asserts something
+  untrue): F6 the refused removal above; F7 `platformProcessPlanSafety`
+  accepting `cmd.exe`, `powershell.exe`, `pwsh.exe`, `bash.exe`, `sudo`,
+  `pkexec`, `doas`, and `runas` as arguments while refusing the bare `cmd` and
+  `sh` forms, plus `JAPP_PATH_ROLE = NATIVE_HOST_REGISTRATION`,
+  `JAPP_SERVICE_PORT` of `0`, `007`, and `99999`, and
+  `JAPP_SERVICE_BIND_HOST = 0.0.0.0`; F8 a registration intent with
+  `max_message_bytes` removed; F9 a `CERTIFIED_FULL` capability report whose
+  every capability is `AVAILABLE` via `SYNTHETIC_FIXTURE`; F10 an `ACCEPTED`,
+  evidence-complete `MACOS_ARM64` profile declaring `NVIDIA_CUDA`, and a
+  `CPU_ONLY` profile carrying `minimum_driver_version`; F11 an `AVAILABLE`
+  browser presence with `detection_method = NOT_EVALUATED` and a
+  `NOT_INSTALLED` presence retaining `detected_version`; F12 a `BLOCKED`
+  diagnostic at `INFO` severity; F13 a `CERTIFIED_FULL` certification input
+  with `required_evidence_kinds = []` reporting `inventory_complete = true`.
+- Cross-language: every reproduction above was re-run against the generated
+  Python evaluator and produced the identical verdict on every case. The Rust
+  harness was read line by line for all six originally reported rules and
+  mirrors the TypeScript control flow exactly.
+
+#### Claims examined and deliberately not acted on
+
+Workflow findings were treated as evidence, not authority; each was
+independently re-run before acceptance. Four were rejected and are recorded
+here so the decision is auditable rather than silent:
+
+- `platformDiagnosticIntegrity` "PLATFORM_CAPABILITIES is unmapped" — correct
+  as committed. The aggregate capability reporter legitimately reports on any
+  of the eight families, so the omission is deliberate.
+- `platformEvidenceIntegrity` "MEASURED_NATIVE_RUN is impossible for an
+  uncertified target" — the owner-stated F2 semantics explicitly require a
+  measured run to carry a certified OS/architecture observation, so the
+  binding stands.
+- `platformProcessStatusIntegrity` "TERMINATED requires an intent, so an
+  externally killed child is unreportable" — the F5 repair already gives that
+  child a representation as `EXITED` with a non-zero code and a finite reason.
+- The accepted-profile/full-AI coupling in `platformModelProfileEvidence` and
+  `platformRuntimeCapabilityFallback` — a genuine open question, but a
+  model-runtime acceptance-policy decision rather than a contract-shape
+  correction. Recorded as **KI-0026** (MEDIUM, DEFERRED) for M05-W13 with its
+  exact reproduction; existing reviewed behaviour preserved unchanged.
+- The narrow `UNAVAILABLE` process reading is likewise preserved and recorded
+  as **KI-0027** (LOW, DEFERRED) for M03-W09 rather than widened here.
+
+#### Repair
+
+Canonical generator source `packages/contracts/generator/semantic-rules.ts`
+was repaired first; the TypeScript and Python evaluators follow only from
+`pnpm generate:contracts`, and the Rust harness mirrors them intentionally.
+Thirteen of the eighteen platform rule kinds changed. Seven schemas took a
+description-only **PATCH** bump to `1.0.1` recording the field semantics this
+repair decided (`interrupted`/`recovery_completed`, `exists`/`writable`,
+`exit_code`/`orphan_detected`, `runner_image_token`/`evaluation_method`,
+`available_profile_refs`, `observed_state`). No shape, `required` array, enum
+token, rule binding, `rule_version`, or generator format changed.
+
+#### Commands run and observed results
+
+- `pnpm generate:contracts` → `generated 153 files`.
+- `pnpm generate:contracts --check` twice → both
+  `generated contracts are up to date (153 files, byte-identical)`.
+- `pnpm --filter @japp/contracts exec vitest run test/schema` →
+  `7 passed (7)`, `Tests 625 passed (625)` including the five new exhaustive
+  matrices; `w07-platform-rule-matrix.test.ts` alone runs 462 of them.
+- `pnpm contracts:corpus:update-manifest` → `updated M01-W05 corpus manifest`.
+- **Compatibility classification, run before any baseline write:**
+  `pnpm contracts:compatibility:check` reported `"compatible": true`,
+  `"findings": []` — zero breaking findings — and exactly ten
+  `SUPPORTED_WIRE_CASE_ADDED` entries and nothing else
+  (`x-w07.evidence-record-hosted-synthetic-fixture`,
+  `x-w07.evidence-record-physical-machine-synthetic-fixture`,
+  `x-w07.installer-state-recovered-interruption`,
+  `x-w07.native-messaging-result-remove-denied`,
+  `x-w07.path-resolution-denied-existing-location`,
+  `x-w07.process-plan-loopback-bind-host`,
+  `x-w07.process-status-explained-nonzero-exit`,
+  `x-w07.process-status-orphan-cleanup-terminal`,
+  `x-w07.runtime-capability-degraded-with-profiles`,
+  `x-w07.update-state-recovered-interruption`). The seven PATCH schema bumps
+  produced no finding, as descriptions are outside the structural signature.
+- Only then `pnpm contracts:compatibility:update-baseline` →
+  `updated M01-W05 compatibility baseline`; re-check twice →
+  `{"additive_changes":[],"compatible":true,"findings":[]}` both times.
+- `pnpm --filter @japp/contracts exec vitest run` → `19 passed (19)`,
+  `Tests 1470 passed (1470)`.
+- `pnpm format:check`, `pnpm lint`, `pnpm typecheck` → PASS.
+- `pnpm run doctor` → `summary: 21 pass, 1 warning, 0 fail,
+  1 not-yet-applicable`; `Project-status validation PASS`.
+- `pnpm verify` → **exit code 0**; toolchain, format, lint, typecheck, unit-ts,
+  contract-gen, contract, e2e-browser, python, rust, portability,
+  traceability, status, and integrity all `PASS`; `visual` remains
+  `NOT_YET_APPLICABLE` (owned by M10-W06).
+- `git diff --check` → clean. `git status --porcelain` over `pnpm-lock.yaml`,
+  `uv.lock`, every `Cargo.lock`, `.github/`, `rust-toolchain.toml`, `.nvmrc`,
+  `package.json`, and `pyproject.toml` → empty: no lockfile, workflow,
+  toolchain, or timeout drift.
+- `shasum -a 256 docs/MASTER_IMPLEMENTATION_SPEC.md` → unchanged
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+
+#### Post-repair verification of every reproduction
+
+Re-running the identical reproduction payloads against the repaired evaluators:
+every F1–F5 unreachable positive is now `S+ M+`, every one of the thirteen
+fail-open payloads is now `S+ M-`, and the refused-removal case is `S+ M+`
+while the zero-reason `REMOVE`/`PRESENT_VALID` false-success claim stays
+`S+ M-`. TypeScript and Python agreed on every case, and the cross-language
+corpus proves TypeScript/Python/Rust agreement on all 444 cases.
+
+#### Corpus
+
+402 → 444 cases; applicability TypeScript 443, Python 439, Rust 438;
+operations 60 `AUTHORIZE`, 102 `ROUND_TRIP`, 274 `VALIDATE`, 8
+`VERSION_CHECK`. Forty-three cases were added (ten positives, thirty-three
+semantic negatives), all applicable to all three languages. One committed
+negative, `x-w07.evidence-record-physical-machine-without-measurement`, was
+**corrected rather than deleted**: its rationale ("a real machine class cannot
+be attached to synthetic-fixture evidence") is precisely the invalid assumption
+F2 disproved, so it is replaced by
+`x-w07.evidence-record-physical-machine-synthetic-fixture` asserting the
+corrected positive plus `x-w07.evidence-record-synthetic-machine-measured-run`
+asserting the invariant that genuinely survives. It was an `expected.valid:
+false` case and therefore never part of the compatibility `supported_valid_cases`
+set, which is why the classification above shows no removal. No assertion was
+weakened, no test was skipped or labelled flaky, no timeout was raised, and no
+test-only bypass was added. Locked manifest digest
+`d00f8eae8ab1bd687f71e54c52278288aec7bfd04499394ee20b86ce34aff12f`.
+
+Two matrix expectations were corrected because the repair disproved their
+premise, not to make a build pass: the native-registration matrix's
+`REJECTED_REGISTRATION_CELLS` is now empty (all thirty operation/state cells are
+reachable) because its representative model keyed reasons by observed state
+alone and so never offered an operation-level failure reason, and the
+contradiction "a valid registration carries a failure reason" was replaced by
+the two identity-evidence contradictions that do still hold. The
+platform/architecture coherence matrix now retargets `package_format` alongside
+`platform_id`, because a positive representative must be coherent across every
+reviewed binding.
+
 ### M01-W07 corrective repair — KI-0024 native-registration reachability and platform invariants (2026-07-28)
 
 - Starting revision: commit `12f3c35be9cff1ca40541212ae83a3e79888a234` /

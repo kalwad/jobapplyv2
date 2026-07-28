@@ -34,18 +34,26 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-### KI-0025 — Five more platform semantic rules refuse coherent successful outcomes
+### KI-0025 — Platform semantic rules refuse coherent outcomes and admit incoherent ones
 
 - Severity: HIGH
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: 2026-07-28 during the KI-0024 corrective repair of M01-W07, by an
   independent completeness audit that swept every platform rule for the
-  KI-0024 defect class rather than only the reported instance
+  KI-0024 defect class rather than only the reported instance; extended on
+  2026-07-28 by the owner-authorized exhaustive final audit, which reproduced
+  eight further defects of the same reachability, state-coherence, and
+  orthogonal-axis-coupling class
 - Affects: M01-W07; `packages/contracts/generator/semantic-rules.ts`
   `platformPackageStateEvidence`, `platformEvidenceIntegrity`,
   `platformRuntimeCapabilityFallback`, `platformPathResolutionSafety`,
-  `platformProcessStatusIntegrity`; the generated TypeScript/Python evaluators
-  and the representative Rust harness that mirror them
+  `platformProcessStatusIntegrity`, `platformNativeRegistrationResult`,
+  `platformNativeRegistrationBinding`, `platformProcessPlanSafety`,
+  `platformCapabilityReportIntegrity`, `platformModelProfileEvidence`,
+  `platformBrowserRecordScope`, `platformDiagnosticIntegrity`,
+  `platformCertificationInputScope`; the generated TypeScript/Python evaluators
+  and the representative Rust harness that mirror them; the M01-W07 platform
+  rule matrix and corpus; `packages/contracts/M01-W07.md`
 - Description: KI-0024 repaired one unreachable positive branch. A systematic
   sweep of all eighteen platform rule kinds found five more of the same class,
   each a structurally representable and operationally ordinary outcome that no
@@ -73,6 +81,56 @@ broadening a work package (spec §1.5).
   (F5) `platformProcessStatusIntegrity` requires zero reasons for `EXITED`, so
   a non-zero exit code is structurally representable but can never be
   explained; `EXITED` is the only terminal process state that forbids reasons.
+
+  The owner-authorized exhaustive final audit then reproduced eight further
+  defects of the same class. Six are fail-open: the contract admits a payload
+  that asserts something untrue.
+  (F6) `platformNativeRegistrationResult` binds `observed_state =
+  PRESENT_VALID` to a zero-reason success claim, so a removal that fails and
+  leaves the existing registration intact is unrepresentable. `observed_state`
+  is the post-operation registration state, not an operation outcome; the
+  KI-0024 matrix recorded `REMOVE`/`PRESENT_VALID` as the one cell "no
+  representative can rescue" only because its representative model keyed
+  reasons by observed state and therefore never offered an operation-level
+  failure reason.
+  (F7) `platformProcessPlanSafety` refuses only bare lowercase interpreter base
+  names, so the Windows executable-suffix form defeats the guard; it accepts
+  privilege-escalation launchers as plan arguments; it lets `JAPP_PATH_ROLE`
+  carry any bounded token, including the `NATIVE_HOST_REGISTRATION` value the
+  same rule refuses on `working_directory_role`; it accepts `0`, `007`, and
+  `99999` as `JAPP_SERVICE_PORT`; and it leaves `JAPP_SERVICE_BIND_HOST`
+  wholly unconstrained, so a reviewed spawn plan may bind the local service to
+  a non-loopback address contrary to `REQ-PLAT-003`.
+  `packages/contracts/M01-W07.md` states that the rule "additionally refuses
+  interpreter tokens even when each token satisfies the grammar", which the
+  committed rule does not do — the same documentation-overstatement class as
+  KI-0024 (D).
+  (F8) `platformNativeRegistrationBinding` does not require
+  `max_message_bytes`, although specification §5.14.5 makes the extension
+  allowlist and message-size limits mandatory on every platform.
+  (F9) `platformCapabilityReportIntegrity` admits a `CERTIFIED_FULL` report in
+  which every mandatory core capability is `AVAILABLE` through
+  `SYNTHETIC_FIXTURE` or `DECLARED_PLAN`, so a certification claim can carry
+  zero measured native evidence. The sibling `platformTargetSupportClaim`
+  already requires `MEASURED_NATIVE_RUN` for the identical `support_claim`
+  record.
+  (F10) `platformModelProfileEvidence` binds `APPLE_SILICON_GPU` to
+  `MACOS_ARM64` but not the converse, so an `ACCEPTED`, evidence-complete
+  `MACOS_ARM64` profile may claim `NVIDIA_CUDA` — a full-AI certification
+  claim for hardware that cannot exist on the certified Apple Silicon target
+  (specification §5.14.1 and the §5.14.6 profile list). It also forbids
+  `minimum_vram_mib` on `CPU_ONLY` while admitting `minimum_driver_version`.
+  `packages/contracts/M01-W07.md` already asserts "Accelerator, runtime family,
+  and target must agree."
+  (F11) `platformBrowserRecordScope` admits `presence = AVAILABLE` with
+  `detection_method = NOT_EVALUATED`, and admits a `detected_version` on a
+  `NOT_INSTALLED`, `NOT_EVALUATED`, or `UNSUPPORTED_TARGET` presence.
+  (F12) `platformDiagnosticIntegrity` forces `blocking = true` for a `BLOCKED`
+  result but leaves its severity unconstrained, so a capability-blocking
+  diagnostic may be filed at `INFO`.
+  (F13) `platformCertificationInputScope` derives completeness from the
+  record's own `required_evidence_kinds`, so a `CERTIFIED_FULL` proposal may
+  declare that set empty and still report `inventory_complete = true`.
 - Reproduction: at the KI-0024 corrective content revision, load the canonical
   schema catalog and the generated TypeScript semantic evaluator, then mutate
   the committed representatives.
@@ -99,16 +157,58 @@ broadening a work package (spec §1.5).
   the same record with `exists = false` accepts.
   (F5) `w07.process-status` with `state = EXITED`, `exit_code = 1`, an
   `ended_at`, and `reason_codes = ["ADAPTER_ERROR"]` — structural accept,
-  semantic reject; the same record with no reasons accepts.
+  semantic reject; the same record with no reasons accepts. The same record
+  with `exit_code = 1` and no reasons also accepts, so an unexplained failure
+  passes while an explained one fails.
+  (F6) `w07.native-messaging-result` with `operation = REMOVE`,
+  `observed_state = PRESENT_VALID`, `changed = false`,
+  `idempotent_repeat_safe = false`, `reason_codes = ["PERMISSION_DENIED"]`, and
+  the observed manifest digest and host version present — structural accept,
+  semantic reject.
+  (F7) `w07.process-plan` with `arguments = ["cmd.exe"]`, `["powershell.exe"]`,
+  `["bash.exe"]`, `["sudo"]`, `["pkexec"]`, `["doas"]`, or `["runas"]` — all
+  accept, while the bare `["cmd"]` and `["sh"]` forms are refused. The same
+  root with `environment_allowlist = [{"variable": "JAPP_PATH_ROLE", "value":
+  "NATIVE_HOST_REGISTRATION"}]`, with `JAPP_SERVICE_PORT` of `0`, `007`, or
+  `99999`, or with `JAPP_SERVICE_BIND_HOST = "0.0.0.0"` — all accept.
+  (F8) `w07.native-messaging-registration` with `max_message_bytes` removed —
+  structural and semantic both accept.
+  (F9) `w07.capability-report` with `reviewed_tier = CERTIFIED_FULL`, one model
+  profile reference, and every capability set to `AVAILABLE` with
+  `evaluation_method = SYNTHETIC_FIXTURE` — structural and semantic both
+  accept.
+  (F10) `w07.model-runtime-profile` with `platform_id = MACOS_ARM64`,
+  `runtime_family = OLLAMA_GGUF`, `accelerator = NVIDIA_CUDA`,
+  `minimum_vram_mib`, `minimum_driver_version`, `availability = AVAILABLE`,
+  `acceptance_state = ACCEPTED`, `core_capability_behavior =
+  FULL_AI_AVAILABLE`, zero reasons, and the four measured evidence references —
+  structural and semantic both accept, while the mirror-image
+  `WINDOWS_X64`/`APPLE_SILICON_GPU` record is correctly rejected. The same root
+  with `accelerator = CPU_ONLY` and `minimum_driver_version` present also
+  accepts.
+  (F11) `w07.browser-record` with `detection_method = NOT_EVALUATED`, and the
+  same root with `presence = NOT_INSTALLED` and the fixture `detected_version`
+  retained — both accept.
+  (F12) `w07.diagnostic-report` with `result = BLOCKED`, `blocking = true`,
+  `severity = INFO`, and one reason — structural and semantic both accept.
+  (F13) `w07.certification-input` with a complete `CERTIFIED_FULL`
+  `support_claim`, `required_evidence_kinds = []`, `present_evidence_kinds =
+  []`, one evidence record reference, `inventory_complete = true`, and a
+  recorded owner decision — structural and semantic both accept.
 - Workaround: none accepted. Consumers must not treat package recovery
   evidence, hosted-CI evidence records, degraded runtime capability, denied
-  path resolution, or process exit diagnostics as contract-expressible until
-  these rules are repaired.
-- Resolution + evidence link: not started. Deliberately excluded from the
-  KI-0024 corrective revision, which was scoped by the owner to the reported
-  defects only; broadening it would have been an unreviewed scope expansion
-  (spec §1.5). This issue is HIGH and OPEN, so M01 cannot be marked complete
-  until the owner authorizes the follow-up repair (spec §10.1).
+  path resolution, process exit diagnostics, or a failed native-registration
+  removal as contract-expressible, and must not rely on the interpreter,
+  environment, message-size, certification-evidence, accelerator/target,
+  browser-presence, diagnostic-severity, or evidence-inventory invariants that
+  the contract documentation currently claims, until these rules are repaired.
+- Resolution + evidence link: in progress under the owner-authorized final
+  M01-W07 corrective content lifecycle. F1 through F5 were reproduced
+  independently in TypeScript and Python at `44827ae73a04d4ef63ccb40cd93fd14b7e304010`
+  before any edit, and the Rust harness was inspected and confirmed to mirror
+  each of them; F6 through F13 were reproduced the same way in the same
+  session. This issue is HIGH, so M01 cannot be marked complete until it is
+  FIXED with recorded evidence (spec §10.1).
 
 ### KI-0024 — Native-registration removal was an unreachable positive branch, and platform stdio/architecture invariants were incomplete
 
@@ -914,6 +1014,77 @@ validator exception or weakening was introduced.
   Evidence: docs/TEST_EVIDENCE.md § M00-W06.
 
 ## Deferred risks and parked ideas
+
+### KI-0026 — Whether an accepted model profile may sit below the performance tier is undecided
+
+- Severity: MEDIUM
+- State: DEFERRED
+- Discovered: 2026-07-28 during the KI-0025 exhaustive final audit of M01-W07
+- Affects: `packages/contracts/generator/semantic-rules.ts`
+  `platformModelProfileEvidence` and `platformRuntimeCapabilityFallback`;
+  `REQ-PLAT-011`; future owner **M05-W13** (define versioned platform
+  model-runtime profiles)
+- Description: the committed contract couples acceptance to full AI in two
+  places. `platformModelProfileEvidence` requires
+  `core_capability_behavior = FULL_AI_AVAILABLE` for any `ACCEPTED` profile,
+  and `platformRuntimeCapabilityFallback` requires a non-empty
+  `accepted_profile_refs` exactly when the runtime reports
+  `FULL_AI_AVAILABLE`. Specification §5.14.6 nevertheless names
+  `windows-x64-cpu` and `ubuntu-x64-cpu` as a "functional compatibility
+  fallback; no latency promise until measured", and §5.14.1 defines
+  `CERTIFIED_CORE` as "AI unavailable **or below performance tier**". Read
+  together, those sentences describe a profile that is reviewed and accepted
+  yet does not deliver full AI on a given machine — an outcome the current
+  coupling cannot express.
+- Reproduction: at `44827ae73a04d4ef63ccb40cd93fd14b7e304010`, build
+  `w07.model-runtime-profile` with `platform_id = WINDOWS_X64`,
+  `profile_token = windows-x64-cpu`, `runtime_family = OLLAMA_GGUF`,
+  `accelerator = CPU_ONLY`, `availability = AVAILABLE`,
+  `acceptance_state = ACCEPTED`, zero reasons, the four measured evidence
+  references, and `core_capability_behavior = CORE_PRESERVED_AI_DEGRADED` —
+  structural accept, semantic reject.
+- Workaround: none needed today. No profile is accepted on any target, the
+  model lock is unchanged, and `CERTIFIED_CORE` deliberately imposes no
+  `MODEL_RUNTIME` requirement, so no current or planned evidence depends on
+  the distinction.
+- Resolution + evidence link: deliberately **not** decided inside the KI-0025
+  repair. Answering it is a model-runtime acceptance-policy decision, not a
+  contract-shape correction: it changes what "accepted" means for a profile
+  and therefore what `CERTIFIED_FULL` promises. M05-W13 owns versioned
+  platform model-runtime profiles and must either accept the current coupling
+  explicitly or carry an ADR that relaxes it, before any profile is accepted.
+  The KI-0025 revision preserves the existing reviewed behavior unchanged.
+
+### KI-0027 — `UNAVAILABLE` process status forbids a start timestamp the supervisor may already hold
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-07-28 during the KI-0025 exhaustive final audit of M01-W07
+- Affects: `packages/contracts/generator/semantic-rules.ts`
+  `platformProcessStatusIntegrity`; `REQ-PLAT-015`; future owner **M03-W09**
+  (implement platform lifecycle, path, and process adapters)
+- Description: `processState.UNAVAILABLE` is documented as "the supervisor
+  itself could not observe the process", and the rule reads that fail-closed:
+  an `UNAVAILABLE` status may carry no `started_at`, `ended_at`, or
+  `exit_code`. A supervisor that successfully spawned a child, recorded its
+  start, and then lost the handle therefore cannot report the loss while
+  retaining the start it did observe; it must either discard a true
+  observation or use `FAILED`.
+- Reproduction: at `44827ae73a04d4ef63ccb40cd93fd14b7e304010`, build
+  `w07.process-status` with `state = UNAVAILABLE`, the fixture `started_at`
+  retained, no `ended_at`, no `exit_code`, and one reason — structural accept,
+  semantic reject. This is the behaviour asserted by the committed negative
+  `x-w07.process-status-unavailable-with-timestamps`.
+- Workaround: report the loss as `FAILED` with `started_at` and a finite
+  reason, which the KI-0025 truth table admits, or omit the start timestamp.
+  Neither loses safety; both lose a little fidelity.
+- Resolution + evidence link: deliberately **not** changed inside the KI-0025
+  repair. The narrow reading is the fail-closed one, a reviewed corpus
+  negative already asserts it, and no reproduced defect requires relaxing it,
+  so widening it here would be an unreviewed weakening rather than a
+  correction. M03-W09 builds the first real supervisor and must confirm the
+  reading against measured `parent death` and `orphan detection` behaviour
+  (spec §5.14.4) before the process contract is consumed.
 
 ### KI-0001 — No JS/TS `build` task exists in the M00-W02 scaffold (deliberate deferral)
 

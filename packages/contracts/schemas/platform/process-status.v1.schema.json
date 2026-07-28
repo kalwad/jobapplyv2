@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:process-status:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Platform process handle, lifecycle state, and result",
   "description": "A stable supervisor handle plus the observed lifecycle state and exit result for one planned process. Handles are opaque: no operating-system process identifier, thread identifier, executable path, command line, or captured output stream is representable. Termination is a typed intent, never a raw signal value.",
   "type": "object",
@@ -46,6 +46,7 @@
       "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
     },
     "exit_code": {
+      "description": "Observed exit status of a child that ended on its own. A non-zero status is always accompanied by at least one finite reason.",
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode"
     },
     "restart_count": {
@@ -54,6 +55,7 @@
       "maximum": 8
     },
     "orphan_detected": {
+      "description": "Historical: this child was observed to have outlived its supervising parent. It stays true on the terminal record of an orphan that was cleaned up or finally seen to exit.",
       "type": "boolean"
     },
     "idempotency_key": {

@@ -244,14 +244,14 @@
     {
       "id": "urn:japp:schema:platform:evidence-record:v1",
       "path": "packages/contracts/schemas/platform/evidence-record.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "d94c2f9fc7213c620dfbe6e8578295163208c4e0910a9c9c5bef21da5a7c5aaa"
+      "schemaVersion": "1.0.1",
+      "sha256": "6254417cf9d1e6b27c87d07c02f3b796dea0d0c395fe503f1b58df7f83ffcf53"
     },
     {
       "id": "urn:japp:schema:platform:installer-state:v1",
       "path": "packages/contracts/schemas/platform/installer-state.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "f7cbbaa27cd5b5de6f6770ada985b584cad4374fa78f2d09e6680f38d2d9ed9e"
+      "schemaVersion": "1.0.1",
+      "sha256": "191ed9747575dc4f179ab7efdcd0c22c93778d54bf6b92ff5a84af92dd8801ca"
     },
     {
       "id": "urn:japp:schema:platform:model-runtime-profile:v1",
@@ -268,8 +268,8 @@
     {
       "id": "urn:japp:schema:platform:native-messaging-result:v1",
       "path": "packages/contracts/schemas/platform/native-messaging-result.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "d37459e7f5d0c0d363dd69b2931ea039f9f1457d7dc922eac53e825a76e5512d"
+      "schemaVersion": "1.0.1",
+      "sha256": "d8db4621d5d917cf2f99a93d3ddeca5430597d8d449a9253b8b8299bb550304f"
     },
     {
       "id": "urn:japp:schema:platform:path-request:v1",
@@ -280,8 +280,8 @@
     {
       "id": "urn:japp:schema:platform:path-resolution:v1",
       "path": "packages/contracts/schemas/platform/path-resolution.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "8370b485abc992aaf5d9bb986d154ba8fc4b3530236ec807ccfec470c837b348"
+      "schemaVersion": "1.0.1",
+      "sha256": "3baf6080472a2e879a10ed36717e40570730c4fb11952138864514fbfa75d452"
     },
     {
       "id": "urn:japp:schema:platform:process-plan:v1",
@@ -292,14 +292,14 @@
     {
       "id": "urn:japp:schema:platform:process-status:v1",
       "path": "packages/contracts/schemas/platform/process-status.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "6418d48d4f885ec0ca796f41ad7f4e272b7965aadf11300778198ba59accba81"
+      "schemaVersion": "1.0.1",
+      "sha256": "b21b82d103de5bf38b5ca8216081e2740d8b4c4521f813697ccfa3f65130a872"
     },
     {
       "id": "urn:japp:schema:platform:runtime-capability:v1",
       "path": "packages/contracts/schemas/platform/runtime-capability.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "66693f4a53618850c77c2061cf4da186adaef64623f20533d07f6b016ccd679d"
+      "schemaVersion": "1.0.1",
+      "sha256": "ab109aaeac0d0f446066d5a520c5571be573bc519eea212effe686cc594a86fb"
     },
     {
       "id": "urn:japp:schema:platform:secret-store-request:v1",
@@ -322,8 +322,8 @@
     {
       "id": "urn:japp:schema:platform:update-state:v1",
       "path": "packages/contracts/schemas/platform/update-state.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "0366fb027c000bc9536accc0988e9616162f142e11850ad098246f551074d84a"
+      "schemaVersion": "1.0.1",
+      "sha256": "4917b369a5a9deed7e1da8ad37a506486e069b3c6abc870da49781281cc976f3"
     },
     {
       "id": "urn:japp:schema:platform:vocabulary:v1",
@@ -605,11 +605,11 @@
     },
     {
       "path": "python/src/japp_contracts/platform/evidence_record_v1.py",
-      "sha256": "09de728a277e9d2012689f0df15979d90f6280e33770d646e22c6c2a03560935"
+      "sha256": "1656eb0a481c0fbf5988082cc419d07671ef88aeaddcdd18d42ce3bfaae867a2"
     },
     {
       "path": "python/src/japp_contracts/platform/installer_state_v1.py",
-      "sha256": "06767ecec46a754a2bd0da554af4571c619656aa62788b2769d97f10b84e6665"
+      "sha256": "d1796114c203b80bd404be96956c66a681b7c95835bb670137cb7770b7fc7712"
     },
     {
       "path": "python/src/japp_contracts/platform/model_runtime_profile_v1.py",
@@ -621,7 +621,7 @@
     },
     {
       "path": "python/src/japp_contracts/platform/native_messaging_result_v1.py",
-      "sha256": "90bb19060189b4964d62a85ebd579805f7c8e862e9c1526628d2cc06a6bcc720"
+      "sha256": "d9d410331d845b842bdfec33d0bb181a5c7fba5c1f8f57a3c1ca0ac77cbcaa21"
     },
     {
       "path": "python/src/japp_contracts/platform/path_request_v1.py",
@@ -629,7 +629,7 @@
     },
     {
       "path": "python/src/japp_contracts/platform/path_resolution_v1.py",
-      "sha256": "49fadd6a89247e8924f10789ae5a11d6a7ece54340db1e25782724540ccc9c99"
+      "sha256": "9d480cadf012526b95500cd39061b281bcd5631356c48ce3bc6a5052e42f83fd"
     },
     {
       "path": "python/src/japp_contracts/platform/process_plan_v1.py",
@@ -637,11 +637,11 @@
     },
     {
       "path": "python/src/japp_contracts/platform/process_status_v1.py",
-      "sha256": "0b7eb2e74f057f8d3faba2dd759e2f5922a309a5dc41a0c4fa78ec63322398cb"
+      "sha256": "de09fc5698e1c2c1ac3a25b552648e18c53a2356ca5749341a69b9fbcbe88d48"
     },
     {
       "path": "python/src/japp_contracts/platform/runtime_capability_v1.py",
-      "sha256": "2720b82617d78ee9dfdecb8c4a6cf29dbb488c3a5f5962305eee4d03761d13df"
+      "sha256": "83c787808dbe13b67f3436da12cb02a75d6ec87a87ad75c25dfbcb55d9263bb1"
     },
     {
       "path": "python/src/japp_contracts/platform/secret_store_request_v1.py",
@@ -657,7 +657,7 @@
     },
     {
       "path": "python/src/japp_contracts/platform/update_state_v1.py",
-      "sha256": "1c8531d86358654ecf5702c09631a1926d5bd0e2510bd703f71592a92b30a1d8"
+      "sha256": "f22f49b71ab5bd2e7f50d91973fc2dbc77efc0a7f700e8605de270d68807ce92"
     },
     {
       "path": "python/src/japp_contracts/platform/vocabulary_v1.py",
@@ -721,7 +721,7 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "f707c345b4fdd69cc9420041a28c3a36a0c539ec82d1e44e6af44449bfc4dfd1"
+      "sha256": "9afb537695795c095dadc6e284aea84d92b92d02055b06b0cb172465f5899045"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -901,11 +901,11 @@
     },
     {
       "path": "typescript/platform/evidence-record.v1.ts",
-      "sha256": "146dc170886815cfdd87bb6f5a5d7d786f47696121485f304ff705a554044034"
+      "sha256": "5696d7ded8282d93154f7c991bb34aaacffc7698a0d3118b45f3f93f0a074720"
     },
     {
       "path": "typescript/platform/installer-state.v1.ts",
-      "sha256": "105cf6c3e5c75635887e3fe8a945aaf543126642d0403d8cc56aed4888c4b53d"
+      "sha256": "bd3a2ece5e1bfb9f96dded274aaba64bfb4e39fa07b97598b3e41e34741c959c"
     },
     {
       "path": "typescript/platform/model-runtime-profile.v1.ts",
@@ -917,7 +917,7 @@
     },
     {
       "path": "typescript/platform/native-messaging-result.v1.ts",
-      "sha256": "3721588e3417e2093ae245ccf49275dd3a57d9fa0770e031efb96ac57329423c"
+      "sha256": "128ec3b2e37a38a7afa2ec047c2507c28ffe86d5883a7213fcc356d8d2761a9e"
     },
     {
       "path": "typescript/platform/path-request.v1.ts",
@@ -925,7 +925,7 @@
     },
     {
       "path": "typescript/platform/path-resolution.v1.ts",
-      "sha256": "044cbb1cb337ea5fb73edd6afb73d27110c21de9a784e34bf1e9ea94a5e79948"
+      "sha256": "c5900ab75619d1243b65bf826cab46f9d58bad7165df74e6ea37ef2506106ccf"
     },
     {
       "path": "typescript/platform/process-plan.v1.ts",
@@ -933,11 +933,11 @@
     },
     {
       "path": "typescript/platform/process-status.v1.ts",
-      "sha256": "848d054e508c475ed39af15426cac64ed655757e8e4a38bf2cd19bdd16fe6671"
+      "sha256": "5b4bd72911a34f848ba24c29bcb07c6d463b1005f45e9a692f5183b58c5a69ca"
     },
     {
       "path": "typescript/platform/runtime-capability.v1.ts",
-      "sha256": "6fb12d3700b6dada3a6de36cadfc645abd5cdebda54fedbec3a7fce55cc29905"
+      "sha256": "fb4f1477901ddf87e6fec8ee508f2e5e25fb7ca700748c30fd33ee7d3a44868a"
     },
     {
       "path": "typescript/platform/secret-store-request.v1.ts",
@@ -953,7 +953,7 @@
     },
     {
       "path": "typescript/platform/update-state.v1.ts",
-      "sha256": "71802ed263c00b9dd3928e440ce0fc61d570e38ff276a5119be1d18065bb6daa"
+      "sha256": "b845bcf5b12b79be526037bbd794519e236acc82f1ef74883f9fb13fce267261"
     },
     {
       "path": "typescript/platform/vocabulary.v1.ts",
@@ -997,7 +997,7 @@
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "57b882e950e34ec04ecb4eb0601b371c3e687bc38bc2862aaef5f26b0cc91359"
+      "sha256": "e12617149c36a234c8baae6b043fb9ce525bb172ffbdba2b4d2b218bee0746fc"
     },
     {
       "path": "typescript/session/application-session.v1.ts",

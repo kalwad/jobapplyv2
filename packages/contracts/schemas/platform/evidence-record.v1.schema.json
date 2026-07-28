@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:evidence-record:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
   "title": "Cross-platform evidence record",
   "description": "One future per-platform evidence element for the Cross-Platform Core Gate bundle: operating-system build and architecture, machine class, package identity and signature state, browser and WebView versions, native-host registration, secret-store test, model profile, document matrix, backup/restore, update/rollback, and synthetic-safe log, screenshot, or trace references. Every artifact is a digest reference; raw secrets, unrestricted logs, raw local paths, complete environment dumps, registry exports, and machine-specific identity are structurally unrepresentable. M01-W07 creates no certification bundle and evaluates no gate.",
   "type": "object",
@@ -41,12 +41,14 @@
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/machineClass"
     },
     "runner_image_token": {
+      "description": "Coarse hosted-runner image label. It identifies a hosted CI runner and nothing else, and a measured native run on a hosted runner must name it.",
       "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
     },
     "artifact_kind": {
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evidenceArtifactKind"
     },
     "evaluation_method": {
+      "description": "How the artifact was produced. Independent of `machine_class`, which records where: any machine class may execute synthetic fixtures or static inspection, and only a non-synthetic machine may execute a measured native run.",
       "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod"
     },
     "synthetic_only": {

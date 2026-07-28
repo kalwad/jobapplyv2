@@ -26,6 +26,9 @@ export interface PlatformNativeMessagingResultV1 {
   readonly platform_id: PlatformVocabularyV1CertifiedPlatformId;
   readonly browser_family: PlatformVocabularyV1BrowserFamily;
   readonly host_name: PlatformVocabularyV1NativeHostName;
+  /**
+   * The registration state observed after the operation ran. It is not a claim that the operation succeeded: a removal refused by permission still observes PRESENT_VALID. Success is carried by an empty `reason_codes`.
+   */
   readonly observed_state: PlatformVocabularyV1RegistrationState;
   readonly observed_manifest_digest?: CommonProvenanceV1ContentDigest;
   readonly observed_host_version?: PlatformVocabularyV1ProductVersion;
