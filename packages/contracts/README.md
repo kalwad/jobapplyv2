@@ -525,7 +525,7 @@ of-use drift. No handwritten per-language policy map exists.
 
 ## 10d. Cross-language compatibility evidence (M01-W05)
 
-`pnpm test:contract` runs the 363-case canonical corpus and the failure
+`pnpm test:contract` runs the 382-case canonical corpus and the failure
 infrastructure/breaking-change tests. Protocol, normalization, exact
 representative scope, dependency pins, baseline lifecycle, and reconstruction
 commands are documented in `test/contract/README.md`. Normal compatibility

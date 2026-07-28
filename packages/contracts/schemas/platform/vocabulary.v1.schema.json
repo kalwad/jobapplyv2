@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:vocabulary:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.1.0",
   "title": "Cross-platform capability and platform-service vocabulary",
-  "description": "Shared finite vocabularies and bounded supporting records for the M01-W07 platform-service boundary. Enum tokens use the repository UPPER_SNAKE_CASE grammar; MACOS_ARM64, WINDOWS_X64, and UBUNTU_X64 are the exact specification targets macos-arm64, windows-x64, and ubuntu-x64. Nothing here certifies a platform, resolves a path, opens a secret store, spawns a process, registers a native host, locates a browser, runs a model, installs, or updates.",
+  "description": "Shared finite vocabularies and bounded supporting records for the M01-W07 platform-service boundary. Enum tokens use the repository UPPER_SNAKE_CASE grammar; MACOS_ARM64, WINDOWS_X64, and UBUNTU_X64 are the exact specification targets macos-arm64, windows-x64, and ubuntu-x64. Nothing here certifies a platform, resolves a path, opens a secret store, spawns a process, registers a native host, locates a browser, runs a model, installs, or updates. Version 1.1.0 adds STORE_AVAILABLE so a successful STATUS availability probe is structurally representable.",
   "$defs": {
     "platformId": {
       "title": "Detected platform target identifier",
@@ -257,7 +257,7 @@
     },
     "secretResultState": {
       "title": "Secret-store result state",
-      "description": "Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference.",
+      "description": "Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference. STORE_AVAILABLE is the successful STATUS availability probe; it never accompanies material.",
       "type": "string",
       "enum": [
         "DELETED",
@@ -266,6 +266,7 @@
         "OPERATION_FAILED",
         "RETRIEVED",
         "STORED",
+        "STORE_AVAILABLE",
         "STORE_UNAVAILABLE"
       ]
     },

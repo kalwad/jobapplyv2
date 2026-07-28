@@ -310,8 +310,8 @@
     {
       "id": "urn:japp:schema:platform:secret-store-result:v1",
       "path": "packages/contracts/schemas/platform/secret-store-result.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "7d8064f8bb6d5cc683f381952de100b2abfc0049cb23a5c9fe022ab9e1d01b96"
+      "schemaVersion": "1.1.0",
+      "sha256": "89d6cb008e6044f9102da23623962124e9a72a18c250343b44f415593e76d8d7"
     },
     {
       "id": "urn:japp:schema:platform:target-identity:v1",
@@ -328,8 +328,8 @@
     {
       "id": "urn:japp:schema:platform:vocabulary:v1",
       "path": "packages/contracts/schemas/platform/vocabulary.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "7815f5424bfd3d297b9bf7fd290b99094a1dda9ee47dd1ef6abac41ad3ca0654"
+      "schemaVersion": "1.1.0",
+      "sha256": "097f1e324bb3b1b53b457ba98ea4bbfd961de920db420aae30e741d3d992f477"
     },
     {
       "id": "urn:japp:schema:rendering:layout-measurement:v1",
@@ -649,7 +649,7 @@
     },
     {
       "path": "python/src/japp_contracts/platform/secret_store_result_v1.py",
-      "sha256": "f63fc798eeb77091ae7ef66d4ebd4ccb8fa2317da9e9b962261ffa88fe2a70be"
+      "sha256": "e45b757afc9fafcb217186c18ec3d5a1179f41267621b4338479af177b9d86f0"
     },
     {
       "path": "python/src/japp_contracts/platform/target_identity_v1.py",
@@ -661,7 +661,7 @@
     },
     {
       "path": "python/src/japp_contracts/platform/vocabulary_v1.py",
-      "sha256": "b2280fe31791eefe961d68decbedc30088104203afc16243f71ec5951284126c"
+      "sha256": "eaf7eb0239aadbb62bc145c33c111e4d34382aaebf4b4b80ef38d4f23f5fa867"
     },
     {
       "path": "python/src/japp_contracts/py.typed",
@@ -721,7 +721,7 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "2981a8852a78041319b7443c1bd36149ae69d015a97bb1b2d338adf39ec1ccc9"
+      "sha256": "9973c10b8866db8da2b53bf42bfa6a6cb8a900ff8f35bba0aca7ed64fa17a37b"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -945,7 +945,7 @@
     },
     {
       "path": "typescript/platform/secret-store-result.v1.ts",
-      "sha256": "231736e09ad36b72a49bf44c043b8cd2ccba6479008cd8ff115e214203508ae8"
+      "sha256": "09eb4fb87b91347c2e592fb00f4a5c3875085839b9c9e15c5c933b6e9e69c6a9"
     },
     {
       "path": "typescript/platform/target-identity.v1.ts",
@@ -957,7 +957,7 @@
     },
     {
       "path": "typescript/platform/vocabulary.v1.ts",
-      "sha256": "d8f13e936bab53ec53aa999d609f29173a9c89577e07fa34956f9886165abecf"
+      "sha256": "a858fb658e6a246de8be3126b60ac3cc1d41139c128e7a0f8a0e01377d1adb56"
     },
     {
       "path": "typescript/rendering/layout-measurement.v1.ts",
@@ -997,7 +997,7 @@
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "8b816d7a1ff842c00b6f10697a71ce83f048474619d6da86e15a5544f211ad3b"
+      "sha256": "d005804ae9fb72e0d25e349cb0898dd967fdff7093a76aa1b49875b0b793c78d"
     },
     {
       "path": "typescript/session/application-session.v1.ts",

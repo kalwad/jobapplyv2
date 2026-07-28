@@ -183,8 +183,8 @@ PlatformVocabularyV1SecretOperation = Literal["DELETE", "GET", "PUT", "STATUS"]
 PlatformVocabularyV1SecretReference = Annotated[str, StringConstraints(pattern="^secref_[0-9A-HJKMNP-TV-Z]{26}$", min_length=33, max_length=33)]
 "Bounded opaque handle for secret material held by the platform store. It is never the secret itself and never appears in diagnostics or evidence with a value attached. Sensitivity (x-japp-sensitivity): SECRET. Redaction (x-japp-redaction): FORBID_CAPTURE."
 
-PlatformVocabularyV1SecretResultState = Literal["DELETED", "DENIED_PERMISSION", "NOT_FOUND", "OPERATION_FAILED", "RETRIEVED", "STORED", "STORE_UNAVAILABLE"]
-"Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference."
+PlatformVocabularyV1SecretResultState = Literal["DELETED", "DENIED_PERMISSION", "NOT_FOUND", "OPERATION_FAILED", "RETRIEVED", "STORED", "STORE_AVAILABLE", "STORE_UNAVAILABLE"]
+"Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference. STORE_AVAILABLE is the successful STATUS availability probe; it never accompanies material."
 
 PlatformVocabularyV1Severity = Literal["CRITICAL", "ERROR", "INFO", "WARNING"]
 
@@ -229,7 +229,7 @@ class PlatformVocabularyV1CapabilityState(ContractModel):
         )
 
 class PlatformVocabularyV1EnvironmentEntry(ContractModel):
-    "Shared finite vocabularies and bounded supporting records for the M01-W07 platform-service boundary. Enum tokens use the repository UPPER_SNAKE_CASE grammar; MACOS_ARM64, WINDOWS_X64, and UBUNTU_X64 are the exact specification targets macos-arm64, windows-x64, and ubuntu-x64. Nothing here certifies a platform, resolves a path, opens a secret store, spawns a process, registers a native host, locates a browser, runs a model, installs, or updates."
+    "Shared finite vocabularies and bounded supporting records for the M01-W07 platform-service boundary. Enum tokens use the repository UPPER_SNAKE_CASE grammar; MACOS_ARM64, WINDOWS_X64, and UBUNTU_X64 are the exact specification targets macos-arm64, windows-x64, and ubuntu-x64. Nothing here certifies a platform, resolves a path, opens a secret store, spawns a process, registers a native host, locates a browser, runs a model, installs, or updates. Version 1.1.0 adds STORE_AVAILABLE so a successful STATUS availability probe is structurally representable."
 
     variable: PlatformVocabularyV1EnvironmentVariableId
     value: Annotated[CommonContractTextV1BoundedToken, Field(description="Bounded inert token. Whitespace, shell metacharacters, markup, and path separators are excluded by the token grammar.")]

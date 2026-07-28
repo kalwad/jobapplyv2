@@ -34,6 +34,39 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
+### KI-0023 — Secret-store STATUS structural/semantic truth table was incomplete
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 during independent post-closeout review of M01-W07
+- Affects: M01-W07; `packages/contracts/schemas/platform/vocabulary.v1.schema.json`
+  `$defs.secretResultState`; `packages/contracts/generator/semantic-rules.ts`
+  `platformSecretResultIntegrity`; generated TypeScript/Python semantic
+  evaluators; representative Rust harness; secret-store-result corpus coverage
+- Description: despite green cross-language CI at the first M01-W07 content
+  revision, the secret-store STATUS contract was incoherent. The semantic
+  evaluator's successful STATUS branch required `result_state ==
+  STORE_AVAILABLE`, but that token was absent from the structural
+  `secretResultState` enum, so a valid availability probe was structurally
+  impossible. The same STATUS early-return also accepted contradictory
+  `STORE_UNAVAILABLE` and `DENIED_PERMISSION` results with
+  `store_availability == AVAILABLE` and empty reasons, bypassing the
+  stricter general DENIED_PERMISSION availability/reason binding.
+- Reproduction: at starting revision
+  `83f3f0d8add1579b041fe96d9259afc673b7da1a`, construct three STATUS results
+  over `urn:japp:schema:platform:secret-store-result:v1`:
+  (A) `STORE_AVAILABLE` + `AVAILABLE` + identity + no material/reasons —
+  structural validation rejects the missing enum token while the direct
+  semantic evaluator accepts; (B) `STORE_UNAVAILABLE` + `AVAILABLE` + empty
+  reasons — structural and semantic both incorrectly accept; (C)
+  `DENIED_PERMISSION` + `AVAILABLE` + empty reasons — structural and
+  semantic both incorrectly accept. Confirmed in TypeScript and Python;
+  Rust mirrors the same STATUS early-return.
+- Workaround: none accepted; consumers must not infer store availability
+  from an incomplete STATUS truth table.
+- Resolution + evidence link: corrective M01-W07 repair in progress; final
+  evidence will be recorded in docs/TEST_EVIDENCE.md § M01-W07.
+
 ### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
 
 - Severity: MEDIUM

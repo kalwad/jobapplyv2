@@ -33,6 +33,65 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W07 corrective repair — KI-0023 secret-store STATUS truth table (2026-07-28)
+
+- Starting revision: tree of commit
+  `83f3f0d8add1579b041fe96d9259afc673b7da1a` (first M01-W07/M01 stamp);
+  clean `main`, equal to `origin/main`. Historical first content
+  `db72b0bff55167c670df4dc78104c08cd6288a07` / tree
+  `23c26af81d988bccb11962e6488b3848391f45e9` and stamp `83f3f0d8…` are
+  preserved and not rewritten.
+- Independent reproduction (before edits), TypeScript + Python:
+  - (A) STATUS + `STORE_AVAILABLE` + AVAILABLE + identity + no material/
+    reasons → structural reject (enum membership); direct semantic
+    evaluator accept.
+  - (B) STATUS + `STORE_UNAVAILABLE` + AVAILABLE + empty reasons →
+    structural and semantic incorrectly accept.
+  - (C) STATUS + `DENIED_PERMISSION` + AVAILABLE + empty reasons →
+    structural and semantic incorrectly accept.
+  - Rust harness mirrored the same incomplete STATUS early-return.
+- Temporary governance: KI-0023 HIGH/IN_PROGRESS; M01-W07 sole
+  IN_PROGRESS; M01 reopened IN_PROGRESS; M02-W01 READY removed to
+  NOT_STARTED; M00 remains ACCEPTED; all gates NOT_EVALUATED; release
+  NOT_READY; next READY NONE.
+- Corrective implementation:
+  - Added `STORE_AVAILABLE` to vocabulary `$defs.secretResultState`;
+    bumped vocabulary and secret-store-result schema versions to
+    `1.1.0` (MINOR). Generator format remains `1.4.0`.
+  - Rewrote `platformSecretResultIntegrity` STATUS/GET/PUT/DELETE truth
+    table in generator TypeScript/Python templates and the Rust harness:
+    STATUS success requires `STORE_AVAILABLE`+AVAILABLE+identity+no
+    material/reasons; STATUS denial requires PERMISSION_DENIED with
+    PERMISSION_REQUIRED|UNAVAILABLE; STATUS/`STORE_UNAVAILABLE` requires
+    a non-AVAILABLE/non-DEGRADED/non-PERMISSION_REQUIRED availability and
+    at least one reason; `STORE_AVAILABLE` is illegal outside STATUS;
+    `STORE_UNAVAILABLE` cannot coexist with AVAILABLE on any operation.
+  - Compatibility checker before baseline update:
+    `compatible=true`, zero findings, additive
+    `ENUM_TOKEN_ADDED`/`SUPPORTED_WIRE_CASE_ADDED` only; baseline updated
+    only afterward via `pnpm contracts:compatibility:update-baseline`.
+  - Corpus 363 → 382 (TS 381 / Python 377 / Rust 376); locked manifest
+    digest `f1aa7a7c373f0e6462ecbd1d29917e03f057ef98b245b0368d5852ba564bb40d`.
+  - Added explicit truth-table + token-closure suite
+    `packages/contracts/test/schema/w07-secret-store-truth-table.test.ts`.
+- Post-repair reproduction: (A) structural+semantic accept; (B) and (C)
+  structural may accept shape but semantic rejects.
+- Local validation on the corrective working tree (Phase 9):
+  - `pnpm install --frozen-lockfile`, `uv sync --locked`, both
+    `cargo fetch --locked` → exit 0.
+  - `pnpm generate:contracts` and two `--check` runs → 153 files,
+    byte-identical.
+  - `pnpm traceability:generate` / `check`,
+    `python3 scripts/validate_status.py` → exit 0 (43 groups).
+  - `pnpm format:check`, `lint`, `typecheck`, `test`, `test:contract`,
+    `test:e2e`, `test:python`, `test:rust`, `pnpm verify` → exit 0;
+    contract-gen and contract ACTIVE/PASS; visual NOT_YET_APPLICABLE;
+    `git diff --check` → exit 0.
+  - Focused contract adapters: typescript=381 python=377 rust=376
+    (locked-offline).
+- Content commit / hosted proof / stamp: recorded after clean clones and
+  three-OS green (see follow-up bullets under this heading).
+
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 
 - State: VERIFIED. The package is complete and hosted-verified. It claims no

@@ -1908,6 +1908,7 @@ function platformSecretResultIntegrity(value: unknown): boolean {
   const state = text(value, "result_state");
   const reasons = items(value, "reason_codes");
   const hasMaterial = present(value, "material_reference");
+  const hasDigest = present(value, "material_digest");
   if (!uniqueStrings(reasons)) {
     return false;
   }
@@ -1918,16 +1919,30 @@ function platformSecretResultIntegrity(value: unknown): boolean {
   } else if (hasMaterial) {
     return false;
   }
+  const storeUnavailableAvailability =
+    availability !== null &&
+    ![
+      "AVAILABLE",
+      "DEGRADED_LIMITED",
+      "PERMISSION_REQUIRED",
+    ].includes(availability);
+  const deniedAvailability = ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(
+    availability ?? "",
+  );
   if (operation === "STATUS") {
-    return (
-      !hasMaterial &&
-      !present(value, "material_digest") &&
-      ["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"].includes(
-        state ?? "",
-      ) &&
-      (state !== "STORE_AVAILABLE" ||
-        (availability === "AVAILABLE" && reasons.length === 0))
-    );
+    if (hasMaterial || hasDigest) {
+      return false;
+    }
+    if (state === "STORE_AVAILABLE") {
+      return availability === "AVAILABLE" && reasons.length === 0;
+    }
+    if (state === "DENIED_PERMISSION") {
+      return reasons.includes("PERMISSION_DENIED") && deniedAvailability;
+    }
+    if (state === "STORE_UNAVAILABLE") {
+      return reasons.length > 0 && storeUnavailableAvailability;
+    }
+    return false;
   }
   if (state === "STORE_AVAILABLE") {
     return false;
@@ -1937,7 +1952,7 @@ function platformSecretResultIntegrity(value: unknown): boolean {
       operation === "GET" &&
       availability === "AVAILABLE" &&
       hasMaterial &&
-      present(value, "material_digest") &&
+      hasDigest &&
       reasons.length === 0
     );
   }
@@ -1954,18 +1969,27 @@ function platformSecretResultIntegrity(value: unknown): boolean {
       operation === "DELETE" &&
       availability === "AVAILABLE" &&
       !hasMaterial &&
-      !present(value, "material_digest") &&
+      !hasDigest &&
       reasons.length === 0
     );
   }
   if (state === "DENIED_PERMISSION") {
     return (
       !hasMaterial &&
+      !hasDigest &&
       reasons.includes("PERMISSION_DENIED") &&
-      ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(availability ?? "")
+      deniedAvailability
     );
   }
-  return !hasMaterial && reasons.length > 0;
+  if (state === "STORE_UNAVAILABLE") {
+    return (
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.length > 0 &&
+      storeUnavailableAvailability
+    );
+  }
+  return !hasMaterial && !hasDigest && reasons.length > 0;
 }
 
 function platformProcessPlanSafety(value: unknown): boolean {

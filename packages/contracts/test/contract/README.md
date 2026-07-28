@@ -9,7 +9,7 @@ claim that every future schema has a production Rust representation.
 ## Canonical corpus
 
 `corpus/manifest.v1.json` is the single inventory. Corpus format `1.0.0`
-currently locks 363 sorted, unique, synthetic cases across three files:
+currently locks 382 sorted, unique, synthetic cases across three files:
 
 - `cases.v1.json` describes schema reference, category, operation, input
   reference or raw bytes, expected verdict/normal form/version/authorization

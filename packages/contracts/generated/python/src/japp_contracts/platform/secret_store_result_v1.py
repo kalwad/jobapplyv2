@@ -21,7 +21,7 @@ from japp_contracts.common.timestamp_utc_v1 import CommonTimestampUtcV1UtcTimest
 from japp_contracts.platform.vocabulary_v1 import PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1CapabilityAvailability, PlatformVocabularyV1PlatformReasonCode, PlatformVocabularyV1SecretKeyRole, PlatformVocabularyV1SecretOperation, PlatformVocabularyV1SecretReference, PlatformVocabularyV1SecretResultState
 
 class PlatformSecretStoreResultV1(ContractModel):
-    "The result of one typed secret-store operation plus the store's explicit availability and permission state. Secret bytes, passphrases, recovered values, and derived key material can never appear here, in diagnostics, or in an evidence bundle; a retrieval reports only an opaque reference and a digest. There is no plaintext, file, or environment-variable fallback state."
+    "The result of one typed secret-store operation plus the store's explicit availability and permission state. Secret bytes, passphrases, recovered values, and derived key material can never appear here, in diagnostics, or in an evidence bundle; a retrieval reports only an opaque reference and a digest. There is no plaintext, file, or environment-variable fallback state. Version 1.1.0 aligns STATUS with the STORE_AVAILABLE vocabulary token and the complete availability/reason truth table."
 
     secret_result_id: CommonStableIdV1StableId
     request_ref: CommonStableIdV1StableId

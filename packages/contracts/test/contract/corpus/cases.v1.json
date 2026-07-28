@@ -11142,6 +11142,46 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.secret-store-result-delete-deleted",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "DELETE"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "DELETED"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "DELETE reports DELETED with no returned material or digest when the store is AVAILABLE.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.secret-store-result-denied-without-reason",
       "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
       "category": "w07-platform-semantic-negative",
@@ -11183,6 +11223,86 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.secret-store-result-get-not-found",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "GET"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "NOT_FOUND"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["DEPENDENCY_MISSING"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "GET may report NOT_FOUND without material when a finite reason explains the miss.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-operation-failed",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "GET"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "OPERATION_FAILED"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "OPERATION_FAILED cannot masquerade as success and must carry at least one finite reason.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.secret-store-result-plaintext-material",
       "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
       "category": "w07-platform-structural-negative",
@@ -11203,6 +11323,42 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A result can never carry recovered secret bytes.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-put-stored",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "PUT"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORED"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "PUT reports STORED with an opaque material reference, AVAILABLE store identity, and no reasons.",
       "synthetic_data": true
     },
     {
@@ -11231,6 +11387,614 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An unavailable store cannot return material.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-available-nonavailable",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/store_availability",
+            "value": "UNAVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/store_identity_token"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_AVAILABLE is valid only when store_availability is AVAILABLE.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-available-with-material",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS never returns secret material or digests.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-available-with-reason",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A successful STATUS availability probe carries no reasons.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-available-without-identity",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "remove",
+            "path": "/store_identity_token"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_AVAILABLE requires the answering store identity token.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-denied-permission",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/store_availability",
+            "value": "PERMISSION_REQUIRED"
+          },
+          {
+            "op": "remove",
+            "path": "/store_identity_token"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["PERMISSION_DENIED"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS may report DENIED_PERMISSION only with a permission-required or unavailable store and an explicit PERMISSION_DENIED reason.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-denied-with-available",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS DENIED_PERMISSION cannot claim AVAILABLE availability or omit PERMISSION_DENIED.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-denied-without-permission-reason",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/store_availability",
+            "value": "PERMISSION_REQUIRED"
+          },
+          {
+            "op": "remove",
+            "path": "/store_identity_token"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "DENIED_PERMISSION"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "DENIED_PERMISSION requires the explicit PERMISSION_DENIED reason code.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-store-available",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS reports STORE_AVAILABLE only when the store is AVAILABLE, identified, material-free, and reason-free.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-unavailable-with-available",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_UNAVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_UNAVAILABLE cannot coexist with AVAILABLE availability or an empty reason list.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-unavailable-without-reason",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/store_availability",
+            "value": "UNAVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/store_identity_token"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_UNAVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_UNAVAILABLE requires at least one finite reason.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-with-deleted",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "DELETED"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS cannot report DELETED; deletion is a DELETE outcome only.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-with-retrieved",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "RETRIEVED"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS cannot report RETRIEVED; retrieval is a GET outcome only.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-status-with-stored",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "STATUS"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORED"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STATUS cannot report STORED; storage is a PUT outcome only.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-store-available-on-get",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "GET"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_AVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_AVAILABLE is reserved for STATUS probes and cannot report a GET outcome.",
       "synthetic_data": true
     },
     {
@@ -11280,6 +12044,48 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An unavailable secure store fails closed with no material and no plaintext or file fallback state.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.secret-store-result-unavailable-with-available-on-get",
+      "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.secret-store-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "GET"
+          },
+          {
+            "op": "set",
+            "path": "/result_state",
+            "value": "STORE_UNAVAILABLE"
+          },
+          {
+            "op": "remove",
+            "path": "/material_reference"
+          },
+          {
+            "op": "remove",
+            "path": "/material_digest"
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["SERVICE_UNAVAILABLE"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_SECURE_STORE_UNAVAILABLE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "STORE_UNAVAILABLE cannot coexist with AVAILABLE availability on any operation.",
       "synthetic_data": true
     },
     {

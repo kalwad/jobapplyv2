@@ -3469,6 +3469,7 @@ fn platform_secret_result_integrity(value: &Value) -> bool {
     let state = text(value, "result_state");
     let reasons = items(value, "reason_codes");
     let has_material = present(value, "material_reference");
+    let has_digest = present(value, "material_digest");
     if !unique_strings(reasons) {
         return false;
     }
@@ -3479,15 +3480,27 @@ fn platform_secret_result_integrity(value: &Value) -> bool {
     } else if has_material {
         return false;
     }
-    if operation == Some("STATUS") {
-        return !has_material
-            && !present(value, "material_digest")
-            && token_in(
-                state,
-                &["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"],
+    let store_unavailable_availability = matches!(
+        availability,
+        Some(token)
+            if !matches!(
+                token,
+                "AVAILABLE" | "DEGRADED_LIMITED" | "PERMISSION_REQUIRED"
             )
-            && (state != Some("STORE_AVAILABLE")
-                || (availability == Some("AVAILABLE") && reasons.is_empty()));
+    );
+    let denied_availability = token_in(availability, &["PERMISSION_REQUIRED", "UNAVAILABLE"]);
+    if operation == Some("STATUS") {
+        if has_material || has_digest {
+            return false;
+        }
+        return match state {
+            Some("STORE_AVAILABLE") => availability == Some("AVAILABLE") && reasons.is_empty(),
+            Some("DENIED_PERMISSION") => {
+                contains_value(reasons, "PERMISSION_DENIED") && denied_availability
+            }
+            Some("STORE_UNAVAILABLE") => !reasons.is_empty() && store_unavailable_availability,
+            _ => false,
+        };
     }
     match state {
         Some("STORE_AVAILABLE") => false,
@@ -3495,7 +3508,7 @@ fn platform_secret_result_integrity(value: &Value) -> bool {
             operation == Some("GET")
                 && availability == Some("AVAILABLE")
                 && has_material
-                && present(value, "material_digest")
+                && has_digest
                 && reasons.is_empty()
         }
         Some("STORED") => {
@@ -3508,15 +3521,19 @@ fn platform_secret_result_integrity(value: &Value) -> bool {
             operation == Some("DELETE")
                 && availability == Some("AVAILABLE")
                 && !has_material
-                && !present(value, "material_digest")
+                && !has_digest
                 && reasons.is_empty()
         }
         Some("DENIED_PERMISSION") => {
             !has_material
+                && !has_digest
                 && contains_value(reasons, "PERMISSION_DENIED")
-                && token_in(availability, &["PERMISSION_REQUIRED", "UNAVAILABLE"])
+                && denied_availability
         }
-        _ => !has_material && !reasons.is_empty(),
+        Some("STORE_UNAVAILABLE") => {
+            !has_material && !has_digest && !reasons.is_empty() && store_unavailable_availability
+        }
+        _ => !has_material && !has_digest && !reasons.is_empty(),
     }
 }
 

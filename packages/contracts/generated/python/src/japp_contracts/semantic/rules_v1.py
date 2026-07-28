@@ -1764,6 +1764,7 @@ def _platform_secret_result_integrity(value: object) -> bool:
     state = _text(value, "result_state")
     reasons = _items(value, "reason_codes")
     has_material = _present(value, "material_reference")
+    has_digest = _present(value, "material_digest")
     if not _unique_strings(reasons):
         return False
     if availability == "AVAILABLE":
@@ -1771,17 +1772,22 @@ def _platform_secret_result_integrity(value: object) -> bool:
             return False
     elif has_material:
         return False
+    store_unavailable_availability = availability is not None and availability not in {
+        "AVAILABLE",
+        "DEGRADED_LIMITED",
+        "PERMISSION_REQUIRED",
+    }
+    denied_availability = availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
     if operation == "STATUS":
-        return (
-            not has_material
-            and not _present(value, "material_digest")
-            and state
-            in {"DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"}
-            and (
-                state != "STORE_AVAILABLE"
-                or (availability == "AVAILABLE" and not reasons)
-            )
-        )
+        if has_material or has_digest:
+            return False
+        if state == "STORE_AVAILABLE":
+            return availability == "AVAILABLE" and not reasons
+        if state == "DENIED_PERMISSION":
+            return "PERMISSION_DENIED" in reasons and denied_availability
+        if state == "STORE_UNAVAILABLE":
+            return bool(reasons) and store_unavailable_availability
+        return False
     if state == "STORE_AVAILABLE":
         return False
     if state == "RETRIEVED":
@@ -1789,7 +1795,7 @@ def _platform_secret_result_integrity(value: object) -> bool:
             operation == "GET"
             and availability == "AVAILABLE"
             and has_material
-            and _present(value, "material_digest")
+            and has_digest
             and not reasons
         )
     if state == "STORED":
@@ -1804,16 +1810,24 @@ def _platform_secret_result_integrity(value: object) -> bool:
             operation == "DELETE"
             and availability == "AVAILABLE"
             and not has_material
-            and not _present(value, "material_digest")
+            and not has_digest
             and not reasons
         )
     if state == "DENIED_PERMISSION":
         return (
             not has_material
+            and not has_digest
             and "PERMISSION_DENIED" in reasons
-            and availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+            and denied_availability
         )
-    return not has_material and bool(reasons)
+    if state == "STORE_UNAVAILABLE":
+        return (
+            not has_material
+            and not has_digest
+            and bool(reasons)
+            and store_unavailable_availability
+        )
+    return not has_material and not has_digest and bool(reasons)
 
 
 def _platform_process_plan_safety(value: object) -> bool:

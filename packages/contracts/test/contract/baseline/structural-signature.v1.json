@@ -20876,7 +20876,7 @@
         "path": "platform/secret-store-result.v1.schema.json",
         "id": "urn:japp:schema:platform:secret-store-result:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.1.0",
         "definitions": {},
         "root": {
           "kind": "object",
@@ -22306,7 +22306,7 @@
         "path": "platform/vocabulary.v1.schema.json",
         "id": "urn:japp:schema:platform:vocabulary:v1",
         "major": 1,
-        "version": "1.0.0",
+        "version": "1.1.0",
         "definitions": {
           "acceleratorClass": {
             "kind": "enum",
@@ -23931,6 +23931,7 @@
               "OPERATION_FAILED",
               "RETRIEVED",
               "STORED",
+              "STORE_AVAILABLE",
               "STORE_UNAVAILABLE"
             ],
             "items": null,
@@ -39613,6 +39614,72 @@
         "semantic_sha256": "375c05db75d7d5d4400e6794bc0527801e6099d187ba155ea9c34d66493ccf2a"
       },
       {
+        "id": "x-w07.secret-store-result-delete-deleted",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "ec1da19afa7a8f646ed5b649a92f3bbd3bd6ebe261fdccd7006041e9feb9652d"
+      },
+      {
+        "id": "x-w07.secret-store-result-get-not-found",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "a4a94f519a74bd8ba792c2330623c03ba8b411beac27d4f17483893845a6b306"
+      },
+      {
+        "id": "x-w07.secret-store-result-operation-failed",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "67dece5f15989beae94edb71417134dda2b49a69e7830f371ed54f1e52df00a7"
+      },
+      {
+        "id": "x-w07.secret-store-result-put-stored",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "7188d599cfb63158ab095f59901aa4849b9e7279dbd41799f0506022669e69e9"
+      },
+      {
+        "id": "x-w07.secret-store-result-status-denied-permission",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "e4e47bdb6b699a077fb7d8c03e28d91852139febd094e09a765d58a5f95d7baa"
+      },
+      {
+        "id": "x-w07.secret-store-result-status-store-available",
+        "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "ca82e466d3be92bb65c667387ba0968d04dbb28660e7876b3301cc9cc5f19614"
+      },
+      {
         "id": "x-w07.secret-store-result-store-unavailable",
         "schema_ref": "urn:japp:schema:platform:secret-store-result:v1",
         "operation": "ROUND_TRIP",
@@ -39658,5 +39725,5 @@
       }
     ]
   },
-  "integrity_sha256": "ac935f2d0afdc5697a7a02cdc36101848e5fd52d93d09291c468052ce1f4854d"
+  "integrity_sha256": "ba3919cdcf85e55fe5f23a0f4ae68ad4501b0643750b92b1634dc36624af5895"
 }

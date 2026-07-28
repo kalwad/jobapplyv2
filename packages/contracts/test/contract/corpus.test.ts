@@ -12,12 +12,12 @@ import { canonicalJson } from "./adapters/normalization.ts";
 import { parseRawJson } from "./adapters/raw-json.ts";
 
 describe("versioned canonical compatibility corpus", () => {
-  test("manifest locks one deterministic 363-case inventory", () => {
+  test("manifest locks one deterministic 382-case inventory", () => {
     const first = loadCorpus();
     const second = loadCorpus();
     expect(first.manifest.corpus_format_version).toBe("1.0.0");
-    expect(first.manifest.case_count).toBe(363);
-    expect(first.cases).toHaveLength(363);
+    expect(first.manifest.case_count).toBe(382);
+    expect(first.cases).toHaveLength(382);
     expect(first.canonical_inventory).toBe(second.canonical_inventory);
     expect(first.manifest.files.map((entry) => entry.path)).toEqual([
       "cases.v1.json",
@@ -32,14 +32,14 @@ describe("versioned canonical compatibility corpus", () => {
       );
     }
     expect(first.manifest.language_counts).toEqual({
-      python: 358,
-      rust: 357,
-      typescript: 362,
+      python: 377,
+      rust: 376,
+      typescript: 381,
     });
     expect(first.manifest.operation_counts).toEqual({
       AUTHORIZE: 60,
-      ROUND_TRIP: 81,
-      VALIDATE: 214,
+      ROUND_TRIP: 87,
+      VALIDATE: 227,
       VERSION_CHECK: 8,
     });
   });

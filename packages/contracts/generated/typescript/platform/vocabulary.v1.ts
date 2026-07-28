@@ -460,11 +460,11 @@ export type PlatformVocabularyV1SecretReference = string;
 /**
  * Secret-store result state
  *
- * Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference.
+ * Result states never carry secret bytes. RETRIEVED reports only that material exists behind an opaque reference. STORE_AVAILABLE is the successful STATUS availability probe; it never accompanies material.
  *
  * Closed token set; undeclared tokens are rejected.
  */
-export type PlatformVocabularyV1SecretResultState = "DELETED" | "DENIED_PERMISSION" | "NOT_FOUND" | "OPERATION_FAILED" | "RETRIEVED" | "STORED" | "STORE_UNAVAILABLE";
+export type PlatformVocabularyV1SecretResultState = "DELETED" | "DENIED_PERMISSION" | "NOT_FOUND" | "OPERATION_FAILED" | "RETRIEVED" | "STORED" | "STORE_AVAILABLE" | "STORE_UNAVAILABLE";
 
 /**
  * Diagnostic severity
