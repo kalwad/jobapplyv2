@@ -220,6 +220,22 @@ def prepare_valid_m00_closeout(repo: Path) -> dict[str, object]:
     )
     set_package_status(repo, "M01-W07", "READY")
     set_metadata_package(metadata, "M01-W07", "READY")
+    # Complete the premise rather than inherit it: packages and milestones
+    # after this boundary legitimately advance as the project progresses, and
+    # an inherited READY/VERIFIED row would silently change what the boundary
+    # test asserts (the KI-0014/KI-0015/KI-0017/KI-0019 class).
+    for record in records(metadata, "work_packages"):
+        package_id = cast(str, record["id"])
+        if package_id > "M01-W07" and record["current_state"] != "NOT_STARTED":
+            set_package_status(repo, package_id, "NOT_STARTED")
+            set_metadata_package(metadata, package_id, "NOT_STARTED")
+    for milestone in ("M02",):
+        replace_status(
+            repo,
+            rf"^\| {milestone} \|[^\n]*$",
+            f"| {milestone} | NOT_STARTED | — | fixture |",
+        )
+    replace_status(repo, r"^Current milestone: .*$", "Current milestone: M01")
     replace_status(repo, r"^Current work package: .*$", "Current work package: NONE")
     replace_status(
         repo,

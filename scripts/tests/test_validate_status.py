@@ -443,6 +443,44 @@ def accept_full_ai_profiles(repo: Path) -> None:
         )
 
 
+def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) -> None:
+    """Force every package and milestone past the boundary to NOT_STARTED.
+
+    A boundary fixture must state its own complete premise. Packages and
+    milestones after the boundary legitimately become READY, IN_PROGRESS, or
+    VERIFIED as the project advances, and silently inheriting those rows
+    changes what the boundary test actually asserts
+    (the KI-0014/KI-0015/KI-0017/KI-0019 class). Identifiers are zero-padded,
+    so ordinary string ordering is the exact package/milestone order.
+    """
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+
+    def later_package(match: re.Match[str]) -> str:
+        if match.group(1) <= after_package:
+            return match.group(0)
+        return f"| `{match.group(1)}` | NOT_STARTED{match.group(3)}"
+
+    def later_milestone(match: re.Match[str]) -> str:
+        if match.group(1) <= after_milestone:
+            return match.group(0)
+        return f"| {match.group(1)} | NOT_STARTED{match.group(3)}"
+
+    text = re.sub(
+        r"^\| `(M\d{2}-W\d{2})` \| ([A-Z_]+)( \|)",
+        later_package,
+        text,
+        flags=re.MULTILINE,
+    )
+    text = re.sub(
+        r"^\| (M\d{2}) \| ([A-Z_]+)( \|)",
+        later_milestone,
+        text,
+        flags=re.MULTILINE,
+    )
+    path.write_text(text, encoding="utf-8")
+
+
 def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
     """Create the accepted-M00-W11 boundary and optional exact next-ready state.
 
@@ -451,7 +489,9 @@ def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
     M01-W07 is the only package whose readiness changes at this boundary.
     """
     promote_milestones(repo, ["M00"])
+    reset_downstream(repo, after_package="M01-W07", after_milestone="M01")
     set_current_package(repo, "NONE")
+    set_current_milestone(repo, "M01")
     set_pkg_state(repo, "M01-W07", "READY" if m01_ready else "NOT_STARTED")
     set_ms_state(repo, "M01", "IN_PROGRESS")
     set_next_ready(repo, "`M01-W07`" if m01_ready else "NONE")

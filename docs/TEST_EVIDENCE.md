@@ -35,13 +35,16 @@ Exact verification commands and summarized results
 
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 
-- State: IN_PROGRESS. This entry records contract facts as they are proven.
-  It does not claim a verified package, any platform implementation,
-  certified platform support, secret-store or process behavior,
-  native-messaging registration, model-runtime capability, packaging
-  result, critical-gate result, or hosted M01-W07 success.
-- Revision: pending; the content tree and commit are stamped after hosted
-  three-OS verification of the exact content revision.
+- State: VERIFIED. The package is complete and hosted-verified. It claims no
+  platform implementation, certified platform support, secret-store or process
+  behavior, native-messaging registration, model-runtime capability, packaging
+  result, or critical-gate result — none of those exist.
+- Revision: tree `23c26af81d988bccb11962e6488b3848391f45e9` / commit
+  `db72b0bff55167c670df4dc78104c08cd6288a07` (stamped in the follow-up commit
+  per the anchoring convention above). The initial content commit
+  `6708f1a463cf1a452fc149b8ac0c93e506828046` at tree
+  `b5f342b162d85bf0b9a9f14d8faecacfbb5214cb` failed hosted verification and
+  was repaired forward, without force, by `db72b0bf`.
 - Environment: macOS 15 (Darwin 27.0.0, Apple silicon), Node 24.18.0,
   pnpm 11.17.0, uv 0.11.32, Python 3.12.13 (uv-managed), cargo/rustc 1.97.1.
 - Starting-state proof (run before any edit):
@@ -196,8 +199,86 @@ Exact verification commands and summarized results
     already at 15 s and does the same work). No assertion changed and no test
     was skipped, relaxed, or labelled flaky — only the wall-clock allowance now
     matches the work.
+  - **Closeout boundary fixtures (same KI-0014/KI-0015/KI-0017/KI-0019
+    class).** Accepting M01 makes `M02-W01` READY, which five boundary tests
+    inherited instead of stating: they assert "after M00 acceptance, M01-W07
+    is the sole READY package". `prepare_m00_closeout` in
+    `scripts/tests/test_validate_status.py` now completes its premise through
+    a new `reset_downstream` helper that forces every package after
+    `M01-W07` and every milestone after `M01` to `NOT_STARTED`, and
+    `prepare_valid_m00_closeout` in `scripts/tests/test_traceability.py` does
+    the same for its isolated fixture. Zero-padded identifiers make ordinary
+    string ordering the exact package order, so both helpers stay correct for
+    every later boundary. No assertion was relaxed.
+- Repaired content run 30322692883 at
+  `db72b0bff55167c670df4dc78104c08cd6288a07`: **macos-15 job 90161665524,
+  ubuntu-24.04 job 90161665567, and windows-2025 job 90161665579 all
+  succeeded.** The inspected Windows raw log proves: `fetch-depth: 0` checkout
+  of exactly `db72b0bff55167c670df4dc78104c08cd6288a07`; locked pnpm/uv/cargo
+  fetches; doctor `22 pass, 0 warning, 0 fail, 1 not-yet-applicable`;
+  `PASS: all checks passed (43 check groups)`; `two independent generations are
+  byte-identical` and `generated contracts are up to date (153 files,
+  byte-identical)`; 17 files / 874 package tests; `contract-adapters protocol=1
+  typescript=362 python=358 rust=357 rust-build=locked-offline` with 5 files /
+  489 contract tests; `647 passed` Python tests (the two POSIX-only cases are
+  correctly skipped on Windows); Rust `1 passed` native-host and `10 passed`
+  harness; `verification exit code: 0`; and the PowerShell clean-tree
+  assertion step completing without emitting porcelain.
+- Both exact-commit clean clones were rerun after the repair at
+  `db72b0bff55167c670df4dc78104c08cd6288a07` / tree
+  `23c26af81d988bccb11962e6488b3848391f45e9`. Each performed a `--no-local`
+  clone, detached checkout of the exact commit, `pnpm install
+  --frozen-lockfile`, `uv sync --locked`, both `cargo fetch --locked` runs,
+  doctor (22 pass, 0 warning, 0 fail), `pnpm generate:contracts --check`
+  (153 files byte-identical), traceability generate/check (193/300),
+  `python3 scripts/validate_status.py` (43 check groups), `pnpm test:contract`
+  (489 tests; TypeScript 362 / Python 358 / Rust 357 locked-offline), full
+  `pnpm verify` (exit 0), the exact canonical specification hash
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, and an
+  empty tracked porcelain. The second clone used the path
+  `clone b2 — ünïcode ✓/nested dir`, which contains spaces and non-ASCII
+  characters. Both clones were removed afterwards.
 - Artifacts: none. This package creates no benchmark artifact, evidence
   bundle, screenshot, or certification record.
+
+#### M01 milestone exit gate (independently re-checked at the M01-W07 revision)
+
+Each specification §9 M01 "Required verification" item was traced to an
+executed test at this revision rather than asserted:
+
+| Exit-gate item | Proof at `23c26af8` |
+| --- | --- |
+| Schema generation is reproducible | two `pnpm generate:contracts --check` runs byte-identical (153 files) plus the generator determinism suite |
+| Cross-language round-trip corpus passes | 363 corpus cases; TypeScript 362 / Python 358 / Rust 357 agree on every applicable case |
+| Invalid privileged messages are rejected | 45 authorization-escalation cases, all DENY |
+| Breaking schema changes are detected | 108 breaking-change tests, including 28 new platform mutations |
+| Feasibility mode cannot express or request a submit action | `auth.deny.final-submit-feasibility` plus the immutable generator profile ceilings |
+| `GUIDED_PRE_SUBMIT` cannot express final submit or protected authentication | `auth.deny.final-submit-guided` returning `SUBMISSION_PROHIBITED_FINAL_ACTION`; no `AUTO_SUBMIT`/`FINAL_SUBMIT` token exists in any bound schema |
+| Navigation contracts require generation, proof hash, unique control, postconditions, idempotency | all five members schema-required on `session:navigation-record:v1`; 10 negatives |
+| Field addresses reject raw-selector-only identity | `x-w06.field-address-raw-selector-only` plus the `FIELD_ADDRESS_IDENTITY` rule |
+| Benchmark and gate result schemas require revision/corpus/runtime metadata | 7 negatives across `benchmark:result:v1`, `gate:evidence-bundle:v1`, and `gate:decision:v1` |
+| Platform capability and support-tier contracts round-trip across languages | 19 platform round trips × 3 languages |
+| Platform operations use typed allowlists; no arbitrary command, registry, path, or shell payload crosses a trust boundary | 42 structural and 78 semantic platform rejections |
+
+Every root schema is exercised by the wire corpus except the five canonical
+*catalog data* documents (`error:catalog`, `security:capability-taxonomy`,
+`security:command-taxonomy`, `security:authorization-policy`, and
+`semantic:rule-catalog`). Those are not inter-component messages: they are
+validated by the strict Ajv catalog at generation time and independently
+re-loaded and checked by the Rust harness on every run, so the exit gate's
+"all inter-component and critical-feasibility messages" scope is fully covered.
+
+No open defect blocks M01: every `docs/KNOWN_ISSUES.md` entry is FIXED except
+KI-0001 (M00 build-task deferral) and KI-0022 (post-M28 familiarity study),
+neither of which is an M01 obligation. No ADR was required — nothing in
+M01-W07 changed the specification, the selected stack, a trust boundary, the
+model lock, an acceptance threshold, a critical-gate status, or a
+compatibility claim.
+
+M01 is therefore ACCEPTED at tree
+`23c26af81d988bccb11962e6488b3848391f45e9`, and M02-W01 becomes the sole
+READY package. All four critical gates remain NOT_EVALUATED and the release
+gate remains NOT_READY.
 - Notes:
   - Scope decision (Rust): specification §9 `M01-W07` requires
     "TypeScript/Python/**Rust-compatible** contracts", and the reviewed
