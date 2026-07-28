@@ -236,8 +236,36 @@ Exact verification commands and summarized results
     strict decode was deliberately kept: nothing was relaxed to
     `errors="replace"`, no test was weakened, and an undecodable command is
     still a failure.
-- Hosted exact-content re-verification after both repairs: pending; no result
-  claimed yet.
+- Hosted run 30315501097 at `ac574f586966ea45c0e68be58c26aee46e8593ef`:
+  macos-15 and ubuntu-24.04 succeeded; windows-2025 job 90140052886 failed,
+  and for the first time reported its cause legibly rather than crashing.
+  The UTF-8 repair worked exactly as intended — every other Windows suite
+  passed and the python suite produced a real pytest `FAILURES` section:
+  - `test_atomic_adoption_rejects_any_byte_corruption[crlf-normalization]`
+    failed with `DID NOT RAISE AdoptionError`; the CRLF-corrupted source read
+    back byte-identical to its LF original.
+  - `test_atomic_adoption_installs_exact_bytes` failed with `approved source
+    hash mismatch before mutation` on `b"exact\r\nbytes \xf0\x9f\x98\x80\n"`.
+  - Root cause, and the most material defect found in this package:
+    `_read_regular_file` opened the approved source with
+    `os.open(path, os.O_RDONLY)`. On Windows `os.open` defaults to text mode
+    and silently translates CRLF to LF on read. The exact-byte adoption model
+    therefore corrupted the exact bytes it exists to protect: on Windows it
+    would have accepted a CRLF-normalized source as identical to its LF
+    original, and would have mis-hashed any specification containing CRLF.
+    This is exactly the corruption class the adoption contract must reject,
+    so the two tests were correct and the helper was wrong.
+  - Repaired by adding `os.O_BINARY` on Windows, narrowed by `sys.platform`
+    so POSIX behavior and static analysis are unchanged. No test, assertion,
+    or parameter was weakened; the fix makes the previously failing cases
+    genuinely pass. A repository-wide scan confirmed this was the only
+    text-mode file hazard in the changed code.
+  - Sequencing note recorded honestly: this defect was reachable only after
+    the mypy repair let Windows run pytest at all, and diagnosable only after
+    the UTF-8 repair stopped the harness from destroying its own report. Each
+    hosted failure exposed the next; none was assumed or retried blindly.
+- Hosted exact-content re-verification after all three repairs: pending; no
+  result claimed yet.
 - Closeout stamp and exact-final-HEAD hosted proof: pending; no result claimed
   yet.
 

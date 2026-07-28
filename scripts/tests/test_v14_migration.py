@@ -63,6 +63,13 @@ def _read_regular_file(path: Path) -> bytes:
     flags = os.O_RDONLY
     if hasattr(os, "O_NOFOLLOW"):
         flags |= os.O_NOFOLLOW
+    if sys.platform == "win32":
+        # Windows os.open defaults to text mode, which silently rewrites CRLF
+        # to LF on read. That would make this exact-byte model accept a
+        # CRLF-normalized source as identical to its LF original and corrupt
+        # an installed specification containing CRLF — precisely the
+        # corruption the adoption contract must reject (M00-W11).
+        flags |= os.O_BINARY
     try:
         descriptor = os.open(path, flags)
     except OSError as exc:
