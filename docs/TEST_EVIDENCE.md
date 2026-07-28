@@ -147,6 +147,15 @@ Exact verification commands and summarized results
   job 90177340392. Windows log inspected: checkout `e56bafc…`;
   `deleting a schema leaves no stale generated output` 4882ms; verification
   exit 0.
+
+- Stamp final-HEAD follow-up #2: stamp `ad2354c335bbfc13568fdd55a8abbcc1ee6ae52c` /
+  run 30328497245 failed windows-2025 job 90178685852 with Vitest
+  `Test timed out in 5000ms` on
+  `cannot weaken FieldAddress multiple-signal identity by removing its
+  canonical semantic rule` despite content `e56bafc…` being green on
+  Windows. Follow-up sets `@japp/contracts` package-wide `testTimeout`
+  30s via `vitest.config.ts` without changing assertions.
+
 - After that hosted success, KI-0023 remains FIXED, M01-W07 is VERIFIED at
   the timeout-budget content tree, M01 is ACCEPTED at the same tree,
   M02-W01 is restored as sole READY, M00 remains ACCEPTED, all gates remain
