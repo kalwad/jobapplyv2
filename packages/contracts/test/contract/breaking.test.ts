@@ -307,7 +307,7 @@ describe("M01-W05 compatibility baseline", () => {
     ).toEqual({ compatible: true, findings: [], additive_changes: [] });
     expect(readFileSync(BASELINE_PATH)).toEqual(before);
     expect(statSync(BASELINE_PATH).mtimeMs).toBe(beforeMtime);
-  }, 15_000);
+  }, 30_000);
 
   test("rejects a drifted baseline digest", () => {
     const root = mkdtempSync(join(tmpdir(), "japp-baseline-"));
@@ -766,7 +766,12 @@ describe("M01-W06 semantic compatibility signature", () => {
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
-  });
+    // Same generous allowance as the sibling deterministic-truth test above:
+    // both build the complete compatibility signature over the whole catalog,
+    // which M01-W07 grew from 43 to 63 documents. The assertions are
+    // unchanged; only the wall-clock budget matches the work on slower
+    // hosted runners.
+  }, 30_000);
 
   test.each([
     [

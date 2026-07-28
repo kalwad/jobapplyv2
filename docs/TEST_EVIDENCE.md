@@ -158,6 +158,44 @@ Exact verification commands and summarized results
 - Test counts: TypeScript 874 package + 489 contract; Python 649;
   Rust 1 native-host + 10 harness; cross-language corpus 363 cases
   (TypeScript 362 / Python 358 / Rust 357).
+- Hosted content run 30321991197 at
+  `6708f1a463cf1a452fc149b8ac0c93e506828046`: macos-15 job 90159601529,
+  windows-2025 job 90159601462, and ubuntu-24.04 job 90159601510 all
+  **failed**. Both failures were inspected in their raw logs rather than
+  assumed, reproduced locally, and repaired at the root cause. Neither was
+  transient: each appeared identically on all three operating systems.
+  - **Defect 1 — shallow CI checkout cannot reach the historical commit.**
+    `scripts/tests/test_v14_migration.py::test_contract_artifact_trees_and_files_remain_exact`
+    failed with `git rev-parse
+    bde8ad49c31e63a7e09b50ad7cdf9af51416c182:packages/contracts returned
+    non-zero exit status 128`. Root cause: `actions/checkout` defaults to
+    `fetch-depth: 1`, so the M00-W11 content commit is absent from the CI
+    clone. Reproduced locally with `git clone --depth 1`
+    (`commits: 1`; the same `fatal:` message) and confirmed resolved by a
+    full-depth clone (`commits: 52`; the object resolves to
+    `c2bcc5af07d638ae6d1f26ff25021a8453d6ced3`). Repair: `fetch-depth: 0` on
+    the CI checkout step. This oracle needs history by construction — it
+    asserts a property of a specific past commit — and it would have broken on
+    the first contract change after M00-W11 regardless of M01-W07, because it
+    previously read `HEAD` and only passed while `HEAD` happened to be the
+    migration commit. The alternatives were deleting the oracle, conditionally
+    skipping it in CI, or restamping its pinned digests on every contract
+    change; all three weaken or void a passing safety test, so the workflow
+    change was the minimum honest repair. No verification logic, assertion, or
+    CI-only behavior changed, and
+    `scripts/tests/test_ci_workflow.py` (41 tests) still passes.
+  - **Defect 2 — compatibility-signature test timeout.**
+    `packages/contracts/test/contract/breaking.test.ts > M01-W06 semantic
+    compatibility signature > builds and parses the current baseline format
+    without touching the committed baseline` exceeded Vitest's 5000 ms default
+    (5096 ms on ubuntu-24.04, 5341 ms on windows-2025). Root cause: the test
+    builds the complete compatibility signature, which M01-W07 grew from 43 to
+    63 catalog documents; it measures 1308 ms on the development Mac and
+    exceeds five seconds on slower hosted runners. Repair: an explicit 30 s
+    budget on that test and on its sibling deterministic-truth test (which was
+    already at 15 s and does the same work). No assertion changed and no test
+    was skipped, relaxed, or labelled flaky — only the wall-clock allowance now
+    matches the work.
 - Artifacts: none. This package creates no benchmark artifact, evidence
   bundle, screenshot, or certification record.
 - Notes:

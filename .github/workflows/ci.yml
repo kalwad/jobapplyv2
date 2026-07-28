@@ -59,6 +59,15 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # Full history (M01-W07). The M00-W11 preservation oracle in
+          # scripts/tests/test_v14_migration.py proves that the v1.4 migration
+          # commit changed no contract artifact, which it can only do by
+          # reading the committed objects at that exact historical commit. The
+          # default shallow fetch-depth of 1 makes those objects unreachable,
+          # so the oracle could not run here at all. This repository has a
+          # short linear history, so the full fetch is cheap; it adds no
+          # CI-only verification logic and weakens no assertion.
+          fetch-depth: 0
 
       - name: Activate pinned Node (.nvmrc)
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
