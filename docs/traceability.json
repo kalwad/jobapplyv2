@@ -6764,8 +6764,8 @@
       "id": "M00-W11",
       "milestone": "M00",
       "title": "Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91",
       "direct_package_prerequisites": [
         "M00-W10",
         "M01-W06"
@@ -6800,7 +6800,12 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M00-W11"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_4"
     },
     {
@@ -7098,7 +7103,7 @@
       "id": "M01-W07",
       "milestone": "M01",
       "title": "Define cross-platform capability and platform-service contracts",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "primary_deliverables": [
         "Define cross-platform capability and platform-service contracts"

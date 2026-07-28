@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M00-W11 content revision pending; working tree based on 211c02e1b9a1f7032a8c0ad387516fc46d9cead4
-Last updated: 2026-07-27T21:43:15Z
+Repository revision: tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 (commit bde8ad49c31e63a7e09b50ad7cdf9af51416c182)
+Last updated: 2026-07-28T00:20:00Z
 Current phase: A — Contract, measurement, and early autofill proof
-Current milestone: M00
-Current work package: M00-W11
+Current milestone: M01
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,19 +23,19 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: only M00-W11 is IN_PROGRESS. M00 is reopened only for the v1.4 governance migration. M00-W01 through M00-W10 and M01-W01 through M01-W06 remain VERIFIED at their exact preserved content trees and commits. M01 remains IN_PROGRESS because six M01 packages are complete; M01-W07 is temporarily NOT_STARTED and no package is READY.
-- Objective: adopt the exact owner-approved JAPP-MASTER-001 v1.4 bytes, migrate project memory, traceability, status, validators, and tests to 39 milestones / 300 work packages / 193 requirements / four gates, and add no product UI or provider behavior.
-- Dependencies and prior hosted proof: M00-W11 begins only after M01-W06 content commit `13231f34ac276695852eb54e375aacfd6d2d4029` at tree `6ed03405b8e252a583f6f89709722e1bd680d8de` and final stamp run 30304145833 passed macos-15 job 90104117225, ubuntu-24.04 job 90104117255, and windows-2025 job 90104117393. The exact M00-W11 content revision has not yet been committed or hosted-verified.
+- State: no package is IN_PROGRESS. M00-W11 is VERIFIED at content tree `7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91` (commit `bde8ad49c31e63a7e09b50ad7cdf9af51416c182`); M00-W01 through M00-W10 and M01-W01 through M01-W06 remain VERIFIED at their exact preserved content trees and commits; M00 is re-ACCEPTED under v1.4. M01 remains IN_PROGRESS and M01-W07 is the sole READY package.
+- Objective: stop after M00-W11. The exact owner-approved JAPP-MASTER-001 v1.4 bytes are adopted and the 39-milestone / 300-work-package / 193-requirement / four-gate inventory, project memory, traceability, status, validators, and tests are migrated. No product UI or provider behavior was added. M01-W07 (Define cross-platform capability and platform-service contracts) is the exact next package and has not begun.
+- Dependencies and hosted proof: M00-W10 and M01-W01 through M01-W06 are VERIFIED. Content run 30316263598 at `bde8ad49c31e63a7e09b50ad7cdf9af51416c182` passed macos-15 job 90142343725, ubuntu-24.04 job 90142343632, and windows-2025 job 90142343630. The inspected Windows log proves the exact checkout, locked dependency fetches, 43 status check groups, doctor 22 pass / 0 warning / 0 fail, 112 byte-identical generated contracts, 637 package tests, 287 focused contract tests (TypeScript 198 / Python 194 / Rust 193, Rust locked/offline), 621 Python tests, 1 native-host and 8 contract-harness Rust tests, visual NOT_YET_APPLICABLE, verification exit 0, and no tracked changes.
 - Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED. M00-W11 adds governance and validation only; it does not execute a benchmark, visual study, provider review, platform certification, or gate.
-- Evidence: docs/TEST_EVIDENCE.md § M00-W11 records approved-source provenance, exact-byte adoption, the reviewed 14/36 delta, preservation oracles, governance-only scope, and local/hosted results as they become available. All UI reference observations, visual baselines, anti-bloat results, provider implementations, OAuth evidence, provider decisions, and product compatibility claims remain NOT_YET_APPLICABLE or NOT_EVALUATED.
-- Blockers: M01-W07 is deliberately not READY until M00-W11 has an exact verified content tree with successful macOS/Windows/Ubuntu hosted proof, M00 is re-accepted, and the closeout stamp restores M01-W07 as the sole READY package. Later milestones retain their specification dependencies and critical-gate qualifiers.
+- Evidence: docs/TEST_EVIDENCE.md § M00-W11 records approved-source provenance, exact-byte adoption, the reviewed 14/36 delta, preservation oracles, governance-only scope, the three hosted repairs and their root causes, both exact-commit clean clones, and the hosted three-OS proof. All UI reference observations, visual baselines, anti-bloat results, provider implementations, OAuth evidence, provider decisions, and product compatibility claims remain NOT_YET_APPLICABLE or NOT_EVALUATED.
+- Blockers: none prevent the exact next package, M01-W07, but it remains unstarted. M02 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS at the final accepted M27 content tree.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
-| M00 | IN_PROGRESS | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | Phase A. Prior v1.3 acceptance remains historical; reopened only for M00-W11 exact-byte v1.4 governance migration |
-| M01 | IN_PROGRESS | — | Phase A. M01-W01 through M01-W06 remain VERIFIED; M01-W07 is temporarily NOT_STARTED while M00-W11 is active |
+| M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
+| M01 | IN_PROGRESS | — | Phase A. M01-W01 through M01-W06 VERIFIED with hosted three-OS evidence; M01-W07 is the sole READY package |
 | M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01) |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
@@ -88,14 +88,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M00-W08` | VERIFIED | tree e05dbf9bdf9c190e8cd6b022d9611d65805740b7 | docs/TEST_EVIDENCE.md § M00-W08 | Adopt and migrate the v1.3 cross-platform rebaseline |
 | `M00-W09` | VERIFIED | tree ae69a908cc31e0f1282c136c25fb7f92752680dd | docs/TEST_EVIDENCE.md § M00-W09 | Add Windows CI and platform-portability baseline |
 | `M00-W10` | VERIFIED | tree 30c575dcc142a8276f0aed754cac50ed1fc3ab75 | docs/TEST_EVIDENCE.md § M00-W10 | Extend traceability and re-accept M00 under v1.3 |
-| `M00-W11` | IN_PROGRESS | — | — | Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline |
+| `M00-W11` | VERIFIED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | docs/TEST_EVIDENCE.md § M00-W11 | Adopt and migrate the v1.4 familiarity-first UI and experimental-provider rebaseline |
 | `M01-W01` | VERIFIED | tree 20c25e66d5792506870531aa4a8cd01971b362c9 | docs/TEST_EVIDENCE.md § M01-W01 | Define JSON Schema conventions |
 | `M01-W02` | VERIFIED | tree 8a081776719d02ee7aeceb99bfe731f5663883c4 | docs/TEST_EVIDENCE.md § M01-W02 | Generate TypeScript and Python contracts; KI-0018 corrective closeout |
 | `M01-W03` | VERIFIED | tree 2a56ed518797e811f8a0506e7834401c50eda166 | docs/TEST_EVIDENCE.md § M01-W03 | Define error taxonomy; KI-0020 corrective closeout |
 | `M01-W04` | VERIFIED | tree 9ec01d8f8a734c703a943ea08012a10df023bf67 | docs/TEST_EVIDENCE.md § M01-W04 | Define capability and command allowlists |
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
-| `M01-W07` | NOT_STARTED | — | — | Define cross-platform capability and platform-service contracts; blocked only by active M00-W11 migration |
+| `M01-W07` | READY | — | — | Define cross-platform capability and platform-service contracts; exact next package, not begun |
 | `M02-W01` | NOT_STARTED | — | — | Create synthetic profile/job/resume fixtures |
 | `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
@@ -381,13 +381,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M00-W11 is IN_PROGRESS. No package may be READY until its exact content revision passes required local, clean-clone, and hosted three-OS verification and the closeout stamp re-accepts M00.
-- Required reading after closeout: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.2–§5.5, §8.5, §9 M01 (especially M01-W07), and §12; packages/contracts/README.md; packages/contracts/generated/README.md; packages/contracts/test/contract/README.md; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/PLATFORM_SUPPORT.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: `M01-W07`
+- Reason: M00-W11 is VERIFIED at its exact hosted-verified content revision and M00 is re-ACCEPTED under v1.4; dependency and sequential-readiness validation derives M01-W07 as the only READY package.
+- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.2–§5.5, §8.5, §9 M01 (especially M01-W07), and §12; packages/contracts/README.md; packages/contracts/generated/README.md; packages/contracts/test/contract/README.md; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/PLATFORM_SUPPORT.md; docs/REQUIREMENTS_TRACEABILITY.md.
 
 ## Known release blockers
 
-- M00-W11 content and hosted three-OS verification are incomplete. M01-W01 through M01-W06 remain VERIFIED; the mandatory contract and contract-gen suites remain ACTIVE/PASS. M01-W07 is deliberately NOT_STARTED during the migration.
+- No M00 blocker remains. M00-W11 is VERIFIED with hosted three-OS evidence and M00 is re-ACCEPTED under v1.4; M01-W01 through M01-W06 remain VERIFIED and the mandatory contract and contract-gen suites remain ACTIVE/PASS. M01-W07 is READY but deliberately unstarted at the M00-W11 handoff.
 - Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
 - CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS at the final accepted M27 content tree (or an explicit accepted independent gate-neutral re-anchoring).
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.

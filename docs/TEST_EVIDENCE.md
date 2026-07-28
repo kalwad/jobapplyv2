@@ -264,8 +264,51 @@ Exact verification commands and summarized results
     the mypy repair let Windows run pytest at all, and diagnosable only after
     the UTF-8 repair stopped the harness from destroying its own report. Each
     hosted failure exposed the next; none was assumed or retried blindly.
-- Hosted exact-content re-verification after all three repairs: pending; no
-  result claimed yet.
+- Final content revision and hosted three-OS proof: content commit
+  `bde8ad49c31e63a7e09b50ad7cdf9af51416c182` at tree
+  `7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91`. Both exact-commit clean clones
+  were re-run at this commit — one at a path containing spaces and non-ASCII
+  characters — and both completed frozen/locked reconstruction, doctor
+  (22 pass, 0 warning, 0 fail), `pnpm generate:contracts --check`
+  (112 files byte-identical), traceability generate/check (193/300),
+  `validate_status.py` (43 check groups), the 287-test contract suite, full
+  `pnpm verify` (exit 0), the exact canonical hash, and an empty tracked
+  porcelain. Run 30316263598 then passed every required platform:
+  - macos-15 job 90142343725 — success;
+  - ubuntu-24.04 job 90142343632 — success;
+  - windows-2025 job 90142343630 — success.
+  The Windows log was inspected directly and proves the exact checkout of
+  `bde8ad49c31e63a7e09b50ad7cdf9af51416c182`, locked pnpm/uv/Cargo
+  installation, doctor 22 pass / 0 warning / 0 fail with visual honestly
+  NOT_YET_APPLICABLE, 43 status check groups, 112 byte-identical generated
+  contracts, 637 package tests, 287 focused contract tests
+  (TypeScript 198 / Python 194 / Rust 193, Rust locked/offline), 621 Python
+  tests, 1 native-host and 8 contract-harness Rust tests, `verification exit
+  code: 0`, and a successful "Assert verification left no tracked changes"
+  step. The Windows Python count is 621 rather than the local 623 because
+  `NON_REGULAR_SOURCE_KINDS` correctly excludes the POSIX-only FIFO and
+  Unix-socket cases on Windows.
+- Hosted-repair history for this package, in order, each root-caused from its
+  raw log rather than retried: run 30313670536 (`a71f3a4c`) — Ubuntu passed,
+  Windows failed on Windows-only mypy `[attr-defined]` errors, macOS failed
+  transiently in the `unit-ts` Rust-harness build; run 30314449915
+  (`4314f310`) — macOS and Ubuntu passed, confirming the macOS failure was
+  transient, and Windows reached pytest for the first time and crashed the
+  harness on undecodable child output; run 30315501097 (`ac574f58`) — macOS
+  and Ubuntu passed and Windows reported the real CRLF text-mode defect
+  legibly; run 30316263598 (`bde8ad49`) — all three platforms passed. Each
+  defect was only reachable after the previous repair. No test was weakened,
+  skipped, or removed at any step, and the strict UTF-8 decode contract was
+  preserved rather than relaxed.
+- Closeout state: M00-W11 is VERIFIED at the content tree/commit above, M00 is
+  re-ACCEPTED under v1.4, M01 remains IN_PROGRESS with M01-W01 through
+  M01-W06 preserved at their exact anchors, M01-W07 is the sole READY
+  package, no package is IN_PROGRESS, all four critical gates remain
+  NOT_EVALUATED, and the release gate remains NOT_READY. M01-W07 was not
+  begun.
+- Final stamp revision and exact-final-HEAD hosted proof: recorded in the
+  closeout stamp commit; see the M00-W11 closeout entry below once the final
+  HEAD run completes.
 - Closeout stamp and exact-final-HEAD hosted proof: pending; no result claimed
   yet.
 
