@@ -1648,6 +1648,13 @@ const PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
   UBUNTU_X64: "X86_64",
   WINDOWS_X64: "X86_64",
 };
+const REGISTRATION_TERMINAL_STATE: Readonly<Record<string, string>> = {
+  INSTALL: "PRESENT_VALID",
+  REMOVE: "ABSENT",
+  REPAIR: "PRESENT_VALID",
+  UPDATE: "PRESENT_VALID",
+  VERIFY: "PRESENT_VALID",
+};
 const DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
   BROWSER_LOCATOR: "BROWSER_PRESENCE",
   INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
@@ -1757,6 +1764,17 @@ function platformReviewedTierIsCertified(value: unknown): boolean {
   return CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
 }
 
+/**
+ * A record that names a certified target must report that target's processor
+ * architecture from the specification §5.14.1 matrix. An uncertifiable target
+ * stays unconstrained so an honest UNKNOWN_ARCHITECTURE observation remains
+ * representable.
+ */
+function platformArchitectureCoherent(value: unknown): boolean {
+  const expected = PLATFORM_ARCHITECTURE_BY_ID[text(value, "platform_id") ?? ""];
+  return expected === undefined || text(value, "architecture") === expected;
+}
+
 function platformTargetSupportClaim(value: unknown): boolean {
   const platformId = text(value, "platform_id");
   const reasons = items(value, "reason_codes");
@@ -1767,11 +1785,7 @@ function platformTargetSupportClaim(value: unknown): boolean {
   ) {
     return false;
   }
-  const expectedArchitecture = PLATFORM_ARCHITECTURE_BY_ID[platformId];
-  if (
-    expectedArchitecture !== undefined &&
-    text(value, "architecture") !== expectedArchitecture
-  ) {
+  if (!platformArchitectureCoherent(value)) {
     return false;
   }
   if (!platformReviewedTierIsCertified(value)) {
@@ -1996,7 +2010,11 @@ function platformProcessPlanSafety(value: unknown): boolean {
   const profile = text(value, "profile");
   const environment = items(value, "environment_allowlist");
   const commandArguments = items(value, "arguments");
-  const binary = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+  const binary = [
+    text(value, "stdin_mode"),
+    text(value, "stdout_mode"),
+    text(value, "stderr_mode"),
+  ];
   if (
     !platformRequestAuthority(value) ||
     flag(value, "inherit_parent_environment") !== false ||
@@ -2038,7 +2056,14 @@ function platformProcessPlanSafety(value: unknown): boolean {
     return false;
   }
   if (profile === "NATIVE_MESSAGING_HOST") {
-    return binary.every((mode) => mode === "BINARY_LENGTH_PREFIXED");
+    // Specification §5.14.5 places the length-prefixed native-messaging
+    // protocol on binary stdin/stdout. stderr stays a diagnostic channel and
+    // must never silently become a second protocol stream.
+    return (
+      text(value, "stdin_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stdout_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stderr_mode") !== "BINARY_LENGTH_PREFIXED"
+    );
   }
   return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
 }
@@ -2113,10 +2138,13 @@ function platformNativeRegistrationBinding(value: unknown): boolean {
 }
 
 function platformNativeRegistrationResult(value: unknown): boolean {
-  const operation = text(value, "operation");
+  const operation = text(value, "operation") ?? "";
   const observed = text(value, "observed_state");
   const reasons = items(value, "reason_codes");
   const changed = flag(value, "changed");
+  const succeeded = reasons.length === 0;
+  const manifestDigest = present(value, "observed_manifest_digest");
+  const hostVersion = present(value, "observed_host_version");
   if (
     !uniqueStrings(reasons) ||
     text(value, "browser_family") !== "CHROME" ||
@@ -2124,27 +2152,40 @@ function platformNativeRegistrationResult(value: unknown): boolean {
   ) {
     return false;
   }
-  if (observed === "PRESENT_VALID") {
-    if (
-      !present(value, "observed_manifest_digest") ||
-      !present(value, "observed_host_version") ||
-      reasons.length > 0
-    ) {
-      return false;
-    }
-  } else if (reasons.length === 0) {
+  // Each diagnostic reason names the exact state it explains, so neither the
+  // state nor its reason may be reported without the other.
+  if (
+    (observed === "MISMATCHED_IDENTITY") !==
+      reasons.includes("IDENTITY_MISMATCH") ||
+    (observed === "NOT_EVALUATED") !== reasons.includes("EVALUATION_NOT_RUN")
+  ) {
     return false;
   }
-  if (observed === "MISMATCHED_IDENTITY" && !reasons.includes("IDENTITY_MISMATCH")) {
+  // Observed identity is evidence of a manifest that is really present: it is
+  // mandatory for PRESENT_VALID and impossible once nothing is registered or
+  // nothing was evaluated.
+  if (
+    observed === "PRESENT_VALID" &&
+    !(manifestDigest && hostVersion && succeeded)
+  ) {
+    return false;
+  }
+  if (
+    (observed === "ABSENT" || observed === "NOT_EVALUATED") &&
+    (manifestDigest || hostVersion)
+  ) {
     return false;
   }
   if (observed === "NOT_EVALUATED") {
-    return changed === false && reasons.includes("EVALUATION_NOT_RUN");
+    return changed === false;
   }
-  if (reasons.length === 0) {
-    const expected = operation === "REMOVE" ? "ABSENT" : "PRESENT_VALID";
+  // Zero reasons is a success claim. It is admissible only in the terminal
+  // state the operation is defined to reach, and only when repeating the same
+  // intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+  if (succeeded) {
     return (
-      observed === expected && flag(value, "idempotent_repeat_safe") === true
+      observed === REGISTRATION_TERMINAL_STATE[operation] &&
+      flag(value, "idempotent_repeat_safe") === true
     );
   }
   return true;
@@ -2297,6 +2338,7 @@ function platformPackageStateEvidence(value: unknown): boolean {
   if (
     !uniqueStrings(reasons) ||
     !uniqueStrings(items(value, "evidence_refs")) ||
+    !platformArchitectureCoherent(value) ||
     (interrupted === true && !reasons.includes("INTERRUPTED")) ||
     (flag(value, "recovery_completed") === true && interrupted !== true) ||
     (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
@@ -2407,6 +2449,7 @@ function platformEvidenceIntegrity(value: unknown): boolean {
   const requiredReference = EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
   if (
     !uniqueStrings(reasons) ||
+    !platformArchitectureCoherent(value) ||
     flag(value, "synthetic_only") !== true ||
     (requiredReference !== undefined && !present(value, requiredReference)) ||
     (present(value, "package_artifact") && !present(value, "signature_state"))
@@ -2457,6 +2500,7 @@ function platformCertificationInputScope(value: unknown): boolean {
     !strictlySortedStrings(presentKinds) ||
     !uniqueStrings(records) ||
     !uniqueStrings(reasons) ||
+    !platformArchitectureCoherent(value) ||
     !platformSupportClaimSound(value)
   ) {
     return false;

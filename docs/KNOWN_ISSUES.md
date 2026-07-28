@@ -34,6 +34,154 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
+### KI-0025 — Five more platform semantic rules refuse coherent successful outcomes
+
+- Severity: HIGH
+- State: OPEN
+- Discovered: 2026-07-28 during the KI-0024 corrective repair of M01-W07, by an
+  independent completeness audit that swept every platform rule for the
+  KI-0024 defect class rather than only the reported instance
+- Affects: M01-W07; `packages/contracts/generator/semantic-rules.ts`
+  `platformPackageStateEvidence`, `platformEvidenceIntegrity`,
+  `platformRuntimeCapabilityFallback`, `platformPathResolutionSafety`,
+  `platformProcessStatusIntegrity`; the generated TypeScript/Python evaluators
+  and the representative Rust harness that mirror them
+- Description: KI-0024 repaired one unreachable positive branch. A systematic
+  sweep of all eighteen platform rule kinds found five more of the same class,
+  each a structurally representable and operationally ordinary outcome that no
+  payload can express.
+  (F1) `platformPackageStateEvidence` makes `recovery_completed = true`
+  unsatisfiable with every package success state: recovery implies
+  `interrupted = true`, interruption requires the `INTERRUPTED` reason, and a
+  success state requires zero reasons and `interrupted = false`. A recovered
+  interrupted install or update — an outcome specification §5.14.8 explicitly
+  requires each platform to pass — cannot be reported as a success.
+  (F2) `platformEvidenceIntegrity` forces `evaluation_method =
+  STATIC_INSPECTION` whenever `machine_class` is `HOSTED_CI_RUNNER` or
+  `PHYSICAL_DEVELOPMENT_MACHINE`, fusing two orthogonal axes. Synthetic
+  fixtures executed on a hosted CI runner — the exact shape of this
+  repository's own three-OS evidence — are unrepresentable.
+  (F3) `platformRuntimeCapabilityFallback` collapses `DEGRADED_LIMITED` onto
+  `UNAVAILABLE` by forcing empty available and accepted profile lists for
+  every non-`AVAILABLE` runtime, although the sibling helper
+  `platformCapabilityStateSound` already treats `DEGRADED_LIMITED` as
+  meaningfully distinct and specification §5.14.1 describes `CERTIFIED_CORE`
+  as "AI unavailable or below performance tier".
+  (F4) `platformPathResolutionSafety` forces `exists = false` and
+  `writable = false` for every non-`RESOLVED` state, so a `DENIED_PERMISSION`
+  resolution of a path that does exist must report a false observation.
+  (F5) `platformProcessStatusIntegrity` requires zero reasons for `EXITED`, so
+  a non-zero exit code is structurally representable but can never be
+  explained; `EXITED` is the only terminal process state that forbids reasons.
+- Reproduction: at the KI-0024 corrective content revision, load the canonical
+  schema catalog and the generated TypeScript semantic evaluator, then mutate
+  the committed representatives.
+  (F1) `w07.installer-state` with `state = INSTALLED`, `installed_version =
+  package_version`, `signature_state = SIGNATURE_VALID`, `interrupted = true`,
+  `recovery_completed = true`, `reason_codes = ["INTERRUPTED"]`,
+  `user_data_preservation = PRESERVED`, `native_host_cleanup = NOT_APPLICABLE`
+  and one evidence reference — structural accept, semantic reject; the same
+  record without the interruption and recovery accepts. The equivalent
+  `w07.update-state` record with `state = UPDATE_INSTALLED` behaves the same.
+  (F2) `w07.evidence-record` with `machine_class = HOSTED_CI_RUNNER` and
+  `evaluation_method` of `SYNTHETIC_FIXTURE`, `DECLARED_PLAN`, or
+  `NOT_EVALUATED` — structural accept, semantic reject in all three; the same
+  record with `STATIC_INSPECTION` accepts.
+  (F3) `w07.runtime-capability` with `runtime_availability =
+  DEGRADED_LIMITED`, `detection_method = MEASURED_NATIVE_RUN`, one available
+  profile reference, no accepted profile references,
+  `core_capability_behavior = CORE_PRESERVED_AI_DEGRADED`, a finite reason,
+  and runtime family/version/accelerator present — structural accept, semantic
+  reject.
+  (F4) `w07.path-resolution` with `resolution_state = DENIED_PERMISSION`, no
+  sanitized path or digest, `exists = true`, `writable = false`, and
+  `reason_codes = ["PERMISSION_DENIED"]` — structural accept, semantic reject;
+  the same record with `exists = false` accepts.
+  (F5) `w07.process-status` with `state = EXITED`, `exit_code = 1`, an
+  `ended_at`, and `reason_codes = ["ADAPTER_ERROR"]` — structural accept,
+  semantic reject; the same record with no reasons accepts.
+- Workaround: none accepted. Consumers must not treat package recovery
+  evidence, hosted-CI evidence records, degraded runtime capability, denied
+  path resolution, or process exit diagnostics as contract-expressible until
+  these rules are repaired.
+- Resolution + evidence link: not started. Deliberately excluded from the
+  KI-0024 corrective revision, which was scoped by the owner to the reported
+  defects only; broadening it would have been an unreviewed scope expansion
+  (spec §1.5). This issue is HIGH and OPEN, so M01 cannot be marked complete
+  until the owner authorizes the follow-up repair (spec §10.1).
+
+### KI-0024 — Native-registration removal was an unreachable positive branch, and platform stdio/architecture invariants were incomplete
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 during independent post-closeout assurance review of
+  M01-W07
+- Affects: M01-W07; `packages/contracts/generator/semantic-rules.ts`
+  `platformNativeRegistrationResult`, `platformProcessPlanSafety`,
+  `platformCertificationInputScope`, `platformEvidenceIntegrity`,
+  `platformPackageStateEvidence`; generated TypeScript/Python semantic
+  evaluators; representative Rust harness; native-messaging-result,
+  process-plan, certification-input, evidence-record, installer-state and
+  update-state corpus coverage; `packages/contracts/M01-W07.md`
+- Description: four independent defects survived the KI-0023 corrective
+  closeout and hosted three-OS CI.
+  (A) `platformNativeRegistrationResult` rejects every zero-reason result
+  whose observed state is not `PRESENT_VALID`, so the later
+  `REMOVE -> ABSENT` success arm can never execute. A successful uninstall —
+  the exact outcome specification §5.14.5 requires to be idempotent — is
+  structurally representable but semantically unrepresentable. This is the
+  same positive-branch reachability class as KI-0023.
+  (B) `platformProcessPlanSafety` builds its native-messaging framing check
+  from `stdin_mode` and `stdout_mode` only, while the process-plan schema
+  requires `stderr_mode`. A `LOCAL_ORCHESTRATOR` or `MODEL_RUNTIME_HOST` plan
+  can therefore declare `stderr_mode = BINARY_LENGTH_PREFIXED` and pass,
+  silently turning a diagnostic channel into an unreviewed native-message
+  protocol stream on a profile that is forbidden from using that framing at
+  all.
+  (C) Of the five M01-W07 roots that carry both `platform_id` and
+  `architecture`, only `target-identity` binds them. `certification-input`,
+  `evidence-record`, `installer-state`, and `update-state` accept
+  certification, measured-native-evidence, packaging, and update claims whose
+  architecture contradicts the certified target matrix in specification
+  §5.14.1.
+  (D) `packages/contracts/M01-W07.md` states that the KI-0023 cases "complete
+  the secret-store STATUS/GET/PUT/DELETE truth table" although the committed
+  matrix covers 11 of the 32 `secretOperation` x `secretResultState` cells,
+  and `PLATFORM_RULE_TOKEN_CLOSURE` asserts token closure for 2 of the 18
+  platform semantic rule kinds. Both claims overstate the delivered coverage.
+- Reproduction: at starting revision
+  `12f3c35be9cff1ca40541212ae83a3e79888a234`, load the canonical schema
+  catalog and the generated TypeScript and Python semantic evaluators, then:
+  (A) build `urn:japp:schema:platform:native-messaging-result:v1` with
+  `operation = REMOVE`, `observed_state = ABSENT`, `browser_family = CHROME`,
+  `idempotent_repeat_safe = true`, `reason_codes = []`, no
+  `observed_manifest_digest`, and no `observed_host_version` — structural
+  validation accepts and the semantic evaluator rejects for both
+  `changed = true` and `changed = false`; the generated Python and the
+  representative Rust harness carry the identical control flow.
+  (B) build `urn:japp:schema:platform:process-plan:v1` with
+  `profile = LOCAL_ORCHESTRATOR`, `stdin_mode = PIPE_BOUNDED`,
+  `stdout_mode = PIPE_BOUNDED`, and `stderr_mode = BINARY_LENGTH_PREFIXED` —
+  structural and semantic validation both incorrectly accept; the same holds
+  for `MODEL_RUNTIME_HOST`, and a `NATIVE_MESSAGING_HOST` plan with
+  `stderr_mode = BINARY_LENGTH_PREFIXED` also accepts.
+  (C) set `platform_id = MACOS_ARM64` with `architecture = X86_64` on
+  `certification-input`, `evidence-record`, `installer-state`, and
+  `update-state` — all four accept structurally and semantically, while the
+  identical contradiction on `target-identity` is rejected.
+  (D) enumerate the `TRUTH_TABLE` entries in
+  `packages/contracts/test/schema/w07-secret-store-truth-table.test.ts` and
+  project them onto the 4 x 8 operation/state grid — 11 cells are covered and
+  21 are not; enumerate `PLATFORM_RULE_TOKEN_CLOSURE` and compare it with the
+  18 `PLATFORM_*` rule kinds in
+  `packages/contracts/catalog/semantic-rules.v1.json`.
+- Workaround: none accepted. Consumers must not treat a native-registration
+  removal outcome, a platform stdio profile, or an architecture-bearing
+  certification, packaging, or update claim as contract-validated until the
+  corrective revision lands.
+- Resolution + evidence link: in progress under the M01-W07 corrective
+  repair.
+
 ### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
 
 - Severity: MEDIUM

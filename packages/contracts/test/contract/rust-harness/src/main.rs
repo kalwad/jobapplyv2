@@ -3239,6 +3239,24 @@ fn platform_expected_architecture(platform_id: &str) -> Option<&'static str> {
     }
 }
 
+fn registration_terminal_state(operation: &str) -> Option<&'static str> {
+    match operation {
+        "REMOVE" => Some("ABSENT"),
+        "INSTALL" | "REPAIR" | "UPDATE" | "VERIFY" => Some("PRESENT_VALID"),
+        _ => None,
+    }
+}
+
+/// A certified target must report its specification §5.14.1 architecture. An
+/// uncertifiable target stays unconstrained so an honest UNKNOWN_ARCHITECTURE
+/// observation remains representable.
+fn platform_architecture_coherent(value: &Value) -> bool {
+    match platform_expected_architecture(text(value, "platform_id").unwrap_or_default()) {
+        Some(expected) => text(value, "architecture") == Some(expected),
+        None => true,
+    }
+}
+
 fn diagnostic_expected_capability(component: &str) -> Option<&'static str> {
     match component {
         "BROWSER_LOCATOR" => Some("BROWSER_PRESENCE"),
@@ -3336,15 +3354,13 @@ fn platform_reviewed_tier_is_certified(value: &Value) -> bool {
 }
 
 fn platform_target_support_claim(value: &Value) -> bool {
-    let Some(platform_id) = text(value, "platform_id") else {
-        return false;
-    };
-    let reasons = items(value, "reason_codes");
-    if !unique_strings(reasons) || !platform_support_claim_sound(value) {
+    if text(value, "platform_id").is_none() {
         return false;
     }
-    if let Some(expected) = platform_expected_architecture(platform_id)
-        && text(value, "architecture") != Some(expected)
+    let reasons = items(value, "reason_codes");
+    if !unique_strings(reasons)
+        || !platform_architecture_coherent(value)
+        || !platform_support_claim_sound(value)
     {
         return false;
     }
@@ -3588,11 +3604,18 @@ fn platform_process_plan_safety(value: &Value) -> bool {
     {
         return false;
     }
-    let modes = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+    let modes = [
+        text(value, "stdin_mode"),
+        text(value, "stdout_mode"),
+        text(value, "stderr_mode"),
+    ];
     if text(value, "profile") == Some("NATIVE_MESSAGING_HOST") {
-        return modes
-            .iter()
-            .all(|mode| *mode == Some("BINARY_LENGTH_PREFIXED"));
+        // Specification §5.14.5 places the length-prefixed native-messaging
+        // protocol on binary stdin/stdout. stderr stays a diagnostic channel
+        // and must never silently become a second protocol stream.
+        return text(value, "stdin_mode") == Some("BINARY_LENGTH_PREFIXED")
+            && text(value, "stdout_mode") == Some("BINARY_LENGTH_PREFIXED")
+            && text(value, "stderr_mode") != Some("BINARY_LENGTH_PREFIXED");
     }
     modes
         .iter()
@@ -3658,39 +3681,47 @@ fn platform_native_registration_binding(value: &Value) -> bool {
 }
 
 fn platform_native_registration_result(value: &Value) -> bool {
-    let operation = text(value, "operation");
+    let operation = text(value, "operation").unwrap_or_default();
     let observed = text(value, "observed_state");
     let reasons = items(value, "reason_codes");
     let changed = flag(value, "changed");
+    let succeeded = reasons.is_empty();
+    let manifest_digest = present(value, "observed_manifest_digest");
+    let host_version = present(value, "observed_host_version");
     if !unique_strings(reasons)
         || text(value, "browser_family") != Some("CHROME")
-        || (operation == Some("VERIFY") && changed != Some(false))
+        || (operation == "VERIFY" && changed != Some(false))
     {
         return false;
     }
-    if observed == Some("PRESENT_VALID") {
-        if !present(value, "observed_manifest_digest")
-            || !present(value, "observed_host_version")
-            || !reasons.is_empty()
-        {
-            return false;
-        }
-    } else if reasons.is_empty() {
+    // Each diagnostic reason names the exact state it explains, so neither the
+    // state nor its reason may be reported without the other.
+    if (observed == Some("MISMATCHED_IDENTITY")) != contains_value(reasons, "IDENTITY_MISMATCH") {
         return false;
     }
-    if observed == Some("MISMATCHED_IDENTITY") && !contains_value(reasons, "IDENTITY_MISMATCH") {
+    if (observed == Some("NOT_EVALUATED")) != contains_value(reasons, "EVALUATION_NOT_RUN") {
+        return false;
+    }
+    // Observed identity is evidence of a manifest that is really present: it is
+    // mandatory for PRESENT_VALID and impossible once nothing is registered or
+    // nothing was evaluated.
+    if observed == Some("PRESENT_VALID") && !(manifest_digest && host_version && succeeded) {
+        return false;
+    }
+    if (observed == Some("ABSENT") || observed == Some("NOT_EVALUATED"))
+        && (manifest_digest || host_version)
+    {
         return false;
     }
     if observed == Some("NOT_EVALUATED") {
-        return changed == Some(false) && contains_value(reasons, "EVALUATION_NOT_RUN");
+        return changed == Some(false);
     }
-    if reasons.is_empty() {
-        let expected = if operation == Some("REMOVE") {
-            "ABSENT"
-        } else {
-            "PRESENT_VALID"
-        };
-        return observed == Some(expected) && flag(value, "idempotent_repeat_safe") == Some(true);
+    // Zero reasons is a success claim. It is admissible only in the terminal
+    // state the operation is defined to reach, and only when repeating the same
+    // intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+    if succeeded {
+        return observed == registration_terminal_state(operation)
+            && flag(value, "idempotent_repeat_safe") == Some(true);
     }
     true
 }
@@ -3826,6 +3857,7 @@ fn platform_package_state_evidence(value: &Value) -> bool {
     let preservation = text(value, "user_data_preservation");
     if !unique_strings(reasons)
         || !unique_strings(items(value, "evidence_refs"))
+        || !platform_architecture_coherent(value)
         || (interrupted == Some(true) && !contains_value(reasons, "INTERRUPTED"))
         || (flag(value, "recovery_completed") == Some(true) && interrupted != Some(true))
         || (preservation == Some("PRESERVATION_FAILED") && reasons.is_empty())
@@ -3916,6 +3948,7 @@ fn platform_evidence_integrity(value: &Value) -> bool {
     let required_reference =
         evidence_required_reference(text(value, "artifact_kind").unwrap_or_default());
     if !unique_strings(reasons)
+        || !platform_architecture_coherent(value)
         || flag(value, "synthetic_only") != Some(true)
         || required_reference.is_some_and(|name| !present(value, name))
         || (present(value, "package_artifact") && !present(value, "signature_state"))
@@ -3963,6 +3996,7 @@ fn platform_certification_input_scope(value: &Value) -> bool {
         || !strictly_sorted_strings(present_kinds)
         || !unique_strings(records)
         || !unique_strings(reasons)
+        || !platform_architecture_coherent(value)
         || !platform_support_claim_sound(value)
     {
         return false;

@@ -721,7 +721,7 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "9973c10b8866db8da2b53bf42bfa6a6cb8a900ff8f35bba0aca7ed64fa17a37b"
+      "sha256": "f707c345b4fdd69cc9420041a28c3a36a0c539ec82d1e44e6af44449bfc4dfd1"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -997,7 +997,7 @@
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "d005804ae9fb72e0d25e349cb0898dd967fdff7093a76aa1b49875b0b793c78d"
+      "sha256": "57b882e950e34ec04ecb4eb0601b371c3e687bc38bc2862aaef5f26b0cc91359"
     },
     {
       "path": "typescript/session/application-session.v1.ts",

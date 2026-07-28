@@ -6,8 +6,14 @@ import { createContractValidator, loadSchemaCatalog } from "../../src/index.ts";
 
 /**
  * Explicit M01-W07 secret-store result truth table and structural/semantic
- * token-closure checks (KI-0023). The matrix is intentional source data, not
- * a fragile parser of evaluator source.
+ * token-closure checks (KI-0023, extended by KI-0024). Every matrix is
+ * intentional source data, not a fragile parser of evaluator source.
+ *
+ * `TRUTH_TABLE` is the targeted branch matrix: it pins the specific positive
+ * and negative branches KI-0023 repaired and binds each to a corpus case. It
+ * is deliberately not a complete grid — `EXHAUSTIVE_CELLS` below is the
+ * complete 4 x 8 `secretOperation` x `secretResultState` grid, and states for
+ * every cell whether the contract admits it at all.
  */
 
 const catalog = loadSchemaCatalog();
@@ -311,6 +317,112 @@ const PLATFORM_RULE_TOKEN_CLOSURE: readonly {
   },
 ];
 
+/**
+ * The single most favourable representative for each result state. A cell that
+ * still rejects under its best representative is one the contract genuinely
+ * does not admit, rather than one given a badly chosen witness.
+ */
+const STATE_REPRESENTATIVE: Readonly<
+  Record<
+    (typeof SECRET_RESULT_STATES)[number],
+    Omit<TruthBranch, "id" | "operation" | "result_state" | "expect_valid">
+  >
+> = {
+  DELETED: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: false,
+    digest: false,
+    reasons: [],
+  },
+  DENIED_PERMISSION: {
+    store_availability: "PERMISSION_REQUIRED",
+    identity: false,
+    material: false,
+    digest: false,
+    reasons: ["PERMISSION_DENIED"],
+  },
+  NOT_FOUND: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: false,
+    digest: false,
+    reasons: ["NOT_INSTALLED"],
+  },
+  OPERATION_FAILED: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: false,
+    digest: false,
+    reasons: ["ADAPTER_ERROR"],
+  },
+  RETRIEVED: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: true,
+    digest: true,
+    reasons: [],
+  },
+  STORED: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: true,
+    digest: false,
+    reasons: [],
+  },
+  STORE_AVAILABLE: {
+    store_availability: "AVAILABLE",
+    identity: true,
+    material: false,
+    digest: false,
+    reasons: [],
+  },
+  STORE_UNAVAILABLE: {
+    store_availability: "UNAVAILABLE",
+    identity: false,
+    material: false,
+    digest: false,
+    reasons: ["SERVICE_UNAVAILABLE"],
+  },
+};
+
+/**
+ * The reviewed complete grid. `STATUS` is an availability probe and admits
+ * only the three store-level observations; a mutating operation admits its own
+ * success state plus the shared failure observations, and never another
+ * operation's success state or the STATUS-only availability state.
+ */
+const ADMISSIBLE_CELLS: Readonly<
+  Record<(typeof SECRET_OPERATIONS)[number], readonly string[]>
+> = {
+  DELETE: [
+    "DELETED",
+    "DENIED_PERMISSION",
+    "NOT_FOUND",
+    "OPERATION_FAILED",
+    "STORE_UNAVAILABLE",
+  ],
+  GET: [
+    "DENIED_PERMISSION",
+    "NOT_FOUND",
+    "OPERATION_FAILED",
+    "RETRIEVED",
+    "STORE_UNAVAILABLE",
+  ],
+  PUT: [
+    "DENIED_PERMISSION",
+    "NOT_FOUND",
+    "OPERATION_FAILED",
+    "STORED",
+    "STORE_UNAVAILABLE",
+  ],
+  STATUS: ["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"],
+};
+
+const EXHAUSTIVE_CELLS = SECRET_OPERATIONS.flatMap((operation) =>
+  SECRET_RESULT_STATES.map((resultState) => [operation, resultState] as const),
+);
+
 function fixture(name: string): Record<string, unknown> {
   const value = valuesDocument.values[name];
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
@@ -425,6 +537,35 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
       );
     }
   });
+
+  test("the exhaustive grid is the complete operation/state product", () => {
+    expect(enumTokens("secretOperation")).toEqual([...SECRET_OPERATIONS]);
+    expect(enumTokens("secretResultState")).toEqual([...SECRET_RESULT_STATES]);
+    expect(EXHAUSTIVE_CELLS).toHaveLength(32);
+    const admissible = Object.values(ADMISSIBLE_CELLS).flat();
+    expect(admissible).toHaveLength(18);
+    for (const state of admissible) {
+      expect(SECRET_RESULT_STATES).toContain(state);
+    }
+  });
+
+  test.each(EXHAUSTIVE_CELLS)(
+    "%s with result state %s admits exactly its reviewed representative",
+    (operation, resultState) => {
+      const expected = ADMISSIBLE_CELLS[operation].includes(resultState);
+      const value = buildResult({
+        id: `exhaustive-${operation}-${resultState}`,
+        operation,
+        result_state: resultState,
+        expect_valid: expected,
+        ...STATE_REPRESENTATIVE[resultState],
+      });
+      expect(validator.validateInstance(SECRET_RESULT, value).valid).toBe(true);
+      expect(validateSemanticContractV1(SECRET_RESULT, value).valid).toBe(
+        expected,
+      );
+    },
+  );
 
   test("STORE_UNAVAILABLE accepts only reviewed non-available availability states", () => {
     for (const availability of STORE_UNAVAILABLE_AVAILABILITY) {

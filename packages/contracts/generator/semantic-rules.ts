@@ -1516,6 +1516,13 @@ const PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
   UBUNTU_X64: "X86_64",
   WINDOWS_X64: "X86_64",
 };
+const REGISTRATION_TERMINAL_STATE: Readonly<Record<string, string>> = {
+  INSTALL: "PRESENT_VALID",
+  REMOVE: "ABSENT",
+  REPAIR: "PRESENT_VALID",
+  UPDATE: "PRESENT_VALID",
+  VERIFY: "PRESENT_VALID",
+};
 const DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
   BROWSER_LOCATOR: "BROWSER_PRESENCE",
   INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
@@ -1625,6 +1632,17 @@ function platformReviewedTierIsCertified(value: unknown): boolean {
   return CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
 }
 
+/**
+ * A record that names a certified target must report that target's processor
+ * architecture from the specification §5.14.1 matrix. An uncertifiable target
+ * stays unconstrained so an honest UNKNOWN_ARCHITECTURE observation remains
+ * representable.
+ */
+function platformArchitectureCoherent(value: unknown): boolean {
+  const expected = PLATFORM_ARCHITECTURE_BY_ID[text(value, "platform_id") ?? ""];
+  return expected === undefined || text(value, "architecture") === expected;
+}
+
 function platformTargetSupportClaim(value: unknown): boolean {
   const platformId = text(value, "platform_id");
   const reasons = items(value, "reason_codes");
@@ -1635,11 +1653,7 @@ function platformTargetSupportClaim(value: unknown): boolean {
   ) {
     return false;
   }
-  const expectedArchitecture = PLATFORM_ARCHITECTURE_BY_ID[platformId];
-  if (
-    expectedArchitecture !== undefined &&
-    text(value, "architecture") !== expectedArchitecture
-  ) {
+  if (!platformArchitectureCoherent(value)) {
     return false;
   }
   if (!platformReviewedTierIsCertified(value)) {
@@ -1864,7 +1878,11 @@ function platformProcessPlanSafety(value: unknown): boolean {
   const profile = text(value, "profile");
   const environment = items(value, "environment_allowlist");
   const commandArguments = items(value, "arguments");
-  const binary = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+  const binary = [
+    text(value, "stdin_mode"),
+    text(value, "stdout_mode"),
+    text(value, "stderr_mode"),
+  ];
   if (
     !platformRequestAuthority(value) ||
     flag(value, "inherit_parent_environment") !== false ||
@@ -1906,7 +1924,14 @@ function platformProcessPlanSafety(value: unknown): boolean {
     return false;
   }
   if (profile === "NATIVE_MESSAGING_HOST") {
-    return binary.every((mode) => mode === "BINARY_LENGTH_PREFIXED");
+    // Specification §5.14.5 places the length-prefixed native-messaging
+    // protocol on binary stdin/stdout. stderr stays a diagnostic channel and
+    // must never silently become a second protocol stream.
+    return (
+      text(value, "stdin_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stdout_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stderr_mode") !== "BINARY_LENGTH_PREFIXED"
+    );
   }
   return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
 }
@@ -1981,10 +2006,13 @@ function platformNativeRegistrationBinding(value: unknown): boolean {
 }
 
 function platformNativeRegistrationResult(value: unknown): boolean {
-  const operation = text(value, "operation");
+  const operation = text(value, "operation") ?? "";
   const observed = text(value, "observed_state");
   const reasons = items(value, "reason_codes");
   const changed = flag(value, "changed");
+  const succeeded = reasons.length === 0;
+  const manifestDigest = present(value, "observed_manifest_digest");
+  const hostVersion = present(value, "observed_host_version");
   if (
     !uniqueStrings(reasons) ||
     text(value, "browser_family") !== "CHROME" ||
@@ -1992,27 +2020,40 @@ function platformNativeRegistrationResult(value: unknown): boolean {
   ) {
     return false;
   }
-  if (observed === "PRESENT_VALID") {
-    if (
-      !present(value, "observed_manifest_digest") ||
-      !present(value, "observed_host_version") ||
-      reasons.length > 0
-    ) {
-      return false;
-    }
-  } else if (reasons.length === 0) {
+  // Each diagnostic reason names the exact state it explains, so neither the
+  // state nor its reason may be reported without the other.
+  if (
+    (observed === "MISMATCHED_IDENTITY") !==
+      reasons.includes("IDENTITY_MISMATCH") ||
+    (observed === "NOT_EVALUATED") !== reasons.includes("EVALUATION_NOT_RUN")
+  ) {
     return false;
   }
-  if (observed === "MISMATCHED_IDENTITY" && !reasons.includes("IDENTITY_MISMATCH")) {
+  // Observed identity is evidence of a manifest that is really present: it is
+  // mandatory for PRESENT_VALID and impossible once nothing is registered or
+  // nothing was evaluated.
+  if (
+    observed === "PRESENT_VALID" &&
+    !(manifestDigest && hostVersion && succeeded)
+  ) {
+    return false;
+  }
+  if (
+    (observed === "ABSENT" || observed === "NOT_EVALUATED") &&
+    (manifestDigest || hostVersion)
+  ) {
     return false;
   }
   if (observed === "NOT_EVALUATED") {
-    return changed === false && reasons.includes("EVALUATION_NOT_RUN");
+    return changed === false;
   }
-  if (reasons.length === 0) {
-    const expected = operation === "REMOVE" ? "ABSENT" : "PRESENT_VALID";
+  // Zero reasons is a success claim. It is admissible only in the terminal
+  // state the operation is defined to reach, and only when repeating the same
+  // intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+  if (succeeded) {
     return (
-      observed === expected && flag(value, "idempotent_repeat_safe") === true
+      observed === REGISTRATION_TERMINAL_STATE[operation] &&
+      flag(value, "idempotent_repeat_safe") === true
     );
   }
   return true;
@@ -2165,6 +2206,7 @@ function platformPackageStateEvidence(value: unknown): boolean {
   if (
     !uniqueStrings(reasons) ||
     !uniqueStrings(items(value, "evidence_refs")) ||
+    !platformArchitectureCoherent(value) ||
     (interrupted === true && !reasons.includes("INTERRUPTED")) ||
     (flag(value, "recovery_completed") === true && interrupted !== true) ||
     (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
@@ -2275,6 +2317,7 @@ function platformEvidenceIntegrity(value: unknown): boolean {
   const requiredReference = EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
   if (
     !uniqueStrings(reasons) ||
+    !platformArchitectureCoherent(value) ||
     flag(value, "synthetic_only") !== true ||
     (requiredReference !== undefined && !present(value, requiredReference)) ||
     (present(value, "package_artifact") && !present(value, "signature_state"))
@@ -2325,6 +2368,7 @@ function platformCertificationInputScope(value: unknown): boolean {
     !strictlySortedStrings(presentKinds) ||
     !uniqueStrings(records) ||
     !uniqueStrings(reasons) ||
+    !platformArchitectureCoherent(value) ||
     !platformSupportClaimSound(value)
   ) {
     return false;
@@ -3422,6 +3466,13 @@ _PLATFORM_ARCHITECTURE_BY_ID: Final[dict[str, str]] = {
     "UBUNTU_X64": "X86_64",
     "WINDOWS_X64": "X86_64",
 }
+_REGISTRATION_TERMINAL_STATE: Final[dict[str, str]] = {
+    "INSTALL": "PRESENT_VALID",
+    "REMOVE": "ABSENT",
+    "REPAIR": "PRESENT_VALID",
+    "UPDATE": "PRESENT_VALID",
+    "VERIFY": "PRESENT_VALID",
+}
 _DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Final[dict[str, str]] = {
     "BROWSER_LOCATOR": "BROWSER_PRESENCE",
     "INSTALLER_STATE": "PACKAGING_UPDATE_CHANNEL",
@@ -3526,19 +3577,24 @@ def _platform_reviewed_tier_is_certified(value: object) -> bool:
     return (_text(claim, "reviewed_tier") or "") in _CERTIFIED_SUPPORT_TIERS
 
 
+def _platform_architecture_coherent(value: object) -> bool:
+    """A certified target must report its specification §5.14.1 architecture.
+
+    An uncertifiable target stays unconstrained so an honest
+    UNKNOWN_ARCHITECTURE observation remains representable.
+    """
+    expected = _PLATFORM_ARCHITECTURE_BY_ID.get(_text(value, "platform_id") or "")
+    return expected is None or _text(value, "architecture") == expected
+
+
 def _platform_target_support_claim(value: object) -> bool:
     platform_id = _text(value, "platform_id")
     reasons = _items(value, "reason_codes")
     if (
         platform_id is None
         or not _unique_strings(reasons)
+        or not _platform_architecture_coherent(value)
         or not _platform_support_claim_sound(value)
-    ):
-        return False
-    expected_architecture = _PLATFORM_ARCHITECTURE_BY_ID.get(platform_id)
-    if (
-        expected_architecture is not None
-        and _text(value, "architecture") != expected_architecture
     ):
         return False
     if not _platform_reviewed_tier_is_certified(value):
@@ -3730,7 +3786,11 @@ def _platform_process_plan_safety(value: object) -> bool:
     profile = _text(value, "profile")
     environment = _items(value, "environment_allowlist")
     command_arguments = _items(value, "arguments")
-    binary_modes = [_text(value, "stdin_mode"), _text(value, "stdout_mode")]
+    binary_modes = [
+        _text(value, "stdin_mode"),
+        _text(value, "stdout_mode"),
+        _text(value, "stderr_mode"),
+    ]
     if (
         not _platform_request_authority(value)
         or _flag(value, "inherit_parent_environment") is not False
@@ -3764,7 +3824,14 @@ def _platform_process_plan_safety(value: object) -> bool:
     ):
         return False
     if profile == "NATIVE_MESSAGING_HOST":
-        return all(mode == "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+        # Specification §5.14.5 places the length-prefixed native-messaging
+        # protocol on binary stdin/stdout. stderr stays a diagnostic channel
+        # and must never silently become a second protocol stream.
+        return (
+            _text(value, "stdin_mode") == "BINARY_LENGTH_PREFIXED"
+            and _text(value, "stdout_mode") == "BINARY_LENGTH_PREFIXED"
+            and _text(value, "stderr_mode") != "BINARY_LENGTH_PREFIXED"
+        )
     return all(mode != "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
 
 
@@ -3830,33 +3897,42 @@ def _platform_native_registration_binding(value: object) -> bool:
 
 
 def _platform_native_registration_result(value: object) -> bool:
-    operation = _text(value, "operation")
+    operation = _text(value, "operation") or ""
     observed = _text(value, "observed_state")
     reasons = _items(value, "reason_codes")
     changed = _flag(value, "changed")
+    succeeded = not reasons
+    manifest_digest = _present(value, "observed_manifest_digest")
+    host_version = _present(value, "observed_host_version")
     if (
         not _unique_strings(reasons)
         or _text(value, "browser_family") != "CHROME"
         or (operation == "VERIFY" and changed is not False)
     ):
         return False
-    if observed == "PRESENT_VALID":
-        if (
-            not _present(value, "observed_manifest_digest")
-            or not _present(value, "observed_host_version")
-            or reasons
-        ):
-            return False
-    elif not reasons:
+    # Each diagnostic reason names the exact state it explains, so neither the
+    # state nor its reason may be reported without the other.
+    if (observed == "MISMATCHED_IDENTITY") != ("IDENTITY_MISMATCH" in reasons):
         return False
-    if observed == "MISMATCHED_IDENTITY" and "IDENTITY_MISMATCH" not in reasons:
+    if (observed == "NOT_EVALUATED") != ("EVALUATION_NOT_RUN" in reasons):
+        return False
+    # Observed identity is evidence of a manifest that is really present: it is
+    # mandatory for PRESENT_VALID and impossible once nothing is registered or
+    # nothing was evaluated.
+    if observed == "PRESENT_VALID" and not (
+        manifest_digest and host_version and succeeded
+    ):
+        return False
+    if observed in {"ABSENT", "NOT_EVALUATED"} and (manifest_digest or host_version):
         return False
     if observed == "NOT_EVALUATED":
-        return changed is False and "EVALUATION_NOT_RUN" in reasons
-    if not reasons:
-        expected = "ABSENT" if operation == "REMOVE" else "PRESENT_VALID"
+        return changed is False
+    # Zero reasons is a success claim. It is admissible only in the terminal
+    # state the operation is defined to reach, and only when repeating the same
+    # intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+    if succeeded:
         return (
-            observed == expected
+            observed == _REGISTRATION_TERMINAL_STATE.get(operation)
             and _flag(value, "idempotent_repeat_safe") is True
         )
     return True
@@ -3989,6 +4065,7 @@ def _platform_package_state_evidence(value: object) -> bool:
     if (
         not _unique_strings(reasons)
         or not _unique_strings(_items(value, "evidence_refs"))
+        or not _platform_architecture_coherent(value)
         or (interrupted is True and "INTERRUPTED" not in reasons)
         or (_flag(value, "recovery_completed") is True and interrupted is not True)
         or (preservation == "PRESERVATION_FAILED" and not reasons)
@@ -4080,6 +4157,7 @@ def _platform_evidence_integrity(value: object) -> bool:
     required_reference = _EVIDENCE_REFERENCE_BY_ARTIFACT_KIND.get(artifact_kind)
     if (
         not _unique_strings(reasons)
+        or not _platform_architecture_coherent(value)
         or _flag(value, "synthetic_only") is not True
         or (
             required_reference is not None
@@ -4127,6 +4205,7 @@ def _platform_certification_input_scope(value: object) -> bool:
         or not _strictly_sorted_strings(present_kinds)
         or not _unique_strings(records)
         or not _unique_strings(reasons)
+        or not _platform_architecture_coherent(value)
         or not _platform_support_claim_sound(value)
     ):
         return False

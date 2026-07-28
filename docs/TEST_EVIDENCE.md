@@ -33,6 +33,130 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W07 corrective repair — KI-0024 native-registration reachability and platform invariants (2026-07-28)
+
+- Starting revision: commit `12f3c35be9cff1ca40541212ae83a3e79888a234` /
+  tree `e5ab29225eae69aefe007481147815bdd31956e0`; clean `main`, equal to
+  `origin/main`. Canonical spec SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, exactly
+  one `docs/MASTER_IMPLEMENTATION_SPEC.md`. Starting-state validation:
+  `python3 scripts/validate_status.py` → exit 0, 43 check groups;
+  `pnpm traceability:check` → exit 0, 193 requirements / 300 work packages;
+  `pnpm generate:contracts --check` → exit 0, 153 files byte-identical;
+  `pnpm run doctor` → 22 pass, 0 fail, visual `NOT_YET_APPLICABLE`;
+  `pnpm verify` → exit 0, all suites PASS. All historical M01-W07 anchors
+  (`db72b0bf…`/`23c26af8…`, `83f3f0d8…`, `12e40628…`/`3fec30f6…`,
+  `e56bafc7…`/`33f752cb…`, `aaff21ef…`, `ad2354c3…`, `dd0cd4b6…`/`f7b5bdf4…`,
+  `12f3c35b…`) are preserved; no history was amended, reset, or force-pushed.
+- Independent reproduction before any edit (own harness, outside the
+  repository; TypeScript and Python through the generated evaluators and the
+  canonical Ajv catalog; Rust confirmed by source transcription):
+  - (A) `native-messaging-result` with `operation=REMOVE`,
+    `observed_state=ABSENT`, `browser_family=CHROME`,
+    `idempotent_repeat_safe=true`, `reason_codes=[]`, no observed identity →
+    structural accept, semantic **reject**, for both `changed=true` and
+    `changed=false`. A full 5x6 operation/state sweep showed zero-reason
+    success admitted only at `PRESENT_VALID`. Static proof: reaching the
+    `REMOVE ? "ABSENT" : "PRESENT_VALID"` ternary with zero reasons implies
+    `observed_state === "PRESENT_VALID"`, so the `ABSENT` arm is dead.
+  - (B) `process-plan` with `stderr_mode=BINARY_LENGTH_PREFIXED` → structural
+    and semantic **accept** on `LOCAL_ORCHESTRATOR`, `MODEL_RUNTIME_HOST`, and
+    `NATIVE_MESSAGING_HOST`. The rule's framing array read only `stdin_mode`
+    and `stdout_mode` although the schema requires all three channels.
+  - (C) `platform_id=MACOS_ARM64` with `architecture=X86_64` (and the
+    `WINDOWS_X64`/`UBUNTU_X64` inversions) → structural and semantic
+    **accept** on `certification-input`, `evidence-record`, `installer-state`,
+    and `update-state`; correctly rejected on `target-identity`, which was the
+    only one of the five architecture-bearing roots already bound.
+  - (D) Projecting the committed `TRUTH_TABLE` onto the 4x8
+    `secretOperation` x `secretResultState` grid covers 11 of 32 cells, and
+    `PLATFORM_RULE_TOKEN_CLOSURE` covered 2 of the 18 platform rule kinds —
+    both narrower than `packages/contracts/M01-W07.md` claimed.
+- Temporary governance: KI-0024 HIGH/IN_PROGRESS; M01-W07 sole IN_PROGRESS;
+  M01 reopened IN_PROGRESS; M02 and M02-W01 returned to NOT_STARTED; M00
+  remains ACCEPTED; all four gates NOT_EVALUATED; release NOT_READY; next
+  READY NONE. `python3 scripts/validate_status.py` and `pnpm traceability:check`
+  both re-run to exit 0 immediately after the transition.
+- Corrective implementation (canonical generator first; generated TypeScript
+  and Python re-emitted from it; Rust mirror updated intentionally):
+  - `platformNativeRegistrationResult` rewritten around an explicit
+    `REGISTRATION_TERMINAL_STATE` map (`REMOVE`→`ABSENT`, all others
+    →`PRESENT_VALID`). Zero reason codes is treated as exactly a success
+    claim, admissible only in that terminal state and only with
+    `idempotent_repeat_safe === true`. Added biconditional reason/state
+    bindings for `IDENTITY_MISMATCH`/`MISMATCHED_IDENTITY` and
+    `EVALUATION_NOT_RUN`/`NOT_EVALUATED`, and forbade observed manifest
+    identity on `ABSENT` and `NOT_EVALUATED`. No later branch is dead.
+  - `platformProcessPlanSafety` now reads all three schema-required stdio
+    channels. `NATIVE_MESSAGING_HOST` must frame stdin and stdout and must not
+    frame stderr; every other profile may not frame any channel.
+  - New shared helper `platformArchitectureCoherent` applied to
+    `platformTargetSupportClaim` (replacing its inline copy),
+    `platformCertificationInputScope`, `platformEvidenceIntegrity`, and
+    `platformPackageStateEvidence`, binding all five architecture-bearing
+    roots to the §5.14.1 matrix while leaving uncertifiable targets free.
+  - No schema, vocabulary, or generator version changed: the repair is
+    evaluator logic plus tests and corpus data only.
+- Tests added or changed:
+  - New `packages/contracts/test/schema/w07-platform-rule-matrix.test.ts`
+    (174 tests): the complete 5x6 registration operation/state matrix from
+    reviewed representatives; 14 registration contradiction negatives; the
+    process stdio framing matrix across all profiles and all four stdio modes,
+    including all 27 unframed combinations per non-native profile; the
+    architecture matrix over all five bearing roots (15 coherent accepts, 30
+    contradictory rejects); and a durable registry of all 18 platform rule
+    kinds asserting catalog completeness, exact root binding, one-to-one root
+    coverage, token closure against the structural enums, a passing committed
+    representative per rule, and a structurally valid contradiction per rule.
+  - `w07-secret-store-truth-table.test.ts` extended with the exhaustive 32-cell
+    `secretOperation` x `secretResultState` grid (18 admitted, 14 refused) from
+    per-state representatives; all KI-0023 branches and corpus bindings kept;
+    the file comment now states the targeted matrix is deliberately not a
+    complete grid.
+  - Corpus extended additively 382 → 402 cases (20 new: 5 positives, 15
+    semantic negatives). Pinned counts updated in `corpus.test.ts` and
+    `compatibility.test.ts`. No assertion was weakened, no test skipped, and no
+    timeout broadened.
+- Commands run and observed results (macOS 15, Apple silicon; Node 24.18.0,
+  pnpm 11.17.0, uv 0.11.32, Python 3.12.13, cargo/rustc 1.97.1):
+  - `pnpm exec vitest run test/schema/` → 7 files, 337 tests passed.
+  - `pnpm contracts:compatibility:check` **before** the baseline write →
+    `{"additive_changes":[5 x SUPPORTED_WIRE_CASE_ADDED],"compatible":true,"findings":[]}`.
+    Zero breaking findings; the semantic narrowings removed no previously
+    supported wire case. Baseline updated only after that classification via
+    `pnpm contracts:compatibility:update-baseline`; re-check →
+    `{"additive_changes":[],"compatible":true,"findings":[]}`.
+  - `pnpm test:contract` → 5 files, 528 tests passed;
+    `contract-adapters protocol=1 typescript=401 python=397 rust=396
+    rust-build=locked-offline` — all three languages agree on the new cases.
+  - `pnpm install --frozen-lockfile`, `uv sync --locked`, and both
+    `cargo fetch --locked` → exit 0, no lockfile change.
+  - `pnpm generate:contracts` then `pnpm generate:contracts --check` twice →
+    `generated contracts are up to date (153 files, byte-identical)`;
+    generation is deterministic and verification is read-only.
+  - `pnpm traceability:generate`, `pnpm traceability:check`,
+    `python3 scripts/validate_status.py` → exit 0.
+  - `git diff --check` → clean.
+  - `pnpm verify` → exit 0; toolchain, format, lint, typecheck, unit-ts,
+    contract-gen, contract, e2e-browser, python, rust, portability,
+    traceability, status, integrity all PASS; visual `NOT_YET_APPLICABLE`.
+- Post-repair reproduction of the same six cases: (A) `REMOVE`/`ABSENT`
+  accepts for both `changed` values; (B) `BINARY_LENGTH_PREFIXED` stderr
+  rejects on all three profiles while every legitimate stderr mode still
+  accepts; (C) zero architecture contradictions accepted across all five
+  roots; (D) documentation corrected in `packages/contracts/M01-W07.md`.
+- Newly discovered defect, not repaired here: a completeness sweep of all 18
+  platform rule kinds found five further unreachable-positive branches of the
+  same class, each independently reproduced in this repository state and
+  recorded as **KI-0025 (HIGH, OPEN)**. They are outside the owner-scoped
+  KI-0024 repair and were deliberately not fixed; per spec §10.1 that keeps
+  M01-W07 IN_PROGRESS and M01 unaccepted at this revision, pending an owner
+  decision. This entry therefore records a verified content revision, not a
+  package closeout.
+- Artifacts: none beyond the committed files. No UI, native-platform,
+  secret-store implementation, packaging, model-runtime, holdout, or
+  certification evidence applies; no operating-system behavior was added.
+
 ### M01-W07 corrective repair — KI-0023 secret-store STATUS truth table (2026-07-28)
 
 - Starting revision: tree of commit

@@ -39317,6 +39317,50 @@
         "semantic_sha256": "2ba59632d41c7b8f802dc944c4da4b1a0f6c8f309454f636ce3d2cc1d0dd6e15"
       },
       {
+        "id": "x-w07.native-messaging-result-remove-absent",
+        "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "770ebec09bd882c79c9273684a43d6b5c035d93b62ac09ebc39b9dd1256d2020"
+      },
+      {
+        "id": "x-w07.native-messaging-result-remove-absent-repeat",
+        "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "4768424e0a443ca2530f9f2e5c4c820e001224a05c92db28373335060d205275"
+      },
+      {
+        "id": "x-w07.native-messaging-result-repair-present-valid",
+        "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "8faed808d3814cf606ba06c1265e4f660f5ece5f7f30cce32913e8a35948b200"
+      },
+      {
+        "id": "x-w07.native-messaging-result-update-present-valid",
+        "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "b7af4b2780fb74227aca944eac9b11073bbf01688869945a48b68db480dbe639"
+      },
+      {
         "id": "x-w07.native-messaging-result-verify-absent",
         "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
         "operation": "ROUND_TRIP",
@@ -39359,6 +39403,17 @@
           "typescript"
         ],
         "semantic_sha256": "b2f02d70d03d5da285c606290954f27a04121b6b24b3fab7b5158979c8c68935"
+      },
+      {
+        "id": "x-w07.process-plan-native-host-diagnostic-stderr",
+        "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+        "operation": "ROUND_TRIP",
+        "languages": [
+          "python",
+          "rust",
+          "typescript"
+        ],
+        "semantic_sha256": "053de88a42f029889634d8b236ccf5ed18e702bc003d0790581a67fbdb84b1ed"
       },
       {
         "id": "x-w07.process-status-exited",
@@ -39725,5 +39780,5 @@
       }
     ]
   },
-  "integrity_sha256": "ba3919cdcf85e55fe5f23a0f4ae68ad4501b0643750b92b1634dc36624af5895"
+  "integrity_sha256": "1ae745c63c5fd54d9ceda8d326b8ddffcae477f999dd3adc373badb1e20cf54b"
 }

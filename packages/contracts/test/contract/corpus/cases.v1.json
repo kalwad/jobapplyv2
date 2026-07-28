@@ -7646,6 +7646,30 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.certification-input-architecture-mismatch",
+      "schema_ref": "urn:japp:schema:platform:certification-input:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.certification-input",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/architecture",
+            "value": "X86_64"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A certification input cannot claim an architecture the certified target does not have (specification §5.14.1).",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.certification-input-certified-without-owner-decision",
       "schema_ref": "urn:japp:schema:platform:certification-input:v1",
       "category": "w07-platform-semantic-negative",
@@ -8071,6 +8095,30 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.evidence-record-architecture-mismatch",
+      "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.evidence-record",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/architecture",
+            "value": "X86_64"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "GATE_EVIDENCE_MISSING"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Measured native evidence cannot claim an architecture the certified target does not have.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.evidence-record-measured-native-run",
       "schema_ref": "urn:japp:schema:platform:evidence-record:v1",
       "category": "w07-platform",
@@ -8300,6 +8348,30 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A registry export cannot be embedded in platform evidence.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.installer-state-architecture-mismatch",
+      "schema_ref": "urn:japp:schema:platform:installer-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.installer-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/architecture",
+            "value": "X86_64"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An installation claim cannot report an architecture the certified target does not have.",
       "synthetic_data": true
     },
     {
@@ -9291,6 +9363,146 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.native-messaging-result-absent-with-manifest-identity",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An absent registration cannot report an observed manifest identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-identity-reason-without-state",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "VERIFY"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "CORRUPT"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["IDENTITY_MISMATCH"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The identity-mismatch reason may only explain a mismatched-identity observation.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-install-claims-absent",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "INSTALL"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An install cannot claim success while nothing is registered.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.native-messaging-result-mismatched-identity-reason",
       "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
       "category": "w07-platform-semantic-negative",
@@ -9325,6 +9537,434 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A mismatched registration identity must be reported as such.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-remove-absent",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A successful uninstall observes an absent registration, reports the change it made, and stays safe to repeat.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-remove-absent-repeat",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Repeating an uninstall that already completed changes nothing and remains a success (specification §5.14.5 idempotency).",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-remove-not-repeat-safe",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A successful registration outcome must guarantee that repeating the same intent is a no-op.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-remove-still-present",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REMOVE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "PRESENT_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A removal cannot claim success while the registration is still present and valid.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-repair-present-valid",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "REPAIR"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "PRESENT_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A successful repair restores the manifest identity it observed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-unevaluated-reason-without-state",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "VERIFY"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "ABSENT"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["EVALUATION_NOT_RUN"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An evaluation-not-run reason cannot accompany a state that was in fact observed.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-unevaluated-reports-change",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "INSTALL"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "NOT_EVALUATED"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_manifest_digest"
+          },
+          {
+            "op": "remove",
+            "path": "/observed_host_version"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["EVALUATION_NOT_RUN"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unevaluated registration cannot report that it changed anything.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-unevaluated-with-identity",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "VERIFY"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "NOT_EVALUATED"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": false
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": ["EVALUATION_NOT_RUN"]
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "CONFLICT_INCOMPATIBLE_STATE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An unevaluated registration cannot report an observed manifest identity.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.native-messaging-result-update-present-valid",
+      "schema_ref": "urn:japp:schema:platform:native-messaging-result:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.native-messaging-result",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/operation",
+            "value": "UPDATE"
+          },
+          {
+            "op": "set",
+            "path": "/observed_state",
+            "value": "PRESENT_VALID"
+          },
+          {
+            "op": "set",
+            "path": "/changed",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/idempotent_repeat_safe",
+            "value": true
+          },
+          {
+            "op": "set",
+            "path": "/reason_codes",
+            "value": []
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A successful update leaves a present, valid registration with observed identity evidence.",
       "synthetic_data": true
     },
     {
@@ -9956,6 +10596,35 @@
       "synthetic_data": true
     },
     {
+      "id": "x-w07.process-plan-model-runtime-framed-stderr",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/profile",
+            "value": "MODEL_RUNTIME_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/stderr_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A model-runtime host may not use native-message framing on any stdio channel.",
+      "synthetic_data": true
+    },
+    {
       "id": "x-w07.process-plan-native-host-binary-stdio",
       "schema_ref": "urn:japp:schema:platform:process-plan:v1",
       "category": "w07-platform",
@@ -9990,6 +10659,92 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "The native-messaging host requires length-prefixed binary stdio so Windows newline translation cannot corrupt messages.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-native-host-diagnostic-stderr",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform",
+      "operation": "ROUND_TRIP",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/profile",
+            "value": "NATIVE_MESSAGING_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/stdin_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          },
+          {
+            "op": "set",
+            "path": "/stdout_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          },
+          {
+            "op": "set",
+            "path": "/stderr_mode",
+            "value": "PIPE_BOUNDED"
+          },
+          {
+            "op": "set",
+            "path": "/working_directory_role",
+            "value": "TEMPORARY"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "The native-messaging host frames stdin and stdout while stderr stays a bounded diagnostic channel.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-native-host-framed-stderr",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/profile",
+            "value": "NATIVE_MESSAGING_HOST"
+          },
+          {
+            "op": "set",
+            "path": "/stdin_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          },
+          {
+            "op": "set",
+            "path": "/stdout_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          },
+          {
+            "op": "set",
+            "path": "/stderr_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          },
+          {
+            "op": "set",
+            "path": "/working_directory_role",
+            "value": "TEMPORARY"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "Specification §5.14.5 frames stdin and stdout only; stderr must not become a second native-message stream.",
       "synthetic_data": true
     },
     {
@@ -10067,6 +10822,30 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "A one-shot process cannot declare restart attempts.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.process-plan-orchestrator-framed-stderr",
+      "schema_ref": "urn:japp:schema:platform:process-plan:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.process-plan",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/stderr_mode",
+            "value": "BINARY_LENGTH_PREFIXED"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "SENSITIVE_AUTOMATION_PROHIBITED"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "A local orchestrator is not a native-messaging host and may not use native-message framing on any stdio channel.",
       "synthetic_data": true
     },
     {
@@ -12408,6 +13187,30 @@
       },
       "languages": ["python", "rust", "typescript"],
       "rationale": "An unsupported target can never carry a certified reviewed tier.",
+      "synthetic_data": true
+    },
+    {
+      "id": "x-w07.update-state-architecture-mismatch",
+      "schema_ref": "urn:japp:schema:platform:update-state:v1",
+      "category": "w07-platform-semantic-negative",
+      "operation": "VALIDATE",
+      "input": {
+        "value_ref": "w07.update-state",
+        "patch": [
+          {
+            "op": "set",
+            "path": "/architecture",
+            "value": "X86_64"
+          }
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error_category": "SEMANTIC_INVALID",
+        "error_code": "STORAGE_INTEGRITY_FAILURE"
+      },
+      "languages": ["python", "rust", "typescript"],
+      "rationale": "An update claim cannot report an architecture the certified target does not have.",
       "synthetic_data": true
     },
     {
