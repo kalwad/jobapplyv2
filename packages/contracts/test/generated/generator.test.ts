@@ -282,7 +282,10 @@ describe("write mode", () => {
       generatedRoot,
     );
     expect(followUpCheck.status).toBe(0);
-  });
+    // Three full generator CLI passes over the M01-W07 catalog (63 docs)
+    // routinely exceed Vitest's 5s default on slower Windows hosted runners.
+    // Assertions are unchanged; only the wall-clock budget matches the work.
+  }, 30_000);
 
   test("write mode replaces stray pre-existing content wholesale", () => {
     const generatedRoot = join(makeTemporaryRoot(), "generated");

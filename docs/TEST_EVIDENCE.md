@@ -121,6 +121,18 @@ Exact verification commands and summarized results
   exact-HEAD three-OS run is required to pass. The first M01-W07 content/
   stamp and failed/green historical runs remain preserved evidence.
 
+- Stamp final-HEAD follow-up (Windows timeout): stamp commit
+  `aaff21efafcc36a4cbae5da60522c9a7b10f0a9c` / run 30326806753 failed
+  windows-2025 twice (jobs 90173798543 and 90175057168) with Vitest
+  `Test timed out in 5000ms` on
+  `deleting a schema leaves no stale generated output` (and once on
+  `source schema mutations flow through loader, IR, and checker`).
+  macos-15 and ubuntu-24.04 passed. KI-0023 content revision
+  `12e4062896c8c5b92d5affaf8b0583be0090fb39` itself remained green on
+  Windows. Follow-up raises those two tests to a 30s hosted budget without
+  changing assertions; M01-W07/M01 reopened until the timeout-budget
+  content revision is hosted-green and re-stamped.
+
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 
 - State: VERIFIED. The package is complete and hosted-verified. It claims no

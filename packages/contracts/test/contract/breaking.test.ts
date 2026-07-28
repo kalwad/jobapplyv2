@@ -595,7 +595,9 @@ describe("M01-W05 compatibility baseline", () => {
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
-  });
+    // Full compatibility-signature rebuild over the M01-W07 catalog; the
+    // 5s default is insufficient on slower Windows hosted runners.
+  }, 30_000);
 
   test("a source optional property with a minor bump is compatible", () => {
     const root = mkdtempSync(join(tmpdir(), "japp-additive-source-"));
