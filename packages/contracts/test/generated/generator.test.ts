@@ -61,7 +61,17 @@ afterEach(() => {
   while (temporaryRoots.length > 0) {
     const root = temporaryRoots.pop();
     if (root !== undefined) {
-      rmSync(root, { recursive: true, force: true });
+      // Windows releases the file handles a just-exited child held
+      // asynchronously, so an immediate recursive remove can still hit EPERM
+      // or EBUSY on a directory an external toolchain wrote. maxRetries is
+      // Node's documented mechanism for exactly that; the removal must still
+      // succeed, so nothing here is weakened.
+      rmSync(root, {
+        recursive: true,
+        force: true,
+        maxRetries: 10,
+        retryDelay: 100,
+      });
     }
   }
 });

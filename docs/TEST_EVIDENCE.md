@@ -224,6 +224,35 @@ platform/architecture coherence matrix now retargets `package_format` alongside
 `platform_id`, because a positive representative must be coherent across every
 reviewed binding.
 
+#### Hosted three-OS content CI and the Windows defect it exposed
+
+Content commit `860b6e1e27a790668b7dec4fe8014c9f764106be` /
+tree `3d608cd0d9d933869f9dc9ecaa7854a77ca727d1` was pushed after both clean
+clones passed. Run **30381703907** at that commit passed `macos-15` job
+90350860390 and `ubuntu-24.04` job 90350860310 and **failed** `windows-2025`
+job 90350860361.
+
+The Windows log was inspected directly rather than retried. The failure is
+recorded as **KI-0028**: `test/contract/infrastructure.test.ts > a Rust adapter
+that does not compile fails the subprocess boundary` reported
+`Error: EPERM, Permission denied: ...\Temp\japp-rust-negative-qqSFs0` at
+`infrastructure.test.ts:157`, which is the `rmSync` inside the `finally` block
+— the `toThrow(ADAPTER_EXIT_NONZERO)` assertion two lines above had already
+passed, and the run reported `Tests 1 failed | 1469 passed (1470)`. Windows
+releases a just-exited child's file handles asynchronously, so an immediate
+recursive remove of a directory an external toolchain wrote can still hit
+`EPERM` even with `force: true`. This is a latent portability defect that
+predates the KI-0025 repair; the `cargo build` site is the heaviest external
+writer and is the one that fired.
+
+The repair adds Node's documented `maxRetries: 10, retryDelay: 100` to all four
+cleanup sites that remove a directory an external child wrote — the one that
+fired plus the three carrying the identical latent defect, because repairing
+only the reported instance is the mistake KI-0024 and KI-0025 were about. No
+assertion was weakened, no test was skipped or labelled flaky, and no timeout
+was raised: the 30016 ms the step reported is the real `cargo build` duration
+inside an unchanged 45 s budget.
+
 ### M01-W07 corrective repair — KI-0024 native-registration reachability and platform invariants (2026-07-28)
 
 - Starting revision: commit `12f3c35be9cff1ca40541212ae83a3e79888a234` /

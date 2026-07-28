@@ -417,6 +417,49 @@ validator exception or weakening was introduced.
 
 ## Fixed defects
 
+### KI-0028 — Temporary-directory cleanup after an external child was not Windows-correct
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-07-28 by required `windows-2025` CI on the KI-0025
+  corrective content revision
+- Affects: M01-W05/M01-W07 test infrastructure;
+  `packages/contracts/test/contract/infrastructure.test.ts` (two sites),
+  `packages/contracts/test/generated/error-taxonomy.test.ts`,
+  `packages/contracts/test/generated/generator.test.ts`; required Windows CI
+- Description: four tests spawn an external child process into a temporary
+  directory and then remove that directory with
+  `rmSync(root, { recursive: true, force: true })` in a `finally` block.
+  Windows releases the file handles a just-exited child held asynchronously, so
+  an immediate recursive remove can still fail with `EPERM` or `EBUSY` even
+  though `force: true` is set — `force` suppresses "missing path" errors, not
+  "still locked" errors. The failure is in cleanup, not in the assertion the
+  test makes, so a passing test can still fail its file. This is a latent
+  portability defect that predates the KI-0025 repair; the `cargo build` site
+  is the heaviest external writer and is the one that fired.
+- Reproduction: run 30381703907 at
+  `860b6e1e27a790668b7dec4fe8014c9f764106be` failed `windows-2025` job
+  90350860361 while `macos-15` job 90350860390 and `ubuntu-24.04` job
+  90350860310 both passed. The inspected Windows log shows
+  `test/contract/infrastructure.test.ts > a Rust adapter that does not compile
+  fails the subprocess boundary` reporting
+  `Error: EPERM, Permission denied: ...\Temp\japp-rust-negative-qqSFs0` raised
+  at `infrastructure.test.ts:157`, which is the `rmSync` line inside `finally`
+  — the `toThrow(ADAPTER_EXIT_NONZERO)` assertion two lines above had already
+  passed. `Tests 1 failed | 1469 passed (1470)`.
+- Workaround: none accepted. The test was not labelled flaky, no assertion was
+  weakened, and no timeout was raised: the 30016 ms the step reported is the
+  real `cargo build` duration inside a 45 s budget, not a timeout.
+- Resolution + evidence link: all four cleanup sites now pass Node's
+  documented `maxRetries: 10, retryDelay: 100` options, which exist precisely
+  to retry `EBUSY`/`EMFILE`/`ENFILE`/`ENOTEMPTY`/`EPERM` on a recursive remove
+  with linear backoff. The removal must still succeed, so the fail-closed
+  behaviour is unchanged. The three sites that did not fire were repaired
+  together with the one that did, because they are the same latent defect and
+  fixing only the reported instance is the mistake KI-0024 and KI-0025 were
+  about. Evidence: docs/TEST_EVIDENCE.md § M01-W07 corrective repair —
+  KI-0025.
+
 ### KI-0023 — Secret-store STATUS structural/semantic truth table was incomplete
 
 - Severity: HIGH
