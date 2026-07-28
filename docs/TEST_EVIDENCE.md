@@ -154,13 +154,37 @@ Exact verification commands and summarized results
   `cannot weaken FieldAddress multiple-signal identity by removing its
   canonical semantic rule` despite content `e56bafc…` being green on
   Windows. Follow-up sets `@japp/contracts` package-wide `testTimeout`
-  30s via `vitest.config.ts` without changing assertions.
+  30s via `vitest.config.ts` without changing assertions; M01-W07/M01
+  reopened until that content revision is hosted-green and re-stamped.
 
+- Package-wide Vitest timeout content revision: tree
+  `f7b5bdf4596459f7c9797d124401375bb0df7341` / commit
+  `dd0cd4b65976bf2795ccd806d021db8f9c265823` (includes `4ba5fe1`
+  `vitest.config.ts`, `b215786` TypeScript project include, and
+  `dd0cd4b` Prettier format). Sets package-wide `testTimeout` 30s;
+  assertions unchanged.
+- Clean-clone reconstructions at that exact commit (two temporary paths,
+  `/tmp/m01w07-timeout-clone-a` and `/tmp/m01w07 timeout clone ß-ユニコード`)
+  → frozen/locked installs, both Cargo fetches, doctor, generation checks,
+  contract suite, traceability generate/check, status validation, full
+  `pnpm verify`, exact canonical hash
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, and
+  clean-tree assertion: all exit 0.
+- Hosted package-wide timeout content verification: run 30329608764
+  succeeded on macos-15 job 90181829582, ubuntu-24.04 job 90181829519, and
+  windows-2025 job 90181829581. Windows log inspected: checkout
+  `dd0cd4b65976bf2795ccd806d021db8f9c265823`; `w07-secret-store-truth-table`
+  (20 tests); `deleting a schema leaves no stale generated output` 4266ms;
+  `cannot weaken FieldAddress multiple-signal identity by removing its
+  canonical semantic rule` 501ms; contract-adapters typescript=381 /
+  python=377 / rust=376; `packages/contracts/vitest.config.ts` present;
+  verification exit 0; no `Test timed out` lines; post-verify tracked-change
+  assertion passed.
 - After that hosted success, KI-0023 remains FIXED, M01-W07 is VERIFIED at
-  the timeout-budget content tree, M01 is ACCEPTED at the same tree,
-  M02-W01 is restored as sole READY, M00 remains ACCEPTED, all gates remain
-  NOT_EVALUATED, release remains NOT_READY. Conventional restamp records
-  this closeout.
+  the package-wide timeout content tree `f7b5bdf4596459f7c9797d124401375bb0df7341`,
+  M01 is ACCEPTED at the same tree, M02-W01 is restored as sole READY, M00
+  remains ACCEPTED, all gates remain NOT_EVALUATED, release remains
+  NOT_READY. Conventional restamp records this closeout.
 
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 

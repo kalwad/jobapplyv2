@@ -206,7 +206,11 @@ validator exception or weakening was introduced.
   Corrective content commit `12e4062896c8c5b92d5affaf8b0583be0090fb39` /
   tree `3fec30f644090aa81b1ce81bd800e92c1628b3c5` passed two clean clones and
   hosted run 30326330566 (macos-15 90172431543, ubuntu-24.04 90172431557,
-  windows-2025 90172431467). Evidence: docs/TEST_EVIDENCE.md § M01-W07.
+  windows-2025 90172431467). Subsequent stamp final-HEAD Windows Vitest
+  timeout follow-ups were repaired without changing assertions; the final
+  hosted-green content revision is `dd0cd4b65976bf2795ccd806d021db8f9c265823`
+  / tree `f7b5bdf4596459f7c9797d124401375bb0df7341` (run 30329608764).
+  Evidence: docs/TEST_EVIDENCE.md § M01-W07.
 
 ### KI-0021 — Authorization trusted live validated objects across policy use
 
