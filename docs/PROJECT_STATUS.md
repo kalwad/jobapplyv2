@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: tree 23c26af81d988bccb11962e6488b3848391f45e9 (commit db72b0bff55167c670df4dc78104c08cd6288a07) — historical first M01-W07 content; corrective KI-0023 repair in progress
-Last updated: 2026-07-28T03:30:00Z
+Repository revision: tree 3fec30f644090aa81b1ce81bd800e92c1628b3c5 (commit 12e4062896c8c5b92d5affaf8b0583be0090fb39)
+Last updated: 2026-07-28T03:45:00Z
 Current phase: A — Contract, measurement, and early autofill proof
-Current milestone: M01
-Current work package: M01-W07
+Current milestone: M02
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,20 +23,20 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M01-W07 is the sole IN_PROGRESS package under corrective repair KI-0023. M01 is reopened as IN_PROGRESS. M00 remains ACCEPTED. M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their exact preserved content trees and commits. The first M01-W07 content tree `23c26af81d988bccb11962e6488b3848391f45e9` (commit `db72b0bff55167c670df4dc78104c08cd6288a07`) and stamp `83f3f0d8add1579b041fe96d9259afc673b7da1a` remain historical evidence and are not rewritten. M02-W01 is NOT_STARTED (READY removed during the corrective repair); no package is READY.
-- Objective: align the secret-store STATUS structural vocabulary with a complete semantic truth table, add durable structural/semantic token-closure coverage across the M01-W07 platform rules, re-verify M01-W07, and re-accept M01. Do not begin M02-W01 or any platform-service implementation.
-- Dependencies and hosted proof: M00 is ACCEPTED and M01-W01 through M01-W06 are VERIFIED. The first M01-W07 hosted-green content run 30322692883 at `db72b0bff55167c670df4dc78104c08cd6288a07` remains historical evidence; KI-0023 proves that green CI did not establish a coherent STATUS contract and must be corrected before M01 can remain ACCEPTED.
+- State: no package is IN_PROGRESS. M01-W07 is VERIFIED at corrective content tree `3fec30f644090aa81b1ce81bd800e92c1628b3c5` (commit `12e4062896c8c5b92d5affaf8b0583be0090fb39`) and M01 is ACCEPTED; M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their exact preserved content trees and commits, and M00 remains ACCEPTED. The first M01-W07 content tree `23c26af81d988bccb11962e6488b3848391f45e9` (commit `db72b0bff55167c670df4dc78104c08cd6288a07`) and stamp `83f3f0d8add1579b041fe96d9259afc673b7da1a` remain historical evidence superseded by the KI-0023 corrective repair. M02-W01 is the sole READY package.
+- Objective: stop after the corrective M01-W07 closeout and M01 re-acceptance. The typed cross-platform capability and platform-service contract boundary remains 19 strict roots plus one vocabulary document under `packages/contracts/schemas/platform/`, now with a coherent secret-store STATUS truth table including structural `STORE_AVAILABLE`, proven by 382 cross-language corpus cases and representative test-only Rust agreement. No operating-system implementation, adapter, secret store, process spawn, registration, browser detection, model runtime, installer, updater, UI, or provider behavior was added. M02-W01 (Create synthetic profile/job/resume fixtures) is the exact next package and has not begun.
+- Dependencies and hosted proof: M00 is ACCEPTED and M01-W01 through M01-W07 are VERIFIED. Corrective content run 30326330566 at `12e4062896c8c5b92d5affaf8b0583be0090fb39` passed macos-15 job 90172431543, ubuntu-24.04 job 90172431557, and windows-2025 job 90172431467. The inspected Windows log proves exact checkout of that revision, doctor 22 pass / 0 warning / 0 fail, 153 byte-identical generated contracts, contract-adapters typescript=381 / python=377 / rust=376 (locked-offline), the new `w07-secret-store-truth-table` suite (20 tests), verification exit 0, and no tracked changes. Historical first-closeout green run 30322692883 at `db72b0bff55167c670df4dc78104c08cd6288a07` remains recorded but does not supersede the corrective anchor.
 - Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED. M01 defines contract shape only; it certifies no platform, runs no benchmark, produces no evidence bundle, and evaluates no gate.
-- Evidence: docs/TEST_EVIDENCE.md § M01-W07 retains the first closeout record; corrective reproduction and repair evidence for KI-0023 is being appended under the same section. No UI, native-platform, secret-store implementation, packaging, model-runtime, holdout, or certification evidence applies.
-- Blockers: KI-0023 blocks M01 re-acceptance and therefore blocks M02-W01 readiness until the corrective content revision is hosted-green and stamped. M03 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS at the final accepted M27 content tree.
+- Evidence: docs/TEST_EVIDENCE.md § M01-W07 records the first closeout and the KI-0023 corrective repair, including reproduction of the three STATUS defects, additive compatibility classification before baseline update, corpus expansion 363→382, both exact-commit clean clones, and the hosted three-OS proof. No UI, native-platform, secret-store implementation, packaging, model-runtime, holdout, or certification evidence applies.
+- Blockers: none prevent the exact next package, M02-W01, but it remains unstarted. M03 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS at the final accepted M27 content tree.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
-| M01 | IN_PROGRESS | — | Phase A. Reopened for KI-0023 corrective repair of M01-W07 secret-store STATUS truth table; first acceptance at tree 23c26af81d988bccb11962e6488b3848391f45e9 remains historical evidence |
-| M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); readiness restored only after M01 is re-ACCEPTED |
+| M01 | ACCEPTED | tree 3fec30f644090aa81b1ce81bd800e92c1628b3c5 | Phase A. All seven packages VERIFIED; KI-0023 corrective content re-anchors M01-W07/M01 after secret-store STATUS truth-table repair; first acceptance at tree 23c26af81d988bccb11962e6488b3848391f45e9 remains historical |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 is the sole READY package and has not begun |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -95,8 +95,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W04` | VERIFIED | tree 9ec01d8f8a734c703a943ea08012a10df023bf67 | docs/TEST_EVIDENCE.md § M01-W04 | Define capability and command allowlists |
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
-| `M01-W07` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M01-W07 | Define cross-platform capability and platform-service contracts; KI-0023 corrective repair of secret-store STATUS truth table (first content tree 23c26af81d988bccb11962e6488b3848391f45e9 preserved as historical evidence) |
-| `M02-W01` | NOT_STARTED | — | — | Create synthetic profile/job/resume fixtures; READY removed while M01-W07 corrective repair is IN_PROGRESS |
+| `M01-W07` | VERIFIED | tree 3fec30f644090aa81b1ce81bd800e92c1628b3c5 | docs/TEST_EVIDENCE.md § M01-W07 | Define cross-platform capability and platform-service contracts; KI-0023 corrective closeout (first content tree 23c26af81d988bccb11962e6488b3848391f45e9 preserved as historical evidence) |
+| `M02-W01` | READY | — | — | Create synthetic profile/job/resume fixtures; exact next package, not begun |
 | `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
 | `M02-W04` | NOT_STARTED | — | — | Capture baseline algorithms |
@@ -381,13 +381,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M01-W07 is the sole IN_PROGRESS package under KI-0023 corrective repair; READY cannot coexist with IN_PROGRESS. M02-W01 returns to READY only after M01-W07 is re-VERIFIED and M01 is re-ACCEPTED.
-- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.14, §9 M01 (especially M01-W07), and §12; packages/contracts/M01-W07.md; packages/contracts/schemas/platform/; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md § KI-0023; docs/COMPATIBILITY_MATRIX.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: `M02-W01`
+- Reason: M01-W01 through M01-W07 are VERIFIED at their exact hosted-verified content revisions and M01 is ACCEPTED at the KI-0023 corrective content tree; dependency and sequential-readiness validation derives M02-W01 as the only READY package.
+- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.7–§5.13, §8.2–§8.4, §9 M02 (especially M02-W01), and §12; packages/contracts/README.md; packages/test-fixtures; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/COMPATIBILITY_MATRIX.md; docs/REQUIREMENTS_TRACEABILITY.md.
 
 ## Known release blockers
 
-- KI-0023 (HIGH, IN_PROGRESS): M01-W07 secret-store STATUS structural/semantic truth table was incomplete despite green first closeout CI. Blocks M01 re-acceptance and M02-W01 readiness until the corrective content revision is hosted-green and stamped. M00 remains ACCEPTED. The mandatory contract and contract-gen suites remain ACTIVE/PASS on the pre-repair HEAD and must remain so after repair.
+- No M00 or M01 blocker remains. M00 and M01 are both ACCEPTED with hosted three-OS evidence at their exact verified content revisions (M01 at the KI-0023 corrective content tree), and the mandatory contract and contract-gen suites remain ACTIVE/PASS. M02-W01 is READY but deliberately unstarted at the M01 handoff. KI-0023 is FIXED.
 - Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
 - CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS at the final accepted M27 content tree (or an explicit accepted independent gate-neutral re-anchoring).
 - M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.

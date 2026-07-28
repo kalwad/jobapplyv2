@@ -7121,8 +7121,8 @@
       "id": "M01-W07",
       "milestone": "M01",
       "title": "Define cross-platform capability and platform-service contracts",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "—",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 3fec30f644090aa81b1ce81bd800e92c1628b3c5",
       "primary_deliverables": [
         "Define cross-platform capability and platform-service contracts"
       ],
@@ -7132,7 +7132,12 @@
       "required_manual_evidence": [
         "Cross-language contract and trust-boundary review; NOT_YET_APPLICABLE until M01-W07 begins"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M01-W07"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_3",
       "direct_package_prerequisites": [
         "M01-W06",
@@ -7162,7 +7167,7 @@
       "id": "M02-W01",
       "milestone": "M02",
       "title": "Create synthetic profile/job/resume fixtures",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [

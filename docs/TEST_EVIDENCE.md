@@ -91,6 +91,35 @@ Exact verification commands and summarized results
     (locked-offline).
 - Content commit / hosted proof / stamp: recorded after clean clones and
   three-OS green (see follow-up bullets under this heading).
+- Repair content revision: tree
+  `3fec30f644090aa81b1ce81bd800e92c1628b3c5` / commit
+  `12e4062896c8c5b92d5affaf8b0583be0090fb39`.
+- Clean-clone reconstructions at that exact commit (two temporary paths,
+  one with spaces and Unicode):
+  - Each ran frozen/locked installs, both Cargo fetches, doctor,
+    generation checks (byte-identical), contract suite, traceability
+    generate/check, status validation, full `pnpm verify`, exact
+    canonical hash
+    `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`,
+    and clean-tree assertion → all exit 0.
+- Hosted corrective content verification:
+  - Run 30326330566 succeeded at the exact repair commit on macos-15 job
+    90172431543, ubuntu-24.04 job 90172431557, and windows-2025 job
+    90172431467.
+  - The actual Windows log was downloaded and inspected. It confirms
+    exact checkout `12e4062896c8c5b92d5affaf8b0583be0090fb39`; doctor
+    22 PASS / 0 WARNING / 0 FAIL / 1 NOT_YET_APPLICABLE; contract-adapters
+    typescript=381 / python=377 / rust=376 (locked-offline); the new
+    `w07-secret-store-truth-table` suite (20 tests); generated contracts
+    up to date (153 files, byte-identical); verification exit 0; and the
+    post-verify tracked-change assertion passed.
+- After that hosted success, KI-0023 is FIXED, M01-W07 is VERIFIED at the
+  corrective content tree, M01 is ACCEPTED at the same tree, M02-W01 is
+  restored as the sole READY package, M00 remains ACCEPTED, all four
+  critical gates remain NOT_EVALUATED, and release remains NOT_READY. The
+  conventional revision-restamp commit records this closeout; its own
+  exact-HEAD three-OS run is required to pass. The first M01-W07 content/
+  stamp and failed/green historical runs remain preserved evidence.
 
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 
