@@ -133,6 +133,26 @@ Exact verification commands and summarized results
   changing assertions; M01-W07/M01 reopened until the timeout-budget
   content revision is hosted-green and re-stamped.
 
+
+
+- Timeout-budget content revision: tree
+  `33f752cba6105fd6fc77b9b16b0737e8ecc0a9d2` / commit
+  `e56bafc7a11fb2b4241062ee88ba0d1febcfbbe9`. Raised only the two hosted
+  Vitest budgets to 30s; assertions unchanged.
+- Clean-clone reconstructions at that exact commit (two temporary paths,
+  one with spaces/Unicode) → doctor, generation checks, contract suite,
+  traceability, status, full verify, canonical hash, clean tree: all exit 0.
+- Hosted timeout-budget content verification: run 30328018710 succeeded on
+  macos-15 job 90177340359, ubuntu-24.04 job 90177340373, and windows-2025
+  job 90177340392. Windows log inspected: checkout `e56bafc…`;
+  `deleting a schema leaves no stale generated output` 4882ms; verification
+  exit 0.
+- After that hosted success, KI-0023 remains FIXED, M01-W07 is VERIFIED at
+  the timeout-budget content tree, M01 is ACCEPTED at the same tree,
+  M02-W01 is restored as sole READY, M00 remains ACCEPTED, all gates remain
+  NOT_EVALUATED, release remains NOT_READY. Conventional restamp records
+  this closeout.
+
 ### M01-W07 — Define cross-platform capability and platform-service contracts (2026-07-28)
 
 - State: VERIFIED. The package is complete and hosted-verified. It claims no
