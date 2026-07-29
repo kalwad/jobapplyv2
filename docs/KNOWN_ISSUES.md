@@ -38,12 +38,14 @@ No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
 FIXED by the final M01-W07 corrective content at tree
 `51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
 remain DEFERRED with named owning packages. KI-0033 through KI-0038 are
-nonblocking M02-W01 follow-ups in progress; none reopens M01.
+FIXED by final M02-W01 content commit
+`a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
+`c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`; none reopens M01.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
 - Affects: M02-W01; `docs/CRITICAL_GATES.md`;
   `scripts/validate_status.py`
@@ -61,13 +63,14 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
 - Resolution + evidence link: guidance now names the two v2 roots and status
   governance resolves their schema files, IDs, majors, and nondeprecated
   state. Four independent temporary-copy mutations cover v1 and v999 for both
-  families. Local validation passes; clean-clone and hosted closeout evidence
-  remains pending under `docs/TEST_EVIDENCE.md` § M02-W01.
+  families. Final content tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`
+  passed both exact clean clones and three-OS run `30446331580`; see
+  `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0034 — Generated-contract CLI check retained unbounded child output
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
 - Affects: M02-W01 nonblocking follow-up;
   `scripts/tests/test_generated_contracts.py::_run_cli_check`
@@ -81,14 +84,15 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
 - Resolution + evidence link: the wrapper now uses a shared shell-free,
   concurrently drained 1-MiB boundary while preserving the existing
   300-second deadline and ordinary nonzero exits. Synthetic overflow,
-  timeout-prefix, and nonzero-output regression tests are present. Local
-  validation passes; clean-clone and hosted closeout evidence remains pending
-  under `docs/TEST_EVIDENCE.md` § M02-W01.
+  timeout-prefix, and nonzero-output regression tests are present. Final
+  content tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` passed both exact
+  clean clones and three-OS run `30446331580`; see
+  `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0035 — Python contract-adapter test retained unbounded child output
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
 - Affects: M02-W01 nonblocking follow-up;
   `scripts/tests/test_contract_python_adapter.py::_run`
@@ -102,14 +106,15 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
   is permitted.
 - Resolution + evidence link: `_run` now shares the same concurrent 1-MiB
   retained-output boundary, keeps its 30-second deadline, preserves ordinary
-  exit diagnostics, and fails closed on overflow or timeout. Local validation
-  passes; clean-clone and hosted closeout evidence remains pending under
-  `docs/TEST_EVIDENCE.md` § M02-W01.
+  exit diagnostics, and fails closed on overflow or timeout. Final content
+  tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` passed both exact clean
+  clones and three-OS run `30446331580`; see `docs/TEST_EVIDENCE.md`
+  § M02-W01.
 
 ### KI-0036 — Parallel contract files raced one shared Rust harness build
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during M02-W01 hosted corrective verification
 - Affects: M02-W01 closeout proof; M01-W05/M01-W07 test infrastructure;
   `packages/contracts/vitest.config.ts`
@@ -132,14 +137,15 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
 - Resolution + evidence link: the existing contracts Vitest configuration now
   sets `fileParallelism: false`, making all shared Rust-harness build and
   execution boundaries deterministic while retaining the existing 30-second
-  test timeout and every assertion. Local proof passes all 20 contract files /
-  2,440 tests and full canonical verification; two-clone and fresh hosted
-  closeout evidence remains pending under `docs/TEST_EVIDENCE.md` § M02-W01.
+  test timeout and every assertion. Final content tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` passed all 20 contract
+  files / 2,440 tests, both exact clean clones, and three-OS run
+  `30446331580`; see `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0037 — Historical status fixtures inherited a later READY package
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the first M02-W01 governance-stamp
   verification
 - Affects: M02-W01 closeout proof;
@@ -161,14 +167,15 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
 - Resolution + evidence link: both boundary setups now use the existing
   `reset_downstream` helper, and each regression explicitly seeds M02-W02 as
   READY before proving that the intended older state validates. The two
-  focused tests, all 148 status-validator tests, and full local verification
-  pass. Two-clone and hosted closeout evidence is pending under
+  focused tests, all 148 status-validator tests, and full verification pass.
+  Final content tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`
+  passed both exact clean clones and three-OS run `30446331580`; see
   `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0038 — Cargo negative-test descendant outlived Windows cleanup
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during required Windows CI for the KI-0037
   corrective content
 - Affects: M02-W01 closeout proof; M01-W05/M01-W07 test infrastructure;
@@ -197,8 +204,11 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
   child boundary, unchanged 128-KiB output bound, and mandatory cleanup while
   removing Cargo's unrelated coordinator/descendant lifetime. Ten repeated
   8/8 focused runs, all 20 files / 2,440 contract tests, and full canonical
-  verification pass locally. Two-clone and hosted evidence remains pending
-  under `docs/TEST_EVIDENCE.md` § M02-W01.
+  verification pass locally. Final content tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` passed both exact clean
+  clones and three-OS run `30446331580`; the complete Windows log proves the
+  corrected first-pass behavior and clean-tree closeout. See
+  `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 

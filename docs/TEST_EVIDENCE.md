@@ -33,12 +33,11 @@ Exact verification commands and summarized results
 
 ## Entries
 
-### M02-W01 — Synthetic profile/job/resume fixture foundation, in-progress content proof (2026-07-29)
+### M02-W01 — Synthetic profile/job/resume fixture foundation, verified content proof (2026-07-29)
 
-- Revision: in-progress corrective working tree based on content commit
-  `b0669a4c702d34ba2f6db254d190438bdb258a84` / tree
-  `2a958423d6b2f98b942ee73c640a6a7e4e17eb60`; the next corrective content
-  commit/tree are pending. Clean starting commit
+- Revision: final executable content commit
+  `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`. Clean starting commit
   `0c8efc9212162bcb4fa846e453007d9404d97429` / tree
   `bc097542a25eddd9cfd39803fed884f71e20d86d` remains recorded. M01 remains
   ACCEPTED at preserved executable tree
@@ -164,12 +163,13 @@ Exact verification commands and summarized results
   `packages/test-fixtures/`; verification registration in
   `scripts/verification-suites.json`; no screenshot/trace because no failure
   occurred.
-- Known flaky behavior: none waived; both failed hosted runs below remain
+- Known flaky behavior: none waived; failed hosted runs below remain
   historical evidence and every correction requires a complete fresh
   lifecycle.
-- Pending before verification/closeout: corrective executable content commit;
-  two repeated exact clean clones; fresh three-OS content CI with complete
-  Windows-log inspection. M02-W01 remains IN_PROGRESS, no package is READY,
+- Closeout state: the final executable content commit, both repeated exact
+  clean clones, fresh three-OS content CI, and complete Windows-log inspection
+  all passed. M02-W01 is VERIFIED at its exact content tree, M02-W02 is the
+  sole READY package, no package is IN_PROGRESS, M02 remains IN_PROGRESS,
   every gate remains NOT_EVALUATED, and release remains NOT_READY.
 
 #### Hosted corrective lifecycle
@@ -307,8 +307,45 @@ Exact verification commands and summarized results
   cap, compiler toolchain, and mandatory cleanup remain unchanged. Ten
   consecutive focused executions pass 8/8, and all 20 contract files /
   2,440 tests pass locally. Full `pnpm verify` also passes 677/677 Python
-  tests and every ACTIVE suite. A new corrective content commit and complete
-  fresh two-clone/three-OS lifecycle are required before closeout.
+  tests and every ACTIVE suite.
+- Final corrective content commit
+  `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`, message
+  `fix: isolate Rust negative compile process`, contains exactly
+  `packages/contracts/test/contract/infrastructure.test.ts`,
+  `docs/PROJECT_STATUS.md`, `docs/TEST_EVIDENCE.md`, and
+  `docs/KNOWN_ISSUES.md`. It changes no schema, generated contract, fixture
+  datum, semantic verdict, dependency, workflow, toolchain, or timeout.
+- Two fresh exact-commit clones passed at
+  `/tmp/japp-m02w01-rustc-clones.q6dpVf/normal` and
+  `/tmp/japp-m02w01-rustc-clones.q6dpVf/clone with spaces – ü`. Both asserted
+  Node 24.18.0, pnpm 11.17.0, exact commit/tree, and a clean starting tree;
+  ran frozen pnpm and locked uv setup, pinned Chromium, both locked Cargo
+  fetches, clean doctor, byte-identical 183-file generation, empty
+  compatibility, exact seed/validation/privacy/deprecated-v1/discovery
+  checks, 50/50 focused fixture tests, status, traceability, and full
+  verification; then reproduced the canonical specification hash and ended
+  clean at the same commit/tree.
+- Fresh three-OS content run `30446331580` passed the exact final content SHA:
+  macOS job `90557503972`, Ubuntu job `90557503916`, and Windows job
+  `90557503861`. The complete Windows log was consumed: 293,991 bytes /
+  1,666 lines /
+  `sha256:4b554c9f28f56a32532cdf0e26f5d53f9e70253dd815fdceca29f0d4440462ae`.
+  It proves the full exact SHA, clean doctor, fixture-corpus ACTIVE, 6/6
+  package files and 51/51 tests, exact seed/validation counts, 25 producer
+  files / 20,813 text fields with no real-looking PII, secrets, local
+  identities, hidden text, or prompt injection, fifteen deprecated-v1/v2
+  pairs, five focused files / exact 50/50 tests, 20/20 contract files /
+  2,440/2,440 tests, 662/662 focused contract tests, byte-identical 183-file
+  generation, every ACTIVE suite PASS, verification exit 0, and the
+  post-verification clean-tree step.
+- KI-0033 through KI-0038 are therefore FIXED at the final executable content
+  tree. The closeout-only stamp changes only `docs/PROJECT_STATUS.md`,
+  `docs/TEST_EVIDENCE.md`, `docs/KNOWN_ISSUES.md`,
+  `docs/traceability.json`, and `docs/REQUIREMENTS_TRACEABILITY.md`. Its own
+  fresh final-head three-OS run and complete Windows-log inspection follow
+  the conventional self-unreferenced stamp and are bound in the final
+  implementation handoff.
 
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 
