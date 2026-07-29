@@ -1,4 +1,4 @@
-import { lstatSync } from "node:fs";
+import { lstatSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -8,15 +8,6 @@ import { assertCommittedPlatformVersions } from "./platform-version-guard.ts";
 import { assertCommittedFixturePrivacy } from "./privacy.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../", import.meta.url));
-
-export const EXPECTED_M02_TEST_COUNT = 50;
-export const M02_TEST_FILES = [
-  "consistency-mutations.test.ts",
-  "corpus-positive.test.ts",
-  "governance-discovery.test.ts",
-  "loader-mutations.test.ts",
-  "privacy-security.test.ts",
-] as const;
 
 function count(value: number): string {
   return String(value);
@@ -46,7 +37,13 @@ function platformV1(): void {
 
 function discover(): void {
   const root = join(PACKAGE_ROOT, "test", "m02-w01");
-  for (const file of M02_TEST_FILES) {
+  const testFiles = readdirSync(root)
+    .filter((file) => file.endsWith(".test.ts"))
+    .sort();
+  if (testFiles.length === 0) {
+    throw new Error("M02 test discovery failed: no focused test files");
+  }
+  for (const file of testFiles) {
     const stats = lstatSync(join(root, file));
     if (stats.isSymbolicLink() || !stats.isFile()) {
       throw new Error(
@@ -66,7 +63,7 @@ function discover(): void {
     corpus.fieldValuePolicies.length +
     corpus.scenarioBundles.length;
   console.log(
-    `fixture discovery passed: 9 non-empty collections, ${count(fixtureRecords)} records, ${count(corpus.manifest.counts.scenario_evaluations)} scenario evaluations, ${count(M02_TEST_FILES.length)} focused test files, exactly ${count(EXPECTED_M02_TEST_COUNT)} focused tests required`,
+    `fixture discovery passed: 9 non-empty collections, ${count(fixtureRecords)} records, ${count(corpus.manifest.counts.scenario_evaluations)} scenario evaluations, ${count(testFiles.length)} focused test files; exact zero-skip count is enforced independently by the root verification registry`,
   );
 }
 

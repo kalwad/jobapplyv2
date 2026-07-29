@@ -116,6 +116,52 @@ def test_focus_regex_matches_markers_but_not_lookalikes() -> None:
     assert not verify.PY_SKIP_RE.search("skipped = compute()")
 
 
+def test_typescript_ast_scan_rejects_conditional_chains_and_static_aliases(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        'test.skipIf(true)("conditional", () => {});\n',
+        'it.runIf(false)("conditional", () => {});\n',
+        'describe["skipIf"](true)("conditional", () => {});\n',
+        (
+            'import { bench as measured } from "vitest";\n'
+            'measured.runIf(true)("conditional", () => {});\n'
+        ),
+        (
+            "const selected = test;\n"
+            'selected.each([1]).runIf(true)("conditional", () => {});\n'
+        ),
+        (
+            'import * as vitest from "vitest";\n'
+            "const { skipIf: conditional } = vitest.test;\n"
+            'conditional(true)("conditional", () => {});\n'
+        ),
+        ('const modifier = "skipIf";\ntest[modifier](true)("dynamic", () => {});\n'),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("probe.spec.ts" in failure for failure in failures), source
+
+
+def test_typescript_ast_scan_allows_unmodified_test_apis_and_lookalikes(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            'import { test as probe } from "vitest";\n'
+            'probe.each([1])("ordinary", () => {});\n'
+            "const skippedResults = object.onlyForDisplay;\n"
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+
 def test_missing_lockfile_and_memory_file_fail(fixture_repo: verify.Context) -> None:
     failures = verify.check_integrity(fixture_repo, _registry())
     assert any("pnpm-lock.yaml" in f for f in failures)

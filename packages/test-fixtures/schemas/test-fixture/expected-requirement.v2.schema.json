@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:japp:schema:test-fixture:expected-requirement:v1",
-  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:test-fixture:expected-requirement:v2",
+  "x-japp-schema-version": "2.0.0",
   "title": "Normalized expected job requirement",
   "description": "TEST-ONLY independently reviewable expected normalization for one anchored synthetic job requirement.",
   "type": "object",
@@ -19,30 +19,31 @@
     "source_anchor_id",
     "source_text_sha256",
     "requirement_tag",
+    "constraint",
     "keyword_trap",
     "related_evidence_trap"
   ],
   "properties": {
     "id": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "entity_type": {
       "const": "EXPECTED_REQUIREMENT"
     },
     "schema_ref": {
-      "const": "urn:japp:schema:test-fixture:expected-requirement:v1"
+      "const": "urn:japp:schema:test-fixture:expected-requirement:v2"
     },
     "schema_version": {
-      "const": "1.0.0"
+      "const": "2.0.0"
     },
     "metadata": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
     },
     "job_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "importance": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/requirementImportance"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/requirementImportance"
     },
     "requirement_kind": {
       "type": "string",
@@ -65,10 +66,33 @@
       "pattern": "^job-[0-9]{2}\\.requirements\\.[0-9]{2}$"
     },
     "source_text_sha256": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/contentDigest"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/contentDigest"
     },
     "requirement_tag": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/factKey"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/factKey"
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "CURRENT_LICENSE",
+            "MINIMUM_EXPERIENCE_YEARS",
+            "NONE",
+            "SPONSORSHIP",
+            "WORK_AUTHORIZATION",
+            "WORK_MODE_COMPATIBILITY"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      }
     },
     "keyword_trap": {
       "type": "boolean"

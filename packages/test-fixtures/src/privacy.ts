@@ -10,6 +10,7 @@ import { homedir, hostname } from "node:os";
 import { fileURLToPath } from "node:url";
 
 import { parseStrictJson } from "./strict-json.ts";
+import { safeDiagnosticPath } from "./diagnostics.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../", import.meta.url));
 const MAX_SCAN_FILE_BYTES = 2 * 1024 * 1024;
@@ -46,10 +47,9 @@ export class FixturePrivacyError extends Error {
 
 const EMAIL =
   /(?<![\p{L}\p{N}._%+-])[\p{L}\p{N}._%+-]{1,64}@[\p{L}\p{N}.-]+\.[\p{L}]{2,63}(?![\p{L}\p{N}.-])/giu;
-const PHONE =
-  /(?<!\d)(?:\+?1[-.\s]?)?(?:\(?\d{3}\)?[-.\s])\d{3}[-.\s]\d{4}(?!\d)/gu;
+const PHONE = /(?<![\p{L}\p{N}])\+?\d(?:[\s().-]*\d){9,14}(?![\p{L}\p{N}])/gu;
 const ADDRESS =
-  /\b\d{1,6}\s+[\p{L}\p{N} .'-]{2,80}\s(?:STREET|ST|ROAD|RD|AVENUE|AVE|BOULEVARD|BLVD|LANE|LN|DRIVE|DR|WAY)\b/giu;
+  /\b\d{1,6}[A-Z]?\s+[\p{L}\p{N} .'-]{1,80}\s(?:STREET|ST|ROAD|RD|AVENUE|AVE|BOULEVARD|BLVD|LANE|LN|DRIVE|DR|WAY|PARKWAY|PKWY|COURT|CT|PLACE|PL|TERRACE|TER|CIRCLE|CIR|HIGHWAY|HWY)\b/giu;
 const RESERVED_EMAIL = /^candidate(0[1-9]|1[0-2])@example\.test$/u;
 const RESERVED_PHONE = /^\+1-202-555-01(?:0[1-9]|1[0-2])$/u;
 const RESERVED_ADDRESS = /^(?:10[1-9]|11[0-2]) Fixture Way$/u;
@@ -62,26 +62,41 @@ const SECRET_PATTERNS: readonly RegExp[] = [
   /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/gu,
   /\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b/gu,
   /\bAIza[0-9A-Za-z_-]{30,}\b/gu,
-  /\b(?:Bearer|Basic)\s+[A-Za-z0-9+/_=-]{8,}\b/giu,
+  /\bBearer\s+[A-Za-z0-9+/_=-]{8,}\b/giu,
+  /\bBasic\s+(?=[A-Za-z0-9+/=]{12,}\b)(?=[A-Za-z0-9+/=]*[0-9+/=])[A-Za-z0-9+/=]{12,}\b/gu,
   /\b[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\b/gu,
 ];
 
 const INJECTION_PATTERNS: readonly RegExp[] = [
   /\bignore\b.{0,40}\b(?:previous|prior|above|system|developer)\b.{0,20}\b(?:instruction|message|prompt)s?\b/giu,
+  /\b(?:disregard|override|forget|bypass)\b.{0,50}\b(?:previous|prior|above|system|developer|instruction|message|prompt)s?\b/giu,
+  /\b(?:follow|obey)\b.{0,30}\b(?:new|next|these)\b.{0,20}\binstructions?\b/giu,
   /<\|(?:im_start|im_end|system|assistant|developer)\|>/giu,
   /\[(?:\/)?INST\]/gu,
   /<!--[\s\S]*?-->|<script\b|<style\b|display\s*:\s*none/giu,
 ];
 
 const ABSOLUTE_LOCAL_PATH_PATTERNS: readonly RegExp[] = [
-  /(?<![\p{L}\p{N}/#.])\/(?!\/)(?:[\p{L}\p{N}._~+-]+(?: [\p{L}\p{N}._~+-]+)*\/)+[\p{L}\p{N}._~+-]+(?: [\p{L}\p{N}._~+-]+)*/giu,
-  /(?:^|[=\s"'(:])\/(?!\/)[\p{L}\p{N}._~+-]+(?=$|[\s"'),;])/giu,
+  /(?:^|[=\s"'(:])\/(?:Applications|Library|Users|Volumes|Windows|etc|home|opt|private|root|srv|tmp|usr|var|workspace)(?:[/\s"'(),;]|$)/giu,
   /(?<![\p{L}\p{N}:/#.])\/\/(?!\/)(?:[\p{L}\p{N}._~+-]+\/)+[\p{L}\p{N}._~+-]+/giu,
   /(?<![\p{L}\p{N}])[A-Za-z]:[\\/][^\r\n"'()]+/gu,
   /(?<![\\\p{L}\p{N}])\\{1,2}[A-Za-z0-9_~-][^\\\r\n"'()]*\\(?:[^\\\r\n"'()]+\\)*[^\\\r\n"'()]+/gu,
   /(?<![\p{L}\p{N}])~[\\/][^\r\n"'()]+/gu,
   /\bfile:(?:\/\/\/?|[\\/])[^\r\n"'()]+/giu,
 ];
+const TRAVERSAL = /(?:^|[\\/])\.\.(?:[\\/]|$)/gu;
+const DANGEROUS_KEYS = new Set([
+  "__definegetter__",
+  "__definesetter__",
+  "__lookupgetter__",
+  "__lookupsetter__",
+  "__proto__",
+  "constructor",
+  "prototype",
+]);
+const CREDENTIAL_FIELD =
+  /^(?:api[_-]?key|authorization|cookie|password|passphrase|private[_-]?key|secret|session|token)$/iu;
+const MAX_NORMALIZED_TEXT = 128 * 1024;
 
 const COMMON_MACHINE_NAMES = new Set([
   "admin",
@@ -132,12 +147,61 @@ function containsHiddenText(value: string): boolean {
 
 function displayPath(root: string, file: string): string {
   const rel = relative(root, file);
-  return rel === "" ? basename(file) : rel.split(sep).join("/");
+  const display = rel === "" ? basename(file) : rel.split(sep).join("/");
+  return safeDiagnosticPath(display) || ".";
 }
 
 function resetAndTest(pattern: RegExp, value: string): boolean {
   pattern.lastIndex = 0;
   return pattern.test(value);
+}
+
+function decodeEscapes(value: string): string {
+  return value
+    .replaceAll(/\\x([0-9a-fA-F]{2})/gu, (_match, digits: string) =>
+      String.fromCodePoint(Number.parseInt(digits, 16)),
+    )
+    .replaceAll(/\\u\{([0-9a-fA-F]{1,6})\}/gu, (_match, digits: string) => {
+      const codePoint = Number.parseInt(digits, 16);
+      return codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : "\uFFFD";
+    })
+    .replaceAll(/\\u([0-9a-fA-F]{4})/gu, (_match, digits: string) =>
+      String.fromCodePoint(Number.parseInt(digits, 16)),
+    );
+}
+
+function normalizedVariants(rawValue: string): string[] {
+  const variants = new Set<string>();
+  let value = rawValue.slice(0, MAX_NORMALIZED_TEXT).normalize("NFKC");
+  variants.add(value);
+  for (let pass = 0; pass < 2; pass += 1) {
+    const escaped = decodeEscapes(value).normalize("NFKC");
+    variants.add(escaped);
+    value = escaped;
+    if (/%[0-9a-fA-F]{2}/u.test(value)) {
+      try {
+        const decoded = decodeURIComponent(value).normalize("NFKC");
+        variants.add(decoded);
+        value = decoded;
+      } catch {
+        break;
+      }
+    }
+  }
+  for (const candidate of [...variants]) {
+    let folded = candidate;
+    for (let pass = 0; pass < 4; pass += 1) {
+      const next = folded
+        .replaceAll(/"([^"\\]{0,1024})"\s*\+\s*"([^"\\]{0,1024})"/gu, "$1$2")
+        .replaceAll(/'([^'\\]{0,1024})'\s*\+\s*'([^'\\]{0,1024})'/gu, "$1$2");
+      if (next === folded) {
+        break;
+      }
+      folded = next;
+    }
+    variants.add(folded);
+  }
+  return [...variants].slice(0, 12);
 }
 
 function inspectText(
@@ -146,8 +210,19 @@ function inspectText(
   field: string,
   issues: PrivacyIssue[],
   semanticField?: string,
+  keyOnly = false,
 ): void {
-  const value = rawValue.normalize("NFKC");
+  const variants = normalizedVariants(rawValue);
+  const value = variants.at(-1) ?? "";
+  if (rawValue.length > MAX_NORMALIZED_TEXT) {
+    addIssue(
+      issues,
+      "PRIVACY_SCAN_SIZE",
+      file,
+      field,
+      "individual text value exceeds the normalization ceiling",
+    );
+  }
   if (containsHiddenText(value)) {
     addIssue(
       issues,
@@ -158,7 +233,11 @@ function inspectText(
     );
   }
   if (
-    ABSOLUTE_LOCAL_PATH_PATTERNS.some((pattern) => resetAndTest(pattern, value))
+    variants.some((candidate) =>
+      ABSOLUTE_LOCAL_PATH_PATTERNS.some((pattern) =>
+        resetAndTest(pattern, candidate),
+      ),
+    )
   ) {
     addIssue(
       issues,
@@ -166,6 +245,20 @@ function inspectText(
       file,
       field,
       "absolute user or machine path detected",
+    );
+  }
+  const reviewedConfigTraversal =
+    semanticField === "extends" && value === "../../tsconfig.base.json";
+  if (
+    !reviewedConfigTraversal &&
+    variants.some((candidate) => resetAndTest(TRAVERSAL, candidate))
+  ) {
+    addIssue(
+      issues,
+      "PRIVACY_PATH_TRAVERSAL",
+      file,
+      field,
+      "normalized traversal segment detected",
     );
   }
   const normalizedValue = value.toLocaleLowerCase("en-US");
@@ -185,7 +278,7 @@ function inspectText(
     );
   }
   for (const pattern of SECRET_PATTERNS) {
-    if (resetAndTest(pattern, value)) {
+    if (variants.some((candidate) => resetAndTest(pattern, candidate))) {
       addIssue(
         issues,
         "PRIVACY_SECRET",
@@ -196,7 +289,7 @@ function inspectText(
     }
   }
   for (const pattern of INJECTION_PATTERNS) {
-    if (resetAndTest(pattern, value)) {
+    if (variants.some((candidate) => resetAndTest(pattern, candidate))) {
       addIssue(
         issues,
         "PRIVACY_PROMPT_INJECTION",
@@ -206,9 +299,12 @@ function inspectText(
       );
     }
   }
-  EMAIL.lastIndex = 0;
-  for (const match of value.matchAll(EMAIL)) {
-    if (!RESERVED_EMAIL.test(match[0].toLocaleLowerCase("en-US"))) {
+  for (const candidate of variants) {
+    EMAIL.lastIndex = 0;
+    for (const match of candidate.matchAll(EMAIL)) {
+      if (RESERVED_EMAIL.test(match[0].toLocaleLowerCase("en-US"))) {
+        continue;
+      }
       addIssue(
         issues,
         "PRIVACY_EMAIL_DOMAIN",
@@ -218,9 +314,12 @@ function inspectText(
       );
     }
   }
-  PHONE.lastIndex = 0;
-  for (const match of value.matchAll(PHONE)) {
-    if (!RESERVED_PHONE.test(match[0])) {
+  for (const candidate of variants) {
+    PHONE.lastIndex = 0;
+    for (const match of candidate.matchAll(PHONE)) {
+      if (RESERVED_PHONE.test(match[0])) {
+        continue;
+      }
       addIssue(
         issues,
         "PRIVACY_PHONE",
@@ -230,9 +329,12 @@ function inspectText(
       );
     }
   }
-  ADDRESS.lastIndex = 0;
-  for (const match of value.matchAll(ADDRESS)) {
-    if (!RESERVED_ADDRESS.test(match[0])) {
+  for (const candidate of variants) {
+    ADDRESS.lastIndex = 0;
+    for (const match of candidate.matchAll(ADDRESS)) {
+      if (RESERVED_ADDRESS.test(match[0])) {
+        continue;
+      }
       addIssue(
         issues,
         "PRIVACY_ADDRESS",
@@ -243,7 +345,37 @@ function inspectText(
     }
   }
   const lastField = semanticField ?? field.split("/").at(-1);
-  if (lastField === "full_name" && !RESERVED_NAME.test(value)) {
+  const normalizedField = lastField
+    ?.normalize("NFKC")
+    .toLocaleLowerCase("en-US");
+  if (
+    keyOnly &&
+    normalizedField !== undefined &&
+    DANGEROUS_KEYS.has(normalizedField)
+  ) {
+    addIssue(
+      issues,
+      "PRIVACY_DANGEROUS_KEY",
+      file,
+      field,
+      "prototype-pollution or dangerous object key detected",
+    );
+  }
+  if (
+    !keyOnly &&
+    normalizedField !== undefined &&
+    CREDENTIAL_FIELD.test(normalizedField) &&
+    value.trim() !== ""
+  ) {
+    addIssue(
+      issues,
+      "PRIVACY_SEMANTIC_CREDENTIAL",
+      file,
+      field,
+      "credential-bearing semantic field is forbidden",
+    );
+  }
+  if (!keyOnly && lastField === "full_name" && !RESERVED_NAME.test(value)) {
     addIssue(
       issues,
       "PRIVACY_NAME",
@@ -252,7 +384,7 @@ function inspectText(
       "candidate name is not an explicit synthetic reserved value",
     );
   }
-  if (lastField === "email" && !RESERVED_EMAIL.test(value)) {
+  if (!keyOnly && lastField === "email" && !RESERVED_EMAIL.test(value)) {
     addIssue(
       issues,
       "PRIVACY_EMAIL_DOMAIN",
@@ -261,7 +393,7 @@ function inspectText(
       "email field is not an explicit synthetic reserved value",
     );
   }
-  if (lastField === "phone" && !RESERVED_PHONE.test(value)) {
+  if (!keyOnly && lastField === "phone" && !RESERVED_PHONE.test(value)) {
     addIssue(
       issues,
       "PRIVACY_PHONE",
@@ -270,7 +402,7 @@ function inspectText(
       "phone field is not an explicit synthetic reserved value",
     );
   }
-  if (lastField === "line1" && !RESERVED_ADDRESS.test(value)) {
+  if (!keyOnly && lastField === "line1" && !RESERVED_ADDRESS.test(value)) {
     addIssue(
       issues,
       "PRIVACY_ADDRESS",
@@ -313,7 +445,7 @@ function inspectValue(
     for (const [index, [key, item]] of Object.entries(value).entries()) {
       const safeKey = `@member/${String(index)}`;
       counters.fields += 1;
-      inspectText(key, file, `${pointer}/${safeKey}/@key`, issues);
+      inspectText(key, file, `${pointer}/${safeKey}/@key`, issues, key, true);
       inspectValue(item, file, `${pointer}/${safeKey}`, issues, counters, key);
     }
   }
@@ -346,6 +478,13 @@ function walk(
       continue;
     }
     const path = join(current, entry.name);
+    inspectText(
+      entry.name,
+      displayPath(root, path),
+      "/@path-segment",
+      issues,
+      "@filename",
+    );
     if (entry.isSymbolicLink()) {
       addIssue(
         issues,

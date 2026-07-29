@@ -33,7 +33,35 @@ Exact verification commands and summarized results
 
 ## Entries
 
-### M02-W01 — Synthetic profile/job/resume fixture foundation, verified content proof (2026-07-29)
+### M02-W01 — Reopened corrective lifecycle after independent audit verdict B (2026-07-29)
+
+- Current revision: corrective worktree based on stamp
+  `5309909a881fef8fd00bc16c6203700683aa8fb5`.
+- Current state: M02-W01 is IN_PROGRESS, M02-W02 is NOT_STARTED, and no
+  package is READY. KI-0039 through KI-0045 remain IN_PROGRESS. No corrected
+  content, clean-clone result, hosted result, or independent closeout verdict
+  is claimed yet.
+- Invalidated anchors: content commit
+  `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` and stamp `5309909`. The command,
+  clone, and hosted-run facts below remain historical execution records only;
+  every former claim that they established semantic completeness,
+  comprehensive privacy, independent certification, M02-W01 verification, or
+  M02-W02 readiness is explicitly withdrawn.
+- Audit result: **B — BLOCKING DEFECT FOUND.** Reproduced defects are stale
+  credential truth and a second wrong-clock freshness case; five fully
+  re-signed semantic contradictions; privacy misses, false alarms, and raw
+  diagnostic disclosure; constructed deprecated-platform-v1 references;
+  check-mode filesystem mutation; a shared implementation oracle;
+  conditional-skip evasion; shallow topology and unused consequential
+  policies; and an accepted concurrent root-identity replacement.
+- Evidence boundary: automated author/reviewer strings and unequal role
+  labels establish only recorded fixture-authoring provenance. They never
+  established an independent model audit. Certification now requires a
+  genuinely fresh read-only session against the exact corrected content
+  commit after two clean clones and fresh three-OS CI.
+
+#### Historical invalidated execution record
 
 - Revision: final executable content commit
   `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
@@ -129,18 +157,19 @@ Exact verification commands and summarized results
     NOT_YET_APPLICABLE. `git diff --check` passed and verification was
     status-neutral.
 
-#### Independent review and bounded M01 audit follow-ups
+#### Invalidated reviewer self-reports and bounded M01 audit follow-ups
 
-- The fixture/schema reviewer initially rejected overstated relations,
+- The former fixture/schema reviewer initially rejected overstated relations,
   source-link gaps, multiplexed assertion release, and backdated review
-  metadata. After correction, the reviewer independently reproduced digest
+  metadata. After correction, the reviewer reported reproducing digest
   `d91448c4…b0b2f`, ran seed/validation and 50/50 focused plus 51/51 package
   tests, and at `2026-07-29T09:05:28Z` attested the
   `m02w01-fixture-reviewer` metadata and
   `M02W01_INDEPENDENT_SYNTHETIC_REVIEW` provenance for these exact bytes.
-- The privacy/security reviewer initially rejected path/key/extension
+  That metadata is authoring provenance, not independent certification.
+- The former privacy/security reviewer initially rejected path/key/extension
   bypasses and unsafe diagnostic pointers. After correction, the reviewer
-  independently reproduced both manifest hashes, exact counts, 50/50 tests,
+  reported reproducing both manifest hashes, exact counts, 50/50 tests,
   25-file/20,813-field privacy proof, all fifteen platform pairs, and direct
   POSIX/macOS/Windows/UNC/file/tilde, sensitive-key, unknown-extension,
   symlink, traversal, fragment, masking, and URI false-positive probes with no
@@ -166,10 +195,11 @@ Exact verification commands and summarized results
 - Known flaky behavior: none waived; failed hosted runs below remain
   historical evidence and every correction requires a complete fresh
   lifecycle.
-- Closeout state: the final executable content commit, both repeated exact
-  clean clones, fresh three-OS content CI, and complete Windows-log inspection
-  all passed. M02-W01 is VERIFIED at its exact content tree, M02-W02 is the
-  sole READY package, no package is IN_PROGRESS, M02 remains IN_PROGRESS,
+- Historical closeout state: the invalidated executable content commit, both
+  repeated exact clean clones, fresh three-OS content CI, and complete
+  Windows-log inspection all passed as execution checks. The later audit
+  proved they did not establish fixture truth or security completeness.
+  M02-W01 is now IN_PROGRESS, M02-W02 is NOT_STARTED, no package is READY,
   every gate remains NOT_EVALUATED, and release remains NOT_READY.
 
 #### Hosted corrective lifecycle

@@ -2,6 +2,7 @@ import {
   cpSync,
   mkdtempSync,
   readFileSync,
+  renameSync,
   rmSync,
   symlinkSync,
   writeFileSync,
@@ -16,6 +17,7 @@ import {
   sha256Canonical,
 } from "../../src/canonical-json.ts";
 import { COMMITTED_FIXTURE_ROOT, loadFixtureCorpus } from "../../src/loader.ts";
+import { loadFixtureCorpusWithObserverForTest } from "../../src/loader.ts";
 import type { FixtureCollection, FixtureManifest } from "../../src/model.ts";
 
 const temporaryRoots: string[] = [];
@@ -45,7 +47,7 @@ function jsonBytes(value: unknown): Buffer {
 
 function writeManifest(root: string, manifest: FixtureManifest): void {
   manifest.metadata.historical_content_hash = fixtureManifestHash(manifest);
-  writeFileSync(join(root, "manifest.v1.json"), jsonBytes(manifest));
+  writeFileSync(join(root, "manifest.v2.json"), jsonBytes(manifest));
 }
 
 function resignCollection(
@@ -55,7 +57,7 @@ function resignCollection(
 ): void {
   const bytes = jsonBytes(collection);
   writeFileSync(join(root, file), bytes);
-  const manifest = readJson(join(root, "manifest.v1.json")) as FixtureManifest;
+  const manifest = readJson(join(root, "manifest.v2.json")) as FixtureManifest;
   const entry = manifest.files.find((candidate) => candidate.path === file);
   if (entry === undefined) {
     throw new Error("test mutation manifest entry missing");
@@ -80,33 +82,33 @@ describe("M02-W01 fail-closed loader mutations", () => {
 
   test("rejects duplicate stable IDs after byte manifests are valid", () => {
     const root = corpusCopy();
-    const path = join(root, "profiles.v1.json");
+    const path = join(root, "profiles.v2.json");
     const collection = readJson(path) as FixtureCollection;
     collection.items.splice(
       1,
       0,
       structuredClone(required(collection.items[0])),
     );
-    resignCollection(root, "profiles.v1.json", collection);
+    resignCollection(root, "profiles.v2.json", collection);
     expect(() => loadFixtureCorpus(root)).toThrow(/FIXTURE_DUPLICATE_ID/u);
   });
 
   test("rejects a stale entity schema version", () => {
     const root = corpusCopy();
-    const path = join(root, "profiles.v1.json");
+    const path = join(root, "profiles.v2.json");
     const collection = readJson(path) as FixtureCollection;
     const first = collection.items[0] as unknown as {
       schema_version: string;
     };
     first.schema_version = "0.9.0";
-    resignCollection(root, "profiles.v1.json", collection);
+    resignCollection(root, "profiles.v2.json", collection);
     expect(() => loadFixtureCorpus(root)).toThrow(/FIXTURE_ENTITY_SCHEMA/u);
   });
 
   test("rejects a manifest aggregate count mismatch", () => {
     const root = corpusCopy();
     const manifest = readJson(
-      join(root, "manifest.v1.json"),
+      join(root, "manifest.v2.json"),
     ) as FixtureManifest;
     manifest.counts.profiles = 13;
     writeManifest(root, manifest);
@@ -115,7 +117,7 @@ describe("M02-W01 fail-closed loader mutations", () => {
 
   test("rejects a file digest mismatch before parsing changed content", () => {
     const root = corpusCopy();
-    const path = join(root, "profiles.v1.json");
+    const path = join(root, "profiles.v2.json");
     writeFileSync(
       path,
       readFileSync(path, "utf8").replace(
@@ -129,7 +131,7 @@ describe("M02-W01 fail-closed loader mutations", () => {
   test("rejects a validly signed manifest with the wrong corpus digest", () => {
     const root = corpusCopy();
     const manifest = readJson(
-      join(root, "manifest.v1.json"),
+      join(root, "manifest.v2.json"),
     ) as FixtureManifest;
     manifest.corpus_digest = `sha256:${"0".repeat(64)}`;
     writeManifest(root, manifest);
@@ -138,7 +140,7 @@ describe("M02-W01 fail-closed loader mutations", () => {
 
   test("rejects nondeterministic entity ordering", () => {
     const root = corpusCopy();
-    const path = join(root, "profiles.v1.json");
+    const path = join(root, "profiles.v2.json");
     const collection = readJson(path) as FixtureCollection;
     const first = collection.items[0];
     const second = collection.items[1];
@@ -147,20 +149,20 @@ describe("M02-W01 fail-closed loader mutations", () => {
     }
     collection.items[0] = second;
     collection.items[1] = first;
-    resignCollection(root, "profiles.v1.json", collection);
+    resignCollection(root, "profiles.v2.json", collection);
     expect(() => loadFixtureCorpus(root)).toThrow(/FIXTURE_ORDER/u);
   });
 
   test("rejects traversal syntax in a manifest path", () => {
     const root = corpusCopy();
     const manifest = readJson(
-      join(root, "manifest.v1.json"),
+      join(root, "manifest.v2.json"),
     ) as FixtureManifest;
     const first = manifest.files[0];
     if (first === undefined) {
       throw new Error("test manifest unexpectedly empty");
     }
-    first.path = "../evidence-artifacts.v1.json";
+    first.path = "../evidence-artifacts.v2.json";
     writeManifest(root, manifest);
     expect(() => loadFixtureCorpus(root)).toThrow(
       /FIXTURE_MANIFEST_SCHEMA|FIXTURE_MANIFEST_PATH/u,
@@ -170,7 +172,7 @@ describe("M02-W01 fail-closed loader mutations", () => {
   test("rejects a symlink escape without exposing its target", () => {
     const root = corpusCopy();
     const outside = join(root, "..", "outside.json");
-    const target = join(root, "profiles.v1.json");
+    const target = join(root, "profiles.v2.json");
     writeFileSync(outside, "{}\n");
     rmSync(target);
     symlinkSync(outside, target, "file");
@@ -186,14 +188,47 @@ describe("M02-W01 fail-closed loader mutations", () => {
 
   test("rejects duplicate JSON object keys before JSON.parse can collapse them", () => {
     const root = corpusCopy();
-    const path = join(root, "manifest.v1.json");
+    const path = join(root, "manifest.v2.json");
     const text = readFileSync(path, "utf8").replace(
       '  "schema_ref":',
-      '  "schema_ref": "urn:japp:schema:test-fixture:manifest:v1",\n  "schema_ref":',
+      '  "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",\n  "schema_ref":',
     );
     writeFileSync(path, text);
     expect(() => loadFixtureCorpus(root)).toThrow(
       /FIXTURE_JSON_DUPLICATE_KEY/u,
     );
+  });
+
+  test("redacts a token-shaped duplicate member name from every loader diagnostic", () => {
+    const root = corpusCopy();
+    const path = join(root, "manifest.v2.json");
+    const secret = `ghp_${"A".repeat(24)}`;
+    const text = readFileSync(path, "utf8").replace(
+      '  "schema_ref":',
+      `  "${secret}": "first",\n  "${secret}": "second",\n  "schema_ref":`,
+    );
+    writeFileSync(path, text);
+    let message = "";
+    try {
+      loadFixtureCorpus(root);
+    } catch (error) {
+      message = error instanceof Error ? error.message : "";
+    }
+    expect(message).toContain("FIXTURE_JSON_DUPLICATE_KEY");
+    expect(message).toContain("/@member/");
+    expect(message).not.toContain(secret);
+  });
+
+  test("rejects deterministic fixture-root replacement after identity capture", () => {
+    const root = corpusCopy();
+    const replacement = corpusCopy();
+    const displaced = `${root}-captured`;
+    expect(() =>
+      loadFixtureCorpusWithObserverForTest(root, (phase) => {
+        expect(phase).toBe("AFTER_ROOT_REALPATH");
+        renameSync(root, displaced);
+        renameSync(replacement, root);
+      }),
+    ).toThrow(/FIXTURE_ROOT_CHANGED/u);
   });
 });

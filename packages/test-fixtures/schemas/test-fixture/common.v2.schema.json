@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:japp:schema:test-fixture:common:v1",
-  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:test-fixture:common:v2",
+  "x-japp-schema-version": "2.0.0",
   "title": "M02-W01 test-fixture common definitions",
   "description": "TEST-ONLY definitions for synthetic development fixtures. These definitions have no product storage authority.",
   "$defs": {
@@ -48,7 +48,7 @@
         },
         "expected_result_provenance": {
           "type": "string",
-          "enum": ["M02W01_INDEPENDENT_SYNTHETIC_REVIEW"]
+          "enum": ["M02W01_SYNTHETIC_AUTHORING_REVIEW"]
         },
         "synthetic_data": {
           "const": true

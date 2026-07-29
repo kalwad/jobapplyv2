@@ -25,14 +25,14 @@ describe("M02-W01 independently authored consistency mutations", () => {
     const claim = value.expectedSupportedClaims.find(
       (item) => item.support_classification === "DIRECT",
     );
-    const original = value.evidenceArtifacts.find(
-      (artifact) => artifact.id === claim?.evidence_refs[0],
+    const requirement = value.expectedRequirements.find(
+      (item) => item.id === claim?.requirement_ref,
     );
     const replacement = value.evidenceArtifacts.find(
       (artifact) =>
         artifact.profile_ref === claim?.profile_ref &&
-        artifact.category === "EMPLOYMENT_RECORD" &&
-        artifact.id !== original?.id,
+        requirement !== undefined &&
+        !artifact.fact_keys.includes(requirement.requirement_tag),
     );
     if (claim === undefined || replacement === undefined) {
       throw new Error("reviewed direct-support mutation input is missing");
@@ -116,8 +116,8 @@ describe("M02-W01 independently authored consistency mutations", () => {
         artifact.category === "EMPLOYMENT_RECORD",
     );
     required(employment[1]).effective_period.start = required(
-      employment[0],
-    ).effective_period.end;
+      required(employment[0]).effective_period.end,
+    );
     expect(issueCodes(value)).toContain("EMPLOYMENT_OVERLAP");
   });
 
@@ -181,6 +181,6 @@ describe("M02-W01 independently authored consistency mutations", () => {
     const value = corpus();
     const profile = required(value.profiles[0]);
     profile.metadata.reviewer = profile.metadata.author;
-    expect(issueCodes(value)).toContain("REVIEW_NOT_INDEPENDENT");
+    expect(issueCodes(value)).toContain("AUTHOR_REVIEWER_ROLE_REUSED");
   });
 });

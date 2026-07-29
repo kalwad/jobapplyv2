@@ -15,17 +15,17 @@ export const FIXTURE_SCHEMAS_ROOT = fileURLToPath(
 let cachedValidator: ContractValidator | undefined;
 
 const EXPECTED_SCHEMA_FILES = [
-  "common.v1.schema.json",
-  "evidence-artifact.v1.schema.json",
-  "expected-requirement.v1.schema.json",
-  "expected-supported-claim.v1.schema.json",
-  "field-value-policy.v1.schema.json",
-  "manifest.v1.schema.json",
-  "scenario-bundle.v1.schema.json",
-  "source-resume.v1.schema.json",
-  "synthetic-job.v1.schema.json",
-  "synthetic-profile.v1.schema.json",
-  "unsupported-gap.v1.schema.json",
+  "common.v2.schema.json",
+  "evidence-artifact.v2.schema.json",
+  "expected-requirement.v2.schema.json",
+  "expected-supported-claim.v2.schema.json",
+  "field-value-policy.v2.schema.json",
+  "manifest.v2.schema.json",
+  "scenario-bundle.v2.schema.json",
+  "source-resume.v2.schema.json",
+  "synthetic-job.v2.schema.json",
+  "synthetic-profile.v2.schema.json",
+  "unsupported-gap.v2.schema.json",
 ] as const;
 
 function verifyFixtureSchemaInventory(): void {

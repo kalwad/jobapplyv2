@@ -1,0 +1,3021 @@
+{
+  "entity_type": "EVIDENCE_ARTIFACT",
+  "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+  "schema_version": "2.0.0",
+  "items": [
+    {
+      "id": "evidence_00000000000000000000000001",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:509d5d6923c31d8581f0fb54b09a3d4d7ac8b537e5ac0b89c8251f619b287653"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 01-A",
+      "statement": "Synthetic Candidate 01 applied TypeScript and Node.js in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:node-js",
+        "skill:typescript"
+      ],
+      "effective_period": { "start": "2017-01-01", "end": "2018-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000001",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000004",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000002",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ef0396999caedaf66f6eaa561f7c407ec0ab4b9d58eedd1fab7c50d3e9aa14ca"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 01-B",
+      "statement": "Synthetic Candidate 01 applied TypeScript and Node.js in reviewed employment record 2.",
+      "fact_keys": [
+        "experience:employment-2",
+        "skill:node-js",
+        "skill:typescript"
+      ],
+      "effective_period": { "start": "2019-01-01", "end": "2020-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000001",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000004",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000003",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:df25b75bdc05342d88dd7f046f85e2130da48a4e4101db80c03bb78b148487b6"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 01-C",
+      "statement": "Synthetic Candidate 01 applied TypeScript and Node.js in reviewed employment record 3.",
+      "fact_keys": [
+        "experience:employment-3",
+        "skill:node-js",
+        "skill:typescript"
+      ],
+      "effective_period": { "start": "2021-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000001",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000004",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000004",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c0c3ee8799c43dd46e182b1f0d9cc84c5ac05206fafb4fb0360685f224307702"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 01-A",
+      "statement": "Synthetic Candidate 01 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": [
+        "education:completed",
+        "education:program-1",
+        "skill:api-design"
+      ],
+      "effective_period": { "start": "2015-01-01", "end": "2016-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000005",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:15fa619f3447cefb8d704de9073ce1e8129b510c24602bc0bc02396a04b5bb5c"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 01-F",
+      "statement": "Synthetic Candidate 01 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000003",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000006",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000018",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000006",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0e738f37fae95421e95926100015c8f1eae92ce72f4dd44cb6a6d6017dee53a5"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 01",
+      "statement": "Synthetic Candidate 01 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000001",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 01 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000002",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 01 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000003",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 01 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000004",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_01",
+          "disclosure_text": "Synthetic Candidate 01 explicitly recorded synthetic compensation band 01.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000005",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 01 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000002",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000005",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000017",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000007",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:27a30480fc50bafd285c36cbe2df18d3b6c782743c603b2526f5afb483ea2103"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 02-A",
+      "statement": "Synthetic Candidate 02 applied Distributed Systems and Node.js in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:distributed-systems",
+        "skill:node-js"
+      ],
+      "effective_period": { "start": "2012-01-01", "end": "2013-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000007",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000010",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000008",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e31080989bf710075696e2e697c568aa90564a4f6ccfb8de9b996cfdc249d457"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 02-B",
+      "statement": "Synthetic Candidate 02 applied Distributed Systems and Node.js in reviewed employment record 2.",
+      "fact_keys": [
+        "experience:employment-2",
+        "skill:distributed-systems",
+        "skill:node-js"
+      ],
+      "effective_period": { "start": "2014-01-01", "end": "2015-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000007",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000010",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "relation": "STRONG_RELATED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000009",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:a0469731888a77826ffecd37014f1abd3da2d6623b64172b07432b5f752ce06d"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 02-C",
+      "statement": "Synthetic Candidate 02 applied Distributed Systems and Node.js in reviewed employment record 3.",
+      "fact_keys": [
+        "experience:employment-3",
+        "skill:distributed-systems",
+        "skill:node-js"
+      ],
+      "effective_period": { "start": "2016-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000007",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000010",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000010",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:92d7bad3729aa5678b608acea1f4bb65109b954efd0833cb383f55a4556cd2f1"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 02-A",
+      "statement": "Synthetic Candidate 02 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": [
+        "education:completed",
+        "education:program-1",
+        "skill:cloud-architecture"
+      ],
+      "effective_period": { "start": "2010-01-01", "end": "2011-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000011",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b877024358bebcc8453828ef4787ee38324c28a0f4cbc3f4823c21c3d165b9c8"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 02-F",
+      "statement": "Synthetic Candidate 02 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000009",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000012",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000012",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:463b1e5b59947582776f512557ccbc2282a761e89211f44c793b6694735e0714"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 02",
+      "statement": "Synthetic Candidate 02 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000006",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 02 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000007",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 02 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000008",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 02 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000009",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_02",
+          "disclosure_text": "Synthetic Candidate 02 explicitly recorded synthetic compensation band 02.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000010",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 02 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000008",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000011",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000013",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:da07e0dfad482a42ca62f72679a9597d530d9e9fb4b9e4dc460a7ceff513f61d"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 03-A",
+      "statement": "Synthetic Candidate 03 transitioned from operations process work into data analytics and applied SQL at Synthetic Employer 03-A.",
+      "fact_keys": [
+        "career:prior-non-data-role",
+        "career:transition",
+        "experience:employment-1",
+        "skill:data-modeling",
+        "skill:sql"
+      ],
+      "effective_period": { "start": "2018-01-01", "end": "2019-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000014",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ca46a5798bdfc4c9edf711d265c8ffdec05497a7694148cb3b951d5a2c9cc598"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 03-B",
+      "statement": "Synthetic Candidate 03 applied SQL and Data Modeling in reviewed employment record 2.",
+      "fact_keys": [
+        "experience:employment-2",
+        "skill:data-modeling",
+        "skill:sql"
+      ],
+      "effective_period": { "start": "2020-01-01", "end": "2021-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000015",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:dfe8b6619b976a8d26f0e00bba69d15ebc4600f071f620519881ac4d6a22d1ac"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 03-C",
+      "statement": "Synthetic Candidate 03 applied SQL and Data Modeling in reviewed employment record 3.",
+      "fact_keys": [
+        "experience:employment-3",
+        "skill:data-modeling",
+        "skill:sql"
+      ],
+      "effective_period": { "start": "2022-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000016",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:665560b5bf122fa3b80615ecee3963d2242b24f2f2262d6ec25fdcf914772841"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 03-A",
+      "statement": "Synthetic Candidate 03 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": [
+        "education:completed",
+        "education:program-1",
+        "skill:python"
+      ],
+      "effective_period": { "start": "2016-01-01", "end": "2017-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000022",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000017",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:8c0d02f2062bdcd2a361aef0a8dea1403c166001f7223060f5244d497d5875c3"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 03-F",
+      "statement": "Synthetic Candidate 03 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000018",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000024",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000018",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f7d4c91e8922bf03f08f475c2ab796410f8e41dc5595dbffe50e478ad849a287"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 03",
+      "statement": "Synthetic Candidate 03 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000011",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 03 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000012",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 03 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000013",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 03 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2026-06-30"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000014",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_03",
+          "disclosure_text": "Synthetic Candidate 03 explicitly recorded synthetic compensation band 03.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000015",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 03 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000017",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000019",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:a8739f023fdf65129f5a6106ec8e82f6b8e61a876ca9d417a6f1bf4518927b0d"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 04-A",
+      "statement": "Synthetic Candidate 04 applied Experiment Design and Machine Learning in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:experiment-design",
+        "skill:machine-learning"
+      ],
+      "effective_period": { "start": "2014-01-01", "end": "2015-12-31" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000022",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000020",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6db6721b4327519eff5c2f8d4247175b5eda66ec3fb084e40ed63cb9c8ec5625"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 04-B",
+      "statement": "Synthetic Candidate 04 applied Experiment Design and Machine Learning in reviewed employment record 2.",
+      "fact_keys": [
+        "experience:employment-2",
+        "skill:experiment-design",
+        "skill:machine-learning"
+      ],
+      "effective_period": { "start": "2017-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000022",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000021",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d0d506a7ba62bb308af7ed42e2c8cd0ece89cd5ac0bf497f970d15a02cf5624e"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 04-A",
+      "statement": "Synthetic Candidate 04 demonstrated Statistical Analysis in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:statistical-analysis"],
+      "effective_period": { "start": "2020-02-01", "end": "2020-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000022",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b64c7d50005a25b9c5ce2b910b2be6f262b20cd383958dc4147123beb6bdfadb"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 04-B",
+      "statement": "Synthetic Candidate 04 demonstrated Statistical Analysis in reviewed project 2.",
+      "fact_keys": ["project:reviewed-2", "skill:statistical-analysis"],
+      "effective_period": { "start": "2021-02-01", "end": "2021-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000023",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c29a51884cd4ffa0e1a707dec8edef311dd7e34fe722d16a0072435483beab6a"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 04-F",
+      "statement": "Synthetic Candidate 04 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000021",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000024",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000024",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:052b0bac08d3134f4c9e89195c705c5c91540ebc8600971b4ad3aa5f2522428f"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 04",
+      "statement": "Synthetic Candidate 04 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000016",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 04 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000017",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 04 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000018",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 04 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000019",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_04",
+          "disclosure_text": "Synthetic Candidate 04 explicitly recorded synthetic compensation band 04.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000020",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 04 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000025",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:13e5da896c7c4f2103bc4ecd32b80a11452c974184bab779173aa91bf53b2b60"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 05-A",
+      "statement": "Synthetic Candidate 05 applied Process Mapping and Stakeholder Analysis in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:process-mapping",
+        "skill:stakeholder-analysis"
+      ],
+      "effective_period": { "start": "2019-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000028",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000026",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6448b7b270faacc4b1b2a595d6305024907327b61755ad9cc323d1520987fbee"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 05-A",
+      "statement": "Synthetic Candidate 05 demonstrated Requirements Analysis in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:requirements-analysis"],
+      "effective_period": { "start": "2020-02-01", "end": "2020-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000030",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000027",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:239f672208edd9f523d3c5cb49dbb49d561f0b98b16b1bd42cd7d0fcecf1fc3b"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 05-B",
+      "statement": "Synthetic Candidate 05 demonstrated Requirements Analysis in reviewed project 2.",
+      "fact_keys": ["project:reviewed-2", "skill:requirements-analysis"],
+      "effective_period": { "start": "2021-02-01", "end": "2021-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000030",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000028",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:831788b9c05f0eab2dc59777537f81163aa34daec060c82181124db51ff9fa51"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 05-C",
+      "statement": "Synthetic Candidate 05 demonstrated Requirements Analysis in reviewed project 3.",
+      "fact_keys": ["project:reviewed-3", "skill:requirements-analysis"],
+      "effective_period": { "start": "2022-02-01", "end": "2022-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000030",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000029",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:3d7a590b400d445591f092b29b5b7f3d1205112af9490f237d5b296ef3b8773b"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 05-F",
+      "statement": "Synthetic Candidate 05 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000030",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:a7220184400a6286a3d0332cc57fa2a7bc24de8ac2f22d313e14b225a46d0135"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 05",
+      "statement": "Synthetic Candidate 05 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000021",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 05 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000022",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 05 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000023",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 05 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000024",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_05",
+          "disclosure_text": "Synthetic Candidate 05 explicitly recorded synthetic compensation band 05.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000025",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 05 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000029",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000031",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:edd6c9868585d37eaff139abb924d93e3c24bc1537eecce6678637dcf9ffdc6b"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 06-A",
+      "statement": "Synthetic Candidate 06 applied Scheduling and Inventory Control in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:inventory-control",
+        "skill:scheduling"
+      ],
+      "effective_period": { "start": "2022-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000034",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000032",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:5218ce271146a2164b67d34c166d079018381a947ccd3a2161f9b598c0470787"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 06-A",
+      "statement": "Synthetic Candidate 06 demonstrated Process Improvement in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:process-improvement"],
+      "effective_period": { "start": "2022-02-01", "end": "2022-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000036",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000033",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:56226664129df9643744662c77a718414f7859a08672903e3efdc7d7b7803b58"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 06-B",
+      "statement": "Synthetic Candidate 06 demonstrated Process Improvement in reviewed project 2.",
+      "fact_keys": ["project:reviewed-2", "skill:process-improvement"],
+      "effective_period": { "start": "2023-02-01", "end": "2023-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000036",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000034",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:574f99e7e7d7ec6fd071bf9a7ac3bf8ad5336cc0d596ee7839a4f3f5c5330ff5"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 06-C",
+      "statement": "Synthetic Candidate 06 demonstrated Process Improvement in reviewed project 3.",
+      "fact_keys": ["project:reviewed-3", "skill:process-improvement"],
+      "effective_period": { "start": "2024-02-01", "end": "2024-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "relation": "PARTIAL"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000036",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000035",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9f0b17b22fb572dee04bb0a57220a271c9ff1df9aca202da30c9e223e9264340"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 06-F",
+      "statement": "Synthetic Candidate 06 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2022-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000036",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:84d47c6bd03e5338de147be9018a84d495ebf5632a74bcd283d6d3604c29d66a"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 06",
+      "statement": "Synthetic Candidate 06 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000026",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 06 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000027",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 06 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000028",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "REGION_ONLY",
+          "disclosure_text": "Synthetic Candidate 06 explicitly approved relocation preference REGION_ONLY.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2026-06-30"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000029",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_06",
+          "disclosure_text": "Synthetic Candidate 06 explicitly recorded synthetic compensation band 06.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000030",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 06 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000035",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000037",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:5731d056cd927ce707d539e34919e362402ba9f2e28400a3175c0e20b4fed648"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 07-A",
+      "statement": "Synthetic Candidate 07 applied Clinical Operations and Quality Reporting in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:clinical-operations",
+        "skill:quality-reporting"
+      ],
+      "effective_period": { "start": "2017-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000037",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000040",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000038",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:2e7a4aca9b6132b91179f8cb3260adf9cdf0aeae49ea9fecbe1fa64349ee30c5"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 07-A",
+      "statement": "Synthetic Candidate 07 demonstrated Data Privacy in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:data-privacy"],
+      "effective_period": { "start": "2020-02-01", "end": "2020-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "relation": "PARTIAL"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000042",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000039",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e49bc1236e244961552c2da364f4582c9fd014795ad07b16406ae7ef3abc0bb9"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 07-F",
+      "statement": "Synthetic Candidate 07 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000021",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000040",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:57d9f0097d387d9631ae5995a1a142f189d224f972b3d3b184a41cd78bb23c0a"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 07-G",
+      "statement": "Synthetic Candidate 07 holds a separate Synthetic Healthcare Quality License valid through 2030.",
+      "fact_keys": ["license:healthcare-quality-current"],
+      "effective_period": { "start": "2024-01-01", "end": "2030-12-31" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "BOUNDED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000039",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000041",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6b7f814c26682665866161d59100998020007e77c71fdef0d1cd3002ed5c5f18"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 07-H",
+      "statement": "Synthetic Candidate 07 held Synthetic Healthcare Operations License 07 during 2020; the reviewed record is expired.",
+      "fact_keys": ["license:healthcare-operations"],
+      "effective_period": { "start": "2020-01-01", "end": "2020-12-31" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "BOUNDED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000020",
+          "relation": "PARTIAL"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000038",
+          "relation": "PARTIAL"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000041",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000042",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0bd872ba1a879b2d0ad29ac4fc103d2b329c0a83374015df3c3c92e4ee7cefbf"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 07",
+      "statement": "Synthetic Candidate 07 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000031",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 07 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000032",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 07 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000033",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 07 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000034",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_07",
+          "disclosure_text": "Synthetic Candidate 07 explicitly recorded synthetic compensation band 07.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000035",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 07 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000043",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c6ae484430975fc659cef443ec3c811e6a658724067f2540b4b2c34f94df7d04"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 08-A",
+      "statement": "Synthetic Candidate 08 applied Curriculum Design and Facilitation in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:curriculum-design",
+        "skill:facilitation"
+      ],
+      "effective_period": { "start": "2021-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000043",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000046",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000044",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9bf05454ece6c5d0248bde2eea341c6888c9fbab7a654b59cb8a7ba7b220203b"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 08-A",
+      "statement": "Synthetic Candidate 08 demonstrated Learning Analytics in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:learning-analytics"],
+      "effective_period": { "start": "2021-02-01", "end": "2021-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000045",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000048",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000045",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:504d9ce2328f44cf2eff080fab41039384ce231e122b9454870a851899d59071"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 08-F",
+      "statement": "Synthetic Candidate 08 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2021-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000046",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:05b1e8b9bf107d4531bad9420fa0fc2e3e61d34466250a190b3b218c57e7a41d"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 08-G",
+      "statement": "Synthetic Candidate 08 has a reviewed credential whose validity begins in 2027.",
+      "fact_keys": ["credential:not-yet-valid"],
+      "effective_period": { "start": "2027-01-01", "end": "2030-12-31" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "BOUNDED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000047",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:52708de4066d14f5d651cfd13b08be8c0531b22d77da27a7b93f0ed2baeb3f7d"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 08-H",
+      "statement": "Synthetic Candidate 08 has a reviewed credential revoked in 2025.",
+      "fact_keys": ["credential:revoked"],
+      "effective_period": { "start": "2020-01-01", "end": "2030-12-31" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "BOUNDED",
+      "revoked_on": "2025-01-01",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000048",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:408c38f73dcb8f54eee9591123900e406d1f60efa967b67d4e3682c958ffbcf8"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 08",
+      "statement": "Synthetic Candidate 08 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000036",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "REQUIRES_SPONSORSHIP",
+          "disclosure_text": "Synthetic Candidate 08 explicitly approved work authorization value REQUIRES_SPONSORSHIP.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000037",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "REQUIRED",
+          "disclosure_text": "Synthetic Candidate 08 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000038",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 08 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000039",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_08",
+          "disclosure_text": "Synthetic Candidate 08 explicitly recorded synthetic compensation band 08.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000040",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 08 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "relation": "CONTRADICTS"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000044",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000047",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000049",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:8a23a2a687638cd0a9da3b21004de2ab127ba47e3ae4bd4ff3e548d206c07857"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 09-A",
+      "statement": "Synthetic Candidate 09 applied Pipeline Analysis and CRM Administration in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:crm-administration",
+        "skill:pipeline-analysis"
+      ],
+      "effective_period": { "start": "2018-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000049",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000052",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000050",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1f976c67732d8e1126285397d83ff21f28db46bfe97c5ca71deb746ec87efbab"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 09-A",
+      "statement": "Synthetic Candidate 09 demonstrated Forecasting in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:forecasting"],
+      "effective_period": { "start": "2020-02-01", "end": "2020-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000051",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d40a5e973d9c9f78d46cdda6f5cc27599fc8bb3cb149e065e13763412ec790e7"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 09-F",
+      "statement": "Synthetic Candidate 09 earned reviewed Synthetic Foundation Credential 1.",
+      "fact_keys": ["credential:synthetic-foundation"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "NON_EXPIRING",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000052",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4f3d8475d2d925d717a359c6ef6497c413559fac07cac3692d989512d3c6e85d"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 09-G",
+      "statement": "Synthetic Candidate 09 has a credential record with unknown current validity.",
+      "fact_keys": ["credential:unknown-validity"],
+      "effective_period": { "start": "2020-01-01" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "UNKNOWN",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000055",
+          "relation": "PARTIAL"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000053",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:8245e77029f0bb921723adfb46db11fb6ee72e6e3534a7c9f40d1c4603ce68ed"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "CREDENTIAL_RECORD",
+      "organization": "Synthetic Institute 09-H",
+      "statement": "Synthetic Candidate 09 holds a reviewed bounded specialist credential valid through 2030.",
+      "fact_keys": ["credential:current-specialist"],
+      "effective_period": { "start": "2024-01-01", "end": "2030-12-31" },
+      "temporal_semantics": "CREDENTIAL_VALIDITY",
+      "credential_validity_basis": "BOUNDED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000054",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:bd0d6d3f1d49612254b003cf14b0591f230bf600c5e97b2445556d315f13baee"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 09",
+      "statement": "Synthetic Candidate 09 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000041",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 09 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000042",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 09 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000043",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 09 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2026-06-30"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000044",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_09",
+          "disclosure_text": "Synthetic Candidate 09 explicitly recorded synthetic compensation band 09.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000045",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 09 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000050",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000053",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000055",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:af1ef48b2f60919100a7f6952374c13570f9262315977bced913d74fc614e56f"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 10-A",
+      "statement": "Synthetic Candidate 10 applied Financial Modeling and Variance Analysis in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:financial-modeling",
+        "skill:variance-analysis"
+      ],
+      "effective_period": { "start": "2013-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000055",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000058",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000056",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:5296f71e7ef133ddb7263ee381c38ce0fd6e813b2c89a5d1f0be7d6b7178dc2d"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 10-A",
+      "statement": "Synthetic Candidate 10 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-1"],
+      "effective_period": { "start": "2007-01-01", "end": "2008-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000057",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000060",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000057",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d4b43235d3bb06979b63525a4f567ef71c046d4472567e7c2568d49548c893e6"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 10-B",
+      "statement": "Synthetic Candidate 10 completed reviewed synthetic education program 2 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-2"],
+      "effective_period": { "start": "2009-01-01", "end": "2010-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000057",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000060",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000058",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1aec6d4764620caccec5d538a4a21aa75c4907a8cb94c6bb9d5d8c457c87885d"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 10-C",
+      "statement": "Synthetic Candidate 10 completed reviewed synthetic education program 3 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-3"],
+      "effective_period": { "start": "2011-01-01", "end": "2012-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000057",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000060",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000059",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:804c4afe644c74f709284b5c5e395905036e9776065df7a231f3abc48f614c5a"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 10-A",
+      "statement": "Synthetic Candidate 10 demonstrated Risk Reporting in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:risk-reporting"],
+      "effective_period": { "start": "2020-02-01", "end": "2020-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000060",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c6c4d3517ee7de21255830bb461065776c6302351ac1e99db6c0fce7d0a2f575"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 10",
+      "statement": "Synthetic Candidate 10 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000046",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 10 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000047",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 10 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000048",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "REMOTE_ONLY",
+          "disclosure_text": "Synthetic Candidate 10 explicitly approved relocation preference REMOTE_ONLY.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000049",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_10",
+          "disclosure_text": "Synthetic Candidate 10 explicitly recorded synthetic compensation band 10.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000050",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 10 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000002",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000061",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:2c4e2de5c3a755356462b9b81fdf5f7132fd1d87f64b76aae125be450751a8b7"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 11-A",
+      "statement": "Synthetic Candidate 11 applied Documentation and Task Tracking in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:documentation",
+        "skill:task-tracking"
+      ],
+      "effective_period": { "start": "2023-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000061",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000064",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000062",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:5a6d9daa80419361b10fbd78eecb241cca3433eba7e1b60f68aba5d25e81d7a0"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 11-A",
+      "statement": "Synthetic Candidate 11 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-1"],
+      "effective_period": { "start": "2017-01-01", "end": "2018-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "relation": "STRONG_RELATED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000063",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000066",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000063",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1e5cdd4aae8476642cffd0f39ded5c3fbc0fb1fcab26eb942f54f62305ff5121"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 11-B",
+      "statement": "Synthetic Candidate 11 completed reviewed synthetic education program 2 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-2"],
+      "effective_period": { "start": "2019-01-01", "end": "2020-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000063",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000066",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000064",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:459b73479d1b24ae0c2046f40ba756afcee288a92066f049250f490c64b138af"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 11-C",
+      "statement": "Synthetic Candidate 11 completed reviewed synthetic education program 3 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-3"],
+      "effective_period": { "start": "2021-01-01", "end": "2022-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000063",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000066",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000065",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:01d1290566f9fc074d7b6bf19ab6609be361b8e52638301faea7d43844e11ac7"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 11-A",
+      "statement": "Synthetic Candidate 11 demonstrated Team Communication in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:team-communication"],
+      "effective_period": { "start": "2023-02-01", "end": "2023-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000066",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:30ac09c178b0bc06e3cafb66e87becb6e994edfeb00aeb7548471e49747ecc02"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 11",
+      "statement": "Synthetic Candidate 11 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000051",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 11 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000052",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 11 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000053",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "OPEN",
+          "disclosure_text": "Synthetic Candidate 11 explicitly approved relocation preference OPEN.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000054",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_11",
+          "disclosure_text": "Synthetic Candidate 11 explicitly recorded synthetic compensation band 11.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000055",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 11 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000062",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000065",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000067",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e3873155e214a99573bb0a48ed7b07b2cbbc950ce74011485a08b23d5744fe86"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "EMPLOYMENT_RECORD",
+      "organization": "Synthetic Employer 12-A",
+      "statement": "Synthetic Candidate 12 applied Issue Triage and Knowledge Management in reviewed employment record 1.",
+      "fact_keys": [
+        "experience:employment-1",
+        "skill:issue-triage",
+        "skill:knowledge-management"
+      ],
+      "effective_period": { "start": "2024-01-01", "end": "2026-06-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000067",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000070",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000068",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f03872a4ac608867631d64ce2758306e97228303369f6ac43471870890bb846a"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 12-A",
+      "statement": "Synthetic Candidate 12 completed reviewed synthetic education program 1 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-1"],
+      "effective_period": { "start": "2018-01-01", "end": "2019-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000069",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000072",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000069",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b0c14aa2c61fac57f2a76ac41e2d3ddb1fb2c10ef6f73c37762ccee8766be37c"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 12-B",
+      "statement": "Synthetic Candidate 12 completed reviewed synthetic education program 2 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-2"],
+      "effective_period": { "start": "2020-01-01", "end": "2021-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000069",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000072",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000070",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c3fbbc723bb8faf7cc8f1edcaa09c487468398d3af1ae0f7b3a1224828179f94"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "EDUCATION_RECORD",
+      "organization": "Synthetic Institute 12-C",
+      "statement": "Synthetic Candidate 12 completed reviewed synthetic education program 3 before beginning the declared career.",
+      "fact_keys": ["education:completed", "education:program-3"],
+      "effective_period": { "start": "2022-01-01", "end": "2023-06-30" },
+      "temporal_semantics": "EDUCATION_ATTENDANCE",
+      "education_state": "COMPLETED",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000069",
+          "relation": "DIRECT"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000072",
+          "relation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "evidence_00000000000000000000000071",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b1434b2824784a2639baac3271646de0dac815a1800c79e12833e167d4354c2f"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "PROJECT_RECORD",
+      "organization": "Synthetic Project 12-A",
+      "statement": "Synthetic Candidate 12 demonstrated Customer Support in reviewed project 1.",
+      "fact_keys": ["project:reviewed-1", "skill:customer-support"],
+      "effective_period": { "start": "2024-02-01", "end": "2024-11-30" },
+      "temporal_semantics": "ACTIVITY_INTERVAL",
+      "assertion_approval": "NOT_APPLICABLE",
+      "field_records": [],
+      "requirement_relations": []
+    },
+    {
+      "id": "evidence_00000000000000000000000072",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e12127dbaf1cb81c4af7e3db2ea61b9a3a17453a857e6ab4e978c65583797518"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "category": "USER_ASSERTION",
+      "organization": "Synthetic Candidate Record 12",
+      "statement": "Synthetic Candidate 12 recorded five reviewed field decisions for fixture evaluation.",
+      "fact_keys": [
+        "assertion:approved",
+        "field:demographic_disclosure",
+        "field:relocation_preference",
+        "field:salary_expectation",
+        "field:sponsorship_requirement",
+        "field:work_authorization"
+      ],
+      "effective_period": { "start": "2026-07-29", "end": "2026-07-29" },
+      "temporal_semantics": "ASSERTION_FRESHNESS",
+      "assertion_approval": "USER_APPROVED",
+      "field_records": [
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000056",
+          "field_concept": "WORK_AUTHORIZATION",
+          "recorded_value": "AUTHORIZED",
+          "disclosure_text": "Synthetic Candidate 12 explicitly approved work authorization value AUTHORIZED.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000057",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "recorded_value": "NOT_REQUIRED",
+          "disclosure_text": "Synthetic Candidate 12 explicitly approved a sponsorship requirement decision.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2027-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000058",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "recorded_value": "REGION_ONLY",
+          "disclosure_text": "Synthetic Candidate 12 explicitly approved relocation preference REGION_ONLY.",
+          "recorded_on": "2026-07-29",
+          "valid_through": "2026-06-30"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000059",
+          "field_concept": "SALARY_EXPECTATION",
+          "recorded_value": "FIXTURE_COMPENSATION_BAND_12",
+          "disclosure_text": "Synthetic Candidate 12 explicitly recorded synthetic compensation band 12.",
+          "recorded_on": "2026-07-29"
+        },
+        {
+          "field_record_id": "fieldrecord_00000000000000000000000060",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "disclosure_text": "Synthetic Candidate 12 chose not to provide a demographic disclosure value.",
+          "recorded_on": "2026-07-29"
+        }
+      ],
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000068",
+          "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000071",
+          "relation": "USER_ASSERTED"
+        }
+      ]
+    }
+  ]
+}

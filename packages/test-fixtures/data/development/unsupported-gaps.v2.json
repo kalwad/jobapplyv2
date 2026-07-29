@@ -1,0 +1,751 @@
+{
+  "entity_type": "UNSUPPORTED_GAP",
+  "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+  "schema_version": "2.0.0",
+  "items": [
+    {
+      "id": "gap_00000000000000000000000001",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9cf264a37b39737aa178851ad304cd29a8a213723484089462effaf542be3b1c"
+      },
+      "scenario_ref": "scenario_00000000000000000000000003",
+      "profile_ref": "profile_00000000000000000000000001",
+      "requirement_ref": "requirement_00000000000000000000000016",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000004"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "API design is relevant to data modeling work, but it does not directly prove the required data-modeling experience."
+    },
+    {
+      "id": "gap_00000000000000000000000002",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:12a298df943a48304fb2dad825df026d18492eace8189f1af13c6dc50218913d"
+      },
+      "scenario_ref": "scenario_00000000000000000000000006",
+      "profile_ref": "profile_00000000000000000000000002",
+      "requirement_ref": "requirement_00000000000000000000000027",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000003",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:fed1e5d29d62d924667ec28b42309ba27c3fafc3e414a8f0ccb20800829da030"
+      },
+      "scenario_ref": "scenario_00000000000000000000000009",
+      "profile_ref": "profile_00000000000000000000000003",
+      "requirement_ref": "requirement_00000000000000000000000022",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000016"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Reviewed Python project work is relevant to machine-learning implementation, but its duration is insufficient for the anchored three-year experience requirement."
+    },
+    {
+      "id": "gap_00000000000000000000000004",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:acf0ede5585dad7f1fafa8c719c919077594ecd9dfdd4f646109e085b4452520"
+      },
+      "scenario_ref": "scenario_00000000000000000000000009",
+      "profile_ref": "profile_00000000000000000000000003",
+      "requirement_ref": "requirement_00000000000000000000000023",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000005",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:fb32f405b28846fac041d399ae12a7a9ad17acc511dc413ca79dc003652a71e3"
+      },
+      "scenario_ref": "scenario_00000000000000000000000010",
+      "profile_ref": "profile_00000000000000000000000004",
+      "requirement_ref": "requirement_00000000000000000000000020",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000006",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:677d97b880b71da723a08e255be4e0a29efc78b67cbc6f69a53b8a985c5b3279"
+      },
+      "scenario_ref": "scenario_00000000000000000000000011",
+      "profile_ref": "profile_00000000000000000000000004",
+      "requirement_ref": "requirement_00000000000000000000000023",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000007",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1726e636788106b969fd5044df602661a193dba97890797a45c5b4d54d9cc29d"
+      },
+      "scenario_ref": "scenario_00000000000000000000000012",
+      "profile_ref": "profile_00000000000000000000000004",
+      "requirement_ref": "requirement_00000000000000000000000013",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000022"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Statistical analysis is relevant to SQL-based data work but does not directly prove reviewed SQL experience."
+    },
+    {
+      "id": "gap_00000000000000000000000008",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:df29cb2557c72c69a48a36bf4e5fd02c1672e63c6f28d98a731285190e8c4e5a"
+      },
+      "scenario_ref": "scenario_00000000000000000000000015",
+      "profile_ref": "profile_00000000000000000000000005",
+      "requirement_ref": "requirement_00000000000000000000000031",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000028"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Requirements analysis is relevant to scheduling operations, but the evidence does not directly establish scheduling experience."
+    },
+    {
+      "id": "gap_00000000000000000000000009",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7b8100106b552819c3e24aa48b3b57c71ef48943c2b925ffd871f879b28547a2"
+      },
+      "scenario_ref": "scenario_00000000000000000000000015",
+      "profile_ref": "profile_00000000000000000000000005",
+      "requirement_ref": "requirement_00000000000000000000000033",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000010",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1cfc649785b2fee82e62a19522a6ced96ceb3d6536043dac144b45b043c3f200"
+      },
+      "scenario_ref": "scenario_00000000000000000000000018",
+      "profile_ref": "profile_00000000000000000000000006",
+      "requirement_ref": "requirement_00000000000000000000000025",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000034"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Process-improvement work is relevant to process mapping, but its duration is insufficient for the anchored three-year experience requirement."
+    },
+    {
+      "id": "gap_00000000000000000000000011",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9f746c1c439911120e66fee7a10c57e4a2e72061d8f4360e48dfce612d054f21"
+      },
+      "scenario_ref": "scenario_00000000000000000000000018",
+      "profile_ref": "profile_00000000000000000000000006",
+      "requirement_ref": "requirement_00000000000000000000000027",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000012",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:45230874c9fc5b7305f4834d319806ee1a91375bfc12a2f3bf3bf84e63d7dd2f"
+      },
+      "scenario_ref": "scenario_00000000000000000000000019",
+      "profile_ref": "profile_00000000000000000000000007",
+      "requirement_ref": "requirement_00000000000000000000000038",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000041"
+      ],
+      "expected_action": "REQUIRE_CONFIRMATION",
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+    },
+    {
+      "id": "gap_00000000000000000000000013",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7313b874ff5ec15d99879ff4d2c86cffb2aabae11d7f629d7eef80624aa1ff0f"
+      },
+      "scenario_ref": "scenario_00000000000000000000000020",
+      "profile_ref": "profile_00000000000000000000000007",
+      "requirement_ref": "requirement_00000000000000000000000041",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000041"
+      ],
+      "expected_action": "REQUIRE_CONFIRMATION",
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+    },
+    {
+      "id": "gap_00000000000000000000000014",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:2035e072a3069768a3b2eff815b47ab8a8f1a64a7b430d5bf1be41974033202f"
+      },
+      "scenario_ref": "scenario_00000000000000000000000021",
+      "profile_ref": "profile_00000000000000000000000007",
+      "requirement_ref": "requirement_00000000000000000000000019",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000038"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+    },
+    {
+      "id": "gap_00000000000000000000000015",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7fbc52fb06ea715329ef4569c4556c88c2e6bc908a3de43e12e51e1af335c7e7"
+      },
+      "scenario_ref": "scenario_00000000000000000000000021",
+      "profile_ref": "profile_00000000000000000000000007",
+      "requirement_ref": "requirement_00000000000000000000000020",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000041"
+      ],
+      "expected_action": "REQUIRE_CONFIRMATION",
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+    },
+    {
+      "id": "gap_00000000000000000000000016",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:26795d8beb7b3a0effada4d9f960d50175a13e59b241345ad765e4aaddfde9ab"
+      },
+      "scenario_ref": "scenario_00000000000000000000000024",
+      "profile_ref": "profile_00000000000000000000000008",
+      "requirement_ref": "requirement_00000000000000000000000013",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000046"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Learning analytics is relevant to SQL analysis but does not directly establish reviewed SQL experience."
+    },
+    {
+      "id": "gap_00000000000000000000000017",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0c05afdc2e9e6813b3eea75dfff014a52e2e0e430d09bcf4d39b976194e5be22"
+      },
+      "scenario_ref": "scenario_00000000000000000000000024",
+      "profile_ref": "profile_00000000000000000000000008",
+      "requirement_ref": "requirement_00000000000000000000000014",
+      "classification": "CONTRADICTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000048"
+      ],
+      "expected_action": "BLOCK_AND_EXPLAIN",
+      "reason_code": "CONTRADICTED_BY_EXPLICIT_RECORD",
+      "support_review_rationale": "An explicit approved field record conflicts with the anchored job constraint, so the scenario must block or abstain."
+    },
+    {
+      "id": "gap_00000000000000000000000018",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c975473ca738386c39f0cd21f7a44e9b357d2ab02f727e41fb9368ba9861d072"
+      },
+      "scenario_ref": "scenario_00000000000000000000000025",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000051",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000019",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:460d6a32d9d99149fe08929c3c6a9573d8133ce1415b5549bc25354b115fc725"
+      },
+      "scenario_ref": "scenario_00000000000000000000000026",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000054",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000020",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ba00372cd04a5e516c6f793b637c722eb0cb9017ebb85974812e93c8728b19f2"
+      },
+      "scenario_ref": "scenario_00000000000000000000000027",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000055",
+      "classification": "PARTIAL",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000052"
+      ],
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "Forecasting work is relevant to financial modeling, but its duration is insufficient for the anchored seven-year experience requirement."
+    },
+    {
+      "id": "gap_00000000000000000000000021",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d770c3d6bd387c2638ef63d9bbb020cc658667e2fc343ddc8201972fb54c42a1"
+      },
+      "scenario_ref": "scenario_00000000000000000000000027",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000056",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000022",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1e6f9de7b8fcc435eb31387f8478598abbe3156c902db96943e967ac849aed5f"
+      },
+      "scenario_ref": "scenario_00000000000000000000000027",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000057",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000023",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:13e4dde2080e79de61cabdae4d1dc9eb62776bc22cd51f0d59016f1c8d592d5b"
+      },
+      "scenario_ref": "scenario_00000000000000000000000028",
+      "profile_ref": "profile_00000000000000000000000010",
+      "requirement_ref": "requirement_00000000000000000000000056",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000024",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:a99306636b84897edd78b949871a686fe40f116cc96e35dffa64760560727fdd"
+      },
+      "scenario_ref": "scenario_00000000000000000000000029",
+      "profile_ref": "profile_00000000000000000000000010",
+      "requirement_ref": "requirement_00000000000000000000000059",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000025",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0279067b80ca630d5e0f1c66278935147b7f65d8e7bb715daa4c6e61c77d89e1"
+      },
+      "scenario_ref": "scenario_00000000000000000000000030",
+      "profile_ref": "profile_00000000000000000000000010",
+      "requirement_ref": "requirement_00000000000000000000000001",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "Financial-analysis evidence does not support the TypeScript experience requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000026",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:3fe92e52c8c96b3c9f9bfb9f5d5dff269184da2a0440f09736e3aa794a7ed69e"
+      },
+      "scenario_ref": "scenario_00000000000000000000000030",
+      "profile_ref": "profile_00000000000000000000000010",
+      "requirement_ref": "requirement_00000000000000000000000003",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000027",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9bf45bc2205fc186fa6463e593bfe5eae5acf6b7dfde4a2bbab41661e3f2859a"
+      },
+      "scenario_ref": "scenario_00000000000000000000000033",
+      "profile_ref": "profile_00000000000000000000000011",
+      "requirement_ref": "requirement_00000000000000000000000033",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000028",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:148ca4a29c2ebab148c4a00e24ce9a6d69092ccbcf2d034a3893d30c7acdb151"
+      },
+      "scenario_ref": "scenario_00000000000000000000000036",
+      "profile_ref": "profile_00000000000000000000000012",
+      "requirement_ref": "requirement_00000000000000000000000040",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "The entry-level support profile has no healthcare license or related experience evidence for this cross-role job."
+    },
+    {
+      "id": "gap_00000000000000000000000029",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4b3a7a47299b495c5d56ee48f7067236b751b1d4711f4cd08e4f68691b028da4"
+      },
+      "scenario_ref": "scenario_00000000000000000000000036",
+      "profile_ref": "profile_00000000000000000000000012",
+      "requirement_ref": "requirement_00000000000000000000000041",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    },
+    {
+      "id": "gap_00000000000000000000000030",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b1e482a1105cef00dda29f8bf67c3fa5a46f63cb4d8f9688c1cdec190b31cf16"
+      },
+      "scenario_ref": "scenario_00000000000000000000000036",
+      "profile_ref": "profile_00000000000000000000000012",
+      "requirement_ref": "requirement_00000000000000000000000042",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:japp:schema:test-fixture:field-value-policy:v1",
-  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:test-fixture:field-value-policy:v2",
+  "x-japp-schema-version": "2.0.0",
   "title": "Synthetic field-value policy",
   "description": "TEST-ONLY upstream expected policy for one synthetic profile field; not a downstream form FieldDecision.",
   "type": "object",
@@ -22,29 +22,31 @@
   ],
   "properties": {
     "id": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "entity_type": {
       "const": "FIELD_VALUE_POLICY"
     },
     "schema_ref": {
-      "const": "urn:japp:schema:test-fixture:field-value-policy:v1"
+      "const": "urn:japp:schema:test-fixture:field-value-policy:v2"
     },
     "schema_version": {
-      "const": "1.0.0"
+      "const": "2.0.0"
     },
     "metadata": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
     },
     "profile_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "field_concept": {
       "type": "string",
       "enum": [
         "DEMOGRAPHIC_DISCLOSURE",
+        "LICENSE_VALIDITY",
         "RELOCATION_PREFERENCE",
         "SALARY_EXPECTATION",
+        "SPONSORSHIP_REQUIREMENT",
         "WORK_AUTHORIZATION"
       ]
     },
@@ -67,7 +69,10 @@
       ]
     },
     "source_evidence_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "source_field_record_id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "recorded_value": {
       "type": "string",
@@ -75,9 +80,6 @@
       "maxLength": 300,
       "x-japp-sensitivity": "SENSITIVE",
       "x-japp-redaction": "REDACT_VALUE"
-    },
-    "record_expires_on": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/calendarDate"
     },
     "explanation_code": {
       "type": "string",

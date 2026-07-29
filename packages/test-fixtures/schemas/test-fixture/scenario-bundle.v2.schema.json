@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Profile-job scenario bundle",
+  "description": "TEST-ONLY bundle linking one profile, source resume, job, complete requirement evaluations, claims, and gaps.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "profile_ref",
+    "resume_ref",
+    "job_ref",
+    "evaluation_date",
+    "expected_outcome",
+    "evaluations",
+    "policy_evaluations",
+    "coverage_tags"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "SCENARIO_BUNDLE"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:scenario-bundle:v2"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "resume_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "job_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "evaluation_date": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/calendarDate"
+    },
+    "expected_outcome": {
+      "type": "string",
+      "enum": [
+        "ABSTAIN",
+        "BLOCK_FIELD_POLICY",
+        "BLOCK_INELIGIBLE",
+        "PROCEED_WITH_GAPS",
+        "REQUIRE_CONFIRMATION"
+      ]
+    },
+    "evaluations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requirement_ref",
+          "classification",
+          "result_type",
+          "result_ref",
+          "expected_action"
+        ],
+        "properties": {
+          "requirement_ref": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+          },
+          "classification": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/supportClassification"
+          },
+          "result_type": {
+            "type": "string",
+            "enum": ["SUPPORTED_CLAIM", "UNSUPPORTED_GAP"]
+          },
+          "result_ref": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+          },
+          "expected_action": {
+            "type": "string",
+            "enum": [
+              "ABSTAIN",
+              "BLOCK_AND_EXPLAIN",
+              "REQUIRE_CONFIRMATION",
+              "USE_SUPPORTED_EVIDENCE"
+            ]
+          }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "policy_evaluations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "policy_ref",
+          "field_concept",
+          "source_evidence_ref",
+          "expected_action",
+          "release_eligible"
+        ],
+        "properties": {
+          "policy_ref": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+          },
+          "field_concept": {
+            "type": "string",
+            "enum": [
+              "DEMOGRAPHIC_DISCLOSURE",
+              "LICENSE_VALIDITY",
+              "RELOCATION_PREFERENCE",
+              "SALARY_EXPECTATION",
+              "SPONSORSHIP_REQUIREMENT",
+              "WORK_AUTHORIZATION"
+            ]
+          },
+          "source_evidence_ref": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+          },
+          "expected_action": {
+            "type": "string",
+            "enum": [
+              "ABSTAIN",
+              "BLOCK_AND_EXPLAIN",
+              "REQUIRE_CONFIRMATION",
+              "USE_SUPPORTED_EVIDENCE"
+            ]
+          },
+          "release_eligible": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "coverage_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  }
+}

@@ -12,10 +12,6 @@ export class StrictJsonError extends Error {
 
 const JSON_NUMBER = /-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/y;
 
-function escapePointer(value: string): string {
-  return value.replaceAll("~", "~0").replaceAll("/", "~1");
-}
-
 class JsonPreflight {
   private index = 0;
   private readonly text: string;
@@ -115,14 +111,18 @@ class JsonPreflight {
       return;
     }
     const keys = new Set<string>();
+    let member = 0;
     while (this.index < this.text.length) {
       if (this.text[this.index] !== '"') {
         this.invalid(pointer);
       }
       const key = this.string(pointer);
-      const child = `${pointer}/${escapePointer(key)}`;
+      const child = `${pointer}/@member/${String(member)}`;
       if (keys.has(key)) {
-        throw new StrictJsonError("FIXTURE_JSON_DUPLICATE_KEY", child);
+        throw new StrictJsonError(
+          "FIXTURE_JSON_DUPLICATE_KEY",
+          `${child}/@key`,
+        );
       }
       keys.add(key);
       this.skipWhitespace();
@@ -141,6 +141,7 @@ class JsonPreflight {
         this.invalid(pointer);
       }
       this.skipWhitespace();
+      member += 1;
     }
     this.invalid(pointer);
   }

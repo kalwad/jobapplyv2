@@ -125,6 +125,7 @@ LOCKFILES = (
 )
 
 REQUIRED_SCRIPT_FILES = (
+    "scripts/check-ts-test-policy.mjs",
     "scripts/validate_status.py",
     "scripts/traceability.py",
     "scripts/verify.py",
@@ -174,6 +175,10 @@ ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 PKG_ROW_RE = re.compile(r"^\|\s*`(M\d{2}-W\d{2})`\s*\|\s*([A-Z_]+)\s*\|")
 TURBO_TASKS_RE = re.compile(r"Tasks:\s+(\d+) successful, (\d+) total")
 VITEST_PASSED_RE = re.compile(r"Tests\s+(\d+) passed")
+VITEST_SUMMARY_RE = re.compile(r"^\s*(?:Test Files|Tests)\s+(.+)$", re.MULTILINE)
+VITEST_NONPASSING_RE = re.compile(
+    r"\b([1-9]\d*)\s+(skipped|todo|pending|excluded)\b", re.IGNORECASE
+)
 PLAYWRIGHT_LIST_RE = re.compile(r"Total:\s*(\d+) tests? in")
 PLAYWRIGHT_PASSED_RE = re.compile(r"^\s*(\d+) passed", re.MULTILINE)
 PYTEST_PASSED_RE = re.compile(r"=+.*?\b(\d+) passed\b.*?=+")
@@ -539,6 +544,9 @@ def _proof_turbo_task_count(
 def _proof_vitest_per_package(
     ctx: Context, _suite: Suite, proof: Proof, output: str
 ) -> str | None:
+    nonpassing = _vitest_nonpassing_failure(output)
+    if nonpassing:
+        return nonpassing
     expected = len(workspace_packages_with_script(ctx, proof.script))
     if expected < 1:
         return f"no workspace package declares a '{proof.script}' script"
@@ -556,6 +564,9 @@ def _proof_vitest_per_package(
 def _proof_vitest_min_tests(
     _ctx: Context, _suite: Suite, proof: Proof, output: str
 ) -> str | None:
+    nonpassing = _vitest_nonpassing_failure(output)
+    if nonpassing:
+        return nonpassing
     total = sum(int(n) for n in VITEST_PASSED_RE.findall(output))
     if total < proof.min_count:
         return f"Vitest reported {total} passing tests; need >= {proof.min_count}"
@@ -565,9 +576,24 @@ def _proof_vitest_min_tests(
 def _proof_vitest_exact_tests(
     _ctx: Context, _suite: Suite, proof: Proof, output: str
 ) -> str | None:
+    nonpassing = _vitest_nonpassing_failure(output)
+    if nonpassing:
+        return nonpassing
     total = sum(int(n) for n in VITEST_PASSED_RE.findall(output))
     if total != proof.min_count:
         return f"Vitest reported {total} passing tests; need exactly {proof.min_count}"
+    return None
+
+
+def _vitest_nonpassing_failure(output: str) -> str | None:
+    """Reject every explicit non-passing Vitest summary outcome."""
+    for summary in VITEST_SUMMARY_RE.findall(output):
+        match = VITEST_NONPASSING_RE.search(summary)
+        if match:
+            return (
+                "Vitest reported a non-passing outcome: "
+                f"{match.group(1)} {match.group(2).lower()}"
+            )
     return None
 
 
@@ -823,24 +849,67 @@ def check_bypass_tokens(ctx: Context, tracked: list[str]) -> list[str]:
     return failures
 
 
+def _unskipped_test_paths(
+    ctx: Context, patterns: tuple[str, ...], allowed_skips: tuple[str, ...]
+) -> list[Path]:
+    paths: list[Path] = []
+    for pattern in patterns:
+        for path in discovery_matches(ctx, (pattern,)):
+            rel = path.relative_to(ctx.repo).as_posix()
+            if rel in allowed_skips:
+                continue
+            paths.append(path)
+    return paths
+
+
+def _typescript_test_policy_failures(ctx: Context, paths: list[Path]) -> list[str]:
+    if not paths:
+        return []
+    scanner = Path(__file__).resolve().with_name("check-ts-test-policy.mjs")
+    if not scanner.is_file():
+        return ["TypeScript test-policy AST scanner is missing"]
+    node = portability.host_resolve_executable("node")
+    if node is None:
+        return ["node not found for TypeScript test-policy AST scan"]
+    try:
+        proc = subprocess.run(
+            (node, str(scanner), *(str(path) for path in paths)),
+            cwd=ctx.repo,
+            capture_output=True,
+            encoding="utf-8",
+            errors="strict",
+            timeout=120,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired, UnicodeDecodeError) as exc:
+        return [f"TypeScript test-policy AST scan failed: {exc}"]
+    if proc.returncode == 0:
+        return []
+    detail = (proc.stderr or proc.stdout).strip()
+    return [
+        (
+            "focused/conditional/skipped TypeScript test marker: "
+            f"{detail or f'scanner exit {proc.returncode}'}"
+        )
+    ]
+
+
+def _python_skip_marker_failures(ctx: Context, paths: list[Path]) -> list[str]:
+    return [
+        f"skipped test marker in {path.relative_to(ctx.repo).as_posix()}"
+        for path in paths
+        if PY_SKIP_RE.search(path.read_text(encoding="utf-8"))
+    ]
+
+
 def check_focused_tests(ctx: Context, allowed_skips: tuple[str, ...]) -> list[str]:
-    """Scan every on-disk test file (tracked or not) for focus/skip markers."""
-    failures: list[str] = []
-    for pattern in TS_TEST_GLOBS:
-        for path in discovery_matches(ctx, (pattern,)):
-            rel = path.relative_to(ctx.repo).as_posix()
-            if rel in allowed_skips:
-                continue
-            if TS_FOCUS_RE.search(path.read_text(encoding="utf-8")):
-                failures.append(f"focused/skipped test marker in {rel}")
-    for pattern in PY_TEST_GLOBS:
-        for path in discovery_matches(ctx, (pattern,)):
-            rel = path.relative_to(ctx.repo).as_posix()
-            if rel in allowed_skips:
-                continue
-            if PY_SKIP_RE.search(path.read_text(encoding="utf-8")):
-                failures.append(f"skipped test marker in {rel}")
-    return failures
+    """AST-scan every on-disk TS test and text-scan Python skip markers."""
+    ts_paths = _unskipped_test_paths(ctx, TS_TEST_GLOBS, allowed_skips)
+    py_paths = _unskipped_test_paths(ctx, PY_TEST_GLOBS, allowed_skips)
+    return [
+        *_typescript_test_policy_failures(ctx, ts_paths),
+        *_python_skip_marker_failures(ctx, py_paths),
+    ]
 
 
 def raw_control_bytes(data: bytes) -> set[int]:

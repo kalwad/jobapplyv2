@@ -34,13 +34,164 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
-FIXED by the final M01-W07 corrective content at tree
-`51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
-remain DEFERRED with named owning packages. KI-0033 through KI-0038 are
-FIXED by final M02-W01 content commit
-`a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
-`c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`; none reopens M01.
+KI-0039, KI-0040, KI-0041, KI-0042, and KI-0044 are live HIGH corrective
+blockers for M02-W01. KI-0043 and KI-0045 are associated MEDIUM corrective
+work. KI-0033 through KI-0038 remain historically FIXED; the audit does not
+reopen their preserved scope or any accepted M00/M01 milestone.
+
+### KI-0039 — Stale credential evidence was released as current truth
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 fixture truth, credential validity, schemas, model,
+  generator, development data, consistency validation, and truth oracle
+- Description: an expired 2020 healthcare license was described in the
+  present tense and released as DIRECT evidence for a current-license
+  requirement evaluated in 2026. Generic effective periods had no
+  category-specific meaning, and policy freshness used review metadata
+  instead of the scenario evaluation date.
+- Reproduction: at invalidated content commit
+  `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
+  `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`, load evidence 41, resume 07,
+  requirement 41, claim 35, and scenario 20. The original loader and
+  consistency validator accept DIRECT / USE_SUPPORTED_EVIDENCE /
+  PROCEED_WITH_GAPS with zero issues. Moving a policy-linked scenario beyond
+  its source expiry is also accepted because review metadata is used as the
+  semantic clock.
+- Workaround: none accepted. Extending the expired date would hide rather
+  than repair the defect.
+- Resolution + evidence link: IN_PROGRESS. Preserve the expired adversarial
+  record, migrate temporal semantics, add current/non-expiring positives and
+  an independent date oracle, then require corrected content, two clean
+  clones, fresh three-OS CI, and a genuinely fresh read-only audit.
+
+### KI-0040 — Fully re-signed semantic contradictions bypass consistency checks
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 semantic consistency, loader/validator matrices, and
+  fully re-signed mutation tests
+- Description: hashes prove byte identity but were effectively trusted across
+  missing domain checks. Status/boolean, eligibility/source shape,
+  sensitivity/consequence, nested-ID, and anchored-source meaning
+  contradictions all survived valid re-signing.
+- Reproduction: in isolated corpus copies, recompute every changed entity
+  hash, collection byte hash/count, corpus digest, and manifest hash after
+  each of five mutations: sponsorship status with a false boolean; work
+  authorization eligibility with a relocation requirement; downgraded salary
+  sensitivity/consequence; duplicate resume fact ID; and unrelated source
+  prose with updated hashes. The invalidated loader and validator accept all
+  five with zero issues.
+- Workaround: none accepted; re-signing cannot authorize incoherent meaning.
+- Resolution + evidence link: IN_PROGRESS. Add exhaustive coupling and
+  structured-source matrices, nested-ID uniqueness, fully re-signed
+  negatives, corrected content, clean clones, fresh CI, and fresh audit.
+
+### KI-0041 — Privacy scanning misses dangerous inputs and leaks raw diagnostics
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 privacy scanning, strict JSON, loader/platform/consistency
+  diagnostics, and adversarial tests
+- Description: international/compact phones, common addresses, semantic
+  credential fields, equivalent prompt injections, dangerous nested keys,
+  traversal, percent encodings, and escaped tokens passed. Ordinary Basic
+  prose and route paths falsely failed. Token-shaped filenames and duplicate
+  JSON keys were echoed in reports/errors.
+- Reproduction: the audit's independently authored positive/negative table
+  reproduces every listed miss and false alarm. A token-shaped `.json`
+  filename appears verbatim in `PrivacyIssue.file`; a duplicate token-shaped
+  key appears in the strict-JSON pointer and loader exception.
+- Workaround: none accepted. Manual inspection is not a deterministic privacy
+  boundary.
+- Resolution + evidence link: IN_PROGRESS. Add bounded normalization,
+  semantic/context checks, traversal and dangerous-key detection, centrally
+  redacted diagnostic locations, exact non-disclosure tests, clean clones,
+  fresh CI, and fresh audit.
+
+### KI-0042 — ADR-0004 new-producer guard accepts constructed v1 references
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 ADR-0004 new-producer platform-version guard and tests
+- Description: the direct-URN regex misses deprecated schema filenames and
+  paths, JSON alias/major objects, TypeScript concatenation, escaped literals,
+  and malformed TypeScript. Filename diagnostics also expose raw input.
+- Reproduction: each requested representation using the deprecated
+  `evidence-record:v1` family passes the invalidated guard, while a direct URN
+  fails and corrected v2 passes. The canonical inventory still contains the
+  exact fifteen reviewed v1/v2 pairs.
+- Workaround: none accepted; new producers must select corrected v2
+  semantics.
+- Resolution + evidence link: IN_PROGRESS. Preserve exact pair discovery,
+  parse JSON aliases and pinned-TypeScript AST constants, fail closed on
+  producer parse/type errors, redact diagnostics, then run clean clones,
+  fresh CI, and fresh audit.
+
+### KI-0043 — Fixture seed check mode mutates missing roots
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 deterministic seed check behavior and filesystem tests
+- Description: `fixtures:seed:check` creates `data/development` before
+  comparing output, so a read-only verification command changes the
+  filesystem on failure.
+- Reproduction: run check mode in an isolated package copy with no data
+  directory. It exits nonzero for missing fixtures but creates both missing
+  directories and changes the parent metadata.
+- Workaround: none accepted; verification must be status-neutral.
+- Resolution + evidence link: IN_PROGRESS. Isolate all mutators in explicit
+  write mode and prove byte/mode/time-neutral behavior across every reviewed
+  starting state.
+
+### KI-0044 — Shared expected truth and conditional skips invalidate closeout proof
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 truth oracle and closeout verification;
+  `scripts/verify.py` and its focused tests
+- Description: generator, loader, validator, and positive tests share count
+  and decision premises. No test independently enumerates all scenario
+  outcomes. The verifier detects direct skip/focus markers but accepts
+  `skipIf/runIf` and treats 50 passed plus one skipped as exact 50 proof.
+- Reproduction: replace one substantive fixture test with
+  `test.skipIf(true)` and add a trivial pass. Pinned Vitest reports 50 passed
+  and one skipped with exit zero; the original static and exact-count proofs
+  also accept. Shared count imports and non-enumerating positive tests are
+  visible in the invalidated tree.
+- Workaround: none accepted. Metadata author/reviewer inequality is
+  provenance hygiene, not independent certification.
+- Resolution + evidence link: IN_PROGRESS. Add a literal test-only oracle
+  with every count/scenario/evaluation/credential decision, coherent-drift
+  tests, TypeScript-AST conditional-skip detection, strict non-pass summary
+  parsing, clean clones, fresh CI, and a separate fresh audit.
+
+### KI-0045 — Fixture topology and consequential-policy coverage are shallow
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
+- Affects: M02-W01 fixture diversity, scenario reasoning, and policy coverage
+- Description: all profiles share one six-record topology, all resumes have
+  five facts, 22 of 24 jobs share one requirement shape, every claim cites
+  one artifact, only relocation policies are exercised, ten blocking
+  policies are dead, and no scenario yields BLOCK_FIELD_POLICY.
+- Reproduction: independent corpus projections produce the exact shallow
+  distributions recorded in the audit, including zero BLOCK_AND_EXPLAIN
+  actions and zero BLOCK_FIELD_POLICY outcomes.
+- Workaround: none accepted; relabeling or count inflation is not meaningful
+  diversity.
+- Resolution + evidence link: IN_PROGRESS. Add at least four substantive
+  evidence topologies, varied resumes, twelve structured job shapes,
+  multi-evidence claims, all requested policy concepts/kinds/actions, and at
+  least three genuine field-policy blocks without claiming final corpus or
+  gate minima.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
 

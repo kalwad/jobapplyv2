@@ -1,7 +1,10 @@
 import {
+  closeSync,
+  fstatSync,
   lstatSync,
+  openSync,
   readdirSync,
-  readFileSync,
+  readSync,
   realpathSync,
   type Stats,
 } from "node:fs";
@@ -14,10 +17,10 @@ import {
   sha256Bytes,
   sha256Canonical,
 } from "./canonical-json.ts";
+import { safeDiagnosticPath, safeDiagnosticPointer } from "./diagnostics.ts";
 import { fixtureSchemaValidator } from "./schema-catalog.ts";
 import { parseStrictJson, StrictJsonError } from "./strict-json.ts";
 import {
-  EXPECTED_SEED_COUNTS,
   FIXTURE_SCHEMA_VERSION,
   SCHEMA_REFS,
   type EvidenceArtifact,
@@ -42,7 +45,14 @@ export const COMMITTED_FIXTURE_ROOT = fileURLToPath(
 
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const MAX_CORPUS_BYTES = 16 * 1024 * 1024;
-const MANIFEST_FILE = "manifest.v1.json";
+const MANIFEST_FILE = "manifest.v2.json";
+
+interface RootIdentity {
+  readonly dev: number;
+  readonly ino: number;
+  readonly mode: number;
+  readonly nlink: number;
+}
 
 interface CollectionSpec {
   readonly file: string;
@@ -53,55 +63,55 @@ interface CollectionSpec {
 
 export const COLLECTION_SPECS: readonly CollectionSpec[] = [
   {
-    file: "evidence-artifacts.v1.json",
+    file: "evidence-artifacts.v2.json",
     entityType: "EVIDENCE_ARTIFACT",
     schemaRef: SCHEMA_REFS.EVIDENCE_ARTIFACT,
     corpusKey: "evidenceArtifacts",
   },
   {
-    file: "expected-requirements.v1.json",
+    file: "expected-requirements.v2.json",
     entityType: "EXPECTED_REQUIREMENT",
     schemaRef: SCHEMA_REFS.EXPECTED_REQUIREMENT,
     corpusKey: "expectedRequirements",
   },
   {
-    file: "expected-supported-claims.v1.json",
+    file: "expected-supported-claims.v2.json",
     entityType: "EXPECTED_SUPPORTED_CLAIM",
     schemaRef: SCHEMA_REFS.EXPECTED_SUPPORTED_CLAIM,
     corpusKey: "expectedSupportedClaims",
   },
   {
-    file: "field-value-policies.v1.json",
+    file: "field-value-policies.v2.json",
     entityType: "FIELD_VALUE_POLICY",
     schemaRef: SCHEMA_REFS.FIELD_VALUE_POLICY,
     corpusKey: "fieldValuePolicies",
   },
   {
-    file: "jobs.v1.json",
+    file: "jobs.v2.json",
     entityType: "SYNTHETIC_JOB",
     schemaRef: SCHEMA_REFS.SYNTHETIC_JOB,
     corpusKey: "jobs",
   },
   {
-    file: "profiles.v1.json",
+    file: "profiles.v2.json",
     entityType: "SYNTHETIC_PROFILE",
     schemaRef: SCHEMA_REFS.SYNTHETIC_PROFILE,
     corpusKey: "profiles",
   },
   {
-    file: "scenario-bundles.v1.json",
+    file: "scenario-bundles.v2.json",
     entityType: "SCENARIO_BUNDLE",
     schemaRef: SCHEMA_REFS.SCENARIO_BUNDLE,
     corpusKey: "scenarioBundles",
   },
   {
-    file: "source-resumes.v1.json",
+    file: "source-resumes.v2.json",
     entityType: "SOURCE_RESUME",
     schemaRef: SCHEMA_REFS.SOURCE_RESUME,
     corpusKey: "sourceResumes",
   },
   {
-    file: "unsupported-gaps.v1.json",
+    file: "unsupported-gaps.v2.json",
     entityType: "UNSUPPORTED_GAP",
     schemaRef: SCHEMA_REFS.UNSUPPORTED_GAP,
     corpusKey: "unsupportedGaps",
@@ -133,7 +143,12 @@ function fail(
   pointer: string,
   detail: string,
 ): never {
-  throw new FixtureLoadError(code, fixturePath, pointer, detail);
+  throw new FixtureLoadError(
+    code,
+    safeDiagnosticPath(fixturePath) || ".",
+    safeDiagnosticPointer(pointer),
+    detail,
+  );
 }
 
 function pointerAt(collection: string, index: number, suffix = ""): string {
@@ -190,6 +205,51 @@ function checkedStats(
     );
   }
   return stats;
+}
+
+function captureRootIdentity(root: string): RootIdentity {
+  const stats = checkedStats(root, ".", "directory");
+  if (stats.nlink < 1) {
+    fail(
+      "FIXTURE_SCAN_ROOT",
+      ".",
+      "/",
+      "development directory has an invalid link count",
+    );
+  }
+  return {
+    dev: stats.dev,
+    ino: stats.ino,
+    mode: stats.mode,
+    nlink: stats.nlink,
+  };
+}
+
+function assertRootIdentity(root: string, expected: RootIdentity): void {
+  let actual: RootIdentity;
+  try {
+    actual = captureRootIdentity(root);
+  } catch {
+    fail(
+      "FIXTURE_ROOT_CHANGED",
+      ".",
+      "/",
+      "fixture root identity changed during the bounded read",
+    );
+  }
+  if (
+    actual.dev !== expected.dev ||
+    actual.ino !== expected.ino ||
+    actual.mode !== expected.mode ||
+    actual.nlink !== expected.nlink
+  ) {
+    fail(
+      "FIXTURE_ROOT_CHANGED",
+      ".",
+      "/",
+      "fixture root identity changed during the bounded read",
+    );
+  }
 }
 
 function assertContained(
@@ -249,7 +309,9 @@ function readBoundedFile(
   root: string,
   relativePath: string,
   aggregate: { bytes: number },
+  rootIdentity: RootIdentity,
 ): Buffer {
+  assertRootIdentity(root, rootIdentity);
   validateRelativePath(relativePath, relativePath, "/");
   const path = join(root, relativePath);
   const stats = checkedStats(path, relativePath, "file");
@@ -290,28 +352,63 @@ function readBoundedFile(
       "corpus exceeds the 16 MiB ceiling",
     );
   }
-  let bytes: Buffer;
+  let descriptor: number;
   try {
-    bytes = readFileSync(real);
+    descriptor = openSync(path, "r");
   } catch {
-    return fail("FIXTURE_PATH_IO", relativePath, "/", "file cannot be read");
+    return fail("FIXTURE_PATH_IO", relativePath, "/", "file cannot be opened");
   }
-  const after = checkedStats(path, relativePath, "file");
-  if (
-    bytes.length !== stats.size ||
-    after.dev !== stats.dev ||
-    after.ino !== stats.ino ||
-    after.size !== stats.size ||
-    after.nlink !== stats.nlink
-  ) {
-    fail(
-      "FIXTURE_FILE_CHANGED",
-      relativePath,
-      "/",
-      "file identity changed during bounded read",
-    );
+  try {
+    const opened = fstatSync(descriptor);
+    if (
+      !opened.isFile() ||
+      opened.dev !== stats.dev ||
+      opened.ino !== stats.ino ||
+      opened.size !== stats.size ||
+      opened.nlink !== stats.nlink
+    ) {
+      fail(
+        "FIXTURE_FILE_CHANGED",
+        relativePath,
+        "/",
+        "opened file differs from the validated path identity",
+      );
+    }
+    const bytes = Buffer.alloc(stats.size);
+    let offset = 0;
+    while (offset < bytes.length) {
+      const read = readSync(
+        descriptor,
+        bytes,
+        offset,
+        bytes.length - offset,
+        offset,
+      );
+      if (read === 0) {
+        break;
+      }
+      offset += read;
+    }
+    const after = fstatSync(descriptor);
+    if (
+      offset !== stats.size ||
+      after.dev !== opened.dev ||
+      after.ino !== opened.ino ||
+      after.size !== opened.size ||
+      after.nlink !== opened.nlink
+    ) {
+      fail(
+        "FIXTURE_FILE_CHANGED",
+        relativePath,
+        "/",
+        "file identity changed during bounded descriptor read",
+      );
+    }
+    assertRootIdentity(root, rootIdentity);
+    return bytes;
+  } finally {
+    closeSync(descriptor);
   }
-  return bytes;
 }
 
 function decodeJson(bytes: Buffer, fixturePath: string): unknown {
@@ -531,14 +628,6 @@ function verifyCounts(corpus: FixtureCorpus): void {
       0,
     ),
   };
-  if (JSON.stringify(actual) !== JSON.stringify(EXPECTED_SEED_COUNTS)) {
-    fail(
-      "FIXTURE_COUNT",
-      MANIFEST_FILE,
-      "/counts",
-      "loaded counts do not match the seed contract",
-    );
-  }
   if (JSON.stringify(actual) !== JSON.stringify(corpus.manifest.counts)) {
     fail(
       "FIXTURE_MANIFEST_COUNT",
@@ -585,10 +674,13 @@ function assignCollection(
   }
 }
 
-export function loadFixtureCorpus(
-  root = COMMITTED_FIXTURE_ROOT,
+type FixtureReadPhase = "AFTER_ROOT_REALPATH";
+
+function loadFixtureCorpusInternal(
+  root: string,
+  observer?: (phase: FixtureReadPhase) => void,
 ): FixtureCorpus {
-  checkedStats(root, ".", "directory");
+  const rootIdentity = captureRootIdentity(root);
   let rootReal: string;
   try {
     rootReal = realpathSync(root);
@@ -600,13 +692,17 @@ export function loadFixtureCorpus(
       "development directory cannot be resolved",
     );
   }
+  observer?.("AFTER_ROOT_REALPATH");
+  assertRootIdentity(root, rootIdentity);
   verifyInventory(root);
+  assertRootIdentity(root, rootIdentity);
   const aggregate = { bytes: 0 };
   const manifestBytes = readBoundedFile(
     rootReal,
     root,
     MANIFEST_FILE,
     aggregate,
+    rootIdentity,
   );
   const manifest = validateManifest(decodeJson(manifestBytes, MANIFEST_FILE));
   if (
@@ -667,7 +763,13 @@ export function loadFixtureCorpus(
         "entry does not match its collection",
       );
     }
-    const bytes = readBoundedFile(rootReal, root, spec.file, aggregate);
+    const bytes = readBoundedFile(
+      rootReal,
+      root,
+      spec.file,
+      aggregate,
+      rootIdentity,
+    );
     if (
       bytes.length !== entry.byte_count ||
       sha256Bytes(bytes) !== entry.sha256
@@ -701,6 +803,9 @@ export function loadFixtureCorpus(
     }
     assignCollection(corpus, spec.corpusKey, items);
   }
+  assertRootIdentity(root, rootIdentity);
+  verifyInventory(root);
+  assertRootIdentity(root, rootIdentity);
   if (sha256Canonical(manifest.files) !== manifest.corpus_digest) {
     fail(
       "FIXTURE_CORPUS_DIGEST",
@@ -711,6 +816,24 @@ export function loadFixtureCorpus(
   }
   verifyCounts(corpus);
   return corpus;
+}
+
+export function loadFixtureCorpus(
+  root = COMMITTED_FIXTURE_ROOT,
+): FixtureCorpus {
+  return loadFixtureCorpusInternal(root);
+}
+
+/**
+ * Deterministic race-test seam for the test-only fixture package. Production
+ * callers cannot weaken checks: the observer can only cause an identity
+ * change that the next mandatory assertion rejects.
+ */
+export function loadFixtureCorpusWithObserverForTest(
+  root: string,
+  observer: (phase: FixtureReadPhase) => void,
+): FixtureCorpus {
+  return loadFixtureCorpusInternal(root, observer);
 }
 
 export function fixtureCollection<T extends FixtureEntity>(

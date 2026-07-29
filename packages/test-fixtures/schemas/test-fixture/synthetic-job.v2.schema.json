@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:synthetic-job:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Synthetic job fixture",
+  "description": "TEST-ONLY synthetic job source with stable requirement anchors.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "role_family",
+    "title",
+    "employer",
+    "work_mode",
+    "location",
+    "minimum_experience_years",
+    "eligibility_constraint",
+    "source_blocks"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "SYNTHETIC_JOB"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:synthetic-job:v2"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
+    },
+    "role_family": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/roleFamily"
+    },
+    "title": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+    },
+    "employer": {
+      "type": "string",
+      "pattern": "^Synthetic Employer [0-9]{2}-[A-Z]$",
+      "maxLength": 100
+    },
+    "work_mode": {
+      "type": "string",
+      "enum": ["HYBRID", "ON_SITE", "REMOTE"]
+    },
+    "location": {
+      "type": "string",
+      "pattern": "^(Exampleville, MI|Remote - United States)$"
+    },
+    "minimum_experience_years": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 15
+    },
+    "eligibility_constraint": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZED_TO_WORK_IN_US",
+        "LICENSE_REQUIRED",
+        "NO_SPONSORSHIP",
+        "NONE"
+      ]
+    },
+    "source_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "anchor_id",
+          "declared_importance",
+          "requirement_kind",
+          "requirement_tag",
+          "constraint",
+          "text",
+          "text_sha256"
+        ],
+        "properties": {
+          "anchor_id": {
+            "type": "string",
+            "pattern": "^job-[0-9]{2}\\.requirements\\.[0-9]{2}$"
+          },
+          "declared_importance": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/requirementImportance"
+          },
+          "requirement_kind": {
+            "type": "string",
+            "enum": [
+              "CERTIFICATION",
+              "EDUCATION",
+              "ELIGIBILITY",
+              "EXPERIENCE",
+              "LOCATION",
+              "SKILL"
+            ]
+          },
+          "requirement_tag": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/factKey"
+          },
+          "constraint": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "value"],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "CURRENT_LICENSE",
+                  "MINIMUM_EXPERIENCE_YEARS",
+                  "NONE",
+                  "SPONSORSHIP",
+                  "WORK_AUTHORIZATION",
+                  "WORK_MODE_COMPATIBILITY"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
+            }
+          },
+          "text": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500
+          },
+          "text_sha256": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/contentDigest"
+          }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  }
+}

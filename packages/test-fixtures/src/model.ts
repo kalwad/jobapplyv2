@@ -1,18 +1,18 @@
-export const FIXTURE_SCHEMA_VERSION = "1.0.0" as const;
-export const CORPUS_VERSION = "0.1.0" as const;
+export const FIXTURE_SCHEMA_VERSION = "2.0.0" as const;
+export const CORPUS_VERSION = "0.2.0" as const;
 
 export const SCHEMA_REFS = {
-  EVIDENCE_ARTIFACT: "urn:japp:schema:test-fixture:evidence-artifact:v1",
-  EXPECTED_REQUIREMENT: "urn:japp:schema:test-fixture:expected-requirement:v1",
+  EVIDENCE_ARTIFACT: "urn:japp:schema:test-fixture:evidence-artifact:v2",
+  EXPECTED_REQUIREMENT: "urn:japp:schema:test-fixture:expected-requirement:v2",
   EXPECTED_SUPPORTED_CLAIM:
-    "urn:japp:schema:test-fixture:expected-supported-claim:v1",
-  FIELD_VALUE_POLICY: "urn:japp:schema:test-fixture:field-value-policy:v1",
-  MANIFEST: "urn:japp:schema:test-fixture:manifest:v1",
-  SCENARIO_BUNDLE: "urn:japp:schema:test-fixture:scenario-bundle:v1",
-  SOURCE_RESUME: "urn:japp:schema:test-fixture:source-resume:v1",
-  SYNTHETIC_JOB: "urn:japp:schema:test-fixture:synthetic-job:v1",
-  SYNTHETIC_PROFILE: "urn:japp:schema:test-fixture:synthetic-profile:v1",
-  UNSUPPORTED_GAP: "urn:japp:schema:test-fixture:unsupported-gap:v1",
+    "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+  FIELD_VALUE_POLICY: "urn:japp:schema:test-fixture:field-value-policy:v2",
+  MANIFEST: "urn:japp:schema:test-fixture:manifest:v2",
+  SCENARIO_BUNDLE: "urn:japp:schema:test-fixture:scenario-bundle:v2",
+  SOURCE_RESUME: "urn:japp:schema:test-fixture:source-resume:v2",
+  SYNTHETIC_JOB: "urn:japp:schema:test-fixture:synthetic-job:v2",
+  SYNTHETIC_PROFILE: "urn:japp:schema:test-fixture:synthetic-profile:v2",
+  UNSUPPORTED_GAP: "urn:japp:schema:test-fixture:unsupported-gap:v2",
 } as const;
 
 export type FixtureEntityType = Exclude<keyof typeof SCHEMA_REFS, "MANIFEST">;
@@ -52,12 +52,31 @@ export type FieldValuePolicyKind =
   | "FILL_FROM_EXPLICIT_RECORD"
   | "NEVER_AUTOFILL"
   | "VOLUNTARY_PREFER_NOT_TO_ANSWER";
+export type FieldConcept =
+  | "DEMOGRAPHIC_DISCLOSURE"
+  | "LICENSE_VALIDITY"
+  | "RELOCATION_PREFERENCE"
+  | "SALARY_EXPECTATION"
+  | "SPONSORSHIP_REQUIREMENT"
+  | "WORK_AUTHORIZATION";
+export type RequirementKind =
+  | "CERTIFICATION"
+  | "EDUCATION"
+  | "ELIGIBILITY"
+  | "EXPERIENCE"
+  | "LOCATION"
+  | "SKILL";
+export type ExpectedAction =
+  | "ABSTAIN"
+  | "BLOCK_AND_EXPLAIN"
+  | "REQUIRE_CONFIRMATION"
+  | "USE_SUPPORTED_EVIDENCE";
 
 export interface FixtureMetadata {
   author: string;
   reviewer: string;
   reviewed_at: string;
-  expected_result_provenance: "M02W01_INDEPENDENT_SYNTHETIC_REVIEW";
+  expected_result_provenance: "M02W01_SYNTHETIC_AUTHORING_REVIEW";
   synthetic_data: true;
   redaction_state: "SYNTHETIC_RESERVED";
   historical_content_hash: ContentDigest;
@@ -99,11 +118,17 @@ export interface SyntheticProfile extends BaseFixture {
   career_start: string;
   education_path:
     "BOOTCAMP" | "CERTIFICATE" | "SELF_DIRECTED" | "TRADITIONAL_DEGREE";
-  work_authorization: {
-    country: "US";
-    status: "AUTHORIZED" | "REQUIRES_SPONSORSHIP";
-    sponsorship_required: boolean;
-  };
+  work_authorization:
+    | {
+        country: "US";
+        status: "AUTHORIZED";
+        sponsorship_required: false;
+      }
+    | {
+        country: "US";
+        status: "REQUIRES_SPONSORSHIP";
+        sponsorship_required: true;
+      };
   constraints: {
     relocation: "OPEN" | "REGION_ONLY" | "REMOTE_ONLY";
     region: string;
@@ -124,13 +149,12 @@ export interface EvidenceSupportRelation {
 }
 
 export interface ExplicitFieldRecord {
-  field_concept:
-    | "DEMOGRAPHIC_DISCLOSURE"
-    | "RELOCATION_PREFERENCE"
-    | "SALARY_EXPECTATION"
-    | "WORK_AUTHORIZATION";
+  field_record_id: string;
+  field_concept: Exclude<FieldConcept, "LICENSE_VALIDITY">;
   recorded_value?: string;
   disclosure_text: string;
+  recorded_on: string;
+  valid_through?: string;
 }
 
 export interface EvidenceArtifact extends BaseFixture {
@@ -143,8 +167,16 @@ export interface EvidenceArtifact extends BaseFixture {
   fact_keys: string[];
   effective_period: {
     start: string;
-    end: string;
+    end?: string;
   };
+  temporal_semantics:
+    | "ACTIVITY_INTERVAL"
+    | "ASSERTION_FRESHNESS"
+    | "CREDENTIAL_VALIDITY"
+    | "EDUCATION_ATTENDANCE";
+  education_state?: "COMPLETED" | "IN_PROGRESS" | "WITHDRAWN";
+  credential_validity_basis?: "BOUNDED" | "NON_EXPIRING" | "UNKNOWN";
+  revoked_on?: string;
   assertion_approval: "NOT_APPLICABLE" | "USER_APPROVED";
   field_records: ExplicitFieldRecord[];
   concurrency_group?: string;
@@ -165,12 +197,30 @@ export interface SourceResume extends BaseFixture {
   profile_ref: string;
   as_of: string;
   page_count: 1 | 2;
+  page_boundary?: {
+    break_after_fact_id: string;
+    rationale: string;
+  };
   facts: ResumeFact[];
+}
+
+export interface RequirementConstraint {
+  kind:
+    | "CURRENT_LICENSE"
+    | "MINIMUM_EXPERIENCE_YEARS"
+    | "NONE"
+    | "SPONSORSHIP"
+    | "WORK_AUTHORIZATION"
+    | "WORK_MODE_COMPATIBILITY";
+  value: string;
 }
 
 export interface JobSourceBlock {
   anchor_id: string;
   declared_importance: RequirementImportance;
+  requirement_kind: RequirementKind;
+  requirement_tag: string;
+  constraint: RequirementConstraint;
   text: string;
   text_sha256: ContentDigest;
 }
@@ -194,17 +244,12 @@ export interface ExpectedRequirement extends BaseFixture {
   schema_ref: typeof SCHEMA_REFS.EXPECTED_REQUIREMENT;
   job_ref: string;
   importance: RequirementImportance;
-  requirement_kind:
-    | "CERTIFICATION"
-    | "EDUCATION"
-    | "ELIGIBILITY"
-    | "EXPERIENCE"
-    | "LOCATION"
-    | "SKILL";
+  requirement_kind: RequirementKind;
   normalized_text: string;
   source_anchor_id: string;
   source_text_sha256: ContentDigest;
   requirement_tag: string;
+  constraint: RequirementConstraint;
   keyword_trap: boolean;
   related_evidence_trap: boolean;
 }
@@ -233,8 +278,10 @@ export interface UnsupportedGap extends BaseFixture {
   classification: GapClassification;
   supporting_evidence_refs: string[];
   related_or_contradicting_evidence_refs: string[];
-  expected_action: "ABSTAIN";
+  expected_action: Exclude<ExpectedAction, "USE_SUPPORTED_EVIDENCE">;
   reason_code:
+    | "CREDENTIAL_EXPIRED"
+    | "CREDENTIAL_NOT_CURRENT"
     | "CONTRADICTED_BY_EXPLICIT_RECORD"
     | "INSUFFICIENT_DIRECT_EVIDENCE"
     | "NO_SUPPORTING_EVIDENCE";
@@ -245,13 +292,13 @@ export interface FieldValuePolicy extends BaseFixture {
   entity_type: "FIELD_VALUE_POLICY";
   schema_ref: typeof SCHEMA_REFS.FIELD_VALUE_POLICY;
   profile_ref: string;
-  field_concept: ExplicitFieldRecord["field_concept"];
+  field_concept: FieldConcept;
   sensitivity: "PERSONAL" | "SENSITIVE";
   consequential: boolean;
   policy: FieldValuePolicyKind;
   source_evidence_ref: string;
+  source_field_record_id?: string;
   recorded_value?: string;
-  record_expires_on?: string;
   explanation_code: string;
 }
 
@@ -260,11 +307,15 @@ export interface ScenarioEvaluation {
   classification: SupportClassification;
   result_type: "SUPPORTED_CLAIM" | "UNSUPPORTED_GAP";
   result_ref: string;
-  expected_action:
-    | "ABSTAIN"
-    | "BLOCK_AND_EXPLAIN"
-    | "REQUIRE_CONFIRMATION"
-    | "USE_SUPPORTED_EVIDENCE";
+  expected_action: ExpectedAction;
+}
+
+export interface PolicyEvaluation {
+  policy_ref: string;
+  field_concept: FieldConcept;
+  source_evidence_ref: string;
+  expected_action: ExpectedAction;
+  release_eligible: boolean;
 }
 
 export interface ScenarioBundle extends BaseFixture {
@@ -273,6 +324,7 @@ export interface ScenarioBundle extends BaseFixture {
   profile_ref: string;
   resume_ref: string;
   job_ref: string;
+  evaluation_date: string;
   expected_outcome:
     | "ABSTAIN"
     | "BLOCK_FIELD_POLICY"
@@ -280,6 +332,7 @@ export interface ScenarioBundle extends BaseFixture {
     | "PROCEED_WITH_GAPS"
     | "REQUIRE_CONFIRMATION";
   evaluations: ScenarioEvaluation[];
+  policy_evaluations: PolicyEvaluation[];
   coverage_tags: string[];
 }
 
@@ -351,16 +404,3 @@ export interface FixtureCorpus {
   fieldValuePolicies: FieldValuePolicy[];
   scenarioBundles: ScenarioBundle[];
 }
-
-export const EXPECTED_SEED_COUNTS: FixtureCounts = {
-  profiles: 12,
-  evidence_artifacts: 72,
-  source_resumes: 12,
-  jobs: 24,
-  expected_requirements: 72,
-  expected_supported_claims: 59,
-  unsupported_gaps: 49,
-  field_value_policies: 48,
-  scenario_bundles: 36,
-  scenario_evaluations: 108,
-};

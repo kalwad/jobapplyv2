@@ -7167,8 +7167,8 @@
       "id": "M02-W01",
       "milestone": "M02",
       "title": "Create synthetic profile/job/resume fixtures",
-      "current_state": "VERIFIED",
-      "verified_revision": "tree c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5",
+      "current_state": "IN_PROGRESS",
+      "verified_revision": "—",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [
         "M00",
@@ -7206,19 +7206,14 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [
-        {
-          "path": "docs/TEST_EVIDENCE.md",
-          "heading": "### M02-W01"
-        }
-      ],
+      "current_evidence": [],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W02",
       "milestone": "M02",
       "title": "Create question and answer fixtures",
-      "current_state": "READY",
+      "current_state": "NOT_STARTED",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W01"

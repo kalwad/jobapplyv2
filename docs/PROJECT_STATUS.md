@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: tree c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5 (commit a88fa6787db88c322938e6c0c5a89e67584a34a5)
-Last updated: 2026-07-29T11:20:50Z
+Repository revision: corrective worktree based on stamp 5309909a881fef8fd00bc16c6203700683aa8fb5
+Last updated: 2026-07-29T19:41:18Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W01
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W01 is VERIFIED at exact content tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` (commit `a88fa6787db88c322938e6c0c5a89e67584a34a5`); M02-W02 is the sole READY package and no package is IN_PROGRESS. M02 remains IN_PROGRESS. M01-W07 remains VERIFIED and M01 remains ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M01-W07 executable anchor `0659c13ff046c921ca648c50b40e71330abf2e75` / tree `211c4b72cae4404dc277d8b31df240e4abfc717c`, its stamp, and every earlier M01-W07 anchor remain historical evidence only.
-- Objective: M02-W01 delivered only the test/evaluation fixture foundation: synthetic profiles, career evidence, source resumes, jobs, normalized expected requirements, evidence-backed supported claims, explicit non-supported gaps, field-value policies, scenario links, deterministic validation, privacy scanning, and mandatory verification. M02-W02 question/answer work is READY but has not begun. No M02-W03 mock ATS form, benchmark runner, corpus freeze, holdout content, extension behavior, product schema, autofill capability, or later-package artifact was implemented.
-- Dependencies and hosted proof: M00 and M01 are ACCEPTED. The exact clean starting revision `0c8efc9212162bcb4fa846e453007d9404d97429` matches its recorded starting tree; canonical spec hash `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943` remains unchanged. Final corrective content commit `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` passed two frozen/locked exact-commit clean clones at `/tmp/japp-m02w01-rustc-clones.q6dpVf/normal` and `/tmp/japp-m02w01-rustc-clones.q6dpVf/clone with spaces – ü`, then fresh three-OS hosted run `30446331580`: macOS `90557503972`, Ubuntu `90557503916`, and Windows `90557503861`. Final M01 run `30423199771` remains the preserved hosted prerequisite.
+- State: M02-W01 is the sole IN_PROGRESS package after independent audit verdict B invalidated its prior acceptance; M02-W02 is NOT_STARTED, no package is READY, and M02 remains IN_PROGRESS. M01-W07 remains VERIFIED and M01 remains ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M02-W01 content anchor `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` and stamp `5309909a881fef8fd00bc16c6203700683aa8fb5` are historical evidence only.
+- Objective: correct the bounded M02-W01 fixture truth, consistency, privacy/diagnostic, platform-version, check-mode, independent-oracle, skip-verification, and diversity defects. M02-W02 question/answer work has not begun and is explicitly not ready. No M02-W03 mock ATS form, benchmark runner, corpus freeze, holdout content, extension behavior, product schema, autofill capability, or later-package artifact is authorized.
+- Dependencies and historical proof: M00 and M01 remain ACCEPTED. The canonical spec hash `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943` remains unchanged. The prior M02-W01 clean clones and three-OS run `30446331580` prove only that the invalidated bytes executed as recorded; they do not establish semantic correctness or current acceptance. Final M01 run `30423199771` remains the preserved hosted prerequisite.
 - Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: deterministic seed reproduction, schema/semantic validation, privacy and deprecated-v1 guards, exact 50/50 focused tests, 51/51 package tests, 2,440/2,440 contract tests, 662/662 focused contract tests, 677/677 Python tests, all canonical root commands, and full `pnpm verify` passed at exact content tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5`; independent fixture/schema and privacy/security review pass on corpus digest `sha256:d91448c44761edeaaceeef032b3fabba6729cd33dd1bb8af879fb4ffbeeb0b2f`. Failed hosted runs `30439385146`, `30440572546`, and `30444571597` remain historical evidence of corrected defects and triggered a new content commit plus complete lifecycle each time. Successful run `30446331580` is the final content anchor. Its complete Windows log is 293,991 bytes / 1,666 lines / `sha256:4b554c9f28f56a32532cdf0e26f5d53f9e70253dd815fdceca29f0d4440462ae`; it proves the exact SHA, exact fixture/privacy/test counts, every ACTIVE suite PASS, verification exit 0, and clean tree. This is development-fixture proof only; it is not a benchmark, holdout, critical-gate, ATS-support, extension, model, product, or live-submission result.
-- Blockers: no live CRITICAL/HIGH blocker remains. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. KI-0033 through KI-0038 are FIXED at the M02-W01 content anchor and do not reopen M01.
+- Evidence: the post-acceptance audit reproduced stale credential truth, five fully re-signed semantic contradictions, privacy false negatives/positives and raw disclosure, ADR-0004 guard bypasses, check-mode mutation, shared expected truth, conditional-skip evasion, shallow diversity, unused consequential policies, and an unobserved root-identity replacement. Automated author/reviewer labels are provenance hygiene only and are not independent certification. Corrective content, exact clean clones, fresh three-OS CI, and a genuinely fresh read-only audit are pending.
+- Blockers: KI-0039, KI-0040, KI-0041, KI-0042, and KI-0044 are live HIGH IN_PROGRESS blockers scoped to M02-W01. KI-0043 and KI-0045 are associated MEDIUM corrective work. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. KI-0033 through KI-0038 remain historically FIXED and do not reopen M01.
 
 ## Milestone table
 
@@ -36,7 +36,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED and M02-W02 is the sole READY package |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 reopened IN_PROGRESS and M02-W02 NOT_STARTED |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -96,8 +96,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
 | `M01-W07` | VERIFIED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | docs/TEST_EVIDENCE.md § M01-W07 | Corrected KI-0029 through KI-0032; all prior M01-W07 trees remain historical evidence |
-| `M02-W01` | VERIFIED | tree c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5 | docs/TEST_EVIDENCE.md § M02-W01 | Create synthetic profile/job/resume fixtures; validated development corpus only |
-| `M02-W02` | READY | — | — | Create question and answer fixtures; sole READY package, implementation not started |
+| `M02-W01` | IN_PROGRESS | — | — | Correct the invalidated synthetic profile/job/resume fixture foundation |
+| `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures; readiness withdrawn, implementation not started |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
 | `M02-W04` | NOT_STARTED | — | — | Capture baseline algorithms |
 | `M02-W05` | NOT_STARTED | — | — | Build evaluation runner |
@@ -381,13 +381,17 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W02
-- Reason: M02-W01 is VERIFIED at its exact content tree, M00 and M01 remain ACCEPTED, and no package is IN_PROGRESS.
-- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md §9 M02, §8.3, and docs/PROJECT_STATUS.md.
+- ID: NONE
+- Reason: M02-W01 is IN_PROGRESS after independent audit verdict B; M02-W02 cannot become READY before a separate fresh audit and governance-only closeout.
+- Required reading: n/a while M02-W01 is IN_PROGRESS.
 
 ## Known release blockers
 
-- NONE
+- KI-0039 (HIGH, IN_PROGRESS) — stale/current fixture truth and credential validity.
+- KI-0040 (HIGH, IN_PROGRESS) — fully re-signed semantic contradictions.
+- KI-0041 (HIGH, IN_PROGRESS) — privacy scanner gaps and diagnostic disclosure.
+- KI-0042 (HIGH, IN_PROGRESS) — ADR-0004 producer-guard bypasses.
+- KI-0044 (HIGH, IN_PROGRESS) — shared truth oracle and conditional-skip verification.
 
 ## Status conventions and update rules
 

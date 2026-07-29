@@ -10,7 +10,6 @@ export { assertCommittedPlatformVersions } from "./platform-version-guard.ts";
 export { assertCommittedFixturePrivacy } from "./privacy.ts";
 export {
   CORPUS_VERSION,
-  EXPECTED_SEED_COUNTS,
   FIXTURE_SCHEMA_VERSION,
   SCHEMA_REFS,
 } from "./model.ts";

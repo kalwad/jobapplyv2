@@ -1,0 +1,2299 @@
+{
+  "entity_type": "SCENARIO_BUNDLE",
+  "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+  "schema_version": "2.0.0",
+  "items": [
+    {
+      "id": "scenario_00000000000000000000000001",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:31f5bc39ede7ccb2e180c1e357d6e2521572b9e383550efd613b0694f833840e"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "resume_ref": "resume_00000000000000000000000001",
+      "job_ref": "job_00000000000000000000000001",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000001",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000001",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000002",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000002",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000003",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000003",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000001",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000006",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000003",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000006",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000002",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:91c2ecd0538638237afaec48a94bb673dc71eee60d167154203551cccd31bfba"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "resume_ref": "resume_00000000000000000000000001",
+      "job_ref": "job_00000000000000000000000002",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000004",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000004",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000005",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000005",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000006",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000006",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000002",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000006",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000004",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000006",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000003",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:56f6489e1bcaccf74321db347de9512d1603fb0f22d6594cd8267e7d37f3eb21"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "resume_ref": "resume_00000000000000000000000001",
+      "job_ref": "job_00000000000000000000000006",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000001",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000017",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000007",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000018",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000008",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000005",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000006",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000006",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000005",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000004",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0824e1c6591b8eb4985c37e141557322969615915210c8b41e057d39dab439f4"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "resume_ref": "resume_00000000000000000000000002",
+      "job_ref": "job_00000000000000000000000003",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000007",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000009",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000008",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000010",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000009",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000011",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000007",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000012",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000009",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000012",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000005",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6afbac703a6c2802099d42dcf608345b954ec9aa198302d73359d3e74a6e071c"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "resume_ref": "resume_00000000000000000000000002",
+      "job_ref": "job_00000000000000000000000004",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000010",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000012",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000011",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000013",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000012",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000014",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000008",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000012",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000010",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000012",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000006",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:508684ae4524f6966ec52e40983faa7459ad24eb0f4189ccead89236efb43978"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "resume_ref": "resume_00000000000000000000000002",
+      "job_ref": "job_00000000000000000000000009",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "classification": "STRONG_RELATED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000015",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000016",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000002",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000011",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000012",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000012",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000011",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000007",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:dcca740899c874acd26524db5b76be0c7d0a56fe582e3070f75e558e017f90d5"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "resume_ref": "resume_00000000000000000000000003",
+      "job_ref": "job_00000000000000000000000005",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000017",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000018",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000019",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000013",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000018",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000015",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000018",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000008",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7aeab94c57448c8e33f2e3278a283660f0624ce726faf63fd4e92d177d85e045"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "resume_ref": "resume_00000000000000000000000003",
+      "job_ref": "job_00000000000000000000000006",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000016",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000020",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000017",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000021",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000018",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000022",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000014",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000018",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000016",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000018",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000009",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:726942a065d6d49df3d86c2a5516e3121fdbb12af8bf6410019a0cf759c1f783"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "resume_ref": "resume_00000000000000000000000003",
+      "job_ref": "job_00000000000000000000000008",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000022",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000003",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000023",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000004",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000024",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000023",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000017",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000018",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000018",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000017",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000010",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0945709728eb0e9fc5ca48a0542dcfeb1efe1be9b8e474093ec0af4fca4650ea"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "resume_ref": "resume_00000000000000000000000004",
+      "job_ref": "job_00000000000000000000000007",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000024",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000020",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000005",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000021",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000025",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000019",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000024",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000021",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000024",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000011",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d5a55da5bb94cac892361080a359f5397cff40b840b0d967bd7073f9374f7fb4"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "resume_ref": "resume_00000000000000000000000004",
+      "job_ref": "job_00000000000000000000000008",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000022",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000026",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000023",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000006",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000024",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000027",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000020",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000024",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000022",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000024",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000012",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d64aaeb798627b1111bd3a5f4f4d716ac8b3e0fa5f4d515062edeefd26a7b15a"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "resume_ref": "resume_00000000000000000000000004",
+      "job_ref": "job_00000000000000000000000005",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000007",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000028",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000029",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000023",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000024",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000024",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000023",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000013",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:131718716be99ec7be2f9c7ccb443181e313ba71fa48aa3879c83c8fcf7a24a8"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "resume_ref": "resume_00000000000000000000000005",
+      "job_ref": "job_00000000000000000000000009",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000030",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000031",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000032",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000025",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000030",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000027",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000030",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000014",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ef9c39ca6e8512b039fe10f71533a4ab318d973ea8414599aa0ae3e4381eae2a"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "resume_ref": "resume_00000000000000000000000005",
+      "job_ref": "job_00000000000000000000000010",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000028",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000033",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000029",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000034",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000030",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000035",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000026",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000030",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000028",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000030",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000015",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:3d05abe3bad5a930e48f943a1291017258f62180d9f68e03bfa7cb54a1b56672"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "resume_ref": "resume_00000000000000000000000005",
+      "job_ref": "job_00000000000000000000000011",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000008",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000036",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000009",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000029",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000030",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000030",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000029",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000016",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b4741e7a1fef85bcc20efc529fd9783b50717572c333881e9bb000080a447065"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "resume_ref": "resume_00000000000000000000000006",
+      "job_ref": "job_00000000000000000000000011",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000037",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000038",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000039",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000031",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000036",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000033",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000036",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000017",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:90707f444365ee85923285b8be8805fc4b49a9e9f26ec1452a4a85b2e226112d"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "resume_ref": "resume_00000000000000000000000006",
+      "job_ref": "job_00000000000000000000000012",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000034",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000040",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000035",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000041",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000036",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000042",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000032",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000036",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000034",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000036",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000018",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:01b87e0712b76d91d7d3932bd96c37f9660327528fe2779a6288f7827306e04e"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "resume_ref": "resume_00000000000000000000000006",
+      "job_ref": "job_00000000000000000000000009",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000025",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000010",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000026",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000043",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000027",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000011",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000035",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000036",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000036",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000035",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000019",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c3dd8e9bf1b9a454c3704818c3d5cbb82c16ad2c9b8264607bc51bfa52ef165d"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "resume_ref": "resume_00000000000000000000000007",
+      "job_ref": "job_00000000000000000000000013",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000037",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000044",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000038",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000012",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000039",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000045",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000037",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000042",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000039",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000042",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000020",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:64140529a61813dec092af896457820a527d9a6e5e5d2f51196e23169ce3d378"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "resume_ref": "resume_00000000000000000000000007",
+      "job_ref": "job_00000000000000000000000014",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000040",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000046",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000041",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000013",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000042",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000047",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000038",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000042",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000040",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000042",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000021",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:46e297e71e3e818163a9b2069d016645324541ba21952db45daa7c54dcfe11aa"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "resume_ref": "resume_00000000000000000000000007",
+      "job_ref": "job_00000000000000000000000007",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000014",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000020",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000015",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000021",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000048",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000041",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000042",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000042",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000041",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000022",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d539565db5b88ce818550d8b466cfc4c31f5022996d6ba1c9586a2033f97da63"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "resume_ref": "resume_00000000000000000000000008",
+      "job_ref": "job_00000000000000000000000015",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000043",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000049",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000044",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000050",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000045",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000051",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000043",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000048",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000045",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000048",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000023",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e5eae78743d20885808fcb21266655dfb831e72a080ffb019394586fa94d10b9"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "resume_ref": "resume_00000000000000000000000008",
+      "job_ref": "job_00000000000000000000000016",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000046",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000052",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000047",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000053",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000048",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000054",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000044",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000048",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000046",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000048",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000024",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7140d267965b8080fccce64cdff4ae89f47970f3a8da3da8992b5bc1223f1084"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "resume_ref": "resume_00000000000000000000000008",
+      "job_ref": "job_00000000000000000000000005",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_INELIGIBLE",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000016",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000014",
+          "classification": "CONTRADICTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000017",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000015",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000055",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000047",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000048",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000048",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000047",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "INELIGIBLE_DESPITE_SKILL_MATCH"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000025",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e90701fb026b69a3874acad4a11edb2a56c05f9052ba3ed67483f2e6e778a9ce"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "resume_ref": "resume_00000000000000000000000009",
+      "job_ref": "job_00000000000000000000000017",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000049",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000056",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000050",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000057",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000051",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000018",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000049",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000054",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000051",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000054",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000026",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4b4308c741a45616c0bb85a1b4b9bcfd78c5cd7270b351e0e926d9cb58e9dcc2"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "resume_ref": "resume_00000000000000000000000009",
+      "job_ref": "job_00000000000000000000000018",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000052",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000058",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000053",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000059",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000054",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000019",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000050",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000054",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000052",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000054",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000027",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f1999d2dc28d932044a884ed9f17da557f7cfdcb2b56fb6a39973abf08e6ccad"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "resume_ref": "resume_00000000000000000000000009",
+      "job_ref": "job_00000000000000000000000019",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000055",
+          "classification": "PARTIAL",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000020",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000056",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000021",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000057",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000022",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000053",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000054",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000054",
+          "field_concept": "LICENSE_VALIDITY",
+          "source_evidence_ref": "evidence_00000000000000000000000052",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000028",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f2dd69ccbe786b92cc8f367e49d9970e6542d08881a1233b7714bd7960ef3cb1"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "resume_ref": "resume_00000000000000000000000010",
+      "job_ref": "job_00000000000000000000000019",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000055",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000060",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000056",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000023",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000057",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000061",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000055",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000060",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000057",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000060",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000029",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e98fccbcedfbb678a72f76e25c39a4dbe6ab6f7ceeacca2982b18947871bbf6d"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "resume_ref": "resume_00000000000000000000000010",
+      "job_ref": "job_00000000000000000000000020",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000058",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000062",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000059",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000024",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000060",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000063",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000056",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000060",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000058",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000060",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000030",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:509ffc477c829462013b709f16e8ee839fcdc24a7a08a0a8d8afec3215c58ac3"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "resume_ref": "resume_00000000000000000000000010",
+      "job_ref": "job_00000000000000000000000001",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000001",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000025",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000002",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000064",
+          "expected_action": "REQUIRE_CONFIRMATION"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000003",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000026",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000059",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000060",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_CONFIRMATION_REQUIRED"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000031",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:790c850fa9dadbc1d750b899a5757f0651eec494c269eaf2f4e0af84e73549cf"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "resume_ref": "resume_00000000000000000000000011",
+      "job_ref": "job_00000000000000000000000021",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "REQUIRE_CONFIRMATION",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000061",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000065",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000062",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000066",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000063",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000067",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000060",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000066",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000062",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000066",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000032",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9b2a29e333e3e8e9de48c565d79c9a53b287a9f7cc2f09368f0113e4c296aeb3"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "resume_ref": "resume_00000000000000000000000011",
+      "job_ref": "job_00000000000000000000000022",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000064",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000068",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000065",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000069",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000066",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000070",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000061",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000066",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000063",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000066",
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000033",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c257ec8dcac39fe4e95a5067109f913c8f1803235bce0630dacfcfea45473d96"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "resume_ref": "resume_00000000000000000000000011",
+      "job_ref": "job_00000000000000000000000011",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "classification": "STRONG_RELATED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000071",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000032",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000072",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000033",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000027",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000064",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000066",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP",
+        "FIELD_POLICY_BLOCK"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000034",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:11c815407c1a0cc2678a2e7deffc8873fd55a161653f3ccd5418db3ca044a0f9"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "resume_ref": "resume_00000000000000000000000012",
+      "job_ref": "job_00000000000000000000000023",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000067",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000073",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000068",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000074",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000069",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000075",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000065",
+          "field_concept": "WORK_AUTHORIZATION",
+          "source_evidence_ref": "evidence_00000000000000000000000072",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000067",
+          "field_concept": "RELOCATION_PREFERENCE",
+          "source_evidence_ref": "evidence_00000000000000000000000072",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000035",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f0f76c2e97ab3795055f9c65823359346a3d196d071db86a764dd1df2f30616b"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "resume_ref": "resume_00000000000000000000000012",
+      "job_ref": "job_00000000000000000000000024",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000070",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000076",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000071",
+          "classification": "USER_ASSERTED",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000077",
+          "expected_action": "BLOCK_AND_EXPLAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000072",
+          "classification": "DIRECT",
+          "result_type": "SUPPORTED_CLAIM",
+          "result_ref": "claim_00000000000000000000000078",
+          "expected_action": "USE_SUPPORTED_EVIDENCE"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000066",
+          "field_concept": "SPONSORSHIP_REQUIREMENT",
+          "source_evidence_ref": "evidence_00000000000000000000000072",
+          "expected_action": "USE_SUPPORTED_EVIDENCE",
+          "release_eligible": true
+        },
+        {
+          "policy_ref": "policy_00000000000000000000000068",
+          "field_concept": "SALARY_EXPECTATION",
+          "source_evidence_ref": "evidence_00000000000000000000000072",
+          "expected_action": "BLOCK_AND_EXPLAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "FIELD_POLICY_BLOCK",
+        "OWN_ROLE"
+      ]
+    },
+    {
+      "id": "scenario_00000000000000000000000036",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6755389534e1278a351667ffb801430b7f18ac00874ef6fa2254d5e7d0e5963e"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "resume_ref": "resume_00000000000000000000000012",
+      "job_ref": "job_00000000000000000000000014",
+      "evaluation_date": "2026-07-29",
+      "expected_outcome": "ABSTAIN",
+      "evaluations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000040",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000028",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000041",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000029",
+          "expected_action": "ABSTAIN"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000042",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000030",
+          "expected_action": "ABSTAIN"
+        }
+      ],
+      "policy_evaluations": [
+        {
+          "policy_ref": "policy_00000000000000000000000069",
+          "field_concept": "DEMOGRAPHIC_DISCLOSURE",
+          "source_evidence_ref": "evidence_00000000000000000000000072",
+          "expected_action": "ABSTAIN",
+          "release_eligible": false
+        }
+      ],
+      "coverage_tags": [
+        "COMPLETE_REQUIREMENT_EVALUATION",
+        "CROSS_ROLE_EVIDENCE_TRAP"
+      ]
+    }
+  ]
+}

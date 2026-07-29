@@ -1,21 +1,21 @@
 {
   "entity_type": "SYNTHETIC_PROFILE",
-  "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-  "schema_version": "1.0.0",
+  "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+  "schema_version": "2.0.0",
   "items": [
     {
       "id": "profile_00000000000000000000000001",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2a88577b1144b3f7e50dca050acfc04caebe6e7ad598830ea50b5b7854d07e17"
+        "historical_content_hash": "sha256:9fb0e0e1effb2d6e3d23ae0de41c3d4cb306efb49f4365d66ccd0f50f4861d11"
       },
       "role_family": "SOFTWARE",
       "career_stage": "MID",
@@ -48,16 +48,16 @@
     {
       "id": "profile_00000000000000000000000002",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:056e065887e8bdd6320a58db7d838d7b4ca0fc8da741b3258bc42b3906b227bb"
+        "historical_content_hash": "sha256:f508354302e2d45cb23950cd9b8a0cfdd6146ef36eeee0d76feddbe9eeaff0de"
       },
       "role_family": "SOFTWARE",
       "career_stage": "SENIOR",
@@ -90,16 +90,16 @@
     {
       "id": "profile_00000000000000000000000003",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d569f980a96d418f1ac743559881561ae1757741d521c2d5d7d146ffaf664ee1"
+        "historical_content_hash": "sha256:e5e3d7aa039a50f91d9576ea126e9c9e9a47c4ac242d72adc84d12ca9cdd7a82"
       },
       "role_family": "DATA",
       "career_stage": "MID",
@@ -132,16 +132,16 @@
     {
       "id": "profile_00000000000000000000000004",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:6745457edbd67c1fe981b1ab83881e0664c125de340b579635bf3762b2aa49d1"
+        "historical_content_hash": "sha256:e7220109180d6e0ef5aacaf3e117fc0ed84d30ee55748ab38452e1fb6b606e44"
       },
       "role_family": "DATA",
       "career_stage": "SENIOR",
@@ -178,16 +178,16 @@
     {
       "id": "profile_00000000000000000000000005",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:6948bbd9c410abca8db9e85a7666a7a1754d9fa5892e6933f75444643dd34278"
+        "historical_content_hash": "sha256:cf8664dcbdeb7c1ad37ba1a72cc51277fa9e7858cb0d47adf80accd07b490067"
       },
       "role_family": "BUSINESS",
       "career_stage": "MID",
@@ -224,16 +224,16 @@
     {
       "id": "profile_00000000000000000000000006",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:21a337941d14d1a7c3e63cecbca3c829e690b3cdd275adebd72d58c9028b0b3b"
+        "historical_content_hash": "sha256:1a3463708910718465d15f032fc897631c2d6f8ee5037af6a8b715b810dc8842"
       },
       "role_family": "OPERATIONS",
       "career_stage": "EARLY",
@@ -269,16 +269,16 @@
     {
       "id": "profile_00000000000000000000000007",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:8756712a9ebf754dd55f302f9170c63c61df9b51510d73e9418be73c1c58c7c8"
+        "historical_content_hash": "sha256:ca3dbf7cea2de614c3503d519c81e29cba7253c9a11ad6496613c333d675c911"
       },
       "role_family": "HEALTHCARE",
       "career_stage": "MID",
@@ -311,16 +311,16 @@
     {
       "id": "profile_00000000000000000000000008",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:bef14821a911eea3a916cfce5ed4619aa0a8375b421538e673c3461951261b89"
+        "historical_content_hash": "sha256:cc254726758621527ab7bf8d29ce4a92d3db4815bcc8720fe58237fa090f8544"
       },
       "role_family": "EDUCATION",
       "career_stage": "EARLY",
@@ -353,16 +353,16 @@
     {
       "id": "profile_00000000000000000000000009",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ba1aecc7792a4a1e663ad1903c4dd7c78b4172c5a95db857ef3d24202b3c3902"
+        "historical_content_hash": "sha256:d620e39e66650aa56d40e7d538837348dbe19a4c09a86930b09b0ccaf80682bf"
       },
       "role_family": "SALES",
       "career_stage": "MID",
@@ -395,16 +395,16 @@
     {
       "id": "profile_00000000000000000000000010",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:95c01045df9c31d5b401082eba641495a4d504f9881ada3fc69b792fb3ff5ae8"
+        "historical_content_hash": "sha256:536ec2c8e3c1b95413c6dce24508687ef6f6319f5d2ef710f41ee087446e19cd"
       },
       "role_family": "FINANCE",
       "career_stage": "SENIOR",
@@ -440,16 +440,16 @@
     {
       "id": "profile_00000000000000000000000011",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e637baa0bc1b6600f08f06d6f95bac3a031aee3cd2ca0b1bf9a28c9a868ac9fa"
+        "historical_content_hash": "sha256:61bbd08fe3ccb94bc340ee28f8f6ebcde9d5b22d3bf7ceac718a45997a954e82"
       },
       "role_family": "ENTRY_LEVEL",
       "career_stage": "EARLY",
@@ -482,16 +482,16 @@
     {
       "id": "profile_00000000000000000000000012",
       "entity_type": "SYNTHETIC_PROFILE",
-      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
-      "schema_version": "1.0.0",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
       "metadata": {
         "author": "m02w01-lead-author",
         "reviewer": "m02w01-fixture-reviewer",
         "reviewed_at": "2026-07-29T08:55:00Z",
-        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ef4409284bd5d3ed26f73c11d48d9edf63bf62569fa92eb3e60d0ce83cca7299"
+        "historical_content_hash": "sha256:01193a90bc078d58267e685933ae8dcc55145be472a3fdd39fbbf54947bbfd10"
       },
       "role_family": "ENTRY_LEVEL",
       "career_stage": "EARLY",

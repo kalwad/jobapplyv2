@@ -73,7 +73,7 @@ def test_fixture_corpus_transitions_from_nya_to_active(
         is verify.SuiteState.NOT_YET_APPLICABLE
     )
     assert verify.derive_state(real_ctx, suite, states) is verify.SuiteState.ACTIVE
-    assert len(verify.discovery_matches(real_ctx, suite.discovery_globs)) == 5
+    assert len(verify.discovery_matches(real_ctx, suite.discovery_globs)) == 8
 
 
 def test_started_fixture_corpus_with_empty_discovery_is_required_missing(
@@ -352,6 +352,54 @@ def test_vitest_exact_count_rejects_both_shortfall_and_surplus(
         outcomes, exit_code = verify.run_verification(fixture_repo, None)
         assert exit_code == 1
         assert "need exactly 50" in outcomes[0].messages[0]
+
+
+def test_vitest_exact_count_rejects_nonpassing_outcomes_even_with_exact_passes(
+    fixture_repo: verify.Context,
+) -> None:
+    for label in ("skipped", "todo", "pending", "excluded"):
+        command = [
+            sys.executable,
+            "-c",
+            f"print('Tests  1 {label} | 50 passed (51)')",
+        ]
+        write_registry(
+            fixture_repo.registry_path,
+            [
+                make_suite(
+                    commands=[command],
+                    proofs=[{"kind": "vitest_exact_tests", "min": 50}],
+                )
+            ],
+        )
+        outcomes, exit_code = verify.run_verification(fixture_repo, None)
+        assert exit_code == 1
+        assert f"1 {label}" in outcomes[0].messages[0]
+
+
+def test_conditional_skip_plus_trivial_replacement_fails_both_controls(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            'test.skipIf(true)("substantive", () => { throw new Error(); });\n'
+            'test("trivial replacement", () => {});\n'
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ())
+    proof = verify.Proof(kind="vitest_exact_tests", min_count=50)
+    suite = verify.load_registry(fixture_repo.registry_path).suites[0]
+    failure = verify.check_proof(
+        fixture_repo,
+        suite,
+        proof,
+        "Tests  1 skipped | 50 passed (51)",
+    )
+    assert failure is not None
+    assert "non-passing" in failure
 
 
 def test_unknown_proof_kind_fails_closed(fixture_repo: verify.Context) -> None:

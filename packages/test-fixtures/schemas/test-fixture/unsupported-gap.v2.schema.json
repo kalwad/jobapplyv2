@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:japp:schema:test-fixture:unsupported-gap:v1",
-  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+  "x-japp-schema-version": "2.0.0",
   "title": "Explicit non-supported requirement gap",
   "description": "TEST-ONLY abstention record for partial, unsupported, or contradicted expected support.",
   "type": "object",
@@ -24,28 +24,28 @@
   ],
   "properties": {
     "id": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "entity_type": {
       "const": "UNSUPPORTED_GAP"
     },
     "schema_ref": {
-      "const": "urn:japp:schema:test-fixture:unsupported-gap:v1"
+      "const": "urn:japp:schema:test-fixture:unsupported-gap:v2"
     },
     "schema_version": {
-      "const": "1.0.0"
+      "const": "2.0.0"
     },
     "metadata": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
     },
     "scenario_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "profile_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "requirement_ref": {
-      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
     },
     "classification": {
       "type": "string",
@@ -54,25 +54,28 @@
     "supporting_evidence_refs": {
       "type": "array",
       "items": {
-        "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+        "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
       },
       "maxItems": 0
     },
     "related_or_contradicting_evidence_refs": {
       "type": "array",
       "items": {
-        "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+        "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
       },
       "minItems": 0,
       "maxItems": 8,
       "uniqueItems": true
     },
     "expected_action": {
-      "const": "ABSTAIN"
+      "type": "string",
+      "enum": ["ABSTAIN", "BLOCK_AND_EXPLAIN", "REQUIRE_CONFIRMATION"]
     },
     "reason_code": {
       "type": "string",
       "enum": [
+        "CREDENTIAL_EXPIRED",
+        "CREDENTIAL_NOT_CURRENT",
         "CONTRADICTED_BY_EXPLICIT_RECORD",
         "INSUFFICIENT_DIRECT_EVIDENCE",
         "NO_SUPPORTING_EVIDENCE"

@@ -7,7 +7,9 @@ import {
 } from "node:fs";
 import { basename, extname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
+import { safeDiagnosticPath } from "./diagnostics.ts";
 import { parseStrictJson } from "./strict-json.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../", import.meta.url));
@@ -66,7 +68,8 @@ export class PlatformVersionGuardError extends Error {
 }
 
 function safePath(root: string, path: string): string {
-  return relative(root, path).split(sep).join("/") || basename(path);
+  const value = relative(root, path).split(sep).join("/") || basename(path);
+  return safeDiagnosticPath(value) || ".";
 }
 
 function pointerAt(collection: string, index: number): string {
@@ -207,28 +210,229 @@ function inspectJson(
   issues: PlatformVersionIssue[],
 ): void {
   if (typeof value === "string") {
-    DEPRECATED_V1_REFERENCE.lastIndex = 0;
-    for (const match of value.matchAll(DEPRECATED_V1_REFERENCE)) {
-      if (deprecated.has(match[0])) {
-        issues.push({
-          code: "DEPRECATED_PLATFORM_V1_WRITE",
-          file,
-          field: pointer === "" ? "/" : pointer,
-          detail:
-            "new M02 producer surface references a deprecated platform v1 root",
-        });
-      }
-    }
+    inspectStringRepresentation(value, deprecated, file, pointer, issues);
   } else if (Array.isArray(value)) {
     value.forEach((item, index) => {
       inspectJson(item, deprecated, file, pointerAt(pointer, index), issues);
     });
   } else if (typeof value === "object" && value !== null) {
+    const object = value as Record<string, unknown>;
+    const alias = object.schema_alias;
+    const major = object.major;
+    if (
+      typeof alias === "string" &&
+      major === "v1" &&
+      [...deprecated].some(
+        (root) => root === `urn:japp:schema:platform:${alias}:v1`,
+      )
+    ) {
+      issues.push({
+        code: "DEPRECATED_PLATFORM_V1_ALIAS",
+        file,
+        field: pointer === "" ? "/" : pointer,
+        detail:
+          "new M02 producer surface selects a deprecated platform alias/major pair",
+      });
+    }
     for (const [index, [key, item]] of Object.entries(value).entries()) {
       const safeKey = `@member/${String(index)}`;
       inspectJson(key, deprecated, file, `${pointer}/${safeKey}/@key`, issues);
       inspectJson(item, deprecated, file, `${pointer}/${safeKey}`, issues);
     }
+  }
+}
+
+function inspectStringRepresentation(
+  value: string,
+  deprecated: ReadonlySet<string>,
+  file: string,
+  pointer: string,
+  issues: PlatformVersionIssue[],
+): void {
+  const field = pointer === "" ? "/" : pointer;
+  DEPRECATED_V1_REFERENCE.lastIndex = 0;
+  for (const match of value.matchAll(DEPRECATED_V1_REFERENCE)) {
+    if (deprecated.has(match[0])) {
+      issues.push({
+        code: "DEPRECATED_PLATFORM_V1_WRITE",
+        file,
+        field,
+        detail:
+          "new M02 producer surface references a deprecated platform v1 root",
+      });
+    }
+  }
+  for (const root of deprecated) {
+    const alias = root.slice("urn:japp:schema:platform:".length, -":v1".length);
+    if (
+      value.includes(`${alias}.v1.schema.json`) ||
+      value.includes(`${alias}.v1.schema`)
+    ) {
+      issues.push({
+        code: "DEPRECATED_PLATFORM_V1_FILENAME",
+        file,
+        field,
+        detail:
+          "new M02 producer surface references a deprecated platform v1 schema filename",
+      });
+    }
+  }
+}
+
+interface ConstantEvaluationContext {
+  readonly constants: ReadonlyMap<string, ts.Expression>;
+  nodes: number;
+}
+
+function evaluateConstantString(
+  expression: ts.Expression,
+  context: ConstantEvaluationContext,
+  depth = 0,
+): string | undefined {
+  context.nodes += 1;
+  if (depth > 16 || context.nodes > 256) {
+    return undefined;
+  }
+  if (
+    ts.isStringLiteral(expression) ||
+    ts.isNoSubstitutionTemplateLiteral(expression)
+  ) {
+    return expression.text.length <= 4096 ? expression.text : undefined;
+  }
+  if (ts.isParenthesizedExpression(expression)) {
+    return evaluateConstantString(expression.expression, context, depth + 1);
+  }
+  if (
+    ts.isAsExpression(expression) ||
+    ts.isTypeAssertionExpression(expression) ||
+    ts.isSatisfiesExpression(expression)
+  ) {
+    return evaluateConstantString(expression.expression, context, depth + 1);
+  }
+  if (
+    ts.isBinaryExpression(expression) &&
+    expression.operatorToken.kind === ts.SyntaxKind.PlusToken
+  ) {
+    const left = evaluateConstantString(expression.left, context, depth + 1);
+    const right = evaluateConstantString(expression.right, context, depth + 1);
+    if (left === undefined || right === undefined) {
+      return undefined;
+    }
+    const combined = left + right;
+    return combined.length <= 4096 ? combined : undefined;
+  }
+  if (ts.isIdentifier(expression)) {
+    const initializer = context.constants.get(expression.text);
+    return initializer === undefined
+      ? undefined
+      : evaluateConstantString(initializer, context, depth + 1);
+  }
+  if (ts.isTemplateExpression(expression)) {
+    let value = expression.head.text;
+    for (const span of expression.templateSpans) {
+      const part = evaluateConstantString(span.expression, context, depth + 1);
+      if (part === undefined) {
+        return undefined;
+      }
+      value += part + span.literal.text;
+      if (value.length > 4096) {
+        return undefined;
+      }
+    }
+    return value;
+  }
+  return undefined;
+}
+
+function inspectTypeScript(
+  text: string,
+  deprecated: ReadonlySet<string>,
+  file: string,
+  issues: PlatformVersionIssue[],
+): void {
+  const source = ts.createSourceFile(
+    file,
+    text,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TS,
+  );
+  const parseDiagnostics = (
+    source as ts.SourceFile & {
+      readonly parseDiagnostics: readonly ts.Diagnostic[];
+    }
+  ).parseDiagnostics;
+  if (parseDiagnostics.length > 0) {
+    issues.push({
+      code: "PLATFORM_TYPESCRIPT_PARSE",
+      file,
+      field: "/",
+      detail: "TypeScript producer source does not parse",
+    });
+    return;
+  }
+  const constants = new Map<string, ts.Expression>();
+  const resolution = { complete: false };
+  const collect = (node: ts.Node): void => {
+    if (
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      node.initializer !== undefined &&
+      node.parent.flags & ts.NodeFlags.Const
+    ) {
+      constants.set(node.name.text, node.initializer);
+    }
+    ts.forEachChild(node, collect);
+  };
+  collect(source);
+  const reported = new Set<string>();
+  const visit = (node: ts.Node): void => {
+    if (ts.isExpression(node)) {
+      const evaluated = evaluateConstantString(node, {
+        constants,
+        nodes: 0,
+      });
+      if (evaluated !== undefined) {
+        if (
+          /\burn:japp:schema:platform:[a-z][a-z0-9-]*:v[0-9]+\b|[a-z][a-z0-9-]*\.v[0-9]+\.schema(?:\.json)?\b/u.test(
+            evaluated,
+          )
+        ) {
+          resolution.complete = true;
+        }
+        const before = issues.length;
+        inspectStringRepresentation(
+          evaluated,
+          deprecated,
+          file,
+          `/offset/${String(node.getStart(source))}`,
+          issues,
+        );
+        if (issues.length > before) {
+          const key = `${String(node.getStart(source))}:${evaluated}`;
+          if (reported.has(key)) {
+            issues.splice(before);
+          } else {
+            reported.add(key);
+          }
+        }
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  if (
+    /urn:japp:schema:platform:|\.v1\.schema/u.test(text) &&
+    !resolution.complete &&
+    !issues.some((issue) => issue.file === file)
+  ) {
+    issues.push({
+      code: "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      file,
+      field: "/",
+      detail:
+        "schema-looking TypeScript producer expression cannot be resolved to a reviewed constant",
+    });
   }
 }
 
@@ -265,6 +469,13 @@ function scanForDeprecatedPlatformV1Internal(
   let scanned = 0;
   for (const path of files) {
     const file = safePath(rootReal, path);
+    inspectStringRepresentation(
+      relative(rootReal, path).split(sep).join("/"),
+      deprecated,
+      file,
+      "/@path",
+      issues,
+    );
     const stats = lstatSync(path);
     if (stats.size > MAX_SCAN_BYTES) {
       issues.push({
@@ -301,20 +512,17 @@ function scanForDeprecatedPlatformV1Internal(
           detail: "JSON is not strict or contains duplicate keys",
         });
       }
+    } else if (extname(path) === ".ts") {
+      inspectTypeScript(text, deprecated, file, issues);
     } else {
       text.split("\n").forEach((line, index) => {
-        DEPRECATED_V1_REFERENCE.lastIndex = 0;
-        for (const match of line.matchAll(DEPRECATED_V1_REFERENCE)) {
-          if (deprecated.has(match[0])) {
-            issues.push({
-              code: "DEPRECATED_PLATFORM_V1_WRITE",
-              file,
-              field: pointerAt("/line", index + 1),
-              detail:
-                "new M02 producer surface references a deprecated platform v1 root",
-            });
-          }
-        }
+        inspectStringRepresentation(
+          line,
+          deprecated,
+          file,
+          pointerAt("/line", index + 1),
+          issues,
+        );
       });
     }
   }

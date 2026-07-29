@@ -39,6 +39,15 @@ GATE_D_EVIDENCE_REL = "docs/gates/evidence/SYNTHETIC_GATE_D_EVIDENCE.md"
 FAKE_EVIDENCE_HASH = "sha256:" + "0" * 64
 FAKE_REVIEWER = "clean-session fixture reviewer"
 CORRECTIVE_BLOCKER_IDS = ("KI-0029", "KI-0030", "KI-0031")
+CURRENT_M02_CORRECTIVE_ISSUE_IDS = (
+    "KI-0039",
+    "KI-0040",
+    "KI-0041",
+    "KI-0042",
+    "KI-0043",
+    "KI-0044",
+    "KI-0045",
+)
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
     "- KI-0030 (HIGH, IN_PROGRESS) — semantic contradictions",
@@ -122,7 +131,7 @@ def set_live_blockers(repo: Path, lines: list[str]) -> None:
 
 def resolve_corrective_issues(repo: Path) -> None:
     """Remove today's corrective blockers from historical future-state fixtures."""
-    for issue_id in CORRECTIVE_BLOCKER_IDS:
+    for issue_id in (*CORRECTIVE_BLOCKER_IDS, *CURRENT_M02_CORRECTIVE_ISSUE_IDS):
         set_issue_state(repo, issue_id, "FIXED")
     set_live_blockers(repo, ["- NONE"])
 
@@ -229,6 +238,7 @@ def set_next_ready(repo: Path, value: str) -> None:
 
 def activate_corrective_blockers(repo: Path) -> None:
     """Build a coherent reopened M01 fixture independent of live closeout state."""
+    resolve_corrective_issues(repo)
     for issue_id in CORRECTIVE_BLOCKER_IDS:
         set_issue_state(repo, issue_id, "IN_PROGRESS")
     set_live_blockers(repo, CURRENT_BLOCKER_LINES)

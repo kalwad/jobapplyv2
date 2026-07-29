@@ -1,0 +1,1285 @@
+{
+  "entity_type": "SYNTHETIC_JOB",
+  "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+  "schema_version": "2.0.0",
+  "items": [
+    {
+      "id": "job_00000000000000000000000001",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:8ffe8356557cf95c1f29988f5d78c8a2169eb040245bd68efb027fd78689cc8a"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Primary Software Engineer",
+      "employer": "Synthetic Employer 01-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-01.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:typescript",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
+          "text": "Requirement EXPERIENCE; tagged skill:typescript; constraint MINIMUM_EXPERIENCE_YEARS=3; importance MUST_HAVE.",
+          "text_sha256": "sha256:998e25daa622959d06803467ef0baf3f8a0c4616aaa135b2eec7d1c692f1056f"
+        },
+        {
+          "anchor_id": "job-01.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "REMOTE"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=REMOTE; importance MUST_HAVE.",
+          "text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94"
+        },
+        {
+          "anchor_id": "job-01.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000002",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:434d4d1e2621b32ecce15dcc8cb14a758ce3481f88a5e07f3aa811315d723a63"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Alternate Software Engineer",
+      "employer": "Synthetic Employer 02-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 5,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-02.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:node-js",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
+          "text": "Requirement EXPERIENCE; tagged skill:node-js; constraint MINIMUM_EXPERIENCE_YEARS=5; importance MUST_HAVE.",
+          "text_sha256": "sha256:b7129535b0f53f38049a969c07ef65de547fdc4282b12dabdfc891e684e05395"
+        },
+        {
+          "anchor_id": "job-02.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "HYBRID"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=HYBRID; importance MUST_HAVE.",
+          "text_sha256": "sha256:8bacb13af9920893cdcdbfb3a0380fecae96a1537666a13d837d3c3228f7bb3b"
+        },
+        {
+          "anchor_id": "job-02.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000003",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:456c5481d6c608fdceade49ec5379d8de2784d787a2672f0224167e567e0e065"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Primary Senior Platform Engineer",
+      "employer": "Synthetic Employer 03-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-03.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:distributed-systems",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:distributed-systems; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:56e2c2d8e8a77eef9994e45a368b7378a42b50d2cde4390ff7f52f42a35a338b"
+        },
+        {
+          "anchor_id": "job-03.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-03.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000004",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e7b19b1ab5e8b266e5dfe5ada6a7890760de2f5a35e115596f002823141c762e"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Alternate Senior Platform Engineer",
+      "employer": "Synthetic Employer 04-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-04.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:node-js",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:node-js; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:b3b88883b1e65c3be440eceb529affc5fc7c517d5c62981362b4f261a7d33532"
+        },
+        {
+          "anchor_id": "job-04.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-04.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000005",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c424fc358bbcc1cadfd6dbd79c749ca0792b5a60a9142e73b7b598faa18db263"
+      },
+      "role_family": "DATA",
+      "title": "Primary Analytics Engineer",
+      "employer": "Synthetic Employer 05-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-05.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:sql",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
+          "text": "Requirement EXPERIENCE; tagged skill:sql; constraint MINIMUM_EXPERIENCE_YEARS=3; importance MUST_HAVE.",
+          "text_sha256": "sha256:1f6a4f0e666f52549cd9af2fed162a30e3c43815c568b6d9434995ae077ce18c"
+        },
+        {
+          "anchor_id": "job-05.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-05.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000006",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f8cd9c633c8102e34b2c08f2aaa30656c37eeba6379beb3ab6b2b6723234a5f5"
+      },
+      "role_family": "DATA",
+      "title": "Alternate Analytics Engineer",
+      "employer": "Synthetic Employer 06-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 5,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-06.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:data-modeling",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
+          "text": "Requirement EXPERIENCE; tagged skill:data-modeling; constraint MINIMUM_EXPERIENCE_YEARS=5; importance MUST_HAVE.",
+          "text_sha256": "sha256:3482ab8c3233299b06bbad47d758eefe217fcd0573a2e1e546c775998342975e"
+        },
+        {
+          "anchor_id": "job-06.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-06.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000007",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c1e8ffd9af72d75ead367753c5cd9f4d58c416c8da7e8f0fd488362a210bb974"
+      },
+      "role_family": "DATA",
+      "title": "Primary Senior Data Scientist",
+      "employer": "Synthetic Employer 07-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-07.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:experiment-design",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:experiment-design; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:e34661ac501b76567ecddc7f67fa6ab5d1815dae34a68d96fa5bb98512fd510e"
+        },
+        {
+          "anchor_id": "job-07.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-07.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000008",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:538d1a93cabd6255778747bb924f94ea38d56b9922a531b42813d8e40168d7bf"
+      },
+      "role_family": "DATA",
+      "title": "Alternate Senior Data Scientist",
+      "employer": "Synthetic Employer 08-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-08.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:machine-learning",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:machine-learning; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:9f29b14394e4ac33a82687d35f0a8aae71b6c8eae676216807bd4e67fc57927c"
+        },
+        {
+          "anchor_id": "job-08.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-08.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "credential:synthetic-foundation",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged credential:synthetic-foundation; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000009",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d1769a922d57fc6e3b833ac51233bcdda759ad459b6a962d3c937730ecacabcd"
+      },
+      "role_family": "BUSINESS",
+      "title": "Primary Business Analyst",
+      "employer": "Synthetic Employer 09-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-09.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:process-mapping",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
+          "text": "Requirement EXPERIENCE; tagged skill:process-mapping; constraint MINIMUM_EXPERIENCE_YEARS=3; importance MUST_HAVE.",
+          "text_sha256": "sha256:8a18b8e0f75a7ffdbc461affa71295913e6f3653440029dae680138700464918"
+        },
+        {
+          "anchor_id": "job-09.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-09.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:requirements-analysis",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:requirements-analysis; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:9427ba1b13d74dd586e75bf4fe7a833b9e8c4eac03fff23280c850b84c7e3da3"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000010",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e530cbf68acc8ecd87237b156abac299877d4263223cdfffcef2720295e575f5"
+      },
+      "role_family": "BUSINESS",
+      "title": "Alternate Business Analyst",
+      "employer": "Synthetic Employer 10-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 5,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-10.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:stakeholder-analysis",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
+          "text": "Requirement EXPERIENCE; tagged skill:stakeholder-analysis; constraint MINIMUM_EXPERIENCE_YEARS=5; importance MUST_HAVE.",
+          "text_sha256": "sha256:b9f7799d53d020ce241ba9b4d6e3d95c4c2951219315a92fffdac07901e09430"
+        },
+        {
+          "anchor_id": "job-10.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-10.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:requirements-analysis",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:requirements-analysis; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:9427ba1b13d74dd586e75bf4fe7a833b9e8c4eac03fff23280c850b84c7e3da3"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000011",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:45e289d46e3b3ce87bd825d60d338dae5f99507f450a51bdb79096939b1aa9cd"
+      },
+      "role_family": "OPERATIONS",
+      "title": "Primary Operations Coordinator",
+      "employer": "Synthetic Employer 11-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-11.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:scheduling",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
+          "text": "Requirement EXPERIENCE; tagged skill:scheduling; constraint MINIMUM_EXPERIENCE_YEARS=1; importance MUST_HAVE.",
+          "text_sha256": "sha256:fb2967eda4ccba434ed9d58117963ee311405b641042cf17d7372c8f9a1d4b49"
+        },
+        {
+          "anchor_id": "job-11.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-11.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:process-improvement",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:process-improvement; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:e0947b87ba5f41372e536c121328b6355a87c4853a941f2bae8a2dc8c7e99ec8"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000012",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:35f63b906abb1feff164c1471a9ed57aa130f61ee0f819208702300e5c02645f"
+      },
+      "role_family": "OPERATIONS",
+      "title": "Alternate Operations Coordinator",
+      "employer": "Synthetic Employer 12-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 2,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-12.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:inventory-control",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
+          "text": "Requirement EXPERIENCE; tagged skill:inventory-control; constraint MINIMUM_EXPERIENCE_YEARS=2; importance MUST_HAVE.",
+          "text_sha256": "sha256:9b5e6f05432a7c9d548d6dfafcd332b6b34456962e5f2ebb53e5e64e7b82f8aa"
+        },
+        {
+          "anchor_id": "job-12.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-12.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:process-improvement",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:process-improvement; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:e0947b87ba5f41372e536c121328b6355a87c4853a941f2bae8a2dc8c7e99ec8"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000013",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9d63f4eeb2fe5994c4f815e6867ab768a3e0aa5279f161459a5d8c114931490b"
+      },
+      "role_family": "HEALTHCARE",
+      "title": "Primary Healthcare Operations Analyst",
+      "employer": "Synthetic Employer 13-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-13.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:clinical-operations",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
+          "text": "Requirement EXPERIENCE; tagged skill:clinical-operations; constraint MINIMUM_EXPERIENCE_YEARS=3; importance MUST_HAVE.",
+          "text_sha256": "sha256:b6c8b1fdbc9e48971ad0dd09d256eb2952f2c6785eda537ed96e0ead82148f78"
+        },
+        {
+          "anchor_id": "job-13.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-13.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-quality-current",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-quality-current; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:cb7c19233819100defef6fef194630ee62abc2481b9b38be92478dd69ccba8ad"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000014",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:76d64f9179e50feca5af2e0a0db744ea6bed456f966f299b5b60a329865efc3b"
+      },
+      "role_family": "HEALTHCARE",
+      "title": "Alternate Healthcare Operations Analyst",
+      "employer": "Synthetic Employer 14-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 5,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-14.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:quality-reporting",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
+          "text": "Requirement EXPERIENCE; tagged skill:quality-reporting; constraint MINIMUM_EXPERIENCE_YEARS=5; importance MUST_HAVE.",
+          "text_sha256": "sha256:4f7d79a9d0488d6a12aaa0384f4eb5627023c722e217b8e40e61d9223da07d52"
+        },
+        {
+          "anchor_id": "job-14.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-14.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:data-privacy",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:data-privacy; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:e3cabcfefd77ab9c77821e65cd44813b18ed9e474a5f3e6b8480ec82b01aced8"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000015",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:af6b27003b35db89ec4ffa2056a0c69877469c3d0cea7deaf2b818a7565036b4"
+      },
+      "role_family": "EDUCATION",
+      "title": "Primary Learning Program Coordinator",
+      "employer": "Synthetic Employer 15-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-15.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:curriculum-design",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
+          "text": "Requirement EXPERIENCE; tagged skill:curriculum-design; constraint MINIMUM_EXPERIENCE_YEARS=1; importance MUST_HAVE.",
+          "text_sha256": "sha256:7b48fa9c1c6a14757104619132032fc87df31421c5c118b743aa00e6cd73a269"
+        },
+        {
+          "anchor_id": "job-15.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "ON_SITE"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=ON_SITE; importance MUST_HAVE.",
+          "text_sha256": "sha256:16668215ab34ee782fa44898fbb89ad6895462048a76c945cc1f783d9e89dba7"
+        },
+        {
+          "anchor_id": "job-15.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:learning-analytics",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:learning-analytics; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:9d88f8c667709c91a1e4e5084a875d5331ee944b630dfb378aad68fe85ba21cc"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000016",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:a3ebc36754fe7c01febdda1a0df8fd5874cf997d041919576b246f94226d12a6"
+      },
+      "role_family": "EDUCATION",
+      "title": "Alternate Learning Program Coordinator",
+      "employer": "Synthetic Employer 16-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 2,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-16.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:facilitation",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
+          "text": "Requirement EXPERIENCE; tagged skill:facilitation; constraint MINIMUM_EXPERIENCE_YEARS=2; importance MUST_HAVE.",
+          "text_sha256": "sha256:5cb928df58d670bb2211998ef8f654a6e7f7f9878b84d86a461be9430051d169"
+        },
+        {
+          "anchor_id": "job-16.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "REMOTE"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=REMOTE; importance MUST_HAVE.",
+          "text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94"
+        },
+        {
+          "anchor_id": "job-16.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "SKILL",
+          "requirement_tag": "skill:learning-analytics",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement SKILL; tagged skill:learning-analytics; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:9d88f8c667709c91a1e4e5084a875d5331ee944b630dfb378aad68fe85ba21cc"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000017",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1ae167c580e436689ddd345cbe560e198292aaf2a45a0fa3b7650892adc4962c"
+      },
+      "role_family": "SALES",
+      "title": "Primary Sales Operations Specialist",
+      "employer": "Synthetic Employer 17-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-17.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:pipeline-analysis",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
+          "text": "Requirement EXPERIENCE; tagged skill:pipeline-analysis; constraint MINIMUM_EXPERIENCE_YEARS=3; importance MUST_HAVE.",
+          "text_sha256": "sha256:fcf681b8474858dfffb8d722268dd91a0dfb0a771324ecdbf229dff95f29c41d"
+        },
+        {
+          "anchor_id": "job-17.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-17.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000018",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4a7a6644d515cc30994c0bcb3901dd5b75aa1ee7f7eef3866c410e737d22c840"
+      },
+      "role_family": "SALES",
+      "title": "Alternate Sales Operations Specialist",
+      "employer": "Synthetic Employer 18-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 5,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-18.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:crm-administration",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
+          "text": "Requirement EXPERIENCE; tagged skill:crm-administration; constraint MINIMUM_EXPERIENCE_YEARS=5; importance MUST_HAVE.",
+          "text_sha256": "sha256:153f1d3adcd2dfd6be947fe99fa7629065fa89d68a948a09aa1c034b53dbb514"
+        },
+        {
+          "anchor_id": "job-18.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:sponsorship_requirement",
+          "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
+          "text": "Requirement ELIGIBILITY; tagged field:sponsorship_requirement; constraint SPONSORSHIP=NO_SPONSORSHIP; importance MUST_HAVE.",
+          "text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37"
+        },
+        {
+          "anchor_id": "job-18.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000019",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:dace6a62c792a811176f9bbba836d6a8e5ec13cc8b72cd41bc2f1e8570976a4e"
+      },
+      "role_family": "FINANCE",
+      "title": "Primary Senior Financial Analyst",
+      "employer": "Synthetic Employer 19-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-19.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:financial-modeling",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:financial-modeling; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:105b387ba29e0456d194fc1e6166ca6e4597cc4fd9ee4cb52d34a901ac848b0f"
+        },
+        {
+          "anchor_id": "job-19.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-19.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000020",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f77fc3cd1905ca51771c1290e7e31a2904abccb6c6b41e907a878e941f663263"
+      },
+      "role_family": "FINANCE",
+      "title": "Alternate Senior Financial Analyst",
+      "employer": "Synthetic Employer 20-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-20.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:variance-analysis",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
+          "text": "Requirement EXPERIENCE; tagged skill:variance-analysis; constraint MINIMUM_EXPERIENCE_YEARS=7; importance MUST_HAVE.",
+          "text_sha256": "sha256:05e3dc02f3fb995cc074de1f44359033a0d76dd184662e6bc6b3b50ca7360568"
+        },
+        {
+          "anchor_id": "job-20.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "CERTIFICATION",
+          "requirement_tag": "license:healthcare-operations",
+          "constraint": {
+            "kind": "CURRENT_LICENSE",
+            "value": "CURRENT_AT_EVALUATION_DATE"
+          },
+          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+        },
+        {
+          "anchor_id": "job-20.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000021",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:f37e0a2e93096f01c9161d924ec93a09694b0e4b1ebce6e4adbeadbc79a883dc"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Primary Junior Project Coordinator",
+      "employer": "Synthetic Employer 21-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-21.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:documentation",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
+          "text": "Requirement EXPERIENCE; tagged skill:documentation; constraint MINIMUM_EXPERIENCE_YEARS=1; importance MUST_HAVE.",
+          "text_sha256": "sha256:5ee59dc025dd6243e1495c27048ee34e5f7f98724a8f8b2614d21bc5acb812b8"
+        },
+        {
+          "anchor_id": "job-21.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "ON_SITE"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=ON_SITE; importance MUST_HAVE.",
+          "text_sha256": "sha256:16668215ab34ee782fa44898fbb89ad6895462048a76c945cc1f783d9e89dba7"
+        },
+        {
+          "anchor_id": "job-21.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000022",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7e88170b78cf8780fd4905f2313b9b271994bc61cbda885538fb187e6b55c5d1"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Alternate Junior Project Coordinator",
+      "employer": "Synthetic Employer 22-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 2,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-22.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:task-tracking",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
+          "text": "Requirement EXPERIENCE; tagged skill:task-tracking; constraint MINIMUM_EXPERIENCE_YEARS=2; importance MUST_HAVE.",
+          "text_sha256": "sha256:37f7928e1b48ad97f0e8b8026f0491cba37ab920b14b2facc77d658f5ca12ed2"
+        },
+        {
+          "anchor_id": "job-22.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
+          "constraint": {
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "REMOTE"
+          },
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=REMOTE; importance MUST_HAVE.",
+          "text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94"
+        },
+        {
+          "anchor_id": "job-22.requirements.03",
+          "declared_importance": "PREFERRED",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance PREFERRED.",
+          "text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000023",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:105438034ead69280eb754148b64e5d0a724c6ef3be20c4a2f9db9ffb927daf4"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Primary Entry Level Support Analyst",
+      "employer": "Synthetic Employer 23-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-23.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:issue-triage",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
+          "text": "Requirement EXPERIENCE; tagged skill:issue-triage; constraint MINIMUM_EXPERIENCE_YEARS=1; importance MUST_HAVE.",
+          "text_sha256": "sha256:63d33ae52f3e903ba9cc0a2f1eef9f3a0c0505839484d196728464886756ff38"
+        },
+        {
+          "anchor_id": "job-23.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-23.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000024",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:edd711f7ef4c6a1f900a0aaee4273f56387dfa4727c634e1d6e630bf03fcf2a0"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Alternate Entry Level Support Analyst",
+      "employer": "Synthetic Employer 24-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 2,
+      "eligibility_constraint": "AUTHORIZED_TO_WORK_IN_US",
+      "source_blocks": [
+        {
+          "anchor_id": "job-24.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EXPERIENCE",
+          "requirement_tag": "skill:knowledge-management",
+          "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
+          "text": "Requirement EXPERIENCE; tagged skill:knowledge-management; constraint MINIMUM_EXPERIENCE_YEARS=2; importance MUST_HAVE.",
+          "text_sha256": "sha256:5e29b9f83d9ec3ae3a4a19fcaf21f036053872eb54c27fc6f0b7549069020dda"
+        },
+        {
+          "anchor_id": "job-24.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "ELIGIBILITY",
+          "requirement_tag": "field:work_authorization",
+          "constraint": {
+            "kind": "WORK_AUTHORIZATION",
+            "value": "AUTHORIZED_TO_WORK_IN_US"
+          },
+          "text": "Requirement ELIGIBILITY; tagged field:work_authorization; constraint WORK_AUTHORIZATION=AUTHORIZED_TO_WORK_IN_US; importance MUST_HAVE.",
+          "text_sha256": "sha256:fde43ff9b67bf8babfeb235db4a68a8dada359dd09f735bd42d2c911d040ef67"
+        },
+        {
+          "anchor_id": "job-24.requirements.03",
+          "declared_importance": "MUST_HAVE",
+          "requirement_kind": "EDUCATION",
+          "requirement_tag": "education:completed",
+          "constraint": { "kind": "NONE", "value": "NONE" },
+          "text": "Requirement EDUCATION; tagged education:completed; constraint NONE=NONE; importance MUST_HAVE.",
+          "text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409"
+        }
+      ]
+    }
+  ]
+}

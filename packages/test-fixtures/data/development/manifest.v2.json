@@ -1,0 +1,131 @@
+{
+  "id": "manifest_00000000000000000000000001",
+  "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
+  "schema_version": "2.0.0",
+  "corpus_version": "0.2.0",
+  "corpus_state": "DEVELOPMENT_MUTABLE",
+  "holdout_content_present": false,
+  "metadata": {
+    "author": "m02w01-lead-author",
+    "reviewer": "m02w01-fixture-reviewer",
+    "reviewed_at": "2026-07-29T08:55:00Z",
+    "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+    "synthetic_data": true,
+    "redaction_state": "SYNTHETIC_RESERVED",
+    "historical_content_hash": "sha256:5c7169ffddaefd891a4fc8cc0087842de314a5315fe19c84963a775cccd70962"
+  },
+  "files": [
+    {
+      "path": "evidence-artifacts.v2.json",
+      "entity_type": "EVIDENCE_ARTIFACT",
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0",
+      "record_count": 72,
+      "byte_count": 127789,
+      "sha256": "sha256:1ca7dc01fc2731d9aa2694c5b7047c372ae984e7897a1a7fc3ba1ba27d9309fb"
+    },
+    {
+      "path": "expected-requirements.v2.json",
+      "entity_type": "EXPECTED_REQUIREMENT",
+      "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
+      "schema_version": "2.0.0",
+      "record_count": 72,
+      "byte_count": 91280,
+      "sha256": "sha256:9588ea738fd7b8e7ebbb73378216f222ab37722774b97a0601cf3c380d558934"
+    },
+    {
+      "path": "expected-supported-claims.v2.json",
+      "entity_type": "EXPECTED_SUPPORTED_CLAIM",
+      "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+      "schema_version": "2.0.0",
+      "record_count": 78,
+      "byte_count": 103854,
+      "sha256": "sha256:6b60c5717a9274e5389314014d242867d196aad10ea5fd745474195d9c6a87d2"
+    },
+    {
+      "path": "field-value-policies.v2.json",
+      "entity_type": "FIELD_VALUE_POLICY",
+      "schema_ref": "urn:japp:schema:test-fixture:field-value-policy:v2",
+      "schema_version": "2.0.0",
+      "record_count": 69,
+      "byte_count": 73200,
+      "sha256": "sha256:9caf45941580b5fb56c48741fee1785adc3cbea300e98ecfb81008c7b02efb0a"
+    },
+    {
+      "path": "jobs.v2.json",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0",
+      "record_count": 24,
+      "byte_count": 61494,
+      "sha256": "sha256:514743800da425c12a75c2e3172f5d61ba7e3a5109817851db80efb973f64a70"
+    },
+    {
+      "path": "profiles.v2.json",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0",
+      "record_count": 12,
+      "byte_count": 19874,
+      "sha256": "sha256:148b204d10d67e54ccd15a77c52decb118319dcc41a51737ccd7d8913212a622"
+    },
+    {
+      "path": "scenario-bundles.v2.json",
+      "entity_type": "SCENARIO_BUNDLE",
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0",
+      "record_count": 36,
+      "byte_count": 90909,
+      "sha256": "sha256:a74e0433ba9bb2761b4c227b214e3c0994a7691a2ce86e1f70fd0d68f328f14d"
+    },
+    {
+      "path": "source-resumes.v2.json",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
+      "schema_version": "2.0.0",
+      "record_count": 12,
+      "byte_count": 36729,
+      "sha256": "sha256:510f1b9852d4058068e1dab3274e8fff1076533e7f1b6a241185dec6a3cd0b88"
+    },
+    {
+      "path": "unsupported-gaps.v2.json",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "record_count": 30,
+      "byte_count": 36058,
+      "sha256": "sha256:3931184d9a7e8d8e3311daf2c866ed2fed8f31067edac62272719a828f4397c1"
+    }
+  ],
+  "counts": {
+    "profiles": 12,
+    "evidence_artifacts": 72,
+    "source_resumes": 12,
+    "jobs": 24,
+    "expected_requirements": 72,
+    "expected_supported_claims": 78,
+    "unsupported_gaps": 30,
+    "field_value_policies": 69,
+    "scenario_bundles": 36,
+    "scenario_evaluations": 108
+  },
+  "evidence_category_counts": {
+    "CREDENTIAL_RECORD": 15,
+    "EDUCATION_RECORD": 12,
+    "EMPLOYMENT_RECORD": 19,
+    "PROJECT_RECORD": 14,
+    "USER_ASSERTION": 12
+  },
+  "role_family_counts": {
+    "BUSINESS": 1,
+    "DATA": 2,
+    "EDUCATION": 1,
+    "ENTRY_LEVEL": 2,
+    "FINANCE": 1,
+    "HEALTHCARE": 1,
+    "OPERATIONS": 1,
+    "SALES": 1,
+    "SOFTWARE": 2
+  },
+  "corpus_digest": "sha256:1096161e0a8cc050ea7b2adeaa4e1f4ac770e89859c2b7f874f243d66375ac1e"
+}
