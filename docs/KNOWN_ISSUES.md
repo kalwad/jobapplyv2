@@ -37,7 +37,7 @@ broadening a work package (spec §1.5).
 No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
 FIXED by the final M01-W07 corrective content at tree
 `51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
-remain DEFERRED with named owning packages. KI-0033 through KI-0037 are
+remain DEFERRED with named owning packages. KI-0033 through KI-0038 are
 nonblocking M02-W01 follow-ups in progress; none reopens M01.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
@@ -164,6 +164,41 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
   focused tests, all 148 status-validator tests, and full local verification
   pass. Two-clone and hosted closeout evidence is pending under
   `docs/TEST_EVIDENCE.md` § M02-W01.
+
+### KI-0038 — Cargo negative-test descendant outlived Windows cleanup
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during required Windows CI for the KI-0037
+  corrective content
+- Affects: M02-W01 closeout proof; M01-W05/M01-W07 test infrastructure;
+  `packages/contracts/test/contract/infrastructure.test.ts`
+- Description: the Rust non-compilation boundary test used `cargo build` for
+  an invalid temporary crate. Under the first workspace-wide Windows test
+  pass, that coordinator consumed the unchanged 30-second child boundary and
+  left a descendant holding the temporary target directory beyond Node's
+  bounded cleanup retries. The cleanup `EPERM` masked the stable negative
+  boundary result. The test passed later in the same job after toolchain
+  warm-up, so this is test-process lifetime behavior, not a schema, semantic,
+  fixture, or generated-contract verdict.
+- Reproduction: run `30444571597` at content commit
+  `b0669a4c702d34ba2f6db254d190438bdb258a84` passed macOS job
+  `90551671445` and Ubuntu job `90551671488`; Windows job `90551671515`
+  failed only
+  `a Rust adapter that does not compile fails the subprocess boundary` at
+  `rmSync`. The first unit pass took 30,018 ms and reported 19/20 files and
+  2,439/2,440 tests; the later focused contract suite passed the same test
+  within its 8/8 infrastructure tests and passed 662/662 contract tests.
+- Workaround: none accepted. The run is historical failed evidence; no retry,
+  timeout increase, skipped assertion, or cleanup waiver is permitted.
+- Resolution + evidence link: the test now invokes pinned `rustc` directly on
+  the invalid Rust source with `--emit=metadata`. This preserves the exact
+  non-compilation-to-`ADAPTER_EXIT_NONZERO` assertion, unchanged 30-second
+  child boundary, unchanged 128-KiB output bound, and mandatory cleanup while
+  removing Cargo's unrelated coordinator/descendant lifetime. Ten repeated
+  8/8 focused runs, all 20 files / 2,440 contract tests, and full canonical
+  verification pass locally. Two-clone and hosted evidence remains pending
+  under `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 

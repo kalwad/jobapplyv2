@@ -36,8 +36,8 @@ Exact verification commands and summarized results
 ### M02-W01 — Synthetic profile/job/resume fixture foundation, in-progress content proof (2026-07-29)
 
 - Revision: in-progress corrective working tree based on content commit
-  `5661ffa02c4301640b2c536b374aa8a73e1c8384` / tree
-  `d39a94483dd93146727bec15dc7a31d7484190ef`; the next corrective content
+  `b0669a4c702d34ba2f6db254d190438bdb258a84` / tree
+  `2a958423d6b2f98b942ee73c640a6a7e4e17eb60`; the next corrective content
   commit/tree are pending. Clean starting commit
   `0c8efc9212162bcb4fa846e453007d9404d97429` / tree
   `bc097542a25eddd9cfd39803fed884f71e20d86d` remains recorded. M01 remains
@@ -269,6 +269,46 @@ Exact verification commands and summarized results
   status-validator tests pass; full `pnpm verify` passes 677/677 Python tests
   and every ACTIVE suite. A new corrective content commit and complete fresh
   two-clone/three-OS lifecycle are required before another stamp attempt.
+- KI-0037 corrective content commit
+  `b0669a4c702d34ba2f6db254d190438bdb258a84` / tree
+  `2a958423d6b2f98b942ee73c640a6a7e4e17eb60`, message
+  `fix: isolate historical status fixtures`, contains exactly
+  `scripts/tests/test_validate_status.py`, `docs/PROJECT_STATUS.md`,
+  `docs/TEST_EVIDENCE.md`, and `docs/KNOWN_ISSUES.md`.
+- Two fresh exact-commit clones passed at
+  `/tmp/japp-m02w01-readiness-pinned.rYQkbY/normal` and
+  `/tmp/japp-m02w01-readiness-pinned.rYQkbY/clone with spaces – ü`.
+  Both explicitly asserted Node 24.18.0 and pnpm 11.17.0 before frozen/locked
+  setup, ran both Cargo fetches and pinned Chromium, clean doctor, 183-file
+  generation, empty compatibility, exact fixture seed/validation/privacy/
+  deprecated-v1/discovery/focused checks, status, traceability, full
+  verification, canonical hash, exact commit/tree, and clean-tree checks.
+- Fresh run `30444571597` passed macOS job `90551671445` and Ubuntu job
+  `90551671488` at exact SHA
+  `b0669a4c702d34ba2f6db254d190438bdb258a84`; Windows job `90551671515`
+  failed only the first workspace-wide execution of
+  `a Rust adapter that does not compile fails the subprocess boundary`.
+  The 30,018-ms Cargo negative child left a descendant holding
+  `japp-rust-negative-*`, and mandatory `rmSync` failed with `EPERM`.
+  Unit TypeScript therefore reported 19/20 files and 2,439/2,440 tests.
+  The same infrastructure file later passed 8/8 and the focused contract
+  suite passed 662/662 in the same job.
+- The complete Windows log was consumed: 298,116 bytes / 1,688 lines /
+  `sha256:c8b45a1c8e6dc63cd6b55d224b4789e8203ea362021b8fc78b56dafd29ed8c4b`.
+  It proves the exact SHA, ACTIVE fixture suite, 6/6 package files and 51/51
+  tests, exact seed/validation counts, 25-file/20,813-field privacy result,
+  fifteen deprecated-v1/v2 pairs, exact 50/50 focused tests, byte-identical
+  183-file generation, and every later ACTIVE suite PASS. Verification exit
+  was 1 solely because `unit-ts` preserved the earlier cleanup failure, so
+  the clean-tree step correctly did not run.
+- KI-0038 replaces only that negative fixture's Cargo coordinator with direct
+  pinned `rustc --emit=metadata` over the same invalid source. The exact
+  `ADAPTER_EXIT_NONZERO` assertion, 30-second child boundary, 128-KiB output
+  cap, compiler toolchain, and mandatory cleanup remain unchanged. Ten
+  consecutive focused executions pass 8/8, and all 20 contract files /
+  2,440 tests pass locally. Full `pnpm verify` also passes 677/677 Python
+  tests and every ACTIVE suite. A new corrective content commit and complete
+  fresh two-clone/three-OS lifecycle are required before closeout.
 
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 
