@@ -37,7 +37,7 @@ broadening a work package (spec §1.5).
 No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
 FIXED by the final M01-W07 corrective content at tree
 `51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
-remain DEFERRED with named owning packages. KI-0033 through KI-0036 are
+remain DEFERRED with named owning packages. KI-0033 through KI-0037 are
 nonblocking M02-W01 follow-ups in progress; none reopens M01.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
@@ -135,6 +135,35 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
   test timeout and every assertion. Local proof passes all 20 contract files /
   2,440 tests and full canonical verification; two-clone and fresh hosted
   closeout evidence remains pending under `docs/TEST_EVIDENCE.md` § M02-W01.
+
+### KI-0037 — Historical status fixtures inherited a later READY package
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the first M02-W01 governance-stamp
+  verification
+- Affects: M02-W01 closeout proof;
+  `scripts/tests/test_validate_status.py`
+- Description: two validator tests constructed historical M01/M02 boundary
+  states by changing the package under test but did not reset a later READY
+  package inherited from the live project ledger. Once the authorized
+  M02-W01 closeout made M02-W02 the sole READY package, those fixtures
+  accidentally contained two READY rows and stopped testing their intended
+  premises.
+- Reproduction: on the uncommitted five-file M02-W01 governance stamp over
+  content tree `d39a94483dd93146727bec15dc7a31d7484190ef`, run `pnpm verify`.
+  Python verification reports 675 passes and exactly two failures:
+  `test_m00_may_remain_accepted_while_m01_blockers_are_live` and
+  `test_fixed_ledger_and_none_sentinel_allow_later_readiness`. Both fail
+  because M02-W02 remains READY when the test constructs an earlier state.
+- Workaround: none accepted. The stamp was not committed and all five
+  governance files were restored to the valid M02-W01 IN_PROGRESS state.
+- Resolution + evidence link: both boundary setups now use the existing
+  `reset_downstream` helper, and each regression explicitly seeds M02-W02 as
+  READY before proving that the intended older state validates. The two
+  focused tests, all 148 status-validator tests, and full local verification
+  pass. Two-clone and hosted closeout evidence is pending under
+  `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 

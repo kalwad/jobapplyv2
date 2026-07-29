@@ -35,9 +35,9 @@ Exact verification commands and summarized results
 
 ### M02-W01 — Synthetic profile/job/resume fixture foundation, in-progress content proof (2026-07-29)
 
-- Revision: in-progress corrective working tree based on corrected content
-  commit `0679df6b12a2f6af543096746ff5b39368b34d89` / tree
-  `ecbcf12b5282ff3cca084828986c5871c08954af`; the next corrective content
+- Revision: in-progress corrective working tree based on content commit
+  `5661ffa02c4301640b2c536b374aa8a73e1c8384` / tree
+  `d39a94483dd93146727bec15dc7a31d7484190ef`; the next corrective content
   commit/tree are pending. Clean starting commit
   `0c8efc9212162bcb4fa846e453007d9404d97429` / tree
   `bc097542a25eddd9cfd39803fed884f71e20d86d` remains recorded. M01 remains
@@ -223,9 +223,52 @@ Exact verification commands and summarized results
   semantic assertion, expected result, dependency, workflow, toolchain, or
   timeout; the accepted 183-file generated tree remains byte-identical.
   Locally, all 20 contract files / 2,440 tests pass in serialized mode and
-  full `pnpm verify` exits 0 with every ACTIVE suite PASS. A new corrective
-  content commit and the complete two-clone/three-OS lifecycle are required
-  before closeout.
+  full `pnpm verify` exits 0 with every ACTIVE suite PASS.
+- Corrective content commit
+  `5661ffa02c4301640b2c536b374aa8a73e1c8384` / tree
+  `d39a94483dd93146727bec15dc7a31d7484190ef`, message
+  `fix: serialize shared Rust contract harness`, contains exactly four files:
+  `packages/contracts/vitest.config.ts`, `docs/PROJECT_STATUS.md`,
+  `docs/TEST_EVIDENCE.md`, and `docs/KNOWN_ISSUES.md`. It serializes contract
+  files without changing the existing 30-second test timeout, schemas,
+  generated contracts, semantic assertions, dependencies, workflow, or
+  toolchain.
+- That commit passed two complete exact-commit clean clones:
+  `/tmp/japp-m02w01-serialized-clones.6KCM1P/normal` and
+  `/tmp/japp-m02w01-serialized-clones.6KCM1P/clone with spaces – ü`. Both
+  used explicit pinned Node 24.18.0, frozen/locked installs, both Cargo
+  fetches, pinned Chromium, clean doctor (23 PASS / zero warning / zero FAIL /
+  one honest NOT_YET_APPLICABLE), byte-identical generation, empty
+  compatibility, exact fixture commands, 50/50 focused tests, status,
+  traceability, full verification, canonical hash, and clean-tree assertions.
+  Both ended at exact commit/tree `5661ffa…` / `d39a9448…` with verification
+  exit 0 and every ACTIVE suite PASS.
+- Fresh three-OS content run `30442428877` passed exact SHA
+  `5661ffa02c4301640b2c536b374aa8a73e1c8384`: macOS job `90544642811`,
+  Ubuntu job `90544642825`, and Windows job `90544642861`. The complete
+  Windows log was consumed: 306,581 bytes / 1,709 lines /
+  `sha256:c8e7b41b43defcd5cd39174274fe1f29e081a66808abb130865d6cf77ed29111`.
+  It proves 20/20 contract files and 2,440/2,440 tests, the exact seed and
+  validation counts, 25 producer files / 20,813 text fields with no
+  real-looking PII, secrets, local identities, hidden text, or prompt
+  injection, 15 deprecated-v1/v2 pairs, exact 50-test discovery, all fifteen
+  ACTIVE suite rows PASS, verification exit 0, and a successful
+  post-verification clean-tree step.
+- The first uncommitted five-file governance-stamp attempt correctly failed
+  full `pnpm verify`: Python verification passed 675 tests and failed exactly
+  `test_m00_may_remain_accepted_while_m01_blockers_are_live` and
+  `test_fixed_ledger_and_none_sentinel_allow_later_readiness`. Both historical
+  fixtures inherited the authorized M02-W02 READY row and then constructed a
+  second READY package. No stamp commit was made; the five governance files
+  were restored to M02-W01 IN_PROGRESS.
+- KI-0037 applies the existing `reset_downstream` boundary helper to both
+  affected setups and explicitly seeds M02-W02 READY in their regression
+  premises. `uv run pytest -q scripts/tests/test_validate_status.py -k
+  'm00_may_remain_accepted_while_m01_blockers_are_live or
+  fixed_ledger_and_none_sentinel_allow_later_readiness'` passes 2/2; all 148
+  status-validator tests pass; full `pnpm verify` passes 677/677 Python tests
+  and every ACTIVE suite. A new corrective content commit and complete fresh
+  two-clone/three-OS lifecycle are required before another stamp attempt.
 
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 

@@ -233,6 +233,7 @@ def activate_corrective_blockers(repo: Path) -> None:
         set_issue_state(repo, issue_id, "IN_PROGRESS")
     set_live_blockers(repo, CURRENT_BLOCKER_LINES)
     clear_in_progress(repo)
+    reset_downstream(repo, after_package="M01-W07", after_milestone="M01")
     set_pkg_state(repo, "M01-W07", "IN_PROGRESS")
     set_pkg_revision(repo, "M01-W07", "—")
     set_pkg_state(repo, "M02-W01", "NOT_STARTED")
@@ -865,6 +866,7 @@ def test_blocker_requires_zero_ready_packages_and_next_none(repo_copy: Path) -> 
 def test_m00_may_remain_accepted_while_m01_blockers_are_live(
     repo_copy: Path,
 ) -> None:
+    set_pkg_state(repo_copy, "M02-W02", "READY")
     activate_corrective_blockers(repo_copy)
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
@@ -874,6 +876,8 @@ def test_fixed_ledger_and_none_sentinel_allow_later_readiness(
     repo_copy: Path,
 ) -> None:
     promote_milestones(repo_copy, ["M00", "M01"])
+    set_pkg_state(repo_copy, "M02-W02", "READY")
+    reset_downstream(repo_copy, after_package="M02-W01", after_milestone="M02")
     set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M02", "IN_PROGRESS")
     set_pkg_state(repo_copy, "M02-W01", "READY")
