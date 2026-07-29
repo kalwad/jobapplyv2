@@ -143,6 +143,20 @@ def set_pkg_state(repo: Path, pid: str, state: str) -> None:
     path.write_text(pattern.sub(rf"\g<1>{state}\g<2>", text), encoding="utf-8")
 
 
+def set_pkg_revision(repo: Path, pid: str, revision: str) -> None:
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"^(\| `{re.escape(pid)}` \| [A-Z_]+ \| )[^|]+(\|)",
+        flags=re.MULTILINE,
+    )
+    assert pattern.search(text), f"no work-package row for {pid}"
+    path.write_text(
+        pattern.sub(rf"\g<1>{revision} \g<2>", text, count=1),
+        encoding="utf-8",
+    )
+
+
 def set_ms_state(repo: Path, mid: str, state: str) -> None:
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
@@ -199,6 +213,23 @@ def set_next_ready(repo: Path, value: str) -> None:
     match = re.fullmatch(r"`?(M\d{2}-W\d{2})`?", value)
     if match:
         set_current_milestone(repo, match.group(1)[:3])
+
+
+def activate_corrective_blockers(repo: Path) -> None:
+    """Build a coherent reopened M01 fixture independent of live closeout state."""
+    for issue_id in CORRECTIVE_BLOCKER_IDS:
+        set_issue_state(repo, issue_id, "IN_PROGRESS")
+    set_live_blockers(repo, CURRENT_BLOCKER_LINES)
+    clear_in_progress(repo)
+    set_pkg_state(repo, "M01-W07", "IN_PROGRESS")
+    set_pkg_revision(repo, "M01-W07", "—")
+    set_pkg_state(repo, "M02-W01", "NOT_STARTED")
+    set_ms_state(repo, "M01", "IN_PROGRESS")
+    set_ms_revision(repo, "M01", "—")
+    set_ms_state(repo, "M02", "NOT_STARTED")
+    set_ms_revision(repo, "M02", "—")
+    set_current_package(repo, "M01-W07")
+    set_next_ready(repo, "NONE")
 
 
 def pkg_rows(repo: Path) -> list[str]:
@@ -652,6 +683,7 @@ def test_former_accepted_status_with_stale_fixed_blockers_is_rejected(
 
 
 def test_freeform_live_blocker_prose_is_rejected(repo_copy: Path) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(
         repo_copy,
         [*CURRENT_BLOCKER_LINES, "- Milestones M01–M38 are unaccepted."],
@@ -664,6 +696,7 @@ def test_freeform_live_blocker_prose_is_rejected(repo_copy: Path) -> None:
 def test_blocking_issue_omitted_from_live_blockers_is_rejected(
     repo_copy: Path,
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES[:-1])
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -674,6 +707,7 @@ def test_blocking_issue_omitted_from_live_blockers_is_rejected(
 def test_omitted_blocker_still_enforces_affected_milestone_scope(
     repo_copy: Path,
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES[:-1])
     set_ms_state(repo_copy, "M01", "ACCEPTED")
     set_ms_revision(repo_copy, "M01", FAKE_TREE)
@@ -684,6 +718,7 @@ def test_omitted_blocker_still_enforces_affected_milestone_scope(
 
 
 def test_unknown_and_duplicate_live_blockers_are_rejected(repo_copy: Path) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(
         repo_copy,
         [
@@ -701,6 +736,7 @@ def test_unknown_and_duplicate_live_blockers_are_rejected(repo_copy: Path) -> No
 def test_live_blocker_severity_or_state_mismatch_is_rejected(
     repo_copy: Path,
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(
         repo_copy,
         [
@@ -718,6 +754,7 @@ def test_live_blocker_severity_or_state_mismatch_is_rejected(
 def test_nonblocking_issue_state_cannot_remain_live(
     repo_copy: Path, state: str
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_issue_state(repo_copy, "KI-0029", state)
     set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES)
     result = run_validator(repo_copy)
@@ -729,6 +766,7 @@ def test_nonblocking_issue_state_cannot_remain_live(
 def test_nonblocking_issue_severity_cannot_be_live(
     repo_copy: Path, severity: str
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_issue_severity(repo_copy, "KI-0029", severity)
     set_live_blockers(
         repo_copy,
@@ -756,6 +794,7 @@ def test_nonblocking_issue_severity_cannot_be_live(
 def test_empty_mixed_or_malformed_live_blocker_section_is_rejected(
     repo_copy: Path, lines: list[str]
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_live_blockers(repo_copy, lines)
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -765,6 +804,7 @@ def test_empty_mixed_or_malformed_live_blocker_section_is_rejected(
 def test_blocker_cannot_coexist_with_affected_accepted_milestone(
     repo_copy: Path,
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     set_ms_state(repo_copy, "M01", "ACCEPTED")
     set_ms_revision(repo_copy, "M01", FAKE_TREE)
     result = run_validator(repo_copy)
@@ -774,6 +814,7 @@ def test_blocker_cannot_coexist_with_affected_accepted_milestone(
 
 
 def test_blocker_requires_zero_ready_packages_and_next_none(repo_copy: Path) -> None:
+    activate_corrective_blockers(repo_copy)
     set_pkg_state(repo_copy, "M02-W01", "READY")
     set_next_ready(repo_copy, "M02-W01")
     result = run_validator(repo_copy)
@@ -785,6 +826,7 @@ def test_blocker_requires_zero_ready_packages_and_next_none(repo_copy: Path) -> 
 def test_m00_may_remain_accepted_while_m01_blockers_are_live(
     repo_copy: Path,
 ) -> None:
+    activate_corrective_blockers(repo_copy)
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
 
