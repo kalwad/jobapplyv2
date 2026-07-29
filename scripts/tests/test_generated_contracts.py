@@ -21,6 +21,7 @@ import japp_contracts
 import portability
 import pydantic
 import pytest
+from _bounded_process import run_bounded_process
 from conftest import REPO_ROOT
 from japp_contracts import (
     ERROR_CATALOG_V1,
@@ -44,6 +45,7 @@ ERROR_CATALOG_PATH = (
 MODEL_RESULT_PRESERVATION = (
     "All accepted deterministic results remain usable and unchanged."
 )
+GENERATOR_TIMEOUT_SECONDS = 300
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -210,13 +212,11 @@ def test_generated_headers_forbid_manual_edits() -> None:
 def _run_cli_check() -> subprocess.CompletedProcess[str]:
     node = portability.host_resolve_executable("node")
     assert node is not None, "pinned node is required on PATH for the generator"
-    return subprocess.run(
+    return run_bounded_process(
         [node, str(CLI_PATH), "--check"],
         cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-        timeout=300,
-        check=False,
+        timeout_seconds=GENERATOR_TIMEOUT_SECONDS,
+        label="generated-contract check",
     )
 
 

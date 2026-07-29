@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:source-resume:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Synthetic source resume",
+  "description": "TEST-ONLY source resume facts bound to one synthetic profile and evidence set.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "profile_ref",
+    "as_of",
+    "page_count",
+    "facts"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "SOURCE_RESUME"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:source-resume:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "as_of": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/calendarDate"
+    },
+    "page_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "page", "text", "fact_keys", "evidence_refs"],
+        "properties": {
+          "fact_id": {
+            "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2
+          },
+          "text": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500
+          },
+          "fact_keys": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/factKey"
+            },
+            "minItems": 1,
+            "maxItems": 16,
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+            },
+            "minItems": 1,
+            "maxItems": 8,
+            "uniqueItems": true
+          }
+        }
+      },
+      "minItems": 4,
+      "maxItems": 16
+    }
+  }
+}

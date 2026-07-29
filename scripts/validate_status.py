@@ -56,6 +56,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import re
 import sys
 import unicodedata
@@ -89,6 +90,16 @@ GATES = (
     "CROSS_PLATFORM_CORE",
 )
 GATE_REPORTS = {gate: f"docs/gates/{gate}_GATE.md" for gate in GATES}
+GATE_D_GUIDANCE_SCHEMAS = {
+    "evidence-record": (
+        "urn:japp:schema:platform:evidence-record:v2",
+        "packages/contracts/schemas/platform/evidence-record.v2.schema.json",
+    ),
+    "certification-input": (
+        "urn:japp:schema:platform:certification-input:v2",
+        "packages/contracts/schemas/platform/certification-input.v2.schema.json",
+    ),
+}
 
 # Spec §12 / §9.1 normative readiness rules. Gate qualifiers and
 # "<Mxx> accepted" qualifiers are additionally parsed from the spec's
@@ -1446,6 +1457,59 @@ def _check_ledger_agreement(
     return errors
 
 
+def check_gate_d_schema_guidance(repo: Path, report: Report) -> None:
+    """Keep future Gate D guidance on existing, nondeprecated v2 roots."""
+
+    ledger = repo / "docs" / "CRITICAL_GATES.md"
+    section = _gate_section_text(ledger, "CROSS_PLATFORM_CORE")
+    if not section:
+        return
+    for family, (expected_ref, relative_schema) in GATE_D_GUIDANCE_SCHEMAS.items():
+        references = re.findall(
+            rf"urn:japp:schema:platform:{re.escape(family)}:v[0-9]+",
+            section,
+        )
+        if references != [expected_ref]:
+            report.fail(
+                "future Gate D guidance must reference exactly "
+                f"{expected_ref}; found {references or 'none'}"
+            )
+            continue
+        schema_path = repo / relative_schema
+        if schema_path.is_symlink() or not schema_path.is_file():
+            report.fail(
+                f"future Gate D schema reference {expected_ref} does not "
+                f"resolve to regular repository schema {relative_schema}"
+            )
+            continue
+        try:
+            raw: object = json.loads(schema_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            report.fail(f"cannot read future Gate D schema {relative_schema}: {exc}")
+            continue
+        if not isinstance(raw, dict):
+            report.fail(f"future Gate D schema {relative_schema} is not an object")
+            continue
+        if raw.get("$id") != expected_ref:
+            report.fail(
+                f"future Gate D schema {relative_schema} has $id "
+                f"{raw.get('$id')!r}, expected {expected_ref!r}"
+            )
+        if raw.get("deprecated") is True:
+            report.fail(f"future Gate D schema {expected_ref} is deprecated")
+        version = raw.get("x-japp-schema-version")
+        if not isinstance(version, str) or not version.startswith("2."):
+            report.fail(f"future Gate D schema {expected_ref} does not declare major 2")
+    if not any(
+        error.startswith(("future Gate D", "cannot read future"))
+        for error in report.errors
+    ):
+        report.ok(
+            "future Gate D guidance resolves exactly to nondeprecated "
+            "evidence-record:v2 and certification-input:v2"
+        )
+
+
 def _platform_rows(text: str, platform: str) -> list[list[str]]:
     return [
         [cell.strip().strip("`") for cell in line.strip("|").split("|")]
@@ -2556,6 +2620,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
     check_v14_governance_memory(repo, spec, report)
     check_status_shell(status, report)
     gate_states = check_gates(repo, status, report)
+    check_gate_d_schema_guidance(repo, report)
     ms_states, pkg_states = check_tables(spec, status, report)
     check_progress_consistency(status, pkg_states, report)
     check_live_blockers(repo, status, ms_states, pkg_states, report)

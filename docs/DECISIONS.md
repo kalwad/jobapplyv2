@@ -69,6 +69,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | ADR-0001 | Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification | ACCEPTED | 2026-07-26 | Entire specification (v1.0 → v1.2); §0–§16 |
 | ADR-0002 | Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport | ACCEPTED | 2026-07-26 | Entire specification (v1.2 → v1.3); platform governance; Gate D; M00 readiness |
 | ADR-0003 | Adopt JAPP-MASTER-001 v1.4 familiarity and provider rebaseline through external exact-byte transport | ACCEPTED | 2026-07-27 | Entire specification (v1.3 → v1.4); familiarity/provider governance; M00/M01/M27/M28 readiness |
+| ADR-0004 | Make corrected platform v2 roots mandatory for every new producer | ACCEPTED | 2026-07-29 | M01-W07 compatibility boundary; M02 fixture producers; future Gate D guidance |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -325,6 +326,61 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Owner approval: the owner supplied the exact external path and SHA-256 in
   the M00-W11 execution package and approved that immutable file as
   JAPP-MASTER-001 v1.4 on 2026-07-27.
+
+### ADR-0004 — Make corrected platform v2 roots mandatory for every new producer
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-07-29 / 2026-07-29
+- Observed constraint (with evidence): the final M01-W07 compatibility repair
+  preserved a broad deprecated-v1 accepted-set union so every one of the 229
+  enumerated historical-positive witnesses remains readable, while fifteen
+  corrected platform roots carry normative v2 semantics
+  (`packages/contracts/M01-W07.md` § Canonical inventory and § Structural and
+  semantic validation). The accepted repository still had future Gate D
+  guidance naming deprecated `evidence-record:v1` and
+  `certification-input:v1`, and it had no executable M02 producer guard.
+- Decision: deprecated platform v1 roots that have corrected v2 siblings are
+  read-only historical compatibility. Every new producer, fixture, generated
+  fixture, manifest, alias, example, test input, and future-facing default
+  must select the corrected v2 root. No production or fixture default may
+  point to one of those deprecated v1 roots.
+- Compatibility boundary: the v1 accepted-set union is a one-time remediation
+  for previously published positive inputs. It is not permission to tighten
+  semantics within a published major again, not a general semantic-versioning
+  exception, and not a source for new writes.
+- Alternatives considered: (a) permit new v1 writes while recommending v2 —
+  rejected because it would deliberately create new data under known-broader
+  semantics; (b) ban every platform v1 root — rejected because
+  `browser-discovery-request`, `path-request`, `secret-store-request`,
+  `target-identity`, and `platform:vocabulary` remain valid v1-only roots.
+- Tradeoffs: future producers must explicitly migrate to v2 and cannot reuse
+  deprecated examples as defaults. In return, newly authored data has one
+  normative semantic target and the historical union stays narrowly
+  quarantined.
+- Security/privacy impact: strengthened. New platform evidence, diagnostic,
+  runtime, process, packaging, and certification-shaped data cannot opt into
+  the broader deprecated semantics.
+- Data-migration impact: none for historical inputs; they remain readable.
+  M02-W01 creates only new synthetic evaluation data and therefore must reject
+  deprecated platform-v1 producer references.
+- Benchmark and gate impact: no gate state changes and no evidence is created.
+  Future Gate D guidance names the corrected v2 roots; Gate D remains
+  `NOT_EVALUATED`.
+- Test impact: M02-W01 adds an executable producer-surface guard derived from
+  the exact fifteen deprecated-v1/v2 sibling pairs. Status governance also
+  requires the two future Gate D references to resolve to existing,
+  nondeprecated v2 schemas and rejects temporary-copy drift to v1 or v999.
+- Rollback plan: revert ADR-0004, the producer guard, and Gate D guidance
+  together only with a new owner decision that explains how new writes remain
+  safe. Reverting must not rewrite M01 history or remove old-v1 compatibility.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility
+  promises affected: specification §1.4 compatibility governance, §5.14
+  platform boundaries, M01-W07 published compatibility, M02-W01 producers,
+  and future `CROSS_PLATFORM_CORE` evidence guidance. The canonical
+  specification bytes and all schema bytes remain unchanged.
+- Owner approval: recorded in the owner-supplied M02-W01 implementation
+  package on 2026-07-29, which explicitly makes v2 mandatory for every new
+  producer and limits the v1 union to historical remediation.
 
 ## ADR template
 

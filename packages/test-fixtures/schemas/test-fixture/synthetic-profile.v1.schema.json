@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Synthetic profile fixture",
+  "description": "TEST-ONLY synthetic candidate profile used by M02-W01 evaluations; not a product profile schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "role_family",
+    "career_stage",
+    "target_role",
+    "contact",
+    "skills",
+    "career_start",
+    "education_path",
+    "work_authorization",
+    "constraints",
+    "coverage_tags"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "SYNTHETIC_PROFILE"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:synthetic-profile:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "role_family": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/roleFamily"
+    },
+    "career_stage": {
+      "type": "string",
+      "enum": ["EARLY", "MID", "SENIOR"]
+    },
+    "target_role": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/boundedText"
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["full_name", "email", "phone", "website", "address"],
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "pattern": "^Synthetic Candidate (0[1-9]|1[0-2])$",
+          "x-japp-sensitivity": "PERSONAL",
+          "x-japp-redaction": "REDACT_VALUE"
+        },
+        "email": {
+          "type": "string",
+          "pattern": "^candidate(0[1-9]|1[0-2])@example\\.test$",
+          "maxLength": 200,
+          "x-japp-sensitivity": "PERSONAL",
+          "x-japp-redaction": "REDACT_VALUE"
+        },
+        "phone": {
+          "type": "string",
+          "pattern": "^\\+1-202-555-01[0-9]{2}$",
+          "x-japp-sensitivity": "PERSONAL",
+          "x-japp-redaction": "REDACT_VALUE"
+        },
+        "website": {
+          "type": "string",
+          "pattern": "^https://candidate(0[1-9]|1[0-2])\\.example\\.test/profile$",
+          "maxLength": 300,
+          "x-japp-sensitivity": "PERSONAL",
+          "x-japp-redaction": "REDACT_VALUE"
+        },
+        "address": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "line1",
+            "city",
+            "region",
+            "postal_code",
+            "country",
+            "synthetic_marker"
+          ],
+          "properties": {
+            "line1": {
+              "type": "string",
+              "pattern": "^[0-9]{3} Fixture Way$",
+              "x-japp-sensitivity": "PERSONAL",
+              "x-japp-redaction": "REDACT_VALUE"
+            },
+            "city": {
+              "const": "Exampleville"
+            },
+            "region": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "postal_code": {
+              "const": "00000"
+            },
+            "country": {
+              "const": "US"
+            },
+            "synthetic_marker": {
+              "const": "FIXTURE_ONLY"
+            }
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      },
+      "minItems": 3,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "career_start": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/calendarDate"
+    },
+    "education_path": {
+      "type": "string",
+      "enum": ["BOOTCAMP", "CERTIFICATE", "SELF_DIRECTED", "TRADITIONAL_DEGREE"]
+    },
+    "work_authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country", "status", "sponsorship_required"],
+      "properties": {
+        "country": {
+          "const": "US"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["AUTHORIZED", "REQUIRES_SPONSORSHIP"]
+        },
+        "sponsorship_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relocation", "region"],
+      "properties": {
+        "relocation": {
+          "type": "string",
+          "enum": ["OPEN", "REGION_ONLY", "REMOTE_ONLY"]
+        },
+        "region": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40
+        }
+      }
+    },
+    "coverage_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  }
+}

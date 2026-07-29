@@ -37,7 +37,74 @@ broadening a work package (spec §1.5).
 No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
 FIXED by the final M01-W07 corrective content at tree
 `51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
-remain DEFERRED with named owning packages.
+remain DEFERRED with named owning packages. KI-0033 through KI-0035 are
+nonblocking M02-W01 follow-ups in progress; none reopens M01.
+
+### KI-0033 — Future Gate D guidance named deprecated platform roots
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
+- Affects: M02-W01; `docs/CRITICAL_GATES.md`;
+  `scripts/validate_status.py`
+- Description: the future `CROSS_PLATFORM_CORE` guidance still named
+  `platform:evidence-record:v1` and `platform:certification-input:v1` after
+  M01-W07 published corrected v2 roots and deprecated those v1 roots. The
+  gate remained honestly `NOT_EVALUATED`, but a future producer following the
+  prose could have selected historical compatibility semantics.
+- Reproduction: at starting revision `0c8efc9212162bcb4fa846e453007d9404d97429`,
+  inspect the Gate D governance note in `docs/CRITICAL_GATES.md`; then mutate
+  either reference to v999 or retain v1 and run the pre-M02 status validator.
+  The original validator did not reject either drift.
+- Workaround: none for new producers. Historical v1 data remains readable,
+  but ADR-0004 requires v2 for every new write.
+- Resolution + evidence link: guidance now names the two v2 roots and status
+  governance resolves their schema files, IDs, majors, and nondeprecated
+  state. Four independent temporary-copy mutations cover v1 and v999 for both
+  families. Local validation passes; clean-clone and hosted closeout evidence
+  remains pending under `docs/TEST_EVIDENCE.md` § M02-W01.
+
+### KI-0034 — Generated-contract CLI check retained unbounded child output
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
+- Affects: M02-W01 nonblocking follow-up;
+  `scripts/tests/test_generated_contracts.py::_run_cli_check`
+- Description: `_run_cli_check` had a finite 300-second operation deadline and
+  no shell, but `subprocess.run(capture_output=True)` could retain unbounded
+  stdout/stderr in memory. A noisy or failed generator could therefore exceed
+  the test boundary before its otherwise useful diagnostic was returned.
+- Reproduction: replace the child in an isolated test with one that writes
+  more than 1 MiB. The starting helper retained the complete output.
+- Workaround: none accepted; no timeout increase is permitted.
+- Resolution + evidence link: the wrapper now uses a shared shell-free,
+  concurrently drained 1-MiB boundary while preserving the existing
+  300-second deadline and ordinary nonzero exits. Synthetic overflow,
+  timeout-prefix, and nonzero-output regression tests are present. Local
+  validation passes; clean-clone and hosted closeout evidence remains pending
+  under `docs/TEST_EVIDENCE.md` § M02-W01.
+
+### KI-0035 — Python contract-adapter test retained unbounded child output
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during the owner-directed final M01 audit follow-up
+- Affects: M02-W01 nonblocking follow-up;
+  `scripts/tests/test_contract_python_adapter.py::_run`
+- Description: the focused Python adapter wrapper had a finite 30-second
+  operation deadline and no shell, but its captured stdout/stderr had no hard
+  ceiling. A malformed or noisy adapter could consume unbounded test-process
+  memory.
+- Reproduction: run the wrapper boundary against a synthetic child that emits
+  more than 1 MiB; the starting implementation retained the complete output.
+- Workaround: none accepted; no package, test, CI, or global timeout increase
+  is permitted.
+- Resolution + evidence link: `_run` now shares the same concurrent 1-MiB
+  retained-output boundary, keeps its 30-second deadline, preserves ordinary
+  exit diagnostics, and fails closed on overflow or timeout. Local validation
+  passes; clean-clone and hosted closeout evidence remains pending under
+  `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 

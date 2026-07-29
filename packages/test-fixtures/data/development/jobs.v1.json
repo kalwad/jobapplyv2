@@ -1,0 +1,1015 @@
+{
+  "entity_type": "SYNTHETIC_JOB",
+  "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "job_00000000000000000000000001",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:78214ce45933f6216d95bd449fa74b45a918c376f5f2f11ec41bb242d99e018a"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Primary Software Engineer",
+      "employer": "Synthetic Employer 01-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-01.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using TypeScript.",
+          "text_sha256": "sha256:cdd5598a638345175b862fdffd7b6fb01636116e1c06587cb0c0e365521ab86f"
+        },
+        {
+          "anchor_id": "job-01.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-01.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 01; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:2622bbe437ff4bd2890c9cadf848ff1d5e29fb9519f5c313dfd940481b8cc585"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000002",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:96a616f2f424b07f3a70bf1e71efe755af685f0ef304a788c67ba2a75dfa1e6d"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Alternate Software Engineer",
+      "employer": "Synthetic Employer 02-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-02.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Node.js.",
+          "text_sha256": "sha256:d7af038a29f0c4f0e791435c8606dbb509201016179be9cc06fd8d3c662e887c"
+        },
+        {
+          "anchor_id": "job-02.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-02.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 02; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:267ea1c80097384df6346bff0de671484677b506f1ceb2a60fb613fffd74616d"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000003",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:41bf83b5915605fbdf260f301259cc1b781ca4edc05b07d2735e279ad15ed429"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Primary Senior Platform Engineer",
+      "employer": "Synthetic Employer 03-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-03.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 7 years of reviewed experience using Distributed Systems.",
+          "text_sha256": "sha256:04f627135f283255efcb744637abe514a82189b4805d4d7fa87ae8afa10f0ba2"
+        },
+        {
+          "anchor_id": "job-03.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-03.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 03; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:9e262e487417ef1d0e68d9421688cc4ef72e2859c1a3d79766c1672e37c181b6"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000004",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ac6875e3240b427e542d9232797e985f93c9c8d3ae7d7e724d74710815c44a56"
+      },
+      "role_family": "SOFTWARE",
+      "title": "Alternate Senior Platform Engineer",
+      "employer": "Synthetic Employer 04-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-04.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Node.js.",
+          "text_sha256": "sha256:d7af038a29f0c4f0e791435c8606dbb509201016179be9cc06fd8d3c662e887c"
+        },
+        {
+          "anchor_id": "job-04.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-04.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 04; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:8345bc614b49a2cb2a6e7fc3faf8936aa9888fac92d0a985082cd2cf9838ab38"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000005",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c0a37065031d5538a41e96971cdba3d42b808710da8f745118fdfad1d620ed32"
+      },
+      "role_family": "DATA",
+      "title": "Primary Analytics Engineer",
+      "employer": "Synthetic Employer 05-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-05.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using SQL.",
+          "text_sha256": "sha256:53bd3775f75e11d7e32ed891f66cd82a3ee4e7f4348eda03e213ec06a977a336"
+        },
+        {
+          "anchor_id": "job-05.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-05.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 05; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:0209d1e0408e1e6ecf8499224696205db1eb8f9446c7564652e3b48441199b3b"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000006",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b466ae0cf0f273c3165ef5af0668fd381d3f1dedeede414947a9805d65fecbed"
+      },
+      "role_family": "DATA",
+      "title": "Alternate Analytics Engineer",
+      "employer": "Synthetic Employer 06-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-06.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Data Modeling.",
+          "text_sha256": "sha256:fe993cd307d7e53d111bf34d64576b6779f586bd44e5458d7fcbbb756f16d530"
+        },
+        {
+          "anchor_id": "job-06.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-06.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 06; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:fcd2b387f13fa90c8897a69ecec487a74272e3de5c3a269399509072f095f703"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000007",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:eba21eae5adb336fb8f5fe523040152af5f6cb23c9270704c5ef03248f774c5e"
+      },
+      "role_family": "DATA",
+      "title": "Primary Senior Data Scientist",
+      "employer": "Synthetic Employer 07-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-07.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 7 years of reviewed experience using Experiment Design.",
+          "text_sha256": "sha256:c32b2aa5656e37c905c369c6b47c3ec0b43540c597a00aeb444834ba2a224f9e"
+        },
+        {
+          "anchor_id": "job-07.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-07.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 07; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:02926e38146acaab98687b6028a01c958a94173b9c0aebdb757c24407b85408d"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000008",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ec2e6b1b8b58d465d941b246dfa9f28ba7ae8bd23ef5f838da3501442872988b"
+      },
+      "role_family": "DATA",
+      "title": "Alternate Senior Data Scientist",
+      "employer": "Synthetic Employer 08-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-08.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Machine Learning.",
+          "text_sha256": "sha256:c2eb000e66a9fd924be4740f72b3fe3da69022418c56bdaecc60d469b8c86fce"
+        },
+        {
+          "anchor_id": "job-08.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-08.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 08; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:aba76716b4b0ef2beb8f7d588e44e8b79c11883c4fa6e707f6fe7c51ec6d3dd1"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000009",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1d6cf97f9330144a234562f6ab867069bd155afc1a884656238169c9826ee581"
+      },
+      "role_family": "BUSINESS",
+      "title": "Primary Business Analyst",
+      "employer": "Synthetic Employer 09-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-09.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Process Mapping.",
+          "text_sha256": "sha256:b65e19f5b70d9303cbc71f23a29fe0d1e5dc33be7a9bb3d559faabae6def8a2c"
+        },
+        {
+          "anchor_id": "job-09.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-09.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 09; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:ab01ae4692410fdfb65169f849ff5f4174cf0113c64499e21c44201dfab95e83"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000010",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:7085702a78bbde80243a796038ddce2c15d99d82312e6aca7526bbfc94a300b0"
+      },
+      "role_family": "BUSINESS",
+      "title": "Alternate Business Analyst",
+      "employer": "Synthetic Employer 10-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-10.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Stakeholder Analysis.",
+          "text_sha256": "sha256:ab923517175b979718c94846e9d397e0a9fd6f5a94fef07d33667a12b7c38545"
+        },
+        {
+          "anchor_id": "job-10.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-10.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 10; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:8d02186aec5a64f2ad77e3e4667ea910d315ad7877e51b73bef26f16d0327509"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000011",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:805d06e0c5f4e25b2a355bca987638f3feef6dfb2707f0913dc0d5dc66958bef"
+      },
+      "role_family": "OPERATIONS",
+      "title": "Primary Operations Coordinator",
+      "employer": "Synthetic Employer 11-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-11.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Scheduling.",
+          "text_sha256": "sha256:3fca8a984636aec40860458d1426e0319d2752310e9b0aa151e17e5e1d6cf38d"
+        },
+        {
+          "anchor_id": "job-11.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-11.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 11; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:458c4cb90873ea0fb364a81beeb36ca98b962097703e376f86c174b0bd1bf70f"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000012",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b9a27d3d554cc22a9dc1a0be5ce31a8cdb020f75e72ed53eafd8047d5c440889"
+      },
+      "role_family": "OPERATIONS",
+      "title": "Alternate Operations Coordinator",
+      "employer": "Synthetic Employer 12-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-12.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Inventory Control.",
+          "text_sha256": "sha256:8345c5ac91e2e86be9b99714424c52557ad219dc3e72f7c4d62528cd44f5c134"
+        },
+        {
+          "anchor_id": "job-12.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-12.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 12; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:d5e79731f33f3fe073c7e448e486e015b487f3546a5d3c0a5c87fe8a200e3845"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000013",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:04e53585a3e15cdcbcb45d94cee0d876f66887a17fa26f7e2e2adf3151611da0"
+      },
+      "role_family": "HEALTHCARE",
+      "title": "Primary Healthcare Operations Analyst",
+      "employer": "Synthetic Employer 13-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-13.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Clinical Operations.",
+          "text_sha256": "sha256:7bff39c0082ad7b4a8f81c589c1afe98f89ad757061093d160ffb73baece02fc"
+        },
+        {
+          "anchor_id": "job-13.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-13.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 13; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:18a072335e9f839b3d67756f470fa2d5abd4701407443930df971184f8364e01"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000014",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4d38a233ebbc930af8c34071dd57f9bef3a654df9616d114c70b54144e9aae72"
+      },
+      "role_family": "HEALTHCARE",
+      "title": "Alternate Healthcare Operations Analyst",
+      "employer": "Synthetic Employer 14-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "LICENSE_REQUIRED",
+      "source_blocks": [
+        {
+          "anchor_id": "job-14.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Quality Reporting.",
+          "text_sha256": "sha256:b0a55ba28fd6ceff17adc83066d07401a31e8c2dba9ece499941983c5c50e60e"
+        },
+        {
+          "anchor_id": "job-14.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must hold Synthetic Healthcare Operations License 07.",
+          "text_sha256": "sha256:4e2197c202fc08b165cf2c6aa371078c8800345e81b12ea1ed52494f09c8b722"
+        },
+        {
+          "anchor_id": "job-14.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 14; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:b07496142ba288d6d31fa721184373198fd612d9a4d5750c1e60812f679fdc08"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000015",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9a24b525f7ab75c23f8bbec9b7d90758da633abb5a35f3fbfe3a881d56709e99"
+      },
+      "role_family": "EDUCATION",
+      "title": "Primary Learning Program Coordinator",
+      "employer": "Synthetic Employer 15-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NO_SPONSORSHIP",
+      "source_blocks": [
+        {
+          "anchor_id": "job-15.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Curriculum Design.",
+          "text_sha256": "sha256:9120d3f1a27b2b968bde401cb4c3d668ad69f46d13d9a15761f3842023d536e8"
+        },
+        {
+          "anchor_id": "job-15.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must already be authorized to work in the United States without sponsorship.",
+          "text_sha256": "sha256:54a7b7ad4817ce3df6e5d225e84b6505bf06d3630f3eb5cc3a6a47624116e41b"
+        },
+        {
+          "anchor_id": "job-15.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 15; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:da6a0a5f804cd6010b2051f52495957455ce7bf3859f713ea4b36879836762a7"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000016",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ed2dc5d052a1b0abf0d2a46d7bb2eff972fee08f454cfb5c56c27c1ac4abacf2"
+      },
+      "role_family": "EDUCATION",
+      "title": "Alternate Learning Program Coordinator",
+      "employer": "Synthetic Employer 16-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-16.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Facilitation.",
+          "text_sha256": "sha256:475ab09e751aaa29cc024b2ae79ffb36d3217ee6c73276d52c53d7fc21bc7a5a"
+        },
+        {
+          "anchor_id": "job-16.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-16.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 16; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:3cfeda9d8b20cf1572ae3a298a39f324de559ecc607fe8526f828acf0c75cf74"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000017",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:dceab9b5cabe54e248febdfb16d32b471df7b7daaa531f43a31f4fe42d3614aa"
+      },
+      "role_family": "SALES",
+      "title": "Primary Sales Operations Specialist",
+      "employer": "Synthetic Employer 17-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-17.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Pipeline Analysis.",
+          "text_sha256": "sha256:3f6b44de818e2e0d6e46ec88990328452a72d7f193cb2ae25f254886c252d738"
+        },
+        {
+          "anchor_id": "job-17.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-17.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 17; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:bc9ccc25eb214c7fc708abcf5ff1c4b2e7e2aff1fc1724e2223c5324d8e96c65"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000018",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:fbd386ebe574f1adfca2e5a4b83a32ab11a5170bf6c624f8bd228809075bfcac"
+      },
+      "role_family": "SALES",
+      "title": "Alternate Sales Operations Specialist",
+      "employer": "Synthetic Employer 18-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-18.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using CRM Administration.",
+          "text_sha256": "sha256:abd37b4fcd881000eecb3c6af44a01da8f563c168c57dcc13af3da5125ed3365"
+        },
+        {
+          "anchor_id": "job-18.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-18.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 18; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:6df61f2121abf065ed801f703f5554ed732cc36e415153ead51b5eec502032f5"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000019",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:45225dadee0edcbab0438d7403adacad1e70fa8e67b1ef64aabf7904e54ff963"
+      },
+      "role_family": "FINANCE",
+      "title": "Primary Senior Financial Analyst",
+      "employer": "Synthetic Employer 19-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 7,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-19.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 7 years of reviewed experience using Financial Modeling.",
+          "text_sha256": "sha256:3121d6c8841487427f0622b84024dfb4bf250685646053e8f0521fa2dbbec405"
+        },
+        {
+          "anchor_id": "job-19.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must be available for regular on-site work in Exampleville, MI.",
+          "text_sha256": "sha256:41a5e4441b3f83fc774cc74417d0674001ea44e9e820c3b5ae7e34368ad17985"
+        },
+        {
+          "anchor_id": "job-19.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 19; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:17dfaf93dec51d049236554a97cd5a07d0405a383e482f108ca6d5ce0740a152"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000020",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:0cf49171392aa946bbabeb6198714ae95b4e9204ddbc9e47c61bc244e00ea445"
+      },
+      "role_family": "FINANCE",
+      "title": "Alternate Senior Financial Analyst",
+      "employer": "Synthetic Employer 20-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 3,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-20.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 3 years of reviewed experience using Variance Analysis.",
+          "text_sha256": "sha256:8e01a8a8a42279222337fedbb6cfbbfa5ba279ac8e763542ab2fa6eec6ea2064"
+        },
+        {
+          "anchor_id": "job-20.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-20.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 20; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:ff90d8292b6c948971525b07a3f2446e97793edc79ca36774164b42bac2f3bf9"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000021",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:5f1a7ecf8cfaca1f61692056769f01bc60c2d76bb8cc86545c908844fc45b156"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Primary Junior Project Coordinator",
+      "employer": "Synthetic Employer 21-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-21.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Documentation.",
+          "text_sha256": "sha256:cf0d5ffd5867e30f70ba1affc656dfb662e2dde8657cc574a29d08b924d20e5d"
+        },
+        {
+          "anchor_id": "job-21.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-21.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 21; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:314ab5131eee0f9c06b2d78cb7945cde5824e1003e2ebf1c16a48c3f2b17ef09"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000022",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ebf5bc37c9b490b2dd73173de9f78e8f12a4bf358a88b7c16b4212726f3768ef"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Alternate Junior Project Coordinator",
+      "employer": "Synthetic Employer 22-J",
+      "work_mode": "REMOTE",
+      "location": "Remote - United States",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-22.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Task Tracking.",
+          "text_sha256": "sha256:287b8eda065a6bfcac2464134e7404993cc09aa7faca8157195915f138b18b45"
+        },
+        {
+          "anchor_id": "job-22.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with remote work.",
+          "text_sha256": "sha256:96825984965bb7e1620d8e7c5980401b490a8fd2e4871301bbe8988f85083e21"
+        },
+        {
+          "anchor_id": "job-22.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 22; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:8255b0b5fa4000d27e9f0645444b064785d1ddd8301f57b45a6c24d6147bd0f6"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000023",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:02226db9b27262d25773b7d4a6294f58dfb9ff09ecdfd32ab45579475b6ab5ab"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Primary Entry Level Support Analyst",
+      "employer": "Synthetic Employer 23-J",
+      "work_mode": "HYBRID",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-23.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Issue Triage.",
+          "text_sha256": "sha256:29b5f626dc463d02472981f26072127711025fc53ccca8a358084c6252bdb35f"
+        },
+        {
+          "anchor_id": "job-23.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with hybrid work.",
+          "text_sha256": "sha256:14881f85e1e39b65962ed9e938423b851f727d60600f41dd8d5077e59d2aa2c4"
+        },
+        {
+          "anchor_id": "job-23.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 23; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:0f4179f4ff1d887bfea1f54e3a68a8273ced5b9586f93cfa94df1b7d369c8747"
+        }
+      ]
+    },
+    {
+      "id": "job_00000000000000000000000024",
+      "entity_type": "SYNTHETIC_JOB",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6693b1cc4edf1416e397e2ba35e0040b64237c9ae00d500666d9ad457b9bc475"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "title": "Alternate Entry Level Support Analyst",
+      "employer": "Synthetic Employer 24-J",
+      "work_mode": "ON_SITE",
+      "location": "Exampleville, MI",
+      "minimum_experience_years": 1,
+      "eligibility_constraint": "NONE",
+      "source_blocks": [
+        {
+          "anchor_id": "job-24.requirements.01",
+          "declared_importance": "MUST_HAVE",
+          "text": "Must demonstrate at least 1 year of reviewed experience using Knowledge Management.",
+          "text_sha256": "sha256:5c0ebed7d4601ddcae72eb0d406b6983bd86e7cccebfa1f166f8f242f56a3a85"
+        },
+        {
+          "anchor_id": "job-24.requirements.02",
+          "declared_importance": "MUST_HAVE",
+          "text": "Applicants must confirm an explicit reviewed relocation preference compatible with on site work.",
+          "text_sha256": "sha256:973773916325cd851eb7e79dfaa536c7c1069493433f7176ecbe055ad27c18eb"
+        },
+        {
+          "anchor_id": "job-24.requirements.03",
+          "declared_importance": "PREFERRED",
+          "text": "Preferred: hold Synthetic Advanced Credential 24; keyword overlap alone is insufficient.",
+          "text_sha256": "sha256:aa957e37fdd92dba4784a457ec07f82d55dec22d209f06db626ac529d8a7556b"
+        }
+      ]
+    }
+  ]
+}

@@ -2,10 +2,10 @@
 
 Spec version: 1.4
 Repository revision: tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 (commit c24ccf989726a4870c152a22eec7b6f48e125be8)
-Last updated: 2026-07-29T04:57:21Z
+Last updated: 2026-07-29T09:08:00Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W01
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M01-W07 is VERIFIED and M01 is ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M02-W01 is the sole READY package; no package is IN_PROGRESS. M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M01-W07 executable anchor `0659c13ff046c921ca648c50b40e71330abf2e75` / tree `211c4b72cae4404dc277d8b31df240e4abfc717c`, its stamp, and every earlier M01-W07 anchor remain historical evidence only.
-- Objective: M01-W07 closeout is complete. KI-0029 through KI-0032 are FIXED after repairing the contradictory accepted status, seven platform state-axis/default-fallthrough defects, the same-major semantic compatibility failure, executable semantic witness coverage, and three directly associated unbounded child-process sites. Old v1 consumers retain all 229 enumerated canonical historical-positive witnesses while corrected semantics use explicit v2 roots and rule bindings.
-- Dependencies and hosted proof: M00 and M01 are ACCEPTED. Final content commit `c24ccf989726a4870c152a22eec7b6f48e125be8` passed two exact-commit clean clones, including spaces and non-ASCII paths, and fresh exact-revision run 30423199771 on macos-15, windows-2025, and ubuntu-24.04. The raw Windows log confirms exact checkout, pinned toolchains, all active suites, verification exit 0, and a clean post-verification tree.
+- State: M02-W01 is the sole IN_PROGRESS package; no package is READY. M01-W07 remains VERIFIED and M01 remains ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M01-W07 executable anchor `0659c13ff046c921ca648c50b40e71330abf2e75` / tree `211c4b72cae4404dc277d8b31df240e4abfc717c`, its stamp, and every earlier M01-W07 anchor remain historical evidence only.
+- Objective: implement only the M02-W01 test/evaluation fixture foundation: synthetic profiles, career evidence, source resumes, jobs, normalized expected requirements, evidence-backed supported claims, explicit non-supported gaps, field-value policies, scenario links, deterministic validation, privacy scanning, and mandatory verification. This package does not implement M02-W02 questions, M02-W03 mock ATS forms, a benchmark runner, corpus freeze, holdout content, extension behavior, product schemas, or autofill capability.
+- Dependencies and hosted proof: M00 and M01 are ACCEPTED. The exact clean starting revision `0c8efc9212162bcb4fa846e453007d9404d97429` matches `origin/main`; canonical spec hash `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`, status, traceability, generated-contract integrity (183 byte-identical files), compatibility, doctor, and full `pnpm verify` all passed before this transition. Final M01 run 30423199771 remains the preserved hosted prerequisite.
 - Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M01-W07 records the complete corrective lifecycle, durable compatibility inventory, local and clean-clone verification, and hosted content proof. No UI, native-platform, secret-store implementation, packaging, model-runtime, holdout, or certification evidence applies.
-- Blockers: no live CRITICAL/HIGH blocker remains. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. M02 implementation has not begun; M02-W01 is READY only.
+- Evidence: the final local evidence-bearing tree passes deterministic seed reproduction, schema/semantic validation, privacy and deprecated-v1 guards, exact 50/50 focused tests, all canonical root commands, and full `pnpm verify`; independent fixture/schema and privacy/security review pass on corpus digest `sha256:d91448c44761edeaaceeef032b3fabba6729cd33dd1bb8af879fb4ffbeeb0b2f`. Executable content commit, two exact clean clones, and hosted three-OS proof remain pending. This is development-fixture proof only; it is not a benchmark, holdout, critical-gate, ATS-support, extension, model, product, or live-submission result.
+- Blockers: no live CRITICAL/HIGH blocker remains. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. The owner-directed deprecated-v1 producer policy, Gate D guidance correction, and two Python child-output bounds are bounded nonblocking M02-W01 follow-ups and do not reopen M01.
 
 ## Milestone table
 
@@ -36,7 +36,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 is READY but no M02 implementation has begun |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 is the sole IN_PROGRESS package |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -96,7 +96,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
 | `M01-W07` | VERIFIED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | docs/TEST_EVIDENCE.md § M01-W07 | Corrected KI-0029 through KI-0032; all prior M01-W07 trees remain historical evidence |
-| `M02-W01` | READY | — | — | Create synthetic profile/job/resume fixtures; not begun |
+| `M02-W01` | IN_PROGRESS | — | — | Create synthetic profile/job/resume fixtures; sole active package |
 | `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
 | `M02-W04` | NOT_STARTED | — | — | Capture baseline algorithms |
@@ -381,9 +381,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W01
-- Reason: M00 and M01 are ACCEPTED; M02-W01 is the first package in M02 and is the sole READY package.
-- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md §9 M02 and docs/PROJECT_STATUS.md. Do not infer that READY means implementation has begun.
+- ID: NONE
+- Reason: M02-W01 is IN_PROGRESS; READY and IN_PROGRESS may not coexist.
+- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md §9 M02, §8.3, and docs/PROJECT_STATUS.md.
 
 ## Known release blockers
 

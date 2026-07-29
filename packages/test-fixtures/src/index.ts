@@ -1,7 +1,29 @@
-/**
- * Synthetic documents, jobs, forms, and expected results (spec §5.1); seeded in M02 — never real PII (spec §1.5).
- *
- * Scaffold module created by M00-W02. Real implementations arrive with the
- * owning milestones; nothing here is product behavior.
- */
+/** Test-only synthetic development fixtures; never product storage authority. */
 export const PACKAGE_NAME = "@japp/test-fixtures";
+
+export {
+  assertFixtureConsistency,
+  validateFixtureConsistency,
+} from "./consistency.ts";
+export { loadFixtureCorpus } from "./loader.ts";
+export { assertCommittedPlatformVersions } from "./platform-version-guard.ts";
+export { assertCommittedFixturePrivacy } from "./privacy.ts";
+export {
+  CORPUS_VERSION,
+  EXPECTED_SEED_COUNTS,
+  FIXTURE_SCHEMA_VERSION,
+  SCHEMA_REFS,
+} from "./model.ts";
+export type {
+  EvidenceArtifact,
+  ExpectedRequirement,
+  ExpectedSupportedClaim,
+  FieldValuePolicy,
+  FixtureCorpus,
+  FixtureManifest,
+  ScenarioBundle,
+  SourceResume,
+  SyntheticJob,
+  SyntheticProfile,
+  UnsupportedGap,
+} from "./model.ts";

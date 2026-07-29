@@ -114,8 +114,8 @@ reports live in `docs/gates/`.
 - Governance note (M01-W07, no state change): the typed contract shape a
   future Gate D evidence bundle and certification decision must carry now
   exists as canonical schema
-  (`urn:japp:schema:platform:evidence-record:v1` and
-  `urn:japp:schema:platform:certification-input:v1`; see
+  (`urn:japp:schema:platform:evidence-record:v2` and
+  `urn:japp:schema:platform:certification-input:v2`; see
   `packages/contracts/M01-W07.md`). Those contracts require synthetic-only
   artifacts, digest references, an operating-system build for any measured
   native run, a completed independent review before an owner decision, and a

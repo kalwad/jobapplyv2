@@ -1,0 +1,531 @@
+{
+  "entity_type": "SYNTHETIC_PROFILE",
+  "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "profile_00000000000000000000000001",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:2a88577b1144b3f7e50dca050acfc04caebe6e7ad598830ea50b5b7854d07e17"
+      },
+      "role_family": "SOFTWARE",
+      "career_stage": "MID",
+      "target_role": "Software Engineer",
+      "contact": {
+        "full_name": "Synthetic Candidate 01",
+        "email": "candidate01@example.test",
+        "phone": "+1-202-555-0101",
+        "website": "https://candidate01.example.test/profile",
+        "address": {
+          "line1": "101 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["TypeScript", "Node.js", "API Design"],
+      "career_start": "2017-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["BASELINE_DIRECT_SUPPORT"]
+    },
+    {
+      "id": "profile_00000000000000000000000002",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:056e065887e8bdd6320a58db7d838d7b4ca0fc8da741b3258bc42b3906b227bb"
+      },
+      "role_family": "SOFTWARE",
+      "career_stage": "SENIOR",
+      "target_role": "Senior Platform Engineer",
+      "contact": {
+        "full_name": "Synthetic Candidate 02",
+        "email": "candidate02@example.test",
+        "phone": "+1-202-555-0102",
+        "website": "https://candidate02.example.test/profile",
+        "address": {
+          "line1": "102 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Distributed Systems", "Node.js", "Cloud Architecture"],
+      "career_start": "2012-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["SENIOR_STAGE"]
+    },
+    {
+      "id": "profile_00000000000000000000000003",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:d569f980a96d418f1ac743559881561ae1757741d521c2d5d7d146ffaf664ee1"
+      },
+      "role_family": "DATA",
+      "career_stage": "MID",
+      "target_role": "Analytics Engineer",
+      "contact": {
+        "full_name": "Synthetic Candidate 03",
+        "email": "candidate03@example.test",
+        "phone": "+1-202-555-0103",
+        "website": "https://candidate03.example.test/profile",
+        "address": {
+          "line1": "103 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["SQL", "Data Modeling", "Python"],
+      "career_start": "2018-01-01",
+      "education_path": "SELF_DIRECTED",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["CAREER_SWITCHER", "NONTRADITIONAL_EDUCATION"]
+    },
+    {
+      "id": "profile_00000000000000000000000004",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6745457edbd67c1fe981b1ab83881e0664c125de340b579635bf3762b2aa49d1"
+      },
+      "role_family": "DATA",
+      "career_stage": "SENIOR",
+      "target_role": "Senior Data Scientist",
+      "contact": {
+        "full_name": "Synthetic Candidate 04",
+        "email": "candidate04@example.test",
+        "phone": "+1-202-555-0104",
+        "website": "https://candidate04.example.test/profile",
+        "address": {
+          "line1": "104 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": [
+        "Experiment Design",
+        "Machine Learning",
+        "Statistical Analysis"
+      ],
+      "career_start": "2014-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["EMPLOYMENT_GAP"]
+    },
+    {
+      "id": "profile_00000000000000000000000005",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:6948bbd9c410abca8db9e85a7666a7a1754d9fa5892e6933f75444643dd34278"
+      },
+      "role_family": "BUSINESS",
+      "career_stage": "MID",
+      "target_role": "Business Analyst",
+      "contact": {
+        "full_name": "Synthetic Candidate 05",
+        "email": "candidate05@example.test",
+        "phone": "+1-202-555-0105",
+        "website": "https://candidate05.example.test/profile",
+        "address": {
+          "line1": "105 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": [
+        "Process Mapping",
+        "Stakeholder Analysis",
+        "Requirements Analysis"
+      ],
+      "career_start": "2019-01-01",
+      "education_path": "BOOTCAMP",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["NONTRADITIONAL_EDUCATION"]
+    },
+    {
+      "id": "profile_00000000000000000000000006",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:21a337941d14d1a7c3e63cecbca3c829e690b3cdd275adebd72d58c9028b0b3b"
+      },
+      "role_family": "OPERATIONS",
+      "career_stage": "EARLY",
+      "target_role": "Operations Coordinator",
+      "contact": {
+        "full_name": "Synthetic Candidate 06",
+        "email": "candidate06@example.test",
+        "phone": "+1-202-555-0106",
+        "website": "https://candidate06.example.test/profile",
+        "address": {
+          "line1": "106 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Scheduling", "Inventory Control", "Process Improvement"],
+      "career_start": "2022-01-01",
+      "education_path": "CERTIFICATE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": {
+        "relocation": "REGION_ONLY",
+        "region": "Exampleville Region"
+      },
+      "coverage_tags": ["RELOCATION_CONSTRAINT"]
+    },
+    {
+      "id": "profile_00000000000000000000000007",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:8756712a9ebf754dd55f302f9170c63c61df9b51510d73e9418be73c1c58c7c8"
+      },
+      "role_family": "HEALTHCARE",
+      "career_stage": "MID",
+      "target_role": "Healthcare Operations Analyst",
+      "contact": {
+        "full_name": "Synthetic Candidate 07",
+        "email": "candidate07@example.test",
+        "phone": "+1-202-555-0107",
+        "website": "https://candidate07.example.test/profile",
+        "address": {
+          "line1": "107 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Clinical Operations", "Quality Reporting", "Data Privacy"],
+      "career_start": "2017-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["LICENSE_CONSTRAINT"]
+    },
+    {
+      "id": "profile_00000000000000000000000008",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:bef14821a911eea3a916cfce5ed4619aa0a8375b421538e673c3461951261b89"
+      },
+      "role_family": "EDUCATION",
+      "career_stage": "EARLY",
+      "target_role": "Learning Program Coordinator",
+      "contact": {
+        "full_name": "Synthetic Candidate 08",
+        "email": "candidate08@example.test",
+        "phone": "+1-202-555-0108",
+        "website": "https://candidate08.example.test/profile",
+        "address": {
+          "line1": "108 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Curriculum Design", "Facilitation", "Learning Analytics"],
+      "career_start": "2021-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "REQUIRES_SPONSORSHIP",
+        "sponsorship_required": true
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["REQUIRES_SPONSORSHIP"]
+    },
+    {
+      "id": "profile_00000000000000000000000009",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ba1aecc7792a4a1e663ad1903c4dd7c78b4172c5a95db857ef3d24202b3c3902"
+      },
+      "role_family": "SALES",
+      "career_stage": "MID",
+      "target_role": "Sales Operations Specialist",
+      "contact": {
+        "full_name": "Synthetic Candidate 09",
+        "email": "candidate09@example.test",
+        "phone": "+1-202-555-0109",
+        "website": "https://candidate09.example.test/profile",
+        "address": {
+          "line1": "109 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Pipeline Analysis", "CRM Administration", "Forecasting"],
+      "career_start": "2018-01-01",
+      "education_path": "CERTIFICATE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["SENSITIVE_NEVER_AUTOFILL"]
+    },
+    {
+      "id": "profile_00000000000000000000000010",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:95c01045df9c31d5b401082eba641495a4d504f9881ada3fc69b792fb3ff5ae8"
+      },
+      "role_family": "FINANCE",
+      "career_stage": "SENIOR",
+      "target_role": "Senior Financial Analyst",
+      "contact": {
+        "full_name": "Synthetic Candidate 10",
+        "email": "candidate10@example.test",
+        "phone": "+1-202-555-0110",
+        "website": "https://candidate10.example.test/profile",
+        "address": {
+          "line1": "110 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Financial Modeling", "Variance Analysis", "Risk Reporting"],
+      "career_start": "2013-01-01",
+      "education_path": "TRADITIONAL_DEGREE",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": {
+        "relocation": "REMOTE_ONLY",
+        "region": "Exampleville Region"
+      },
+      "coverage_tags": ["EXPLICIT_CONTRADICTION", "RELOCATION_CONSTRAINT"]
+    },
+    {
+      "id": "profile_00000000000000000000000011",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e637baa0bc1b6600f08f06d6f95bac3a031aee3cd2ca0b1bf9a28c9a868ac9fa"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "career_stage": "EARLY",
+      "target_role": "Junior Project Coordinator",
+      "contact": {
+        "full_name": "Synthetic Candidate 11",
+        "email": "candidate11@example.test",
+        "phone": "+1-202-555-0111",
+        "website": "https://candidate11.example.test/profile",
+        "address": {
+          "line1": "111 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Documentation", "Task Tracking", "Team Communication"],
+      "career_start": "2023-01-01",
+      "education_path": "BOOTCAMP",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": { "relocation": "OPEN", "region": "Exampleville Region" },
+      "coverage_tags": ["NONTRADITIONAL_EDUCATION", "TWO_PAGE_RESUME"]
+    },
+    {
+      "id": "profile_00000000000000000000000012",
+      "entity_type": "SYNTHETIC_PROFILE",
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ef4409284bd5d3ed26f73c11d48d9edf63bf62569fa92eb3e60d0ce83cca7299"
+      },
+      "role_family": "ENTRY_LEVEL",
+      "career_stage": "EARLY",
+      "target_role": "Entry Level Support Analyst",
+      "contact": {
+        "full_name": "Synthetic Candidate 12",
+        "email": "candidate12@example.test",
+        "phone": "+1-202-555-0112",
+        "website": "https://candidate12.example.test/profile",
+        "address": {
+          "line1": "112 Fixture Way",
+          "city": "Exampleville",
+          "region": "MI",
+          "postal_code": "00000",
+          "country": "US",
+          "synthetic_marker": "FIXTURE_ONLY"
+        }
+      },
+      "skills": ["Issue Triage", "Knowledge Management", "Customer Support"],
+      "career_start": "2024-01-01",
+      "education_path": "SELF_DIRECTED",
+      "work_authorization": {
+        "country": "US",
+        "status": "AUTHORIZED",
+        "sponsorship_required": false
+      },
+      "constraints": {
+        "relocation": "REGION_ONLY",
+        "region": "Exampleville Region"
+      },
+      "coverage_tags": [
+        "NONTRADITIONAL_EDUCATION",
+        "STRONGEST_OUTCOME_ABSTENTION"
+      ]
+    }
+  ]
+}

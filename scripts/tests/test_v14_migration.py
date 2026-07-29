@@ -411,17 +411,52 @@ def test_canonical_name_symlink_to_directory_is_rejected(tmp_path: Path) -> None
     )
 
 
-def test_dependency_lockfiles_remain_at_pre_migration_bytes() -> None:
-    expected = {
-        "pnpm-lock.yaml": (
-            "ed9bac7bb91bc26a9c0758865136b5d1564beedce87412842564333d3d60bb9a"
-        ),
+M02_W01_START_COMMIT = "0c8efc9212162bcb4fa846e453007d9404d97429"
+
+
+def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
+    baseline_pnpm = subprocess.run(
+        ["git", "show", f"{M02_W01_START_COMMIT}:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    prior_importer = b"""  packages/test-fixtures:
+    devDependencies:
+"""
+    reviewed_importer = b"""  packages/test-fixtures:
+    dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+"""
+    reviewed_prettier = b"""      prettier:
+        specifier: 3.9.6
+        version: 3.9.6
+"""
+    typescript_anchor = b"""      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+"""
+    assert baseline_pnpm.count(prior_importer) == 1
+    expected_pnpm = baseline_pnpm.replace(prior_importer, reviewed_importer)
+    package_importer_start = expected_pnpm.index(reviewed_importer)
+    typescript_start = expected_pnpm.index(typescript_anchor, package_importer_start)
+    expected_pnpm = (
+        expected_pnpm[:typescript_start]
+        + reviewed_prettier
+        + expected_pnpm[typescript_start:]
+    )
+    assert (REPO_ROOT / "pnpm-lock.yaml").read_bytes() == expected_pnpm
+
+    unchanged = {
         "uv.lock": ("4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"),
         "services/native-host/Cargo.lock": (
             "7e8a6629c3f66af2b10347e3025c217538ab0bbb0736c76a1f203b11bba0a722"
         ),
     }
-    for relative, digest in expected.items():
+    for relative, digest in unchanged.items():
         assert _sha256((REPO_ROOT / relative).read_bytes()) == digest
 
 

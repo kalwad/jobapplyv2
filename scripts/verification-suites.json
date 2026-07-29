@@ -153,6 +153,41 @@
       "explanation": "ACTIVE since M01-W02 (Generate TypeScript and Python contracts) began: scripts/generate-contracts.ts regenerates the deterministic TypeScript and Pydantic v2 trees from packages/contracts/schemas/ into an isolated temporary directory and byte-compares the COMPLETE committed inventory under packages/contracts/generated/ — missing, stale, modified, and unexpected extra files all fail with actionable paths, and the check never modifies the working tree. This is distinct from the 'contract' suite below: contract-gen proves committed generated artifacts are exactly reproducible from the canonical schemas, while 'contract' runs cross-language compatibility tests (owner M01-W05). If the generator files at scripts/generate-contracts.* ever disappear while M01-W02 remains started, this suite returns to REQUIRED_MISSING and pnpm verify fails. No hand-maintained generated files may be introduced to satisfy it (spec §1.5)."
     },
     {
+      "id": "fixture-corpus",
+      "name": "Synthetic development fixture corpus",
+      "owner": "M02-W01",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W01"]
+      },
+      "commands": [
+        ["pnpm", "--filter", "@japp/test-fixtures", "fixtures:seed:check"],
+        ["pnpm", "--filter", "@japp/test-fixtures", "fixtures:validate"],
+        ["pnpm", "--filter", "@japp/test-fixtures", "fixtures:privacy"],
+        ["pnpm", "--filter", "@japp/test-fixtures", "fixtures:platform-v1"],
+        ["pnpm", "--filter", "@japp/test-fixtures", "fixtures:discover"],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/test-fixtures",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w01"
+        ]
+      ],
+      "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 50
+        }
+      ],
+      "discovery_globs": ["packages/test-fixtures/test/m02-w01/**/*.test.ts"],
+      "artifacts": [],
+      "explanation": "ACTIVE when M02-W01 begins. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, or any discovered-test count other than the independently reviewed exact 50."
+    },
+    {
       "id": "contract",
       "name": "Cross-language contract tests",
       "owner": "M01-W05",

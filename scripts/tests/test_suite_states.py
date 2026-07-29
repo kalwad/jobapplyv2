@@ -37,6 +37,7 @@ def test_real_registry_loads_and_states_match_project_state(
         "typecheck",
         "unit-ts",
         "contract-gen",
+        "fixture-corpus",
         "contract",
         "e2e-browser",
         "python",
@@ -56,6 +57,51 @@ def test_started_contract_is_active_with_real_discovery(
     states = verify.parse_package_states(real_ctx.status_path)
     assert verify.derive_state(real_ctx, suite, states) is verify.SuiteState.ACTIVE
     assert verify.discovery_matches(real_ctx, suite.discovery_globs)
+
+
+def test_fixture_corpus_transitions_from_nya_to_active(
+    real_ctx: verify.Context,
+) -> None:
+    registry = verify.load_registry(real_ctx.registry_path)
+    suite = next(
+        suite for suite in registry.suites if suite.suite_id == "fixture-corpus"
+    )
+    states = verify.parse_package_states(real_ctx.status_path)
+    before_start = {**states, "M02-W01": "READY"}
+    assert (
+        verify.derive_state(real_ctx, suite, before_start)
+        is verify.SuiteState.NOT_YET_APPLICABLE
+    )
+    assert verify.derive_state(real_ctx, suite, states) is verify.SuiteState.ACTIVE
+    assert len(verify.discovery_matches(real_ctx, suite.discovery_globs)) == 5
+
+
+def test_started_fixture_corpus_with_empty_discovery_is_required_missing(
+    real_ctx: verify.Context, tmp_path: Path
+) -> None:
+    fake_registry = tmp_path / "registry.json"
+    write_registry(
+        fake_registry,
+        [
+            make_suite(
+                id="fixture-corpus",
+                owner="M02-W01",
+                activation={
+                    "type": "packages_started",
+                    "packages": ["M02-W01"],
+                },
+                discovery_globs=["packages/test-fixtures/test/empty/**/*.test.ts"],
+            )
+        ],
+    )
+    ctx = verify.Context(
+        repo=REPO_ROOT,
+        registry_path=fake_registry,
+        status_path=real_ctx.status_path,
+    )
+    outcomes, exit_code = verify.run_verification(ctx, ["fixture-corpus"])
+    assert exit_code == 1
+    assert outcomes[0].state is verify.SuiteState.REQUIRED_MISSING
 
 
 def test_nya_visual_is_reported_honestly_not_as_pass(
@@ -283,6 +329,29 @@ def test_empty_vitest_selection_fails_via_proof(
     outcomes, exit_code = verify.run_verification(fixture_repo, None)
     assert exit_code == 1
     assert "discovery proof failed" in outcomes[0].messages[0]
+
+
+def test_vitest_exact_count_rejects_both_shortfall_and_surplus(
+    fixture_repo: verify.Context,
+) -> None:
+    for reported in (49, 51):
+        command = [
+            sys.executable,
+            "-c",
+            f"print('Tests  {reported} passed')",
+        ]
+        write_registry(
+            fixture_repo.registry_path,
+            [
+                make_suite(
+                    commands=[command],
+                    proofs=[{"kind": "vitest_exact_tests", "min": 50}],
+                )
+            ],
+        )
+        outcomes, exit_code = verify.run_verification(fixture_repo, None)
+        assert exit_code == 1
+        assert "need exactly 50" in outcomes[0].messages[0]
 
 
 def test_unknown_proof_kind_fails_closed(fixture_repo: verify.Context) -> None:

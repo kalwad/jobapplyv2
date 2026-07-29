@@ -562,6 +562,15 @@ def _proof_vitest_min_tests(
     return None
 
 
+def _proof_vitest_exact_tests(
+    _ctx: Context, _suite: Suite, proof: Proof, output: str
+) -> str | None:
+    total = sum(int(n) for n in VITEST_PASSED_RE.findall(output))
+    if total != proof.min_count:
+        return f"Vitest reported {total} passing tests; need exactly {proof.min_count}"
+    return None
+
+
 def _proof_playwright_list_min(
     ctx: Context, suite: Suite, proof: Proof, _output: str
 ) -> str | None:
@@ -610,6 +619,7 @@ PROOF_CHECKS: dict[str, Callable[[Context, Suite, Proof, str], str | None]] = {
     "turbo_task_count": _proof_turbo_task_count,
     "vitest_per_package": _proof_vitest_per_package,
     "vitest_min_tests": _proof_vitest_min_tests,
+    "vitest_exact_tests": _proof_vitest_exact_tests,
     "playwright_list_min": _proof_playwright_list_min,
     "playwright_min_passed": _proof_playwright_min_passed,
     "pytest_min_passed": _proof_pytest_min_passed,

@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:manifest:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "M02-W01 development fixture manifest",
+  "description": "TEST-ONLY mutable-development corpus inventory. It is neither a frozen corpus nor a holdout manifest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_ref",
+    "schema_version",
+    "corpus_version",
+    "corpus_state",
+    "holdout_content_present",
+    "metadata",
+    "files",
+    "counts",
+    "evidence_category_counts",
+    "role_family_counts",
+    "corpus_digest"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:manifest:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "corpus_version": {
+      "const": "0.1.0"
+    },
+    "corpus_state": {
+      "const": "DEVELOPMENT_MUTABLE"
+    },
+    "holdout_content_present": {
+      "const": false
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "entity_type",
+          "schema_ref",
+          "schema_version",
+          "record_count",
+          "byte_count",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*\\.v1\\.json$"
+          },
+          "entity_type": {
+            "type": "string",
+            "enum": [
+              "EVIDENCE_ARTIFACT",
+              "EXPECTED_REQUIREMENT",
+              "EXPECTED_SUPPORTED_CLAIM",
+              "FIELD_VALUE_POLICY",
+              "SCENARIO_BUNDLE",
+              "SOURCE_RESUME",
+              "SYNTHETIC_JOB",
+              "SYNTHETIC_PROFILE",
+              "UNSUPPORTED_GAP"
+            ]
+          },
+          "schema_ref": {
+            "type": "string",
+            "pattern": "^urn:japp:schema:test-fixture:[a-z-]+:v1$"
+          },
+          "schema_version": {
+            "const": "1.0.0"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "byte_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2097152
+          },
+          "sha256": {
+            "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/contentDigest"
+          }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profiles",
+        "evidence_artifacts",
+        "source_resumes",
+        "jobs",
+        "expected_requirements",
+        "expected_supported_claims",
+        "unsupported_gaps",
+        "field_value_policies",
+        "scenario_bundles",
+        "scenario_evaluations"
+      ],
+      "properties": {
+        "profiles": { "type": "integer", "minimum": 12 },
+        "evidence_artifacts": { "type": "integer", "minimum": 72 },
+        "source_resumes": { "type": "integer", "minimum": 12 },
+        "jobs": { "type": "integer", "minimum": 24 },
+        "expected_requirements": { "type": "integer", "minimum": 72 },
+        "expected_supported_claims": { "type": "integer", "minimum": 36 },
+        "unsupported_gaps": { "type": "integer", "minimum": 24 },
+        "field_value_policies": { "type": "integer", "minimum": 48 },
+        "scenario_bundles": { "type": "integer", "minimum": 36 },
+        "scenario_evaluations": { "type": "integer", "minimum": 108 }
+      }
+    },
+    "evidence_category_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "CREDENTIAL_RECORD",
+        "EDUCATION_RECORD",
+        "EMPLOYMENT_RECORD",
+        "PROJECT_RECORD",
+        "USER_ASSERTION"
+      ],
+      "properties": {
+        "CREDENTIAL_RECORD": { "type": "integer", "minimum": 12 },
+        "EDUCATION_RECORD": { "type": "integer", "minimum": 12 },
+        "EMPLOYMENT_RECORD": { "type": "integer", "minimum": 12 },
+        "PROJECT_RECORD": { "type": "integer", "minimum": 12 },
+        "USER_ASSERTION": { "type": "integer", "minimum": 12 }
+      }
+    },
+    "role_family_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "BUSINESS",
+        "DATA",
+        "EDUCATION",
+        "ENTRY_LEVEL",
+        "FINANCE",
+        "HEALTHCARE",
+        "OPERATIONS",
+        "SALES",
+        "SOFTWARE"
+      ],
+      "properties": {
+        "BUSINESS": { "type": "integer", "minimum": 1 },
+        "DATA": { "type": "integer", "minimum": 1 },
+        "EDUCATION": { "type": "integer", "minimum": 1 },
+        "ENTRY_LEVEL": { "type": "integer", "minimum": 1 },
+        "FINANCE": { "type": "integer", "minimum": 1 },
+        "HEALTHCARE": { "type": "integer", "minimum": 1 },
+        "OPERATIONS": { "type": "integer", "minimum": 1 },
+        "SALES": { "type": "integer", "minimum": 1 },
+        "SOFTWARE": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "corpus_digest": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/contentDigest"
+    }
+  }
+}

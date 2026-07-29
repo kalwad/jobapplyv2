@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:common:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "M02-W01 test-fixture common definitions",
+  "description": "TEST-ONLY definitions for synthetic development fixtures. These definitions have no product storage authority.",
+  "$defs": {
+    "boundedText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "calendarDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "contentDigest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "factKey": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._:-]{1,99}$"
+    },
+    "fixtureMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "author",
+        "reviewer",
+        "reviewed_at",
+        "expected_result_provenance",
+        "synthetic_data",
+        "redaction_state",
+        "historical_content_hash"
+      ],
+      "properties": {
+        "author": {
+          "type": "string",
+          "pattern": "^m02w01-[a-z0-9-]{3,63}$"
+        },
+        "reviewer": {
+          "type": "string",
+          "pattern": "^m02w01-[a-z0-9-]{3,63}$"
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/utcTimestamp"
+        },
+        "expected_result_provenance": {
+          "type": "string",
+          "enum": ["M02W01_INDEPENDENT_SYNTHETIC_REVIEW"]
+        },
+        "synthetic_data": {
+          "const": true
+        },
+        "redaction_state": {
+          "const": "SYNTHETIC_RESERVED"
+        },
+        "historical_content_hash": {
+          "$ref": "#/$defs/contentDigest"
+        }
+      }
+    },
+    "requirementImportance": {
+      "type": "string",
+      "enum": ["MUST_HAVE", "PREFERRED"]
+    },
+    "roleFamily": {
+      "type": "string",
+      "enum": [
+        "BUSINESS",
+        "DATA",
+        "EDUCATION",
+        "ENTRY_LEVEL",
+        "FINANCE",
+        "HEALTHCARE",
+        "OPERATIONS",
+        "SALES",
+        "SOFTWARE"
+      ]
+    },
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "supportClassification": {
+      "type": "string",
+      "enum": [
+        "CONTRADICTED",
+        "DIRECT",
+        "PARTIAL",
+        "STRONG_RELATED",
+        "UNSUPPORTED",
+        "USER_ASSERTED"
+      ]
+    },
+    "utcTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"
+    }
+  }
+}

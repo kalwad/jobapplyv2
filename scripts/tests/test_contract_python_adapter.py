@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from _bounded_process import run_bounded_process
 from conftest import REPO_ROOT
 
 ADAPTER = (
@@ -29,6 +30,7 @@ VALUES = (
     / "corpus"
     / "values.v1.json"
 )
+ADAPTER_TIMEOUT_SECONDS = 30
 
 
 def _encoded(value: object) -> str:
@@ -42,13 +44,11 @@ def _encoded(value: object) -> str:
 
 
 def _run(path: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
+    return run_bounded_process(
         [sys.executable, str(ADAPTER), "--request", str(path)],
         cwd=REPO_ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-        timeout=30,
+        timeout_seconds=ADAPTER_TIMEOUT_SECONDS,
+        label="contract Python adapter",
     )
 
 

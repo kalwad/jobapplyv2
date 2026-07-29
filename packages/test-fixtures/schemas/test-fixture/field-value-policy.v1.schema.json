@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:field-value-policy:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Synthetic field-value policy",
+  "description": "TEST-ONLY upstream expected policy for one synthetic profile field; not a downstream form FieldDecision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "profile_ref",
+    "field_concept",
+    "sensitivity",
+    "consequential",
+    "policy",
+    "source_evidence_ref",
+    "explanation_code"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "FIELD_VALUE_POLICY"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:field-value-policy:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "field_concept": {
+      "type": "string",
+      "enum": [
+        "DEMOGRAPHIC_DISCLOSURE",
+        "RELOCATION_PREFERENCE",
+        "SALARY_EXPECTATION",
+        "WORK_AUTHORIZATION"
+      ]
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": ["PERSONAL", "SENSITIVE"]
+    },
+    "consequential": {
+      "type": "boolean"
+    },
+    "policy": {
+      "type": "string",
+      "enum": [
+        "BLOCK_AND_EXPLAIN",
+        "CONFIRM_IF_RECORD_EXPIRED",
+        "CONFIRM_ONCE_PER_JOB",
+        "FILL_FROM_EXPLICIT_RECORD",
+        "NEVER_AUTOFILL",
+        "VOLUNTARY_PREFER_NOT_TO_ANSWER"
+      ]
+    },
+    "source_evidence_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "recorded_value": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "x-japp-sensitivity": "SENSITIVE",
+      "x-japp-redaction": "REDACT_VALUE"
+    },
+    "record_expires_on": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/calendarDate"
+    },
+    "explanation_code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+    }
+  }
+}

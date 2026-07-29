@@ -1,0 +1,675 @@
+{
+  "entity_type": "SOURCE_RESUME",
+  "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "resume_00000000000000000000000001",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:27e579099f4c8e8ecfea85e5fc2b150172a6a6aa85cd049e32ae6fb777095911"
+      },
+      "profile_ref": "profile_00000000000000000000000001",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000001",
+          "page": 1,
+          "text": "Synthetic Candidate 01 applied TypeScript to deliver reviewed work at Synthetic Employer 01-A.",
+          "fact_keys": ["experience:primary", "skill:typescript"],
+          "evidence_refs": ["evidence_00000000000000000000000001"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000002",
+          "page": 1,
+          "text": "Synthetic Candidate 01 used Node.js in a separately reviewed role at Synthetic Employer 01-B.",
+          "fact_keys": ["experience:secondary", "skill:node-js"],
+          "evidence_refs": ["evidence_00000000000000000000000002"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000003",
+          "page": 1,
+          "text": "Synthetic Candidate 01 completed a synthetic traditional degree program at Synthetic Institute 01.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000003"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000004",
+          "page": 1,
+          "text": "Synthetic Candidate 01 demonstrated API Design in Synthetic Project 01.",
+          "fact_keys": ["project:reviewed", "skill:api-design"],
+          "evidence_refs": ["evidence_00000000000000000000000004"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000005",
+          "page": 1,
+          "text": "Synthetic Candidate 01 earned Synthetic Credential 01 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000005"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000002",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:4fa0e19924b7a1623c8eb5accdab4ea705986bb98f67d7db59df2225dd1a99bf"
+      },
+      "profile_ref": "profile_00000000000000000000000002",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000006",
+          "page": 1,
+          "text": "Synthetic Candidate 02 applied Distributed Systems to deliver reviewed work at Synthetic Employer 02-A.",
+          "fact_keys": ["experience:primary", "skill:distributed-systems"],
+          "evidence_refs": ["evidence_00000000000000000000000007"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000007",
+          "page": 1,
+          "text": "Synthetic Candidate 02 used Node.js in a separately reviewed role at Synthetic Employer 02-B.",
+          "fact_keys": ["experience:secondary", "skill:node-js"],
+          "evidence_refs": ["evidence_00000000000000000000000008"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000008",
+          "page": 1,
+          "text": "Synthetic Candidate 02 completed a synthetic traditional degree program at Synthetic Institute 02.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000009"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000009",
+          "page": 1,
+          "text": "Synthetic Candidate 02 demonstrated Cloud Architecture in Synthetic Project 02.",
+          "fact_keys": ["project:reviewed", "skill:cloud-architecture"],
+          "evidence_refs": ["evidence_00000000000000000000000010"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000010",
+          "page": 1,
+          "text": "Synthetic Candidate 02 earned Synthetic Credential 02 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000011"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000003",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:25a62a84fec3f30cb34348e6a324680f6ef6ba5203d8c5275595771ce7e6b095"
+      },
+      "profile_ref": "profile_00000000000000000000000003",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000011",
+          "page": 1,
+          "text": "Synthetic Candidate 03 transitioned from operations process work into data analytics and applied SQL at Synthetic Employer 03-A.",
+          "fact_keys": [
+            "career:prior-non-data-role",
+            "career:transition",
+            "experience:primary",
+            "skill:sql"
+          ],
+          "evidence_refs": ["evidence_00000000000000000000000013"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000012",
+          "page": 1,
+          "text": "Synthetic Candidate 03 used Data Modeling in a separately reviewed role at Synthetic Employer 03-B.",
+          "fact_keys": ["experience:secondary", "skill:data-modeling"],
+          "evidence_refs": ["evidence_00000000000000000000000014"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000013",
+          "page": 1,
+          "text": "Synthetic Candidate 03 completed a synthetic self directed program at Synthetic Institute 03.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000015"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000014",
+          "page": 1,
+          "text": "Synthetic Candidate 03 demonstrated Python in Synthetic Project 03.",
+          "fact_keys": ["project:reviewed", "skill:python"],
+          "evidence_refs": ["evidence_00000000000000000000000016"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000015",
+          "page": 1,
+          "text": "Synthetic Candidate 03 earned Synthetic Credential 03 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000017"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000004",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:de03815fb21452b57e768e33c42a857192d17743a06ca6232da411ae66e6a4ca"
+      },
+      "profile_ref": "profile_00000000000000000000000004",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000016",
+          "page": 1,
+          "text": "Synthetic Candidate 04 applied Experiment Design to deliver reviewed work at Synthetic Employer 04-A.",
+          "fact_keys": ["experience:primary", "skill:experiment-design"],
+          "evidence_refs": ["evidence_00000000000000000000000019"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000017",
+          "page": 1,
+          "text": "Synthetic Candidate 04 used Machine Learning in a separately reviewed role at Synthetic Employer 04-B.",
+          "fact_keys": ["experience:secondary", "skill:machine-learning"],
+          "evidence_refs": ["evidence_00000000000000000000000020"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000018",
+          "page": 1,
+          "text": "Synthetic Candidate 04 completed a synthetic traditional degree program at Synthetic Institute 04.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000021"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000019",
+          "page": 1,
+          "text": "Synthetic Candidate 04 demonstrated Statistical Analysis in Synthetic Project 04.",
+          "fact_keys": ["project:reviewed", "skill:statistical-analysis"],
+          "evidence_refs": ["evidence_00000000000000000000000022"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000020",
+          "page": 1,
+          "text": "Synthetic Candidate 04 earned Synthetic Credential 04 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000023"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000005",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:9d9057ec16f59c1a387bf7d8f0916ffe797c354d0e4a5526ef3999ab4081cde6"
+      },
+      "profile_ref": "profile_00000000000000000000000005",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000021",
+          "page": 1,
+          "text": "Synthetic Candidate 05 applied Process Mapping to deliver reviewed work at Synthetic Employer 05-A.",
+          "fact_keys": ["experience:primary", "skill:process-mapping"],
+          "evidence_refs": ["evidence_00000000000000000000000025"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000022",
+          "page": 1,
+          "text": "Synthetic Candidate 05 used Stakeholder Analysis in a separately reviewed role at Synthetic Employer 05-B.",
+          "fact_keys": ["experience:secondary", "skill:stakeholder-analysis"],
+          "evidence_refs": ["evidence_00000000000000000000000026"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000023",
+          "page": 1,
+          "text": "Synthetic Candidate 05 completed a synthetic bootcamp program at Synthetic Institute 05.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000027"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000024",
+          "page": 1,
+          "text": "Synthetic Candidate 05 demonstrated Requirements Analysis in Synthetic Project 05.",
+          "fact_keys": ["project:reviewed", "skill:requirements-analysis"],
+          "evidence_refs": ["evidence_00000000000000000000000028"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000025",
+          "page": 1,
+          "text": "Synthetic Candidate 05 earned Synthetic Credential 05 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000029"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000006",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:830383f632eaa8c4dcca7bf73cbd1c0a9c0abccbe7d7b3859dc51442b43710a8"
+      },
+      "profile_ref": "profile_00000000000000000000000006",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000026",
+          "page": 1,
+          "text": "Synthetic Candidate 06 applied Scheduling to deliver reviewed work at Synthetic Employer 06-A.",
+          "fact_keys": ["experience:primary", "skill:scheduling"],
+          "evidence_refs": ["evidence_00000000000000000000000031"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000027",
+          "page": 1,
+          "text": "Synthetic Candidate 06 used Inventory Control in a separately reviewed role at Synthetic Employer 06-B.",
+          "fact_keys": ["experience:secondary", "skill:inventory-control"],
+          "evidence_refs": ["evidence_00000000000000000000000032"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000028",
+          "page": 1,
+          "text": "Synthetic Candidate 06 completed a synthetic certificate program at Synthetic Institute 06.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000033"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000029",
+          "page": 1,
+          "text": "Synthetic Candidate 06 demonstrated Process Improvement in Synthetic Project 06.",
+          "fact_keys": ["project:reviewed", "skill:process-improvement"],
+          "evidence_refs": ["evidence_00000000000000000000000034"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000030",
+          "page": 1,
+          "text": "Synthetic Candidate 06 earned Synthetic Credential 06 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000035"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000007",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:39e8dba13886c52d2133bcafd594a8f1c92efcaea53d092da1078d9801d8f9dc"
+      },
+      "profile_ref": "profile_00000000000000000000000007",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000031",
+          "page": 1,
+          "text": "Synthetic Candidate 07 applied Clinical Operations to deliver reviewed work at Synthetic Employer 07-A.",
+          "fact_keys": ["experience:primary", "skill:clinical-operations"],
+          "evidence_refs": ["evidence_00000000000000000000000037"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000032",
+          "page": 1,
+          "text": "Synthetic Candidate 07 used Quality Reporting in a separately reviewed role at Synthetic Employer 07-B.",
+          "fact_keys": ["experience:secondary", "skill:quality-reporting"],
+          "evidence_refs": ["evidence_00000000000000000000000038"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000033",
+          "page": 1,
+          "text": "Synthetic Candidate 07 completed a synthetic traditional degree program at Synthetic Institute 07.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000039"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000034",
+          "page": 1,
+          "text": "Synthetic Candidate 07 demonstrated Data Privacy in Synthetic Project 07.",
+          "fact_keys": ["project:reviewed", "skill:data-privacy"],
+          "evidence_refs": ["evidence_00000000000000000000000040"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000035",
+          "page": 1,
+          "text": "Synthetic Candidate 07 holds Synthetic Healthcare Operations License 07 after a reviewed assessment.",
+          "fact_keys": [
+            "credential:synthetic-foundation",
+            "license:healthcare-operations"
+          ],
+          "evidence_refs": ["evidence_00000000000000000000000041"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000008",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:b508f08ed84b0edb3aebef1fefc875ada77030509a517a8c8f8a6ed278a8348e"
+      },
+      "profile_ref": "profile_00000000000000000000000008",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000036",
+          "page": 1,
+          "text": "Synthetic Candidate 08 applied Curriculum Design to deliver reviewed work at Synthetic Employer 08-A.",
+          "fact_keys": ["experience:primary", "skill:curriculum-design"],
+          "evidence_refs": ["evidence_00000000000000000000000043"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000037",
+          "page": 1,
+          "text": "Synthetic Candidate 08 used Facilitation in a separately reviewed role at Synthetic Employer 08-B.",
+          "fact_keys": ["experience:secondary", "skill:facilitation"],
+          "evidence_refs": ["evidence_00000000000000000000000044"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000038",
+          "page": 1,
+          "text": "Synthetic Candidate 08 completed a synthetic traditional degree program at Synthetic Institute 08.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000045"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000039",
+          "page": 1,
+          "text": "Synthetic Candidate 08 demonstrated Learning Analytics in Synthetic Project 08.",
+          "fact_keys": ["project:reviewed", "skill:learning-analytics"],
+          "evidence_refs": ["evidence_00000000000000000000000046"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000040",
+          "page": 1,
+          "text": "Synthetic Candidate 08 earned Synthetic Credential 08 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000047"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000009",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:3ecf14e427f7580a000450d62c49b42d0d1b9d401bbc2d255fbbc6f0dbd40fbc"
+      },
+      "profile_ref": "profile_00000000000000000000000009",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000041",
+          "page": 1,
+          "text": "Synthetic Candidate 09 applied Pipeline Analysis to deliver reviewed work at Synthetic Employer 09-A.",
+          "fact_keys": ["experience:primary", "skill:pipeline-analysis"],
+          "evidence_refs": ["evidence_00000000000000000000000049"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000042",
+          "page": 1,
+          "text": "Synthetic Candidate 09 used CRM Administration in a separately reviewed role at Synthetic Employer 09-B.",
+          "fact_keys": ["experience:secondary", "skill:crm-administration"],
+          "evidence_refs": ["evidence_00000000000000000000000050"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000043",
+          "page": 1,
+          "text": "Synthetic Candidate 09 completed a synthetic certificate program at Synthetic Institute 09.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000051"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000044",
+          "page": 1,
+          "text": "Synthetic Candidate 09 demonstrated Forecasting in Synthetic Project 09.",
+          "fact_keys": ["project:reviewed", "skill:forecasting"],
+          "evidence_refs": ["evidence_00000000000000000000000052"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000045",
+          "page": 1,
+          "text": "Synthetic Candidate 09 earned Synthetic Credential 09 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000053"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000010",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:75f07caff0aa8c901c92adb3230c86677c44944a27097d98afcc1ab7d448461a"
+      },
+      "profile_ref": "profile_00000000000000000000000010",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000046",
+          "page": 1,
+          "text": "Synthetic Candidate 10 applied Financial Modeling to deliver reviewed work at Synthetic Employer 10-A.",
+          "fact_keys": ["experience:primary", "skill:financial-modeling"],
+          "evidence_refs": ["evidence_00000000000000000000000055"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000047",
+          "page": 1,
+          "text": "Synthetic Candidate 10 used Variance Analysis in a separately reviewed role at Synthetic Employer 10-B.",
+          "fact_keys": ["experience:secondary", "skill:variance-analysis"],
+          "evidence_refs": ["evidence_00000000000000000000000056"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000048",
+          "page": 1,
+          "text": "Synthetic Candidate 10 completed a synthetic traditional degree program at Synthetic Institute 10.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000057"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000049",
+          "page": 1,
+          "text": "Synthetic Candidate 10 demonstrated Risk Reporting in Synthetic Project 10.",
+          "fact_keys": ["project:reviewed", "skill:risk-reporting"],
+          "evidence_refs": ["evidence_00000000000000000000000058"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000050",
+          "page": 1,
+          "text": "Synthetic Candidate 10 earned Synthetic Credential 10 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000059"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000011",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:30114f6df3115728501da1aa823889c86456fbc51f18f3b6c3a9bbaa78a5bf50"
+      },
+      "profile_ref": "profile_00000000000000000000000011",
+      "as_of": "2026-07-29",
+      "page_count": 2,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000051",
+          "page": 1,
+          "text": "Synthetic Candidate 11 applied Documentation to deliver reviewed work at Synthetic Employer 11-A.",
+          "fact_keys": ["experience:primary", "skill:documentation"],
+          "evidence_refs": ["evidence_00000000000000000000000061"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000052",
+          "page": 1,
+          "text": "Synthetic Candidate 11 used Task Tracking in a separately reviewed role at Synthetic Employer 11-B.",
+          "fact_keys": ["experience:secondary", "skill:task-tracking"],
+          "evidence_refs": ["evidence_00000000000000000000000062"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000053",
+          "page": 1,
+          "text": "Synthetic Candidate 11 completed a synthetic bootcamp program at Synthetic Institute 11.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000063"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000054",
+          "page": 2,
+          "text": "Synthetic Candidate 11 demonstrated Team Communication in Synthetic Project 11.",
+          "fact_keys": ["project:reviewed", "skill:team-communication"],
+          "evidence_refs": ["evidence_00000000000000000000000064"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000055",
+          "page": 2,
+          "text": "Synthetic Candidate 11 earned Synthetic Credential 11 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000065"]
+        }
+      ]
+    },
+    {
+      "id": "resume_00000000000000000000000012",
+      "entity_type": "SOURCE_RESUME",
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v1",
+      "schema_version": "1.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_INDEPENDENT_SYNTHETIC_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:64b9396f9847af6e576ea99181300b1ea030e2c80f893e103cff39275712aec3"
+      },
+      "profile_ref": "profile_00000000000000000000000012",
+      "as_of": "2026-07-29",
+      "page_count": 1,
+      "facts": [
+        {
+          "fact_id": "resumefact_00000000000000000000000056",
+          "page": 1,
+          "text": "Synthetic Candidate 12 applied Issue Triage to deliver reviewed work at Synthetic Employer 12-A.",
+          "fact_keys": ["experience:primary", "skill:issue-triage"],
+          "evidence_refs": ["evidence_00000000000000000000000067"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000057",
+          "page": 1,
+          "text": "Synthetic Candidate 12 used Knowledge Management in a separately reviewed role at Synthetic Employer 12-B.",
+          "fact_keys": ["experience:secondary", "skill:knowledge-management"],
+          "evidence_refs": ["evidence_00000000000000000000000068"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000058",
+          "page": 1,
+          "text": "Synthetic Candidate 12 completed a synthetic self directed program at Synthetic Institute 12.",
+          "fact_keys": ["education:completed"],
+          "evidence_refs": ["evidence_00000000000000000000000069"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000059",
+          "page": 1,
+          "text": "Synthetic Candidate 12 demonstrated Customer Support in Synthetic Project 12.",
+          "fact_keys": ["project:reviewed", "skill:customer-support"],
+          "evidence_refs": ["evidence_00000000000000000000000070"]
+        },
+        {
+          "fact_id": "resumefact_00000000000000000000000060",
+          "page": 1,
+          "text": "Synthetic Candidate 12 earned Synthetic Credential 12 after a reviewed assessment.",
+          "fact_keys": ["credential:synthetic-foundation"],
+          "evidence_refs": ["evidence_00000000000000000000000071"]
+        }
+      ]
+    }
+  ]
+}

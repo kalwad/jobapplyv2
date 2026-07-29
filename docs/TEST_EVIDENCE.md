@@ -33,6 +33,140 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Synthetic profile/job/resume fixture foundation, in-progress content proof (2026-07-29)
+
+- Revision: in-progress working tree based on clean starting commit
+  `0c8efc9212162bcb4fa846e453007d9404d97429` / tree
+  `bc097542a25eddd9cfd39803fed884f71e20d86d`; executable content commit and
+  tree pending. M01 remains ACCEPTED at preserved executable tree
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590`.
+- Environment: macOS; Node 24.18.0; pnpm 11.17.0; uv 0.11.32; uv-managed
+  Python 3.12.13; cargo/rustc 1.97.1 with rustfmt and Clippy; Playwright
+  1.62.0 with pinned Chromium.
+- Scope: M02-W01 test/evaluation data only. No M02-W02 question/answer data,
+  mock ATS form, baseline, runner, frozen corpus, holdout body, extension,
+  scanner/resolver/driver, product schema, provider/model, ATS support,
+  critical-gate evidence, live employer page, or submission behavior exists.
+
+#### Design and exact development seed
+
+- Dedicated package: `packages/test-fixtures/`. Its eleven closed Draft
+  2020-12 schemas are test-only and have no product storage authority:
+  `common`, `synthetic-profile`, `evidence-artifact`, `source-resume`,
+  `synthetic-job`, `expected-requirement`, `expected-supported-claim`,
+  `unsupported-gap`, `field-value-policy`, `scenario-bundle`, and `manifest`,
+  each at fixture schema version `1.0.0` with explicit `:v1` test-fixture
+  roots. Corpus version `0.1.0` is `DEVELOPMENT_MUTABLE`; it contains no
+  holdout content.
+- Exact seed: 12 profiles; 72 evidence artifacts (24 employment and 12 each
+  credential, education, project, and approved user assertion); 12 bound
+  resumes; 24 jobs; 72 anchored requirements; 36 scenarios / 108 complete
+  evaluations; 59 supported claims; 49 explicit gaps; and 48 field-value
+  policies. The manifest covers nine non-empty collections / 384 records.
+- Coverage: all nine role families; EARLY/MID/SENIOR stages; career switch;
+  employment gap; nontraditional education; relocation and sponsorship
+  constraints; healthcare license; sensitive no-autofill; explicit
+  contradictions; one two-page resume with page-bound facts; strongest
+  abstention; balanced 8/8/8 remote/hybrid/on-site jobs; direct,
+  strong-related, partial, approved-user-asserted, unsupported, and
+  contradicted classifications.
+- Truth boundary: requirements are source-anchor/hash bound; direct
+  experience proves both normalized tag and dated threshold; related and
+  partial cases have reviewed semantic rationales; user assertions expose
+  one atomic field disclosure only and link the applicable policy.
+  Confirmation-gated claims are supported but not release eligible and carry
+  a confirmation action; gaps carry no supporting evidence.
+- Exact corpus digest:
+  `sha256:d91448c44761edeaaceeef032b3fabba6729cd33dd1bb8af879fb4ffbeeb0b2f`.
+  Every entity historical hash, every file byte digest/count, the aggregate
+  manifest digest, and the manifest historical hash reproduce.
+
+#### Local reconstruction and commands
+
+- `pnpm install --frozen-lockfile`, `uv sync --locked`,
+  `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`,
+  and `cargo fetch --locked --manifest-path
+  packages/contracts/test/contract/rust-harness/Cargo.toml` → exit 0. The
+  pnpm lock delta is exactly the reviewed `packages/test-fixtures` importer
+  (`@japp/contracts` workspace link plus already-pinned Prettier 3.9.6);
+  every other pnpm byte and the uv/Cargo locks remain preserved.
+- Direct fixture commands:
+  - `pnpm --filter @japp/test-fixtures fixtures:seed:check` → exit 0,
+    byte-identical deterministic output with the exact counts above.
+  - `pnpm --filter @japp/test-fixtures fixtures:validate` → exit 0, all
+    schema, stable-ID, type-safe reference, chronology, evidence,
+    classification, page, constraint, release, and hash invariants passed.
+  - `pnpm --filter @japp/test-fixtures fixtures:privacy` → exit 0, 25
+    producer files / 20,813 text fields; no real-looking PII, secret, local
+    identity/path, hidden text, or prompt injection.
+  - `pnpm --filter @japp/test-fixtures fixtures:platform-v1` → exit 0, all
+    fifteen deprecated-v1/corrected-v2 sibling pairs derived and 25 producer
+    files clean.
+  - `pnpm --filter @japp/test-fixtures fixtures:discover` → exit 0, nine
+    collections / 384 records / 108 evaluations / five focused files /
+    exactly 50 tests.
+  - `pnpm --filter @japp/test-fixtures exec vitest run test/m02-w01` → exit
+    0, 5/5 files and exactly 50/50 tests.
+- Canonical local validation:
+  - `pnpm generate:contracts --check` → exit 0, all 183 generated files
+    byte-identical.
+  - `pnpm contracts:compatibility:check` → exit 0,
+    `{"additive_changes":[],"compatible":true,"findings":[]}`.
+  - `pnpm traceability:generate`, `pnpm traceability:check`, and
+    `python3 scripts/validate_status.py` → exit 0; 193 requirements / 300
+    work packages and 45 status groups passed.
+  - `pnpm run doctor` → exit 0, 22 PASS / one expected dirty-tree warning /
+    zero FAIL / one honest NOT_YET_APPLICABLE visual suite; fixture-corpus
+    ACTIVE.
+  - `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`,
+    `pnpm test:contract`, `pnpm test:e2e`, `pnpm test:python`, and
+    `pnpm test:rust` → exit 0. Focused totals include 662 contract tests, one
+    browser smoke test, 677 Python tests, and 11 Rust tests.
+  - Final evidence-bearing `pnpm verify` → exit 0; every ACTIVE suite PASS,
+    including fixture-corpus with the exact-50 proof; visual remains honestly
+    NOT_YET_APPLICABLE. `git diff --check` passed and verification was
+    status-neutral.
+
+#### Independent review and bounded M01 audit follow-ups
+
+- The fixture/schema reviewer initially rejected overstated relations,
+  source-link gaps, multiplexed assertion release, and backdated review
+  metadata. After correction, the reviewer independently reproduced digest
+  `d91448c4…b0b2f`, ran seed/validation and 50/50 focused plus 51/51 package
+  tests, and at `2026-07-29T09:05:28Z` attested the
+  `m02w01-fixture-reviewer` metadata and
+  `M02W01_INDEPENDENT_SYNTHETIC_REVIEW` provenance for these exact bytes.
+- The privacy/security reviewer initially rejected path/key/extension
+  bypasses and unsafe diagnostic pointers. After correction, the reviewer
+  independently reproduced both manifest hashes, exact counts, 50/50 tests,
+  25-file/20,813-field privacy proof, all fifteen platform pairs, and direct
+  POSIX/macOS/Windows/UNC/file/tilde, sensitive-key, unknown-extension,
+  symlink, traversal, fragment, masking, and URI false-positive probes with no
+  remaining blocker.
+- ADR-0004 records deprecated corrected-platform v1 as read-only historical
+  compatibility and requires v2 for every new producer. The executable M02
+  guard rejects exact, fragmented, value, and JSON-key references without
+  rejecting unaffected v1-only roots.
+- KI-0033: Gate D guidance now names `evidence-record:v2` and
+  `certification-input:v2`; status validation resolves their exact existing
+  nondeprecated IDs. Four temporary-copy v1/v999 mutations fail.
+- KI-0034/KI-0035: the two Python wrappers retain their existing 300-second
+  and 30-second deadlines, use argv-only shell-free concurrent pipe draining,
+  cap combined retained output at 1 MiB, and return explicit timeout,
+  overflow, undecodable-output, execution, and ordinary nonzero diagnostics.
+  No package/test/CI/global timeout increased.
+
+- Artifacts: committed fixture schemas, generator, development data,
+  manifest, validators, scanners, and tests under
+  `packages/test-fixtures/`; verification registration in
+  `scripts/verification-suites.json`; no screenshot/trace because no failure
+  occurred.
+- Known flaky behavior: none observed or waived.
+- Pending before verification/closeout: executable content commit; two exact
+  clean clones; fresh three-OS content CI with complete Windows-log
+  inspection. M02-W01 remains IN_PROGRESS, no package is READY, every gate
+  remains NOT_EVALUATED, and release remains NOT_READY.
+
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 
 - Starting revision: clean `main` at

@@ -2,14 +2,27 @@
   "name": "@japp/test-fixtures",
   "version": "0.0.1",
   "private": true,
-  "description": "Synthetic documents, jobs, forms, and expected results (spec §5.1); seeded in M02 — never real PII (spec §1.5). Scaffold created in M00-W02.",
+  "description": "Test-only synthetic profile, evidence, resume, job, expected-result, and field-policy fixtures owned by M02-W01; never product storage authority or real PII.",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
+    "fixtures:seed": "node scripts/generate-seed.ts",
+    "fixtures:seed:check": "node scripts/generate-seed.ts --check",
+    "fixtures:validate": "node src/cli.ts validate",
+    "fixtures:privacy": "node src/cli.ts privacy",
+    "fixtures:platform-v1": "node src/cli.ts platform-v1",
+    "fixtures:discover": "node src/cli.ts discover",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@japp/contracts": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "catalog:",
+    "prettier": "3.9.6",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

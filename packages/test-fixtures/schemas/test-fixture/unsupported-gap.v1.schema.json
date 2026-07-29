@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:unsupported-gap:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Explicit non-supported requirement gap",
+  "description": "TEST-ONLY abstention record for partial, unsupported, or contradicted expected support.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "scenario_ref",
+    "profile_ref",
+    "requirement_ref",
+    "classification",
+    "supporting_evidence_refs",
+    "related_or_contradicting_evidence_refs",
+    "expected_action",
+    "reason_code",
+    "support_review_rationale"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "UNSUPPORTED_GAP"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:unsupported-gap:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "scenario_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "requirement_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["CONTRADICTED", "PARTIAL", "UNSUPPORTED"]
+    },
+    "supporting_evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      },
+      "maxItems": 0
+    },
+    "related_or_contradicting_evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "expected_action": {
+      "const": "ABSTAIN"
+    },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "CONTRADICTED_BY_EXPLICIT_RECORD",
+        "INSUFFICIENT_DIRECT_EVIDENCE",
+        "NO_SUPPORTING_EVIDENCE"
+      ]
+    },
+    "support_review_rationale": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:expected-supported-claim:v1",
+  "x-japp-schema-version": "1.0.0",
+  "title": "Expected supported claim",
+  "description": "TEST-ONLY expected claim that may use only direct, strong-related, or approved user-asserted evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "scenario_ref",
+    "profile_ref",
+    "requirement_ref",
+    "support_classification",
+    "claim_text",
+    "evidence_refs",
+    "release_eligible",
+    "canonical_evidence_mutation",
+    "support_review_rationale"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "EXPECTED_SUPPORTED_CLAIM"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:expected-supported-claim:v1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/fixtureMetadata"
+    },
+    "scenario_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "requirement_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "support_classification": {
+      "type": "string",
+      "enum": ["DIRECT", "STRONG_RELATED", "USER_ASSERTED"]
+    },
+    "claim_text": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+      },
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "field_policy_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+    },
+    "release_eligible": {
+      "type": "boolean"
+    },
+    "canonical_evidence_mutation": {
+      "const": false
+    },
+    "support_review_rationale": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "support_classification": { "const": "USER_ASSERTED" }
+        },
+        "required": ["support_classification"]
+      },
+      "then": {
+        "properties": {
+          "field_policy_ref": {
+            "$ref": "urn:japp:schema:test-fixture:common:v1#/$defs/stableId"
+          }
+        },
+        "required": ["field_policy_ref"]
+      },
+      "else": {
+        "not": {
+          "required": ["field_policy_ref"]
+        }
+      }
+    }
+  ]
+}

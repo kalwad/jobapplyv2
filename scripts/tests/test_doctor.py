@@ -143,6 +143,11 @@ def doctor_repo(tmp_path: Path) -> Path:
     )
     contract_test = contract_harness.parent / "fixture.test.ts"
     contract_test.write_text("export {};\n", encoding="utf-8")
+    fixture_test = (
+        repo / "packages" / "test-fixtures" / "test" / "m02-w01" / "fixture.test.ts"
+    )
+    fixture_test.parent.mkdir(parents=True)
+    fixture_test.write_text("export {};\n", encoding="utf-8")
     for rel in (
         "validate_status.py",
         "traceability.py",

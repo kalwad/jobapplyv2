@@ -63,6 +63,18 @@ def repo_copy(tmp_path: Path) -> Path:
     repo.mkdir()
     shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
     shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+    platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
+    platform_schemas.mkdir(parents=True)
+    for name in ("evidence-record", "certification-input"):
+        shutil.copy2(
+            REPO_ROOT
+            / "packages"
+            / "contracts"
+            / "schemas"
+            / "platform"
+            / f"{name}.v2.schema.json",
+            platform_schemas / f"{name}.v2.schema.json",
+        )
     return repo
 
 
@@ -643,6 +655,33 @@ def test_owner_controlled_agent_and_staged_ai_policy_are_present() -> None:
     assert "Implementation sessions use Claude Fable 5 Max" not in (
         REPO_ROOT / "CLAUDE.md"
     ).read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize(
+    ("family", "wrong_major"),
+    [
+        ("evidence-record", "v1"),
+        ("evidence-record", "v999"),
+        ("certification-input", "v1"),
+        ("certification-input", "v999"),
+    ],
+)
+def test_future_gate_d_schema_guidance_rejects_deprecated_or_missing_major(
+    repo_copy: Path,
+    family: str,
+    wrong_major: str,
+) -> None:
+    ledger = repo_copy / "docs" / "CRITICAL_GATES.md"
+    edit(
+        ledger,
+        f"urn:japp:schema:platform:{family}:v2",
+        f"urn:japp:schema:platform:{family}:{wrong_major}",
+        count=1,
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert f"platform:{family}:v2" in result.stdout
+    assert "future Gate D guidance" in result.stdout
 
 
 def test_gate_pass_unblocks_m03(repo_copy: Path) -> None:
