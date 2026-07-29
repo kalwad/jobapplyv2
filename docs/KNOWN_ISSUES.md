@@ -34,15 +34,15 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-KI-0029, KI-0030, and KI-0031 are HIGH/IN_PROGRESS and block M01-W07
-verification and M01 acceptance. KI-0032 is MEDIUM/IN_PROGRESS associated
-infrastructure work. KI-0022, KI-0026, and KI-0027 remain DEFERRED with named
-owning packages.
+No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
+FIXED by the final M01-W07 corrective content at tree
+`51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
+remain DEFERRED with named owning packages.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
 - Affects: M01-W07 and M01; `docs/PROJECT_STATUS.md`;
   `scripts/validate_status.py`
@@ -56,15 +56,20 @@ owning packages.
 - Reproduction: at `93541b755dfcd2708c955ada4fdef943b0afaa09`, inspect the
   accepted rows and the live blocker section, then run
   `python3 scripts/validate_status.py`; all 43 groups incorrectly pass.
-- Workaround: none accepted. M01-W07 and M01 are reopened and no package is
-  READY until the live blocker ledger is machine-parsed and reconciled.
-- Resolution + evidence link: pending the M01-W07 corrective content revision,
-  negative status fixtures, two clean clones, and exact-revision three-OS CI.
+- Workaround: none was accepted. M01-W07 and M01 remained reopened with no
+  READY package throughout executable correction and content proof.
+- Resolution + evidence link: `scripts/validate_status.py` now machine-parses
+  and reconciles every live blocker against the issue ledger, affected
+  milestones, package state, and next readiness. Permanent negative fixtures
+  include the exact prior contradiction. Final content commit
+  `c24ccf989726a4870c152a22eec7b6f48e125be8` / tree
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590` passed two exact-commit clean
+  clones and three-OS run 30423199771; see `docs/TEST_EVIDENCE.md` § M01-W07.
 
 ### KI-0030 — Platform semantic matrices admit cross-axis contradictions
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
 - Affects: M01-W07 platform schemas, semantic rules, generated TypeScript and
   Python bindings, and the representative Rust compatibility harness
@@ -82,18 +87,19 @@ owning packages.
   return structural VALID and semantic VALID at
   `93541b755dfcd2708c955ada4fdef943b0afaa09`; the required verdict is semantic
   INVALID under the corrected contract.
-- Workaround: consumers must not treat the affected v1 semantics as corrected
-  certification or platform evidence. The old major remains compatibility-only
-  while reviewed v2 matrices are implemented.
+- Workaround: the affected deprecated v1 semantics remain
+  compatibility-only; corrected consumers select the reviewed v2 roots.
 - Resolution + evidence link: corrected v2 semantics, the 13 direct witnesses,
   and real-adapter parity for all 538 platform/policy plus 288 secret-store
-  cells are recorded in `docs/TEST_EVIDENCE.md`; two clean clones and
-  exact-revision three-OS CI remain pending.
+  cells are recorded in `docs/TEST_EVIDENCE.md`. Final content commit
+  `c24ccf989726a4870c152a22eec7b6f48e125be8` / tree
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590` passed both exact-commit clean
+  clones and run 30423199771 on macos-15, windows-2025, and ubuntu-24.04.
 
 ### KI-0031 — Same-major semantic changes escaped compatibility classification
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
 - Affects: M01-W07 and M01-W05 compatibility infrastructure;
   `packages/contracts/test/contract/breaking/`
@@ -116,17 +122,22 @@ owning packages.
   the `44827ae` v1 evaluator and invalid under the then-current v1 evaluator,
   while `pnpm contracts:compatibility:check` reports
   `{"compatible":true,"findings":[]}`.
-- Workaround: do not update the compatibility baseline until retained v1
-  behavior and corrected v2 behavior are independently classified.
-- Resolution + evidence link: pending a deprecated compatibility-only v1
-  accepted-set union, 15 corrected v2 roots, executable positive/negative
-  behavior witnesses, a fail-closed baseline update, two clean clones, and
-  exact-revision three-OS CI.
+- Workaround: baseline updates remain forbidden until retained old-major and
+  corrected new-major executable behavior is independently classified.
+- Resolution + evidence link: the deprecated v1 accepted-set union preserves
+  all 229 canonical historical-positive witnesses; 15 corrected v2 roots and
+  30 v2 bindings carry the intentional tightening; compatibility format 2.1
+  binds 572 executable semantic witnesses and fails closed on same-major
+  semantic removals. The named baseline update followed recorded additive
+  classification and two empty read-only rechecks. Final content
+  `c24ccf989726a4870c152a22eec7b6f48e125be8` /
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590` passed two clean clones and
+  three-OS run 30423199771; see `docs/TEST_EVIDENCE.md` § M01-W07.
 
 ### KI-0032 — Child-process and compatibility evidence bounds were incomplete
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
 - Affects: M01-W07/M01-W05 test infrastructure and contract documentation
 - Description: at invalidated anchor `93541b7`, three synchronous
@@ -139,10 +150,17 @@ owning packages.
   synchronous child calls in generated-contract, error-taxonomy, and
   security-policy tests; each lacks an explicit timeout. Compare the locked
   manifest applicability counts with the cited evidence prose.
-- Workaround: the shared contract child runner is already bounded; do not
-  increase Vitest or CI job timeouts.
-- Resolution + evidence link: pending explicit child bounds, timeout
-  regressions where practical, and precise bounded-witness documentation.
+- Workaround: no timeout increase was used; all external children continue to
+  fail closed within their explicit operation-specific bounds.
+- Resolution + evidence link: the three generated-test child sites now share
+  a shell-free 15-second/1-MiB boundary with deterministic timeout, output,
+  execution, and nonzero-exit behavior; Rust build/adapters and semantic
+  batches use explicit 300/120/30-second bounds. Documentation now records
+  exact language applicability and executable-witness scope. Final content
+  commit `c24ccf989726a4870c152a22eec7b6f48e125be8` / tree
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590` passed local verification, both
+  clean clones, and three-OS run 30423199771; see `docs/TEST_EVIDENCE.md`
+  § M01-W07.
 
 ### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
 

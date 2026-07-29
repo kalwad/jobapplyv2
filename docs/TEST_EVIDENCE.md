@@ -356,7 +356,86 @@ The final integration sweep also caught and corrected old catalog assertions
 that still expected 63 documents, 20 platform documents, semantic catalog
 version 1.0.0, and 80 bindings. No test was focused, skipped, or labelled
 flaky; verification introduced no untracked generation drift. The exact
-content commit, clean clones, and hosted CI remain pending at this point.
+content proof is recorded below.
+
+#### Executable content commits and closeout-regression repair
+
+- Semantic content commit
+  `12c74a67839061bbb8fa0d5fee9ada591ca1c48c` / tree
+  `03baa6dc0ee413d23a34d0c0ef7a0cc54fd3c11b` used the exact message
+  `fix: repair final platform state and semantic compatibility gaps` and
+  changed 125 files. Exact-commit clones
+  `/tmp/japp-m01-w07-clones.r2qKBX/clean clone one` and
+  `/tmp/japp-m01-w07-clones.r2qKBX/clöné 二` both passed frozen/locked
+  installation, both Cargo fetches, doctor, deterministic generation,
+  compatibility, focused matrices, contract, full verification,
+  status/traceability, canonical-spec hash, and clean-tree assertions.
+- Fresh run **30421961290** at that exact semantic commit passed ubuntu-24.04
+  job 90480450265 (4m53s), macos-15 job 90480450326 (5m56s), and
+  windows-2025 job 90480450314 (9m04s). The raw Windows log was inspected and
+  confirmed exact checkout, pinned toolchains, every active suite,
+  verification exit 0, and the clean-tree assertion.
+- A first uncommitted attempt to apply the five-file closeout stamp then
+  exposed a real lifecycle defect: seven Python validator tests hard-coded
+  KI-0029/KI-0030/KI-0031 as live IN_PROGRESS blockers, so the live FIXED
+  issue state made those fixtures incoherent. No stamp was committed. All
+  five governance files were restored exactly to the semantic content commit
+  before executable repair.
+- Follow-up content commit
+  `c24ccf989726a4870c152a22eec7b6f48e125be8` / tree
+  `51c81bedb909ae7b6d54569abc8b8fb13af1c590`, message
+  `test: make blocker fixtures independent of closeout state`, changes only
+  `scripts/tests/test_validate_status.py` (42 insertions). Blocker tests now
+  synthesize their own coherent reopened package revision and issue states
+  instead of inheriting the live ledger. Focused validator verification
+  passed 144/144 tests; full `pnpm verify` in the reopened state passed
+  TypeScript 2440/2440, contract 662/662, Chromium 1/1 plus discovery,
+  Python 667/667, native-host Rust 1/1, compatibility Rust 10/10,
+  traceability 193 requirements / 300 packages, status 44/44 groups, and all
+  other active suites.
+
+#### Final exact-commit clean clones and hosted content proof
+
+Final corrective content is commit
+`c24ccf989726a4870c152a22eec7b6f48e125be8` / tree
+`51c81bedb909ae7b6d54569abc8b8fb13af1c590`.
+
+- Replacement clone `/tmp/japp-content-proof.1QuY7d/Exact Commit Proof` and
+  spaces/non-ASCII clone
+  `/tmp/japp-c24ccf-proof.7M8QiU/JAPP clean café` were cloned with
+  `--no-local`, checked out at the exact final content commit, and proved the
+  same tree. Each used Node 24.18.0 and pnpm 11.17.0; ran
+  `pnpm install --frozen-lockfile`, `uv sync --locked`, and both
+  `cargo fetch --locked` manifests; reported doctor
+  22 PASS / 0 WARNING / 0 FAIL / 1 NOT_YET_APPLICABLE; checked 183 generated
+  files byte-identically; returned empty compatibility findings; passed the
+  1396-case focused matrices, 662-case contract suite, all active
+  verification suites, status 44/44, and traceability 193/300; reproduced the
+  canonical specification hash; and ended clean.
+- Fresh final-content run **30423199771** passed at exact head
+  `c24ccf989726a4870c152a22eec7b6f48e125be8`: ubuntu-24.04 job 90484011903
+  in 4m52s, macos-15 job 90484011902 in 5m19s, and windows-2025 job
+  90484011874 in 9m25s.
+- The complete raw Windows log was inspected. It confirms exact checkout,
+  Node 24.18.0 / pnpm 11.17.0, doctor 22/0/0/1 with a clean tree, 183
+  generated files byte-identical, TypeScript 2440/2440, contract 662/662,
+  Chromium smoke 1/1 plus discovery, Windows-applicable Python 665/665,
+  native-host Rust 1/1, compatibility Rust 10/10, adapter applicability
+  TypeScript 510 / Python 506 / Rust 505 plus 229 historical verdicts in each
+  language, status 44/44, verification exit 0, and the post-verification
+  clean-tree assertion. There were no GitHub error markers, focused/flaky
+  tests, timeout failures, or nonzero workflow exits.
+
+#### Final corrective closeout
+
+KI-0029, KI-0030, KI-0031, and KI-0032 are FIXED. M01-W07 is VERIFIED and
+M01 is ACCEPTED at final content tree
+`51c81bedb909ae7b6d54569abc8b8fb13af1c590`; M02-W01 is the sole READY
+package, no package is IN_PROGRESS, and no M02 implementation has begun. M00
+remains ACCEPTED, all four critical gates remain NOT_EVALUATED, and release
+remains NOT_READY. This conventional closeout stamp is limited to the five
+authorized governance/evidence files and requires its own exact-HEAD
+three-OS CI before the lifecycle is final.
 
 The old KI-0025 statement that its semantic narrowing was “additive” is
 historical and invalidated. The old content/stamp trees and CI runs below are
