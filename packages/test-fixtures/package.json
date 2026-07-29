@@ -15,7 +15,7 @@
     "fixtures:platform-v1": "node src/cli.ts platform-v1",
     "fixtures:discover": "node src/cli.ts discover",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run --no-file-parallelism --maxWorkers=1"
   },
   "dependencies": {
     "@japp/contracts": "workspace:*"

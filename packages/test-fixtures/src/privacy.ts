@@ -83,6 +83,21 @@ const ABSOLUTE_LOCAL_PATH_PATTERNS: readonly RegExp[] = [
   /\bfile:(?:\/\/\/?|[\\/])[^\r\n"'()]+/giu,
 ];
 
+const COMMON_MACHINE_NAMES = new Set([
+  "admin",
+  "localhost",
+  "root",
+  "runner",
+  "ubuntu",
+  "windows",
+]);
+const LOCAL_IDENTITY_TOKENS = [basename(homedir()), hostname()]
+  .map((candidate) => candidate.toLocaleLowerCase("en-US"))
+  .filter(
+    (candidate) =>
+      candidate.length >= 5 && !COMMON_MACHINE_NAMES.has(candidate),
+  );
+
 function addIssue(
   issues: PrivacyIssue[],
   code: string,
@@ -153,23 +168,9 @@ function inspectText(
       "absolute user or machine path detected",
     );
   }
-  const commonMachineNames = new Set([
-    "admin",
-    "localhost",
-    "root",
-    "runner",
-    "ubuntu",
-    "windows",
-  ]);
-  const localNames = [basename(homedir()), hostname()]
-    .map((candidate) => candidate.toLocaleLowerCase("en-US"))
-    .filter(
-      (candidate) =>
-        candidate.length >= 5 && !commonMachineNames.has(candidate),
-    );
   const normalizedValue = value.toLocaleLowerCase("en-US");
   if (
-    localNames.some((candidate) =>
+    LOCAL_IDENTITY_TOKENS.some((candidate) =>
       normalizedValue
         .split(/[^\p{L}\p{N}_.-]+/u)
         .some((token) => token === candidate),

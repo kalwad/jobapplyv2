@@ -161,11 +161,37 @@ Exact verification commands and summarized results
   `packages/test-fixtures/`; verification registration in
   `scripts/verification-suites.json`; no screenshot/trace because no failure
   occurred.
-- Known flaky behavior: none observed or waived.
-- Pending before verification/closeout: executable content commit; two exact
-  clean clones; fresh three-OS content CI with complete Windows-log
-  inspection. M02-W01 remains IN_PROGRESS, no package is READY, every gate
-  remains NOT_EVALUATED, and release remains NOT_READY.
+- Known flaky behavior: none waived; the failed hosted run below remains
+  historical evidence and its corrections require a complete fresh lifecycle.
+- Pending before verification/closeout: corrective executable content commit;
+  two repeated exact clean clones; fresh three-OS content CI with complete
+  Windows-log inspection. M02-W01 remains IN_PROGRESS, no package is READY,
+  every gate remains NOT_EVALUATED, and release remains NOT_READY.
+
+#### Hosted corrective lifecycle
+
+- First content commit
+  `0fd070cbe803600d80702f5be959945a234b1451` / tree
+  `e2d0105b1efcb507b51b23e11841194aa9c9887f` passed both exact clean
+  clones (`/tmp/japp-m02w01-clones.7fQs34/normal` and
+  `/tmp/japp-m02w01-clones.7fQs34/clone with spaces – ü`), including
+  frozen/locked setup, both Cargo fetches, clean doctor, direct fixture proof,
+  full verification, canonical hash, and clean-tree assertions.
+- Fresh hosted run `30439385146` is failed historical evidence, not closeout
+  proof. macOS job `90534741118` passed. Ubuntu job `90534741162` exposed a
+  nonzero concurrent Rust semantic-matrix build while 2,439 sibling contract
+  tests passed. Windows job `90534741237` exposed native CRLF output in the
+  new bounded-process helper and a fixed-five-second fixture privacy test
+  exceeded only during workspace-wide contention; direct fixture-corpus,
+  contract, Rust, portability, traceability, status, and integrity suites
+  still passed there.
+- The corrective working tree restores universal-newline semantics without
+  weakening the byte ceiling, hoists invariant host-identity discovery out of
+  the privacy scanner's per-field hot path, and serializes only the fixture
+  package's Vitest files to remove newly introduced workspace pressure. No
+  timeout, workflow, toolchain, contract, corpus, expected result, or scanner
+  rule changes. A new content commit and the complete two-clone/three-OS
+  lifecycle are required before closeout.
 
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 

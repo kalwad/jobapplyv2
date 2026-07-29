@@ -74,9 +74,22 @@ def _decode_output(
     args: Sequence[str],
 ) -> subprocess.CompletedProcess[str] | tuple[str, str]:
     try:
+        # Match subprocess text=True universal-newline behavior on every host.
+        # The wrappers replaced by this helper previously returned "\n" even
+        # when a Windows child wrote native CRLF bytes.
+        stdout = (
+            stdout_bytes.decode("utf-8", errors="strict")
+            .replace("\r\n", "\n")
+            .replace("\r", "\n")
+        )
+        stderr = (
+            stderr_bytes.decode("utf-8", errors="strict")
+            .replace("\r\n", "\n")
+            .replace("\r", "\n")
+        )
         return (
-            stdout_bytes.decode("utf-8", errors="strict"),
-            stderr_bytes.decode("utf-8", errors="strict"),
+            stdout,
+            stderr,
         )
     except UnicodeDecodeError:
         return subprocess.CompletedProcess(

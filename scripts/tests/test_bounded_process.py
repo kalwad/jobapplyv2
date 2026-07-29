@@ -54,8 +54,10 @@ def test_ordinary_nonzero_exit_preserves_stdout_and_stderr(tmp_path: Path) -> No
             sys.executable,
             "-c",
             (
-                "import sys; print('ordinary-out'); "
-                "print('ordinary-error', file=sys.stderr); raise SystemExit(7)"
+                "import sys; "
+                "sys.stdout.buffer.write(b'ordinary-out\\r\\n'); "
+                "sys.stderr.buffer.write(b'ordinary-error\\r\\n'); "
+                "raise SystemExit(7)"
             ),
         ],
         cwd=tmp_path,
