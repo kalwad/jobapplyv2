@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:process-plan:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Platform process supervisor spawn plan",
+  "description": "A typed spawn plan. It names an approved executable profile, never a command string, interpreter invocation, executable path, or script body. Arguments are an already-separated bounded array, the environment is a closed allowlist, and the working directory is a typed role. Shell interpolation, command chaining, redirection, metacharacter payloads, registry commands, privilege escalation, raw file descriptors, and raw signal values are structurally unrepresentable. This contract does not spawn anything.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "process_plan_id",
+    "request_context",
+    "profile",
+    "arguments",
+    "environment_allowlist",
+    "working_directory_role",
+    "stdin_mode",
+    "stdout_mode",
+    "stderr_mode",
+    "lifecycle_mode",
+    "startup_timeout_ms",
+    "shutdown_timeout_ms",
+    "max_restart_attempts",
+    "inherit_parent_environment"
+  ],
+  "properties": {
+    "process_plan_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "request_context": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/requestContext"
+    },
+    "profile": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId"
+    },
+    "profile_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "executable_digest": {
+      "description": "Digest of the exact approved executable the profile resolves to, so a supervisor can refuse a substituted binary.",
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "arguments": {
+      "description": "Already-separated argument array. It is never joined into a command line and never interpreted by a shell.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processArgument"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "environment_allowlist": {
+      "description": "Closed allowlist entries. An arbitrary environment dictionary cannot be expressed.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/environmentEntry"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "inherit_parent_environment": {
+      "description": "Always false in a reviewed plan: a packaged process must not inherit an interactive-shell environment.",
+      "type": "boolean"
+    },
+    "working_directory_role": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/pathRole"
+    },
+    "stdin_mode": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode"
+    },
+    "stdout_mode": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode"
+    },
+    "stderr_mode": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/stdioMode"
+    },
+    "lifecycle_mode": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/lifecycleMode"
+    },
+    "startup_timeout_ms": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds"
+    },
+    "shutdown_timeout_ms": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/timeoutMilliseconds"
+    },
+    "max_restart_attempts": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 8
+    },
+    "max_memory_mib": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
+    }
+  }
+}

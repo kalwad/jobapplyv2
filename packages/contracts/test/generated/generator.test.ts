@@ -8,7 +8,6 @@
  * the repository's own schemas/ or generated/ trees destructively.
  */
 
-import { execFileSync } from "node:child_process";
 import {
   cpSync,
   mkdtempSync,
@@ -44,6 +43,7 @@ import {
   DEFAULT_GENERATED_ROOT,
   parseCliArguments,
 } from "../../generator/cli.ts";
+import { runBoundedCliProcess } from "./support/bounded-cli.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("../../../..", import.meta.url));
 const CLI_PATH = join(REPO_ROOT, "scripts", "generate-contracts.ts");
@@ -76,30 +76,12 @@ afterEach(() => {
   }
 });
 
-interface CliResult {
-  readonly status: number;
-  readonly output: string;
-}
-
-function runCliProcess(...cliArguments: string[]): CliResult {
-  try {
-    const stdout = execFileSync(process.execPath, [CLI_PATH, ...cliArguments], {
-      encoding: "utf8",
-      cwd: REPO_ROOT,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    return { status: 0, output: stdout };
-  } catch (error) {
-    const failure = error as {
-      status?: number | null;
-      stdout?: string;
-      stderr?: string;
-    };
-    return {
-      status: failure.status ?? -1,
-      output: `${failure.stdout ?? ""}${failure.stderr ?? ""}`,
-    };
-  }
+function runCliProcess(...cliArguments: string[]) {
+  return runBoundedCliProcess(
+    process.execPath,
+    [CLI_PATH, ...cliArguments],
+    REPO_ROOT,
+  );
 }
 
 /** Copy the real schema catalog into a mutable temporary fixture. */
@@ -171,7 +153,7 @@ describe("determinism", () => {
       inputs: { path: string; sha256: string }[];
       outputs: { path: string; sha256: string }[];
     };
-    expect(parsed.inputs.length).toBe(63);
+    expect(parsed.inputs.length).toBe(78);
     expect(parsed.outputs.length).toBe(tree.files.size - 1);
     for (const entry of [...parsed.inputs, ...parsed.outputs]) {
       expect(entry.path.includes("\\")).toBe(false);
@@ -181,6 +163,31 @@ describe("determinism", () => {
 });
 
 describe("check mode (real CLI)", () => {
+  test("bounded runner preserves an intentional nonzero exit", () => {
+    expect(
+      runBoundedCliProcess(
+        process.execPath,
+        [
+          "-e",
+          "process.stderr.write('EXPECTED_FAILURE'); process.exitCode = 7;",
+        ],
+        REPO_ROOT,
+        { timeoutMs: 5_000 },
+      ),
+    ).toEqual({ status: 7, output: "EXPECTED_FAILURE" });
+  });
+
+  test("bounded runner fails closed on timeout", () => {
+    expect(() =>
+      runBoundedCliProcess(
+        process.execPath,
+        ["-e", "setTimeout(() => {}, 500);"],
+        REPO_ROOT,
+        { timeoutMs: 50 },
+      ),
+    ).toThrow(expect.objectContaining({ code: "CLI_TIMEOUT" }));
+  });
+
   test("passes on the committed tree without modifying it", () => {
     const before = treeSnapshot(DEFAULT_GENERATED_ROOT);
     const result = runCliProcess("--check");
@@ -292,9 +299,9 @@ describe("write mode", () => {
       generatedRoot,
     );
     expect(followUpCheck.status).toBe(0);
-    // Three full generator CLI passes over the M01-W07 catalog (63 docs)
+    // Three full generator CLI passes over the complete M01-W07 catalog
     // routinely exceed Vitest's 5s default on slower Windows hosted runners.
-    // Assertions are unchanged; only the wall-clock budget matches the work.
+    // Assertions are unchanged; only the outer test budget matches the work.
   }, 30_000);
 
   test("write mode replaces stray pre-existing content wholesale", () => {

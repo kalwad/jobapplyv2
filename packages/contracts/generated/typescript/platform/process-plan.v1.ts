@@ -17,6 +17,7 @@ import type { PlatformVocabularyV1EnvironmentEntry, PlatformVocabularyV1Lifecycl
  * Platform process supervisor spawn plan
  *
  * A typed spawn plan. It names an approved executable profile, never a command string, interpreter invocation, executable path, or script body. Arguments are an already-separated bounded array, the environment is a closed allowlist, and the working directory is a typed role. Shell interpolation, command chaining, redirection, metacharacter payloads, registry commands, privilege escalation, raw file descriptors, and raw signal values are structurally unrepresentable. This contract does not spawn anything.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformProcessPlanV1 {
   readonly process_plan_id: CommonStableIdV1StableId;

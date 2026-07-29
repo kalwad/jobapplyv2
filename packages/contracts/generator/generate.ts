@@ -73,8 +73,11 @@ import {
  * No IR construct, emitter shape, manifest field, or naming rule changed;
  * the bump exists so a consumer cannot mistake a 1.3.0 artifact for one that
  * can evaluate the platform contracts.
+ * 1.5.0 (M01-W07 corrective): deprecated v1 platform evaluators preserve the
+ * published accepted-set union while distinct v2 rule kinds carry the reviewed
+ * strict semantics and the generator emits the corresponding v2 roots.
  */
-export const GENERATOR_FORMAT_VERSION = "1.4.0";
+export const GENERATOR_FORMAT_VERSION = "1.5.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {

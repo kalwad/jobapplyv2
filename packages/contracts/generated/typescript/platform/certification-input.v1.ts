@@ -20,6 +20,7 @@ import type { PlatformVocabularyV1Architecture, PlatformVocabularyV1EvidenceArti
  * Platform certification input record
  *
  * The evidence inventory a future owner decision would consume before a platform support tier could be published. It is an input, never a decision: a certified proposal requires a certified target, a completed independent review, an evaluated revision, a complete evidence inventory, and a recorded owner decision. M01-W07 certifies no platform and changes no critical-gate state.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformCertificationInputV1 {
   readonly certification_input_id: CommonStableIdV1StableId;

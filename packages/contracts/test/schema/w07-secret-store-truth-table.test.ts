@@ -1,8 +1,18 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, test } from "vitest";
+import { beforeAll, describe, expect, test } from "vitest";
 
 import { validateSemanticContractV1 } from "../../generated/typescript/semantic/rules.v1.ts";
 import { createContractValidator, loadSchemaCatalog } from "../../src/index.ts";
+import type {
+  AdapterLanguage,
+  AdapterResult,
+} from "../contract/adapters/protocol.ts";
+import {
+  runSemanticMatrixAdapters,
+  type SemanticMatrixAdapterRun,
+  type SemanticMatrixCase,
+} from "../contract/support/orchestrator.ts";
+import { assertLanguageAgreement } from "../contract/support/response.ts";
 
 /**
  * Explicit M01-W07 secret-store result truth table and structural/semantic
@@ -31,7 +41,7 @@ const casesDocument = JSON.parse(
   ),
 ) as { readonly cases: readonly { readonly id: string }[] };
 
-const SECRET_RESULT = "urn:japp:schema:platform:secret-store-result:v1";
+const SECRET_RESULT = "urn:japp:schema:platform:secret-store-result:v2";
 const VOCABULARY = "urn:japp:schema:platform:vocabulary:v1";
 
 const SECRET_RESULT_STATES = [
@@ -47,6 +57,18 @@ const SECRET_RESULT_STATES = [
 
 const SECRET_OPERATIONS = ["DELETE", "GET", "PUT", "STATUS"] as const;
 
+const STORE_AVAILABILITY_STATES = [
+  "AVAILABLE",
+  "DEGRADED_LIMITED",
+  "INCOMPATIBLE_VERSION",
+  "NOT_EVALUATED",
+  "NOT_INSTALLED",
+  "PERMISSION_REQUIRED",
+  "UNAVAILABLE",
+  "UNKNOWN",
+  "UNSUPPORTED_TARGET",
+] as const;
+
 const STORE_UNAVAILABLE_AVAILABILITY = [
   "INCOMPATIBLE_VERSION",
   "NOT_EVALUATED",
@@ -55,6 +77,27 @@ const STORE_UNAVAILABLE_AVAILABILITY = [
   "UNKNOWN",
   "UNSUPPORTED_TARGET",
 ] as const;
+
+const UNAVAILABLE_REASON_BY_AVAILABILITY: Readonly<
+  Partial<Record<(typeof STORE_AVAILABILITY_STATES)[number], string>>
+> = {
+  INCOMPATIBLE_VERSION: "CONFIGURATION_INVALID",
+  NOT_EVALUATED: "EVALUATION_NOT_RUN",
+  NOT_INSTALLED: "NOT_INSTALLED",
+  UNAVAILABLE: "SERVICE_UNAVAILABLE",
+  UNKNOWN: "UNKNOWN_ERROR",
+  UNSUPPORTED_TARGET: "TARGET_NOT_CERTIFIED",
+};
+
+function requiredUnavailableReason(
+  availability: (typeof STORE_UNAVAILABLE_AVAILABILITY)[number],
+): string {
+  const reason = UNAVAILABLE_REASON_BY_AVAILABILITY[availability];
+  if (reason === undefined) {
+    throw new Error(`missing unavailable-store reason for ${availability}`);
+  }
+  return reason;
+}
 
 interface TruthBranch {
   readonly id: string;
@@ -423,6 +466,73 @@ const EXHAUSTIVE_CELLS = SECRET_OPERATIONS.flatMap((operation) =>
   SECRET_RESULT_STATES.map((resultState) => [operation, resultState] as const),
 );
 
+const FULL_AXIS_CELLS = SECRET_OPERATIONS.flatMap((operation) =>
+  SECRET_RESULT_STATES.flatMap((resultState) =>
+    STORE_AVAILABILITY_STATES.map(
+      (availability) => [operation, resultState, availability] as const,
+    ),
+  ),
+);
+
+function fullAxisCellAdmitted(
+  operation: (typeof SECRET_OPERATIONS)[number],
+  resultState: (typeof SECRET_RESULT_STATES)[number],
+  availability: (typeof STORE_AVAILABILITY_STATES)[number],
+): boolean {
+  if (availability === "PERMISSION_REQUIRED") {
+    return resultState === "DENIED_PERMISSION";
+  }
+  if (
+    (STORE_UNAVAILABLE_AVAILABILITY as readonly string[]).includes(availability)
+  ) {
+    return resultState === "STORE_UNAVAILABLE";
+  }
+  if (operation === "STATUS") {
+    return resultState === "STORE_AVAILABLE";
+  }
+  if (resultState === "NOT_FOUND" || resultState === "OPERATION_FAILED") {
+    return true;
+  }
+  return (
+    (operation === "GET" && resultState === "RETRIEVED") ||
+    (operation === "PUT" && resultState === "STORED") ||
+    (operation === "DELETE" && resultState === "DELETED")
+  );
+}
+
+function buildFullAxisResult(
+  operation: (typeof SECRET_OPERATIONS)[number],
+  resultState: (typeof SECRET_RESULT_STATES)[number],
+  availability: (typeof STORE_AVAILABILITY_STATES)[number],
+): Record<string, unknown> {
+  const available =
+    availability === "AVAILABLE" || availability === "DEGRADED_LIMITED";
+  const unavailableReason = UNAVAILABLE_REASON_BY_AVAILABILITY[availability];
+  let reasons: readonly string[] = [];
+  if (availability === "PERMISSION_REQUIRED") {
+    reasons = ["PERMISSION_DENIED"];
+  } else if (unavailableReason !== undefined) {
+    reasons = [unavailableReason];
+  } else if (resultState === "NOT_FOUND") {
+    reasons = ["NOT_INSTALLED"];
+  } else if (resultState === "OPERATION_FAILED") {
+    reasons = ["ADAPTER_ERROR"];
+  } else if (availability === "DEGRADED_LIMITED") {
+    reasons = ["INSUFFICIENT_HARDWARE"];
+  }
+  return buildResult({
+    id: `full-${operation}-${resultState}-${availability}`,
+    operation,
+    result_state: resultState,
+    store_availability: availability,
+    identity: available,
+    material: resultState === "RETRIEVED" || resultState === "STORED",
+    digest: resultState === "RETRIEVED",
+    reasons,
+    expect_valid: fullAxisCellAdmitted(operation, resultState, availability),
+  });
+}
+
 function fixture(name: string): Record<string, unknown> {
   const value = valuesDocument.values[name];
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
@@ -549,6 +659,24 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
     }
   });
 
+  test("the expanded grid is the complete 4 x 8 x 9 state product", () => {
+    expect(enumTokens("capabilityAvailability")).toEqual([
+      ...STORE_AVAILABILITY_STATES,
+    ]);
+    expect(FULL_AXIS_CELLS).toHaveLength(288);
+  });
+
+  test.each(FULL_AXIS_CELLS)(
+    "%s with %s while store availability is %s",
+    (operation, resultState, availability) => {
+      const value = buildFullAxisResult(operation, resultState, availability);
+      expect(validator.validateInstance(SECRET_RESULT, value).valid).toBe(true);
+      expect(validateSemanticContractV1(SECRET_RESULT, value).valid).toBe(
+        fullAxisCellAdmitted(operation, resultState, availability),
+      );
+    },
+  );
+
   test.each(EXHAUSTIVE_CELLS)(
     "%s with result state %s admits exactly its reviewed representative",
     (operation, resultState) => {
@@ -577,7 +705,7 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
         identity: false,
         material: false,
         digest: false,
-        reasons: ["SERVICE_UNAVAILABLE"],
+        reasons: [requiredUnavailableReason(availability)],
         expect_valid: true,
       });
       expect(validator.validateInstance(SECRET_RESULT, value).valid).toBe(true);
@@ -603,6 +731,103 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
       expect(validateSemanticContractV1(SECRET_RESULT, value).valid).toBe(
         false,
       );
+    }
+  });
+});
+
+interface SecretMatrixExpectation extends SemanticMatrixCase {
+  readonly expectedValid: boolean;
+  readonly expectedErrorCode: string;
+}
+
+const SECRET_MATRIX_PARITY_CASES: readonly SecretMatrixExpectation[] =
+  FULL_AXIS_CELLS.map(([operation, resultState, availability], index) => ({
+    caseId: `matrix.secret.full-axis.${String(index).padStart(3, "0")}`,
+    schemaRef: SECRET_RESULT,
+    value: buildFullAxisResult(operation, resultState, availability),
+    expectedValid: fullAxisCellAdmitted(operation, resultState, availability),
+    expectedErrorCode: "STORAGE_SECURE_STORE_UNAVAILABLE",
+  }));
+
+let secretMatrixAdapterRun: SemanticMatrixAdapterRun;
+
+describe("M01-W07 executable cross-language parity for every secret-store matrix cell", () => {
+  beforeAll(() => {
+    secretMatrixAdapterRun = runSemanticMatrixAdapters(
+      SECRET_MATRIX_PARITY_CASES,
+    );
+  }, 360_000);
+
+  test("all 288 cells have the independently declared verdict in TypeScript, Python, and Rust", () => {
+    expect(SECRET_MATRIX_PARITY_CASES).toHaveLength(288);
+    for (const language of [
+      "typescript",
+      "python",
+      "rust",
+    ] as const satisfies readonly AdapterLanguage[]) {
+      expect(secretMatrixAdapterRun.responses[language]).toHaveLength(
+        SECRET_MATRIX_PARITY_CASES.length,
+      );
+    }
+    const maps: Readonly<
+      Record<AdapterLanguage, ReadonlyMap<string, AdapterResult>>
+    > = {
+      python: new Map(
+        secretMatrixAdapterRun.responses.python.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+      rust: new Map(
+        secretMatrixAdapterRun.responses.rust.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+      typescript: new Map(
+        secretMatrixAdapterRun.responses.typescript.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+    };
+
+    for (const matrixCase of SECRET_MATRIX_PARITY_CASES) {
+      const results = (
+        [
+          "typescript",
+          "python",
+          "rust",
+        ] as const satisfies readonly AdapterLanguage[]
+      ).map((language) => {
+        const result = maps[language].get(matrixCase.caseId);
+        expect(
+          result,
+          `${language} omitted ${matrixCase.caseId}`,
+        ).toBeDefined();
+        if (result === undefined) {
+          throw new Error(`${language} omitted ${matrixCase.caseId}`);
+        }
+        expect(
+          result.validation_verdict,
+          `${language} ${matrixCase.caseId}`,
+        ).toBe(matrixCase.expectedValid ? "VALID" : "INVALID");
+        expect(result.operation).toBe("VALIDATE");
+        expect(result.error_category).toBe(
+          matrixCase.expectedValid ? undefined : "SEMANTIC_INVALID",
+        );
+        expect(result.error_code).toBe(
+          matrixCase.expectedValid ? undefined : matrixCase.expectedErrorCode,
+        );
+        return result;
+      });
+      const [first, ...rest] = results;
+      if (first === undefined) {
+        throw new Error(`${matrixCase.caseId} has no adapter results`);
+      }
+      for (const result of rest) {
+        assertLanguageAgreement(first, result);
+      }
     }
   });
 });

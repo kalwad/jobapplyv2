@@ -2,11 +2,13 @@
  * Test-only M01-W05 historical compatibility signature and comparator.
  *
  * The signature is derived from the canonical schema IR, validated catalogs,
- * and canonical corpus. It is evidence about the accepted v1 surface, never a
- * second contract source and never a production migration API.
+ * canonical corpus, and immutable historical-witness inventory. It is bounded
+ * evidence about accepted versioned surfaces, never a second contract source
+ * and never a production migration API.
  */
 
 import { createHash } from "node:crypto";
+import { Buffer } from "node:buffer";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,8 +35,14 @@ import {
   loadSemanticRules,
   type SemanticRuleEntryData,
 } from "../../../generator/semantic-rules.ts";
+import { validateSemanticContractV1 } from "../../../generated/typescript/semantic/rules.v1.ts";
 import { adapterBatchFor, loadCorpus } from "../adapters/corpus-loader.ts";
 import { canonicalJson, type PlainJson } from "../adapters/normalization.ts";
+import { parseRawJson } from "../adapters/raw-json.ts";
+import {
+  HISTORICAL_WITNESS_REPOSITORY_PATH,
+  loadHistoricalWitnessInventory,
+} from "../semantic-witnesses/historical-witness-loader.ts";
 
 export const REPOSITORY_ROOT = fileURLToPath(
   new URL("../../../../../", import.meta.url),
@@ -142,6 +150,43 @@ export interface SemanticRuleCatalogSignature {
   canonical_sha256: string;
 }
 
+export interface HistoricalWitnessInventorySignature {
+  repository_path: string;
+  format_version: string;
+  witness_count: number;
+  raw_reference_count: number;
+  canonical_sha256: string;
+}
+
+export interface SemanticWitnessRuleOutcomeSignature {
+  rule_id: string;
+  rule_major: number;
+  error_code: string;
+  passed: boolean;
+}
+
+/**
+ * Executed behavior for one source-declared corpus or historical
+ * witness.
+ *
+ * The source inventory owns the expectation and input; the generated evaluator
+ * owns the observed verdict. Keeping both in the signature prevents baseline
+ * refresh from silently blessing a semantic mutation.
+ */
+export interface SemanticWitnessSignature {
+  id: string;
+  schema_ref: string;
+  schema_major: number;
+  operation: string;
+  languages: string[];
+  input_sha256: string;
+  expected_valid: boolean;
+  expected_error_code: string | null;
+  structural_valid: boolean;
+  semantic_valid: boolean;
+  rule_outcomes: SemanticWitnessRuleOutcomeSignature[];
+}
+
 export interface CompatibilitySignature {
   documents: DocumentSignature[];
   error_bindings: ErrorBindingSignature[];
@@ -152,6 +197,8 @@ export interface CompatibilitySignature {
   allow_rows: AllowRowSignature[];
   semantic_rule_catalog: SemanticRuleCatalogSignature;
   semantic_rules: SemanticRuleSignature[];
+  historical_witness_inventory: HistoricalWitnessInventorySignature;
+  semantic_witnesses: SemanticWitnessSignature[];
   supported_valid_cases: SupportedCaseSignature[];
 }
 
@@ -168,6 +215,20 @@ export interface CompatibilityReport {
 
 function digest(value: PlainJson): string {
   return createHash("sha256").update(canonicalJson(value)).digest("hex");
+}
+
+function bytesDigest(value: Uint8Array): string {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+function semverMajor(value: string): number {
+  const match = /^(0|[1-9][0-9]*)\.[0-9]+\.[0-9]+$/.exec(value);
+  if (match?.[1] === undefined) {
+    throw new Error(
+      `invalid semantic version in compatibility truth: ${value}`,
+    );
+  }
+  return Number(match[1]);
 }
 
 function metadata(
@@ -380,6 +441,9 @@ export function buildCompatibilitySignature(
   const corpus = loadCorpus(
     join(repoRoot, "packages/contracts/test/contract/corpus"),
   );
+  const historicalInventory = loadHistoricalWitnessInventory(
+    join(repoRoot, HISTORICAL_WITNESS_REPOSITORY_PATH),
+  );
   const requests = {
     python: new Map(
       adapterBatchFor(corpus, "python").requests.map((request) => [
@@ -424,6 +488,116 @@ export function buildCompatibilitySignature(
       }),
     });
   }
+  const documentById = new Map(
+    ir.documents.map((document) => [document.id, document]),
+  );
+  const rulesBySchema = new Map<string, SemanticRuleEntryData[]>();
+  for (const entry of semanticRules.entries) {
+    const bound = rulesBySchema.get(entry.schema_ref) ?? [];
+    bound.push(entry);
+    rulesBySchema.set(entry.schema_ref, bound);
+  }
+  const semanticWitnesses: SemanticWitnessSignature[] = [];
+  for (const corpusCase of corpus.cases) {
+    const boundRules = rulesBySchema.get(corpusCase.schema_ref);
+    const independentlySemantic =
+      corpusCase.expected.valid ||
+      corpusCase.expected.error_category === "SEMANTIC_INVALID";
+    if (
+      boundRules === undefined ||
+      !independentlySemantic ||
+      (corpusCase.operation !== "VALIDATE" &&
+        corpusCase.operation !== "ROUND_TRIP")
+    ) {
+      continue;
+    }
+    const language = corpusCase.languages[0];
+    const request =
+      language === undefined
+        ? undefined
+        : requests[language].get(corpusCase.id);
+    if (request === undefined || request.scenario !== undefined) {
+      throw new Error(`semantic witness request missing: ${corpusCase.id}`);
+    }
+    const inputBytes = Buffer.from(request.input_bytes_base64, "base64");
+    const input = parseRawJson(inputBytes);
+    const structural = validator.validateInstance(corpusCase.schema_ref, input);
+    if (!structural.valid) {
+      throw new Error(
+        `semantic witness is structurally invalid: ${corpusCase.id}`,
+      );
+    }
+    const observed = validateSemanticContractV1(corpusCase.schema_ref, input);
+    const expectedErrorCode = corpusCase.expected.valid
+      ? null
+      : (corpusCase.expected.error_code ?? null);
+    const failedRuleIds = new Set<string>(
+      observed.valid ? [] : observed.issues.map((issue) => issue.rule_id),
+    );
+    const document = documentById.get(corpusCase.schema_ref);
+    if (document === undefined) {
+      throw new Error(`semantic witness schema missing: ${corpusCase.id}`);
+    }
+    semanticWitnesses.push({
+      id: corpusCase.id,
+      schema_ref: corpusCase.schema_ref,
+      schema_major: document.major,
+      operation: corpusCase.operation,
+      languages: [...corpusCase.languages],
+      input_sha256: bytesDigest(inputBytes),
+      expected_valid: corpusCase.expected.valid,
+      expected_error_code: expectedErrorCode,
+      structural_valid: true,
+      semantic_valid: observed.valid,
+      rule_outcomes: boundRules.map((rule) => ({
+        rule_id: rule.rule_id,
+        rule_major: semverMajor(rule.rule_version),
+        error_code: rule.failure_error_code,
+        passed: !failedRuleIds.has(rule.rule_id),
+      })),
+    });
+  }
+  for (const witness of historicalInventory.witnesses) {
+    const boundRules = rulesBySchema.get(witness.schema_ref);
+    if (boundRules === undefined) {
+      throw new Error(`historical semantic rules missing: ${witness.id}`);
+    }
+    const inputBytes = Buffer.from(canonicalJson(witness.input), "utf8");
+    const input = parseRawJson(inputBytes);
+    const structural = validator.validateInstance(witness.schema_ref, input);
+    if (!structural.valid) {
+      throw new Error(
+        `historical semantic witness is structurally invalid: ${witness.id}`,
+      );
+    }
+    const observed = validateSemanticContractV1(witness.schema_ref, input);
+    const failedRuleIds = new Set<string>(
+      observed.valid ? [] : observed.issues.map((issue) => issue.rule_id),
+    );
+    const document = documentById.get(witness.schema_ref);
+    if (document === undefined) {
+      throw new Error(`historical witness schema missing: ${witness.id}`);
+    }
+    semanticWitnesses.push({
+      id: witness.id,
+      schema_ref: witness.schema_ref,
+      schema_major: document.major,
+      operation: witness.operation,
+      languages: [...witness.languages],
+      input_sha256: bytesDigest(inputBytes),
+      expected_valid: witness.expected_valid,
+      expected_error_code: null,
+      structural_valid: true,
+      semantic_valid: observed.valid,
+      rule_outcomes: boundRules.map((rule) => ({
+        rule_id: rule.rule_id,
+        rule_major: semverMajor(rule.rule_version),
+        error_code: rule.failure_error_code,
+        passed: !failedRuleIds.has(rule.rule_id),
+      })),
+    });
+  }
+  semanticWitnesses.sort((left, right) => left.id.localeCompare(right.id));
   return {
     documents: ir.documents.map((document) => ({
       path: document.relativePath,
@@ -452,6 +626,14 @@ export function buildCompatibilitySignature(
     semantic_rules: semanticRules.entries.map((entry) =>
       semanticRuleSignature(entry),
     ),
+    historical_witness_inventory: {
+      repository_path: HISTORICAL_WITNESS_REPOSITORY_PATH,
+      format_version: historicalInventory.format_version,
+      witness_count: historicalInventory.witness_count,
+      raw_reference_count: historicalInventory.raw_reference_count,
+      canonical_sha256: historicalInventory.inventory_sha256,
+    },
+    semantic_witnesses: semanticWitnesses,
     supported_valid_cases: supportedCases,
   };
 }
@@ -909,6 +1091,20 @@ function semanticRulesOf(
   return legacyCompatible.semantic_rules ?? [];
 }
 
+function semanticWitnessesOf(
+  signature: CompatibilitySignature,
+): readonly SemanticWitnessSignature[] {
+  const legacyCompatible: Partial<CompatibilitySignature> = signature;
+  return legacyCompatible.semantic_witnesses ?? [];
+}
+
+function historicalInventoryOf(
+  signature: CompatibilitySignature,
+): HistoricalWitnessInventorySignature | null {
+  const legacyCompatible: Partial<CompatibilitySignature> = signature;
+  return legacyCompatible.historical_witness_inventory ?? null;
+}
+
 /**
  * Compare the finite semantic-rule bindings introduced in M01-W06.
  *
@@ -962,9 +1158,18 @@ function compareSemanticRules(
     );
   }
   if (baselineCatalog.catalog_version !== currentCatalog.catalog_version) {
+    const baselineVersion = versionParts(baselineCatalog.catalog_version);
+    const currentVersion = versionParts(currentCatalog.catalog_version);
+    const advancedWithinMajor =
+      currentVersion[0] === baselineVersion[0] &&
+      (currentVersion[1] > baselineVersion[1] ||
+        (currentVersion[1] === baselineVersion[1] &&
+          currentVersion[2] > baselineVersion[2]));
     finding(
-      findings,
-      "SEMANTIC_RULE_CATALOG_VERSION_CHANGED",
+      advancedWithinMajor ? additive : findings,
+      advancedWithinMajor
+        ? "SEMANTIC_RULE_CATALOG_VERSION_ADVANCED"
+        : "SEMANTIC_RULE_CATALOG_VERSION_CHANGED",
       baselineCatalog.repository_path,
     );
   }
@@ -994,12 +1199,30 @@ function compareSemanticRules(
   const baselineSchemaIds = new Set(
     baseline.documents.map((document) => document.id),
   );
-  for (const rule of currentRules) {
+  const addedRules = currentRules.filter(
+    (rule) => !baselineIds.has(rule.rule_id),
+  );
+  for (const rule of addedRules) {
     if (!baselineIds.has(rule.rule_id)) {
       finding(
         baselineSchemaIds.has(rule.schema_ref) ? findings : additive,
         "SEMANTIC_RULE_ADDED",
         rule.rule_id,
+      );
+    }
+  }
+
+  if (addedRules.length > 0) {
+    const baselineVersion = versionParts(baselineCatalog.catalog_version);
+    const currentVersion = versionParts(currentCatalog.catalog_version);
+    const minorAdvancedWithinMajor =
+      currentVersion[0] === baselineVersion[0] &&
+      currentVersion[1] > baselineVersion[1];
+    if (!minorAdvancedWithinMajor) {
+      finding(
+        findings,
+        "SEMANTIC_RULE_CATALOG_MINOR_BUMP_REQUIRED",
+        currentCatalog.repository_path,
       );
     }
   }
@@ -1016,6 +1239,139 @@ function compareSemanticRules(
       findings,
       "SEMANTIC_RULE_CATALOG_HASH_CHANGED",
       baselineCatalog.repository_path,
+    );
+  }
+}
+
+function witnessExpectationMatches(witness: SemanticWitnessSignature): boolean {
+  const firstFailure = witness.rule_outcomes.find((outcome) => !outcome.passed);
+  return (
+    witness.structural_valid &&
+    witness.expected_valid === witness.semantic_valid &&
+    (witness.expected_valid
+      ? witness.expected_error_code === null && firstFailure === undefined
+      : witness.expected_error_code !== null &&
+        firstFailure?.error_code === witness.expected_error_code)
+  );
+}
+
+/**
+ * Compare retained executable witnesses in both verdict directions.
+ *
+ * New witness IDs are additive, including witnesses for a new schema major.
+ * Retargeting an existing ID or changing its source-declared
+ * expectation is never an acceptable substitute for preserving behavior.
+ */
+function compareSemanticWitnesses(
+  baseline: CompatibilitySignature,
+  current: CompatibilitySignature,
+  findings: CompatibilityFinding[],
+  additive: CompatibilityFinding[],
+): void {
+  const baselineWitnesses = semanticWitnessesOf(baseline);
+  const currentWitnesses = semanticWitnessesOf(current);
+  const currentById = asMap(currentWitnesses, (witness) => witness.id);
+  const baselineIds = new Set(baselineWitnesses.map((witness) => witness.id));
+  for (const witness of currentWitnesses) {
+    if (!witnessExpectationMatches(witness)) {
+      finding(findings, "SEMANTIC_WITNESS_EXPECTATION_MISMATCH", witness.id);
+    }
+  }
+  for (const witness of baselineWitnesses) {
+    const candidate = currentById.get(witness.id);
+    if (candidate === undefined) {
+      finding(findings, "SEMANTIC_WITNESS_REMOVED", witness.id);
+      continue;
+    }
+    const identityChanged =
+      witness.schema_ref !== candidate.schema_ref ||
+      witness.schema_major !== candidate.schema_major ||
+      witness.operation !== candidate.operation ||
+      canonicalJson(witness.languages) !== canonicalJson(candidate.languages) ||
+      witness.input_sha256 !== candidate.input_sha256 ||
+      witness.expected_valid !== candidate.expected_valid ||
+      witness.expected_error_code !== candidate.expected_error_code ||
+      witness.structural_valid !== candidate.structural_valid;
+    if (identityChanged) {
+      finding(findings, "SEMANTIC_WITNESS_CHANGED", witness.id);
+      continue;
+    }
+    if (witness.semantic_valid && !candidate.semantic_valid) {
+      finding(findings, "SEMANTIC_ACCEPTANCE_REMOVED", witness.id);
+    } else if (!witness.semantic_valid && candidate.semantic_valid) {
+      finding(findings, "SEMANTIC_REJECTION_REMOVED", witness.id);
+    } else if (
+      canonicalJson(witness.rule_outcomes) !==
+      canonicalJson(candidate.rule_outcomes)
+    ) {
+      finding(findings, "SEMANTIC_FAILURE_BINDING_CHANGED", witness.id);
+    }
+  }
+  for (const witness of currentWitnesses) {
+    if (!baselineIds.has(witness.id)) {
+      finding(additive, "SEMANTIC_WITNESS_ADDED", witness.id);
+    }
+  }
+}
+
+function compareHistoricalWitnessInventory(
+  baseline: CompatibilitySignature,
+  current: CompatibilitySignature,
+  findings: CompatibilityFinding[],
+  additive: CompatibilityFinding[],
+): void {
+  const baselineInventory = historicalInventoryOf(baseline);
+  const currentInventory = historicalInventoryOf(current);
+  if (baselineInventory === null) {
+    if (currentInventory !== null) {
+      finding(
+        additive,
+        "HISTORICAL_WITNESS_INVENTORY_ADDED",
+        currentInventory.repository_path,
+      );
+    }
+    return;
+  }
+  if (currentInventory === null) {
+    finding(
+      findings,
+      "HISTORICAL_WITNESS_INVENTORY_REMOVED",
+      baselineInventory.repository_path,
+    );
+    return;
+  }
+  if (baselineInventory.repository_path !== currentInventory.repository_path) {
+    finding(
+      findings,
+      "HISTORICAL_WITNESS_INVENTORY_PATH_CHANGED",
+      baselineInventory.repository_path,
+    );
+  }
+  if (baselineInventory.format_version !== currentInventory.format_version) {
+    finding(
+      findings,
+      "HISTORICAL_WITNESS_INVENTORY_FORMAT_CHANGED",
+      baselineInventory.repository_path,
+    );
+  }
+  if (
+    baselineInventory.witness_count !== currentInventory.witness_count ||
+    baselineInventory.raw_reference_count !==
+      currentInventory.raw_reference_count
+  ) {
+    finding(
+      findings,
+      "HISTORICAL_WITNESS_INVENTORY_COUNT_CHANGED",
+      baselineInventory.repository_path,
+    );
+  }
+  if (
+    baselineInventory.canonical_sha256 !== currentInventory.canonical_sha256
+  ) {
+    finding(
+      findings,
+      "HISTORICAL_WITNESS_INVENTORY_HASH_CHANGED",
+      baselineInventory.repository_path,
     );
   }
 }
@@ -1081,6 +1437,8 @@ export function compareCompatibilitySignatures(
     additive,
   );
   compareSemanticRules(baseline, current, findings, additive);
+  compareHistoricalWitnessInventory(baseline, current, findings, additive);
+  compareSemanticWitnesses(baseline, current, findings, additive);
   compareCases(baseline, current, findings, additive);
   const sorter = (
     left: CompatibilityFinding,

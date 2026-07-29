@@ -20,6 +20,7 @@ import type { PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1Diagno
  * Platform diagnostic report
  *
  * A bounded diagnostic for one platform component: finite reason codes, one bounded user-safe message, explicit redaction metadata, severity, the component and capability identity, correlation, and synthetic-safe evidence references. A success result may never carry a blocking reason, and the record cannot contain a raw log, environment dump, registry export, local path, or secret value.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformDiagnosticReportV1 {
   readonly diagnostic_report_id: CommonStableIdV1StableId;

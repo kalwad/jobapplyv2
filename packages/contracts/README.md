@@ -525,12 +525,15 @@ of-use drift. No handwritten per-language policy map exists.
 
 ## 10d. Cross-language compatibility evidence (M01-W05)
 
-`pnpm test:contract` runs the 382-case canonical corpus and the failure
-infrastructure/breaking-change tests. Protocol, normalization, exact
-representative scope, dependency pins, baseline lifecycle, and reconstruction
-commands are documented in `test/contract/README.md`. Normal compatibility
-and manifest checks are read-only; their separately named update commands are
-never part of `pnpm verify`.
+`pnpm test:contract` runs the 511-case canonical corpus, a separate
+229-witness historical v1 platform batch in each language, and the failure
+infrastructure/breaking-change tests. Corpus applicability is TypeScript 510,
+Python 506, and Rust 505; no claim is made that every language executes every
+case. Protocol, normalization, exact bounded scope, dependency pins, baseline
+lifecycle, and reconstruction commands are documented in
+`test/contract/README.md`. Normal compatibility and manifest checks are
+read-only; their separately named update commands are never part of
+`pnpm verify`.
 
 The Rust crate under the suite is private, `publish = false`, locked, offline
 after fetch, and test-only. It mechanically compares its representative typed
@@ -567,25 +570,26 @@ evaluate gates, or certify any Workday pattern.
 
 ## 10f. Cross-platform capability and platform-service contracts (M01-W07)
 
-M01-W07 adds 19 strict root wire contracts under `schemas/platform/` plus the
-definitions-only `urn:japp:schema:platform:vocabulary:v1` supporting document.
-They cover certified platform identity and support tiers, platform capability
-and capability-state reporting, typed logical paths and trusted resolution
-results, the secret-store boundary, process-supervisor plans/handles/results,
-native-messaging registration intents and results, browser discovery and
-browser records, model-runtime profiles and runtime capability,
-installer/updater state, platform diagnostics, and cross-platform
-evidence/certification-input records.
+M01-W07 publishes 19 v1 platform roots plus the definitions-only
+`urn:japp:schema:platform:vocabulary:v1` document. The corrective lifecycle
+deprecates the 15 roots whose semantics had tightened under the same major and
+adds explicit v2 roots for browser record, capability report, certification
+input, diagnostic/evidence records, installer/update state, model-runtime
+profile/runtime capability, native-messaging registration/result, path
+resolution, process plan/status, and secret-store result. The four unaffected
+request/identity roots remain v1 only.
 
-Generator format `1.4.0` records that the finite semantic-rule vocabulary grew
-by eighteen platform rule kinds (22 → 40) with matching TypeScript and Python
-evaluators; the canonical rule catalog grows from 42 to 80 bindings and
-`urn:japp:schema:semantic:rule-catalog:v1` takes the required MINOR bump to
-`1.1.0`. Every platform request carries a typed principal/profile context, and
-the semantic layer restricts platform operations to the orchestrator and
-verification harness — content scripts, service workers, models, the public
-index, the desktop app, the native host, and the platform adapter itself can
-never originate one.
+Published v1 evaluation is a compatibility accepted-set union of the first and
+last published M01-W07 evaluators; it preserves all 229 canonical historical
+positive witnesses. Corrected v2 evaluation alone carries the normative
+cross-axis/default-fallthrough rules for future consumers. Generator format
+`1.5.0` emits matching TypeScript and Python dispatchers; the semantic-rule
+catalog is `1.1.0` with 110 bindings and 54 finite rule kinds, and its schema is
+`1.2.0`. Every platform request still carries a typed principal/profile
+context, and the semantic layer restricts platform operations to the
+orchestrator and verification harness — content scripts, service workers,
+models, the public index, the desktop app, the native host, and the platform
+adapter itself can never originate one.
 
 **Authority is deliberately unchanged.** The M01-W04 capability, command, and
 authorization-policy catalogs are untouched: the four platform commands keep

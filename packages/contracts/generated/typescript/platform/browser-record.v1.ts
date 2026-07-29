@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1BrowserChannel, PlatformVocabularyV1BrowserFam
  * Browser identity, location, and capability record
  *
  * A sanitized record of one observed browser: family, channel, version, sanitized install location, and native-messaging capability. Only Chrome stable on a certified platform may ever be marked certified; the contract deliberately cannot express Firefox, Safari, ChromeOS, ARM Windows, Intel macOS, or another Linux distribution as certified. It contains no executable path, launch argument, profile directory, or browsing data.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformBrowserRecordV1 {
   readonly browser_record_id: CommonStableIdV1StableId;

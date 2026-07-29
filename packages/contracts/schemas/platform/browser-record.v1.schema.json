@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:browser-record:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Browser identity, location, and capability record",
   "description": "A sanitized record of one observed browser: family, channel, version, sanitized install location, and native-messaging capability. Only Chrome stable on a certified platform may ever be marked certified; the contract deliberately cannot express Firefox, Safari, ChromeOS, ARM Windows, Intel macOS, or another Linux distribution as certified. It contains no executable path, launch argument, profile directory, or browsing data.",
   "type": "object",

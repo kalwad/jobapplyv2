@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:runtime-capability:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Detected model-runtime capability",
+  "description": "The RuntimeCapability record of specification §5.14.2: what the local runtime reports on this target, which profiles are available, and how the deterministic core behaves when full AI is unavailable. Deterministic autofill, profile, matching, tracking, and document workflows must never depend on this record reporting availability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runtime_capability_id",
+    "platform_id",
+    "runtime_availability",
+    "detection_method",
+    "available_profile_refs",
+    "accepted_profile_refs",
+    "core_capability_behavior",
+    "reason_codes",
+    "observed_at",
+    "provenance"
+  ],
+  "properties": {
+    "runtime_capability_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "runtime_family": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/runtimeFamily"
+    },
+    "runtime_version": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/productVersion"
+    },
+    "accelerator": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass"
+    },
+    "runtime_availability": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/capabilityAvailability"
+    },
+    "detection_method": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/evaluationMethod"
+    },
+    "detected_ram_mib": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
+    },
+    "detected_vram_mib": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/memoryMebibytes"
+    },
+    "available_profile_refs": {
+      "description": "Profiles this runtime can offer. Only the two non-blocking availability states, AVAILABLE and DEGRADED_LIMITED, may enumerate any.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "accepted_profile_refs": {
+      "description": "Subset of available profiles whose acceptance is already recorded. Empty is the honest current state on every target.",
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "core_capability_behavior": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/coreCapabilityBehavior"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "observed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

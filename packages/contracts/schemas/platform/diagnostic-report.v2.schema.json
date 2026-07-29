@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:diagnostic-report:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Platform diagnostic report",
+  "description": "A bounded diagnostic for one platform component: finite reason codes, one bounded user-safe message, explicit redaction metadata, severity, the component and capability identity, correlation, and synthetic-safe evidence references. A success result may never carry a blocking reason, and the record cannot contain a raw log, environment dump, registry export, local path, or secret value.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "diagnostic_report_id",
+    "component",
+    "capability",
+    "platform_id",
+    "severity",
+    "result",
+    "reason_codes",
+    "blocking",
+    "redaction",
+    "evaluated_at",
+    "correlation_id",
+    "provenance"
+  ],
+  "properties": {
+    "diagnostic_report_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "component": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformComponentId"
+    },
+    "capability": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformCapabilityId"
+    },
+    "platform_id": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformId"
+    },
+    "severity": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/severity"
+    },
+    "result": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/diagnosticResult"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "blocking": {
+      "description": "Whether the reported condition blocks the affected capability. A successful diagnostic can never be blocking.",
+      "type": "boolean"
+    },
+    "user_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "redaction": {
+      "$ref": "urn:japp:schema:common:redaction:v1#/$defs/redactionAnnotation"
+    },
+    "detail_digest": {
+      "description": "Digest of a redacted out-of-band detail record. The detail itself never travels in this contract.",
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "evaluated_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "causation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/causationId"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

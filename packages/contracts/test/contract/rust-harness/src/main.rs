@@ -4,6 +4,9 @@
 //! batch, and exits. It is deliberately private, has no network resolver, and
 //! exposes no production contract or native-host behavior.
 
+mod legacy_platform;
+mod published_legacy_platform;
+
 use std::{
     collections::{BTreeMap, BTreeSet},
     env, fs,
@@ -725,21 +728,35 @@ enum SemanticRuleKind {
     PageReadinessIntegrity,
     PlatformBrowserDiscoverySafety,
     PlatformBrowserRecordScope,
+    PlatformBrowserRecordScopeV2,
     PlatformCapabilityReportIntegrity,
+    PlatformCapabilityReportIntegrityV2,
     PlatformCertificationInputScope,
+    PlatformCertificationInputScopeV2,
     PlatformDiagnosticIntegrity,
+    PlatformDiagnosticIntegrityV2,
     PlatformEvidenceIntegrity,
+    PlatformEvidenceIntegrityV2,
     PlatformModelProfileEvidence,
+    PlatformModelProfileEvidenceV2,
     PlatformNativeRegistrationBinding,
+    PlatformNativeRegistrationBindingV2,
     PlatformNativeRegistrationResult,
+    PlatformNativeRegistrationResultV2,
     PlatformPackageStateEvidence,
+    PlatformPackageStateEvidenceV2,
     PlatformPathRequestSafety,
     PlatformPathResolutionSafety,
+    PlatformPathResolutionSafetyV2,
     PlatformProcessPlanSafety,
+    PlatformProcessPlanSafetyV2,
     PlatformProcessStatusIntegrity,
+    PlatformProcessStatusIntegrityV2,
     PlatformRuntimeCapabilityFallback,
+    PlatformRuntimeCapabilityFallbackV2,
     PlatformSecretRequestAuthority,
     PlatformSecretResultIntegrity,
+    PlatformSecretResultIntegrityV2,
     PlatformTargetSupportClaim,
     ReconciliationReadiness,
     ResumePlanEvidence,
@@ -749,7 +766,7 @@ enum SemanticRuleKind {
 }
 
 impl SemanticRuleKind {
-    const TOKENS: [&'static str; 40] = [
+    const TOKENS: [&'static str; 54] = [
         "APPLICATION_SESSION_CONSISTENCY",
         "ATOMIC_CLAIM_INTEGRITY",
         "ATS_VARIANT_SCOPE",
@@ -769,21 +786,35 @@ impl SemanticRuleKind {
         "PAGE_READINESS_INTEGRITY",
         "PLATFORM_BROWSER_DISCOVERY_SAFETY",
         "PLATFORM_BROWSER_RECORD_SCOPE",
+        "PLATFORM_BROWSER_RECORD_SCOPE_V2",
         "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+        "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
         "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+        "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
         "PLATFORM_DIAGNOSTIC_INTEGRITY",
+        "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
         "PLATFORM_EVIDENCE_INTEGRITY",
+        "PLATFORM_EVIDENCE_INTEGRITY_V2",
         "PLATFORM_MODEL_PROFILE_EVIDENCE",
+        "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
         "PLATFORM_NATIVE_REGISTRATION_BINDING",
+        "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
         "PLATFORM_NATIVE_REGISTRATION_RESULT",
+        "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
         "PLATFORM_PACKAGE_STATE_EVIDENCE",
+        "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
         "PLATFORM_PATH_REQUEST_SAFETY",
         "PLATFORM_PATH_RESOLUTION_SAFETY",
+        "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
         "PLATFORM_PROCESS_PLAN_SAFETY",
+        "PLATFORM_PROCESS_PLAN_SAFETY_V2",
         "PLATFORM_PROCESS_STATUS_INTEGRITY",
+        "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
         "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+        "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
         "PLATFORM_SECRET_REQUEST_AUTHORITY",
         "PLATFORM_SECRET_RESULT_INTEGRITY",
+        "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
         "PLATFORM_TARGET_SUPPORT_CLAIM",
         "RECONCILIATION_READINESS",
         "RESUME_PLAN_EVIDENCE",
@@ -813,21 +844,35 @@ impl SemanticRuleKind {
             Self::PageReadinessIntegrity => "PAGE_READINESS_INTEGRITY",
             Self::PlatformBrowserDiscoverySafety => "PLATFORM_BROWSER_DISCOVERY_SAFETY",
             Self::PlatformBrowserRecordScope => "PLATFORM_BROWSER_RECORD_SCOPE",
+            Self::PlatformBrowserRecordScopeV2 => "PLATFORM_BROWSER_RECORD_SCOPE_V2",
             Self::PlatformCapabilityReportIntegrity => "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+            Self::PlatformCapabilityReportIntegrityV2 => "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
             Self::PlatformCertificationInputScope => "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+            Self::PlatformCertificationInputScopeV2 => "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
             Self::PlatformDiagnosticIntegrity => "PLATFORM_DIAGNOSTIC_INTEGRITY",
+            Self::PlatformDiagnosticIntegrityV2 => "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
             Self::PlatformEvidenceIntegrity => "PLATFORM_EVIDENCE_INTEGRITY",
+            Self::PlatformEvidenceIntegrityV2 => "PLATFORM_EVIDENCE_INTEGRITY_V2",
             Self::PlatformModelProfileEvidence => "PLATFORM_MODEL_PROFILE_EVIDENCE",
+            Self::PlatformModelProfileEvidenceV2 => "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
             Self::PlatformNativeRegistrationBinding => "PLATFORM_NATIVE_REGISTRATION_BINDING",
+            Self::PlatformNativeRegistrationBindingV2 => "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
             Self::PlatformNativeRegistrationResult => "PLATFORM_NATIVE_REGISTRATION_RESULT",
+            Self::PlatformNativeRegistrationResultV2 => "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
             Self::PlatformPackageStateEvidence => "PLATFORM_PACKAGE_STATE_EVIDENCE",
+            Self::PlatformPackageStateEvidenceV2 => "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
             Self::PlatformPathRequestSafety => "PLATFORM_PATH_REQUEST_SAFETY",
             Self::PlatformPathResolutionSafety => "PLATFORM_PATH_RESOLUTION_SAFETY",
+            Self::PlatformPathResolutionSafetyV2 => "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
             Self::PlatformProcessPlanSafety => "PLATFORM_PROCESS_PLAN_SAFETY",
+            Self::PlatformProcessPlanSafetyV2 => "PLATFORM_PROCESS_PLAN_SAFETY_V2",
             Self::PlatformProcessStatusIntegrity => "PLATFORM_PROCESS_STATUS_INTEGRITY",
+            Self::PlatformProcessStatusIntegrityV2 => "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
             Self::PlatformRuntimeCapabilityFallback => "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+            Self::PlatformRuntimeCapabilityFallbackV2 => "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
             Self::PlatformSecretRequestAuthority => "PLATFORM_SECRET_REQUEST_AUTHORITY",
             Self::PlatformSecretResultIntegrity => "PLATFORM_SECRET_RESULT_INTEGRITY",
+            Self::PlatformSecretResultIntegrityV2 => "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
             Self::PlatformTargetSupportClaim => "PLATFORM_TARGET_SUPPORT_CLAIM",
             Self::ReconciliationReadiness => "RECONCILIATION_READINESS",
             Self::ResumePlanEvidence => "RESUME_PLAN_EVIDENCE",
@@ -860,7 +905,7 @@ struct SemanticRules {
     entries: Vec<SemanticRuleEntry>,
 }
 
-const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 40] = [
+const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 55] = [
     (
         "urn:japp:schema:ats:variant-identity:v1",
         SemanticRuleKind::AtsVariantScope,
@@ -914,36 +959,72 @@ const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 40] = [
         SemanticRuleKind::PlatformBrowserRecordScope,
     ),
     (
+        "urn:japp:schema:platform:browser-record:v2",
+        SemanticRuleKind::PlatformBrowserRecordScopeV2,
+    ),
+    (
         "urn:japp:schema:platform:capability-report:v1",
         SemanticRuleKind::PlatformCapabilityReportIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:capability-report:v2",
+        SemanticRuleKind::PlatformCapabilityReportIntegrityV2,
     ),
     (
         "urn:japp:schema:platform:certification-input:v1",
         SemanticRuleKind::PlatformCertificationInputScope,
     ),
     (
+        "urn:japp:schema:platform:certification-input:v2",
+        SemanticRuleKind::PlatformCertificationInputScopeV2,
+    ),
+    (
         "urn:japp:schema:platform:diagnostic-report:v1",
         SemanticRuleKind::PlatformDiagnosticIntegrity,
+    ),
+    (
+        "urn:japp:schema:platform:diagnostic-report:v2",
+        SemanticRuleKind::PlatformDiagnosticIntegrityV2,
     ),
     (
         "urn:japp:schema:platform:evidence-record:v1",
         SemanticRuleKind::PlatformEvidenceIntegrity,
     ),
     (
+        "urn:japp:schema:platform:evidence-record:v2",
+        SemanticRuleKind::PlatformEvidenceIntegrityV2,
+    ),
+    (
         "urn:japp:schema:platform:installer-state:v1",
         SemanticRuleKind::PlatformPackageStateEvidence,
+    ),
+    (
+        "urn:japp:schema:platform:installer-state:v2",
+        SemanticRuleKind::PlatformPackageStateEvidenceV2,
     ),
     (
         "urn:japp:schema:platform:model-runtime-profile:v1",
         SemanticRuleKind::PlatformModelProfileEvidence,
     ),
     (
+        "urn:japp:schema:platform:model-runtime-profile:v2",
+        SemanticRuleKind::PlatformModelProfileEvidenceV2,
+    ),
+    (
         "urn:japp:schema:platform:native-messaging-registration:v1",
         SemanticRuleKind::PlatformNativeRegistrationBinding,
     ),
     (
+        "urn:japp:schema:platform:native-messaging-registration:v2",
+        SemanticRuleKind::PlatformNativeRegistrationBindingV2,
+    ),
+    (
         "urn:japp:schema:platform:native-messaging-result:v1",
         SemanticRuleKind::PlatformNativeRegistrationResult,
+    ),
+    (
+        "urn:japp:schema:platform:native-messaging-result:v2",
+        SemanticRuleKind::PlatformNativeRegistrationResultV2,
     ),
     (
         "urn:japp:schema:platform:path-request:v1",
@@ -954,16 +1035,32 @@ const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 40] = [
         SemanticRuleKind::PlatformPathResolutionSafety,
     ),
     (
+        "urn:japp:schema:platform:path-resolution:v2",
+        SemanticRuleKind::PlatformPathResolutionSafetyV2,
+    ),
+    (
         "urn:japp:schema:platform:process-plan:v1",
         SemanticRuleKind::PlatformProcessPlanSafety,
+    ),
+    (
+        "urn:japp:schema:platform:process-plan:v2",
+        SemanticRuleKind::PlatformProcessPlanSafetyV2,
     ),
     (
         "urn:japp:schema:platform:process-status:v1",
         SemanticRuleKind::PlatformProcessStatusIntegrity,
     ),
     (
+        "urn:japp:schema:platform:process-status:v2",
+        SemanticRuleKind::PlatformProcessStatusIntegrityV2,
+    ),
+    (
         "urn:japp:schema:platform:runtime-capability:v1",
         SemanticRuleKind::PlatformRuntimeCapabilityFallback,
+    ),
+    (
+        "urn:japp:schema:platform:runtime-capability:v2",
+        SemanticRuleKind::PlatformRuntimeCapabilityFallbackV2,
     ),
     (
         "urn:japp:schema:platform:secret-store-request:v1",
@@ -974,12 +1071,20 @@ const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 40] = [
         SemanticRuleKind::PlatformSecretResultIntegrity,
     ),
     (
+        "urn:japp:schema:platform:secret-store-result:v2",
+        SemanticRuleKind::PlatformSecretResultIntegrityV2,
+    ),
+    (
         "urn:japp:schema:platform:target-identity:v1",
         SemanticRuleKind::PlatformTargetSupportClaim,
     ),
     (
         "urn:japp:schema:platform:update-state:v1",
         SemanticRuleKind::PlatformPackageStateEvidence,
+    ),
+    (
+        "urn:japp:schema:platform:update-state:v2",
+        SemanticRuleKind::PlatformPackageStateEvidenceV2,
     ),
     (
         "urn:japp:schema:rendering:layout-measurement:v1",
@@ -1117,7 +1222,7 @@ fn load_semantic_rules(
         return Err(AdapterError);
     }
     let document: SemanticRuleDocument = serde_json::from_value(value).map_err(|_| AdapterError)?;
-    if document.catalog_version != "1.0.0" {
+    if document.catalog_version != "1.1.0" {
         return Err(AdapterError);
     }
 
@@ -2118,6 +2223,14 @@ wire_record! {
 }
 
 wire_record! {
+    PlatformCertificationEvidenceInventoryItem {
+        artifact_kind: String,
+        evidence_record_ref: String,
+    }
+    optional {}
+}
+
+wire_record! {
     PlatformCertificationInput {
         certification_input_id: String,
         platform_id: String,
@@ -2136,6 +2249,7 @@ wire_record! {
     optional {
         browser_record_ref: String,
         runtime_capability_ref: String,
+        evidence_inventory: Vec<PlatformCertificationEvidenceInventoryItem>,
         owner_decision_ref: String,
         known_limitations: Vec<String>,
         last_tested_on: String,
@@ -2198,58 +2312,71 @@ fn typed_round_trip(schema_ref: &str, value: Value) -> AdapterResult<Value> {
         "urn:japp:schema:platform:browser-discovery-request:v1" => {
             serde_round_trip::<PlatformBrowserDiscoveryRequest>(value)
         }
-        "urn:japp:schema:platform:browser-record:v1" => {
+        "urn:japp:schema:platform:browser-record:v1"
+        | "urn:japp:schema:platform:browser-record:v2" => {
             serde_round_trip::<PlatformBrowserRecord>(value)
         }
-        "urn:japp:schema:platform:capability-report:v1" => {
+        "urn:japp:schema:platform:capability-report:v1"
+        | "urn:japp:schema:platform:capability-report:v2" => {
             serde_round_trip::<PlatformCapabilityReport>(value)
         }
-        "urn:japp:schema:platform:certification-input:v1" => {
+        "urn:japp:schema:platform:certification-input:v1"
+        | "urn:japp:schema:platform:certification-input:v2" => {
             serde_round_trip::<PlatformCertificationInput>(value)
         }
-        "urn:japp:schema:platform:diagnostic-report:v1" => {
+        "urn:japp:schema:platform:diagnostic-report:v1"
+        | "urn:japp:schema:platform:diagnostic-report:v2" => {
             serde_round_trip::<PlatformDiagnosticReport>(value)
         }
-        "urn:japp:schema:platform:evidence-record:v1" => {
+        "urn:japp:schema:platform:evidence-record:v1"
+        | "urn:japp:schema:platform:evidence-record:v2" => {
             serde_round_trip::<PlatformEvidenceRecord>(value)
         }
-        "urn:japp:schema:platform:installer-state:v1" => {
+        "urn:japp:schema:platform:installer-state:v1"
+        | "urn:japp:schema:platform:installer-state:v2" => {
             serde_round_trip::<PlatformInstallerState>(value)
         }
-        "urn:japp:schema:platform:model-runtime-profile:v1" => {
+        "urn:japp:schema:platform:model-runtime-profile:v1"
+        | "urn:japp:schema:platform:model-runtime-profile:v2" => {
             serde_round_trip::<PlatformModelRuntimeProfile>(value)
         }
-        "urn:japp:schema:platform:native-messaging-registration:v1" => {
+        "urn:japp:schema:platform:native-messaging-registration:v1"
+        | "urn:japp:schema:platform:native-messaging-registration:v2" => {
             serde_round_trip::<PlatformNativeMessagingRegistration>(value)
         }
-        "urn:japp:schema:platform:native-messaging-result:v1" => {
+        "urn:japp:schema:platform:native-messaging-result:v1"
+        | "urn:japp:schema:platform:native-messaging-result:v2" => {
             serde_round_trip::<PlatformNativeMessagingResult>(value)
         }
         "urn:japp:schema:platform:path-request:v1" => {
             serde_round_trip::<PlatformPathRequest>(value)
         }
-        "urn:japp:schema:platform:path-resolution:v1" => {
+        "urn:japp:schema:platform:path-resolution:v1"
+        | "urn:japp:schema:platform:path-resolution:v2" => {
             serde_round_trip::<PlatformPathResolution>(value)
         }
-        "urn:japp:schema:platform:process-plan:v1" => {
+        "urn:japp:schema:platform:process-plan:v1" | "urn:japp:schema:platform:process-plan:v2" => {
             serde_round_trip::<PlatformProcessPlan>(value)
         }
-        "urn:japp:schema:platform:process-status:v1" => {
+        "urn:japp:schema:platform:process-status:v1"
+        | "urn:japp:schema:platform:process-status:v2" => {
             serde_round_trip::<PlatformProcessStatus>(value)
         }
-        "urn:japp:schema:platform:runtime-capability:v1" => {
+        "urn:japp:schema:platform:runtime-capability:v1"
+        | "urn:japp:schema:platform:runtime-capability:v2" => {
             serde_round_trip::<PlatformRuntimeCapability>(value)
         }
         "urn:japp:schema:platform:secret-store-request:v1" => {
             serde_round_trip::<PlatformSecretStoreRequest>(value)
         }
-        "urn:japp:schema:platform:secret-store-result:v1" => {
+        "urn:japp:schema:platform:secret-store-result:v1"
+        | "urn:japp:schema:platform:secret-store-result:v2" => {
             serde_round_trip::<PlatformSecretStoreResult>(value)
         }
         "urn:japp:schema:platform:target-identity:v1" => {
             serde_round_trip::<PlatformTargetIdentity>(value)
         }
-        "urn:japp:schema:platform:update-state:v1" => {
+        "urn:japp:schema:platform:update-state:v1" | "urn:japp:schema:platform:update-state:v2" => {
             serde_round_trip::<PlatformUpdateState>(value)
         }
         _ => Err(AdapterError),
@@ -3200,6 +3327,36 @@ const MANDATORY_CORE_CAPABILITIES: [&str; 5] = [
     "PROCESS_SUPERVISION",
     "SECURE_STORE",
 ];
+const OBSERVED_EVALUATION_METHODS: [&str; 3] = [
+    "MEASURED_NATIVE_RUN",
+    "STATIC_INSPECTION",
+    "SYNTHETIC_FIXTURE",
+];
+const CERTIFIED_CORE_EVIDENCE_KINDS: [&str; 10] = [
+    "BACKUP_RESTORE_REPORT",
+    "DIAGNOSTIC_BUNDLE_REPORT",
+    "DOCUMENT_MATRIX_REPORT",
+    "INSTALL_LAUNCH_REPORT",
+    "LOG_EXCERPT_REPORT",
+    "NATIVE_HOST_REGISTRATION_REPORT",
+    "SCREENSHOT_REPORT",
+    "SECRET_STORE_TEST_REPORT",
+    "TRACE_REPORT",
+    "UPDATE_ROLLBACK_REPORT",
+];
+const CERTIFIED_FULL_EVIDENCE_KINDS: [&str; 11] = [
+    "BACKUP_RESTORE_REPORT",
+    "DIAGNOSTIC_BUNDLE_REPORT",
+    "DOCUMENT_MATRIX_REPORT",
+    "INSTALL_LAUNCH_REPORT",
+    "LOG_EXCERPT_REPORT",
+    "MODEL_PROFILE_REPORT",
+    "NATIVE_HOST_REGISTRATION_REPORT",
+    "SCREENSHOT_REPORT",
+    "SECRET_STORE_TEST_REPORT",
+    "TRACE_REPORT",
+    "UPDATE_ROLLBACK_REPORT",
+];
 const PLATFORM_REQUEST_PRINCIPALS: [&str; 2] = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
 const PLATFORM_REQUEST_PROFILES: [&str; 2] = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
 const PLATFORM_INTERPRETER_TOKENS: [&str; 10] = [
@@ -3234,7 +3391,6 @@ const PLATFORM_PATH_ROLES: [&str; 9] = [
 /// cannot start with a colon, so the compressed "::1" spelling is structurally
 /// unrepresentable and only the expanded form appears here.
 const PLATFORM_LOOPBACK_HOSTS: [&str; 3] = ["0:0:0:0:0:0:0:1", "127.0.0.1", "localhost"];
-const OPERABLE_RUNTIME_AVAILABILITY: [&str; 2] = ["AVAILABLE", "DEGRADED_LIMITED"];
 const PACKAGE_SUCCESS_STATES: [&str; 5] = [
     "INSTALLED",
     "REPAIRED",
@@ -3341,28 +3497,48 @@ fn platform_request_authority(value: &Value) -> bool {
 
 fn platform_capability_state_sound(state: &Value) -> bool {
     let availability = text(state, "availability");
+    let method = text(state, "evaluation_method");
     let reasons = items(state, "reason_codes");
+    let identity_count = [
+        present(state, "identity_token"),
+        present(state, "detected_version"),
+        present(state, "evidence_digest"),
+    ]
+    .into_iter()
+    .filter(|present| *present)
+    .count();
     if !unique_strings(reasons) {
+        return false;
+    }
+    if (availability == Some("NOT_EVALUATED")) != (method == Some("NOT_EVALUATED"))
+        || (method == Some("DECLARED_PLAN") && availability != Some("UNKNOWN"))
+    {
         return false;
     }
     if availability == Some("AVAILABLE") {
         return reasons.is_empty()
-            && present(state, "identity_token")
-            && present(state, "detected_version")
-            && present(state, "evidence_digest")
-            && text(state, "evaluation_method") != Some("NOT_EVALUATED");
+            && identity_count == 3
+            && token_in(method, &OBSERVED_EVALUATION_METHODS);
     }
     if reasons.is_empty() {
         return false;
     }
     if availability == Some("NOT_EVALUATED") {
-        return text(state, "evaluation_method") == Some("NOT_EVALUATED")
-            && contains_value(reasons, "EVALUATION_NOT_RUN");
+        return identity_count == 0 && contains_value(reasons, "EVALUATION_NOT_RUN");
     }
-    if availability == Some("DEGRADED_LIMITED") {
-        return present(state, "identity_token") && present(state, "detected_version");
+    if token_in(availability, &["DEGRADED_LIMITED", "INCOMPATIBLE_VERSION"]) {
+        return identity_count == 3 && token_in(method, &OBSERVED_EVALUATION_METHODS);
     }
-    true
+    if token_in(
+        availability,
+        &["NOT_INSTALLED", "UNKNOWN", "UNSUPPORTED_TARGET"],
+    ) {
+        return identity_count == 0
+            && (method == Some("DECLARED_PLAN") || token_in(method, &OBSERVED_EVALUATION_METHODS));
+    }
+    token_in(availability, &["PERMISSION_REQUIRED", "UNAVAILABLE"])
+        && matches!(identity_count, 0 | 3)
+        && token_in(method, &OBSERVED_EVALUATION_METHODS)
 }
 
 fn platform_support_claim_sound(value: &Value) -> bool {
@@ -3553,72 +3729,69 @@ fn platform_secret_result_integrity(value: &Value) -> bool {
     let availability = text(value, "store_availability");
     let state = text(value, "result_state");
     let reasons = items(value, "reason_codes");
+    let has_identity = present(value, "store_identity_token");
     let has_material = present(value, "material_reference");
     let has_digest = present(value, "material_digest");
     if !unique_strings(reasons) {
         return false;
     }
-    if availability == Some("AVAILABLE") {
-        if !present(value, "store_identity_token") {
-            return false;
-        }
-    } else if has_material {
+    if availability == Some("PERMISSION_REQUIRED") {
+        return state == Some("DENIED_PERMISSION")
+            && !has_identity
+            && !has_material
+            && !has_digest
+            && contains_value(reasons, "PERMISSION_DENIED");
+    }
+    let unavailable_reason = match availability {
+        Some("INCOMPATIBLE_VERSION") => Some("CONFIGURATION_INVALID"),
+        Some("NOT_EVALUATED") => Some("EVALUATION_NOT_RUN"),
+        Some("NOT_INSTALLED") => Some("NOT_INSTALLED"),
+        Some("UNAVAILABLE") => Some("SERVICE_UNAVAILABLE"),
+        Some("UNKNOWN") => Some("UNKNOWN_ERROR"),
+        Some("UNSUPPORTED_TARGET") => Some("TARGET_NOT_CERTIFIED"),
+        _ => None,
+    };
+    if let Some(required_reason) = unavailable_reason {
+        return state == Some("STORE_UNAVAILABLE")
+            && !has_identity
+            && !has_material
+            && !has_digest
+            && contains_value(reasons, required_reason);
+    }
+    if !token_in(availability, &["AVAILABLE", "DEGRADED_LIMITED"]) || !has_identity {
         return false;
     }
-    let store_unavailable_availability = matches!(
-        availability,
-        Some(token)
-            if !matches!(
-                token,
-                "AVAILABLE" | "DEGRADED_LIMITED" | "PERMISSION_REQUIRED"
-            )
-    );
-    let denied_availability = token_in(availability, &["PERMISSION_REQUIRED", "UNAVAILABLE"]);
-    if operation == Some("STATUS") {
-        if has_material || has_digest {
-            return false;
-        }
-        return match state {
-            Some("STORE_AVAILABLE") => availability == Some("AVAILABLE") && reasons.is_empty(),
-            Some("DENIED_PERMISSION") => {
-                contains_value(reasons, "PERMISSION_DENIED") && denied_availability
-            }
-            Some("STORE_UNAVAILABLE") => !reasons.is_empty() && store_unavailable_availability,
-            _ => false,
-        };
-    }
+    let success_reasons_sound = if availability == Some("AVAILABLE") {
+        reasons.is_empty()
+    } else {
+        !reasons.is_empty()
+    };
     match state {
-        Some("STORE_AVAILABLE") => false,
+        Some("STORE_AVAILABLE") => {
+            operation == Some("STATUS") && !has_material && !has_digest && success_reasons_sound
+        }
         Some("RETRIEVED") => {
-            operation == Some("GET")
-                && availability == Some("AVAILABLE")
-                && has_material
-                && has_digest
-                && reasons.is_empty()
+            operation == Some("GET") && has_material && has_digest && success_reasons_sound
         }
         Some("STORED") => {
-            operation == Some("PUT")
-                && availability == Some("AVAILABLE")
-                && has_material
-                && reasons.is_empty()
+            operation == Some("PUT") && has_material && !has_digest && success_reasons_sound
         }
         Some("DELETED") => {
-            operation == Some("DELETE")
-                && availability == Some("AVAILABLE")
+            operation == Some("DELETE") && !has_material && !has_digest && success_reasons_sound
+        }
+        Some("NOT_FOUND") => {
+            token_in(operation, &["DELETE", "GET", "PUT"])
                 && !has_material
                 && !has_digest
-                && reasons.is_empty()
+                && !reasons.is_empty()
         }
-        Some("DENIED_PERMISSION") => {
-            !has_material
+        Some("OPERATION_FAILED") => {
+            token_in(operation, &["DELETE", "GET", "PUT"])
+                && !has_material
                 && !has_digest
-                && contains_value(reasons, "PERMISSION_DENIED")
-                && denied_availability
+                && !reasons.is_empty()
         }
-        Some("STORE_UNAVAILABLE") => {
-            !has_material && !has_digest && !reasons.is_empty() && store_unavailable_availability
-        }
-        _ => !has_material && !has_digest && !reasons.is_empty(),
+        _ => false,
     }
 }
 
@@ -3732,8 +3905,17 @@ fn platform_process_status_integrity(value: &Value) -> bool {
         return false;
     }
     match state {
-        Some("STARTING") => !ended && !exited,
-        Some("RUNNING") => started && !ended && !exited,
+        Some("STARTING") => {
+            !ended && !exited && !terminating && orphan != Some(true) && reasons.is_empty()
+        }
+        Some("RUNNING") => {
+            started
+                && !ended
+                && !exited
+                && !terminating
+                && orphan != Some(true)
+                && reasons.is_empty()
+        }
         Some("TERMINATING") => started && !ended && !exited && terminating,
         // The child ended on its own; a supervisor-requested stop is
         // TERMINATED. A clean exit explains itself, and any other exit status
@@ -3749,16 +3931,22 @@ fn platform_process_status_integrity(value: &Value) -> bool {
                     !reasons.is_empty()
                 })
         }
-        Some("TERMINATED") => started && ended && terminating,
+        Some("TERMINATED") => started && ended && !exited && terminating,
         // An orphan outlived its supervising parent and still requires cleanup,
         // so it has started and has not yet been observed to end.
         Some("ORPHANED") => {
-            started && !ended && !exited && orphan == Some(true) && !reasons.is_empty()
+            started
+                && !ended
+                && !exited
+                && !terminating
+                && orphan == Some(true)
+                && !reasons.is_empty()
         }
-        Some("UNAVAILABLE") => !started && !ended && !exited && !reasons.is_empty(),
+        Some("UNAVAILABLE") => !started && !ended && !exited && !terminating && !reasons.is_empty(),
         // FAILED: supervision itself failed. An observed exit status would make
         // this an EXITED child instead, so the two stay distinguishable.
-        _ => !exited && !reasons.is_empty(),
+        Some("FAILED") => !ended && !exited && !reasons.is_empty() && (!terminating || started),
+        _ => false,
     }
 }
 
@@ -3858,6 +4046,7 @@ fn platform_browser_discovery_safety(value: &Value) -> bool {
 
 fn platform_browser_record_scope(value: &Value) -> bool {
     let presence = text(value, "presence");
+    let method = text(value, "detection_method");
     let reasons = items(value, "reason_codes");
     let Some(capability) = object_member(value, "native_messaging_capability") else {
         return false;
@@ -3868,12 +4057,15 @@ fn platform_browser_record_scope(value: &Value) -> bool {
     {
         return false;
     }
+    if (presence == Some("NOT_EVALUATED")) != (method == Some("NOT_EVALUATED"))
+        || (method == Some("DECLARED_PLAN") && presence != Some("UNKNOWN"))
+        || (!token_in(method, &["NOT_EVALUATED", "DECLARED_PLAN"])
+            && !token_in(method, &OBSERVED_EVALUATION_METHODS))
+    {
+        return false;
+    }
     if presence == Some("AVAILABLE") {
-        // A presence claim is an observation, so it cannot come from an
-        // explicitly unevaluated detection.
-        if !present(value, "detected_version")
-            || text(value, "detection_method") == Some("NOT_EVALUATED")
-        {
+        if !present(value, "detected_version") {
             return false;
         }
     } else if present(value, "sanitized_install_location") {
@@ -3895,8 +4087,10 @@ fn platform_browser_record_scope(value: &Value) -> bool {
         && text(value, "browser_family") == Some("CHROME")
         && text(value, "browser_channel") == Some("STABLE")
         && token_in(text(value, "platform_id"), &CERTIFIED_PLATFORM_IDS)
-        && text(value, "detection_method") == Some("MEASURED_NATIVE_RUN")
+        && method == Some("MEASURED_NATIVE_RUN")
+        && present(value, "sanitized_install_location")
         && text(capability, "availability") == Some("AVAILABLE")
+        && text(capability, "evaluation_method") == Some("MEASURED_NATIVE_RUN")
         && present(value, "last_tested_on")
 }
 
@@ -3955,18 +4149,25 @@ fn platform_model_profile_evidence(value: &Value) -> bool {
 }
 
 fn platform_runtime_capability_fallback(value: &Value) -> bool {
+    let availability = text(value, "runtime_availability").unwrap_or_default();
+    let method = text(value, "detection_method");
     let available = items(value, "available_profile_refs");
     let accepted = items(value, "accepted_profile_refs");
     let reasons = items(value, "reason_codes");
     let behavior = text(value, "core_capability_behavior");
-    let availability = text(value, "runtime_availability").unwrap_or_default();
     let platform_id = text(value, "platform_id").unwrap_or_default();
     let family = text(value, "runtime_family");
+    let has_version = present(value, "runtime_version");
     let accelerator = text(value, "accelerator");
     if !unique_strings(available)
         || !unique_strings(accepted)
         || !unique_strings(reasons)
         || !subset_of(accepted, available)
+    {
+        return false;
+    }
+    if (availability == "NOT_EVALUATED") != (method == Some("NOT_EVALUATED"))
+        || (method == Some("DECLARED_PLAN") && availability != "UNKNOWN")
     {
         return false;
     }
@@ -3980,59 +4181,55 @@ fn platform_runtime_capability_fallback(value: &Value) -> bool {
     {
         return false;
     }
-    // An unevaluated runtime is exactly an unevaluated detection.
-    if (text(value, "detection_method") == Some("NOT_EVALUATED"))
-        != (availability == "NOT_EVALUATED")
+    if !token_in(method, &["NOT_EVALUATED", "DECLARED_PLAN"])
+        && !token_in(method, &OBSERVED_EVALUATION_METHODS)
     {
         return false;
     }
-    // A capability that was never evaluated, or that cannot exist on this
-    // target at all, observed no runtime identity.
-    if availability == "NOT_EVALUATED" || availability == "UNSUPPORTED_TARGET" {
-        if family.is_some() || present(value, "runtime_version") || accelerator.is_some() {
+    if token_in(Some(availability), &["AVAILABLE", "DEGRADED_LIMITED"]) {
+        if family.is_none() || !has_version || accelerator.is_none() {
             return false;
         }
-        if availability == "NOT_EVALUATED" && !contains_value(reasons, "EVALUATION_NOT_RUN") {
+    } else if availability == "INCOMPATIBLE_VERSION" {
+        if family.is_none() || !has_version || !available.is_empty() || !accepted.is_empty() {
             return false;
         }
-    }
-    // Full AI is the only state with nothing outstanding, and it is exactly the
-    // state that requires an accepted profile on an available certified
-    // runtime.
-    if behavior == Some("FULL_AI_AVAILABLE") {
-        if availability != "AVAILABLE"
-            || accepted.is_empty()
-            || !reasons.is_empty()
-            || !CERTIFIED_PLATFORM_IDS.contains(&platform_id)
-        {
-            return false;
-        }
-    } else if !accepted.is_empty() || reasons.is_empty() {
+    } else if family.is_some()
+        || has_version
+        || accelerator.is_some()
+        || !available.is_empty()
+        || !accepted.is_empty()
+    {
         return false;
     }
-    // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
-    // states, so they are the only ones that may enumerate usable profiles and
-    // the only ones that observed a runtime identity. A runtime below the
-    // performance tier still reports what it is and what it offers.
-    if !OPERABLE_RUNTIME_AVAILABILITY.contains(&availability) {
-        return available.is_empty();
+    if availability == "AVAILABLE" && behavior == Some("FULL_AI_AVAILABLE") {
+        return !accepted.is_empty()
+            && reasons.is_empty()
+            && CERTIFIED_PLATFORM_IDS.contains(&platform_id);
     }
-    if family.is_none() || !present(value, "runtime_version") {
-        return false;
+    if token_in(Some(availability), &["AVAILABLE", "DEGRADED_LIMITED"]) {
+        return accepted.is_empty()
+            && !reasons.is_empty()
+            && behavior == Some("CORE_PRESERVED_AI_DEGRADED");
     }
-    availability != "AVAILABLE" || accelerator.is_some()
+    !reasons.is_empty()
+        && behavior == Some("CORE_PRESERVED_AI_UNAVAILABLE")
+        && (availability != "NOT_EVALUATED" || contains_value(reasons, "EVALUATION_NOT_RUN"))
 }
 
 fn platform_package_state_evidence(value: &Value) -> bool {
     let state = text(value, "state").unwrap_or_default();
     let reasons = items(value, "reason_codes");
+    let evidence = items(value, "evidence_refs");
     let signature = text(value, "signature_state");
     let interrupted = flag(value, "interrupted");
+    let has_recovery = present(value, "recovery_completed");
+    let recovered = flag(value, "recovery_completed") == Some(true);
     let preservation = text(value, "user_data_preservation");
     let package_format = text(value, "package_format");
     let allowed_formats = platform_package_formats(text(value, "platform_id").unwrap_or_default());
     if !unique_strings(reasons)
-        || !unique_strings(items(value, "evidence_refs"))
+        || !unique_strings(evidence)
         || !platform_architecture_coherent(value)
         || (preservation == Some("PRESERVATION_FAILED") && reasons.is_empty())
         || allowed_formats
@@ -4040,15 +4237,24 @@ fn platform_package_state_evidence(value: &Value) -> bool {
     {
         return false;
     }
-    // The interrupted flag is historical: it records that this operation was
-    // interrupted at some point. The recovery_completed flag records that the
-    // interruption was resolved, so it is meaningless without one. The
-    // INTERRUPTED reason names exactly an operation that was interrupted, and
-    // the unresolved terminal outcome is carried by INSTALL_INTERRUPTED /
-    // UPDATE_INTERRUPTED, never by the flag alone.
-    if (present(value, "recovery_completed") && interrupted != Some(true))
+    if (has_recovery && interrupted != Some(true))
         || contains_value(reasons, "INTERRUPTED") != (interrupted == Some(true))
-        || (PACKAGE_INTERRUPTED_STATES.contains(&state) && interrupted != Some(true))
+    {
+        return false;
+    }
+    let interrupted_terminal = PACKAGE_INTERRUPTED_STATES.contains(&state);
+    let success = PACKAGE_SUCCESS_STATES.contains(&state);
+    let observation = token_in(
+        Some(state),
+        &["NOT_INSTALLED", "NO_UPDATE_AVAILABLE", "UPDATE_AVAILABLE"],
+    );
+    if (interrupted_terminal && (interrupted != Some(true) || recovered))
+        || (success && interrupted == Some(true) && !recovered)
+        || (observation && (interrupted == Some(true) || has_recovery))
+        || (PACKAGE_FAILURE_STATES.contains(&state)
+            && !interrupted_terminal
+            && interrupted == Some(true)
+            && !recovered)
     {
         return false;
     }
@@ -4060,48 +4266,74 @@ fn platform_package_state_evidence(value: &Value) -> bool {
     if PACKAGE_FAILURE_STATES.contains(&state) && reasons.is_empty() {
         return false;
     }
-    // A success carries no outstanding reason. A recovered interruption is no
-    // longer outstanding, so exactly the historical INTERRUPTED reason may
-    // remain — and only when the recovery actually completed. Specification
-    // §5.14.8 requires every certified target to pass interrupted update,
-    // repair, rollback, and preservation behaviour, so that outcome must be
-    // reportable as the success it is.
-    if PACKAGE_SUCCESS_STATES.contains(&state)
+    if success
         && (signature != Some("SIGNATURE_VALID")
             || reasons
                 .iter()
                 .any(|reason| reason.as_str() != Some("INTERRUPTED"))
-            || (interrupted == Some(true) && flag(value, "recovery_completed") != Some(true))
             || !token_in(preservation, &["EXPLICIT_DELETION_REQUESTED", "PRESERVED"])
-            || items(value, "evidence_refs").is_empty())
+            || evidence.is_empty())
     {
         return false;
     }
+    let installed = text(value, "installed_version");
+    let package_version = text(value, "package_version");
+    let current_version = text(value, "current_version");
+    let available_version = text(value, "available_version");
+    let rolled_back_version = text(value, "rolled_back_to_version");
+    let has_target = present(value, "target_artifact");
     match state {
-        "UNINSTALLED" => token_in(
-            text(value, "native_host_cleanup"),
-            &["NOT_APPLICABLE", "REMOVED"],
-        ),
-        "INSTALLED" => {
-            present(value, "installed_version")
-                && text(value, "installed_version") == text(value, "package_version")
+        "INSTALLED" | "REPAIRED" => installed.is_some() && installed == package_version,
+        "UNINSTALLED" | "NOT_INSTALLED" | "INSTALL_FAILED" | "INSTALL_INTERRUPTED" => {
+            installed.is_none()
+                && (state != "UNINSTALLED"
+                    || token_in(
+                        text(value, "native_host_cleanup"),
+                        &["NOT_APPLICABLE", "REMOVED"],
+                    ))
         }
-        "NOT_INSTALLED" => !present(value, "installed_version"),
-        "NO_UPDATE_AVAILABLE" => !present(value, "available_version"),
-        "UPDATE_AVAILABLE" => present(value, "available_version"),
-        // The installed update is the update that was offered, exactly as
-        // INSTALLED binds the installed version to the package version.
+        "REPAIR_FAILED" | "UNINSTALL_FAILED" => installed.is_some() && installed == package_version,
+        "NO_UPDATE_AVAILABLE" => {
+            available_version.is_none()
+                && installed.is_none()
+                && rolled_back_version.is_none()
+                && !has_target
+                && flag(value, "rollback_available") == Some(false)
+        }
+        "UPDATE_AVAILABLE" => {
+            available_version.is_some()
+                && available_version != current_version
+                && installed.is_none()
+                && rolled_back_version.is_none()
+                && has_target
+        }
         "UPDATE_INSTALLED" => {
-            present(value, "installed_version")
-                && present(value, "available_version")
-                && present(value, "target_artifact")
-                && text(value, "installed_version") == text(value, "available_version")
+            installed.is_some()
+                && available_version.is_some()
+                && has_target
+                && installed == available_version
+                && rolled_back_version.is_none()
         }
         "ROLLED_BACK" => {
-            present(value, "rolled_back_to_version")
+            installed.is_some()
+                && rolled_back_version.is_some()
+                && installed == rolled_back_version
+                && installed == current_version
                 && flag(value, "rollback_available") == Some(true)
+                && (available_version.is_some() == has_target)
         }
-        _ => true,
+        "UPDATE_FAILED" | "UPDATE_INTERRUPTED" => {
+            (available_version.is_some() == has_target)
+                && (installed.is_none() || installed == current_version)
+                && rolled_back_version.is_none()
+        }
+        "ROLLBACK_FAILED" => {
+            installed.is_some()
+                && installed == current_version
+                && rolled_back_version.is_none()
+                && (available_version.is_some() == has_target)
+        }
+        _ => false,
     }
 }
 
@@ -4220,17 +4452,33 @@ fn platform_certification_input_scope(value: &Value) -> bool {
     let required = items(value, "required_evidence_kinds");
     let present_kinds = items(value, "present_evidence_kinds");
     let records = items(value, "evidence_record_refs");
+    let inventory = items(value, "evidence_inventory");
     let reasons = items(value, "reason_codes");
     if !strictly_sorted_strings(required)
         || !strictly_sorted_strings(present_kinds)
         || !unique_strings(records)
+        || !strictly_sorted_field(inventory, "artifact_kind")
+        || !unique_field(inventory, "evidence_record_ref")
         || !unique_strings(reasons)
         || !platform_architecture_coherent(value)
         || !platform_support_claim_sound(value)
     {
         return false;
     }
-    let complete = subset_of(required, present_kinds) && !records.is_empty();
+    if present_kinds.len() != inventory.len()
+        || records.len() != inventory.len()
+        || !present_kinds
+            .iter()
+            .zip(inventory)
+            .all(|(kind, item)| kind.as_str() == text(item, "artifact_kind"))
+        || !records
+            .iter()
+            .zip(inventory)
+            .all(|(record, item)| record.as_str() == text(item, "evidence_record_ref"))
+    {
+        return false;
+    }
+    let complete = subset_of(required, present_kinds) && !inventory.is_empty();
     if flag(value, "inventory_complete") != Some(complete) {
         return false;
     }
@@ -4242,13 +4490,33 @@ fn platform_certification_input_scope(value: &Value) -> bool {
     if !platform_reviewed_tier_is_certified(value) {
         return !reasons.is_empty();
     }
-    // Completeness is measured against the record's own declared policy, so an
-    // empty required set would make "complete" vacuous. A certified proposal
-    // must name the evidence it required.
+    let reviewed_tier =
+        object_member(value, "support_claim").and_then(|claim| text(claim, "reviewed_tier"));
+    let claim_evidence_refs = object_member(value, "support_claim")
+        .map(|claim| items(claim, "evidence_refs"))
+        .unwrap_or(&[]);
+    let policy: &[&str] = if reviewed_tier == Some("CERTIFIED_FULL") {
+        &CERTIFIED_FULL_EVIDENCE_KINDS
+    } else {
+        &CERTIFIED_CORE_EVIDENCE_KINDS
+    };
+    let matches_policy = |values: &[Value]| {
+        values.len() == policy.len()
+            && values
+                .iter()
+                .zip(policy)
+                .all(|(value, expected)| value.as_str() == Some(*expected))
+    };
     reasons.is_empty()
         && complete
-        && !required.is_empty()
+        && matches_policy(required)
+        && matches_policy(present_kinds)
+        && claim_evidence_refs == records
+        && present(value, "browser_record_ref")
+        && present(value, "runtime_capability_ref")
         && text(value, "owner_decision_state") == Some("RECORDED")
+        && (reviewed_tier != Some("CERTIFIED_FULL")
+            || contains_value(present_kinds, "MODEL_PROFILE_REPORT"))
 }
 
 fn present(value: &Value, name: &str) -> bool {
@@ -4285,36 +4553,94 @@ fn evaluate_semantic_rule(kind: SemanticRuleKind, value: &Value) -> bool {
         SemanticRuleKind::PlatformBrowserDiscoverySafety => {
             platform_browser_discovery_safety(value)
         }
-        SemanticRuleKind::PlatformBrowserRecordScope => platform_browser_record_scope(value),
+        SemanticRuleKind::PlatformBrowserRecordScope => {
+            legacy_platform::platform_browser_record_scope(value)
+                || published_legacy_platform::platform_browser_record_scope(value)
+        }
+        SemanticRuleKind::PlatformBrowserRecordScopeV2 => platform_browser_record_scope(value),
         SemanticRuleKind::PlatformCapabilityReportIntegrity => {
+            legacy_platform::platform_capability_report_integrity(value)
+                || published_legacy_platform::platform_capability_report_integrity(value)
+        }
+        SemanticRuleKind::PlatformCapabilityReportIntegrityV2 => {
             platform_capability_report_integrity(value)
         }
         SemanticRuleKind::PlatformCertificationInputScope => {
+            legacy_platform::platform_certification_input_scope(value)
+                || published_legacy_platform::platform_certification_input_scope(value)
+        }
+        SemanticRuleKind::PlatformCertificationInputScopeV2 => {
             platform_certification_input_scope(value)
         }
-        SemanticRuleKind::PlatformDiagnosticIntegrity => platform_diagnostic_integrity(value),
-        SemanticRuleKind::PlatformEvidenceIntegrity => platform_evidence_integrity(value),
-        SemanticRuleKind::PlatformModelProfileEvidence => platform_model_profile_evidence(value),
+        SemanticRuleKind::PlatformDiagnosticIntegrity => {
+            legacy_platform::platform_diagnostic_integrity(value)
+                || published_legacy_platform::platform_diagnostic_integrity(value)
+        }
+        SemanticRuleKind::PlatformDiagnosticIntegrityV2 => platform_diagnostic_integrity(value),
+        SemanticRuleKind::PlatformEvidenceIntegrity => {
+            legacy_platform::platform_evidence_integrity(value)
+                || published_legacy_platform::platform_evidence_integrity(value)
+        }
+        SemanticRuleKind::PlatformEvidenceIntegrityV2 => platform_evidence_integrity(value),
+        SemanticRuleKind::PlatformModelProfileEvidence => {
+            legacy_platform::platform_model_profile_evidence(value)
+                || published_legacy_platform::platform_model_profile_evidence(value)
+        }
+        SemanticRuleKind::PlatformModelProfileEvidenceV2 => platform_model_profile_evidence(value),
         SemanticRuleKind::PlatformNativeRegistrationBinding => {
+            legacy_platform::platform_native_registration_binding(value)
+                || published_legacy_platform::platform_native_registration_binding(value)
+        }
+        SemanticRuleKind::PlatformNativeRegistrationBindingV2 => {
             platform_native_registration_binding(value)
         }
         SemanticRuleKind::PlatformNativeRegistrationResult => {
+            legacy_platform::platform_native_registration_result(value)
+                || published_legacy_platform::platform_native_registration_result(value)
+        }
+        SemanticRuleKind::PlatformNativeRegistrationResultV2 => {
             platform_native_registration_result(value)
         }
-        SemanticRuleKind::PlatformPackageStateEvidence => platform_package_state_evidence(value),
+        SemanticRuleKind::PlatformPackageStateEvidence => {
+            legacy_platform::platform_package_state_evidence(value)
+                || published_legacy_platform::platform_package_state_evidence(value)
+        }
+        SemanticRuleKind::PlatformPackageStateEvidenceV2 => platform_package_state_evidence(value),
         SemanticRuleKind::PlatformPathRequestSafety => platform_path_request_safety(value),
-        SemanticRuleKind::PlatformPathResolutionSafety => platform_path_resolution_safety(value),
-        SemanticRuleKind::PlatformProcessPlanSafety => platform_process_plan_safety(value),
+        SemanticRuleKind::PlatformPathResolutionSafety => {
+            legacy_platform::platform_path_resolution_safety(value)
+                || published_legacy_platform::platform_path_resolution_safety(value)
+        }
+        SemanticRuleKind::PlatformPathResolutionSafetyV2 => platform_path_resolution_safety(value),
+        SemanticRuleKind::PlatformProcessPlanSafety => {
+            legacy_platform::platform_process_plan_safety(value)
+                || published_legacy_platform::platform_process_plan_safety(value)
+        }
+        SemanticRuleKind::PlatformProcessPlanSafetyV2 => platform_process_plan_safety(value),
         SemanticRuleKind::PlatformProcessStatusIntegrity => {
+            legacy_platform::platform_process_status_integrity(value)
+                || published_legacy_platform::platform_process_status_integrity(value)
+        }
+        SemanticRuleKind::PlatformProcessStatusIntegrityV2 => {
             platform_process_status_integrity(value)
         }
         SemanticRuleKind::PlatformRuntimeCapabilityFallback => {
+            legacy_platform::platform_runtime_capability_fallback(value)
+                || published_legacy_platform::platform_runtime_capability_fallback(value)
+        }
+        SemanticRuleKind::PlatformRuntimeCapabilityFallbackV2 => {
             platform_runtime_capability_fallback(value)
         }
         SemanticRuleKind::PlatformSecretRequestAuthority => {
             platform_secret_request_authority(value)
         }
-        SemanticRuleKind::PlatformSecretResultIntegrity => platform_secret_result_integrity(value),
+        SemanticRuleKind::PlatformSecretResultIntegrity => {
+            legacy_platform::platform_secret_result_integrity(value)
+                || published_legacy_platform::platform_secret_result_integrity(value)
+        }
+        SemanticRuleKind::PlatformSecretResultIntegrityV2 => {
+            platform_secret_result_integrity(value)
+        }
         SemanticRuleKind::PlatformTargetSupportClaim => platform_target_support_claim(value),
         SemanticRuleKind::ReconciliationReadiness => reconciliation_readiness(value),
         SemanticRuleKind::ResumePlanEvidence => resume_plan_evidence(value),
@@ -5015,7 +5341,7 @@ mod tests {
         let catalog = load_catalog(&repo).expect("schema catalog loads");
         let security = load_security_data(&repo).expect("security data loads");
         let rules = load_semantic_rules(&repo, &catalog, &security).expect("semantic rules load");
-        assert_eq!(rules.entries.len(), 80);
+        assert_eq!(rules.entries.len(), 110);
         assert_eq!(
             rules
                 .entries
@@ -5468,6 +5794,52 @@ mod tests {
         premature_certification["inventory_complete"] = json!(true);
         assert!(!platform_certification_input_scope(
             &premature_certification
+        ));
+
+        // A completed support claim is bound to the exact reviewed evidence
+        // inventory; it cannot name an unrelated record.
+        let mut mismatched_claim_evidence = values["w07.certification-input"].clone();
+        let evidence_refs: Vec<Value> = CERTIFIED_CORE_EVIDENCE_KINDS
+            .iter()
+            .enumerate()
+            .map(|(index, _)| Value::String(format!("evid_{index:026}")))
+            .collect();
+        let inventory: Vec<Value> = CERTIFIED_CORE_EVIDENCE_KINDS
+            .iter()
+            .zip(&evidence_refs)
+            .map(|(kind, evidence_ref)| {
+                json!({
+                    "artifact_kind": kind,
+                    "evidence_record_ref": evidence_ref
+                })
+            })
+            .collect();
+        let mut claim_evidence_refs = evidence_refs.clone();
+        claim_evidence_refs[0] = Value::String("evid_Z123456789ABCDEFGHJKMNPQRS".to_owned());
+        mismatched_claim_evidence["support_claim"] = json!({
+            "claimed_tier": "CERTIFIED_CORE",
+            "reviewed_tier": "CERTIFIED_CORE",
+            "review_state": "REVIEW_COMPLETE",
+            "evaluated_commit": "0123456789abcdef0123456789abcdef01234567",
+            "evaluated_tree": "1111111111111111111111111111111111111111",
+            "evidence_refs": claim_evidence_refs,
+            "reviewer_identity_ref": "reviewer_0123456789ABCDEFGHJKMNPQRS"
+        });
+        mismatched_claim_evidence["evidence_record_refs"] = json!(evidence_refs);
+        mismatched_claim_evidence["evidence_inventory"] = json!(inventory);
+        mismatched_claim_evidence["required_evidence_kinds"] = json!(CERTIFIED_CORE_EVIDENCE_KINDS);
+        mismatched_claim_evidence["present_evidence_kinds"] = json!(CERTIFIED_CORE_EVIDENCE_KINDS);
+        mismatched_claim_evidence["inventory_complete"] = json!(true);
+        mismatched_claim_evidence["browser_record_ref"] =
+            json!("browser_0123456789ABCDEFGHJKMNPQRS");
+        mismatched_claim_evidence["runtime_capability_ref"] =
+            json!("runtime_0123456789ABCDEFGHJKMNPQRS");
+        mismatched_claim_evidence["owner_decision_state"] = json!("RECORDED");
+        mismatched_claim_evidence["owner_decision_ref"] =
+            json!("ownerdec_0123456789ABCDEFGHJKMNPQRS");
+        mismatched_claim_evidence["reason_codes"] = json!([]);
+        assert!(!platform_certification_input_scope(
+            &mismatched_claim_evidence
         ));
     }
 }

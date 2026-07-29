@@ -32,21 +32,35 @@ export type SemanticRuleKindV1 =
   | "PAGE_READINESS_INTEGRITY"
   | "PLATFORM_BROWSER_DISCOVERY_SAFETY"
   | "PLATFORM_BROWSER_RECORD_SCOPE"
+  | "PLATFORM_BROWSER_RECORD_SCOPE_V2"
   | "PLATFORM_CAPABILITY_REPORT_INTEGRITY"
+  | "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2"
   | "PLATFORM_CERTIFICATION_INPUT_SCOPE"
+  | "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2"
   | "PLATFORM_DIAGNOSTIC_INTEGRITY"
+  | "PLATFORM_DIAGNOSTIC_INTEGRITY_V2"
   | "PLATFORM_EVIDENCE_INTEGRITY"
+  | "PLATFORM_EVIDENCE_INTEGRITY_V2"
   | "PLATFORM_MODEL_PROFILE_EVIDENCE"
+  | "PLATFORM_MODEL_PROFILE_EVIDENCE_V2"
   | "PLATFORM_NATIVE_REGISTRATION_BINDING"
+  | "PLATFORM_NATIVE_REGISTRATION_BINDING_V2"
   | "PLATFORM_NATIVE_REGISTRATION_RESULT"
+  | "PLATFORM_NATIVE_REGISTRATION_RESULT_V2"
   | "PLATFORM_PACKAGE_STATE_EVIDENCE"
+  | "PLATFORM_PACKAGE_STATE_EVIDENCE_V2"
   | "PLATFORM_PATH_REQUEST_SAFETY"
   | "PLATFORM_PATH_RESOLUTION_SAFETY"
+  | "PLATFORM_PATH_RESOLUTION_SAFETY_V2"
   | "PLATFORM_PROCESS_PLAN_SAFETY"
+  | "PLATFORM_PROCESS_PLAN_SAFETY_V2"
   | "PLATFORM_PROCESS_STATUS_INTEGRITY"
+  | "PLATFORM_PROCESS_STATUS_INTEGRITY_V2"
   | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK"
+  | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2"
   | "PLATFORM_SECRET_REQUEST_AUTHORITY"
   | "PLATFORM_SECRET_RESULT_INTEGRITY"
+  | "PLATFORM_SECRET_RESULT_INTEGRITY_V2"
   | "PLATFORM_TARGET_SUPPORT_CLAIM"
   | "RECONCILIATION_READINESS"
   | "RESUME_PLAN_EVIDENCE"
@@ -54,7 +68,7 @@ export type SemanticRuleKindV1 =
   | "WORKDAY_STEP_BOUNDARY"
   | "WORKDAY_TENANT_IDENTITY";
 
-export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INTEGRITY" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_INERT_TEXT" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT" | "PLATFORM_BROWSER_DISCOVERY_SAFETY" | "PLATFORM_BROWSER_RECORD_INERT_TEXT" | "PLATFORM_BROWSER_RECORD_SCOPE" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT" | "PLATFORM_CERTIFICATION_INPUT_SCOPE" | "PLATFORM_DIAGNOSTIC_INERT_TEXT" | "PLATFORM_DIAGNOSTIC_INTEGRITY" | "PLATFORM_EVIDENCE_INERT_TEXT" | "PLATFORM_EVIDENCE_INTEGRITY" | "PLATFORM_INSTALLER_STATE_EVIDENCE" | "PLATFORM_INSTALLER_STATE_INERT_TEXT" | "PLATFORM_MODEL_PROFILE_EVIDENCE" | "PLATFORM_MODEL_PROFILE_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_BINDING" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_RESULT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT" | "PLATFORM_PATH_REQUEST_INERT_TEXT" | "PLATFORM_PATH_REQUEST_SAFETY" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT" | "PLATFORM_PATH_RESOLUTION_SAFETY" | "PLATFORM_PROCESS_PLAN_INERT_TEXT" | "PLATFORM_PROCESS_PLAN_SAFETY" | "PLATFORM_PROCESS_STATUS_INERT_TEXT" | "PLATFORM_PROCESS_STATUS_INTEGRITY" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT" | "PLATFORM_SECRET_REQUEST_AUTHORITY" | "PLATFORM_SECRET_REQUEST_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INTEGRITY" | "PLATFORM_TARGET_IDENTITY_INERT_TEXT" | "PLATFORM_TARGET_SUPPORT_CLAIM" | "PLATFORM_UPDATE_STATE_EVIDENCE" | "PLATFORM_UPDATE_STATE_INERT_TEXT" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
+export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INTEGRITY" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_INERT_TEXT" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT" | "PLATFORM_BROWSER_DISCOVERY_SAFETY" | "PLATFORM_BROWSER_RECORD_INERT_TEXT" | "PLATFORM_BROWSER_RECORD_INERT_TEXT_V2" | "PLATFORM_BROWSER_RECORD_SCOPE" | "PLATFORM_BROWSER_RECORD_SCOPE_V2" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT_V2" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT_V2" | "PLATFORM_CERTIFICATION_INPUT_SCOPE" | "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2" | "PLATFORM_DIAGNOSTIC_INERT_TEXT" | "PLATFORM_DIAGNOSTIC_INERT_TEXT_V2" | "PLATFORM_DIAGNOSTIC_INTEGRITY" | "PLATFORM_DIAGNOSTIC_INTEGRITY_V2" | "PLATFORM_EVIDENCE_INERT_TEXT" | "PLATFORM_EVIDENCE_INERT_TEXT_V2" | "PLATFORM_EVIDENCE_INTEGRITY" | "PLATFORM_EVIDENCE_INTEGRITY_V2" | "PLATFORM_INSTALLER_STATE_EVIDENCE" | "PLATFORM_INSTALLER_STATE_EVIDENCE_V2" | "PLATFORM_INSTALLER_STATE_INERT_TEXT" | "PLATFORM_INSTALLER_STATE_INERT_TEXT_V2" | "PLATFORM_MODEL_PROFILE_EVIDENCE" | "PLATFORM_MODEL_PROFILE_EVIDENCE_V2" | "PLATFORM_MODEL_PROFILE_INERT_TEXT" | "PLATFORM_MODEL_PROFILE_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_BINDING" | "PLATFORM_NATIVE_REGISTRATION_BINDING_V2" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT_V2" | "PLATFORM_PATH_REQUEST_INERT_TEXT" | "PLATFORM_PATH_REQUEST_SAFETY" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT_V2" | "PLATFORM_PATH_RESOLUTION_SAFETY" | "PLATFORM_PATH_RESOLUTION_SAFETY_V2" | "PLATFORM_PROCESS_PLAN_INERT_TEXT" | "PLATFORM_PROCESS_PLAN_INERT_TEXT_V2" | "PLATFORM_PROCESS_PLAN_SAFETY" | "PLATFORM_PROCESS_PLAN_SAFETY_V2" | "PLATFORM_PROCESS_STATUS_INERT_TEXT" | "PLATFORM_PROCESS_STATUS_INERT_TEXT_V2" | "PLATFORM_PROCESS_STATUS_INTEGRITY" | "PLATFORM_PROCESS_STATUS_INTEGRITY_V2" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT_V2" | "PLATFORM_SECRET_REQUEST_AUTHORITY" | "PLATFORM_SECRET_REQUEST_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT_V2" | "PLATFORM_SECRET_RESULT_INTEGRITY" | "PLATFORM_SECRET_RESULT_INTEGRITY_V2" | "PLATFORM_TARGET_IDENTITY_INERT_TEXT" | "PLATFORM_TARGET_SUPPORT_CLAIM" | "PLATFORM_UPDATE_STATE_EVIDENCE" | "PLATFORM_UPDATE_STATE_EVIDENCE_V2" | "PLATFORM_UPDATE_STATE_INERT_TEXT" | "PLATFORM_UPDATE_STATE_INERT_TEXT_V2" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
 
 export interface SemanticRuleEntryV1 {
   readonly rule_id: SemanticRuleIdV1;
@@ -312,6 +326,13 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_BROWSER_RECORD_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-record:v2",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_BROWSER_RECORD_SCOPE",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:browser-record:v1",
@@ -319,9 +340,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "UNSUPPORTED_PLATFORM",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_BROWSER_RECORD_SCOPE_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:browser-record:v2",
+    rule_kind: "PLATFORM_BROWSER_RECORD_SCOPE_V2",
+    failure_error_code: "UNSUPPORTED_PLATFORM",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_CAPABILITY_REPORT_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:capability-report:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CAPABILITY_REPORT_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:capability-report:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -333,9 +368,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "UNSUPPORTED_CAPABILITY",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:capability-report:v2",
+    rule_kind: "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
+    failure_error_code: "UNSUPPORTED_CAPABILITY",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:certification-input:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:certification-input:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -347,9 +396,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "GATE_EVIDENCE_MISSING",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:certification-input:v2",
+    rule_kind: "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
+    failure_error_code: "GATE_EVIDENCE_MISSING",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_DIAGNOSTIC_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:diagnostic-report:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_DIAGNOSTIC_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:diagnostic-report:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -361,9 +424,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "VALIDATION_CONSTRAINT_VIOLATION",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:diagnostic-report:v2",
+    rule_kind: "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
+    failure_error_code: "VALIDATION_CONSTRAINT_VIOLATION",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_EVIDENCE_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:evidence-record:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_EVIDENCE_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:evidence-record:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -375,6 +452,13 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "GATE_EVIDENCE_MISSING",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_EVIDENCE_INTEGRITY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:evidence-record:v2",
+    rule_kind: "PLATFORM_EVIDENCE_INTEGRITY_V2",
+    failure_error_code: "GATE_EVIDENCE_MISSING",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_INSTALLER_STATE_EVIDENCE",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:installer-state:v1",
@@ -382,9 +466,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "STORAGE_INTEGRITY_FAILURE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_INSTALLER_STATE_EVIDENCE_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:installer-state:v2",
+    rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
+    failure_error_code: "STORAGE_INTEGRITY_FAILURE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_INSTALLER_STATE_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:installer-state:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_INSTALLER_STATE_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:installer-state:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -396,9 +494,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:model-runtime-profile:v2",
+    rule_kind: "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
+    failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_MODEL_PROFILE_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:model-runtime-profile:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_MODEL_PROFILE_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:model-runtime-profile:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -410,9 +522,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "TRANSPORT_FORBIDDEN",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-registration:v2",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
+    failure_error_code: "TRANSPORT_FORBIDDEN",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:native-messaging-registration:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-registration:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -429,6 +555,20 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     schema_ref: "urn:japp:schema:platform:native-messaging-result:v1",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-result:v2",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:native-messaging-result:v2",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
+    failure_error_code: "CONFLICT_INCOMPATIBLE_STATE",
   }),
   Object.freeze({
     rule_id: "PLATFORM_PATH_REQUEST_INERT_TEXT",
@@ -452,6 +592,13 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_PATH_RESOLUTION_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:path-resolution:v2",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_PATH_RESOLUTION_SAFETY",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:path-resolution:v1",
@@ -459,9 +606,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "STORAGE_IO_FAILURE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:path-resolution:v2",
+    rule_kind: "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
+    failure_error_code: "STORAGE_IO_FAILURE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_PROCESS_PLAN_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:process-plan:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_PLAN_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:process-plan:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -473,9 +634,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "SENSITIVE_AUTOMATION_PROHIBITED",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_PROCESS_PLAN_SAFETY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:process-plan:v2",
+    rule_kind: "PLATFORM_PROCESS_PLAN_SAFETY_V2",
+    failure_error_code: "SENSITIVE_AUTOMATION_PROHIBITED",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_PROCESS_STATUS_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:process-status:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_PROCESS_STATUS_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:process-status:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -487,6 +662,13 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "CONFLICT_INCOMPATIBLE_STATE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:process-status:v2",
+    rule_kind: "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
+    failure_error_code: "CONFLICT_INCOMPATIBLE_STATE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:runtime-capability:v1",
@@ -494,9 +676,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:runtime-capability:v2",
+    rule_kind: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
+    failure_error_code: "UNSUPPORTED_RUNTIME_PROFILE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:runtime-capability:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:runtime-capability:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -522,10 +718,24 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_SECRET_RESULT_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-result:v2",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_SECRET_RESULT_INTEGRITY",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:secret-store-result:v1",
     rule_kind: "PLATFORM_SECRET_RESULT_INTEGRITY",
+    failure_error_code: "STORAGE_SECURE_STORE_UNAVAILABLE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:secret-store-result:v2",
+    rule_kind: "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
     failure_error_code: "STORAGE_SECURE_STORE_UNAVAILABLE",
   }),
   Object.freeze({
@@ -550,9 +760,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "STORAGE_INTEGRITY_FAILURE",
   }),
   Object.freeze({
+    rule_id: "PLATFORM_UPDATE_STATE_EVIDENCE_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:update-state:v2",
+    rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
+    failure_error_code: "STORAGE_INTEGRITY_FAILURE",
+  }),
+  Object.freeze({
     rule_id: "PLATFORM_UPDATE_STATE_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:platform:update-state:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "PLATFORM_UPDATE_STATE_INERT_TEXT_V2",
+    rule_version: "2.0.0",
+    schema_ref: "urn:japp:schema:platform:update-state:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -1609,6 +1833,2046 @@ function layoutMeasurementIntegrity(value: unknown): boolean {
   return (pageCount ?? 0) >= 1 && flag(value, "renderer_succeeded") === true;
 }
 
+// M01-W07 legacy v1 accepted-set floor from the first published v1 evaluator.
+// Deprecated v1 unions this floor with the last published v1 snapshot below.
+const LEGACY_CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const LEGACY_UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const LEGACY_CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const LEGACY_PLATFORM_CAPABILITY_FAMILIES = [
+  "BROWSER_PRESENCE",
+  "DIAGNOSTICS",
+  "MODEL_RUNTIME",
+  "NATIVE_MESSAGING",
+  "PACKAGING_UPDATE_CHANNEL",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const LEGACY_MANDATORY_CORE_CAPABILITIES = [
+  "BROWSER_PRESENCE",
+  "NATIVE_MESSAGING",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const LEGACY_PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const LEGACY_PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const LEGACY_PLATFORM_INTERPRETER_TOKENS = [
+  "bash",
+  "cmd",
+  "cscript",
+  "eval",
+  "exec",
+  "powershell",
+  "pwsh",
+  "sh",
+  "wscript",
+  "zsh",
+];
+const LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
+  MACOS_ARM64: "ARM64",
+  UBUNTU_X64: "X86_64",
+  WINDOWS_X64: "X86_64",
+};
+const LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
+  BROWSER_LOCATOR: "BROWSER_PRESENCE",
+  INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
+  MODEL_RUNTIME_PROVIDER: "MODEL_RUNTIME",
+  NATIVE_MESSAGING_REGISTRAR: "NATIVE_MESSAGING",
+  PLATFORM_DIAGNOSTICS: "DIAGNOSTICS",
+  PLATFORM_PATHS: "PLATFORM_PATHS",
+  PROCESS_SUPERVISOR: "PROCESS_SUPERVISION",
+  SECRET_STORE: "SECURE_STORE",
+  UPDATER_PROVIDER: "PACKAGING_UPDATE_CHANNEL",
+};
+const LEGACY_PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+];
+const LEGACY_PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+];
+const LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
+  INSTALL_LAUNCH_REPORT: "installer_state_ref",
+  MODEL_PROFILE_REPORT: "model_profile_ref",
+  NATIVE_HOST_REGISTRATION_REPORT: "native_messaging_result_ref",
+  SECRET_STORE_TEST_REPORT: "secret_store_result_ref",
+  UPDATE_ROLLBACK_REPORT: "update_state_ref",
+};
+
+function legacyPlatformRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  return (
+    context !== null &&
+    textOneOf(context, "requesting_principal", LEGACY_PLATFORM_REQUEST_PRINCIPALS) &&
+    textOneOf(context, "authorization_profile", LEGACY_PLATFORM_REQUEST_PROFILES)
+  );
+}
+
+function legacyPlatformCapabilityStateSound(state: unknown): boolean {
+  const availability = text(state, "availability");
+  const reasons = items(state, "reason_codes");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    return (
+      reasons.length === 0 &&
+      present(state, "identity_token") &&
+      present(state, "detected_version") &&
+      present(state, "evidence_digest") &&
+      text(state, "evaluation_method") !== "NOT_EVALUATED"
+    );
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (availability === "NOT_EVALUATED") {
+    return (
+      text(state, "evaluation_method") === "NOT_EVALUATED" &&
+      reasons.includes("EVALUATION_NOT_RUN")
+    );
+  }
+  if (availability === "DEGRADED_LIMITED") {
+    return present(state, "identity_token") && present(state, "detected_version");
+  }
+  return true;
+}
+
+function legacyPlatformSupportClaimSound(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  const platformId = text(value, "platform_id");
+  if (claim === null || platformId === null) {
+    return false;
+  }
+  const reviewed = text(claim, "reviewed_tier") ?? "";
+  const evidence = items(claim, "evidence_refs");
+  if (!uniqueStrings(evidence)) {
+    return false;
+  }
+  if (
+    LEGACY_UNCERTIFIABLE_PLATFORM_IDS.includes(platformId) &&
+    reviewed !== "UNSUPPORTED"
+  ) {
+    return false;
+  }
+  if (!LEGACY_CERTIFIED_SUPPORT_TIERS.includes(reviewed)) {
+    return true;
+  }
+  return (
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    text(claim, "review_state") === "REVIEW_COMPLETE" &&
+    present(claim, "evaluated_commit") &&
+    present(claim, "evaluated_tree") &&
+    present(claim, "reviewer_identity_ref") &&
+    evidence.length > 0
+  );
+}
+
+function legacyPlatformReviewedTierIsCertified(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  return LEGACY_CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
+}
+
+function legacyPlatformTargetSupportClaim(value: unknown): boolean {
+  const platformId = text(value, "platform_id");
+  const reasons = items(value, "reason_codes");
+  if (
+    platformId === null ||
+    !uniqueStrings(reasons) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const expectedArchitecture = LEGACY_PLATFORM_ARCHITECTURE_BY_ID[platformId];
+  if (
+    expectedArchitecture !== undefined &&
+    text(value, "architecture") !== expectedArchitecture
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN"
+  );
+}
+
+function legacyPlatformCapabilityReportIntegrity(value: unknown): boolean {
+  const capabilities = items(value, "capabilities");
+  if (
+    !uniqueField(capabilities, "capability") ||
+    capabilities.length !== LEGACY_PLATFORM_CAPABILITY_FAMILIES.length ||
+    !LEGACY_PLATFORM_CAPABILITY_FAMILIES.every((family) =>
+      capabilities.some((state) => text(state, "capability") === family),
+    ) ||
+    !capabilities.every(legacyPlatformCapabilityStateSound) ||
+    !uniqueStrings(items(value, "model_profile_refs")) ||
+    !uniqueStrings(items(value, "diagnostic_refs")) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const availabilityOf = (family: string): string | null => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return found === undefined ? null : text(found, "availability");
+  };
+  if (
+    text(value, "packaging_channel") === "RELEASE_STABLE" &&
+    availabilityOf("PACKAGING_UPDATE_CHANNEL") !== "AVAILABLE"
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return true;
+  }
+  if (
+    !LEGACY_MANDATORY_CORE_CAPABILITIES.every(
+      (family) => availabilityOf(family) === "AVAILABLE",
+    )
+  ) {
+    return false;
+  }
+  const claim = objectMember(value, "support_claim");
+  if (text(claim, "reviewed_tier") !== "CERTIFIED_FULL") {
+    // A missing or unavailable local-AI profile never downgrades the
+    // deterministic core tier; CERTIFIED_CORE deliberately imposes no
+    // MODEL_RUNTIME requirement.
+    return true;
+  }
+  return (
+    availabilityOf("MODEL_RUNTIME") === "AVAILABLE" &&
+    items(value, "model_profile_refs").length > 0
+  );
+}
+
+function legacyPlatformPathRequestSafety(value: unknown): boolean {
+  if (!legacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  return (
+    text(value, "scope") !== "SYSTEM" ||
+    text(value, "role") === "NATIVE_HOST_REGISTRATION"
+  );
+}
+
+function legacyPlatformPathResolutionSafety(value: unknown): boolean {
+  const role = text(value, "role");
+  const reasons = items(value, "reason_codes");
+  const sanitized = text(value, "sanitized_path");
+  if (
+    role === null ||
+    !uniqueStrings(reasons) ||
+    (text(value, "scope") === "SYSTEM" && role !== "NATIVE_HOST_REGISTRATION")
+  ) {
+    return false;
+  }
+  if (text(value, "resolution_state") !== "RESOLVED") {
+    return (
+      sanitized === null &&
+      !present(value, "path_digest") &&
+      flag(value, "exists") === false &&
+      flag(value, "writable") === false &&
+      reasons.length > 0
+    );
+  }
+  return (
+    sanitized !== null &&
+    sanitized.startsWith("<" + role + ">") &&
+    present(value, "path_digest") &&
+    reasons.length === 0 &&
+    (flag(value, "writable") !== true || flag(value, "exists") === true)
+  );
+}
+
+function legacyPlatformSecretRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  const operation = text(value, "operation");
+  const redaction = objectMember(value, "redaction");
+  if (!legacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  if (
+    text(context, "authorization_profile") === "VERIFICATION" &&
+    operation !== "STATUS"
+  ) {
+    return false;
+  }
+  if (
+    redaction !== null &&
+    (text(redaction, "sensitivity") !== "SECRET" ||
+      text(redaction, "policy") !== "FORBID_CAPTURE")
+  ) {
+    return false;
+  }
+  if (operation === "PUT") {
+    return (
+      present(value, "material_reference") && present(value, "material_digest")
+    );
+  }
+  return (
+    !present(value, "material_reference") && !present(value, "material_digest")
+  );
+}
+
+function legacyPlatformSecretResultIntegrity(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const availability = text(value, "store_availability");
+  const state = text(value, "result_state");
+  const reasons = items(value, "reason_codes");
+  const hasMaterial = present(value, "material_reference");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    if (!present(value, "store_identity_token")) {
+      return false;
+    }
+  } else if (hasMaterial) {
+    return false;
+  }
+  if (operation === "STATUS") {
+    return (
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      ["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"].includes(
+        state ?? "",
+      ) &&
+      (state !== "STORE_AVAILABLE" ||
+        (availability === "AVAILABLE" && reasons.length === 0))
+    );
+  }
+  if (state === "STORE_AVAILABLE") {
+    return false;
+  }
+  if (state === "RETRIEVED") {
+    return (
+      operation === "GET" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "STORED") {
+    return (
+      operation === "PUT" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DELETED") {
+    return (
+      operation === "DELETE" &&
+      availability === "AVAILABLE" &&
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DENIED_PERMISSION") {
+    return (
+      !hasMaterial &&
+      reasons.includes("PERMISSION_DENIED") &&
+      ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(availability ?? "")
+    );
+  }
+  return !hasMaterial && reasons.length > 0;
+}
+
+function legacyPlatformProcessPlanSafety(value: unknown): boolean {
+  const profile = text(value, "profile");
+  const environment = items(value, "environment_allowlist");
+  const commandArguments = items(value, "arguments");
+  const binary = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    flag(value, "inherit_parent_environment") !== false ||
+    !present(value, "executable_digest") ||
+    !uniqueField(environment, "variable") ||
+    text(value, "working_directory_role") === "NATIVE_HOST_REGISTRATION"
+  ) {
+    return false;
+  }
+  if (
+    commandArguments.some(
+      (argument) =>
+        typeof argument === "string" &&
+        LEGACY_PLATFORM_INTERPRETER_TOKENS.includes(argument.toLowerCase()),
+    )
+  ) {
+    return false;
+  }
+  for (const entry of environment) {
+    const variable = text(entry, "variable");
+    const entryValue = text(entry, "value");
+    if (entryValue === null) {
+      return false;
+    }
+    if (variable === "JAPP_SERVICE_PORT" && !/^[0-9]{1,5}$/.test(entryValue)) {
+      return false;
+    }
+    if (
+      variable === "JAPP_PATH_ROLE" &&
+      !/^[A-Z][A-Z0-9_]{1,63}$/.test(entryValue)
+    ) {
+      return false;
+    }
+  }
+  if (
+    text(value, "lifecycle_mode") === "ONE_SHOT" &&
+    numberValue(value, "max_restart_attempts") !== 0
+  ) {
+    return false;
+  }
+  if (profile === "NATIVE_MESSAGING_HOST") {
+    return binary.every((mode) => mode === "BINARY_LENGTH_PREFIXED");
+  }
+  return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
+}
+
+function legacyPlatformProcessStatusIntegrity(value: unknown): boolean {
+  const state = text(value, "state");
+  const reasons = items(value, "reason_codes");
+  const ended = present(value, "ended_at");
+  const started = present(value, "started_at");
+  const exited = present(value, "exit_code");
+  const orphan = flag(value, "orphan_detected");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (ended && started && !timestampNotBefore(value, "ended_at", "started_at")) {
+    return false;
+  }
+  if (orphan === true && state !== "ORPHANED") {
+    return false;
+  }
+  if (state === "STARTING" || state === "RUNNING") {
+    return !ended && !exited && orphan === false;
+  }
+  if (state === "TERMINATING") {
+    return (
+      !ended && !exited && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "EXITED") {
+    return started && ended && exited && reasons.length === 0;
+  }
+  if (state === "TERMINATED") {
+    return (
+      started && ended && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "ORPHANED") {
+    return orphan === true && reasons.length > 0;
+  }
+  if (state === "UNAVAILABLE") {
+    return !started && !ended && !exited && reasons.length > 0;
+  }
+  return reasons.length > 0;
+}
+
+function legacyPlatformNativeRegistrationBinding(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const extensions = items(value, "allowed_extension_ids");
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE" ||
+    text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
+    text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
+    !strictlySortedStrings(extensions)
+  ) {
+    return false;
+  }
+  if (operation === "REMOVE") {
+    return (
+      !present(value, "expected_manifest_digest") &&
+      !present(value, "expected_host_binary_digest")
+    );
+  }
+  if (operation === "VERIFY") {
+    return present(value, "expected_manifest_digest");
+  }
+  return (
+    present(value, "expected_manifest_digest") &&
+    present(value, "expected_host_binary_digest")
+  );
+}
+
+function legacyPlatformNativeRegistrationResult(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const observed = text(value, "observed_state");
+  const reasons = items(value, "reason_codes");
+  const changed = flag(value, "changed");
+  if (
+    !uniqueStrings(reasons) ||
+    text(value, "browser_family") !== "CHROME" ||
+    (operation === "VERIFY" && changed !== false)
+  ) {
+    return false;
+  }
+  if (observed === "PRESENT_VALID") {
+    if (
+      !present(value, "observed_manifest_digest") ||
+      !present(value, "observed_host_version") ||
+      reasons.length > 0
+    ) {
+      return false;
+    }
+  } else if (reasons.length === 0) {
+    return false;
+  }
+  if (observed === "MISMATCHED_IDENTITY" && !reasons.includes("IDENTITY_MISMATCH")) {
+    return false;
+  }
+  if (observed === "NOT_EVALUATED") {
+    return changed === false && reasons.includes("EVALUATION_NOT_RUN");
+  }
+  if (reasons.length === 0) {
+    const expected = operation === "REMOVE" ? "ABSENT" : "PRESENT_VALID";
+    return (
+      observed === expected && flag(value, "idempotent_repeat_safe") === true
+    );
+  }
+  return true;
+}
+
+function legacyPlatformBrowserDiscoverySafety(value: unknown): boolean {
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE"
+  ) {
+    return false;
+  }
+  return (
+    flag(value, "include_capability_probe") !== true ||
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+  );
+}
+
+function legacyPlatformBrowserRecordScope(value: unknown): boolean {
+  const presence = text(value, "presence");
+  const reasons = items(value, "reason_codes");
+  const capability = objectMember(value, "native_messaging_capability");
+  if (
+    !uniqueStrings(reasons) ||
+    capability === null ||
+    !legacyPlatformCapabilityStateSound(capability) ||
+    text(capability, "capability") !== "NATIVE_MESSAGING"
+  ) {
+    return false;
+  }
+  if (presence === "AVAILABLE") {
+    if (!present(value, "detected_version")) {
+      return false;
+    }
+  } else if (present(value, "sanitized_install_location")) {
+    return false;
+  }
+  if (flag(value, "certified_for_platform") !== true) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    presence === "AVAILABLE" &&
+    text(value, "browser_family") === "CHROME" &&
+    text(value, "browser_channel") === "STABLE" &&
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    text(capability, "availability") === "AVAILABLE" &&
+    present(value, "last_tested_on")
+  );
+}
+
+function legacyPlatformModelProfileEvidence(value: unknown): boolean {
+  const platformId = text(value, "platform_id") ?? "";
+  const accelerator = text(value, "accelerator");
+  const family = text(value, "runtime_family");
+  const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
+  if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
+    return false;
+  }
+  if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (
+    accelerator === "NVIDIA_CUDA" &&
+    (!present(value, "minimum_vram_mib") ||
+      !present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (accelerator === "CPU_ONLY" && present(value, "minimum_vram_mib")) {
+    return false;
+  }
+  if (
+    family === "OLLAMA_MLX" &&
+    (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  if (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU") {
+    return false;
+  }
+  if (text(value, "acceptance_state") !== "ACCEPTED") {
+    return (
+      reasons.length > 0 &&
+      text(value, "core_capability_behavior") !== "FULL_AI_AVAILABLE"
+    );
+  }
+  return (
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    reasons.length === 0 &&
+    evidence.length > 0 &&
+    text(value, "availability") === "AVAILABLE" &&
+    text(value, "core_capability_behavior") === "FULL_AI_AVAILABLE" &&
+    present(value, "structured_output_evidence_ref") &&
+    present(value, "factuality_evidence_ref") &&
+    present(value, "latency_evidence_ref") &&
+    present(value, "memory_evidence_ref") &&
+    present(value, "last_tested_on")
+  );
+}
+
+function legacyPlatformRuntimeCapabilityFallback(value: unknown): boolean {
+  const available = items(value, "available_profile_refs");
+  const accepted = items(value, "accepted_profile_refs");
+  const reasons = items(value, "reason_codes");
+  const behavior = text(value, "core_capability_behavior");
+  if (
+    !uniqueStrings(available) ||
+    !uniqueStrings(accepted) ||
+    !uniqueStrings(reasons) ||
+    !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  if (
+    text(value, "detection_method") === "NOT_EVALUATED" &&
+    text(value, "runtime_availability") !== "NOT_EVALUATED"
+  ) {
+    return false;
+  }
+  if (text(value, "runtime_availability") !== "AVAILABLE") {
+    return (
+      available.length === 0 &&
+      accepted.length === 0 &&
+      reasons.length > 0 &&
+      behavior !== "FULL_AI_AVAILABLE"
+    );
+  }
+  if (
+    !present(value, "runtime_family") ||
+    !present(value, "runtime_version") ||
+    !present(value, "accelerator")
+  ) {
+    return false;
+  }
+  return behavior === "FULL_AI_AVAILABLE"
+    ? accepted.length > 0
+    : accepted.length === 0;
+}
+
+function legacyPlatformPackageStateEvidence(value: unknown): boolean {
+  const state = text(value, "state") ?? "";
+  const reasons = items(value, "reason_codes");
+  const signature = text(value, "signature_state");
+  const interrupted = flag(value, "interrupted");
+  const preservation = text(value, "user_data_preservation");
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (interrupted === true && !reasons.includes("INTERRUPTED")) ||
+    (flag(value, "recovery_completed") === true && interrupted !== true) ||
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
+  ) {
+    return false;
+  }
+  if (
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING") &&
+    !reasons.includes("SIGNATURE_NOT_VERIFIED")
+  ) {
+    return false;
+  }
+  if (LEGACY_PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
+    return false;
+  }
+  if (LEGACY_PACKAGE_SUCCESS_STATES.includes(state)) {
+    if (
+      signature !== "SIGNATURE_VALID" ||
+      reasons.length > 0 ||
+      interrupted !== false ||
+      !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
+        preservation ?? "",
+      ) ||
+      items(value, "evidence_refs").length === 0
+    ) {
+      return false;
+    }
+  }
+  if (state === "UNINSTALLED") {
+    return ["NOT_APPLICABLE", "REMOVED"].includes(
+      text(value, "native_host_cleanup") ?? "",
+    );
+  }
+  if (state === "INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      text(value, "installed_version") === text(value, "package_version")
+    );
+  }
+  if (state === "NOT_INSTALLED") {
+    return !present(value, "installed_version");
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    return !present(value, "available_version");
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    return present(value, "available_version");
+  }
+  if (state === "UPDATE_INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      present(value, "available_version") &&
+      present(value, "target_artifact")
+    );
+  }
+  if (state === "ROLLED_BACK") {
+    return (
+      present(value, "rolled_back_to_version") &&
+      flag(value, "rollback_available") === true
+    );
+  }
+  return true;
+}
+
+function legacyPlatformDiagnosticIntegrity(value: unknown): boolean {
+  const result = text(value, "result");
+  const severity = text(value, "severity");
+  const reasons = items(value, "reason_codes");
+  const blocking = flag(value, "blocking");
+  const component = text(value, "component") ?? "";
+  const expectedCapability = LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT[component];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (expectedCapability !== undefined &&
+      text(value, "capability") !== expectedCapability)
+  ) {
+    return false;
+  }
+  if (
+    present(value, "user_message") &&
+    text(objectMember(value, "redaction"), "policy") !== "NONE"
+  ) {
+    return false;
+  }
+  if (blocking === true && result !== "BLOCKED" && result !== "FAILURE") {
+    return false;
+  }
+  if (result === "SUCCESS") {
+    return blocking === false && reasons.length === 0 && severity === "INFO";
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (result === "WARNING") {
+    return blocking === false && ["INFO", "WARNING"].includes(severity ?? "");
+  }
+  if (result === "FAILURE") {
+    return ["CRITICAL", "ERROR"].includes(severity ?? "");
+  }
+  return blocking === true;
+}
+
+function legacyPlatformEvidenceIntegrity(value: unknown): boolean {
+  const reasons = items(value, "reason_codes");
+  const method = text(value, "evaluation_method");
+  const artifactKind = text(value, "artifact_kind") ?? "";
+  const requiredReference = LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
+  if (
+    !uniqueStrings(reasons) ||
+    flag(value, "synthetic_only") !== true ||
+    (requiredReference !== undefined && !present(value, requiredReference)) ||
+    (present(value, "package_artifact") && !present(value, "signature_state"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "review_state") === "REVIEW_COMPLETE" &&
+    !present(value, "reviewer_identity_ref")
+  ) {
+    return false;
+  }
+  if (
+    text(value, "owner_decision_state") === "RECORDED" &&
+    text(value, "review_state") !== "REVIEW_COMPLETE"
+  ) {
+    return false;
+  }
+  if (method === "MEASURED_NATIVE_RUN") {
+    if (
+      !present(value, "os_version") ||
+      !present(value, "os_build") ||
+      text(value, "machine_class") === "SYNTHETIC_FIXTURE" ||
+      !LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+    ) {
+      return false;
+    }
+  } else if (
+    text(value, "machine_class") === "PHYSICAL_DEVELOPMENT_MACHINE" ||
+    text(value, "machine_class") === "HOSTED_CI_RUNNER"
+  ) {
+    if (method !== "STATIC_INSPECTION") {
+      return false;
+    }
+  }
+  return text(value, "result") === "SUCCESS"
+    ? reasons.length === 0
+    : reasons.length > 0;
+}
+
+function legacyPlatformCertificationInputScope(value: unknown): boolean {
+  const required = items(value, "required_evidence_kinds");
+  const presentKinds = items(value, "present_evidence_kinds");
+  const records = items(value, "evidence_record_refs");
+  const reasons = items(value, "reason_codes");
+  if (
+    !strictlySortedStrings(required) ||
+    !strictlySortedStrings(presentKinds) ||
+    !uniqueStrings(records) ||
+    !uniqueStrings(reasons) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (flag(value, "inventory_complete") !== complete) {
+    return false;
+  }
+  if (
+    (text(value, "owner_decision_state") === "RECORDED") !==
+    present(value, "owner_decision_ref")
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    complete &&
+    text(value, "owner_decision_state") === "RECORDED"
+  );
+}
+
+// M01-W07 deprecated-v1 accepted-set ceiling from the last published v1
+// content anchor (0659c13). Deprecated v1 dispatches union this exact
+// snapshot with the first-published floor; corrected semantics are v2-only.
+const PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES = [
+  "BROWSER_PRESENCE",
+  "DIAGNOSTICS",
+  "MODEL_RUNTIME",
+  "NATIVE_MESSAGING",
+  "PACKAGING_UPDATE_CHANNEL",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES = [
+  "BROWSER_PRESENCE",
+  "NATIVE_MESSAGING",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS = [
+  "bash",
+  "cmd",
+  "cscript",
+  "eval",
+  "exec",
+  "powershell",
+  "pwsh",
+  "sh",
+  "wscript",
+  "zsh",
+];
+/**
+ * Privilege escalation is documented as structurally unrepresentable, so the
+ * launcher that would request it may not travel as an argument either.
+ */
+const PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS = ["doas", "pkexec", "runas", "su", "sudo"];
+/**
+ * A refused command name must stay refused in its executable-suffix spelling:
+ * "cmd" and "cmd.exe" name the same interpreter.
+ */
+const PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES = [
+  ".bat",
+  ".cmd",
+  ".com",
+  ".exe",
+  ".ps1",
+  ".sh",
+];
+const PUBLISHED_LEGACY_PLATFORM_PATH_ROLES = [
+  "APPLICATION_DATA",
+  "ARTIFACT_STORE",
+  "BACKUP_STAGING",
+  "CACHE",
+  "DIAGNOSTIC_BUNDLE",
+  "LOG_STORE",
+  "MODEL_ARTIFACT_STORE",
+  "NATIVE_HOST_REGISTRATION",
+  "TEMPORARY",
+];
+/**
+ * REQ-PLAT-003 binds local services to loopback. The bounded token grammar
+ * cannot start with a colon, so the compressed "::1" spelling is structurally
+ * unrepresentable and only the expanded form appears here.
+ */
+const PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS = [
+  "0:0:0:0:0:0:0:1",
+  "127.0.0.1",
+  "localhost",
+];
+const PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
+  MACOS_ARM64: "ARM64",
+  UBUNTU_X64: "X86_64",
+  WINDOWS_X64: "X86_64",
+};
+const PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE: Readonly<Record<string, string>> = {
+  INSTALL: "PRESENT_VALID",
+  REMOVE: "ABSENT",
+  REPAIR: "PRESENT_VALID",
+  UPDATE: "PRESENT_VALID",
+  VERIFY: "PRESENT_VALID",
+};
+const PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
+  BROWSER_LOCATOR: "BROWSER_PRESENCE",
+  INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
+  MODEL_RUNTIME_PROVIDER: "MODEL_RUNTIME",
+  NATIVE_MESSAGING_REGISTRAR: "NATIVE_MESSAGING",
+  PLATFORM_DIAGNOSTICS: "DIAGNOSTICS",
+  PLATFORM_PATHS: "PLATFORM_PATHS",
+  PROCESS_SUPERVISOR: "PROCESS_SUPERVISION",
+  SECRET_STORE: "SECURE_STORE",
+  UPDATER_PROVIDER: "PACKAGING_UPDATE_CHANNEL",
+};
+const PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+];
+const PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+];
+/** The two terminal states whose meaning is "the interruption is unresolved". */
+const PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES = ["INSTALL_INTERRUPTED", "UPDATE_INTERRUPTED"];
+/** Specification §5.14.8 binds each certified target to its package formats. */
+const PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID: Readonly<
+  Record<string, readonly string[]>
+> = {
+  MACOS_ARM64: ["APPLE_DISK_IMAGE"],
+  UBUNTU_X64: ["APP_IMAGE", "DEBIAN_PACKAGE"],
+  WINDOWS_X64: ["WINDOWS_INSTALLER"],
+};
+/** The two availability states in which a runtime was actually detected. */
+const PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY = ["AVAILABLE", "DEGRADED_LIMITED"];
+const PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
+  INSTALL_LAUNCH_REPORT: "installer_state_ref",
+  MODEL_PROFILE_REPORT: "model_profile_ref",
+  NATIVE_HOST_REGISTRATION_REPORT: "native_messaging_result_ref",
+  SECRET_STORE_TEST_REPORT: "secret_store_result_ref",
+  UPDATE_ROLLBACK_REPORT: "update_state_ref",
+};
+
+function publishedLegacyPlatformRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  return (
+    context !== null &&
+    textOneOf(context, "requesting_principal", PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS) &&
+    textOneOf(context, "authorization_profile", PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES)
+  );
+}
+
+function publishedLegacyPlatformCapabilityStateSound(state: unknown): boolean {
+  const availability = text(state, "availability");
+  const reasons = items(state, "reason_codes");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    return (
+      reasons.length === 0 &&
+      present(state, "identity_token") &&
+      present(state, "detected_version") &&
+      present(state, "evidence_digest") &&
+      text(state, "evaluation_method") !== "NOT_EVALUATED"
+    );
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (availability === "NOT_EVALUATED") {
+    return (
+      text(state, "evaluation_method") === "NOT_EVALUATED" &&
+      reasons.includes("EVALUATION_NOT_RUN")
+    );
+  }
+  if (availability === "DEGRADED_LIMITED") {
+    return present(state, "identity_token") && present(state, "detected_version");
+  }
+  return true;
+}
+
+function publishedLegacyPlatformSupportClaimSound(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  const platformId = text(value, "platform_id");
+  if (claim === null || platformId === null) {
+    return false;
+  }
+  const reviewed = text(claim, "reviewed_tier") ?? "";
+  const evidence = items(claim, "evidence_refs");
+  if (!uniqueStrings(evidence)) {
+    return false;
+  }
+  if (
+    PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS.includes(platformId) &&
+    reviewed !== "UNSUPPORTED"
+  ) {
+    return false;
+  }
+  if (!PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS.includes(reviewed)) {
+    return true;
+  }
+  return (
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    text(claim, "review_state") === "REVIEW_COMPLETE" &&
+    present(claim, "evaluated_commit") &&
+    present(claim, "evaluated_tree") &&
+    present(claim, "reviewer_identity_ref") &&
+    evidence.length > 0
+  );
+}
+
+function publishedLegacyPlatformReviewedTierIsCertified(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  return PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
+}
+
+/**
+ * A record that names a certified target must report that target's processor
+ * architecture from the specification §5.14.1 matrix. An uncertifiable target
+ * stays unconstrained so an honest UNKNOWN_ARCHITECTURE observation remains
+ * representable.
+ */
+function publishedLegacyPlatformArchitectureCoherent(value: unknown): boolean {
+  const expected = PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID[text(value, "platform_id") ?? ""];
+  return expected === undefined || text(value, "architecture") === expected;
+}
+
+function publishedLegacyPlatformTargetSupportClaim(value: unknown): boolean {
+  const platformId = text(value, "platform_id");
+  const reasons = items(value, "reason_codes");
+  if (
+    platformId === null ||
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformArchitectureCoherent(value)) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN"
+  );
+}
+
+function publishedLegacyPlatformCapabilityReportIntegrity(value: unknown): boolean {
+  const capabilities = items(value, "capabilities");
+  if (
+    !uniqueField(capabilities, "capability") ||
+    capabilities.length !== PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES.length ||
+    !PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES.every((family) =>
+      capabilities.some((state) => text(state, "capability") === family),
+    ) ||
+    !capabilities.every(publishedLegacyPlatformCapabilityStateSound) ||
+    !uniqueStrings(items(value, "model_profile_refs")) ||
+    !uniqueStrings(items(value, "diagnostic_refs")) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const availabilityOf = (family: string): string | null => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return found === undefined ? null : text(found, "availability");
+  };
+  if (
+    text(value, "packaging_channel") === "RELEASE_STABLE" &&
+    availabilityOf("PACKAGING_UPDATE_CHANNEL") !== "AVAILABLE"
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return true;
+  }
+  const measuredAvailability = (family: string): boolean => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return (
+      found !== undefined &&
+      text(found, "availability") === "AVAILABLE" &&
+      text(found, "evaluation_method") === "MEASURED_NATIVE_RUN"
+    );
+  };
+  // A certified tier is a reviewed claim about a real machine. Only a measured
+  // native run can support it, exactly as publishedLegacyPlatformTargetSupportClaim already
+  // requires of the identical support_claim record, so a declared plan or a
+  // synthetic fixture can never carry a certification.
+  if (!PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES.every(measuredAvailability)) {
+    return false;
+  }
+  const claim = objectMember(value, "support_claim");
+  if (text(claim, "reviewed_tier") !== "CERTIFIED_FULL") {
+    // A missing or unavailable local-AI profile never downgrades the
+    // deterministic core tier; CERTIFIED_CORE deliberately imposes no
+    // MODEL_RUNTIME requirement.
+    return true;
+  }
+  return (
+    measuredAvailability("MODEL_RUNTIME") &&
+    items(value, "model_profile_refs").length > 0
+  );
+}
+
+function publishedLegacyPlatformPathRequestSafety(value: unknown): boolean {
+  if (!publishedLegacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  return (
+    text(value, "scope") !== "SYSTEM" ||
+    text(value, "role") === "NATIVE_HOST_REGISTRATION"
+  );
+}
+
+function publishedLegacyPlatformPathResolutionSafety(value: unknown): boolean {
+  const role = text(value, "role");
+  const state = text(value, "resolution_state");
+  const reasons = items(value, "reason_codes");
+  const sanitized = text(value, "sanitized_path");
+  if (
+    role === null ||
+    !uniqueStrings(reasons) ||
+    (text(value, "scope") === "SYSTEM" && role !== "NATIVE_HOST_REGISTRATION")
+  ) {
+    return false;
+  }
+  if (state !== "RESOLVED") {
+    // A location is disclosed only by a resolution that succeeded, and a
+    // resolution that did not succeed can never report a writable location.
+    if (
+      sanitized !== null ||
+      present(value, "path_digest") ||
+      flag(value, "writable") !== false ||
+      reasons.length === 0
+    ) {
+      return false;
+    }
+    if (state === "DENIED_PERMISSION") {
+      // A refusal may report that the location exists — a permission error is
+      // itself that observation — but never where it is.
+      return reasons.includes("PERMISSION_DENIED");
+    }
+    // Nothing was evaluated, or nothing was reachable, so nothing was observed.
+    return (
+      flag(value, "exists") === false &&
+      (state !== "NOT_EVALUATED" || reasons.includes("EVALUATION_NOT_RUN"))
+    );
+  }
+  return (
+    sanitized !== null &&
+    sanitized.startsWith("<" + role + ">") &&
+    present(value, "path_digest") &&
+    reasons.length === 0 &&
+    (flag(value, "writable") !== true || flag(value, "exists") === true)
+  );
+}
+
+function publishedLegacyPlatformSecretRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  const operation = text(value, "operation");
+  const redaction = objectMember(value, "redaction");
+  if (!publishedLegacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  if (
+    text(context, "authorization_profile") === "VERIFICATION" &&
+    operation !== "STATUS"
+  ) {
+    return false;
+  }
+  if (
+    redaction !== null &&
+    (text(redaction, "sensitivity") !== "SECRET" ||
+      text(redaction, "policy") !== "FORBID_CAPTURE")
+  ) {
+    return false;
+  }
+  if (operation === "PUT") {
+    return (
+      present(value, "material_reference") && present(value, "material_digest")
+    );
+  }
+  return (
+    !present(value, "material_reference") && !present(value, "material_digest")
+  );
+}
+
+function publishedLegacyPlatformSecretResultIntegrity(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const availability = text(value, "store_availability");
+  const state = text(value, "result_state");
+  const reasons = items(value, "reason_codes");
+  const hasMaterial = present(value, "material_reference");
+  const hasDigest = present(value, "material_digest");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    if (!present(value, "store_identity_token")) {
+      return false;
+    }
+  } else if (hasMaterial) {
+    return false;
+  }
+  const storeUnavailableAvailability =
+    availability !== null &&
+    ![
+      "AVAILABLE",
+      "DEGRADED_LIMITED",
+      "PERMISSION_REQUIRED",
+    ].includes(availability);
+  const deniedAvailability = ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(
+    availability ?? "",
+  );
+  if (operation === "STATUS") {
+    if (hasMaterial || hasDigest) {
+      return false;
+    }
+    if (state === "STORE_AVAILABLE") {
+      return availability === "AVAILABLE" && reasons.length === 0;
+    }
+    if (state === "DENIED_PERMISSION") {
+      return reasons.includes("PERMISSION_DENIED") && deniedAvailability;
+    }
+    if (state === "STORE_UNAVAILABLE") {
+      return reasons.length > 0 && storeUnavailableAvailability;
+    }
+    return false;
+  }
+  if (state === "STORE_AVAILABLE") {
+    return false;
+  }
+  if (state === "RETRIEVED") {
+    return (
+      operation === "GET" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      hasDigest &&
+      reasons.length === 0
+    );
+  }
+  if (state === "STORED") {
+    return (
+      operation === "PUT" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DELETED") {
+    return (
+      operation === "DELETE" &&
+      availability === "AVAILABLE" &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DENIED_PERMISSION") {
+    return (
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes("PERMISSION_DENIED") &&
+      deniedAvailability
+    );
+  }
+  if (state === "STORE_UNAVAILABLE") {
+    return (
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.length > 0 &&
+      storeUnavailableAvailability
+    );
+  }
+  return !hasMaterial && !hasDigest && reasons.length > 0;
+}
+
+/** Normalize one argument to the command name it would actually invoke. */
+function publishedLegacyPlatformCommandToken(argument: string): string {
+  const lowered = argument.toLowerCase();
+  for (const suffix of PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES) {
+    if (lowered.endsWith(suffix)) {
+      return lowered.slice(0, lowered.length - suffix.length);
+    }
+  }
+  return lowered;
+}
+
+function publishedLegacyPlatformProcessPlanSafety(value: unknown): boolean {
+  const profile = text(value, "profile");
+  const environment = items(value, "environment_allowlist");
+  const commandArguments = items(value, "arguments");
+  const binary = [
+    text(value, "stdin_mode"),
+    text(value, "stdout_mode"),
+    text(value, "stderr_mode"),
+  ];
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    flag(value, "inherit_parent_environment") !== false ||
+    !present(value, "executable_digest") ||
+    !uniqueField(environment, "variable") ||
+    text(value, "working_directory_role") === "NATIVE_HOST_REGISTRATION"
+  ) {
+    return false;
+  }
+  // A refused command name stays refused in its executable-suffix spelling:
+  // "cmd" and "cmd.exe" name the same interpreter. Privilege escalation is
+  // documented as unrepresentable, so its launcher cannot travel either.
+  if (
+    commandArguments.some((argument) => {
+      if (typeof argument !== "string") {
+        return false;
+      }
+      const token = publishedLegacyPlatformCommandToken(argument);
+      return (
+        PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS.includes(token) ||
+        PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS.includes(token)
+      );
+    })
+  ) {
+    return false;
+  }
+  for (const entry of environment) {
+    const variable = text(entry, "variable");
+    const entryValue = text(entry, "value");
+    if (entryValue === null) {
+      return false;
+    }
+    if (
+      variable === "JAPP_SERVICE_PORT" &&
+      (!/^[1-9][0-9]{0,4}$/.test(entryValue) || Number(entryValue) > 65535)
+    ) {
+      return false;
+    }
+    // The path role carried into a child is the same closed vocabulary the
+    // working directory uses, and it cannot re-admit the registration role the
+    // rule refuses two lines above.
+    if (
+      variable === "JAPP_PATH_ROLE" &&
+      (!PUBLISHED_LEGACY_PLATFORM_PATH_ROLES.includes(entryValue) ||
+        entryValue === "NATIVE_HOST_REGISTRATION")
+    ) {
+      return false;
+    }
+    // REQ-PLAT-003 binds local services to loopback.
+    if (
+      variable === "JAPP_SERVICE_BIND_HOST" &&
+      !PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS.includes(entryValue)
+    ) {
+      return false;
+    }
+  }
+  if (
+    text(value, "lifecycle_mode") === "ONE_SHOT" &&
+    numberValue(value, "max_restart_attempts") !== 0
+  ) {
+    return false;
+  }
+  if (profile === "NATIVE_MESSAGING_HOST") {
+    // Specification §5.14.5 places the length-prefixed native-messaging
+    // protocol on binary stdin/stdout. stderr stays a diagnostic channel and
+    // must never silently become a second protocol stream.
+    return (
+      text(value, "stdin_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stdout_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stderr_mode") !== "BINARY_LENGTH_PREFIXED"
+    );
+  }
+  return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
+}
+
+function publishedLegacyPlatformProcessStatusIntegrity(value: unknown): boolean {
+  const state = text(value, "state");
+  const reasons = items(value, "reason_codes");
+  const ended = present(value, "ended_at");
+  const started = present(value, "started_at");
+  const exited = present(value, "exit_code");
+  const exitCode = numberValue(value, "exit_code");
+  const orphan = flag(value, "orphan_detected");
+  const terminating = text(value, "termination_requested") !== "NONE";
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  // A process cannot end without starting, end before it started, be restarted
+  // without starting, or attach a redacted diagnostic to nothing.
+  if (
+    (ended && !started) ||
+    (ended && !timestampNotBefore(value, "ended_at", "started_at")) ||
+    ((numberValue(value, "restart_count") ?? 0) > 0 && !started) ||
+    (present(value, "diagnostic_digest") && reasons.length === 0)
+  ) {
+    return false;
+  }
+  // orphan_detected is a historical observation, not the current state: it
+  // stays true on the terminal record of an orphan that was cleaned up or was
+  // finally seen to exit.
+  if (
+    orphan === true &&
+    state !== "ORPHANED" &&
+    state !== "TERMINATED" &&
+    state !== "EXITED"
+  ) {
+    return false;
+  }
+  if (state === "STARTING") {
+    return !ended && !exited;
+  }
+  if (state === "RUNNING") {
+    return started && !ended && !exited;
+  }
+  if (state === "TERMINATING") {
+    return started && !ended && !exited && terminating;
+  }
+  if (state === "EXITED") {
+    // The child ended on its own; a supervisor-requested stop is TERMINATED. A
+    // clean exit explains itself, and any other exit status must be explainable
+    // through the finite reason vocabulary.
+    return (
+      started &&
+      ended &&
+      exited &&
+      !terminating &&
+      (exitCode === 0 ? reasons.length === 0 : reasons.length > 0)
+    );
+  }
+  if (state === "TERMINATED") {
+    return started && ended && terminating;
+  }
+  if (state === "ORPHANED") {
+    // An orphan outlived its supervising parent and still requires cleanup, so
+    // it has started and has not yet been observed to end.
+    return started && !ended && !exited && orphan === true && reasons.length > 0;
+  }
+  if (state === "UNAVAILABLE") {
+    return !started && !ended && !exited && reasons.length > 0;
+  }
+  // FAILED: supervision itself failed. An observed exit status would make this
+  // an EXITED child instead, so the two stay distinguishable.
+  return !exited && reasons.length > 0;
+}
+
+function publishedLegacyPlatformNativeRegistrationBinding(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const extensions = items(value, "allowed_extension_ids");
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE" ||
+    text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
+    text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
+    !strictlySortedStrings(extensions) ||
+    // Specification §5.14.5 keeps the extension allowlist and the
+    // message-size limit mandatory on every platform.
+    !present(value, "max_message_bytes")
+  ) {
+    return false;
+  }
+  if (operation === "REMOVE") {
+    return (
+      !present(value, "expected_manifest_digest") &&
+      !present(value, "expected_host_binary_digest")
+    );
+  }
+  if (operation === "VERIFY") {
+    return present(value, "expected_manifest_digest");
+  }
+  return (
+    present(value, "expected_manifest_digest") &&
+    present(value, "expected_host_binary_digest")
+  );
+}
+
+function publishedLegacyPlatformNativeRegistrationResult(value: unknown): boolean {
+  const operation = text(value, "operation") ?? "";
+  const observed = text(value, "observed_state");
+  const reasons = items(value, "reason_codes");
+  const changed = flag(value, "changed");
+  const succeeded = reasons.length === 0;
+  const manifestDigest = present(value, "observed_manifest_digest");
+  const hostVersion = present(value, "observed_host_version");
+  if (
+    !uniqueStrings(reasons) ||
+    text(value, "browser_family") !== "CHROME" ||
+    (operation === "VERIFY" && changed !== false)
+  ) {
+    return false;
+  }
+  // Each diagnostic reason names the exact state it explains, so neither the
+  // state nor its reason may be reported without the other.
+  if (
+    (observed === "MISMATCHED_IDENTITY") !==
+      reasons.includes("IDENTITY_MISMATCH") ||
+    (observed === "NOT_EVALUATED") !== reasons.includes("EVALUATION_NOT_RUN")
+  ) {
+    return false;
+  }
+  // Observed identity is evidence of a manifest that is really present: it is
+  // mandatory for PRESENT_VALID and impossible once nothing is registered or
+  // nothing was evaluated. The observed_state member is the post-operation
+  // state, never a claim that the operation succeeded, so a removal that failed
+  // and left the registration intact still observes PRESENT_VALID.
+  if (observed === "PRESENT_VALID" && !(manifestDigest && hostVersion)) {
+    return false;
+  }
+  // An identity verdict must carry the identity evidence it is about.
+  if (observed === "MISMATCHED_IDENTITY" && !manifestDigest) {
+    return false;
+  }
+  if (observed === "PRESENT_STALE" && !hostVersion) {
+    return false;
+  }
+  if (
+    (observed === "ABSENT" || observed === "NOT_EVALUATED") &&
+    (manifestDigest || hostVersion)
+  ) {
+    return false;
+  }
+  if (observed === "NOT_EVALUATED") {
+    return changed === false;
+  }
+  // Zero reasons is a success claim. It is admissible only in the terminal
+  // state the operation is defined to reach, and only when repeating the same
+  // intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+  if (succeeded) {
+    return (
+      observed === PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE[operation] &&
+      flag(value, "idempotent_repeat_safe") === true
+    );
+  }
+  return true;
+}
+
+function publishedLegacyPlatformBrowserDiscoverySafety(value: unknown): boolean {
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE"
+  ) {
+    return false;
+  }
+  return (
+    flag(value, "include_capability_probe") !== true ||
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+  );
+}
+
+function publishedLegacyPlatformBrowserRecordScope(value: unknown): boolean {
+  const presence = text(value, "presence");
+  const reasons = items(value, "reason_codes");
+  const capability = objectMember(value, "native_messaging_capability");
+  if (
+    !uniqueStrings(reasons) ||
+    capability === null ||
+    !publishedLegacyPlatformCapabilityStateSound(capability) ||
+    text(capability, "capability") !== "NATIVE_MESSAGING"
+  ) {
+    return false;
+  }
+  if (presence === "AVAILABLE") {
+    // A presence claim is an observation, so it cannot come from an
+    // explicitly unevaluated detection.
+    if (
+      !present(value, "detected_version") ||
+      text(value, "detection_method") === "NOT_EVALUATED"
+    ) {
+      return false;
+    }
+  } else if (present(value, "sanitized_install_location")) {
+    return false;
+  } else if (
+    presence !== "DEGRADED_LIMITED" &&
+    presence !== "INCOMPATIBLE_VERSION" &&
+    present(value, "detected_version")
+  ) {
+    // Only a browser that was actually found reports a version. A degraded or
+    // version-incompatible observation found one; an absent, unevaluated, or
+    // unsupported one did not.
+    return false;
+  }
+  if (flag(value, "certified_for_platform") !== true) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    presence === "AVAILABLE" &&
+    text(value, "browser_family") === "CHROME" &&
+    text(value, "browser_channel") === "STABLE" &&
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    text(capability, "availability") === "AVAILABLE" &&
+    present(value, "last_tested_on")
+  );
+}
+
+function publishedLegacyPlatformModelProfileEvidence(value: unknown): boolean {
+  const platformId = text(value, "platform_id") ?? "";
+  const accelerator = text(value, "accelerator");
+  const family = text(value, "runtime_family");
+  const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
+  if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
+    return false;
+  }
+  // The accelerator, the runtime family, and the target must agree in both
+  // directions. The certified macOS target is Apple Silicon arm64
+  // (specification §5.14.1) and every CUDA profile the §5.14.6 list names is a
+  // Windows or Ubuntu profile, so a macOS CUDA profile describes hardware that
+  // cannot exist.
+  if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") {
+    return false;
+  }
+  if (
+    accelerator === "NVIDIA_CUDA" &&
+    (!present(value, "minimum_vram_mib") ||
+      !present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (
+    accelerator === "CPU_ONLY" &&
+    (present(value, "minimum_vram_mib") ||
+      present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (
+    family === "OLLAMA_MLX" &&
+    (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  if (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU") {
+    return false;
+  }
+  if (text(value, "acceptance_state") !== "ACCEPTED") {
+    return (
+      reasons.length > 0 &&
+      text(value, "core_capability_behavior") !== "FULL_AI_AVAILABLE"
+    );
+  }
+  return (
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    reasons.length === 0 &&
+    evidence.length > 0 &&
+    text(value, "availability") === "AVAILABLE" &&
+    text(value, "core_capability_behavior") === "FULL_AI_AVAILABLE" &&
+    present(value, "structured_output_evidence_ref") &&
+    present(value, "factuality_evidence_ref") &&
+    present(value, "latency_evidence_ref") &&
+    present(value, "memory_evidence_ref") &&
+    present(value, "last_tested_on")
+  );
+}
+
+function publishedLegacyPlatformRuntimeCapabilityFallback(value: unknown): boolean {
+  const availability = text(value, "runtime_availability") ?? "";
+  const available = items(value, "available_profile_refs");
+  const accepted = items(value, "accepted_profile_refs");
+  const reasons = items(value, "reason_codes");
+  const behavior = text(value, "core_capability_behavior");
+  const platformId = text(value, "platform_id") ?? "";
+  const family = text(value, "runtime_family");
+  const accelerator = text(value, "accelerator");
+  if (
+    !uniqueStrings(available) ||
+    !uniqueStrings(accepted) ||
+    !uniqueStrings(reasons) ||
+    !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  // A detected runtime identity must agree with the target, exactly as the
+  // reviewed model-profile rule already requires of a declared profile.
+  if (
+    (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") ||
+    (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") ||
+    (family === "OLLAMA_MLX" &&
+      (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")) ||
+    (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  // An unevaluated runtime is exactly an unevaluated detection.
+  if (
+    (text(value, "detection_method") === "NOT_EVALUATED") !==
+    (availability === "NOT_EVALUATED")
+  ) {
+    return false;
+  }
+  // A capability that was never evaluated, or that cannot exist on this target
+  // at all, observed no runtime identity.
+  if (availability === "NOT_EVALUATED" || availability === "UNSUPPORTED_TARGET") {
+    if (family !== null || present(value, "runtime_version") || accelerator !== null) {
+      return false;
+    }
+    if (
+      availability === "NOT_EVALUATED" &&
+      !reasons.includes("EVALUATION_NOT_RUN")
+    ) {
+      return false;
+    }
+  }
+  // Full AI is the only state with nothing outstanding, and it is exactly the
+  // state that requires an accepted profile on an available certified runtime.
+  if (behavior === "FULL_AI_AVAILABLE") {
+    if (
+      availability !== "AVAILABLE" ||
+      accepted.length === 0 ||
+      reasons.length > 0 ||
+      !PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId)
+    ) {
+      return false;
+    }
+  } else if (accepted.length > 0 || reasons.length === 0) {
+    return false;
+  }
+  // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
+  // states, so they are the only ones that may enumerate usable profiles and
+  // the only ones that observed a runtime identity. A runtime below the
+  // performance tier still reports what it is and what it offers.
+  if (!PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY.includes(availability)) {
+    return available.length === 0;
+  }
+  if (family === null || !present(value, "runtime_version")) {
+    return false;
+  }
+  return availability !== "AVAILABLE" || accelerator !== null;
+}
+
+function publishedLegacyPlatformPackageStateEvidence(value: unknown): boolean {
+  const state = text(value, "state") ?? "";
+  const reasons = items(value, "reason_codes");
+  const signature = text(value, "signature_state");
+  const interrupted = flag(value, "interrupted");
+  const preservation = text(value, "user_data_preservation");
+  const packageFormat = text(value, "package_format");
+  const allowedFormats =
+    PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID[text(value, "platform_id") ?? ""];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0) ||
+    (allowedFormats !== undefined &&
+      packageFormat !== null &&
+      !allowedFormats.includes(packageFormat))
+  ) {
+    return false;
+  }
+  // The interrupted flag is historical: it records that this operation was
+  // interrupted at some point. The recovery_completed flag records that the
+  // resolved, so it is meaningless without one. The INTERRUPTED reason names
+  // exactly an operation that was interrupted, and the unresolved terminal
+  // outcome is carried by INSTALL_INTERRUPTED / UPDATE_INTERRUPTED, never by
+  // the flag alone.
+  if (
+    (present(value, "recovery_completed") && interrupted !== true) ||
+    reasons.includes("INTERRUPTED") !== (interrupted === true) ||
+    (PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES.includes(state) && interrupted !== true)
+  ) {
+    return false;
+  }
+  if (
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING") &&
+    !reasons.includes("SIGNATURE_NOT_VERIFIED")
+  ) {
+    return false;
+  }
+  if (PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
+    return false;
+  }
+  if (PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES.includes(state)) {
+    // A success carries no outstanding reason. A recovered interruption is no
+    // longer outstanding, so exactly the historical INTERRUPTED reason may
+    // remain — and only when the recovery actually completed. Specification
+    // §5.14.8 requires every certified target to pass interrupted update,
+    // repair, rollback, and preservation behaviour, so that outcome must be
+    // reportable as the success it is.
+    const outstanding = reasons.filter((reason) => reason !== "INTERRUPTED");
+    if (
+      signature !== "SIGNATURE_VALID" ||
+      outstanding.length > 0 ||
+      (interrupted === true && flag(value, "recovery_completed") !== true) ||
+      !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
+        preservation ?? "",
+      ) ||
+      items(value, "evidence_refs").length === 0
+    ) {
+      return false;
+    }
+  }
+  if (state === "UNINSTALLED") {
+    return ["NOT_APPLICABLE", "REMOVED"].includes(
+      text(value, "native_host_cleanup") ?? "",
+    );
+  }
+  if (state === "INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      text(value, "installed_version") === text(value, "package_version")
+    );
+  }
+  if (state === "NOT_INSTALLED") {
+    return !present(value, "installed_version");
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    return !present(value, "available_version");
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    return present(value, "available_version");
+  }
+  if (state === "UPDATE_INSTALLED") {
+    // The installed update is the update that was offered, exactly as INSTALLED
+    // binds the installed version to the package version.
+    return (
+      present(value, "installed_version") &&
+      present(value, "available_version") &&
+      present(value, "target_artifact") &&
+      text(value, "installed_version") === text(value, "available_version")
+    );
+  }
+  if (state === "ROLLED_BACK") {
+    return (
+      present(value, "rolled_back_to_version") &&
+      flag(value, "rollback_available") === true
+    );
+  }
+  return true;
+}
+
+function publishedLegacyPlatformDiagnosticIntegrity(value: unknown): boolean {
+  const result = text(value, "result");
+  const severity = text(value, "severity");
+  const reasons = items(value, "reason_codes");
+  const blocking = flag(value, "blocking");
+  const component = text(value, "component") ?? "";
+  const expectedCapability = PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT[component];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (expectedCapability !== undefined &&
+      text(value, "capability") !== expectedCapability)
+  ) {
+    return false;
+  }
+  if (
+    present(value, "user_message") &&
+    text(objectMember(value, "redaction"), "policy") !== "NONE"
+  ) {
+    return false;
+  }
+  if (blocking === true && result !== "BLOCKED" && result !== "FAILURE") {
+    return false;
+  }
+  if (result === "SUCCESS") {
+    return blocking === false && reasons.length === 0 && severity === "INFO";
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (result === "WARNING") {
+    return blocking === false && ["INFO", "WARNING"].includes(severity ?? "");
+  }
+  if (result === "FAILURE") {
+    return ["CRITICAL", "ERROR"].includes(severity ?? "");
+  }
+  // BLOCKED: an external boundary prevented evaluation. It blocks a capability,
+  // so it is never filed as informational.
+  return (
+    blocking === true && ["CRITICAL", "ERROR", "WARNING"].includes(severity ?? "")
+  );
+}
+
+function publishedLegacyPlatformEvidenceIntegrity(value: unknown): boolean {
+  const reasons = items(value, "reason_codes");
+  const method = text(value, "evaluation_method");
+  const artifactKind = text(value, "artifact_kind") ?? "";
+  const requiredReference = PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
+  if (
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    flag(value, "synthetic_only") !== true ||
+    (requiredReference !== undefined && !present(value, requiredReference)) ||
+    (present(value, "package_artifact") && !present(value, "signature_state"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "review_state") === "REVIEW_COMPLETE" &&
+    !present(value, "reviewer_identity_ref")
+  ) {
+    return false;
+  }
+  if (
+    text(value, "owner_decision_state") === "RECORDED" &&
+    text(value, "review_state") !== "REVIEW_COMPLETE"
+  ) {
+    return false;
+  }
+  // machine_class records *where* an artifact was produced and
+  // evaluation_method records *how*. The axes are independent: a hosted runner
+  // and a physical development machine may each execute synthetic fixtures,
+  // static inspection, or a measured native run. Only a synthetic machine
+  // cannot execute a native run, and only a hosted runner has a runner image.
+  const machineClass = text(value, "machine_class");
+  const succeeded = text(value, "result") === "SUCCESS";
+  if (method === "MEASURED_NATIVE_RUN") {
+    if (
+      !present(value, "os_version") ||
+      !present(value, "os_build") ||
+      machineClass === "SYNTHETIC_FIXTURE" ||
+      !PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") ||
+      (machineClass === "HOSTED_CI_RUNNER" &&
+        !present(value, "runner_image_token"))
+    ) {
+      return false;
+    }
+  }
+  if (
+    present(value, "runner_image_token") &&
+    machineClass !== "HOSTED_CI_RUNNER"
+  ) {
+    return false;
+  }
+  // NOT_EVALUATED and DECLARED_PLAN are never measured evidence, so neither can
+  // report a passing evidence element, and an unevaluated record observed no
+  // operating-system build at all.
+  if (method === "NOT_EVALUATED" || method === "DECLARED_PLAN") {
+    if (succeeded) {
+      return false;
+    }
+    if (
+      method === "NOT_EVALUATED" &&
+      (present(value, "os_build") || !reasons.includes("EVALUATION_NOT_RUN"))
+    ) {
+      return false;
+    }
+  }
+  // An artifact whose signature did not verify is not a passing evidence
+  // element, whatever produced it.
+  const signature = text(value, "signature_state");
+  if (
+    succeeded &&
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING")
+  ) {
+    return false;
+  }
+  return succeeded ? reasons.length === 0 : reasons.length > 0;
+}
+
+function publishedLegacyPlatformCertificationInputScope(value: unknown): boolean {
+  const required = items(value, "required_evidence_kinds");
+  const presentKinds = items(value, "present_evidence_kinds");
+  const records = items(value, "evidence_record_refs");
+  const reasons = items(value, "reason_codes");
+  if (
+    !strictlySortedStrings(required) ||
+    !strictlySortedStrings(presentKinds) ||
+    !uniqueStrings(records) ||
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (flag(value, "inventory_complete") !== complete) {
+    return false;
+  }
+  if (
+    (text(value, "owner_decision_state") === "RECORDED") !==
+    present(value, "owner_decision_ref")
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  // Completeness is measured against the record's own declared policy, so an
+  // empty required set would make "complete" vacuous. A certified proposal must
+  // name the evidence it required.
+  return (
+    reasons.length === 0 &&
+    complete &&
+    required.length > 0 &&
+    text(value, "owner_decision_state") === "RECORDED"
+  );
+}
+
 const CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
 const UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
 const CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
@@ -1628,6 +3892,36 @@ const MANDATORY_CORE_CAPABILITIES = [
   "PLATFORM_PATHS",
   "PROCESS_SUPERVISION",
   "SECURE_STORE",
+];
+const OBSERVED_EVALUATION_METHODS = [
+  "MEASURED_NATIVE_RUN",
+  "STATIC_INSPECTION",
+  "SYNTHETIC_FIXTURE",
+];
+const CERTIFIED_CORE_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
+];
+const CERTIFIED_FULL_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "MODEL_PROFILE_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
 ];
 const PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
 const PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
@@ -1730,8 +4024,6 @@ const PACKAGE_FORMATS_BY_PLATFORM_ID: Readonly<
   UBUNTU_X64: ["APP_IMAGE", "DEBIAN_PACKAGE"],
   WINDOWS_X64: ["WINDOWS_INSTALLER"],
 };
-/** The two availability states in which a runtime was actually detected. */
-const OPERABLE_RUNTIME_AVAILABILITY = ["AVAILABLE", "DEGRADED_LIMITED"];
 const EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
   INSTALL_LAUNCH_REPORT: "installer_state_ref",
   MODEL_PROFILE_REPORT: "model_profile_ref",
@@ -1751,32 +4043,59 @@ function platformRequestAuthority(value: unknown): boolean {
 
 function platformCapabilityStateSound(state: unknown): boolean {
   const availability = text(state, "availability");
+  const method = text(state, "evaluation_method");
   const reasons = items(state, "reason_codes");
+  const identity = present(state, "identity_token");
+  const version = present(state, "detected_version");
+  const evidence = present(state, "evidence_digest");
+  const identityCount = [identity, version, evidence].filter(Boolean).length;
   if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (
+    (availability === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && availability !== "UNKNOWN")
+  ) {
     return false;
   }
   if (availability === "AVAILABLE") {
     return (
       reasons.length === 0 &&
-      present(state, "identity_token") &&
-      present(state, "detected_version") &&
-      present(state, "evidence_digest") &&
-      text(state, "evaluation_method") !== "NOT_EVALUATED"
+      identityCount === 3 &&
+      OBSERVED_EVALUATION_METHODS.includes(method ?? "")
     );
   }
   if (reasons.length === 0) {
     return false;
   }
   if (availability === "NOT_EVALUATED") {
+    return identityCount === 0 && reasons.includes("EVALUATION_NOT_RUN");
+  }
+  if (
+    availability === "DEGRADED_LIMITED" ||
+    availability === "INCOMPATIBLE_VERSION"
+  ) {
     return (
-      text(state, "evaluation_method") === "NOT_EVALUATED" &&
-      reasons.includes("EVALUATION_NOT_RUN")
+      identityCount === 3 &&
+      OBSERVED_EVALUATION_METHODS.includes(method ?? "")
     );
   }
-  if (availability === "DEGRADED_LIMITED") {
-    return present(state, "identity_token") && present(state, "detected_version");
+  if (
+    availability === "NOT_INSTALLED" ||
+    availability === "UNKNOWN" ||
+    availability === "UNSUPPORTED_TARGET"
+  ) {
+    return (
+      identityCount === 0 &&
+      (method === "DECLARED_PLAN" ||
+        OBSERVED_EVALUATION_METHODS.includes(method ?? ""))
+    );
   }
-  return true;
+  return (
+    (availability === "PERMISSION_REQUIRED" || availability === "UNAVAILABLE") &&
+    (identityCount === 0 || identityCount === 3) &&
+    OBSERVED_EVALUATION_METHODS.includes(method ?? "")
+  );
 }
 
 function platformSupportClaimSound(value: unknown): boolean {
@@ -1991,93 +4310,88 @@ function platformSecretRequestAuthority(value: unknown): boolean {
 }
 
 function platformSecretResultIntegrity(value: unknown): boolean {
-  const operation = text(value, "operation");
-  const availability = text(value, "store_availability");
-  const state = text(value, "result_state");
+  const operation = text(value, "operation") ?? "";
+  const availability = text(value, "store_availability") ?? "";
+  const state = text(value, "result_state") ?? "";
   const reasons = items(value, "reason_codes");
+  const hasIdentity = present(value, "store_identity_token");
   const hasMaterial = present(value, "material_reference");
   const hasDigest = present(value, "material_digest");
   if (!uniqueStrings(reasons)) {
     return false;
   }
-  if (availability === "AVAILABLE") {
-    if (!present(value, "store_identity_token")) {
-      return false;
-    }
-  } else if (hasMaterial) {
+  if (availability === "PERMISSION_REQUIRED") {
+    return (
+      state === "DENIED_PERMISSION" &&
+      !hasIdentity &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes("PERMISSION_DENIED")
+    );
+  }
+  const unavailableReason: Readonly<Record<string, string>> = {
+    INCOMPATIBLE_VERSION: "CONFIGURATION_INVALID",
+    NOT_EVALUATED: "EVALUATION_NOT_RUN",
+    NOT_INSTALLED: "NOT_INSTALLED",
+    UNAVAILABLE: "SERVICE_UNAVAILABLE",
+    UNKNOWN: "UNKNOWN_ERROR",
+    UNSUPPORTED_TARGET: "TARGET_NOT_CERTIFIED",
+  };
+  const requiredUnavailableReason = unavailableReason[availability];
+  if (requiredUnavailableReason !== undefined) {
+    return (
+      state === "STORE_UNAVAILABLE" &&
+      !hasIdentity &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes(requiredUnavailableReason)
+    );
+  }
+  if (
+    (availability !== "AVAILABLE" && availability !== "DEGRADED_LIMITED") ||
+    !hasIdentity
+  ) {
     return false;
   }
-  const storeUnavailableAvailability =
-    availability !== null &&
-    ![
-      "AVAILABLE",
-      "DEGRADED_LIMITED",
-      "PERMISSION_REQUIRED",
-    ].includes(availability);
-  const deniedAvailability = ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(
-    availability ?? "",
-  );
+  const successReasonsSound =
+    availability === "AVAILABLE" ? reasons.length === 0 : reasons.length > 0;
   if (operation === "STATUS") {
-    if (hasMaterial || hasDigest) {
-      return false;
-    }
-    if (state === "STORE_AVAILABLE") {
-      return availability === "AVAILABLE" && reasons.length === 0;
-    }
-    if (state === "DENIED_PERMISSION") {
-      return reasons.includes("PERMISSION_DENIED") && deniedAvailability;
-    }
-    if (state === "STORE_UNAVAILABLE") {
-      return reasons.length > 0 && storeUnavailableAvailability;
-    }
-    return false;
-  }
-  if (state === "STORE_AVAILABLE") {
-    return false;
+    return (
+      state === "STORE_AVAILABLE" &&
+      !hasMaterial &&
+      !hasDigest &&
+      successReasonsSound
+    );
   }
   if (state === "RETRIEVED") {
-    return (
-      operation === "GET" &&
-      availability === "AVAILABLE" &&
-      hasMaterial &&
-      hasDigest &&
-      reasons.length === 0
-    );
+    return operation === "GET" && hasMaterial && hasDigest && successReasonsSound;
   }
   if (state === "STORED") {
-    return (
-      operation === "PUT" &&
-      availability === "AVAILABLE" &&
-      hasMaterial &&
-      reasons.length === 0
-    );
+    return operation === "PUT" && hasMaterial && !hasDigest && successReasonsSound;
   }
   if (state === "DELETED") {
     return (
       operation === "DELETE" &&
-      availability === "AVAILABLE" &&
       !hasMaterial &&
       !hasDigest &&
-      reasons.length === 0
+      successReasonsSound
     );
   }
-  if (state === "DENIED_PERMISSION") {
+  if (state === "NOT_FOUND") {
     return (
+      ["DELETE", "GET", "PUT"].includes(operation) &&
       !hasMaterial &&
       !hasDigest &&
-      reasons.includes("PERMISSION_DENIED") &&
-      deniedAvailability
+      reasons.length > 0
     );
   }
-  if (state === "STORE_UNAVAILABLE") {
-    return (
-      !hasMaterial &&
-      !hasDigest &&
-      reasons.length > 0 &&
-      storeUnavailableAvailability
-    );
-  }
-  return !hasMaterial && !hasDigest && reasons.length > 0;
+  return (
+    state === "OPERATION_FAILED" &&
+    ["DELETE", "GET", "PUT"].includes(operation) &&
+    !hasMaterial &&
+    !hasDigest &&
+    reasons.length > 0
+  );
 }
 
 /** Normalize one argument to the command name it would actually invoke. */
@@ -2209,10 +4523,23 @@ function platformProcessStatusIntegrity(value: unknown): boolean {
     return false;
   }
   if (state === "STARTING") {
-    return !ended && !exited;
+    return (
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan !== true &&
+      reasons.length === 0
+    );
   }
   if (state === "RUNNING") {
-    return started && !ended && !exited;
+    return (
+      started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan !== true &&
+      reasons.length === 0
+    );
   }
   if (state === "TERMINATING") {
     return started && !ended && !exited && terminating;
@@ -2230,19 +4557,40 @@ function platformProcessStatusIntegrity(value: unknown): boolean {
     );
   }
   if (state === "TERMINATED") {
-    return started && ended && terminating;
+    return started && ended && !exited && terminating;
   }
   if (state === "ORPHANED") {
     // An orphan outlived its supervising parent and still requires cleanup, so
     // it has started and has not yet been observed to end.
-    return started && !ended && !exited && orphan === true && reasons.length > 0;
+    return (
+      started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan === true &&
+      reasons.length > 0
+    );
   }
   if (state === "UNAVAILABLE") {
-    return !started && !ended && !exited && reasons.length > 0;
+    return (
+      !started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      reasons.length > 0
+    );
   }
   // FAILED: supervision itself failed. An observed exit status would make this
   // an EXITED child instead, so the two stay distinguishable.
-  return !exited && reasons.length > 0;
+  if (state === "FAILED") {
+    return (
+      !ended &&
+      !exited &&
+      reasons.length > 0 &&
+      (!terminating || started)
+    );
+  }
+  return false;
 }
 
 function platformNativeRegistrationBinding(value: unknown): boolean {
@@ -2352,6 +4700,7 @@ function platformBrowserDiscoverySafety(value: unknown): boolean {
 
 function platformBrowserRecordScope(value: unknown): boolean {
   const presence = text(value, "presence");
+  const method = text(value, "detection_method");
   const reasons = items(value, "reason_codes");
   const capability = objectMember(value, "native_messaging_capability");
   if (
@@ -2362,13 +4711,17 @@ function platformBrowserRecordScope(value: unknown): boolean {
   ) {
     return false;
   }
+  if (
+    (presence === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && presence !== "UNKNOWN") ||
+    (method !== "NOT_EVALUATED" &&
+      method !== "DECLARED_PLAN" &&
+      !OBSERVED_EVALUATION_METHODS.includes(method ?? ""))
+  ) {
+    return false;
+  }
   if (presence === "AVAILABLE") {
-    // A presence claim is an observation, so it cannot come from an
-    // explicitly unevaluated detection.
-    if (
-      !present(value, "detected_version") ||
-      text(value, "detection_method") === "NOT_EVALUATED"
-    ) {
+    if (!present(value, "detected_version")) {
       return false;
     }
   } else if (present(value, "sanitized_install_location")) {
@@ -2392,8 +4745,10 @@ function platformBrowserRecordScope(value: unknown): boolean {
     text(value, "browser_family") === "CHROME" &&
     text(value, "browser_channel") === "STABLE" &&
     CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
-    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    method === "MEASURED_NATIVE_RUN" &&
+    present(value, "sanitized_install_location") &&
     text(capability, "availability") === "AVAILABLE" &&
+    text(capability, "evaluation_method") === "MEASURED_NATIVE_RUN" &&
     present(value, "last_tested_on")
   );
 }
@@ -2463,18 +4818,26 @@ function platformModelProfileEvidence(value: unknown): boolean {
 
 function platformRuntimeCapabilityFallback(value: unknown): boolean {
   const availability = text(value, "runtime_availability") ?? "";
+  const method = text(value, "detection_method");
   const available = items(value, "available_profile_refs");
   const accepted = items(value, "accepted_profile_refs");
   const reasons = items(value, "reason_codes");
   const behavior = text(value, "core_capability_behavior");
   const platformId = text(value, "platform_id") ?? "";
   const family = text(value, "runtime_family");
+  const hasVersion = present(value, "runtime_version");
   const accelerator = text(value, "accelerator");
   if (
     !uniqueStrings(available) ||
     !uniqueStrings(accepted) ||
     !uniqueStrings(reasons) ||
     !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  if (
+    (availability === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && availability !== "UNKNOWN")
   ) {
     return false;
   }
@@ -2489,65 +4852,75 @@ function platformRuntimeCapabilityFallback(value: unknown): boolean {
   ) {
     return false;
   }
-  // An unevaluated runtime is exactly an unevaluated detection.
   if (
-    (text(value, "detection_method") === "NOT_EVALUATED") !==
-    (availability === "NOT_EVALUATED")
+    method !== "NOT_EVALUATED" &&
+    method !== "DECLARED_PLAN" &&
+    !OBSERVED_EVALUATION_METHODS.includes(method ?? "")
   ) {
     return false;
   }
-  // A capability that was never evaluated, or that cannot exist on this target
-  // at all, observed no runtime identity.
-  if (availability === "NOT_EVALUATED" || availability === "UNSUPPORTED_TARGET") {
-    if (family !== null || present(value, "runtime_version") || accelerator !== null) {
+  if (availability === "AVAILABLE" || availability === "DEGRADED_LIMITED") {
+    if (family === null || !hasVersion || accelerator === null) {
       return false;
     }
+  } else if (availability === "INCOMPATIBLE_VERSION") {
     if (
-      availability === "NOT_EVALUATED" &&
-      !reasons.includes("EVALUATION_NOT_RUN")
+      family === null ||
+      !hasVersion ||
+      available.length > 0 ||
+      accepted.length > 0
     ) {
       return false;
     }
-  }
-  // Full AI is the only state with nothing outstanding, and it is exactly the
-  // state that requires an accepted profile on an available certified runtime.
-  if (behavior === "FULL_AI_AVAILABLE") {
-    if (
-      availability !== "AVAILABLE" ||
-      accepted.length === 0 ||
-      reasons.length > 0 ||
-      !CERTIFIED_PLATFORM_IDS.includes(platformId)
-    ) {
-      return false;
-    }
-  } else if (accepted.length > 0 || reasons.length === 0) {
+  } else if (
+    family !== null ||
+    hasVersion ||
+    accelerator !== null ||
+    available.length > 0 ||
+    accepted.length > 0
+  ) {
     return false;
   }
-  // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
-  // states, so they are the only ones that may enumerate usable profiles and
-  // the only ones that observed a runtime identity. A runtime below the
-  // performance tier still reports what it is and what it offers.
-  if (!OPERABLE_RUNTIME_AVAILABILITY.includes(availability)) {
-    return available.length === 0;
+  if (availability === "AVAILABLE" && behavior === "FULL_AI_AVAILABLE") {
+    return (
+      accepted.length > 0 &&
+      reasons.length === 0 &&
+      CERTIFIED_PLATFORM_IDS.includes(platformId)
+    );
   }
-  if (family === null || !present(value, "runtime_version")) {
-    return false;
+  if (
+    availability === "AVAILABLE" ||
+    availability === "DEGRADED_LIMITED"
+  ) {
+    return (
+      accepted.length === 0 &&
+      reasons.length > 0 &&
+      behavior === "CORE_PRESERVED_AI_DEGRADED"
+    );
   }
-  return availability !== "AVAILABLE" || accelerator !== null;
+  return (
+    reasons.length > 0 &&
+    behavior === "CORE_PRESERVED_AI_UNAVAILABLE" &&
+    (availability !== "NOT_EVALUATED" ||
+      reasons.includes("EVALUATION_NOT_RUN"))
+  );
 }
 
 function platformPackageStateEvidence(value: unknown): boolean {
   const state = text(value, "state") ?? "";
   const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
   const signature = text(value, "signature_state");
   const interrupted = flag(value, "interrupted");
+  const hasRecovery = present(value, "recovery_completed");
+  const recovered = flag(value, "recovery_completed") === true;
   const preservation = text(value, "user_data_preservation");
   const packageFormat = text(value, "package_format");
   const allowedFormats =
     PACKAGE_FORMATS_BY_PLATFORM_ID[text(value, "platform_id") ?? ""];
   if (
     !uniqueStrings(reasons) ||
-    !uniqueStrings(items(value, "evidence_refs")) ||
+    !uniqueStrings(evidence) ||
     !platformArchitectureCoherent(value) ||
     (preservation === "PRESERVATION_FAILED" && reasons.length === 0) ||
     (allowedFormats !== undefined &&
@@ -2556,16 +4929,27 @@ function platformPackageStateEvidence(value: unknown): boolean {
   ) {
     return false;
   }
-  // The interrupted flag is historical: it records that this operation was
-  // interrupted at some point. The recovery_completed flag records that the
-  // resolved, so it is meaningless without one. The INTERRUPTED reason names
-  // exactly an operation that was interrupted, and the unresolved terminal
-  // outcome is carried by INSTALL_INTERRUPTED / UPDATE_INTERRUPTED, never by
-  // the flag alone.
   if (
     (present(value, "recovery_completed") && interrupted !== true) ||
-    reasons.includes("INTERRUPTED") !== (interrupted === true) ||
-    (PACKAGE_INTERRUPTED_STATES.includes(state) && interrupted !== true)
+    reasons.includes("INTERRUPTED") !== (interrupted === true)
+  ) {
+    return false;
+  }
+  const interruptedTerminal = PACKAGE_INTERRUPTED_STATES.includes(state);
+  const success = PACKAGE_SUCCESS_STATES.includes(state);
+  const observation = [
+    "NOT_INSTALLED",
+    "NO_UPDATE_AVAILABLE",
+    "UPDATE_AVAILABLE",
+  ].includes(state);
+  if (
+    (interruptedTerminal && (interrupted !== true || recovered)) ||
+    (success && interrupted === true && !recovered) ||
+    (observation && (interrupted === true || hasRecovery)) ||
+    (PACKAGE_FAILURE_STATES.includes(state) &&
+      !interruptedTerminal &&
+      interrupted === true &&
+      !recovered)
   ) {
     return false;
   }
@@ -2578,63 +4962,98 @@ function platformPackageStateEvidence(value: unknown): boolean {
   if (PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
     return false;
   }
-  if (PACKAGE_SUCCESS_STATES.includes(state)) {
-    // A success carries no outstanding reason. A recovered interruption is no
-    // longer outstanding, so exactly the historical INTERRUPTED reason may
-    // remain — and only when the recovery actually completed. Specification
-    // §5.14.8 requires every certified target to pass interrupted update,
-    // repair, rollback, and preservation behaviour, so that outcome must be
-    // reportable as the success it is.
+  if (success) {
     const outstanding = reasons.filter((reason) => reason !== "INTERRUPTED");
     if (
       signature !== "SIGNATURE_VALID" ||
       outstanding.length > 0 ||
-      (interrupted === true && flag(value, "recovery_completed") !== true) ||
       !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
         preservation ?? "",
       ) ||
-      items(value, "evidence_refs").length === 0
+      evidence.length === 0
     ) {
       return false;
     }
   }
-  if (state === "UNINSTALLED") {
-    return ["NOT_APPLICABLE", "REMOVED"].includes(
-      text(value, "native_host_cleanup") ?? "",
-    );
+  const installed = text(value, "installed_version");
+  const packageVersion = text(value, "package_version");
+  const currentVersion = text(value, "current_version");
+  const availableVersion = text(value, "available_version");
+  const rolledBackVersion = text(value, "rolled_back_to_version");
+  const hasTarget = present(value, "target_artifact");
+  if (state === "INSTALLED" || state === "REPAIRED") {
+    return installed !== null && installed === packageVersion;
   }
-  if (state === "INSTALLED") {
+  if (
+    state === "UNINSTALLED" ||
+    state === "NOT_INSTALLED" ||
+    state === "INSTALL_FAILED" ||
+    state === "INSTALL_INTERRUPTED"
+  ) {
     return (
-      present(value, "installed_version") &&
-      text(value, "installed_version") === text(value, "package_version")
+      installed === null &&
+      (state !== "UNINSTALLED" ||
+        ["NOT_APPLICABLE", "REMOVED"].includes(
+          text(value, "native_host_cleanup") ?? "",
+        ))
     );
   }
-  if (state === "NOT_INSTALLED") {
-    return !present(value, "installed_version");
+  if (state === "REPAIR_FAILED" || state === "UNINSTALL_FAILED") {
+    return installed !== null && installed === packageVersion;
   }
   if (state === "NO_UPDATE_AVAILABLE") {
-    return !present(value, "available_version");
+    return (
+      availableVersion === null &&
+      installed === null &&
+      rolledBackVersion === null &&
+      !hasTarget &&
+      flag(value, "rollback_available") === false
+    );
   }
   if (state === "UPDATE_AVAILABLE") {
-    return present(value, "available_version");
+    return (
+      availableVersion !== null &&
+      availableVersion !== currentVersion &&
+      installed === null &&
+      rolledBackVersion === null &&
+      hasTarget
+    );
   }
   if (state === "UPDATE_INSTALLED") {
-    // The installed update is the update that was offered, exactly as INSTALLED
-    // binds the installed version to the package version.
     return (
-      present(value, "installed_version") &&
-      present(value, "available_version") &&
-      present(value, "target_artifact") &&
-      text(value, "installed_version") === text(value, "available_version")
+      installed !== null &&
+      availableVersion !== null &&
+      hasTarget &&
+      installed === availableVersion &&
+      rolledBackVersion === null
     );
   }
   if (state === "ROLLED_BACK") {
     return (
-      present(value, "rolled_back_to_version") &&
-      flag(value, "rollback_available") === true
+      installed !== null &&
+      rolledBackVersion !== null &&
+      installed === rolledBackVersion &&
+      installed === currentVersion &&
+      flag(value, "rollback_available") === true &&
+      (availableVersion !== null) === hasTarget
     );
   }
-  return true;
+  if (state === "UPDATE_FAILED" || state === "UPDATE_INTERRUPTED") {
+    return (
+      (availableVersion !== null) === hasTarget &&
+      (installed === null || installed === currentVersion) &&
+      rolledBackVersion === null
+    );
+  }
+  if (state === "ROLLBACK_FAILED") {
+    return (
+      installed !== null &&
+      installed === currentVersion &&
+      rolledBackVersion === null &&
+      (availableVersion !== null) === hasTarget
+    );
+  }
+  return false;
 }
 
 function platformDiagnosticIntegrity(value: unknown): boolean {
@@ -2761,18 +5180,35 @@ function platformCertificationInputScope(value: unknown): boolean {
   const required = items(value, "required_evidence_kinds");
   const presentKinds = items(value, "present_evidence_kinds");
   const records = items(value, "evidence_record_refs");
+  const inventory = items(value, "evidence_inventory");
+  const inventoryKinds = inventory.map((item) => text(item, "artifact_kind"));
+  const inventoryRefs = inventory.map((item) =>
+    text(item, "evidence_record_ref"),
+  );
   const reasons = items(value, "reason_codes");
   if (
     !strictlySortedStrings(required) ||
     !strictlySortedStrings(presentKinds) ||
     !uniqueStrings(records) ||
+    !strictlySortedField(inventory, "artifact_kind") ||
+    !uniqueField(inventory, "evidence_record_ref") ||
     !uniqueStrings(reasons) ||
     !platformArchitectureCoherent(value) ||
     !platformSupportClaimSound(value)
   ) {
     return false;
   }
-  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (
+    inventoryKinds.some((item) => item === null) ||
+    inventoryRefs.some((item) => item === null) ||
+    presentKinds.length !== inventoryKinds.length ||
+    records.length !== inventoryRefs.length ||
+    !presentKinds.every((item, index) => item === inventoryKinds[index]) ||
+    !records.every((item, index) => item === inventoryRefs[index])
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && inventory.length > 0;
   if (flag(value, "inventory_complete") !== complete) {
     return false;
   }
@@ -2785,14 +5221,32 @@ function platformCertificationInputScope(value: unknown): boolean {
   if (!platformReviewedTierIsCertified(value)) {
     return reasons.length > 0;
   }
-  // Completeness is measured against the record's own declared policy, so an
-  // empty required set would make "complete" vacuous. A certified proposal must
-  // name the evidence it required.
+  const reviewedTier = text(
+    objectMember(value, "support_claim"),
+    "reviewed_tier",
+  );
+  const claimEvidenceRefs = items(
+    objectMember(value, "support_claim"),
+    "evidence_refs",
+  );
+  const policy =
+    reviewedTier === "CERTIFIED_FULL"
+      ? CERTIFIED_FULL_EVIDENCE_KINDS
+      : CERTIFIED_CORE_EVIDENCE_KINDS;
   return (
     reasons.length === 0 &&
     complete &&
-    required.length > 0 &&
-    text(value, "owner_decision_state") === "RECORDED"
+    required.length === policy.length &&
+    required.every((item, index) => item === policy[index]) &&
+    presentKinds.length === policy.length &&
+    presentKinds.every((item, index) => item === policy[index]) &&
+    claimEvidenceRefs.length === records.length &&
+    claimEvidenceRefs.every((item, index) => item === records[index]) &&
+    present(value, "browser_record_ref") &&
+    present(value, "runtime_capability_ref") &&
+    text(value, "owner_decision_state") === "RECORDED" &&
+    (reviewedTier !== "CERTIFIED_FULL" ||
+      presentKinds.includes("MODEL_PROFILE_REPORT"))
   );
 }
 
@@ -2816,22 +5270,67 @@ const RULE_EVALUATORS: Readonly<Record<SemanticRuleKindV1, RuleEvaluator>> =
     NAVIGATION_SAFETY: navigationSafety,
     PAGE_READINESS_INTEGRITY: pageReadinessIntegrity,
     PLATFORM_BROWSER_DISCOVERY_SAFETY: platformBrowserDiscoverySafety,
-    PLATFORM_BROWSER_RECORD_SCOPE: platformBrowserRecordScope,
-    PLATFORM_CAPABILITY_REPORT_INTEGRITY: platformCapabilityReportIntegrity,
-    PLATFORM_CERTIFICATION_INPUT_SCOPE: platformCertificationInputScope,
-    PLATFORM_DIAGNOSTIC_INTEGRITY: platformDiagnosticIntegrity,
-    PLATFORM_EVIDENCE_INTEGRITY: platformEvidenceIntegrity,
-    PLATFORM_MODEL_PROFILE_EVIDENCE: platformModelProfileEvidence,
-    PLATFORM_NATIVE_REGISTRATION_BINDING: platformNativeRegistrationBinding,
-    PLATFORM_NATIVE_REGISTRATION_RESULT: platformNativeRegistrationResult,
-    PLATFORM_PACKAGE_STATE_EVIDENCE: platformPackageStateEvidence,
+    PLATFORM_BROWSER_RECORD_SCOPE: (value) =>
+      legacyPlatformBrowserRecordScope(value) ||
+      publishedLegacyPlatformBrowserRecordScope(value),
+    PLATFORM_BROWSER_RECORD_SCOPE_V2: platformBrowserRecordScope,
+    PLATFORM_CAPABILITY_REPORT_INTEGRITY: (value) =>
+      legacyPlatformCapabilityReportIntegrity(value) ||
+      publishedLegacyPlatformCapabilityReportIntegrity(value),
+    PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2:
+      platformCapabilityReportIntegrity,
+    PLATFORM_CERTIFICATION_INPUT_SCOPE: (value) =>
+      legacyPlatformCertificationInputScope(value) ||
+      publishedLegacyPlatformCertificationInputScope(value),
+    PLATFORM_CERTIFICATION_INPUT_SCOPE_V2: platformCertificationInputScope,
+    PLATFORM_DIAGNOSTIC_INTEGRITY: (value) =>
+      legacyPlatformDiagnosticIntegrity(value) ||
+      publishedLegacyPlatformDiagnosticIntegrity(value),
+    PLATFORM_DIAGNOSTIC_INTEGRITY_V2: platformDiagnosticIntegrity,
+    PLATFORM_EVIDENCE_INTEGRITY: (value) =>
+      legacyPlatformEvidenceIntegrity(value) ||
+      publishedLegacyPlatformEvidenceIntegrity(value),
+    PLATFORM_EVIDENCE_INTEGRITY_V2: platformEvidenceIntegrity,
+    PLATFORM_MODEL_PROFILE_EVIDENCE: (value) =>
+      legacyPlatformModelProfileEvidence(value) ||
+      publishedLegacyPlatformModelProfileEvidence(value),
+    PLATFORM_MODEL_PROFILE_EVIDENCE_V2: platformModelProfileEvidence,
+    PLATFORM_NATIVE_REGISTRATION_BINDING: (value) =>
+      legacyPlatformNativeRegistrationBinding(value) ||
+      publishedLegacyPlatformNativeRegistrationBinding(value),
+    PLATFORM_NATIVE_REGISTRATION_BINDING_V2:
+      platformNativeRegistrationBinding,
+    PLATFORM_NATIVE_REGISTRATION_RESULT: (value) =>
+      legacyPlatformNativeRegistrationResult(value) ||
+      publishedLegacyPlatformNativeRegistrationResult(value),
+    PLATFORM_NATIVE_REGISTRATION_RESULT_V2: platformNativeRegistrationResult,
+    PLATFORM_PACKAGE_STATE_EVIDENCE: (value) =>
+      legacyPlatformPackageStateEvidence(value) ||
+      publishedLegacyPlatformPackageStateEvidence(value),
+    PLATFORM_PACKAGE_STATE_EVIDENCE_V2: platformPackageStateEvidence,
     PLATFORM_PATH_REQUEST_SAFETY: platformPathRequestSafety,
-    PLATFORM_PATH_RESOLUTION_SAFETY: platformPathResolutionSafety,
-    PLATFORM_PROCESS_PLAN_SAFETY: platformProcessPlanSafety,
-    PLATFORM_PROCESS_STATUS_INTEGRITY: platformProcessStatusIntegrity,
-    PLATFORM_RUNTIME_CAPABILITY_FALLBACK: platformRuntimeCapabilityFallback,
+    PLATFORM_PATH_RESOLUTION_SAFETY: (value) =>
+      legacyPlatformPathResolutionSafety(value) ||
+      publishedLegacyPlatformPathResolutionSafety(value),
+    PLATFORM_PATH_RESOLUTION_SAFETY_V2: platformPathResolutionSafety,
+    PLATFORM_PROCESS_PLAN_SAFETY: (value) =>
+      legacyPlatformProcessPlanSafety(value) ||
+      publishedLegacyPlatformProcessPlanSafety(value),
+    PLATFORM_PROCESS_PLAN_SAFETY_V2: platformProcessPlanSafety,
+    PLATFORM_PROCESS_STATUS_INTEGRITY: (value) =>
+      legacyPlatformProcessStatusIntegrity(value) ||
+      publishedLegacyPlatformProcessStatusIntegrity(value),
+    PLATFORM_PROCESS_STATUS_INTEGRITY_V2: platformProcessStatusIntegrity,
+    PLATFORM_RUNTIME_CAPABILITY_FALLBACK: (value) =>
+      legacyPlatformRuntimeCapabilityFallback(value) ||
+      publishedLegacyPlatformRuntimeCapabilityFallback(value),
+    PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2:
+      platformRuntimeCapabilityFallback,
     PLATFORM_SECRET_REQUEST_AUTHORITY: platformSecretRequestAuthority,
-    PLATFORM_SECRET_RESULT_INTEGRITY: platformSecretResultIntegrity,
+    PLATFORM_SECRET_RESULT_INTEGRITY: (value) =>
+      legacyPlatformSecretResultIntegrity(value) ||
+      publishedLegacyPlatformSecretResultIntegrity(value),
+    PLATFORM_SECRET_RESULT_INTEGRITY_V2: platformSecretResultIntegrity,
     PLATFORM_TARGET_SUPPORT_CLAIM: platformTargetSupportClaim,
     RECONCILIATION_READINESS: reconciliationReadiness,
     RESUME_PLAN_EVIDENCE: resumePlanEvidence,

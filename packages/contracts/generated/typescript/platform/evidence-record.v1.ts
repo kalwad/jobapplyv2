@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1Architecture, PlatformVocabularyV1ArtifactIden
  * Cross-platform evidence record
  *
  * One future per-platform evidence element for the Cross-Platform Core Gate bundle: operating-system build and architecture, machine class, package identity and signature state, browser and WebView versions, native-host registration, secret-store test, model profile, document matrix, backup/restore, update/rollback, and synthetic-safe log, screenshot, or trace references. Every artifact is a digest reference; raw secrets, unrestricted logs, raw local paths, complete environment dumps, registry exports, and machine-specific identity are structurally unrepresentable. M01-W07 creates no certification bundle and evaluates no gate.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformEvidenceRecordV1 {
   readonly evidence_record_id: CommonStableIdV1StableId;

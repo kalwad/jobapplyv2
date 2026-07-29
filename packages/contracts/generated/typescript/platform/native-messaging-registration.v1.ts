@@ -17,6 +17,7 @@ import type { PlatformVocabularyV1BrowserChannel, PlatformVocabularyV1BrowserFam
  * Native-messaging registration intent
  *
  * A typed install, verify, repair, update, or remove intent that binds a certified platform, a certified browser and channel, an allowlisted extension identifier set, the host identity and version, an installation scope, and the expected manifest digest. Arbitrary registry keys or values, manifest JSON bodies, executable paths, shell commands, and unreviewed extension identifiers are structurally unrepresentable. No registry, manifest, browser, or filesystem modification occurs in M01-W07.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformNativeMessagingRegistrationV1 {
   readonly registration_intent_id: CommonStableIdV1StableId;

@@ -20,6 +20,7 @@ import type { PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1Platfo
  * Platform process handle, lifecycle state, and result
  *
  * A stable supervisor handle plus the observed lifecycle state and exit result for one planned process. Handles are opaque: no operating-system process identifier, thread identifier, executable path, command line, or captured output stream is representable. Termination is a typed intent, never a raw signal value.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformProcessStatusV1 {
   readonly process_status_id: CommonStableIdV1StableId;

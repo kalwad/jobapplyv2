@@ -8,8 +8,12 @@ claim that every future schema has a production Rust representation.
 
 ## Canonical corpus
 
-`corpus/manifest.v1.json` is the single inventory. Corpus format `1.0.0`
-currently locks 382 sorted, unique, synthetic cases across three files:
+`corpus/manifest.v1.json` is the canonical current-case inventory. Corpus
+format `1.0.0` locks 511 sorted, unique, synthetic cases across three files:
+505 apply to all three languages, five are TypeScript-only, and one is
+Python-only, yielding TypeScript 510, Python 506, and Rust 505. The operation
+split is 60 `AUTHORIZE`, 156 `ROUND_TRIP`, 287 `VALIDATE`, and 8
+`VERSION_CHECK`; the corpus count retains one slot below the 512-case bound.
 
 - `cases.v1.json` describes schema reference, category, operation, input
   reference or raw bytes, expected verdict/normal form/version/authorization
@@ -31,6 +35,15 @@ pnpm contracts:corpus:update-manifest
 
 That explicit write command is never used by `pnpm verify`.
 
+`semantic-witnesses/historical-platform-v1.json` is a separate immutable
+accepted-set inventory, not part of the 511-case batch. It canonicalizes 556
+source positive references from four published M01-W07 revisions into 229
+distinct v1 schema/payload witnesses across all nineteen platform roots. Each
+language executes those 229 `VALIDATE` requests as a second bounded batch. The
+strict loader verifies digest-derived IDs, exact source revisions and counts,
+recursive canonical deduplication, provenance, the 0659/860 accepted-anchor
+equivalence, and the inventory digest.
+
 ## Adapter protocol and normalization
 
 Protocol `JAPP_CONTRACT_ADAPTER_V1` is a bounded batch of at most 512 cases.
@@ -43,18 +56,21 @@ catalog error codes. Raw exceptions, paths, stack traces, and input echoes
 are forbidden.
 
 Children run with explicit argument arrays, `shell: false`, bounded output,
-and timeouts. The harness never enables networking or a remote schema
-resolver. Canonical values are UTF-8 compact JSON with object keys sorted by
-UTF-8 bytes, stable array order, exact strings, distinct null/missing states,
-finite numbers only, and safe-integer enforcement. Integer and genuinely
-fractional values remain distinct.
+and timeouts: Rust build 300 seconds, adapter execution 120 seconds, and direct
+semantic TypeScript execution 30 seconds. Generated CLI tests use a separate
+15-second / 1-MiB boundary because expected nonzero exits must remain
+inspectable. The harness never enables networking or a remote schema resolver.
+Canonical values are UTF-8 compact JSON with object keys sorted by UTF-8 bytes,
+stable array order, exact strings, distinct null/missing states, finite numbers
+only, and safe-integer enforcement. Integer and genuinely fractional values
+remain distinct.
 
 ## Language paths
 
 - `adapters/typescript-adapter.ts` snapshots unknown JavaScript values through
   descriptors, rejects accessors/proxies/symbols/unusual prototypes, then
   delegates to generated wrappers backed by the canonical strict Ajv runtime,
-  then applies the generated finite M01-W06 semantic rules. It uses the
+  then applies the generated finite M01-W06/W07 semantic rules. It uses the
   M01-W01 version policy and generated catalog/policy APIs. It does not
   coerce, default, remove, or mutate fields.
 - `adapters/python_adapter.py` imports the generated strict Pydantic v2
@@ -89,31 +105,41 @@ under each of the four current profiles, and a content script is separately
 denied secret-store, process-supervision, native-messaging-registration, and
 browser/runtime-discovery authority.
 
-M01-W07 adds representative coverage for all nineteen platform roots: one
-round trip each, twenty-two strong-branch positives (reviewed certification,
-full certification, permission denial, verification-only probes, binary-stdio
-native-host plans, orphan detection, accepted model profiles, rollback, and a
-complete certification inventory), forty structural negatives (absolute,
-traversal, UNC, and drive paths; shell text, chaining, interpreter flags, and
-executable-path arguments; raw environment dictionaries; registry keys and
-manifest bodies; plaintext secret and keychain members; unreviewed or wildcard
-extension identifiers; browser executables and launch URLs; case-variant
-platform identifiers and unknown support tiers; markup and oversized
-messages; out-of-range, fractional, and boolean integers), and seventy-eight
-semantic negatives covering every platform rule kind.
+M01-W07 coverage includes all nineteen published v1 platform roots, fifteen
+corrected v2 roots, fifteen v2 positive round trips, thirty-nine explicit
+v1-valid/v2-invalid migration pairs, and thirteen direct SEM-01…SEM-07 v2
+negative reproductions, including the final certified-claim/inventory
+cross-binding witness. The 229-row historical batch independently protects
+the complete finite published v1 positive set discovered from corpus and
+matrix evidence; it does not claim to enumerate every possible JSON value.
 
-`breaking/` derives an exhaustive structural/semantic signature from the
-canonical IR, catalogs, and valid corpus cases. The checked-in v1 baseline is
-historical evidence—not source of truth. Normal check mode is read-only:
+The independently declared corrected-major grids also execute outside the
+corpus through this same real adapter protocol: 538 platform/package-policy
+cells and 288 secret-store cells run in batches bounded by both 512 cases and
+4 MiB. Every negative must remain structurally valid, return
+`SEMANTIC_INVALID` with its root's canonical error code, and agree across
+TypeScript, Python, and Rust.
+
+`breaking/` derives a closed structural/catalog signature plus executable
+semantic signatures for source corpus witnesses and the historical inventory.
+Baseline format `2.1.0` binds 572 semantic witnesses and the historical
+path/count/digest; the current signature covers 78 documents, 110 semantic
+rules, and 215 supported valid cases. Its internal integrity digest is
+`f0a254082a038350e47d3632219cedbc20304afa99526e02dc37fb9541da33d5`.
+This is bounded evidence, not a claim of mathematical exhaustiveness, and the
+checked-in baseline is historical evidence—not source of truth. Normal check
+mode is read-only:
 
 ```text
 pnpm contracts:compatibility:check
 ```
 
 It detects schema/definition/property/enum/ref/type/nullability/pattern/bound/
-openness regressions; version and supported-wire removal; command capability,
-target, denial-code, and payload changes; and profile/final-submit/platform
-authority broadening. Tests separately prove compatible new schemas,
+openness regressions; version and supported-wire removal; semantic-rule
+removal/rebinding; retained-witness acceptance or rejection removal,
+expectation and failure-binding drift; historical-inventory drift; command
+capability, target, denial-code, and payload changes; and profile/final-submit/
+platform authority broadening. Tests separately prove compatible new schemas,
 optional properties, minor versions, enum/deprecation metadata, and valid
 cases. An intentional baseline update is separately named:
 

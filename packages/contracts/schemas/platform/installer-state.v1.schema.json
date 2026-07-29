@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:installer-state:v1",
-  "x-japp-schema-version": "1.0.1",
+  "x-japp-schema-version": "1.0.2",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Installer state and result",
   "description": "Bounded installer state for a packaged build: package identity, version, platform, architecture, format, artifact digest and signature state, channel, installed version, lifecycle state, interruption and recovery state, user-data preservation, native-host cleanup, and finite failure reasons. No installer command, script, registry modification, download URL, network request, signing key, or filesystem path is representable, and this contract installs nothing.",
   "type": "object",

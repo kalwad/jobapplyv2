@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:native-messaging-registration:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Native-messaging registration intent",
   "description": "A typed install, verify, repair, update, or remove intent that binds a certified platform, a certified browser and channel, an allowlisted extension identifier set, the host identity and version, an installation scope, and the expected manifest digest. Arbitrary registry keys or values, manifest JSON bodies, executable paths, shell commands, and unreviewed extension identifiers are structurally unrepresentable. No registry, manifest, browser, or filesystem modification occurs in M01-W07.",
   "type": "object",

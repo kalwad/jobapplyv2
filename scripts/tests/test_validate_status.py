@@ -38,6 +38,12 @@ OTHER_FAKE_TREE = "tree " + "1" * 40
 GATE_D_EVIDENCE_REL = "docs/gates/evidence/SYNTHETIC_GATE_D_EVIDENCE.md"
 FAKE_EVIDENCE_HASH = "sha256:" + "0" * 64
 FAKE_REVIEWER = "clean-session fixture reviewer"
+CORRECTIVE_BLOCKER_IDS = ("KI-0029", "KI-0030", "KI-0031")
+CURRENT_BLOCKER_LINES = [
+    "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
+    "- KI-0030 (HIGH, IN_PROGRESS) — semantic contradictions",
+    "- KI-0031 (HIGH, IN_PROGRESS) — compatibility classification",
+]
 
 
 def run_validator(repo: Path) -> subprocess.CompletedProcess[str]:
@@ -68,6 +74,45 @@ def edit(path: Path, old: str, new: str, *, count: int = 0) -> None:
     text = path.read_text(encoding="utf-8")
     assert old in text, f"fixture edit target not found in {path.name}: {old!r}"
     path.write_text(text.replace(old, new, count or -1), encoding="utf-8")
+
+
+def set_issue_state(repo: Path, issue_id: str, state: str) -> None:
+    path = repo / "docs" / "KNOWN_ISSUES.md"
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"(### {re.escape(issue_id)} —[^\n]+\n(?:.*\n)*?- State: )[A-Z_]+",
+    )
+    assert pattern.search(text), f"no known-issue section for {issue_id}"
+    path.write_text(pattern.sub(rf"\g<1>{state}", text, count=1), encoding="utf-8")
+
+
+def set_issue_severity(repo: Path, issue_id: str, severity: str) -> None:
+    path = repo / "docs" / "KNOWN_ISSUES.md"
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"(### {re.escape(issue_id)} —[^\n]+\n(?:\n)?- Severity: )[A-Z_]+",
+    )
+    assert pattern.search(text), f"no known-issue section for {issue_id}"
+    path.write_text(pattern.sub(rf"\g<1>{severity}", text, count=1), encoding="utf-8")
+
+
+def set_live_blockers(repo: Path, lines: list[str]) -> None:
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"(## Known release blockers\n\n).*?(?=\n## )",
+        flags=re.DOTALL,
+    )
+    assert pattern.search(text), "no live blocker section"
+    replacement = r"\g<1>" + "\n".join(lines)
+    path.write_text(pattern.sub(replacement, text, count=1), encoding="utf-8")
+
+
+def resolve_corrective_issues(repo: Path) -> None:
+    """Remove today's corrective blockers from historical future-state fixtures."""
+    for issue_id in CORRECTIVE_BLOCKER_IDS:
+        set_issue_state(repo, issue_id, "FIXED")
+    set_live_blockers(repo, ["- NONE"])
 
 
 def clear_in_progress(repo: Path) -> None:
@@ -189,6 +234,8 @@ def promote(repo: Path, pid: str) -> None:
 
 
 def promote_milestones(repo: Path, mids: list[str]) -> None:
+    if any(int(mid[1:]) >= 1 for mid in mids):
+        resolve_corrective_issues(repo)
     for pid in pkg_rows(repo):
         if pid[:3] in mids:
             promote(repo, pid)
@@ -489,6 +536,7 @@ def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
     M01-W07 is the only package whose readiness changes at this boundary.
     """
     promote_milestones(repo, ["M00"])
+    resolve_corrective_issues(repo)
     reset_downstream(repo, after_package="M01-W07", after_milestone="M01")
     set_current_package(repo, "NONE")
     set_current_milestone(repo, "M01")
@@ -573,6 +621,182 @@ def test_gate_pass_unblocks_m03(repo_copy: Path) -> None:
     set_pkg_state(repo_copy, "M03-W01", "READY")
     set_next_ready(repo_copy, "`M03-W01`")
     pass_gate(repo_copy, "AUTOFILL_FEASIBILITY")
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+# ------------------------------------------ live blocker reconciliation
+
+
+def test_former_accepted_status_with_stale_fixed_blockers_is_rejected(
+    repo_copy: Path,
+) -> None:
+    resolve_corrective_issues(repo_copy)
+    set_live_blockers(
+        repo_copy,
+        [
+            "- KI-0024 (HIGH, IN_PROGRESS) — stale historical blocker",
+            "- KI-0025 (HIGH, IN_PROGRESS) — stale historical blocker",
+        ],
+    )
+    set_ms_state(repo_copy, "M01", "ACCEPTED")
+    set_pkg_state(repo_copy, "M01-W07", "VERIFIED")
+    set_ms_state(repo_copy, "M02", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M02-W01", "READY")
+    set_current_package(repo_copy, "NONE")
+    set_next_ready(repo_copy, "M02-W01")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "KI-0024 resolves to HIGH/FIXED" in result.stdout
+    assert "KI-0025 resolves to HIGH/FIXED" in result.stdout
+
+
+def test_freeform_live_blocker_prose_is_rejected(repo_copy: Path) -> None:
+    set_live_blockers(
+        repo_copy,
+        [*CURRENT_BLOCKER_LINES, "- Milestones M01–M38 are unaccepted."],
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "live blocker line must use" in result.stdout
+
+
+def test_blocking_issue_omitted_from_live_blockers_is_rejected(
+    repo_copy: Path,
+) -> None:
+    set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES[:-1])
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "KI-0031 is HIGH/IN_PROGRESS" in result.stdout
+    assert "missing from PROJECT_STATUS live blockers" in result.stdout
+
+
+def test_omitted_blocker_still_enforces_affected_milestone_scope(
+    repo_copy: Path,
+) -> None:
+    set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES[:-1])
+    set_ms_state(repo_copy, "M01", "ACCEPTED")
+    set_ms_revision(repo_copy, "M01", FAKE_TREE)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "KI-0031 is HIGH/IN_PROGRESS" in result.stdout
+    assert "KI-0031 blocks affected milestone M01" in result.stdout
+
+
+def test_unknown_and_duplicate_live_blockers_are_rejected(repo_copy: Path) -> None:
+    set_live_blockers(
+        repo_copy,
+        [
+            *CURRENT_BLOCKER_LINES,
+            CURRENT_BLOCKER_LINES[0],
+            "- KI-9999 (HIGH, OPEN) — unknown blocker",
+        ],
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "repeats KI-0029" in result.stdout
+    assert "KI-9999 is unknown" in result.stdout
+
+
+def test_live_blocker_severity_or_state_mismatch_is_rejected(
+    repo_copy: Path,
+) -> None:
+    set_live_blockers(
+        repo_copy,
+        [
+            "- KI-0029 (CRITICAL, OPEN) — mismatched duplicate fields",
+            *CURRENT_BLOCKER_LINES[1:],
+        ],
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "KI-0029 says CRITICAL/OPEN" in result.stdout
+    assert "KNOWN_ISSUES says HIGH/IN_PROGRESS" in result.stdout
+
+
+@pytest.mark.parametrize("state", ["FIXED", "DEFERRED", "WONT_FIX"])
+def test_nonblocking_issue_state_cannot_remain_live(
+    repo_copy: Path, state: str
+) -> None:
+    set_issue_state(repo_copy, "KI-0029", state)
+    set_live_blockers(repo_copy, CURRENT_BLOCKER_LINES)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert f"KI-0029 resolves to HIGH/{state}, which is not blocking" in result.stdout
+
+
+@pytest.mark.parametrize("severity", ["MEDIUM", "LOW"])
+def test_nonblocking_issue_severity_cannot_be_live(
+    repo_copy: Path, severity: str
+) -> None:
+    set_issue_severity(repo_copy, "KI-0029", severity)
+    set_live_blockers(
+        repo_copy,
+        [
+            f"- KI-0029 ({severity}, IN_PROGRESS) — nonblocking severity",
+            *CURRENT_BLOCKER_LINES[1:],
+        ],
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert (
+        f"KI-0029 resolves to {severity}/IN_PROGRESS, which is not blocking"
+        in result.stdout
+    )
+
+
+@pytest.mark.parametrize(
+    "lines",
+    [
+        [],
+        ["- NONE", *CURRENT_BLOCKER_LINES],
+        ["KI-0029 (HIGH, IN_PROGRESS) — missing bullet"],
+    ],
+)
+def test_empty_mixed_or_malformed_live_blocker_section_is_rejected(
+    repo_copy: Path, lines: list[str]
+) -> None:
+    set_live_blockers(repo_copy, lines)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "live blocker" in result.stdout
+
+
+def test_blocker_cannot_coexist_with_affected_accepted_milestone(
+    repo_copy: Path,
+) -> None:
+    set_ms_state(repo_copy, "M01", "ACCEPTED")
+    set_ms_revision(repo_copy, "M01", FAKE_TREE)
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "blocks affected milestone M01" in result.stdout
+    assert "cannot remain ACCEPTED" in result.stdout
+
+
+def test_blocker_requires_zero_ready_packages_and_next_none(repo_copy: Path) -> None:
+    set_pkg_state(repo_copy, "M02-W01", "READY")
+    set_next_ready(repo_copy, "M02-W01")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "live CRITICAL/HIGH blockers require zero READY packages" in result.stdout
+    assert "require Next READY package ID NONE" in result.stdout
+
+
+def test_m00_may_remain_accepted_while_m01_blockers_are_live(
+    repo_copy: Path,
+) -> None:
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_fixed_ledger_and_none_sentinel_allow_later_readiness(
+    repo_copy: Path,
+) -> None:
+    promote_milestones(repo_copy, ["M00", "M01"])
+    set_current_package(repo_copy, "NONE")
+    set_ms_state(repo_copy, "M02", "IN_PROGRESS")
+    set_pkg_state(repo_copy, "M02-W01", "READY")
+    set_next_ready(repo_copy, "M02-W01")
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
 

@@ -15,7 +15,7 @@ const valuesDocument = JSON.parse(
 
 const VOCABULARY = "urn:japp:schema:platform:vocabulary:v1";
 
-/** Every M01-W07 root, paired with the synthetic corpus value that exercises it. */
+/** Every published v1 root, paired with the synthetic corpus value that exercises it. */
 const PLATFORM_ROOTS = [
   [
     "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -59,6 +59,24 @@ const PLATFORM_ROOTS = [
   ["urn:japp:schema:platform:update-state:v1", "w07.update-state"],
 ] as const;
 
+const CORRECTED_PLATFORM_ROOT_IDS = [
+  "urn:japp:schema:platform:browser-record:v2",
+  "urn:japp:schema:platform:capability-report:v2",
+  "urn:japp:schema:platform:certification-input:v2",
+  "urn:japp:schema:platform:diagnostic-report:v2",
+  "urn:japp:schema:platform:evidence-record:v2",
+  "urn:japp:schema:platform:installer-state:v2",
+  "urn:japp:schema:platform:model-runtime-profile:v2",
+  "urn:japp:schema:platform:native-messaging-registration:v2",
+  "urn:japp:schema:platform:native-messaging-result:v2",
+  "urn:japp:schema:platform:path-resolution:v2",
+  "urn:japp:schema:platform:process-plan:v2",
+  "urn:japp:schema:platform:process-status:v2",
+  "urn:japp:schema:platform:runtime-capability:v2",
+  "urn:japp:schema:platform:secret-store-result:v2",
+  "urn:japp:schema:platform:update-state:v2",
+] as const;
+
 function fixture(name: string): Record<string, unknown> {
   const value = valuesDocument.values[name];
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
@@ -85,12 +103,18 @@ function enumTokens(definition: string): readonly string[] {
 }
 
 describe("M01-W07 platform contract inventory", () => {
-  test("the canonical catalog carries exactly nineteen platform roots plus one vocabulary", () => {
+  test("the canonical catalog carries nineteen v1 roots, fifteen corrected v2 roots, and one vocabulary", () => {
     const platform = catalog.entries.filter((entry) =>
       entry.id.startsWith("urn:japp:schema:platform:"),
     );
-    expect(platform).toHaveLength(PLATFORM_ROOTS.length + 1);
-    expect(platform.map((entry) => entry.id)).toContain(VOCABULARY);
+    expect(platform).toHaveLength(
+      PLATFORM_ROOTS.length + CORRECTED_PLATFORM_ROOT_IDS.length + 1,
+    );
+    const platformIds = platform.map((entry) => entry.id);
+    expect(platformIds).toContain(VOCABULARY);
+    expect(platformIds).toEqual(
+      expect.arrayContaining([...CORRECTED_PLATFORM_ROOT_IDS]),
+    );
     // The vocabulary is definitions-only: it declares no root payload.
     expect(catalog.byId.get(VOCABULARY)?.document.type).toBeUndefined();
   });

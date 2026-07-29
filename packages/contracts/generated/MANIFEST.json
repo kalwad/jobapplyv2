@@ -35,12 +35,12 @@
     },
     {
       "path": "packages/contracts/catalog/semantic-rules.v1.json",
-      "sha256": "c56516c20c5d379b75671165c109a958f25a3a1444360f1b91142e77c09ae9af",
+      "sha256": "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3",
       "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ],
-  "formatVersion": "1.4.0",
+  "formatVersion": "1.5.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -220,56 +220,110 @@
     {
       "id": "urn:japp:schema:platform:browser-record:v1",
       "path": "packages/contracts/schemas/platform/browser-record.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "5cc37143c622df8f6421714df04fa2a0e865fcce2f0d71262fe7ddb7077d99db"
+      "schemaVersion": "1.0.1",
+      "sha256": "6a3d8e2ef2a51b4e3e3dd7ace0e9e95ccf2b5632cb623fe5719166e406e6ec81"
+    },
+    {
+      "id": "urn:japp:schema:platform:browser-record:v2",
+      "path": "packages/contracts/schemas/platform/browser-record.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "33a0d123727aea80dcb0a6db4422454f053a06a56c122e2aadaf21425bda85c9"
     },
     {
       "id": "urn:japp:schema:platform:capability-report:v1",
       "path": "packages/contracts/schemas/platform/capability-report.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "7761dab3c92652dde805feeaf960df637df84a16e570b9306a39ead6e9694eb0"
+      "schemaVersion": "1.0.1",
+      "sha256": "ad98f298b7a7f7df54e65ae64734b4d3f3408102f66a333343c0323e431c3252"
+    },
+    {
+      "id": "urn:japp:schema:platform:capability-report:v2",
+      "path": "packages/contracts/schemas/platform/capability-report.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "3c8c79a908cca3b9920da6afa1d682a3f05dab8582a02bb65422427c90d36010"
     },
     {
       "id": "urn:japp:schema:platform:certification-input:v1",
       "path": "packages/contracts/schemas/platform/certification-input.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "e53c297a18de7e775dd8cee9aed5783f4591728b60f59baa7a7f73094a359a81"
+      "schemaVersion": "1.0.1",
+      "sha256": "7d7357a78f10eadbf463dc6dd284f42c17becf35566ee89fb6dddf8d6614ffd9"
+    },
+    {
+      "id": "urn:japp:schema:platform:certification-input:v2",
+      "path": "packages/contracts/schemas/platform/certification-input.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "1035b94f24aa5b745bf136c641bf01484d728361d3e53f2ead2476fd543fc16e"
     },
     {
       "id": "urn:japp:schema:platform:diagnostic-report:v1",
       "path": "packages/contracts/schemas/platform/diagnostic-report.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "32e0f7550cd3ad027e38cd24ce1060aac0968c207be6d9f40e15e43d31ca75b9"
+      "schemaVersion": "1.0.1",
+      "sha256": "0b489057abba9a877984bd4c2bfd6120b9429b29cbd5f3f53a753dc3c5c5098f"
+    },
+    {
+      "id": "urn:japp:schema:platform:diagnostic-report:v2",
+      "path": "packages/contracts/schemas/platform/diagnostic-report.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "7ab17e834412b72bd0738a4f11825bce76713141421cb546e44005dae663c7ea"
     },
     {
       "id": "urn:japp:schema:platform:evidence-record:v1",
       "path": "packages/contracts/schemas/platform/evidence-record.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "6254417cf9d1e6b27c87d07c02f3b796dea0d0c395fe503f1b58df7f83ffcf53"
+      "schemaVersion": "1.0.2",
+      "sha256": "82efbc68651411b7993eea8c80eee1a61653e78341ea84e6ae1caccaf303671d"
+    },
+    {
+      "id": "urn:japp:schema:platform:evidence-record:v2",
+      "path": "packages/contracts/schemas/platform/evidence-record.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "b50100fa671a35549a5568d803e4259c588d3642bc90b6231692135ba5e36436"
     },
     {
       "id": "urn:japp:schema:platform:installer-state:v1",
       "path": "packages/contracts/schemas/platform/installer-state.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "191ed9747575dc4f179ab7efdcd0c22c93778d54bf6b92ff5a84af92dd8801ca"
+      "schemaVersion": "1.0.2",
+      "sha256": "2b367eec30a71030038457b0804548af12f2c0158232abadbca6e97770ec9f40"
+    },
+    {
+      "id": "urn:japp:schema:platform:installer-state:v2",
+      "path": "packages/contracts/schemas/platform/installer-state.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "8d8697a5a3096d862e66e620af401198cd8a63fa0b525ecc1839573be46c6798"
     },
     {
       "id": "urn:japp:schema:platform:model-runtime-profile:v1",
       "path": "packages/contracts/schemas/platform/model-runtime-profile.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "7845b9862d2f69955790468c86f1b1b396d137eda16f2499140106511123902e"
+      "schemaVersion": "1.0.1",
+      "sha256": "e17f416be0530358583c1750ae0f3da6bc30aa674454176efcf65c44c36fb26a"
+    },
+    {
+      "id": "urn:japp:schema:platform:model-runtime-profile:v2",
+      "path": "packages/contracts/schemas/platform/model-runtime-profile.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "3501b0110d69afd61aeb915098ef69a88e62fc5e46c0fa5be0c9837ea4b80e4c"
     },
     {
       "id": "urn:japp:schema:platform:native-messaging-registration:v1",
       "path": "packages/contracts/schemas/platform/native-messaging-registration.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "11375cd373bd1c9404ee1cb78f0bd9fddacaf653cada94dc418601c654afa206"
+      "schemaVersion": "1.0.1",
+      "sha256": "713fd878cd37d276e254cac5befad4ec42aa3029bc9eab039bb20672c2b0cebb"
+    },
+    {
+      "id": "urn:japp:schema:platform:native-messaging-registration:v2",
+      "path": "packages/contracts/schemas/platform/native-messaging-registration.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "b37cc3cd9a223eacba224fb70709d8455a405a51c5bb1f084a2edae29ee76804"
     },
     {
       "id": "urn:japp:schema:platform:native-messaging-result:v1",
       "path": "packages/contracts/schemas/platform/native-messaging-result.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "d8db4621d5d917cf2f99a93d3ddeca5430597d8d449a9253b8b8299bb550304f"
+      "schemaVersion": "1.0.2",
+      "sha256": "410f203ebd4f38a609fe9b2d9de465f7550c47b55727762bbf052ebb0187d2c3"
+    },
+    {
+      "id": "urn:japp:schema:platform:native-messaging-result:v2",
+      "path": "packages/contracts/schemas/platform/native-messaging-result.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "88bf148fa21fa8c3196ac2e67b2fc288af358eb1a7389ea23f8a3fe790b7af1f"
     },
     {
       "id": "urn:japp:schema:platform:path-request:v1",
@@ -280,26 +334,50 @@
     {
       "id": "urn:japp:schema:platform:path-resolution:v1",
       "path": "packages/contracts/schemas/platform/path-resolution.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "3baf6080472a2e879a10ed36717e40570730c4fb11952138864514fbfa75d452"
+      "schemaVersion": "1.0.2",
+      "sha256": "e1d0cb3900208c3b67fc88de8174cbd1a59de055be83435d85bf6f3e040a3855"
+    },
+    {
+      "id": "urn:japp:schema:platform:path-resolution:v2",
+      "path": "packages/contracts/schemas/platform/path-resolution.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "5ccd38bdf295bdb5c8e3246f21661fab1ac0b55c9ee1ff0885534a02573e25b9"
     },
     {
       "id": "urn:japp:schema:platform:process-plan:v1",
       "path": "packages/contracts/schemas/platform/process-plan.v1.schema.json",
-      "schemaVersion": "1.0.0",
-      "sha256": "13f90afa2aed7cc8f28e573752b23b75028dc30a2b5a6d5c536a62bc28069e68"
+      "schemaVersion": "1.0.1",
+      "sha256": "38b0b7a5113a7a0f5393ec16bb310710192a6380a2c6be7c28b3149af57efd90"
+    },
+    {
+      "id": "urn:japp:schema:platform:process-plan:v2",
+      "path": "packages/contracts/schemas/platform/process-plan.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "d6e05988a97d4370217138efd8f5b8ebedb9c8941e693e5200752f9ace9c68ad"
     },
     {
       "id": "urn:japp:schema:platform:process-status:v1",
       "path": "packages/contracts/schemas/platform/process-status.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "b21b82d103de5bf38b5ca8216081e2740d8b4c4521f813697ccfa3f65130a872"
+      "schemaVersion": "1.0.2",
+      "sha256": "2ee0a2a85554e375b4474266022312965e52777d74e9e6abe26af273b4157922"
+    },
+    {
+      "id": "urn:japp:schema:platform:process-status:v2",
+      "path": "packages/contracts/schemas/platform/process-status.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "cb127e56f5f9f0112ddb9ff610f591e2f4fe8b75df504e9cb7b2928425baceb0"
     },
     {
       "id": "urn:japp:schema:platform:runtime-capability:v1",
       "path": "packages/contracts/schemas/platform/runtime-capability.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "ab109aaeac0d0f446066d5a520c5571be573bc519eea212effe686cc594a86fb"
+      "schemaVersion": "1.0.2",
+      "sha256": "0c7b21f8a65e93d252a8f6639a88af219a58128dceda3e16d005e7e23d75ddb7"
+    },
+    {
+      "id": "urn:japp:schema:platform:runtime-capability:v2",
+      "path": "packages/contracts/schemas/platform/runtime-capability.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "c18ab925b4ca45dd353209a0ec570a8005486c30f2c32d6db4453fe73838ba4a"
     },
     {
       "id": "urn:japp:schema:platform:secret-store-request:v1",
@@ -310,8 +388,14 @@
     {
       "id": "urn:japp:schema:platform:secret-store-result:v1",
       "path": "packages/contracts/schemas/platform/secret-store-result.v1.schema.json",
-      "schemaVersion": "1.1.0",
-      "sha256": "89d6cb008e6044f9102da23623962124e9a72a18c250343b44f415593e76d8d7"
+      "schemaVersion": "1.1.1",
+      "sha256": "c3368ef053a940d25a11a9e2d4988a884aa9a34e8de5ef91dd3625a5488d6d91"
+    },
+    {
+      "id": "urn:japp:schema:platform:secret-store-result:v2",
+      "path": "packages/contracts/schemas/platform/secret-store-result.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "da4e61d25f22a7d4040761b49c625b260e0212f995dcb95523e9667cabdcbc17"
     },
     {
       "id": "urn:japp:schema:platform:target-identity:v1",
@@ -322,8 +406,14 @@
     {
       "id": "urn:japp:schema:platform:update-state:v1",
       "path": "packages/contracts/schemas/platform/update-state.v1.schema.json",
-      "schemaVersion": "1.0.1",
-      "sha256": "4917b369a5a9deed7e1da8ad37a506486e069b3c6abc870da49781281cc976f3"
+      "schemaVersion": "1.0.2",
+      "sha256": "673e7b5191c5d61d6fe764da84c5d836a778e14e96f9f4674093c19118e2ad41"
+    },
+    {
+      "id": "urn:japp:schema:platform:update-state:v2",
+      "path": "packages/contracts/schemas/platform/update-state.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "74a7922fa09262867672efcfa1a3589a06d2ebfb7b9db6c012fe5ec724d6a8a4"
     },
     {
       "id": "urn:japp:schema:platform:vocabulary:v1",
@@ -376,8 +466,8 @@
     {
       "id": "urn:japp:schema:semantic:rule-catalog:v1",
       "path": "packages/contracts/schemas/semantic/rule-catalog.v1.schema.json",
-      "schemaVersion": "1.1.0",
-      "sha256": "4c817c3c838ce98ca17ffd332c30aa9587b2b53ea2c172097922473d0706f8da"
+      "schemaVersion": "1.2.0",
+      "sha256": "5ef91d096359d9be82755431e30d442664f54c4f7e87d0d923dd2d8fbc5aa92c"
     },
     {
       "id": "urn:japp:schema:session:application-session:v1",
@@ -429,7 +519,7 @@
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "a63ba0eede85617d7f435f7b8838a45c8ca2718fe452e82557c37237fabdf3ce"
+      "sha256": "3f632e92cfa7ba3085980e4800a3a5fb4d9a788c84b449cc857039574c6fe4f3"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -592,36 +682,72 @@
       "sha256": "e949bc6a598cd034e97b026c4b1dfd9144f7d74970b912c79337fc0e8bafc507"
     },
     {
+      "path": "python/src/japp_contracts/platform/browser_record_v2.py",
+      "sha256": "e6f8999cf68a5338ffa97946259c10a24898d09e220ae5c422d76a8937c2a30a"
+    },
+    {
       "path": "python/src/japp_contracts/platform/capability_report_v1.py",
       "sha256": "51d23136a6acd2475663a38fc2c1c9fec513ebcf22fdff0e56bfa5caa270251f"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/capability_report_v2.py",
+      "sha256": "62cb74116a5ae0977d8b6db304f560369029d16ea4d8f3b3902989d34bc0b34e"
     },
     {
       "path": "python/src/japp_contracts/platform/certification_input_v1.py",
       "sha256": "9d0ea8ffb00388996c3ee9c851795f87fedd587350dab66264476eae7ff4289e"
     },
     {
+      "path": "python/src/japp_contracts/platform/certification_input_v2.py",
+      "sha256": "8ebf4de61e30d1aed3828c1396ee811bcc19724254c6791fc30ef171dae32a27"
+    },
+    {
       "path": "python/src/japp_contracts/platform/diagnostic_report_v1.py",
       "sha256": "563b83c693c87f68620b6be1793bb38fb539d618b0ba32225bbe333ed2743f0e"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/diagnostic_report_v2.py",
+      "sha256": "b98295c1c6eece21faf2b7513c934853a786e7c8fb20e0db9ccf0ebbef1b0528"
     },
     {
       "path": "python/src/japp_contracts/platform/evidence_record_v1.py",
       "sha256": "1656eb0a481c0fbf5988082cc419d07671ef88aeaddcdd18d42ce3bfaae867a2"
     },
     {
+      "path": "python/src/japp_contracts/platform/evidence_record_v2.py",
+      "sha256": "b7aae7278b030c294a9fa20ca254677d4288b8ce70d384c1ec7b8656eee74c9a"
+    },
+    {
       "path": "python/src/japp_contracts/platform/installer_state_v1.py",
       "sha256": "d1796114c203b80bd404be96956c66a681b7c95835bb670137cb7770b7fc7712"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/installer_state_v2.py",
+      "sha256": "6b1e1d9ace8aa4bd8e211b0282557975137f2c888b163bf229688b67e54f44c8"
     },
     {
       "path": "python/src/japp_contracts/platform/model_runtime_profile_v1.py",
       "sha256": "18a5d877566f4d60d85b38dc5aeb6fe053630beabb9ed10339c4ddd4e35b91ad"
     },
     {
+      "path": "python/src/japp_contracts/platform/model_runtime_profile_v2.py",
+      "sha256": "526c8a31d153b5380eb2db8cd9f0841d4a7f33b0f3967b33833cd6a82dd101e9"
+    },
+    {
       "path": "python/src/japp_contracts/platform/native_messaging_registration_v1.py",
       "sha256": "92be557206b5348644f0006383298ed3e485e53653d408eaf58b864ad05b8c83"
     },
     {
+      "path": "python/src/japp_contracts/platform/native_messaging_registration_v2.py",
+      "sha256": "d7111a0e1d8952b5f2c1e241c076536ea6c9a8f908db1894a1f9a8df8c6c51a6"
+    },
+    {
       "path": "python/src/japp_contracts/platform/native_messaging_result_v1.py",
       "sha256": "d9d410331d845b842bdfec33d0bb181a5c7fba5c1f8f57a3c1ca0ac77cbcaa21"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/native_messaging_result_v2.py",
+      "sha256": "b1e5d344f9821b45b9f78f0acbc83f1779c9239058938bcdedc868c947575512"
     },
     {
       "path": "python/src/japp_contracts/platform/path_request_v1.py",
@@ -632,16 +758,32 @@
       "sha256": "9d480cadf012526b95500cd39061b281bcd5631356c48ce3bc6a5052e42f83fd"
     },
     {
+      "path": "python/src/japp_contracts/platform/path_resolution_v2.py",
+      "sha256": "f190c5932600ef9e13e4c7f976c67c0b0160be0c2bed6398e22eaafa9e83552d"
+    },
+    {
       "path": "python/src/japp_contracts/platform/process_plan_v1.py",
       "sha256": "707d29f57d017a6e238d09fdd30c28ced7849de51a50c16ba5567e7045c1823f"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/process_plan_v2.py",
+      "sha256": "cad586b8256224620850a2eeb53caa65d8ef7bffdfb1313f831d369ed15c40dc"
     },
     {
       "path": "python/src/japp_contracts/platform/process_status_v1.py",
       "sha256": "de09fc5698e1c2c1ac3a25b552648e18c53a2356ca5749341a69b9fbcbe88d48"
     },
     {
+      "path": "python/src/japp_contracts/platform/process_status_v2.py",
+      "sha256": "d6a1d385deb3ee374a736930dbc7a285f0c5bc5579d7de019a14778eb7eb4889"
+    },
+    {
       "path": "python/src/japp_contracts/platform/runtime_capability_v1.py",
       "sha256": "83c787808dbe13b67f3436da12cb02a75d6ec87a87ad75c25dfbcb55d9263bb1"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/runtime_capability_v2.py",
+      "sha256": "0f86bd397e503476c83b3bd73d62cb4850b011576d6c289f197e8a4420e4ea66"
     },
     {
       "path": "python/src/japp_contracts/platform/secret_store_request_v1.py",
@@ -652,12 +794,20 @@
       "sha256": "e45b757afc9fafcb217186c18ec3d5a1179f41267621b4338479af177b9d86f0"
     },
     {
+      "path": "python/src/japp_contracts/platform/secret_store_result_v2.py",
+      "sha256": "f585eddd805f20d4c26019e47baad1e2a21060166619ebc9a6d814be59e55feb"
+    },
+    {
       "path": "python/src/japp_contracts/platform/target_identity_v1.py",
       "sha256": "bfe06b53d6f4a905d9ffab300e6662e8cbbb96d0a31997c77a54fc819993ff91"
     },
     {
       "path": "python/src/japp_contracts/platform/update_state_v1.py",
       "sha256": "f22f49b71ab5bd2e7f50d91973fc2dbc77efc0a7f700e8605de270d68807ce92"
+    },
+    {
+      "path": "python/src/japp_contracts/platform/update_state_v2.py",
+      "sha256": "ab9ef960ec7123cef37738dcb4ab18cecc68f655bf0c59ca238a474ecd884431"
     },
     {
       "path": "python/src/japp_contracts/platform/vocabulary_v1.py",
@@ -717,11 +867,11 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rule_catalog_v1.py",
-      "sha256": "e6157901cd8c2047a488ed3c3a845562337558a78bab222a5c4d3ba5455e1701"
+      "sha256": "e32b819ed05cb1d54de41d89fb01bea10a15426612530c9093922b6f7e352630"
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "9afb537695795c095dadc6e284aea84d92b92d02055b06b0cb172465f5899045"
+      "sha256": "832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -877,7 +1027,7 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "0cc9a14dfb9afc57447cb3c78cb138261cdc7e18ca11398b09482709d831af36"
+      "sha256": "8a2009f7b7999b24f68942a1be637a63d9d3aa23ff20f4a39b2bdd9c47f606d6"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -885,39 +1035,75 @@
     },
     {
       "path": "typescript/platform/browser-record.v1.ts",
-      "sha256": "735c8111d97f30bb9b03037abcc1e77188be68d561113ee59a040d8aea6bfc76"
+      "sha256": "d967f51226c0261cff013fa141862742518a2787eb2af2b1e26a0602ff19408d"
+    },
+    {
+      "path": "typescript/platform/browser-record.v2.ts",
+      "sha256": "51085a2a00151ac71440ccd8f0dfff83f5b1ffc09aaa304dcbf957115acfd622"
     },
     {
       "path": "typescript/platform/capability-report.v1.ts",
-      "sha256": "232e8caf3679a6b120f64f5e8cf400c2ff3be35c4df4a8e0442b9a9f383d97a4"
+      "sha256": "52cff74bfbc59417dd1dd532fb95b53d02d02e010af103a5f46c347b4c5b73b9"
+    },
+    {
+      "path": "typescript/platform/capability-report.v2.ts",
+      "sha256": "dcea2699c8c43d90063074fa13535dd9347947394b25777cebea5d675415cbbe"
     },
     {
       "path": "typescript/platform/certification-input.v1.ts",
-      "sha256": "68fd3f9d2b0e087dc16ee1d637229c3e385310a9ab35d41bcc209c63f48b7102"
+      "sha256": "ffccec07463a4f8aa2effbf9877627d710cf36febac156a6bac493c18a6bc57d"
+    },
+    {
+      "path": "typescript/platform/certification-input.v2.ts",
+      "sha256": "6d3c236de49e530720ecf311a7cb3781406a75fd43d2a7e8cab3526a77f8e7ae"
     },
     {
       "path": "typescript/platform/diagnostic-report.v1.ts",
-      "sha256": "d34d8ede9b64789a24abd58b591c6b6106d93b91555a68753880881a02418e89"
+      "sha256": "f2c05d0ac9ed6e9f5eb26a978dcb77b8f8aa2c5ebd6518253e5888d01157c443"
+    },
+    {
+      "path": "typescript/platform/diagnostic-report.v2.ts",
+      "sha256": "3a1a4eea931541736237ab59f8b2359bf47498082cc7439d0d080664875a5626"
     },
     {
       "path": "typescript/platform/evidence-record.v1.ts",
-      "sha256": "5696d7ded8282d93154f7c991bb34aaacffc7698a0d3118b45f3f93f0a074720"
+      "sha256": "071beb36830605aef770ef55f45f25297e0e27a40ad95f0ee40e917a74272e72"
+    },
+    {
+      "path": "typescript/platform/evidence-record.v2.ts",
+      "sha256": "add5ec1f1249e4089b221417abf01906a34991b0dad776bd470f32ad2b1a7d75"
     },
     {
       "path": "typescript/platform/installer-state.v1.ts",
-      "sha256": "bd3a2ece5e1bfb9f96dded274aaba64bfb4e39fa07b97598b3e41e34741c959c"
+      "sha256": "900db8ef83b7b52a85ac8e1090f9b84dc4c0553b05fb40ddb060c5e8785f80a8"
+    },
+    {
+      "path": "typescript/platform/installer-state.v2.ts",
+      "sha256": "117c07d1cf38f8779fc2bc8332dc49b1f9c4dad67d47d4627eea3b86df7f1aef"
     },
     {
       "path": "typescript/platform/model-runtime-profile.v1.ts",
-      "sha256": "59320088745724b0bd9cb9fc78db3fad6a60c20907e217519fb2bb9b018ceb7a"
+      "sha256": "b60d01cfcce5b17bc2a578a0cdf006f2d20427fee48c55c0075d8e20c7ffd71e"
+    },
+    {
+      "path": "typescript/platform/model-runtime-profile.v2.ts",
+      "sha256": "a01d6ad47b289040f8fd619c108dc9d1dbf7e04e563a371947a6ebc5fa3efade"
     },
     {
       "path": "typescript/platform/native-messaging-registration.v1.ts",
-      "sha256": "edbffc8a2353cacb073a5991c8b1b9a7712bc483db0d448a858e8c47e3c8e250"
+      "sha256": "31879d6aa2edf81c70f2588a33379d546ef607caeb11b32a0408457388091789"
+    },
+    {
+      "path": "typescript/platform/native-messaging-registration.v2.ts",
+      "sha256": "e5d298b71693f6a7b282d5ab50f929966d6190b9fed0e08d9a2c62e310ee29a8"
     },
     {
       "path": "typescript/platform/native-messaging-result.v1.ts",
-      "sha256": "128ec3b2e37a38a7afa2ec047c2507c28ffe86d5883a7213fcc356d8d2761a9e"
+      "sha256": "5fe0fba40e175f97be51cc5b3bbe8513fb0b23cbac2794a189a8cc27e2330aae"
+    },
+    {
+      "path": "typescript/platform/native-messaging-result.v2.ts",
+      "sha256": "ed2ff256108ecb5f1f73b915e0f79ca905f55fc0d0de3de48dc4b9121e5f6eef"
     },
     {
       "path": "typescript/platform/path-request.v1.ts",
@@ -925,19 +1111,35 @@
     },
     {
       "path": "typescript/platform/path-resolution.v1.ts",
-      "sha256": "c5900ab75619d1243b65bf826cab46f9d58bad7165df74e6ea37ef2506106ccf"
+      "sha256": "631d46250fae28aa103dd82f37b9624ea17a2c35156e9c25bf444984bcb22e62"
+    },
+    {
+      "path": "typescript/platform/path-resolution.v2.ts",
+      "sha256": "289ac719bbf20dca657af92e5905658af46901c33943c0a5e231acee255540fc"
     },
     {
       "path": "typescript/platform/process-plan.v1.ts",
-      "sha256": "6df9e6ff596023172cf43b76fe3d83832af225b912287932c05d749e9d9fd016"
+      "sha256": "73376678c715f2ebec5154e30ca8d4dee123fef786df8ef74b3b0934b0fa91e9"
+    },
+    {
+      "path": "typescript/platform/process-plan.v2.ts",
+      "sha256": "ae03b848799ae7bd47b9a3b024e9bc13a73bf232a090ebf866bf6cdffdbef8db"
     },
     {
       "path": "typescript/platform/process-status.v1.ts",
-      "sha256": "5b4bd72911a34f848ba24c29bcb07c6d463b1005f45e9a692f5183b58c5a69ca"
+      "sha256": "1229e96e032460af1cb24628ca4f168d0f3e8769a5353e739704ff701f69e2fa"
+    },
+    {
+      "path": "typescript/platform/process-status.v2.ts",
+      "sha256": "f9506b4bbffaa6c371e50e6ad3b794b0bc22f023b06805b2edbb6bd054fdfc80"
     },
     {
       "path": "typescript/platform/runtime-capability.v1.ts",
-      "sha256": "fb4f1477901ddf87e6fec8ee508f2e5e25fb7ca700748c30fd33ee7d3a44868a"
+      "sha256": "2942386328627cab1b16e4cbf6d50814e416f5d192061aaee121b6addf4bcab2"
+    },
+    {
+      "path": "typescript/platform/runtime-capability.v2.ts",
+      "sha256": "f99908ed5882be32e42731e934e0b26422d3a90225fb1d5b38c6f00fc148d857"
     },
     {
       "path": "typescript/platform/secret-store-request.v1.ts",
@@ -945,7 +1147,11 @@
     },
     {
       "path": "typescript/platform/secret-store-result.v1.ts",
-      "sha256": "09eb4fb87b91347c2e592fb00f4a5c3875085839b9c9e15c5c933b6e9e69c6a9"
+      "sha256": "7d0829d9f0267bb6f7163584bee4fd0e57f660c230d2df3dafc57afeb1cebfcb"
+    },
+    {
+      "path": "typescript/platform/secret-store-result.v2.ts",
+      "sha256": "609ad17f04684b28da4a54811e3a257d6527d80727f14871eec14d2bec2e96e0"
     },
     {
       "path": "typescript/platform/target-identity.v1.ts",
@@ -953,7 +1159,11 @@
     },
     {
       "path": "typescript/platform/update-state.v1.ts",
-      "sha256": "b845bcf5b12b79be526037bbd794519e236acc82f1ef74883f9fb13fce267261"
+      "sha256": "7e4245e24e04e453a311a8154f9f70286c78a50f7ef30844ec63642a6efe498c"
+    },
+    {
+      "path": "typescript/platform/update-state.v2.ts",
+      "sha256": "e1749debcb6a3517f24a190d4695d035f69964038cd840ed33d397d65136ab4d"
     },
     {
       "path": "typescript/platform/vocabulary.v1.ts",
@@ -993,11 +1203,11 @@
     },
     {
       "path": "typescript/semantic/rule-catalog.v1.ts",
-      "sha256": "031e09ad3ad235732f60121c4a0e8fc598fac89edd8c4fd5499a57cf2ff751ad"
+      "sha256": "7ed54d5051948eb9c9d4654646fe5c0b22fcd6268c3d4d4921647114df8b9a53"
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "e12617149c36a234c8baae6b043fb9ce525bb172ffbdba2b4d2b218bee0746fc"
+      "sha256": "449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f"
     },
     {
       "path": "typescript/session/application-session.v1.ts",
@@ -1017,7 +1227,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "459790ca393c066f7d642044f99b62caedc0435f5e81232a220d039071dc49d6"
+      "sha256": "477fc8a11c9b8224391e468919e96bcfc9c2a8eb183e3ebdcbd95629b8aab97d"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -2133,6 +2343,16 @@
         "module": "typescript/platform/browser-record.v1.ts"
       }
     },
+    "urn:japp:schema:platform:browser-record:v2": {
+      "python": {
+        "module": "japp_contracts.platform.browser_record_v2",
+        "symbol": "PlatformBrowserRecordV2"
+      },
+      "typescript": {
+        "export": "PlatformBrowserRecordV2",
+        "module": "typescript/platform/browser-record.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:capability-report:v1": {
       "python": {
         "module": "japp_contracts.platform.capability_report_v1",
@@ -2141,6 +2361,16 @@
       "typescript": {
         "export": "PlatformCapabilityReportV1",
         "module": "typescript/platform/capability-report.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:capability-report:v2": {
+      "python": {
+        "module": "japp_contracts.platform.capability_report_v2",
+        "symbol": "PlatformCapabilityReportV2"
+      },
+      "typescript": {
+        "export": "PlatformCapabilityReportV2",
+        "module": "typescript/platform/capability-report.v2.ts"
       }
     },
     "urn:japp:schema:platform:certification-input:v1": {
@@ -2153,6 +2383,26 @@
         "module": "typescript/platform/certification-input.v1.ts"
       }
     },
+    "urn:japp:schema:platform:certification-input:v2": {
+      "python": {
+        "module": "japp_contracts.platform.certification_input_v2",
+        "symbol": "PlatformCertificationInputV2"
+      },
+      "typescript": {
+        "export": "PlatformCertificationInputV2",
+        "module": "typescript/platform/certification-input.v2.ts"
+      }
+    },
+    "urn:japp:schema:platform:certification-input:v2#/$defs/evidenceInventoryItem": {
+      "python": {
+        "module": "japp_contracts.platform.certification_input_v2",
+        "symbol": "PlatformCertificationInputV2EvidenceInventoryItem"
+      },
+      "typescript": {
+        "export": "PlatformCertificationInputV2EvidenceInventoryItem",
+        "module": "typescript/platform/certification-input.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:diagnostic-report:v1": {
       "python": {
         "module": "japp_contracts.platform.diagnostic_report_v1",
@@ -2161,6 +2411,16 @@
       "typescript": {
         "export": "PlatformDiagnosticReportV1",
         "module": "typescript/platform/diagnostic-report.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:diagnostic-report:v2": {
+      "python": {
+        "module": "japp_contracts.platform.diagnostic_report_v2",
+        "symbol": "PlatformDiagnosticReportV2"
+      },
+      "typescript": {
+        "export": "PlatformDiagnosticReportV2",
+        "module": "typescript/platform/diagnostic-report.v2.ts"
       }
     },
     "urn:japp:schema:platform:evidence-record:v1": {
@@ -2173,6 +2433,16 @@
         "module": "typescript/platform/evidence-record.v1.ts"
       }
     },
+    "urn:japp:schema:platform:evidence-record:v2": {
+      "python": {
+        "module": "japp_contracts.platform.evidence_record_v2",
+        "symbol": "PlatformEvidenceRecordV2"
+      },
+      "typescript": {
+        "export": "PlatformEvidenceRecordV2",
+        "module": "typescript/platform/evidence-record.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:installer-state:v1": {
       "python": {
         "module": "japp_contracts.platform.installer_state_v1",
@@ -2181,6 +2451,16 @@
       "typescript": {
         "export": "PlatformInstallerStateV1",
         "module": "typescript/platform/installer-state.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:installer-state:v2": {
+      "python": {
+        "module": "japp_contracts.platform.installer_state_v2",
+        "symbol": "PlatformInstallerStateV2"
+      },
+      "typescript": {
+        "export": "PlatformInstallerStateV2",
+        "module": "typescript/platform/installer-state.v2.ts"
       }
     },
     "urn:japp:schema:platform:model-runtime-profile:v1": {
@@ -2193,6 +2473,16 @@
         "module": "typescript/platform/model-runtime-profile.v1.ts"
       }
     },
+    "urn:japp:schema:platform:model-runtime-profile:v2": {
+      "python": {
+        "module": "japp_contracts.platform.model_runtime_profile_v2",
+        "symbol": "PlatformModelRuntimeProfileV2"
+      },
+      "typescript": {
+        "export": "PlatformModelRuntimeProfileV2",
+        "module": "typescript/platform/model-runtime-profile.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:native-messaging-registration:v1": {
       "python": {
         "module": "japp_contracts.platform.native_messaging_registration_v1",
@@ -2203,6 +2493,16 @@
         "module": "typescript/platform/native-messaging-registration.v1.ts"
       }
     },
+    "urn:japp:schema:platform:native-messaging-registration:v2": {
+      "python": {
+        "module": "japp_contracts.platform.native_messaging_registration_v2",
+        "symbol": "PlatformNativeMessagingRegistrationV2"
+      },
+      "typescript": {
+        "export": "PlatformNativeMessagingRegistrationV2",
+        "module": "typescript/platform/native-messaging-registration.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:native-messaging-result:v1": {
       "python": {
         "module": "japp_contracts.platform.native_messaging_result_v1",
@@ -2211,6 +2511,16 @@
       "typescript": {
         "export": "PlatformNativeMessagingResultV1",
         "module": "typescript/platform/native-messaging-result.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:native-messaging-result:v2": {
+      "python": {
+        "module": "japp_contracts.platform.native_messaging_result_v2",
+        "symbol": "PlatformNativeMessagingResultV2"
+      },
+      "typescript": {
+        "export": "PlatformNativeMessagingResultV2",
+        "module": "typescript/platform/native-messaging-result.v2.ts"
       }
     },
     "urn:japp:schema:platform:path-request:v1": {
@@ -2233,6 +2543,16 @@
         "module": "typescript/platform/path-resolution.v1.ts"
       }
     },
+    "urn:japp:schema:platform:path-resolution:v2": {
+      "python": {
+        "module": "japp_contracts.platform.path_resolution_v2",
+        "symbol": "PlatformPathResolutionV2"
+      },
+      "typescript": {
+        "export": "PlatformPathResolutionV2",
+        "module": "typescript/platform/path-resolution.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:process-plan:v1": {
       "python": {
         "module": "japp_contracts.platform.process_plan_v1",
@@ -2241,6 +2561,16 @@
       "typescript": {
         "export": "PlatformProcessPlanV1",
         "module": "typescript/platform/process-plan.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:process-plan:v2": {
+      "python": {
+        "module": "japp_contracts.platform.process_plan_v2",
+        "symbol": "PlatformProcessPlanV2"
+      },
+      "typescript": {
+        "export": "PlatformProcessPlanV2",
+        "module": "typescript/platform/process-plan.v2.ts"
       }
     },
     "urn:japp:schema:platform:process-status:v1": {
@@ -2253,6 +2583,16 @@
         "module": "typescript/platform/process-status.v1.ts"
       }
     },
+    "urn:japp:schema:platform:process-status:v2": {
+      "python": {
+        "module": "japp_contracts.platform.process_status_v2",
+        "symbol": "PlatformProcessStatusV2"
+      },
+      "typescript": {
+        "export": "PlatformProcessStatusV2",
+        "module": "typescript/platform/process-status.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:runtime-capability:v1": {
       "python": {
         "module": "japp_contracts.platform.runtime_capability_v1",
@@ -2261,6 +2601,16 @@
       "typescript": {
         "export": "PlatformRuntimeCapabilityV1",
         "module": "typescript/platform/runtime-capability.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:runtime-capability:v2": {
+      "python": {
+        "module": "japp_contracts.platform.runtime_capability_v2",
+        "symbol": "PlatformRuntimeCapabilityV2"
+      },
+      "typescript": {
+        "export": "PlatformRuntimeCapabilityV2",
+        "module": "typescript/platform/runtime-capability.v2.ts"
       }
     },
     "urn:japp:schema:platform:secret-store-request:v1": {
@@ -2283,6 +2633,16 @@
         "module": "typescript/platform/secret-store-result.v1.ts"
       }
     },
+    "urn:japp:schema:platform:secret-store-result:v2": {
+      "python": {
+        "module": "japp_contracts.platform.secret_store_result_v2",
+        "symbol": "PlatformSecretStoreResultV2"
+      },
+      "typescript": {
+        "export": "PlatformSecretStoreResultV2",
+        "module": "typescript/platform/secret-store-result.v2.ts"
+      }
+    },
     "urn:japp:schema:platform:target-identity:v1": {
       "python": {
         "module": "japp_contracts.platform.target_identity_v1",
@@ -2301,6 +2661,16 @@
       "typescript": {
         "export": "PlatformUpdateStateV1",
         "module": "typescript/platform/update-state.v1.ts"
+      }
+    },
+    "urn:japp:schema:platform:update-state:v2": {
+      "python": {
+        "module": "japp_contracts.platform.update_state_v2",
+        "symbol": "PlatformUpdateStateV2"
+      },
+      "typescript": {
+        "export": "PlatformUpdateStateV2",
+        "module": "typescript/platform/update-state.v2.ts"
       }
     },
     "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass": {

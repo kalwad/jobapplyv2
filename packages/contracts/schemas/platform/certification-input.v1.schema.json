@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:certification-input:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Platform certification input record",
   "description": "The evidence inventory a future owner decision would consume before a platform support tier could be published. It is an input, never a decision: a certified proposal requires a certified target, a completed independent review, an evaluated revision, a complete evidence inventory, and a recorded owner decision. M01-W07 certifies no platform and changes no critical-gate state.",
   "type": "object",

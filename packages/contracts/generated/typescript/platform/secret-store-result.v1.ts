@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1Capabi
  * Platform secret-store result and availability state
  *
  * The result of one typed secret-store operation plus the store's explicit availability and permission state. Secret bytes, passphrases, recovered values, and derived key material can never appear here, in diagnostics, or in an evidence bundle; a retrieval reports only an opaque reference and a digest. There is no plaintext, file, or environment-variable fallback state. Version 1.1.0 aligns STATUS with the STORE_AVAILABLE vocabulary token and the complete availability/reason truth table.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformSecretStoreResultV1 {
   readonly secret_result_id: CommonStableIdV1StableId;

@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1AcceleratorClass, PlatformVocabularyV1Artifact
  * Versioned platform model-runtime profile
  *
  * Platform-scoped runtime and artifact metadata for a local model profile, including exact artifact digest, runtime family and version, accelerator and driver bounds, context, quantization, memory requirements, license and provenance, evidence references, and the deterministic-core fallback behavior. A profile may be ACCEPTED only on a certified target with artifact and runtime evidence; no Windows or Ubuntu profile is accepted today. This contract does not invoke, download, select, or control any model runtime, and it does not change the model lock.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformModelRuntimeProfileV1 {
   readonly model_profile_id: CommonStableIdV1StableId;

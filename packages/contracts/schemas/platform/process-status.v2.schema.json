@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:platform:process-status:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Platform process handle, lifecycle state, and result",
+  "description": "A stable supervisor handle plus the observed lifecycle state and exit result for one planned process. Handles are opaque: no operating-system process identifier, thread identifier, executable path, command line, or captured output stream is representable. Termination is a typed intent, never a raw signal value.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "process_status_id",
+    "process_handle",
+    "plan_ref",
+    "profile",
+    "state",
+    "termination_requested",
+    "restart_count",
+    "orphan_detected",
+    "reason_codes",
+    "observed_at",
+    "provenance"
+  ],
+  "properties": {
+    "process_status_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "process_handle": {
+      "description": "Opaque supervisor handle. It is not an operating-system process identifier.",
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "plan_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "profile": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processProfileId"
+    },
+    "state": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processState"
+    },
+    "termination_requested": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/terminationRequest"
+    },
+    "started_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "ended_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "exit_code": {
+      "description": "Observed exit status of a child that ended on its own. A non-zero status is always accompanied by at least one finite reason.",
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/processExitCode"
+    },
+    "restart_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 8
+    },
+    "orphan_detected": {
+      "description": "Historical: this child was observed to have outlived its supervising parent. It stays true on the terminal record of an orphan that was cleaned up or finally seen to exit.",
+      "type": "boolean"
+    },
+    "idempotency_key": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/boundedToken"
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/platformReasonCode"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "remediation_message": {
+      "$ref": "urn:japp:schema:platform:vocabulary:v1#/$defs/boundedUserMessage"
+    },
+    "diagnostic_digest": {
+      "description": "Digest of a redacted out-of-band diagnostic record. Raw child output never travels in this contract.",
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "observed_at": {
+      "$ref": "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp"
+    },
+    "correlation_id": {
+      "$ref": "urn:japp:schema:common:correlation:v1#/$defs/correlationId"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    }
+  }
+}

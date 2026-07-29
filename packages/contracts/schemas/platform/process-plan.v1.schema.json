@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:process-plan:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Platform process supervisor spawn plan",
   "description": "A typed spawn plan. It names an approved executable profile, never a command string, interpreter invocation, executable path, or script body. Arguments are an already-separated bounded array, the environment is a closed allowlist, and the working directory is a typed role. Shell interpolation, command chaining, redirection, metacharacter payloads, registry commands, privilege escalation, raw file descriptors, and raw signal values are structurally unrepresentable. This contract does not spawn anything.",
   "type": "object",

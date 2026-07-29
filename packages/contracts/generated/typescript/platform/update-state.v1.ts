@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1Architecture, PlatformVocabularyV1ArtifactIden
  * Updater state and result
  *
  * Bounded update, rollback, and recovery state: channel, current and available versions, the target artifact digest and signature state, the lifecycle state, interruption and recovery, user-data preservation, native-host cleanup, and finite failure reasons. No download URL, network request, update script, registry modification, or signing key is representable, and this contract updates nothing.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformUpdateStateV1 {
   readonly update_state_id: CommonStableIdV1StableId;

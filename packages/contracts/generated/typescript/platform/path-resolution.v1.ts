@@ -18,6 +18,7 @@ import type { PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1Instal
  * Trusted platform path resolution result
  *
  * A trusted adapter result. It is deliberately a different contract from a request: it may report a location only as a sanitized role-anchored reference plus a digest, so an ordinary diagnostic, telemetry record, holdout, or evidence bundle never exposes a private local path.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformPathResolutionV1 {
   readonly path_resolution_id: CommonStableIdV1StableId;

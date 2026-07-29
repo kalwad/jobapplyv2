@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:process-status:v1",
-  "x-japp-schema-version": "1.0.1",
+  "x-japp-schema-version": "1.0.2",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Platform process handle, lifecycle state, and result",
   "description": "A stable supervisor handle plus the observed lifecycle state and exit result for one planned process. Handles are opaque: no operating-system process identifier, thread identifier, executable path, command line, or captured output stream is representable. Termination is a typed intent, never a raw signal value.",
   "type": "object",

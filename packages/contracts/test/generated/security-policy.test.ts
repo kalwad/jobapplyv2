@@ -7,7 +7,6 @@
  * immutable generated surfaces, and fail-closed tamper handling.
  */
 
-import { execFileSync } from "node:child_process";
 import {
   cpSync,
   mkdtempSync,
@@ -47,6 +46,7 @@ import {
 } from "../../generated/typescript/index.ts";
 import { generateContracts } from "../../generator/generate.ts";
 import { SecurityPolicyError } from "../../generator/security-policy.ts";
+import { runBoundedCliProcess } from "./support/bounded-cli.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("../../../..", import.meta.url));
 const CATALOG_ROOT = fileURLToPath(new URL("../../catalog", import.meta.url));
@@ -104,7 +104,12 @@ afterEach(() => {
   while (temporaryRoots.length > 0) {
     const root = temporaryRoots.pop();
     if (root !== undefined) {
-      rmSync(root, { recursive: true, force: true });
+      rmSync(root, {
+        recursive: true,
+        force: true,
+        maxRetries: 10,
+        retryDelay: 100,
+      });
     }
   }
 });
@@ -1684,22 +1689,13 @@ describe("fail-closed canonical-data tampering", () => {
         }
       },
     );
-    let output = "";
-    try {
-      execFileSync(
-        process.execPath,
-        [CLI_PATH, "--check", "--catalog-root", catalogRoot],
-        {
-          cwd: REPO_ROOT,
-          encoding: "utf8",
-          stdio: ["ignore", "pipe", "pipe"],
-        },
-      );
-    } catch (error) {
-      const failure = error as { stdout?: string; stderr?: string };
-      output = `${failure.stdout ?? ""}${failure.stderr ?? ""}`;
-    }
-    expect(output).toContain("MODIFIED");
-    expect(output).toContain("MANIFEST.json");
+    const result = runBoundedCliProcess(
+      process.execPath,
+      [CLI_PATH, "--check", "--catalog-root", catalogRoot],
+      REPO_ROOT,
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("MODIFIED");
+    expect(result.output).toContain("MANIFEST.json");
   });
 });

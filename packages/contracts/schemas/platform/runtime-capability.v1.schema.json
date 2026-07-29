@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:runtime-capability:v1",
-  "x-japp-schema-version": "1.0.1",
+  "x-japp-schema-version": "1.0.2",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Detected model-runtime capability",
   "description": "The RuntimeCapability record of specification \u00a75.14.2: what the local runtime reports on this target, which profiles are available, and how the deterministic core behaves when full AI is unavailable. Deterministic autofill, profile, matching, tracking, and document workflows must never depend on this record reporting availability.",
   "type": "object",

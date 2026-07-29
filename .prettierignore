@@ -13,6 +13,7 @@ packages/contracts/generated/
 # serializer and integrity are tested; generic formatting would make the
 # reviewed update command dirty a clean checkout.
 packages/contracts/test/contract/baseline/structural-signature.v1.json
+packages/contracts/test/contract/baseline/compatibility-signature.v2.json
 
 # Lockfiles and tool/build output
 pnpm-lock.yaml

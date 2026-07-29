@@ -10,10 +10,19 @@ import {
 } from "../adapters/corpus-loader.ts";
 import { canonicalJson } from "../adapters/normalization.ts";
 import {
+  ADAPTER_PROTOCOL_VERSION,
+  MAX_ADAPTER_CASES,
   MAX_PROTOCOL_BYTES,
+  type AdapterBatchRequest,
   type AdapterBatchResponse,
   type AdapterLanguage,
+  type AdapterResult,
 } from "../adapters/protocol.ts";
+import {
+  historicalAdapterBatch,
+  loadHistoricalWitnessInventory,
+  type HistoricalWitnessInventory,
+} from "../semantic-witnesses/historical-witness-loader.ts";
 import { runChild } from "./process.ts";
 import { validateAdapterResponse } from "./response.ts";
 
@@ -39,7 +48,25 @@ const PYTHON = join(
 export interface RealAdapterRun {
   readonly corpus: LoadedCorpus;
   readonly responses: Readonly<Record<AdapterLanguage, AdapterBatchResponse>>;
+  readonly historicalInventory: HistoricalWitnessInventory;
+  readonly historicalResponses: Readonly<
+    Record<AdapterLanguage, AdapterBatchResponse>
+  >;
 }
+
+export interface SemanticMatrixCase {
+  readonly caseId: string;
+  readonly schemaRef: string;
+  readonly value: unknown;
+}
+
+export interface SemanticMatrixAdapterRun {
+  readonly responses: Readonly<
+    Record<AdapterLanguage, readonly AdapterResult[]>
+  >;
+}
+
+let rustHarnessBuilt = false;
 
 function expectedIds(
   corpus: LoadedCorpus,
@@ -51,6 +78,9 @@ function expectedIds(
 }
 
 function buildRustHarness(): void {
+  if (rustHarnessBuilt) {
+    return;
+  }
   runChild({
     executable: "cargo",
     args: [
@@ -66,11 +96,20 @@ function buildRustHarness(): void {
     maxOutputBytes: MAX_PROTOCOL_BYTES,
     allowStderr: true,
   });
+  rustHarnessBuilt = true;
+}
+
+function writeAdapterRequest(path: string, batch: AdapterBatchRequest): void {
+  const serialized = `${canonicalJson(batch)}\n`;
+  if (Buffer.byteLength(serialized, "utf8") > MAX_PROTOCOL_BYTES) {
+    throw new Error("adapter request exceeds MAX_PROTOCOL_BYTES");
+  }
+  writeFileSync(path, serialized, "utf8");
 }
 
 function runAdapter(
   language: AdapterLanguage,
-  corpus: LoadedCorpus,
+  expectedCaseIds: readonly string[],
   requestPath: string,
 ): AdapterBatchResponse {
   let executable: string;
@@ -92,15 +131,126 @@ function runAdapter(
     timeoutMs: 120_000,
     maxOutputBytes: MAX_PROTOCOL_BYTES,
   });
-  return validateAdapterResponse(
-    output,
-    language,
-    expectedIds(corpus, language),
+  return validateAdapterResponse(output, language, expectedCaseIds);
+}
+
+/**
+ * Execute independently declared semantic-matrix values through every real
+ * language adapter. Chunks stay well below both protocol bounds, while case
+ * identifiers and input bytes use the same fail-closed wire path as the
+ * compatibility corpus.
+ */
+export function runSemanticMatrixAdapters(
+  matrixCases: readonly SemanticMatrixCase[],
+): SemanticMatrixAdapterRun {
+  if (matrixCases.length === 0) {
+    throw new Error("semantic matrix must contain at least one case");
+  }
+  const orderedCases = [...matrixCases].sort((left, right) =>
+    left.caseId < right.caseId ? -1 : left.caseId > right.caseId ? 1 : 0,
   );
+  if (
+    new Set(orderedCases.map((matrixCase) => matrixCase.caseId)).size !==
+      orderedCases.length ||
+    orderedCases.some(
+      (matrixCase) =>
+        matrixCase.caseId.length === 0 || matrixCase.schemaRef.length === 0,
+    )
+  ) {
+    throw new Error("semantic matrix case identifiers must be unique");
+  }
+  const batchFor = (
+    cases: readonly SemanticMatrixCase[],
+  ): AdapterBatchRequest => ({
+    protocol_version: ADAPTER_PROTOCOL_VERSION,
+    requests: cases.map((matrixCase) => ({
+      case_id: matrixCase.caseId,
+      schema_ref: matrixCase.schemaRef,
+      operation: "VALIDATE",
+      input_bytes_base64: Buffer.from(
+        canonicalJson(matrixCase.value),
+        "utf8",
+      ).toString("base64"),
+    })),
+  });
+  const serializedBytes = (cases: readonly SemanticMatrixCase[]): number =>
+    Buffer.byteLength(`${canonicalJson(batchFor(cases))}\n`, "utf8");
+  const chunks: SemanticMatrixCase[][] = [];
+  let pending: SemanticMatrixCase[] = [];
+  for (const matrixCase of orderedCases) {
+    const candidate = [...pending, matrixCase];
+    if (
+      candidate.length > MAX_ADAPTER_CASES ||
+      serializedBytes(candidate) > MAX_PROTOCOL_BYTES
+    ) {
+      if (pending.length === 0) {
+        throw new Error(
+          `semantic matrix case exceeds protocol bounds: ${matrixCase.caseId}`,
+        );
+      }
+      chunks.push(pending);
+      pending = [matrixCase];
+      if (serializedBytes(pending) > MAX_PROTOCOL_BYTES) {
+        throw new Error(
+          `semantic matrix case exceeds protocol bounds: ${matrixCase.caseId}`,
+        );
+      }
+    } else {
+      pending = candidate;
+    }
+  }
+  if (pending.length > 0) {
+    chunks.push(pending);
+  }
+
+  buildRustHarness();
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "japp-semantic-matrix-"));
+  try {
+    const responses = {
+      python: [],
+      rust: [],
+      typescript: [],
+    } as Record<AdapterLanguage, AdapterResult[]>;
+    for (const [chunkIndex, chunk] of chunks.entries()) {
+      const batch = batchFor(chunk);
+      for (const language of [
+        "typescript",
+        "python",
+        "rust",
+      ] as const satisfies readonly AdapterLanguage[]) {
+        const requestPath = join(
+          temporaryRoot,
+          `${language}.${String(chunkIndex)}.request.json`,
+        );
+        writeAdapterRequest(requestPath, batch);
+        const response = runAdapter(
+          language,
+          chunk.map((matrixCase) => matrixCase.caseId),
+          requestPath,
+        );
+        responses[language].push(...response.results);
+      }
+    }
+    process.stdout.write(
+      `semantic-matrix-adapters cases=${String(
+        orderedCases.length,
+      )} chunks=${String(
+        chunks.length,
+      )} languages=typescript,python,rust rust-build=locked-offline\n`,
+    );
+    return { responses };
+  } finally {
+    // The target is a path returned by mkdtempSync and is never derived from
+    // input or an environment variable.
+    if (basename(temporaryRoot).startsWith("japp-semantic-matrix-")) {
+      rmSync(temporaryRoot, { recursive: true, force: true });
+    }
+  }
 }
 
 export function runRealAdapters(): RealAdapterRun {
   const corpus = loadCorpus();
+  const historicalInventory = loadHistoricalWitnessInventory();
   buildRustHarness();
   const temporaryRoot = mkdtempSync(join(tmpdir(), "japp-contract-v1-"));
   try {
@@ -111,12 +261,37 @@ export function runRealAdapters(): RealAdapterRun {
       "rust",
     ] as const satisfies readonly AdapterLanguage[]) {
       const requestPath = join(temporaryRoot, `${language}.request.json`);
-      writeFileSync(
+      writeAdapterRequest(requestPath, adapterBatchFor(corpus, language));
+      responses[language] = runAdapter(
+        language,
+        expectedIds(corpus, language),
         requestPath,
-        `${canonicalJson(adapterBatchFor(corpus, language))}\n`,
-        "utf8",
       );
-      responses[language] = runAdapter(language, corpus, requestPath);
+    }
+    const historicalResponses = {} as Record<
+      AdapterLanguage,
+      AdapterBatchResponse
+    >;
+    for (const language of [
+      "typescript",
+      "python",
+      "rust",
+    ] as const satisfies readonly AdapterLanguage[]) {
+      const requestPath = join(
+        temporaryRoot,
+        `${language}.historical.request.json`,
+      );
+      writeAdapterRequest(
+        requestPath,
+        historicalAdapterBatch(historicalInventory, language),
+      );
+      historicalResponses[language] = runAdapter(
+        language,
+        historicalInventory.witnesses
+          .filter((witness) => witness.languages.includes(language))
+          .map((witness) => witness.id),
+        requestPath,
+      );
     }
     const counts = Object.fromEntries(
       Object.entries(responses).map(([language, response]) => [
@@ -129,9 +304,20 @@ export function runRealAdapters(): RealAdapterRun {
         counts.typescript,
       )} python=${String(counts.python)} rust=${String(
         counts.rust,
+      )} historical-typescript=${String(
+        historicalResponses.typescript.results.length,
+      )} historical-python=${String(
+        historicalResponses.python.results.length,
+      )} historical-rust=${String(
+        historicalResponses.rust.results.length,
       )} rust-build=locked-offline\n`,
     );
-    return { corpus, responses };
+    return {
+      corpus,
+      responses,
+      historicalInventory,
+      historicalResponses,
+    };
   } finally {
     // The target is a path returned by mkdtempSync and is never derived from
     // input or an environment variable.

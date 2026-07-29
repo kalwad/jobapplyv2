@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:model-runtime-profile:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Versioned platform model-runtime profile",
   "description": "Platform-scoped runtime and artifact metadata for a local model profile, including exact artifact digest, runtime family and version, accelerator and driver bounds, context, quantization, memory requirements, license and provenance, evidence references, and the deterministic-core fallback behavior. A profile may be ACCEPTED only on a certified target with artifact and runtime evidence; no Windows or Ubuntu profile is accepted today. This contract does not invoke, download, select, or control any model runtime, and it does not change the model lock.",
   "type": "object",

@@ -34,9 +34,115 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-No CRITICAL or HIGH defect is OPEN. KI-0024, KI-0025, and KI-0028 are FIXED
-with recorded evidence; KI-0022, KI-0026, and KI-0027 are DEFERRED with named
+KI-0029, KI-0030, and KI-0031 are HIGH/IN_PROGRESS and block M01-W07
+verification and M01 acceptance. KI-0032 is MEDIUM/IN_PROGRESS associated
+infrastructure work. KI-0022, KI-0026, and KI-0027 remain DEFERRED with named
 owning packages.
+
+### KI-0029 — Accepted status contradicted its live blocker ledger
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
+- Affects: M01-W07 and M01; `docs/PROJECT_STATUS.md`;
+  `scripts/validate_status.py`
+- Description: the accepted status header, milestone/package tables, and next
+  READY row said M01-W07 was VERIFIED, M01 was ACCEPTED, and M02-W01 was READY,
+  while the live `Known release blockers` section in the same file still
+  listed KI-0024 and KI-0025 as HIGH/IN_PROGRESS and said M01 through M38 were
+  unaccepted. The issue ledger correctly marked KI-0024/KI-0025 FIXED, but the
+  validator required only the blocker heading and never parsed or reconciled
+  its entries.
+- Reproduction: at `93541b755dfcd2708c955ada4fdef943b0afaa09`, inspect the
+  accepted rows and the live blocker section, then run
+  `python3 scripts/validate_status.py`; all 43 groups incorrectly pass.
+- Workaround: none accepted. M01-W07 and M01 are reopened and no package is
+  READY until the live blocker ledger is machine-parsed and reconciled.
+- Resolution + evidence link: pending the M01-W07 corrective content revision,
+  negative status fixtures, two clean clones, and exact-revision three-OS CI.
+
+### KI-0030 — Platform semantic matrices admit cross-axis contradictions
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
+- Affects: M01-W07 platform schemas, semantic rules, generated TypeScript and
+  Python bindings, and the representative Rust compatibility harness
+- Description: structurally valid records are semantically accepted when an
+  interrupted terminal install/update claims completed recovery, RUNNING
+  carries a termination request, TERMINATED carries an independent exit code,
+  a certified input self-declares a singleton complete evidence policy, browser
+  availability contradicts evaluation method, a GET/NOT_FOUND result claims an
+  unavailable store, a nonexistent runtime retains identity, or package states
+  fall through without state-specific version fields. The mandatory final
+  same-class sweep additionally found that a certified claim could name
+  evidence references unrelated to its otherwise complete reviewed inventory.
+  The same failures occur in TypeScript, Python, and Rust.
+- Reproduction: the bounded audit witnesses for SEM-01 through SEM-07 all
+  return structural VALID and semantic VALID at
+  `93541b755dfcd2708c955ada4fdef943b0afaa09`; the required verdict is semantic
+  INVALID under the corrected contract.
+- Workaround: consumers must not treat the affected v1 semantics as corrected
+  certification or platform evidence. The old major remains compatibility-only
+  while reviewed v2 matrices are implemented.
+- Resolution + evidence link: corrected v2 semantics, the 13 direct witnesses,
+  and real-adapter parity for all 538 platform/policy plus 288 secret-store
+  cells are recorded in `docs/TEST_EVIDENCE.md`; two clean clones and
+  exact-revision three-OS CI remain pending.
+
+### KI-0031 — Same-major semantic changes escaped compatibility classification
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
+- Affects: M01-W07 and M01-W05 compatibility infrastructure;
+  `packages/contracts/test/contract/breaking/`
+- Description: published v1 semantic behavior changed while schema and rule
+  majors stayed at v1/1.0.0. The compatibility signature fingerprints schema
+  structure, rule metadata, and only current expected-valid corpus cases, so it
+  omitted executable negative behavior and missed old-valid payloads whose
+  expectation later became negative. Exact replay distinguishes three scopes:
+  the 229 source-positive historical inputs have 2 removals / 17
+  additions at 448→0659; their union with the current-v1 platform corpus has
+  26/17; and the current major migration has 39 explicitly paired
+  deprecated-v1-valid/corrected-v2-invalid cases. The 13 direct SEM-01…SEM-07
+  v2 negatives (including the v2-only final-sweep inventory cross-binding
+  witness) are new reproductions, not published-v1 semantic additions. This finding
+  invalidates the same-major compatibility conclusions recorded historically
+  in KI-0023, KI-0024, and KI-0025 without erasing their revision-specific
+  repair evidence.
+- Reproduction: at invalidated content anchor `0659c13` (and stamped
+  `93541b7`), the macOS/CUDA model-profile payload is semantically valid under
+  the `44827ae` v1 evaluator and invalid under the then-current v1 evaluator,
+  while `pnpm contracts:compatibility:check` reports
+  `{"compatible":true,"findings":[]}`.
+- Workaround: do not update the compatibility baseline until retained v1
+  behavior and corrected v2 behavior are independently classified.
+- Resolution + evidence link: pending a deprecated compatibility-only v1
+  accepted-set union, 15 corrected v2 roots, executable positive/negative
+  behavior witnesses, a fail-closed baseline update, two clean clones, and
+  exact-revision three-OS CI.
+
+### KI-0032 — Child-process and compatibility evidence bounds were incomplete
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-28 by independent post-acceptance M01-W07 audit
+- Affects: M01-W07/M01-W05 test infrastructure and contract documentation
+- Description: at invalidated anchor `93541b7`, three synchronous
+  external-child test sites relied on the package-wide 30-second Vitest timeout
+  rather than an explicit child timeout. Documentation also said every
+  language ran all 444 cases and described the structural/metadata signature as
+  exhaustive semantic proof, despite language applicability of TypeScript 443,
+  Python 439, and Rust 438 and the reproduced executable-semantic blind spot.
+- Reproduction: at `93541b755dfcd2708c955ada4fdef943b0afaa09`, inspect the
+  synchronous child calls in generated-contract, error-taxonomy, and
+  security-policy tests; each lacks an explicit timeout. Compare the locked
+  manifest applicability counts with the cited evidence prose.
+- Workaround: the shared contract child runner is already bounded; do not
+  increase Vitest or CI job timeouts.
+- Resolution + evidence link: pending explicit child bounds, timeout
+  regressions where practical, and precise bounded-witness documentation.
 
 ### KI-0022 — M28 familiarity study depends on post-M28 job-board and queue UI
 
@@ -352,8 +458,10 @@ validator exception or weakening was introduced.
   schemas took a description-only PATCH bump to `1.0.1` recording the field
   semantics the repair decided; no shape, `required` array, enum token, rule
   binding, `rule_version`, or generator format changed. The corpus grew
-  additively 402 → 444 with exact TypeScript/Python/Rust agreement, and before
-  the baseline was written the compatibility checker reported
+  additively 402 → 444; at that anchor, applicable cases agreed across
+  TypeScript 443, Python 439, and Rust 438 (438 shared, five TypeScript-only,
+  one Python-only). Before the baseline was written the compatibility checker
+  reported
   `"compatible": true`, zero breaking findings, and exactly ten
   `SUPPORTED_WIRE_CASE_ADDED` positives. Re-running every reproduction against
   the repaired evaluators shows each unreachable positive admitted and each
@@ -368,8 +476,10 @@ validator exception or weakening was introduced.
   one of them under a path containing spaces and non-ASCII characters — and
   hosted run 30383429134 on macos-15 job 90356653908, ubuntu-24.04 job
   90356653981, and windows-2025 job 90356653998. KI-0026 and KI-0027 record
-  the two questions deliberately left to M05-W13 and M03-W09. Evidence:
-  docs/TEST_EVIDENCE.md § M01-W07 corrective repair — KI-0025.
+  the two questions deliberately left to M05-W13 and M03-W09. KI-0031 later
+  invalidated the same-major compatibility conclusion, not these
+  revision-specific test results. Evidence: docs/TEST_EVIDENCE.md § M01-W07
+  corrective repair — KI-0025.
 
 ### KI-0024 — Native-registration removal was an unreachable positive branch, and platform stdio/architecture invariants were incomplete
 
@@ -451,8 +561,10 @@ validator exception or weakening was introduced.
   `211c4b72cae4404dc277d8b31df240e4abfc717c` (hosted run 30383429134, all
   three operating systems), which additionally proves the KI-0024 repair has
   not regressed: every KI-0024 branch and corpus case is preserved and passing
-  there. Evidence: docs/TEST_EVIDENCE.md § M01-W07 corrective repair —
-  KI-0024 and § M01-W07 corrective repair — KI-0025.
+  there. KI-0031 later invalidated the same-major compatibility conclusion,
+  not this revision-specific branch repair. Evidence: docs/TEST_EVIDENCE.md
+  § M01-W07 corrective repair — KI-0024 and § M01-W07 corrective repair —
+  KI-0025.
 
 ### KI-0028 — Temporary-directory cleanup after an external child was not Windows-correct
 
@@ -528,9 +640,12 @@ validator exception or weakening was introduced.
 - Workaround: none accepted; consumers must not infer store availability
   from an incomplete STATUS truth table.
 - Resolution + evidence link: added structural `STORE_AVAILABLE`, MINOR-bumped
-  vocabulary and secret-store-result to `1.1.0`, completed the
-  STATUS/GET/PUT/DELETE semantic truth table across TS/Python/Rust, extended
-  the corpus 363→382, and added an explicit truth-table/token-closure suite.
+  vocabulary and secret-store-result to `1.1.0`, repaired the three reproduced
+  STATUS branches across TS/Python/Rust, extended the corpus 363→382, and added
+  focused STATUS truth-table/token checks. KI-0024 subsequently completed the
+  full STATUS/GET/PUT/DELETE table and platform token-closure coverage; KI-0031
+  later invalidated the same-major compatibility conclusion, not these
+  revision-specific repairs.
   Corrective content commit `12e4062896c8c5b92d5affaf8b0583be0090fb39` /
   tree `3fec30f644090aa81b1ce81bd800e92c1628b3c5` passed two clean clones and
   hosted run 30326330566 (macos-15 90172431543, ubuntu-24.04 90172431557,

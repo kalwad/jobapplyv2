@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: tree 211c4b72cae4404dc277d8b31df240e4abfc717c (commit 0659c13ff046c921ca648c50b40e71330abf2e75)
-Last updated: 2026-07-28T18:00:00Z
+Repository revision: tree 75512f6d16e50a4560eab7386e6896c81d3ddd0d (commit 93541b755dfcd2708c955ada4fdef943b0afaa09)
+Last updated: 2026-07-29T01:33:24Z
 Current phase: A — Contract, measurement, and early autofill proof
-Current milestone: M02
-Current work package: NONE
+Current milestone: M01
+Current work package: M01-W07
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,20 +23,20 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M01-W07 is VERIFIED and M01 is ACCEPTED again at tree `211c4b72cae4404dc277d8b31df240e4abfc717c` (commit `0659c13ff046c921ca648c50b40e71330abf2e75`), the final KI-0025 content revision. M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their exact preserved content trees and commits, and M00 remains ACCEPTED. M02-W01 is the sole READY package and no package is IN_PROGRESS. All historical M01-W07 anchors remain preserved evidence: first content `db72b0bff55167c670df4dc78104c08cd6288a07` / tree `23c26af81d988bccb11962e6488b3848391f45e9`, first stamp `83f3f0d8add1579b041fe96d9259afc673b7da1a`, KI-0023 truth-table content `12e4062896c8c5b92d5affaf8b0583be0090fb39` / tree `3fec30f644090aa81b1ce81bd800e92c1628b3c5`, per-test timeout content `e56bafc7a11fb2b4241062ee88ba0d1febcfbbe9` / tree `33f752cba6105fd6fc77b9b16b0737e8ecc0a9d2`, failed stamps `aaff21efafcc36a4cbae5da60522c9a7b10f0a9c` / `ad2354c335bbfc13568fdd55a8abbcc1ee6ae52c`, the previously accepted corrective content `dd0cd4b65976bf2795ccd806d021db8f9c265823` / tree `f7b5bdf4596459f7c9797d124401375bb0df7341` with stamp `12f3c35be9cff1ca40541212ae83a3e79888a234`, the KI-0024 content `44827ae73a04d4ef63ccb40cd93fd14b7e304010` / tree `7fcd961fbde2770378248ca68e65526b4480a970` with hosted run 30341428902, and the KI-0025 content `860b6e1e27a790668b7dec4fe8014c9f764106be` / tree `3d608cd0d9d933869f9dc9ecaa7854a77ca727d1` with run 30381703907, whose Windows job exposed KI-0028.
-- Objective: closed. KI-0024 and KI-0025 are both FIXED and M01-W07 is complete. The KI-0025 revision repaired thirteen platform semantic rule kinds: five reproduced unreachable positives (package recovery, hosted-CI evidence, `DEGRADED_LIMITED` runtime capability, denied path resolution, explained process exit), a failed native-registration removal, and seven further reproduced defects of the same state-coherence and axis-coupling class, six of them fail-open. The contract boundary remains 19 strict roots plus one vocabulary document under `packages/contracts/schemas/platform/`. No operating-system implementation, adapter, secret store, process spawn, registration, browser detection, model runtime, installer, updater, UI, or provider behavior was added, no schema shape or enum token changed, and no new authority was granted.
-- Dependencies and hosted proof: M00 is ACCEPTED and M01-W01 through M01-W07 are VERIFIED. The final KI-0025 content revision `0659c13ff046c921ca648c50b40e71330abf2e75` passed hosted run 30383429134 on macos-15 job 90356653908, ubuntu-24.04 job 90356653981, and windows-2025 job 90356653998; the inspected Windows log confirms exact revision `0659c13ff046c921ca648c50b40e71330abf2e75`, 19/19 contract test files and 1470/1470 tests, aggregate verification exit 0, and no tracked changes. Every earlier hosted run remains true for the content it covered and is preserved.
+- State: M01-W07 and M01 are reopened after the independent post-acceptance audit invalidated the acceptance stamped at `93541b755dfcd2708c955ada4fdef943b0afaa09`. M01-W07 is the sole IN_PROGRESS package; M02 and M02-W01 are NOT_STARTED; no package is READY. M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M01-W07 executable anchor `0659c13ff046c921ca648c50b40e71330abf2e75` / tree `211c4b72cae4404dc277d8b31df240e4abfc717c`, its stamp, and every earlier M01-W07 anchor remain historical evidence only.
+- Objective: repair KI-0029 through KI-0032 without changing the canonical specification or implementing M02. The bounded lifecycle covers the contradictory accepted status, seven reproduced platform state-axis/default-fallthrough defects, the same-major semantic compatibility failure, executable semantic witness coverage, and three directly associated unbounded child-process sites. Old v1 consumers retain all 229 enumerated canonical historical-positive witnesses while corrected semantics move to explicit v2 roots and rule bindings.
+- Dependencies and hosted proof: M00 is ACCEPTED and M01-W01 through M01-W06 are VERIFIED. Historical runs remain true only for the exact revisions they covered; they do not prove the corrective work. M01-W07 cannot return to VERIFIED and M01 cannot return to ACCEPTED until the new executable content passes both clean clones and a fresh exact-revision macos-15/windows-2025/ubuntu-24.04 matrix.
 - Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: docs/TEST_EVIDENCE.md § M01-W07 records the first closeout, the KI-0023 truth-table repair, both stamp Windows timeout follow-ups, the KI-0024 corrective repair, the KI-0025 corrective repair with its independent reproductions and reviewed truth tables, the KI-0028 Windows cleanup repair, every clean-clone pair, and every hosted three-OS proof. No UI, native-platform, secret-store implementation, packaging, model-runtime, holdout, or certification evidence applies.
-- Blockers: none for M01. KI-0024, KI-0025, and KI-0028 are all FIXED with recorded evidence, and no CRITICAL or HIGH issue is OPEN, so M01-W07 is VERIFIED and M01 is ACCEPTED (spec §10.1). KI-0026 (MEDIUM, DEFERRED, owned by M05-W13) and KI-0027 (LOW, DEFERRED, owned by M03-W09) record the two questions the KI-0025 repair deliberately left to their owning packages rather than deciding unilaterally; neither represents implemented behaviour or accepted evidence. M03 and later milestones remain dependency-blocked; M03 also requires M02 ACCEPTED and Gate A PASS, M06 requires M05 ACCEPTED and Gate B PASS, M21 through its declared expansion boundary require Gate C PASS, and M28 requires M27 ACCEPTED and Gate D PASS at the final accepted M27 content tree.
+- Evidence: docs/TEST_EVIDENCE.md § M01-W07 preserves every prior closeout and corrective run as historical evidence and records this audit reproduction. No UI, native-platform, secret-store implementation, packaging, model-runtime, holdout, or certification evidence applies.
+- Blockers: KI-0029, KI-0030, and KI-0031 are HIGH/IN_PROGRESS and block M01-W07 verification and M01 acceptance. KI-0032 is MEDIUM/IN_PROGRESS associated infrastructure work and is not a release blocker. KI-0026 and KI-0027 remain deferred to their existing owners. All later milestones remain dependency-blocked.
 
 ## Milestone table
 
 | Milestone | State | Verified revision | Notes |
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
-| M01 | ACCEPTED | tree 211c4b72cae4404dc277d8b31df240e4abfc717c | Phase A. Re-accepted after the combined KI-0024/KI-0025 corrective repair; prior acceptances at tree 23c26af81d988bccb11962e6488b3848391f45e9 and tree f7b5bdf4596459f7c9797d124401375bb0df7341 remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 is READY now that M01 is ACCEPTED, and no M02 work has begun |
+| M01 | IN_PROGRESS | — | Phase A. Reopened for KI-0029 through KI-0032; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
+| M02 | NOT_STARTED | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); no M02 work has begun |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -95,8 +95,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W04` | VERIFIED | tree 9ec01d8f8a734c703a943ea08012a10df023bf67 | docs/TEST_EVIDENCE.md § M01-W04 | Define capability and command allowlists |
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
-| `M01-W07` | VERIFIED | tree 211c4b72cae4404dc277d8b31df240e4abfc717c | docs/TEST_EVIDENCE.md § M01-W07 | Define cross-platform capability and platform-service contracts; KI-0023, KI-0024, KI-0025, and KI-0028 corrective closeouts (historical content trees 23c26af81d988bccb11962e6488b3848391f45e9, 3fec30f644090aa81b1ce81bd800e92c1628b3c5, 33f752cba6105fd6fc77b9b16b0737e8ecc0a9d2, f7b5bdf4596459f7c9797d124401375bb0df7341, 7fcd961fbde2770378248ca68e65526b4480a970, and 3d608cd0d9d933869f9dc9ecaa7854a77ca727d1 preserved) |
-| `M02-W01` | READY | — | — | Create synthetic profile/job/resume fixtures |
+| `M01-W07` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M01-W07 | Correct KI-0029 through KI-0032; all prior M01-W07 trees remain historical evidence |
+| `M02-W01` | NOT_STARTED | — | — | Create synthetic profile/job/resume fixtures |
 | `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
 | `M02-W04` | NOT_STARTED | — | — | Capture baseline algorithms |
@@ -381,20 +381,15 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W01
-- Reason: M01-W07 is VERIFIED and M01 is ACCEPTED at tree `211c4b72cae4404dc277d8b31df240e4abfc717c`, no CRITICAL or HIGH issue is OPEN, and M02-W01 has no direct package prerequisite, so it is the deterministic next package (spec §12).
-- Required reading: `CLAUDE.md`; docs/MASTER_IMPLEMENTATION_SPEC.md §1, §5.14, §8.5, §9 M01 (especially M01-W07), and §12; packages/contracts/M01-W07.md; packages/contracts/README.md; docs/PROJECT_STATUS.md; docs/DECISIONS.md; docs/TEST_EVIDENCE.md; docs/KNOWN_ISSUES.md; docs/COMPATIBILITY_MATRIX.md; docs/REQUIREMENTS_TRACEABILITY.md.
+- ID: NONE
+- Reason: M01-W07 is IN_PROGRESS for KI-0029 through KI-0032, so no package is READY.
+- Required reading: n/a until M01 is truthfully re-accepted.
 
 ## Known release blockers
 
-- KI-0024 (HIGH, IN_PROGRESS) reopens M01-W07 and M01. Independent post-closeout assurance review reproduced an unreachable `REMOVE -> ABSENT` native-registration success branch, a `stderr_mode` gap in the process-plan framing rule, missing `platform_id`/`architecture` coherence on four of the five roots that carry both, and documentation that overstates secret-store truth-table and platform token-closure coverage. The corrective content revision repairs all four and is hosted-verified, but it does not close the package.
-- KI-0025 (HIGH, IN_PROGRESS) blocks M01-W07 verification and M01 acceptance. A completeness sweep of all eighteen platform rule kinds, run during the KI-0024 repair, reproduced five unreachable-positive branches: a recovered interrupted install/update can never be a success, synthetic evidence produced on a hosted CI runner is unrepresentable, `DEGRADED_LIMITED` runtime capability collapses onto `UNAVAILABLE`, a permission-denied resolution of an existing path must report a false observation, and an `EXITED` process can never carry a diagnostic reason. The owner-authorized exhaustive final audit reproduced eight more of the same class: a failed native-registration removal is unrepresentable, and the contract fail-open admits a defeated interpreter guard plus unconstrained spawn-environment values, a registration intent with no message-size limit, a `CERTIFIED_FULL` capability report with zero measured evidence, an accepted macOS CUDA model profile, an `AVAILABLE` browser presence from an unevaluated detection, a capability-blocking diagnostic filed at `INFO`, and a `CERTIFIED_FULL` certification input that declares its own required-evidence set empty. All thirteen are repaired in one final content revision.
-- M00 remains ACCEPTED and the mandatory contract and contract-gen suites remain ACTIVE/PASS. KI-0023 remains FIXED; its evidence stands for the content it covered and detected neither KI-0024 nor KI-0025.
-- Milestones M01–M38 are unaccepted; the release gate stays NOT_READY until every mandatory milestone is ACCEPTED, the Section 2 metrics pass, and all four critical gates are PASS at the final release revision (spec §2.2, §16).
-- CROSS_PLATFORM_CORE is NOT_EVALUATED. M28 remains blocked until M27 is ACCEPTED, native Gate D evidence exists on all three certified targets, full-AI Windows and Ubuntu profiles are accepted by M27-W10, and Gate D is PASS at the final accepted M27 content tree (or an explicit accepted independent gate-neutral re-anchoring).
-- M00-W07 activation guard satisfied: final M00-W06 stamp-commit run 30218521997 passed required macOS and Linux CI at starting HEAD `6946c5929037b475f61ee25bf3e8adb9c7c0e9a9`.
-- Historical v1.2 closeout remains preserved: M00-W07 content run 30220428453 and final run 30220655705 passed required macOS/Ubuntu jobs. That historical acceptance does not satisfy the expanded v1.3 M00 exit gate.
-- Process (not a product defect, historical): M00-W01 was authored in a cloud environment without github.com egress and pushed by the owner afterwards. From M00-W02 onward, work runs on the owner's development machine (macOS, Apple silicon) with direct access to `origin`, so this blocker no longer applies to new work.
+- KI-0029 (HIGH, IN_PROGRESS) — accepted status contradicted its live blocker ledger and validation did not reconcile the two.
+- KI-0030 (HIGH, IN_PROGRESS) — platform semantic state-axis and default-fallthrough contradictions were accepted at the invalidated anchor; corrective v2 proof and closeout remain pending.
+- KI-0031 (HIGH, IN_PROGRESS) — same-major semantic changes escaped historical compatibility classification.
 
 ## Status conventions and update rules
 

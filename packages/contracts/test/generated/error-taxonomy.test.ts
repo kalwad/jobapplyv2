@@ -5,7 +5,6 @@
  * array/boolean constructs.
  */
 
-import { execFileSync } from "node:child_process";
 import {
   cpSync,
   mkdirSync,
@@ -37,6 +36,7 @@ import {
   type ErrorTaxonomyV1ErrorCode,
   type ErrorTaxonomyV1ErrorFamily,
 } from "../../generated/typescript/index.ts";
+import { runBoundedCliProcess } from "./support/bounded-cli.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("../../../..", import.meta.url));
 const CLI_PATH = join(REPO_ROOT, "scripts", "generate-contracts.ts");
@@ -88,30 +88,12 @@ afterEach(() => {
   }
 });
 
-interface CliResult {
-  readonly status: number;
-  readonly output: string;
-}
-
-function runCliProcess(...cliArguments: string[]): CliResult {
-  try {
-    const stdout = execFileSync(process.execPath, [CLI_PATH, ...cliArguments], {
-      encoding: "utf8",
-      cwd: REPO_ROOT,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    return { status: 0, output: stdout };
-  } catch (error) {
-    const failure = error as {
-      status?: number | null;
-      stdout?: string;
-      stderr?: string;
-    };
-    return {
-      status: failure.status ?? -1,
-      output: `${failure.stdout ?? ""}${failure.stderr ?? ""}`,
-    };
-  }
+function runCliProcess(...cliArguments: string[]) {
+  return runBoundedCliProcess(
+    process.execPath,
+    [CLI_PATH, ...cliArguments],
+    REPO_ROOT,
+  );
 }
 
 interface CatalogEntryJson {

@@ -1,5 +1,7 @@
+import { createHash } from "node:crypto";
 import {
   cpSync,
+  existsSync,
   mkdtempSync,
   readFileSync,
   rmSync,
@@ -11,6 +13,7 @@ import { join } from "node:path";
 
 import { describe, expect, test } from "vitest";
 
+import { canonicalJson } from "./adapters/normalization.ts";
 import {
   BASELINE_PATH,
   BaselineError,
@@ -18,6 +21,7 @@ import {
   CURRENT_BASELINE_FORMAT_VERSION,
   loadBaseline,
   serializeBaseline,
+  updateBaseline,
 } from "./breaking/baseline.ts";
 import {
   buildCompatibilitySignature,
@@ -29,8 +33,13 @@ import {
   type NodeSignature,
   type PropertySignature,
   type SemanticRuleSignature,
+  type SemanticWitnessSignature,
   type SupportedCaseSignature,
 } from "./breaking/compatibility-signature.ts";
+import {
+  HISTORICAL_WITNESS_REPOSITORY_PATH,
+  loadHistoricalWitnessInventory,
+} from "./semantic-witnesses/historical-witness-loader.ts";
 
 const W06_OBJECTIVE_ROOTS = [
   "urn:japp:schema:ats:variant-identity:v1",
@@ -79,6 +88,38 @@ function firstSemanticRule(
     throw new Error("semantic-rule signature missing");
   }
   return rule;
+}
+
+function semanticWitness(
+  signature: CompatibilitySignature,
+  id: string,
+): SemanticWitnessSignature {
+  const witness = signature.semantic_witnesses.find(
+    (candidate) => candidate.id === id,
+  );
+  if (witness === undefined) {
+    throw new Error(`semantic witness missing: ${id}`);
+  }
+  return witness;
+}
+
+function requiredSemanticWitness(
+  signature: CompatibilitySignature,
+  index: number,
+): SemanticWitnessSignature {
+  const witness = signature.semantic_witnesses[index];
+  if (witness === undefined) {
+    throw new Error(`semantic witness missing at index ${String(index)}`);
+  }
+  return witness;
+}
+
+function firstRuleOutcome(witness: SemanticWitnessSignature) {
+  const outcome = witness.rule_outcomes[0];
+  if (outcome === undefined) {
+    throw new Error(`semantic witness has no rule outcome: ${witness.id}`);
+  }
+  return outcome;
 }
 
 function expectCurrentBreaking(
@@ -172,6 +213,7 @@ function copyCompatibilityInputs(root: string): void {
     "packages/contracts/schemas",
     "packages/contracts/catalog",
     "packages/contracts/test/contract/corpus",
+    "packages/contracts/test/contract/semantic-witnesses",
   ]) {
     const source = join(REPOSITORY_ROOT, relative);
     const target = join(root, relative);
@@ -770,9 +812,9 @@ describe("M01-W06 semantic compatibility signature", () => {
     }
     // Same generous allowance as the sibling deterministic-truth test above:
     // both build the complete compatibility signature over the whole catalog,
-    // which M01-W07 grew from 43 to 63 documents. The assertions are
-    // unchanged; only the wall-clock budget matches the work on slower
-    // hosted runners.
+    // which M01-W07 grew from 43 to 63 documents and this corrective migration
+    // extends to 78. The assertions are unchanged; only the wall-clock budget
+    // matches the work on slower hosted runners.
   }, 30_000);
 
   test.each([
@@ -844,6 +886,477 @@ describe("M01-W06 semantic compatibility signature", () => {
       });
     }
   });
+});
+
+describe("M01-W07 executable semantic compatibility witnesses", () => {
+  const macosCudaV1 = "x-w07.model-runtime-profile-macos-cuda";
+  const macosCudaV2 = `${macosCudaV1}.v2`;
+  const recoveredRollbackV1 =
+    "x-w07.historical-positive.6656bb50346f784768db42c2";
+
+  test("locks the complete canonical historical inventory and signature scope", () => {
+    const inventory = loadHistoricalWitnessInventory();
+    const signature = currentSignature();
+    expect(inventory.witness_count).toBe(229);
+    expect(inventory.raw_reference_count).toBe(556);
+    expect(inventory.insertion_order_sensitive_unique_count).toBe(231);
+    expect(inventory.recursive_key_sort_collapse_count).toBe(2);
+    expect(inventory.inventory_sha256).toBe(
+      "6ce50f164c3b58a1062f43bcca7164cd5a4fcee0d93a6f1525a3c54379688fbc",
+    );
+    expect(
+      inventory.witnesses.filter(
+        (witness) =>
+          witness.schema_ref === "urn:japp:schema:platform:installer-state:v1",
+      ),
+    ).toHaveLength(26);
+    expect(
+      inventory.witnesses.filter(
+        (witness) =>
+          witness.schema_ref === "urn:japp:schema:platform:update-state:v1",
+      ),
+    ).toHaveLength(23);
+    expect(
+      inventory.witnesses
+        .map((witness) => witness.schema_ref)
+        .filter(
+          (schemaRef, index, values) => values.indexOf(schemaRef) === index,
+        ),
+    ).toHaveLength(19);
+    expect(inventory.witnesses.map((witness) => witness.id)).toEqual(
+      expect.arrayContaining([
+        recoveredRollbackV1,
+        "x-w07.historical-positive.12940c26b0564f602e366f8d",
+        "x-w07.historical-positive.a9122c6aa5a4dfde7bd17f77",
+      ]),
+    );
+    expect(signature.historical_witness_inventory).toEqual({
+      repository_path: HISTORICAL_WITNESS_REPOSITORY_PATH,
+      format_version: "1.0.0",
+      witness_count: 229,
+      raw_reference_count: 556,
+      canonical_sha256:
+        "6ce50f164c3b58a1062f43bcca7164cd5a4fcee0d93a6f1525a3c54379688fbc",
+    });
+    expect(
+      signature.semantic_witnesses.filter((witness) =>
+        witness.id.startsWith("x-w07.historical-positive."),
+      ),
+    ).toHaveLength(229);
+    expect(signature.semantic_witnesses).toHaveLength(572);
+  });
+
+  test("locks the last-published recovered-rollback v1 canary", () => {
+    const inventory = loadHistoricalWitnessInventory();
+    const source = inventory.witnesses.find(
+      (witness) => witness.id === recoveredRollbackV1,
+    );
+    expect(source?.historical_acceptance).toEqual({
+      "6708f1a": false,
+      "12e4062": false,
+      "44827ae": false,
+      "860b6e1": true,
+    });
+    const witness = semanticWitness(currentSignature(), recoveredRollbackV1);
+    expect(witness.schema_ref).toBe("urn:japp:schema:platform:update-state:v1");
+    expect(witness.expected_valid).toBe(true);
+    expect(witness.structural_valid).toBe(true);
+    expect(witness.semantic_valid).toBe(true);
+  });
+
+  test("locks the exact historical v1 acceptance and corrected v2 rejection", () => {
+    const signature = currentSignature();
+    const legacy = semanticWitness(signature, macosCudaV1);
+    const corrected = semanticWitness(signature, macosCudaV2);
+    expect(legacy.schema_ref).toBe(
+      "urn:japp:schema:platform:model-runtime-profile:v1",
+    );
+    expect(legacy.schema_major).toBe(1);
+    expect(legacy.structural_valid).toBe(true);
+    expect(legacy.semantic_valid).toBe(true);
+    expect(legacy.expected_valid).toBe(true);
+    expect(corrected.schema_ref).toBe(
+      "urn:japp:schema:platform:model-runtime-profile:v2",
+    );
+    expect(corrected.schema_major).toBe(2);
+    expect(corrected.input_sha256).toBe(legacy.input_sha256);
+    expect(corrected.structural_valid).toBe(true);
+    expect(corrected.semantic_valid).toBe(false);
+    expect(corrected.expected_valid).toBe(false);
+    expect(corrected.expected_error_code).toBe("UNSUPPORTED_RUNTIME_PROFILE");
+  });
+
+  test("locks all 39 migrated historical pairs and all 15 v2 representatives", () => {
+    const signature = currentSignature();
+    const byId = new Map(
+      signature.semantic_witnesses.map((witness) => [witness.id, witness]),
+    );
+    const migratedPairs = signature.semantic_witnesses.filter((legacy) => {
+      const corrected = byId.get(`${legacy.id}.v2`);
+      return (
+        legacy.schema_ref.endsWith(":v1") &&
+        legacy.expected_valid &&
+        legacy.semantic_valid &&
+        corrected !== undefined &&
+        corrected.schema_ref.endsWith(":v2") &&
+        !corrected.expected_valid &&
+        !corrected.semantic_valid
+      );
+    });
+    expect(migratedPairs).toHaveLength(39);
+    const inputAdjustedPairs = migratedPairs.filter(
+      (legacy) =>
+        byId.get(`${legacy.id}.v2`)?.input_sha256 !== legacy.input_sha256,
+    );
+    expect(inputAdjustedPairs.map((witness) => witness.schema_ref)).toEqual([
+      "urn:japp:schema:platform:certification-input:v1",
+    ]);
+
+    const representativeRoots = new Set(
+      signature.semantic_witnesses
+        .filter(
+          (witness) =>
+            witness.id.startsWith("x-w07.round-trip-") &&
+            witness.id.endsWith(".v2") &&
+            witness.expected_valid &&
+            witness.semantic_valid,
+        )
+        .map((witness) => witness.schema_ref),
+    );
+    expect(representativeRoots.size).toBe(15);
+  });
+
+  test("reports acceptance removal and rejection removal in both directions", () => {
+    const narrowed = cloneCurrentSignature();
+    const legacy = semanticWitness(narrowed, macosCudaV1);
+    legacy.semantic_valid = false;
+    firstRuleOutcome(legacy).passed = false;
+    expect(
+      compareCompatibilitySignatures(currentSignature(), narrowed).findings,
+    ).toContainEqual({
+      code: "SEMANTIC_ACCEPTANCE_REMOVED",
+      subject: macosCudaV1,
+    });
+
+    const broadened = cloneCurrentSignature();
+    const corrected = semanticWitness(broadened, macosCudaV2);
+    corrected.semantic_valid = true;
+    for (const outcome of corrected.rule_outcomes) {
+      outcome.passed = true;
+    }
+    expect(
+      compareCompatibilitySignatures(currentSignature(), broadened).findings,
+    ).toContainEqual({
+      code: "SEMANTIC_REJECTION_REMOVED",
+      subject: macosCudaV2,
+    });
+  });
+
+  test("reports removal of a historical accepted-set canary", () => {
+    const narrowed = cloneCurrentSignature();
+    const witness = semanticWitness(narrowed, recoveredRollbackV1);
+    witness.semantic_valid = false;
+    firstRuleOutcome(witness).passed = false;
+    expect(
+      compareCompatibilitySignatures(currentSignature(), narrowed).findings,
+    ).toContainEqual({
+      code: "SEMANTIC_ACCEPTANCE_REMOVED",
+      subject: recoveredRollbackV1,
+    });
+  });
+
+  test("historical inventory removal and metadata drift are breaking", () => {
+    const removed = cloneCurrentSignature();
+    Reflect.deleteProperty(removed, "historical_witness_inventory");
+    expect(
+      compareCompatibilitySignatures(currentSignature(), removed).findings,
+    ).toContainEqual({
+      code: "HISTORICAL_WITNESS_INVENTORY_REMOVED",
+      subject: HISTORICAL_WITNESS_REPOSITORY_PATH,
+    });
+
+    const changed = cloneCurrentSignature();
+    changed.historical_witness_inventory.canonical_sha256 = "0".repeat(64);
+    expect(
+      compareCompatibilitySignatures(currentSignature(), changed).findings,
+    ).toContainEqual({
+      code: "HISTORICAL_WITNESS_INVENTORY_HASH_CHANGED",
+      subject: HISTORICAL_WITNESS_REPOSITORY_PATH,
+    });
+  });
+
+  test.each(["metadata hash", "witness input hash"] as const)(
+    "format 2.1 loader rejects a self-consistently forged %s",
+    (mutation) => {
+      const root = mkdtempSync(join(tmpdir(), "japp-baseline-forgery-"));
+      try {
+        const baseline = buildBaseline();
+        if (mutation === "metadata hash") {
+          baseline.signature.historical_witness_inventory.canonical_sha256 =
+            "0".repeat(64);
+        } else {
+          semanticWitness(
+            baseline.signature,
+            recoveredRollbackV1,
+          ).input_sha256 = "0".repeat(64);
+        }
+        const payload = {
+          baseline_format_version: baseline.baseline_format_version,
+          baseline_id: baseline.baseline_id,
+          source_scope: baseline.source_scope,
+          signature: baseline.signature,
+        };
+        baseline.integrity_sha256 = createHash("sha256")
+          .update(canonicalJson(payload))
+          .digest("hex");
+        const path = join(root, "compatibility-signature.v2.json");
+        writeFileSync(path, serializeBaseline(baseline), "utf8");
+        expect(() => loadBaseline(path)).toThrow(
+          expect.objectContaining({ code: "BASELINE_INVALID" }),
+        );
+      } finally {
+        rmSync(root, {
+          recursive: true,
+          force: true,
+          maxRetries: 10,
+          retryDelay: 100,
+        });
+      }
+    },
+    30_000,
+  );
+
+  test.each([
+    [
+      "removal",
+      (signature: CompatibilitySignature) => {
+        signature.semantic_witnesses = signature.semantic_witnesses.filter(
+          (witness) => witness.id !== macosCudaV1,
+        );
+      },
+      "SEMANTIC_WITNESS_REMOVED",
+    ],
+    [
+      "input mutation",
+      (signature: CompatibilitySignature) => {
+        semanticWitness(signature, macosCudaV1).input_sha256 = "0".repeat(64);
+      },
+      "SEMANTIC_WITNESS_CHANGED",
+    ],
+    [
+      "failure reassignment",
+      (signature: CompatibilitySignature) => {
+        const failed = semanticWitness(
+          signature,
+          macosCudaV2,
+        ).rule_outcomes.find((outcome) => !outcome.passed);
+        if (failed === undefined) {
+          throw new Error("corrected failure outcome missing");
+        }
+        failed.error_code = "VALIDATION_CONSTRAINT_VIOLATION";
+      },
+      "SEMANTIC_FAILURE_BINDING_CHANGED",
+    ],
+  ] as const)("%s is breaking", (_label, mutate, expectedCode) => {
+    expectCurrentBreaking(mutate, expectedCode);
+  });
+
+  test("new-major witnesses and a monotonic catalog minor are additive", () => {
+    const candidate = cloneCurrentSignature();
+    const future = structuredClone(semanticWitness(candidate, macosCudaV2));
+    future.id = `${macosCudaV2}.future`;
+    candidate.semantic_witnesses.push(future);
+    candidate.semantic_witnesses.sort((left, right) =>
+      left.id.localeCompare(right.id),
+    );
+    candidate.semantic_rule_catalog.catalog_version = "1.2.0";
+    candidate.semantic_rule_catalog.canonical_sha256 = "f".repeat(64);
+    const report = compareCompatibilitySignatures(
+      currentSignature(),
+      candidate,
+    );
+    expect(report.compatible).toBe(true);
+    expect(report.findings).toEqual([]);
+    expect(report.additive_changes).toEqual(
+      expect.arrayContaining([
+        {
+          code: "SEMANTIC_WITNESS_ADDED",
+          subject: future.id,
+        },
+        {
+          code: "SEMANTIC_RULE_CATALOG_VERSION_ADVANCED",
+          subject: "packages/contracts/catalog/semantic-rules.v1.json",
+        },
+      ]),
+    );
+  });
+
+  test("new semantic bindings require a catalog minor advance", () => {
+    const candidate = cloneCurrentSignature();
+    const sourceDocument = candidate.documents.find((document) =>
+      document.id.endsWith(":browser-record:v2"),
+    );
+    const sourceRule = candidate.semantic_rules.find(
+      (rule) => rule.rule_id === "PLATFORM_BROWSER_RECORD_SCOPE_V2",
+    );
+    if (sourceDocument === undefined || sourceRule === undefined) {
+      throw new Error("v2 browser compatibility source missing");
+    }
+    candidate.documents.push({
+      ...structuredClone(sourceDocument),
+      id: "urn:japp:schema:platform:browser-record:v3",
+      path: "platform/browser-record.v3.schema.json",
+      major: 3,
+      version: "3.0.0",
+    });
+    candidate.semantic_rules.push({
+      ...structuredClone(sourceRule),
+      rule_id: "PLATFORM_BROWSER_RECORD_SCOPE_V3",
+      rule_version: "3.0.0",
+      schema_ref: "urn:japp:schema:platform:browser-record:v3",
+      rule_kind: "PLATFORM_BROWSER_RECORD_SCOPE_V3",
+    });
+    candidate.semantic_rules.sort((left, right) =>
+      left.rule_id.localeCompare(right.rule_id),
+    );
+    expect(
+      compareCompatibilitySignatures(currentSignature(), candidate).findings,
+    ).toContainEqual({
+      code: "SEMANTIC_RULE_CATALOG_MINOR_BUMP_REQUIRED",
+      subject: "packages/contracts/catalog/semantic-rules.v1.json",
+    });
+  });
+
+  test("expectation mismatch fails even when the prior baseline has no witness section", () => {
+    const legacy = cloneCurrentSignature();
+    Reflect.deleteProperty(legacy, "semantic_witnesses");
+    const inconsistent = cloneCurrentSignature();
+    const witness = semanticWitness(inconsistent, macosCudaV1);
+    witness.semantic_valid = false;
+    firstRuleOutcome(witness).passed = false;
+    expect(
+      compareCompatibilitySignatures(legacy, inconsistent).findings,
+    ).toContainEqual({
+      code: "SEMANTIC_WITNESS_EXPECTATION_MISMATCH",
+      subject: macosCudaV1,
+    });
+  });
+
+  test("baseline update refuses incompatible executable behavior without changing bytes", () => {
+    const root = mkdtempSync(join(tmpdir(), "japp-baseline-refusal-"));
+    try {
+      const path = join(root, "compatibility-signature.v2.json");
+      cpSync(BASELINE_PATH, path);
+      const before = readFileSync(path);
+      const narrowed = cloneCurrentSignature();
+      const witness = semanticWitness(narrowed, macosCudaV1);
+      witness.semantic_valid = false;
+      firstRuleOutcome(witness).passed = false;
+      let failure: unknown;
+      try {
+        updateBaseline(narrowed, path);
+      } catch (error) {
+        failure = error;
+      }
+      expect(failure).toBeInstanceOf(BaselineError);
+      expect((failure as BaselineError).code).toBe("BASELINE_UPDATE_REFUSED");
+      expect(readFileSync(path)).toEqual(before);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("baseline update refuses a missing v2 baseline instead of falling back", () => {
+    const root = mkdtempSync(join(tmpdir(), "japp-baseline-missing-"));
+    try {
+      const path = join(root, "compatibility-signature.v2.json");
+      expect(() => {
+        updateBaseline(cloneCurrentSignature(), path);
+      }).toThrow(expect.objectContaining({ code: "BASELINE_INVALID" }));
+      expect(existsSync(path)).toBe(false);
+      expect(existsSync(`${path}.tmp`)).toBe(false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("candidate validation rejects malformed rows before replacing a baseline", () => {
+    const root = mkdtempSync(join(tmpdir(), "japp-baseline-candidate-"));
+    try {
+      const path = join(root, "compatibility-signature.v2.json");
+      cpSync(BASELINE_PATH, path);
+      const before = readFileSync(path);
+      const malformed = cloneCurrentSignature();
+      malformed.semantic_witnesses.push(
+        structuredClone(requiredSemanticWitness(malformed, 0)),
+      );
+      expect(() => {
+        updateBaseline(malformed, path);
+      }).toThrow(expect.objectContaining({ code: "BASELINE_INVALID" }));
+      expect(readFileSync(path)).toEqual(before);
+      expect(existsSync(`${path}.tmp`)).toBe(false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test.each(["duplicate", "unsorted"] as const)(
+    "rejects %s executable witness rows in the 2.0 baseline",
+    (mutation) => {
+      const root = mkdtempSync(join(tmpdir(), "japp-baseline-witness-"));
+      try {
+        const path = join(root, "baseline.json");
+        const signature = cloneCurrentSignature();
+        if (mutation === "duplicate") {
+          signature.semantic_witnesses.push(
+            structuredClone(requiredSemanticWitness(signature, 0)),
+          );
+        } else {
+          const first = requiredSemanticWitness(signature, 0);
+          const second = requiredSemanticWitness(signature, 1);
+          signature.semantic_witnesses[0] = second;
+          signature.semantic_witnesses[1] = first;
+        }
+        writeFileSync(
+          path,
+          serializeBaseline(buildBaseline(signature)),
+          "utf8",
+        );
+        expect(() => loadBaseline(path)).toThrow(BaselineError);
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test.each(["language", "schema major", "rule major"] as const)(
+    "rejects a witness with a fabricated %s",
+    (mutation) => {
+      const root = mkdtempSync(join(tmpdir(), "japp-baseline-cross-field-"));
+      try {
+        const path = join(root, "baseline.json");
+        const signature = cloneCurrentSignature();
+        const witness = requiredSemanticWitness(signature, 0);
+        if (mutation === "language") {
+          witness.languages = ["brainfuck"];
+        } else if (mutation === "schema major") {
+          witness.schema_major = 999;
+        } else {
+          firstRuleOutcome(witness).rule_major = 999;
+        }
+        writeFileSync(
+          path,
+          serializeBaseline(buildBaseline(signature)),
+          "utf8",
+        );
+        expect(() => loadBaseline(path)).toThrow(
+          expect.objectContaining({ code: "BASELINE_INVALID" }),
+        );
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  );
 });
 
 describe("M01-W06 objective mutation coverage", () => {

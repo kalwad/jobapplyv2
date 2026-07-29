@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:evidence-record:v1",
-  "x-japp-schema-version": "1.0.1",
+  "x-japp-schema-version": "1.0.2",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Cross-platform evidence record",
   "description": "One future per-platform evidence element for the Cross-Platform Core Gate bundle: operating-system build and architecture, machine class, package identity and signature state, browser and WebView versions, native-host registration, secret-store test, model profile, document matrix, backup/restore, update/rollback, and synthetic-safe log, screenshot, or trace references. Every artifact is a digest reference; raw secrets, unrestricted logs, raw local paths, complete environment dumps, registry exports, and machine-specific identity are structurally unrepresentable. M01-W07 creates no certification bundle and evaluates no gate.",
   "type": "object",

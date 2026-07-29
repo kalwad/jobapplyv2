@@ -18,6 +18,7 @@ import type { PlatformVocabularyV1AcceleratorClass, PlatformVocabularyV1BoundedU
  * Detected model-runtime capability
  *
  * The RuntimeCapability record of specification §5.14.2: what the local runtime reports on this target, which profiles are available, and how the deterministic core behaves when full AI is unavailable. Deterministic autofill, profile, matching, tracking, and document workflows must never depend on this record reporting availability.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformRuntimeCapabilityV1 {
   readonly runtime_capability_id: CommonStableIdV1StableId;

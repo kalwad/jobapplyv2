@@ -18,6 +18,7 @@ import type { PlatformVocabularyV1BoundedUserMessage, PlatformVocabularyV1Browse
  * Native-messaging registration result
  *
  * The idempotent outcome of one registration intent, including the observed registration state, whether the operation changed anything, the observed manifest identity digest, finite remediation reasons, and an evidence reference. It never contains a registry export, a manifest body, a filesystem path, or an executable name.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformNativeMessagingResultV1 {
   readonly registration_result_id: CommonStableIdV1StableId;

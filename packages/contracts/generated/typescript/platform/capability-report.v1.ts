@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1CapabilityState, PlatformVocabularyV1Distribut
  * Platform capability report
  *
  * The typed PlatformCapabilities record of specification §5.14.2. It reports one explicit state for every specification-owned platform capability family and never treats an unevaluated capability as success. A missing local-AI profile degrades AI features only; it cannot reduce deterministic core capability below the reviewed core tier.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformCapabilityReportV1 {
   readonly capability_report_id: CommonStableIdV1StableId;

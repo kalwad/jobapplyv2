@@ -43,21 +43,35 @@ export const SUPPORTED_SEMANTIC_RULE_KINDS = [
   "PAGE_READINESS_INTEGRITY",
   "PLATFORM_BROWSER_DISCOVERY_SAFETY",
   "PLATFORM_BROWSER_RECORD_SCOPE",
+  "PLATFORM_BROWSER_RECORD_SCOPE_V2",
   "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+  "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
   "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+  "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
   "PLATFORM_DIAGNOSTIC_INTEGRITY",
+  "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
   "PLATFORM_EVIDENCE_INTEGRITY",
+  "PLATFORM_EVIDENCE_INTEGRITY_V2",
   "PLATFORM_MODEL_PROFILE_EVIDENCE",
+  "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
   "PLATFORM_NATIVE_REGISTRATION_BINDING",
+  "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
   "PLATFORM_NATIVE_REGISTRATION_RESULT",
+  "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
   "PLATFORM_PACKAGE_STATE_EVIDENCE",
+  "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
   "PLATFORM_PATH_REQUEST_SAFETY",
   "PLATFORM_PATH_RESOLUTION_SAFETY",
+  "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
   "PLATFORM_PROCESS_PLAN_SAFETY",
+  "PLATFORM_PROCESS_PLAN_SAFETY_V2",
   "PLATFORM_PROCESS_STATUS_INTEGRITY",
+  "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
   "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+  "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
   "PLATFORM_SECRET_REQUEST_AUTHORITY",
   "PLATFORM_SECRET_RESULT_INTEGRITY",
+  "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
   "PLATFORM_TARGET_SUPPORT_CLAIM",
   "RECONCILIATION_READINESS",
   "RESUME_PLAN_EVIDENCE",
@@ -153,36 +167,72 @@ const REQUIRED_RULE_KINDS_BY_SCHEMA = new Map<
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_BROWSER_RECORD_SCOPE"]),
   ],
   [
+    "urn:japp:schema:platform:browser-record:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_BROWSER_RECORD_SCOPE_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:capability-report:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_CAPABILITY_REPORT_INTEGRITY"]),
+  ],
+  [
+    "urn:japp:schema:platform:capability-report:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2"]),
   ],
   [
     "urn:japp:schema:platform:certification-input:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_CERTIFICATION_INPUT_SCOPE"]),
   ],
   [
+    "urn:japp:schema:platform:certification-input:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:diagnostic-report:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_DIAGNOSTIC_INTEGRITY"]),
+  ],
+  [
+    "urn:japp:schema:platform:diagnostic-report:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_DIAGNOSTIC_INTEGRITY_V2"]),
   ],
   [
     "urn:japp:schema:platform:evidence-record:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_EVIDENCE_INTEGRITY"]),
   ],
   [
+    "urn:japp:schema:platform:evidence-record:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_EVIDENCE_INTEGRITY_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:installer-state:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_PACKAGE_STATE_EVIDENCE"]),
+  ],
+  [
+    "urn:japp:schema:platform:installer-state:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_PACKAGE_STATE_EVIDENCE_V2"]),
   ],
   [
     "urn:japp:schema:platform:model-runtime-profile:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_MODEL_PROFILE_EVIDENCE"]),
   ],
   [
+    "urn:japp:schema:platform:model-runtime-profile:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_MODEL_PROFILE_EVIDENCE_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:native-messaging-registration:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_NATIVE_REGISTRATION_BINDING"]),
   ],
   [
+    "urn:japp:schema:platform:native-messaging-registration:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_NATIVE_REGISTRATION_BINDING_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:native-messaging-result:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_NATIVE_REGISTRATION_RESULT"]),
+  ],
+  [
+    "urn:japp:schema:platform:native-messaging-result:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_NATIVE_REGISTRATION_RESULT_V2"]),
   ],
   [
     "urn:japp:schema:platform:path-request:v1",
@@ -193,16 +243,32 @@ const REQUIRED_RULE_KINDS_BY_SCHEMA = new Map<
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_PATH_RESOLUTION_SAFETY"]),
   ],
   [
+    "urn:japp:schema:platform:path-resolution:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_PATH_RESOLUTION_SAFETY_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:process-plan:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_PROCESS_PLAN_SAFETY"]),
+  ],
+  [
+    "urn:japp:schema:platform:process-plan:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_PROCESS_PLAN_SAFETY_V2"]),
   ],
   [
     "urn:japp:schema:platform:process-status:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_PROCESS_STATUS_INTEGRITY"]),
   ],
   [
+    "urn:japp:schema:platform:process-status:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_PROCESS_STATUS_INTEGRITY_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:runtime-capability:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_RUNTIME_CAPABILITY_FALLBACK"]),
+  ],
+  [
+    "urn:japp:schema:platform:runtime-capability:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2"]),
   ],
   [
     "urn:japp:schema:platform:secret-store-request:v1",
@@ -213,12 +279,20 @@ const REQUIRED_RULE_KINDS_BY_SCHEMA = new Map<
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_SECRET_RESULT_INTEGRITY"]),
   ],
   [
+    "urn:japp:schema:platform:secret-store-result:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_SECRET_RESULT_INTEGRITY_V2"]),
+  ],
+  [
     "urn:japp:schema:platform:target-identity:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_TARGET_SUPPORT_CLAIM"]),
   ],
   [
     "urn:japp:schema:platform:update-state:v1",
     new Set(["INERT_TEXT_SAFETY", "PLATFORM_PACKAGE_STATE_EVIDENCE"]),
+  ],
+  [
+    "urn:japp:schema:platform:update-state:v2",
+    new Set(["INERT_TEXT_SAFETY", "PLATFORM_PACKAGE_STATE_EVIDENCE_V2"]),
   ],
   [
     "urn:japp:schema:rendering:layout-measurement:v1",
@@ -1477,6 +1551,2046 @@ function layoutMeasurementIntegrity(value: unknown): boolean {
   return (pageCount ?? 0) >= 1 && flag(value, "renderer_succeeded") === true;
 }
 
+// M01-W07 legacy v1 accepted-set floor from the first published v1 evaluator.
+// Deprecated v1 unions this floor with the last published v1 snapshot below.
+const LEGACY_CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const LEGACY_UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const LEGACY_CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const LEGACY_PLATFORM_CAPABILITY_FAMILIES = [
+  "BROWSER_PRESENCE",
+  "DIAGNOSTICS",
+  "MODEL_RUNTIME",
+  "NATIVE_MESSAGING",
+  "PACKAGING_UPDATE_CHANNEL",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const LEGACY_MANDATORY_CORE_CAPABILITIES = [
+  "BROWSER_PRESENCE",
+  "NATIVE_MESSAGING",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const LEGACY_PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const LEGACY_PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const LEGACY_PLATFORM_INTERPRETER_TOKENS = [
+  "bash",
+  "cmd",
+  "cscript",
+  "eval",
+  "exec",
+  "powershell",
+  "pwsh",
+  "sh",
+  "wscript",
+  "zsh",
+];
+const LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
+  MACOS_ARM64: "ARM64",
+  UBUNTU_X64: "X86_64",
+  WINDOWS_X64: "X86_64",
+};
+const LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
+  BROWSER_LOCATOR: "BROWSER_PRESENCE",
+  INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
+  MODEL_RUNTIME_PROVIDER: "MODEL_RUNTIME",
+  NATIVE_MESSAGING_REGISTRAR: "NATIVE_MESSAGING",
+  PLATFORM_DIAGNOSTICS: "DIAGNOSTICS",
+  PLATFORM_PATHS: "PLATFORM_PATHS",
+  PROCESS_SUPERVISOR: "PROCESS_SUPERVISION",
+  SECRET_STORE: "SECURE_STORE",
+  UPDATER_PROVIDER: "PACKAGING_UPDATE_CHANNEL",
+};
+const LEGACY_PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+];
+const LEGACY_PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+];
+const LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
+  INSTALL_LAUNCH_REPORT: "installer_state_ref",
+  MODEL_PROFILE_REPORT: "model_profile_ref",
+  NATIVE_HOST_REGISTRATION_REPORT: "native_messaging_result_ref",
+  SECRET_STORE_TEST_REPORT: "secret_store_result_ref",
+  UPDATE_ROLLBACK_REPORT: "update_state_ref",
+};
+
+function legacyPlatformRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  return (
+    context !== null &&
+    textOneOf(context, "requesting_principal", LEGACY_PLATFORM_REQUEST_PRINCIPALS) &&
+    textOneOf(context, "authorization_profile", LEGACY_PLATFORM_REQUEST_PROFILES)
+  );
+}
+
+function legacyPlatformCapabilityStateSound(state: unknown): boolean {
+  const availability = text(state, "availability");
+  const reasons = items(state, "reason_codes");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    return (
+      reasons.length === 0 &&
+      present(state, "identity_token") &&
+      present(state, "detected_version") &&
+      present(state, "evidence_digest") &&
+      text(state, "evaluation_method") !== "NOT_EVALUATED"
+    );
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (availability === "NOT_EVALUATED") {
+    return (
+      text(state, "evaluation_method") === "NOT_EVALUATED" &&
+      reasons.includes("EVALUATION_NOT_RUN")
+    );
+  }
+  if (availability === "DEGRADED_LIMITED") {
+    return present(state, "identity_token") && present(state, "detected_version");
+  }
+  return true;
+}
+
+function legacyPlatformSupportClaimSound(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  const platformId = text(value, "platform_id");
+  if (claim === null || platformId === null) {
+    return false;
+  }
+  const reviewed = text(claim, "reviewed_tier") ?? "";
+  const evidence = items(claim, "evidence_refs");
+  if (!uniqueStrings(evidence)) {
+    return false;
+  }
+  if (
+    LEGACY_UNCERTIFIABLE_PLATFORM_IDS.includes(platformId) &&
+    reviewed !== "UNSUPPORTED"
+  ) {
+    return false;
+  }
+  if (!LEGACY_CERTIFIED_SUPPORT_TIERS.includes(reviewed)) {
+    return true;
+  }
+  return (
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    text(claim, "review_state") === "REVIEW_COMPLETE" &&
+    present(claim, "evaluated_commit") &&
+    present(claim, "evaluated_tree") &&
+    present(claim, "reviewer_identity_ref") &&
+    evidence.length > 0
+  );
+}
+
+function legacyPlatformReviewedTierIsCertified(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  return LEGACY_CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
+}
+
+function legacyPlatformTargetSupportClaim(value: unknown): boolean {
+  const platformId = text(value, "platform_id");
+  const reasons = items(value, "reason_codes");
+  if (
+    platformId === null ||
+    !uniqueStrings(reasons) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const expectedArchitecture = LEGACY_PLATFORM_ARCHITECTURE_BY_ID[platformId];
+  if (
+    expectedArchitecture !== undefined &&
+    text(value, "architecture") !== expectedArchitecture
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN"
+  );
+}
+
+function legacyPlatformCapabilityReportIntegrity(value: unknown): boolean {
+  const capabilities = items(value, "capabilities");
+  if (
+    !uniqueField(capabilities, "capability") ||
+    capabilities.length !== LEGACY_PLATFORM_CAPABILITY_FAMILIES.length ||
+    !LEGACY_PLATFORM_CAPABILITY_FAMILIES.every((family) =>
+      capabilities.some((state) => text(state, "capability") === family),
+    ) ||
+    !capabilities.every(legacyPlatformCapabilityStateSound) ||
+    !uniqueStrings(items(value, "model_profile_refs")) ||
+    !uniqueStrings(items(value, "diagnostic_refs")) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const availabilityOf = (family: string): string | null => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return found === undefined ? null : text(found, "availability");
+  };
+  if (
+    text(value, "packaging_channel") === "RELEASE_STABLE" &&
+    availabilityOf("PACKAGING_UPDATE_CHANNEL") !== "AVAILABLE"
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return true;
+  }
+  if (
+    !LEGACY_MANDATORY_CORE_CAPABILITIES.every(
+      (family) => availabilityOf(family) === "AVAILABLE",
+    )
+  ) {
+    return false;
+  }
+  const claim = objectMember(value, "support_claim");
+  if (text(claim, "reviewed_tier") !== "CERTIFIED_FULL") {
+    // A missing or unavailable local-AI profile never downgrades the
+    // deterministic core tier; CERTIFIED_CORE deliberately imposes no
+    // MODEL_RUNTIME requirement.
+    return true;
+  }
+  return (
+    availabilityOf("MODEL_RUNTIME") === "AVAILABLE" &&
+    items(value, "model_profile_refs").length > 0
+  );
+}
+
+function legacyPlatformPathRequestSafety(value: unknown): boolean {
+  if (!legacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  return (
+    text(value, "scope") !== "SYSTEM" ||
+    text(value, "role") === "NATIVE_HOST_REGISTRATION"
+  );
+}
+
+function legacyPlatformPathResolutionSafety(value: unknown): boolean {
+  const role = text(value, "role");
+  const reasons = items(value, "reason_codes");
+  const sanitized = text(value, "sanitized_path");
+  if (
+    role === null ||
+    !uniqueStrings(reasons) ||
+    (text(value, "scope") === "SYSTEM" && role !== "NATIVE_HOST_REGISTRATION")
+  ) {
+    return false;
+  }
+  if (text(value, "resolution_state") !== "RESOLVED") {
+    return (
+      sanitized === null &&
+      !present(value, "path_digest") &&
+      flag(value, "exists") === false &&
+      flag(value, "writable") === false &&
+      reasons.length > 0
+    );
+  }
+  return (
+    sanitized !== null &&
+    sanitized.startsWith("<" + role + ">") &&
+    present(value, "path_digest") &&
+    reasons.length === 0 &&
+    (flag(value, "writable") !== true || flag(value, "exists") === true)
+  );
+}
+
+function legacyPlatformSecretRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  const operation = text(value, "operation");
+  const redaction = objectMember(value, "redaction");
+  if (!legacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  if (
+    text(context, "authorization_profile") === "VERIFICATION" &&
+    operation !== "STATUS"
+  ) {
+    return false;
+  }
+  if (
+    redaction !== null &&
+    (text(redaction, "sensitivity") !== "SECRET" ||
+      text(redaction, "policy") !== "FORBID_CAPTURE")
+  ) {
+    return false;
+  }
+  if (operation === "PUT") {
+    return (
+      present(value, "material_reference") && present(value, "material_digest")
+    );
+  }
+  return (
+    !present(value, "material_reference") && !present(value, "material_digest")
+  );
+}
+
+function legacyPlatformSecretResultIntegrity(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const availability = text(value, "store_availability");
+  const state = text(value, "result_state");
+  const reasons = items(value, "reason_codes");
+  const hasMaterial = present(value, "material_reference");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    if (!present(value, "store_identity_token")) {
+      return false;
+    }
+  } else if (hasMaterial) {
+    return false;
+  }
+  if (operation === "STATUS") {
+    return (
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      ["DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"].includes(
+        state ?? "",
+      ) &&
+      (state !== "STORE_AVAILABLE" ||
+        (availability === "AVAILABLE" && reasons.length === 0))
+    );
+  }
+  if (state === "STORE_AVAILABLE") {
+    return false;
+  }
+  if (state === "RETRIEVED") {
+    return (
+      operation === "GET" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "STORED") {
+    return (
+      operation === "PUT" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DELETED") {
+    return (
+      operation === "DELETE" &&
+      availability === "AVAILABLE" &&
+      !hasMaterial &&
+      !present(value, "material_digest") &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DENIED_PERMISSION") {
+    return (
+      !hasMaterial &&
+      reasons.includes("PERMISSION_DENIED") &&
+      ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(availability ?? "")
+    );
+  }
+  return !hasMaterial && reasons.length > 0;
+}
+
+function legacyPlatformProcessPlanSafety(value: unknown): boolean {
+  const profile = text(value, "profile");
+  const environment = items(value, "environment_allowlist");
+  const commandArguments = items(value, "arguments");
+  const binary = [text(value, "stdin_mode"), text(value, "stdout_mode")];
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    flag(value, "inherit_parent_environment") !== false ||
+    !present(value, "executable_digest") ||
+    !uniqueField(environment, "variable") ||
+    text(value, "working_directory_role") === "NATIVE_HOST_REGISTRATION"
+  ) {
+    return false;
+  }
+  if (
+    commandArguments.some(
+      (argument) =>
+        typeof argument === "string" &&
+        LEGACY_PLATFORM_INTERPRETER_TOKENS.includes(argument.toLowerCase()),
+    )
+  ) {
+    return false;
+  }
+  for (const entry of environment) {
+    const variable = text(entry, "variable");
+    const entryValue = text(entry, "value");
+    if (entryValue === null) {
+      return false;
+    }
+    if (variable === "JAPP_SERVICE_PORT" && !/^[0-9]{1,5}$/.test(entryValue)) {
+      return false;
+    }
+    if (
+      variable === "JAPP_PATH_ROLE" &&
+      !/^[A-Z][A-Z0-9_]{1,63}$/.test(entryValue)
+    ) {
+      return false;
+    }
+  }
+  if (
+    text(value, "lifecycle_mode") === "ONE_SHOT" &&
+    numberValue(value, "max_restart_attempts") !== 0
+  ) {
+    return false;
+  }
+  if (profile === "NATIVE_MESSAGING_HOST") {
+    return binary.every((mode) => mode === "BINARY_LENGTH_PREFIXED");
+  }
+  return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
+}
+
+function legacyPlatformProcessStatusIntegrity(value: unknown): boolean {
+  const state = text(value, "state");
+  const reasons = items(value, "reason_codes");
+  const ended = present(value, "ended_at");
+  const started = present(value, "started_at");
+  const exited = present(value, "exit_code");
+  const orphan = flag(value, "orphan_detected");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (ended && started && !timestampNotBefore(value, "ended_at", "started_at")) {
+    return false;
+  }
+  if (orphan === true && state !== "ORPHANED") {
+    return false;
+  }
+  if (state === "STARTING" || state === "RUNNING") {
+    return !ended && !exited && orphan === false;
+  }
+  if (state === "TERMINATING") {
+    return (
+      !ended && !exited && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "EXITED") {
+    return started && ended && exited && reasons.length === 0;
+  }
+  if (state === "TERMINATED") {
+    return (
+      started && ended && text(value, "termination_requested") !== "NONE"
+    );
+  }
+  if (state === "ORPHANED") {
+    return orphan === true && reasons.length > 0;
+  }
+  if (state === "UNAVAILABLE") {
+    return !started && !ended && !exited && reasons.length > 0;
+  }
+  return reasons.length > 0;
+}
+
+function legacyPlatformNativeRegistrationBinding(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const extensions = items(value, "allowed_extension_ids");
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE" ||
+    text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
+    text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
+    !strictlySortedStrings(extensions)
+  ) {
+    return false;
+  }
+  if (operation === "REMOVE") {
+    return (
+      !present(value, "expected_manifest_digest") &&
+      !present(value, "expected_host_binary_digest")
+    );
+  }
+  if (operation === "VERIFY") {
+    return present(value, "expected_manifest_digest");
+  }
+  return (
+    present(value, "expected_manifest_digest") &&
+    present(value, "expected_host_binary_digest")
+  );
+}
+
+function legacyPlatformNativeRegistrationResult(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const observed = text(value, "observed_state");
+  const reasons = items(value, "reason_codes");
+  const changed = flag(value, "changed");
+  if (
+    !uniqueStrings(reasons) ||
+    text(value, "browser_family") !== "CHROME" ||
+    (operation === "VERIFY" && changed !== false)
+  ) {
+    return false;
+  }
+  if (observed === "PRESENT_VALID") {
+    if (
+      !present(value, "observed_manifest_digest") ||
+      !present(value, "observed_host_version") ||
+      reasons.length > 0
+    ) {
+      return false;
+    }
+  } else if (reasons.length === 0) {
+    return false;
+  }
+  if (observed === "MISMATCHED_IDENTITY" && !reasons.includes("IDENTITY_MISMATCH")) {
+    return false;
+  }
+  if (observed === "NOT_EVALUATED") {
+    return changed === false && reasons.includes("EVALUATION_NOT_RUN");
+  }
+  if (reasons.length === 0) {
+    const expected = operation === "REMOVE" ? "ABSENT" : "PRESENT_VALID";
+    return (
+      observed === expected && flag(value, "idempotent_repeat_safe") === true
+    );
+  }
+  return true;
+}
+
+function legacyPlatformBrowserDiscoverySafety(value: unknown): boolean {
+  if (
+    !legacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE"
+  ) {
+    return false;
+  }
+  return (
+    flag(value, "include_capability_probe") !== true ||
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+  );
+}
+
+function legacyPlatformBrowserRecordScope(value: unknown): boolean {
+  const presence = text(value, "presence");
+  const reasons = items(value, "reason_codes");
+  const capability = objectMember(value, "native_messaging_capability");
+  if (
+    !uniqueStrings(reasons) ||
+    capability === null ||
+    !legacyPlatformCapabilityStateSound(capability) ||
+    text(capability, "capability") !== "NATIVE_MESSAGING"
+  ) {
+    return false;
+  }
+  if (presence === "AVAILABLE") {
+    if (!present(value, "detected_version")) {
+      return false;
+    }
+  } else if (present(value, "sanitized_install_location")) {
+    return false;
+  }
+  if (flag(value, "certified_for_platform") !== true) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    presence === "AVAILABLE" &&
+    text(value, "browser_family") === "CHROME" &&
+    text(value, "browser_channel") === "STABLE" &&
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    text(capability, "availability") === "AVAILABLE" &&
+    present(value, "last_tested_on")
+  );
+}
+
+function legacyPlatformModelProfileEvidence(value: unknown): boolean {
+  const platformId = text(value, "platform_id") ?? "";
+  const accelerator = text(value, "accelerator");
+  const family = text(value, "runtime_family");
+  const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
+  if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
+    return false;
+  }
+  if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (
+    accelerator === "NVIDIA_CUDA" &&
+    (!present(value, "minimum_vram_mib") ||
+      !present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (accelerator === "CPU_ONLY" && present(value, "minimum_vram_mib")) {
+    return false;
+  }
+  if (
+    family === "OLLAMA_MLX" &&
+    (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  if (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU") {
+    return false;
+  }
+  if (text(value, "acceptance_state") !== "ACCEPTED") {
+    return (
+      reasons.length > 0 &&
+      text(value, "core_capability_behavior") !== "FULL_AI_AVAILABLE"
+    );
+  }
+  return (
+    LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    reasons.length === 0 &&
+    evidence.length > 0 &&
+    text(value, "availability") === "AVAILABLE" &&
+    text(value, "core_capability_behavior") === "FULL_AI_AVAILABLE" &&
+    present(value, "structured_output_evidence_ref") &&
+    present(value, "factuality_evidence_ref") &&
+    present(value, "latency_evidence_ref") &&
+    present(value, "memory_evidence_ref") &&
+    present(value, "last_tested_on")
+  );
+}
+
+function legacyPlatformRuntimeCapabilityFallback(value: unknown): boolean {
+  const available = items(value, "available_profile_refs");
+  const accepted = items(value, "accepted_profile_refs");
+  const reasons = items(value, "reason_codes");
+  const behavior = text(value, "core_capability_behavior");
+  if (
+    !uniqueStrings(available) ||
+    !uniqueStrings(accepted) ||
+    !uniqueStrings(reasons) ||
+    !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  if (
+    text(value, "detection_method") === "NOT_EVALUATED" &&
+    text(value, "runtime_availability") !== "NOT_EVALUATED"
+  ) {
+    return false;
+  }
+  if (text(value, "runtime_availability") !== "AVAILABLE") {
+    return (
+      available.length === 0 &&
+      accepted.length === 0 &&
+      reasons.length > 0 &&
+      behavior !== "FULL_AI_AVAILABLE"
+    );
+  }
+  if (
+    !present(value, "runtime_family") ||
+    !present(value, "runtime_version") ||
+    !present(value, "accelerator")
+  ) {
+    return false;
+  }
+  return behavior === "FULL_AI_AVAILABLE"
+    ? accepted.length > 0
+    : accepted.length === 0;
+}
+
+function legacyPlatformPackageStateEvidence(value: unknown): boolean {
+  const state = text(value, "state") ?? "";
+  const reasons = items(value, "reason_codes");
+  const signature = text(value, "signature_state");
+  const interrupted = flag(value, "interrupted");
+  const preservation = text(value, "user_data_preservation");
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (interrupted === true && !reasons.includes("INTERRUPTED")) ||
+    (flag(value, "recovery_completed") === true && interrupted !== true) ||
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0)
+  ) {
+    return false;
+  }
+  if (
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING") &&
+    !reasons.includes("SIGNATURE_NOT_VERIFIED")
+  ) {
+    return false;
+  }
+  if (LEGACY_PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
+    return false;
+  }
+  if (LEGACY_PACKAGE_SUCCESS_STATES.includes(state)) {
+    if (
+      signature !== "SIGNATURE_VALID" ||
+      reasons.length > 0 ||
+      interrupted !== false ||
+      !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
+        preservation ?? "",
+      ) ||
+      items(value, "evidence_refs").length === 0
+    ) {
+      return false;
+    }
+  }
+  if (state === "UNINSTALLED") {
+    return ["NOT_APPLICABLE", "REMOVED"].includes(
+      text(value, "native_host_cleanup") ?? "",
+    );
+  }
+  if (state === "INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      text(value, "installed_version") === text(value, "package_version")
+    );
+  }
+  if (state === "NOT_INSTALLED") {
+    return !present(value, "installed_version");
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    return !present(value, "available_version");
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    return present(value, "available_version");
+  }
+  if (state === "UPDATE_INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      present(value, "available_version") &&
+      present(value, "target_artifact")
+    );
+  }
+  if (state === "ROLLED_BACK") {
+    return (
+      present(value, "rolled_back_to_version") &&
+      flag(value, "rollback_available") === true
+    );
+  }
+  return true;
+}
+
+function legacyPlatformDiagnosticIntegrity(value: unknown): boolean {
+  const result = text(value, "result");
+  const severity = text(value, "severity");
+  const reasons = items(value, "reason_codes");
+  const blocking = flag(value, "blocking");
+  const component = text(value, "component") ?? "";
+  const expectedCapability = LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT[component];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (expectedCapability !== undefined &&
+      text(value, "capability") !== expectedCapability)
+  ) {
+    return false;
+  }
+  if (
+    present(value, "user_message") &&
+    text(objectMember(value, "redaction"), "policy") !== "NONE"
+  ) {
+    return false;
+  }
+  if (blocking === true && result !== "BLOCKED" && result !== "FAILURE") {
+    return false;
+  }
+  if (result === "SUCCESS") {
+    return blocking === false && reasons.length === 0 && severity === "INFO";
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (result === "WARNING") {
+    return blocking === false && ["INFO", "WARNING"].includes(severity ?? "");
+  }
+  if (result === "FAILURE") {
+    return ["CRITICAL", "ERROR"].includes(severity ?? "");
+  }
+  return blocking === true;
+}
+
+function legacyPlatformEvidenceIntegrity(value: unknown): boolean {
+  const reasons = items(value, "reason_codes");
+  const method = text(value, "evaluation_method");
+  const artifactKind = text(value, "artifact_kind") ?? "";
+  const requiredReference = LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
+  if (
+    !uniqueStrings(reasons) ||
+    flag(value, "synthetic_only") !== true ||
+    (requiredReference !== undefined && !present(value, requiredReference)) ||
+    (present(value, "package_artifact") && !present(value, "signature_state"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "review_state") === "REVIEW_COMPLETE" &&
+    !present(value, "reviewer_identity_ref")
+  ) {
+    return false;
+  }
+  if (
+    text(value, "owner_decision_state") === "RECORDED" &&
+    text(value, "review_state") !== "REVIEW_COMPLETE"
+  ) {
+    return false;
+  }
+  if (method === "MEASURED_NATIVE_RUN") {
+    if (
+      !present(value, "os_version") ||
+      !present(value, "os_build") ||
+      text(value, "machine_class") === "SYNTHETIC_FIXTURE" ||
+      !LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+    ) {
+      return false;
+    }
+  } else if (
+    text(value, "machine_class") === "PHYSICAL_DEVELOPMENT_MACHINE" ||
+    text(value, "machine_class") === "HOSTED_CI_RUNNER"
+  ) {
+    if (method !== "STATIC_INSPECTION") {
+      return false;
+    }
+  }
+  return text(value, "result") === "SUCCESS"
+    ? reasons.length === 0
+    : reasons.length > 0;
+}
+
+function legacyPlatformCertificationInputScope(value: unknown): boolean {
+  const required = items(value, "required_evidence_kinds");
+  const presentKinds = items(value, "present_evidence_kinds");
+  const records = items(value, "evidence_record_refs");
+  const reasons = items(value, "reason_codes");
+  if (
+    !strictlySortedStrings(required) ||
+    !strictlySortedStrings(presentKinds) ||
+    !uniqueStrings(records) ||
+    !uniqueStrings(reasons) ||
+    !legacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (flag(value, "inventory_complete") !== complete) {
+    return false;
+  }
+  if (
+    (text(value, "owner_decision_state") === "RECORDED") !==
+    present(value, "owner_decision_ref")
+  ) {
+    return false;
+  }
+  if (!legacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    complete &&
+    text(value, "owner_decision_state") === "RECORDED"
+  );
+}
+
+// M01-W07 deprecated-v1 accepted-set ceiling from the last published v1
+// content anchor (0659c13). Deprecated v1 dispatches union this exact
+// snapshot with the first-published floor; corrected semantics are v2-only.
+const PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
+const PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
+const PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
+const PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES = [
+  "BROWSER_PRESENCE",
+  "DIAGNOSTICS",
+  "MODEL_RUNTIME",
+  "NATIVE_MESSAGING",
+  "PACKAGING_UPDATE_CHANNEL",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES = [
+  "BROWSER_PRESENCE",
+  "NATIVE_MESSAGING",
+  "PLATFORM_PATHS",
+  "PROCESS_SUPERVISION",
+  "SECURE_STORE",
+];
+const PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
+const PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
+const PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS = [
+  "bash",
+  "cmd",
+  "cscript",
+  "eval",
+  "exec",
+  "powershell",
+  "pwsh",
+  "sh",
+  "wscript",
+  "zsh",
+];
+/**
+ * Privilege escalation is documented as structurally unrepresentable, so the
+ * launcher that would request it may not travel as an argument either.
+ */
+const PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS = ["doas", "pkexec", "runas", "su", "sudo"];
+/**
+ * A refused command name must stay refused in its executable-suffix spelling:
+ * "cmd" and "cmd.exe" name the same interpreter.
+ */
+const PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES = [
+  ".bat",
+  ".cmd",
+  ".com",
+  ".exe",
+  ".ps1",
+  ".sh",
+];
+const PUBLISHED_LEGACY_PLATFORM_PATH_ROLES = [
+  "APPLICATION_DATA",
+  "ARTIFACT_STORE",
+  "BACKUP_STAGING",
+  "CACHE",
+  "DIAGNOSTIC_BUNDLE",
+  "LOG_STORE",
+  "MODEL_ARTIFACT_STORE",
+  "NATIVE_HOST_REGISTRATION",
+  "TEMPORARY",
+];
+/**
+ * REQ-PLAT-003 binds local services to loopback. The bounded token grammar
+ * cannot start with a colon, so the compressed "::1" spelling is structurally
+ * unrepresentable and only the expanded form appears here.
+ */
+const PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS = [
+  "0:0:0:0:0:0:0:1",
+  "127.0.0.1",
+  "localhost",
+];
+const PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Readonly<Record<string, string>> = {
+  MACOS_ARM64: "ARM64",
+  UBUNTU_X64: "X86_64",
+  WINDOWS_X64: "X86_64",
+};
+const PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE: Readonly<Record<string, string>> = {
+  INSTALL: "PRESENT_VALID",
+  REMOVE: "ABSENT",
+  REPAIR: "PRESENT_VALID",
+  UPDATE: "PRESENT_VALID",
+  VERIFY: "PRESENT_VALID",
+};
+const PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Readonly<Record<string, string>> = {
+  BROWSER_LOCATOR: "BROWSER_PRESENCE",
+  INSTALLER_STATE: "PACKAGING_UPDATE_CHANNEL",
+  MODEL_RUNTIME_PROVIDER: "MODEL_RUNTIME",
+  NATIVE_MESSAGING_REGISTRAR: "NATIVE_MESSAGING",
+  PLATFORM_DIAGNOSTICS: "DIAGNOSTICS",
+  PLATFORM_PATHS: "PLATFORM_PATHS",
+  PROCESS_SUPERVISOR: "PROCESS_SUPERVISION",
+  SECRET_STORE: "SECURE_STORE",
+  UPDATER_PROVIDER: "PACKAGING_UPDATE_CHANNEL",
+};
+const PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES = [
+  "INSTALLED",
+  "REPAIRED",
+  "ROLLED_BACK",
+  "UNINSTALLED",
+  "UPDATE_INSTALLED",
+];
+const PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES = [
+  "INSTALL_FAILED",
+  "INSTALL_INTERRUPTED",
+  "REPAIR_FAILED",
+  "ROLLBACK_FAILED",
+  "UNINSTALL_FAILED",
+  "UPDATE_FAILED",
+  "UPDATE_INTERRUPTED",
+];
+/** The two terminal states whose meaning is "the interruption is unresolved". */
+const PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES = ["INSTALL_INTERRUPTED", "UPDATE_INTERRUPTED"];
+/** Specification §5.14.8 binds each certified target to its package formats. */
+const PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID: Readonly<
+  Record<string, readonly string[]>
+> = {
+  MACOS_ARM64: ["APPLE_DISK_IMAGE"],
+  UBUNTU_X64: ["APP_IMAGE", "DEBIAN_PACKAGE"],
+  WINDOWS_X64: ["WINDOWS_INSTALLER"],
+};
+/** The two availability states in which a runtime was actually detected. */
+const PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY = ["AVAILABLE", "DEGRADED_LIMITED"];
+const PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
+  INSTALL_LAUNCH_REPORT: "installer_state_ref",
+  MODEL_PROFILE_REPORT: "model_profile_ref",
+  NATIVE_HOST_REGISTRATION_REPORT: "native_messaging_result_ref",
+  SECRET_STORE_TEST_REPORT: "secret_store_result_ref",
+  UPDATE_ROLLBACK_REPORT: "update_state_ref",
+};
+
+function publishedLegacyPlatformRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  return (
+    context !== null &&
+    textOneOf(context, "requesting_principal", PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS) &&
+    textOneOf(context, "authorization_profile", PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES)
+  );
+}
+
+function publishedLegacyPlatformCapabilityStateSound(state: unknown): boolean {
+  const availability = text(state, "availability");
+  const reasons = items(state, "reason_codes");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    return (
+      reasons.length === 0 &&
+      present(state, "identity_token") &&
+      present(state, "detected_version") &&
+      present(state, "evidence_digest") &&
+      text(state, "evaluation_method") !== "NOT_EVALUATED"
+    );
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (availability === "NOT_EVALUATED") {
+    return (
+      text(state, "evaluation_method") === "NOT_EVALUATED" &&
+      reasons.includes("EVALUATION_NOT_RUN")
+    );
+  }
+  if (availability === "DEGRADED_LIMITED") {
+    return present(state, "identity_token") && present(state, "detected_version");
+  }
+  return true;
+}
+
+function publishedLegacyPlatformSupportClaimSound(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  const platformId = text(value, "platform_id");
+  if (claim === null || platformId === null) {
+    return false;
+  }
+  const reviewed = text(claim, "reviewed_tier") ?? "";
+  const evidence = items(claim, "evidence_refs");
+  if (!uniqueStrings(evidence)) {
+    return false;
+  }
+  if (
+    PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS.includes(platformId) &&
+    reviewed !== "UNSUPPORTED"
+  ) {
+    return false;
+  }
+  if (!PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS.includes(reviewed)) {
+    return true;
+  }
+  return (
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    text(claim, "review_state") === "REVIEW_COMPLETE" &&
+    present(claim, "evaluated_commit") &&
+    present(claim, "evaluated_tree") &&
+    present(claim, "reviewer_identity_ref") &&
+    evidence.length > 0
+  );
+}
+
+function publishedLegacyPlatformReviewedTierIsCertified(value: unknown): boolean {
+  const claim = objectMember(value, "support_claim");
+  return PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS.includes(text(claim, "reviewed_tier") ?? "");
+}
+
+/**
+ * A record that names a certified target must report that target's processor
+ * architecture from the specification §5.14.1 matrix. An uncertifiable target
+ * stays unconstrained so an honest UNKNOWN_ARCHITECTURE observation remains
+ * representable.
+ */
+function publishedLegacyPlatformArchitectureCoherent(value: unknown): boolean {
+  const expected = PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID[text(value, "platform_id") ?? ""];
+  return expected === undefined || text(value, "architecture") === expected;
+}
+
+function publishedLegacyPlatformTargetSupportClaim(value: unknown): boolean {
+  const platformId = text(value, "platform_id");
+  const reasons = items(value, "reason_codes");
+  if (
+    platformId === null ||
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformArchitectureCoherent(value)) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN"
+  );
+}
+
+function publishedLegacyPlatformCapabilityReportIntegrity(value: unknown): boolean {
+  const capabilities = items(value, "capabilities");
+  if (
+    !uniqueField(capabilities, "capability") ||
+    capabilities.length !== PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES.length ||
+    !PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES.every((family) =>
+      capabilities.some((state) => text(state, "capability") === family),
+    ) ||
+    !capabilities.every(publishedLegacyPlatformCapabilityStateSound) ||
+    !uniqueStrings(items(value, "model_profile_refs")) ||
+    !uniqueStrings(items(value, "diagnostic_refs")) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const availabilityOf = (family: string): string | null => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return found === undefined ? null : text(found, "availability");
+  };
+  if (
+    text(value, "packaging_channel") === "RELEASE_STABLE" &&
+    availabilityOf("PACKAGING_UPDATE_CHANNEL") !== "AVAILABLE"
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return true;
+  }
+  const measuredAvailability = (family: string): boolean => {
+    const found = capabilities.find(
+      (state) => text(state, "capability") === family,
+    );
+    return (
+      found !== undefined &&
+      text(found, "availability") === "AVAILABLE" &&
+      text(found, "evaluation_method") === "MEASURED_NATIVE_RUN"
+    );
+  };
+  // A certified tier is a reviewed claim about a real machine. Only a measured
+  // native run can support it, exactly as publishedLegacyPlatformTargetSupportClaim already
+  // requires of the identical support_claim record, so a declared plan or a
+  // synthetic fixture can never carry a certification.
+  if (!PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES.every(measuredAvailability)) {
+    return false;
+  }
+  const claim = objectMember(value, "support_claim");
+  if (text(claim, "reviewed_tier") !== "CERTIFIED_FULL") {
+    // A missing or unavailable local-AI profile never downgrades the
+    // deterministic core tier; CERTIFIED_CORE deliberately imposes no
+    // MODEL_RUNTIME requirement.
+    return true;
+  }
+  return (
+    measuredAvailability("MODEL_RUNTIME") &&
+    items(value, "model_profile_refs").length > 0
+  );
+}
+
+function publishedLegacyPlatformPathRequestSafety(value: unknown): boolean {
+  if (!publishedLegacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  return (
+    text(value, "scope") !== "SYSTEM" ||
+    text(value, "role") === "NATIVE_HOST_REGISTRATION"
+  );
+}
+
+function publishedLegacyPlatformPathResolutionSafety(value: unknown): boolean {
+  const role = text(value, "role");
+  const state = text(value, "resolution_state");
+  const reasons = items(value, "reason_codes");
+  const sanitized = text(value, "sanitized_path");
+  if (
+    role === null ||
+    !uniqueStrings(reasons) ||
+    (text(value, "scope") === "SYSTEM" && role !== "NATIVE_HOST_REGISTRATION")
+  ) {
+    return false;
+  }
+  if (state !== "RESOLVED") {
+    // A location is disclosed only by a resolution that succeeded, and a
+    // resolution that did not succeed can never report a writable location.
+    if (
+      sanitized !== null ||
+      present(value, "path_digest") ||
+      flag(value, "writable") !== false ||
+      reasons.length === 0
+    ) {
+      return false;
+    }
+    if (state === "DENIED_PERMISSION") {
+      // A refusal may report that the location exists — a permission error is
+      // itself that observation — but never where it is.
+      return reasons.includes("PERMISSION_DENIED");
+    }
+    // Nothing was evaluated, or nothing was reachable, so nothing was observed.
+    return (
+      flag(value, "exists") === false &&
+      (state !== "NOT_EVALUATED" || reasons.includes("EVALUATION_NOT_RUN"))
+    );
+  }
+  return (
+    sanitized !== null &&
+    sanitized.startsWith("<" + role + ">") &&
+    present(value, "path_digest") &&
+    reasons.length === 0 &&
+    (flag(value, "writable") !== true || flag(value, "exists") === true)
+  );
+}
+
+function publishedLegacyPlatformSecretRequestAuthority(value: unknown): boolean {
+  const context = objectMember(value, "request_context");
+  const operation = text(value, "operation");
+  const redaction = objectMember(value, "redaction");
+  if (!publishedLegacyPlatformRequestAuthority(value)) {
+    return false;
+  }
+  if (
+    text(context, "authorization_profile") === "VERIFICATION" &&
+    operation !== "STATUS"
+  ) {
+    return false;
+  }
+  if (
+    redaction !== null &&
+    (text(redaction, "sensitivity") !== "SECRET" ||
+      text(redaction, "policy") !== "FORBID_CAPTURE")
+  ) {
+    return false;
+  }
+  if (operation === "PUT") {
+    return (
+      present(value, "material_reference") && present(value, "material_digest")
+    );
+  }
+  return (
+    !present(value, "material_reference") && !present(value, "material_digest")
+  );
+}
+
+function publishedLegacyPlatformSecretResultIntegrity(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const availability = text(value, "store_availability");
+  const state = text(value, "result_state");
+  const reasons = items(value, "reason_codes");
+  const hasMaterial = present(value, "material_reference");
+  const hasDigest = present(value, "material_digest");
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (availability === "AVAILABLE") {
+    if (!present(value, "store_identity_token")) {
+      return false;
+    }
+  } else if (hasMaterial) {
+    return false;
+  }
+  const storeUnavailableAvailability =
+    availability !== null &&
+    ![
+      "AVAILABLE",
+      "DEGRADED_LIMITED",
+      "PERMISSION_REQUIRED",
+    ].includes(availability);
+  const deniedAvailability = ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(
+    availability ?? "",
+  );
+  if (operation === "STATUS") {
+    if (hasMaterial || hasDigest) {
+      return false;
+    }
+    if (state === "STORE_AVAILABLE") {
+      return availability === "AVAILABLE" && reasons.length === 0;
+    }
+    if (state === "DENIED_PERMISSION") {
+      return reasons.includes("PERMISSION_DENIED") && deniedAvailability;
+    }
+    if (state === "STORE_UNAVAILABLE") {
+      return reasons.length > 0 && storeUnavailableAvailability;
+    }
+    return false;
+  }
+  if (state === "STORE_AVAILABLE") {
+    return false;
+  }
+  if (state === "RETRIEVED") {
+    return (
+      operation === "GET" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      hasDigest &&
+      reasons.length === 0
+    );
+  }
+  if (state === "STORED") {
+    return (
+      operation === "PUT" &&
+      availability === "AVAILABLE" &&
+      hasMaterial &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DELETED") {
+    return (
+      operation === "DELETE" &&
+      availability === "AVAILABLE" &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.length === 0
+    );
+  }
+  if (state === "DENIED_PERMISSION") {
+    return (
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes("PERMISSION_DENIED") &&
+      deniedAvailability
+    );
+  }
+  if (state === "STORE_UNAVAILABLE") {
+    return (
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.length > 0 &&
+      storeUnavailableAvailability
+    );
+  }
+  return !hasMaterial && !hasDigest && reasons.length > 0;
+}
+
+/** Normalize one argument to the command name it would actually invoke. */
+function publishedLegacyPlatformCommandToken(argument: string): string {
+  const lowered = argument.toLowerCase();
+  for (const suffix of PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES) {
+    if (lowered.endsWith(suffix)) {
+      return lowered.slice(0, lowered.length - suffix.length);
+    }
+  }
+  return lowered;
+}
+
+function publishedLegacyPlatformProcessPlanSafety(value: unknown): boolean {
+  const profile = text(value, "profile");
+  const environment = items(value, "environment_allowlist");
+  const commandArguments = items(value, "arguments");
+  const binary = [
+    text(value, "stdin_mode"),
+    text(value, "stdout_mode"),
+    text(value, "stderr_mode"),
+  ];
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    flag(value, "inherit_parent_environment") !== false ||
+    !present(value, "executable_digest") ||
+    !uniqueField(environment, "variable") ||
+    text(value, "working_directory_role") === "NATIVE_HOST_REGISTRATION"
+  ) {
+    return false;
+  }
+  // A refused command name stays refused in its executable-suffix spelling:
+  // "cmd" and "cmd.exe" name the same interpreter. Privilege escalation is
+  // documented as unrepresentable, so its launcher cannot travel either.
+  if (
+    commandArguments.some((argument) => {
+      if (typeof argument !== "string") {
+        return false;
+      }
+      const token = publishedLegacyPlatformCommandToken(argument);
+      return (
+        PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS.includes(token) ||
+        PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS.includes(token)
+      );
+    })
+  ) {
+    return false;
+  }
+  for (const entry of environment) {
+    const variable = text(entry, "variable");
+    const entryValue = text(entry, "value");
+    if (entryValue === null) {
+      return false;
+    }
+    if (
+      variable === "JAPP_SERVICE_PORT" &&
+      (!/^[1-9][0-9]{0,4}$/.test(entryValue) || Number(entryValue) > 65535)
+    ) {
+      return false;
+    }
+    // The path role carried into a child is the same closed vocabulary the
+    // working directory uses, and it cannot re-admit the registration role the
+    // rule refuses two lines above.
+    if (
+      variable === "JAPP_PATH_ROLE" &&
+      (!PUBLISHED_LEGACY_PLATFORM_PATH_ROLES.includes(entryValue) ||
+        entryValue === "NATIVE_HOST_REGISTRATION")
+    ) {
+      return false;
+    }
+    // REQ-PLAT-003 binds local services to loopback.
+    if (
+      variable === "JAPP_SERVICE_BIND_HOST" &&
+      !PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS.includes(entryValue)
+    ) {
+      return false;
+    }
+  }
+  if (
+    text(value, "lifecycle_mode") === "ONE_SHOT" &&
+    numberValue(value, "max_restart_attempts") !== 0
+  ) {
+    return false;
+  }
+  if (profile === "NATIVE_MESSAGING_HOST") {
+    // Specification §5.14.5 places the length-prefixed native-messaging
+    // protocol on binary stdin/stdout. stderr stays a diagnostic channel and
+    // must never silently become a second protocol stream.
+    return (
+      text(value, "stdin_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stdout_mode") === "BINARY_LENGTH_PREFIXED" &&
+      text(value, "stderr_mode") !== "BINARY_LENGTH_PREFIXED"
+    );
+  }
+  return binary.every((mode) => mode !== "BINARY_LENGTH_PREFIXED");
+}
+
+function publishedLegacyPlatformProcessStatusIntegrity(value: unknown): boolean {
+  const state = text(value, "state");
+  const reasons = items(value, "reason_codes");
+  const ended = present(value, "ended_at");
+  const started = present(value, "started_at");
+  const exited = present(value, "exit_code");
+  const exitCode = numberValue(value, "exit_code");
+  const orphan = flag(value, "orphan_detected");
+  const terminating = text(value, "termination_requested") !== "NONE";
+  if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  // A process cannot end without starting, end before it started, be restarted
+  // without starting, or attach a redacted diagnostic to nothing.
+  if (
+    (ended && !started) ||
+    (ended && !timestampNotBefore(value, "ended_at", "started_at")) ||
+    ((numberValue(value, "restart_count") ?? 0) > 0 && !started) ||
+    (present(value, "diagnostic_digest") && reasons.length === 0)
+  ) {
+    return false;
+  }
+  // orphan_detected is a historical observation, not the current state: it
+  // stays true on the terminal record of an orphan that was cleaned up or was
+  // finally seen to exit.
+  if (
+    orphan === true &&
+    state !== "ORPHANED" &&
+    state !== "TERMINATED" &&
+    state !== "EXITED"
+  ) {
+    return false;
+  }
+  if (state === "STARTING") {
+    return !ended && !exited;
+  }
+  if (state === "RUNNING") {
+    return started && !ended && !exited;
+  }
+  if (state === "TERMINATING") {
+    return started && !ended && !exited && terminating;
+  }
+  if (state === "EXITED") {
+    // The child ended on its own; a supervisor-requested stop is TERMINATED. A
+    // clean exit explains itself, and any other exit status must be explainable
+    // through the finite reason vocabulary.
+    return (
+      started &&
+      ended &&
+      exited &&
+      !terminating &&
+      (exitCode === 0 ? reasons.length === 0 : reasons.length > 0)
+    );
+  }
+  if (state === "TERMINATED") {
+    return started && ended && terminating;
+  }
+  if (state === "ORPHANED") {
+    // An orphan outlived its supervising parent and still requires cleanup, so
+    // it has started and has not yet been observed to end.
+    return started && !ended && !exited && orphan === true && reasons.length > 0;
+  }
+  if (state === "UNAVAILABLE") {
+    return !started && !ended && !exited && reasons.length > 0;
+  }
+  // FAILED: supervision itself failed. An observed exit status would make this
+  // an EXITED child instead, so the two stay distinguishable.
+  return !exited && reasons.length > 0;
+}
+
+function publishedLegacyPlatformNativeRegistrationBinding(value: unknown): boolean {
+  const operation = text(value, "operation");
+  const extensions = items(value, "allowed_extension_ids");
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE" ||
+    text(value, "binary_stdio_mode") !== "BINARY_LENGTH_PREFIXED" ||
+    text(value, "manifest_location_role") !== "NATIVE_HOST_REGISTRATION" ||
+    !strictlySortedStrings(extensions) ||
+    // Specification §5.14.5 keeps the extension allowlist and the
+    // message-size limit mandatory on every platform.
+    !present(value, "max_message_bytes")
+  ) {
+    return false;
+  }
+  if (operation === "REMOVE") {
+    return (
+      !present(value, "expected_manifest_digest") &&
+      !present(value, "expected_host_binary_digest")
+    );
+  }
+  if (operation === "VERIFY") {
+    return present(value, "expected_manifest_digest");
+  }
+  return (
+    present(value, "expected_manifest_digest") &&
+    present(value, "expected_host_binary_digest")
+  );
+}
+
+function publishedLegacyPlatformNativeRegistrationResult(value: unknown): boolean {
+  const operation = text(value, "operation") ?? "";
+  const observed = text(value, "observed_state");
+  const reasons = items(value, "reason_codes");
+  const changed = flag(value, "changed");
+  const succeeded = reasons.length === 0;
+  const manifestDigest = present(value, "observed_manifest_digest");
+  const hostVersion = present(value, "observed_host_version");
+  if (
+    !uniqueStrings(reasons) ||
+    text(value, "browser_family") !== "CHROME" ||
+    (operation === "VERIFY" && changed !== false)
+  ) {
+    return false;
+  }
+  // Each diagnostic reason names the exact state it explains, so neither the
+  // state nor its reason may be reported without the other.
+  if (
+    (observed === "MISMATCHED_IDENTITY") !==
+      reasons.includes("IDENTITY_MISMATCH") ||
+    (observed === "NOT_EVALUATED") !== reasons.includes("EVALUATION_NOT_RUN")
+  ) {
+    return false;
+  }
+  // Observed identity is evidence of a manifest that is really present: it is
+  // mandatory for PRESENT_VALID and impossible once nothing is registered or
+  // nothing was evaluated. The observed_state member is the post-operation
+  // state, never a claim that the operation succeeded, so a removal that failed
+  // and left the registration intact still observes PRESENT_VALID.
+  if (observed === "PRESENT_VALID" && !(manifestDigest && hostVersion)) {
+    return false;
+  }
+  // An identity verdict must carry the identity evidence it is about.
+  if (observed === "MISMATCHED_IDENTITY" && !manifestDigest) {
+    return false;
+  }
+  if (observed === "PRESENT_STALE" && !hostVersion) {
+    return false;
+  }
+  if (
+    (observed === "ABSENT" || observed === "NOT_EVALUATED") &&
+    (manifestDigest || hostVersion)
+  ) {
+    return false;
+  }
+  if (observed === "NOT_EVALUATED") {
+    return changed === false;
+  }
+  // Zero reasons is a success claim. It is admissible only in the terminal
+  // state the operation is defined to reach, and only when repeating the same
+  // intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+  if (succeeded) {
+    return (
+      observed === PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE[operation] &&
+      flag(value, "idempotent_repeat_safe") === true
+    );
+  }
+  return true;
+}
+
+function publishedLegacyPlatformBrowserDiscoverySafety(value: unknown): boolean {
+  if (
+    !publishedLegacyPlatformRequestAuthority(value) ||
+    text(value, "browser_family") !== "CHROME" ||
+    text(value, "browser_channel") !== "STABLE"
+  ) {
+    return false;
+  }
+  return (
+    flag(value, "include_capability_probe") !== true ||
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "")
+  );
+}
+
+function publishedLegacyPlatformBrowserRecordScope(value: unknown): boolean {
+  const presence = text(value, "presence");
+  const reasons = items(value, "reason_codes");
+  const capability = objectMember(value, "native_messaging_capability");
+  if (
+    !uniqueStrings(reasons) ||
+    capability === null ||
+    !publishedLegacyPlatformCapabilityStateSound(capability) ||
+    text(capability, "capability") !== "NATIVE_MESSAGING"
+  ) {
+    return false;
+  }
+  if (presence === "AVAILABLE") {
+    // A presence claim is an observation, so it cannot come from an
+    // explicitly unevaluated detection.
+    if (
+      !present(value, "detected_version") ||
+      text(value, "detection_method") === "NOT_EVALUATED"
+    ) {
+      return false;
+    }
+  } else if (present(value, "sanitized_install_location")) {
+    return false;
+  } else if (
+    presence !== "DEGRADED_LIMITED" &&
+    presence !== "INCOMPATIBLE_VERSION" &&
+    present(value, "detected_version")
+  ) {
+    // Only a browser that was actually found reports a version. A degraded or
+    // version-incompatible observation found one; an absent, unevaluated, or
+    // unsupported one did not.
+    return false;
+  }
+  if (flag(value, "certified_for_platform") !== true) {
+    return reasons.length > 0;
+  }
+  return (
+    reasons.length === 0 &&
+    presence === "AVAILABLE" &&
+    text(value, "browser_family") === "CHROME" &&
+    text(value, "browser_channel") === "STABLE" &&
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
+    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    text(capability, "availability") === "AVAILABLE" &&
+    present(value, "last_tested_on")
+  );
+}
+
+function publishedLegacyPlatformModelProfileEvidence(value: unknown): boolean {
+  const platformId = text(value, "platform_id") ?? "";
+  const accelerator = text(value, "accelerator");
+  const family = text(value, "runtime_family");
+  const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
+  if (!uniqueStrings(reasons) || !uniqueStrings(evidence)) {
+    return false;
+  }
+  // The accelerator, the runtime family, and the target must agree in both
+  // directions. The certified macOS target is Apple Silicon arm64
+  // (specification §5.14.1) and every CUDA profile the §5.14.6 list names is a
+  // Windows or Ubuntu profile, so a macOS CUDA profile describes hardware that
+  // cannot exist.
+  if (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") {
+    return false;
+  }
+  if (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") {
+    return false;
+  }
+  if (
+    accelerator === "NVIDIA_CUDA" &&
+    (!present(value, "minimum_vram_mib") ||
+      !present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (
+    accelerator === "CPU_ONLY" &&
+    (present(value, "minimum_vram_mib") ||
+      present(value, "minimum_driver_version"))
+  ) {
+    return false;
+  }
+  if (
+    family === "OLLAMA_MLX" &&
+    (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  if (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU") {
+    return false;
+  }
+  if (text(value, "acceptance_state") !== "ACCEPTED") {
+    return (
+      reasons.length > 0 &&
+      text(value, "core_capability_behavior") !== "FULL_AI_AVAILABLE"
+    );
+  }
+  return (
+    PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId) &&
+    reasons.length === 0 &&
+    evidence.length > 0 &&
+    text(value, "availability") === "AVAILABLE" &&
+    text(value, "core_capability_behavior") === "FULL_AI_AVAILABLE" &&
+    present(value, "structured_output_evidence_ref") &&
+    present(value, "factuality_evidence_ref") &&
+    present(value, "latency_evidence_ref") &&
+    present(value, "memory_evidence_ref") &&
+    present(value, "last_tested_on")
+  );
+}
+
+function publishedLegacyPlatformRuntimeCapabilityFallback(value: unknown): boolean {
+  const availability = text(value, "runtime_availability") ?? "";
+  const available = items(value, "available_profile_refs");
+  const accepted = items(value, "accepted_profile_refs");
+  const reasons = items(value, "reason_codes");
+  const behavior = text(value, "core_capability_behavior");
+  const platformId = text(value, "platform_id") ?? "";
+  const family = text(value, "runtime_family");
+  const accelerator = text(value, "accelerator");
+  if (
+    !uniqueStrings(available) ||
+    !uniqueStrings(accepted) ||
+    !uniqueStrings(reasons) ||
+    !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  // A detected runtime identity must agree with the target, exactly as the
+  // reviewed model-profile rule already requires of a declared profile.
+  if (
+    (accelerator === "APPLE_SILICON_GPU" && platformId !== "MACOS_ARM64") ||
+    (accelerator === "NVIDIA_CUDA" && platformId === "MACOS_ARM64") ||
+    (family === "OLLAMA_MLX" &&
+      (platformId !== "MACOS_ARM64" || accelerator !== "APPLE_SILICON_GPU")) ||
+    (family === "OLLAMA_GGUF" && accelerator === "APPLE_SILICON_GPU")
+  ) {
+    return false;
+  }
+  // An unevaluated runtime is exactly an unevaluated detection.
+  if (
+    (text(value, "detection_method") === "NOT_EVALUATED") !==
+    (availability === "NOT_EVALUATED")
+  ) {
+    return false;
+  }
+  // A capability that was never evaluated, or that cannot exist on this target
+  // at all, observed no runtime identity.
+  if (availability === "NOT_EVALUATED" || availability === "UNSUPPORTED_TARGET") {
+    if (family !== null || present(value, "runtime_version") || accelerator !== null) {
+      return false;
+    }
+    if (
+      availability === "NOT_EVALUATED" &&
+      !reasons.includes("EVALUATION_NOT_RUN")
+    ) {
+      return false;
+    }
+  }
+  // Full AI is the only state with nothing outstanding, and it is exactly the
+  // state that requires an accepted profile on an available certified runtime.
+  if (behavior === "FULL_AI_AVAILABLE") {
+    if (
+      availability !== "AVAILABLE" ||
+      accepted.length === 0 ||
+      reasons.length > 0 ||
+      !PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(platformId)
+    ) {
+      return false;
+    }
+  } else if (accepted.length > 0 || reasons.length === 0) {
+    return false;
+  }
+  // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
+  // states, so they are the only ones that may enumerate usable profiles and
+  // the only ones that observed a runtime identity. A runtime below the
+  // performance tier still reports what it is and what it offers.
+  if (!PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY.includes(availability)) {
+    return available.length === 0;
+  }
+  if (family === null || !present(value, "runtime_version")) {
+    return false;
+  }
+  return availability !== "AVAILABLE" || accelerator !== null;
+}
+
+function publishedLegacyPlatformPackageStateEvidence(value: unknown): boolean {
+  const state = text(value, "state") ?? "";
+  const reasons = items(value, "reason_codes");
+  const signature = text(value, "signature_state");
+  const interrupted = flag(value, "interrupted");
+  const preservation = text(value, "user_data_preservation");
+  const packageFormat = text(value, "package_format");
+  const allowedFormats =
+    PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID[text(value, "platform_id") ?? ""];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    (preservation === "PRESERVATION_FAILED" && reasons.length === 0) ||
+    (allowedFormats !== undefined &&
+      packageFormat !== null &&
+      !allowedFormats.includes(packageFormat))
+  ) {
+    return false;
+  }
+  // The interrupted flag is historical: it records that this operation was
+  // interrupted at some point. The recovery_completed flag records that the
+  // resolved, so it is meaningless without one. The INTERRUPTED reason names
+  // exactly an operation that was interrupted, and the unresolved terminal
+  // outcome is carried by INSTALL_INTERRUPTED / UPDATE_INTERRUPTED, never by
+  // the flag alone.
+  if (
+    (present(value, "recovery_completed") && interrupted !== true) ||
+    reasons.includes("INTERRUPTED") !== (interrupted === true) ||
+    (PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES.includes(state) && interrupted !== true)
+  ) {
+    return false;
+  }
+  if (
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING") &&
+    !reasons.includes("SIGNATURE_NOT_VERIFIED")
+  ) {
+    return false;
+  }
+  if (PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
+    return false;
+  }
+  if (PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES.includes(state)) {
+    // A success carries no outstanding reason. A recovered interruption is no
+    // longer outstanding, so exactly the historical INTERRUPTED reason may
+    // remain — and only when the recovery actually completed. Specification
+    // §5.14.8 requires every certified target to pass interrupted update,
+    // repair, rollback, and preservation behaviour, so that outcome must be
+    // reportable as the success it is.
+    const outstanding = reasons.filter((reason) => reason !== "INTERRUPTED");
+    if (
+      signature !== "SIGNATURE_VALID" ||
+      outstanding.length > 0 ||
+      (interrupted === true && flag(value, "recovery_completed") !== true) ||
+      !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
+        preservation ?? "",
+      ) ||
+      items(value, "evidence_refs").length === 0
+    ) {
+      return false;
+    }
+  }
+  if (state === "UNINSTALLED") {
+    return ["NOT_APPLICABLE", "REMOVED"].includes(
+      text(value, "native_host_cleanup") ?? "",
+    );
+  }
+  if (state === "INSTALLED") {
+    return (
+      present(value, "installed_version") &&
+      text(value, "installed_version") === text(value, "package_version")
+    );
+  }
+  if (state === "NOT_INSTALLED") {
+    return !present(value, "installed_version");
+  }
+  if (state === "NO_UPDATE_AVAILABLE") {
+    return !present(value, "available_version");
+  }
+  if (state === "UPDATE_AVAILABLE") {
+    return present(value, "available_version");
+  }
+  if (state === "UPDATE_INSTALLED") {
+    // The installed update is the update that was offered, exactly as INSTALLED
+    // binds the installed version to the package version.
+    return (
+      present(value, "installed_version") &&
+      present(value, "available_version") &&
+      present(value, "target_artifact") &&
+      text(value, "installed_version") === text(value, "available_version")
+    );
+  }
+  if (state === "ROLLED_BACK") {
+    return (
+      present(value, "rolled_back_to_version") &&
+      flag(value, "rollback_available") === true
+    );
+  }
+  return true;
+}
+
+function publishedLegacyPlatformDiagnosticIntegrity(value: unknown): boolean {
+  const result = text(value, "result");
+  const severity = text(value, "severity");
+  const reasons = items(value, "reason_codes");
+  const blocking = flag(value, "blocking");
+  const component = text(value, "component") ?? "";
+  const expectedCapability = PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT[component];
+  if (
+    !uniqueStrings(reasons) ||
+    !uniqueStrings(items(value, "evidence_refs")) ||
+    (expectedCapability !== undefined &&
+      text(value, "capability") !== expectedCapability)
+  ) {
+    return false;
+  }
+  if (
+    present(value, "user_message") &&
+    text(objectMember(value, "redaction"), "policy") !== "NONE"
+  ) {
+    return false;
+  }
+  if (blocking === true && result !== "BLOCKED" && result !== "FAILURE") {
+    return false;
+  }
+  if (result === "SUCCESS") {
+    return blocking === false && reasons.length === 0 && severity === "INFO";
+  }
+  if (reasons.length === 0) {
+    return false;
+  }
+  if (result === "WARNING") {
+    return blocking === false && ["INFO", "WARNING"].includes(severity ?? "");
+  }
+  if (result === "FAILURE") {
+    return ["CRITICAL", "ERROR"].includes(severity ?? "");
+  }
+  // BLOCKED: an external boundary prevented evaluation. It blocks a capability,
+  // so it is never filed as informational.
+  return (
+    blocking === true && ["CRITICAL", "ERROR", "WARNING"].includes(severity ?? "")
+  );
+}
+
+function publishedLegacyPlatformEvidenceIntegrity(value: unknown): boolean {
+  const reasons = items(value, "reason_codes");
+  const method = text(value, "evaluation_method");
+  const artifactKind = text(value, "artifact_kind") ?? "";
+  const requiredReference = PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND[artifactKind];
+  if (
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    flag(value, "synthetic_only") !== true ||
+    (requiredReference !== undefined && !present(value, requiredReference)) ||
+    (present(value, "package_artifact") && !present(value, "signature_state"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "review_state") === "REVIEW_COMPLETE" &&
+    !present(value, "reviewer_identity_ref")
+  ) {
+    return false;
+  }
+  if (
+    text(value, "owner_decision_state") === "RECORDED" &&
+    text(value, "review_state") !== "REVIEW_COMPLETE"
+  ) {
+    return false;
+  }
+  // machine_class records *where* an artifact was produced and
+  // evaluation_method records *how*. The axes are independent: a hosted runner
+  // and a physical development machine may each execute synthetic fixtures,
+  // static inspection, or a measured native run. Only a synthetic machine
+  // cannot execute a native run, and only a hosted runner has a runner image.
+  const machineClass = text(value, "machine_class");
+  const succeeded = text(value, "result") === "SUCCESS";
+  if (method === "MEASURED_NATIVE_RUN") {
+    if (
+      !present(value, "os_version") ||
+      !present(value, "os_build") ||
+      machineClass === "SYNTHETIC_FIXTURE" ||
+      !PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") ||
+      (machineClass === "HOSTED_CI_RUNNER" &&
+        !present(value, "runner_image_token"))
+    ) {
+      return false;
+    }
+  }
+  if (
+    present(value, "runner_image_token") &&
+    machineClass !== "HOSTED_CI_RUNNER"
+  ) {
+    return false;
+  }
+  // NOT_EVALUATED and DECLARED_PLAN are never measured evidence, so neither can
+  // report a passing evidence element, and an unevaluated record observed no
+  // operating-system build at all.
+  if (method === "NOT_EVALUATED" || method === "DECLARED_PLAN") {
+    if (succeeded) {
+      return false;
+    }
+    if (
+      method === "NOT_EVALUATED" &&
+      (present(value, "os_build") || !reasons.includes("EVALUATION_NOT_RUN"))
+    ) {
+      return false;
+    }
+  }
+  // An artifact whose signature did not verify is not a passing evidence
+  // element, whatever produced it.
+  const signature = text(value, "signature_state");
+  if (
+    succeeded &&
+    (signature === "SIGNATURE_INVALID" || signature === "SIGNATURE_MISSING")
+  ) {
+    return false;
+  }
+  return succeeded ? reasons.length === 0 : reasons.length > 0;
+}
+
+function publishedLegacyPlatformCertificationInputScope(value: unknown): boolean {
+  const required = items(value, "required_evidence_kinds");
+  const presentKinds = items(value, "present_evidence_kinds");
+  const records = items(value, "evidence_record_refs");
+  const reasons = items(value, "reason_codes");
+  if (
+    !strictlySortedStrings(required) ||
+    !strictlySortedStrings(presentKinds) ||
+    !uniqueStrings(records) ||
+    !uniqueStrings(reasons) ||
+    !publishedLegacyPlatformArchitectureCoherent(value) ||
+    !publishedLegacyPlatformSupportClaimSound(value)
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (flag(value, "inventory_complete") !== complete) {
+    return false;
+  }
+  if (
+    (text(value, "owner_decision_state") === "RECORDED") !==
+    present(value, "owner_decision_ref")
+  ) {
+    return false;
+  }
+  if (!publishedLegacyPlatformReviewedTierIsCertified(value)) {
+    return reasons.length > 0;
+  }
+  // Completeness is measured against the record's own declared policy, so an
+  // empty required set would make "complete" vacuous. A certified proposal must
+  // name the evidence it required.
+  return (
+    reasons.length === 0 &&
+    complete &&
+    required.length > 0 &&
+    text(value, "owner_decision_state") === "RECORDED"
+  );
+}
+
 const CERTIFIED_PLATFORM_IDS = ["MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"];
 const UNCERTIFIABLE_PLATFORM_IDS = ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"];
 const CERTIFIED_SUPPORT_TIERS = ["CERTIFIED_CORE", "CERTIFIED_FULL"];
@@ -1496,6 +3610,36 @@ const MANDATORY_CORE_CAPABILITIES = [
   "PLATFORM_PATHS",
   "PROCESS_SUPERVISION",
   "SECURE_STORE",
+];
+const OBSERVED_EVALUATION_METHODS = [
+  "MEASURED_NATIVE_RUN",
+  "STATIC_INSPECTION",
+  "SYNTHETIC_FIXTURE",
+];
+const CERTIFIED_CORE_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
+];
+const CERTIFIED_FULL_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "MODEL_PROFILE_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
 ];
 const PLATFORM_REQUEST_PRINCIPALS = ["ORCHESTRATOR", "VERIFICATION_HARNESS"];
 const PLATFORM_REQUEST_PROFILES = ["PRODUCTION_NO_SUBMIT", "VERIFICATION"];
@@ -1598,8 +3742,6 @@ const PACKAGE_FORMATS_BY_PLATFORM_ID: Readonly<
   UBUNTU_X64: ["APP_IMAGE", "DEBIAN_PACKAGE"],
   WINDOWS_X64: ["WINDOWS_INSTALLER"],
 };
-/** The two availability states in which a runtime was actually detected. */
-const OPERABLE_RUNTIME_AVAILABILITY = ["AVAILABLE", "DEGRADED_LIMITED"];
 const EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Readonly<Record<string, string>> = {
   INSTALL_LAUNCH_REPORT: "installer_state_ref",
   MODEL_PROFILE_REPORT: "model_profile_ref",
@@ -1619,32 +3761,59 @@ function platformRequestAuthority(value: unknown): boolean {
 
 function platformCapabilityStateSound(state: unknown): boolean {
   const availability = text(state, "availability");
+  const method = text(state, "evaluation_method");
   const reasons = items(state, "reason_codes");
+  const identity = present(state, "identity_token");
+  const version = present(state, "detected_version");
+  const evidence = present(state, "evidence_digest");
+  const identityCount = [identity, version, evidence].filter(Boolean).length;
   if (!uniqueStrings(reasons)) {
+    return false;
+  }
+  if (
+    (availability === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && availability !== "UNKNOWN")
+  ) {
     return false;
   }
   if (availability === "AVAILABLE") {
     return (
       reasons.length === 0 &&
-      present(state, "identity_token") &&
-      present(state, "detected_version") &&
-      present(state, "evidence_digest") &&
-      text(state, "evaluation_method") !== "NOT_EVALUATED"
+      identityCount === 3 &&
+      OBSERVED_EVALUATION_METHODS.includes(method ?? "")
     );
   }
   if (reasons.length === 0) {
     return false;
   }
   if (availability === "NOT_EVALUATED") {
+    return identityCount === 0 && reasons.includes("EVALUATION_NOT_RUN");
+  }
+  if (
+    availability === "DEGRADED_LIMITED" ||
+    availability === "INCOMPATIBLE_VERSION"
+  ) {
     return (
-      text(state, "evaluation_method") === "NOT_EVALUATED" &&
-      reasons.includes("EVALUATION_NOT_RUN")
+      identityCount === 3 &&
+      OBSERVED_EVALUATION_METHODS.includes(method ?? "")
     );
   }
-  if (availability === "DEGRADED_LIMITED") {
-    return present(state, "identity_token") && present(state, "detected_version");
+  if (
+    availability === "NOT_INSTALLED" ||
+    availability === "UNKNOWN" ||
+    availability === "UNSUPPORTED_TARGET"
+  ) {
+    return (
+      identityCount === 0 &&
+      (method === "DECLARED_PLAN" ||
+        OBSERVED_EVALUATION_METHODS.includes(method ?? ""))
+    );
   }
-  return true;
+  return (
+    (availability === "PERMISSION_REQUIRED" || availability === "UNAVAILABLE") &&
+    (identityCount === 0 || identityCount === 3) &&
+    OBSERVED_EVALUATION_METHODS.includes(method ?? "")
+  );
 }
 
 function platformSupportClaimSound(value: unknown): boolean {
@@ -1859,93 +4028,88 @@ function platformSecretRequestAuthority(value: unknown): boolean {
 }
 
 function platformSecretResultIntegrity(value: unknown): boolean {
-  const operation = text(value, "operation");
-  const availability = text(value, "store_availability");
-  const state = text(value, "result_state");
+  const operation = text(value, "operation") ?? "";
+  const availability = text(value, "store_availability") ?? "";
+  const state = text(value, "result_state") ?? "";
   const reasons = items(value, "reason_codes");
+  const hasIdentity = present(value, "store_identity_token");
   const hasMaterial = present(value, "material_reference");
   const hasDigest = present(value, "material_digest");
   if (!uniqueStrings(reasons)) {
     return false;
   }
-  if (availability === "AVAILABLE") {
-    if (!present(value, "store_identity_token")) {
-      return false;
-    }
-  } else if (hasMaterial) {
+  if (availability === "PERMISSION_REQUIRED") {
+    return (
+      state === "DENIED_PERMISSION" &&
+      !hasIdentity &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes("PERMISSION_DENIED")
+    );
+  }
+  const unavailableReason: Readonly<Record<string, string>> = {
+    INCOMPATIBLE_VERSION: "CONFIGURATION_INVALID",
+    NOT_EVALUATED: "EVALUATION_NOT_RUN",
+    NOT_INSTALLED: "NOT_INSTALLED",
+    UNAVAILABLE: "SERVICE_UNAVAILABLE",
+    UNKNOWN: "UNKNOWN_ERROR",
+    UNSUPPORTED_TARGET: "TARGET_NOT_CERTIFIED",
+  };
+  const requiredUnavailableReason = unavailableReason[availability];
+  if (requiredUnavailableReason !== undefined) {
+    return (
+      state === "STORE_UNAVAILABLE" &&
+      !hasIdentity &&
+      !hasMaterial &&
+      !hasDigest &&
+      reasons.includes(requiredUnavailableReason)
+    );
+  }
+  if (
+    (availability !== "AVAILABLE" && availability !== "DEGRADED_LIMITED") ||
+    !hasIdentity
+  ) {
     return false;
   }
-  const storeUnavailableAvailability =
-    availability !== null &&
-    ![
-      "AVAILABLE",
-      "DEGRADED_LIMITED",
-      "PERMISSION_REQUIRED",
-    ].includes(availability);
-  const deniedAvailability = ["PERMISSION_REQUIRED", "UNAVAILABLE"].includes(
-    availability ?? "",
-  );
+  const successReasonsSound =
+    availability === "AVAILABLE" ? reasons.length === 0 : reasons.length > 0;
   if (operation === "STATUS") {
-    if (hasMaterial || hasDigest) {
-      return false;
-    }
-    if (state === "STORE_AVAILABLE") {
-      return availability === "AVAILABLE" && reasons.length === 0;
-    }
-    if (state === "DENIED_PERMISSION") {
-      return reasons.includes("PERMISSION_DENIED") && deniedAvailability;
-    }
-    if (state === "STORE_UNAVAILABLE") {
-      return reasons.length > 0 && storeUnavailableAvailability;
-    }
-    return false;
-  }
-  if (state === "STORE_AVAILABLE") {
-    return false;
+    return (
+      state === "STORE_AVAILABLE" &&
+      !hasMaterial &&
+      !hasDigest &&
+      successReasonsSound
+    );
   }
   if (state === "RETRIEVED") {
-    return (
-      operation === "GET" &&
-      availability === "AVAILABLE" &&
-      hasMaterial &&
-      hasDigest &&
-      reasons.length === 0
-    );
+    return operation === "GET" && hasMaterial && hasDigest && successReasonsSound;
   }
   if (state === "STORED") {
-    return (
-      operation === "PUT" &&
-      availability === "AVAILABLE" &&
-      hasMaterial &&
-      reasons.length === 0
-    );
+    return operation === "PUT" && hasMaterial && !hasDigest && successReasonsSound;
   }
   if (state === "DELETED") {
     return (
       operation === "DELETE" &&
-      availability === "AVAILABLE" &&
       !hasMaterial &&
       !hasDigest &&
-      reasons.length === 0
+      successReasonsSound
     );
   }
-  if (state === "DENIED_PERMISSION") {
+  if (state === "NOT_FOUND") {
     return (
+      ["DELETE", "GET", "PUT"].includes(operation) &&
       !hasMaterial &&
       !hasDigest &&
-      reasons.includes("PERMISSION_DENIED") &&
-      deniedAvailability
+      reasons.length > 0
     );
   }
-  if (state === "STORE_UNAVAILABLE") {
-    return (
-      !hasMaterial &&
-      !hasDigest &&
-      reasons.length > 0 &&
-      storeUnavailableAvailability
-    );
-  }
-  return !hasMaterial && !hasDigest && reasons.length > 0;
+  return (
+    state === "OPERATION_FAILED" &&
+    ["DELETE", "GET", "PUT"].includes(operation) &&
+    !hasMaterial &&
+    !hasDigest &&
+    reasons.length > 0
+  );
 }
 
 /** Normalize one argument to the command name it would actually invoke. */
@@ -2077,10 +4241,23 @@ function platformProcessStatusIntegrity(value: unknown): boolean {
     return false;
   }
   if (state === "STARTING") {
-    return !ended && !exited;
+    return (
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan !== true &&
+      reasons.length === 0
+    );
   }
   if (state === "RUNNING") {
-    return started && !ended && !exited;
+    return (
+      started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan !== true &&
+      reasons.length === 0
+    );
   }
   if (state === "TERMINATING") {
     return started && !ended && !exited && terminating;
@@ -2098,19 +4275,40 @@ function platformProcessStatusIntegrity(value: unknown): boolean {
     );
   }
   if (state === "TERMINATED") {
-    return started && ended && terminating;
+    return started && ended && !exited && terminating;
   }
   if (state === "ORPHANED") {
     // An orphan outlived its supervising parent and still requires cleanup, so
     // it has started and has not yet been observed to end.
-    return started && !ended && !exited && orphan === true && reasons.length > 0;
+    return (
+      started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      orphan === true &&
+      reasons.length > 0
+    );
   }
   if (state === "UNAVAILABLE") {
-    return !started && !ended && !exited && reasons.length > 0;
+    return (
+      !started &&
+      !ended &&
+      !exited &&
+      !terminating &&
+      reasons.length > 0
+    );
   }
   // FAILED: supervision itself failed. An observed exit status would make this
   // an EXITED child instead, so the two stay distinguishable.
-  return !exited && reasons.length > 0;
+  if (state === "FAILED") {
+    return (
+      !ended &&
+      !exited &&
+      reasons.length > 0 &&
+      (!terminating || started)
+    );
+  }
+  return false;
 }
 
 function platformNativeRegistrationBinding(value: unknown): boolean {
@@ -2220,6 +4418,7 @@ function platformBrowserDiscoverySafety(value: unknown): boolean {
 
 function platformBrowserRecordScope(value: unknown): boolean {
   const presence = text(value, "presence");
+  const method = text(value, "detection_method");
   const reasons = items(value, "reason_codes");
   const capability = objectMember(value, "native_messaging_capability");
   if (
@@ -2230,13 +4429,17 @@ function platformBrowserRecordScope(value: unknown): boolean {
   ) {
     return false;
   }
+  if (
+    (presence === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && presence !== "UNKNOWN") ||
+    (method !== "NOT_EVALUATED" &&
+      method !== "DECLARED_PLAN" &&
+      !OBSERVED_EVALUATION_METHODS.includes(method ?? ""))
+  ) {
+    return false;
+  }
   if (presence === "AVAILABLE") {
-    // A presence claim is an observation, so it cannot come from an
-    // explicitly unevaluated detection.
-    if (
-      !present(value, "detected_version") ||
-      text(value, "detection_method") === "NOT_EVALUATED"
-    ) {
+    if (!present(value, "detected_version")) {
       return false;
     }
   } else if (present(value, "sanitized_install_location")) {
@@ -2260,8 +4463,10 @@ function platformBrowserRecordScope(value: unknown): boolean {
     text(value, "browser_family") === "CHROME" &&
     text(value, "browser_channel") === "STABLE" &&
     CERTIFIED_PLATFORM_IDS.includes(text(value, "platform_id") ?? "") &&
-    text(value, "detection_method") === "MEASURED_NATIVE_RUN" &&
+    method === "MEASURED_NATIVE_RUN" &&
+    present(value, "sanitized_install_location") &&
     text(capability, "availability") === "AVAILABLE" &&
+    text(capability, "evaluation_method") === "MEASURED_NATIVE_RUN" &&
     present(value, "last_tested_on")
   );
 }
@@ -2331,18 +4536,26 @@ function platformModelProfileEvidence(value: unknown): boolean {
 
 function platformRuntimeCapabilityFallback(value: unknown): boolean {
   const availability = text(value, "runtime_availability") ?? "";
+  const method = text(value, "detection_method");
   const available = items(value, "available_profile_refs");
   const accepted = items(value, "accepted_profile_refs");
   const reasons = items(value, "reason_codes");
   const behavior = text(value, "core_capability_behavior");
   const platformId = text(value, "platform_id") ?? "";
   const family = text(value, "runtime_family");
+  const hasVersion = present(value, "runtime_version");
   const accelerator = text(value, "accelerator");
   if (
     !uniqueStrings(available) ||
     !uniqueStrings(accepted) ||
     !uniqueStrings(reasons) ||
     !subsetOf(accepted, available)
+  ) {
+    return false;
+  }
+  if (
+    (availability === "NOT_EVALUATED") !== (method === "NOT_EVALUATED") ||
+    (method === "DECLARED_PLAN" && availability !== "UNKNOWN")
   ) {
     return false;
   }
@@ -2357,65 +4570,75 @@ function platformRuntimeCapabilityFallback(value: unknown): boolean {
   ) {
     return false;
   }
-  // An unevaluated runtime is exactly an unevaluated detection.
   if (
-    (text(value, "detection_method") === "NOT_EVALUATED") !==
-    (availability === "NOT_EVALUATED")
+    method !== "NOT_EVALUATED" &&
+    method !== "DECLARED_PLAN" &&
+    !OBSERVED_EVALUATION_METHODS.includes(method ?? "")
   ) {
     return false;
   }
-  // A capability that was never evaluated, or that cannot exist on this target
-  // at all, observed no runtime identity.
-  if (availability === "NOT_EVALUATED" || availability === "UNSUPPORTED_TARGET") {
-    if (family !== null || present(value, "runtime_version") || accelerator !== null) {
+  if (availability === "AVAILABLE" || availability === "DEGRADED_LIMITED") {
+    if (family === null || !hasVersion || accelerator === null) {
       return false;
     }
+  } else if (availability === "INCOMPATIBLE_VERSION") {
     if (
-      availability === "NOT_EVALUATED" &&
-      !reasons.includes("EVALUATION_NOT_RUN")
+      family === null ||
+      !hasVersion ||
+      available.length > 0 ||
+      accepted.length > 0
     ) {
       return false;
     }
-  }
-  // Full AI is the only state with nothing outstanding, and it is exactly the
-  // state that requires an accepted profile on an available certified runtime.
-  if (behavior === "FULL_AI_AVAILABLE") {
-    if (
-      availability !== "AVAILABLE" ||
-      accepted.length === 0 ||
-      reasons.length > 0 ||
-      !CERTIFIED_PLATFORM_IDS.includes(platformId)
-    ) {
-      return false;
-    }
-  } else if (accepted.length > 0 || reasons.length === 0) {
+  } else if (
+    family !== null ||
+    hasVersion ||
+    accelerator !== null ||
+    available.length > 0 ||
+    accepted.length > 0
+  ) {
     return false;
   }
-  // AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
-  // states, so they are the only ones that may enumerate usable profiles and
-  // the only ones that observed a runtime identity. A runtime below the
-  // performance tier still reports what it is and what it offers.
-  if (!OPERABLE_RUNTIME_AVAILABILITY.includes(availability)) {
-    return available.length === 0;
+  if (availability === "AVAILABLE" && behavior === "FULL_AI_AVAILABLE") {
+    return (
+      accepted.length > 0 &&
+      reasons.length === 0 &&
+      CERTIFIED_PLATFORM_IDS.includes(platformId)
+    );
   }
-  if (family === null || !present(value, "runtime_version")) {
-    return false;
+  if (
+    availability === "AVAILABLE" ||
+    availability === "DEGRADED_LIMITED"
+  ) {
+    return (
+      accepted.length === 0 &&
+      reasons.length > 0 &&
+      behavior === "CORE_PRESERVED_AI_DEGRADED"
+    );
   }
-  return availability !== "AVAILABLE" || accelerator !== null;
+  return (
+    reasons.length > 0 &&
+    behavior === "CORE_PRESERVED_AI_UNAVAILABLE" &&
+    (availability !== "NOT_EVALUATED" ||
+      reasons.includes("EVALUATION_NOT_RUN"))
+  );
 }
 
 function platformPackageStateEvidence(value: unknown): boolean {
   const state = text(value, "state") ?? "";
   const reasons = items(value, "reason_codes");
+  const evidence = items(value, "evidence_refs");
   const signature = text(value, "signature_state");
   const interrupted = flag(value, "interrupted");
+  const hasRecovery = present(value, "recovery_completed");
+  const recovered = flag(value, "recovery_completed") === true;
   const preservation = text(value, "user_data_preservation");
   const packageFormat = text(value, "package_format");
   const allowedFormats =
     PACKAGE_FORMATS_BY_PLATFORM_ID[text(value, "platform_id") ?? ""];
   if (
     !uniqueStrings(reasons) ||
-    !uniqueStrings(items(value, "evidence_refs")) ||
+    !uniqueStrings(evidence) ||
     !platformArchitectureCoherent(value) ||
     (preservation === "PRESERVATION_FAILED" && reasons.length === 0) ||
     (allowedFormats !== undefined &&
@@ -2424,16 +4647,27 @@ function platformPackageStateEvidence(value: unknown): boolean {
   ) {
     return false;
   }
-  // The interrupted flag is historical: it records that this operation was
-  // interrupted at some point. The recovery_completed flag records that the
-  // resolved, so it is meaningless without one. The INTERRUPTED reason names
-  // exactly an operation that was interrupted, and the unresolved terminal
-  // outcome is carried by INSTALL_INTERRUPTED / UPDATE_INTERRUPTED, never by
-  // the flag alone.
   if (
     (present(value, "recovery_completed") && interrupted !== true) ||
-    reasons.includes("INTERRUPTED") !== (interrupted === true) ||
-    (PACKAGE_INTERRUPTED_STATES.includes(state) && interrupted !== true)
+    reasons.includes("INTERRUPTED") !== (interrupted === true)
+  ) {
+    return false;
+  }
+  const interruptedTerminal = PACKAGE_INTERRUPTED_STATES.includes(state);
+  const success = PACKAGE_SUCCESS_STATES.includes(state);
+  const observation = [
+    "NOT_INSTALLED",
+    "NO_UPDATE_AVAILABLE",
+    "UPDATE_AVAILABLE",
+  ].includes(state);
+  if (
+    (interruptedTerminal && (interrupted !== true || recovered)) ||
+    (success && interrupted === true && !recovered) ||
+    (observation && (interrupted === true || hasRecovery)) ||
+    (PACKAGE_FAILURE_STATES.includes(state) &&
+      !interruptedTerminal &&
+      interrupted === true &&
+      !recovered)
   ) {
     return false;
   }
@@ -2446,63 +4680,98 @@ function platformPackageStateEvidence(value: unknown): boolean {
   if (PACKAGE_FAILURE_STATES.includes(state) && reasons.length === 0) {
     return false;
   }
-  if (PACKAGE_SUCCESS_STATES.includes(state)) {
-    // A success carries no outstanding reason. A recovered interruption is no
-    // longer outstanding, so exactly the historical INTERRUPTED reason may
-    // remain — and only when the recovery actually completed. Specification
-    // §5.14.8 requires every certified target to pass interrupted update,
-    // repair, rollback, and preservation behaviour, so that outcome must be
-    // reportable as the success it is.
+  if (success) {
     const outstanding = reasons.filter((reason) => reason !== "INTERRUPTED");
     if (
       signature !== "SIGNATURE_VALID" ||
       outstanding.length > 0 ||
-      (interrupted === true && flag(value, "recovery_completed") !== true) ||
       !["EXPLICIT_DELETION_REQUESTED", "PRESERVED"].includes(
         preservation ?? "",
       ) ||
-      items(value, "evidence_refs").length === 0
+      evidence.length === 0
     ) {
       return false;
     }
   }
-  if (state === "UNINSTALLED") {
-    return ["NOT_APPLICABLE", "REMOVED"].includes(
-      text(value, "native_host_cleanup") ?? "",
-    );
+  const installed = text(value, "installed_version");
+  const packageVersion = text(value, "package_version");
+  const currentVersion = text(value, "current_version");
+  const availableVersion = text(value, "available_version");
+  const rolledBackVersion = text(value, "rolled_back_to_version");
+  const hasTarget = present(value, "target_artifact");
+  if (state === "INSTALLED" || state === "REPAIRED") {
+    return installed !== null && installed === packageVersion;
   }
-  if (state === "INSTALLED") {
+  if (
+    state === "UNINSTALLED" ||
+    state === "NOT_INSTALLED" ||
+    state === "INSTALL_FAILED" ||
+    state === "INSTALL_INTERRUPTED"
+  ) {
     return (
-      present(value, "installed_version") &&
-      text(value, "installed_version") === text(value, "package_version")
+      installed === null &&
+      (state !== "UNINSTALLED" ||
+        ["NOT_APPLICABLE", "REMOVED"].includes(
+          text(value, "native_host_cleanup") ?? "",
+        ))
     );
   }
-  if (state === "NOT_INSTALLED") {
-    return !present(value, "installed_version");
+  if (state === "REPAIR_FAILED" || state === "UNINSTALL_FAILED") {
+    return installed !== null && installed === packageVersion;
   }
   if (state === "NO_UPDATE_AVAILABLE") {
-    return !present(value, "available_version");
+    return (
+      availableVersion === null &&
+      installed === null &&
+      rolledBackVersion === null &&
+      !hasTarget &&
+      flag(value, "rollback_available") === false
+    );
   }
   if (state === "UPDATE_AVAILABLE") {
-    return present(value, "available_version");
+    return (
+      availableVersion !== null &&
+      availableVersion !== currentVersion &&
+      installed === null &&
+      rolledBackVersion === null &&
+      hasTarget
+    );
   }
   if (state === "UPDATE_INSTALLED") {
-    // The installed update is the update that was offered, exactly as INSTALLED
-    // binds the installed version to the package version.
     return (
-      present(value, "installed_version") &&
-      present(value, "available_version") &&
-      present(value, "target_artifact") &&
-      text(value, "installed_version") === text(value, "available_version")
+      installed !== null &&
+      availableVersion !== null &&
+      hasTarget &&
+      installed === availableVersion &&
+      rolledBackVersion === null
     );
   }
   if (state === "ROLLED_BACK") {
     return (
-      present(value, "rolled_back_to_version") &&
-      flag(value, "rollback_available") === true
+      installed !== null &&
+      rolledBackVersion !== null &&
+      installed === rolledBackVersion &&
+      installed === currentVersion &&
+      flag(value, "rollback_available") === true &&
+      (availableVersion !== null) === hasTarget
     );
   }
-  return true;
+  if (state === "UPDATE_FAILED" || state === "UPDATE_INTERRUPTED") {
+    return (
+      (availableVersion !== null) === hasTarget &&
+      (installed === null || installed === currentVersion) &&
+      rolledBackVersion === null
+    );
+  }
+  if (state === "ROLLBACK_FAILED") {
+    return (
+      installed !== null &&
+      installed === currentVersion &&
+      rolledBackVersion === null &&
+      (availableVersion !== null) === hasTarget
+    );
+  }
+  return false;
 }
 
 function platformDiagnosticIntegrity(value: unknown): boolean {
@@ -2629,18 +4898,35 @@ function platformCertificationInputScope(value: unknown): boolean {
   const required = items(value, "required_evidence_kinds");
   const presentKinds = items(value, "present_evidence_kinds");
   const records = items(value, "evidence_record_refs");
+  const inventory = items(value, "evidence_inventory");
+  const inventoryKinds = inventory.map((item) => text(item, "artifact_kind"));
+  const inventoryRefs = inventory.map((item) =>
+    text(item, "evidence_record_ref"),
+  );
   const reasons = items(value, "reason_codes");
   if (
     !strictlySortedStrings(required) ||
     !strictlySortedStrings(presentKinds) ||
     !uniqueStrings(records) ||
+    !strictlySortedField(inventory, "artifact_kind") ||
+    !uniqueField(inventory, "evidence_record_ref") ||
     !uniqueStrings(reasons) ||
     !platformArchitectureCoherent(value) ||
     !platformSupportClaimSound(value)
   ) {
     return false;
   }
-  const complete = subsetOf(required, presentKinds) && records.length > 0;
+  if (
+    inventoryKinds.some((item) => item === null) ||
+    inventoryRefs.some((item) => item === null) ||
+    presentKinds.length !== inventoryKinds.length ||
+    records.length !== inventoryRefs.length ||
+    !presentKinds.every((item, index) => item === inventoryKinds[index]) ||
+    !records.every((item, index) => item === inventoryRefs[index])
+  ) {
+    return false;
+  }
+  const complete = subsetOf(required, presentKinds) && inventory.length > 0;
   if (flag(value, "inventory_complete") !== complete) {
     return false;
   }
@@ -2653,14 +4939,32 @@ function platformCertificationInputScope(value: unknown): boolean {
   if (!platformReviewedTierIsCertified(value)) {
     return reasons.length > 0;
   }
-  // Completeness is measured against the record's own declared policy, so an
-  // empty required set would make "complete" vacuous. A certified proposal must
-  // name the evidence it required.
+  const reviewedTier = text(
+    objectMember(value, "support_claim"),
+    "reviewed_tier",
+  );
+  const claimEvidenceRefs = items(
+    objectMember(value, "support_claim"),
+    "evidence_refs",
+  );
+  const policy =
+    reviewedTier === "CERTIFIED_FULL"
+      ? CERTIFIED_FULL_EVIDENCE_KINDS
+      : CERTIFIED_CORE_EVIDENCE_KINDS;
   return (
     reasons.length === 0 &&
     complete &&
-    required.length > 0 &&
-    text(value, "owner_decision_state") === "RECORDED"
+    required.length === policy.length &&
+    required.every((item, index) => item === policy[index]) &&
+    presentKinds.length === policy.length &&
+    presentKinds.every((item, index) => item === policy[index]) &&
+    claimEvidenceRefs.length === records.length &&
+    claimEvidenceRefs.every((item, index) => item === records[index]) &&
+    present(value, "browser_record_ref") &&
+    present(value, "runtime_capability_ref") &&
+    text(value, "owner_decision_state") === "RECORDED" &&
+    (reviewedTier !== "CERTIFIED_FULL" ||
+      presentKinds.includes("MODEL_PROFILE_REPORT"))
   );
 }
 
@@ -2684,22 +4988,67 @@ const RULE_EVALUATORS: Readonly<Record<SemanticRuleKindV1, RuleEvaluator>> =
     NAVIGATION_SAFETY: navigationSafety,
     PAGE_READINESS_INTEGRITY: pageReadinessIntegrity,
     PLATFORM_BROWSER_DISCOVERY_SAFETY: platformBrowserDiscoverySafety,
-    PLATFORM_BROWSER_RECORD_SCOPE: platformBrowserRecordScope,
-    PLATFORM_CAPABILITY_REPORT_INTEGRITY: platformCapabilityReportIntegrity,
-    PLATFORM_CERTIFICATION_INPUT_SCOPE: platformCertificationInputScope,
-    PLATFORM_DIAGNOSTIC_INTEGRITY: platformDiagnosticIntegrity,
-    PLATFORM_EVIDENCE_INTEGRITY: platformEvidenceIntegrity,
-    PLATFORM_MODEL_PROFILE_EVIDENCE: platformModelProfileEvidence,
-    PLATFORM_NATIVE_REGISTRATION_BINDING: platformNativeRegistrationBinding,
-    PLATFORM_NATIVE_REGISTRATION_RESULT: platformNativeRegistrationResult,
-    PLATFORM_PACKAGE_STATE_EVIDENCE: platformPackageStateEvidence,
+    PLATFORM_BROWSER_RECORD_SCOPE: (value) =>
+      legacyPlatformBrowserRecordScope(value) ||
+      publishedLegacyPlatformBrowserRecordScope(value),
+    PLATFORM_BROWSER_RECORD_SCOPE_V2: platformBrowserRecordScope,
+    PLATFORM_CAPABILITY_REPORT_INTEGRITY: (value) =>
+      legacyPlatformCapabilityReportIntegrity(value) ||
+      publishedLegacyPlatformCapabilityReportIntegrity(value),
+    PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2:
+      platformCapabilityReportIntegrity,
+    PLATFORM_CERTIFICATION_INPUT_SCOPE: (value) =>
+      legacyPlatformCertificationInputScope(value) ||
+      publishedLegacyPlatformCertificationInputScope(value),
+    PLATFORM_CERTIFICATION_INPUT_SCOPE_V2: platformCertificationInputScope,
+    PLATFORM_DIAGNOSTIC_INTEGRITY: (value) =>
+      legacyPlatformDiagnosticIntegrity(value) ||
+      publishedLegacyPlatformDiagnosticIntegrity(value),
+    PLATFORM_DIAGNOSTIC_INTEGRITY_V2: platformDiagnosticIntegrity,
+    PLATFORM_EVIDENCE_INTEGRITY: (value) =>
+      legacyPlatformEvidenceIntegrity(value) ||
+      publishedLegacyPlatformEvidenceIntegrity(value),
+    PLATFORM_EVIDENCE_INTEGRITY_V2: platformEvidenceIntegrity,
+    PLATFORM_MODEL_PROFILE_EVIDENCE: (value) =>
+      legacyPlatformModelProfileEvidence(value) ||
+      publishedLegacyPlatformModelProfileEvidence(value),
+    PLATFORM_MODEL_PROFILE_EVIDENCE_V2: platformModelProfileEvidence,
+    PLATFORM_NATIVE_REGISTRATION_BINDING: (value) =>
+      legacyPlatformNativeRegistrationBinding(value) ||
+      publishedLegacyPlatformNativeRegistrationBinding(value),
+    PLATFORM_NATIVE_REGISTRATION_BINDING_V2:
+      platformNativeRegistrationBinding,
+    PLATFORM_NATIVE_REGISTRATION_RESULT: (value) =>
+      legacyPlatformNativeRegistrationResult(value) ||
+      publishedLegacyPlatformNativeRegistrationResult(value),
+    PLATFORM_NATIVE_REGISTRATION_RESULT_V2: platformNativeRegistrationResult,
+    PLATFORM_PACKAGE_STATE_EVIDENCE: (value) =>
+      legacyPlatformPackageStateEvidence(value) ||
+      publishedLegacyPlatformPackageStateEvidence(value),
+    PLATFORM_PACKAGE_STATE_EVIDENCE_V2: platformPackageStateEvidence,
     PLATFORM_PATH_REQUEST_SAFETY: platformPathRequestSafety,
-    PLATFORM_PATH_RESOLUTION_SAFETY: platformPathResolutionSafety,
-    PLATFORM_PROCESS_PLAN_SAFETY: platformProcessPlanSafety,
-    PLATFORM_PROCESS_STATUS_INTEGRITY: platformProcessStatusIntegrity,
-    PLATFORM_RUNTIME_CAPABILITY_FALLBACK: platformRuntimeCapabilityFallback,
+    PLATFORM_PATH_RESOLUTION_SAFETY: (value) =>
+      legacyPlatformPathResolutionSafety(value) ||
+      publishedLegacyPlatformPathResolutionSafety(value),
+    PLATFORM_PATH_RESOLUTION_SAFETY_V2: platformPathResolutionSafety,
+    PLATFORM_PROCESS_PLAN_SAFETY: (value) =>
+      legacyPlatformProcessPlanSafety(value) ||
+      publishedLegacyPlatformProcessPlanSafety(value),
+    PLATFORM_PROCESS_PLAN_SAFETY_V2: platformProcessPlanSafety,
+    PLATFORM_PROCESS_STATUS_INTEGRITY: (value) =>
+      legacyPlatformProcessStatusIntegrity(value) ||
+      publishedLegacyPlatformProcessStatusIntegrity(value),
+    PLATFORM_PROCESS_STATUS_INTEGRITY_V2: platformProcessStatusIntegrity,
+    PLATFORM_RUNTIME_CAPABILITY_FALLBACK: (value) =>
+      legacyPlatformRuntimeCapabilityFallback(value) ||
+      publishedLegacyPlatformRuntimeCapabilityFallback(value),
+    PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2:
+      platformRuntimeCapabilityFallback,
     PLATFORM_SECRET_REQUEST_AUTHORITY: platformSecretRequestAuthority,
-    PLATFORM_SECRET_RESULT_INTEGRITY: platformSecretResultIntegrity,
+    PLATFORM_SECRET_RESULT_INTEGRITY: (value) =>
+      legacyPlatformSecretResultIntegrity(value) ||
+      publishedLegacyPlatformSecretResultIntegrity(value),
+    PLATFORM_SECRET_RESULT_INTEGRITY_V2: platformSecretResultIntegrity,
     PLATFORM_TARGET_SUPPORT_CLAIM: platformTargetSupportClaim,
     RECONCILIATION_READINESS: reconciliationReadiness,
     RESUME_PLAN_EVIDENCE: resumePlanEvidence,
@@ -3684,6 +6033,1844 @@ def _layout_measurement_integrity(value: object) -> bool:
     return (page_count or 0) >= 1 and _flag(value, "renderer_succeeded") is True
 
 
+# M01-W07 legacy v1 accepted-set floor from the first published v1 evaluator.
+# Deprecated v1 unions this floor with the last published v1 snapshot below.
+_LEGACY_CERTIFIED_PLATFORM_IDS: Final = frozenset(
+    {"MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"}
+)
+_LEGACY_UNCERTIFIABLE_PLATFORM_IDS: Final = frozenset(
+    {"UNKNOWN_TARGET", "UNSUPPORTED_TARGET"}
+)
+_LEGACY_CERTIFIED_SUPPORT_TIERS: Final = frozenset({"CERTIFIED_CORE", "CERTIFIED_FULL"})
+_LEGACY_PLATFORM_CAPABILITY_FAMILIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "DIAGNOSTICS",
+        "MODEL_RUNTIME",
+        "NATIVE_MESSAGING",
+        "PACKAGING_UPDATE_CHANNEL",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_LEGACY_MANDATORY_CORE_CAPABILITIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "NATIVE_MESSAGING",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_LEGACY_PLATFORM_REQUEST_PRINCIPALS: Final = frozenset(
+    {"ORCHESTRATOR", "VERIFICATION_HARNESS"}
+)
+_LEGACY_PLATFORM_REQUEST_PROFILES: Final = frozenset(
+    {"PRODUCTION_NO_SUBMIT", "VERIFICATION"}
+)
+_LEGACY_PLATFORM_INTERPRETER_TOKENS: Final = frozenset(
+    {
+        "bash",
+        "cmd",
+        "cscript",
+        "eval",
+        "exec",
+        "powershell",
+        "pwsh",
+        "sh",
+        "wscript",
+        "zsh",
+    }
+)
+_LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Final[dict[str, str]] = {
+    "MACOS_ARM64": "ARM64",
+    "UBUNTU_X64": "X86_64",
+    "WINDOWS_X64": "X86_64",
+}
+_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Final[dict[str, str]] = {
+    "BROWSER_LOCATOR": "BROWSER_PRESENCE",
+    "INSTALLER_STATE": "PACKAGING_UPDATE_CHANNEL",
+    "MODEL_RUNTIME_PROVIDER": "MODEL_RUNTIME",
+    "NATIVE_MESSAGING_REGISTRAR": "NATIVE_MESSAGING",
+    "PLATFORM_DIAGNOSTICS": "DIAGNOSTICS",
+    "PLATFORM_PATHS": "PLATFORM_PATHS",
+    "PROCESS_SUPERVISOR": "PROCESS_SUPERVISION",
+    "SECRET_STORE": "SECURE_STORE",
+    "UPDATER_PROVIDER": "PACKAGING_UPDATE_CHANNEL",
+}
+_LEGACY_PACKAGE_SUCCESS_STATES: Final = frozenset(
+    {"INSTALLED", "REPAIRED", "ROLLED_BACK", "UNINSTALLED", "UPDATE_INSTALLED"}
+)
+_LEGACY_PACKAGE_FAILURE_STATES: Final = frozenset(
+    {
+        "INSTALL_FAILED",
+        "INSTALL_INTERRUPTED",
+        "REPAIR_FAILED",
+        "ROLLBACK_FAILED",
+        "UNINSTALL_FAILED",
+        "UPDATE_FAILED",
+        "UPDATE_INTERRUPTED",
+    }
+)
+_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Final[dict[str, str]] = {
+    "INSTALL_LAUNCH_REPORT": "installer_state_ref",
+    "MODEL_PROFILE_REPORT": "model_profile_ref",
+    "NATIVE_HOST_REGISTRATION_REPORT": "native_messaging_result_ref",
+    "SECRET_STORE_TEST_REPORT": "secret_store_result_ref",
+    "UPDATE_ROLLBACK_REPORT": "update_state_ref",
+}
+_LEGACY_SERVICE_PORT_RE: Final = re.compile(r"^[0-9]{1,5}$")
+_LEGACY_PATH_ROLE_VALUE_RE: Final = re.compile(r"^[A-Z][A-Z0-9_]{1,63}$")
+
+
+def _LEGACY_platform_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    return (
+        context is not None
+        and _text_one_of(
+            context, "requesting_principal", _LEGACY_PLATFORM_REQUEST_PRINCIPALS
+        )
+        and _text_one_of(
+            context, "authorization_profile", _LEGACY_PLATFORM_REQUEST_PROFILES
+        )
+    )
+
+
+def _LEGACY_platform_capability_state_sound(state: object) -> bool:
+    availability = _text(state, "availability")
+    reasons = _items(state, "reason_codes")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        return (
+            not reasons
+            and _present(state, "identity_token")
+            and _present(state, "detected_version")
+            and _present(state, "evidence_digest")
+            and _text(state, "evaluation_method") != "NOT_EVALUATED"
+        )
+    if not reasons:
+        return False
+    if availability == "NOT_EVALUATED":
+        return (
+            _text(state, "evaluation_method") == "NOT_EVALUATED"
+            and "EVALUATION_NOT_RUN" in reasons
+        )
+    if availability == "DEGRADED_LIMITED":
+        return _present(state, "identity_token") and _present(
+            state, "detected_version"
+        )
+    return True
+
+
+def _LEGACY_platform_support_claim_sound(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    platform_id = _text(value, "platform_id")
+    if claim is None or platform_id is None:
+        return False
+    reviewed = _text(claim, "reviewed_tier") or ""
+    evidence = _items(claim, "evidence_refs")
+    if not _unique_strings(evidence):
+        return False
+    if platform_id in _LEGACY_UNCERTIFIABLE_PLATFORM_IDS and reviewed != "UNSUPPORTED":
+        return False
+    if reviewed not in _LEGACY_CERTIFIED_SUPPORT_TIERS:
+        return True
+    return (
+        platform_id in _LEGACY_CERTIFIED_PLATFORM_IDS
+        and _text(claim, "review_state") == "REVIEW_COMPLETE"
+        and _present(claim, "evaluated_commit")
+        and _present(claim, "evaluated_tree")
+        and _present(claim, "reviewer_identity_ref")
+        and bool(evidence)
+    )
+
+
+def _LEGACY_platform_reviewed_tier_is_certified(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    return (_text(claim, "reviewed_tier") or "") in _LEGACY_CERTIFIED_SUPPORT_TIERS
+
+
+def _LEGACY_platform_target_support_claim(value: object) -> bool:
+    platform_id = _text(value, "platform_id")
+    reasons = _items(value, "reason_codes")
+    if (
+        platform_id is None
+        or not _unique_strings(reasons)
+        or not _LEGACY_platform_support_claim_sound(value)
+    ):
+        return False
+    expected_architecture = _LEGACY_PLATFORM_ARCHITECTURE_BY_ID.get(platform_id)
+    if (
+        expected_architecture is not None
+        and _text(value, "architecture") != expected_architecture
+    ):
+        return False
+    if not _LEGACY_platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    return not reasons and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+
+
+def _LEGACY_platform_capability_report_integrity(value: object) -> bool:
+    capabilities = _items(value, "capabilities")
+    families = {_text(state, "capability") for state in capabilities}
+    if (
+        not _unique_field(capabilities, "capability")
+        or families != _LEGACY_PLATFORM_CAPABILITY_FAMILIES
+        or not all(
+            _LEGACY_platform_capability_state_sound(state) for state in capabilities
+        )
+        or not _unique_strings(_items(value, "model_profile_refs"))
+        or not _unique_strings(_items(value, "diagnostic_refs"))
+        or not _LEGACY_platform_support_claim_sound(value)
+    ):
+        return False
+
+    def availability_of(family: str) -> str | None:
+        for state in capabilities:
+            if _text(state, "capability") == family:
+                return _text(state, "availability")
+        return None
+
+    if (
+        _text(value, "packaging_channel") == "RELEASE_STABLE"
+        and availability_of("PACKAGING_UPDATE_CHANNEL") != "AVAILABLE"
+    ):
+        return False
+    if not _LEGACY_platform_reviewed_tier_is_certified(value):
+        return True
+    if not all(
+        availability_of(family) == "AVAILABLE"
+        for family in _LEGACY_MANDATORY_CORE_CAPABILITIES
+    ):
+        return False
+    claim = _object_member(value, "support_claim")
+    if _text(claim, "reviewed_tier") != "CERTIFIED_FULL":
+        # A missing or unavailable local-AI profile never downgrades the
+        # deterministic core tier; CERTIFIED_CORE deliberately imposes no
+        # MODEL_RUNTIME requirement.
+        return True
+    return availability_of("MODEL_RUNTIME") == "AVAILABLE" and bool(
+        _items(value, "model_profile_refs")
+    )
+
+
+def _LEGACY_platform_path_request_safety(value: object) -> bool:
+    if not _LEGACY_platform_request_authority(value):
+        return False
+    return (
+        _text(value, "scope") != "SYSTEM"
+        or _text(value, "role") == "NATIVE_HOST_REGISTRATION"
+    )
+
+
+def _LEGACY_platform_path_resolution_safety(value: object) -> bool:
+    role = _text(value, "role")
+    reasons = _items(value, "reason_codes")
+    sanitized = _text(value, "sanitized_path")
+    if (
+        role is None
+        or not _unique_strings(reasons)
+        or (
+            _text(value, "scope") == "SYSTEM"
+            and role != "NATIVE_HOST_REGISTRATION"
+        )
+    ):
+        return False
+    if _text(value, "resolution_state") != "RESOLVED":
+        return (
+            sanitized is None
+            and not _present(value, "path_digest")
+            and _flag(value, "exists") is False
+            and _flag(value, "writable") is False
+            and bool(reasons)
+        )
+    return (
+        sanitized is not None
+        and sanitized.startswith("<" + role + ">")
+        and _present(value, "path_digest")
+        and not reasons
+        and (_flag(value, "writable") is not True or _flag(value, "exists") is True)
+    )
+
+
+def _LEGACY_platform_secret_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    operation = _text(value, "operation")
+    redaction = _object_member(value, "redaction")
+    if not _LEGACY_platform_request_authority(value):
+        return False
+    if (
+        _text(context, "authorization_profile") == "VERIFICATION"
+        and operation != "STATUS"
+    ):
+        return False
+    if redaction is not None and (
+        _text(redaction, "sensitivity") != "SECRET"
+        or _text(redaction, "policy") != "FORBID_CAPTURE"
+    ):
+        return False
+    if operation == "PUT":
+        return _present(value, "material_reference") and _present(
+            value, "material_digest"
+        )
+    return not _present(value, "material_reference") and not _present(
+        value, "material_digest"
+    )
+
+
+def _LEGACY_platform_secret_result_integrity(value: object) -> bool:
+    operation = _text(value, "operation")
+    availability = _text(value, "store_availability")
+    state = _text(value, "result_state")
+    reasons = _items(value, "reason_codes")
+    has_material = _present(value, "material_reference")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        if not _present(value, "store_identity_token"):
+            return False
+    elif has_material:
+        return False
+    if operation == "STATUS":
+        return (
+            not has_material
+            and not _present(value, "material_digest")
+            and state
+            in {"DENIED_PERMISSION", "STORE_AVAILABLE", "STORE_UNAVAILABLE"}
+            and (
+                state != "STORE_AVAILABLE"
+                or (availability == "AVAILABLE" and not reasons)
+            )
+        )
+    if state == "STORE_AVAILABLE":
+        return False
+    if state == "RETRIEVED":
+        return (
+            operation == "GET"
+            and availability == "AVAILABLE"
+            and has_material
+            and _present(value, "material_digest")
+            and not reasons
+        )
+    if state == "STORED":
+        return (
+            operation == "PUT"
+            and availability == "AVAILABLE"
+            and has_material
+            and not reasons
+        )
+    if state == "DELETED":
+        return (
+            operation == "DELETE"
+            and availability == "AVAILABLE"
+            and not has_material
+            and not _present(value, "material_digest")
+            and not reasons
+        )
+    if state == "DENIED_PERMISSION":
+        return (
+            not has_material
+            and "PERMISSION_DENIED" in reasons
+            and availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+        )
+    return not has_material and bool(reasons)
+
+
+def _LEGACY_platform_process_plan_safety(value: object) -> bool:
+    profile = _text(value, "profile")
+    environment = _items(value, "environment_allowlist")
+    command_arguments = _items(value, "arguments")
+    binary_modes = [_text(value, "stdin_mode"), _text(value, "stdout_mode")]
+    if (
+        not _LEGACY_platform_request_authority(value)
+        or _flag(value, "inherit_parent_environment") is not False
+        or not _present(value, "executable_digest")
+        or not _unique_field(environment, "variable")
+        or _text(value, "working_directory_role") == "NATIVE_HOST_REGISTRATION"
+    ):
+        return False
+    if any(
+        isinstance(argument, str)
+        and argument.lower() in _LEGACY_PLATFORM_INTERPRETER_TOKENS
+        for argument in command_arguments
+    ):
+        return False
+    for entry in environment:
+        variable = _text(entry, "variable")
+        entry_value = _text(entry, "value")
+        if entry_value is None:
+            return False
+        if variable == "JAPP_SERVICE_PORT" and not _LEGACY_SERVICE_PORT_RE.match(
+            entry_value
+        ):
+            return False
+        if variable == "JAPP_PATH_ROLE" and not _LEGACY_PATH_ROLE_VALUE_RE.match(
+            entry_value
+        ):
+            return False
+    if (
+        _text(value, "lifecycle_mode") == "ONE_SHOT"
+        and _number(value, "max_restart_attempts") != 0
+    ):
+        return False
+    if profile == "NATIVE_MESSAGING_HOST":
+        return all(mode == "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+    return all(mode != "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+
+
+def _LEGACY_platform_process_status_integrity(value: object) -> bool:
+    state = _text(value, "state")
+    reasons = _items(value, "reason_codes")
+    ended = _present(value, "ended_at")
+    started = _present(value, "started_at")
+    exited = _present(value, "exit_code")
+    orphan = _flag(value, "orphan_detected")
+    if not _unique_strings(reasons):
+        return False
+    if (
+        ended
+        and started
+        and not _timestamp_not_before(value, "ended_at", "started_at")
+    ):
+        return False
+    if orphan is True and state != "ORPHANED":
+        return False
+    if state in {"STARTING", "RUNNING"}:
+        return not ended and not exited and orphan is False
+    if state == "TERMINATING":
+        return (
+            not ended
+            and not exited
+            and _text(value, "termination_requested") != "NONE"
+        )
+    if state == "EXITED":
+        return started and ended and exited and not reasons
+    if state == "TERMINATED":
+        return (
+            started and ended and _text(value, "termination_requested") != "NONE"
+        )
+    if state == "ORPHANED":
+        return orphan is True and bool(reasons)
+    if state == "UNAVAILABLE":
+        return not started and not ended and not exited and bool(reasons)
+    return bool(reasons)
+
+
+def _LEGACY_platform_native_registration_binding(value: object) -> bool:
+    operation = _text(value, "operation")
+    extensions = _items(value, "allowed_extension_ids")
+    if (
+        not _LEGACY_platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+        or _text(value, "binary_stdio_mode") != "BINARY_LENGTH_PREFIXED"
+        or _text(value, "manifest_location_role") != "NATIVE_HOST_REGISTRATION"
+        or not _strictly_sorted_strings(extensions)
+    ):
+        return False
+    if operation == "REMOVE":
+        return not _present(value, "expected_manifest_digest") and not _present(
+            value, "expected_host_binary_digest"
+        )
+    if operation == "VERIFY":
+        return _present(value, "expected_manifest_digest")
+    return _present(value, "expected_manifest_digest") and _present(
+        value, "expected_host_binary_digest"
+    )
+
+
+def _LEGACY_platform_native_registration_result(value: object) -> bool:
+    operation = _text(value, "operation")
+    observed = _text(value, "observed_state")
+    reasons = _items(value, "reason_codes")
+    changed = _flag(value, "changed")
+    if (
+        not _unique_strings(reasons)
+        or _text(value, "browser_family") != "CHROME"
+        or (operation == "VERIFY" and changed is not False)
+    ):
+        return False
+    if observed == "PRESENT_VALID":
+        if (
+            not _present(value, "observed_manifest_digest")
+            or not _present(value, "observed_host_version")
+            or reasons
+        ):
+            return False
+    elif not reasons:
+        return False
+    if observed == "MISMATCHED_IDENTITY" and "IDENTITY_MISMATCH" not in reasons:
+        return False
+    if observed == "NOT_EVALUATED":
+        return changed is False and "EVALUATION_NOT_RUN" in reasons
+    if not reasons:
+        expected = "ABSENT" if operation == "REMOVE" else "PRESENT_VALID"
+        return (
+            observed == expected
+            and _flag(value, "idempotent_repeat_safe") is True
+        )
+    return True
+
+
+def _LEGACY_platform_browser_discovery_safety(value: object) -> bool:
+    if (
+        not _LEGACY_platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+    ):
+        return False
+    return (
+        _flag(value, "include_capability_probe") is not True
+        or (_text(value, "platform_id") or "") in _LEGACY_CERTIFIED_PLATFORM_IDS
+    )
+
+
+def _LEGACY_platform_browser_record_scope(value: object) -> bool:
+    presence = _text(value, "presence")
+    reasons = _items(value, "reason_codes")
+    capability = _object_member(value, "native_messaging_capability")
+    if (
+        not _unique_strings(reasons)
+        or capability is None
+        or not _LEGACY_platform_capability_state_sound(capability)
+        or _text(capability, "capability") != "NATIVE_MESSAGING"
+    ):
+        return False
+    if presence == "AVAILABLE":
+        if not _present(value, "detected_version"):
+            return False
+    elif _present(value, "sanitized_install_location"):
+        return False
+    if _flag(value, "certified_for_platform") is not True:
+        return bool(reasons)
+    return (
+        not reasons
+        and presence == "AVAILABLE"
+        and _text(value, "browser_family") == "CHROME"
+        and _text(value, "browser_channel") == "STABLE"
+        and (_text(value, "platform_id") or "") in _LEGACY_CERTIFIED_PLATFORM_IDS
+        and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+        and _text(capability, "availability") == "AVAILABLE"
+        and _present(value, "last_tested_on")
+    )
+
+
+def _LEGACY_platform_model_profile_evidence(value: object) -> bool:
+    platform_id = _text(value, "platform_id") or ""
+    accelerator = _text(value, "accelerator")
+    family = _text(value, "runtime_family")
+    reasons = _items(value, "reason_codes")
+    evidence = _items(value, "evidence_refs")
+    if not _unique_strings(reasons) or not _unique_strings(evidence):
+        return False
+    if accelerator == "APPLE_SILICON_GPU" and platform_id != "MACOS_ARM64":
+        return False
+    if accelerator == "NVIDIA_CUDA" and (
+        not _present(value, "minimum_vram_mib")
+        or not _present(value, "minimum_driver_version")
+    ):
+        return False
+    if accelerator == "CPU_ONLY" and _present(value, "minimum_vram_mib"):
+        return False
+    if family == "OLLAMA_MLX" and (
+        platform_id != "MACOS_ARM64" or accelerator != "APPLE_SILICON_GPU"
+    ):
+        return False
+    if family == "OLLAMA_GGUF" and accelerator == "APPLE_SILICON_GPU":
+        return False
+    if _text(value, "acceptance_state") != "ACCEPTED":
+        return (
+            bool(reasons)
+            and _text(value, "core_capability_behavior") != "FULL_AI_AVAILABLE"
+        )
+    return (
+        platform_id in _LEGACY_CERTIFIED_PLATFORM_IDS
+        and not reasons
+        and bool(evidence)
+        and _text(value, "availability") == "AVAILABLE"
+        and _text(value, "core_capability_behavior") == "FULL_AI_AVAILABLE"
+        and _present(value, "structured_output_evidence_ref")
+        and _present(value, "factuality_evidence_ref")
+        and _present(value, "latency_evidence_ref")
+        and _present(value, "memory_evidence_ref")
+        and _present(value, "last_tested_on")
+    )
+
+
+def _LEGACY_platform_runtime_capability_fallback(value: object) -> bool:
+    available = _items(value, "available_profile_refs")
+    accepted = _items(value, "accepted_profile_refs")
+    reasons = _items(value, "reason_codes")
+    behavior = _text(value, "core_capability_behavior")
+    if (
+        not _unique_strings(available)
+        or not _unique_strings(accepted)
+        or not _unique_strings(reasons)
+        or not _subset_of(accepted, available)
+    ):
+        return False
+    if (
+        _text(value, "detection_method") == "NOT_EVALUATED"
+        and _text(value, "runtime_availability") != "NOT_EVALUATED"
+    ):
+        return False
+    if _text(value, "runtime_availability") != "AVAILABLE":
+        return (
+            not available
+            and not accepted
+            and bool(reasons)
+            and behavior != "FULL_AI_AVAILABLE"
+        )
+    if (
+        not _present(value, "runtime_family")
+        or not _present(value, "runtime_version")
+        or not _present(value, "accelerator")
+    ):
+        return False
+    return bool(accepted) if behavior == "FULL_AI_AVAILABLE" else not accepted
+
+
+def _LEGACY_platform_package_state_evidence(value: object) -> bool:
+    state = _text(value, "state") or ""
+    reasons = _items(value, "reason_codes")
+    signature = _text(value, "signature_state")
+    interrupted = _flag(value, "interrupted")
+    preservation = _text(value, "user_data_preservation")
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or (interrupted is True and "INTERRUPTED" not in reasons)
+        or (_flag(value, "recovery_completed") is True and interrupted is not True)
+        or (preservation == "PRESERVATION_FAILED" and not reasons)
+    ):
+        return False
+    if (
+        signature in {"SIGNATURE_INVALID", "SIGNATURE_MISSING"}
+        and "SIGNATURE_NOT_VERIFIED" not in reasons
+    ):
+        return False
+    if state in _LEGACY_PACKAGE_FAILURE_STATES and not reasons:
+        return False
+    if state in _LEGACY_PACKAGE_SUCCESS_STATES:
+        if (
+            signature != "SIGNATURE_VALID"
+            or reasons
+            or interrupted is not False
+            or preservation not in {"EXPLICIT_DELETION_REQUESTED", "PRESERVED"}
+            or not _items(value, "evidence_refs")
+        ):
+            return False
+    if state == "UNINSTALLED":
+        return _text(value, "native_host_cleanup") in {
+            "NOT_APPLICABLE",
+            "REMOVED",
+        }
+    if state == "INSTALLED":
+        return _present(value, "installed_version") and _text(
+            value, "installed_version"
+        ) == _text(value, "package_version")
+    if state == "NOT_INSTALLED":
+        return not _present(value, "installed_version")
+    if state == "NO_UPDATE_AVAILABLE":
+        return not _present(value, "available_version")
+    if state == "UPDATE_AVAILABLE":
+        return _present(value, "available_version")
+    if state == "UPDATE_INSTALLED":
+        return (
+            _present(value, "installed_version")
+            and _present(value, "available_version")
+            and _present(value, "target_artifact")
+        )
+    if state == "ROLLED_BACK":
+        return (
+            _present(value, "rolled_back_to_version")
+            and _flag(value, "rollback_available") is True
+        )
+    return True
+
+
+def _LEGACY_platform_diagnostic_integrity(value: object) -> bool:
+    result = _text(value, "result")
+    severity = _text(value, "severity")
+    reasons = _items(value, "reason_codes")
+    blocking = _flag(value, "blocking")
+    component = _text(value, "component") or ""
+    expected_capability = _LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT.get(component)
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or (
+            expected_capability is not None
+            and _text(value, "capability") != expected_capability
+        )
+    ):
+        return False
+    if (
+        _present(value, "user_message")
+        and _text(_object_member(value, "redaction"), "policy") != "NONE"
+    ):
+        return False
+    if blocking is True and result not in {"BLOCKED", "FAILURE"}:
+        return False
+    if result == "SUCCESS":
+        return blocking is False and not reasons and severity == "INFO"
+    if not reasons:
+        return False
+    if result == "WARNING":
+        return blocking is False and severity in {"INFO", "WARNING"}
+    if result == "FAILURE":
+        return severity in {"CRITICAL", "ERROR"}
+    return blocking is True
+
+
+def _LEGACY_platform_evidence_integrity(value: object) -> bool:
+    reasons = _items(value, "reason_codes")
+    method = _text(value, "evaluation_method")
+    artifact_kind = _text(value, "artifact_kind") or ""
+    required_reference = _LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND.get(artifact_kind)
+    if (
+        not _unique_strings(reasons)
+        or _flag(value, "synthetic_only") is not True
+        or (
+            required_reference is not None
+            and not _present(value, required_reference)
+        )
+        or (
+            _present(value, "package_artifact")
+            and not _present(value, "signature_state")
+        )
+    ):
+        return False
+    if _text(value, "review_state") == "REVIEW_COMPLETE" and not _present(
+        value, "reviewer_identity_ref"
+    ):
+        return False
+    if (
+        _text(value, "owner_decision_state") == "RECORDED"
+        and _text(value, "review_state") != "REVIEW_COMPLETE"
+    ):
+        return False
+    if method == "MEASURED_NATIVE_RUN":
+        if (
+            not _present(value, "os_version")
+            or not _present(value, "os_build")
+            or _text(value, "machine_class") == "SYNTHETIC_FIXTURE"
+            or (_text(value, "platform_id") or "") not in _LEGACY_CERTIFIED_PLATFORM_IDS
+        ):
+            return False
+    elif _text(value, "machine_class") in {
+        "HOSTED_CI_RUNNER",
+        "PHYSICAL_DEVELOPMENT_MACHINE",
+    }:
+        if method != "STATIC_INSPECTION":
+            return False
+    return not reasons if _text(value, "result") == "SUCCESS" else bool(reasons)
+
+
+def _LEGACY_platform_certification_input_scope(value: object) -> bool:
+    required = _items(value, "required_evidence_kinds")
+    present_kinds = _items(value, "present_evidence_kinds")
+    records = _items(value, "evidence_record_refs")
+    reasons = _items(value, "reason_codes")
+    if (
+        not _strictly_sorted_strings(required)
+        or not _strictly_sorted_strings(present_kinds)
+        or not _unique_strings(records)
+        or not _unique_strings(reasons)
+        or not _LEGACY_platform_support_claim_sound(value)
+    ):
+        return False
+    complete = _subset_of(required, present_kinds) and bool(records)
+    if _flag(value, "inventory_complete") is not complete:
+        return False
+    if (_text(value, "owner_decision_state") == "RECORDED") is not _present(
+        value, "owner_decision_ref"
+    ):
+        return False
+    if not _LEGACY_platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    return (
+        not reasons
+        and complete
+        and _text(value, "owner_decision_state") == "RECORDED"
+    )
+
+
+# M01-W07 deprecated-v1 accepted-set ceiling from the last published v1
+# content anchor (0659c13). Deprecated v1 unions this exact
+# snapshot with the first-published floor; corrected semantics are v2-only.
+_PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS: Final = frozenset(
+    {"MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"}
+)
+_PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS: Final = frozenset(
+    {"UNKNOWN_TARGET", "UNSUPPORTED_TARGET"}
+)
+_PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS: Final = frozenset({"CERTIFIED_CORE", "CERTIFIED_FULL"})
+_PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "DIAGNOSTICS",
+        "MODEL_RUNTIME",
+        "NATIVE_MESSAGING",
+        "PACKAGING_UPDATE_CHANNEL",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES: Final = frozenset(
+    {
+        "BROWSER_PRESENCE",
+        "NATIVE_MESSAGING",
+        "PLATFORM_PATHS",
+        "PROCESS_SUPERVISION",
+        "SECURE_STORE",
+    }
+)
+_PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS: Final = frozenset(
+    {"ORCHESTRATOR", "VERIFICATION_HARNESS"}
+)
+_PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES: Final = frozenset(
+    {"PRODUCTION_NO_SUBMIT", "VERIFICATION"}
+)
+_PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS: Final = frozenset(
+    {
+        "bash",
+        "cmd",
+        "cscript",
+        "eval",
+        "exec",
+        "powershell",
+        "pwsh",
+        "sh",
+        "wscript",
+        "zsh",
+    }
+)
+_PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS: Final = frozenset(
+    {"doas", "pkexec", "runas", "su", "sudo"}
+)
+_PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES: Final = (
+    ".bat",
+    ".cmd",
+    ".com",
+    ".exe",
+    ".ps1",
+    ".sh",
+)
+_PUBLISHED_LEGACY_PLATFORM_PATH_ROLES: Final = frozenset(
+    {
+        "APPLICATION_DATA",
+        "ARTIFACT_STORE",
+        "BACKUP_STAGING",
+        "CACHE",
+        "DIAGNOSTIC_BUNDLE",
+        "LOG_STORE",
+        "MODEL_ARTIFACT_STORE",
+        "NATIVE_HOST_REGISTRATION",
+        "TEMPORARY",
+    }
+)
+_PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS: Final = frozenset(
+    {"0:0:0:0:0:0:0:1", "127.0.0.1", "localhost"}
+)
+_PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID: Final[dict[str, str]] = {
+    "MACOS_ARM64": "ARM64",
+    "UBUNTU_X64": "X86_64",
+    "WINDOWS_X64": "X86_64",
+}
+_PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE: Final[dict[str, str]] = {
+    "INSTALL": "PRESENT_VALID",
+    "REMOVE": "ABSENT",
+    "REPAIR": "PRESENT_VALID",
+    "UPDATE": "PRESENT_VALID",
+    "VERIFY": "PRESENT_VALID",
+}
+_PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT: Final[dict[str, str]] = {
+    "BROWSER_LOCATOR": "BROWSER_PRESENCE",
+    "INSTALLER_STATE": "PACKAGING_UPDATE_CHANNEL",
+    "MODEL_RUNTIME_PROVIDER": "MODEL_RUNTIME",
+    "NATIVE_MESSAGING_REGISTRAR": "NATIVE_MESSAGING",
+    "PLATFORM_DIAGNOSTICS": "DIAGNOSTICS",
+    "PLATFORM_PATHS": "PLATFORM_PATHS",
+    "PROCESS_SUPERVISOR": "PROCESS_SUPERVISION",
+    "SECRET_STORE": "SECURE_STORE",
+    "UPDATER_PROVIDER": "PACKAGING_UPDATE_CHANNEL",
+}
+_PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES: Final = frozenset(
+    {"INSTALLED", "REPAIRED", "ROLLED_BACK", "UNINSTALLED", "UPDATE_INSTALLED"}
+)
+_PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES: Final = frozenset(
+    {
+        "INSTALL_FAILED",
+        "INSTALL_INTERRUPTED",
+        "REPAIR_FAILED",
+        "ROLLBACK_FAILED",
+        "UNINSTALL_FAILED",
+        "UPDATE_FAILED",
+        "UPDATE_INTERRUPTED",
+    }
+)
+_PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES: Final = frozenset(
+    {"INSTALL_INTERRUPTED", "UPDATE_INTERRUPTED"}
+)
+_PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID: Final[dict[str, frozenset[str]]] = {
+    "MACOS_ARM64": frozenset({"APPLE_DISK_IMAGE"}),
+    "UBUNTU_X64": frozenset({"APP_IMAGE", "DEBIAN_PACKAGE"}),
+    "WINDOWS_X64": frozenset({"WINDOWS_INSTALLER"}),
+}
+_PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY: Final = frozenset(
+    {"AVAILABLE", "DEGRADED_LIMITED"}
+)
+_PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Final[dict[str, str]] = {
+    "INSTALL_LAUNCH_REPORT": "installer_state_ref",
+    "MODEL_PROFILE_REPORT": "model_profile_ref",
+    "NATIVE_HOST_REGISTRATION_REPORT": "native_messaging_result_ref",
+    "SECRET_STORE_TEST_REPORT": "secret_store_result_ref",
+    "UPDATE_ROLLBACK_REPORT": "update_state_ref",
+}
+_PUBLISHED_LEGACY_SERVICE_PORT_RE: Final = re.compile(r"^[1-9][0-9]{0,4}$")
+
+
+def _published_legacy_platform_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    return (
+        context is not None
+        and _text_one_of(
+            context, "requesting_principal", _PUBLISHED_LEGACY_PLATFORM_REQUEST_PRINCIPALS
+        )
+        and _text_one_of(
+            context, "authorization_profile", _PUBLISHED_LEGACY_PLATFORM_REQUEST_PROFILES
+        )
+    )
+
+
+def _published_legacy_platform_capability_state_sound(state: object) -> bool:
+    availability = _text(state, "availability")
+    reasons = _items(state, "reason_codes")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        return (
+            not reasons
+            and _present(state, "identity_token")
+            and _present(state, "detected_version")
+            and _present(state, "evidence_digest")
+            and _text(state, "evaluation_method") != "NOT_EVALUATED"
+        )
+    if not reasons:
+        return False
+    if availability == "NOT_EVALUATED":
+        return (
+            _text(state, "evaluation_method") == "NOT_EVALUATED"
+            and "EVALUATION_NOT_RUN" in reasons
+        )
+    if availability == "DEGRADED_LIMITED":
+        return _present(state, "identity_token") and _present(
+            state, "detected_version"
+        )
+    return True
+
+
+def _published_legacy_platform_support_claim_sound(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    platform_id = _text(value, "platform_id")
+    if claim is None or platform_id is None:
+        return False
+    reviewed = _text(claim, "reviewed_tier") or ""
+    evidence = _items(claim, "evidence_refs")
+    if not _unique_strings(evidence):
+        return False
+    if platform_id in _PUBLISHED_LEGACY_UNCERTIFIABLE_PLATFORM_IDS and reviewed != "UNSUPPORTED":
+        return False
+    if reviewed not in _PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS:
+        return True
+    return (
+        platform_id in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+        and _text(claim, "review_state") == "REVIEW_COMPLETE"
+        and _present(claim, "evaluated_commit")
+        and _present(claim, "evaluated_tree")
+        and _present(claim, "reviewer_identity_ref")
+        and bool(evidence)
+    )
+
+
+def _published_legacy_platform_reviewed_tier_is_certified(value: object) -> bool:
+    claim = _object_member(value, "support_claim")
+    return (_text(claim, "reviewed_tier") or "") in _PUBLISHED_LEGACY_CERTIFIED_SUPPORT_TIERS
+
+
+def _published_legacy_platform_architecture_coherent(value: object) -> bool:
+    """A certified target must report its specification §5.14.1 architecture.
+
+    An uncertifiable target stays unconstrained so an honest
+    UNKNOWN_ARCHITECTURE observation remains representable.
+    """
+    expected = _PUBLISHED_LEGACY_PLATFORM_ARCHITECTURE_BY_ID.get(_text(value, "platform_id") or "")
+    return expected is None or _text(value, "architecture") == expected
+
+
+def _published_legacy_platform_target_support_claim(value: object) -> bool:
+    platform_id = _text(value, "platform_id")
+    reasons = _items(value, "reason_codes")
+    if (
+        platform_id is None
+        or not _unique_strings(reasons)
+        or not _published_legacy_platform_architecture_coherent(value)
+        or not _published_legacy_platform_support_claim_sound(value)
+    ):
+        return False
+    if not _published_legacy_platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    return not reasons and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+
+
+def _published_legacy_platform_capability_report_integrity(value: object) -> bool:
+    capabilities = _items(value, "capabilities")
+    families = {_text(state, "capability") for state in capabilities}
+    if (
+        not _unique_field(capabilities, "capability")
+        or families != _PUBLISHED_LEGACY_PLATFORM_CAPABILITY_FAMILIES
+        or not all(
+            _published_legacy_platform_capability_state_sound(state) for state in capabilities
+        )
+        or not _unique_strings(_items(value, "model_profile_refs"))
+        or not _unique_strings(_items(value, "diagnostic_refs"))
+        or not _published_legacy_platform_support_claim_sound(value)
+    ):
+        return False
+
+    def availability_of(family: str) -> str | None:
+        for state in capabilities:
+            if _text(state, "capability") == family:
+                return _text(state, "availability")
+        return None
+
+    if (
+        _text(value, "packaging_channel") == "RELEASE_STABLE"
+        and availability_of("PACKAGING_UPDATE_CHANNEL") != "AVAILABLE"
+    ):
+        return False
+    if not _published_legacy_platform_reviewed_tier_is_certified(value):
+        return True
+
+    def measured_availability(family: str) -> bool:
+        for state in capabilities:
+            if _text(state, "capability") == family:
+                return (
+                    _text(state, "availability") == "AVAILABLE"
+                    and _text(state, "evaluation_method")
+                    == "MEASURED_NATIVE_RUN"
+                )
+        return False
+
+    # A certified tier is a reviewed claim about a real machine. Only a
+    # measured native run can support it, exactly as
+    # _published_legacy_platform_target_support_claim already requires of the identical
+    # support_claim record, so a declared plan or a synthetic fixture can never
+    # carry a certification.
+    if not all(
+        measured_availability(family) for family in _PUBLISHED_LEGACY_MANDATORY_CORE_CAPABILITIES
+    ):
+        return False
+    claim = _object_member(value, "support_claim")
+    if _text(claim, "reviewed_tier") != "CERTIFIED_FULL":
+        # A missing or unavailable local-AI profile never downgrades the
+        # deterministic core tier; CERTIFIED_CORE deliberately imposes no
+        # MODEL_RUNTIME requirement.
+        return True
+    return measured_availability("MODEL_RUNTIME") and bool(
+        _items(value, "model_profile_refs")
+    )
+
+
+def _published_legacy_platform_path_request_safety(value: object) -> bool:
+    if not _published_legacy_platform_request_authority(value):
+        return False
+    return (
+        _text(value, "scope") != "SYSTEM"
+        or _text(value, "role") == "NATIVE_HOST_REGISTRATION"
+    )
+
+
+def _published_legacy_platform_path_resolution_safety(value: object) -> bool:
+    role = _text(value, "role")
+    state = _text(value, "resolution_state")
+    reasons = _items(value, "reason_codes")
+    sanitized = _text(value, "sanitized_path")
+    if (
+        role is None
+        or not _unique_strings(reasons)
+        or (
+            _text(value, "scope") == "SYSTEM"
+            and role != "NATIVE_HOST_REGISTRATION"
+        )
+    ):
+        return False
+    if state != "RESOLVED":
+        # A location is disclosed only by a resolution that succeeded, and a
+        # resolution that did not succeed can never report a writable location.
+        if (
+            sanitized is not None
+            or _present(value, "path_digest")
+            or _flag(value, "writable") is not False
+            or not reasons
+        ):
+            return False
+        if state == "DENIED_PERMISSION":
+            # A refusal may report that the location exists — a permission
+            # error is itself that observation — but never where it is.
+            return "PERMISSION_DENIED" in reasons
+        # Nothing was evaluated, or nothing was reachable, so nothing was
+        # observed.
+        return _flag(value, "exists") is False and (
+            state != "NOT_EVALUATED" or "EVALUATION_NOT_RUN" in reasons
+        )
+    return (
+        sanitized is not None
+        and sanitized.startswith("<" + role + ">")
+        and _present(value, "path_digest")
+        and not reasons
+        and (_flag(value, "writable") is not True or _flag(value, "exists") is True)
+    )
+
+
+def _published_legacy_platform_secret_request_authority(value: object) -> bool:
+    context = _object_member(value, "request_context")
+    operation = _text(value, "operation")
+    redaction = _object_member(value, "redaction")
+    if not _published_legacy_platform_request_authority(value):
+        return False
+    if (
+        _text(context, "authorization_profile") == "VERIFICATION"
+        and operation != "STATUS"
+    ):
+        return False
+    if redaction is not None and (
+        _text(redaction, "sensitivity") != "SECRET"
+        or _text(redaction, "policy") != "FORBID_CAPTURE"
+    ):
+        return False
+    if operation == "PUT":
+        return _present(value, "material_reference") and _present(
+            value, "material_digest"
+        )
+    return not _present(value, "material_reference") and not _present(
+        value, "material_digest"
+    )
+
+
+def _published_legacy_platform_secret_result_integrity(value: object) -> bool:
+    operation = _text(value, "operation")
+    availability = _text(value, "store_availability")
+    state = _text(value, "result_state")
+    reasons = _items(value, "reason_codes")
+    has_material = _present(value, "material_reference")
+    has_digest = _present(value, "material_digest")
+    if not _unique_strings(reasons):
+        return False
+    if availability == "AVAILABLE":
+        if not _present(value, "store_identity_token"):
+            return False
+    elif has_material:
+        return False
+    store_unavailable_availability = availability is not None and availability not in {
+        "AVAILABLE",
+        "DEGRADED_LIMITED",
+        "PERMISSION_REQUIRED",
+    }
+    denied_availability = availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+    if operation == "STATUS":
+        if has_material or has_digest:
+            return False
+        if state == "STORE_AVAILABLE":
+            return availability == "AVAILABLE" and not reasons
+        if state == "DENIED_PERMISSION":
+            return "PERMISSION_DENIED" in reasons and denied_availability
+        if state == "STORE_UNAVAILABLE":
+            return bool(reasons) and store_unavailable_availability
+        return False
+    if state == "STORE_AVAILABLE":
+        return False
+    if state == "RETRIEVED":
+        return (
+            operation == "GET"
+            and availability == "AVAILABLE"
+            and has_material
+            and has_digest
+            and not reasons
+        )
+    if state == "STORED":
+        return (
+            operation == "PUT"
+            and availability == "AVAILABLE"
+            and has_material
+            and not reasons
+        )
+    if state == "DELETED":
+        return (
+            operation == "DELETE"
+            and availability == "AVAILABLE"
+            and not has_material
+            and not has_digest
+            and not reasons
+        )
+    if state == "DENIED_PERMISSION":
+        return (
+            not has_material
+            and not has_digest
+            and "PERMISSION_DENIED" in reasons
+            and denied_availability
+        )
+    if state == "STORE_UNAVAILABLE":
+        return (
+            not has_material
+            and not has_digest
+            and bool(reasons)
+            and store_unavailable_availability
+        )
+    return not has_material and not has_digest and bool(reasons)
+
+
+def _published_legacy_platform_command_token(argument: str) -> str:
+    """Normalize one argument to the command name it would actually invoke."""
+    lowered = argument.lower()
+    for suffix in _PUBLISHED_LEGACY_PLATFORM_EXECUTABLE_SUFFIXES:
+        if lowered.endswith(suffix):
+            return lowered[: len(lowered) - len(suffix)]
+    return lowered
+
+
+def _published_legacy_platform_process_plan_safety(value: object) -> bool:
+    profile = _text(value, "profile")
+    environment = _items(value, "environment_allowlist")
+    command_arguments = _items(value, "arguments")
+    binary_modes = [
+        _text(value, "stdin_mode"),
+        _text(value, "stdout_mode"),
+        _text(value, "stderr_mode"),
+    ]
+    if (
+        not _published_legacy_platform_request_authority(value)
+        or _flag(value, "inherit_parent_environment") is not False
+        or not _present(value, "executable_digest")
+        or not _unique_field(environment, "variable")
+        or _text(value, "working_directory_role") == "NATIVE_HOST_REGISTRATION"
+    ):
+        return False
+    # A refused command name stays refused in its executable-suffix spelling:
+    # "cmd" and "cmd.exe" name the same interpreter. Privilege escalation is
+    # documented as unrepresentable, so its launcher cannot travel either.
+    if any(
+        isinstance(argument, str)
+        and _published_legacy_platform_command_token(argument)
+        in (_PUBLISHED_LEGACY_PLATFORM_INTERPRETER_TOKENS | _PUBLISHED_LEGACY_PLATFORM_PRIVILEGE_TOKENS)
+        for argument in command_arguments
+    ):
+        return False
+    for entry in environment:
+        variable = _text(entry, "variable")
+        entry_value = _text(entry, "value")
+        if entry_value is None:
+            return False
+        if variable == "JAPP_SERVICE_PORT" and (
+            not _PUBLISHED_LEGACY_SERVICE_PORT_RE.match(entry_value)
+            or int(entry_value) > 65535
+        ):
+            return False
+        # The path role carried into a child is the same closed vocabulary the
+        # working directory uses, and it cannot re-admit the registration role
+        # the rule refuses above.
+        if variable == "JAPP_PATH_ROLE" and (
+            entry_value not in _PUBLISHED_LEGACY_PLATFORM_PATH_ROLES
+            or entry_value == "NATIVE_HOST_REGISTRATION"
+        ):
+            return False
+        # REQ-PLAT-003 binds local services to loopback.
+        if (
+            variable == "JAPP_SERVICE_BIND_HOST"
+            and entry_value not in _PUBLISHED_LEGACY_PLATFORM_LOOPBACK_HOSTS
+        ):
+            return False
+    if (
+        _text(value, "lifecycle_mode") == "ONE_SHOT"
+        and _number(value, "max_restart_attempts") != 0
+    ):
+        return False
+    if profile == "NATIVE_MESSAGING_HOST":
+        # Specification §5.14.5 places the length-prefixed native-messaging
+        # protocol on binary stdin/stdout. stderr stays a diagnostic channel
+        # and must never silently become a second protocol stream.
+        return (
+            _text(value, "stdin_mode") == "BINARY_LENGTH_PREFIXED"
+            and _text(value, "stdout_mode") == "BINARY_LENGTH_PREFIXED"
+            and _text(value, "stderr_mode") != "BINARY_LENGTH_PREFIXED"
+        )
+    return all(mode != "BINARY_LENGTH_PREFIXED" for mode in binary_modes)
+
+
+def _published_legacy_platform_process_status_integrity(value: object) -> bool:
+    state = _text(value, "state")
+    reasons = _items(value, "reason_codes")
+    ended = _present(value, "ended_at")
+    started = _present(value, "started_at")
+    exited = _present(value, "exit_code")
+    exit_code = _number(value, "exit_code")
+    orphan = _flag(value, "orphan_detected")
+    terminating = _text(value, "termination_requested") != "NONE"
+    if not _unique_strings(reasons):
+        return False
+    # A process cannot end without starting, end before it started, be
+    # restarted without starting, or attach a redacted diagnostic to nothing.
+    if (
+        (ended and not started)
+        or (
+            ended and not _timestamp_not_before(value, "ended_at", "started_at")
+        )
+        or ((_number(value, "restart_count") or 0) > 0 and not started)
+        or (_present(value, "diagnostic_digest") and not reasons)
+    ):
+        return False
+    # orphan_detected is a historical observation, not the current state: it
+    # stays true on the terminal record of an orphan that was cleaned up or was
+    # finally seen to exit.
+    if orphan is True and state not in {"ORPHANED", "TERMINATED", "EXITED"}:
+        return False
+    if state == "STARTING":
+        return not ended and not exited
+    if state == "RUNNING":
+        return started and not ended and not exited
+    if state == "TERMINATING":
+        return started and not ended and not exited and terminating
+    if state == "EXITED":
+        # The child ended on its own; a supervisor-requested stop is
+        # TERMINATED. A clean exit explains itself, and any other exit status
+        # must be explainable through the finite reason vocabulary.
+        return (
+            started
+            and ended
+            and exited
+            and not terminating
+            and (not reasons if exit_code == 0 else bool(reasons))
+        )
+    if state == "TERMINATED":
+        return started and ended and terminating
+    if state == "ORPHANED":
+        # An orphan outlived its supervising parent and still requires
+        # cleanup, so it has started and has not yet been observed to end.
+        return (
+            started
+            and not ended
+            and not exited
+            and orphan is True
+            and bool(reasons)
+        )
+    if state == "UNAVAILABLE":
+        return not started and not ended and not exited and bool(reasons)
+    # FAILED: supervision itself failed. An observed exit status would make
+    # this an EXITED child instead, so the two stay distinguishable.
+    return not exited and bool(reasons)
+
+
+def _published_legacy_platform_native_registration_binding(value: object) -> bool:
+    operation = _text(value, "operation")
+    extensions = _items(value, "allowed_extension_ids")
+    if (
+        not _published_legacy_platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+        or _text(value, "binary_stdio_mode") != "BINARY_LENGTH_PREFIXED"
+        or _text(value, "manifest_location_role") != "NATIVE_HOST_REGISTRATION"
+        or not _strictly_sorted_strings(extensions)
+        # Specification §5.14.5 keeps the extension allowlist and the
+        # message-size limit mandatory on every platform.
+        or not _present(value, "max_message_bytes")
+    ):
+        return False
+    if operation == "REMOVE":
+        return not _present(value, "expected_manifest_digest") and not _present(
+            value, "expected_host_binary_digest"
+        )
+    if operation == "VERIFY":
+        return _present(value, "expected_manifest_digest")
+    return _present(value, "expected_manifest_digest") and _present(
+        value, "expected_host_binary_digest"
+    )
+
+
+def _published_legacy_platform_native_registration_result(value: object) -> bool:
+    operation = _text(value, "operation") or ""
+    observed = _text(value, "observed_state")
+    reasons = _items(value, "reason_codes")
+    changed = _flag(value, "changed")
+    succeeded = not reasons
+    manifest_digest = _present(value, "observed_manifest_digest")
+    host_version = _present(value, "observed_host_version")
+    if (
+        not _unique_strings(reasons)
+        or _text(value, "browser_family") != "CHROME"
+        or (operation == "VERIFY" and changed is not False)
+    ):
+        return False
+    # Each diagnostic reason names the exact state it explains, so neither the
+    # state nor its reason may be reported without the other.
+    if (observed == "MISMATCHED_IDENTITY") != ("IDENTITY_MISMATCH" in reasons):
+        return False
+    if (observed == "NOT_EVALUATED") != ("EVALUATION_NOT_RUN" in reasons):
+        return False
+    # Observed identity is evidence of a manifest that is really present: it is
+    # mandatory for PRESENT_VALID and impossible once nothing is registered or
+    # nothing was evaluated. The observed_state member is the post-operation
+    # registration state, never a claim that the operation succeeded, so a
+    # removal that failed and left the registration intact still observes
+    # PRESENT_VALID.
+    if observed == "PRESENT_VALID" and not (manifest_digest and host_version):
+        return False
+    # An identity verdict must carry the identity evidence it is about.
+    if observed == "MISMATCHED_IDENTITY" and not manifest_digest:
+        return False
+    if observed == "PRESENT_STALE" and not host_version:
+        return False
+    if observed in {"ABSENT", "NOT_EVALUATED"} and (manifest_digest or host_version):
+        return False
+    if observed == "NOT_EVALUATED":
+        return changed is False
+    # Zero reasons is a success claim. It is admissible only in the terminal
+    # state the operation is defined to reach, and only when repeating the same
+    # intent is guaranteed to be a no-op (specification §5.14.5 idempotency).
+    if succeeded:
+        return (
+            observed == _PUBLISHED_LEGACY_REGISTRATION_TERMINAL_STATE.get(operation)
+            and _flag(value, "idempotent_repeat_safe") is True
+        )
+    return True
+
+
+def _published_legacy_platform_browser_discovery_safety(value: object) -> bool:
+    if (
+        not _published_legacy_platform_request_authority(value)
+        or _text(value, "browser_family") != "CHROME"
+        or _text(value, "browser_channel") != "STABLE"
+    ):
+        return False
+    return (
+        _flag(value, "include_capability_probe") is not True
+        or (_text(value, "platform_id") or "") in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+    )
+
+
+def _published_legacy_platform_browser_record_scope(value: object) -> bool:
+    presence = _text(value, "presence")
+    reasons = _items(value, "reason_codes")
+    capability = _object_member(value, "native_messaging_capability")
+    if (
+        not _unique_strings(reasons)
+        or capability is None
+        or not _published_legacy_platform_capability_state_sound(capability)
+        or _text(capability, "capability") != "NATIVE_MESSAGING"
+    ):
+        return False
+    if presence == "AVAILABLE":
+        # A presence claim is an observation, so it cannot come from an
+        # explicitly unevaluated detection.
+        if (
+            not _present(value, "detected_version")
+            or _text(value, "detection_method") == "NOT_EVALUATED"
+        ):
+            return False
+    elif _present(value, "sanitized_install_location"):
+        return False
+    elif presence not in {
+        "DEGRADED_LIMITED",
+        "INCOMPATIBLE_VERSION",
+    } and _present(value, "detected_version"):
+        # Only a browser that was actually found reports a version. A degraded
+        # or version-incompatible observation found one; an absent,
+        # unevaluated, or unsupported one did not.
+        return False
+    if _flag(value, "certified_for_platform") is not True:
+        return bool(reasons)
+    return (
+        not reasons
+        and presence == "AVAILABLE"
+        and _text(value, "browser_family") == "CHROME"
+        and _text(value, "browser_channel") == "STABLE"
+        and (_text(value, "platform_id") or "") in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+        and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+        and _text(capability, "availability") == "AVAILABLE"
+        and _present(value, "last_tested_on")
+    )
+
+
+def _published_legacy_platform_model_profile_evidence(value: object) -> bool:
+    platform_id = _text(value, "platform_id") or ""
+    accelerator = _text(value, "accelerator")
+    family = _text(value, "runtime_family")
+    reasons = _items(value, "reason_codes")
+    evidence = _items(value, "evidence_refs")
+    if not _unique_strings(reasons) or not _unique_strings(evidence):
+        return False
+    # The accelerator, the runtime family, and the target must agree in both
+    # directions. The certified macOS target is Apple Silicon arm64
+    # (specification §5.14.1) and every CUDA profile the §5.14.6 list names is
+    # a Windows or Ubuntu profile, so a macOS CUDA profile describes hardware
+    # that cannot exist.
+    if accelerator == "APPLE_SILICON_GPU" and platform_id != "MACOS_ARM64":
+        return False
+    if accelerator == "NVIDIA_CUDA" and platform_id == "MACOS_ARM64":
+        return False
+    if accelerator == "NVIDIA_CUDA" and (
+        not _present(value, "minimum_vram_mib")
+        or not _present(value, "minimum_driver_version")
+    ):
+        return False
+    if accelerator == "CPU_ONLY" and (
+        _present(value, "minimum_vram_mib")
+        or _present(value, "minimum_driver_version")
+    ):
+        return False
+    if family == "OLLAMA_MLX" and (
+        platform_id != "MACOS_ARM64" or accelerator != "APPLE_SILICON_GPU"
+    ):
+        return False
+    if family == "OLLAMA_GGUF" and accelerator == "APPLE_SILICON_GPU":
+        return False
+    if _text(value, "acceptance_state") != "ACCEPTED":
+        return (
+            bool(reasons)
+            and _text(value, "core_capability_behavior") != "FULL_AI_AVAILABLE"
+        )
+    return (
+        platform_id in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+        and not reasons
+        and bool(evidence)
+        and _text(value, "availability") == "AVAILABLE"
+        and _text(value, "core_capability_behavior") == "FULL_AI_AVAILABLE"
+        and _present(value, "structured_output_evidence_ref")
+        and _present(value, "factuality_evidence_ref")
+        and _present(value, "latency_evidence_ref")
+        and _present(value, "memory_evidence_ref")
+        and _present(value, "last_tested_on")
+    )
+
+
+def _published_legacy_platform_runtime_capability_fallback(value: object) -> bool:
+    availability = _text(value, "runtime_availability") or ""
+    available = _items(value, "available_profile_refs")
+    accepted = _items(value, "accepted_profile_refs")
+    reasons = _items(value, "reason_codes")
+    behavior = _text(value, "core_capability_behavior")
+    platform_id = _text(value, "platform_id") or ""
+    family = _text(value, "runtime_family")
+    accelerator = _text(value, "accelerator")
+    if (
+        not _unique_strings(available)
+        or not _unique_strings(accepted)
+        or not _unique_strings(reasons)
+        or not _subset_of(accepted, available)
+    ):
+        return False
+    # A detected runtime identity must agree with the target, exactly as the
+    # reviewed model-profile rule already requires of a declared profile.
+    if (
+        (accelerator == "APPLE_SILICON_GPU" and platform_id != "MACOS_ARM64")
+        or (accelerator == "NVIDIA_CUDA" and platform_id == "MACOS_ARM64")
+        or (
+            family == "OLLAMA_MLX"
+            and (
+                platform_id != "MACOS_ARM64"
+                or accelerator != "APPLE_SILICON_GPU"
+            )
+        )
+        or (family == "OLLAMA_GGUF" and accelerator == "APPLE_SILICON_GPU")
+    ):
+        return False
+    # An unevaluated runtime is exactly an unevaluated detection.
+    if (_text(value, "detection_method") == "NOT_EVALUATED") is not (
+        availability == "NOT_EVALUATED"
+    ):
+        return False
+    # A capability that was never evaluated, or that cannot exist on this
+    # target at all, observed no runtime identity.
+    if availability in {"NOT_EVALUATED", "UNSUPPORTED_TARGET"}:
+        if (
+            family is not None
+            or _present(value, "runtime_version")
+            or accelerator is not None
+        ):
+            return False
+        if (
+            availability == "NOT_EVALUATED"
+            and "EVALUATION_NOT_RUN" not in reasons
+        ):
+            return False
+    # Full AI is the only state with nothing outstanding, and it is exactly the
+    # state that requires an accepted profile on an available certified
+    # runtime.
+    if behavior == "FULL_AI_AVAILABLE":
+        if (
+            availability != "AVAILABLE"
+            or not accepted
+            or reasons
+            or platform_id not in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+        ):
+            return False
+    elif accepted or not reasons:
+        return False
+    # AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
+    # states, so they are the only ones that may enumerate usable profiles and
+    # the only ones that observed a runtime identity. A runtime below the
+    # performance tier still reports what it is and what it offers.
+    if availability not in _PUBLISHED_LEGACY_OPERABLE_RUNTIME_AVAILABILITY:
+        return not available
+    if family is None or not _present(value, "runtime_version"):
+        return False
+    return availability != "AVAILABLE" or accelerator is not None
+
+
+def _published_legacy_platform_package_state_evidence(value: object) -> bool:
+    state = _text(value, "state") or ""
+    reasons = _items(value, "reason_codes")
+    signature = _text(value, "signature_state")
+    interrupted = _flag(value, "interrupted")
+    preservation = _text(value, "user_data_preservation")
+    package_format = _text(value, "package_format")
+    allowed_formats = _PUBLISHED_LEGACY_PACKAGE_FORMATS_BY_PLATFORM_ID.get(
+        _text(value, "platform_id") or ""
+    )
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or not _published_legacy_platform_architecture_coherent(value)
+        or (preservation == "PRESERVATION_FAILED" and not reasons)
+        or (
+            allowed_formats is not None
+            and package_format is not None
+            and package_format not in allowed_formats
+        )
+    ):
+        return False
+    # The interrupted flag is historical: it records that this operation was
+    # interrupted at some point. The recovery_completed flag records that the
+    # interruption was resolved, so it is meaningless without one. The
+    # INTERRUPTED reason names exactly an operation that was interrupted, and
+    # the unresolved terminal outcome is carried by INSTALL_INTERRUPTED /
+    # UPDATE_INTERRUPTED, never by the flag alone.
+    if (
+        (_present(value, "recovery_completed") and interrupted is not True)
+        or ("INTERRUPTED" in reasons) is not (interrupted is True)
+        or (
+            state in _PUBLISHED_LEGACY_PACKAGE_INTERRUPTED_STATES and interrupted is not True
+        )
+    ):
+        return False
+    if (
+        signature in {"SIGNATURE_INVALID", "SIGNATURE_MISSING"}
+        and "SIGNATURE_NOT_VERIFIED" not in reasons
+    ):
+        return False
+    if state in _PUBLISHED_LEGACY_PACKAGE_FAILURE_STATES and not reasons:
+        return False
+    if state in _PUBLISHED_LEGACY_PACKAGE_SUCCESS_STATES:
+        # A success carries no outstanding reason. A recovered interruption is
+        # no longer outstanding, so exactly the historical INTERRUPTED reason
+        # may remain — and only when the recovery actually completed.
+        # Specification §5.14.8 requires every certified target to pass
+        # interrupted update, repair, rollback, and preservation behaviour, so
+        # that outcome must be reportable as the success it is.
+        outstanding = [
+            reason for reason in reasons if reason != "INTERRUPTED"
+        ]
+        if (
+            signature != "SIGNATURE_VALID"
+            or outstanding
+            or (
+                interrupted is True
+                and _flag(value, "recovery_completed") is not True
+            )
+            or preservation not in {"EXPLICIT_DELETION_REQUESTED", "PRESERVED"}
+            or not _items(value, "evidence_refs")
+        ):
+            return False
+    if state == "UNINSTALLED":
+        return _text(value, "native_host_cleanup") in {
+            "NOT_APPLICABLE",
+            "REMOVED",
+        }
+    if state == "INSTALLED":
+        return _present(value, "installed_version") and _text(
+            value, "installed_version"
+        ) == _text(value, "package_version")
+    if state == "NOT_INSTALLED":
+        return not _present(value, "installed_version")
+    if state == "NO_UPDATE_AVAILABLE":
+        return not _present(value, "available_version")
+    if state == "UPDATE_AVAILABLE":
+        return _present(value, "available_version")
+    if state == "UPDATE_INSTALLED":
+        # The installed update is the update that was offered, exactly as
+        # INSTALLED binds the installed version to the package version.
+        return (
+            _present(value, "installed_version")
+            and _present(value, "available_version")
+            and _present(value, "target_artifact")
+            and _text(value, "installed_version")
+            == _text(value, "available_version")
+        )
+    if state == "ROLLED_BACK":
+        return (
+            _present(value, "rolled_back_to_version")
+            and _flag(value, "rollback_available") is True
+        )
+    return True
+
+
+def _published_legacy_platform_diagnostic_integrity(value: object) -> bool:
+    result = _text(value, "result")
+    severity = _text(value, "severity")
+    reasons = _items(value, "reason_codes")
+    blocking = _flag(value, "blocking")
+    component = _text(value, "component") or ""
+    expected_capability = _PUBLISHED_LEGACY_DIAGNOSTIC_CAPABILITY_BY_COMPONENT.get(component)
+    if (
+        not _unique_strings(reasons)
+        or not _unique_strings(_items(value, "evidence_refs"))
+        or (
+            expected_capability is not None
+            and _text(value, "capability") != expected_capability
+        )
+    ):
+        return False
+    if (
+        _present(value, "user_message")
+        and _text(_object_member(value, "redaction"), "policy") != "NONE"
+    ):
+        return False
+    if blocking is True and result not in {"BLOCKED", "FAILURE"}:
+        return False
+    if result == "SUCCESS":
+        return blocking is False and not reasons and severity == "INFO"
+    if not reasons:
+        return False
+    if result == "WARNING":
+        return blocking is False and severity in {"INFO", "WARNING"}
+    if result == "FAILURE":
+        return severity in {"CRITICAL", "ERROR"}
+    # BLOCKED: an external boundary prevented evaluation. It blocks a
+    # capability, so it is never filed as informational.
+    return blocking is True and severity in {"CRITICAL", "ERROR", "WARNING"}
+
+
+def _published_legacy_platform_evidence_integrity(value: object) -> bool:
+    reasons = _items(value, "reason_codes")
+    method = _text(value, "evaluation_method")
+    artifact_kind = _text(value, "artifact_kind") or ""
+    required_reference = _PUBLISHED_LEGACY_EVIDENCE_REFERENCE_BY_ARTIFACT_KIND.get(artifact_kind)
+    if (
+        not _unique_strings(reasons)
+        or not _published_legacy_platform_architecture_coherent(value)
+        or _flag(value, "synthetic_only") is not True
+        or (
+            required_reference is not None
+            and not _present(value, required_reference)
+        )
+        or (
+            _present(value, "package_artifact")
+            and not _present(value, "signature_state")
+        )
+    ):
+        return False
+    if _text(value, "review_state") == "REVIEW_COMPLETE" and not _present(
+        value, "reviewer_identity_ref"
+    ):
+        return False
+    if (
+        _text(value, "owner_decision_state") == "RECORDED"
+        and _text(value, "review_state") != "REVIEW_COMPLETE"
+    ):
+        return False
+    # machine_class records *where* an artifact was produced and
+    # evaluation_method records *how*. The axes are independent: a hosted
+    # runner and a physical development machine may each execute synthetic
+    # fixtures, static inspection, or a measured native run. Only a synthetic
+    # machine cannot execute a native run, and only a hosted runner has a
+    # runner image.
+    machine_class = _text(value, "machine_class")
+    succeeded = _text(value, "result") == "SUCCESS"
+    if method == "MEASURED_NATIVE_RUN":
+        if (
+            not _present(value, "os_version")
+            or not _present(value, "os_build")
+            or machine_class == "SYNTHETIC_FIXTURE"
+            or (_text(value, "platform_id") or "") not in _PUBLISHED_LEGACY_CERTIFIED_PLATFORM_IDS
+            or (
+                machine_class == "HOSTED_CI_RUNNER"
+                and not _present(value, "runner_image_token")
+            )
+        ):
+            return False
+    if (
+        _present(value, "runner_image_token")
+        and machine_class != "HOSTED_CI_RUNNER"
+    ):
+        return False
+    # NOT_EVALUATED and DECLARED_PLAN are never measured evidence, so neither
+    # can report a passing evidence element, and an unevaluated record observed
+    # no operating-system build at all.
+    if method in {"NOT_EVALUATED", "DECLARED_PLAN"}:
+        if succeeded:
+            return False
+        if method == "NOT_EVALUATED" and (
+            _present(value, "os_build")
+            or "EVALUATION_NOT_RUN" not in reasons
+        ):
+            return False
+    # An artifact whose signature did not verify is not a passing evidence
+    # element, whatever produced it.
+    if succeeded and _text(value, "signature_state") in {
+        "SIGNATURE_INVALID",
+        "SIGNATURE_MISSING",
+    }:
+        return False
+    return not reasons if succeeded else bool(reasons)
+
+
+def _published_legacy_platform_certification_input_scope(value: object) -> bool:
+    required = _items(value, "required_evidence_kinds")
+    present_kinds = _items(value, "present_evidence_kinds")
+    records = _items(value, "evidence_record_refs")
+    reasons = _items(value, "reason_codes")
+    if (
+        not _strictly_sorted_strings(required)
+        or not _strictly_sorted_strings(present_kinds)
+        or not _unique_strings(records)
+        or not _unique_strings(reasons)
+        or not _published_legacy_platform_architecture_coherent(value)
+        or not _published_legacy_platform_support_claim_sound(value)
+    ):
+        return False
+    complete = _subset_of(required, present_kinds) and bool(records)
+    if _flag(value, "inventory_complete") is not complete:
+        return False
+    if (_text(value, "owner_decision_state") == "RECORDED") is not _present(
+        value, "owner_decision_ref"
+    ):
+        return False
+    if not _published_legacy_platform_reviewed_tier_is_certified(value):
+        return bool(reasons)
+    # Completeness is measured against the record's own declared policy, so an
+    # empty required set would make "complete" vacuous. A certified proposal
+    # must name the evidence it required.
+    return (
+        not reasons
+        and complete
+        and bool(required)
+        and _text(value, "owner_decision_state") == "RECORDED"
+    )
+
+
 _CERTIFIED_PLATFORM_IDS: Final = frozenset(
     {"MACOS_ARM64", "UBUNTU_X64", "WINDOWS_X64"}
 )
@@ -3711,6 +7898,34 @@ _MANDATORY_CORE_CAPABILITIES: Final = frozenset(
         "PROCESS_SUPERVISION",
         "SECURE_STORE",
     }
+)
+_OBSERVED_EVALUATION_METHODS: Final = frozenset(
+    {"MEASURED_NATIVE_RUN", "STATIC_INSPECTION", "SYNTHETIC_FIXTURE"}
+)
+_CERTIFIED_CORE_EVIDENCE_KINDS: Final = (
+    "BACKUP_RESTORE_REPORT",
+    "DIAGNOSTIC_BUNDLE_REPORT",
+    "DOCUMENT_MATRIX_REPORT",
+    "INSTALL_LAUNCH_REPORT",
+    "LOG_EXCERPT_REPORT",
+    "NATIVE_HOST_REGISTRATION_REPORT",
+    "SCREENSHOT_REPORT",
+    "SECRET_STORE_TEST_REPORT",
+    "TRACE_REPORT",
+    "UPDATE_ROLLBACK_REPORT",
+)
+_CERTIFIED_FULL_EVIDENCE_KINDS: Final = (
+    "BACKUP_RESTORE_REPORT",
+    "DIAGNOSTIC_BUNDLE_REPORT",
+    "DOCUMENT_MATRIX_REPORT",
+    "INSTALL_LAUNCH_REPORT",
+    "LOG_EXCERPT_REPORT",
+    "MODEL_PROFILE_REPORT",
+    "NATIVE_HOST_REGISTRATION_REPORT",
+    "SCREENSHOT_REPORT",
+    "SECRET_STORE_TEST_REPORT",
+    "TRACE_REPORT",
+    "UPDATE_ROLLBACK_REPORT",
 )
 _PLATFORM_REQUEST_PRINCIPALS: Final = frozenset(
     {"ORCHESTRATOR", "VERIFICATION_HARNESS"}
@@ -3804,9 +8019,6 @@ _PACKAGE_FORMATS_BY_PLATFORM_ID: Final[dict[str, frozenset[str]]] = {
     "UBUNTU_X64": frozenset({"APP_IMAGE", "DEBIAN_PACKAGE"}),
     "WINDOWS_X64": frozenset({"WINDOWS_INSTALLER"}),
 }
-_OPERABLE_RUNTIME_AVAILABILITY: Final = frozenset(
-    {"AVAILABLE", "DEGRADED_LIMITED"}
-)
 _EVIDENCE_REFERENCE_BY_ARTIFACT_KIND: Final[dict[str, str]] = {
     "INSTALL_LAUNCH_REPORT": "installer_state_ref",
     "MODEL_PROFILE_REPORT": "model_profile_ref",
@@ -3832,29 +8044,46 @@ def _platform_request_authority(value: object) -> bool:
 
 def _platform_capability_state_sound(state: object) -> bool:
     availability = _text(state, "availability")
+    method = _text(state, "evaluation_method")
     reasons = _items(state, "reason_codes")
+    identity_count = sum(
+        (
+            _present(state, "identity_token"),
+            _present(state, "detected_version"),
+            _present(state, "evidence_digest"),
+        )
+    )
     if not _unique_strings(reasons):
+        return False
+    if (
+        (availability == "NOT_EVALUATED") != (method == "NOT_EVALUATED")
+        or (method == "DECLARED_PLAN" and availability != "UNKNOWN")
+    ):
         return False
     if availability == "AVAILABLE":
         return (
             not reasons
-            and _present(state, "identity_token")
-            and _present(state, "detected_version")
-            and _present(state, "evidence_digest")
-            and _text(state, "evaluation_method") != "NOT_EVALUATED"
+            and identity_count == 3
+            and method in _OBSERVED_EVALUATION_METHODS
         )
     if not reasons:
         return False
     if availability == "NOT_EVALUATED":
+        return identity_count == 0 and "EVALUATION_NOT_RUN" in reasons
+    if availability in {"DEGRADED_LIMITED", "INCOMPATIBLE_VERSION"}:
         return (
-            _text(state, "evaluation_method") == "NOT_EVALUATED"
-            and "EVALUATION_NOT_RUN" in reasons
+            identity_count == 3
+            and method in _OBSERVED_EVALUATION_METHODS
         )
-    if availability == "DEGRADED_LIMITED":
-        return _present(state, "identity_token") and _present(
-            state, "detected_version"
+    if availability in {"NOT_INSTALLED", "UNKNOWN", "UNSUPPORTED_TARGET"}:
+        return identity_count == 0 and (
+            method == "DECLARED_PLAN" or method in _OBSERVED_EVALUATION_METHODS
         )
-    return True
+    return (
+        availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+        and identity_count in {0, 3}
+        and method in _OBSERVED_EVALUATION_METHODS
+    )
 
 
 def _platform_support_claim_sound(value: object) -> bool:
@@ -4046,75 +8275,77 @@ def _platform_secret_request_authority(value: object) -> bool:
 
 
 def _platform_secret_result_integrity(value: object) -> bool:
-    operation = _text(value, "operation")
-    availability = _text(value, "store_availability")
-    state = _text(value, "result_state")
+    operation = _text(value, "operation") or ""
+    availability = _text(value, "store_availability") or ""
+    state = _text(value, "result_state") or ""
     reasons = _items(value, "reason_codes")
+    has_identity = _present(value, "store_identity_token")
     has_material = _present(value, "material_reference")
     has_digest = _present(value, "material_digest")
     if not _unique_strings(reasons):
         return False
-    if availability == "AVAILABLE":
-        if not _present(value, "store_identity_token"):
-            return False
-    elif has_material:
-        return False
-    store_unavailable_availability = availability is not None and availability not in {
-        "AVAILABLE",
-        "DEGRADED_LIMITED",
-        "PERMISSION_REQUIRED",
+    if availability == "PERMISSION_REQUIRED":
+        return (
+            state == "DENIED_PERMISSION"
+            and not has_identity
+            and not has_material
+            and not has_digest
+            and "PERMISSION_DENIED" in reasons
+        )
+    unavailable_reasons = {
+        "INCOMPATIBLE_VERSION": "CONFIGURATION_INVALID",
+        "NOT_EVALUATED": "EVALUATION_NOT_RUN",
+        "NOT_INSTALLED": "NOT_INSTALLED",
+        "UNAVAILABLE": "SERVICE_UNAVAILABLE",
+        "UNKNOWN": "UNKNOWN_ERROR",
+        "UNSUPPORTED_TARGET": "TARGET_NOT_CERTIFIED",
     }
-    denied_availability = availability in {"PERMISSION_REQUIRED", "UNAVAILABLE"}
+    required_unavailable_reason = unavailable_reasons.get(availability)
+    if required_unavailable_reason is not None:
+        return (
+            state == "STORE_UNAVAILABLE"
+            and not has_identity
+            and not has_material
+            and not has_digest
+            and required_unavailable_reason in reasons
+        )
+    if availability not in {"AVAILABLE", "DEGRADED_LIMITED"} or not has_identity:
+        return False
+    success_reasons_sound = (
+        not reasons if availability == "AVAILABLE" else bool(reasons)
+    )
     if operation == "STATUS":
-        if has_material or has_digest:
-            return False
-        if state == "STORE_AVAILABLE":
-            return availability == "AVAILABLE" and not reasons
-        if state == "DENIED_PERMISSION":
-            return "PERMISSION_DENIED" in reasons and denied_availability
-        if state == "STORE_UNAVAILABLE":
-            return bool(reasons) and store_unavailable_availability
-        return False
-    if state == "STORE_AVAILABLE":
-        return False
+        return (
+            state == "STORE_AVAILABLE"
+            and not has_material
+            and not has_digest
+            and success_reasons_sound
+        )
     if state == "RETRIEVED":
-        return (
-            operation == "GET"
-            and availability == "AVAILABLE"
-            and has_material
-            and has_digest
-            and not reasons
-        )
+        return operation == "GET" and has_material and has_digest and success_reasons_sound
     if state == "STORED":
-        return (
-            operation == "PUT"
-            and availability == "AVAILABLE"
-            and has_material
-            and not reasons
-        )
+        return operation == "PUT" and has_material and not has_digest and success_reasons_sound
     if state == "DELETED":
         return (
             operation == "DELETE"
-            and availability == "AVAILABLE"
             and not has_material
             and not has_digest
-            and not reasons
+            and success_reasons_sound
         )
-    if state == "DENIED_PERMISSION":
+    if state == "NOT_FOUND":
         return (
-            not has_material
-            and not has_digest
-            and "PERMISSION_DENIED" in reasons
-            and denied_availability
-        )
-    if state == "STORE_UNAVAILABLE":
-        return (
-            not has_material
+            operation in {"DELETE", "GET", "PUT"}
+            and not has_material
             and not has_digest
             and bool(reasons)
-            and store_unavailable_availability
         )
-    return not has_material and not has_digest and bool(reasons)
+    return (
+        state == "OPERATION_FAILED"
+        and operation in {"DELETE", "GET", "PUT"}
+        and not has_material
+        and not has_digest
+        and bool(reasons)
+    )
 
 
 def _platform_command_token(argument: str) -> str:
@@ -4222,9 +8453,22 @@ def _platform_process_status_integrity(value: object) -> bool:
     if orphan is True and state not in {"ORPHANED", "TERMINATED", "EXITED"}:
         return False
     if state == "STARTING":
-        return not ended and not exited
+        return (
+            not ended
+            and not exited
+            and not terminating
+            and orphan is not True
+            and not reasons
+        )
     if state == "RUNNING":
-        return started and not ended and not exited
+        return (
+            started
+            and not ended
+            and not exited
+            and not terminating
+            and orphan is not True
+            and not reasons
+        )
     if state == "TERMINATING":
         return started and not ended and not exited and terminating
     if state == "EXITED":
@@ -4239,7 +8483,7 @@ def _platform_process_status_integrity(value: object) -> bool:
             and (not reasons if exit_code == 0 else bool(reasons))
         )
     if state == "TERMINATED":
-        return started and ended and terminating
+        return started and ended and not exited and terminating
     if state == "ORPHANED":
         # An orphan outlived its supervising parent and still requires
         # cleanup, so it has started and has not yet been observed to end.
@@ -4247,14 +8491,28 @@ def _platform_process_status_integrity(value: object) -> bool:
             started
             and not ended
             and not exited
+            and not terminating
             and orphan is True
             and bool(reasons)
         )
     if state == "UNAVAILABLE":
-        return not started and not ended and not exited and bool(reasons)
+        return (
+            not started
+            and not ended
+            and not exited
+            and not terminating
+            and bool(reasons)
+        )
     # FAILED: supervision itself failed. An observed exit status would make
     # this an EXITED child instead, so the two stay distinguishable.
-    return not exited and bool(reasons)
+    if state == "FAILED":
+        return (
+            not ended
+            and not exited
+            and bool(reasons)
+            and (not terminating or started)
+        )
+    return False
 
 
 def _platform_native_registration_binding(value: object) -> bool:
@@ -4346,6 +8604,7 @@ def _platform_browser_discovery_safety(value: object) -> bool:
 
 def _platform_browser_record_scope(value: object) -> bool:
     presence = _text(value, "presence")
+    method = _text(value, "detection_method")
     reasons = _items(value, "reason_codes")
     capability = _object_member(value, "native_messaging_capability")
     if (
@@ -4355,13 +8614,17 @@ def _platform_browser_record_scope(value: object) -> bool:
         or _text(capability, "capability") != "NATIVE_MESSAGING"
     ):
         return False
+    if (
+        (presence == "NOT_EVALUATED") != (method == "NOT_EVALUATED")
+        or (method == "DECLARED_PLAN" and presence != "UNKNOWN")
+        or (
+            method not in {"NOT_EVALUATED", "DECLARED_PLAN"}
+            and method not in _OBSERVED_EVALUATION_METHODS
+        )
+    ):
+        return False
     if presence == "AVAILABLE":
-        # A presence claim is an observation, so it cannot come from an
-        # explicitly unevaluated detection.
-        if (
-            not _present(value, "detected_version")
-            or _text(value, "detection_method") == "NOT_EVALUATED"
-        ):
+        if not _present(value, "detected_version"):
             return False
     elif _present(value, "sanitized_install_location"):
         return False
@@ -4381,8 +8644,10 @@ def _platform_browser_record_scope(value: object) -> bool:
         and _text(value, "browser_family") == "CHROME"
         and _text(value, "browser_channel") == "STABLE"
         and (_text(value, "platform_id") or "") in _CERTIFIED_PLATFORM_IDS
-        and _text(value, "detection_method") == "MEASURED_NATIVE_RUN"
+        and method == "MEASURED_NATIVE_RUN"
+        and _present(value, "sanitized_install_location")
         and _text(capability, "availability") == "AVAILABLE"
+        and _text(capability, "evaluation_method") == "MEASURED_NATIVE_RUN"
         and _present(value, "last_tested_on")
     )
 
@@ -4441,18 +8706,25 @@ def _platform_model_profile_evidence(value: object) -> bool:
 
 def _platform_runtime_capability_fallback(value: object) -> bool:
     availability = _text(value, "runtime_availability") or ""
+    method = _text(value, "detection_method")
     available = _items(value, "available_profile_refs")
     accepted = _items(value, "accepted_profile_refs")
     reasons = _items(value, "reason_codes")
     behavior = _text(value, "core_capability_behavior")
     platform_id = _text(value, "platform_id") or ""
     family = _text(value, "runtime_family")
+    has_version = _present(value, "runtime_version")
     accelerator = _text(value, "accelerator")
     if (
         not _unique_strings(available)
         or not _unique_strings(accepted)
         or not _unique_strings(reasons)
         or not _subset_of(accepted, available)
+    ):
+        return False
+    if (
+        (availability == "NOT_EVALUATED") != (method == "NOT_EVALUATED")
+        or (method == "DECLARED_PLAN" and availability != "UNKNOWN")
     ):
         return False
     # A detected runtime identity must agree with the target, exactly as the
@@ -4470,54 +8742,56 @@ def _platform_runtime_capability_fallback(value: object) -> bool:
         or (family == "OLLAMA_GGUF" and accelerator == "APPLE_SILICON_GPU")
     ):
         return False
-    # An unevaluated runtime is exactly an unevaluated detection.
-    if (_text(value, "detection_method") == "NOT_EVALUATED") is not (
-        availability == "NOT_EVALUATED"
+    if (
+        method not in {"NOT_EVALUATED", "DECLARED_PLAN"}
+        and method not in _OBSERVED_EVALUATION_METHODS
     ):
         return False
-    # A capability that was never evaluated, or that cannot exist on this
-    # target at all, observed no runtime identity.
-    if availability in {"NOT_EVALUATED", "UNSUPPORTED_TARGET"}:
+    if availability in {"AVAILABLE", "DEGRADED_LIMITED"}:
+        if family is None or not has_version or accelerator is None:
+            return False
+    elif availability == "INCOMPATIBLE_VERSION":
         if (
             family is not None
-            or _present(value, "runtime_version")
-            or accelerator is not None
+            and has_version
+            and not available
+            and not accepted
         ):
+            pass
+        else:
             return False
-        if (
-            availability == "NOT_EVALUATED"
-            and "EVALUATION_NOT_RUN" not in reasons
-        ):
-            return False
-    # Full AI is the only state with nothing outstanding, and it is exactly the
-    # state that requires an accepted profile on an available certified
-    # runtime.
-    if behavior == "FULL_AI_AVAILABLE":
-        if (
-            availability != "AVAILABLE"
-            or not accepted
-            or reasons
-            or platform_id not in _CERTIFIED_PLATFORM_IDS
-        ):
-            return False
-    elif accepted or not reasons:
+    elif family is not None or has_version or accelerator is not None or available or accepted:
         return False
-    # AVAILABLE and DEGRADED_LIMITED are the only non-blocking availability
-    # states, so they are the only ones that may enumerate usable profiles and
-    # the only ones that observed a runtime identity. A runtime below the
-    # performance tier still reports what it is and what it offers.
-    if availability not in _OPERABLE_RUNTIME_AVAILABILITY:
-        return not available
-    if family is None or not _present(value, "runtime_version"):
-        return False
-    return availability != "AVAILABLE" or accelerator is not None
+    if availability == "AVAILABLE" and behavior == "FULL_AI_AVAILABLE":
+        return (
+            bool(accepted)
+            and not reasons
+            and platform_id in _CERTIFIED_PLATFORM_IDS
+        )
+    if availability in {"AVAILABLE", "DEGRADED_LIMITED"}:
+        return (
+            not accepted
+            and bool(reasons)
+            and behavior == "CORE_PRESERVED_AI_DEGRADED"
+        )
+    return (
+        bool(reasons)
+        and behavior == "CORE_PRESERVED_AI_UNAVAILABLE"
+        and (
+            availability != "NOT_EVALUATED"
+            or "EVALUATION_NOT_RUN" in reasons
+        )
+    )
 
 
 def _platform_package_state_evidence(value: object) -> bool:
     state = _text(value, "state") or ""
     reasons = _items(value, "reason_codes")
+    evidence = _items(value, "evidence_refs")
     signature = _text(value, "signature_state")
     interrupted = _flag(value, "interrupted")
+    has_recovery = _present(value, "recovery_completed")
+    recovered = _flag(value, "recovery_completed") is True
     preservation = _text(value, "user_data_preservation")
     package_format = _text(value, "package_format")
     allowed_formats = _PACKAGE_FORMATS_BY_PLATFORM_ID.get(
@@ -4525,7 +8799,7 @@ def _platform_package_state_evidence(value: object) -> bool:
     )
     if (
         not _unique_strings(reasons)
-        or not _unique_strings(_items(value, "evidence_refs"))
+        or not _unique_strings(evidence)
         or not _platform_architecture_coherent(value)
         or (preservation == "PRESERVATION_FAILED" and not reasons)
         or (
@@ -4535,17 +8809,27 @@ def _platform_package_state_evidence(value: object) -> bool:
         )
     ):
         return False
-    # The interrupted flag is historical: it records that this operation was
-    # interrupted at some point. The recovery_completed flag records that the
-    # interruption was resolved, so it is meaningless without one. The
-    # INTERRUPTED reason names exactly an operation that was interrupted, and
-    # the unresolved terminal outcome is carried by INSTALL_INTERRUPTED /
-    # UPDATE_INTERRUPTED, never by the flag alone.
     if (
-        (_present(value, "recovery_completed") and interrupted is not True)
+        (has_recovery and interrupted is not True)
         or ("INTERRUPTED" in reasons) is not (interrupted is True)
+    ):
+        return False
+    interrupted_terminal = state in _PACKAGE_INTERRUPTED_STATES
+    success = state in _PACKAGE_SUCCESS_STATES
+    observation = state in {
+        "NOT_INSTALLED",
+        "NO_UPDATE_AVAILABLE",
+        "UPDATE_AVAILABLE",
+    }
+    if (
+        (interrupted_terminal and (interrupted is not True or recovered))
+        or (success and interrupted is True and not recovered)
+        or (observation and (interrupted is True or has_recovery))
         or (
-            state in _PACKAGE_INTERRUPTED_STATES and interrupted is not True
+            state in _PACKAGE_FAILURE_STATES
+            and not interrupted_terminal
+            and interrupted is True
+            and not recovered
         )
     ):
         return False
@@ -4556,58 +8840,85 @@ def _platform_package_state_evidence(value: object) -> bool:
         return False
     if state in _PACKAGE_FAILURE_STATES and not reasons:
         return False
-    if state in _PACKAGE_SUCCESS_STATES:
-        # A success carries no outstanding reason. A recovered interruption is
-        # no longer outstanding, so exactly the historical INTERRUPTED reason
-        # may remain — and only when the recovery actually completed.
-        # Specification §5.14.8 requires every certified target to pass
-        # interrupted update, repair, rollback, and preservation behaviour, so
-        # that outcome must be reportable as the success it is.
+    if success:
         outstanding = [
             reason for reason in reasons if reason != "INTERRUPTED"
         ]
         if (
             signature != "SIGNATURE_VALID"
             or outstanding
-            or (
-                interrupted is True
-                and _flag(value, "recovery_completed") is not True
-            )
             or preservation not in {"EXPLICIT_DELETION_REQUESTED", "PRESERVED"}
-            or not _items(value, "evidence_refs")
+            or not evidence
         ):
             return False
-    if state == "UNINSTALLED":
-        return _text(value, "native_host_cleanup") in {
-            "NOT_APPLICABLE",
-            "REMOVED",
-        }
-    if state == "INSTALLED":
-        return _present(value, "installed_version") and _text(
-            value, "installed_version"
-        ) == _text(value, "package_version")
-    if state == "NOT_INSTALLED":
-        return not _present(value, "installed_version")
+    installed = _text(value, "installed_version")
+    package_version = _text(value, "package_version")
+    current_version = _text(value, "current_version")
+    available_version = _text(value, "available_version")
+    rolled_back_version = _text(value, "rolled_back_to_version")
+    has_target = _present(value, "target_artifact")
+    if state in {"INSTALLED", "REPAIRED"}:
+        return installed is not None and installed == package_version
+    if state in {
+        "UNINSTALLED",
+        "NOT_INSTALLED",
+        "INSTALL_FAILED",
+        "INSTALL_INTERRUPTED",
+    }:
+        return installed is None and (
+            state != "UNINSTALLED"
+            or (_text(value, "native_host_cleanup") or "")
+            in {"NOT_APPLICABLE", "REMOVED"}
+        )
+    if state in {"REPAIR_FAILED", "UNINSTALL_FAILED"}:
+        return installed is not None and installed == package_version
     if state == "NO_UPDATE_AVAILABLE":
-        return not _present(value, "available_version")
-    if state == "UPDATE_AVAILABLE":
-        return _present(value, "available_version")
-    if state == "UPDATE_INSTALLED":
-        # The installed update is the update that was offered, exactly as
-        # INSTALLED binds the installed version to the package version.
         return (
-            _present(value, "installed_version")
-            and _present(value, "available_version")
-            and _present(value, "target_artifact")
-            and _text(value, "installed_version")
-            == _text(value, "available_version")
+            available_version is None
+            and installed is None
+            and rolled_back_version is None
+            and not has_target
+            and _flag(value, "rollback_available") is False
+        )
+    if state == "UPDATE_AVAILABLE":
+        return (
+            available_version is not None
+            and available_version != current_version
+            and installed is None
+            and rolled_back_version is None
+            and has_target
+        )
+    if state == "UPDATE_INSTALLED":
+        return (
+            installed is not None
+            and available_version is not None
+            and has_target
+            and installed == available_version
+            and rolled_back_version is None
         )
     if state == "ROLLED_BACK":
         return (
-            _present(value, "rolled_back_to_version")
+            installed is not None
+            and rolled_back_version is not None
+            and installed == rolled_back_version
+            and installed == current_version
             and _flag(value, "rollback_available") is True
+            and (available_version is not None) is has_target
         )
-    return True
+    if state in {"UPDATE_FAILED", "UPDATE_INTERRUPTED"}:
+        return (
+            (available_version is not None) is has_target
+            and (installed is None or installed == current_version)
+            and rolled_back_version is None
+        )
+    if state == "ROLLBACK_FAILED":
+        return (
+            installed is not None
+            and installed == current_version
+            and rolled_back_version is None
+            and (available_version is not None) is has_target
+        )
+    return False
 
 
 def _platform_diagnostic_integrity(value: object) -> bool:
@@ -4724,17 +9035,41 @@ def _platform_certification_input_scope(value: object) -> bool:
     required = _items(value, "required_evidence_kinds")
     present_kinds = _items(value, "present_evidence_kinds")
     records = _items(value, "evidence_record_refs")
+    inventory = _items(value, "evidence_inventory")
+    inventory_kinds = [
+        _text(item, "artifact_kind") for item in inventory
+    ]
+    inventory_refs = [
+        _text(item, "evidence_record_ref") for item in inventory
+    ]
     reasons = _items(value, "reason_codes")
     if (
         not _strictly_sorted_strings(required)
         or not _strictly_sorted_strings(present_kinds)
         or not _unique_strings(records)
+        or not _strictly_sorted_field(inventory, "artifact_kind")
+        or not _unique_field(inventory, "evidence_record_ref")
         or not _unique_strings(reasons)
         or not _platform_architecture_coherent(value)
         or not _platform_support_claim_sound(value)
     ):
         return False
-    complete = _subset_of(required, present_kinds) and bool(records)
+    if (
+        any(item is None for item in inventory_kinds)
+        or any(item is None for item in inventory_refs)
+        or len(present_kinds) != len(inventory_kinds)
+        or len(records) != len(inventory_refs)
+        or any(
+            item != inventory_kinds[index]
+            for index, item in enumerate(present_kinds)
+        )
+        or any(
+            item != inventory_refs[index]
+            for index, item in enumerate(records)
+        )
+    ):
+        return False
+    complete = _subset_of(required, present_kinds) and bool(inventory)
     if _flag(value, "inventory_complete") is not complete:
         return False
     if (_text(value, "owner_decision_state") == "RECORDED") is not _present(
@@ -4743,14 +9078,30 @@ def _platform_certification_input_scope(value: object) -> bool:
         return False
     if not _platform_reviewed_tier_is_certified(value):
         return bool(reasons)
-    # Completeness is measured against the record's own declared policy, so an
-    # empty required set would make "complete" vacuous. A certified proposal
-    # must name the evidence it required.
+    reviewed_tier = _text(
+        _object_member(value, "support_claim"), "reviewed_tier"
+    )
+    claim_evidence_refs = _items(
+        _object_member(value, "support_claim"), "evidence_refs"
+    )
+    policy = (
+        _CERTIFIED_FULL_EVIDENCE_KINDS
+        if reviewed_tier == "CERTIFIED_FULL"
+        else _CERTIFIED_CORE_EVIDENCE_KINDS
+    )
     return (
         not reasons
         and complete
-        and bool(required)
+        and required == list(policy)
+        and present_kinds == list(policy)
+        and claim_evidence_refs == records
+        and _present(value, "browser_record_ref")
+        and _present(value, "runtime_capability_ref")
         and _text(value, "owner_decision_state") == "RECORDED"
+        and (
+            reviewed_tier != "CERTIFIED_FULL"
+            or "MODEL_PROFILE_REPORT" in present_kinds
+        )
     )
 
 
@@ -4774,22 +9125,84 @@ RULE_EVALUATORS: Final[dict[str, RuleEvaluator]] = {
     "NAVIGATION_SAFETY": _navigation_safety,
     "PAGE_READINESS_INTEGRITY": _page_readiness_integrity,
     "PLATFORM_BROWSER_DISCOVERY_SAFETY": _platform_browser_discovery_safety,
-    "PLATFORM_BROWSER_RECORD_SCOPE": _platform_browser_record_scope,
-    "PLATFORM_CAPABILITY_REPORT_INTEGRITY": _platform_capability_report_integrity,
-    "PLATFORM_CERTIFICATION_INPUT_SCOPE": _platform_certification_input_scope,
-    "PLATFORM_DIAGNOSTIC_INTEGRITY": _platform_diagnostic_integrity,
-    "PLATFORM_EVIDENCE_INTEGRITY": _platform_evidence_integrity,
-    "PLATFORM_MODEL_PROFILE_EVIDENCE": _platform_model_profile_evidence,
-    "PLATFORM_NATIVE_REGISTRATION_BINDING": _platform_native_registration_binding,
-    "PLATFORM_NATIVE_REGISTRATION_RESULT": _platform_native_registration_result,
-    "PLATFORM_PACKAGE_STATE_EVIDENCE": _platform_package_state_evidence,
+    "PLATFORM_BROWSER_RECORD_SCOPE": lambda value: (
+        _LEGACY_platform_browser_record_scope(value)
+        or _published_legacy_platform_browser_record_scope(value)
+    ),
+    "PLATFORM_BROWSER_RECORD_SCOPE_V2": _platform_browser_record_scope,
+    "PLATFORM_CAPABILITY_REPORT_INTEGRITY": lambda value: (
+        _LEGACY_platform_capability_report_integrity(value)
+        or _published_legacy_platform_capability_report_integrity(value)
+    ),
+    "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2": (
+        _platform_capability_report_integrity
+    ),
+    "PLATFORM_CERTIFICATION_INPUT_SCOPE": lambda value: (
+        _LEGACY_platform_certification_input_scope(value)
+        or _published_legacy_platform_certification_input_scope(value)
+    ),
+    "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2": _platform_certification_input_scope,
+    "PLATFORM_DIAGNOSTIC_INTEGRITY": lambda value: (
+        _LEGACY_platform_diagnostic_integrity(value)
+        or _published_legacy_platform_diagnostic_integrity(value)
+    ),
+    "PLATFORM_DIAGNOSTIC_INTEGRITY_V2": _platform_diagnostic_integrity,
+    "PLATFORM_EVIDENCE_INTEGRITY": lambda value: (
+        _LEGACY_platform_evidence_integrity(value)
+        or _published_legacy_platform_evidence_integrity(value)
+    ),
+    "PLATFORM_EVIDENCE_INTEGRITY_V2": _platform_evidence_integrity,
+    "PLATFORM_MODEL_PROFILE_EVIDENCE": lambda value: (
+        _LEGACY_platform_model_profile_evidence(value)
+        or _published_legacy_platform_model_profile_evidence(value)
+    ),
+    "PLATFORM_MODEL_PROFILE_EVIDENCE_V2": _platform_model_profile_evidence,
+    "PLATFORM_NATIVE_REGISTRATION_BINDING": lambda value: (
+        _LEGACY_platform_native_registration_binding(value)
+        or _published_legacy_platform_native_registration_binding(value)
+    ),
+    "PLATFORM_NATIVE_REGISTRATION_BINDING_V2": (
+        _platform_native_registration_binding
+    ),
+    "PLATFORM_NATIVE_REGISTRATION_RESULT": lambda value: (
+        _LEGACY_platform_native_registration_result(value)
+        or _published_legacy_platform_native_registration_result(value)
+    ),
+    "PLATFORM_NATIVE_REGISTRATION_RESULT_V2": _platform_native_registration_result,
+    "PLATFORM_PACKAGE_STATE_EVIDENCE": lambda value: (
+        _LEGACY_platform_package_state_evidence(value)
+        or _published_legacy_platform_package_state_evidence(value)
+    ),
+    "PLATFORM_PACKAGE_STATE_EVIDENCE_V2": _platform_package_state_evidence,
     "PLATFORM_PATH_REQUEST_SAFETY": _platform_path_request_safety,
-    "PLATFORM_PATH_RESOLUTION_SAFETY": _platform_path_resolution_safety,
-    "PLATFORM_PROCESS_PLAN_SAFETY": _platform_process_plan_safety,
-    "PLATFORM_PROCESS_STATUS_INTEGRITY": _platform_process_status_integrity,
-    "PLATFORM_RUNTIME_CAPABILITY_FALLBACK": _platform_runtime_capability_fallback,
+    "PLATFORM_PATH_RESOLUTION_SAFETY": lambda value: (
+        _LEGACY_platform_path_resolution_safety(value)
+        or _published_legacy_platform_path_resolution_safety(value)
+    ),
+    "PLATFORM_PATH_RESOLUTION_SAFETY_V2": _platform_path_resolution_safety,
+    "PLATFORM_PROCESS_PLAN_SAFETY": lambda value: (
+        _LEGACY_platform_process_plan_safety(value)
+        or _published_legacy_platform_process_plan_safety(value)
+    ),
+    "PLATFORM_PROCESS_PLAN_SAFETY_V2": _platform_process_plan_safety,
+    "PLATFORM_PROCESS_STATUS_INTEGRITY": lambda value: (
+        _LEGACY_platform_process_status_integrity(value)
+        or _published_legacy_platform_process_status_integrity(value)
+    ),
+    "PLATFORM_PROCESS_STATUS_INTEGRITY_V2": _platform_process_status_integrity,
+    "PLATFORM_RUNTIME_CAPABILITY_FALLBACK": lambda value: (
+        _LEGACY_platform_runtime_capability_fallback(value)
+        or _published_legacy_platform_runtime_capability_fallback(value)
+    ),
+    "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2": (
+        _platform_runtime_capability_fallback
+    ),
     "PLATFORM_SECRET_REQUEST_AUTHORITY": _platform_secret_request_authority,
-    "PLATFORM_SECRET_RESULT_INTEGRITY": _platform_secret_result_integrity,
+    "PLATFORM_SECRET_RESULT_INTEGRITY": lambda value: (
+        _LEGACY_platform_secret_result_integrity(value)
+        or _published_legacy_platform_secret_result_integrity(value)
+    ),
+    "PLATFORM_SECRET_RESULT_INTEGRITY_V2": _platform_secret_result_integrity,
     "PLATFORM_TARGET_SUPPORT_CLAIM": _platform_target_support_claim,
     "RECONCILIATION_READINESS": _reconciliation_readiness,
     "RESUME_PLAN_EVIDENCE": _resume_plan_evidence,

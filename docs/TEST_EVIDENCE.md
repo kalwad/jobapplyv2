@@ -33,7 +33,342 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
+
+- Starting revision: clean `main` at
+  `93541b755dfcd2708c955ada4fdef943b0afaa09`, equal to `origin/main`; tree
+  `75512f6d16e50a4560eab7386e6896c81d3ddd0d`. The preserved linear chain was
+  `44827ae` → `860b6e1` → `0659c13` → `93541b7`. Canonical specification
+  SHA-256 was and remains
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Scope: owner-authorized final M01-W07 correction only. No canonical
+  specification, lockfile, toolchain, workflow, M02, product, UI, native
+  platform, provider, model, installer, updater, secret-store, or
+  native-messaging implementation is authorized or added.
+
+#### Reproductions before correction
+
+- GOV-STATUS-001: the accepted header/table at `93541b7` said M01-W07
+  `VERIFIED`, M01 `ACCEPTED`, and M02-W01 sole `READY`, while the same file's
+  live blocker section still said KI-0024/KI-0025 were HIGH/IN_PROGRESS and
+  M01–M38 were unaccepted. `python3 scripts/validate_status.py` nevertheless
+  passed 43 groups because it did not parse that ledger.
+- SEM-01: `INSTALL_INTERRUPTED` and `UPDATE_INTERRUPTED` accepted
+  `interrupted=true` with `recovery_completed=true`.
+- SEM-02: `RUNNING` accepted `GRACEFUL_STOP`; `TERMINATED` accepted a completed
+  termination request together with an independent `exit_code`.
+- SEM-03: `CERTIFIED_FULL` accepted a self-declared one-kind complete evidence
+  policy with no complete browser/runtime/platform bundle.
+- SEM-04: an unevaluated browser accepted `MEASURED_NATIVE_RUN`; a degraded
+  capability accepted `NOT_EVALUATED`; a certified outer browser accepted a
+  merely declared nested capability.
+- SEM-05: GET/`NOT_FOUND` accepted `store_availability=UNAVAILABLE`.
+- SEM-06: `runtime_availability=NOT_INSTALLED` accepted detected runtime family,
+  version, and accelerator identity.
+- SEM-07: `UNINSTALLED` accepted `installed_version`, while `REPAIRED` accepted
+  its absence.
+- Each SEM witness was structurally valid and semantically accepted in the
+  generated TypeScript/Python evaluators and the representative Rust harness;
+  its required corrected-major verdict is semantic rejection.
+- V01: `x-w07.model-runtime-profile-macos-cuda` was structurally and
+  semantically valid under the published `44827ae` v1 schema/rule and rejected
+  under the invalidated accepted content, even though both remained major 1
+  and the compatibility check called the change additive.
+
+The audit claims above were confirmed. The audit's repository mechanics were
+also confirmed: exact clean start, canonical hash, linear history,
+governance-only stamp diff, and green historical content/final-head CI. Those
+historical green runs did not exercise the contradictions and remain evidence
+only for their exact revisions.
+
+#### Governance repair
+
+M01-W07 and M01 were reopened; M02/M02-W01 returned to `NOT_STARTED`; no
+package is `READY`; M00 remains `ACCEPTED`; all four gates remain
+`NOT_EVALUATED`; release remains `NOT_READY`. KI-0029/KI-0030/KI-0031 are
+HIGH/IN_PROGRESS and KI-0032 is MEDIUM/IN_PROGRESS until content proof and
+hosted CI complete.
+
+`scripts/validate_status.py` now parses every live blocker, resolves it against
+`KNOWN_ISSUES.md`, and reconciles severity/state, milestone acceptance,
+package state, and next readiness. It requires every CRITICAL/HIGH
+OPEN/IN_PROGRESS issue to appear as a live blocker and rejects fixed/deferred/
+wont-fix blocker rows. The prior accepted-header/live-blocker contradiction,
+including an omitted authoritative blocker combined with accepted M01, is a
+permanent negative fixture. Observed focused result:
+`python3 scripts/validate_status.py` passed 44 groups and
+`uv run pytest -q scripts/tests/test_validate_status.py` passed 144 tests.
+
+#### Historical executable classification
+
+The durable source is
+`packages/contracts/test/contract/semantic-witnesses/historical-platform-v1.json`.
+It collects expected-valid source corpus cases and explicit positive matrix
+rows from immutable Git objects `6708f1a`, `12e4062`, `44827ae`, and `860b6e1`;
+historical evaluators annotate acceptance but do not select positives. Ordered
+value patches are resolved before recursive canonicalization. The report proves
+the relevant evaluator, corpus, values, and matrix bytes at invalidated anchor
+`0659c13` are identical to `860b6e1`.
+
+- 556 raw positive references canonicalize to 229 distinct schema/payload
+  witnesses across all nineteen v1 roots. Plain insertion-order serialization
+  would incorrectly yield 231; the locked collision IDs are
+  `x-w07.historical-positive.12940c26b0564f602e366f8d` and
+  `x-w07.historical-positive.a9122c6aa5a4dfde7bd17f77`.
+- Acceptance-vector counts in revision order
+  `6708f1a/12e4062/44827ae/860b6e1` are `1111=208`, `1110=2`, `0011=2`,
+  and `0001=17`. The first/last published evaluator union covers all 229.
+- Exact 448→0659 old-valid/later-invalid witnesses (`1110`, 2):
+  `x-w07.historical-positive.55751f30edf7fe7b29e332f2` and
+  `x-w07.historical-positive.d1e3daf65125f4020f73904d` (both
+  `installer-state:v1`).
+- Exact 448→0659 old-invalid/later-valid witnesses (`0001`, 17):
+  `0dad4c67cbbc6a09fc12e861`, `12940c26b0564f602e366f8d`,
+  `22a02a644baa57059553a73d`, `3f7811ca9a99cdbb0b1b2db3`,
+  `43da14fcc9cded70dece7b2d`, `57f56e25860e1c0983355d41`,
+  `6400c3d85af5b3901996041f`, `6656bb50346f784768db42c2`,
+  `9819e94bfaceeecbd876b50b`, `a9122c6aa5a4dfde7bd17f77`,
+  `ae8bb664c11a026430936e09`, `afd3164d6851ec574d22726e`,
+  `b0b13b75f57e001313241b06`, `b531fa6f450e3c388f2e0290`,
+  `c69f815d3f57ccd3a56b386c`, `e14aeae231ac60af769cea84`, and
+  `fbf656ecdccb9ff324643796`, each with prefix
+  `x-w07.historical-positive.` in the inventory.
+- Current deprecated v1 accepts all 229, so it removes none from either
+  published endpoint. Relative to 448 it retains the 17 later additions;
+  relative to 0659 it restores the two earlier acceptances.
+- Separately, exact replay of all 242 current v1 platform corpus rows at
+  448→0659 is 24 valid→invalid, 9 invalid→valid, 84 valid→valid, and 125
+  invalid→invalid. The 9 additions alias 9 of the inventory's 17 additions;
+  its other 8 additions and both of its removals are matrix-only. The
+  canonical input union of the historical-positive inventory and current-v1
+  corpus is therefore exactly 26 removals / 17 additions.
+- Canonical inventory digest:
+  `6ce50f164c3b58a1062f43bcca7164cd5a4fcee0d93a6f1525a3c54379688fbc`.
+  TypeScript, Python, and Rust each executed a separate 229-request bounded
+  batch: all 229 verdicts were `VALID` in each language.
+
+The often-confused counts are deliberately separated. The source-positive
+inventory is 2 removals / 17 additions at 448→0659; current-v1 corpus is 24/9;
+their unique input union is 26/17. The current corpus also has 39
+explicit deprecated-v1-valid/corrected-v2-invalid pairs: all 39 were accepted
+by first-published `6708f1a`, 24 remained accepted at `44827ae`, and all 39
+were rejected by `0659c13`. The original 12 direct corrective cases are
+explicit v2-only negative reproductions whose v1-shaped payloads were accepted
+at both 448 and 0659; the thirteenth final-sweep case exercises a v2-only typed
+inventory cross-binding. None is an old-invalid/current-valid addition.
+
+#### Major-version migration and exact retained/tightened inventory
+
+Fifteen affected v1 roots are deprecated with
+`x-japp-deprecated-since: 2.0.0`; fifteen v2 roots and thirty v2 semantic
+bindings are version `2.0.0`. Unaffected browser/path/secret request and target
+identity roots remain v1. Deprecated v1 dispatch is the first/last published
+accepted-set union; corrected v2 dispatch alone carries the normative repair
+and is the major future fixtures must select. Generator format is `1.5.0`;
+the semantic catalog is `1.1.0` with 110 bindings / 54 kinds, and its schema is
+`1.2.0`.
+
+The 39 exact v1-valid/v2-invalid pairs are:
+
+- browser record (2): `browser-record-absent-with-version`,
+  `browser-record-available-without-detection`;
+- certification (1): `certification-input-architecture-mismatch`;
+- diagnostics (1): `diagnostic-report-blocked-with-info-severity`;
+- evidence (4): `evidence-record-architecture-mismatch`,
+  `evidence-record-declared-plan-success`,
+  `evidence-record-hosted-measured-without-runner-image`,
+  `evidence-record-success-with-invalid-signature`;
+- installer (3): `installer-state-architecture-mismatch`,
+  `installer-state-foreign-package-format`,
+  `installer-state-terminal-interruption-without-flag`;
+- model profile (2): `model-runtime-profile-cpu-with-driver-bound`,
+  `model-runtime-profile-macos-cuda`;
+- native registration intent (1):
+  `native-messaging-registration-without-message-limit`;
+- native registration result (4):
+  `native-messaging-result-identity-reason-without-state`,
+  `native-messaging-result-stale-without-host-version`,
+  `native-messaging-result-unevaluated-reason-without-state`,
+  `native-messaging-result-unevaluated-with-identity`;
+- process plan (8): `process-plan-model-runtime-framed-stderr`,
+  `process-plan-native-host-framed-stderr`,
+  `process-plan-non-loopback-bind-host`,
+  `process-plan-orchestrator-framed-stderr`,
+  `process-plan-out-of-range-service-port`,
+  `process-plan-privilege-escalation-argument`,
+  `process-plan-registration-path-role-environment`,
+  `process-plan-suffixed-interpreter-argument`;
+- process status (3): `process-status-exited-after-termination-request`,
+  `process-status-failed-with-exit-code`,
+  `process-status-unexplained-nonzero-exit`;
+- runtime capability (3): `runtime-capability-full-ai-with-blocking-reason`,
+  `runtime-capability-measured-detection-unevaluated`,
+  `runtime-capability-mlx-on-windows-target`;
+- secret result (5): `secret-store-result-status-denied-with-available`,
+  `secret-store-result-status-denied-without-permission-reason`,
+  `secret-store-result-status-unavailable-with-available`,
+  `secret-store-result-status-unavailable-without-reason`,
+  `secret-store-result-unavailable-with-available-on-get`;
+- update (2): `update-state-architecture-mismatch`,
+  `update-state-installed-version-mismatch`.
+
+Every ID above has the `x-w07.` prefix for v1 and `.v2` suffix for its
+corrected pair. Certification v2 adds the required typed evidence inventory,
+so that one pair intentionally has a different input digest.
+
+The 13 direct corrected-major negatives are
+`corrective.sem01-install-interrupted-recovery-completed`,
+`corrective.sem01-update-interrupted-recovery-completed`,
+`corrective.sem02-running-with-termination-request`,
+`corrective.sem02-terminated-with-exit-code`,
+`corrective.sem03-certified-full-self-declared-inventory`,
+`corrective.sem03-certified-support-claim-evidence-mismatch`,
+`corrective.sem04-browser-not-evaluated-with-measured-method`,
+`corrective.sem04-certified-browser-with-declared-capability`,
+`corrective.sem04-degraded-capability-with-not-evaluated-method`,
+`corrective.sem05-unavailable-store-reports-not-found`,
+`corrective.sem06-not-installed-runtime-with-identity`,
+`corrective.sem07-repaired-without-installed-version`, and
+`corrective.sem07-uninstalled-with-installed-version`, each with prefix
+`x-w07.`. Fifteen `x-w07.round-trip-*.v2` positives cover every migrated root.
+
+#### Corrected v2 truth tables
+
+- Package lifecycle: unresolved interrupted terminal states require
+  `interrupted=true` and recovery not completed; a later coherent success may
+  retain the recovered historical interruption. All fifteen installer/updater
+  states have explicit required/forbidden/equality rules for installed,
+  available, target, rollback, artifact, signature, evidence, preservation,
+  cleanup, reason, interruption, and recovery fields. The state × interrupted
+  × recovery grid is 90 cells / 27 valid.
+- Process lifecycle: `STARTING`/`RUNNING` require
+  `termination_requested=NONE` and no terminal fields; `TERMINATING` requires a non-NONE request and no terminal
+  fields; `EXITED` requires an exit code and no request; `TERMINATED` completes
+  a request and has no independent exit code. The state × termination ×
+  terminal-field grid is 96/12.
+- Certification: exact canonical policies bind `CERTIFIED_CORE` and
+  `CERTIFIED_FULL`; v2 carries a typed `artifact_kind`/`evidence_record_ref`
+  inventory, and a completed claim's evidence references must exactly match
+  the reviewed record inventory. Tier × policy × presence is 24/14.
+- Capability/browser: availability/presence and evaluation method are
+  bidirectional; certified browser claims require measured nested capability
+  evidence. Each availability × method grid is 45/26.
+- Secret store: operation, result, and availability jointly bind identity,
+  material, digest, and reasons. An unavailable store reports
+  `STORE_UNAVAILABLE`, never `NOT_FOUND`. The grid is 288/48.
+- Runtime: only reviewed availability states may carry detected identity or
+  profiles; `INCOMPATIBLE_VERSION` requires detected
+  family/version/accelerator and forbids profiles, while nonexistent/
+  unevaluated/unsupported/unavailable states may not carry identity.
+  Availability × method × identity × profiles is 180/32.
+
+#### Compatibility, corpus, and subprocess evidence
+
+- Corpus: 511 cases; 505 shared by all three languages, five TypeScript-only,
+  and one Python-only, yielding TypeScript 510, Python 506, Rust 505 with one
+  inventory slot below the 512 bound; 60 `AUTHORIZE`, 156 `ROUND_TRIP`, 287
+  `VALIDATE`, 8 `VERSION_CHECK`; manifest digest
+  `230a0a4b7c1874fccad363a72eb342210197b723c1f49d6ff32b7b06f96b9c7b`.
+  File hashes are cases
+  `0f516f06e2ca3dafd691da1ac77d19df9921e44517e8dcaea589942595929745`,
+  raw wire
+  `418a4d9d6211edffe76c61d5c9c68ef684a609022fd93e6a1f97a2700248486e`,
+  and values
+  `d42842b8a8270bdfbffa123476ec32b757bbbcf55a5fc921272e24e7f0180bea`.
+- Compatibility format `2.1.0` binds 572 executable semantic witnesses plus
+  historical inventory path/count/digest. Before baseline update,
+  `pnpm contracts:compatibility:check` returned JSON with exactly
+  `compatible=true`, `findings=[]`, and `additive_changes.length=230`: 229
+  `SEMANTIC_WITNESS_ADDED` entries plus one
+  `HISTORICAL_WITNESS_INVENTORY_ADDED`. Only then the named update command ran;
+  two read-only rechecks returned exactly
+  `{"additive_changes":[],"compatible":true,"findings":[]}`.
+- The mandatory final same-class sweep then reproduced a certified input whose
+  canonical required/present kinds and inventory were complete while
+  `support_claim.evidence_refs` named an unrelated record. All three
+  evaluators accepted it, and the TypeScript-only grids did not expose the
+  cross-language gap. The corrected rule now binds the claim references to the
+  exact record inventory. All 538 advertised platform/policy cells and all 288
+  secret-store cells execute through the bounded real TypeScript, Python, and
+  Rust adapters, including canonical semantic error-category/code assertions.
+  Before the second named baseline update, the compatibility check reported
+  exactly one compatible `SEMANTIC_WITNESS_ADDED` and no finding; two
+  post-update read-only checks were empty and identical.
+- The loader/update path rejects missing baselines, malformed candidates,
+  unsupported languages, fabricated schema/rule majors, metadata or witness
+  hashes inconsistent with the immutable historical artifact, and same-major
+  acceptance/rejection removal without overwriting the accepted baseline.
+- Three generated-test CLI sites now share a shell-free 15-second/1-MiB
+  subprocess boundary with stable timeout/output/execution errors. Expected
+  nonzero exits remain inspectable; deterministic timeout and nonzero tests
+  pass; Windows cleanup retains bounded retries. No package/test/CI timeout was
+  increased.
+
+Focused observed results on this corrective working tree:
+
+- `pnpm --dir packages/contracts exec vitest run test/contract/compatibility.test.ts`
+  → exit 0, 514/514 tests; TypeScript 510, Python 506, Rust 505, plus
+  229/229/229 historical verdicts.
+- `pnpm --dir packages/contracts exec vitest run test/schema/w07-platform-rule-matrix.test.ts test/schema/w07-secret-store-truth-table.test.ts test/generated/semantic-rules.test.ts`
+  → exit 0, 1396/1396 tests, including 538 + 288 real-adapter parity cells.
+- `pnpm --dir packages/contracts exec vitest run test/contract/breaking.test.ts test/contract/historical-witnesses.test.ts`
+  → exit 0, 132/132 tests, including the final format-2.1 forgery cases.
+- `pnpm --dir packages/contracts exec vitest run test/generated/generator.test.ts test/generated/error-taxonomy.test.ts test/generated/security-policy.test.ts`
+  → exit 0, 126/126 tests.
+- `pnpm typecheck` → exit 0.
+
+#### Full locked local validation before content commit
+
+- Environment: macOS arm64; Node 24.18.0; pnpm 11.17.0; uv 0.11.32; Python
+  3.12.13; cargo/rustc 1.97.1.
+- `pnpm install --frozen-lockfile`, `uv sync --locked`,
+  `cargo fetch --locked --manifest-path services/native-host/Cargo.toml`, and
+  `cargo fetch --locked --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml`
+  → exit 0.
+- `pnpm generate:contracts` → exit 0, generated 183 files;
+  `pnpm generate:contracts --check` twice → exit 0, 183 files byte-identical.
+- `pnpm traceability:generate` and `pnpm traceability:check` → exit 0, 193
+  requirements / 300 work packages; `python3 scripts/validate_status.py` →
+  exit 0, 44/44 groups.
+- `pnpm run doctor` → exit 0, 21 PASS, the expected pre-commit dirty-tree
+  warning, and the honest M10-W06 visual `NOT_YET_APPLICABLE` state.
+- `pnpm format:check`, `pnpm lint`, and `pnpm typecheck` → exit 0.
+- `pnpm test` → exit 0; all nine participating workspace tasks passed,
+  including 2440/2440 contract-package tests.
+- `pnpm test:contract` → exit 0, 662/662 tests; `pnpm test:e2e` → exit 0,
+  1/1 Chromium test and 1/1 discovery listing.
+- `pnpm test:python` → exit 0, 667/667 tests; `pnpm test:rust` → exit 0,
+  native-host 1/1 and locked/offline compatibility harness 10/10, with fmt,
+  Clippy, tests, and builds passing.
+- `pnpm verify` twice → exit 0 both times; every active suite passed and the
+  visual suite remained honestly `NOT_YET_APPLICABLE`.
+- `pnpm contracts:compatibility:check` twice → exit 0 each with exactly
+  `{"additive_changes":[],"compatible":true,"findings":[]}`;
+  `git diff --check` → exit 0.
+- Canonical specification SHA-256 remained
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  The immutable historical file SHA-256 was
+  `41d6d41b18495f381f6abb614e3da47f8dc37cb08afbf26e8b7da86bf6eaff6a`;
+  the format-2.1 baseline file SHA-256 was
+  `70cb11c67e3bf0546df69c991c0e8e82b80db00fa58a767217e7561cf68226b9`.
+
+The final integration sweep also caught and corrected old catalog assertions
+that still expected 63 documents, 20 platform documents, semantic catalog
+version 1.0.0, and 80 bindings. No test was focused, skipped, or labelled
+flaky; verification introduced no untracked generation drift. The exact
+content commit, clean clones, and hosted CI remain pending at this point.
+
+The old KI-0025 statement that its semantic narrowing was “additive” is
+historical and invalidated. The old content/stamp trees and CI runs below are
+preserved, but they no longer establish current M01-W07 verification or M01
+acceptance.
+
 ### M01-W07 corrective repair — KI-0025 platform semantic state matrices (2026-07-28)
+
+> Historical record: the post-acceptance KI-0029…KI-0032 audit above
+> invalidates this section's additive/versioning conclusion and closeout. The
+> commands and old-tree results remain factual for their revisions, but the
+> old checker did not protect executable same-major semantics.
 
 - Starting revision: commit `44827ae73a04d4ef63ccb40cd93fd14b7e304010` /
   tree `7fcd961fbde2770378248ca68e65526b4480a970`; clean `main`, equal to
@@ -151,7 +486,7 @@ token, rule binding, `rule_version`, or generator format changed.
   `7 passed (7)`, `Tests 625 passed (625)` including the five new exhaustive
   matrices; `w07-platform-rule-matrix.test.ts` alone runs 462 of them.
 - `pnpm contracts:corpus:update-manifest` → `updated M01-W05 corpus manifest`.
-- **Compatibility classification, run before any baseline write:**
+- **Historical compatibility classification, run before any baseline write:**
   `pnpm contracts:compatibility:check` reported `"compatible": true`,
   `"findings": []` — zero breaking findings — and exactly ten
   `SUPPORTED_WIRE_CASE_ADDED` entries and nothing else
@@ -192,7 +527,8 @@ every F1–F5 unreachable positive is now `S+ M+`, every one of the thirteen
 fail-open payloads is now `S+ M-`, and the refused-removal case is `S+ M+`
 while the zero-reason `REMOVE`/`PRESENT_VALID` false-success claim stays
 `S+ M-`. TypeScript and Python agreed on every case, and the cross-language
-corpus proves TypeScript/Python/Rust agreement on all 444 cases.
+  corpus proves agreement on each case's applicable languages (TypeScript 443,
+  Python 439, Rust 438), not that every language executes all 444 cases.
 
 #### Corpus
 
@@ -263,7 +599,7 @@ passing in 7635 ms, `Test Files 19 passed (19)` and `Tests 1470 passed (1470)`,
 `contract`/`rust`/`status` suites PASS, `verification exit code: 0`, and the
 `Assert verification left no tracked changes` step succeeding.
 
-#### Closeout
+#### Historical closeout (invalidated by the post-acceptance audit)
 
 M01-W07 is VERIFIED and M01 is ACCEPTED at tree
 `211c4b72cae4404dc277d8b31df240e4abfc717c`. KI-0024, KI-0025, and KI-0028 are

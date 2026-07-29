@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:capability-report:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Platform capability report",
   "description": "The typed PlatformCapabilities record of specification §5.14.2. It reports one explicit state for every specification-owned platform capability family and never treats an unevaluated capability as success. A missing local-AI profile degrades AI features only; it cannot reduce deterministic core capability below the reviewed core tier.",
   "type": "object",

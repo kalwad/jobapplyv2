@@ -2,7 +2,7 @@ import {
   buildCompatibilitySignature,
   compareCompatibilitySignatures,
 } from "./compatibility-signature.ts";
-import { loadBaseline, updateBaseline } from "./baseline.ts";
+import { BaselineError, loadBaseline, updateBaseline } from "./baseline.ts";
 import { canonicalJson } from "../adapters/normalization.ts";
 
 function check(): number {
@@ -22,10 +22,13 @@ try {
     process.exitCode = check();
   } else if (process.argv[2] === "--update-baseline") {
     updateBaseline();
-    process.stdout.write("updated M01-W05 compatibility baseline\n");
+    process.stdout.write("updated executable compatibility baseline\n");
   } else {
     process.exitCode = 2;
   }
-} catch {
+} catch (error) {
+  process.stderr.write(
+    `${error instanceof BaselineError ? error.code : "COMPATIBILITY_TOOL_FAILED"}\n`,
+  );
   process.exitCode = 2;
 }

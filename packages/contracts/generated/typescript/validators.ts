@@ -186,29 +186,57 @@ import type {
   PlatformBrowserRecordV1,
 } from "./platform/browser-record.v1.ts";
 import type {
+  PlatformBrowserRecordV2,
+} from "./platform/browser-record.v2.ts";
+import type {
   PlatformCapabilityReportV1,
 } from "./platform/capability-report.v1.ts";
+import type {
+  PlatformCapabilityReportV2,
+} from "./platform/capability-report.v2.ts";
 import type {
   PlatformCertificationInputV1,
 } from "./platform/certification-input.v1.ts";
 import type {
+  PlatformCertificationInputV2,
+  PlatformCertificationInputV2EvidenceInventoryItem,
+} from "./platform/certification-input.v2.ts";
+import type {
   PlatformDiagnosticReportV1,
 } from "./platform/diagnostic-report.v1.ts";
+import type {
+  PlatformDiagnosticReportV2,
+} from "./platform/diagnostic-report.v2.ts";
 import type {
   PlatformEvidenceRecordV1,
 } from "./platform/evidence-record.v1.ts";
 import type {
+  PlatformEvidenceRecordV2,
+} from "./platform/evidence-record.v2.ts";
+import type {
   PlatformInstallerStateV1,
 } from "./platform/installer-state.v1.ts";
+import type {
+  PlatformInstallerStateV2,
+} from "./platform/installer-state.v2.ts";
 import type {
   PlatformModelRuntimeProfileV1,
 } from "./platform/model-runtime-profile.v1.ts";
 import type {
+  PlatformModelRuntimeProfileV2,
+} from "./platform/model-runtime-profile.v2.ts";
+import type {
   PlatformNativeMessagingRegistrationV1,
 } from "./platform/native-messaging-registration.v1.ts";
 import type {
+  PlatformNativeMessagingRegistrationV2,
+} from "./platform/native-messaging-registration.v2.ts";
+import type {
   PlatformNativeMessagingResultV1,
 } from "./platform/native-messaging-result.v1.ts";
+import type {
+  PlatformNativeMessagingResultV2,
+} from "./platform/native-messaging-result.v2.ts";
 import type {
   PlatformPathRequestV1,
 } from "./platform/path-request.v1.ts";
@@ -216,14 +244,26 @@ import type {
   PlatformPathResolutionV1,
 } from "./platform/path-resolution.v1.ts";
 import type {
+  PlatformPathResolutionV2,
+} from "./platform/path-resolution.v2.ts";
+import type {
   PlatformProcessPlanV1,
 } from "./platform/process-plan.v1.ts";
+import type {
+  PlatformProcessPlanV2,
+} from "./platform/process-plan.v2.ts";
 import type {
   PlatformProcessStatusV1,
 } from "./platform/process-status.v1.ts";
 import type {
+  PlatformProcessStatusV2,
+} from "./platform/process-status.v2.ts";
+import type {
   PlatformRuntimeCapabilityV1,
 } from "./platform/runtime-capability.v1.ts";
+import type {
+  PlatformRuntimeCapabilityV2,
+} from "./platform/runtime-capability.v2.ts";
 import type {
   PlatformSecretStoreRequestV1,
 } from "./platform/secret-store-request.v1.ts";
@@ -231,11 +271,17 @@ import type {
   PlatformSecretStoreResultV1,
 } from "./platform/secret-store-result.v1.ts";
 import type {
+  PlatformSecretStoreResultV2,
+} from "./platform/secret-store-result.v2.ts";
+import type {
   PlatformTargetIdentityV1,
 } from "./platform/target-identity.v1.ts";
 import type {
   PlatformUpdateStateV1,
 } from "./platform/update-state.v1.ts";
+import type {
+  PlatformUpdateStateV2,
+} from "./platform/update-state.v2.ts";
 import type {
   PlatformVocabularyV1AcceleratorClass,
   PlatformVocabularyV1Architecture,
@@ -525,23 +571,39 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId": GateEvidenceBundleV1GateId;
   readonly "urn:japp:schema:platform:browser-discovery-request:v1": PlatformBrowserDiscoveryRequestV1;
   readonly "urn:japp:schema:platform:browser-record:v1": PlatformBrowserRecordV1;
+  readonly "urn:japp:schema:platform:browser-record:v2": PlatformBrowserRecordV2;
   readonly "urn:japp:schema:platform:capability-report:v1": PlatformCapabilityReportV1;
+  readonly "urn:japp:schema:platform:capability-report:v2": PlatformCapabilityReportV2;
   readonly "urn:japp:schema:platform:certification-input:v1": PlatformCertificationInputV1;
+  readonly "urn:japp:schema:platform:certification-input:v2": PlatformCertificationInputV2;
+  readonly "urn:japp:schema:platform:certification-input:v2#/$defs/evidenceInventoryItem": PlatformCertificationInputV2EvidenceInventoryItem;
   readonly "urn:japp:schema:platform:diagnostic-report:v1": PlatformDiagnosticReportV1;
+  readonly "urn:japp:schema:platform:diagnostic-report:v2": PlatformDiagnosticReportV2;
   readonly "urn:japp:schema:platform:evidence-record:v1": PlatformEvidenceRecordV1;
+  readonly "urn:japp:schema:platform:evidence-record:v2": PlatformEvidenceRecordV2;
   readonly "urn:japp:schema:platform:installer-state:v1": PlatformInstallerStateV1;
+  readonly "urn:japp:schema:platform:installer-state:v2": PlatformInstallerStateV2;
   readonly "urn:japp:schema:platform:model-runtime-profile:v1": PlatformModelRuntimeProfileV1;
+  readonly "urn:japp:schema:platform:model-runtime-profile:v2": PlatformModelRuntimeProfileV2;
   readonly "urn:japp:schema:platform:native-messaging-registration:v1": PlatformNativeMessagingRegistrationV1;
+  readonly "urn:japp:schema:platform:native-messaging-registration:v2": PlatformNativeMessagingRegistrationV2;
   readonly "urn:japp:schema:platform:native-messaging-result:v1": PlatformNativeMessagingResultV1;
+  readonly "urn:japp:schema:platform:native-messaging-result:v2": PlatformNativeMessagingResultV2;
   readonly "urn:japp:schema:platform:path-request:v1": PlatformPathRequestV1;
   readonly "urn:japp:schema:platform:path-resolution:v1": PlatformPathResolutionV1;
+  readonly "urn:japp:schema:platform:path-resolution:v2": PlatformPathResolutionV2;
   readonly "urn:japp:schema:platform:process-plan:v1": PlatformProcessPlanV1;
+  readonly "urn:japp:schema:platform:process-plan:v2": PlatformProcessPlanV2;
   readonly "urn:japp:schema:platform:process-status:v1": PlatformProcessStatusV1;
+  readonly "urn:japp:schema:platform:process-status:v2": PlatformProcessStatusV2;
   readonly "urn:japp:schema:platform:runtime-capability:v1": PlatformRuntimeCapabilityV1;
+  readonly "urn:japp:schema:platform:runtime-capability:v2": PlatformRuntimeCapabilityV2;
   readonly "urn:japp:schema:platform:secret-store-request:v1": PlatformSecretStoreRequestV1;
   readonly "urn:japp:schema:platform:secret-store-result:v1": PlatformSecretStoreResultV1;
+  readonly "urn:japp:schema:platform:secret-store-result:v2": PlatformSecretStoreResultV2;
   readonly "urn:japp:schema:platform:target-identity:v1": PlatformTargetIdentityV1;
   readonly "urn:japp:schema:platform:update-state:v1": PlatformUpdateStateV1;
+  readonly "urn:japp:schema:platform:update-state:v2": PlatformUpdateStateV2;
   readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass": PlatformVocabularyV1AcceleratorClass;
   readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture": PlatformVocabularyV1Architecture;
   readonly "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity": PlatformVocabularyV1ArtifactIdentity;
@@ -785,23 +847,39 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId",
   "urn:japp:schema:platform:browser-discovery-request:v1",
   "urn:japp:schema:platform:browser-record:v1",
+  "urn:japp:schema:platform:browser-record:v2",
   "urn:japp:schema:platform:capability-report:v1",
+  "urn:japp:schema:platform:capability-report:v2",
   "urn:japp:schema:platform:certification-input:v1",
+  "urn:japp:schema:platform:certification-input:v2",
+  "urn:japp:schema:platform:certification-input:v2#/$defs/evidenceInventoryItem",
   "urn:japp:schema:platform:diagnostic-report:v1",
+  "urn:japp:schema:platform:diagnostic-report:v2",
   "urn:japp:schema:platform:evidence-record:v1",
+  "urn:japp:schema:platform:evidence-record:v2",
   "urn:japp:schema:platform:installer-state:v1",
+  "urn:japp:schema:platform:installer-state:v2",
   "urn:japp:schema:platform:model-runtime-profile:v1",
+  "urn:japp:schema:platform:model-runtime-profile:v2",
   "urn:japp:schema:platform:native-messaging-registration:v1",
+  "urn:japp:schema:platform:native-messaging-registration:v2",
   "urn:japp:schema:platform:native-messaging-result:v1",
+  "urn:japp:schema:platform:native-messaging-result:v2",
   "urn:japp:schema:platform:path-request:v1",
   "urn:japp:schema:platform:path-resolution:v1",
+  "urn:japp:schema:platform:path-resolution:v2",
   "urn:japp:schema:platform:process-plan:v1",
+  "urn:japp:schema:platform:process-plan:v2",
   "urn:japp:schema:platform:process-status:v1",
+  "urn:japp:schema:platform:process-status:v2",
   "urn:japp:schema:platform:runtime-capability:v1",
+  "urn:japp:schema:platform:runtime-capability:v2",
   "urn:japp:schema:platform:secret-store-request:v1",
   "urn:japp:schema:platform:secret-store-result:v1",
+  "urn:japp:schema:platform:secret-store-result:v2",
   "urn:japp:schema:platform:target-identity:v1",
   "urn:japp:schema:platform:update-state:v1",
+  "urn:japp:schema:platform:update-state:v2",
   "urn:japp:schema:platform:vocabulary:v1#/$defs/acceleratorClass",
   "urn:japp:schema:platform:vocabulary:v1#/$defs/architecture",
   "urn:japp:schema:platform:vocabulary:v1#/$defs/artifactIdentity",
@@ -2185,6 +2263,17 @@ export function validatePlatformBrowserRecordV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:browser-record:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformBrowserRecordV2 type only after validation succeeds.
+ */
+export function validatePlatformBrowserRecordV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformBrowserRecordV2> {
+  return validateContractInstance("urn:japp:schema:platform:browser-record:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:capability-report:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformCapabilityReportV1 type only after validation succeeds.
@@ -2193,6 +2282,17 @@ export function validatePlatformCapabilityReportV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformCapabilityReportV1> {
   return validateContractInstance("urn:japp:schema:platform:capability-report:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:capability-report:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformCapabilityReportV2 type only after validation succeeds.
+ */
+export function validatePlatformCapabilityReportV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformCapabilityReportV2> {
+  return validateContractInstance("urn:japp:schema:platform:capability-report:v2", data);
 }
 
 /**
@@ -2207,6 +2307,28 @@ export function validatePlatformCertificationInputV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:certification-input:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformCertificationInputV2 type only after validation succeeds.
+ */
+export function validatePlatformCertificationInputV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformCertificationInputV2> {
+  return validateContractInstance("urn:japp:schema:platform:certification-input:v2", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:certification-input:v2#/$defs/evidenceInventoryItem
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformCertificationInputV2EvidenceInventoryItem type only after validation succeeds.
+ */
+export function validatePlatformCertificationInputV2EvidenceInventoryItem(
+  data: unknown,
+): ContractValidationOutcome<PlatformCertificationInputV2EvidenceInventoryItem> {
+  return validateContractInstance("urn:japp:schema:platform:certification-input:v2#/$defs/evidenceInventoryItem", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:diagnostic-report:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformDiagnosticReportV1 type only after validation succeeds.
@@ -2215,6 +2337,17 @@ export function validatePlatformDiagnosticReportV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformDiagnosticReportV1> {
   return validateContractInstance("urn:japp:schema:platform:diagnostic-report:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:diagnostic-report:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformDiagnosticReportV2 type only after validation succeeds.
+ */
+export function validatePlatformDiagnosticReportV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformDiagnosticReportV2> {
+  return validateContractInstance("urn:japp:schema:platform:diagnostic-report:v2", data);
 }
 
 /**
@@ -2229,6 +2362,17 @@ export function validatePlatformEvidenceRecordV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:evidence-record:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformEvidenceRecordV2 type only after validation succeeds.
+ */
+export function validatePlatformEvidenceRecordV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformEvidenceRecordV2> {
+  return validateContractInstance("urn:japp:schema:platform:evidence-record:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:installer-state:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformInstallerStateV1 type only after validation succeeds.
@@ -2237,6 +2381,17 @@ export function validatePlatformInstallerStateV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformInstallerStateV1> {
   return validateContractInstance("urn:japp:schema:platform:installer-state:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:installer-state:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformInstallerStateV2 type only after validation succeeds.
+ */
+export function validatePlatformInstallerStateV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformInstallerStateV2> {
+  return validateContractInstance("urn:japp:schema:platform:installer-state:v2", data);
 }
 
 /**
@@ -2251,6 +2406,17 @@ export function validatePlatformModelRuntimeProfileV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:model-runtime-profile:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformModelRuntimeProfileV2 type only after validation succeeds.
+ */
+export function validatePlatformModelRuntimeProfileV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformModelRuntimeProfileV2> {
+  return validateContractInstance("urn:japp:schema:platform:model-runtime-profile:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:native-messaging-registration:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformNativeMessagingRegistrationV1 type only after validation succeeds.
@@ -2262,6 +2428,17 @@ export function validatePlatformNativeMessagingRegistrationV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:native-messaging-registration:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformNativeMessagingRegistrationV2 type only after validation succeeds.
+ */
+export function validatePlatformNativeMessagingRegistrationV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformNativeMessagingRegistrationV2> {
+  return validateContractInstance("urn:japp:schema:platform:native-messaging-registration:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:native-messaging-result:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformNativeMessagingResultV1 type only after validation succeeds.
@@ -2270,6 +2447,17 @@ export function validatePlatformNativeMessagingResultV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformNativeMessagingResultV1> {
   return validateContractInstance("urn:japp:schema:platform:native-messaging-result:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:native-messaging-result:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformNativeMessagingResultV2 type only after validation succeeds.
+ */
+export function validatePlatformNativeMessagingResultV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformNativeMessagingResultV2> {
+  return validateContractInstance("urn:japp:schema:platform:native-messaging-result:v2", data);
 }
 
 /**
@@ -2295,6 +2483,17 @@ export function validatePlatformPathResolutionV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:path-resolution:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformPathResolutionV2 type only after validation succeeds.
+ */
+export function validatePlatformPathResolutionV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformPathResolutionV2> {
+  return validateContractInstance("urn:japp:schema:platform:path-resolution:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:process-plan:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformProcessPlanV1 type only after validation succeeds.
@@ -2303,6 +2502,17 @@ export function validatePlatformProcessPlanV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformProcessPlanV1> {
   return validateContractInstance("urn:japp:schema:platform:process-plan:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:process-plan:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformProcessPlanV2 type only after validation succeeds.
+ */
+export function validatePlatformProcessPlanV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformProcessPlanV2> {
+  return validateContractInstance("urn:japp:schema:platform:process-plan:v2", data);
 }
 
 /**
@@ -2317,6 +2527,17 @@ export function validatePlatformProcessStatusV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:process-status:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformProcessStatusV2 type only after validation succeeds.
+ */
+export function validatePlatformProcessStatusV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformProcessStatusV2> {
+  return validateContractInstance("urn:japp:schema:platform:process-status:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:runtime-capability:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformRuntimeCapabilityV1 type only after validation succeeds.
@@ -2325,6 +2546,17 @@ export function validatePlatformRuntimeCapabilityV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformRuntimeCapabilityV1> {
   return validateContractInstance("urn:japp:schema:platform:runtime-capability:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:runtime-capability:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformRuntimeCapabilityV2 type only after validation succeeds.
+ */
+export function validatePlatformRuntimeCapabilityV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformRuntimeCapabilityV2> {
+  return validateContractInstance("urn:japp:schema:platform:runtime-capability:v2", data);
 }
 
 /**
@@ -2350,6 +2582,17 @@ export function validatePlatformSecretStoreResultV1(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:platform:secret-store-result:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformSecretStoreResultV2 type only after validation succeeds.
+ */
+export function validatePlatformSecretStoreResultV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformSecretStoreResultV2> {
+  return validateContractInstance("urn:japp:schema:platform:secret-store-result:v2", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:platform:target-identity:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated PlatformTargetIdentityV1 type only after validation succeeds.
@@ -2369,6 +2612,17 @@ export function validatePlatformUpdateStateV1(
   data: unknown,
 ): ContractValidationOutcome<PlatformUpdateStateV1> {
   return validateContractInstance("urn:japp:schema:platform:update-state:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:platform:update-state:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated PlatformUpdateStateV2 type only after validation succeeds.
+ */
+export function validatePlatformUpdateStateV2(
+  data: unknown,
+): ContractValidationOutcome<PlatformUpdateStateV2> {
+  return validateContractInstance("urn:japp:schema:platform:update-state:v2", data);
 }
 
 /**

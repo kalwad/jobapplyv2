@@ -14,6 +14,9 @@ import { assertLanguageAgreement, resultMap } from "./support/response.ts";
 
 let realRun: RealAdapterRun;
 let maps: Readonly<Record<AdapterLanguage, ReadonlyMap<string, AdapterResult>>>;
+let historicalMaps: Readonly<
+  Record<AdapterLanguage, ReadonlyMap<string, AdapterResult>>
+>;
 
 function requiredResult(
   value: AdapterResult | undefined,
@@ -32,6 +35,11 @@ beforeAll(() => {
     python: resultMap(realRun.responses.python),
     rust: resultMap(realRun.responses.rust),
     typescript: resultMap(realRun.responses.typescript),
+  };
+  historicalMaps = {
+    python: resultMap(realRun.historicalResponses.python),
+    rust: resultMap(realRun.historicalResponses.rust),
+    typescript: resultMap(realRun.historicalResponses.typescript),
   };
 }, 360_000);
 
@@ -61,9 +69,9 @@ function assertExpected(corpusCase: CorpusCase, result: AdapterResult): void {
 
 describe("real TypeScript, Python, and test-only Rust adapters", () => {
   test("all real adapters execute the exact applicable inventory", () => {
-    expect(realRun.responses.typescript.results).toHaveLength(443);
-    expect(realRun.responses.python.results).toHaveLength(439);
-    expect(realRun.responses.rust.results).toHaveLength(438);
+    expect(realRun.responses.typescript.results).toHaveLength(510);
+    expect(realRun.responses.python.results).toHaveLength(506);
+    expect(realRun.responses.rust.results).toHaveLength(505);
   });
 
   for (const corpusCase of loadCorpus().cases) {
@@ -89,6 +97,48 @@ describe("real TypeScript, Python, and test-only Rust adapters", () => {
       const first = results[0];
       if (first === undefined) {
         throw new Error(`${corpusCase.id} has no applicable language`);
+      }
+      for (const result of results.slice(1)) {
+        assertLanguageAgreement(first, result);
+      }
+    }
+  });
+
+  test("all 229 canonical historical v1 positives remain executable in every language", () => {
+    expect(realRun.historicalInventory.witness_count).toBe(229);
+    expect(realRun.historicalInventory.raw_reference_count).toBe(556);
+    expect(realRun.historicalInventory.inventory_sha256).toBe(
+      "6ce50f164c3b58a1062f43bcca7164cd5a4fcee0d93a6f1525a3c54379688fbc",
+    );
+    expect(realRun.historicalInventory.acceptance_pattern_counts).toEqual({
+      "0001": 17,
+      "0011": 2,
+      "1110": 2,
+      "1111": 208,
+    });
+    expect(realRun.historicalInventory.endpoint_union).toEqual([
+      "6708f1a",
+      "860b6e1",
+    ]);
+    for (const language of ["python", "rust", "typescript"] as const) {
+      expect(realRun.historicalResponses[language].results).toHaveLength(229);
+    }
+
+    for (const witness of realRun.historicalInventory.witnesses) {
+      const results = witness.languages.map((language) => {
+        const result = requiredResult(
+          historicalMaps[language].get(witness.id),
+          `${language} omitted historical witness ${witness.id}`,
+        );
+        expect(result.case_id).toBe(witness.id);
+        expect(result.operation).toBe("VALIDATE");
+        expect(result.validation_verdict).toBe("VALID");
+        expect(result.canonical_json).toBeUndefined();
+        return result;
+      });
+      const first = results[0];
+      if (first === undefined) {
+        throw new Error(`${witness.id} has no historical adapter result`);
       }
       for (const result of results.slice(1)) {
         assertLanguageAgreement(first, result);

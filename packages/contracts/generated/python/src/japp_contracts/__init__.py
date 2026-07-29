@@ -192,29 +192,57 @@ from japp_contracts.platform.browser_discovery_request_v1 import (
 from japp_contracts.platform.browser_record_v1 import (
     PlatformBrowserRecordV1,
 )
+from japp_contracts.platform.browser_record_v2 import (
+    PlatformBrowserRecordV2,
+)
 from japp_contracts.platform.capability_report_v1 import (
     PlatformCapabilityReportV1,
+)
+from japp_contracts.platform.capability_report_v2 import (
+    PlatformCapabilityReportV2,
 )
 from japp_contracts.platform.certification_input_v1 import (
     PlatformCertificationInputV1,
 )
+from japp_contracts.platform.certification_input_v2 import (
+    PlatformCertificationInputV2,
+    PlatformCertificationInputV2EvidenceInventoryItem,
+)
 from japp_contracts.platform.diagnostic_report_v1 import (
     PlatformDiagnosticReportV1,
+)
+from japp_contracts.platform.diagnostic_report_v2 import (
+    PlatformDiagnosticReportV2,
 )
 from japp_contracts.platform.evidence_record_v1 import (
     PlatformEvidenceRecordV1,
 )
+from japp_contracts.platform.evidence_record_v2 import (
+    PlatformEvidenceRecordV2,
+)
 from japp_contracts.platform.installer_state_v1 import (
     PlatformInstallerStateV1,
+)
+from japp_contracts.platform.installer_state_v2 import (
+    PlatformInstallerStateV2,
 )
 from japp_contracts.platform.model_runtime_profile_v1 import (
     PlatformModelRuntimeProfileV1,
 )
+from japp_contracts.platform.model_runtime_profile_v2 import (
+    PlatformModelRuntimeProfileV2,
+)
 from japp_contracts.platform.native_messaging_registration_v1 import (
     PlatformNativeMessagingRegistrationV1,
 )
+from japp_contracts.platform.native_messaging_registration_v2 import (
+    PlatformNativeMessagingRegistrationV2,
+)
 from japp_contracts.platform.native_messaging_result_v1 import (
     PlatformNativeMessagingResultV1,
+)
+from japp_contracts.platform.native_messaging_result_v2 import (
+    PlatformNativeMessagingResultV2,
 )
 from japp_contracts.platform.path_request_v1 import (
     PlatformPathRequestV1,
@@ -222,14 +250,26 @@ from japp_contracts.platform.path_request_v1 import (
 from japp_contracts.platform.path_resolution_v1 import (
     PlatformPathResolutionV1,
 )
+from japp_contracts.platform.path_resolution_v2 import (
+    PlatformPathResolutionV2,
+)
 from japp_contracts.platform.process_plan_v1 import (
     PlatformProcessPlanV1,
+)
+from japp_contracts.platform.process_plan_v2 import (
+    PlatformProcessPlanV2,
 )
 from japp_contracts.platform.process_status_v1 import (
     PlatformProcessStatusV1,
 )
+from japp_contracts.platform.process_status_v2 import (
+    PlatformProcessStatusV2,
+)
 from japp_contracts.platform.runtime_capability_v1 import (
     PlatformRuntimeCapabilityV1,
+)
+from japp_contracts.platform.runtime_capability_v2 import (
+    PlatformRuntimeCapabilityV2,
 )
 from japp_contracts.platform.secret_store_request_v1 import (
     PlatformSecretStoreRequestV1,
@@ -237,11 +277,17 @@ from japp_contracts.platform.secret_store_request_v1 import (
 from japp_contracts.platform.secret_store_result_v1 import (
     PlatformSecretStoreResultV1,
 )
+from japp_contracts.platform.secret_store_result_v2 import (
+    PlatformSecretStoreResultV2,
+)
 from japp_contracts.platform.target_identity_v1 import (
     PlatformTargetIdentityV1,
 )
 from japp_contracts.platform.update_state_v1 import (
     PlatformUpdateStateV1,
+)
+from japp_contracts.platform.update_state_v2 import (
+    PlatformUpdateStateV2,
 )
 from japp_contracts.platform.vocabulary_v1 import (
     PlatformVocabularyV1AcceleratorClass,
@@ -572,23 +618,39 @@ __all__ = [
     "PRINCIPAL_IDS_V1",
     "PlatformBrowserDiscoveryRequestV1",
     "PlatformBrowserRecordV1",
+    "PlatformBrowserRecordV2",
     "PlatformCapabilityReportV1",
+    "PlatformCapabilityReportV2",
     "PlatformCertificationInputV1",
+    "PlatformCertificationInputV2",
+    "PlatformCertificationInputV2EvidenceInventoryItem",
     "PlatformDiagnosticReportV1",
+    "PlatformDiagnosticReportV2",
     "PlatformEvidenceRecordV1",
+    "PlatformEvidenceRecordV2",
     "PlatformInstallerStateV1",
+    "PlatformInstallerStateV2",
     "PlatformModelRuntimeProfileV1",
+    "PlatformModelRuntimeProfileV2",
     "PlatformNativeMessagingRegistrationV1",
+    "PlatformNativeMessagingRegistrationV2",
     "PlatformNativeMessagingResultV1",
+    "PlatformNativeMessagingResultV2",
     "PlatformPathRequestV1",
     "PlatformPathResolutionV1",
+    "PlatformPathResolutionV2",
     "PlatformProcessPlanV1",
+    "PlatformProcessPlanV2",
     "PlatformProcessStatusV1",
+    "PlatformProcessStatusV2",
     "PlatformRuntimeCapabilityV1",
+    "PlatformRuntimeCapabilityV2",
     "PlatformSecretStoreRequestV1",
     "PlatformSecretStoreResultV1",
+    "PlatformSecretStoreResultV2",
     "PlatformTargetIdentityV1",
     "PlatformUpdateStateV1",
+    "PlatformUpdateStateV2",
     "PlatformVocabularyV1AcceleratorClass",
     "PlatformVocabularyV1Architecture",
     "PlatformVocabularyV1ArtifactIdentity",

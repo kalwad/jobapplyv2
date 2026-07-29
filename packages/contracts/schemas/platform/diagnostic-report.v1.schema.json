@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:diagnostic-report:v1",
-  "x-japp-schema-version": "1.0.0",
+  "x-japp-schema-version": "1.0.1",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Platform diagnostic report",
   "description": "A bounded diagnostic for one platform component: finite reason codes, one bounded user-safe message, explicit redaction metadata, severity, the component and capability identity, correlation, and synthetic-safe evidence references. A success result may never carry a blocking reason, and the record cannot contain a raw log, environment dump, registry export, local path, or secret value.",
   "type": "object",

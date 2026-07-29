@@ -19,6 +19,7 @@ import type { PlatformVocabularyV1Architecture, PlatformVocabularyV1ArtifactIden
  * Installer state and result
  *
  * Bounded installer state for a packaged build: package identity, version, platform, architecture, format, artifact digest and signature state, channel, installed version, lifecycle state, interruption and recovery state, user-data preservation, native-host cleanup, and finite failure reasons. No installer command, script, registry modification, download URL, network request, signing key, or filesystem path is representable, and this contract installs nothing.
+ * @deprecated since schema version 2.0.0
  */
 export interface PlatformInstallerStateV1 {
   readonly installer_state_id: CommonStableIdV1StableId;

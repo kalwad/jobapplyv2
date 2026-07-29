@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:japp:schema:platform:update-state:v1",
-  "x-japp-schema-version": "1.0.1",
+  "x-japp-schema-version": "1.0.2",
+  "deprecated": true,
+  "x-japp-deprecated-since": "2.0.0",
   "title": "Updater state and result",
   "description": "Bounded update, rollback, and recovery state: channel, current and available versions, the target artifact digest and signature state, the lifecycle state, interruption and recovery, user-data preservation, native-host cleanup, and finite failure reasons. No download URL, network request, update script, registry modification, or signing key is representable, and this contract updates nothing.",
   "type": "object",

@@ -43,6 +43,9 @@ Checks performed
   8.  Exactly one regular, non-symlink canonical specification exists under
       docs/ (including case/Unicode/editor-backup filename variants and files
       of any extension carrying the canonical specification header).
+  9.  Every live CRITICAL/HIGH KNOWN_ISSUES entry is reconciled with the
+      PROJECT_STATUS blocker ledger, affected milestone acceptance, and
+      zero-READY-package state.
 
 Exit codes: 0 = PASS, 1 = FAIL (violations listed), 2 = cannot parse/usage.
 Usage: python3 scripts/validate_status.py [--repo DIR] [--status FILE]
@@ -355,6 +358,14 @@ URL_SCHEME_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://")
 WINDOWS_ABSOLUTE_RE = re.compile(r"^[A-Za-z]:[\\/]")
 MARKDOWN_LINK_RE = re.compile(r"^\[[^\]]+\]\(([^)]+)\)$")
 MARKDOWN_HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$", flags=re.MULTILINE)
+KNOWN_ISSUE_HEADING_RE = re.compile(r"^### (KI-\d{4}) — (.+?)\s*$")
+KNOWN_ISSUE_FIELD_RE = re.compile(r"^- (Severity|State|Affects):\s*(.*?)\s*$")
+LIVE_BLOCKER_RE = re.compile(
+    r"^- (KI-\d{4}) "
+    r"\((CRITICAL|HIGH|MEDIUM|LOW), "
+    r"(OPEN|IN_PROGRESS|FIXED|DEFERRED|WONT_FIX)\) — (\S.*)$"
+)
+ISSUE_SCOPE_RE = re.compile(r"\b(M\d{2}(?:-W\d{2})?)\b")
 EVIDENCE_BUNDLE_LINE_RE = re.compile(
     r"^\s*(?:[-*]\s*)?Evidence bundle:\s*(.*?)\s*$",
     flags=re.MULTILINE | re.IGNORECASE,
@@ -406,6 +417,22 @@ class Status:
     package_rows: list[list[str]]
     gate_rows: list[list[str]]
     next_ready: str | None
+
+
+@dataclass(frozen=True)
+class KnownIssue:
+    issue_id: str
+    severity: str
+    state: str
+    affects: str
+    scopes: frozenset[str]
+
+
+@dataclass(frozen=True)
+class LiveBlocker:
+    issue_id: str
+    severity: str
+    state: str
 
 
 @dataclass(frozen=True)
@@ -933,6 +960,222 @@ def check_status_shell(status: Status, report: Report) -> None:
         report.ok(
             "PROJECT_STATUS header fields and sections present; release gate "
             f"is {CANONICAL_RELEASE_GATE}"
+        )
+
+
+def _known_issue_sections(path: Path, report: Report) -> list[tuple[str, list[str]]]:
+    """Return numeric known-issue sections, ignoring fenced template text."""
+    sections: list[tuple[str, list[str]]] = []
+    current_id: str | None = None
+    current_lines: list[str] = []
+    fenced = False
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        report.fail(f"cannot read docs/KNOWN_ISSUES.md: {exc}")
+        return sections
+    for raw in lines:
+        if raw.strip().startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        heading = KNOWN_ISSUE_HEADING_RE.fullmatch(raw)
+        if heading is not None:
+            if current_id is not None:
+                sections.append((current_id, current_lines))
+            current_id = heading.group(1)
+            current_lines = []
+        elif current_id is not None:
+            current_lines.append(raw)
+    if fenced:
+        report.fail("docs/KNOWN_ISSUES.md has an unclosed fenced block")
+    if current_id is not None:
+        sections.append((current_id, current_lines))
+    return sections
+
+
+def _issue_field_values(
+    issue_id: str, lines: list[str], report: Report
+) -> dict[str, str]:
+    """Parse required issue fields, including wrapped Affects text."""
+    values: dict[str, str] = {}
+    index = 0
+    while index < len(lines):
+        match = KNOWN_ISSUE_FIELD_RE.fullmatch(lines[index])
+        if match is None:
+            index += 1
+            continue
+        name, value = match.groups()
+        if name in values:
+            report.fail(f"{issue_id} has duplicate {name} field")
+        continuation: list[str] = []
+        if name == "Affects":
+            cursor = index + 1
+            while cursor < len(lines):
+                candidate = lines[cursor]
+                if candidate.startswith(("- ", "### ")):
+                    break
+                if candidate.strip():
+                    continuation.append(candidate.strip())
+                cursor += 1
+            index = cursor - 1
+        values[name] = " ".join([value, *continuation]).strip()
+        index += 1
+    for required in ("Severity", "State", "Affects"):
+        if not values.get(required):
+            report.fail(f"{issue_id} must have exactly one nonempty {required} field")
+    return values
+
+
+def parse_known_issues(path: Path, report: Report) -> dict[str, KnownIssue]:
+    """Parse the authoritative issue ledger and reject duplicate/invalid rows."""
+    issues: dict[str, KnownIssue] = {}
+    valid_severities = {"CRITICAL", "HIGH", "MEDIUM", "LOW"}
+    valid_states = {"OPEN", "IN_PROGRESS", "FIXED", "DEFERRED", "WONT_FIX"}
+    for issue_id, lines in _known_issue_sections(path, report):
+        if issue_id in issues:
+            report.fail(f"docs/KNOWN_ISSUES.md has duplicate issue ID {issue_id}")
+            continue
+        fields = _issue_field_values(issue_id, lines, report)
+        severity = fields.get("Severity", "")
+        state = fields.get("State", "")
+        affects = fields.get("Affects", "")
+        if severity not in valid_severities:
+            report.fail(f"{issue_id} has invalid severity {severity!r}")
+        if state not in valid_states:
+            report.fail(f"{issue_id} has invalid state {state!r}")
+        issues[issue_id] = KnownIssue(
+            issue_id=issue_id,
+            severity=severity,
+            state=state,
+            affects=affects,
+            scopes=frozenset(ISSUE_SCOPE_RE.findall(affects)),
+        )
+    if not issues:
+        report.fail("docs/KNOWN_ISSUES.md contains no numeric issue entries")
+    return issues
+
+
+def parse_live_blockers(lines: list[str], report: Report) -> dict[str, LiveBlocker]:
+    """Parse the machine-only live blocker section."""
+    blockers: dict[str, LiveBlocker] = {}
+    saw_none = False
+    saw_content = False
+    for raw in lines:
+        stripped = raw.strip()
+        if not stripped:
+            continue
+        saw_content = True
+        if stripped == "- NONE":
+            if saw_none:
+                report.fail("PROJECT_STATUS live blocker section repeats '- NONE'")
+            saw_none = True
+            continue
+        match = LIVE_BLOCKER_RE.fullmatch(stripped)
+        if match is None:
+            report.fail(
+                "PROJECT_STATUS live blocker line must use "
+                "'- KI-#### (SEVERITY, STATE) — summary' or '- NONE': "
+                f"{stripped!r}"
+            )
+            continue
+        issue_id, severity, state, _summary = match.groups()
+        if issue_id in blockers:
+            report.fail(f"PROJECT_STATUS live blocker section repeats {issue_id}")
+            continue
+        blockers[issue_id] = LiveBlocker(issue_id, severity, state)
+    if not saw_content:
+        report.fail("PROJECT_STATUS live blocker section must not be empty")
+    if saw_none and blockers:
+        report.fail("PROJECT_STATUS live blocker section mixes '- NONE' with issues")
+    return blockers
+
+
+def _check_blocking_issue_scope(
+    issue: KnownIssue, milestone_states: dict[str, str], report: Report
+) -> None:
+    if not issue.scopes:
+        report.fail(
+            f"{issue.issue_id} is blocking but its Affects field has no milestone "
+            "or work-package scope"
+        )
+    affected_milestones = {
+        scope[:3] if "-W" in scope else scope for scope in issue.scopes
+    }
+    for milestone_id in sorted(affected_milestones):
+        if milestone_states.get(milestone_id) == "ACCEPTED":
+            report.fail(
+                f"{issue.issue_id} blocks affected milestone {milestone_id}, "
+                "which cannot remain ACCEPTED"
+            )
+
+
+def _check_blocked_readiness(
+    status: Status, package_states: dict[str, str], report: Report
+) -> None:
+    ready = sorted(
+        package_id for package_id, state in package_states.items() if state == "READY"
+    )
+    if ready:
+        report.fail(
+            f"live CRITICAL/HIGH blockers require zero READY packages (found {ready})"
+        )
+    if status.next_ready != "NONE":
+        report.fail("live CRITICAL/HIGH blockers require Next READY package ID NONE")
+
+
+def check_live_blockers(
+    repo: Path,
+    status: Status,
+    milestone_states: dict[str, str],
+    package_states: dict[str, str],
+    report: Report,
+) -> None:
+    """Reconcile the live blocker view with the authoritative issue ledger."""
+    issues = parse_known_issues(repo / "docs/KNOWN_ISSUES.md", report)
+    blockers = parse_live_blockers(
+        status.sections.get("## Known release blockers", []), report
+    )
+    expected = {
+        issue_id: issue
+        for issue_id, issue in issues.items()
+        if issue.severity in {"CRITICAL", "HIGH"}
+        and issue.state in {"OPEN", "IN_PROGRESS"}
+    }
+    expected_ids = set(expected)
+    actual_ids = set(blockers)
+    for issue_id in sorted(expected_ids - actual_ids):
+        report.fail(
+            f"{issue_id} is {expected[issue_id].severity}/{expected[issue_id].state} "
+            "but is missing from PROJECT_STATUS live blockers"
+        )
+    for issue_id in sorted(actual_ids - expected_ids):
+        issue = issues.get(issue_id)
+        if issue is None:
+            report.fail(f"PROJECT_STATUS live blocker {issue_id} is unknown")
+        else:
+            report.fail(
+                f"PROJECT_STATUS live blocker {issue_id} resolves to "
+                f"{issue.severity}/{issue.state}, which is not blocking"
+            )
+    for issue_id in sorted(expected_ids):
+        _check_blocking_issue_scope(expected[issue_id], milestone_states, report)
+    for issue_id in sorted(expected_ids & actual_ids):
+        issue = expected[issue_id]
+        blocker = blockers[issue_id]
+        if blocker.severity != issue.severity or blocker.state != issue.state:
+            report.fail(
+                f"PROJECT_STATUS live blocker {issue_id} says "
+                f"{blocker.severity}/{blocker.state}; KNOWN_ISSUES says "
+                f"{issue.severity}/{issue.state}"
+            )
+    if expected:
+        _check_blocked_readiness(status, package_states, report)
+    if not report.errors:
+        report.ok(
+            "KNOWN_ISSUES and PROJECT_STATUS live blockers agree with "
+            "milestone acceptance and readiness"
         )
 
 
@@ -2315,6 +2558,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
     gate_states = check_gates(repo, status, report)
     ms_states, pkg_states = check_tables(spec, status, report)
     check_progress_consistency(status, pkg_states, report)
+    check_live_blockers(repo, status, ms_states, pkg_states, report)
     check_dependencies(spec, ms_states, pkg_states, gate_states, report)
     check_v14_readiness_contract(spec, ms_states, pkg_states, gate_states, report)
     check_m28_gate_revision_binding(

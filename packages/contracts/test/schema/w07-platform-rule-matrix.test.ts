@@ -1,9 +1,19 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, test } from "vitest";
+import { beforeAll, describe, expect, test } from "vitest";
 
 import { SEMANTIC_RULES_V1 } from "../../generated/typescript/semantic/rules.v1.ts";
 import { validateSemanticContractV1 } from "../../generated/typescript/semantic/rules.v1.ts";
 import { createContractValidator, loadSchemaCatalog } from "../../src/index.ts";
+import type {
+  AdapterLanguage,
+  AdapterResult,
+} from "../contract/adapters/protocol.ts";
+import {
+  runSemanticMatrixAdapters,
+  type SemanticMatrixAdapterRun,
+  type SemanticMatrixCase,
+} from "../contract/support/orchestrator.ts";
+import { assertLanguageAgreement } from "../contract/support/response.ts";
 
 /**
  * Explicit M01-W07 platform semantic-rule matrices and durable rule-kind
@@ -28,8 +38,8 @@ const VOCABULARY = "urn:japp:schema:platform:vocabulary:v1";
 const CAPABILITY_TAXONOMY = "urn:japp:schema:security:capability-taxonomy:v1";
 const REDACTION = "urn:japp:schema:common:redaction:v1";
 
-const NATIVE_RESULT = "urn:japp:schema:platform:native-messaging-result:v1";
-const PROCESS_PLAN = "urn:japp:schema:platform:process-plan:v1";
+const NATIVE_RESULT = "urn:japp:schema:platform:native-messaging-result:v2";
+const PROCESS_PLAN = "urn:japp:schema:platform:process-plan:v2";
 
 function fixture(name: string): Record<string, unknown> {
   const value = valuesDocument.values[name];
@@ -37,6 +47,18 @@ function fixture(name: string): Record<string, unknown> {
     throw new Error(`missing object fixture ${name}`);
   }
   return structuredClone(value) as Record<string, unknown>;
+}
+
+/** Add only the fields introduced by a corrected-major representative. */
+function fixtureForSchema(
+  name: string,
+  schemaRef: string,
+): Record<string, unknown> {
+  const value = fixture(name);
+  if (schemaRef === "urn:japp:schema:platform:certification-input:v2") {
+    value.evidence_inventory = [];
+  }
+  return value;
 }
 
 function enumTokens(
@@ -692,8 +714,8 @@ function retarget(
   return value;
 }
 
-/** Roots that carry both `platform_id` and `architecture`. */
-const ARCHITECTURE_BEARING_ROOTS = [
+/** Historical roots that carry both `platform_id` and `architecture`. */
+const LEGACY_ARCHITECTURE_BEARING_ROOTS = [
   [
     "urn:japp:schema:platform:certification-input:v1",
     "w07.certification-input",
@@ -719,6 +741,41 @@ const ARCHITECTURE_BEARING_ROOTS = [
     "w07.update-state",
     "certifiedPlatformId",
   ],
+] as const;
+
+/** Corrected-major roots that retain those same two structural fields. */
+const CORRECTED_ARCHITECTURE_BEARING_ROOTS = [
+  [
+    "urn:japp:schema:platform:certification-input:v2",
+    "w07.certification-input",
+    "platformId",
+  ],
+  [
+    "urn:japp:schema:platform:evidence-record:v2",
+    "w07.evidence-record",
+    "platformId",
+  ],
+  [
+    "urn:japp:schema:platform:installer-state:v2",
+    "w07.installer-state",
+    "certifiedPlatformId",
+  ],
+  [
+    "urn:japp:schema:platform:update-state:v2",
+    "w07.update-state",
+    "certifiedPlatformId",
+  ],
+] as const;
+
+const ARCHITECTURE_BEARING_ROOTS = [
+  ...LEGACY_ARCHITECTURE_BEARING_ROOTS,
+  ...CORRECTED_ARCHITECTURE_BEARING_ROOTS,
+] as const;
+
+/** Roots on which the corrected architecture rule is authoritative. */
+const STRICT_ARCHITECTURE_ROOTS = [
+  ...CORRECTED_ARCHITECTURE_BEARING_ROOTS,
+  LEGACY_ARCHITECTURE_BEARING_ROOTS[3],
 ] as const;
 
 describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
@@ -763,7 +820,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
     "%s accepts %s with %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
       const value = retarget(
-        fixture(valueRef),
+        fixtureForSchema(valueRef, schemaRef),
         platformId as CertifiedTarget,
         architecture,
       );
@@ -774,7 +831,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
     },
   );
 
-  const contradictoryCases = ARCHITECTURE_BEARING_ROOTS.flatMap(
+  const contradictoryCases = STRICT_ARCHITECTURE_ROOTS.flatMap(
     ([schemaRef, valueRef]) =>
       Object.keys(ARCHITECTURE_BY_CERTIFIED_TARGET).flatMap((platformId) =>
         enumTokens("architecture")
@@ -796,7 +853,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
     "%s rejects %s claiming %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
       const value = retarget(
-        fixture(valueRef),
+        fixtureForSchema(valueRef, schemaRef),
         platformId as CertifiedTarget,
         architecture,
       );
@@ -812,7 +869,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
    * UNKNOWN_ARCHITECTURE observation stays representable. Only the three roots
    * whose `platform_id` accepts an uncertifiable token can express it.
    */
-  const UNCERTIFIABLE_ROOTS = ARCHITECTURE_BEARING_ROOTS.filter(
+  const UNCERTIFIABLE_ROOTS = STRICT_ARCHITECTURE_ROOTS.filter(
     ([, , vocabulary]) => vocabulary === "platformId",
   );
 
@@ -827,7 +884,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
     "%s leaves an uncertifiable target's architecture unbound",
     (schemaRef, valueRef) => {
       for (const platformId of ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"]) {
-        const value = fixture(valueRef);
+        const value = fixtureForSchema(valueRef, schemaRef);
         value.platform_id = platformId;
         value.architecture = "UNKNOWN_ARCHITECTURE";
         // The architecture binding never rejects an uncertifiable target; the
@@ -1348,6 +1405,124 @@ const PLATFORM_RULE_REGISTRY: readonly PlatformRuleEntry[] = [
   },
 ];
 
+/**
+ * The 14 corrected rule kinds bind the 15 new roots (installer and update
+ * intentionally share one package-state kind). Keeping this mapping explicit
+ * makes the major-version boundary reviewable without deriving it from the
+ * generated catalog under test.
+ */
+const CORRECTED_V2_RULE_MIGRATIONS = [
+  {
+    legacy_rule_kind: "PLATFORM_BROWSER_RECORD_SCOPE",
+    rule_kind: "PLATFORM_BROWSER_RECORD_SCOPE_V2",
+    schema_refs: ["urn:japp:schema:platform:browser-record:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_CAPABILITY_REPORT_INTEGRITY",
+    rule_kind: "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2",
+    schema_refs: ["urn:japp:schema:platform:capability-report:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_CERTIFICATION_INPUT_SCOPE",
+    rule_kind: "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2",
+    schema_refs: ["urn:japp:schema:platform:certification-input:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_DIAGNOSTIC_INTEGRITY",
+    rule_kind: "PLATFORM_DIAGNOSTIC_INTEGRITY_V2",
+    schema_refs: ["urn:japp:schema:platform:diagnostic-report:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_EVIDENCE_INTEGRITY",
+    rule_kind: "PLATFORM_EVIDENCE_INTEGRITY_V2",
+    schema_refs: ["urn:japp:schema:platform:evidence-record:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_MODEL_PROFILE_EVIDENCE",
+    rule_kind: "PLATFORM_MODEL_PROFILE_EVIDENCE_V2",
+    schema_refs: ["urn:japp:schema:platform:model-runtime-profile:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_NATIVE_REGISTRATION_BINDING",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_BINDING_V2",
+    schema_refs: ["urn:japp:schema:platform:native-messaging-registration:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_NATIVE_REGISTRATION_RESULT",
+    rule_kind: "PLATFORM_NATIVE_REGISTRATION_RESULT_V2",
+    schema_refs: ["urn:japp:schema:platform:native-messaging-result:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE",
+    rule_kind: "PLATFORM_PACKAGE_STATE_EVIDENCE_V2",
+    schema_refs: [
+      "urn:japp:schema:platform:installer-state:v2",
+      "urn:japp:schema:platform:update-state:v2",
+    ],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_PATH_RESOLUTION_SAFETY",
+    rule_kind: "PLATFORM_PATH_RESOLUTION_SAFETY_V2",
+    schema_refs: ["urn:japp:schema:platform:path-resolution:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_PROCESS_PLAN_SAFETY",
+    rule_kind: "PLATFORM_PROCESS_PLAN_SAFETY_V2",
+    schema_refs: ["urn:japp:schema:platform:process-plan:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_PROCESS_STATUS_INTEGRITY",
+    rule_kind: "PLATFORM_PROCESS_STATUS_INTEGRITY_V2",
+    schema_refs: ["urn:japp:schema:platform:process-status:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK",
+    rule_kind: "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2",
+    schema_refs: ["urn:japp:schema:platform:runtime-capability:v2"],
+  },
+  {
+    legacy_rule_kind: "PLATFORM_SECRET_RESULT_INTEGRITY",
+    rule_kind: "PLATFORM_SECRET_RESULT_INTEGRITY_V2",
+    schema_refs: ["urn:japp:schema:platform:secret-store-result:v2"],
+  },
+] as const;
+
+const CORRECTED_V2_RULE_REGISTRY: readonly PlatformRuleEntry[] =
+  CORRECTED_V2_RULE_MIGRATIONS.map((migration) => {
+    const legacy = PLATFORM_RULE_REGISTRY.find(
+      (entry) => entry.rule_kind === migration.legacy_rule_kind,
+    );
+    if (legacy === undefined) {
+      throw new Error(
+        `missing legacy platform rule ${migration.legacy_rule_kind}`,
+      );
+    }
+    return {
+      rule_kind: migration.rule_kind,
+      schema_refs: migration.schema_refs,
+      tokens: legacy.tokens,
+      contradiction: {
+        ...legacy.contradiction,
+        schema_ref: legacy.contradiction.schema_ref.replace(/:v1$/, ":v2"),
+      },
+    };
+  });
+
+const ALL_PLATFORM_RULE_REGISTRY = [
+  ...PLATFORM_RULE_REGISTRY,
+  ...CORRECTED_V2_RULE_REGISTRY,
+] as const;
+
+const CORRECTED_SEMANTIC_RULE_REGISTRY = [
+  ...PLATFORM_RULE_REGISTRY.filter(
+    (entry) =>
+      !CORRECTED_V2_RULE_MIGRATIONS.some(
+        (migration) => migration.legacy_rule_kind === entry.rule_kind,
+      ),
+  ),
+  ...CORRECTED_V2_RULE_REGISTRY,
+] as const;
+
 describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
   test("the registry names every platform rule kind and no others", () => {
     const catalogKinds = [
@@ -1357,15 +1532,15 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
         ),
       ),
     ].toSorted();
-    const registryKinds = PLATFORM_RULE_REGISTRY.map(
+    const registryKinds = ALL_PLATFORM_RULE_REGISTRY.map(
       (entry) => entry.rule_kind,
     ).toSorted();
     expect(registryKinds).toEqual(catalogKinds);
-    expect(registryKinds).toHaveLength(18);
+    expect(registryKinds).toHaveLength(32);
   });
 
   test("every registry entry names the exact roots its rule kind binds", () => {
-    for (const entry of PLATFORM_RULE_REGISTRY) {
+    for (const entry of ALL_PLATFORM_RULE_REGISTRY) {
       const bound = SEMANTIC_RULES_V1.filter(
         (rule) => rule.rule_kind === entry.rule_kind,
       )
@@ -1384,14 +1559,14 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
       )
       .map((candidate) => candidate.id)
       .toSorted();
-    const registered = PLATFORM_RULE_REGISTRY.flatMap(
+    const registered = ALL_PLATFORM_RULE_REGISTRY.flatMap(
       (entry) => entry.schema_refs,
     ).toSorted();
     expect(registered).toEqual(platformRoots);
     expect(new Set(registered).size).toBe(registered.length);
   });
 
-  test.each(PLATFORM_RULE_REGISTRY)(
+  test.each(ALL_PLATFORM_RULE_REGISTRY)(
     "$rule_kind only names structurally representable tokens",
     (entry) => {
       expect(entry.tokens.length).toBeGreaterThan(0);
@@ -1404,24 +1579,27 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
     },
   );
 
-  test.each(PLATFORM_RULE_REGISTRY)(
+  test.each(ALL_PLATFORM_RULE_REGISTRY)(
     "$rule_kind accepts its committed representative on every bound root",
     (entry) => {
       for (const schemaRef of entry.schema_refs) {
         const rootName = schemaRef.split(":").at(-2) ?? "";
         const valueRef = `w07.${rootName}`;
-        expect(verdicts(schemaRef, fixture(valueRef)), schemaRef).toEqual({
-          structural: true,
-          semantic: true,
-        });
+        expect(
+          verdicts(schemaRef, fixtureForSchema(valueRef, schemaRef)),
+          schemaRef,
+        ).toEqual({ structural: true, semantic: true });
       }
     },
   );
 
-  test.each(PLATFORM_RULE_REGISTRY)(
-    "$rule_kind rejects a structurally valid contradiction",
+  test.each(CORRECTED_SEMANTIC_RULE_REGISTRY)(
+    "$rule_kind enforces its structurally valid contradiction",
     (entry) => {
-      const value = fixture(entry.contradiction.value_ref);
+      const value = fixtureForSchema(
+        entry.contradiction.value_ref,
+        entry.contradiction.schema_ref,
+      );
       entry.contradiction.mutate(value);
       expect(
         verdicts(entry.contradiction.schema_ref, value),
@@ -1439,12 +1617,12 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
 // to discover what it should expect.
 // ---------------------------------------------------------------------------
 
-const INSTALLER_STATE = "urn:japp:schema:platform:installer-state:v1";
-const UPDATE_STATE = "urn:japp:schema:platform:update-state:v1";
-const EVIDENCE_RECORD = "urn:japp:schema:platform:evidence-record:v1";
-const RUNTIME_CAPABILITY = "urn:japp:schema:platform:runtime-capability:v1";
-const PATH_RESOLUTION = "urn:japp:schema:platform:path-resolution:v1";
-const PROCESS_STATUS = "urn:japp:schema:platform:process-status:v1";
+const INSTALLER_STATE = "urn:japp:schema:platform:installer-state:v2";
+const UPDATE_STATE = "urn:japp:schema:platform:update-state:v2";
+const EVIDENCE_RECORD = "urn:japp:schema:platform:evidence-record:v2";
+const RUNTIME_CAPABILITY = "urn:japp:schema:platform:runtime-capability:v2";
+const PATH_RESOLUTION = "urn:japp:schema:platform:path-resolution:v2";
+const PROCESS_STATUS = "urn:japp:schema:platform:process-status:v2";
 
 const EVIDENCE_REF = "evid_0123456789ABCDEFGHJKMNPQRS";
 const MODEL_PROFILE_REF = "modelprof_0123456789ABCDEFGHJKMNPQRS";
@@ -1454,6 +1632,44 @@ const SYNTHETIC_ARTIFACT = {
   artifact_token: "desktop-shell-artifact",
   artifact_digest: SYNTHETIC_DIGEST,
 };
+
+const CERTIFIED_CORE_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
+] as const;
+
+const CERTIFIED_FULL_EVIDENCE_KINDS = [
+  "BACKUP_RESTORE_REPORT",
+  "DIAGNOSTIC_BUNDLE_REPORT",
+  "DOCUMENT_MATRIX_REPORT",
+  "INSTALL_LAUNCH_REPORT",
+  "LOG_EXCERPT_REPORT",
+  "MODEL_PROFILE_REPORT",
+  "NATIVE_HOST_REGISTRATION_REPORT",
+  "SCREENSHOT_REPORT",
+  "SECRET_STORE_TEST_REPORT",
+  "TRACE_REPORT",
+  "UPDATE_ROLLBACK_REPORT",
+] as const;
+
+function certificationInventory(kinds: readonly string[]): readonly {
+  readonly artifact_kind: string;
+  readonly evidence_record_ref: string;
+}[] {
+  const suffixTokens = "0123456789A";
+  return kinds.map((artifactKind, index) => ({
+    artifact_kind: artifactKind,
+    evidence_record_ref: `evid_0000000000000000000000000${suffixTokens.charAt(index)}`,
+  }));
+}
 
 // ---------------------------------------------------------------------------
 // 5a. Package interruption and recovery (KI-0025 F1)
@@ -1536,7 +1752,15 @@ function packageStateAdmitted(
     return shape !== "UNRECOVERED";
   }
   if ((PACKAGE_INTERRUPTED_STATES as readonly string[]).includes(state)) {
-    return shape !== "CLEAN";
+    return shape === "UNRECOVERED";
+  }
+  if (
+    ["NOT_INSTALLED", "NO_UPDATE_AVAILABLE", "UPDATE_AVAILABLE"].includes(state)
+  ) {
+    return shape === "CLEAN";
+  }
+  if ((PACKAGE_FAILURE_STATES as readonly string[]).includes(state)) {
+    return shape !== "UNRECOVERED";
   }
   return true;
 }
@@ -1555,6 +1779,18 @@ function buildPackageState(
   value.native_host_cleanup =
     state === "UNINSTALLED" ? "REMOVED" : "NOT_APPLICABLE";
   value.evidence_refs = [EVIDENCE_REF];
+
+  for (const field of [
+    "available_version",
+    "installed_version",
+    "rolled_back_to_version",
+    "target_artifact",
+  ]) {
+    Reflect.deleteProperty(value, field);
+  }
+  if (root === "update") {
+    value.rollback_available = false;
+  }
 
   const reasons: string[] = [];
   if (shape === "CLEAN") {
@@ -1580,14 +1816,12 @@ function buildPackageState(
   if (state === "INSTALLED" || state === "REPAIRED") {
     value.installed_version = value.package_version;
   }
-  if (state === "NOT_INSTALLED" || state === "UNINSTALLED") {
-    delete value.installed_version;
+  if (state === "REPAIR_FAILED" || state === "UNINSTALL_FAILED") {
+    value.installed_version = value.package_version;
   }
   if (state === "UPDATE_AVAILABLE") {
     value.available_version = "1.1.0";
-  }
-  if (state === "NO_UPDATE_AVAILABLE") {
-    delete value.available_version;
+    value.target_artifact = structuredClone(SYNTHETIC_ARTIFACT);
   }
   if (state === "UPDATE_INSTALLED") {
     value.installed_version = "1.1.0";
@@ -1595,11 +1829,75 @@ function buildPackageState(
     value.target_artifact = structuredClone(SYNTHETIC_ARTIFACT);
   }
   if (state === "ROLLED_BACK") {
-    value.rolled_back_to_version = "0.0.9";
+    value.installed_version = value.current_version;
+    value.rolled_back_to_version = value.current_version;
     value.rollback_available = true;
+  }
+  if (state === "UPDATE_FAILED" || state === "UPDATE_INTERRUPTED") {
+    value.installed_version = value.current_version;
+    value.available_version = "1.1.0";
+    value.target_artifact = structuredClone(SYNTHETIC_ARTIFACT);
+  }
+  if (state === "ROLLBACK_FAILED") {
+    value.installed_version = value.current_version;
   }
   return value;
 }
+
+const RECOVERY_FIELD_SHAPES = ["ABSENT", "FALSE", "TRUE"] as const;
+
+function buildPackageAxisState(
+  root: "installer" | "update",
+  state: string,
+  interrupted: boolean,
+  recoveryField: (typeof RECOVERY_FIELD_SHAPES)[number],
+): Record<string, unknown> {
+  const value = buildPackageState(root, state, "CLEAN");
+  value.interrupted = interrupted;
+  if (recoveryField === "ABSENT") {
+    delete value.recovery_completed;
+  } else {
+    value.recovery_completed = recoveryField === "TRUE";
+  }
+  value.reason_codes = interrupted
+    ? ["INTERRUPTED"]
+    : (PACKAGE_FAILURE_STATES as readonly string[]).includes(state)
+      ? ["ADAPTER_ERROR"]
+      : [];
+  return value;
+}
+
+function packageAxisCellAdmitted(
+  state: string,
+  interrupted: boolean,
+  recoveryField: (typeof RECOVERY_FIELD_SHAPES)[number],
+): boolean {
+  const success = (PACKAGE_SUCCESS_STATES as readonly string[]).includes(state);
+  const interruptedTerminal = (
+    PACKAGE_INTERRUPTED_STATES as readonly string[]
+  ).includes(state);
+  const ordinaryFailure =
+    (PACKAGE_FAILURE_STATES as readonly string[]).includes(state) &&
+    !interruptedTerminal;
+  if (!interrupted) {
+    return recoveryField === "ABSENT" && !interruptedTerminal;
+  }
+  if (recoveryField === "TRUE") {
+    return success || ordinaryFailure;
+  }
+  return interruptedTerminal;
+}
+
+const PACKAGE_AXIS_CELLS = [
+  ...INSTALLER_STATES.map((state) => ["installer", state] as const),
+  ...UPDATE_STATES.map((state) => ["update", state] as const),
+].flatMap(([root, state]) =>
+  [false, true].flatMap((interrupted) =>
+    RECOVERY_FIELD_SHAPES.map(
+      (recoveryField) => [root, state, interrupted, recoveryField] as const,
+    ),
+  ),
+);
 
 describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => {
   test("the matrix covers every installer and update state", () => {
@@ -1620,6 +1918,31 @@ describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => 
         INTERRUPTION_SHAPES.length,
     );
   });
+
+  test("the full matrix covers interruption and recovery-field presence independently", () => {
+    expect(PACKAGE_AXIS_CELLS).toHaveLength(90);
+    expect(
+      PACKAGE_AXIS_CELLS.filter(([, state, interrupted, recoveryField]) =>
+        packageAxisCellAdmitted(state, interrupted, recoveryField),
+      ),
+    ).toHaveLength(27);
+  });
+
+  test.each(PACKAGE_AXIS_CELLS)(
+    "%s %s / interrupted=%s / recovery=%s",
+    (root, state, interrupted, recoveryField) => {
+      const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+      expect(
+        verdicts(
+          schemaRef,
+          buildPackageAxisState(root, state, interrupted, recoveryField),
+        ),
+      ).toEqual({
+        structural: true,
+        semantic: packageAxisCellAdmitted(state, interrupted, recoveryField),
+      });
+    },
+  );
 
   test.each(cells)("%s %s is %s-representable", (root, state, shape) => {
     const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
@@ -1721,6 +2044,255 @@ describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => 
         value,
       ),
     ).toEqual({ structural: true, semantic: false });
+  });
+});
+
+interface PackageFieldPolicy {
+  readonly root: "installer" | "update";
+  readonly state: string;
+  readonly required?: readonly string[];
+  readonly forbidden?: readonly string[];
+  readonly equal?: readonly (readonly [string, string])[];
+  readonly optionalEqual?: readonly (readonly [string, string])[];
+  readonly notEqual?: readonly (readonly [string, string])[];
+  readonly flags?: readonly (readonly [string, boolean])[];
+  readonly paired?: readonly (readonly [string, string])[];
+}
+
+const PACKAGE_FIELD_POLICIES: readonly PackageFieldPolicy[] = [
+  {
+    root: "installer",
+    state: "INSTALLED",
+    required: ["installed_version"],
+    equal: [["installed_version", "package_version"]],
+  },
+  {
+    root: "installer",
+    state: "INSTALL_FAILED",
+    forbidden: ["installed_version"],
+  },
+  {
+    root: "installer",
+    state: "INSTALL_INTERRUPTED",
+    forbidden: ["installed_version"],
+  },
+  {
+    root: "installer",
+    state: "NOT_INSTALLED",
+    forbidden: ["installed_version"],
+  },
+  {
+    root: "installer",
+    state: "REPAIRED",
+    required: ["installed_version"],
+    equal: [["installed_version", "package_version"]],
+  },
+  {
+    root: "installer",
+    state: "REPAIR_FAILED",
+    required: ["installed_version"],
+    equal: [["installed_version", "package_version"]],
+  },
+  {
+    root: "installer",
+    state: "UNINSTALLED",
+    forbidden: ["installed_version"],
+  },
+  {
+    root: "installer",
+    state: "UNINSTALL_FAILED",
+    required: ["installed_version"],
+    equal: [["installed_version", "package_version"]],
+  },
+  {
+    root: "update",
+    state: "NO_UPDATE_AVAILABLE",
+    forbidden: [
+      "available_version",
+      "installed_version",
+      "rolled_back_to_version",
+      "target_artifact",
+    ],
+    flags: [["rollback_available", false]],
+  },
+  {
+    root: "update",
+    state: "ROLLBACK_FAILED",
+    required: ["installed_version"],
+    forbidden: ["rolled_back_to_version"],
+    equal: [["installed_version", "current_version"]],
+    paired: [["available_version", "target_artifact"]],
+  },
+  {
+    root: "update",
+    state: "ROLLED_BACK",
+    required: ["installed_version", "rolled_back_to_version"],
+    equal: [
+      ["installed_version", "current_version"],
+      ["installed_version", "rolled_back_to_version"],
+    ],
+    flags: [["rollback_available", true]],
+    paired: [["available_version", "target_artifact"]],
+  },
+  {
+    root: "update",
+    state: "UPDATE_AVAILABLE",
+    required: ["available_version", "target_artifact"],
+    forbidden: ["installed_version", "rolled_back_to_version"],
+    notEqual: [["available_version", "current_version"]],
+  },
+  {
+    root: "update",
+    state: "UPDATE_FAILED",
+    forbidden: ["rolled_back_to_version"],
+    optionalEqual: [["installed_version", "current_version"]],
+    paired: [["available_version", "target_artifact"]],
+  },
+  {
+    root: "update",
+    state: "UPDATE_INSTALLED",
+    required: ["installed_version", "available_version", "target_artifact"],
+    forbidden: ["rolled_back_to_version"],
+    equal: [["installed_version", "available_version"]],
+  },
+  {
+    root: "update",
+    state: "UPDATE_INTERRUPTED",
+    forbidden: ["rolled_back_to_version"],
+    optionalEqual: [["installed_version", "current_version"]],
+    paired: [["available_version", "target_artifact"]],
+  },
+] as const;
+
+function packageFieldPolicyValue(
+  policy: PackageFieldPolicy,
+): Record<string, unknown> {
+  return buildPackageState(
+    policy.root,
+    policy.state,
+    (PACKAGE_INTERRUPTED_STATES as readonly string[]).includes(policy.state)
+      ? "UNRECOVERED"
+      : "CLEAN",
+  );
+}
+
+function packageFieldValue(field: string): unknown {
+  return field === "target_artifact"
+    ? structuredClone(SYNTHETIC_ARTIFACT)
+    : "9.9.9";
+}
+
+const PACKAGE_FIELD_NEGATIVES = PACKAGE_FIELD_POLICIES.flatMap((policy) => {
+  const cases: {
+    readonly id: string;
+    readonly policy: PackageFieldPolicy;
+    readonly mutate: (value: Record<string, unknown>) => void;
+  }[] = [];
+  for (const field of policy.required ?? []) {
+    cases.push({
+      id: `${policy.state} missing required ${field}`,
+      policy,
+      mutate: (value) => {
+        Reflect.deleteProperty(value, field);
+      },
+    });
+  }
+  for (const field of policy.forbidden ?? []) {
+    cases.push({
+      id: `${policy.state} carrying forbidden ${field}`,
+      policy,
+      mutate: (value) => {
+        value[field] = packageFieldValue(field);
+      },
+    });
+  }
+  for (const [left, right] of policy.equal ?? []) {
+    cases.push({
+      id: `${policy.state} breaking ${left}=${right}`,
+      policy,
+      mutate: (value) => {
+        value[left] = "9.9.9";
+      },
+    });
+  }
+  for (const [left, right] of policy.optionalEqual ?? []) {
+    cases.push({
+      id: `${policy.state} breaking optional ${left}=${right}`,
+      policy,
+      mutate: (value) => {
+        value[left] = "9.9.9";
+      },
+    });
+  }
+  for (const [left, right] of policy.notEqual ?? []) {
+    cases.push({
+      id: `${policy.state} collapsing ${left} into ${right}`,
+      policy,
+      mutate: (value) => {
+        value[left] = value[right];
+      },
+    });
+  }
+  for (const [field, expected] of policy.flags ?? []) {
+    cases.push({
+      id: `${policy.state} setting ${field}=${String(!expected)}`,
+      policy,
+      mutate: (value) => {
+        value[field] = !expected;
+      },
+    });
+  }
+  for (const [left, right] of policy.paired ?? []) {
+    cases.push({
+      id: `${policy.state} separating ${left} from ${right}`,
+      policy,
+      mutate: (value) => {
+        if (left in value && right in value) {
+          Reflect.deleteProperty(value, right);
+        } else {
+          value[left] = packageFieldValue(left);
+        }
+      },
+    });
+  }
+  return cases;
+});
+
+describe("M01-W07 package state-specific field policy", () => {
+  test("the policy table covers every installer and updater state exactly once", () => {
+    expect(
+      PACKAGE_FIELD_POLICIES.map(
+        (policy) => `${policy.root}/${policy.state}`,
+      ).toSorted(),
+    ).toEqual(
+      [
+        ...INSTALLER_STATES.map((state) => `installer/${state}`),
+        ...UPDATE_STATES.map((state) => `update/${state}`),
+      ].toSorted(),
+    );
+  });
+
+  test.each(PACKAGE_FIELD_POLICIES)(
+    "$root $state admits its complete field policy",
+    (policy) => {
+      const schemaRef =
+        policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+      expect(verdicts(schemaRef, packageFieldPolicyValue(policy))).toEqual({
+        structural: true,
+        semantic: true,
+      });
+    },
+  );
+
+  test.each(PACKAGE_FIELD_NEGATIVES)("$id", ({ policy, mutate }) => {
+    const schemaRef =
+      policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+    const value = packageFieldPolicyValue(policy);
+    mutate(value);
+    expect(verdicts(schemaRef, value)).toEqual({
+      structural: true,
+      semantic: false,
+    });
   });
 });
 
@@ -1908,10 +2480,11 @@ const OPERABLE_AVAILABILITY: readonly string[] = [
   "DEGRADED_LIMITED",
 ];
 
-/** The states that observed nothing at all and so report no identity. */
-const UNOBSERVED_AVAILABILITY: readonly string[] = [
-  "NOT_EVALUATED",
-  "UNSUPPORTED_TARGET",
+/** States whose diagnosis requires a detected runtime identity. */
+const IDENTITY_BEARING_AVAILABILITY: readonly string[] = [
+  "AVAILABLE",
+  "DEGRADED_LIMITED",
+  "INCOMPATIBLE_VERSION",
 ];
 
 function buildRuntimeCapability(
@@ -1932,17 +2505,70 @@ function buildRuntimeCapability(
     availability === "NOT_EVALUATED"
       ? ["EVALUATION_NOT_RUN"]
       : ["INSUFFICIENT_HARDWARE"];
-  if (UNOBSERVED_AVAILABILITY.includes(availability)) {
-    delete value.runtime_family;
-    delete value.runtime_version;
-    delete value.accelerator;
-  } else {
+  if (IDENTITY_BEARING_AVAILABILITY.includes(availability)) {
     value.runtime_family = "OLLAMA_MLX";
     value.runtime_version = "0.5.0";
     value.accelerator = "APPLE_SILICON_GPU";
+  } else {
+    delete value.runtime_family;
+    delete value.runtime_version;
+    delete value.accelerator;
   }
   return value;
 }
+
+function buildRuntimeMatrixCell(
+  availability: string,
+  method: string,
+  withIdentity: boolean,
+  withProfiles: boolean,
+): Record<string, unknown> {
+  const value = buildRuntimeCapability(availability, withProfiles);
+  value.detection_method = method;
+  if (withIdentity) {
+    value.runtime_family = "OLLAMA_MLX";
+    value.runtime_version = "0.5.0";
+    value.accelerator = "APPLE_SILICON_GPU";
+  } else {
+    delete value.runtime_family;
+    delete value.runtime_version;
+    delete value.accelerator;
+  }
+  return value;
+}
+
+function runtimeMatrixCellAdmitted(
+  availability: string,
+  method: string,
+  withIdentity: boolean,
+  withProfiles: boolean,
+): boolean {
+  const identityRequired = [
+    "AVAILABLE",
+    "DEGRADED_LIMITED",
+    "INCOMPATIBLE_VERSION",
+  ].includes(availability);
+  const profilesAllowed = ["AVAILABLE", "DEGRADED_LIMITED"].includes(
+    availability,
+  );
+  return (
+    availabilityMethodAdmitted(availability, method) &&
+    withIdentity === identityRequired &&
+    (!withProfiles || profilesAllowed)
+  );
+}
+
+const RUNTIME_MATRIX_CELLS = RUNTIME_AVAILABILITY_STATES.flatMap(
+  (availability) =>
+    EVALUATION_METHODS.flatMap((method) =>
+      [false, true].flatMap((withIdentity) =>
+        [false, true].map(
+          (withProfiles) =>
+            [availability, method, withIdentity, withProfiles] as const,
+        ),
+      ),
+    ),
+);
 
 describe("M01-W07 runtime availability matrix (KI-0025 F3)", () => {
   test("the matrix covers every capability availability state", () => {
@@ -1950,6 +2576,38 @@ describe("M01-W07 runtime availability matrix (KI-0025 F3)", () => {
       ...RUNTIME_AVAILABILITY_STATES,
     ]);
   });
+
+  test("the full matrix covers availability, method, identity and profiles", () => {
+    expect(RUNTIME_MATRIX_CELLS).toHaveLength(180);
+    expect(
+      RUNTIME_MATRIX_CELLS.filter((cell) => runtimeMatrixCellAdmitted(...cell)),
+    ).toHaveLength(32);
+  });
+
+  test.each(RUNTIME_MATRIX_CELLS)(
+    "%s / %s / identity=%s / profiles=%s",
+    (availability, method, withIdentity, withProfiles) => {
+      expect(
+        verdicts(
+          RUNTIME_CAPABILITY,
+          buildRuntimeMatrixCell(
+            availability,
+            method,
+            withIdentity,
+            withProfiles,
+          ),
+        ),
+      ).toEqual({
+        structural: true,
+        semantic: runtimeMatrixCellAdmitted(
+          availability,
+          method,
+          withIdentity,
+          withProfiles,
+        ),
+      });
+    },
+  );
 
   const cells = RUNTIME_AVAILABILITY_STATES.flatMap((availability) =>
     [true, false].map((withProfiles) => [availability, withProfiles] as const),
@@ -2267,10 +2925,95 @@ function buildProcessStatus(state: string): Record<string, unknown> {
   return value;
 }
 
+const TERMINATION_REQUESTS = [
+  "NONE",
+  "GRACEFUL_STOP",
+  "IMMEDIATE_STOP",
+] as const;
+
+const TERMINAL_FIELD_SHAPES = [
+  "NONE",
+  "ENDED_ONLY",
+  "EXIT_ONLY",
+  "ENDED_AND_EXIT",
+] as const;
+
+function buildProcessMatrixCell(
+  state: string,
+  termination: string,
+  terminalFields: (typeof TERMINAL_FIELD_SHAPES)[number],
+): Record<string, unknown> {
+  const value = buildProcessStatus(state);
+  value.termination_requested = termination;
+  delete value.ended_at;
+  delete value.exit_code;
+  if (terminalFields === "ENDED_ONLY" || terminalFields === "ENDED_AND_EXIT") {
+    value.ended_at = ENDED_AT;
+  }
+  if (terminalFields === "EXIT_ONLY" || terminalFields === "ENDED_AND_EXIT") {
+    value.exit_code = 0;
+  }
+  return value;
+}
+
+function processMatrixCellAdmitted(
+  state: string,
+  termination: string,
+  terminalFields: (typeof TERMINAL_FIELD_SHAPES)[number],
+): boolean {
+  const requested = termination !== "NONE";
+  if (state === "TERMINATING") {
+    return requested && terminalFields === "NONE";
+  }
+  if (state === "EXITED") {
+    return !requested && terminalFields === "ENDED_AND_EXIT";
+  }
+  if (state === "TERMINATED") {
+    return requested && terminalFields === "ENDED_ONLY";
+  }
+  if (state === "FAILED") {
+    return terminalFields === "NONE";
+  }
+  return !requested && terminalFields === "NONE";
+}
+
+const PROCESS_MATRIX_CELLS = PROCESS_STATES.flatMap((state) =>
+  TERMINATION_REQUESTS.flatMap((termination) =>
+    TERMINAL_FIELD_SHAPES.map(
+      (terminalFields) => [state, termination, terminalFields] as const,
+    ),
+  ),
+);
+
 describe("M01-W07 process lifecycle matrix (KI-0025 F5)", () => {
   test("the matrix covers every process state", () => {
     expect(enumTokens("processState")).toEqual([...PROCESS_STATES]);
   });
+
+  test("the full matrix covers state, termination and terminal-field presence", () => {
+    expect(enumTokens("terminationRequest")).toEqual(
+      [...TERMINATION_REQUESTS].toSorted(),
+    );
+    expect(PROCESS_MATRIX_CELLS).toHaveLength(96);
+    expect(
+      PROCESS_MATRIX_CELLS.filter((cell) => processMatrixCellAdmitted(...cell)),
+    ).toHaveLength(12);
+  });
+
+  test.each(PROCESS_MATRIX_CELLS)(
+    "%s / termination=%s / terminal fields=%s",
+    (state, termination, terminalFields) => {
+      expect(
+        verdicts(
+          PROCESS_STATUS,
+          buildProcessMatrixCell(state, termination, terminalFields),
+        ),
+      ).toEqual({
+        structural: true,
+        semantic: processMatrixCellAdmitted(state, termination, terminalFields),
+      });
+    },
+  );
 
   test.each(PROCESS_STATES)(
     "%s admits its reviewed representative",
@@ -2424,12 +3167,314 @@ describe("M01-W07 process lifecycle matrix (KI-0025 F5)", () => {
 // ---------------------------------------------------------------------------
 
 const REGISTRATION_INTENT =
-  "urn:japp:schema:platform:native-messaging-registration:v1";
-const CAPABILITY_REPORT = "urn:japp:schema:platform:capability-report:v1";
-const MODEL_PROFILE = "urn:japp:schema:platform:model-runtime-profile:v1";
-const BROWSER_RECORD = "urn:japp:schema:platform:browser-record:v1";
-const DIAGNOSTIC_REPORT = "urn:japp:schema:platform:diagnostic-report:v1";
-const CERTIFICATION_INPUT = "urn:japp:schema:platform:certification-input:v1";
+  "urn:japp:schema:platform:native-messaging-registration:v2";
+const CAPABILITY_REPORT = "urn:japp:schema:platform:capability-report:v2";
+const MODEL_PROFILE = "urn:japp:schema:platform:model-runtime-profile:v2";
+const BROWSER_RECORD = "urn:japp:schema:platform:browser-record:v2";
+const DIAGNOSTIC_REPORT = "urn:japp:schema:platform:diagnostic-report:v2";
+const CERTIFICATION_INPUT = "urn:japp:schema:platform:certification-input:v2";
+
+const OBSERVED_EVALUATION_METHODS = [
+  "MEASURED_NATIVE_RUN",
+  "STATIC_INSPECTION",
+  "SYNTHETIC_FIXTURE",
+] as const;
+
+function availabilityMethodAdmitted(
+  availability: string,
+  method: string,
+): boolean {
+  if (method === "NOT_EVALUATED") {
+    return availability === "NOT_EVALUATED";
+  }
+  if (method === "DECLARED_PLAN") {
+    return availability === "UNKNOWN";
+  }
+  return (
+    availability !== "NOT_EVALUATED" &&
+    (OBSERVED_EVALUATION_METHODS as readonly string[]).includes(method)
+  );
+}
+
+function buildCapabilityState(
+  availability: string,
+  method: string,
+): Record<string, unknown> {
+  const report = fixture("w07.capability-report");
+  const capabilities = report.capabilities;
+  if (!Array.isArray(capabilities) || capabilities.length === 0) {
+    throw new Error("capability report fixture has no capability states");
+  }
+  const state = structuredClone(capabilities[0]) as Record<string, unknown>;
+  state.availability = availability;
+  state.evaluation_method = method;
+  state.reason_codes =
+    availability === "AVAILABLE"
+      ? []
+      : availability === "NOT_EVALUATED"
+        ? ["EVALUATION_NOT_RUN"]
+        : ["TARGET_NOT_CERTIFIED"];
+  for (const field of [
+    "identity_token",
+    "detected_version",
+    "evidence_digest",
+  ]) {
+    Reflect.deleteProperty(state, field);
+  }
+  if (
+    ["AVAILABLE", "DEGRADED_LIMITED", "INCOMPATIBLE_VERSION"].includes(
+      availability,
+    )
+  ) {
+    state.identity_token = "capability-identity";
+    state.detected_version = "1.0.0";
+    state.evidence_digest = SYNTHETIC_DIGEST;
+  }
+  return state;
+}
+
+function buildCapabilityReport(
+  availability: string,
+  method: string,
+): Record<string, unknown> {
+  const value = fixture("w07.capability-report");
+  value.support_claim = {
+    claimed_tier: "EXPERIMENTAL",
+    reviewed_tier: "UNSUPPORTED",
+    review_state: "NOT_REVIEWED",
+  };
+  const capabilities = value.capabilities;
+  if (!Array.isArray(capabilities) || capabilities.length === 0) {
+    throw new Error("capability report fixture has no capability states");
+  }
+  capabilities[0] = buildCapabilityState(availability, method);
+  return value;
+}
+
+function buildBrowserRecord(
+  availability: string,
+  method: string,
+): Record<string, unknown> {
+  const value = fixture("w07.browser-record");
+  value.presence = availability;
+  value.detection_method = method;
+  value.certified_for_platform = false;
+  value.reason_codes = ["TARGET_NOT_CERTIFIED"];
+  delete value.detected_version;
+  delete value.sanitized_install_location;
+  if (
+    ["AVAILABLE", "DEGRADED_LIMITED", "INCOMPATIBLE_VERSION"].includes(
+      availability,
+    )
+  ) {
+    value.detected_version = "141.0.7390.55";
+  }
+  if (availability === "AVAILABLE") {
+    value.sanitized_install_location = "<BROWSER_INSTALL_ROOT>/chrome";
+  }
+  const nested = buildCapabilityState(availability, method);
+  nested.capability = "NATIVE_MESSAGING";
+  value.native_messaging_capability = nested;
+  return value;
+}
+
+const AVAILABILITY_METHOD_CELLS = RUNTIME_AVAILABILITY_STATES.flatMap(
+  (availability) =>
+    EVALUATION_METHODS.map((method) => [availability, method] as const),
+);
+
+describe("M01-W07 capability/browser availability and method matrices", () => {
+  test("both matrices cover the complete 9 x 5 product", () => {
+    expect(AVAILABILITY_METHOD_CELLS).toHaveLength(45);
+    expect(
+      AVAILABILITY_METHOD_CELLS.filter(([availability, method]) =>
+        availabilityMethodAdmitted(availability, method),
+      ),
+    ).toHaveLength(26);
+  });
+
+  test.each(AVAILABILITY_METHOD_CELLS)(
+    "capability %s observed by %s",
+    (availability, method) => {
+      expect(
+        verdicts(
+          CAPABILITY_REPORT,
+          buildCapabilityReport(availability, method),
+        ),
+      ).toEqual({
+        structural: true,
+        semantic: availabilityMethodAdmitted(availability, method),
+      });
+    },
+  );
+
+  test.each(AVAILABILITY_METHOD_CELLS)(
+    "browser %s observed by %s",
+    (availability, method) => {
+      expect(
+        verdicts(BROWSER_RECORD, buildBrowserRecord(availability, method)),
+      ).toEqual({
+        structural: true,
+        semantic: availabilityMethodAdmitted(availability, method),
+      });
+    },
+  );
+
+  test("a certified browser requires nested measured capability evidence", () => {
+    const certified = buildBrowserRecord("AVAILABLE", "MEASURED_NATIVE_RUN");
+    certified.certified_for_platform = true;
+    certified.reason_codes = [];
+    expect(verdicts(BROWSER_RECORD, certified)).toEqual({
+      structural: true,
+      semantic: true,
+    });
+
+    const declared = structuredClone(certified);
+    declared.native_messaging_capability = buildCapabilityState(
+      "UNKNOWN",
+      "DECLARED_PLAN",
+    );
+    (
+      declared.native_messaging_capability as Record<string, unknown>
+    ).capability = "NATIVE_MESSAGING";
+    expect(verdicts(BROWSER_RECORD, declared)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+
+    const unevaluated = structuredClone(certified);
+    unevaluated.native_messaging_capability = buildCapabilityState(
+      "NOT_EVALUATED",
+      "NOT_EVALUATED",
+    );
+    (
+      unevaluated.native_messaging_capability as Record<string, unknown>
+    ).capability = "NATIVE_MESSAGING";
+    expect(verdicts(BROWSER_RECORD, unevaluated)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+  });
+});
+
+const CERTIFICATION_TIERS = [
+  "CERTIFIED_CORE",
+  "CERTIFIED_FULL",
+  "EXPERIMENTAL",
+  "UNSUPPORTED",
+] as const;
+
+const CERTIFICATION_POLICIES = {
+  CORE: CERTIFIED_CORE_EVIDENCE_KINDS,
+  FULL: CERTIFIED_FULL_EVIDENCE_KINDS,
+  LOG_ONLY: ["LOG_EXCERPT_REPORT"],
+} as const;
+
+const CERTIFICATION_PRESENT_SHAPES = ["EXACT", "MISSING_ONE"] as const;
+
+const CERTIFICATION_MATRIX_CELLS = CERTIFICATION_TIERS.flatMap((tier) =>
+  Object.keys(CERTIFICATION_POLICIES).flatMap((policy) =>
+    CERTIFICATION_PRESENT_SHAPES.map(
+      (presentShape) => [tier, policy, presentShape] as const,
+    ),
+  ),
+);
+
+function certificationMatrixCellAdmitted(
+  tier: (typeof CERTIFICATION_TIERS)[number],
+  policy: keyof typeof CERTIFICATION_POLICIES,
+  presentShape: (typeof CERTIFICATION_PRESENT_SHAPES)[number],
+): boolean {
+  if (tier === "EXPERIMENTAL" || tier === "UNSUPPORTED") {
+    return true;
+  }
+  return (
+    presentShape === "EXACT" &&
+    ((tier === "CERTIFIED_CORE" && policy === "CORE") ||
+      (tier === "CERTIFIED_FULL" && policy === "FULL"))
+  );
+}
+
+function buildCertificationMatrixCell(
+  tier: (typeof CERTIFICATION_TIERS)[number],
+  policy: keyof typeof CERTIFICATION_POLICIES,
+  presentShape: (typeof CERTIFICATION_PRESENT_SHAPES)[number],
+): Record<string, unknown> {
+  const value = fixtureForSchema(
+    "w07.certification-input",
+    CERTIFICATION_INPUT,
+  );
+  const required = [...CERTIFICATION_POLICIES[policy]];
+  const presentKinds =
+    presentShape === "EXACT" ? required : required.slice(0, -1);
+  const inventory = certificationInventory(presentKinds);
+  const evidenceRefs = inventory.map((item) => item.evidence_record_ref);
+  const certified = tier === "CERTIFIED_CORE" || tier === "CERTIFIED_FULL";
+  value.support_claim = certified
+    ? {
+        claimed_tier: tier,
+        reviewed_tier: tier,
+        review_state: "REVIEW_COMPLETE",
+        evaluated_commit: "0123456789abcdef0123456789abcdef01234567",
+        evaluated_tree: "1111111111111111111111111111111111111111",
+        evidence_refs: evidenceRefs,
+        reviewer_identity_ref: "reviewer_0123456789ABCDEFGHJKMNPQRS",
+      }
+    : {
+        claimed_tier: tier,
+        reviewed_tier: tier,
+        review_state: "NOT_REVIEWED",
+      };
+  value.required_evidence_kinds = required;
+  value.present_evidence_kinds = presentKinds;
+  value.evidence_record_refs = evidenceRefs;
+  value.evidence_inventory = inventory;
+  value.inventory_complete =
+    inventory.length > 0 &&
+    required.every((requiredKind) => presentKinds.includes(requiredKind));
+  value.browser_record_ref = "browser_0123456789ABCDEFGHJKMNPQRS";
+  value.runtime_capability_ref = "runtime_0123456789ABCDEFGHJKMNPQRS";
+  value.owner_decision_state = "RECORDED";
+  value.owner_decision_ref = "ownerdec_0123456789ABCDEFGHJKMNPQRS";
+  value.reason_codes = certified ? [] : ["TARGET_NOT_CERTIFIED"];
+  return value;
+}
+
+describe("M01-W07 certification tier, policy and evidence matrix", () => {
+  test("the matrix covers all 4 x 3 x 2 reviewed combinations", () => {
+    expect(enumTokens("supportTier")).toEqual([...CERTIFICATION_TIERS]);
+    expect(CERTIFICATION_MATRIX_CELLS).toHaveLength(24);
+    expect(
+      CERTIFICATION_MATRIX_CELLS.filter(([tier, policy, presentShape]) =>
+        certificationMatrixCellAdmitted(
+          tier,
+          policy as keyof typeof CERTIFICATION_POLICIES,
+          presentShape,
+        ),
+      ),
+    ).toHaveLength(14);
+  });
+
+  test.each(CERTIFICATION_MATRIX_CELLS)(
+    "%s / required policy=%s / present=%s",
+    (tier, policy, presentShape) => {
+      const typedPolicy = policy as keyof typeof CERTIFICATION_POLICIES;
+      expect(
+        verdicts(
+          CERTIFICATION_INPUT,
+          buildCertificationMatrixCell(tier, typedPolicy, presentShape),
+        ),
+      ).toEqual({
+        structural: true,
+        semantic: certificationMatrixCellAdmitted(
+          tier,
+          typedPolicy,
+          presentShape,
+        ),
+      });
+    },
+  );
+});
 
 describe("M01-W07 spawn-plan argument and environment safety (KI-0025 F7)", () => {
   /**
@@ -2692,7 +3737,12 @@ describe("M01-W07 remaining platform fail-open repairs (KI-0025 F8-F13)", () => 
   });
 
   test("a certified proposal names the evidence it required (F13)", () => {
-    const value = fixture("w07.certification-input");
+    const value = fixtureForSchema(
+      "w07.certification-input",
+      CERTIFICATION_INPUT,
+    );
+    const inventory = certificationInventory(CERTIFIED_CORE_EVIDENCE_KINDS);
+    const evidenceRefs = inventory.map((item) => item.evidence_record_ref);
     Object.assign(value, {
       support_claim: {
         claimed_tier: "CERTIFIED_CORE",
@@ -2700,13 +3750,16 @@ describe("M01-W07 remaining platform fail-open repairs (KI-0025 F8-F13)", () => 
         review_state: "REVIEW_COMPLETE",
         evaluated_commit: "0123456789abcdef0123456789abcdef01234567",
         evaluated_tree: "1111111111111111111111111111111111111111",
-        evidence_refs: [EVIDENCE_REF],
+        evidence_refs: evidenceRefs,
         reviewer_identity_ref: "reviewer_0123456789ABCDEFGHJKMNPQRS",
       },
-      required_evidence_kinds: ["INSTALL_LAUNCH_REPORT"],
-      present_evidence_kinds: ["INSTALL_LAUNCH_REPORT"],
-      evidence_record_refs: [EVIDENCE_REF],
+      required_evidence_kinds: [...CERTIFIED_CORE_EVIDENCE_KINDS],
+      present_evidence_kinds: [...CERTIFIED_CORE_EVIDENCE_KINDS],
+      evidence_record_refs: evidenceRefs,
+      evidence_inventory: inventory,
       inventory_complete: true,
+      browser_record_ref: "browser_0123456789ABCDEFGHJKMNPQRS",
+      runtime_capability_ref: "runtime_0123456789ABCDEFGHJKMNPQRS",
       owner_decision_state: "RECORDED",
       owner_decision_ref: "ownerdec_0123456789ABCDEFGHJKMNPQRS",
       reason_codes: [],
@@ -2716,12 +3769,207 @@ describe("M01-W07 remaining platform fail-open repairs (KI-0025 F8-F13)", () => 
       semantic: true,
     });
 
+    const mismatchedClaimEvidence = structuredClone(value);
+    (
+      mismatchedClaimEvidence.support_claim as Record<string, unknown>
+    ).evidence_refs = ["evid_Z123456789ABCDEFGHJKMNPQRS"];
+    expect(verdicts(CERTIFICATION_INPUT, mismatchedClaimEvidence)).toEqual({
+      structural: true,
+      semantic: false,
+    });
+
     const vacuous = structuredClone(value);
     vacuous.required_evidence_kinds = [];
     vacuous.present_evidence_kinds = [];
+    vacuous.evidence_record_refs = [];
+    vacuous.evidence_inventory = [];
     expect(verdicts(CERTIFICATION_INPUT, vacuous)).toEqual({
       structural: true,
       semantic: false,
     });
+  });
+});
+
+interface SemanticMatrixExpectation extends SemanticMatrixCase {
+  readonly expectedValid: boolean;
+  readonly expectedErrorCode: string;
+}
+
+function matrixCaseId(group: string, index: number): string {
+  return `matrix.platform.${group}.${String(index).padStart(3, "0")}`;
+}
+
+const PLATFORM_MATRIX_PARITY_CASES: readonly SemanticMatrixExpectation[] = [
+  ...PACKAGE_AXIS_CELLS.map(
+    ([root, state, interrupted, recoveryField], index) => ({
+      caseId: matrixCaseId("package-axis", index),
+      schemaRef: root === "installer" ? INSTALLER_STATE : UPDATE_STATE,
+      value: buildPackageAxisState(root, state, interrupted, recoveryField),
+      expectedValid: packageAxisCellAdmitted(state, interrupted, recoveryField),
+      expectedErrorCode: "STORAGE_INTEGRITY_FAILURE",
+    }),
+  ),
+  ...PACKAGE_FIELD_POLICIES.map((policy, index) => ({
+    caseId: matrixCaseId("package-field-positive", index),
+    schemaRef: policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE,
+    value: packageFieldPolicyValue(policy),
+    expectedValid: true,
+    expectedErrorCode: "STORAGE_INTEGRITY_FAILURE",
+  })),
+  ...PACKAGE_FIELD_NEGATIVES.map((entry, index) => {
+    const value = packageFieldPolicyValue(entry.policy);
+    entry.mutate(value);
+    return {
+      caseId: matrixCaseId("package-field-negative", index),
+      schemaRef:
+        entry.policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE,
+      value,
+      expectedValid: false,
+      expectedErrorCode: "STORAGE_INTEGRITY_FAILURE",
+    };
+  }),
+  ...PROCESS_MATRIX_CELLS.map(
+    ([state, termination, terminalFields], index) => ({
+      caseId: matrixCaseId("process", index),
+      schemaRef: PROCESS_STATUS,
+      value: buildProcessMatrixCell(state, termination, terminalFields),
+      expectedValid: processMatrixCellAdmitted(
+        state,
+        termination,
+        terminalFields,
+      ),
+      expectedErrorCode: "CONFLICT_INCOMPATIBLE_STATE",
+    }),
+  ),
+  ...RUNTIME_MATRIX_CELLS.map(
+    ([availability, method, withIdentity, withProfiles], index) => ({
+      caseId: matrixCaseId("runtime", index),
+      schemaRef: RUNTIME_CAPABILITY,
+      value: buildRuntimeMatrixCell(
+        availability,
+        method,
+        withIdentity,
+        withProfiles,
+      ),
+      expectedValid: runtimeMatrixCellAdmitted(
+        availability,
+        method,
+        withIdentity,
+        withProfiles,
+      ),
+      expectedErrorCode: "UNSUPPORTED_RUNTIME_PROFILE",
+    }),
+  ),
+  ...AVAILABILITY_METHOD_CELLS.map(([availability, method], index) => ({
+    caseId: matrixCaseId("capability", index),
+    schemaRef: CAPABILITY_REPORT,
+    value: buildCapabilityReport(availability, method),
+    expectedValid: availabilityMethodAdmitted(availability, method),
+    expectedErrorCode: "UNSUPPORTED_CAPABILITY",
+  })),
+  ...AVAILABILITY_METHOD_CELLS.map(([availability, method], index) => ({
+    caseId: matrixCaseId("browser", index),
+    schemaRef: BROWSER_RECORD,
+    value: buildBrowserRecord(availability, method),
+    expectedValid: availabilityMethodAdmitted(availability, method),
+    expectedErrorCode: "UNSUPPORTED_PLATFORM",
+  })),
+  ...CERTIFICATION_MATRIX_CELLS.map(([tier, policy, presentShape], index) => {
+    const typedPolicy = policy as keyof typeof CERTIFICATION_POLICIES;
+    return {
+      caseId: matrixCaseId("certification", index),
+      schemaRef: CERTIFICATION_INPUT,
+      value: buildCertificationMatrixCell(tier, typedPolicy, presentShape),
+      expectedValid: certificationMatrixCellAdmitted(
+        tier,
+        typedPolicy,
+        presentShape,
+      ),
+      expectedErrorCode: "GATE_EVIDENCE_MISSING",
+    };
+  }),
+];
+
+let platformMatrixAdapterRun: SemanticMatrixAdapterRun;
+
+describe("M01-W07 executable cross-language parity for every advertised platform matrix cell", () => {
+  beforeAll(() => {
+    platformMatrixAdapterRun = runSemanticMatrixAdapters(
+      PLATFORM_MATRIX_PARITY_CASES,
+    );
+  }, 360_000);
+
+  test("all 538 cells have the independently declared verdict in TypeScript, Python, and Rust", () => {
+    expect(PACKAGE_FIELD_NEGATIVES).toHaveLength(43);
+    expect(PLATFORM_MATRIX_PARITY_CASES).toHaveLength(538);
+    for (const language of [
+      "typescript",
+      "python",
+      "rust",
+    ] as const satisfies readonly AdapterLanguage[]) {
+      expect(platformMatrixAdapterRun.responses[language]).toHaveLength(
+        PLATFORM_MATRIX_PARITY_CASES.length,
+      );
+    }
+    const maps: Readonly<
+      Record<AdapterLanguage, ReadonlyMap<string, AdapterResult>>
+    > = {
+      python: new Map(
+        platformMatrixAdapterRun.responses.python.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+      rust: new Map(
+        platformMatrixAdapterRun.responses.rust.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+      typescript: new Map(
+        platformMatrixAdapterRun.responses.typescript.map((result) => [
+          result.case_id,
+          result,
+        ]),
+      ),
+    };
+
+    for (const matrixCase of PLATFORM_MATRIX_PARITY_CASES) {
+      const results = (
+        [
+          "typescript",
+          "python",
+          "rust",
+        ] as const satisfies readonly AdapterLanguage[]
+      ).map((language) => {
+        const result = maps[language].get(matrixCase.caseId);
+        expect(
+          result,
+          `${language} omitted ${matrixCase.caseId}`,
+        ).toBeDefined();
+        if (result === undefined) {
+          throw new Error(`${language} omitted ${matrixCase.caseId}`);
+        }
+        expect(
+          result.validation_verdict,
+          `${language} ${matrixCase.caseId}`,
+        ).toBe(matrixCase.expectedValid ? "VALID" : "INVALID");
+        expect(result.operation).toBe("VALIDATE");
+        expect(result.error_category).toBe(
+          matrixCase.expectedValid ? undefined : "SEMANTIC_INVALID",
+        );
+        expect(result.error_code).toBe(
+          matrixCase.expectedValid ? undefined : matrixCase.expectedErrorCode,
+        );
+        return result;
+      });
+      const [first, ...rest] = results;
+      if (first === undefined) {
+        throw new Error(`${matrixCase.caseId} has no adapter results`);
+      }
+      for (const result of rest) {
+        assertLanguageAgreement(first, result);
+      }
+    }
   });
 });
