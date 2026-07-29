@@ -37,7 +37,7 @@ broadening a work package (spec §1.5).
 No CRITICAL/HIGH issue is OPEN or IN_PROGRESS. KI-0029 through KI-0032 are
 FIXED by the final M01-W07 corrective content at tree
 `51c81bedb909ae7b6d54569abc8b8fb13af1c590`. KI-0022, KI-0026, and KI-0027
-remain DEFERRED with named owning packages. KI-0033 through KI-0035 are
+remain DEFERRED with named owning packages. KI-0033 through KI-0036 are
 nonblocking M02-W01 follow-ups in progress; none reopens M01.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
@@ -105,6 +105,36 @@ nonblocking M02-W01 follow-ups in progress; none reopens M01.
   exit diagnostics, and fails closed on overflow or timeout. Local validation
   passes; clean-clone and hosted closeout evidence remains pending under
   `docs/TEST_EVIDENCE.md` § M02-W01.
+
+### KI-0036 — Parallel contract files raced one shared Rust harness build
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-07-29 during M02-W01 hosted corrective verification
+- Affects: M02-W01 closeout proof; M01-W05/M01-W07 test infrastructure;
+  `packages/contracts/vitest.config.ts`
+- Description: independent contract matrix files each load a process-local
+  `rustHarnessBuilt` flag, but their isolated Vitest workers build and execute
+  the same test-only Rust binary under one shared target directory. Hosted
+  Windows contention can therefore make otherwise valid concurrent
+  `cargo build --locked --offline` calls return nonzero. This changes no
+  contract verdict, and the accepted 183-file generated contract tree remains
+  byte-identical.
+- Reproduction: hosted run `30440572546`, Windows job `90538645686`, ran the
+  fixture package successfully (6/6 files, 51/51 tests) and then reported
+  `ADAPTER_EXIT_NONZERO` from both
+  `w07-platform-rule-matrix.test.ts` and
+  `w07-secret-store-truth-table.test.ts` at `buildRustHarness`; 2,438 sibling
+  contract assertions passed. The prior run `30439385146` reproduced the same
+  class once on Ubuntu.
+- Workaround: none accepted. A retry would not correct the shared-path race,
+  and no timeout may be increased or failure waived.
+- Resolution + evidence link: the existing contracts Vitest configuration now
+  sets `fileParallelism: false`, making all shared Rust-harness build and
+  execution boundaries deterministic while retaining the existing 30-second
+  test timeout and every assertion. Local proof passes all 20 contract files /
+  2,440 tests and full canonical verification; two-clone and fresh hosted
+  closeout evidence remains pending under `docs/TEST_EVIDENCE.md` § M02-W01.
 
 ### KI-0029 — Accepted status contradicted its live blocker ledger
 

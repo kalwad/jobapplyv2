@@ -35,10 +35,13 @@ Exact verification commands and summarized results
 
 ### M02-W01 — Synthetic profile/job/resume fixture foundation, in-progress content proof (2026-07-29)
 
-- Revision: in-progress working tree based on clean starting commit
+- Revision: in-progress corrective working tree based on corrected content
+  commit `0679df6b12a2f6af543096746ff5b39368b34d89` / tree
+  `ecbcf12b5282ff3cca084828986c5871c08954af`; the next corrective content
+  commit/tree are pending. Clean starting commit
   `0c8efc9212162bcb4fa846e453007d9404d97429` / tree
-  `bc097542a25eddd9cfd39803fed884f71e20d86d`; executable content commit and
-  tree pending. M01 remains ACCEPTED at preserved executable tree
+  `bc097542a25eddd9cfd39803fed884f71e20d86d` remains recorded. M01 remains
+  ACCEPTED at preserved executable tree
   `51c81bedb909ae7b6d54569abc8b8fb13af1c590`.
 - Environment: macOS; Node 24.18.0; pnpm 11.17.0; uv 0.11.32; uv-managed
   Python 3.12.13; cargo/rustc 1.97.1 with rustfmt and Clippy; Playwright
@@ -161,8 +164,9 @@ Exact verification commands and summarized results
   `packages/test-fixtures/`; verification registration in
   `scripts/verification-suites.json`; no screenshot/trace because no failure
   occurred.
-- Known flaky behavior: none waived; the failed hosted run below remains
-  historical evidence and its corrections require a complete fresh lifecycle.
+- Known flaky behavior: none waived; both failed hosted runs below remain
+  historical evidence and every correction requires a complete fresh
+  lifecycle.
 - Pending before verification/closeout: corrective executable content commit;
   two repeated exact clean clones; fresh three-OS content CI with complete
   Windows-log inspection. M02-W01 remains IN_PROGRESS, no package is READY,
@@ -190,8 +194,38 @@ Exact verification commands and summarized results
   the privacy scanner's per-field hot path, and serializes only the fixture
   package's Vitest files to remove newly introduced workspace pressure. No
   timeout, workflow, toolchain, contract, corpus, expected result, or scanner
-  rule changes. A new content commit and the complete two-clone/three-OS
-  lifecycle are required before closeout.
+  rule changed. Corrected content commit
+  `0679df6b12a2f6af543096746ff5b39368b34d89` / tree
+  `ecbcf12b5282ff3cca084828986c5871c08954af` contains exactly those changes
+  plus their in-progress evidence.
+- That corrected commit passed two complete exact-commit clean clones:
+  `/tmp/japp-m02w01-corrected-clones.QKfXm6/normal` and
+  `/tmp/japp-m02w01-corrected-clones.QKfXm6/clone with spaces – ü`. Each
+  performed frozen/locked installs, both Cargo fetches, clean doctor,
+  generation/compatibility checks, all direct fixture checks, exact 50/50
+  focused tests, status/traceability, full verification, canonical hash, and
+  clean-tree assertion at exact tree `ecbcf12b…54af`.
+- Fresh hosted corrective run `30440572546` is also failed historical
+  evidence, not closeout proof. macOS job `90538645566` and Ubuntu job
+  `90538645596` passed. Windows job `90538645686` proved the correction's
+  intended fixture behavior: the serialized package passed 6/6 files and
+  51/51 tests, its complete privacy scan passed in 531 ms, fixture-corpus
+  passed with exact seed/validation counts, and every later root suite passed.
+  The sole failure was `unit-ts`: two pre-existing M01 semantic-matrix files
+  concurrently invoked the same test-only Rust harness build and both
+  returned `ADAPTER_EXIT_NONZERO`; 2,438 contract assertions passed and two
+  parity assertions could not execute. The complete 604,581-byte /
+  3,160-line Windows log was consumed and hashes to
+  `sha256:5f6d38fd97a3738392fb1fa22922ea5772ba7b323bfb985ccfb402be893e8650`.
+- KI-0036 serializes contract test files in the existing Vitest configuration
+  so process-local Rust-build memoization cannot race against one shared
+  Windows target directory. It changes no schema, generated contract,
+  semantic assertion, expected result, dependency, workflow, toolchain, or
+  timeout; the accepted 183-file generated tree remains byte-identical.
+  Locally, all 20 contract files / 2,440 tests pass in serialized mode and
+  full `pnpm verify` exits 0 with every ACTIVE suite PASS. A new corrective
+  content commit and the complete two-clone/three-OS lifecycle are required
+  before closeout.
 
 ### M01-W07 post-acceptance corrective lifecycle — KI-0029 through KI-0032 (2026-07-28)
 
