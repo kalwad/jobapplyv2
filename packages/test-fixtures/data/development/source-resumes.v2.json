@@ -237,7 +237,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:14d499541e245aa86b185f9f8fcaf9e4a45569a9536f724fc98604a7ea6fe570"
+        "historical_content_hash": "sha256:0e7c72657952c285ba2e04069f9db50207a19b56d1513bb0bc34f0599171e0c7"
       },
       "profile_ref": "profile_00000000000000000000000004",
       "as_of": "2026-07-29",
@@ -299,17 +299,6 @@
             "field:work_authorization"
           ],
           "evidence_refs": ["evidence_00000000000000000000000024"]
-        },
-        {
-          "fact_id": "resumefact_00000000000000000000000037",
-          "page": 1,
-          "text": "Synthetic Candidate 04 applied Experiment Design and Machine Learning in reviewed employment record 1. This separate resume fact records an additional reviewed result.",
-          "fact_keys": [
-            "experience:employment-1",
-            "skill:experiment-design",
-            "skill:machine-learning"
-          ],
-          "evidence_refs": ["evidence_00000000000000000000000019"]
         }
       ]
     },
@@ -714,14 +703,14 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:52ddea3e717a95b55f2310860208f1e51ac78176634627f0cb26074ae352bfd8"
+        "historical_content_hash": "sha256:56018d8b03d2cf4f358a3c264e6c81a8955da48862f0c186e4a7bbd3a24ba0da"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "as_of": "2026-07-29",
       "page_count": 2,
       "page_boundary": {
-        "break_after_fact_id": "resumefact_00000000000000000000000104",
-        "rationale": "Page one closes after the primary experience section; page two preserves three substantive education and project facts instead of moving decorative filler."
+        "break_after_fact_id": "resumefact_00000000000000000000000102",
+        "rationale": "Page one contains the reviewed employment record and earliest completed education record; page two contains two later completed education records and the reviewed team-communication project."
       },
       "facts": [
         {
@@ -744,14 +733,14 @@
         },
         {
           "fact_id": "resumefact_00000000000000000000000103",
-          "page": 1,
+          "page": 2,
           "text": "Synthetic Candidate 11 completed reviewed synthetic education program 2 before beginning the declared career.",
           "fact_keys": ["education:completed", "education:program-2"],
           "evidence_refs": ["evidence_00000000000000000000000063"]
         },
         {
           "fact_id": "resumefact_00000000000000000000000104",
-          "page": 1,
+          "page": 2,
           "text": "Synthetic Candidate 11 completed reviewed synthetic education program 3 before beginning the declared career.",
           "fact_keys": ["education:completed", "education:program-3"],
           "evidence_refs": ["evidence_00000000000000000000000064"]
@@ -762,31 +751,6 @@
           "text": "Synthetic Candidate 11 demonstrated Team Communication in reviewed project 1.",
           "fact_keys": ["project:reviewed-1", "skill:team-communication"],
           "evidence_refs": ["evidence_00000000000000000000000065"]
-        },
-        {
-          "fact_id": "resumefact_00000000000000000000000106",
-          "page": 2,
-          "text": "Synthetic Candidate 11 recorded five reviewed field decisions for fixture evaluation.",
-          "fact_keys": [
-            "assertion:approved",
-            "field:demographic_disclosure",
-            "field:relocation_preference",
-            "field:salary_expectation",
-            "field:sponsorship_requirement",
-            "field:work_authorization"
-          ],
-          "evidence_refs": ["evidence_00000000000000000000000066"]
-        },
-        {
-          "fact_id": "resumefact_00000000000000000000000107",
-          "page": 2,
-          "text": "Synthetic Candidate 11 applied Documentation and Task Tracking in reviewed employment record 1. This separate resume fact records an additional reviewed result.",
-          "fact_keys": [
-            "experience:employment-1",
-            "skill:documentation",
-            "skill:task-tracking"
-          ],
-          "evidence_refs": ["evidence_00000000000000000000000061"]
         }
       ]
     },

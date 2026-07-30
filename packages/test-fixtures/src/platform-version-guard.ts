@@ -9,7 +9,7 @@ import { basename, extname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-import { safeDiagnosticPath } from "./diagnostics.ts";
+import { safeUntrustedDiagnosticPath } from "./diagnostics.ts";
 import { parseStrictJson } from "./strict-json.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../", import.meta.url));
@@ -69,7 +69,7 @@ export class PlatformVersionGuardError extends Error {
 
 function safePath(root: string, path: string): string {
   const value = relative(root, path).split(sep).join("/") || basename(path);
-  return safeDiagnosticPath(value) || ".";
+  return safeUntrustedDiagnosticPath(value) || ".";
 }
 
 function pointerAt(collection: string, index: number): string {
@@ -446,9 +446,20 @@ function scanForDeprecatedPlatformV1Internal(
   root: string,
   excludedTopLevel: ReadonlySet<string>,
 ): PlatformVersionReport {
-  const deprecatedRoots = discoverDeprecatedRoots();
-  const deprecated = new Set(deprecatedRoots);
   const issues: PlatformVersionIssue[] = [];
+  let deprecatedRoots: string[];
+  try {
+    deprecatedRoots = discoverDeprecatedRoots();
+  } catch {
+    issues.push({
+      code: "PLATFORM_SCHEMA_IO",
+      file: ".",
+      field: "/",
+      detail: "reviewed platform schema pairs cannot be inspected",
+    });
+    return { valid: false, deprecatedRoots: [], filesScanned: 0, issues };
+  }
+  const deprecated = new Set(deprecatedRoots);
   let rootReal: string;
   try {
     const stats = lstatSync(root);
@@ -476,7 +487,27 @@ function scanForDeprecatedPlatformV1Internal(
       "/@path",
       issues,
     );
-    const stats = lstatSync(path);
+    let stats;
+    try {
+      stats = lstatSync(path);
+    } catch {
+      issues.push({
+        code: "PLATFORM_SCAN_IO",
+        file,
+        field: "/",
+        detail: "file identity cannot be sampled",
+      });
+      continue;
+    }
+    if (stats.isSymbolicLink() || !stats.isFile()) {
+      issues.push({
+        code: "PLATFORM_SCAN_SYMLINK",
+        file,
+        field: "/",
+        detail: "scanned entry is no longer a regular nonsymlink file",
+      });
+      continue;
+    }
     if (stats.size > MAX_SCAN_BYTES) {
       issues.push({
         code: "PLATFORM_SCAN_SIZE",
@@ -486,11 +517,49 @@ function scanForDeprecatedPlatformV1Internal(
       });
       continue;
     }
+    let bytes: Buffer;
+    try {
+      bytes = readFileSync(path);
+    } catch {
+      issues.push({
+        code: "PLATFORM_SCAN_IO",
+        file,
+        field: "/",
+        detail: "file cannot be read",
+      });
+      continue;
+    }
+    let afterStats;
+    try {
+      afterStats = lstatSync(path);
+    } catch {
+      issues.push({
+        code: "PLATFORM_SCAN_IO",
+        file,
+        field: "/",
+        detail: "file identity cannot be resampled",
+      });
+      continue;
+    }
+    if (
+      afterStats.isSymbolicLink() ||
+      !afterStats.isFile() ||
+      afterStats.dev !== stats.dev ||
+      afterStats.ino !== stats.ino ||
+      afterStats.size !== stats.size ||
+      afterStats.mtimeMs !== stats.mtimeMs
+    ) {
+      issues.push({
+        code: "PLATFORM_SCAN_IO",
+        file,
+        field: "/",
+        detail: "file identity changed during the bounded read",
+      });
+      continue;
+    }
     let text: string;
     try {
-      text = new TextDecoder("utf-8", { fatal: true }).decode(
-        readFileSync(path),
-      );
+      text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
     } catch {
       issues.push({
         code: "PLATFORM_SCAN_ENCODING",

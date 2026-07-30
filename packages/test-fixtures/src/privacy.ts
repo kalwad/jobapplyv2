@@ -10,7 +10,7 @@ import { homedir, hostname } from "node:os";
 import { fileURLToPath } from "node:url";
 
 import { parseStrictJson } from "./strict-json.ts";
-import { safeDiagnosticPath } from "./diagnostics.ts";
+import { safeUntrustedDiagnosticPath } from "./diagnostics.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../", import.meta.url));
 const MAX_SCAN_FILE_BYTES = 2 * 1024 * 1024;
@@ -94,8 +94,6 @@ const DANGEROUS_KEYS = new Set([
   "constructor",
   "prototype",
 ]);
-const CREDENTIAL_FIELD =
-  /^(?:api[_-]?key|authorization|cookie|password|passphrase|private[_-]?key|secret|session|token)$/iu;
 const MAX_NORMALIZED_TEXT = 128 * 1024;
 
 const COMMON_MACHINE_NAMES = new Set([
@@ -148,7 +146,59 @@ function containsHiddenText(value: string): boolean {
 function displayPath(root: string, file: string): string {
   const rel = relative(root, file);
   const display = rel === "" ? basename(file) : rel.split(sep).join("/");
-  return safeDiagnosticPath(display) || ".";
+  return safeUntrustedDiagnosticPath(display) || ".";
+}
+
+function normalizedSemanticField(value: string): string {
+  return value
+    .normalize("NFKC")
+    .replaceAll(/([a-z0-9])([A-Z])/gu, "$1_$2")
+    .toLocaleLowerCase("en-US")
+    .replaceAll(/[^a-z0-9]+/gu, "");
+}
+
+function isSecretSemanticField(value: string | undefined): boolean {
+  if (value === undefined) {
+    return false;
+  }
+  return new Set([
+    "apikey",
+    "apisecret",
+    "authorization",
+    "authtoken",
+    "clientsecret",
+    "cookie",
+    "password",
+    "passphrase",
+    "privatekey",
+    "refreshtoken",
+    "secret",
+    "session",
+    "sessiontoken",
+    "signingkey",
+    "token",
+    "accesstoken",
+  ]).has(normalizedSemanticField(value));
+}
+
+function isSensitiveIdentifierField(value: string | undefined): boolean {
+  if (value === undefined) {
+    return false;
+  }
+  return new Set([
+    "accountnumber",
+    "bankaccount",
+    "cardnumber",
+    "driverslicense",
+    "nationalid",
+    "passportnumber",
+    "paymentcard",
+    "routingnumber",
+    "socialsecurity",
+    "socialsecuritynumber",
+    "ssn",
+    "taxid",
+  ]).has(normalizedSemanticField(value));
 }
 
 function resetAndTest(pattern: RegExp, value: string): boolean {
@@ -211,6 +261,7 @@ function inspectText(
   issues: PrivacyIssue[],
   semanticField?: string,
   keyOnly = false,
+  localIdentityTokens: readonly string[] = LOCAL_IDENTITY_TOKENS,
 ): void {
   const variants = normalizedVariants(rawValue);
   const value = variants.at(-1) ?? "";
@@ -263,7 +314,7 @@ function inspectText(
   }
   const normalizedValue = value.toLocaleLowerCase("en-US");
   if (
-    LOCAL_IDENTITY_TOKENS.some((candidate) =>
+    localIdentityTokens.some((candidate) =>
       normalizedValue
         .split(/[^\p{L}\p{N}_.-]+/u)
         .some((token) => token === candidate),
@@ -363,8 +414,7 @@ function inspectText(
   }
   if (
     !keyOnly &&
-    normalizedField !== undefined &&
-    CREDENTIAL_FIELD.test(normalizedField) &&
+    isSecretSemanticField(normalizedField) &&
     value.trim() !== ""
   ) {
     addIssue(
@@ -373,6 +423,19 @@ function inspectText(
       file,
       field,
       "credential-bearing semantic field is forbidden",
+    );
+  }
+  if (
+    !keyOnly &&
+    isSensitiveIdentifierField(normalizedField) &&
+    /^\d{8,}$/u.test(value.trim())
+  ) {
+    addIssue(
+      issues,
+      "PRIVACY_SENSITIVE_IDENTIFIER",
+      file,
+      field,
+      "long numeric value under a sensitive identifier field is forbidden",
     );
   }
   if (!keyOnly && lastField === "full_name" && !RESERVED_NAME.test(value)) {
@@ -413,6 +476,25 @@ function inspectText(
   }
 }
 
+/** Test-only deterministic seam for local-identity and scalar scanner cases. */
+export function inspectPrivacyTextForTest(
+  value: string,
+  semanticField: string | undefined,
+  localIdentityTokens: readonly string[],
+): readonly PrivacyIssue[] {
+  const issues: PrivacyIssue[] = [];
+  inspectText(
+    value,
+    "@test",
+    "/value",
+    issues,
+    semanticField,
+    false,
+    localIdentityTokens,
+  );
+  return issues;
+}
+
 function inspectValue(
   value: unknown,
   file: string,
@@ -430,6 +512,36 @@ function inspectValue(
       issues,
       semanticField,
     );
+  } else if (typeof value === "number" || typeof value === "boolean") {
+    counters.fields += 1;
+    const field = pointer === "" ? "/" : pointer;
+    if (isSecretSemanticField(semanticField)) {
+      addIssue(
+        issues,
+        "PRIVACY_SEMANTIC_CREDENTIAL",
+        file,
+        field,
+        "credential-bearing semantic field is forbidden",
+      );
+    } else if (
+      typeof value === "number" &&
+      isSensitiveIdentifierField(semanticField) &&
+      Number.isFinite(value) &&
+      /^\d{8,}$/u.test(String(Math.abs(Math.trunc(value))))
+    ) {
+      addIssue(
+        issues,
+        "PRIVACY_SENSITIVE_IDENTIFIER",
+        file,
+        field,
+        "long numeric value under a sensitive identifier field is forbidden",
+      );
+    } else if (
+      typeof value === "number" &&
+      normalizedSemanticField(semanticField ?? "") === "phone"
+    ) {
+      inspectText(String(value), file, field, issues, semanticField);
+    }
   } else if (Array.isArray(value)) {
     value.forEach((item, index) => {
       inspectValue(
@@ -446,7 +558,23 @@ function inspectValue(
       const safeKey = `@member/${String(index)}`;
       counters.fields += 1;
       inspectText(key, file, `${pointer}/${safeKey}/@key`, issues, key, true);
-      inspectValue(item, file, `${pointer}/${safeKey}`, issues, counters, key);
+      const inheritedSensitive =
+        isSecretSemanticField(semanticField) ||
+        isSensitiveIdentifierField(semanticField);
+      const childSemantic =
+        isSecretSemanticField(key) ||
+        isSensitiveIdentifierField(key) ||
+        !inheritedSensitive
+          ? key
+          : semanticField;
+      inspectValue(
+        item,
+        file,
+        `${pointer}/${safeKey}`,
+        issues,
+        counters,
+        childSemantic,
+      );
     }
   }
 }
@@ -534,13 +662,47 @@ function scanPrivacyTreeInternal(
     );
     return { valid: false, filesScanned: 0, fieldsScanned: 0, issues };
   }
-  const rootReal = realpathSync(root);
+  let rootReal: string;
+  try {
+    rootReal = realpathSync(root);
+  } catch {
+    addIssue(
+      issues,
+      "PRIVACY_SCAN_IO",
+      ".",
+      "/",
+      "scan root identity cannot be resolved",
+    );
+    return { valid: false, filesScanned: 0, fieldsScanned: 0, issues };
+  }
   const files = walk(rootReal, rootReal, issues, excludedTopLevel);
   const counters = { fields: 0 };
   let scanned = 0;
   for (const filePath of files) {
     const file = displayPath(rootReal, filePath);
-    const fileStats = lstatSync(filePath);
+    let fileStats;
+    try {
+      fileStats = lstatSync(filePath);
+    } catch {
+      addIssue(
+        issues,
+        "PRIVACY_SCAN_IO",
+        file,
+        "/",
+        "file identity cannot be sampled",
+      );
+      continue;
+    }
+    if (fileStats.isSymbolicLink() || !fileStats.isFile()) {
+      addIssue(
+        issues,
+        "PRIVACY_SCAN_SYMLINK",
+        file,
+        "/",
+        "scanned entry is no longer a regular nonsymlink file",
+      );
+      continue;
+    }
     if (fileStats.size > MAX_SCAN_FILE_BYTES) {
       addIssue(
         issues,
@@ -551,11 +713,46 @@ function scanPrivacyTreeInternal(
       );
       continue;
     }
+    let bytes: Buffer;
+    try {
+      bytes = readFileSync(filePath);
+    } catch {
+      addIssue(issues, "PRIVACY_SCAN_IO", file, "/", "file cannot be read");
+      continue;
+    }
+    let afterStats;
+    try {
+      afterStats = lstatSync(filePath);
+    } catch {
+      addIssue(
+        issues,
+        "PRIVACY_SCAN_IO",
+        file,
+        "/",
+        "file identity cannot be resampled",
+      );
+      continue;
+    }
+    if (
+      afterStats.isSymbolicLink() ||
+      !afterStats.isFile() ||
+      afterStats.dev !== fileStats.dev ||
+      afterStats.ino !== fileStats.ino ||
+      afterStats.size !== fileStats.size ||
+      afterStats.mtimeMs !== fileStats.mtimeMs
+    ) {
+      addIssue(
+        issues,
+        "PRIVACY_SCAN_IO",
+        file,
+        "/",
+        "file identity changed during the bounded read",
+      );
+      continue;
+    }
     let text: string;
     try {
-      text = new TextDecoder("utf-8", { fatal: true }).decode(
-        readFileSync(filePath),
-      );
+      text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
     } catch {
       addIssue(
         issues,

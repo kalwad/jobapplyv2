@@ -16,6 +16,8 @@ import {
   sha256Bytes,
   sha256Canonical,
 } from "../src/canonical-json.ts";
+import { validateFixtureConsistency } from "../src/consistency.ts";
+import { safeUnknownErrorMessage } from "../src/diagnostics.ts";
 import {
   COLLECTION_SPECS,
   COMMITTED_FIXTURE_ROOT,
@@ -33,6 +35,7 @@ import {
   type ExpectedSupportedClaim,
   type FieldValuePolicy,
   type FieldValuePolicyKind,
+  type FixtureCorpus,
   type FixtureEntity,
   type FixtureManifest,
   type FixtureManifestFile,
@@ -47,7 +50,19 @@ import {
   type UnsupportedGap,
   type WorkMode,
 } from "../src/model.ts";
+import {
+  expectedReviewRationale,
+  TWO_PAGE_RESUME_RATIONALE,
+} from "../src/review-rationale.ts";
 import { fixtureSchemaValidator } from "../src/schema-catalog.ts";
+import {
+  experienceCoverageDays,
+  requiredExperienceDays,
+  reviewedExperienceRelation,
+  selectExactlyOneEvidence,
+  type SemanticEvidenceSelector,
+} from "../src/semantic-evidence.ts";
+import { credentialStateAt, policyDecisionAt } from "../src/temporal-policy.ts";
 
 const ZERO_DIGEST = `sha256:${"0".repeat(64)}` as const;
 const REVIEWED_AT = "2026-07-29T08:55:00Z";
@@ -495,6 +510,8 @@ function makeEvidence(
       records.push(credential);
     }
     const assertionRecordBase = index * 5;
+    const assertionDate = "2026-07-29";
+    const assertionValidThrough = "2027-07-29";
     records.push({
       category: "USER_ASSERTION",
       organization: `Synthetic Candidate Record ${suffix}`,
@@ -507,8 +524,8 @@ function makeEvidence(
         "field:sponsorship_requirement",
         "field:work_authorization",
       ],
-      start: "2026-07-29",
-      end: "2026-07-29",
+      start: assertionDate,
+      end: assertionDate,
       temporalSemantics: "ASSERTION_FRESHNESS",
       approval: "USER_APPROVED",
       fieldRecords: [
@@ -517,8 +534,8 @@ function makeEvidence(
           field_concept: "WORK_AUTHORIZATION",
           recorded_value: profile.work_authorization.status,
           disclosure_text: `Synthetic Candidate ${suffix} explicitly approved work authorization value ${profile.work_authorization.status}.`,
-          recorded_on: "2026-07-29",
-          valid_through: "2027-07-29",
+          recorded_on: assertionDate,
+          valid_through: assertionValidThrough,
         },
         {
           field_record_id: stableId("fieldrecord", assertionRecordBase + 2),
@@ -526,30 +543,35 @@ function makeEvidence(
           recorded_value: profile.work_authorization.sponsorship_required
             ? "REQUIRED"
             : "NOT_REQUIRED",
-          disclosure_text: `Synthetic Candidate ${suffix} explicitly approved a sponsorship requirement decision.`,
-          recorded_on: "2026-07-29",
-          valid_through: "2027-07-29",
+          disclosure_text: `Synthetic Candidate ${suffix} explicitly approved sponsorship requirement value ${
+            profile.work_authorization.sponsorship_required
+              ? "REQUIRED"
+              : "NOT_REQUIRED"
+          }.`,
+          recorded_on: assertionDate,
+          valid_through: assertionValidThrough,
         },
         {
           field_record_id: stableId("fieldrecord", assertionRecordBase + 3),
           field_concept: "RELOCATION_PREFERENCE",
           recorded_value: profile.constraints.relocation,
           disclosure_text: `Synthetic Candidate ${suffix} explicitly approved relocation preference ${profile.constraints.relocation}.`,
-          recorded_on: "2026-07-29",
-          valid_through: number % 3 === 0 ? "2026-06-30" : "2027-07-29",
+          recorded_on: assertionDate,
+          valid_through:
+            number % 3 === 0 ? "2026-06-30" : assertionValidThrough,
         },
         {
           field_record_id: stableId("fieldrecord", assertionRecordBase + 4),
           field_concept: "SALARY_EXPECTATION",
           recorded_value: `FIXTURE_COMPENSATION_BAND_${suffix}`,
           disclosure_text: `Synthetic Candidate ${suffix} explicitly recorded synthetic compensation band ${suffix}.`,
-          recorded_on: "2026-07-29",
+          recorded_on: assertionDate,
         },
         {
           field_record_id: stableId("fieldrecord", assertionRecordBase + 5),
           field_concept: "DEMOGRAPHIC_DISCLOSURE",
           disclosure_text: `Synthetic Candidate ${suffix} chose not to provide a demographic disclosure value.`,
-          recorded_on: "2026-07-29",
+          recorded_on: assertionDate,
         },
       ],
     });
@@ -596,37 +618,58 @@ function makeResumes(
   evidence: readonly EvidenceArtifact[],
 ): SourceResume[] {
   return profiles.map((profile, index) => {
+    const asOf = "2026-07-29";
     const profileEvidence = evidence.filter(
       (artifact) => artifact.profile_ref === profile.id,
     );
     const resumeEvidence = profileEvidence.filter(
-      (artifact) => artifact.effective_period.start <= "2026-07-29",
+      (artifact) => artifact.effective_period.start <= asOf,
     );
-    const factCounts = [4, 5, 6, 7, 5, 6, 5, 5, 6, 5, 7, 6] as const;
+    const factCounts = [4, 5, 6, 6, 5, 6, 5, 5, 6, 5, 5, 6] as const;
     const factCount = factCounts[index];
     if (factCount === undefined) {
       throw new Error("generator resume fact-count design missing");
     }
+    const twoPage = profile.coverage_tags.includes("TWO_PAGE_RESUME");
+    const orderedEvidence = twoPage
+      ? [
+          ...resumeEvidence.filter(
+            (artifact) => artifact.category === "EMPLOYMENT_RECORD",
+          ),
+          required(
+            resumeEvidence.find(
+              (artifact) => artifact.category === "EDUCATION_RECORD",
+            ),
+            "two-page resume first education evidence is missing",
+          ),
+          ...resumeEvidence
+            .filter((artifact) => artifact.category === "EDUCATION_RECORD")
+            .slice(1),
+          ...resumeEvidence.filter(
+            (artifact) => artifact.category === "PROJECT_RECORD",
+          ),
+        ]
+      : resumeEvidence;
+    if (
+      orderedEvidence.length < factCount ||
+      new Set(orderedEvidence.map((artifact) => artifact.id)).size !==
+        orderedEvidence.length
+    ) {
+      throw new Error("generator resume design requires unique evidence facts");
+    }
     const facts = Array.from({ length: factCount }, (_, factIndex) => {
-      const artifact = resumeEvidence[factIndex % resumeEvidence.length];
+      const artifact = orderedEvidence[factIndex];
       if (artifact === undefined) {
         throw new Error("generator resume evidence missing");
       }
       return {
         fact_id: stableId("resumefact", index * 10 + factIndex + 1),
-        page:
-          profile.coverage_tags.includes("TWO_PAGE_RESUME") && factIndex >= 4
-            ? (2 as const)
-            : (1 as const),
-        text:
-          factIndex < profileEvidence.length
-            ? artifact.statement
-            : `${artifact.statement} This separate resume fact records an additional reviewed result.`,
+        page: twoPage && factIndex >= 2 ? (2 as const) : (1 as const),
+        text: artifact.statement,
         fact_keys: [...artifact.fact_keys],
         evidence_refs: [artifact.id],
       };
     });
-    const twoPage = profile.coverage_tags.includes("TWO_PAGE_RESUME");
     return {
       id: stableId("resume", index + 1),
       entity_type: "SOURCE_RESUME",
@@ -634,14 +677,13 @@ function makeResumes(
       schema_version: FIXTURE_SCHEMA_VERSION,
       metadata: metadata(),
       profile_ref: profile.id,
-      as_of: "2026-07-29",
+      as_of: asOf,
       page_count: twoPage ? 2 : 1,
       ...(twoPage
         ? {
             page_boundary: {
-              break_after_fact_id: facts[3]?.fact_id ?? "",
-              rationale:
-                "Page one closes after the primary experience section; page two preserves three substantive education and project facts instead of moving decorative filler.",
+              break_after_fact_id: facts[1]?.fact_id ?? "",
+              rationale: TWO_PAGE_RESUME_RATIONALE,
             },
           }
         : {}),
@@ -671,6 +713,10 @@ function makeJobsAndRequirements(profiles: readonly SyntheticProfile[]): {
     "NONE",
     "AUTHORIZED_TO_WORK_IN_US",
   ];
+  const reviewedJobEligibility = new Map<
+    string,
+    SyntheticJob["eligibility_constraint"]
+  >([[stableId("job", 20), "NONE"]]);
   for (const [profileIndex, profile] of profiles.entries()) {
     for (let localJob = 0; localJob < 2; localJob += 1) {
       const jobNumber = profileIndex * 2 + localJob + 1;
@@ -687,7 +733,9 @@ function makeJobsAndRequirements(profiles: readonly SyntheticProfile[]): {
             : localJob === 0
               ? 1
               : 2;
-      const eligibility = shapeEligibility[shapeIndex];
+      const jobRef = stableId("job", jobNumber);
+      const eligibility =
+        reviewedJobEligibility.get(jobRef) ?? shapeEligibility[shapeIndex];
       if (eligibility === undefined) {
         throw new Error("generator job-shape eligibility missing");
       }
@@ -799,7 +847,7 @@ function makeJobsAndRequirements(profiles: readonly SyntheticProfile[]): {
         };
       });
       const job: SyntheticJob = {
-        id: stableId("job", jobNumber),
+        id: jobRef,
         entity_type: "SYNTHETIC_JOB",
         schema_ref: SCHEMA_REFS.SYNTHETIC_JOB,
         schema_version: FIXTURE_SCHEMA_VERSION,
@@ -831,8 +879,6 @@ function makeJobsAndRequirements(profiles: readonly SyntheticProfile[]): {
           source_text_sha256: block.text_sha256,
           requirement_tag: block.requirement_tag,
           constraint: block.constraint,
-          keyword_trap: blockIndex === 2,
-          related_evidence_trap: blockIndex === 0,
         });
       });
     }
@@ -876,94 +922,120 @@ function makeGap(
 }
 
 interface CrossScenarioDesign {
-  readonly jobIndex: number;
+  readonly profileRef: string;
+  readonly jobRef: string;
+  readonly requirementTag: string;
   readonly classification: "PARTIAL" | "STRONG_RELATED" | "UNSUPPORTED";
-  readonly evidenceOffset?: 0 | 1 | 3;
-  readonly rationale: string;
+  readonly selector?: SemanticEvidenceSelector;
 }
 
 const CROSS_SCENARIO_DESIGNS: readonly CrossScenarioDesign[] = [
   {
-    jobIndex: 5,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "API design is relevant to data modeling work, but it does not directly prove the required data-modeling experience.",
-  },
-  {
-    jobIndex: 8,
-    classification: "STRONG_RELATED",
-    evidenceOffset: 1,
-    rationale:
-      "Reviewed platform work is strongly related to process-oriented technical work without being an exact process-mapping record.",
-  },
-  {
-    jobIndex: 7,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Reviewed Python project work is relevant to machine-learning implementation, but its duration is insufficient for the anchored three-year experience requirement.",
-  },
-  {
-    jobIndex: 4,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Statistical analysis is relevant to SQL-based data work but does not directly prove reviewed SQL experience.",
-  },
-  {
-    jobIndex: 10,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Requirements analysis is relevant to scheduling operations, but the evidence does not directly establish scheduling experience.",
-  },
-  {
-    jobIndex: 8,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Process-improvement work is relevant to process mapping, but its duration is insufficient for the anchored three-year experience requirement.",
-  },
-  {
-    jobIndex: 6,
-    classification: "PARTIAL",
-    evidenceOffset: 1,
-    rationale:
-      "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience.",
-  },
-  {
-    jobIndex: 4,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Learning analytics is relevant to SQL analysis but does not directly establish reviewed SQL experience.",
-  },
-  {
-    jobIndex: 18,
-    classification: "PARTIAL",
-    evidenceOffset: 3,
-    rationale:
-      "Forecasting work is relevant to financial modeling, but its duration is insufficient for the anchored seven-year experience requirement.",
-  },
-  {
-    jobIndex: 0,
+    profileRef: stableId("profile", 1),
+    jobRef: stableId("job", 6),
+    requirementTag: "skill:data-modeling",
     classification: "UNSUPPORTED",
-    rationale:
-      "Financial-analysis evidence does not support the TypeScript experience requirement, so the expected action is abstention.",
   },
   {
-    jobIndex: 10,
-    classification: "STRONG_RELATED",
-    evidenceOffset: 1,
-    rationale:
-      "Task-tracking work is strongly related to operational scheduling while remaining distinct from direct scheduling evidence.",
-  },
-  {
-    jobIndex: 13,
+    profileRef: stableId("profile", 2),
+    jobRef: stableId("job", 9),
+    requirementTag: "skill:process-mapping",
     classification: "UNSUPPORTED",
-    rationale:
-      "The entry-level support profile has no healthcare license or related experience evidence for this cross-role job.",
+  },
+  {
+    profileRef: stableId("profile", 3),
+    jobRef: stableId("job", 8),
+    requirementTag: "skill:machine-learning",
+    classification: "UNSUPPORTED",
+  },
+  {
+    profileRef: stableId("profile", 4),
+    jobRef: stableId("job", 5),
+    requirementTag: "skill:sql",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 22),
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:statistical-analysis", "project:reviewed-2"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 5),
+    jobRef: stableId("job", 11),
+    requirementTag: "skill:scheduling",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 28),
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:requirements-analysis", "project:reviewed-3"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 6),
+    jobRef: stableId("job", 9),
+    requirementTag: "skill:process-mapping",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 34),
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:process-improvement", "project:reviewed-3"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 7),
+    jobRef: stableId("job", 7),
+    requirementTag: "skill:experiment-design",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 37),
+      category: "EMPLOYMENT_RECORD",
+      fact_keys: ["skill:quality-reporting", "experience:employment-1"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 8),
+    jobRef: stableId("job", 5),
+    requirementTag: "skill:sql",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 44),
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:learning-analytics", "project:reviewed-1"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 9),
+    jobRef: stableId("job", 19),
+    requirementTag: "skill:financial-modeling",
+    classification: "PARTIAL",
+    selector: {
+      id: stableId("evidence", 50),
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:forecasting", "project:reviewed-1"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 10),
+    jobRef: stableId("job", 1),
+    requirementTag: "skill:typescript",
+    classification: "UNSUPPORTED",
+  },
+  {
+    profileRef: stableId("profile", 11),
+    jobRef: stableId("job", 11),
+    requirementTag: "skill:scheduling",
+    classification: "STRONG_RELATED",
+    selector: {
+      id: stableId("evidence", 61),
+      category: "EMPLOYMENT_RECORD",
+      fact_keys: ["skill:task-tracking", "experience:employment-1"],
+    },
+  },
+  {
+    profileRef: stableId("profile", 12),
+    jobRef: stableId("job", 14),
+    requirementTag: "skill:quality-reporting",
+    classification: "UNSUPPORTED",
   },
 ] as const;
 
@@ -977,82 +1049,6 @@ function fieldRecordForRequirement(
   return artifact.field_records.find(
     (record) => record.field_concept === concept,
   );
-}
-
-type CredentialState =
-  "CURRENT" | "EXPIRED" | "NOT_YET_VALID" | "REVOKED" | "UNKNOWN";
-
-function credentialStateAt(
-  artifact: EvidenceArtifact,
-  evaluationDate: string,
-): CredentialState {
-  if (
-    artifact.category !== "CREDENTIAL_RECORD" ||
-    artifact.credential_validity_basis === undefined
-  ) {
-    throw new Error("credential state requested for non-credential evidence");
-  }
-  if (
-    artifact.revoked_on !== undefined &&
-    artifact.revoked_on <= evaluationDate
-  ) {
-    return "REVOKED";
-  }
-  if (evaluationDate < artifact.effective_period.start) {
-    return "NOT_YET_VALID";
-  }
-  if (artifact.credential_validity_basis === "UNKNOWN") {
-    return "UNKNOWN";
-  }
-  if (
-    artifact.credential_validity_basis === "BOUNDED" &&
-    artifact.effective_period.end !== undefined &&
-    evaluationDate > artifact.effective_period.end
-  ) {
-    return "EXPIRED";
-  }
-  return "CURRENT";
-}
-
-function policyDecision(
-  policy: FieldValuePolicy,
-  source: EvidenceArtifact,
-  evaluationDate: string,
-): {
-  action: ScenarioBundle["evaluations"][number]["expected_action"];
-  releaseEligible: boolean;
-} {
-  let action: ScenarioBundle["evaluations"][number]["expected_action"];
-  if (policy.policy === "FILL_FROM_EXPLICIT_RECORD") {
-    action = "USE_SUPPORTED_EVIDENCE";
-  } else if (policy.policy === "CONFIRM_ONCE_PER_JOB") {
-    action = "REQUIRE_CONFIRMATION";
-  } else if (
-    policy.policy === "BLOCK_AND_EXPLAIN" ||
-    policy.policy === "NEVER_AUTOFILL"
-  ) {
-    action = "BLOCK_AND_EXPLAIN";
-  } else if (policy.policy === "VOLUNTARY_PREFER_NOT_TO_ANSWER") {
-    action = "ABSTAIN";
-  } else if (policy.field_concept === "LICENSE_VALIDITY") {
-    action =
-      credentialStateAt(source, evaluationDate) === "CURRENT"
-        ? "USE_SUPPORTED_EVIDENCE"
-        : "REQUIRE_CONFIRMATION";
-  } else {
-    const fieldRecord = source.field_records.find(
-      (record) => record.field_record_id === policy.source_field_record_id,
-    );
-    action =
-      fieldRecord?.valid_through !== undefined &&
-      fieldRecord.valid_through >= evaluationDate
-        ? "USE_SUPPORTED_EVIDENCE"
-        : "REQUIRE_CONFIRMATION";
-  }
-  return {
-    action,
-    releaseEligible: action === "USE_SUPPORTED_EVIDENCE",
-  };
 }
 
 function makeScenariosAndResults(
@@ -1074,11 +1070,18 @@ function makeScenariosAndResults(
   let gapNumber = 0;
   for (const [profileIndex, profile] of profiles.entries()) {
     const ownJobIndexes = [profileIndex * 2, profileIndex * 2 + 1];
-    const crossDesign = CROSS_SCENARIO_DESIGNS[profileIndex];
+    const crossDesign = CROSS_SCENARIO_DESIGNS.find(
+      (design) => design.profileRef === profile.id,
+    );
     if (crossDesign === undefined) {
       throw new Error("generator cross-scenario design missing");
     }
-    const crossJobIndex = crossDesign.jobIndex;
+    const crossJobIndex = jobs.findIndex(
+      (candidate) => candidate.id === crossDesign.jobRef,
+    );
+    if (crossJobIndex < 0) {
+      throw new Error("generator cross-scenario job is missing");
+    }
     const scenarioJobIndexes = [...ownJobIndexes, crossJobIndex];
     for (const [localScenario, jobIndex] of scenarioJobIndexes.entries()) {
       const scenarioNumber = profileIndex * 3 + localScenario + 1;
@@ -1110,20 +1113,52 @@ function makeScenariosAndResults(
         let gapAction: UnsupportedGap["expected_action"] = "ABSTAIN";
         let gapReason: UnsupportedGap["reason_code"] | undefined;
         if (localScenario === 2 && requirementIndex === 0) {
+          if (requirement.requirement_tag !== crossDesign.requirementTag) {
+            throw new Error(
+              `${scenarioId}/${requirement.id}: cross-scenario requirement tag drifted from its reviewed design`,
+            );
+          }
           classification = crossDesign.classification;
-          const crossEvidence =
-            crossDesign.evidenceOffset === undefined
-              ? undefined
-              : profileEvidence[crossDesign.evidenceOffset];
-          selectedEvidence = crossEvidence === undefined ? [] : [crossEvidence];
+          selectedEvidence =
+            crossDesign.selector === undefined
+              ? []
+              : [
+                  selectExactlyOneEvidence(
+                    profileEvidence,
+                    crossDesign.selector,
+                    `${scenarioId}/${requirement.id}`,
+                  ),
+                ];
+          const reviewedRelation = selectedEvidence[0]
+            ? reviewedExperienceRelation(requirement, selectedEvidence[0])
+            : undefined;
+          if (
+            (classification === "PARTIAL" && reviewedRelation !== "PARTIAL") ||
+            (classification === "STRONG_RELATED" &&
+              reviewedRelation !== "STRONG_RELATED") ||
+            (classification === "UNSUPPORTED" && selectedEvidence.length !== 0)
+          ) {
+            throw new Error(
+              `${scenarioId}/${requirement.id}: cross-scenario semantic relation does not match its reviewed classification`,
+            );
+          }
         } else if (requirement.requirement_kind === "EXPERIENCE") {
           selectedEvidence = profileEvidence.filter(
             (artifact) =>
               artifact.category === "EMPLOYMENT_RECORD" &&
               artifact.fact_keys.includes(requirement.requirement_tag),
           );
+          const threshold = requiredExperienceDays(requirement);
+          const covered = experienceCoverageDays(
+            selectedEvidence,
+            resume.as_of,
+          );
           classification =
-            selectedEvidence.length === 0 ? "UNSUPPORTED" : "DIRECT";
+            selectedEvidence.length === 0
+              ? "UNSUPPORTED"
+              : threshold !== undefined && covered < threshold
+                ? "PARTIAL"
+                : "DIRECT";
         } else if (
           requirement.requirement_kind === "ELIGIBILITY" ||
           requirement.requirement_kind === "LOCATION"
@@ -1246,7 +1281,7 @@ function makeScenariosAndResults(
                   action: "USE_SUPPORTED_EVIDENCE" as const,
                   releaseEligible: true,
                 }
-              : policyDecision(
+              : policyDecisionAt(
                   fieldPolicy,
                   required(
                     selectedEvidence[0],
@@ -1277,12 +1312,12 @@ function makeScenariosAndResults(
               : { field_policy_ref: fieldPolicy.id }),
             release_eligible: decision.releaseEligible,
             canonical_evidence_mutation: false,
-            support_review_rationale:
-              classification === "DIRECT"
-                ? "The reviewed evidence carries the exact normalized requirement tag and directly supports the anchored requirement."
-                : classification === "USER_ASSERTED"
-                  ? "An atomic, explicitly approved field record matches the anchored field concept without releasing unrelated values."
-                  : crossDesign.rationale,
+            support_review_rationale: expectedReviewRationale({
+              classification,
+              requirement,
+              evidence: selectedEvidence,
+              evaluationDate: resume.as_of,
+            }),
           };
           claims.push(claim);
           evaluations.push({
@@ -1309,6 +1344,13 @@ function makeScenariosAndResults(
             }
           }
           gapNumber += 1;
+          const resolvedReason =
+            gapReason ??
+            (classification === "CONTRADICTED"
+              ? "CONTRADICTED_BY_EXPLICIT_RECORD"
+              : classification === "PARTIAL"
+                ? "INSUFFICIENT_DIRECT_EVIDENCE"
+                : "NO_SUPPORTING_EVIDENCE");
           const gap = makeGap(
             gapNumber,
             scenarioId,
@@ -1316,15 +1358,15 @@ function makeScenariosAndResults(
             requirement.id,
             classification,
             selectedEvidence.map((artifact) => artifact.id),
-            classification === "PARTIAL"
-              ? crossDesign.rationale
-              : classification === "CONTRADICTED"
-                ? "An explicit approved field record conflicts with the anchored job constraint, so the scenario must block or abstain."
-                : requirementIndex === 0 && localScenario === 2
-                  ? crossDesign.rationale
-                  : "No reviewed evidence supports the anchored requirement, so the expected action is abstention.",
+            expectedReviewRationale({
+              classification,
+              requirement,
+              evidence: selectedEvidence,
+              evaluationDate: resume.as_of,
+              reasonCode: resolvedReason,
+            }),
             gapAction,
-            gapReason,
+            resolvedReason,
           );
           gaps.push(gap);
           evaluations.push({
@@ -1358,7 +1400,7 @@ function makeScenariosAndResults(
           if (source === undefined) {
             throw new Error("generator policy evaluation source missing");
           }
-          const decision = policyDecision(policy, source, resume.as_of);
+          const decision = policyDecisionAt(policy, source, resume.as_of);
           return {
             policy_ref: policy.id,
             field_concept: policy.field_concept,
@@ -1407,7 +1449,6 @@ function makeScenariosAndResults(
         policy_evaluations: policyEvaluations,
         coverage_tags: [
           "COMPLETE_REQUIREMENT_EVALUATION",
-          localScenario === 2 ? "CROSS_ROLE_EVIDENCE_TRAP" : "OWN_ROLE",
           ...(blockedByEligibility ? ["INELIGIBLE_DESPITE_SKILL_MATCH"] : []),
           ...(blockedByFieldPolicy ? ["FIELD_POLICY_BLOCK"] : []),
           ...(requiresConfirmation ? ["FIELD_CONFIRMATION_REQUIRED"] : []),
@@ -1717,6 +1758,7 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
     mkdirSync(rootPath, { recursive: true });
   }
   const files: FixtureManifestFile[] = [];
+  const serializedFiles = new Map<string, Buffer>();
   for (const spec of COLLECTION_SPECS) {
     const items = collections.get(spec.file);
     if (items === undefined) {
@@ -1734,7 +1776,7 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
       byte_count: bytes.length,
       sha256: sha256Bytes(bytes),
     });
-    writeOrCheck(join(rootPath, spec.file), bytes, checkMode);
+    serializedFiles.set(spec.file, bytes);
   }
   const evidenceCategoryCounts = {
     CREDENTIAL_RECORD: evidence.filter(
@@ -1807,6 +1849,34 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
       `generated manifest failed schema: ${manifestValidation.errors.join("; ")}`,
     );
   }
+  const generatedCorpus: FixtureCorpus = {
+    manifest,
+    profiles,
+    evidenceArtifacts: evidence,
+    sourceResumes: resumes,
+    jobs,
+    expectedRequirements: requirements,
+    expectedSupportedClaims: claims,
+    unsupportedGaps: gaps,
+    fieldValuePolicies: policies,
+    scenarioBundles: scenarios,
+  };
+  const consistency = validateFixtureConsistency(generatedCorpus);
+  if (!consistency.valid) {
+    throw new Error(
+      `generated corpus failed consistency: ${consistency.issues
+        .slice(0, 12)
+        .map((entry) => entry.code)
+        .join(", ")}`,
+    );
+  }
+  for (const spec of COLLECTION_SPECS) {
+    const bytes = serializedFiles.get(spec.file);
+    if (bytes === undefined) {
+      throw new Error(`generator serialized collection missing: ${spec.file}`);
+    }
+    writeOrCheck(join(rootPath, spec.file), bytes, checkMode);
+  }
   writeOrCheck(
     join(rootPath, "manifest.v2.json"),
     await serialize(manifest),
@@ -1851,5 +1921,10 @@ if (
   invokedPath !== undefined &&
   pathToFileURL(resolve(invokedPath)).href === import.meta.url
 ) {
-  await main();
+  try {
+    await main();
+  } catch {
+    console.error(`fixture seed failed: ${safeUnknownErrorMessage()}`);
+    process.exitCode = 1;
+  }
 }

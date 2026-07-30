@@ -180,12 +180,12 @@
       "proofs": [
         {
           "kind": "vitest_exact_tests",
-          "min": 82
+          "min": 102
         }
       ],
       "discovery_globs": ["packages/test-fixtures/test/m02-w01/**/*.test.ts"],
       "artifacts": [],
-      "explanation": "ACTIVE when M02-W01 begins. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, any skipped/todo/pending/excluded outcome, or any discovered-test count other than the separately authored test-layer exact 82."
+      "explanation": "ACTIVE when M02-W01 begins. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, any skipped/todo/pending/excluded outcome, or any discovered-test count other than the separately authored test-layer exact 102."
     },
     {
       "id": "contract",

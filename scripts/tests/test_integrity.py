@@ -162,6 +162,57 @@ def test_typescript_ast_scan_allows_unmodified_test_apis_and_lookalikes(
     assert verify.check_focused_tests(fixture_repo, ()) == []
 
 
+def test_typescript_ast_scan_rejects_statically_empty_parameter_tables(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "src" / "probe.test.tsx"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        'test.each([])("empty", () => {});\n',
+        'it["each"]([])("empty", () => {});\n',
+        'describe.concurrent.each([])("empty", () => {});\n',
+        'suite.for([])("empty", () => {});\n',
+        (
+            'import { test as check } from "vitest";\n'
+            "const rows = [] as const;\n"
+            'check.each(rows)("empty", () => {});\n'
+        ),
+        (
+            'import * as vitest from "vitest";\n'
+            "const { each: parameterize } = vitest.test;\n"
+            'parameterize(Array.of())("empty", () => {});\n'
+        ),
+        (
+            'const member = "ea" + "ch";\n'
+            'test[member](new Array(0))("empty", () => {});\n'
+        ),
+        'test.extend({}).each([])("empty", () => {});\n',
+        'test.each``("empty", () => {});\n',
+        'test.each`name | value`("empty", () => {});\n',
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("probe.test.tsx" in failure for failure in failures), source
+
+
+def test_typescript_ast_scan_covers_workspace_root_src_tests_and_spec_surfaces(
+    fixture_repo: verify.Context,
+) -> None:
+    paths = (
+        fixture_repo.repo / "packages" / "probe" / "probe.test.ts",
+        fixture_repo.repo / "packages" / "probe" / "src" / "probe.test.tsx",
+        fixture_repo.repo / "packages" / "probe" / "tests" / "probe.spec.ts",
+        fixture_repo.repo / "apps" / "probe" / "src" / "probe.test.tsx",
+    )
+    for path in paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('test.each([])("empty", () => {});\n', encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any(path.name in failure for failure in failures), path
+        path.unlink()
+
+
 def test_missing_lockfile_and_memory_file_fail(fixture_repo: verify.Context) -> None:
     failures = verify.check_integrity(fixture_repo, _registry())
     assert any("pnpm-lock.yaml" in f for f in failures)

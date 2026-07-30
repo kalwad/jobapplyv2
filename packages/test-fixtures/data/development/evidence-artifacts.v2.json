@@ -129,7 +129,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c0c3ee8799c43dd46e182b1f0d9cc84c5ac05206fafb4fb0360685f224307702"
+        "historical_content_hash": "sha256:09cc37c6eb9d5fdd26e1724e2b6452c507a075184c5ffa82c0c4f634fe98da0b"
       },
       "profile_ref": "profile_00000000000000000000000001",
       "category": "EDUCATION_RECORD",
@@ -145,12 +145,7 @@
       "education_state": "COMPLETED",
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
-      "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000016",
-          "relation": "PARTIAL"
-        }
-      ]
+      "requirement_relations": []
     },
     {
       "id": "evidence_00000000000000000000000005",
@@ -203,7 +198,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0e738f37fae95421e95926100015c8f1eae92ce72f4dd44cb6a6d6017dee53a5"
+        "historical_content_hash": "sha256:5bcf870560800687f900eb1f0d2ad1c8b1f6e7d8e2158d781a11b529ffa9b5b9"
       },
       "profile_ref": "profile_00000000000000000000000001",
       "category": "USER_ASSERTION",
@@ -233,7 +228,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000002",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 01 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 01 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -324,7 +319,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e31080989bf710075696e2e697c568aa90564a4f6ccfb8de9b996cfdc249d457"
+        "historical_content_hash": "sha256:cccaeef699e18d6b8d7af1cd4c0cbf2495be16cc87589b30a457a8665418eaf9"
       },
       "profile_ref": "profile_00000000000000000000000002",
       "category": "EMPLOYMENT_RECORD",
@@ -347,10 +342,6 @@
         {
           "requirement_ref": "requirement_00000000000000000000000010",
           "relation": "DIRECT"
-        },
-        {
-          "requirement_ref": "requirement_00000000000000000000000025",
-          "relation": "STRONG_RELATED"
         }
       ]
     },
@@ -469,7 +460,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:463b1e5b59947582776f512557ccbc2282a761e89211f44c793b6694735e0714"
+        "historical_content_hash": "sha256:6e965593e3fa0b79c3e6c1e854ff871fd5698fd49c8272e4b5cd06764cb3b82a"
       },
       "profile_ref": "profile_00000000000000000000000002",
       "category": "USER_ASSERTION",
@@ -499,7 +490,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000007",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 02 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 02 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -668,7 +659,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:665560b5bf122fa3b80615ecee3963d2242b24f2f2262d6ec25fdcf914772841"
+        "historical_content_hash": "sha256:59a8dd430307926a6a789dd2130dd851d7d7eba4029a3d49cab5f35640075d7e"
       },
       "profile_ref": "profile_00000000000000000000000003",
       "category": "EDUCATION_RECORD",
@@ -684,12 +675,7 @@
       "education_state": "COMPLETED",
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
-      "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000022",
-          "relation": "PARTIAL"
-        }
-      ]
+      "requirement_relations": []
     },
     {
       "id": "evidence_00000000000000000000000017",
@@ -742,7 +728,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f7d4c91e8922bf03f08f475c2ab796410f8e41dc5595dbffe50e478ad849a287"
+        "historical_content_hash": "sha256:ad5fe959212500587e20c6980eae1f13e2686738c5fe52bd831ec3bdfd9ba57f"
       },
       "profile_ref": "profile_00000000000000000000000003",
       "category": "USER_ASSERTION",
@@ -772,7 +758,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000012",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 03 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 03 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -991,7 +977,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:052b0bac08d3134f4c9e89195c705c5c91540ebc8600971b4ad3aa5f2522428f"
+        "historical_content_hash": "sha256:00a92794f74c4272cc86574df055ae65cdd69c7a1d9aa858b053f2c5ff535c25"
       },
       "profile_ref": "profile_00000000000000000000000004",
       "category": "USER_ASSERTION",
@@ -1021,7 +1007,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000017",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 04 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 04 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -1236,7 +1222,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a7220184400a6286a3d0332cc57fa2a7bc24de8ac2f22d313e14b225a46d0135"
+        "historical_content_hash": "sha256:6d7cf6dfec7f84901508100c0c22baec25c5b197d2e0b2feda457070acc55591"
       },
       "profile_ref": "profile_00000000000000000000000005",
       "category": "USER_ASSERTION",
@@ -1266,7 +1252,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000022",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 05 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 05 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -1489,7 +1475,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:84d47c6bd03e5338de147be9018a84d495ebf5632a74bcd283d6d3604c29d66a"
+        "historical_content_hash": "sha256:d39cf78822b6a49e156ed0bdbf25bf77a3db1f81b143c2929b35484ff36121cb"
       },
       "profile_ref": "profile_00000000000000000000000006",
       "category": "USER_ASSERTION",
@@ -1519,7 +1505,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000027",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 06 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 06 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -1572,7 +1558,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:5731d056cd927ce707d539e34919e362402ba9f2e28400a3175c0e20b4fed648"
+        "historical_content_hash": "sha256:1ca0a2be5e9d0771eb3b90e43609e0f805e0f180cb81f53b174c35b88304228d"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "category": "EMPLOYMENT_RECORD",
@@ -1588,6 +1574,10 @@
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
       "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000019",
+          "relation": "PARTIAL"
+        },
         {
           "requirement_ref": "requirement_00000000000000000000000037",
           "relation": "DIRECT"
@@ -1610,7 +1600,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2e7a4aca9b6132b91179f8cb3260adf9cdf0aeae49ea9fecbe1fa64349ee30c5"
+        "historical_content_hash": "sha256:9b14aa4c66877098375b4c8b5938948b0a5e56d91af7cc5f3813632eedcafd8a"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "category": "PROJECT_RECORD",
@@ -1622,10 +1612,6 @@
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
       "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000019",
-          "relation": "PARTIAL"
-        },
         {
           "requirement_ref": "requirement_00000000000000000000000042",
           "relation": "DIRECT"
@@ -1745,7 +1731,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0bd872ba1a879b2d0ad29ac4fc103d2b329c0a83374015df3c3c92e4ee7cefbf"
+        "historical_content_hash": "sha256:088cac3a5027efc8f6d9b6704882b41a41ffa94533104b5751d1272265819286"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "category": "USER_ASSERTION",
@@ -1775,7 +1761,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000032",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 07 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 07 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -1853,7 +1839,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9bf05454ece6c5d0248bde2eea341c6888c9fbab7a654b59cb8a7ba7b220203b"
+        "historical_content_hash": "sha256:98b05eb863473099b42fdd1f2e93adda812f2f4984350634e6ef9d0e85402ea5"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "category": "PROJECT_RECORD",
@@ -1865,6 +1851,10 @@
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
       "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000013",
+          "relation": "PARTIAL"
+        },
         {
           "requirement_ref": "requirement_00000000000000000000000045",
           "relation": "DIRECT"
@@ -1918,7 +1908,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:05b1e8b9bf107d4531bad9420fa0fc2e3e61d34466250a190b3b218c57e7a41d"
+        "historical_content_hash": "sha256:92fb573a6faf703583cab94a8217fec558ec23103978da46c2839f8df66f9d30"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "category": "CREDENTIAL_RECORD",
@@ -1930,12 +1920,7 @@
       "credential_validity_basis": "BOUNDED",
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
-      "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000013",
-          "relation": "PARTIAL"
-        }
-      ]
+      "requirement_relations": []
     },
     {
       "id": "evidence_00000000000000000000000047",
@@ -1976,7 +1961,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:408c38f73dcb8f54eee9591123900e406d1f60efa967b67d4e3682c958ffbcf8"
+        "historical_content_hash": "sha256:5d380a6c472299365fdd377425893d7dd0b2e5dee2efa438bec8ffe49f89c9e5"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "category": "USER_ASSERTION",
@@ -2006,7 +1991,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000037",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "REQUIRED",
-          "disclosure_text": "Synthetic Candidate 08 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 08 explicitly approved sponsorship requirement value REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -2097,7 +2082,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:1f976c67732d8e1126285397d83ff21f28db46bfe97c5ca71deb746ec87efbab"
+        "historical_content_hash": "sha256:0c6bf5030ad66334f5808d363d476cb270224ccd6edf03b22e1e80024f0c7b1a"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "category": "PROJECT_RECORD",
@@ -2108,7 +2093,12 @@
       "temporal_semantics": "ACTIVITY_INTERVAL",
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
-      "requirement_relations": []
+      "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000055",
+          "relation": "PARTIAL"
+        }
+      ]
     },
     {
       "id": "evidence_00000000000000000000000051",
@@ -2148,7 +2138,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4f3d8475d2d925d717a359c6ef6497c413559fac07cac3692d989512d3c6e85d"
+        "historical_content_hash": "sha256:c3d9fabac5751f9d78d59cacb2d485395b78dd0a1cdaaad2951771fa7c4a9362"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "category": "CREDENTIAL_RECORD",
@@ -2160,12 +2150,7 @@
       "credential_validity_basis": "UNKNOWN",
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
-      "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000055",
-          "relation": "PARTIAL"
-        }
-      ]
+      "requirement_relations": []
     },
     {
       "id": "evidence_00000000000000000000000053",
@@ -2205,7 +2190,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:bd0d6d3f1d49612254b003cf14b0591f230bf600c5e97b2445556d315f13baee"
+        "historical_content_hash": "sha256:102e1199884360a2ba3f8de5324cdc7f5a381407abed0b00c3c587c66bad9755"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "category": "USER_ASSERTION",
@@ -2235,7 +2220,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000042",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 09 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 09 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -2452,7 +2437,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c6c4d3517ee7de21255830bb461065776c6302351ac1e99db6c0fce7d0a2f575"
+        "historical_content_hash": "sha256:1d02eb3e213133d7db914af7f6bc4a876158a2e624d29dd048c8c9c967b906f8"
       },
       "profile_ref": "profile_00000000000000000000000010",
       "category": "USER_ASSERTION",
@@ -2482,7 +2467,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000047",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 10 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 10 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -2512,6 +2497,10 @@
         {
           "requirement_ref": "requirement_00000000000000000000000002",
           "relation": "USER_ASSERTED"
+        },
+        {
+          "requirement_ref": "requirement_00000000000000000000000059",
+          "relation": "CONTRADICTS"
         }
       ]
     },
@@ -2527,7 +2516,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2c4e2de5c3a755356462b9b81fdf5f7132fd1d87f64b76aae125be450751a8b7"
+        "historical_content_hash": "sha256:83e1b859ca3a61b637cb6d193b1b581a586f0b8d8dda9c7f46f76cb53d09f2b3"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "category": "EMPLOYMENT_RECORD",
@@ -2543,6 +2532,10 @@
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
       "requirement_relations": [
+        {
+          "requirement_ref": "requirement_00000000000000000000000031",
+          "relation": "STRONG_RELATED"
+        },
         {
           "requirement_ref": "requirement_00000000000000000000000061",
           "relation": "DIRECT"
@@ -2565,7 +2558,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:5a6d9daa80419361b10fbd78eecb241cca3433eba7e1b60f68aba5d25e81d7a0"
+        "historical_content_hash": "sha256:0bfa49a135ef3da7c48ed8e78097d0f1e53c15a2135a2bca8a9f198fce9bf402"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "category": "EDUCATION_RECORD",
@@ -2578,10 +2571,6 @@
       "assertion_approval": "NOT_APPLICABLE",
       "field_records": [],
       "requirement_relations": [
-        {
-          "requirement_ref": "requirement_00000000000000000000000031",
-          "relation": "STRONG_RELATED"
-        },
         {
           "requirement_ref": "requirement_00000000000000000000000063",
           "relation": "DIRECT"
@@ -2699,7 +2688,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:30ac09c178b0bc06e3cafb66e87becb6e994edfeb00aeb7548471e49747ecc02"
+        "historical_content_hash": "sha256:5739b34e7219bc720f5b5bf0ec9784e28af1f342d9f8bc7514fbb5de454592c1"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "category": "USER_ASSERTION",
@@ -2729,7 +2718,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000052",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 11 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 11 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },
@@ -2950,7 +2939,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e12127dbaf1cb81c4af7e3db2ea61b9a3a17453a857e6ab4e978c65583797518"
+        "historical_content_hash": "sha256:8d0f94de712e8d3f2ba77710b950ba9b81868ea3bd518330433adc073fd389a8"
       },
       "profile_ref": "profile_00000000000000000000000012",
       "category": "USER_ASSERTION",
@@ -2980,7 +2969,7 @@
           "field_record_id": "fieldrecord_00000000000000000000000057",
           "field_concept": "SPONSORSHIP_REQUIREMENT",
           "recorded_value": "NOT_REQUIRED",
-          "disclosure_text": "Synthetic Candidate 12 explicitly approved a sponsorship requirement decision.",
+          "disclosure_text": "Synthetic Candidate 12 explicitly approved sponsorship requirement value NOT_REQUIRED.",
           "recorded_on": "2026-07-29",
           "valid_through": "2027-07-29"
         },

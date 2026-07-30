@@ -15,7 +15,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:861b6ec3577080a60a532f7da55086046cd482c1b1ef2ec38fad93c15986c1f8"
+        "historical_content_hash": "sha256:1be711ea483d37d860aeb8eea696325c12ca8b1d6d351aadf0ce1ff417db724e"
       },
       "job_ref": "job_00000000000000000000000001",
       "importance": "MUST_HAVE",
@@ -24,9 +24,7 @@
       "source_anchor_id": "job-01.requirements.01",
       "source_text_sha256": "sha256:998e25daa622959d06803467ef0baf3f8a0c4616aaa135b2eec7d1c692f1056f",
       "requirement_tag": "skill:typescript",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" }
     },
     {
       "id": "requirement_00000000000000000000000002",
@@ -40,7 +38,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f3528eb01a9994a690db83694c075421386744558b1e2819308ebf8c49aec081"
+        "historical_content_hash": "sha256:2da1a3ab0b6a67251c3dff619554b67fa1545534e3b43c9af3241d313213db14"
       },
       "job_ref": "job_00000000000000000000000001",
       "importance": "MUST_HAVE",
@@ -49,9 +47,7 @@
       "source_anchor_id": "job-01.requirements.02",
       "source_text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" }
     },
     {
       "id": "requirement_00000000000000000000000003",
@@ -65,7 +61,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:628c7c97198f9e988e0f5fd3b145f840ef1833136464826e8f535f3d8d556830"
+        "historical_content_hash": "sha256:465e19ac0e053d78990f58d19efa2def60b3025c65504cd3b2da49f5bd365ac8"
       },
       "job_ref": "job_00000000000000000000000001",
       "importance": "PREFERRED",
@@ -74,9 +70,7 @@
       "source_anchor_id": "job-01.requirements.03",
       "source_text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000004",
@@ -90,7 +84,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:fbb62c24894fd7c9316f232b685fb4ec4fde55a8001d67ac8eafa226718b08f0"
+        "historical_content_hash": "sha256:556d1165322d93ca0184017c3a5a1fc1fdbf3e86488d39d4be765e0aa0bf4945"
       },
       "job_ref": "job_00000000000000000000000002",
       "importance": "MUST_HAVE",
@@ -99,9 +93,7 @@
       "source_anchor_id": "job-02.requirements.01",
       "source_text_sha256": "sha256:b7129535b0f53f38049a969c07ef65de547fdc4282b12dabdfc891e684e05395",
       "requirement_tag": "skill:node-js",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" }
     },
     {
       "id": "requirement_00000000000000000000000005",
@@ -115,7 +107,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:92cc06a2b38a5a5665130772e5b2056b1c1590ef06c180c1dc3c7d3a4628993e"
+        "historical_content_hash": "sha256:a13689769c4f94998d07365604820ccea6683f6ed26ce02f81fd5ee553bde6ba"
       },
       "job_ref": "job_00000000000000000000000002",
       "importance": "MUST_HAVE",
@@ -124,9 +116,7 @@
       "source_anchor_id": "job-02.requirements.02",
       "source_text_sha256": "sha256:8bacb13af9920893cdcdbfb3a0380fecae96a1537666a13d837d3c3228f7bb3b",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "HYBRID" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "HYBRID" }
     },
     {
       "id": "requirement_00000000000000000000000006",
@@ -140,7 +130,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ada3518954b9783b703339fb06d2eb195da2354706aed71da4df650cfdb39263"
+        "historical_content_hash": "sha256:5ec965639c933134b928383af7c39ab95af7147a0823a92a1820a6c75358be1f"
       },
       "job_ref": "job_00000000000000000000000002",
       "importance": "PREFERRED",
@@ -149,9 +139,7 @@
       "source_anchor_id": "job-02.requirements.03",
       "source_text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000007",
@@ -165,7 +153,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:cfbf69cfeccac720cc6a6774f17a4a462bdf6ed908abe125f59a46fc9f31b4c1"
+        "historical_content_hash": "sha256:5047fabb590147a9f15512a69e639b871a3edee68b33d8da3896ef1bbeb8b406"
       },
       "job_ref": "job_00000000000000000000000003",
       "importance": "MUST_HAVE",
@@ -174,9 +162,7 @@
       "source_anchor_id": "job-03.requirements.01",
       "source_text_sha256": "sha256:56e2c2d8e8a77eef9994e45a368b7378a42b50d2cde4390ff7f52f42a35a338b",
       "requirement_tag": "skill:distributed-systems",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000008",
@@ -190,7 +176,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:614fdab71522369bb5889b85fbefc69133246718b2be1772e27a5d4dfc8fe163"
+        "historical_content_hash": "sha256:69fcf293f7aa4dfd5ab5936b7f995fecc2857f8609b07e41974ebbc9baca26ee"
       },
       "job_ref": "job_00000000000000000000000003",
       "importance": "MUST_HAVE",
@@ -202,9 +188,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000009",
@@ -218,7 +202,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0e79addd3cc3276089eff0d4bf55af43cd530695e28ee9a002cfe63bc00c8b51"
+        "historical_content_hash": "sha256:799aed8b0b6fe3b207bb502a88902f738e53a6d39197230e347baf782e54a851"
       },
       "job_ref": "job_00000000000000000000000003",
       "importance": "MUST_HAVE",
@@ -227,9 +211,7 @@
       "source_anchor_id": "job-03.requirements.03",
       "source_text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000010",
@@ -243,7 +225,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3d075f17fa6c0c6295fc39b26f14b30d1d34e9114da133f866249e5f61d47392"
+        "historical_content_hash": "sha256:3fa573ca2ef4e5ec88ca27ebdd35e33544030ef46de1eb8ba3fb59981e3c26fb"
       },
       "job_ref": "job_00000000000000000000000004",
       "importance": "MUST_HAVE",
@@ -252,9 +234,7 @@
       "source_anchor_id": "job-04.requirements.01",
       "source_text_sha256": "sha256:b3b88883b1e65c3be440eceb529affc5fc7c517d5c62981362b4f261a7d33532",
       "requirement_tag": "skill:node-js",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000011",
@@ -268,7 +248,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7185c0a7adca54c18a024be6da1f4dba0e95d62cd86b75636fb95d6949aedd97"
+        "historical_content_hash": "sha256:9d928aaa6fd2d945d53565bfc2b231250de199a49a405c6d563da28676c31168"
       },
       "job_ref": "job_00000000000000000000000004",
       "importance": "MUST_HAVE",
@@ -280,9 +260,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000012",
@@ -296,7 +274,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:048cecbc0b671dfe17a898743e8dbb246796c325e0d1811fc1e02f3fa26ccd32"
+        "historical_content_hash": "sha256:bda71f37fb185ebe8a55536aa4a7d04ca4b5a89912eafbd385b6512cb84d8651"
       },
       "job_ref": "job_00000000000000000000000004",
       "importance": "MUST_HAVE",
@@ -305,9 +283,7 @@
       "source_anchor_id": "job-04.requirements.03",
       "source_text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000013",
@@ -321,7 +297,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:01744ee1204972c747e6b55a04bf71860971ecbe69ac4855dc06bdd56479a813"
+        "historical_content_hash": "sha256:4409a8770dd367381edf72d54b0c39bd87091e35e48b64c1d3f8d154165e36bc"
       },
       "job_ref": "job_00000000000000000000000005",
       "importance": "MUST_HAVE",
@@ -330,9 +306,7 @@
       "source_anchor_id": "job-05.requirements.01",
       "source_text_sha256": "sha256:1f6a4f0e666f52549cd9af2fed162a30e3c43815c568b6d9434995ae077ce18c",
       "requirement_tag": "skill:sql",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" }
     },
     {
       "id": "requirement_00000000000000000000000014",
@@ -346,7 +320,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3de8a18d103fc90a8224c757d47acdb0643e073857535925e5d8dc9d9f3bcd71"
+        "historical_content_hash": "sha256:08c96025a8b512e942e61dc84f74edf3dad17b448e96f9b8056b6d2fb8dff989"
       },
       "job_ref": "job_00000000000000000000000005",
       "importance": "MUST_HAVE",
@@ -355,9 +329,7 @@
       "source_anchor_id": "job-05.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000015",
@@ -371,7 +343,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2ae7508d5f9840259fd916aaafec93f30c5935a91918327d2367f958487d0281"
+        "historical_content_hash": "sha256:6d0426f6af99beef1f04bbed1d0bbeadf19f649e7e753517959278f5cd9ddc32"
       },
       "job_ref": "job_00000000000000000000000005",
       "importance": "PREFERRED",
@@ -380,9 +352,7 @@
       "source_anchor_id": "job-05.requirements.03",
       "source_text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000016",
@@ -396,7 +366,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7841bfeb2d38a8ad1cfb7953edd0ddf0d5155029f35359eaed74a27b3fc6bd47"
+        "historical_content_hash": "sha256:2dc1c2d2656ced548ede5a488e09be2d9fdca7cbebff41466a1e60a7dea5980e"
       },
       "job_ref": "job_00000000000000000000000006",
       "importance": "MUST_HAVE",
@@ -405,9 +375,7 @@
       "source_anchor_id": "job-06.requirements.01",
       "source_text_sha256": "sha256:3482ab8c3233299b06bbad47d758eefe217fcd0573a2e1e546c775998342975e",
       "requirement_tag": "skill:data-modeling",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" }
     },
     {
       "id": "requirement_00000000000000000000000017",
@@ -421,7 +389,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:89c18d473131ce04e56342ac01fa57e2a00bae30cd6785379aacbf4e62c16e77"
+        "historical_content_hash": "sha256:4e90dff6b75c1ff18cdcbdd391e11862a8d37c8fbf76c6c7b720efa26432627f"
       },
       "job_ref": "job_00000000000000000000000006",
       "importance": "MUST_HAVE",
@@ -430,9 +398,7 @@
       "source_anchor_id": "job-06.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000018",
@@ -446,7 +412,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:87c07d690df39209aa12cc89f713e6ae9a273c0be3f4f69656e636c5ba9fb7ca"
+        "historical_content_hash": "sha256:d9acc77d01c940adde79de8c0a46ec464fdc7adff524c1327f0252f85d2b1d1c"
       },
       "job_ref": "job_00000000000000000000000006",
       "importance": "PREFERRED",
@@ -455,9 +421,7 @@
       "source_anchor_id": "job-06.requirements.03",
       "source_text_sha256": "sha256:353fe5cecddc5f68f262508f273e973c1711858b41fa0239807981cb864f6d88",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000019",
@@ -471,7 +435,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3567cb6fb03308d9b065e18340f30f8f9adce2272f3b637678cefabcd1684102"
+        "historical_content_hash": "sha256:510b96f2c429227c9ec8bbfcaa6bccb7fa0564a8f96dce9731907afd2704fbe7"
       },
       "job_ref": "job_00000000000000000000000007",
       "importance": "MUST_HAVE",
@@ -480,9 +444,7 @@
       "source_anchor_id": "job-07.requirements.01",
       "source_text_sha256": "sha256:e34661ac501b76567ecddc7f67fa6ab5d1815dae34a68d96fa5bb98512fd510e",
       "requirement_tag": "skill:experiment-design",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000020",
@@ -496,7 +458,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f59dd2450607ee241a193d246b7b9fb45a7d1dcbe450590f86f982de4d2f5d0d"
+        "historical_content_hash": "sha256:96aa7b7e615e0f8a5b98ce94c674752e0606275e431030da5da05ef2659fb9fe"
       },
       "job_ref": "job_00000000000000000000000007",
       "importance": "MUST_HAVE",
@@ -508,9 +470,7 @@
       "constraint": {
         "kind": "CURRENT_LICENSE",
         "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000021",
@@ -524,7 +484,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9d79fa07382d5a0b7ae87e8e63af49f57d415428cf2c8f2ad5ee967170af75ca"
+        "historical_content_hash": "sha256:e2c028ad63b24588fa2f2fdc059d908acf3672f86fcc9f21bc2b2ed6bcecf908"
       },
       "job_ref": "job_00000000000000000000000007",
       "importance": "MUST_HAVE",
@@ -533,9 +493,7 @@
       "source_anchor_id": "job-07.requirements.03",
       "source_text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000022",
@@ -549,7 +507,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:db037158bdc28fd70fd7f13e139d96f026b853ad80b08e537b2d8cb81ebf94f3"
+        "historical_content_hash": "sha256:64cefd4b7aedccfa4a095e2e66587be43f7cbd22cf3121f25a4430e1e3cd3939"
       },
       "job_ref": "job_00000000000000000000000008",
       "importance": "MUST_HAVE",
@@ -558,9 +516,7 @@
       "source_anchor_id": "job-08.requirements.01",
       "source_text_sha256": "sha256:9f29b14394e4ac33a82687d35f0a8aae71b6c8eae676216807bd4e67fc57927c",
       "requirement_tag": "skill:machine-learning",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000023",
@@ -574,7 +530,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b636c50d851a85c677ca5f5bbc091e886354b222c9b90f10651e0d7763474273"
+        "historical_content_hash": "sha256:53666243dbef6a679bd30f35fdc30824c8b9b0dbcdf56ad2bbf6d96828c9553f"
       },
       "job_ref": "job_00000000000000000000000008",
       "importance": "MUST_HAVE",
@@ -586,9 +542,7 @@
       "constraint": {
         "kind": "CURRENT_LICENSE",
         "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000024",
@@ -602,7 +556,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:5a464a64766c3ff9ffa580aa49741054ed4804020c9de99f644416db6c13c8f2"
+        "historical_content_hash": "sha256:a772eb926bb2a61d7d44cd5853b01f9ac3bf27c16f57ed59b42ec6ce06e9a311"
       },
       "job_ref": "job_00000000000000000000000008",
       "importance": "MUST_HAVE",
@@ -611,9 +565,7 @@
       "source_anchor_id": "job-08.requirements.03",
       "source_text_sha256": "sha256:d225fe55c00401e83e2ea4f3f4f7a06897eaa1c919b074582cdc6cf7ec08bdd0",
       "requirement_tag": "credential:synthetic-foundation",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000025",
@@ -627,7 +579,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:189adeaff331718332fa61759e9c0ae7be18218f42a3b7bf08a123e06e2926f4"
+        "historical_content_hash": "sha256:7eec75423c2e728ee14e956f802a8f9b162022f9de5a529a619adb60e059ce74"
       },
       "job_ref": "job_00000000000000000000000009",
       "importance": "MUST_HAVE",
@@ -636,9 +588,7 @@
       "source_anchor_id": "job-09.requirements.01",
       "source_text_sha256": "sha256:8a18b8e0f75a7ffdbc461affa71295913e6f3653440029dae680138700464918",
       "requirement_tag": "skill:process-mapping",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" }
     },
     {
       "id": "requirement_00000000000000000000000026",
@@ -652,7 +602,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:eed897cfee28d5e6fac25aa86b32282c9817bb3f63f9331845e8f37671d8a680"
+        "historical_content_hash": "sha256:ae68d696ce7e12bb7a396aaaa7d859e50c4b59b1ce6899de6a4b3cc746f82676"
       },
       "job_ref": "job_00000000000000000000000009",
       "importance": "MUST_HAVE",
@@ -664,9 +614,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000027",
@@ -680,7 +628,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:8e49b70aeaf3fadca4065fe039aaf7ff92b433210ff0e2b2beaab2159ca3f538"
+        "historical_content_hash": "sha256:f43ba9a607ce57471bd83692c59fe42d50e4864992cd579dfdcce2e1dba72f9a"
       },
       "job_ref": "job_00000000000000000000000009",
       "importance": "PREFERRED",
@@ -689,9 +637,7 @@
       "source_anchor_id": "job-09.requirements.03",
       "source_text_sha256": "sha256:9427ba1b13d74dd586e75bf4fe7a833b9e8c4eac03fff23280c850b84c7e3da3",
       "requirement_tag": "skill:requirements-analysis",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000028",
@@ -705,7 +651,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:31565db4bfa10b2ce3c1f519eef80bd28f3390e75c197a5f053a983c81cf3c6a"
+        "historical_content_hash": "sha256:e28a3523346484a4eb4c5fd358906625ec61fa009cd2bc3d3bfb7f90052c4ee6"
       },
       "job_ref": "job_00000000000000000000000010",
       "importance": "MUST_HAVE",
@@ -714,9 +660,7 @@
       "source_anchor_id": "job-10.requirements.01",
       "source_text_sha256": "sha256:b9f7799d53d020ce241ba9b4d6e3d95c4c2951219315a92fffdac07901e09430",
       "requirement_tag": "skill:stakeholder-analysis",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" }
     },
     {
       "id": "requirement_00000000000000000000000029",
@@ -730,7 +674,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3d83537049f90d1703d440cc9c94628af0544c1d9c0418929ad146f734fcdc6e"
+        "historical_content_hash": "sha256:c2ec9b8bed53ad0b3697d7be49cb7f3041148ddf88bdb654174a19c88a53e787"
       },
       "job_ref": "job_00000000000000000000000010",
       "importance": "MUST_HAVE",
@@ -742,9 +686,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000030",
@@ -758,7 +700,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f194da3278de29044b073273c1cf06412b498ce32f309fe074cecf9cf5d608dc"
+        "historical_content_hash": "sha256:894515deadbf916e151555b24a4c76961f59f1e364a1d201617558a08cbadf5a"
       },
       "job_ref": "job_00000000000000000000000010",
       "importance": "PREFERRED",
@@ -767,9 +709,7 @@
       "source_anchor_id": "job-10.requirements.03",
       "source_text_sha256": "sha256:9427ba1b13d74dd586e75bf4fe7a833b9e8c4eac03fff23280c850b84c7e3da3",
       "requirement_tag": "skill:requirements-analysis",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000031",
@@ -783,7 +723,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:cf74915079f6fab90f6a194e3ec978d303f3d0ae3c09282d37f596c0f5580eb8"
+        "historical_content_hash": "sha256:5b21748be2246e75bfd461ad0527c752f29cddf190e9f5a8958ee524173c0e17"
       },
       "job_ref": "job_00000000000000000000000011",
       "importance": "MUST_HAVE",
@@ -792,9 +732,7 @@
       "source_anchor_id": "job-11.requirements.01",
       "source_text_sha256": "sha256:fb2967eda4ccba434ed9d58117963ee311405b641042cf17d7372c8f9a1d4b49",
       "requirement_tag": "skill:scheduling",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" }
     },
     {
       "id": "requirement_00000000000000000000000032",
@@ -808,7 +746,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:34524e0cc13b3285a312226ab6e57a3fc29ef5ecceb9ca0c6638151b8ba10d9e"
+        "historical_content_hash": "sha256:402b5bcbd76f7b503f21c3155a46b8c5752bc6f5d80c36a7137005ef192a876d"
       },
       "job_ref": "job_00000000000000000000000011",
       "importance": "MUST_HAVE",
@@ -817,9 +755,7 @@
       "source_anchor_id": "job-11.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000033",
@@ -833,7 +769,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:5f059c8c05225d612e25b8b0d66cfd949f7d005735362cb15a21f20176222193"
+        "historical_content_hash": "sha256:9ca854ab8eeb50cc4d201144f935777c31809f4fade1a04ba8a135306b54956b"
       },
       "job_ref": "job_00000000000000000000000011",
       "importance": "MUST_HAVE",
@@ -842,9 +778,7 @@
       "source_anchor_id": "job-11.requirements.03",
       "source_text_sha256": "sha256:e0947b87ba5f41372e536c121328b6355a87c4853a941f2bae8a2dc8c7e99ec8",
       "requirement_tag": "skill:process-improvement",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000034",
@@ -858,7 +792,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:74d55dad31ba8c429e8f2150704a621ea80058487078aee090c1e162f5a990c6"
+        "historical_content_hash": "sha256:737276f7e13784e06666fd3247db0c4e845705075905a4dfa78544c7ede4174e"
       },
       "job_ref": "job_00000000000000000000000012",
       "importance": "MUST_HAVE",
@@ -867,9 +801,7 @@
       "source_anchor_id": "job-12.requirements.01",
       "source_text_sha256": "sha256:9b5e6f05432a7c9d548d6dfafcd332b6b34456962e5f2ebb53e5e64e7b82f8aa",
       "requirement_tag": "skill:inventory-control",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" }
     },
     {
       "id": "requirement_00000000000000000000000035",
@@ -883,7 +815,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9212b38537fcc3331bc199cc78cae75c31d10479f100a65f8dff3dd7a026fdc1"
+        "historical_content_hash": "sha256:75db59b7b43ff34d5af312bbc940786e5094f73d39f24f78f243fc9cb0a39f88"
       },
       "job_ref": "job_00000000000000000000000012",
       "importance": "MUST_HAVE",
@@ -892,9 +824,7 @@
       "source_anchor_id": "job-12.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000036",
@@ -908,7 +838,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d01e60b60e897dd3c13a0ad6383a6835b0cde1609584dc87034652334818cdb7"
+        "historical_content_hash": "sha256:516374b14ecdad19358428a27ad1bf2637366975fd9582609305e516331cd113"
       },
       "job_ref": "job_00000000000000000000000012",
       "importance": "MUST_HAVE",
@@ -917,9 +847,7 @@
       "source_anchor_id": "job-12.requirements.03",
       "source_text_sha256": "sha256:e0947b87ba5f41372e536c121328b6355a87c4853a941f2bae8a2dc8c7e99ec8",
       "requirement_tag": "skill:process-improvement",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000037",
@@ -933,7 +861,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b20fa0fa33b1a455b2bf4fc034d26db01263463fe7f2615c7bc7d70f0a7d9627"
+        "historical_content_hash": "sha256:90db3cfd4dc21772c4380b5eda5290f20fb44421a5ac0405d158d98a449dc955"
       },
       "job_ref": "job_00000000000000000000000013",
       "importance": "MUST_HAVE",
@@ -942,9 +870,7 @@
       "source_anchor_id": "job-13.requirements.01",
       "source_text_sha256": "sha256:b6c8b1fdbc9e48971ad0dd09d256eb2952f2c6785eda537ed96e0ead82148f78",
       "requirement_tag": "skill:clinical-operations",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" }
     },
     {
       "id": "requirement_00000000000000000000000038",
@@ -958,7 +884,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0e07dec2e78dde77763b97f87815274f083818d616f21e2e0f03c1a46966517d"
+        "historical_content_hash": "sha256:d1e2ed30c116261f387dd0a830aefe27d2f670390c5ebd709926fca95a3af14a"
       },
       "job_ref": "job_00000000000000000000000013",
       "importance": "MUST_HAVE",
@@ -970,9 +896,7 @@
       "constraint": {
         "kind": "CURRENT_LICENSE",
         "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000039",
@@ -986,7 +910,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:46cee2d5fa0d88ebc3d9d391e24c5d809d27bad889759b986024fe2c7f3f227f"
+        "historical_content_hash": "sha256:996d0086e43ffaddb24f4f463b6470cf36a6ab51fa51fd7b0c6039af72454db1"
       },
       "job_ref": "job_00000000000000000000000013",
       "importance": "PREFERRED",
@@ -995,9 +919,7 @@
       "source_anchor_id": "job-13.requirements.03",
       "source_text_sha256": "sha256:cb7c19233819100defef6fef194630ee62abc2481b9b38be92478dd69ccba8ad",
       "requirement_tag": "license:healthcare-quality-current",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000040",
@@ -1011,7 +933,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:dd24439069918131b2efa41d04f4442ab6f30424dc8fb2c08ff6abe92595b9e9"
+        "historical_content_hash": "sha256:1c86dc2b7c50c7df8ac3a2f49cb956a9fa0b9aa235ead53299212efbde37f601"
       },
       "job_ref": "job_00000000000000000000000014",
       "importance": "MUST_HAVE",
@@ -1020,9 +942,7 @@
       "source_anchor_id": "job-14.requirements.01",
       "source_text_sha256": "sha256:4f7d79a9d0488d6a12aaa0384f4eb5627023c722e217b8e40e61d9223da07d52",
       "requirement_tag": "skill:quality-reporting",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" }
     },
     {
       "id": "requirement_00000000000000000000000041",
@@ -1036,7 +956,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c199d0bc4b9f90f7053bb1d63402fa999006ae972c7a3f37d9648e029c456776"
+        "historical_content_hash": "sha256:64847dc90fd20fb61b660e8ec54771a12986f63a82f792622c99e3229ed22a3e"
       },
       "job_ref": "job_00000000000000000000000014",
       "importance": "MUST_HAVE",
@@ -1048,9 +968,7 @@
       "constraint": {
         "kind": "CURRENT_LICENSE",
         "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000042",
@@ -1064,7 +982,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:23b4c437162f44255564c601ea6247cb9f28f010cdb2e20810c9edf08a796211"
+        "historical_content_hash": "sha256:054b4b14754fcc31bcdf007f7a61d6ebc881be87d0e778f3105959475ab10d47"
       },
       "job_ref": "job_00000000000000000000000014",
       "importance": "PREFERRED",
@@ -1073,9 +991,7 @@
       "source_anchor_id": "job-14.requirements.03",
       "source_text_sha256": "sha256:e3cabcfefd77ab9c77821e65cd44813b18ed9e474a5f3e6b8480ec82b01aced8",
       "requirement_tag": "skill:data-privacy",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000043",
@@ -1089,7 +1005,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2bf45f07f2f942c1224fd4d10afa622c26646c7d3a01aa197610fcf7057c0339"
+        "historical_content_hash": "sha256:22e641a0e74a4d43d7bd506d27341a85133f588731c4e15ab894b44c43c58907"
       },
       "job_ref": "job_00000000000000000000000015",
       "importance": "MUST_HAVE",
@@ -1098,9 +1014,7 @@
       "source_anchor_id": "job-15.requirements.01",
       "source_text_sha256": "sha256:7b48fa9c1c6a14757104619132032fc87df31421c5c118b743aa00e6cd73a269",
       "requirement_tag": "skill:curriculum-design",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" }
     },
     {
       "id": "requirement_00000000000000000000000044",
@@ -1114,7 +1028,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a3666654f1e7627888d4f65154a863b9f5a35af13ab687180e4a1fcb137d0e11"
+        "historical_content_hash": "sha256:91be14cb629ea4e0bce96b7cbca434574a43721f1f1674f570255727f50bf627"
       },
       "job_ref": "job_00000000000000000000000015",
       "importance": "MUST_HAVE",
@@ -1123,9 +1037,7 @@
       "source_anchor_id": "job-15.requirements.02",
       "source_text_sha256": "sha256:16668215ab34ee782fa44898fbb89ad6895462048a76c945cc1f783d9e89dba7",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "ON_SITE" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "ON_SITE" }
     },
     {
       "id": "requirement_00000000000000000000000045",
@@ -1139,7 +1051,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:77f4e01e42bf2b161515cb964fcc55c9b920c5f62adaa0779e46338b6cc4e3d3"
+        "historical_content_hash": "sha256:19ef7d1ace48d037f734c128afdbca28965527df915198a6b44dddde74a93aa6"
       },
       "job_ref": "job_00000000000000000000000015",
       "importance": "MUST_HAVE",
@@ -1148,9 +1060,7 @@
       "source_anchor_id": "job-15.requirements.03",
       "source_text_sha256": "sha256:9d88f8c667709c91a1e4e5084a875d5331ee944b630dfb378aad68fe85ba21cc",
       "requirement_tag": "skill:learning-analytics",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000046",
@@ -1164,7 +1074,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:1ea9e907411f986aa8d78fe728e772cd23457fc3b85d027a98fb84ed9e991d1c"
+        "historical_content_hash": "sha256:eb680bde0853cce805fe7abf88b7d3e88a469d79590e1146df9ff2d4c541a5cc"
       },
       "job_ref": "job_00000000000000000000000016",
       "importance": "MUST_HAVE",
@@ -1173,9 +1083,7 @@
       "source_anchor_id": "job-16.requirements.01",
       "source_text_sha256": "sha256:5cb928df58d670bb2211998ef8f654a6e7f7f9878b84d86a461be9430051d169",
       "requirement_tag": "skill:facilitation",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" }
     },
     {
       "id": "requirement_00000000000000000000000047",
@@ -1189,7 +1097,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:37166479e5c1440359131d5ac994b71896a067488cdd738ea0d8319844d2d0f7"
+        "historical_content_hash": "sha256:b062390d529d3b93315983cb9028b51d9ec4d037776272adf36e0b78baed8d6e"
       },
       "job_ref": "job_00000000000000000000000016",
       "importance": "MUST_HAVE",
@@ -1198,9 +1106,7 @@
       "source_anchor_id": "job-16.requirements.02",
       "source_text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" }
     },
     {
       "id": "requirement_00000000000000000000000048",
@@ -1214,7 +1120,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ec4ca2547246b4e6bea096d71f6e1f1dac3a9626d8fd16678dfd79454d060f85"
+        "historical_content_hash": "sha256:6a1f58b4a520042d9fb0ed82e4e77b5ac4ef520adf35b0fe65971722ee06f844"
       },
       "job_ref": "job_00000000000000000000000016",
       "importance": "MUST_HAVE",
@@ -1223,9 +1129,7 @@
       "source_anchor_id": "job-16.requirements.03",
       "source_text_sha256": "sha256:9d88f8c667709c91a1e4e5084a875d5331ee944b630dfb378aad68fe85ba21cc",
       "requirement_tag": "skill:learning-analytics",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000049",
@@ -1239,7 +1143,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a38d022bdd52ef28bc2ee120a41b8f0f393cacadbbca41bbedf0f2c34f7dc352"
+        "historical_content_hash": "sha256:df34828625d3331e8d8206abd5fe8db92ff1c4086f686508a0334a9720fe1806"
       },
       "job_ref": "job_00000000000000000000000017",
       "importance": "MUST_HAVE",
@@ -1248,9 +1152,7 @@
       "source_anchor_id": "job-17.requirements.01",
       "source_text_sha256": "sha256:fcf681b8474858dfffb8d722268dd91a0dfb0a771324ecdbf229dff95f29c41d",
       "requirement_tag": "skill:pipeline-analysis",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "3" }
     },
     {
       "id": "requirement_00000000000000000000000050",
@@ -1264,7 +1166,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4362738575d05613670ea7eccbde88f6631b124df1c45737db576c9ef30f9c6d"
+        "historical_content_hash": "sha256:8da48618a09cc1028137e5383b332aba9843d76058ee603b9e0bc751d108b481"
       },
       "job_ref": "job_00000000000000000000000017",
       "importance": "MUST_HAVE",
@@ -1273,9 +1175,7 @@
       "source_anchor_id": "job-17.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000051",
@@ -1289,7 +1189,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f8d8b31cb5820e3edffa535c883bd7535aee55e43239be220f5fe19e8cbdd3bc"
+        "historical_content_hash": "sha256:fa55c9e57453fb66dd32e48cb819c9e4416ebd73f70b2a75224f5bc8aff009ef"
       },
       "job_ref": "job_00000000000000000000000017",
       "importance": "PREFERRED",
@@ -1298,9 +1198,7 @@
       "source_anchor_id": "job-17.requirements.03",
       "source_text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000052",
@@ -1314,7 +1212,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:8235282094bad706b0b5a3e916d907e08e0426107fa0ab3c677b8bcfa2b005f3"
+        "historical_content_hash": "sha256:1e4cdb229ad78bd727e57fd427d098ccf78c26368fbfb5e5c45ec6871fb7676e"
       },
       "job_ref": "job_00000000000000000000000018",
       "importance": "MUST_HAVE",
@@ -1323,9 +1221,7 @@
       "source_anchor_id": "job-18.requirements.01",
       "source_text_sha256": "sha256:153f1d3adcd2dfd6be947fe99fa7629065fa89d68a948a09aa1c034b53dbb514",
       "requirement_tag": "skill:crm-administration",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "5" }
     },
     {
       "id": "requirement_00000000000000000000000053",
@@ -1339,7 +1235,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:582050ccf795366e1a32ccca97ff3b0ffd3248e9ee03c82b5d04547fbd618b69"
+        "historical_content_hash": "sha256:ae90c17bd7004d43364963c3e5268f82abb20dfb00adad54847e877ec5777467"
       },
       "job_ref": "job_00000000000000000000000018",
       "importance": "MUST_HAVE",
@@ -1348,9 +1244,7 @@
       "source_anchor_id": "job-18.requirements.02",
       "source_text_sha256": "sha256:945d69f51762ee960fc1954bb2f5992f24157b24dc3f86720e07f2e226d66b37",
       "requirement_tag": "field:sponsorship_requirement",
-      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "SPONSORSHIP", "value": "NO_SPONSORSHIP" }
     },
     {
       "id": "requirement_00000000000000000000000054",
@@ -1364,7 +1258,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:171b57d16f680468a578acb7c4be3f923b65c3221a1dc0b266ef847d832ab5db"
+        "historical_content_hash": "sha256:53506aa31168d6800816663247439235b3b5df3b2a1f3037f88178622acc30dc"
       },
       "job_ref": "job_00000000000000000000000018",
       "importance": "PREFERRED",
@@ -1373,9 +1267,7 @@
       "source_anchor_id": "job-18.requirements.03",
       "source_text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000055",
@@ -1389,7 +1281,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a0589bfbf03b185dc32ba7f333b203920a3f5db04524826f7d3a705fedf7bafb"
+        "historical_content_hash": "sha256:ba73962d08505e83cb989338b5a89544cc82c654b71bf020387d8322744ab304"
       },
       "job_ref": "job_00000000000000000000000019",
       "importance": "MUST_HAVE",
@@ -1398,9 +1290,7 @@
       "source_anchor_id": "job-19.requirements.01",
       "source_text_sha256": "sha256:105b387ba29e0456d194fc1e6166ca6e4597cc4fd9ee4cb52d34a901ac848b0f",
       "requirement_tag": "skill:financial-modeling",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000056",
@@ -1414,7 +1304,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b89302ba8aa7c496e0031bf1675e576c874330318ba90b976b2c3c8fa85a600b"
+        "historical_content_hash": "sha256:05cdf1226f185195b247bb12b5ef84429237f04a84f8635a3227e2339b6259fb"
       },
       "job_ref": "job_00000000000000000000000019",
       "importance": "MUST_HAVE",
@@ -1426,9 +1316,7 @@
       "constraint": {
         "kind": "CURRENT_LICENSE",
         "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000057",
@@ -1442,7 +1330,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9009fed71a45e7fe567e4f14673653249971c87c0ec39ec3b277ed8794a31e08"
+        "historical_content_hash": "sha256:1c7545ce4b6c6df91fb3ba7cd4040840f3ef9b3a724959e501f72a1323a2bddc"
       },
       "job_ref": "job_00000000000000000000000019",
       "importance": "MUST_HAVE",
@@ -1451,9 +1339,7 @@
       "source_anchor_id": "job-19.requirements.03",
       "source_text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000058",
@@ -1467,7 +1353,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d18d5122b65555445b2a4846ce47539b0463873a5a1cb1e7e21edf470c19b8a3"
+        "historical_content_hash": "sha256:76abd5bb4101ed3af612bb57398bed152812327fa3aa4303ab045d3bcffdf550"
       },
       "job_ref": "job_00000000000000000000000020",
       "importance": "MUST_HAVE",
@@ -1476,9 +1362,7 @@
       "source_anchor_id": "job-20.requirements.01",
       "source_text_sha256": "sha256:05e3dc02f3fb995cc074de1f44359033a0d76dd184662e6bc6b3b50ca7360568",
       "requirement_tag": "skill:variance-analysis",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "7" }
     },
     {
       "id": "requirement_00000000000000000000000059",
@@ -1492,21 +1376,16 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ac2bfd8390a2d9d4a29a84525ec249db5b4f5a75bb89226cbc3020ce0f05e965"
+        "historical_content_hash": "sha256:9bc2f163403df9ef48dc26408d2504847c1c63b1b899f7a9c6ec95154f0feae4"
       },
       "job_ref": "job_00000000000000000000000020",
       "importance": "MUST_HAVE",
-      "requirement_kind": "CERTIFICATION",
-      "normalized_text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
+      "requirement_kind": "LOCATION",
+      "normalized_text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=HYBRID; importance MUST_HAVE.",
       "source_anchor_id": "job-20.requirements.02",
-      "source_text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5",
-      "requirement_tag": "license:healthcare-operations",
-      "constraint": {
-        "kind": "CURRENT_LICENSE",
-        "value": "CURRENT_AT_EVALUATION_DATE"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "source_text_sha256": "sha256:8bacb13af9920893cdcdbfb3a0380fecae96a1537666a13d837d3c3228f7bb3b",
+      "requirement_tag": "field:relocation_preference",
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "HYBRID" }
     },
     {
       "id": "requirement_00000000000000000000000060",
@@ -1520,7 +1399,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ece849a48500dd5975afcae541c5de3b22a0bcc51b34d4d10973cc883fca27df"
+        "historical_content_hash": "sha256:37ab97b9327ee4178d29d4f32dbd3777099ce24ade9986b92b0fcd003b755872"
       },
       "job_ref": "job_00000000000000000000000020",
       "importance": "MUST_HAVE",
@@ -1529,9 +1408,7 @@
       "source_anchor_id": "job-20.requirements.03",
       "source_text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000061",
@@ -1545,7 +1422,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:af961e3716afd56d693941efc4c57aa94d3cdbcedb7ba2618b28625036f17046"
+        "historical_content_hash": "sha256:f28c758c26f785a458bf8accdb59295dbe7a94292950b207f55f2f5df15b6044"
       },
       "job_ref": "job_00000000000000000000000021",
       "importance": "MUST_HAVE",
@@ -1554,9 +1431,7 @@
       "source_anchor_id": "job-21.requirements.01",
       "source_text_sha256": "sha256:5ee59dc025dd6243e1495c27048ee34e5f7f98724a8f8b2614d21bc5acb812b8",
       "requirement_tag": "skill:documentation",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" }
     },
     {
       "id": "requirement_00000000000000000000000062",
@@ -1570,7 +1445,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:5b7392e53fea88b739ce42856dec526531788abef81669219700abc4d3173bbf"
+        "historical_content_hash": "sha256:6da9c8bd6548959212c7a3e6f8fa3fa0b9140efe20f3654292b621a15c6612cd"
       },
       "job_ref": "job_00000000000000000000000021",
       "importance": "MUST_HAVE",
@@ -1579,9 +1454,7 @@
       "source_anchor_id": "job-21.requirements.02",
       "source_text_sha256": "sha256:16668215ab34ee782fa44898fbb89ad6895462048a76c945cc1f783d9e89dba7",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "ON_SITE" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "ON_SITE" }
     },
     {
       "id": "requirement_00000000000000000000000063",
@@ -1595,7 +1468,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b32765aa4bfe635113962c4ab57e70434777b700db4851626ffd2aca9daefbed"
+        "historical_content_hash": "sha256:3009061f0fa446de97283ea388f1f5e86637f871fae904d5b0415cf8c9fac80b"
       },
       "job_ref": "job_00000000000000000000000021",
       "importance": "PREFERRED",
@@ -1604,9 +1477,7 @@
       "source_anchor_id": "job-21.requirements.03",
       "source_text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000064",
@@ -1620,7 +1491,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:67bc076669d80c6d3712e296fddca1825d1a448a6bb9feed87a07e9f26a701c8"
+        "historical_content_hash": "sha256:e1599a872aaf98d78bf6ba7b24d5bb59dac31c5cc49ab60064bb23f0be44384e"
       },
       "job_ref": "job_00000000000000000000000022",
       "importance": "MUST_HAVE",
@@ -1629,9 +1500,7 @@
       "source_anchor_id": "job-22.requirements.01",
       "source_text_sha256": "sha256:37f7928e1b48ad97f0e8b8026f0491cba37ab920b14b2facc77d658f5ca12ed2",
       "requirement_tag": "skill:task-tracking",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" }
     },
     {
       "id": "requirement_00000000000000000000000065",
@@ -1645,7 +1514,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a2496fb721db2e15f3e8fc3f9a27e07721922a4bfff85ec2dcd56696c4f403c1"
+        "historical_content_hash": "sha256:01614c2b49838071b99dff14aeadb5ad0f4cbdee92d4f906485f985ce4bbca1d"
       },
       "job_ref": "job_00000000000000000000000022",
       "importance": "MUST_HAVE",
@@ -1654,9 +1523,7 @@
       "source_anchor_id": "job-22.requirements.02",
       "source_text_sha256": "sha256:8c0c4abe4ef2ba8bc172adff18432c3239bf50312759cc5426641f4a12602c94",
       "requirement_tag": "field:relocation_preference",
-      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      "constraint": { "kind": "WORK_MODE_COMPATIBILITY", "value": "REMOTE" }
     },
     {
       "id": "requirement_00000000000000000000000066",
@@ -1670,7 +1537,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:8c566354387478938b95cc8af347e654672d614a13275416e57c17aa2669c319"
+        "historical_content_hash": "sha256:22094fee444f22d4ab98f1b1ace741c9d4a1a38aaf423a7b637a3c449f302e20"
       },
       "job_ref": "job_00000000000000000000000022",
       "importance": "PREFERRED",
@@ -1679,9 +1546,7 @@
       "source_anchor_id": "job-22.requirements.03",
       "source_text_sha256": "sha256:c0cc34086a09cce2d47fdd526355c20ebe79da1dc9399d3c6a51332447b40a8b",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000067",
@@ -1695,7 +1560,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4d0cd4aec39f506d0828f7e0494ed1511634221a3630ba61d4e2b584c47277f6"
+        "historical_content_hash": "sha256:1ee3fd9c735ee0ac8f454aff4b3cc4f8898fd9d2a3e967f39533e478ed0cf86f"
       },
       "job_ref": "job_00000000000000000000000023",
       "importance": "MUST_HAVE",
@@ -1704,9 +1569,7 @@
       "source_anchor_id": "job-23.requirements.01",
       "source_text_sha256": "sha256:63d33ae52f3e903ba9cc0a2f1eef9f3a0c0505839484d196728464886756ff38",
       "requirement_tag": "skill:issue-triage",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "1" }
     },
     {
       "id": "requirement_00000000000000000000000068",
@@ -1720,7 +1583,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:94a1f65312d0a0ab216ef7136fc633e27dc2d1e9c8b078616e401f07db095bf1"
+        "historical_content_hash": "sha256:09ca3342e40a0c1b77fe94000f6740205b26bd430fc66ee63c54c5ff70936a95"
       },
       "job_ref": "job_00000000000000000000000023",
       "importance": "MUST_HAVE",
@@ -1732,9 +1595,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000069",
@@ -1748,7 +1609,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2522c6269d122f5e612f5a36f1bf3e6a885878be974c1647587884e021ccb3cc"
+        "historical_content_hash": "sha256:8b49fc6d55cd09ddf408d3f95b3af3a4bfecc21af621d254f542e8ac270c684a"
       },
       "job_ref": "job_00000000000000000000000023",
       "importance": "MUST_HAVE",
@@ -1757,9 +1618,7 @@
       "source_anchor_id": "job-23.requirements.03",
       "source_text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     },
     {
       "id": "requirement_00000000000000000000000070",
@@ -1773,7 +1632,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:45e5155d48baae31e108ac270ed1ee2440e93ce73cd7c8987f64276af06abe6f"
+        "historical_content_hash": "sha256:1952b1e8205e0eece955397933917dbe99b12d151131c02cfcdb18cab2e03463"
       },
       "job_ref": "job_00000000000000000000000024",
       "importance": "MUST_HAVE",
@@ -1782,9 +1641,7 @@
       "source_anchor_id": "job-24.requirements.01",
       "source_text_sha256": "sha256:5e29b9f83d9ec3ae3a4a19fcaf21f036053872eb54c27fc6f0b7549069020dda",
       "requirement_tag": "skill:knowledge-management",
-      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" },
-      "keyword_trap": false,
-      "related_evidence_trap": true
+      "constraint": { "kind": "MINIMUM_EXPERIENCE_YEARS", "value": "2" }
     },
     {
       "id": "requirement_00000000000000000000000071",
@@ -1798,7 +1655,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4c59fde76d21369f603838cfc2992cfdcc38aa057e81c21021f40a1c2fa1b420"
+        "historical_content_hash": "sha256:bce9930211052d55055679b20be75db5809cfffff4e984ef19a75f05e43a8a0f"
       },
       "job_ref": "job_00000000000000000000000024",
       "importance": "MUST_HAVE",
@@ -1810,9 +1667,7 @@
       "constraint": {
         "kind": "WORK_AUTHORIZATION",
         "value": "AUTHORIZED_TO_WORK_IN_US"
-      },
-      "keyword_trap": false,
-      "related_evidence_trap": false
+      }
     },
     {
       "id": "requirement_00000000000000000000000072",
@@ -1826,7 +1681,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:42eb5d2387781e65bae3b2e4f1d0a4b7a0020df27412bee428433d1354fd53ac"
+        "historical_content_hash": "sha256:1aa667e1250f0d0692e3ccdaf53cc541b9f7eb25e2bd76776dc3f17c1c3f074b"
       },
       "job_ref": "job_00000000000000000000000024",
       "importance": "MUST_HAVE",
@@ -1835,9 +1690,7 @@
       "source_anchor_id": "job-24.requirements.03",
       "source_text_sha256": "sha256:3dc1ea306717d1312ef622d0dbe579db96b82f08bc8acfb234550ebedbf06409",
       "requirement_tag": "education:completed",
-      "constraint": { "kind": "NONE", "value": "NONE" },
-      "keyword_trap": true,
-      "related_evidence_trap": false
+      "constraint": { "kind": "NONE", "value": "NONE" }
     }
   ]
 }

@@ -15,19 +15,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9cf264a37b39737aa178851ad304cd29a8a213723484089462effaf542be3b1c"
+        "historical_content_hash": "sha256:90c56599330f54731499fff647296a07b1a8d38f542f02881cfb7b36c6ae438b"
       },
       "scenario_ref": "scenario_00000000000000000000000003",
       "profile_ref": "profile_00000000000000000000000001",
       "requirement_ref": "requirement_00000000000000000000000016",
-      "classification": "PARTIAL",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000004"
-      ],
+      "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "API design is relevant to data modeling work, but it does not directly prove the required data-modeling experience."
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed employment or project evidence carries skill:data-modeling or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "id": "gap_00000000000000000000000002",
@@ -41,17 +39,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:12a298df943a48304fb2dad825df026d18492eace8189f1af13c6dc50218913d"
+        "historical_content_hash": "sha256:7fbb6b9a20664f8f2e4ac950bdc3605f80811a3d3bc78f2f5b75991dbd14ede6"
       },
       "scenario_ref": "scenario_00000000000000000000000006",
       "profile_ref": "profile_00000000000000000000000002",
-      "requirement_ref": "requirement_00000000000000000000000027",
+      "requirement_ref": "requirement_00000000000000000000000025",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed employment or project evidence carries skill:process-mapping or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "id": "gap_00000000000000000000000003",
@@ -65,19 +63,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:fed1e5d29d62d924667ec28b42309ba27c3fafc3e414a8f0ccb20800829da030"
+        "historical_content_hash": "sha256:2f488022a39c5f311b2e638316420f251a794947eb59234f9ee0ebe626b58f2b"
       },
-      "scenario_ref": "scenario_00000000000000000000000009",
-      "profile_ref": "profile_00000000000000000000000003",
-      "requirement_ref": "requirement_00000000000000000000000022",
-      "classification": "PARTIAL",
+      "scenario_ref": "scenario_00000000000000000000000006",
+      "profile_ref": "profile_00000000000000000000000002",
+      "requirement_ref": "requirement_00000000000000000000000027",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000016"
-      ],
+      "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Reviewed Python project work is relevant to machine-learning implementation, but its duration is insufficient for the anchored three-year experience requirement."
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports skill:requirements-analysis for the anchored skill requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000004",
@@ -91,17 +87,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:acf0ede5585dad7f1fafa8c719c919077594ecd9dfdd4f646109e085b4452520"
+        "historical_content_hash": "sha256:b49161bc26685e57902b7ebd2153f34dad0dabdfc3dfb828cac15ff38ae72a7b"
       },
       "scenario_ref": "scenario_00000000000000000000000009",
       "profile_ref": "profile_00000000000000000000000003",
-      "requirement_ref": "requirement_00000000000000000000000023",
+      "requirement_ref": "requirement_00000000000000000000000022",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed employment or project evidence carries skill:machine-learning or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "id": "gap_00000000000000000000000005",
@@ -115,17 +111,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:fb32f405b28846fac041d399ae12a7a9ad17acc511dc413ca79dc003652a71e3"
+        "historical_content_hash": "sha256:e08b3f459778f5db6796b560b9623548ddf8d95365de1edf565a4d60aa333c5a"
       },
-      "scenario_ref": "scenario_00000000000000000000000010",
-      "profile_ref": "profile_00000000000000000000000004",
-      "requirement_ref": "requirement_00000000000000000000000020",
+      "scenario_ref": "scenario_00000000000000000000000009",
+      "profile_ref": "profile_00000000000000000000000003",
+      "requirement_ref": "requirement_00000000000000000000000023",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000006",
@@ -139,17 +135,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:677d97b880b71da723a08e255be4e0a29efc78b67cbc6f69a53b8a985c5b3279"
+        "historical_content_hash": "sha256:3cc2058cafe46e38e0f31978e304a77f1f8c58b77d30537f09c51565154ec296"
       },
-      "scenario_ref": "scenario_00000000000000000000000011",
+      "scenario_ref": "scenario_00000000000000000000000010",
       "profile_ref": "profile_00000000000000000000000004",
-      "requirement_ref": "requirement_00000000000000000000000023",
+      "requirement_ref": "requirement_00000000000000000000000020",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000007",
@@ -163,19 +159,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:1726e636788106b969fd5044df602661a193dba97890797a45c5b4d54d9cc29d"
+        "historical_content_hash": "sha256:2afe599fc510a9abe539be6adc352409b4a28707183eb6b89d4b61ffb048909f"
       },
-      "scenario_ref": "scenario_00000000000000000000000012",
+      "scenario_ref": "scenario_00000000000000000000000011",
       "profile_ref": "profile_00000000000000000000000004",
-      "requirement_ref": "requirement_00000000000000000000000013",
-      "classification": "PARTIAL",
+      "requirement_ref": "requirement_00000000000000000000000023",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000022"
-      ],
+      "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Statistical analysis is relevant to SQL-based data work but does not directly prove reviewed SQL experience."
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000008",
@@ -189,19 +183,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:df29cb2557c72c69a48a36bf4e5fd02c1672e63c6f28d98a731285190e8c4e5a"
+        "historical_content_hash": "sha256:c75dc5e78c288689d96e2467aa0466e22cfb664d0521f30b979193e7482e8faa"
       },
-      "scenario_ref": "scenario_00000000000000000000000015",
-      "profile_ref": "profile_00000000000000000000000005",
-      "requirement_ref": "requirement_00000000000000000000000031",
+      "scenario_ref": "scenario_00000000000000000000000012",
+      "profile_ref": "profile_00000000000000000000000004",
+      "requirement_ref": "requirement_00000000000000000000000013",
       "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000028"
+        "evidence_00000000000000000000000022"
       ],
       "expected_action": "ABSTAIN",
       "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Requirements analysis is relevant to scheduling operations, but the evidence does not directly establish scheduling experience."
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:statistical-analysis and covers 303 non-overlapping days, which is partial support for the 1095-day skill:sql experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000009",
@@ -215,17 +209,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7b8100106b552819c3e24aa48b3b57c71ef48943c2b925ffd871f879b28547a2"
+        "historical_content_hash": "sha256:4555ed6a24815ba65e5a3f3e2a7b3b54d38ab3e4afc28cd20968e0f7502cf4b1"
       },
       "scenario_ref": "scenario_00000000000000000000000015",
       "profile_ref": "profile_00000000000000000000000005",
-      "requirement_ref": "requirement_00000000000000000000000033",
-      "classification": "UNSUPPORTED",
+      "requirement_ref": "requirement_00000000000000000000000031",
+      "classification": "PARTIAL",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000028"
+      ],
       "expected_action": "ABSTAIN",
-      "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:requirements-analysis and covers 303 non-overlapping days, which is partial support for the 365-day skill:scheduling experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000010",
@@ -239,19 +235,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:1cfc649785b2fee82e62a19522a6ced96ceb3d6536043dac144b45b043c3f200"
+        "historical_content_hash": "sha256:7ed6a17fafc55fc878c1972ca8343919ce71e31da68007bb190d5143699b6b40"
       },
-      "scenario_ref": "scenario_00000000000000000000000018",
-      "profile_ref": "profile_00000000000000000000000006",
-      "requirement_ref": "requirement_00000000000000000000000025",
-      "classification": "PARTIAL",
+      "scenario_ref": "scenario_00000000000000000000000015",
+      "profile_ref": "profile_00000000000000000000000005",
+      "requirement_ref": "requirement_00000000000000000000000033",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000034"
-      ],
+      "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Process-improvement work is relevant to process mapping, but its duration is insufficient for the anchored three-year experience requirement."
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports skill:process-improvement for the anchored skill requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000011",
@@ -265,17 +259,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9f746c1c439911120e66fee7a10c57e4a2e72061d8f4360e48dfce612d054f21"
+        "historical_content_hash": "sha256:b70ab5426e27daa6862aa5e6ec7a8b28dbabb086540de99334071fbbea99c9a9"
       },
       "scenario_ref": "scenario_00000000000000000000000018",
       "profile_ref": "profile_00000000000000000000000006",
-      "requirement_ref": "requirement_00000000000000000000000027",
-      "classification": "UNSUPPORTED",
+      "requirement_ref": "requirement_00000000000000000000000025",
+      "classification": "PARTIAL",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000034"
+      ],
       "expected_action": "ABSTAIN",
-      "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:process-improvement and covers 304 non-overlapping days, which is partial support for the 1095-day skill:process-mapping experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000012",
@@ -289,19 +285,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:45230874c9fc5b7305f4834d319806ee1a91375bfc12a2f3bf3bf84e63d7dd2f"
+        "historical_content_hash": "sha256:388867241807534c95c0cc9476f077bc94ee0688113a991e33cd9ce014f1444f"
       },
-      "scenario_ref": "scenario_00000000000000000000000019",
-      "profile_ref": "profile_00000000000000000000000007",
-      "requirement_ref": "requirement_00000000000000000000000038",
-      "classification": "PARTIAL",
+      "scenario_ref": "scenario_00000000000000000000000018",
+      "profile_ref": "profile_00000000000000000000000006",
+      "requirement_ref": "requirement_00000000000000000000000027",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000041"
-      ],
-      "expected_action": "REQUIRE_CONFIRMATION",
-      "reason_code": "CREDENTIAL_EXPIRED",
-      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports skill:requirements-analysis for the anchored skill requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000013",
@@ -315,11 +309,11 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7313b874ff5ec15d99879ff4d2c86cffb2aabae11d7f629d7eef80624aa1ff0f"
+        "historical_content_hash": "sha256:94655ed477341294f940ea61644eaed975b276dccdb4c0da5e0f77646a61f670"
       },
-      "scenario_ref": "scenario_00000000000000000000000020",
+      "scenario_ref": "scenario_00000000000000000000000019",
       "profile_ref": "profile_00000000000000000000000007",
-      "requirement_ref": "requirement_00000000000000000000000041",
+      "requirement_ref": "requirement_00000000000000000000000038",
       "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
@@ -327,7 +321,7 @@
       ],
       "expected_action": "REQUIRE_CONFIRMATION",
       "reason_code": "CREDENTIAL_EXPIRED",
-      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+      "support_review_rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "id": "gap_00000000000000000000000014",
@@ -341,19 +335,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:2035e072a3069768a3b2eff815b47ab8a8f1a64a7b430d5bf1be41974033202f"
+        "historical_content_hash": "sha256:041b5ea6871d3683c6764a35923399a59566755cd44f245fd755a2fdf5ebe05d"
       },
-      "scenario_ref": "scenario_00000000000000000000000021",
+      "scenario_ref": "scenario_00000000000000000000000020",
       "profile_ref": "profile_00000000000000000000000007",
-      "requirement_ref": "requirement_00000000000000000000000019",
+      "requirement_ref": "requirement_00000000000000000000000041",
       "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000038"
+        "evidence_00000000000000000000000041"
       ],
-      "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+      "expected_action": "REQUIRE_CONFIRMATION",
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "support_review_rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "id": "gap_00000000000000000000000015",
@@ -367,19 +361,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7fbc52fb06ea715329ef4569c4556c88c2e6bc908a3de43e12e51e1af335c7e7"
+        "historical_content_hash": "sha256:08c3abe02d9336f353b53354503e9647ad1f015557bb08f3512e2f21ec02db8a"
       },
       "scenario_ref": "scenario_00000000000000000000000021",
       "profile_ref": "profile_00000000000000000000000007",
-      "requirement_ref": "requirement_00000000000000000000000020",
+      "requirement_ref": "requirement_00000000000000000000000019",
       "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000041"
+        "evidence_00000000000000000000000037"
       ],
-      "expected_action": "REQUIRE_CONFIRMATION",
-      "reason_code": "CREDENTIAL_EXPIRED",
-      "support_review_rationale": "Quality reporting contributes to experiment design, but it is insufficient to prove direct experiment-design experience."
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:quality-reporting and covers 3468 non-overlapping days, which is partial support for the 2555-day skill:experiment-design experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000016",
@@ -393,19 +387,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:26795d8beb7b3a0effada4d9f960d50175a13e59b241345ad765e4aaddfde9ab"
+        "historical_content_hash": "sha256:41a224fe183db5e4025ee97d0c899123b0eedc0262005da1b00d703d72c198e3"
       },
-      "scenario_ref": "scenario_00000000000000000000000024",
-      "profile_ref": "profile_00000000000000000000000008",
-      "requirement_ref": "requirement_00000000000000000000000013",
+      "scenario_ref": "scenario_00000000000000000000000021",
+      "profile_ref": "profile_00000000000000000000000007",
+      "requirement_ref": "requirement_00000000000000000000000020",
       "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000046"
+        "evidence_00000000000000000000000041"
       ],
-      "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Learning analytics is relevant to SQL analysis but does not directly establish reviewed SQL experience."
+      "expected_action": "REQUIRE_CONFIRMATION",
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "support_review_rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "id": "gap_00000000000000000000000017",
@@ -419,19 +413,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0c05afdc2e9e6813b3eea75dfff014a52e2e0e430d09bcf4d39b976194e5be22"
+        "historical_content_hash": "sha256:98cdffa372cada9b9d926971cf3b7a970586acdd63f36a3f1d2fe3ae5dc13a81"
       },
       "scenario_ref": "scenario_00000000000000000000000024",
       "profile_ref": "profile_00000000000000000000000008",
-      "requirement_ref": "requirement_00000000000000000000000014",
-      "classification": "CONTRADICTED",
+      "requirement_ref": "requirement_00000000000000000000000013",
+      "classification": "PARTIAL",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000048"
+        "evidence_00000000000000000000000044"
       ],
-      "expected_action": "BLOCK_AND_EXPLAIN",
-      "reason_code": "CONTRADICTED_BY_EXPLICIT_RECORD",
-      "support_review_rationale": "An explicit approved field record conflicts with the anchored job constraint, so the scenario must block or abstain."
+      "expected_action": "ABSTAIN",
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:learning-analytics and covers 303 non-overlapping days, which is partial support for the 1095-day skill:sql experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000018",
@@ -445,17 +439,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c975473ca738386c39f0cd21f7a44e9b357d2ab02f727e41fb9368ba9861d072"
+        "historical_content_hash": "sha256:1320380f16893bb48f63b4299462ea2cb75bf5376bad266494d3381a062b2ec6"
       },
-      "scenario_ref": "scenario_00000000000000000000000025",
-      "profile_ref": "profile_00000000000000000000000009",
-      "requirement_ref": "requirement_00000000000000000000000051",
-      "classification": "UNSUPPORTED",
+      "scenario_ref": "scenario_00000000000000000000000024",
+      "profile_ref": "profile_00000000000000000000000008",
+      "requirement_ref": "requirement_00000000000000000000000014",
+      "classification": "CONTRADICTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [],
-      "expected_action": "ABSTAIN",
-      "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000048"
+      ],
+      "expected_action": "BLOCK_AND_EXPLAIN",
+      "reason_code": "CONTRADICTED_BY_EXPLICIT_RECORD",
+      "support_review_rationale": "The cited approved record for field:sponsorship_requirement conflicts with the anchored SPONSORSHIP=NO_SPONSORSHIP constraint, so release is prohibited."
     },
     {
       "id": "gap_00000000000000000000000019",
@@ -469,17 +465,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:460d6a32d9d99149fe08929c3c6a9573d8133ce1415b5549bc25354b115fc725"
+        "historical_content_hash": "sha256:dcaf938bac503a7f173f4abd71721f7d73741ebd31309b6ba6ff0fee9fc8e0d3"
       },
-      "scenario_ref": "scenario_00000000000000000000000026",
+      "scenario_ref": "scenario_00000000000000000000000025",
       "profile_ref": "profile_00000000000000000000000009",
-      "requirement_ref": "requirement_00000000000000000000000054",
+      "requirement_ref": "requirement_00000000000000000000000051",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports education:completed for the anchored education requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000020",
@@ -493,19 +489,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ba00372cd04a5e516c6f793b637c722eb0cb9017ebb85974812e93c8728b19f2"
+        "historical_content_hash": "sha256:4298175fc077786341afea8fcb5c04742df49de58e70c8ed802c6841c93c2339"
       },
-      "scenario_ref": "scenario_00000000000000000000000027",
+      "scenario_ref": "scenario_00000000000000000000000026",
       "profile_ref": "profile_00000000000000000000000009",
-      "requirement_ref": "requirement_00000000000000000000000055",
-      "classification": "PARTIAL",
+      "requirement_ref": "requirement_00000000000000000000000054",
+      "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [
-        "evidence_00000000000000000000000052"
-      ],
+      "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
-      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
-      "support_review_rationale": "Forecasting work is relevant to financial modeling, but its duration is insufficient for the anchored seven-year experience requirement."
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports education:completed for the anchored education requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000021",
@@ -519,17 +513,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d770c3d6bd387c2638ef63d9bbb020cc658667e2fc343ddc8201972fb54c42a1"
+        "historical_content_hash": "sha256:db272fb3abf1cba69bb4b77b25de4c4beba9e6ceb78074a1f8f8eafda3382eb9"
       },
       "scenario_ref": "scenario_00000000000000000000000027",
       "profile_ref": "profile_00000000000000000000000009",
-      "requirement_ref": "requirement_00000000000000000000000056",
-      "classification": "UNSUPPORTED",
+      "requirement_ref": "requirement_00000000000000000000000055",
+      "classification": "PARTIAL",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000050"
+      ],
       "expected_action": "ABSTAIN",
-      "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "support_review_rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:forecasting and covers 304 non-overlapping days, which is partial support for the 2555-day skill:financial-modeling experience requirement and is not release eligible."
     },
     {
       "id": "gap_00000000000000000000000022",
@@ -543,17 +539,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:1e6f9de7b8fcc435eb31387f8478598abbe3156c902db96943e967ac849aed5f"
+        "historical_content_hash": "sha256:7a6cfe7493dd07441e566e3938e790cf20b423979ccb2ed05c243727798058a2"
       },
       "scenario_ref": "scenario_00000000000000000000000027",
       "profile_ref": "profile_00000000000000000000000009",
-      "requirement_ref": "requirement_00000000000000000000000057",
+      "requirement_ref": "requirement_00000000000000000000000056",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000023",
@@ -567,17 +563,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:13e4dde2080e79de61cabdae4d1dc9eb62776bc22cd51f0d59016f1c8d592d5b"
+        "historical_content_hash": "sha256:73155021a68c94cebfcb19d3064d7b8536c5b1e74af85f3eb45208757abdcf94"
       },
-      "scenario_ref": "scenario_00000000000000000000000028",
-      "profile_ref": "profile_00000000000000000000000010",
-      "requirement_ref": "requirement_00000000000000000000000056",
+      "scenario_ref": "scenario_00000000000000000000000027",
+      "profile_ref": "profile_00000000000000000000000009",
+      "requirement_ref": "requirement_00000000000000000000000057",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports education:completed for the anchored education requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000024",
@@ -591,17 +587,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:a99306636b84897edd78b949871a686fe40f116cc96e35dffa64760560727fdd"
+        "historical_content_hash": "sha256:df1299c374c95f53c742bd505ab0dd7641020cc930e1b94810f04b2a797db2b6"
       },
-      "scenario_ref": "scenario_00000000000000000000000029",
+      "scenario_ref": "scenario_00000000000000000000000028",
       "profile_ref": "profile_00000000000000000000000010",
-      "requirement_ref": "requirement_00000000000000000000000059",
+      "requirement_ref": "requirement_00000000000000000000000056",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000025",
@@ -615,17 +611,19 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0279067b80ca630d5e0f1c66278935147b7f65d8e7bb715daa4c6e61c77d89e1"
+        "historical_content_hash": "sha256:727ccddefd3dbdbcf5f3a430ae08de1734e474d1405f788aaa4ccc4244cb481e"
       },
-      "scenario_ref": "scenario_00000000000000000000000030",
+      "scenario_ref": "scenario_00000000000000000000000029",
       "profile_ref": "profile_00000000000000000000000010",
-      "requirement_ref": "requirement_00000000000000000000000001",
-      "classification": "UNSUPPORTED",
+      "requirement_ref": "requirement_00000000000000000000000059",
+      "classification": "CONTRADICTED",
       "supporting_evidence_refs": [],
-      "related_or_contradicting_evidence_refs": [],
-      "expected_action": "ABSTAIN",
-      "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "Financial-analysis evidence does not support the TypeScript experience requirement, so the expected action is abstention."
+      "related_or_contradicting_evidence_refs": [
+        "evidence_00000000000000000000000060"
+      ],
+      "expected_action": "BLOCK_AND_EXPLAIN",
+      "reason_code": "CONTRADICTED_BY_EXPLICIT_RECORD",
+      "support_review_rationale": "The cited approved record for field:relocation_preference conflicts with the anchored WORK_MODE_COMPATIBILITY=HYBRID constraint, so release is prohibited."
     },
     {
       "id": "gap_00000000000000000000000026",
@@ -639,17 +637,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3fe92e52c8c96b3c9f9bfb9f5d5dff269184da2a0440f09736e3aa794a7ed69e"
+        "historical_content_hash": "sha256:c3fe64feebd85143c7aef9baa2d28a1bce2d68cac8e5a67633b476b204911e6c"
       },
       "scenario_ref": "scenario_00000000000000000000000030",
       "profile_ref": "profile_00000000000000000000000010",
-      "requirement_ref": "requirement_00000000000000000000000003",
+      "requirement_ref": "requirement_00000000000000000000000001",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed employment or project evidence carries skill:typescript or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "id": "gap_00000000000000000000000027",
@@ -663,17 +661,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9bf45bc2205fc186fa6463e593bfe5eae5acf6b7dfde4a2bbab41661e3f2859a"
+        "historical_content_hash": "sha256:370697c34e7499d797bf8c9a4653cf7a4b2f151a11c4f61581745b86a59cd969"
       },
-      "scenario_ref": "scenario_00000000000000000000000033",
-      "profile_ref": "profile_00000000000000000000000011",
-      "requirement_ref": "requirement_00000000000000000000000033",
+      "scenario_ref": "scenario_00000000000000000000000030",
+      "profile_ref": "profile_00000000000000000000000010",
+      "requirement_ref": "requirement_00000000000000000000000003",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports credential:synthetic-foundation for the anchored certification requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000028",
@@ -687,17 +685,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:148ca4a29c2ebab148c4a00e24ce9a6d69092ccbcf2d034a3893d30c7acdb151"
+        "historical_content_hash": "sha256:bf8f350c57855fcdba49578d9d7112d16105d822a0abe915e369268847887850"
       },
-      "scenario_ref": "scenario_00000000000000000000000036",
-      "profile_ref": "profile_00000000000000000000000012",
-      "requirement_ref": "requirement_00000000000000000000000040",
+      "scenario_ref": "scenario_00000000000000000000000033",
+      "profile_ref": "profile_00000000000000000000000011",
+      "requirement_ref": "requirement_00000000000000000000000033",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "The entry-level support profile has no healthcare license or related experience evidence for this cross-role job."
+      "support_review_rationale": "No reviewed evidence supports skill:process-improvement for the anchored skill requirement at the 2026-07-29 evaluation date."
     },
     {
       "id": "gap_00000000000000000000000029",
@@ -711,17 +709,17 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4b3a7a47299b495c5d56ee48f7067236b751b1d4711f4cd08e4f68691b028da4"
+        "historical_content_hash": "sha256:346d487bb0907ad8f12c1f24ea2d4989d637eb401c8a82b6b9f2d1317c6fe1cf"
       },
       "scenario_ref": "scenario_00000000000000000000000036",
       "profile_ref": "profile_00000000000000000000000012",
-      "requirement_ref": "requirement_00000000000000000000000041",
+      "requirement_ref": "requirement_00000000000000000000000040",
       "classification": "UNSUPPORTED",
       "supporting_evidence_refs": [],
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed employment or project evidence carries skill:quality-reporting or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "id": "gap_00000000000000000000000030",
@@ -735,7 +733,31 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b1e482a1105cef00dda29f8bf67c3fa5a46f63cb4d8f9688c1cdec190b31cf16"
+        "historical_content_hash": "sha256:2a1fee1676f210ca734196a56549f89eb9558c284a2a4c219f54036a617181e6"
+      },
+      "scenario_ref": "scenario_00000000000000000000000036",
+      "profile_ref": "profile_00000000000000000000000012",
+      "requirement_ref": "requirement_00000000000000000000000041",
+      "classification": "UNSUPPORTED",
+      "supporting_evidence_refs": [],
+      "related_or_contradicting_evidence_refs": [],
+      "expected_action": "ABSTAIN",
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "support_review_rationale": "No reviewed evidence supports license:healthcare-operations for the anchored certification requirement at the 2026-07-29 evaluation date."
+    },
+    {
+      "id": "gap_00000000000000000000000031",
+      "entity_type": "UNSUPPORTED_GAP",
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w01-lead-author",
+        "reviewer": "m02w01-fixture-reviewer",
+        "reviewed_at": "2026-07-29T08:55:00Z",
+        "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:496df0d675e1f021629707db1892300fead3cfa5f7c3b9eef4780ef5b6442c43"
       },
       "scenario_ref": "scenario_00000000000000000000000036",
       "profile_ref": "profile_00000000000000000000000012",
@@ -745,7 +767,7 @@
       "related_or_contradicting_evidence_refs": [],
       "expected_action": "ABSTAIN",
       "reason_code": "NO_SUPPORTING_EVIDENCE",
-      "support_review_rationale": "No reviewed evidence supports the anchored requirement, so the expected action is abstention."
+      "support_review_rationale": "No reviewed evidence supports skill:data-privacy for the anchored skill requirement at the 2026-07-29 evaluation date."
     }
   ]
 }

@@ -183,4 +183,164 @@ describe("M02-W01 independently authored consistency mutations", () => {
     profile.metadata.reviewer = profile.metadata.author;
     expect(issueCodes(value)).toContain("AUTHOR_REVIEWER_ROLE_REUSED");
   });
+
+  test("rejects claim 71 evidence rebinding and rationale drift even when declared relations are changed coherently", () => {
+    const value = corpus();
+    const claim = required(
+      value.expectedSupportedClaims.find(
+        (item) =>
+          item.requirement_ref === "requirement_00000000000000000000000031" &&
+          item.scenario_ref === "scenario_00000000000000000000000033",
+      ),
+    );
+    const education = required(
+      value.evidenceArtifacts.find(
+        (artifact) => artifact.id === "evidence_00000000000000000000000062",
+      ),
+    );
+    claim.evidence_refs = [education.id];
+    education.requirement_relations = [
+      {
+        requirement_ref: claim.requirement_ref,
+        relation: "STRONG_RELATED",
+      },
+    ];
+    const codes = issueCodes(value);
+    expect(codes).toContain("EXPERIENCE_EVIDENCE_SEMANTICS");
+    expect(codes).toContain("SUPPORT_REVIEW_RATIONALE_MISMATCH");
+  });
+
+  test("rejects exact or strong-related experience release below the numeric threshold", () => {
+    const value = corpus();
+    const claim = required(
+      value.expectedSupportedClaims.find((item) => {
+        const requirement = value.expectedRequirements.find(
+          (candidate) => candidate.id === item.requirement_ref,
+        );
+        return (
+          requirement?.requirement_kind === "EXPERIENCE" &&
+          item.support_classification === "DIRECT"
+        );
+      }),
+    );
+    const requirement = required(
+      value.expectedRequirements.find(
+        (item) => item.id === claim.requirement_ref,
+      ),
+    );
+    const evidence = required(
+      value.evidenceArtifacts.find(
+        (artifact) => artifact.id === claim.evidence_refs[0],
+      ),
+    );
+    requirement.constraint = {
+      kind: "MINIMUM_EXPERIENCE_YEARS",
+      value: "99",
+    };
+    evidence.requirement_relations = [
+      { requirement_ref: requirement.id, relation: "DIRECT" },
+    ];
+    expect(issueCodes(value)).toContain("EXPERIENCE_THRESHOLD_MISMATCH");
+  });
+
+  test("rejects a rationale that does not exactly match its cited semantic basis", () => {
+    const value = corpus();
+    required(value.expectedSupportedClaims[0]).support_review_rationale =
+      "This long but false rationale describes facts absent from the cited evidence.";
+    expect(issueCodes(value)).toContain("SUPPORT_REVIEW_RATIONALE_MISMATCH");
+  });
+
+  test("rejects stale explicit-field release and future assertion approval", () => {
+    const value = corpus();
+    const stalePolicy = required(
+      value.fieldValuePolicies.find(
+        (policy) => policy.id === "policy_00000000000000000000000015",
+      ),
+    );
+    const scenario = required(
+      value.scenarioBundles.find(
+        (item) => item.id === "scenario_00000000000000000000000007",
+      ),
+    );
+    const policyEvaluation = required(
+      scenario.policy_evaluations.find(
+        (evaluation) => evaluation.policy_ref === stalePolicy.id,
+      ),
+    );
+    policyEvaluation.expected_action = "USE_SUPPORTED_EVIDENCE";
+    policyEvaluation.release_eligible = true;
+    expect(issueCodes(value)).toContain("SCENARIO_POLICY_MISMATCH");
+
+    const source = required(
+      value.evidenceArtifacts.find(
+        (artifact) => artifact.id === stalePolicy.source_evidence_ref,
+      ),
+    );
+    source.effective_period.start = "2026-07-30";
+    expect(issueCodes(value)).toContain("ASSERTION_RELEASE_BEFORE_APPROVAL");
+  });
+
+  test("rejects profile-to-field value and disclosure contradictions", () => {
+    const value = corpus();
+    const profile = required(value.profiles[0]);
+    const assertion = required(
+      value.evidenceArtifacts.find(
+        (artifact) =>
+          artifact.profile_ref === profile.id &&
+          artifact.category === "USER_ASSERTION",
+      ),
+    );
+    const authorization = required(
+      assertion.field_records.find(
+        (record) => record.field_concept === "WORK_AUTHORIZATION",
+      ),
+    );
+    authorization.recorded_value = "REQUIRES_SPONSORSHIP";
+    authorization.disclosure_text =
+      "Synthetic Candidate 01 explicitly approved work authorization value REQUIRES_SPONSORSHIP.";
+    expect(issueCodes(value)).toContain("PROFILE_FIELD_VALUE_MISMATCH");
+  });
+
+  test("rejects invalid revocation chronology", () => {
+    const value = corpus();
+    const credential = required(
+      value.evidenceArtifacts.find(
+        (artifact) =>
+          artifact.category === "CREDENTIAL_RECORD" &&
+          artifact.credential_validity_basis === "BOUNDED",
+      ),
+    );
+    credential.revoked_on = "1900-01-01";
+    expect(issueCodes(value)).toContain("REVOCATION_CHRONOLOGY");
+  });
+
+  test("rejects nested-to-top-level ID collisions and type-invalid ID prefixes", () => {
+    const value = corpus();
+    required(required(value.sourceResumes[0]).facts[0]).fact_id = required(
+      value.profiles[0],
+    ).id;
+    required(value.jobs[0]).id = "profile_00000000000000000000000099";
+    const codes = issueCodes(value);
+    expect(codes).toContain("GLOBAL_STABLE_ID_DUPLICATE");
+    expect(codes).toContain("STABLE_ID_TYPE_MISMATCH");
+  });
+
+  test("rejects reviewed-date divergence and review before evaluated records", () => {
+    const value = corpus();
+    required(value.profiles[0]).metadata.reviewed_at = "2026-07-28T08:55:00Z";
+    expect(issueCodes(value)).toContain("REVIEW_DATE_DIVERGENCE");
+  });
+
+  test("rejects a false two-page boundary rationale with valid length", () => {
+    const value = corpus();
+    const resume = required(
+      value.sourceResumes.find((item) => item.page_count === 2),
+    );
+    resume.page_boundary = {
+      break_after_fact_id: required(resume.page_boundary).break_after_fact_id,
+      rationale:
+        "This sufficiently long but false rationale claims decorative filler on page two.",
+    };
+    expect(issueCodes(value)).toContain("RESUME_PAGE_BOUNDARY_RATIONALE");
+  });
 });

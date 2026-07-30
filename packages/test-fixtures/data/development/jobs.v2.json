@@ -1023,7 +1023,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f77fc3cd1905ca51771c1290e7e31a2904abccb6c6b41e907a878e941f663263"
+        "historical_content_hash": "sha256:396d8249588c98438c3368a945768adc27347e071f21c024828b24d89801cee8"
       },
       "role_family": "FINANCE",
       "title": "Alternate Senior Financial Analyst",
@@ -1031,7 +1031,7 @@
       "work_mode": "HYBRID",
       "location": "Exampleville, MI",
       "minimum_experience_years": 7,
-      "eligibility_constraint": "LICENSE_REQUIRED",
+      "eligibility_constraint": "NONE",
       "source_blocks": [
         {
           "anchor_id": "job-20.requirements.01",
@@ -1045,14 +1045,14 @@
         {
           "anchor_id": "job-20.requirements.02",
           "declared_importance": "MUST_HAVE",
-          "requirement_kind": "CERTIFICATION",
-          "requirement_tag": "license:healthcare-operations",
+          "requirement_kind": "LOCATION",
+          "requirement_tag": "field:relocation_preference",
           "constraint": {
-            "kind": "CURRENT_LICENSE",
-            "value": "CURRENT_AT_EVALUATION_DATE"
+            "kind": "WORK_MODE_COMPATIBILITY",
+            "value": "HYBRID"
           },
-          "text": "Requirement CERTIFICATION; tagged license:healthcare-operations; constraint CURRENT_LICENSE=CURRENT_AT_EVALUATION_DATE; importance MUST_HAVE.",
-          "text_sha256": "sha256:480b760b3a13c07d9144d60370ef3201fad8a01b8d6a876db954c1d751bf84f5"
+          "text": "Requirement LOCATION; tagged field:relocation_preference; constraint WORK_MODE_COMPATIBILITY=HYBRID; importance MUST_HAVE.",
+          "text_sha256": "sha256:8bacb13af9920893cdcdbfb3a0380fecae96a1537666a13d837d3c3228f7bb3b"
         },
         {
           "anchor_id": "job-20.requirements.03",

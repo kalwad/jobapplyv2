@@ -168,6 +168,15 @@ services`, `uv run pytest`, `cargo fmt/clippy/test --manifest-path
 services/native-host/Cargo.toml`, `pnpm test:browser-smoke`) keep working
 unchanged.
 
+M02-W01's committed development fixture seed is test/evaluation data, not a
+product model or frozen corpus. Its semantic selectors, scenario-date
+freshness rules, independent test-only oracle, privacy/diagnostic boundary,
+and loader TOCTOU limits are documented in
+[`packages/test-fixtures/README.md`](packages/test-fixtures/README.md).
+M02-W01 remains IN_PROGRESS and M02-W02 remains NOT_STARTED until the
+separate audit and governance closeout sequence recorded in project status is
+complete.
+
 ## Traceability and next-work derivation (M00-W07; v1.3 by M00-W10, v1.4 by M00-W11)
 
 `docs/traceability.json` is the canonical machine-readable mapping.

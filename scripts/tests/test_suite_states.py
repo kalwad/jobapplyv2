@@ -402,6 +402,49 @@ def test_conditional_skip_plus_trivial_replacement_fails_both_controls(
     assert "non-passing" in failure
 
 
+def test_empty_parameter_table_with_count_compensation_still_fails(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            'test.each([])("substantive %s", () => { throw new Error(); });\n'
+            'test("compensating trivial pass", () => {});\n'
+        ),
+        encoding="utf-8",
+    )
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="integrity",
+                builtin="integrity",
+                commands=[],
+            ),
+            make_suite(
+                id="count-proof",
+                commands=[
+                    [
+                        sys.executable,
+                        "-c",
+                        "print('Test Files  1 passed (1)\\nTests  50 passed (50)')",
+                    ]
+                ],
+                proofs=[{"kind": "vitest_exact_tests", "min": 50}],
+            ),
+        ],
+    )
+    outcomes, exit_code = verify.run_verification(fixture_repo, None)
+    assert exit_code == 1
+    assert any(
+        "empty test parameter table" in message
+        or "empty test.each parameter table" in message
+        for outcome in outcomes
+        for message in outcome.messages
+    )
+
+
 def test_unknown_proof_kind_fails_closed(fixture_repo: verify.Context) -> None:
     write_registry(
         fixture_repo.registry_path,

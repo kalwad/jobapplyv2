@@ -3,16 +3,29 @@ import { safeDiagnosticPointer, safeDiagnosticToken } from "./diagnostics.ts";
 import {
   type EvidenceArtifact,
   type EvidenceRelation,
-  type FieldValuePolicy,
   type FixtureCorpus,
   type FixtureEntity,
   type FixtureEntityType,
   type FixtureCounts,
   type RoleFamily,
-  type ScenarioBundle,
   type SupportClassification,
   type SupportedClassification,
 } from "./model.ts";
+import {
+  expectedReviewRationale,
+  TWO_PAGE_RESUME_RATIONALE,
+} from "./review-rationale.ts";
+import {
+  experienceCoverageDays,
+  requiredExperienceDays,
+  reviewedExperienceRelation,
+} from "./semantic-evidence.ts";
+import {
+  credentialStateAt,
+  fieldRecordForPolicy,
+  policyDecisionAt,
+  type CredentialState,
+} from "./temporal-policy.ts";
 
 export interface FixtureValidationIssue {
   readonly code: string;
@@ -75,7 +88,7 @@ function allEntities(corpus: FixtureCorpus): FixtureEntity[] {
   ];
 }
 
-function checkNestedStableIds(
+function checkStableIds(
   corpus: FixtureCorpus,
   issues: FixtureValidationIssue[],
 ): void {
@@ -84,21 +97,65 @@ function checkNestedStableIds(
     id: string,
     ownerId: string,
     pointer: string,
-    code: string,
+    duplicateCode: string,
+    expectedPattern: RegExp,
   ): void => {
+    if (!expectedPattern.test(id)) {
+      issue(
+        issues,
+        "STABLE_ID_TYPE_MISMATCH",
+        ownerId,
+        pointer,
+        "stable ID must use its entity-specific prefix and 26 decimal digits",
+      );
+    }
     const prior = seen.get(id);
     if (prior !== undefined) {
       issue(
         issues,
-        code,
+        duplicateCode,
         ownerId,
         pointer,
-        "nested stable ID is already owned by another reviewed member",
+        "stable ID is already owned by another reviewed member",
+      );
+      issue(
+        issues,
+        "GLOBAL_STABLE_ID_DUPLICATE",
+        ownerId,
+        pointer,
+        "stable IDs must be globally unique across top-level and nested records",
       );
     } else {
       seen.set(id, `${ownerId}${pointer}`);
     }
   };
+  register(
+    corpus.manifest.id,
+    corpus.manifest.id,
+    "/id",
+    "GLOBAL_STABLE_ID_DUPLICATE",
+    /^manifest_[0-9]{26}$/u,
+  );
+  const typedPatterns: Record<FixtureEntityType, RegExp> = {
+    EVIDENCE_ARTIFACT: /^evidence_[0-9]{26}$/u,
+    EXPECTED_REQUIREMENT: /^requirement_[0-9]{26}$/u,
+    EXPECTED_SUPPORTED_CLAIM: /^claim_[0-9]{26}$/u,
+    FIELD_VALUE_POLICY: /^policy_[0-9]{26}$/u,
+    SCENARIO_BUNDLE: /^scenario_[0-9]{26}$/u,
+    SOURCE_RESUME: /^resume_[0-9]{26}$/u,
+    SYNTHETIC_JOB: /^job_[0-9]{26}$/u,
+    SYNTHETIC_PROFILE: /^profile_[0-9]{26}$/u,
+    UNSUPPORTED_GAP: /^gap_[0-9]{26}$/u,
+  };
+  for (const entity of allEntities(corpus)) {
+    register(
+      entity.id,
+      entity.id,
+      "/id",
+      "GLOBAL_STABLE_ID_DUPLICATE",
+      typedPatterns[entity.entity_type],
+    );
+  }
   for (const resume of corpus.sourceResumes) {
     resume.facts.forEach((fact, index) => {
       register(
@@ -106,6 +163,7 @@ function checkNestedStableIds(
         resume.id,
         pointerAt("/facts", index, "/fact_id"),
         "RESUME_FACT_ID_DUPLICATE",
+        /^resumefact_[0-9]{26}$/u,
       );
     });
   }
@@ -116,6 +174,7 @@ function checkNestedStableIds(
         artifact.id,
         pointerAt("/field_records", index, "/field_record_id"),
         "FIELD_RECORD_ID_DUPLICATE",
+        /^fieldrecord_[0-9]{26}$/u,
       );
     });
   }
@@ -126,6 +185,7 @@ function checkNestedStableIds(
         job.id,
         pointerAt("/source_blocks", index, "/anchor_id"),
         "SOURCE_ANCHOR_DUPLICATE",
+        /^job-[0-9]{2}\.requirements\.[0-9]{2}$/u,
       );
     });
   }
@@ -181,6 +241,8 @@ function checkMetadata(
   issues: FixtureValidationIssue[],
 ): void {
   const values = [corpus.manifest, ...allEntities(corpus)];
+  const reviewedAt = corpus.manifest.metadata.reviewed_at;
+  const reviewedDate = reviewedAt.slice(0, 10);
   for (const value of values) {
     if (
       value.metadata.author === "" ||
@@ -203,6 +265,43 @@ function checkMetadata(
         value.id,
         "/metadata/reviewer",
         "fixture author and recorded reviewer role labels must differ; this is provenance hygiene, not independent certification",
+      );
+    }
+    if (value.metadata.reviewed_at !== reviewedAt) {
+      issue(
+        issues,
+        "REVIEW_DATE_DIVERGENCE",
+        value.id,
+        "/metadata/reviewed_at",
+        "all reviewed corpus records must bind the manifest review event",
+      );
+    }
+  }
+  for (const scenario of corpus.scenarioBundles) {
+    if (scenario.evaluation_date > reviewedDate) {
+      issue(
+        issues,
+        "REVIEW_PRECEDES_EVALUATION",
+        scenario.id,
+        "/evaluation_date",
+        "the recorded review event cannot precede a scenario evaluation it certifies",
+      );
+    }
+  }
+  for (const artifact of corpus.evidenceArtifacts) {
+    if (
+      artifact.category === "USER_ASSERTION" &&
+      (artifact.effective_period.start > reviewedDate ||
+        artifact.field_records.some(
+          (record) => record.recorded_on > reviewedDate,
+        ))
+    ) {
+      issue(
+        issues,
+        "REVIEW_PRECEDES_ASSERTION",
+        artifact.id,
+        "/metadata/reviewed_at",
+        "the recorded review event cannot precede an approved assertion or field record",
       );
     }
   }
@@ -239,7 +338,7 @@ function checkProfileEvidenceAndResumes(
     }
   }
   for (const artifact of corpus.evidenceArtifacts) {
-    exactReference(
+    const owningProfile = exactReference(
       artifact.profile_ref,
       "SYNTHETIC_PROFILE",
       profiles,
@@ -259,6 +358,19 @@ function checkProfileEvidenceAndResumes(
         artifact.id,
         "/effective_period",
         "start must not follow end",
+      );
+    }
+    if (
+      artifact.revoked_on !== undefined &&
+      (artifact.category !== "CREDENTIAL_RECORD" ||
+        artifact.revoked_on < artifact.effective_period.start)
+    ) {
+      issue(
+        issues,
+        "REVOCATION_CHRONOLOGY",
+        artifact.id,
+        "/revoked_on",
+        "revocation is credential-only and cannot precede credential validity",
       );
     }
     const expectedTemporal =
@@ -307,6 +419,31 @@ function checkProfileEvidenceAndResumes(
       );
     }
     if (
+      artifact.category !== "EDUCATION_RECORD" &&
+      artifact.education_state !== undefined
+    ) {
+      issue(
+        issues,
+        "EDUCATION_STATE_CATEGORY_MISMATCH",
+        artifact.id,
+        "/education_state",
+        "education state is valid only on education evidence",
+      );
+    }
+    if (
+      artifact.category !== "CREDENTIAL_RECORD" &&
+      (artifact.credential_validity_basis !== undefined ||
+        artifact.revoked_on !== undefined)
+    ) {
+      issue(
+        issues,
+        "CREDENTIAL_STATE_CATEGORY_MISMATCH",
+        artifact.id,
+        "/credential_validity_basis",
+        "credential validity fields are valid only on credential evidence",
+      );
+    }
+    if (
       (artifact.category === "USER_ASSERTION" &&
         artifact.assertion_approval !== "USER_APPROVED") ||
       (artifact.category !== "USER_ASSERTION" &&
@@ -338,6 +475,54 @@ function checkProfileEvidenceAndResumes(
           "/field_records",
           "approved user assertion must contain five unique atomic field records",
         );
+      }
+      for (const [recordIndex, record] of artifact.field_records.entries()) {
+        if (
+          record.recorded_on < artifact.effective_period.start ||
+          (artifact.effective_period.end !== undefined &&
+            record.recorded_on > artifact.effective_period.end)
+        ) {
+          issue(
+            issues,
+            "ASSERTION_RECORD_CHRONOLOGY",
+            artifact.id,
+            pointerAt("/field_records", recordIndex, "/recorded_on"),
+            "atomic field recording must occur inside the approved assertion interval",
+          );
+        }
+      }
+      if (owningProfile !== undefined) {
+        const expectedValues = {
+          WORK_AUTHORIZATION: owningProfile.work_authorization.status,
+          SPONSORSHIP_REQUIREMENT: owningProfile.work_authorization
+            .sponsorship_required
+            ? "REQUIRED"
+            : "NOT_REQUIRED",
+          RELOCATION_PREFERENCE: owningProfile.constraints.relocation,
+        } as const;
+        for (const [concept, expectedValue] of Object.entries(expectedValues)) {
+          const record = artifact.field_records.find(
+            (candidate) => candidate.field_concept === concept,
+          );
+          const expectedDisclosure =
+            concept === "WORK_AUTHORIZATION"
+              ? `${owningProfile.contact.full_name} explicitly approved work authorization value ${expectedValue}.`
+              : concept === "SPONSORSHIP_REQUIREMENT"
+                ? `${owningProfile.contact.full_name} explicitly approved sponsorship requirement value ${expectedValue}.`
+                : `${owningProfile.contact.full_name} explicitly approved relocation preference ${expectedValue}.`;
+          if (
+            record?.recorded_value !== expectedValue ||
+            record.disclosure_text !== expectedDisclosure
+          ) {
+            issue(
+              issues,
+              "PROFILE_FIELD_VALUE_MISMATCH",
+              artifact.id,
+              "/field_records",
+              "approved field value and disclosure must exactly match the bound profile",
+            );
+          }
+        }
       }
     } else if (artifact.field_records.length !== 0) {
       issue(
@@ -441,6 +626,7 @@ function checkProfileEvidenceAndResumes(
 
   const resumeCountByProfile = new Map<string, number>();
   for (const resume of corpus.sourceResumes) {
+    const seenResumeEvidence = new Set<string>();
     const profile = exactReference(
       resume.profile_ref,
       "SYNTHETIC_PROFILE",
@@ -486,6 +672,16 @@ function checkProfileEvidenceAndResumes(
         if (artifact === undefined) {
           continue;
         }
+        if (seenResumeEvidence.has(reference)) {
+          issue(
+            issues,
+            "RESUME_EVIDENCE_DUPLICATE",
+            resume.id,
+            pointerAt("/facts", index, "/evidence_refs"),
+            "each resume fact must bind unique evidence; page boundaries cannot duplicate content",
+          );
+        }
+        seenResumeEvidence.add(reference);
         if (artifact.profile_ref !== resume.profile_ref) {
           issue(
             issues,
@@ -495,13 +691,13 @@ function checkProfileEvidenceAndResumes(
             "evidence belongs to another profile",
           );
         }
-        if (!fact.text.startsWith(artifact.statement)) {
+        if (fact.text !== artifact.statement) {
           issue(
             issues,
             "RESUME_FACT_MUTATED",
             resume.id,
             pointerAt("/facts", index, "/text"),
-            "resume text must begin with canonical evidence and may only add reviewed fixture detail",
+            "resume text must equal the canonical cited evidence statement",
           );
         }
         if (fact.fact_keys.some((key) => !artifact.fact_keys.includes(key))) {
@@ -553,16 +749,33 @@ function checkProfileEvidenceAndResumes(
     }
     if (resume.page_count === 2) {
       const pageTwoFacts = resume.facts.filter((fact) => fact.page === 2);
+      const pageOneCategories = resume.facts
+        .filter((fact) => fact.page === 1)
+        .flatMap((fact) =>
+          fact.evidence_refs.flatMap((reference) => {
+            const artifact = evidence.get(reference);
+            return artifact === undefined ? [] : [artifact.category];
+          }),
+        );
+      const pageTwoCategories = pageTwoFacts.flatMap((fact) =>
+        fact.evidence_refs.flatMap((reference) => {
+          const artifact = evidence.get(reference);
+          return artifact === undefined ? [] : [artifact.category];
+        }),
+      );
       const breakIndex = resume.facts.findIndex(
         (fact) => fact.fact_id === resume.page_boundary?.break_after_fact_id,
       );
       if (
-        resume.page_boundary === undefined ||
-        resume.page_boundary.rationale.length < 30 ||
+        resume.page_boundary?.rationale !== TWO_PAGE_RESUME_RATIONALE ||
         pageTwoFacts.length < 3 ||
         breakIndex < 0 ||
         resume.facts.slice(0, breakIndex + 1).some((fact) => fact.page !== 1) ||
-        resume.facts.slice(breakIndex + 1).some((fact) => fact.page !== 2)
+        resume.facts.slice(breakIndex + 1).some((fact) => fact.page !== 2) ||
+        pageOneCategories.join(",") !==
+          ["EMPLOYMENT_RECORD", "EDUCATION_RECORD"].join(",") ||
+        pageTwoCategories.join(",") !==
+          ["EDUCATION_RECORD", "EDUCATION_RECORD", "PROJECT_RECORD"].join(",")
       ) {
         issue(
           issues,
@@ -835,7 +1048,7 @@ function checkEvidenceRelations(
   for (const artifact of corpus.evidenceArtifacts) {
     const seen = new Set<string>();
     for (const [index, relation] of artifact.requirement_relations.entries()) {
-      exactReference(
+      const requirement = exactReference(
         relation.requirement_ref,
         "EXPECTED_REQUIREMENT",
         requirements,
@@ -867,6 +1080,29 @@ function checkEvidenceRelations(
           "user-asserted support requires approved user assertion evidence",
         );
       }
+      if (requirement?.requirement_kind === "EXPERIENCE") {
+        const semanticRelation = reviewedExperienceRelation(
+          requirement,
+          artifact,
+        );
+        const relationIsCoherent =
+          relation.relation === "DIRECT"
+            ? semanticRelation === "DIRECT"
+            : relation.relation === "STRONG_RELATED"
+              ? semanticRelation === "STRONG_RELATED"
+              : relation.relation === "PARTIAL"
+                ? semanticRelation !== undefined
+                : false;
+        if (!relationIsCoherent) {
+          issue(
+            issues,
+            "EXPERIENCE_EVIDENCE_SEMANTICS",
+            artifact.id,
+            pointerAt("/requirement_relations", index, "/relation"),
+            "experience relation must derive from reviewed activity category and semantic fact keys",
+          );
+        }
+      }
     }
   }
 }
@@ -878,75 +1114,6 @@ function relationFor(
   return artifact.requirement_relations.find(
     (relation) => relation.requirement_ref === requirementRef,
   )?.relation;
-}
-
-type CredentialState =
-  "CURRENT" | "EXPIRED" | "NOT_YET_VALID" | "REVOKED" | "UNKNOWN";
-
-function credentialStateAt(
-  artifact: EvidenceArtifact,
-  evaluationDate: string,
-): CredentialState | undefined {
-  if (
-    artifact.category !== "CREDENTIAL_RECORD" ||
-    artifact.credential_validity_basis === undefined
-  ) {
-    return undefined;
-  }
-  if (
-    artifact.revoked_on !== undefined &&
-    artifact.revoked_on <= evaluationDate
-  ) {
-    return "REVOKED";
-  }
-  if (evaluationDate < artifact.effective_period.start) {
-    return "NOT_YET_VALID";
-  }
-  if (artifact.credential_validity_basis === "UNKNOWN") {
-    return "UNKNOWN";
-  }
-  if (
-    artifact.credential_validity_basis === "BOUNDED" &&
-    artifact.effective_period.end !== undefined &&
-    evaluationDate > artifact.effective_period.end
-  ) {
-    return "EXPIRED";
-  }
-  return "CURRENT";
-}
-
-function policyExpectedAction(
-  policy: FieldValuePolicy,
-  source: EvidenceArtifact,
-  evaluationDate: string,
-): ScenarioBundle["evaluations"][number]["expected_action"] {
-  if (policy.policy === "FILL_FROM_EXPLICIT_RECORD") {
-    return "USE_SUPPORTED_EVIDENCE";
-  }
-  if (policy.policy === "CONFIRM_ONCE_PER_JOB") {
-    return "REQUIRE_CONFIRMATION";
-  }
-  if (
-    policy.policy === "BLOCK_AND_EXPLAIN" ||
-    policy.policy === "NEVER_AUTOFILL"
-  ) {
-    return "BLOCK_AND_EXPLAIN";
-  }
-  if (policy.policy === "VOLUNTARY_PREFER_NOT_TO_ANSWER") {
-    return "ABSTAIN";
-  }
-  if (policy.field_concept === "LICENSE_VALIDITY") {
-    return credentialStateAt(source, evaluationDate) === "CURRENT"
-      ? "USE_SUPPORTED_EVIDENCE"
-      : "REQUIRE_CONFIRMATION";
-  }
-  const record = source.field_records.find(
-    (item) => item.field_record_id === policy.source_field_record_id,
-  );
-  return record?.valid_through !== undefined &&
-    record.valid_through >= evaluationDate
-    ? "USE_SUPPORTED_EVIDENCE"
-    : "REQUIRE_CONFIRMATION";
 }
 
 function checkScenariosAndResults(
@@ -1048,7 +1215,7 @@ function checkScenariosAndResults(
         const expectedAction =
           source === undefined
             ? undefined
-            : policyExpectedAction(policy, source, scenario.evaluation_date);
+            : policyDecisionAt(policy, source, scenario.evaluation_date).action;
         if (
           expectedAction !== undefined &&
           claim.release_eligible !==
@@ -1060,6 +1227,25 @@ function checkScenariosAndResults(
             claim.id,
             "/release_eligible",
             "claim release state must be derived from source freshness at the scenario evaluation date",
+          );
+        }
+        const sourceRecord =
+          source === undefined
+            ? undefined
+            : fieldRecordForPolicy(policy, source);
+        if (
+          claim.release_eligible &&
+          source !== undefined &&
+          (source.effective_period.start > scenario.evaluation_date ||
+            (sourceRecord !== undefined &&
+              sourceRecord.recorded_on > scenario.evaluation_date))
+        ) {
+          issue(
+            issues,
+            "ASSERTION_RELEASE_BEFORE_APPROVAL",
+            claim.id,
+            "/release_eligible",
+            "future assertion approval or recording cannot release into an earlier scenario",
           );
         }
       }
@@ -1180,57 +1366,43 @@ function checkScenariosAndResults(
       }
     }
     if (
-      claim.support_classification === "DIRECT" &&
-      requirement?.requirement_kind === "EXPERIENCE"
+      requirement?.requirement_kind === "EXPERIENCE" &&
+      scenario !== undefined
     ) {
-      const job = jobs.get(requirement.job_ref);
-      const scenarioDate = scenario?.evaluation_date;
-      const intervals = resolvedClaimEvidence
-        .flatMap((artifact) => {
-          const end = artifact.effective_period.end;
-          if (artifact.category !== "EMPLOYMENT_RECORD" || end === undefined) {
-            return [];
-          }
-          return [
-            {
-              start: dateValue(artifact.effective_period.start),
-              end: dateValue(
-                scenarioDate === undefined || end < scenarioDate
-                  ? end
-                  : scenarioDate,
-              ),
-            },
-          ];
-        })
-        .sort((left, right) => left.start - right.start);
-      let coveredDays = 0;
-      let cursorStart: number | undefined;
-      let cursorEnd: number | undefined;
-      for (const interval of intervals) {
-        if (cursorStart === undefined || cursorEnd === undefined) {
-          cursorStart = interval.start;
-          cursorEnd = interval.end;
-        } else if (interval.start <= cursorEnd) {
-          cursorEnd = Math.max(cursorEnd, interval.end);
-        } else {
-          coveredDays += (cursorEnd - cursorStart) / (1000 * 60 * 60 * 24) + 1;
-          cursorStart = interval.start;
-          cursorEnd = interval.end;
-        }
-      }
-      if (cursorStart !== undefined && cursorEnd !== undefined) {
-        coveredDays += (cursorEnd - cursorStart) / (1000 * 60 * 60 * 24) + 1;
-      }
+      const expectedRelation =
+        claim.support_classification === "DIRECT"
+          ? "DIRECT"
+          : claim.support_classification === "STRONG_RELATED"
+            ? "STRONG_RELATED"
+            : undefined;
       if (
-        job === undefined ||
-        coveredDays < job.minimum_experience_years * 365
+        expectedRelation === undefined ||
+        resolvedClaimEvidence.some(
+          (artifact) =>
+            reviewedExperienceRelation(requirement, artifact) !==
+            expectedRelation,
+        )
       ) {
         issue(
           issues,
-          "DIRECT_EXPERIENCE_THRESHOLD_MISMATCH",
+          "EXPERIENCE_EVIDENCE_SEMANTICS",
           claim.id,
           "/evidence_refs",
-          "non-overlapping dated direct evidence does not meet the anchored experience threshold",
+          "released experience evidence must use the reviewed activity category and semantic relation",
+        );
+      }
+      const threshold = requiredExperienceDays(requirement);
+      const covered = experienceCoverageDays(
+        resolvedClaimEvidence,
+        scenario.evaluation_date,
+      );
+      if (threshold === undefined || covered < threshold) {
+        issue(
+          issues,
+          "EXPERIENCE_THRESHOLD_MISMATCH",
+          claim.id,
+          "/evidence_refs",
+          "every release-capable experience claim must meet the anchored non-overlapping duration threshold",
         );
       }
     }
@@ -1258,6 +1430,25 @@ function checkScenariosAndResults(
         claim.id,
         "/claim_text",
         "claim must reproduce canonical evidence or one matching atomic approved field disclosure",
+      );
+    }
+    if (
+      requirement !== undefined &&
+      scenario !== undefined &&
+      claim.support_review_rationale !==
+        expectedReviewRationale({
+          classification: claim.support_classification,
+          requirement,
+          evidence: resolvedClaimEvidence,
+          evaluationDate: scenario.evaluation_date,
+        })
+    ) {
+      issue(
+        issues,
+        "SUPPORT_REVIEW_RATIONALE_MISMATCH",
+        claim.id,
+        "/support_review_rationale",
+        "support rationale must be the deterministic rendering of the cited facts, dates, relation, and threshold",
       );
     }
     if (scenario !== undefined && scenario.profile_ref !== claim.profile_ref) {
@@ -1295,7 +1486,7 @@ function checkScenariosAndResults(
       gap.id,
       "/profile_ref",
     );
-    exactReference(
+    const requirement = exactReference(
       gap.requirement_ref,
       "EXPECTED_REQUIREMENT",
       requirements,
@@ -1355,6 +1546,7 @@ function checkScenariosAndResults(
         "related evidence cardinality does not match classification",
       );
     }
+    const resolvedGapEvidence: EvidenceArtifact[] = [];
     for (const reference of gap.related_or_contradicting_evidence_refs) {
       const artifact = exactReference(
         reference,
@@ -1368,6 +1560,7 @@ function checkScenariosAndResults(
       if (artifact === undefined) {
         continue;
       }
+      resolvedGapEvidence.push(artifact);
       if (artifact.profile_ref !== gap.profile_ref) {
         issue(
           issues,
@@ -1409,6 +1602,84 @@ function checkScenariosAndResults(
         gap.id,
         "/requirement_ref",
         "positive supporting relation exists for a declared gap",
+      );
+    }
+    if (
+      requirement?.requirement_kind === "EXPERIENCE" &&
+      scenario !== undefined
+    ) {
+      const semanticRelations = resolvedGapEvidence.map((artifact) =>
+        reviewedExperienceRelation(requirement, artifact),
+      );
+      if (
+        gap.classification === "PARTIAL" &&
+        (semanticRelations.length === 0 ||
+          semanticRelations.some((relation) => relation === undefined))
+      ) {
+        issue(
+          issues,
+          "EXPERIENCE_EVIDENCE_SEMANTICS",
+          gap.id,
+          "/related_or_contradicting_evidence_refs",
+          "partial experience gaps require reviewed adjacent or exact activity evidence",
+        );
+      }
+      if (
+        gap.classification === "UNSUPPORTED" &&
+        profileEvidence.some(
+          (artifact) =>
+            reviewedExperienceRelation(requirement, artifact) !== undefined,
+        )
+      ) {
+        issue(
+          issues,
+          "EXPERIENCE_EVIDENCE_SEMANTICS",
+          gap.id,
+          "/classification",
+          "unsupported experience result conflicts with reviewed activity evidence",
+        );
+      }
+      const threshold = requiredExperienceDays(requirement);
+      const releaseCapableEvidence = resolvedGapEvidence.filter((artifact) => {
+        const relation = reviewedExperienceRelation(requirement, artifact);
+        return relation === "DIRECT" || relation === "STRONG_RELATED";
+      });
+      if (
+        gap.classification === "PARTIAL" &&
+        releaseCapableEvidence.length > 0 &&
+        threshold !== undefined &&
+        experienceCoverageDays(
+          releaseCapableEvidence,
+          scenario.evaluation_date,
+        ) >= threshold
+      ) {
+        issue(
+          issues,
+          "EXPERIENCE_THRESHOLD_MISMATCH",
+          gap.id,
+          "/classification",
+          "threshold-satisfying exact or strong-related activity cannot remain a partial gap",
+        );
+      }
+    }
+    if (
+      requirement !== undefined &&
+      scenario !== undefined &&
+      gap.support_review_rationale !==
+        expectedReviewRationale({
+          classification: gap.classification,
+          requirement,
+          evidence: resolvedGapEvidence,
+          evaluationDate: scenario.evaluation_date,
+          reasonCode: gap.reason_code,
+        })
+    ) {
+      issue(
+        issues,
+        "SUPPORT_REVIEW_RATIONALE_MISMATCH",
+        gap.id,
+        "/support_review_rationale",
+        "gap rationale must be the deterministic rendering of cited facts, dates, relation, threshold, and reason",
       );
     }
     if (scenario !== undefined && scenario.profile_ref !== gap.profile_ref) {
@@ -1593,11 +1864,11 @@ function checkScenariosAndResults(
         const expectedAction =
           claimPolicy === undefined || claimPolicySource === undefined
             ? "USE_SUPPORTED_EVIDENCE"
-            : policyExpectedAction(
+            : policyDecisionAt(
                 claimPolicy,
                 claimPolicySource,
                 scenario.evaluation_date,
-              );
+              ).action;
         if (
           claim !== undefined &&
           (claim.scenario_ref !== scenario.id ||
@@ -1687,7 +1958,7 @@ function checkScenariosAndResults(
           policy.source_evidence_ref !== source.id ||
           policy.field_concept !== evaluation.field_concept ||
           evaluation.expected_action !==
-            policyExpectedAction(policy, source, scenario.evaluation_date) ||
+            policyDecisionAt(policy, source, scenario.evaluation_date).action ||
           evaluation.release_eligible !==
             (evaluation.expected_action === "USE_SUPPORTED_EVIDENCE"))
       ) {
@@ -1697,6 +1968,25 @@ function checkScenariosAndResults(
           scenario.id,
           pointerAt("/policy_evaluations", index),
           "policy decision must bind the profile, source, concept, freshness, action, and release state",
+        );
+      }
+      const sourceRecord =
+        policy === undefined || source === undefined
+          ? undefined
+          : fieldRecordForPolicy(policy, source);
+      if (
+        evaluation.release_eligible &&
+        source !== undefined &&
+        (source.effective_period.start > scenario.evaluation_date ||
+          (sourceRecord !== undefined &&
+            sourceRecord.recorded_on > scenario.evaluation_date))
+      ) {
+        issue(
+          issues,
+          "ASSERTION_RELEASE_BEFORE_APPROVAL",
+          scenario.id,
+          pointerAt("/policy_evaluations", index, "/release_eligible"),
+          "future assertion approval or recording cannot release into an earlier scenario",
         );
       }
     }
@@ -1759,6 +2049,37 @@ function checkScenariosAndResults(
         "/expected_outcome",
         "strongest-abstention scenario cannot contain a supported claim",
       );
+    }
+    if (
+      profile !== undefined &&
+      job !== undefined &&
+      profile.constraints.relocation === "REMOTE_ONLY" &&
+      job.work_mode !== "REMOTE"
+    ) {
+      const workModeRequirement = corpus.expectedRequirements.find(
+        (candidate) =>
+          candidate.job_ref === job.id &&
+          candidate.constraint.kind === "WORK_MODE_COMPATIBILITY" &&
+          candidate.constraint.value === job.work_mode,
+      );
+      const workModeEvaluation = scenario.evaluations.find(
+        (evaluation) => evaluation.requirement_ref === workModeRequirement?.id,
+      );
+      if (
+        workModeRequirement === undefined ||
+        workModeEvaluation?.classification !== "CONTRADICTED" ||
+        workModeEvaluation.expected_action !== "BLOCK_AND_EXPLAIN" ||
+        workModeEvaluation.result_type !== "UNSUPPORTED_GAP" ||
+        scenario.expected_outcome !== "BLOCK_INELIGIBLE"
+      ) {
+        issue(
+          issues,
+          "UNMODELED_HARD_CONFLICT",
+          scenario.id,
+          "/expected_outcome",
+          "remote-only profile paired with a place-based job requires an explicit contradicted work-mode result and ineligibility block",
+        );
+      }
     }
     if (
       profile !== undefined &&
@@ -2339,15 +2660,15 @@ function checkCoverage(
     (resume) => resume.facts.length,
   );
   if (
-    new Set(resumeFactCounts).size < 4 ||
-    Math.max(...resumeFactCounts) - Math.min(...resumeFactCounts) < 3
+    new Set(resumeFactCounts).size < 3 ||
+    Math.max(...resumeFactCounts) - Math.min(...resumeFactCounts) < 2
   ) {
     issue(
       issues,
       "RESUME_FACT_DIVERSITY",
       corpus.manifest.id,
       "/counts",
-      "resume fact counts require at least four sizes spanning three facts",
+      "resume fact counts require at least three sizes spanning two facts",
     );
   }
   const jobShapeSignatures = new Set(
@@ -2501,7 +2822,7 @@ export function validateFixtureConsistency(
   const entities = allEntities(corpus);
   const global = new Map(entities.map((entity) => [entity.id, entity]));
   checkMetadata(corpus, issues);
-  checkNestedStableIds(corpus, issues);
+  checkStableIds(corpus, issues);
   checkProfileEvidenceAndResumes(corpus, global, issues);
   checkJobsAndRequirements(corpus, global, issues);
   checkEvidenceRelations(corpus, global, issues);

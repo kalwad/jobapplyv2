@@ -1,13 +1,14 @@
 {
-  "review_boundary": "Test-only expectations authored separately from the generator and validator; final independent certification remains external.",
+  "review_boundary": "Test-only expectations authored and reviewed separately from generator and validator helpers; projection hashes cover every result, evidence binding, rationale, policy source/date, resume fact, profile-field coupling, and credential record. Final certification remains external.",
+  "reviewed_at": "2026-07-29T08:55:00Z",
   "counts": {
     "profiles": 12,
     "evidence_artifacts": 72,
     "source_resumes": 12,
     "jobs": 24,
     "expected_requirements": 72,
-    "expected_supported_claims": 78,
-    "unsupported_gaps": 30,
+    "expected_supported_claims": 77,
+    "unsupported_gaps": 31,
     "field_value_policies": 69,
     "scenario_bundles": 36,
     "scenario_evaluations": 108
@@ -19,1481 +20,314 @@
     "PROJECT_RECORD": 14,
     "USER_ASSERTION": 12
   },
-  "credential_states_at_2026_07_29": [
-    ["evidence_00000000000000000000000005", "CURRENT"],
-    ["evidence_00000000000000000000000011", "CURRENT"],
-    ["evidence_00000000000000000000000017", "CURRENT"],
-    ["evidence_00000000000000000000000023", "CURRENT"],
-    ["evidence_00000000000000000000000029", "CURRENT"],
-    ["evidence_00000000000000000000000035", "CURRENT"],
-    ["evidence_00000000000000000000000039", "CURRENT"],
-    ["evidence_00000000000000000000000040", "CURRENT"],
-    ["evidence_00000000000000000000000041", "EXPIRED"],
-    ["evidence_00000000000000000000000045", "CURRENT"],
-    ["evidence_00000000000000000000000046", "NOT_YET_VALID"],
-    ["evidence_00000000000000000000000047", "REVOKED"],
-    ["evidence_00000000000000000000000051", "CURRENT"],
-    ["evidence_00000000000000000000000052", "UNKNOWN"],
-    ["evidence_00000000000000000000000053", "CURRENT"]
+  "projection_hashes": {
+    "scenarios": "sha256:606b68f72834a95e31a4f42777d7356f7d77eaa8f535808df517047c5dfbacc4",
+    "resumes": "sha256:2d4e187f923aa2d88f613766c55b3553da0547b1e2d7fe5b13e542a69998cbd7",
+    "profile_field_couplings": "sha256:0e5a6376e5a84341bd71fa5015022d4dd033d4505adbf55523289b1374ba1c59",
+    "credentials": "sha256:ee90e9572a15010aef71cc0b774a7e7b41063e1ca0cfc1df8cd36f21a24e5ac0"
+  },
+  "credential_state_cases": [
+    ["evidence_00000000000000000000000039", "2026-07-29", "CURRENT"],
+    ["evidence_00000000000000000000000041", "2020-06-30", "CURRENT"],
+    ["evidence_00000000000000000000000041", "2021-01-01", "EXPIRED"],
+    ["evidence_00000000000000000000000041", "2026-07-29", "EXPIRED"],
+    ["evidence_00000000000000000000000046", "2026-07-29", "NOT_YET_VALID"],
+    ["evidence_00000000000000000000000046", "2028-01-01", "CURRENT"],
+    ["evidence_00000000000000000000000047", "2024-12-31", "CURRENT"],
+    ["evidence_00000000000000000000000047", "2026-07-29", "REVOKED"],
+    ["evidence_00000000000000000000000052", "2026-07-29", "UNKNOWN"]
   ],
-  "scenarios": [
-    {
-      "scenario": "scenario_00000000000000000000000001",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000001",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000001"
-        ],
-        [
-          "requirement_00000000000000000000000002",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000002"
-        ],
-        [
-          "requirement_00000000000000000000000003",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000003"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000001",
-          "WORK_AUTHORIZATION",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000003",
-          "RELOCATION_PREFERENCE",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000002",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000004",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000004"
-        ],
-        [
-          "requirement_00000000000000000000000005",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000005"
-        ],
-        [
-          "requirement_00000000000000000000000006",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000006"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000002",
-          "SPONSORSHIP_REQUIREMENT",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000004",
-          "SALARY_EXPECTATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
-    },
+  "critical_results": [
     {
       "scenario": "scenario_00000000000000000000000003",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000016",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000001"
-        ],
-        [
-          "requirement_00000000000000000000000017",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000007"
-        ],
-        [
-          "requirement_00000000000000000000000018",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000008"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000005",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000006",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000004",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000007",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000009"
-        ],
-        [
-          "requirement_00000000000000000000000008",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000010"
-        ],
-        [
-          "requirement_00000000000000000000000009",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000011"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000007",
-          "WORK_AUTHORIZATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000009",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000005",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000010",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000012"
-        ],
-        [
-          "requirement_00000000000000000000000011",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000013"
-        ],
-        [
-          "requirement_00000000000000000000000012",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000014"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000008",
-          "SPONSORSHIP_REQUIREMENT",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000010",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000016",
+      "classification": "UNSUPPORTED",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000001",
+      "release_eligible": false,
+      "evidence_refs": [],
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "rationale": "No reviewed employment or project evidence carries skill:data-modeling or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "scenario": "scenario_00000000000000000000000006",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000025",
-          "STRONG_RELATED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000015"
-        ],
-        [
-          "requirement_00000000000000000000000026",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000016"
-        ],
-        [
-          "requirement_00000000000000000000000027",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000002"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000011",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000012",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000007",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000013",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000017"
-        ],
-        [
-          "requirement_00000000000000000000000014",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000018"
-        ],
-        [
-          "requirement_00000000000000000000000015",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000019"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000013",
-          "WORK_AUTHORIZATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000015",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000008",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000016",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000020"
-        ],
-        [
-          "requirement_00000000000000000000000017",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000021"
-        ],
-        [
-          "requirement_00000000000000000000000018",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000022"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000014",
-          "SPONSORSHIP_REQUIREMENT",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000016",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000025",
+      "classification": "UNSUPPORTED",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000002",
+      "release_eligible": false,
+      "evidence_refs": [],
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "rationale": "No reviewed employment or project evidence carries skill:process-mapping or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "scenario": "scenario_00000000000000000000000009",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000022",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000003"
-        ],
-        [
-          "requirement_00000000000000000000000023",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000004"
-        ],
-        [
-          "requirement_00000000000000000000000024",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000023"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000017",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000018",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000010",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000019",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000024"
-        ],
-        [
-          "requirement_00000000000000000000000020",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000005"
-        ],
-        [
-          "requirement_00000000000000000000000021",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000025"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000019",
-          "WORK_AUTHORIZATION",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000021",
-          "RELOCATION_PREFERENCE",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000011",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000022",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000026"
-        ],
-        [
-          "requirement_00000000000000000000000023",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000006"
-        ],
-        [
-          "requirement_00000000000000000000000024",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000027"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000020",
-          "SPONSORSHIP_REQUIREMENT",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000022",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000022",
+      "classification": "UNSUPPORTED",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000004",
+      "release_eligible": false,
+      "evidence_refs": [],
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "rationale": "No reviewed employment or project evidence carries skill:machine-learning or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "scenario": "scenario_00000000000000000000000012",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000013",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000007"
-        ],
-        [
-          "requirement_00000000000000000000000014",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000028"
-        ],
-        [
-          "requirement_00000000000000000000000015",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000029"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000023",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000024",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000013",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000025",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000030"
-        ],
-        [
-          "requirement_00000000000000000000000026",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000031"
-        ],
-        [
-          "requirement_00000000000000000000000027",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000032"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000025",
-          "WORK_AUTHORIZATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000027",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000014",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000028",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000033"
-        ],
-        [
-          "requirement_00000000000000000000000029",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000034"
-        ],
-        [
-          "requirement_00000000000000000000000030",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000035"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000026",
-          "SPONSORSHIP_REQUIREMENT",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000028",
-          "SALARY_EXPECTATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000013",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000008",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000022"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:statistical-analysis and covers 303 non-overlapping days, which is partial support for the 1095-day skill:sql experience requirement and is not release eligible."
     },
     {
       "scenario": "scenario_00000000000000000000000015",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000031",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000008"
-        ],
-        [
-          "requirement_00000000000000000000000032",
-          "USER_ASSERTED",
-          "BLOCK_AND_EXPLAIN",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000036"
-        ],
-        [
-          "requirement_00000000000000000000000033",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000009"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000029",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000030",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000016",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000031",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000037"
-        ],
-        [
-          "requirement_00000000000000000000000032",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000038"
-        ],
-        [
-          "requirement_00000000000000000000000033",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000039"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000031",
-          "WORK_AUTHORIZATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000033",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000017",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000034",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000040"
-        ],
-        [
-          "requirement_00000000000000000000000035",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000041"
-        ],
-        [
-          "requirement_00000000000000000000000036",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000042"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000032",
-          "SPONSORSHIP_REQUIREMENT",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000034",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000031",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000009",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000028"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:requirements-analysis and covers 303 non-overlapping days, which is partial support for the 365-day skill:scheduling experience requirement and is not release eligible."
     },
     {
       "scenario": "scenario_00000000000000000000000018",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000025",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000010"
-        ],
-        [
-          "requirement_00000000000000000000000026",
-          "USER_ASSERTED",
-          "BLOCK_AND_EXPLAIN",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000043"
-        ],
-        [
-          "requirement_00000000000000000000000027",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000011"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000035",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000036",
-          "LICENSE_VALIDITY",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000025",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000011",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000034"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:process-improvement and covers 304 non-overlapping days, which is partial support for the 1095-day skill:process-mapping experience requirement and is not release eligible."
     },
     {
       "scenario": "scenario_00000000000000000000000019",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000037",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000044"
-        ],
-        [
-          "requirement_00000000000000000000000038",
-          "PARTIAL",
-          "REQUIRE_CONFIRMATION",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000012"
-        ],
-        [
-          "requirement_00000000000000000000000039",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000045"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000037",
-          "WORK_AUTHORIZATION",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000039",
-          "RELOCATION_PREFERENCE",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000038",
+      "classification": "PARTIAL",
+      "action": "REQUIRE_CONFIRMATION",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000013",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000041"],
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "scenario": "scenario_00000000000000000000000020",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000040",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000046"
-        ],
-        [
-          "requirement_00000000000000000000000041",
-          "PARTIAL",
-          "REQUIRE_CONFIRMATION",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000013"
-        ],
-        [
-          "requirement_00000000000000000000000042",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000047"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000038",
-          "SPONSORSHIP_REQUIREMENT",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000040",
-          "SALARY_EXPECTATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000041",
+      "classification": "PARTIAL",
+      "action": "REQUIRE_CONFIRMATION",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000014",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000041"],
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "scenario": "scenario_00000000000000000000000021",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000019",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000014"
-        ],
-        [
-          "requirement_00000000000000000000000020",
-          "PARTIAL",
-          "REQUIRE_CONFIRMATION",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000015"
-        ],
-        [
-          "requirement_00000000000000000000000021",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000048"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000041",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000042",
-          "LICENSE_VALIDITY",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000019",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000015",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000037"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:quality-reporting and covers 3468 non-overlapping days, which is partial support for the 2555-day skill:experiment-design experience requirement and is not release eligible."
     },
     {
-      "scenario": "scenario_00000000000000000000000022",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000043",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000049"
-        ],
-        [
-          "requirement_00000000000000000000000044",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000050"
-        ],
-        [
-          "requirement_00000000000000000000000045",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000051"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000043",
-          "WORK_AUTHORIZATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000045",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000023",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000046",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000052"
-        ],
-        [
-          "requirement_00000000000000000000000047",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000053"
-        ],
-        [
-          "requirement_00000000000000000000000048",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000054"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000044",
-          "SPONSORSHIP_REQUIREMENT",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000046",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "scenario": "scenario_00000000000000000000000021",
+      "requirement": "requirement_00000000000000000000000020",
+      "classification": "PARTIAL",
+      "action": "REQUIRE_CONFIRMATION",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000016",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000041"],
+      "reason_code": "CREDENTIAL_EXPIRED",
+      "rationale": "The cited credential carrying license:healthcare-operations is EXPIRED at the 2026-07-29 evaluation date, so it cannot release as current evidence."
     },
     {
       "scenario": "scenario_00000000000000000000000024",
-      "outcome": "BLOCK_INELIGIBLE",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000013",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000016"
-        ],
-        [
-          "requirement_00000000000000000000000014",
-          "CONTRADICTED",
-          "BLOCK_AND_EXPLAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000017"
-        ],
-        [
-          "requirement_00000000000000000000000015",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000055"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000047",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000048",
-          "LICENSE_VALIDITY",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000025",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000049",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000056"
-        ],
-        [
-          "requirement_00000000000000000000000050",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000057"
-        ],
-        [
-          "requirement_00000000000000000000000051",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000018"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000049",
-          "WORK_AUTHORIZATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000051",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000026",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000052",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000058"
-        ],
-        [
-          "requirement_00000000000000000000000053",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000059"
-        ],
-        [
-          "requirement_00000000000000000000000054",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000019"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000050",
-          "SPONSORSHIP_REQUIREMENT",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000052",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000013",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000017",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000044"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:learning-analytics and covers 303 non-overlapping days, which is partial support for the 1095-day skill:sql experience requirement and is not release eligible."
     },
     {
       "scenario": "scenario_00000000000000000000000027",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000055",
-          "PARTIAL",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000020"
-        ],
-        [
-          "requirement_00000000000000000000000056",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000021"
-        ],
-        [
-          "requirement_00000000000000000000000057",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000022"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000053",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000054",
-          "LICENSE_VALIDITY",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000028",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000055",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000060"
-        ],
-        [
-          "requirement_00000000000000000000000056",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000023"
-        ],
-        [
-          "requirement_00000000000000000000000057",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000061"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000055",
-          "WORK_AUTHORIZATION",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000057",
-          "RELOCATION_PREFERENCE",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000055",
+      "classification": "PARTIAL",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000021",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000050"],
+      "reason_code": "INSUFFICIENT_DIRECT_EVIDENCE",
+      "rationale": "The cited reviewed activity evidence carries reviewed related fact key(s) skill:forecasting and covers 304 non-overlapping days, which is partial support for the 2555-day skill:financial-modeling experience requirement and is not release eligible."
     },
     {
       "scenario": "scenario_00000000000000000000000029",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000058",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000062"
-        ],
-        [
-          "requirement_00000000000000000000000059",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000024"
-        ],
-        [
-          "requirement_00000000000000000000000060",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000063"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000056",
-          "SPONSORSHIP_REQUIREMENT",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000058",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000059",
+      "classification": "CONTRADICTED",
+      "action": "BLOCK_AND_EXPLAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000025",
+      "release_eligible": false,
+      "evidence_refs": ["evidence_00000000000000000000000060"],
+      "reason_code": "CONTRADICTED_BY_EXPLICIT_RECORD",
+      "rationale": "The cited approved record for field:relocation_preference conflicts with the anchored WORK_MODE_COMPATIBILITY=HYBRID constraint, so release is prohibited."
     },
     {
       "scenario": "scenario_00000000000000000000000030",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000001",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000025"
-        ],
-        [
-          "requirement_00000000000000000000000002",
-          "USER_ASSERTED",
-          "REQUIRE_CONFIRMATION",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000064"
-        ],
-        [
-          "requirement_00000000000000000000000003",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000026"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000059",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000031",
-      "outcome": "REQUIRE_CONFIRMATION",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000061",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000065"
-        ],
-        [
-          "requirement_00000000000000000000000062",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000066"
-        ],
-        [
-          "requirement_00000000000000000000000063",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000067"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000060",
-          "WORK_AUTHORIZATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ],
-        [
-          "policy_00000000000000000000000062",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000032",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000064",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000068"
-        ],
-        [
-          "requirement_00000000000000000000000065",
-          "USER_ASSERTED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000069"
-        ],
-        [
-          "requirement_00000000000000000000000066",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000070"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000061",
-          "SPONSORSHIP_REQUIREMENT",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000063",
-          "SALARY_EXPECTATION",
-          "REQUIRE_CONFIRMATION",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000001",
+      "classification": "UNSUPPORTED",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000026",
+      "release_eligible": false,
+      "evidence_refs": [],
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "rationale": "No reviewed employment or project evidence carries skill:typescript or a reviewed related activity key, so the experience requirement remains unsupported."
     },
     {
       "scenario": "scenario_00000000000000000000000033",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000031",
-          "STRONG_RELATED",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000071"
-        ],
-        [
-          "requirement_00000000000000000000000032",
-          "USER_ASSERTED",
-          "BLOCK_AND_EXPLAIN",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000072"
-        ],
-        [
-          "requirement_00000000000000000000000033",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000027"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000064",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000034",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000067",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000073"
-        ],
-        [
-          "requirement_00000000000000000000000068",
-          "USER_ASSERTED",
-          "BLOCK_AND_EXPLAIN",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000074"
-        ],
-        [
-          "requirement_00000000000000000000000069",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000075"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000065",
-          "WORK_AUTHORIZATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ],
-        [
-          "policy_00000000000000000000000067",
-          "RELOCATION_PREFERENCE",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ]
-      ]
-    },
-    {
-      "scenario": "scenario_00000000000000000000000035",
-      "outcome": "BLOCK_FIELD_POLICY",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000070",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000076"
-        ],
-        [
-          "requirement_00000000000000000000000071",
-          "USER_ASSERTED",
-          "BLOCK_AND_EXPLAIN",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000077"
-        ],
-        [
-          "requirement_00000000000000000000000072",
-          "DIRECT",
-          "USE_SUPPORTED_EVIDENCE",
-          "SUPPORTED_CLAIM",
-          "claim_00000000000000000000000078"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000066",
-          "SPONSORSHIP_REQUIREMENT",
-          "USE_SUPPORTED_EVIDENCE",
-          true
-        ],
-        [
-          "policy_00000000000000000000000068",
-          "SALARY_EXPECTATION",
-          "BLOCK_AND_EXPLAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000031",
+      "classification": "STRONG_RELATED",
+      "action": "USE_SUPPORTED_EVIDENCE",
+      "result_type": "SUPPORTED_CLAIM",
+      "result": "claim_00000000000000000000000070",
+      "release_eligible": true,
+      "evidence_refs": ["evidence_00000000000000000000000061"],
+      "reason_code": null,
+      "rationale": "The cited reviewed activity evidence carries skill:task-tracking, is strongly related to skill:scheduling, and covers 1277 non-overlapping days against the 365-day threshold without claiming exact-tag support."
     },
     {
       "scenario": "scenario_00000000000000000000000036",
-      "outcome": "ABSTAIN",
-      "evaluations": [
-        [
-          "requirement_00000000000000000000000040",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000028"
-        ],
-        [
-          "requirement_00000000000000000000000041",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000029"
-        ],
-        [
-          "requirement_00000000000000000000000042",
-          "UNSUPPORTED",
-          "ABSTAIN",
-          "UNSUPPORTED_GAP",
-          "gap_00000000000000000000000030"
-        ]
-      ],
-      "policies": [
-        [
-          "policy_00000000000000000000000069",
-          "DEMOGRAPHIC_DISCLOSURE",
-          "ABSTAIN",
-          false
-        ]
-      ]
+      "requirement": "requirement_00000000000000000000000040",
+      "classification": "UNSUPPORTED",
+      "action": "ABSTAIN",
+      "result_type": "UNSUPPORTED_GAP",
+      "result": "gap_00000000000000000000000029",
+      "release_eligible": false,
+      "evidence_refs": [],
+      "reason_code": "NO_SUPPORTING_EVIDENCE",
+      "rationale": "No reviewed employment or project evidence carries skill:quality-reporting or a reviewed related activity key, so the experience requirement remains unsupported."
     }
-  ]
+  ],
+  "stale_policies": [
+    {
+      "scenario": "scenario_00000000000000000000000007",
+      "policy": "policy_00000000000000000000000015",
+      "source_evidence": "evidence_00000000000000000000000018",
+      "source_field_record": "fieldrecord_00000000000000000000000013",
+      "recorded_on": "2026-07-29",
+      "valid_through": "2026-06-30",
+      "evaluation_date": "2026-07-29",
+      "action": "REQUIRE_CONFIRMATION",
+      "release_eligible": false
+    },
+    {
+      "scenario": "scenario_00000000000000000000000016",
+      "policy": "policy_00000000000000000000000033",
+      "source_evidence": "evidence_00000000000000000000000036",
+      "source_field_record": "fieldrecord_00000000000000000000000028",
+      "recorded_on": "2026-07-29",
+      "valid_through": "2026-06-30",
+      "evaluation_date": "2026-07-29",
+      "action": "REQUIRE_CONFIRMATION",
+      "release_eligible": false
+    },
+    {
+      "scenario": "scenario_00000000000000000000000025",
+      "policy": "policy_00000000000000000000000051",
+      "source_evidence": "evidence_00000000000000000000000054",
+      "source_field_record": "fieldrecord_00000000000000000000000043",
+      "recorded_on": "2026-07-29",
+      "valid_through": "2026-06-30",
+      "evaluation_date": "2026-07-29",
+      "action": "REQUIRE_CONFIRMATION",
+      "release_eligible": false
+    },
+    {
+      "scenario": "scenario_00000000000000000000000034",
+      "policy": "policy_00000000000000000000000067",
+      "source_evidence": "evidence_00000000000000000000000072",
+      "source_field_record": "fieldrecord_00000000000000000000000058",
+      "recorded_on": "2026-07-29",
+      "valid_through": "2026-06-30",
+      "evaluation_date": "2026-07-29",
+      "action": "REQUIRE_CONFIRMATION",
+      "release_eligible": false
+    }
+  ],
+  "profile_field_control": {
+    "profile": "profile_00000000000000000000000001",
+    "authorization_status": "AUTHORIZED",
+    "sponsorship_required": false,
+    "relocation": "OPEN",
+    "assertion": "evidence_00000000000000000000000006",
+    "assertion_effective_start": "2026-07-29",
+    "work_authorization_record": "fieldrecord_00000000000000000000000001",
+    "work_authorization_value": "AUTHORIZED",
+    "work_authorization_disclosure": "Synthetic Candidate 01 explicitly approved work authorization value AUTHORIZED.",
+    "sponsorship_record": "fieldrecord_00000000000000000000000002",
+    "sponsorship_value": "NOT_REQUIRED",
+    "sponsorship_disclosure": "Synthetic Candidate 01 explicitly approved sponsorship requirement value NOT_REQUIRED."
+  },
+  "coherent_policy_control": {
+    "scenario": "scenario_00000000000000000000000001",
+    "outcome": "REQUIRE_CONFIRMATION",
+    "policy": "policy_00000000000000000000000001",
+    "kind": "FILL_FROM_EXPLICIT_RECORD",
+    "action": "USE_SUPPORTED_EVIDENCE",
+    "release_eligible": true
+  },
+  "resume_11": {
+    "resume": "resume_00000000000000000000000011",
+    "profile": "profile_00000000000000000000000011",
+    "page_count": 2,
+    "break_after_fact_id": "resumefact_00000000000000000000000102",
+    "rationale": "Page one contains the reviewed employment record and earliest completed education record; page two contains two later completed education records and the reviewed team-communication project.",
+    "page_one": [
+      [
+        "resumefact_00000000000000000000000101",
+        "evidence_00000000000000000000000061"
+      ],
+      [
+        "resumefact_00000000000000000000000102",
+        "evidence_00000000000000000000000062"
+      ]
+    ],
+    "page_two": [
+      [
+        "resumefact_00000000000000000000000103",
+        "evidence_00000000000000000000000063"
+      ],
+      [
+        "resumefact_00000000000000000000000104",
+        "evidence_00000000000000000000000064"
+      ],
+      [
+        "resumefact_00000000000000000000000105",
+        "evidence_00000000000000000000000065"
+      ]
+    ]
+  }
 }

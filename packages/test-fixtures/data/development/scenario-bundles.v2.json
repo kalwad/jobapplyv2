@@ -15,7 +15,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:31f5bc39ede7ccb2e180c1e357d6e2521572b9e383550efd613b0694f833840e"
+        "historical_content_hash": "sha256:a159085473aa5c290abf8d380b3f5def7506b39df7c86cffb3c17e7d77e45492"
       },
       "profile_ref": "profile_00000000000000000000000001",
       "resume_ref": "resume_00000000000000000000000001",
@@ -63,8 +63,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -79,7 +78,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:91c2ecd0538638237afaec48a94bb673dc71eee60d167154203551cccd31bfba"
+        "historical_content_hash": "sha256:b548c5201447311025fff123cd288b4942172785e83dbc775a2ddbe0872f32e4"
       },
       "profile_ref": "profile_00000000000000000000000001",
       "resume_ref": "resume_00000000000000000000000001",
@@ -127,8 +126,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -143,7 +141,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:56f6489e1bcaccf74321db347de9512d1603fb0f22d6594cd8267e7d37f3eb21"
+        "historical_content_hash": "sha256:7f5dc4d626594ef19dc07ab827c5024ceb04fe382f775fa21cc7214a9ddd8ccf"
       },
       "profile_ref": "profile_00000000000000000000000001",
       "resume_ref": "resume_00000000000000000000000001",
@@ -153,7 +151,7 @@
       "evaluations": [
         {
           "requirement_ref": "requirement_00000000000000000000000016",
-          "classification": "PARTIAL",
+          "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
           "result_ref": "gap_00000000000000000000000001",
           "expected_action": "ABSTAIN"
@@ -191,7 +189,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED",
         "FIELD_POLICY_BLOCK"
       ]
@@ -208,7 +205,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0824e1c6591b8eb4985c37e141557322969615915210c8b41e057d39dab439f4"
+        "historical_content_hash": "sha256:1d8d4f88823eaaf35073dd1e0c8b73283de60bb813b33423e1180a62337a421c"
       },
       "profile_ref": "profile_00000000000000000000000002",
       "resume_ref": "resume_00000000000000000000000002",
@@ -256,8 +253,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -272,7 +268,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:6afbac703a6c2802099d42dcf608345b954ec9aa198302d73359d3e74a6e071c"
+        "historical_content_hash": "sha256:fe5de50b035726d7af52e505978bed3b1e027118fd15fd80264dace3e2d9eea0"
       },
       "profile_ref": "profile_00000000000000000000000002",
       "resume_ref": "resume_00000000000000000000000002",
@@ -321,8 +317,7 @@
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
         "FIELD_CONFIRMATION_REQUIRED",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -337,7 +332,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:508684ae4524f6966ec52e40983faa7459ad24eb0f4189ccead89236efb43978"
+        "historical_content_hash": "sha256:dcd7adc3793955304a3a1043448777a0340e16478cf35708b29c1bbb05881196"
       },
       "profile_ref": "profile_00000000000000000000000002",
       "resume_ref": "resume_00000000000000000000000002",
@@ -347,23 +342,23 @@
       "evaluations": [
         {
           "requirement_ref": "requirement_00000000000000000000000025",
-          "classification": "STRONG_RELATED",
-          "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000015",
-          "expected_action": "USE_SUPPORTED_EVIDENCE"
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000002",
+          "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000026",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000016",
+          "result_ref": "claim_00000000000000000000000015",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000027",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000002",
+          "result_ref": "gap_00000000000000000000000003",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -385,7 +380,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
@@ -401,7 +395,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:dcca740899c874acd26524db5b76be0c7d0a56fe582e3070f75e558e017f90d5"
+        "historical_content_hash": "sha256:bc7bac1bb53cda63404113f4b54b21bf7939039d574a24e9356c44cbd0510fe3"
       },
       "profile_ref": "profile_00000000000000000000000003",
       "resume_ref": "resume_00000000000000000000000003",
@@ -413,21 +407,21 @@
           "requirement_ref": "requirement_00000000000000000000000013",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000017",
+          "result_ref": "claim_00000000000000000000000016",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000014",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000018",
+          "result_ref": "claim_00000000000000000000000017",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000015",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000019",
+          "result_ref": "claim_00000000000000000000000018",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -443,14 +437,14 @@
           "policy_ref": "policy_00000000000000000000000015",
           "field_concept": "RELOCATION_PREFERENCE",
           "source_evidence_ref": "evidence_00000000000000000000000018",
-          "expected_action": "USE_SUPPORTED_EVIDENCE",
-          "release_eligible": true
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
         }
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -465,7 +459,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7aeab94c57448c8e33f2e3278a283660f0624ce726faf63fd4e92d177d85e045"
+        "historical_content_hash": "sha256:e04c448592640836058c7f91f43e2df889447e1809026c9a7f3e1b91f6d7bff9"
       },
       "profile_ref": "profile_00000000000000000000000003",
       "resume_ref": "resume_00000000000000000000000003",
@@ -477,21 +471,21 @@
           "requirement_ref": "requirement_00000000000000000000000016",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000020",
+          "result_ref": "claim_00000000000000000000000019",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000017",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000021",
+          "result_ref": "claim_00000000000000000000000020",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000018",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000022",
+          "result_ref": "claim_00000000000000000000000021",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -511,11 +505,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000009",
@@ -529,7 +519,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:726942a065d6d49df3d86c2a5516e3121fdbb12af8bf6410019a0cf759c1f783"
+        "historical_content_hash": "sha256:7c66c488aff9c3a47df3c4c7fd1e1e59fd804c247b693e4710ea0f78280d629d"
       },
       "profile_ref": "profile_00000000000000000000000003",
       "resume_ref": "resume_00000000000000000000000003",
@@ -539,23 +529,23 @@
       "evaluations": [
         {
           "requirement_ref": "requirement_00000000000000000000000022",
-          "classification": "PARTIAL",
-          "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000003",
-          "expected_action": "ABSTAIN"
-        },
-        {
-          "requirement_ref": "requirement_00000000000000000000000023",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
           "result_ref": "gap_00000000000000000000000004",
           "expected_action": "ABSTAIN"
         },
         {
+          "requirement_ref": "requirement_00000000000000000000000023",
+          "classification": "UNSUPPORTED",
+          "result_type": "UNSUPPORTED_GAP",
+          "result_ref": "gap_00000000000000000000000005",
+          "expected_action": "ABSTAIN"
+        },
+        {
           "requirement_ref": "requirement_00000000000000000000000024",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000023",
+          "result_ref": "claim_00000000000000000000000022",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -575,11 +565,7 @@
           "release_eligible": true
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
-        "FIELD_POLICY_BLOCK"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000010",
@@ -593,7 +579,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:0945709728eb0e9fc5ca48a0542dcfeb1efe1be9b8e474093ec0af4fca4650ea"
+        "historical_content_hash": "sha256:85e57a25ada381ce2b679ea935f9792de9c4fe8ca2820574fbd51cc5adfbe308"
       },
       "profile_ref": "profile_00000000000000000000000004",
       "resume_ref": "resume_00000000000000000000000004",
@@ -605,21 +591,21 @@
           "requirement_ref": "requirement_00000000000000000000000019",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000024",
+          "result_ref": "claim_00000000000000000000000023",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000020",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000005",
+          "result_ref": "gap_00000000000000000000000006",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000021",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000025",
+          "result_ref": "claim_00000000000000000000000024",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -641,8 +627,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -657,7 +642,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d5a55da5bb94cac892361080a359f5397cff40b840b0d967bd7073f9374f7fb4"
+        "historical_content_hash": "sha256:e7d7b195a9c1f606c94b291baa91091f467aef69a0e5ac854e9bc83f3428b6ad"
       },
       "profile_ref": "profile_00000000000000000000000004",
       "resume_ref": "resume_00000000000000000000000004",
@@ -669,21 +654,21 @@
           "requirement_ref": "requirement_00000000000000000000000022",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000026",
+          "result_ref": "claim_00000000000000000000000025",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000023",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000006",
+          "result_ref": "gap_00000000000000000000000007",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000024",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000027",
+          "result_ref": "claim_00000000000000000000000026",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -706,8 +691,7 @@
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
         "FIELD_CONFIRMATION_REQUIRED",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -722,7 +706,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d64aaeb798627b1111bd3a5f4f4d716ac8b3e0fa5f4d515062edeefd26a7b15a"
+        "historical_content_hash": "sha256:8ec6b38c28a41cebe5b1f288ddf2cd03e2e9cc5ddd9c59bbb5d860a041907246"
       },
       "profile_ref": "profile_00000000000000000000000004",
       "resume_ref": "resume_00000000000000000000000004",
@@ -734,21 +718,21 @@
           "requirement_ref": "requirement_00000000000000000000000013",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000007",
+          "result_ref": "gap_00000000000000000000000008",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000014",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000028",
+          "result_ref": "claim_00000000000000000000000027",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000015",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000029",
+          "result_ref": "claim_00000000000000000000000028",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -770,7 +754,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
@@ -786,7 +769,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:131718716be99ec7be2f9c7ccb443181e313ba71fa48aa3879c83c8fcf7a24a8"
+        "historical_content_hash": "sha256:8a8f9a39e5cdc1ab8fa029686cad57bbef20f196e8eaa6a8047c2846629ec2c1"
       },
       "profile_ref": "profile_00000000000000000000000005",
       "resume_ref": "resume_00000000000000000000000005",
@@ -798,21 +781,21 @@
           "requirement_ref": "requirement_00000000000000000000000025",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000030",
+          "result_ref": "claim_00000000000000000000000029",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000026",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000031",
+          "result_ref": "claim_00000000000000000000000030",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000027",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000032",
+          "result_ref": "claim_00000000000000000000000031",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -834,8 +817,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -850,7 +832,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:ef9c39ca6e8512b039fe10f71533a4ab318d973ea8414599aa0ae3e4381eae2a"
+        "historical_content_hash": "sha256:a7147112dfc41d95ea95e0eded2075beea57982d4168dc6a4c628fa950b24d2a"
       },
       "profile_ref": "profile_00000000000000000000000005",
       "resume_ref": "resume_00000000000000000000000005",
@@ -862,21 +844,21 @@
           "requirement_ref": "requirement_00000000000000000000000028",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000033",
+          "result_ref": "claim_00000000000000000000000032",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000029",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000034",
+          "result_ref": "claim_00000000000000000000000033",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000030",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000035",
+          "result_ref": "claim_00000000000000000000000034",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -899,8 +881,7 @@
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
         "FIELD_CONFIRMATION_REQUIRED",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -915,7 +896,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:3d05abe3bad5a930e48f943a1291017258f62180d9f68e03bfa7cb54a1b56672"
+        "historical_content_hash": "sha256:85ca65a7ca2ac2d20a84fbe66cd22d852b6ef04f2a13734f3f5ee8bf614d57e9"
       },
       "profile_ref": "profile_00000000000000000000000005",
       "resume_ref": "resume_00000000000000000000000005",
@@ -927,21 +908,21 @@
           "requirement_ref": "requirement_00000000000000000000000031",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000008",
+          "result_ref": "gap_00000000000000000000000009",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000032",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000036",
+          "result_ref": "claim_00000000000000000000000035",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000033",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000009",
+          "result_ref": "gap_00000000000000000000000010",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -961,11 +942,7 @@
           "release_eligible": true
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
-        "FIELD_POLICY_BLOCK"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000016",
@@ -979,7 +956,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:b4741e7a1fef85bcc20efc529fd9783b50717572c333881e9bb000080a447065"
+        "historical_content_hash": "sha256:5bc2b7099590e5e979ec77449269bfab640aa90b1ce4a48a6f38d15c7e16ce99"
       },
       "profile_ref": "profile_00000000000000000000000006",
       "resume_ref": "resume_00000000000000000000000006",
@@ -991,21 +968,21 @@
           "requirement_ref": "requirement_00000000000000000000000031",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000037",
+          "result_ref": "claim_00000000000000000000000036",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000032",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000038",
+          "result_ref": "claim_00000000000000000000000037",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000033",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000039",
+          "result_ref": "claim_00000000000000000000000038",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1021,14 +998,14 @@
           "policy_ref": "policy_00000000000000000000000033",
           "field_concept": "RELOCATION_PREFERENCE",
           "source_evidence_ref": "evidence_00000000000000000000000036",
-          "expected_action": "USE_SUPPORTED_EVIDENCE",
-          "release_eligible": true
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
         }
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -1043,7 +1020,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:90707f444365ee85923285b8be8805fc4b49a9e9f26ec1452a4a85b2e226112d"
+        "historical_content_hash": "sha256:4c2e1c41c8bfc408edb31e70fe576bbcfc91ecccf67a25197277abc5d416a2b8"
       },
       "profile_ref": "profile_00000000000000000000000006",
       "resume_ref": "resume_00000000000000000000000006",
@@ -1055,21 +1032,21 @@
           "requirement_ref": "requirement_00000000000000000000000034",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000040",
+          "result_ref": "claim_00000000000000000000000039",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000035",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000041",
+          "result_ref": "claim_00000000000000000000000040",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000036",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000042",
+          "result_ref": "claim_00000000000000000000000041",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1089,11 +1066,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000018",
@@ -1107,7 +1080,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:01b87e0712b76d91d7d3932bd96c37f9660327528fe2779a6288f7827306e04e"
+        "historical_content_hash": "sha256:94961ebf59adfc35768671b8afa74b125fddcbd579205eac6e68e207107aeb08"
       },
       "profile_ref": "profile_00000000000000000000000006",
       "resume_ref": "resume_00000000000000000000000006",
@@ -1119,21 +1092,21 @@
           "requirement_ref": "requirement_00000000000000000000000025",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000010",
+          "result_ref": "gap_00000000000000000000000011",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000026",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000043",
+          "result_ref": "claim_00000000000000000000000042",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000027",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000011",
+          "result_ref": "gap_00000000000000000000000012",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -1153,11 +1126,7 @@
           "release_eligible": true
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
-        "FIELD_POLICY_BLOCK"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000019",
@@ -1171,7 +1140,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c3dd8e9bf1b9a454c3704818c3d5cbb82c16ad2c9b8264607bc51bfa52ef165d"
+        "historical_content_hash": "sha256:e68f4dde2e59fb150c46687b3d238322d905d1490a57badc54b3647409d52f32"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "resume_ref": "resume_00000000000000000000000007",
@@ -1183,21 +1152,21 @@
           "requirement_ref": "requirement_00000000000000000000000037",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000044",
+          "result_ref": "claim_00000000000000000000000043",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000038",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000012",
+          "result_ref": "gap_00000000000000000000000013",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000039",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000045",
+          "result_ref": "claim_00000000000000000000000044",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1219,8 +1188,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -1235,7 +1203,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:64140529a61813dec092af896457820a527d9a6e5e5d2f51196e23169ce3d378"
+        "historical_content_hash": "sha256:93a5349988f92aeb5227048e1b7b9c3e79fd449fadbd38a68068d72c6b42b871"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "resume_ref": "resume_00000000000000000000000007",
@@ -1247,21 +1215,21 @@
           "requirement_ref": "requirement_00000000000000000000000040",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000046",
+          "result_ref": "claim_00000000000000000000000045",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000041",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000013",
+          "result_ref": "gap_00000000000000000000000014",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000042",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000047",
+          "result_ref": "claim_00000000000000000000000046",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1283,8 +1251,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -1299,7 +1266,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:46e297e71e3e818163a9b2069d016645324541ba21952db45daa7c54dcfe11aa"
+        "historical_content_hash": "sha256:9ccfb160d5368fb2a0023d8da7a20d7b43d1643bc6c986547fc6de1d41e76f95"
       },
       "profile_ref": "profile_00000000000000000000000007",
       "resume_ref": "resume_00000000000000000000000007",
@@ -1311,21 +1278,21 @@
           "requirement_ref": "requirement_00000000000000000000000019",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000014",
+          "result_ref": "gap_00000000000000000000000015",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000020",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000015",
+          "result_ref": "gap_00000000000000000000000016",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000021",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000048",
+          "result_ref": "claim_00000000000000000000000047",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1347,7 +1314,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED",
         "FIELD_POLICY_BLOCK"
       ]
@@ -1364,7 +1330,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:d539565db5b88ce818550d8b466cfc4c31f5022996d6ba1c9586a2033f97da63"
+        "historical_content_hash": "sha256:fe868b29043dad55866bdd7cc07bd1c5fd480fac89cd78e379776498ff3653b0"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "resume_ref": "resume_00000000000000000000000008",
@@ -1376,21 +1342,21 @@
           "requirement_ref": "requirement_00000000000000000000000043",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000049",
+          "result_ref": "claim_00000000000000000000000048",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000044",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000050",
+          "result_ref": "claim_00000000000000000000000049",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000045",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000051",
+          "result_ref": "claim_00000000000000000000000050",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1412,8 +1378,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -1428,7 +1393,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e5eae78743d20885808fcb21266655dfb831e72a080ffb019394586fa94d10b9"
+        "historical_content_hash": "sha256:af57f333ee47f67d2ac49c749e3f68b5dfd8d36dd991d81d5c1f65e5d66b1844"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "resume_ref": "resume_00000000000000000000000008",
@@ -1440,21 +1405,21 @@
           "requirement_ref": "requirement_00000000000000000000000046",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000052",
+          "result_ref": "claim_00000000000000000000000051",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000047",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000053",
+          "result_ref": "claim_00000000000000000000000052",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000048",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000054",
+          "result_ref": "claim_00000000000000000000000053",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1474,11 +1439,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000024",
@@ -1492,7 +1453,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:7140d267965b8080fccce64cdff4ae89f47970f3a8da3da8992b5bc1223f1084"
+        "historical_content_hash": "sha256:75d20b234d8f29808b771adc5d3462d12be72602b326410bbc30f2a3b8786c71"
       },
       "profile_ref": "profile_00000000000000000000000008",
       "resume_ref": "resume_00000000000000000000000008",
@@ -1504,21 +1465,21 @@
           "requirement_ref": "requirement_00000000000000000000000013",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000016",
+          "result_ref": "gap_00000000000000000000000017",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000014",
           "classification": "CONTRADICTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000017",
+          "result_ref": "gap_00000000000000000000000018",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000015",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000055",
+          "result_ref": "claim_00000000000000000000000054",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1540,7 +1501,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED",
         "FIELD_POLICY_BLOCK",
         "INELIGIBLE_DESPITE_SKILL_MATCH"
@@ -1558,7 +1518,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e90701fb026b69a3874acad4a11edb2a56c05f9052ba3ed67483f2e6e778a9ce"
+        "historical_content_hash": "sha256:8742f751eb47dcf67fefe35984b6a5d11cebd8064ef05a9907812d479fec9ddb"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "resume_ref": "resume_00000000000000000000000009",
@@ -1570,21 +1530,21 @@
           "requirement_ref": "requirement_00000000000000000000000049",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000056",
+          "result_ref": "claim_00000000000000000000000055",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000050",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000057",
+          "result_ref": "claim_00000000000000000000000056",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000051",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000018",
+          "result_ref": "gap_00000000000000000000000019",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -1600,14 +1560,14 @@
           "policy_ref": "policy_00000000000000000000000051",
           "field_concept": "RELOCATION_PREFERENCE",
           "source_evidence_ref": "evidence_00000000000000000000000054",
-          "expected_action": "USE_SUPPORTED_EVIDENCE",
-          "release_eligible": true
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
         }
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -1622,7 +1582,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:4b4308c741a45616c0bb85a1b4b9bcfd78c5cd7270b351e0e926d9cb58e9dcc2"
+        "historical_content_hash": "sha256:e45129ea75374d9acfadb1fa452dec32e1589ea30efe27d948872de5c50e055b"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "resume_ref": "resume_00000000000000000000000009",
@@ -1634,21 +1594,21 @@
           "requirement_ref": "requirement_00000000000000000000000052",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000058",
+          "result_ref": "claim_00000000000000000000000057",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000053",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000059",
+          "result_ref": "claim_00000000000000000000000058",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000054",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000019",
+          "result_ref": "gap_00000000000000000000000020",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -1668,11 +1628,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000027",
@@ -1686,7 +1642,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f1999d2dc28d932044a884ed9f17da557f7cfdcb2b56fb6a39973abf08e6ccad"
+        "historical_content_hash": "sha256:5c4a45dde82b3e05676ec3aec6b4b6e00a3137329f4d2b68ae5ee423620f9cad"
       },
       "profile_ref": "profile_00000000000000000000000009",
       "resume_ref": "resume_00000000000000000000000009",
@@ -1698,21 +1654,21 @@
           "requirement_ref": "requirement_00000000000000000000000055",
           "classification": "PARTIAL",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000020",
+          "result_ref": "gap_00000000000000000000000021",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000056",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000021",
+          "result_ref": "gap_00000000000000000000000022",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000057",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000022",
+          "result_ref": "gap_00000000000000000000000023",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -1734,7 +1690,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED",
         "FIELD_POLICY_BLOCK"
       ]
@@ -1751,7 +1706,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f2dd69ccbe786b92cc8f367e49d9970e6542d08881a1233b7714bd7960ef3cb1"
+        "historical_content_hash": "sha256:b7bd6c0b05445b9751961ad7acee2a19e19399144767c903a16ef122b725ba69"
       },
       "profile_ref": "profile_00000000000000000000000010",
       "resume_ref": "resume_00000000000000000000000010",
@@ -1763,21 +1718,21 @@
           "requirement_ref": "requirement_00000000000000000000000055",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000060",
+          "result_ref": "claim_00000000000000000000000059",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000056",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000023",
+          "result_ref": "gap_00000000000000000000000024",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000057",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000061",
+          "result_ref": "claim_00000000000000000000000060",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1799,8 +1754,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -1815,33 +1769,33 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:e98fccbcedfbb678a72f76e25c39a4dbe6ab6f7ceeacca2982b18947871bbf6d"
+        "historical_content_hash": "sha256:3d2db5ffa098ceb5723fae4c2fa778ec70a3d39dba99b175fafd535a026afdb7"
       },
       "profile_ref": "profile_00000000000000000000000010",
       "resume_ref": "resume_00000000000000000000000010",
       "job_ref": "job_00000000000000000000000020",
       "evaluation_date": "2026-07-29",
-      "expected_outcome": "BLOCK_FIELD_POLICY",
+      "expected_outcome": "BLOCK_INELIGIBLE",
       "evaluations": [
         {
           "requirement_ref": "requirement_00000000000000000000000058",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000062",
+          "result_ref": "claim_00000000000000000000000061",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000059",
-          "classification": "UNSUPPORTED",
+          "classification": "CONTRADICTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000024",
-          "expected_action": "ABSTAIN"
+          "result_ref": "gap_00000000000000000000000025",
+          "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000060",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000063",
+          "result_ref": "claim_00000000000000000000000062",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1865,7 +1819,7 @@
         "COMPLETE_REQUIREMENT_EVALUATION",
         "FIELD_CONFIRMATION_REQUIRED",
         "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "INELIGIBLE_DESPITE_SKILL_MATCH"
       ]
     },
     {
@@ -1880,7 +1834,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:509ffc477c829462013b709f16e8ee839fcdc24a7a08a0a8d8afec3215c58ac3"
+        "historical_content_hash": "sha256:4c5caf4dadcb0cc0f54170f784c3200235af3615c609920fcd47dd5be3c44f56"
       },
       "profile_ref": "profile_00000000000000000000000010",
       "resume_ref": "resume_00000000000000000000000010",
@@ -1892,21 +1846,21 @@
           "requirement_ref": "requirement_00000000000000000000000001",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000025",
+          "result_ref": "gap_00000000000000000000000026",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000002",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000064",
+          "result_ref": "claim_00000000000000000000000063",
           "expected_action": "REQUIRE_CONFIRMATION"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000003",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000026",
+          "result_ref": "gap_00000000000000000000000027",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -1921,7 +1875,6 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
         "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
@@ -1937,7 +1890,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:790c850fa9dadbc1d750b899a5757f0651eec494c269eaf2f4e0af84e73549cf"
+        "historical_content_hash": "sha256:29473797c3537d09e78bf34cd6869be3b6b9fa77c627f0fda9d595c34235f988"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "resume_ref": "resume_00000000000000000000000011",
@@ -1949,21 +1902,21 @@
           "requirement_ref": "requirement_00000000000000000000000061",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000065",
+          "result_ref": "claim_00000000000000000000000064",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000062",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000066",
+          "result_ref": "claim_00000000000000000000000065",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000063",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000067",
+          "result_ref": "claim_00000000000000000000000066",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -1985,8 +1938,7 @@
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_CONFIRMATION_REQUIRED",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED"
       ]
     },
     {
@@ -2001,7 +1953,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:9b2a29e333e3e8e9de48c565d79c9a53b287a9f7cc2f09368f0113e4c296aeb3"
+        "historical_content_hash": "sha256:77aa195df62a3ec49f53d9b0723bffa78f6e24f4c36180627c32ec7332d41c19"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "resume_ref": "resume_00000000000000000000000011",
@@ -2013,21 +1965,21 @@
           "requirement_ref": "requirement_00000000000000000000000064",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000068",
+          "result_ref": "claim_00000000000000000000000067",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000065",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000069",
+          "result_ref": "claim_00000000000000000000000068",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000066",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000070",
+          "result_ref": "claim_00000000000000000000000069",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -2050,8 +2002,7 @@
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
         "FIELD_CONFIRMATION_REQUIRED",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -2066,7 +2017,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:c257ec8dcac39fe4e95a5067109f913c8f1803235bce0630dacfcfea45473d96"
+        "historical_content_hash": "sha256:5a840c40898b42ccd984cbc9236cdb64895dfea32852254335c1b2cad2e93503"
       },
       "profile_ref": "profile_00000000000000000000000011",
       "resume_ref": "resume_00000000000000000000000011",
@@ -2078,21 +2029,21 @@
           "requirement_ref": "requirement_00000000000000000000000031",
           "classification": "STRONG_RELATED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000071",
+          "result_ref": "claim_00000000000000000000000070",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000032",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000072",
+          "result_ref": "claim_00000000000000000000000071",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000033",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000027",
+          "result_ref": "gap_00000000000000000000000028",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -2105,11 +2056,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP",
-        "FIELD_POLICY_BLOCK"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000034",
@@ -2123,7 +2070,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:11c815407c1a0cc2678a2e7deffc8873fd55a161653f3ccd5418db3ca044a0f9"
+        "historical_content_hash": "sha256:68a419abe3f9f93e7aa901b14a5b6fc172f4ca8eb778e72980a513fce31813a4"
       },
       "profile_ref": "profile_00000000000000000000000012",
       "resume_ref": "resume_00000000000000000000000012",
@@ -2135,21 +2082,21 @@
           "requirement_ref": "requirement_00000000000000000000000067",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000073",
+          "result_ref": "claim_00000000000000000000000072",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000068",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000074",
+          "result_ref": "claim_00000000000000000000000073",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000069",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000075",
+          "result_ref": "claim_00000000000000000000000074",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -2165,14 +2112,14 @@
           "policy_ref": "policy_00000000000000000000000067",
           "field_concept": "RELOCATION_PREFERENCE",
           "source_evidence_ref": "evidence_00000000000000000000000072",
-          "expected_action": "USE_SUPPORTED_EVIDENCE",
-          "release_eligible": true
+          "expected_action": "REQUIRE_CONFIRMATION",
+          "release_eligible": false
         }
       ],
       "coverage_tags": [
         "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
+        "FIELD_CONFIRMATION_REQUIRED",
+        "FIELD_POLICY_BLOCK"
       ]
     },
     {
@@ -2187,7 +2134,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:f0f76c2e97ab3795055f9c65823359346a3d196d071db86a764dd1df2f30616b"
+        "historical_content_hash": "sha256:13f475bed56eadd70701e680b9ffd3acbee01cc4030101278dfedbc63f354245"
       },
       "profile_ref": "profile_00000000000000000000000012",
       "resume_ref": "resume_00000000000000000000000012",
@@ -2199,21 +2146,21 @@
           "requirement_ref": "requirement_00000000000000000000000070",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000076",
+          "result_ref": "claim_00000000000000000000000075",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000071",
           "classification": "USER_ASSERTED",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000077",
+          "result_ref": "claim_00000000000000000000000076",
           "expected_action": "BLOCK_AND_EXPLAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000072",
           "classification": "DIRECT",
           "result_type": "SUPPORTED_CLAIM",
-          "result_ref": "claim_00000000000000000000000078",
+          "result_ref": "claim_00000000000000000000000077",
           "expected_action": "USE_SUPPORTED_EVIDENCE"
         }
       ],
@@ -2233,11 +2180,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "FIELD_POLICY_BLOCK",
-        "OWN_ROLE"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION", "FIELD_POLICY_BLOCK"]
     },
     {
       "id": "scenario_00000000000000000000000036",
@@ -2251,7 +2194,7 @@
         "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
         "synthetic_data": true,
         "redaction_state": "SYNTHETIC_RESERVED",
-        "historical_content_hash": "sha256:6755389534e1278a351667ffb801430b7f18ac00874ef6fa2254d5e7d0e5963e"
+        "historical_content_hash": "sha256:3f48c01e87273e5614abc53ca994a28e5d57152663a80248d178b967aa5f09f9"
       },
       "profile_ref": "profile_00000000000000000000000012",
       "resume_ref": "resume_00000000000000000000000012",
@@ -2263,21 +2206,21 @@
           "requirement_ref": "requirement_00000000000000000000000040",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000028",
+          "result_ref": "gap_00000000000000000000000029",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000041",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000029",
+          "result_ref": "gap_00000000000000000000000030",
           "expected_action": "ABSTAIN"
         },
         {
           "requirement_ref": "requirement_00000000000000000000000042",
           "classification": "UNSUPPORTED",
           "result_type": "UNSUPPORTED_GAP",
-          "result_ref": "gap_00000000000000000000000030",
+          "result_ref": "gap_00000000000000000000000031",
           "expected_action": "ABSTAIN"
         }
       ],
@@ -2290,10 +2233,7 @@
           "release_eligible": false
         }
       ],
-      "coverage_tags": [
-        "COMPLETE_REQUIREMENT_EVALUATION",
-        "CROSS_ROLE_EVIDENCE_TRAP"
-      ]
+      "coverage_tags": ["COMPLETE_REQUIREMENT_EVALUATION"]
     }
   ]
 }

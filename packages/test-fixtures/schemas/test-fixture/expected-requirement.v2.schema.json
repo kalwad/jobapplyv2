@@ -19,9 +19,7 @@
     "source_anchor_id",
     "source_text_sha256",
     "requirement_tag",
-    "constraint",
-    "keyword_trap",
-    "related_evidence_trap"
+    "constraint"
   ],
   "properties": {
     "id": {
@@ -93,12 +91,6 @@
           "maxLength": 100
         }
       }
-    },
-    "keyword_trap": {
-      "type": "boolean"
-    },
-    "related_evidence_trap": {
-      "type": "boolean"
     }
   }
 }

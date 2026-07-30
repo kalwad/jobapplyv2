@@ -35,12 +35,15 @@ Exact verification commands and summarized results
 
 ### M02-W01 — Reopened corrective lifecycle after independent audit verdict B (2026-07-29)
 
-- Current revision: corrective worktree based on stamp
-  `5309909a881fef8fd00bc16c6203700683aa8fb5`.
+- Current revision: bounded corrective content candidate based on
+  `4fb164ff3351fdedcee3542350a9fa565264d1fa` / tree
+  `c21d246256d844bd839de08609a0694e52df2303`; containing commit recorded
+  post-commit.
 - Current state: M02-W01 is IN_PROGRESS, M02-W02 is NOT_STARTED, and no
-  package is READY. KI-0039 through KI-0045 remain IN_PROGRESS. No corrected
-  content, clean-clone result, hosted result, or independent closeout verdict
-  is claimed yet.
+  package is READY. KI-0039 through KI-0045 remain IN_PROGRESS. This entry
+  claims a locally verified corrective candidate only; no hosted result,
+  independent acceptance verdict, governance stamp, or M02-W02 readiness is
+  claimed.
 - Invalidated anchors: content commit
   `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree
   `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` and stamp `5309909`. The command,
@@ -60,6 +63,73 @@ Exact verification commands and summarized results
   established an independent model audit. Certification now requires a
   genuinely fresh read-only session against the exact corrected content
   commit after two clean clones and fresh three-OS CI.
+
+#### Second bounded corrective content candidate
+
+- Start proof: clean `main`, with `HEAD == origin/main ==
+  4fb164ff3351fdedcee3542350a9fa565264d1fa`, tree
+  `c21d246256d844bd839de08609a0694e52df2303`, and canonical specification
+  SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  No specification, dependency, lockfile, pinned toolchain, timeout, workflow
+  topology, product package, M02-W02 artifact, or governance stamp changed.
+- Workflow: one lead plus three bounded read-only reviewers covering fixture
+  semantics, validator/oracle, and privacy/test-policy. They used no recursive
+  delegation and made no edits; only the lead reviewed and integrated the
+  candidate.
+- Truth corrections: all twelve cross-scenario designs now use exactly-one
+  semantic selectors by stable artifact identity/category/fact key, never
+  array position. Former claim 71 is regenerated as claim 70 and cites
+  employment evidence 61: task-tracking is strong-related to scheduling and
+  covers 1,277 non-overlapping days against the 365-day threshold. Scenario 6
+  now truthfully marks requirement 25 unsupported/ABSTAIN because profile 2
+  has no reviewed process-mapping or adjacent activity. The six reviewed
+  partial cross-scenario cases cite evidence 22, 28, 34, 37, 44, and 50 with
+  deterministic fact/date/threshold rationales.
+- Temporal and outcome corrections: the expired-license adversary remains
+  expired and nonreleasing; every field policy uses the scenario evaluation
+  date. The four historical relocation records (policies 15, 33, 51, and 67)
+  now require confirmation and cannot release. Historical backfill remains
+  structurally representable but stale on entry. Scenario 29 explicitly
+  blocks the REMOTE_ONLY/HYBRID contradiction. Résumé 11 has five unique
+  evidence-backed facts, a substantive page two, and a literally true break
+  rationale.
+- Assurance changes: consistency checks now derive experience relation and
+  non-overlapping duration independently, enforce field/profile/source
+  coupling and chronology, and validate global/nested ID shape and uniqueness.
+  The hand-reviewed test-only oracle covers complete projection hashes plus
+  explicit critical bindings and catches all named repaired mutations,
+  including coherent generator/validator policy drift. Privacy scans generic
+  and numeric secrets under semantic keys, distinguishes sensitive long
+  identifiers from ordinary numbers, and redacts untrusted paths/IDs/values.
+  Loader and platform scans convert replacement/read failures into fixed
+  diagnostics. The repository test-policy AST check covers package/app/E2E
+  JavaScript and TypeScript discovery surfaces and rejects statically empty
+  `.each`/`.for` tables even when a trivial pass preserves the reported count.
+- Exact regenerated seed: 12 profiles; 72 evidence artifacts; 12 résumés; 24
+  jobs; 72 requirements; 36 scenarios / 108 evaluations; 77 supported claims;
+  31 gaps; and 69 policies, for 405 collection records. Evidence categories
+  are 15 credential, 12 education, 19 employment, 14 project, and 12 approved
+  assertion records. Corpus digest is
+  `sha256:4825a6c713833104ab7bcb8eb1b9649688f513fb823cb9f6a9125be5919f69d2`;
+  manifest historical hash is
+  `sha256:55adb4f3262032107c2cfd9f40698180b628a2f4b1f39356e7d6bd32264edc5d`.
+- Direct commands: write-mode seed followed by read-only seed check,
+  validation, privacy, platform-v1, discovery, and focused Vitest all exit 0.
+  Privacy covers 25 committed producer files / 26,179 scalar fields;
+  deprecated-platform discovery is exactly 15 pairs; focused fixtures are
+  8/8 files and 102/102 tests, and the package is 9/9 files / 103/103 tests.
+  The focused integrity/suite-state Python regressions pass 44/44.
+- Canonical aggregate: `pnpm verify` exits 0 with all fifteen ACTIVE suites
+  PASS and visual honestly NOT_YET_APPLICABLE. Results include 183 generated
+  contracts byte-identical, 20/20 contract files / 2,440 tests, 662 focused
+  contract tests, 684 Python tests, 11 Rust tests, one pinned-Chromium smoke
+  test, empty compatibility drift, 45 status groups, and status-neutral
+  verification. Zero tests are skipped, pending, todo, or excluded.
+- Boundary: this content candidate remains deliberately unaccepted.
+  Exact-commit hosted CI can only run after publication and will be recorded
+  in the implementation handoff; fresh independent audits and a separate
+  governance-only closeout are still mandatory.
 
 #### Historical invalidated execution record
 

@@ -250,8 +250,6 @@ export interface ExpectedRequirement extends BaseFixture {
   source_text_sha256: ContentDigest;
   requirement_tag: string;
   constraint: RequirementConstraint;
-  keyword_trap: boolean;
-  related_evidence_trap: boolean;
 }
 
 export interface ExpectedSupportedClaim extends BaseFixture {

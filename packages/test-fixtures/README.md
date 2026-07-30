@@ -32,13 +32,31 @@ evidence. Owner-controlled holdout content stays outside this working tree.
   freshness are evaluated at each scenario's explicit date, not at metadata
   review time. Confirmation-gated claims are represented as supported but not
   release eligible.
+- Cross-scenario evidence is selected by an explicit stable ID or by category
+  plus stable fact keys. Selection must resolve exactly once and is invariant
+  to collection ordering; education, credentials, and assertions cannot
+  substitute for reviewed employment/project activity. Experience duration is
+  the union of inclusive activity dates clipped to the scenario date, with
+  the package convention of 365 days per requested year. Direct and
+  strong-related releases must both meet the numeric threshold.
+- Release-capable field policies first require an approved assertion whose
+  effective start and `recorded_on` are not in the future and whose
+  `valid_through` reaches the scenario date. Historical backfill with
+  `valid_through < recorded_on` remains representable, but it is stale on
+  entry and never releases as current truth. Credential decisions distinguish
+  current, expired, not-yet-valid, revoked, and unknown state at the same
+  scenario clock.
+- A two-page résumé must contain unique evidence-backed facts on both pages.
+  Its break identity and literal rationale are recomputed from the exact page
+  split rather than treated as descriptive metadata.
 - `src/privacy.ts` scans keys, path segments, filenames, and string values
-  using bounded NFKC/escape/percent normalization. Its tested boundary rejects
-  the committed adversarial phone, address, credential-field, traversal,
-  dangerous-key, secret, local-identity/path, hidden-text, and prompt-directive
-  table while permitting reviewed reserved values, ordinary “Basic” prose,
-  and route-like `/jobs/apply`. Unsafe diagnostic members are ordinalized or
-  digested rather than echoed.
+  plus scalar values under secret- or identifier-semantic keys, using bounded
+  NFKC/escape/percent normalization. Its tested boundary rejects the committed
+  adversarial phone, address, credential-field, generic or numeric secret,
+  sensitive numeric identifier, traversal, dangerous-key, local-identity/path,
+  hidden-text, and prompt-directive table while permitting reviewed reserved
+  values, ordinary “Basic” prose and numbers, and route-like `/jobs/apply`.
+  Unsafe diagnostic members are ordinalized or digested rather than echoed.
 - `src/platform-version-guard.ts` rejects new references to the fifteen
   deprecated platform-v1 roots that have corrected v2 siblings, including
   filenames, JSON alias/major objects, and bounded TypeScript constant
@@ -50,11 +68,28 @@ validity state, structured requirement constraints, atomic field-record
 identity/freshness, scenario evaluation dates, and policy evaluations. Fixture
 v1 remains historical in Git only and is not a current producer input.
 
-The test-only oracle under `test/m02-w01/oracles/` independently enumerates
-collection counts, credential states, and every scenario/evaluation/policy
-expectation. Generator and validator source do not import it. Final
-certification still requires a fresh read-only audit of the exact content
-commit; fixture metadata does not supply that certification.
+The hand-reviewed test-only oracle under `test/m02-w01/oracles/` records exact
+collection/category counts, multi-date credential states, critical
+requirement/result/evidence/rationale bindings, stale policy source dates,
+profile-to-field coupling, the two-page split, and hashes of full independent
+projections for all scenarios, policies, résumés, couplings, and credentials.
+Mutation tests prove those expectations detect the repaired evidence,
+threshold, rationale, freshness, coupling, future-approval, page-boundary, and
+eligibility drifts, including one coherent change that the production
+validator accepts. Generator and production validator source do not import,
+read, or rewrite the oracle. Final certification still requires a fresh
+read-only audit of the exact content commit; fixture metadata does not supply
+that certification.
+
+The repository test-policy check parses the pinned TypeScript/JavaScript AST
+across package, app, and E2E `test`/`spec` discovery suffixes. It follows
+statically resolvable Vitest aliases and computed/chained members and rejects
+forbidden conditional/focus members plus statically empty `.each`/`.for`
+array, constructor, concatenation, and template tables. Runtime-computed table
+cardinality is outside that static proof; exact Vitest non-pass and discovered
+test-count checks remain a separate backstop. `PROCEED_WITH_GAPS` is
+intentionally absent from this bounded seed because no reviewed scenario has
+a nonblocking residual gap; M02-W06 owns any broader corpus expansion.
 
 Confirmed defects must become append-only regression cases. An expectation
 correction must be reviewed and supersede history rather than silently
@@ -74,3 +109,8 @@ pnpm --filter @japp/test-fixtures test
 No command has a skip, allow, no-hash, alternate-root, or scanner-bypass flag.
 Tests import the loader API with isolated temporary roots for adversarial
 mutations; the CLI always evaluates the committed seed.
+
+The loader rechecks root and file identity around bounded reads and rejects
+replacement observed at those checkpoints. That narrows ordinary TOCTOU
+exposure but does not claim a hostile-kernel, descriptor-relative `openat`
+guarantee or immunity to a swap wholly between identity checks.

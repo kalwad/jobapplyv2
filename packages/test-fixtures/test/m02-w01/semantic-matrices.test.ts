@@ -4,13 +4,24 @@ import { sha256Bytes } from "../../src/canonical-json.ts";
 import { validateFixtureConsistency } from "../../src/consistency.ts";
 import { loadFixtureCorpus } from "../../src/loader.ts";
 import type {
+  EvidenceArtifact,
   FieldConcept,
   FieldValuePolicyKind,
   FixtureCorpus,
   SupportClassification,
   SyntheticProfile,
 } from "../../src/model.ts";
+import { expectedReviewRationale } from "../../src/review-rationale.ts";
 import { fixtureSchemaValidator } from "../../src/schema-catalog.ts";
+import {
+  experienceCoverageDays,
+  reviewedExperienceRelation,
+  selectExactlyOneEvidence,
+} from "../../src/semantic-evidence.ts";
+import {
+  credentialStateAt,
+  policyDecisionAt,
+} from "../../src/temporal-policy.ts";
 
 function corpus(): FixtureCorpus {
   return structuredClone(loadFixtureCorpus());
@@ -21,6 +32,375 @@ function issues(value: FixtureCorpus): string[] {
 }
 
 describe("M02-W01 independently reviewed semantic matrices", () => {
+  test("selects cross-scenario evidence semantically across ordering and rejects missing or ambiguous targets", () => {
+    const value = corpus();
+    const profileEvidence = value.evidenceArtifacts.filter(
+      (artifact) =>
+        artifact.profile_ref === "profile_00000000000000000000000004",
+    );
+    const selector = {
+      category: "PROJECT_RECORD",
+      fact_keys: ["skill:statistical-analysis", "project:reviewed-1"],
+    } as const;
+    const selected = selectExactlyOneEvidence(
+      profileEvidence,
+      selector,
+      "semantic-selector-control",
+    );
+    expect(
+      selectExactlyOneEvidence(
+        [...profileEvidence].reverse(),
+        selector,
+        "semantic-selector-reordered",
+      ).id,
+    ).toBe(selected.id);
+    expect(() =>
+      selectExactlyOneEvidence(
+        profileEvidence,
+        {
+          category: "PROJECT_RECORD",
+          fact_keys: ["project:missing"],
+        },
+        "semantic-selector-missing",
+      ),
+    ).toThrow(/matched 0 artifacts/u);
+    expect(() =>
+      selectExactlyOneEvidence(
+        profileEvidence,
+        {
+          category: "PROJECT_RECORD",
+          fact_keys: ["skill:statistical-analysis"],
+        },
+        "semantic-selector-ambiguous",
+      ),
+    ).toThrow(/matched 2 artifacts/u);
+
+    const topologyCases = [
+      [
+        "profile_00000000000000000000000001",
+        "EMPLOYMENT_RECORD",
+        "experience:employment-2",
+        "evidence_00000000000000000000000002",
+      ],
+      [
+        "profile_00000000000000000000000004",
+        "PROJECT_RECORD",
+        "project:reviewed-1",
+        "evidence_00000000000000000000000021",
+      ],
+      [
+        "profile_00000000000000000000000005",
+        "PROJECT_RECORD",
+        "project:reviewed-3",
+        "evidence_00000000000000000000000028",
+      ],
+      [
+        "profile_00000000000000000000000007",
+        "CREDENTIAL_RECORD",
+        "license:healthcare-quality-current",
+        "evidence_00000000000000000000000040",
+      ],
+      [
+        "profile_00000000000000000000000010",
+        "EDUCATION_RECORD",
+        "education:program-3",
+        "evidence_00000000000000000000000058",
+      ],
+    ] as const;
+    for (const [profile, category, factKey, expected] of topologyCases) {
+      expect(
+        selectExactlyOneEvidence(
+          value.evidenceArtifacts.filter(
+            (artifact) => artifact.profile_ref === profile,
+          ),
+          { category, fact_keys: [factKey] },
+          `semantic-selector-${profile}`,
+        ).id,
+      ).toBe(expected);
+    }
+  });
+
+  test("derives experience relation and non-overlapping duration from activity evidence rather than labels or declarations", () => {
+    const value = corpus();
+    const requirement = value.expectedRequirements.find(
+      (candidate) => candidate.id === "requirement_00000000000000000000000031",
+    );
+    const template = value.evidenceArtifacts.find(
+      (artifact) => artifact.category === "EMPLOYMENT_RECORD",
+    );
+    if (requirement === undefined || template === undefined) {
+      throw new Error("experience matrix input missing");
+    }
+    const artifact = (
+      category: EvidenceArtifact["category"],
+      factKeys: string[],
+      start: string,
+      end: string,
+    ): EvidenceArtifact => ({
+      ...structuredClone(template),
+      category,
+      fact_keys: factKeys,
+      effective_period: { start, end },
+    });
+    const exactShort = artifact(
+      "EMPLOYMENT_RECORD",
+      [requirement.requirement_tag],
+      "2025-01-01",
+      "2025-12-30",
+    );
+    const exactBoundary = artifact(
+      "EMPLOYMENT_RECORD",
+      [requirement.requirement_tag],
+      "2025-01-01",
+      "2025-12-31",
+    );
+    const relatedShort = artifact(
+      "EMPLOYMENT_RECORD",
+      ["skill:task-tracking"],
+      "2025-07-01",
+      "2025-12-31",
+    );
+    const unrelatedLong = artifact(
+      "EMPLOYMENT_RECORD",
+      ["skill:unrelated"],
+      "2015-01-01",
+      "2025-12-31",
+    );
+    const education = artifact(
+      "EDUCATION_RECORD",
+      [requirement.requirement_tag],
+      "2015-01-01",
+      "2025-12-31",
+    );
+    const credential = artifact(
+      "CREDENTIAL_RECORD",
+      [requirement.requirement_tag],
+      "2015-01-01",
+      "2025-12-31",
+    );
+    expect(reviewedExperienceRelation(requirement, exactShort)).toBe("DIRECT");
+    expect(experienceCoverageDays([exactShort], "2025-12-31")).toBe(364);
+    expect(experienceCoverageDays([exactBoundary], "2025-12-31")).toBe(365);
+    expect(reviewedExperienceRelation(requirement, relatedShort)).toBe(
+      "STRONG_RELATED",
+    );
+    expect(reviewedExperienceRelation(requirement, unrelatedLong)).toBe(
+      undefined,
+    );
+    expect(reviewedExperienceRelation(requirement, education)).toBe(undefined);
+    expect(reviewedExperienceRelation(requirement, credential)).toBe(undefined);
+
+    const first = artifact(
+      "EMPLOYMENT_RECORD",
+      [requirement.requirement_tag],
+      "2025-01-01",
+      "2025-07-19",
+    );
+    const second = artifact(
+      "EMPLOYMENT_RECORD",
+      [requirement.requirement_tag],
+      "2025-07-20",
+      "2025-12-31",
+    );
+    const overlap = artifact(
+      "EMPLOYMENT_RECORD",
+      [requirement.requirement_tag],
+      "2025-06-01",
+      "2025-08-01",
+    );
+    expect(experienceCoverageDays([first, second], "2025-12-31")).toBe(365);
+    expect(experienceCoverageDays([first, second, overlap], "2025-12-31")).toBe(
+      365,
+    );
+  });
+
+  test("renders rationale from the cited semantic and temporal basis", () => {
+    const value = corpus();
+    const requirement = value.expectedRequirements.find(
+      (candidate) => candidate.id === "requirement_00000000000000000000000031",
+    );
+    const evidence = value.evidenceArtifacts.find(
+      (candidate) => candidate.id === "evidence_00000000000000000000000061",
+    );
+    if (requirement === undefined || evidence === undefined) {
+      throw new Error("rationale matrix input missing");
+    }
+    const rationale = expectedReviewRationale({
+      classification: "STRONG_RELATED",
+      requirement,
+      evidence: [evidence],
+      evaluationDate: "2026-07-29",
+    });
+    expect(rationale).toContain("skill:task-tracking");
+    expect(rationale).toContain("skill:scheduling");
+    expect(rationale).not.toContain("education");
+  });
+
+  test("applies every release-capable field policy after evaluation-date freshness", () => {
+    const value = corpus();
+    const fill = value.fieldValuePolicies.find(
+      (candidate) =>
+        candidate.policy === "FILL_FROM_EXPLICIT_RECORD" &&
+        candidate.field_concept === "RELOCATION_PREFERENCE",
+    );
+    const source = value.evidenceArtifacts.find(
+      (candidate) => candidate.id === fill?.source_evidence_ref,
+    );
+    if (fill === undefined || source === undefined) {
+      throw new Error("field freshness matrix input missing");
+    }
+    const withDates = (
+      effectiveStart: string,
+      recordedOn: string,
+      validThrough?: string,
+    ): EvidenceArtifact => {
+      const copy = structuredClone(source);
+      copy.effective_period.start = effectiveStart;
+      const record = copy.field_records.find(
+        (candidate) =>
+          candidate.field_record_id === fill.source_field_record_id,
+      );
+      if (record === undefined) {
+        throw new Error("field freshness record missing");
+      }
+      record.recorded_on = recordedOn;
+      if (validThrough === undefined) {
+        delete record.valid_through;
+      } else {
+        record.valid_through = validThrough;
+      }
+      return copy;
+    };
+    const cases = [
+      ["2026-07-01", "2026-07-01", "2026-07-29", "USE_SUPPORTED_EVIDENCE"],
+      ["2026-07-01", "2026-07-01", "2026-07-28", "REQUIRE_CONFIRMATION"],
+      ["2026-07-30", "2026-07-30", "2027-07-30", "REQUIRE_CONFIRMATION"],
+      ["2026-07-01", "2026-07-01", undefined, "REQUIRE_CONFIRMATION"],
+      // Historical backfill is structurally representable but expired on entry.
+      ["2026-07-01", "2026-07-29", "2026-06-30", "REQUIRE_CONFIRMATION"],
+    ] as const;
+    for (const [effective, recorded, validThrough, action] of cases) {
+      expect(
+        policyDecisionAt(
+          fill,
+          withDates(effective, recorded, validThrough),
+          "2026-07-29",
+        ),
+      ).toEqual({
+        action,
+        releaseEligible: action === "USE_SUPPORTED_EVIDENCE",
+      });
+    }
+    const current = withDates("2026-07-01", "2026-07-01", "2026-07-29");
+    const endedAssertion = structuredClone(current);
+    endedAssertion.effective_period.end = "2026-07-28";
+    expect(policyDecisionAt(fill, endedAssertion, "2026-07-29")).toEqual({
+      action: "REQUIRE_CONFIRMATION",
+      releaseEligible: false,
+    });
+    expect(policyDecisionAt(fill, current, "2026-06-30").action).toBe(
+      "REQUIRE_CONFIRMATION",
+    );
+    expect(policyDecisionAt(fill, current, "2026-07-29").action).toBe(
+      "USE_SUPPORTED_EVIDENCE",
+    );
+    expect(policyDecisionAt(fill, current, "2026-07-30").action).toBe(
+      "REQUIRE_CONFIRMATION",
+    );
+  });
+
+  test("derives all credential temporal states and release decisions at the scenario clock", () => {
+    const value = corpus();
+    const ids = [
+      ["evidence_00000000000000000000000039", "CURRENT"],
+      ["evidence_00000000000000000000000041", "EXPIRED"],
+      ["evidence_00000000000000000000000046", "NOT_YET_VALID"],
+      ["evidence_00000000000000000000000047", "REVOKED"],
+      ["evidence_00000000000000000000000052", "UNKNOWN"],
+    ] as const;
+    for (const [id, state] of ids) {
+      const source = value.evidenceArtifacts.find(
+        (candidate) => candidate.id === id,
+      );
+      expect(source).toBeDefined();
+      expect(
+        source === undefined
+          ? undefined
+          : credentialStateAt(source, "2026-07-29"),
+      ).toBe(state);
+    }
+    for (const policy of value.fieldValuePolicies.filter(
+      (candidate) => candidate.field_concept === "LICENSE_VALIDITY",
+    )) {
+      const source = value.evidenceArtifacts.find(
+        (candidate) => candidate.id === policy.source_evidence_ref,
+      );
+      if (source === undefined) {
+        throw new Error("credential policy source missing");
+      }
+      const decision = policyDecisionAt(policy, source, "2026-07-29");
+      if (
+        policy.policy === "BLOCK_AND_EXPLAIN" ||
+        policy.policy === "NEVER_AUTOFILL"
+      ) {
+        expect(decision.releaseEligible).toBe(false);
+      } else {
+        expect(decision.releaseEligible).toBe(
+          credentialStateAt(source, "2026-07-29") === "CURRENT",
+        );
+      }
+    }
+
+    const confirmationPolicy = value.fieldValuePolicies.find(
+      (candidate) =>
+        candidate.field_concept === "LICENSE_VALIDITY" &&
+        candidate.policy === "CONFIRM_IF_RECORD_EXPIRED",
+    );
+    if (confirmationPolicy === undefined) {
+      throw new Error("credential confirmation policy missing");
+    }
+    const decisionCases = [
+      ["evidence_00000000000000000000000040", "USE_SUPPORTED_EVIDENCE", true],
+      ["evidence_00000000000000000000000041", "REQUIRE_CONFIRMATION", false],
+      ["evidence_00000000000000000000000046", "REQUIRE_CONFIRMATION", false],
+      ["evidence_00000000000000000000000047", "REQUIRE_CONFIRMATION", false],
+      ["evidence_00000000000000000000000052", "REQUIRE_CONFIRMATION", false],
+    ] as const;
+    for (const [id, action, releaseEligible] of decisionCases) {
+      const source = value.evidenceArtifacts.find(
+        (candidate) => candidate.id === id,
+      );
+      if (source === undefined) {
+        throw new Error("credential decision source missing");
+      }
+      expect(
+        policyDecisionAt(confirmationPolicy, source, "2026-07-29"),
+      ).toEqual({ action, releaseEligible });
+    }
+
+    const currentScenario = value.scenarioBundles.find(
+      (candidate) => candidate.id === "scenario_00000000000000000000000019",
+    );
+    const currentEvaluation = currentScenario?.evaluations.find(
+      (candidate) =>
+        candidate.requirement_ref === "requirement_00000000000000000000000039",
+    );
+    const expiredEvaluation = currentScenario?.evaluations.find(
+      (candidate) =>
+        candidate.requirement_ref === "requirement_00000000000000000000000038",
+    );
+    expect(currentEvaluation).toMatchObject({
+      classification: "DIRECT",
+      expected_action: "USE_SUPPORTED_EVIDENCE",
+      result_type: "SUPPORTED_CLAIM",
+    });
+    expect(expiredEvaluation).toMatchObject({
+      classification: "PARTIAL",
+      expected_action: "REQUIRE_CONFIRMATION",
+      result_type: "UNSUPPORTED_GAP",
+    });
+  });
+
   test("enforces the complete work-authorization status and sponsorship matrix", () => {
     const base = corpus().profiles[0];
     if (base === undefined) {

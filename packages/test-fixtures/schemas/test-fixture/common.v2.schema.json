@@ -81,7 +81,7 @@
     },
     "stableId": {
       "type": "string",
-      "pattern": "^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$"
+      "pattern": "^[a-z][a-z0-9]{1,23}_[0-9]{26}$"
     },
     "supportClassification": {
       "type": "string",

@@ -9,6 +9,14 @@ function digest(value: string): string {
   return createHash("sha256").update(value, "utf8").digest("hex").slice(0, 12);
 }
 
+function digestedSegment(value: string): string {
+  const extension = extname(value);
+  const safeExtension = /^\.[A-Za-z0-9]{1,10}$/u.test(extension)
+    ? extension.toLowerCase()
+    : "";
+  return `@segment-${digest(value)}${safeExtension}`;
+}
+
 export function safeDiagnosticSegment(value: string): string {
   if (
     SAFE_SEGMENT.test(value) &&
@@ -18,11 +26,19 @@ export function safeDiagnosticSegment(value: string): string {
   ) {
     return value;
   }
-  const extension = extname(value);
-  const safeExtension = /^\.[A-Za-z0-9]{1,10}$/u.test(extension)
-    ? extension.toLowerCase()
-    : "";
-  return `@segment-${digest(value)}${safeExtension}`;
+  return digestedSegment(value);
+}
+
+export function safeUntrustedDiagnosticPath(value: string): string {
+  if (value === "." || value === "") {
+    return ".";
+  }
+  return value
+    .replaceAll("\\", "/")
+    .split("/")
+    .filter((segment) => segment !== "")
+    .map(digestedSegment)
+    .join("/");
 }
 
 export function safeDiagnosticPath(value: string): string {
@@ -53,5 +69,9 @@ export function safeDiagnosticPointer(pointer: string): string {
 }
 
 export function safeDiagnosticToken(value: string): string {
-  return safeDiagnosticSegment(value);
+  return `@id-${digest(value)}`;
+}
+
+export function safeUnknownErrorMessage(): string {
+  return "unexpected internal failure";
 }

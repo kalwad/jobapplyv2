@@ -12,7 +12,7 @@
     "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
     "synthetic_data": true,
     "redaction_state": "SYNTHETIC_RESERVED",
-    "historical_content_hash": "sha256:5c7169ffddaefd891a4fc8cc0087842de314a5315fe19c84963a775cccd70962"
+    "historical_content_hash": "sha256:55adb4f3262032107c2cfd9f40698180b628a2f4b1f39356e7d6bd32264edc5d"
   },
   "files": [
     {
@@ -21,8 +21,8 @@
       "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
       "schema_version": "2.0.0",
       "record_count": 72,
-      "byte_count": 127789,
-      "sha256": "sha256:1ca7dc01fc2731d9aa2694c5b7047c372ae984e7897a1a7fc3ba1ba27d9309fb"
+      "byte_count": 127612,
+      "sha256": "sha256:38a85db4450b3c10d3ed70660dbed1e1b83bd45d3efacfe7920c55ed2b17ab9a"
     },
     {
       "path": "expected-requirements.v2.json",
@@ -30,17 +30,17 @@
       "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
       "schema_version": "2.0.0",
       "record_count": 72,
-      "byte_count": 91280,
-      "sha256": "sha256:9588ea738fd7b8e7ebbb73378216f222ab37722774b97a0601cf3c380d558934"
+      "byte_count": 86444,
+      "sha256": "sha256:d843a004f604c3062cad61d99f747f6e5271f2f592737f3ead70bd8f137a771e"
     },
     {
       "path": "expected-supported-claims.v2.json",
       "entity_type": "EXPECTED_SUPPORTED_CLAIM",
       "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
       "schema_version": "2.0.0",
-      "record_count": 78,
-      "byte_count": 103854,
-      "sha256": "sha256:6b60c5717a9274e5389314014d242867d196aad10ea5fd745474195d9c6a87d2"
+      "record_count": 77,
+      "byte_count": 106393,
+      "sha256": "sha256:3758b6e2d694dcccef1f5998595da50e1f389c041fda2139eafcf670d83efa03"
     },
     {
       "path": "field-value-policies.v2.json",
@@ -57,8 +57,8 @@
       "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
       "schema_version": "2.0.0",
       "record_count": 24,
-      "byte_count": 61494,
-      "sha256": "sha256:514743800da425c12a75c2e3172f5d61ba7e3a5109817851db80efb973f64a70"
+      "byte_count": 61444,
+      "sha256": "sha256:30d0ce067564df4e41de20f01fa9403bd734ae217c671b3ad0d8b045e99484b0"
     },
     {
       "path": "profiles.v2.json",
@@ -75,8 +75,8 @@
       "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
       "schema_version": "2.0.0",
       "record_count": 36,
-      "byte_count": 90909,
-      "sha256": "sha256:a74e0433ba9bb2761b4c227b214e3c0994a7691a2ce86e1f70fd0d68f328f14d"
+      "byte_count": 89956,
+      "sha256": "sha256:b9bada6e9b890dd4cdfd27e0042b31c51b78536abaf5417d27b5fd170c7c03e7"
     },
     {
       "path": "source-resumes.v2.json",
@@ -84,17 +84,17 @@
       "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
       "schema_version": "2.0.0",
       "record_count": 12,
-      "byte_count": 36729,
-      "sha256": "sha256:510f1b9852d4058068e1dab3274e8fff1076533e7f1b6a241185dec6a3cd0b88"
+      "byte_count": 35191,
+      "sha256": "sha256:4c2ba387cb5eb08be82684e62284bee9a238a479b78b2280ae80b17a4134f099"
     },
     {
       "path": "unsupported-gaps.v2.json",
       "entity_type": "UNSUPPORTED_GAP",
       "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
       "schema_version": "2.0.0",
-      "record_count": 30,
-      "byte_count": 36058,
-      "sha256": "sha256:3931184d9a7e8d8e3311daf2c866ed2fed8f31067edac62272719a828f4397c1"
+      "record_count": 31,
+      "byte_count": 38849,
+      "sha256": "sha256:568ea6f007386f0d1836338fd1b2ed8cb91f635d64758f8a6102f775990a2771"
     }
   ],
   "counts": {
@@ -103,8 +103,8 @@
     "source_resumes": 12,
     "jobs": 24,
     "expected_requirements": 72,
-    "expected_supported_claims": 78,
-    "unsupported_gaps": 30,
+    "expected_supported_claims": 77,
+    "unsupported_gaps": 31,
     "field_value_policies": 69,
     "scenario_bundles": 36,
     "scenario_evaluations": 108
@@ -127,5 +127,5 @@
     "SALES": 1,
     "SOFTWARE": 2
   },
-  "corpus_digest": "sha256:1096161e0a8cc050ea7b2adeaa4e1f4ac770e89859c2b7f874f243d66375ac1e"
+  "corpus_digest": "sha256:4825a6c713833104ab7bcb8eb1b9649688f513fb823cb9f6a9125be5919f69d2"
 }

@@ -159,7 +159,26 @@ TEXT_SOURCE_SUFFIXES = frozenset(
 )
 ALLOWED_TEXT_CONTROL_BYTES = frozenset({0x09, 0x0A, 0x0D})
 
-TS_TEST_GLOBS = ("packages/*/test/**/*.test.ts", "e2e/**/*.spec.ts")
+_VITEST_TEST_SUFFIXES = (
+    "js",
+    "jsx",
+    "ts",
+    "tsx",
+    "cjs",
+    "cjsx",
+    "mjs",
+    "mjsx",
+    "cts",
+    "ctsx",
+    "mts",
+    "mtsx",
+)
+TS_TEST_GLOBS = tuple(
+    f"{root}/**/*.{kind}.{suffix}"
+    for root in ("packages/*", "apps/*")
+    for kind in ("test", "spec")
+    for suffix in _VITEST_TEST_SUFFIXES
+) + tuple(f"e2e/**/*.spec.{suffix}" for suffix in _VITEST_TEST_SUFFIXES)
 PY_TEST_GLOBS = (
     "services/orchestrator/tests/**/test_*.py",
     "services/orchestrator/tests/**/conftest.py",
@@ -167,7 +186,7 @@ PY_TEST_GLOBS = (
     "scripts/tests/**/conftest.py",
 )
 TS_FOCUS_RE = re.compile(
-    r"\b(?:test|it|describe|bench)\s*\.\s*(?:only|skip|fixme|todo)\b"
+    r"\b(?:test|it|describe|suite|bench)\s*\.\s*(?:only|skip|fixme|todo)\b"
 )
 PY_SKIP_RE = re.compile(r"@pytest\s*\.\s*mark\s*\.\s*skip|pytest\s*\.\s*skip\s*\(")
 
@@ -856,10 +875,15 @@ def _unskipped_test_paths(
     for pattern in patterns:
         for path in discovery_matches(ctx, (pattern,)):
             rel = path.relative_to(ctx.repo).as_posix()
+            if any(
+                part in {".git", ".turbo", "node_modules"}
+                for part in path.relative_to(ctx.repo).parts
+            ):
+                continue
             if rel in allowed_skips:
                 continue
             paths.append(path)
-    return paths
+    return sorted(set(paths))
 
 
 def _typescript_test_policy_failures(ctx: Context, paths: list[Path]) -> list[str]:

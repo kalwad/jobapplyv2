@@ -3,6 +3,7 @@ import { join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { assertFixtureConsistency } from "./consistency.ts";
+import { safeUnknownErrorMessage } from "./diagnostics.ts";
 import { loadFixtureCorpus } from "./loader.ts";
 import { assertCommittedPlatformVersions } from "./platform-version-guard.ts";
 import { assertCommittedFixturePrivacy } from "./privacy.ts";
@@ -24,7 +25,7 @@ function validate(): void {
 function privacy(): void {
   const report = assertCommittedFixturePrivacy();
   console.log(
-    `fixture privacy passed: ${count(report.filesScanned)} producer files and ${count(report.fieldsScanned)} text fields; no real-looking PII, secrets, local identities, hidden text, or prompt injection`,
+    `fixture privacy passed: ${count(report.filesScanned)} files and ${count(report.fieldsScanned)} scalar fields in the committed producer surface (src/test excluded); no real-looking PII, secrets, local identities, hidden text, or prompt injection`,
   );
 }
 
@@ -101,9 +102,8 @@ if (
 ) {
   try {
     main();
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "unknown failure";
-    console.error(`fixture command failed: ${message}`);
+  } catch {
+    console.error(`fixture command failed: ${safeUnknownErrorMessage()}`);
     process.exitCode = 1;
   }
 }
