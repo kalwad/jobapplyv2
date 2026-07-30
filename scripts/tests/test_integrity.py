@@ -737,10 +737,9 @@ def test_typescript_ast_scan_trusts_only_direct_canonical_nonempty_guard(
         / "parameter-table.ts"
     )
     support.parent.mkdir(parents=True)
-    canonical_source = (
-        REPO_ROOT / "packages/contracts/test/support/parameter-table.ts"
-    ).read_text(encoding="utf-8")
-    support.write_text(canonical_source, encoding="utf-8")
+    canonical_path = REPO_ROOT / "packages/contracts/test/support/parameter-table.ts"
+    canonical_bytes = canonical_path.read_bytes()
+    support.write_bytes(canonical_bytes)
     spec = (
         fixture_repo.repo
         / "packages"
@@ -787,16 +786,15 @@ def test_typescript_ast_scan_trusts_only_direct_canonical_nonempty_guard(
         ),
     )
     for source in variants:
-        support.write_text(canonical_source, encoding="utf-8")
+        support.write_bytes(canonical_bytes)
         spec.write_text(source, encoding="utf-8")
         assert verify.check_focused_tests(fixture_repo, ())
 
-    support.write_text(
-        canonical_source.replace(
-            'throw new Error("parameter table has no occupied cases");',
-            "return snapshot;",
-        ),
-        encoding="utf-8",
+    support.write_bytes(
+        canonical_bytes.replace(
+            b'throw new Error("parameter table has no occupied cases");',
+            b"return snapshot;",
+        )
     )
     spec.write_text(
         guard_import

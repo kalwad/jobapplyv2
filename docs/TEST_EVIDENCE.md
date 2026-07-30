@@ -172,6 +172,17 @@ Exact verification commands and summarized results
     contract files with 662/662 tests, 695/695 Python tests, 11/11 Rust tests,
     and 1/1 Playwright test. No skipped, pending, todo, or excluded test was
     reported.
+  - Hosted push run `30569284323` checked out the ending content commit on
+    macOS 15, Ubuntu 24.04, and Windows 2025. macOS and Ubuntu completed
+    canonical verification and the tracked-cleanliness assertion
+    successfully. Windows exposed one portability defect in the new
+    guard-trust test: Python text-mode copying converted LF bytes to CRLF, so
+    the deliberately byte-exact SHA-256 trust check rejected the temporary
+    copy. Its Python result was 692 passed / 1 failed; all other canonical
+    suites passed. The bounded correction copies and tampers the helper as
+    bytes. `uv run pytest -q
+    scripts/tests/test_integrity.py::test_typescript_ast_scan_trusts_only_direct_canonical_nonempty_guard`
+    then exited 0 with 1/1 passed in 1.60s.
 - Scope: the correction is limited to fail-closed static parameter-table
   analysis, a bounded hash-pinned runtime guard for established derived
   contract tables, literal temporal boundary coverage, high-confidence SSN and
