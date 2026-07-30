@@ -13,6 +13,7 @@ import {
   type SemanticMatrixCase,
 } from "../contract/support/orchestrator.ts";
 import { assertLanguageAgreement } from "../contract/support/response.ts";
+import { assertNonEmptyParameterTable } from "../support/parameter-table.ts";
 
 /**
  * Explicit M01-W07 secret-store result truth table and structural/semantic
@@ -666,7 +667,7 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
     expect(FULL_AXIS_CELLS).toHaveLength(288);
   });
 
-  test.each(FULL_AXIS_CELLS)(
+  test.each(assertNonEmptyParameterTable(FULL_AXIS_CELLS))(
     "%s with %s while store availability is %s",
     (operation, resultState, availability) => {
       const value = buildFullAxisResult(operation, resultState, availability);
@@ -677,7 +678,7 @@ describe("M01-W07 secret-store STATUS truth table and token closure (KI-0023)", 
     },
   );
 
-  test.each(EXHAUSTIVE_CELLS)(
+  test.each(assertNonEmptyParameterTable(EXHAUSTIVE_CELLS))(
     "%s with result state %s admits exactly its reviewed representative",
     (operation, resultState) => {
       const expected = ADMISSIBLE_CELLS[operation].includes(resultState);

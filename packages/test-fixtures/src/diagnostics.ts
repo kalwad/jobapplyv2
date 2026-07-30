@@ -3,7 +3,7 @@ import { extname } from "node:path";
 
 const SAFE_SEGMENT = /^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/u;
 const SENSITIVE_SHAPE =
-  /(?:AKIA|ASIA)[A-Z0-9]{16}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|xox[baprs]-|sk-(?:proj-)?[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{20,}|-----BEGIN|[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\./u;
+  /(?:AKIA|ASIA)[A-Z0-9]{16}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|xox[baprs]-|sk-(?:proj-)?[A-Za-z0-9_-]{20,}|sk_(?:live|test)_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{20,}|-----BEGIN|(?<![\p{L}\p{N}])(?!000|666|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}(?![\p{L}\p{N}])|[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\./u;
 
 function digest(value: string): string {
   return createHash("sha256").update(value, "utf8").digest("hex").slice(0, 12);

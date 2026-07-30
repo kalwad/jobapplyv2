@@ -25,7 +25,7 @@ const EXPECTED_TEST_FILES = [
 ] as const;
 // This test-layer value is deliberately duplicated, not imported by the
 // generator, loader, validator, CLI, or root verifier.
-const EXPECTED_FOCUSED_TEST_COUNT = 102;
+const EXPECTED_FOCUSED_TEST_COUNT = 105;
 
 describe("M02-W01 fail-closed discovery and ownership", () => {
   test("eagerly compiles the exact eleven-schema v2 test-only catalog", () => {

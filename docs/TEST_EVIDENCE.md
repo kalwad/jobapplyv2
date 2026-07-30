@@ -33,6 +33,157 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Independent Opus-audit triage and bounded correction (2026-07-30)
+
+- Revision: implementation working tree based on exact clean `main` commit
+  `1277715af6f2244ace00be2778b17440f8fa9530`, tree
+  `11f221556a4b3186a5b28564cabb2f9ab8950a11`; `origin/main` matched. The
+  ending commit and content tree are reported in the implementation handoff.
+- Environment: macOS 27.0; Node 24.18.0; pnpm 11.17.0; uv 0.11.32;
+  uv-managed Python 3.12.13.
+- Boundary: JAPP-MASTER-001 version 1.4 remained canonical. M00 and M01 were
+  ACCEPTED; M02-W01 was the sole IN_PROGRESS package; M02-W02 was NOT_STARTED;
+  no package was READY; the release was NOT_READY; and all four critical gates
+  were NOT_EVALUATED. All Phase A reproductions and comparator mutations used
+  disposable copies. The detached Opus audit worktree was not modified,
+  installed into, cleaned, removed, or reused.
+- Independent Phase A classifications:
+  - **F-01 CONFIRMED.** In the exact starting revision,
+    `node scripts/check-ts-test-policy.mjs
+    .phase-a/f01-mutations.test.ts` exited 0 with no output for `pop`, `shift`,
+    both reported `splice` forms, `length = 0`, const-alias mutation,
+    `Object.assign(..., { length: 0 })`, and deletion of the only occupied
+    slot. The same direct command on `.phase-a/f01-surfaces.test.ts` exited 0
+    across `test`, `it`, `describe`, `suite`, and `bench` `.each`/`.for`
+    scanner surfaces. Machine-readable Vitest generated only the filler:
+    1/1 passed for the mutation group and 1/1 for eight executable
+    `.each`/`.for` surfaces; `bench.for` itself exited 1 with zero tests because
+    that runtime exposes no `bench.for` function. Replacing a substantive
+    M02-W01 test with an emptied alias table plus a trivial filler still
+    reported 16 suites and 102/102 passed, and
+    `uv run python scripts/verify.py --suite integrity` plus
+    `uv run python scripts/verify.py --suite fixture-corpus` both exited 0.
+    Runtime controls established that deleting a one-row slot generated zero
+    cases, assigning `undefined` preserved one, deleting one of two slots
+    preserved one, and post-registration mutation preserved the generated
+    case. `.phase-a/f01-positive.test.ts` passed 11/11; an environment-derived
+    table passed 1/1 when empty and 2/2 when nonempty.
+  - **F-02 CONFIRMED.** In the exact starting revision,
+    `.phase-a/f02-empty.test.ts` contained all six reported `Array.from`
+    inputs. Its direct scanner command exited 1 only for `Array.from([])` and
+    `Array.from("")`, silently accepting `{ length: 0 }`, the mapped form,
+    `new Set()`, and `new Map()`; its Vitest run generated only the filler and
+    passed 1/1. The known-nonempty controls passed 10/10. Shadowed `Array`
+    failed closed, while shadowed `Set` and `Map` were accepted; a malformed
+    parse failed and a genuinely runtime-derived table was accepted. Replacing
+    a substantive test with `Array.from({ length: 0 })` plus a filler again
+    reported 102/102 and both verifier suites exited 0.
+  - **F-03 CONFIRMED.** In separate disposable copies, changing
+    `evaluationDate > end` to `>=`, `evaluationDate < start` to `<=`, or
+    `revoked_on <= evaluationDate` to `<` left the focused command
+    `packages/test-fixtures/node_modules/.bin/vitest run
+    packages/test-fixtures/test/m02-w01/semantic-matrices.test.ts
+    packages/test-fixtures/test/m02-w01/corpus-positive.test.ts
+    --no-file-parallelism --maxWorkers=1 --testNamePattern 'derives all
+    credential temporal states|explicit critical result
+    bindings|independently enumerated credential states' --reporter=json`
+    green at 3 passed / 22 pending. For each mutant, fixture validation and
+    seed checking exited 0 and the complete M02-W01 suite passed 102/102.
+  - **F-04 CONFIRMED.** An included disposable fixture containing bare,
+    embedded-text, unrelated-field, and semantic-field `123-45-6789` values
+    plus token-shaped `sk_live_` and `sk_test_` values passed
+    `pnpm --filter @japp/test-fixtures fixtures:privacy` at 26 files / 26,191
+    scalar fields. Numeric SSN-semantic identifiers were already rejected.
+    Benign numeric, date/version, SSN-prose, ordinary `sk_`, reserved fixture
+    identity, and route/path controls passed at 26 files / 26,205 fields.
+    Existing secret families produced nine redacted `PRIVACY_SECRET` issues;
+    existing PII, path, injection, and diagnostic non-disclosure controls
+    behaved as expected. The pre-correction focused privacy suite passed
+    19/19; after adding the three regressions but before the implementation
+    change it exited 1 with 19/22 passed and exactly those regressions failed.
+- Separate Base64 result: generic Base64 text encoding synthetic email, SSN,
+  phone, and address values passed the included committed scan at 26 files /
+  26,187 fields. That behavior is reproducible, but generic Base64 decoding is
+  not clearly required by the bounded KI-0041 normalization/encoded-token
+  contract. It remains an **INCONCLUSIVE, nonblocking follow-up hypothesis**
+  and was excluded from this correction.
+- Corrected focused commands and observed results:
+  - `uv run pytest -q scripts/tests/test_integrity.py
+    scripts/tests/test_suite_states.py` → exit 0, 55 passed in 58.58s.
+  - Direct `printf ... | node scripts/check-ts-test-policy.mjs /dev/stdin`
+    probes → exit 1 with an empty-table diagnostic for every reported F-01
+    mutation, `describe.each`, and all supported `.for` roots; exit 1 for all
+    six empty F-02 inputs; exit 1 as unprovable for runtime-derived and
+    shadowed Array/Set/Map inputs; exit 0 for unchanged and push-before
+    registration, mutation after registration, occupied `undefined`,
+    one-of-two deletion, ordinary nonparameterized use, stable literals and
+    wrappers, and known-nonempty array-like/Set/Map controls.
+  - `rg --files packages apps e2e | rg
+    '\.(test|spec)\.(js|jsx|ts|tsx|cjs|cjsx|mjs|mjsx|cts|ctsx|mts|mtsx)$' |
+    xargs node scripts/check-ts-test-policy.mjs` → exit 0, no output.
+  - `pnpm --filter @japp/contracts typecheck` and
+    `pnpm --filter @japp/contracts exec vitest run
+    test/schema/w07-secret-store-truth-table.test.ts
+    test/schema/w07-platform-rule-matrix.test.ts --no-file-parallelism
+    --maxWorkers=1 --reporter=json` → exit 0; 2 files and 1,391/1,391 tests
+    passed with no pending or todo cases.
+  - `pnpm --filter @japp/test-fixtures exec vitest run
+    test/m02-w01/privacy-security.test.ts --no-file-parallelism --maxWorkers=1
+    --reporter=json` → exit 0; 22/22 passed. High-confidence SSN and
+    token-shaped `sk_live_`/`sk_test_` values were detected without disclosure;
+    invalid SSN shapes, embedded SKU text, short prefixes, and ordinary numeric
+    and prose controls remained clean.
+  - `pnpm --filter @japp/test-fixtures exec vitest run
+    test/m02-w01/semantic-matrices.test.ts
+    test/m02-w01/corpus-positive.test.ts --no-file-parallelism --maxWorkers=1
+    --reporter=json` → exit 0; 2 files and 25/25 tests passed.
+  - Repeating the three comparator mutations in disposable corrected copies
+    made the focused pattern exit 1 each time with 2 passed, 1 failed, and 22
+    pending: the exact bounded-validity end expected `CURRENT` but observed
+    `EXPIRED`; the exact effective start expected `CURRENT` but observed
+    `NOT_YET_VALID`; and the exact revocation date expected `REVOKED` but
+    observed `CURRENT`.
+- Aggregate commands and observed results:
+  - `pnpm --filter @japp/test-fixtures exec vitest run test/m02-w01
+    --no-file-parallelism --maxWorkers=1 --reporter=json` → exit 0; 8 files
+    and 105/105 tests passed with no pending or todo cases.
+  - `pnpm --filter @japp/test-fixtures fixtures:seed:check`,
+    `fixtures:validate`, `fixtures:privacy`, `fixtures:platform-v1`,
+    `fixtures:discover`, and `typecheck` → exit 0. Counts were 12 profiles, 72
+    evidence artifacts, 12 resumes, 24 jobs, 72 requirements, 36 scenarios /
+    108 evaluations, 77 claims, 31 gaps, and 69 policies; privacy scanned 25
+    files / 26,179 scalar fields; platform-v1 derived 15 roots and scanned 25
+    files; discovery found 9 collections, 405 records, 108 evaluations, and 8
+    focused test files.
+  - `pnpm --filter @japp/test-fixtures test` → exit 0; 9 files and 106/106
+    tests passed.
+  - `uv run pytest -q scripts/tests` → exit 0; 694 passed in 84.74s.
+  - `python3 scripts/validate_status.py` → exit 0; all 45 check groups passed.
+    `pnpm traceability:check` → exit 0; 193 requirements and 300 work packages
+    validated.
+  - `uv run ruff check scripts/tests/test_integrity.py
+    scripts/tests/test_suite_states.py`, `uv run ruff format --check` on those
+    files, and `pnpm exec prettier --check` on every changed
+    non-Python file → exit 0.
+  - `pnpm verify` → exit 0; all 15 ACTIVE suites passed and visual remained
+    honestly NOT_YET_APPLICABLE. Counts included 9/9 TypeScript package tasks,
+    9/9 fixture files with 106/106 tests, 8/8 focused M02-W01 files with
+    105/105 tests, 20/20 contract files with 2,440/2,440 tests, 6/6 focused
+    contract files with 662/662 tests, 695/695 Python tests, 11/11 Rust tests,
+    and 1/1 Playwright test. No skipped, pending, todo, or excluded test was
+    reported.
+- Scope: the correction is limited to fail-closed static parameter-table
+  analysis, a bounded hash-pinned runtime guard for established derived
+  contract tables, literal temporal boundary coverage, high-confidence SSN and
+  `sk_live_`/`sk_test_` privacy detection/redaction, focused regressions,
+  exact-count metadata, and truthful evidence text. Production temporal
+  semantics and fixture corpus truth were not changed.
+- Governance boundary: no governance stamp was created; no known issue was
+  closed or marked FIXED; M02-W01 remains IN_PROGRESS and unaccepted; M02-W02
+  remains NOT_STARTED and was not begun; and no critical gate was evaluated.
+- Artifacts: none retained; disposable copies and temporary reporters are
+  removed before commit. No flaky behavior observed.
+
 ### M02-W01 — Bounded TypeScript test-policy correction (2026-07-30)
 
 - Revision: implementation working tree based on exact clean `main` commit
@@ -43,13 +194,17 @@ Exact verification commands and summarized results
 - Scope: scanner policy, scanner discovery, focused verifier regressions, and
   this evidence correction only. The fixture corpus and product behavior were
   not changed.
-- Implementation evidence: `Array.from` now preserves statically known empty,
-  nonempty, and unknown input states. A unique, unchanged `let` table resolves
-  through its initializer; reassignment, mutation, aliasing, escape, or
-  shadowing produces a separate fail-closed unstable state. Scanner discovery
-  now covers both `.test.*` and `.spec.*` across `packages/*`, `apps/*`, and
-  `e2e/` for all 12 verifier suffixes (`js`, `jsx`, `ts`, `tsx`, `cjs`, `cjsx`,
-  `mjs`, `mjsx`, `cts`, `ctsx`, `mts`, and `mtsx`), for 72 patterns.
+- Implementation evidence at that revision: `Array.from` propagated the
+  state of its first input for the array, string, and stable-wrapper cases
+  then tested; it did not establish every statically provable
+  `Array.from` cardinality. The later independent validation recorded above
+  found the remaining array-like and intrinsic-collection gaps. A unique,
+  unchanged `let` table resolves through its initializer; reassignment,
+  mutation, aliasing, escape, or shadowing produces a separate fail-closed
+  unstable state. Scanner discovery covers both `.test.*` and `.spec.*`
+  across `packages/*`, `apps/*`, and `e2e/` for all 12 verifier suffixes
+  (`js`, `jsx`, `ts`, `tsx`, `cjs`, `cjsx`, `mjs`, `mjsx`, `cts`, `ctsx`,
+  `mts`, and `mtsx`), for 72 patterns.
 - Before editing, temporary reproductions showed:
   - `node scripts/check-ts-test-policy.mjs
     .audit-repros/array-from.spec.ts` → exit 0 for

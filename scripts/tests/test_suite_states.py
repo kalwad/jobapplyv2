@@ -449,6 +449,54 @@ def test_array_from_empty_table_with_count_compensation_still_fails(
     )
 
 
+def test_runtime_emptied_const_table_with_count_compensation_still_fails(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            "const rows = [[1]];\n"
+            "const alias = rows;\n"
+            "alias.pop();\n"
+            'test.each(rows)("substantive %s", () => { throw new Error(); });\n'
+            'test("compensating trivial pass", () => {});\n'
+        ),
+        encoding="utf-8",
+    )
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="integrity",
+                builtin="integrity",
+                commands=[],
+            ),
+            make_suite(
+                id="count-proof",
+                commands=[
+                    [
+                        sys.executable,
+                        "-c",
+                        "print('Test Files  1 passed (1)\\nTests  50 passed (50)')",
+                    ]
+                ],
+                proofs=[{"kind": "vitest_exact_tests", "min": 50}],
+            ),
+        ],
+    )
+    outcomes, exit_code = verify.run_verification(fixture_repo, None)
+    outcomes_by_id = {outcome.suite.suite_id: outcome for outcome in outcomes}
+    assert exit_code == 1
+    assert outcomes_by_id["count-proof"].verdict is verify.Verdict.PASS
+    assert outcomes_by_id["integrity"].verdict is verify.Verdict.FAIL
+    assert any(
+        "test.each parameter table" in message
+        for outcome in outcomes
+        for message in outcome.messages
+    )
+
+
 def test_unknown_proof_kind_fails_closed(fixture_repo: verify.Context) -> None:
     write_registry(
         fixture_repo.registry_path,

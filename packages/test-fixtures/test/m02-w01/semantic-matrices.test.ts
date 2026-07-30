@@ -20,6 +20,7 @@ import {
 } from "../../src/semantic-evidence.ts";
 import {
   credentialStateAt,
+  fieldRecordIsCurrent,
   policyDecisionAt,
 } from "../../src/temporal-policy.ts";
 
@@ -249,13 +250,17 @@ describe("M02-W01 independently reviewed semantic matrices", () => {
     if (fill === undefined || source === undefined) {
       throw new Error("field freshness matrix input missing");
     }
-    const withDates = (
-      effectiveStart: string,
-      recordedOn: string,
-      validThrough?: string,
-    ): EvidenceArtifact => {
+    const withDates = (dates: {
+      readonly effectiveStart: string;
+      readonly effectiveEnd?: string;
+      readonly recordedOn: string;
+      readonly validThrough?: string;
+    }): EvidenceArtifact => {
       const copy = structuredClone(source);
-      copy.effective_period.start = effectiveStart;
+      copy.effective_period =
+        dates.effectiveEnd === undefined
+          ? { start: dates.effectiveStart }
+          : { start: dates.effectiveStart, end: dates.effectiveEnd };
       const record = copy.field_records.find(
         (candidate) =>
           candidate.field_record_id === fill.source_field_record_id,
@@ -263,62 +268,197 @@ describe("M02-W01 independently reviewed semantic matrices", () => {
       if (record === undefined) {
         throw new Error("field freshness record missing");
       }
-      record.recorded_on = recordedOn;
-      if (validThrough === undefined) {
+      record.recorded_on = dates.recordedOn;
+      if (dates.validThrough === undefined) {
         delete record.valid_through;
       } else {
-        record.valid_through = validThrough;
+        record.valid_through = dates.validThrough;
       }
       return copy;
     };
-    const cases = [
-      ["2026-07-01", "2026-07-01", "2026-07-29", "USE_SUPPORTED_EVIDENCE"],
-      ["2026-07-01", "2026-07-01", "2026-07-28", "REQUIRE_CONFIRMATION"],
-      ["2026-07-30", "2026-07-30", "2027-07-30", "REQUIRE_CONFIRMATION"],
-      ["2026-07-01", "2026-07-01", undefined, "REQUIRE_CONFIRMATION"],
-      // Historical backfill is structurally representable but expired on entry.
-      ["2026-07-01", "2026-07-29", "2026-06-30", "REQUIRE_CONFIRMATION"],
-    ] as const;
-    for (const [effective, recorded, validThrough, action] of cases) {
-      expect(
-        policyDecisionAt(
-          fill,
-          withDates(effective, recorded, validThrough),
-          "2026-07-29",
-        ),
-      ).toEqual({
-        action,
-        releaseEligible: action === "USE_SUPPORTED_EVIDENCE",
-      });
-    }
-    const current = withDates("2026-07-01", "2026-07-01", "2026-07-29");
-    const endedAssertion = structuredClone(current);
-    endedAssertion.effective_period.end = "2026-07-28";
-    expect(policyDecisionAt(fill, endedAssertion, "2026-07-29")).toEqual({
+    const evaluationDate = "2026-07-29";
+    const priorDay = "2026-07-28";
+    const nextDay = "2026-07-30";
+    const earlyDate = "2026-07-01";
+    const futureValidity = "2027-07-30";
+    const useSupported = {
+      action: "USE_SUPPORTED_EVIDENCE",
+      releaseEligible: true,
+    } as const;
+    const requireConfirmation = {
       action: "REQUIRE_CONFIRMATION",
       releaseEligible: false,
-    });
-    expect(policyDecisionAt(fill, current, "2026-06-30").action).toBe(
-      "REQUIRE_CONFIRMATION",
-    );
-    expect(policyDecisionAt(fill, current, "2026-07-29").action).toBe(
-      "USE_SUPPORTED_EVIDENCE",
-    );
-    expect(policyDecisionAt(fill, current, "2026-07-30").action).toBe(
-      "REQUIRE_CONFIRMATION",
-    );
+    } as const;
+    const cases = [
+      [
+        "day before assertion effectiveness",
+        nextDay,
+        undefined,
+        nextDay,
+        futureValidity,
+        false,
+        requireConfirmation,
+      ],
+      [
+        "exact assertion effective and recording date",
+        evaluationDate,
+        undefined,
+        evaluationDate,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "day after assertion effectiveness",
+        priorDay,
+        undefined,
+        priorDay,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "day before assertion end",
+        earlyDate,
+        nextDay,
+        earlyDate,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "exact assertion end",
+        earlyDate,
+        evaluationDate,
+        earlyDate,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "day after assertion end",
+        earlyDate,
+        priorDay,
+        earlyDate,
+        futureValidity,
+        false,
+        requireConfirmation,
+      ],
+      [
+        "day before field recording",
+        earlyDate,
+        undefined,
+        nextDay,
+        futureValidity,
+        false,
+        requireConfirmation,
+      ],
+      [
+        "exact field recording date",
+        earlyDate,
+        undefined,
+        evaluationDate,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "day after field recording",
+        earlyDate,
+        undefined,
+        priorDay,
+        futureValidity,
+        true,
+        useSupported,
+      ],
+      [
+        "day before field validity ends",
+        earlyDate,
+        undefined,
+        earlyDate,
+        nextDay,
+        true,
+        useSupported,
+      ],
+      [
+        "exact field valid-through date",
+        earlyDate,
+        undefined,
+        earlyDate,
+        evaluationDate,
+        true,
+        useSupported,
+      ],
+      [
+        "day after field validity ends",
+        earlyDate,
+        undefined,
+        earlyDate,
+        priorDay,
+        false,
+        requireConfirmation,
+      ],
+      [
+        "missing field expiry",
+        earlyDate,
+        undefined,
+        earlyDate,
+        undefined,
+        false,
+        requireConfirmation,
+      ],
+      // Historical backfill is structurally representable but expired on entry.
+      [
+        "historical backfill expired on entry",
+        earlyDate,
+        undefined,
+        evaluationDate,
+        "2026-06-30",
+        false,
+        requireConfirmation,
+      ],
+    ] as const;
+    for (const [
+      label,
+      effectiveStart,
+      effectiveEnd,
+      recordedOn,
+      validThrough,
+      expectedCurrent,
+      expectedDecision,
+    ] of cases) {
+      const datedSource = withDates({
+        effectiveStart,
+        ...(effectiveEnd === undefined ? {} : { effectiveEnd }),
+        recordedOn,
+        ...(validThrough === undefined ? {} : { validThrough }),
+      });
+      expect(
+        fieldRecordIsCurrent(fill, datedSource, evaluationDate),
+        label,
+      ).toBe(expectedCurrent);
+      expect(
+        policyDecisionAt(fill, datedSource, evaluationDate),
+        label,
+      ).toEqual(expectedDecision);
+    }
   });
 
-  test("derives all credential temporal states and release decisions at the scenario clock", () => {
+  test("derives literal credential states across exact temporal boundaries", () => {
     const value = corpus();
-    const ids = [
-      ["evidence_00000000000000000000000039", "CURRENT"],
-      ["evidence_00000000000000000000000041", "EXPIRED"],
-      ["evidence_00000000000000000000000046", "NOT_YET_VALID"],
-      ["evidence_00000000000000000000000047", "REVOKED"],
-      ["evidence_00000000000000000000000052", "UNKNOWN"],
+    const credentialCases = [
+      ["evidence_00000000000000000000000039", "2099-12-31", "CURRENT"],
+      ["evidence_00000000000000000000000041", "2019-12-31", "NOT_YET_VALID"],
+      ["evidence_00000000000000000000000041", "2020-01-01", "CURRENT"],
+      ["evidence_00000000000000000000000041", "2020-12-31", "CURRENT"],
+      ["evidence_00000000000000000000000041", "2021-01-01", "EXPIRED"],
+      ["evidence_00000000000000000000000046", "2026-12-31", "NOT_YET_VALID"],
+      ["evidence_00000000000000000000000046", "2027-01-01", "CURRENT"],
+      ["evidence_00000000000000000000000047", "2024-12-31", "CURRENT"],
+      ["evidence_00000000000000000000000047", "2025-01-01", "REVOKED"],
+      ["evidence_00000000000000000000000052", "2026-07-29", "UNKNOWN"],
     ] as const;
-    for (const [id, state] of ids) {
+    for (const [id, evaluationDate, state] of credentialCases) {
       const source = value.evidenceArtifacts.find(
         (candidate) => candidate.id === id,
       );
@@ -326,7 +466,8 @@ describe("M02-W01 independently reviewed semantic matrices", () => {
       expect(
         source === undefined
           ? undefined
-          : credentialStateAt(source, "2026-07-29"),
+          : credentialStateAt(source, evaluationDate),
+        `${id} at ${evaluationDate} must be ${state}`,
       ).toBe(state);
     }
     for (const policy of value.fieldValuePolicies.filter(

@@ -111,6 +111,13 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   semantic/context checks, traversal and dangerous-key detection, centrally
   redacted diagnostic locations, exact non-disclosure tests, clean clones,
   fresh CI, and fresh audit.
+  Nonblocking follow-up hypothesis (2026-07-30): generic Base64 text encoding
+  a synthetic email, SSN, phone, or address passes the current scan. The
+  bounded normalization contract implemented to date covers escaped literals,
+  percent encoding, concatenation, and explicitly prefixed Basic credentials,
+  but does not define generic Base64 decoding or its false-positive boundary.
+  That possible extension is INCONCLUSIVE for this correction and is
+  deliberately excluded pending a separate bounded detector contract.
 
 ### KI-0042 — ADR-0004 new-producer guard accepts constructed v1 references
 

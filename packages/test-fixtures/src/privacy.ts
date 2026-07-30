@@ -48,6 +48,8 @@ export class FixturePrivacyError extends Error {
 const EMAIL =
   /(?<![\p{L}\p{N}._%+-])[\p{L}\p{N}._%+-]{1,64}@[\p{L}\p{N}.-]+\.[\p{L}]{2,63}(?![\p{L}\p{N}.-])/giu;
 const PHONE = /(?<![\p{L}\p{N}])\+?\d(?:[\s().-]*\d){9,14}(?![\p{L}\p{N}])/gu;
+const SSN =
+  /(?<![\p{L}\p{N}])(?!000|666|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}(?![\p{L}\p{N}])/gu;
 const ADDRESS =
   /\b\d{1,6}[A-Z]?\s+[\p{L}\p{N} .'-]{1,80}\s(?:STREET|ST|ROAD|RD|AVENUE|AVE|BOULEVARD|BLVD|LANE|LN|DRIVE|DR|WAY|PARKWAY|PKWY|COURT|CT|PLACE|PL|TERRACE|TER|CIRCLE|CIR|HIGHWAY|HWY)\b/giu;
 const RESERVED_EMAIL = /^candidate(0[1-9]|1[0-2])@example\.test$/u;
@@ -61,6 +63,7 @@ const SECRET_PATTERNS: readonly RegExp[] = [
   /\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\b/gu,
   /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/gu,
   /\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b/gu,
+  /\bsk_(?:live|test)_[A-Za-z0-9]{20,}\b/gu,
   /\bAIza[0-9A-Za-z_-]{30,}\b/gu,
   /\bBearer\s+[A-Za-z0-9+/_=-]{8,}\b/giu,
   /\bBasic\s+(?=[A-Za-z0-9+/=]{12,}\b)(?=[A-Za-z0-9+/=]*[0-9+/=])[A-Za-z0-9+/=]{12,}\b/gu,
@@ -379,6 +382,15 @@ function inspectText(
         "nonreserved phone number detected",
       );
     }
+  }
+  if (variants.some((candidate) => resetAndTest(SSN, candidate))) {
+    addIssue(
+      issues,
+      "PRIVACY_SENSITIVE_IDENTIFIER",
+      file,
+      field,
+      "high-confidence sensitive identifier shape detected",
+    );
   }
   for (const candidate of variants) {
     ADDRESS.lastIndex = 0;

@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: bounded corrective content candidate based on 4fb164ff3351fdedcee3542350a9fa565264d1fa
-Last updated: 2026-07-29T22:23:00-04:00
+Repository revision: bounded corrective content candidate based on 1277715af6f2244ace00be2778b17440f8fa9530
+Last updated: 2026-07-30T12:53:08-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W01

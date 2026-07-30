@@ -14,6 +14,7 @@ import {
   type SemanticMatrixCase,
 } from "../contract/support/orchestrator.ts";
 import { assertLanguageAgreement } from "../contract/support/response.ts";
+import { assertNonEmptyParameterTable } from "../support/parameter-table.ts";
 
 /**
  * Explicit M01-W07 platform semantic-rule matrices and durable rule-kind
@@ -258,7 +259,7 @@ describe("M01-W07 native-registration operation/state matrix (KI-0024)", () => {
     expect(cells).toHaveLength(30);
   });
 
-  test.each(cells)(
+  test.each(assertNonEmptyParameterTable(cells))(
     "%s observing %s admits exactly its reviewed representative",
     (operation, observedState) => {
       const cell = registrationRepresentative(operation, observedState);
@@ -580,7 +581,7 @@ describe("M01-W07 process-plan stdio framing matrix (KI-0024)", () => {
     expect(enumTokens("processProfileId")).toEqual([...PROCESS_PROFILES]);
   });
 
-  test.each(NON_FRAMED_MODES)(
+  test.each(assertNonEmptyParameterTable(NON_FRAMED_MODES))(
     "a native-messaging host frames stdin/stdout and leaves stderr as %s",
     (stderr) => {
       expect(
@@ -638,7 +639,7 @@ describe("M01-W07 process-plan stdio framing matrix (KI-0024)", () => {
     ),
   );
 
-  test.each(FRAMED_CHANNEL_CASES)(
+  test.each(assertNonEmptyParameterTable(FRAMED_CHANNEL_CASES))(
     "%s may not use native-message framing on %s",
     (profile, channel) => {
       const value = buildPlan(
@@ -655,7 +656,7 @@ describe("M01-W07 process-plan stdio framing matrix (KI-0024)", () => {
     },
   );
 
-  test.each(NON_NATIVE_PROFILES)(
+  test.each(assertNonEmptyParameterTable(NON_NATIVE_PROFILES))(
     "%s keeps every unframed stdio combination available",
     (profile) => {
       for (const stdin of NON_FRAMED_MODES) {
@@ -816,7 +817,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
       ),
   );
 
-  test.each(coherentCases)(
+  test.each(assertNonEmptyParameterTable(coherentCases))(
     "%s accepts %s with %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
       const value = retarget(
@@ -849,7 +850,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
       ),
   );
 
-  test.each(contradictoryCases)(
+  test.each(assertNonEmptyParameterTable(contradictoryCases))(
     "%s rejects %s claiming %s/%s",
     (schemaRef, valueRef, platformId, architecture) => {
       const value = retarget(
@@ -880,7 +881,7 @@ describe("M01-W07 platform/architecture coherence (KI-0024)", () => {
     expect(enumTokens("architecture")).toContain("UNKNOWN_ARCHITECTURE");
   });
 
-  test.each(UNCERTIFIABLE_ROOTS)(
+  test.each(assertNonEmptyParameterTable(UNCERTIFIABLE_ROOTS))(
     "%s leaves an uncertifiable target's architecture unbound",
     (schemaRef, valueRef) => {
       for (const platformId of ["UNKNOWN_TARGET", "UNSUPPORTED_TARGET"]) {
@@ -1566,7 +1567,7 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
     expect(new Set(registered).size).toBe(registered.length);
   });
 
-  test.each(ALL_PLATFORM_RULE_REGISTRY)(
+  test.each(assertNonEmptyParameterTable(ALL_PLATFORM_RULE_REGISTRY))(
     "$rule_kind only names structurally representable tokens",
     (entry) => {
       expect(entry.tokens.length).toBeGreaterThan(0);
@@ -1579,7 +1580,7 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
     },
   );
 
-  test.each(ALL_PLATFORM_RULE_REGISTRY)(
+  test.each(assertNonEmptyParameterTable(ALL_PLATFORM_RULE_REGISTRY))(
     "$rule_kind accepts its committed representative on every bound root",
     (entry) => {
       for (const schemaRef of entry.schema_refs) {
@@ -1593,7 +1594,7 @@ describe("M01-W07 platform semantic-rule registry (KI-0024)", () => {
     },
   );
 
-  test.each(CORRECTED_SEMANTIC_RULE_REGISTRY)(
+  test.each(assertNonEmptyParameterTable(CORRECTED_SEMANTIC_RULE_REGISTRY))(
     "$rule_kind enforces its structurally valid contradiction",
     (entry) => {
       const value = fixtureForSchema(
@@ -1928,7 +1929,7 @@ describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => 
     ).toHaveLength(27);
   });
 
-  test.each(PACKAGE_AXIS_CELLS)(
+  test.each(assertNonEmptyParameterTable(PACKAGE_AXIS_CELLS))(
     "%s %s / interrupted=%s / recovery=%s",
     (root, state, interrupted, recoveryField) => {
       const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
@@ -1944,13 +1945,18 @@ describe("M01-W07 package interruption and recovery matrix (KI-0025 F1)", () => 
     },
   );
 
-  test.each(cells)("%s %s is %s-representable", (root, state, shape) => {
-    const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
-    expect(verdicts(schemaRef, buildPackageState(root, state, shape))).toEqual({
-      structural: true,
-      semantic: packageStateAdmitted(state, shape),
-    });
-  });
+  test.each(assertNonEmptyParameterTable(cells))(
+    "%s %s is %s-representable",
+    (root, state, shape) => {
+      const schemaRef = root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+      expect(
+        verdicts(schemaRef, buildPackageState(root, state, shape)),
+      ).toEqual({
+        structural: true,
+        semantic: packageStateAdmitted(state, shape),
+      });
+    },
+  );
 
   test("a recovered interruption is a success and an unrecovered one is not", () => {
     const recovered = buildPackageState(
@@ -2284,16 +2290,19 @@ describe("M01-W07 package state-specific field policy", () => {
     },
   );
 
-  test.each(PACKAGE_FIELD_NEGATIVES)("$id", ({ policy, mutate }) => {
-    const schemaRef =
-      policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
-    const value = packageFieldPolicyValue(policy);
-    mutate(value);
-    expect(verdicts(schemaRef, value)).toEqual({
-      structural: true,
-      semantic: false,
-    });
-  });
+  test.each(assertNonEmptyParameterTable(PACKAGE_FIELD_NEGATIVES))(
+    "$id",
+    ({ policy, mutate }) => {
+      const schemaRef =
+        policy.root === "installer" ? INSTALLER_STATE : UPDATE_STATE;
+      const value = packageFieldPolicyValue(policy);
+      mutate(value);
+      expect(verdicts(schemaRef, value)).toEqual({
+        structural: true,
+        semantic: false,
+      });
+    },
+  );
 });
 
 // ---------------------------------------------------------------------------
@@ -2364,16 +2373,19 @@ describe("M01-W07 evidence machine/method matrix (KI-0025 F2)", () => {
     EVALUATION_METHODS.map((method) => [machineClass, method] as const),
   );
 
-  test.each(cells)("%s executing %s", (machineClass, method) => {
-    // The only refused combination: a synthetic machine cannot execute a run
-    // on the actual operating-system family and architecture.
-    const admitted = !(
-      machineClass === "SYNTHETIC_FIXTURE" && method === "MEASURED_NATIVE_RUN"
-    );
-    expect(
-      verdicts(EVIDENCE_RECORD, buildEvidenceRecord(machineClass, method)),
-    ).toEqual({ structural: true, semantic: admitted });
-  });
+  test.each(assertNonEmptyParameterTable(cells))(
+    "%s executing %s",
+    (machineClass, method) => {
+      // The only refused combination: a synthetic machine cannot execute a run
+      // on the actual operating-system family and architecture.
+      const admitted = !(
+        machineClass === "SYNTHETIC_FIXTURE" && method === "MEASURED_NATIVE_RUN"
+      );
+      expect(
+        verdicts(EVIDENCE_RECORD, buildEvidenceRecord(machineClass, method)),
+      ).toEqual({ structural: true, semantic: admitted });
+    },
+  );
 
   const EVIDENCE_CONTRADICTIONS: readonly {
     readonly id: string;
@@ -2584,7 +2596,7 @@ describe("M01-W07 runtime availability matrix (KI-0025 F3)", () => {
     ).toHaveLength(32);
   });
 
-  test.each(RUNTIME_MATRIX_CELLS)(
+  test.each(assertNonEmptyParameterTable(RUNTIME_MATRIX_CELLS))(
     "%s / %s / identity=%s / profiles=%s",
     (availability, method, withIdentity, withProfiles) => {
       expect(
@@ -2613,7 +2625,7 @@ describe("M01-W07 runtime availability matrix (KI-0025 F3)", () => {
     [true, false].map((withProfiles) => [availability, withProfiles] as const),
   );
 
-  test.each(cells)(
+  test.each(assertNonEmptyParameterTable(cells))(
     "%s with available profiles = %s",
     (availability, withProfiles) => {
       // Only a runtime that was actually detected may enumerate usable
@@ -2784,16 +2796,19 @@ describe("M01-W07 path resolution matrix (KI-0025 F4)", () => {
     [true, false].map((exists) => [state, exists] as const),
   );
 
-  test.each(cells)("%s reporting exists = %s", (state, exists) => {
-    // A resolved location exists. A refused resolution may report either, since
-    // a permission error proves the location is there while ENOENT does not.
-    // A state that evaluated nothing, or reached nothing, observed nothing.
-    const admitted =
-      state === "RESOLVED" || state === "DENIED_PERMISSION" ? true : !exists;
-    expect(
-      verdicts(PATH_RESOLUTION, buildPathResolution(state, exists)),
-    ).toEqual({ structural: true, semantic: admitted });
-  });
+  test.each(assertNonEmptyParameterTable(cells))(
+    "%s reporting exists = %s",
+    (state, exists) => {
+      // A resolved location exists. A refused resolution may report either, since
+      // a permission error proves the location is there while ENOENT does not.
+      // A state that evaluated nothing, or reached nothing, observed nothing.
+      const admitted =
+        state === "RESOLVED" || state === "DENIED_PERMISSION" ? true : !exists;
+      expect(
+        verdicts(PATH_RESOLUTION, buildPathResolution(state, exists)),
+      ).toEqual({ structural: true, semantic: admitted });
+    },
+  );
 
   test("a refusal reports an existing location without disclosing it", () => {
     const denied = buildPathResolution("DENIED_PERMISSION", true);
@@ -3000,7 +3015,7 @@ describe("M01-W07 process lifecycle matrix (KI-0025 F5)", () => {
     ).toHaveLength(12);
   });
 
-  test.each(PROCESS_MATRIX_CELLS)(
+  test.each(assertNonEmptyParameterTable(PROCESS_MATRIX_CELLS))(
     "%s / termination=%s / terminal fields=%s",
     (state, termination, terminalFields) => {
       expect(
@@ -3293,7 +3308,7 @@ describe("M01-W07 capability/browser availability and method matrices", () => {
     ).toHaveLength(26);
   });
 
-  test.each(AVAILABILITY_METHOD_CELLS)(
+  test.each(assertNonEmptyParameterTable(AVAILABILITY_METHOD_CELLS))(
     "capability %s observed by %s",
     (availability, method) => {
       expect(
@@ -3308,7 +3323,7 @@ describe("M01-W07 capability/browser availability and method matrices", () => {
     },
   );
 
-  test.each(AVAILABILITY_METHOD_CELLS)(
+  test.each(assertNonEmptyParameterTable(AVAILABILITY_METHOD_CELLS))(
     "browser %s observed by %s",
     (availability, method) => {
       expect(
@@ -3455,7 +3470,7 @@ describe("M01-W07 certification tier, policy and evidence matrix", () => {
     ).toHaveLength(14);
   });
 
-  test.each(CERTIFICATION_MATRIX_CELLS)(
+  test.each(assertNonEmptyParameterTable(CERTIFICATION_MATRIX_CELLS))(
     "%s / required policy=%s / present=%s",
     (tier, policy, presentShape) => {
       const typedPolicy = policy as keyof typeof CERTIFICATION_POLICIES;
@@ -3508,14 +3523,17 @@ describe("M01-W07 spawn-plan argument and environment safety (KI-0025 F7)", () =
     ...EXECUTABLE_SUFFIXES.map((suffix) => token + suffix),
   ]);
 
-  test.each(spellings)("refuses the argument %s", (argument) => {
-    const value = fixture("w07.process-plan");
-    value.arguments = [argument];
-    expect(verdicts(PROCESS_PLAN, value)).toEqual({
-      structural: true,
-      semantic: false,
-    });
-  });
+  test.each(assertNonEmptyParameterTable(spellings))(
+    "refuses the argument %s",
+    (argument) => {
+      const value = fixture("w07.process-plan");
+      value.arguments = [argument];
+      expect(verdicts(PROCESS_PLAN, value)).toEqual({
+        structural: true,
+        semantic: false,
+      });
+    },
+  );
 
   test("an ordinary argument is still admitted", () => {
     const value = fixture("w07.process-plan");

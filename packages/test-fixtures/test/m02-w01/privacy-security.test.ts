@@ -11,6 +11,10 @@ import { join } from "node:path";
 import { afterEach, describe, expect, test } from "vitest";
 
 import { validateFixtureConsistency } from "../../src/consistency.ts";
+import {
+  safeDiagnosticPath,
+  safeDiagnosticPointer,
+} from "../../src/diagnostics.ts";
 import { loadFixtureCorpus } from "../../src/loader.ts";
 import {
   PlatformVersionGuardError,
@@ -147,6 +151,108 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
         credential_state: "CURRENT",
       }).valid,
     ).toBe(true);
+  });
+
+  test("rejects high-confidence SSN shapes in text and semantic fields without scanning ordinary identifiers globally", () => {
+    const hyphenatedSsn = "123-45-6789";
+    const rejected = [
+      { note: hyphenatedSsn },
+      { note: `Synthetic fixture text says SSN ${hyphenatedSsn}.` },
+      { unrelated_ordinary_text: `Identifier ${hyphenatedSsn}` },
+      { ssn: hyphenatedSsn },
+      { social_security_number: hyphenatedSsn },
+    ];
+    for (const value of rejected) {
+      const report = scanValue(value);
+      expect(
+        report.issues.map((issue) => issue.code),
+        JSON.stringify(value),
+      ).toContain("PRIVACY_SENSITIVE_IDENTIFIER");
+      expect(JSON.stringify(report.issues)).not.toContain(hyphenatedSsn);
+    }
+
+    expect(
+      scanValue({
+        ssn: "123456789",
+        social_security_number: 987654321,
+      }).issues.filter(
+        (issue) => issue.code === "PRIVACY_SENSITIVE_IDENTIFIER",
+      ),
+    ).toHaveLength(2);
+
+    const benign = scanValue({
+      build_metric: 123456789,
+      job_identifier: "987654321",
+      version: "1.4.0",
+      evaluation_date: "2026-07-30",
+      policy_prose: "SSN values are prohibited in synthetic fixtures.",
+      skill_prose: "sketching and sk_productivity are ordinary words.",
+      embedded_identifier: "sku123-45-6789alpha",
+      short_live_prefix: "sk_live_demo",
+      short_test_prefix: "sk_test_example",
+      invalid_ssn_area_zero: "000-12-3456",
+      invalid_ssn_area_reserved: "666-12-3456",
+      invalid_ssn_area_high: "900-12-3456",
+      invalid_ssn_group: "123-00-3456",
+      invalid_ssn_serial: "123-45-0000",
+      full_name: "Synthetic Candidate 01",
+      email: "candidate01@example.test",
+      phone: "+1-202-555-0101",
+      line1: "101 Fixture Way",
+      route: "/jobs/apply",
+      url: "https://candidate01.example.test/jobs/apply",
+    });
+    expect(benign.valid).toBe(true);
+    expect(benign.issues).toEqual([]);
+  });
+
+  test("rejects token-shaped sk_live and sk_test secrets while preserving existing secret families", () => {
+    const stripeShaped = [
+      `sk_live_${"L".repeat(32)}`,
+      `sk_test_${"T".repeat(32)}`,
+    ];
+    for (const secret of stripeShaped) {
+      const report = scanValue({ note: secret });
+      expect(
+        report.issues.map((issue) => issue.code),
+        secret.slice(0, 8),
+      ).toContain("PRIVACY_SECRET");
+      expect(JSON.stringify(report.issues)).not.toContain(secret);
+    }
+
+    const existing = [
+      "-----BEGIN PRIVATE KEY-----",
+      `AKIA${"A".repeat(16)}`,
+      `ghp_${"G".repeat(24)}`,
+      `xoxb-${"S".repeat(16)}`,
+      `sk-${"O".repeat(24)}`,
+      `AIza${"Z".repeat(30)}`,
+      `Bearer ${"B".repeat(16)}`,
+      "Basic QUJDREVGR0gxMjM0",
+      `${"J".repeat(20)}.${"W".repeat(20)}.${"T".repeat(20)}`,
+    ];
+    for (const secret of existing) {
+      expect(
+        scanValue({ note: secret }).issues.map((issue) => issue.code),
+        secret.slice(0, 8),
+      ).toContain("PRIVACY_SECRET");
+    }
+  });
+
+  test("centrally redacts SSN and sk_live or sk_test shapes from diagnostic locations", () => {
+    const sensitiveSegments = [
+      "123-45-6789",
+      `sk_live_${"L".repeat(32)}`,
+      `sk_test_${"T".repeat(32)}`,
+    ];
+    for (const secret of sensitiveSegments) {
+      const path = safeDiagnosticPath(`data/${secret}.json`);
+      const pointer = safeDiagnosticPointer(`/items/${secret}`);
+      expect(path).not.toContain(secret);
+      expect(pointer).not.toContain(secret);
+      expect(path).toContain("@segment-");
+      expect(pointer).toContain("@segment-");
+    }
   });
 
   test("positively exercises size, hidden text, path, identity, and name issue codes", () => {
