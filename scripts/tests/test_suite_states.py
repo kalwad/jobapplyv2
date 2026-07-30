@@ -402,14 +402,15 @@ def test_conditional_skip_plus_trivial_replacement_fails_both_controls(
     assert "non-passing" in failure
 
 
-def test_empty_parameter_table_with_count_compensation_still_fails(
+def test_array_from_empty_table_with_count_compensation_still_fails(
     fixture_repo: verify.Context,
 ) -> None:
     spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
     spec.parent.mkdir(parents=True)
     spec.write_text(
         (
-            'test.each([])("substantive %s", () => { throw new Error(); });\n'
+            "test.each(Array.from([]))"
+            '("substantive %s", () => { throw new Error(); });\n'
             'test("compensating trivial pass", () => {});\n'
         ),
         encoding="utf-8",
@@ -436,7 +437,10 @@ def test_empty_parameter_table_with_count_compensation_still_fails(
         ],
     )
     outcomes, exit_code = verify.run_verification(fixture_repo, None)
+    outcomes_by_id = {outcome.suite.suite_id: outcome for outcome in outcomes}
     assert exit_code == 1
+    assert outcomes_by_id["count-proof"].verdict is verify.Verdict.PASS
+    assert outcomes_by_id["integrity"].verdict is verify.Verdict.FAIL
     assert any(
         "empty test parameter table" in message
         or "empty test.each parameter table" in message

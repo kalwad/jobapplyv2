@@ -169,9 +169,18 @@ def test_typescript_ast_scan_rejects_statically_empty_parameter_tables(
     spec.parent.mkdir(parents=True)
     variants = (
         'test.each([])("empty", () => {});\n',
+        'test.each(Array.from([]))("empty", () => {});\n',
+        'describe.each(Array.from([]))("empty", () => {});\n',
+        'test.for(Array.from([]))("empty", () => {});\n',
+        'it.for(Array.from([]))("empty", () => {});\n',
+        'describe.for(Array.from([]))("empty", () => {});\n',
+        'suite.for(Array.from([]))("empty", () => {});\n',
+        'test.each(Array.from(...[[]]))("empty", () => {});\n',
+        'test.each(Array.of(...[]))("empty", () => {});\n',
         'it["each"]([])("empty", () => {});\n',
         'describe.concurrent.each([])("empty", () => {});\n',
         'suite.for([])("empty", () => {});\n',
+        'let rows = [];\ntest.each(rows)("empty", () => {});\n',
         (
             'import { test as check } from "vitest";\n'
             "const rows = [] as const;\n"
@@ -196,21 +205,148 @@ def test_typescript_ast_scan_rejects_statically_empty_parameter_tables(
         assert any("probe.test.tsx" in failure for failure in failures), source
 
 
-def test_typescript_ast_scan_covers_workspace_root_src_tests_and_spec_surfaces(
+def test_typescript_ast_scan_fails_closed_for_changed_mutable_tables(
     fixture_repo: verify.Context,
 ) -> None:
-    paths = (
-        fixture_repo.repo / "packages" / "probe" / "probe.test.ts",
-        fixture_repo.repo / "packages" / "probe" / "src" / "probe.test.tsx",
-        fixture_repo.repo / "packages" / "probe" / "tests" / "probe.spec.ts",
-        fixture_repo.repo / "apps" / "probe" / "src" / "probe.test.tsx",
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        (
+            "let rows = [[1]];\n"
+            "rows = [];\n"
+            'test.each(rows)("reassigned empty", () => {});\n'
+        ),
+        (
+            "let rows = [];\n"
+            "rows = [[1]];\n"
+            'test.each(rows)("reassigned nonempty", () => {});\n'
+        ),
+        (
+            "let rows;\n"
+            "rows = [];\n"
+            'test.each(rows)("assigned after declaration", () => {});\n'
+        ),
+        ('let rows = [[1]];\nrows.pop();\ntest.each(rows)("mutated", () => {});\n'),
+        (
+            "let rows = [[1]];\n"
+            "rows.length = 0;\n"
+            'test.each(rows)("property mutation", () => {});\n'
+        ),
+        (
+            "let rows = [[1]];\n"
+            "const alias = rows;\n"
+            "alias.pop();\n"
+            'test.each(rows)("aliased mutation", () => {});\n'
+        ),
+        (
+            "const alias = [[1]];\n"
+            "let rows = alias;\n"
+            "alias.pop();\n"
+            'test.each(rows)("initializer alias mutation", () => {});\n'
+        ),
+        (
+            "declare function runtimeRows(): number[][];\n"
+            "let rows = runtimeRows();\n"
+            'test.each(rows)("unknown initializer", () => {});\n'
+        ),
+        (
+            "let rows = [[1]];\n"
+            'test.each((rows = []))("assignment expression", () => {});\n'
+        ),
+        (
+            "let rows = [];\n"
+            'test.each(rows.slice())("derived after mutation risk", () => {});\n'
+        ),
+        (
+            "let rows = [];\n"
+            "const getRows = () => rows;\n"
+            'test.each(getRows())("escaped through function", () => {});\n'
+        ),
+        (
+            "let rows = [];\n"
+            "const holder = [rows];\n"
+            'test.each(holder[0])("escaped through container", () => {});\n'
+        ),
+        (
+            "let rows = [];\n"
+            "const [alias] = [rows];\n"
+            'test.each(alias)("destructured alias", () => {});\n'
+        ),
+        (
+            "const Array = { from: () => [] };\n"
+            'test.each(Array.from([[1]]))("shadowed intrinsic", () => {});\n'
+        ),
     )
-    for path in paths:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text('test.each([])("empty", () => {});\n', encoding="utf-8")
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
         failures = verify.check_focused_tests(fixture_repo, ())
-        assert any(path.name in failure for failure in failures), path
-        path.unlink()
+        assert any(
+            "test.each parameter table cannot be proven safe" in failure
+            for failure in failures
+        ), source
+
+
+def test_typescript_ast_scan_allows_nonempty_and_unknown_array_from_tables(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            "declare function runtimeRows(): number[][];\n"
+            "let stableRows = [[1]];\n"
+            "let stableFrom = Array.from([[1]]);\n"
+            'test.each(stableRows)("stable let", () => {});\n'
+            'test.each(stableFrom)("stable Array.from let", () => {});\n'
+            'test.each(Array.from([[1]]))("nonempty", () => {});\n'
+            'describe.each(Array.from(" "))("nonempty string", () => {});\n'
+            'test.each(Array.of(...[[1]]))("nonempty spread", () => {});\n'
+            'suite.for(Array.from([1], (value) => value))("mapped", () => {});\n'
+            "const unknownRows = runtimeRows();\n"
+            'test.each(Array.from(unknownRows))("unknown", () => {});\n'
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+
+def test_typescript_ast_scan_covers_all_executed_test_surfaces_and_suffixes(
+    fixture_repo: verify.Context,
+) -> None:
+    expected_suffixes = (
+        "js",
+        "jsx",
+        "ts",
+        "tsx",
+        "cjs",
+        "cjsx",
+        "mjs",
+        "mjsx",
+        "cts",
+        "ctsx",
+        "mts",
+        "mtsx",
+    )
+    assert expected_suffixes == verify._VITEST_TEST_SUFFIXES
+    roots = (
+        fixture_repo.repo / "packages" / "probe" / "matrix",
+        fixture_repo.repo / "apps" / "probe" / "matrix",
+        fixture_repo.repo / "e2e" / "matrix",
+    )
+    expected: list[str] = []
+    for root in roots:
+        root.mkdir(parents=True, exist_ok=True)
+        for kind in ("test", "spec"):
+            for suffix in expected_suffixes:
+                path = root / f"probe-{kind}-{suffix}.{kind}.{suffix}"
+                path.write_text('test.each([])("empty", () => {});\n', encoding="utf-8")
+                expected.append(path.relative_to(fixture_repo.repo).as_posix())
+
+    failures = verify.check_focused_tests(fixture_repo, ())
+    assert len(failures) == 1
+    for relative_path in expected:
+        assert relative_path in failures[0], relative_path
+    assert "e2e/matrix/probe-test-ts.test.ts" in failures[0]
 
 
 def test_missing_lockfile_and_memory_file_fail(fixture_repo: verify.Context) -> None:

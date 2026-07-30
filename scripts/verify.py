@@ -175,10 +175,10 @@ _VITEST_TEST_SUFFIXES = (
 )
 TS_TEST_GLOBS = tuple(
     f"{root}/**/*.{kind}.{suffix}"
-    for root in ("packages/*", "apps/*")
+    for root in ("packages/*", "apps/*", "e2e")
     for kind in ("test", "spec")
     for suffix in _VITEST_TEST_SUFFIXES
-) + tuple(f"e2e/**/*.spec.{suffix}" for suffix in _VITEST_TEST_SUFFIXES)
+)
 PY_TEST_GLOBS = (
     "services/orchestrator/tests/**/test_*.py",
     "services/orchestrator/tests/**/conftest.py",

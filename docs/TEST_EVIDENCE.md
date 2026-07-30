@@ -33,6 +33,83 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Bounded TypeScript test-policy correction (2026-07-30)
+
+- Revision: implementation working tree based on exact clean `main` commit
+  `4d200735b6cade77e5b889bbb80dbeb5a377c79b`; the ending commit is reported in
+  the implementation handoff.
+- Environment: macOS 27.0; Node 24.18.0; pnpm 11.17.0; uv 0.11.32; uv-managed
+  Python 3.12.13.
+- Scope: scanner policy, scanner discovery, focused verifier regressions, and
+  this evidence correction only. The fixture corpus and product behavior were
+  not changed.
+- Implementation evidence: `Array.from` now preserves statically known empty,
+  nonempty, and unknown input states. A unique, unchanged `let` table resolves
+  through its initializer; reassignment, mutation, aliasing, escape, or
+  shadowing produces a separate fail-closed unstable state. Scanner discovery
+  now covers both `.test.*` and `.spec.*` across `packages/*`, `apps/*`, and
+  `e2e/` for all 12 verifier suffixes (`js`, `jsx`, `ts`, `tsx`, `cjs`, `cjsx`,
+  `mjs`, `mjsx`, `cts`, `ctsx`, `mts`, and `mtsx`), for 72 patterns.
+- Before editing, temporary reproductions showed:
+  - `node scripts/check-ts-test-policy.mjs
+    .audit-repros/array-from.spec.ts` → exit 0 for
+    `test.each(Array.from([]))` plus a trivial filler.
+  - `node scripts/check-ts-test-policy.mjs
+    .audit-repros/empty-let.spec.ts` → exit 0 for unchanged
+    `let TABLE = []`.
+  - `uv run python -c 'from pathlib import Path; import sys;
+    sys.path.insert(0, "scripts"); import verify; repo=Path.cwd();
+    ctx=verify.Context(repo, repo/"scripts/verification-suites.json",
+    repo/"docs/PROJECT_STATUS.md");
+    failures=verify.check_focused_tests(ctx, ()); print(failures); raise
+    SystemExit(1 if failures else 0)'` → exit 0 with `[]` for
+    `e2e/scanner-discovery-bypass.test.ts`, while
+    `pnpm exec playwright test e2e/scanner-discovery-bypass.test.ts --list` →
+    exit 0 and `Total: 1 test in 1 file`.
+- Commands and observed results after the correction:
+  - `uv run pytest -q scripts/tests/test_integrity.py
+    scripts/tests/test_suite_states.py` → exit 0, 46 passed in 11.71s.
+  - `node scripts/check-ts-test-policy.mjs
+    .audit-repros/array-from-empty.spec.ts` → exit 1,
+    `empty test.each parameter table is forbidden`.
+  - `node scripts/check-ts-test-policy.mjs
+    .audit-repros/empty-let.spec.ts` → exit 1,
+    `empty test.each parameter table is forbidden`.
+  - `uv run python -c 'import sys; from pathlib import Path;
+    sys.path.insert(0, "scripts"); import verify; r=Path.cwd();
+    c=verify.Context(r, r/"scripts/verification-suites.json",
+    r/"docs/PROJECT_STATUS.md"); f=verify.check_focused_tests(c, ());
+    print(*f, sep="\n"); raise SystemExit(bool(f))'` → exit 1,
+    `e2e/scanner-discovery-bypass.test.ts:3:1: forbidden test.skip test
+    modifier`; `pnpm exec playwright test
+    e2e/scanner-discovery-bypass.test.ts --list` independently listed the same
+    temporary file as one test in one file with exit 0.
+  - `node scripts/check-ts-test-policy.mjs
+    .audit-repros/array-from-positive.spec.ts` and
+    `node scripts/check-ts-test-policy.mjs
+    .audit-repros/nonempty-let.spec.ts` → exit 0 for nonempty and
+    runtime-unknown controls.
+  - `uv run python -c 'import sys; from pathlib import Path;
+    sys.path.insert(0, "scripts"); import verify; r=Path.cwd();
+    c=verify.Context(r, r/"scripts/verification-suites.json",
+    r/"docs/PROJECT_STATUS.md"); f=verify.check_focused_tests(c, ()); print(f);
+    raise SystemExit(bool(f))'` → exit 0 with `[]` for an ordinary E2E
+    `.test.ts`; `pnpm exec playwright test
+    e2e/scanner-discovery-positive.test.ts` → exit 0, 1 passed.
+  - `pnpm verify` → exit 0; all 15 ACTIVE suites passed and visual remained
+    honestly NOT_YET_APPLICABLE. Counts included 9/9 TypeScript package tasks,
+    9/9 fixture files with 103/103 tests, 8/8 focused fixture files with
+    102/102 tests, 20/20 contract files with 2,440/2,440 tests, 6/6 focused
+    contract files with 662/662 tests, 686/686 Python tests, 11/11 Rust tests,
+    and 1/1 Playwright test. No skipped, pending, todo, or excluded test was
+    reported.
+- Artifacts: none; all temporary reproduction and positive-control files were
+  removed after inspection.
+- Boundary: these are local implementation and execution results only.
+  M02-W01 remains IN_PROGRESS and unaccepted; no independent acceptance,
+  governance stamp, known-issue closeout, or M02-W02 readiness is claimed.
+  M02-W02 remains NOT_STARTED.
+
 ### M02-W01 — Reopened corrective lifecycle after independent audit verdict B (2026-07-29)
 
 - Current revision: bounded corrective content candidate based on
@@ -103,9 +180,11 @@ Exact verification commands and summarized results
   and numeric secrets under semantic keys, distinguishes sensitive long
   identifiers from ordinary numbers, and redacts untrusted paths/IDs/values.
   Loader and platform scans convert replacement/read failures into fixed
-  diagnostics. The repository test-policy AST check covers package/app/E2E
-  JavaScript and TypeScript discovery surfaces and rejects statically empty
-  `.each`/`.for` tables even when a trivial pass preserves the reported count.
+  diagnostics. A later audit disproved the prior test-policy assurance claim:
+  the scanner did not recognize `Array.from([])` or an unchanged empty `let`
+  binding, and E2E discovery omitted `.test.*`. The execution counts below
+  remain historical implementation records and did not establish that those
+  bypasses were closed.
 - Exact regenerated seed: 12 profiles; 72 evidence artifacts; 12 résumés; 24
   jobs; 72 requirements; 36 scenarios / 108 evaluations; 77 supported claims;
   31 gaps; and 69 policies, for 405 collection records. Evidence categories
