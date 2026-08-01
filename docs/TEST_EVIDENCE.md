@@ -247,6 +247,21 @@ Exact verification commands and summarized results
     Python tests, 11/11 Rust tests, and 1/1 Playwright test. No skipped,
     pending, todo, excluded, expected-fail, deselected, xfail/xpass, or
     rerun category was reported.
+- Hosted portability repair (2026-08-01): the first exact-SHA push run
+  `30722872985` completed doctor + verify successfully on macos-15 and
+  ubuntu-24.04; the windows-2025 job failed with exactly one defect — the
+  pre-existing fixture test that runs both complete committed-surface scans
+  in one body exceeded Vitest's default 5 s per-test ceiling under parallel
+  workers on the slowest certified runner (104/105 fixture tests passed;
+  the standalone Windows CLI scans in the same job passed in ≈1.4 s and
+  ≈2.1 s). The narrow repair gives exactly that integration-scale test an
+  explicit bounded `{ timeout: 60_000 }`; no scan, assertion, coverage,
+  registry command, or verifier/CI budget changed. After the repair the
+  scanner policy check, Prettier, ESLint, the focused file (22/22), the
+  registry-shaped parallel fixture run (8 files, 105/105), and full
+  `pnpm verify` (exit 0, same suite counts) all passed locally; the
+  follow-up exact-SHA three-OS run is recorded in the implementation
+  handoff.
 - Scope and governance: no runtime guard mandate or other architecture change
   was required. The changes remain limited to the static policy/summary
   verifiers, platform-version producer guard, focused regressions, and this

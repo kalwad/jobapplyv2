@@ -63,16 +63,24 @@ afterEach(() => {
 });
 
 describe("M02-W01 privacy adversarial and producer-version tables", () => {
-  test("passes the complete committed producer privacy and platform scans", () => {
-    const privacy = scanCommittedFixturePrivacy();
-    expect(privacy.valid).toBe(true);
-    expect(privacy.filesScanned).toBeGreaterThan(20);
-    expect(privacy.issues).toEqual([]);
-    const platform = scanCommittedPlatformVersions();
-    expect(platform.valid).toBe(true);
-    expect(platform.deprecatedRoots).toHaveLength(15);
-    expect(platform.issues).toEqual([]);
-  });
+  test(
+    "passes the complete committed producer privacy and platform scans",
+    // Both complete committed-surface scans run in one test; on the slowest
+    // hosted runner (windows-2025) under parallel workers they exceed
+    // Vitest's 5 s per-test default, so this integration-scale test carries
+    // its own bounded ceiling. No scan, assertion, or coverage is reduced.
+    { timeout: 60_000 },
+    () => {
+      const privacy = scanCommittedFixturePrivacy();
+      expect(privacy.valid).toBe(true);
+      expect(privacy.filesScanned).toBeGreaterThan(20);
+      expect(privacy.issues).toEqual([]);
+      const platform = scanCommittedPlatformVersions();
+      expect(platform.valid).toBe(true);
+      expect(platform.deprecatedRoots).toHaveLength(15);
+      expect(platform.issues).toEqual([]);
+    },
+  );
 
   test("rejects international, compact, and domestic nonreserved phone controls", () => {
     const cases = [
