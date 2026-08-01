@@ -1,4 +1,5 @@
 import {
+  existsSync,
   mkdtempSync,
   mkdirSync,
   rmSync,
@@ -7,6 +8,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { afterEach, describe, expect, test } from "vitest";
 
@@ -438,6 +440,399 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
         '{"schema_alias":"evidence-record","major":"v1"}\n',
         "DEPRECATED_PLATFORM_V1_ALIAS",
       ],
+      [
+        "producer.json",
+        '{"schema_alias":"evidence-record","major":1}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"evidence-record","major":"1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"evidence-record","major":"V1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"alias":"evidence-record","version":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"root":"evidence-record","major":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"root":"urn:japp:schema:platform:evidence-record","version":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"urn:japp:schema:platform:evidence-record","major":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"platform:evidence-record","major":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"schema_ref":"urn%3Ajapp%3Aschema%3Aplatform%3Aevidence-record%3Av1"}\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.json",
+        '{"schema_ref":["urn:japp:schema:platform:evidence-record:","v1"]}\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":["evidence","record"],"major":["v","1"]}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        String.raw`{"schema_ref":"urn:japp:schema:platform:evidence-record:\\x76\\x31"}` +
+          "\n",
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.json",
+        '{"root":"urn:japp:schema:platform:evidence-record:","major":1}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v1"].join(":");\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.ts",
+        'const parts = ["urn", "japp", "schema", "platform", "evidence-record", "v1"]; const schema = parts.join(":");\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeMajor: string; const parts = ["urn", "japp", "schema", "platform", "evidence-record", "v2"]; parts[5] = runtimeMajor; const schema = parts.join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeMajor: string; const parts = ["urn", "japp", "schema", "platform", "evidence-record", "v2"]; const alias = parts; alias.splice(5, 1, runtimeMajor); const schema = parts.join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const head = [["urn", "japp"].join(":"), ["schema", "platform"].join(":")].join(":"); const schema = head + ":" + ["evidence", "record"].join("-") + ":" + ["v", "1"].join("");\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeMajor: string; const suspect = `urn:japp:schema:platform:evidence-record:${runtimeMajor}`; const unrelatedSafe = "urn:japp:schema:platform:evidence-record:v2";\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; const schema = runtime();\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare const runtimeValue: string; const schemaRef = runtimeValue;\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const schema_ref = process.env["JAPP_PLATFORM_SCHEMA"];\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const platformSchema = process.env.JAPP_PLATFORM_SCHEMA; const unrelatedSafe = "urn:japp:schema:platform:evidence-record:v2";\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare const producer: { schema_ref: string }; producer.schema_ref = runtime();\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare const runtimeValue: string; const producer = { schema_ref: runtimeValue };\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare function writeEvidence(schemaRef: string): void; writeEvidence(runtime());\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; const writeEvidence = (schema_ref: string): void => { void schema_ref; }; const alias = writeEvidence; alias(runtime());\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "const config = { value: process.env.JAPP_PLATFORM_SCHEMA }; const producer = { schema_ref: config.value }; void producer;\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; const config = { value: runtime() }; function writeEvidence(value: { schema_ref: string }): void { void value; } writeEvidence({ schema_ref: config.value });\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const schema = "urn%3Ajapp%3Aschema%3Aplatform%3Aevidence-record%3Av1";\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.ts",
+        'const String = (_value: unknown) => "v2"; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v", String(1)].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; Object.defineProperty(Array.prototype, "join", { value: runtimeJoin }); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const prototype = Array.prototype; prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; Reflect.set(Array.prototype, "join", runtimeJoin); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; Object.assign(Array.prototype, { join: runtimeJoin }); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const A = Array; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const A = Array; const B = A; B.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; globalThis.Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; globalThis["Array"]["prototype"]["join"] = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const O = Object; O.defineProperty(Array.prototype, "join", { value: runtimeJoin }); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const R = Reflect; R.set(Array.prototype, "join", runtimeJoin); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const define = Object.defineProperty; define(Array.prototype, "join", { value: runtimeJoin }); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare function mutate(value: object): void; const prototype = Array.prototype; mutate(prototype); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; Object.defineProperty.call(Object, Array.prototype, "join", { value: runtimeJoin }); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; { const A = Array; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; }\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function producer() { const A = Array; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; } producer();\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const A = Array; { const Array = { prototype: { join: runtimeJoin } }; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void Array; void schema; }\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function producer() { { var A = Array; } A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; } producer();\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const destination = "schema_" + "ref"; export const producer = { [destination]: runtimeValue };\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const destination = "schema_" + "ref"; export const producer: Record<string, string> = {}; producer[destination] = runtimeValue;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; let destination = "note"; destination = "schema_ref"; export const producer: Record<string, string> = {}; producer[destination] = runtimeValue;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; export const producer: Record<string, string> = {}; Reflect.set(producer, "schema_ref", runtimeValue);\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; export const producer: Record<string, string> = {}; Object.defineProperty(producer, "schema_ref", { value: runtimeValue, enumerable: true });\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const runtimeJoin = () => runtimeValue; const { prototype: P } = Array; const original = P.join; P.join = runtimeJoin; export const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); P.join = original;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const runtimeJoin = () => runtimeValue; const { Array: A } = globalThis; const original = A.prototype.join; A.prototype.join = runtimeJoin; export const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); A.prototype.join = original;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const runtimeJoin = () => runtimeValue; let P: typeof Array.prototype; P = Array.prototype; const original = P.join; P.join = runtimeJoin; export const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); P.join = original;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const runtimeValue = process.env.JAPP_RUNTIME_SCHEMA ?? ""; const runtimeJoin = () => runtimeValue; const holder = { P: Array.prototype }; const original = holder.P.join; holder.P.join = runtimeJoin; export const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); holder.P.join = original;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function mutate() { Array.prototype.join = runtimeJoin; } mutate(); const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'const schema = { schema_alias: "evidence-record", major: "v1" };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const schema = { ["schema_alias"]: "evidence-record", ["major"]: "V1" };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const schema_alias = "evidence-record"; const major = "v1"; const schema = { schema_alias, major };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const alias = { schema_alias: "evidence-record" }; const version = { major: "v1" }; const schema = { ...alias, ...version };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const schema = { get schema_alias() { return "evidence-record"; }, get major() { return "v1"; } };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const schema = { schema_alias: ["evidence", "record"], major: ["v", "1"] };\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        'const producer: Record<string, unknown> = {}; producer.schema_alias = "evidence-record"; producer.major = "v1";\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare const writer: { write(value: string): void }; writer.write(runtime());\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare function writeEvidence(schema_ref: string): void; writeEvidence.call(undefined, runtime());\n",
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function arrayConstructor(value = Array) { return value; } const A = arrayConstructor(); A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; global.Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const A = Object.getOwnPropertyDescriptor(globalThis, "Array")!.value; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const prototypes = new Map([["array", Array.prototype]]); const P = prototypes.get("array")!; P.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; declare const key: string; const A = Reflect.get(globalThis, key); A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+        "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ],
+      [
+        "producer.md",
+        String.raw`schema: urn:japp:schema:platform:evidence-record:\x76\x31` +
+          "\n",
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.md",
+        String.raw`schema: urn:japp:schema:platform:evidence-record:\u0076\u0031` +
+          "\n",
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.md",
+        "schema: urn%3Ajapp%3Aschema%3Aplatform%3Aevidence-record%3Av1\n",
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.md",
+        'schema = "urn:japp:schema:platform:evidence-record:" + "v1"\n',
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
+      [
+        "producer.md",
+        "schema: urn:japp:schema:platform:evidence-record:\nv1\n",
+        "DEPRECATED_PLATFORM_V1_WRITE",
+      ],
     ] as const;
     for (const [file, content, code] of rejected) {
       const report = scanPlatform(file, content);
@@ -457,9 +852,203 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
         "const schema = `urn:japp:schema:platform:evidence-record:v2`;\n",
       ],
       ["producer.json", '{"schema_alias":"evidence-record","major":"v2"}\n'],
+      [
+        "producer.json",
+        '{"schema_alias":["evidence","record"],"major":["v","2"]}\n',
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":[{"part":"evidence"},"record"],"major":["v","1"]}\n',
+      ],
+      [
+        "producer.json",
+        '{"schema_ref":"urn:japp:schema:platform:target-identity:v1"}\n',
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"platform:path-request","major":"v1"}\n',
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; const value = runtime();\n",
+      ],
+      [
+        "producer.ts",
+        'const schema = { schema_alias: "evidence-record", major: "v2" };\n',
+      ],
+      [
+        "producer.ts",
+        'const parts = ["urn", "japp", "schema", "platform", "evidence-record", "v2"]; const schema = parts.join(":");\n',
+      ],
+      [
+        "producer.ts",
+        'declare function runtime(): string; const schema = { schema_alias: "evidence-record", major: "v2", extra: runtime() };\n',
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; const note = runtime(); const producer = { value: runtime() }; void note; void producer;\n",
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare function consume(value: string): void; consume(runtime());\n",
+      ],
+      [
+        "producer.ts",
+        'declare function writeEvidence(schemaRef: string): void; writeEvidence("urn:japp:schema:platform:evidence-record:v2");\n',
+      ],
+      [
+        "producer.ts",
+        'const config = { value: "urn:japp:schema:platform:evidence-record:v2" } as const; const producer = { schema_ref: config.value }; void producer;\n',
+      ],
+      [
+        "producer.ts",
+        'const Array = { isArray: () => false }; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void Array;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const local = { prototype: { join: runtimeJoin } }; local.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const Array = { prototype: { join: runtimeJoin } }; Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); Array.prototype.join = runtimeJoin; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; { const Array = { prototype: { join: runtimeJoin } }; Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; }\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function producer() { const Array = { prototype: { join: runtimeJoin } }; Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; } producer();\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; { const globalThis = { Array: { prototype: { join: runtimeJoin } } }; globalThis.Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; }\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; { const Array = { prototype: { join: runtimeJoin } }; const A = Array; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; }\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function producer() { var Array = { prototype: { join: runtimeJoin } }; Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema; } producer();\n',
+      ],
+      [
+        "producer.ts",
+        'const refs = { SAFE: "urn:japp:schema:platform:evidence-record:v2" } as const; const member = "SAFE"; const producer = { schema_ref: refs[member] }; void producer;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function unused() { Array.prototype.join = runtimeJoin; } const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void unused; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; function mutate() { Array.prototype.join = runtimeJoin; } const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); mutate(); void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; let A: typeof Array | { prototype: { join: typeof runtimeJoin } } = Array; A = { prototype: { join: runtimeJoin } }; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":");\n',
+      ],
+      [
+        "producer.ts",
+        'declare function runtime(): string; let destination = "schema_ref"; destination = "note"; const producer: Record<string, string> = {}; producer[destination] = runtime(); void producer;\n',
+      ],
+      [
+        "producer.ts",
+        'const schema_alias = "evidence-record"; const major = "v2"; const schema = { schema_alias, major }; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'const alias = { schema_alias: "evidence-record" }; const version = { major: "v2" }; const schema = { ...alias, ...version }; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'const schema = { get schema_alias() { return "evidence-record"; }, get major() { return "v2"; } }; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'const schema = { schema_alias: ["evidence", "record"], major: ["v", "2"] }; void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'const producer: Record<string, unknown> = {}; producer.schema_alias = "evidence-record"; producer.major = "v2"; void producer;\n',
+      ],
+      [
+        "producer.ts",
+        "declare function runtime(): string; declare const reader: { read(value: string): void }; reader.read(runtime());\n",
+      ],
+      [
+        "producer.ts",
+        'declare function writeEvidence(schema_ref: string): void; writeEvidence.call(undefined, "urn:japp:schema:platform:evidence-record:v2");\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const Local = { prototype: { join: runtimeJoin } }; function arrayConstructor(value = Local) { return value; } const A = arrayConstructor(); A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const global = { Array: { prototype: { join: runtimeJoin } } }; global.Array.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const holder = { Array: { prototype: { join: runtimeJoin } } }; const A = Object.getOwnPropertyDescriptor(holder, "Array")!.value; A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; const local = { join: runtimeJoin }; const prototypes = new Map([["array", local]]); const P = prototypes.get("array")!; P.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+      ],
+      [
+        "producer.ts",
+        'declare const runtimeJoin: (separator?: string) => string; declare const key: string; const holder = { Array: { prototype: { join: runtimeJoin } } }; const A = Reflect.get(holder, key); A.prototype.join = runtimeJoin; const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;\n',
+      ],
+      [
+        "producer.md",
+        "The v1 draft label is historical prose without a platform schema.\n",
+      ],
+      [
+        "producer.md",
+        "schema: urn:japp:schema:platform:evidence-record:\nv2\n",
+      ],
     ] as const) {
       expect(scanPlatform(file, content).valid, file).toBe(true);
     }
+
+    const canonicalModel = fileURLToPath(
+      new URL("../../src/model.ts", import.meta.url),
+    );
+    const canonicalLoader = fileURLToPath(
+      new URL("../../src/loader.ts", import.meta.url),
+    );
+    for (const source of [
+      `import { SCHEMA_REFS } from ${JSON.stringify(canonicalModel)}; const producer = { schema_ref: SCHEMA_REFS.SYNTHETIC_PROFILE }; void producer;\n`,
+      `import { COLLECTION_SPECS } from ${JSON.stringify(canonicalLoader)}; for (const spec of COLLECTION_SPECS) { const producer = { schema_ref: spec.schemaRef }; void producer; }\n`,
+    ]) {
+      expect(scanPlatform("producer.ts", source).valid).toBe(true);
+    }
+    expect(
+      scanPlatform(
+        "producer.ts",
+        `import { SCHEMA_REFS } from ${JSON.stringify(canonicalModel)}; declare function mutate(value: unknown): void; mutate({ refs: SCHEMA_REFS }); const producer = { schema_ref: SCHEMA_REFS.SYNTHETIC_PROFILE }; void producer;\n`,
+      ).issues.map((issue) => issue.code),
+    ).toContain("PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED");
+
+    const perExpression = scanPlatform(
+      "producer.ts",
+      [
+        "declare function runtime(): string;",
+        "const schema = runtime();",
+        "const schemaRef = runtime();",
+        'const unrelatedSafe = "urn:japp:schema:platform:evidence-record:v2";',
+      ].join("\n"),
+    );
+    expect(
+      perExpression.issues.filter(
+        (issue) => issue.code === "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
+      ),
+    ).toHaveLength(2);
   });
 
   test("constant-folds aliases, templates, parentheses, and concatenated TypeScript", () => {
@@ -476,6 +1065,20 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
         (issue) => issue.code === "DEPRECATED_PLATFORM_V1_WRITE",
       ).length,
     ).toBeGreaterThanOrEqual(2);
+
+    const noEvalDirectory = root("japp-m02-platform-no-eval-");
+    const sentinel = join(noEvalDirectory, "must-not-exist");
+    const noEval = scanPlatform(
+      "producer.ts",
+      [
+        "const schema = (() => {",
+        `  process.getBuiltinModule("node:fs").writeFileSync(${JSON.stringify(sentinel)}, "executed");`,
+        '  return ["urn", "japp", "schema", "platform", "evidence-record", "v1"].join(":");',
+        "})();",
+      ].join("\n"),
+    );
+    expect(noEval.valid).toBe(false);
+    expect(existsSync(sentinel)).toBe(false);
   });
 
   test("fails closed on TypeScript parse errors and unsupported producer extensions", () => {

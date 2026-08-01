@@ -146,6 +146,271 @@ def test_typescript_ast_scan_rejects_conditional_chains_and_static_aliases(
         failures = verify.check_focused_tests(fixture_repo, ())
         assert any("probe.spec.ts" in failure for failure in failures), source
 
+    helper = spec.parent / "helper.ts"
+    cross_file_variants = (
+        (
+            'export { test as check } from "vitest";\n',
+            'import { check } from "./helper";\ncheck.fails("expected", () => {});\n',
+        ),
+        (
+            'import { test } from "vitest";\nexport default test;\n',
+            'import check from "./helper";\ncheck.fails("expected", () => {});\n',
+        ),
+        (
+            (
+                'import { test } from "vitest";\n'
+                "export function getCheck() { return test; }\n"
+            ),
+            (
+                'import { getCheck } from "./helper";\n'
+                'getCheck().fails("expected", () => {});\n'
+            ),
+        ),
+        (
+            (
+                'import { test } from "vitest";\n'
+                "export function expectedFailure(): void {\n"
+                '  test.fails("laundered expected failure", () => {\n'
+                '    throw new Error("expected");\n'
+                "  });\n"
+                "}\n"
+            ),
+            ('import { expectedFailure } from "./helper";\nexpectedFailure();\n'),
+        ),
+    )
+    for helper_source, source in cross_file_variants:
+        helper.write_text(helper_source, encoding="utf-8")
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any(
+            "probe.spec.ts" in failure or "helper.ts" in failure for failure in failures
+        ), source
+
+
+def test_typescript_ast_scan_follows_static_dynamic_import_helpers(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    helper = fixture_repo.repo / "e2e" / "xhelper.ts"
+    spec.parent.mkdir(parents=True)
+    helper.write_text(
+        (
+            'import { test } from "vitest";\n'
+            'test.fails("laundered expected failure", () => {\n'
+            '  throw new Error("expected");\n'
+            "});\n"
+        ),
+        encoding="utf-8",
+    )
+    variants = (
+        'await import("./x" + "helper.ts");\n',
+        'const helperPath = "./xhelper.ts";\nawait import(helperPath);\n',
+        ('const helperStem = "helper";\nawait import(`./x${helperStem}.ts`);\n'),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("xhelper.ts" in failure for failure in failures), source
+
+
+def test_typescript_ast_scan_fails_closed_on_unresolved_dynamic_import(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        "declare const helperPath: string;\nawait import(helperPath);\n",
+        (
+            "declare function helperStem(): string;\n"
+            "await import(`./x${helperStem()}.ts`);\n"
+        ),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any(
+            "dynamic import" in failure and "probe.spec.ts" in failure
+            for failure in failures
+        ), source
+
+
+def test_typescript_ast_scan_allows_bounded_ordinary_dynamic_imports(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    helper = fixture_repo.repo / "e2e" / "ordinary-helper.ts"
+    spec.parent.mkdir(parents=True)
+    helper.write_text(
+        "export const ordinary = { fails(): void {} };\n",
+        encoding="utf-8",
+    )
+    variants = (
+        'await import("node:fs");\n',
+        'const moduleName = "node:fs";\nawait import(moduleName);\n',
+        'await import("./ordinary-" + "helper.ts");\n',
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        assert verify.check_focused_tests(fixture_repo, ()) == [], source
+
+
+def test_typescript_ast_scan_rejects_expected_fail_modifiers(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "e2e" / "probe.spec.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        'test.fails("expected failure", () => { throw new Error(); });\n',
+        'it.fails("expected failure", () => { throw new Error(); });\n',
+        (
+            'import { test as check } from "vitest";\n'
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const check = test;\n"
+            'check["fa" + "ils"]("expected failure", () => { throw new Error(); });\n'
+        ),
+        ('(0, test).fails("expected failure", () => { throw new Error(); });\n'),
+        (
+            "const holder = { check: test };\n"
+            'holder.check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const other = { fails(): void {} };\n"
+            "let check = other;\n"
+            "check = test;\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const [check] = [test];\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const { check } = { check: test };\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        ('[test][0].fails("expected failure", () => { throw new Error(); });\n'),
+        (
+            "const holder = [test];\n"
+            'holder[0].fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        ('(() => test)().fails("expected failure", () => { throw new Error(); });\n'),
+        (
+            "const check = (() => test)();\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "declare const choose: boolean;\n"
+            "const ordinary = { fails(): void {} };\n"
+            "(choose ? test : ordinary).fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "declare const maybe: typeof test | undefined;\n"
+            "(maybe ?? test).fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const invoke = (check = test): void => {\n"
+            '  check.fails("expected failure", () => { throw new Error(); });\n'
+            "};\n"
+            "invoke();\n"
+        ),
+        (
+            "const ordinary = { fails(): void {} };\n"
+            "let check = ordinary;\n"
+            "[check] = [test];\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const ordinary = { fails(): void {} };\n"
+            "let check = ordinary;\n"
+            "({ check } = { check: test });\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const ordinary = { fails(): void {} };\n"
+            "const holder = { check: ordinary };\n"
+            "holder.check = test;\n"
+            'holder.check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'import * as vitest from "vitest";\n'
+            "const holder = { check: vitest.test };\n"
+            'holder.check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'import * as vitest from "vitest";\n'
+            "const { test: check } = vitest;\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'const vitest = await import("vitest");\n'
+            'vitest.test.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const holder = { get check() { return test; } };\n"
+            'holder.check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const check = [test].at(0)!;\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "Object.values({ check: test })[0].fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "Object.assign({}, { check: test }).check.fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'Reflect.get({ check: test }, "check").fails'
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'const fail = Reflect.get(test, "fails");\n'
+            'fail("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            'new Map([["check", test]]).get("check")!.fails'
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "new Set([test]).values().next().value.fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const check = await Promise.resolve(test);\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "const check = await (async () => test)();\n"
+            'check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "class Holder { static check = test; }\n"
+            'Holder.check.fails("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "class Holder { check = test; }\n"
+            "new Holder().check.fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        (
+            "Object.create(null, { check: { value: test } }).check.fails"
+            '("expected failure", () => { throw new Error(); });\n'
+        ),
+        ('test.fails.each([1])("expected failure", () => { throw new Error(); });\n'),
+        ('test.fails.for([1])("expected failure", () => { throw new Error(); });\n'),
+        ('test.concurrent.fails("expected failure", () => { throw new Error(); });\n'),
+        ('test.fails.concurrent("expected failure", () => { throw new Error(); });\n'),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("probe.spec.ts" in failure for failure in failures), source
+
 
 def test_typescript_ast_scan_allows_unmodified_test_apis_and_lookalikes(
     fixture_repo: verify.Context,
@@ -154,9 +419,116 @@ def test_typescript_ast_scan_allows_unmodified_test_apis_and_lookalikes(
     spec.parent.mkdir(parents=True)
     spec.write_text(
         (
+            'import "not-vitest";\n'
             'import { test as probe } from "vitest";\n'
             'probe.each([1])("ordinary", () => {});\n'
             "const skippedResults = object.onlyForDisplay;\n"
+            "const ordinary = { fails(): void {} };\n"
+            "(0, ordinary).fails();\n"
+            "const holder = { check: ordinary };\n"
+            "holder.check.fails();\n"
+            "let check = probe;\n"
+            "check = ordinary;\n"
+            "check.fails();\n"
+            "function use(test: { fails(): void }): void { test.fails(); }\n"
+            "void use;\n"
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+    controls = (
+        (
+            "const rows = [[1]];\n"
+            "(function* (): Generator<void> { rows.pop(); })();\n"
+            'test.each(rows)("uniterated generator", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "(async function* (): AsyncGenerator<void> { rows.pop(); })();\n"
+            'test.each(rows)("uniterated async generator", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = { cb: (): number[] | undefined => rows.pop() };\n"
+            "void holder;\n"
+            'test.each(rows)("unused object callback", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const alias = ((): number[][] => rows)();\n"
+            "void alias;\n"
+            'test.each(rows)("returned alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "let alias = rows;\n"
+            "alias = [];\n"
+            "alias.pop();\n"
+            'test.each(rows)("overwritten alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const ordinaryRows = [[2]];\n"
+            "function drain(table = rows): void { table.pop(); }\n"
+            "drain(ordinaryRows);\n"
+            'test.each(rows)("explicit default override", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  *drain(): Generator<number> { rows.pop(); yield 1; },\n"
+            "};\n"
+            "void holder.drain();\n"
+            'test.each(rows)("unadvanced object generator", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function* drain(): Generator<number> { rows.pop(); yield 1; }\n"
+            "void drain();\n"
+            'test.each(rows)("unadvanced named generator", () => {});\n'
+        ),
+    )
+    for source in controls:
+        spec.write_text(source, encoding="utf-8")
+        assert verify.check_focused_tests(fixture_repo, ()) == [], source
+
+    spec.write_text(
+        ("const test = { fails(): void {} };\ntest.fails();\n"),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+    spec.write_text(
+        ('import { test } from "not-vitest";\ntest.fails();\n'),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+    helper = spec.parent / "helper.ts"
+    helper.write_text(
+        (
+            "export function ordinaryHelper(\n"
+            "  value: { fails(): void },\n"
+            "): void {\n"
+            "  value.fails();\n"
+            "}\n"
+        ),
+        encoding="utf-8",
+    )
+    spec.write_text(
+        (
+            'import { ordinaryHelper } from "./helper";\n'
+            "ordinaryHelper({ fails(): void {} });\n"
+            "const ordinary = { fails(): void {} };\n"
+            'const fail = Reflect.get(ordinary, "fails");\n'
+            "fail();\n"
+            "const LocalReflect = {\n"
+            '  get(value: { fails(): void }, _member: "fails"): () => void {\n'
+            "    return value.fails;\n"
+            "  },\n"
+            "};\n"
+            'LocalReflect.get(ordinary, "fails");\n'
         ),
         encoding="utf-8",
     )
@@ -270,6 +642,925 @@ def test_typescript_ast_scan_rejects_runtime_emptied_const_tables_on_every_surfa
                 "parameter table" in failure and "probe.test.ts" in failure
                 for failure in failures
             ), source
+
+
+def test_typescript_ast_scan_rejects_executed_local_callable_mutations(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        (
+            "const rows = [[1]];\n"
+            "((): void => { rows.length = 0; })();\n"
+            'test.each(rows)("direct IIFE", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "((): void => { ((): void => { rows.length = 0; })(); })();\n"
+            'test.each(rows)("nested IIFE", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function drain(): void { rows.length = 0; }\n"
+            "drain.call(undefined);\n"
+            'test.each(rows)("named call", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function drain(): void { rows.length = 0; }\n"
+            "drain.apply(undefined, []);\n"
+            'test.each(rows)("named apply", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = function (): void { rows.length = 0; };\n"
+            "drain();\n"
+            'test.each(rows)("function expression", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "drain();\n"
+            'test.each(rows)("arrow", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "drain.bind(undefined)();\n"
+            'test.each(rows)("immediately bound callable", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "new (class {\n"
+            "  constructor() { rows.length = 0; }\n"
+            "})();\n"
+            'test.each(rows)("anonymous constructor", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const Drain = class {\n"
+            "  constructor() { rows.length = 0; }\n"
+            "};\n"
+            "new Drain();\n"
+            'test.each(rows)("local constructor", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const Drain = class { run(): void { rows.pop(); } };\n"
+            "const instance = new Drain();\n"
+            "instance.run();\n"
+            'test.each(rows)("class alias method", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = { drain(): void { rows.pop(); } };\n"
+            "rows.forEach(holder.drain);\n"
+            'test.each(rows)("object method callback", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function drain(table = rows): void { table.pop(); }\n"
+            "drain();\n"
+            'test.each(rows)("default parameter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = { get table(): number[][] { return rows; } };\n"
+            "holder.table.pop();\n"
+            'test.each(rows)("getter alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = { drain(): void { rows.pop(); } };\n"
+            "await Promise.resolve().then(holder.drain);\n"
+            'test.each(rows)("promise callback", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "class Holder { table = rows; }\n"
+            "new Holder().table.pop();\n"
+            'test.each(rows)("instance field alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "class Holder { static table = rows; }\n"
+            "Holder.table.pop();\n"
+            'test.each(rows)("static field alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function drain(\n"
+            "  { table = rows }: { table?: number[][] } = {},\n"
+            "): void { table.pop(); }\n"
+            "drain();\n"
+            'test.each(rows)("nested default parameter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  *drain(): Generator<number> { rows.pop(); yield 1; },\n"
+            "};\n"
+            "holder.drain().next();\n"
+            'test.each(rows)("advanced generator", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const original = (): void => { rows.length = 0; };\n"
+            "const drain = original;\n"
+            "drain();\n"
+            'test.each(rows)("callable alias", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "((): void => { rows.length = 0; }).call(undefined);\n"
+            'test.each(rows)("IIFE call", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "((): void => { rows.length = 0; }).apply(undefined, []);\n"
+            'test.each(rows)("IIFE apply", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "void (async (): Promise<void> => { rows.length = 0; })();\n"
+            'test.each(rows)("async IIFE", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "await (async (): Promise<void> => {\n"
+            "  await Promise.resolve();\n"
+            "  rows.length = 0;\n"
+            "})();\n"
+            'test.each(rows)("awaited async IIFE", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "((table: number[][]): void => { table.length = 0; })(rows);\n"
+            'test.each(rows)("IIFE argument", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "if (true) { ((): void => { rows.length = 0; })(); }\n"
+            'test.each(rows)("literal true call", () => {});\n'
+        ),
+        (
+            "declare const shouldDrain: boolean;\n"
+            "const rows = [[1]];\n"
+            "if (shouldDrain) { ((): void => { rows.length = 0; })(); }\n"
+            'test.each(rows)("conditional call", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "(0, drain)();\n"
+            'test.each(rows)("comma-selected call", () => {});\n'
+        ),
+        (
+            "declare const shouldDrain: boolean;\n"
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const keep = (): void => {};\n"
+            "(shouldDrain ? drain : keep)();\n"
+            'test.each(rows)("conditional callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const selected = (0, drain);\n"
+            "selected();\n"
+            'test.each(rows)("stored comma callee", () => {});\n'
+        ),
+        (
+            "declare const shouldDrain: boolean;\n"
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const keep = (): void => {};\n"
+            "const selected = shouldDrain ? drain : keep;\n"
+            "selected();\n"
+            'test.each(rows)("stored conditional callee", () => {});\n'
+        ),
+        (
+            "declare const shouldDrain: boolean;\n"
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const selected = shouldDrain && drain;\n"
+            "if (selected) { selected(); }\n"
+            'test.each(rows)("stored logical callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const [selected] = [drain];\n"
+            "selected();\n"
+            'test.each(rows)("destructured array callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const { run: selected } = { run: drain };\n"
+            "selected();\n"
+            'test.each(rows)("destructured object callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const holder = { run: drain };\n"
+            "holder.run();\n"
+            'test.each(rows)("stored object member callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "let selected: () => void;\n"
+            "selected = drain;\n"
+            "selected();\n"
+            'test.each(rows)("assigned callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "let first: () => void;\n"
+            "let selected: () => void;\n"
+            "selected = first = drain;\n"
+            "selected();\n"
+            'test.each(rows)("chained assigned callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "let selected: () => void;\n"
+            "[selected] = [drain];\n"
+            "selected();\n"
+            'test.each(rows)("destructuring assigned callee", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const keep = (): void => {};\n"
+            "const holder = { run: keep };\n"
+            "holder.run = drain;\n"
+            "holder.run();\n"
+            'test.each(rows)("assigned object member", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const drain = (): void => { rows.length = 0; };\n"
+            "const keep = (): void => {};\n"
+            "const holder = [keep];\n"
+            "[holder[0]] = [drain];\n"
+            "holder[0]();\n"
+            'test.each(rows)("assigned array member", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "function drain(_strings: TemplateStringsArray): void {\n"
+            "  rows.length = 0;\n"
+            "}\n"
+            "drain``;\n"
+            'test.each(rows)("tagged invocation", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "void holder.run;\n"
+            'test.each(rows)("executed getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "const { run } = holder;\n"
+            "void run;\n"
+            'test.each(rows)("destructuring getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "const copy = { ...holder };\n"
+            "void copy;\n"
+            'test.each(rows)("spread getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  set run(_value: number) { rows.length = 0; },\n"
+            "};\n"
+            "holder.run = 1;\n"
+            'test.each(rows)("executed setter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            'Reflect.get(holder, "run");\n'
+            'test.each(rows)("Reflect getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  set run(_value: number) { rows.length = 0; },\n"
+            "};\n"
+            'Reflect.set(holder, "run", 1);\n'
+            'test.each(rows)("Reflect setter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  set run(_value: number) { rows.length = 0; },\n"
+            "};\n"
+            "Object.assign(holder, { run: 1 });\n"
+            'test.each(rows)("Object.assign setter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            'Object.getOwnPropertyDescriptor(holder, "run")!.get!.call(holder);\n'
+            'test.each(rows)("descriptor getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            'const { get } = Object.getOwnPropertyDescriptor(holder, "run")!;\n'
+            "get!.call(holder);\n"
+            'test.each(rows)("destructured descriptor getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "Object.values(holder);\n"
+            'test.each(rows)("Object.values getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "Object.entries(holder);\n"
+            'test.each(rows)("Object.entries getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "};\n"
+            "JSON.stringify(holder);\n"
+            'test.each(rows)("JSON.stringify getter", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const holder = {\n"
+            "  toJSON(): object { rows.length = 0; return {}; },\n"
+            "};\n"
+            "JSON.stringify(holder);\n"
+            'test.each(rows)("JSON.stringify toJSON", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const iterable = {\n"
+            "  *[Symbol.iterator](): Generator<never> {\n"
+            "    rows.length = 0;\n"
+            "    return undefined as never;\n"
+            "  },\n"
+            "};\n"
+            "[...iterable];\n"
+            'test.each(rows)("iterator protocol", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const value = {\n"
+            "  [Symbol.toPrimitive](): number {\n"
+            "    rows.length = 0;\n"
+            "    return 0;\n"
+            "  },\n"
+            "};\n"
+            "void +value;\n"
+            'test.each(rows)("coercion protocol", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const value = {\n"
+            '  toString(): string { rows.length = 0; return ""; },\n'
+            "};\n"
+            "void `${value}`;\n"
+            'test.each(rows)("string coercion protocol", () => {});\n'
+        ),
+        (
+            "const rows = [[1]];\n"
+            "const value = {\n"
+            "  [Symbol.toPrimitive](): number {\n"
+            "    rows.length = 0;\n"
+            "    return 0;\n"
+            "  },\n"
+            "};\n"
+            "function coerce(input: object): void { void +input; }\n"
+            "coerce(value);\n"
+            'test.each(rows)("local coercion", () => {});\n'
+        ),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any(
+            "parameter table" in failure and "probe.test.ts" in failure
+            for failure in failures
+        ), source
+
+
+def test_typescript_ast_scan_does_not_execute_uncalled_local_callable_bodies(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            "const rows = [[1]];\n"
+            "function named(): void { rows.length = 0; }\n"
+            "const arrow = (): void => { rows.length = 0; };\n"
+            "const expression = function (): void { rows.length = 0; };\n"
+            "void named;\n"
+            "void arrow;\n"
+            "void expression;\n"
+            'test("ordinary callback", () => { rows.length = 0; });\n'
+            "if (false) { ((): void => { rows.length = 0; })(); }\n"
+            "const keep = (): void => {};\n"
+            "keep.bind(undefined)();\n"
+            "new (class { constructor() { const marker = 1; void marker; } })();\n"
+            "(true ? keep : arrow)();\n"
+            "(arrow, keep)();\n"
+            "const storedKeep = (0, keep);\n"
+            "storedKeep();\n"
+            "const [destructuredKeep] = [keep];\n"
+            "destructuredKeep();\n"
+            "const { run: objectKeep } = { run: keep };\n"
+            "objectKeep();\n"
+            "const holder = { run: keep };\n"
+            "holder.run();\n"
+            "let overwritten = arrow;\n"
+            "overwritten = keep;\n"
+            "overwritten();\n"
+            "const overwrittenHolder = { run: arrow };\n"
+            "overwrittenHolder.run = keep;\n"
+            "overwrittenHolder.run();\n"
+            "function tagged(_strings: TemplateStringsArray): void {\n"
+            "  rows.length = 0;\n"
+            "}\n"
+            "const implicit = {\n"
+            "  get run(): number { rows.length = 0; return 1; },\n"
+            "  *[Symbol.iterator](): Generator<never> {\n"
+            "    rows.length = 0;\n"
+            "    return undefined as never;\n"
+            "  },\n"
+            "  [Symbol.toPrimitive](): number {\n"
+            "    rows.length = 0;\n"
+            "    return 0;\n"
+            "  },\n"
+            "};\n"
+            "void tagged;\n"
+            "void implicit;\n"
+            "function keep(value: object): void { void value; }\n"
+            "keep(implicit);\n"
+            "void Boolean(implicit);\n"
+            "delete implicit.run;\n"
+            "Object.keys(implicit);\n"
+            "Object.getOwnPropertyDescriptors(implicit);\n"
+            "JSON.stringify({ value: 1 });\n"
+            "const localObject = { value: 1 };\n"
+            "localObject.value = 2;\n"
+            "if (false) {\n"
+            "  tagged``; void implicit.run; [...implicit]; void +implicit;\n"
+            "}\n"
+            'test.each(rows)("still registered", () => {});\n'
+            "tagged``;\n"
+            "void implicit.run;\n"
+            "[...implicit];\n"
+            "void +implicit;\n"
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+
+def test_typescript_ast_scan_models_array_concat_cardinality(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    emptied = (
+        "rows.pop();",
+        "rows.shift();",
+        "rows.splice(0, 1);",
+        "delete rows[0];",
+        "rows.length = 0;",
+    )
+    for mutation in emptied:
+        source = (
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            f"{mutation}\n"
+            'test.each(rows)("empty concat", () => {});\n'
+        )
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("empty test.each parameter table" in failure for failure in failures)
+
+    spec.write_text(
+        (
+            'test.each(([] as unknown[]).concat("abc"))("string", () => {});\n'
+            'const stringAlias = "abc";\n'
+            "test.each(([] as unknown[]).concat(stringAlias))"
+            '("string alias", () => {});\n'
+            "test.each(([] as unknown[]).concat(1))"
+            '("number", () => {});\n'
+            "test.each(([] as unknown[]).concat(false))"
+            '("boolean", () => {});\n'
+            "test.each(([] as unknown[]).concat(null))"
+            '("null", () => {});\n'
+            "test.each(([] as unknown[]).concat(undefined))"
+            '("undefined", () => {});\n'
+            "test.each(([] as unknown[]).concat({ value: 1 }))"
+            '("object", () => {});\n'
+            "test.each(([] as unknown[]).concat([[1], [2]]))"
+            '("dense array", () => {});\n'
+            "test.each(([] as unknown[]).concat([[[1], [2]]]))"
+            '("nested array", () => {});\n'
+            "test.each(([] as unknown[]).concat(...[[[1], [2]]]))"
+            '("spread array argument", () => {});\n'
+            'const spreadAlias = ["abc"];\n'
+            "test.each(([] as unknown[]).concat(...spreadAlias))"
+            '("spread alias", () => {});\n'
+            'test.each(([] as unknown[]).concat(...["abc"]))'
+            '("spread scalar argument", () => {});\n'
+            "test.each(([] as unknown[]).concat({\n"
+            "  0: [1], 1: [2], length: 2,\n"
+            "  [Symbol.isConcatSpreadable]: true,\n"
+            '}))("spreadable", () => {});\n'
+            "test.each(([] as unknown[]).concat({\n"
+            "  0: [1], length: 1,\n"
+            "  [Symbol.isConcatSpreadable]: false,\n"
+            '}))("not spreadable", () => {});\n'
+            "const source = [[1], [2]];\n"
+            "const alias = source;\n"
+            'test.each(([] as unknown[]).concat(alias))("alias", () => {});\n'
+            'const concatRows = ([] as unknown[]).concat("abc");\n'
+            "let concatAlias = concatRows;\n"
+            "concatAlias = [];\n"
+            "concatAlias.pop();\n"
+            'test.each(concatRows)("overwritten result alias", () => {});\n'
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
+
+
+def test_typescript_ast_scan_fails_closed_for_unknown_concat_semantics(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    variants = (
+        (
+            "declare const spreadable: boolean;\n"
+            "const rows = ([] as unknown[]).concat({\n"
+            "  0: [1], length: 1,\n"
+            "  [Symbol.isConcatSpreadable]: spreadable,\n"
+            "});\n"
+            'test.each(rows)("runtime spreadability", () => {});\n'
+        ),
+        (
+            "class Rows extends Array<number[]> {}\n"
+            "const rows = ([] as unknown[]).concat(new Rows([1]));\n"
+            'test.each(rows)("subclass", () => {});\n'
+        ),
+        (
+            "declare function runtimeRows(): number[][];\n"
+            "const rows = ([] as unknown[]).concat(runtimeRows());\n"
+            'test.each(rows)("runtime derived", () => {});\n'
+        ),
+        (
+            "const Array = (...values: number[][]): number[][] => values;\n"
+            "const rows = Array([1]).concat([[2]]);\n"
+            'test.each(rows)("shadowed Array", () => {});\n'
+        ),
+        (
+            "declare const values: number[][][];\n"
+            "const rows = ([] as unknown[]).concat(...values);\n"
+            'test.each(rows)("runtime spread", () => {});\n'
+        ),
+        (
+            "const source = [[1], [2]];\n"
+            "source.pop();\n"
+            "const rows = ([] as unknown[]).concat(source);\n"
+            "rows.pop();\n"
+            'test.each(rows)("mutated array argument", () => {});\n'
+        ),
+        (
+            "const values = [[1], [2]];\n"
+            "values.pop();\n"
+            "const rows = ([] as unknown[]).concat(...values);\n"
+            "rows.pop();\n"
+            'test.each(rows)("mutated spread argument", () => {});\n'
+        ),
+        (
+            "const source = {\n"
+            "  0: [1], 1: [2], length: 2,\n"
+            "  [Symbol.isConcatSpreadable]: true,\n"
+            "};\n"
+            "source[Symbol.isConcatSpreadable] = false;\n"
+            "const rows = ([] as unknown[]).concat(source);\n"
+            "rows.pop();\n"
+            'test.each(rows)("mutated spreadability", () => {});\n'
+        ),
+        (
+            "Object.prototype[Symbol.isConcatSpreadable] = true;\n"
+            "const rows = ([] as unknown[]).concat({ length: 0 });\n"
+            'test.each(rows)("inherited spreadability", () => {});\n'
+        ),
+        (
+            "Object.defineProperty(Object.prototype, Symbol.isConcatSpreadable, {\n"
+            "  value: true,\n"
+            "});\n"
+            "const rows = ([] as unknown[]).concat({ length: 0 });\n"
+            'test.each(rows)("defined inherited spreadability", () => {});\n'
+        ),
+        (
+            "Array.prototype.concat = function (): unknown[] { return []; };\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("overridden concat", () => {});\n'
+        ),
+        (
+            "Array.prototype.splice = function (): unknown[] {\n"
+            "  this.length = 0;\n"
+            "  return [];\n"
+            "};\n"
+            'const rows = ([] as unknown[]).concat("abc", "def");\n'
+            "rows.splice(0, 0);\n"
+            'test.each(rows)("overridden splice", () => {});\n'
+        ),
+        (
+            "Array.prototype.pop = function (): unknown {\n"
+            "  this.length = 0;\n"
+            "  return undefined;\n"
+            "};\n"
+            'const rows = ([] as unknown[]).concat("abc", "def");\n'
+            "rows.pop();\n"
+            'test.each(rows)("overridden pop", () => {});\n'
+        ),
+        (
+            "Array.prototype.shift = function (): unknown {\n"
+            "  this.length = 0;\n"
+            "  return undefined;\n"
+            "};\n"
+            'const rows = ([] as unknown[]).concat("abc", "def");\n'
+            "rows.shift();\n"
+            'test.each(rows)("overridden shift", () => {});\n'
+        ),
+        (
+            'const rows = ([] as unknown[]).concat("abc", "def");\n'
+            "Array.prototype.splice = function (): unknown[] {\n"
+            "  this.length = 0;\n"
+            "  return [];\n"
+            "};\n"
+            "rows.splice(0, 0);\n"
+            'test.each(rows)("late overridden splice", () => {});\n'
+        ),
+        (
+            "class Species extends Array<unknown> {\n"
+            "  override splice(): unknown[] {\n"
+            "    this.length = 0;\n"
+            "    return [];\n"
+            "  }\n"
+            "}\n"
+            "Object.defineProperty(Array, Symbol.species, {\n"
+            "  configurable: true,\n"
+            "  value: Species,\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            "rows.splice(0, 0);\n"
+            'test.each(rows)("overridden species", () => {});\n'
+        ),
+        (
+            'Object.defineProperty((0, Array.prototype), "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("comma-wrapped prototype", () => {});\n'
+        ),
+        (
+            'Object.defineProperty((true ? Array.prototype : {}), "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("conditional prototype", () => {});\n'
+        ),
+        (
+            "const prototype = (0, Array.prototype);\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("stored wrapped prototype", () => {});\n'
+        ),
+        (
+            "Object.defineProperty(...[\n"
+            "  Array.prototype,\n"
+            '  "concat",\n'
+            "  { value: function (): unknown[] { return []; } },\n"
+            "]);\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("spread mutation arguments", () => {});\n'
+        ),
+        (
+            "Reflect.apply(Object.defineProperty, Object, [\n"
+            "  Array.prototype,\n"
+            '  "concat",\n'
+            "  { value: function (): unknown[] { return []; } },\n"
+            "]);\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("nested mutation arguments", () => {});\n'
+        ),
+        (
+            "const [prototype] = [Array.prototype];\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("destructured prototype", () => {});\n'
+        ),
+        (
+            "const [ArrayAlias] = [Array];\n"
+            "ArrayAlias.prototype.concat = function (): unknown[] { return []; };\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("destructured constructor", () => {});\n'
+        ),
+        (
+            "const { Array: ArrayAlias } = globalThis;\n"
+            "ArrayAlias.prototype.concat = function (): unknown[] { return []; };\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("destructured global constructor", () => {});\n'
+        ),
+        (
+            "let prototype = Array.prototype;\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("mutable prototype alias", () => {});\n'
+        ),
+        (
+            "var prototype = Array.prototype;\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("var prototype alias", () => {});\n'
+        ),
+        (
+            "let prototype: object;\n"
+            "prototype = Array.prototype;\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("assigned prototype alias", () => {});\n'
+        ),
+        (
+            "let prototype: object = {};\n"
+            "if (Math.random() > 0.5) { prototype = Array.prototype; }\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("conditional prototype alias", () => {});\n'
+        ),
+        (
+            "declare function runtimeObject(): object;\n"
+            "let prototype = runtimeObject();\n"
+            'Object.defineProperty(prototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("unknown mutable alias", () => {});\n'
+        ),
+    )
+    for source in variants:
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("parameter table" in failure for failure in failures), source
+
+    intrinsic_mutation_targets = (
+        "const A = (() => Array)(); A.prototype.splice = replacement;",
+        (
+            "function getArray(value = Array): ArrayConstructor { return value; } "
+            "const A = getArray(); A.prototype.splice = replacement;"
+        ),
+        ("const { prototype } = (() => Array)(); prototype.splice = replacement;"),
+        (
+            'const A = Object.getOwnPropertyDescriptor(globalThis, "Array")!'
+            ".value as ArrayConstructor; A.prototype.splice = replacement;"
+        ),
+        "global.Array.prototype.splice = replacement;",
+        (
+            'const key = "prototype"; '
+            "const prototype = new Map([[key, Array.prototype]]).get(key)!; "
+            "prototype.splice = replacement;"
+        ),
+        (
+            'const A = Reflect.get(globalThis, "Array"); '
+            "A.prototype.splice = replacement;"
+        ),
+        (
+            "declare const member: string; "
+            "const A = Reflect.get(globalThis, member); "
+            "A.prototype.splice = replacement;"
+        ),
+        "([] as any).constructor.prototype.splice = replacement;",
+        "(rows as any).constructor.prototype.splice = replacement;",
+        "Object.getPrototypeOf([]).splice = replacement;",
+        "Reflect.getPrototypeOf([])!.splice = replacement;",
+        "const P = ([] as any).__proto__; P.splice = replacement;",
+        "(new Array() as any).constructor.prototype.splice = replacement;",
+        "(Array.of() as any).constructor.prototype.splice = replacement;",
+    )
+    for mutation in intrinsic_mutation_targets:
+        source = (
+            'const rows = ([] as unknown[]).concat("abc", "def");\n'
+            "const replacement = function (this: unknown[]): unknown[] {\n"
+            "  this.length = 0;\n"
+            "  return [];\n"
+            "};\n"
+            f"{mutation}\n"
+            "rows.splice(0, 0);\n"
+            'test.each(rows)("intrinsic provenance", () => {});\n'
+        )
+        spec.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("parameter table" in failure for failure in failures), source
+
+
+def test_typescript_ast_scan_preserves_concat_intrinsic_safe_controls(
+    fixture_repo: verify.Context,
+) -> None:
+    spec = fixture_repo.repo / "packages" / "probe" / "test" / "probe.test.ts"
+    spec.parent.mkdir(parents=True)
+    spec.write_text(
+        (
+            "console.log(Array.prototype.concat);\n"
+            "let overwrittenPrototype: object = Array.prototype;\n"
+            "overwrittenPrototype = {};\n"
+            'Object.defineProperty(overwrittenPrototype, "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            "function mutateLocal(Array: { prototype: object }): void {\n"
+            '  Object.defineProperty(Array.prototype, "concat", {\n'
+            "    value: function (): unknown[] { return []; },\n"
+            "  });\n"
+            "}\n"
+            "mutateLocal({ prototype: {} });\n"
+            "if (false) {\n"
+            "  Array.prototype.splice = function (): unknown[] {\n"
+            "    return [];\n"
+            "  };\n"
+            "}\n"
+            "function uncalledMutation(): void {\n"
+            "  Array.prototype.splice = function (): unknown[] {\n"
+            "    return [];\n"
+            "  };\n"
+            "}\n"
+            "void uncalledMutation;\n"
+            "const localPrototype: { concat?: () => unknown[] } = {};\n"
+            'const key = "prototype";\n'
+            "const safeMap = new Map([[key, localPrototype]]);\n"
+            "safeMap.get(key)!.concat = function (): unknown[] { return []; };\n"
+            "const global = { Array: { prototype: localPrototype } };\n"
+            "global.Array.prototype.concat = function (): unknown[] { return []; };\n"
+            'const rows = ([] as unknown[]).concat("abc");\n'
+            'test.each(rows)("registered before mutation", () => {});\n'
+            'Object.defineProperty((0, Array.prototype), "concat", {\n'
+            "  value: function (): unknown[] { return []; },\n"
+            "});\n"
+            "Array.prototype.splice = function (): unknown[] {\n"
+            "  this.length = 0;\n"
+            "  return [];\n"
+            "};\n"
+            "Object.defineProperty(Array, Symbol.species, {\n"
+            "  value: class extends Array<unknown> {},\n"
+            "});\n"
+        ),
+        encoding="utf-8",
+    )
+    assert verify.check_focused_tests(fixture_repo, ()) == []
 
 
 def test_typescript_ast_scan_preserves_point_in_time_nonempty_const_controls(
@@ -1012,6 +2303,170 @@ def test_python_skip_marker_rejected_end_to_end(
     probe.write_text(f"{marker}\ndef test_probe() -> None: ...\n", encoding="utf-8")
     failures = verify.check_focused_tests(fixture_repo, ())
     assert any("test_probe.py" in f for f in failures)
+
+
+def test_python_ast_scan_rejects_pytest_skip_surfaces_and_aliases(
+    fixture_repo: verify.Context,
+) -> None:
+    probe = fixture_repo.repo / "services" / "orchestrator" / "tests" / "test_probe.py"
+    probe.parent.mkdir(parents=True, exist_ok=True)
+    variants = (
+        (
+            "import pytest\n\n"
+            "skip_test = pytest.skip\n\n"
+            "def test_probe() -> None:\n"
+            '    skip_test("aliased skip")\n'
+        ),
+        (
+            "import pytest as pt\n\n"
+            "def test_probe() -> None:\n"
+            '    pt.skip("module alias")\n'
+        ),
+        (
+            "from pytest import skip as skip_test\n\n"
+            "def test_probe() -> None:\n"
+            '    skip_test("imported skip")\n'
+        ),
+        (
+            "import pytest\n\n"
+            'pytest.importorskip("japp_missing_optional_module")\n\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "import pytest\n\n"
+            '@pytest.mark.skip(reason="literal decorator")\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "import pytest\n\n"
+            '@pytest.mark.skipif(True, reason="conditional")\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "import pytest\n\n"
+            'pytest.skip("module skip", allow_module_level=True)\n\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "import pytest\n\n"
+            "@pytest.mark.parametrize(\n"
+            '    "value", [pytest.param(1, marks=pytest.mark.skip(reason="case"))]\n'
+            ")\n"
+            "def test_probe(value: int) -> None:\n"
+            "    assert value == 1\n"
+        ),
+        (
+            "import pytest\n\n"
+            "def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:\n"
+            '    items[0].add_marker(pytest.mark.skip(reason="collection"))\n\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "def pytest_collection_modifyitems(items: list[object]) -> None:\n"
+            "    items[:] = [item for item in items if False]\n\n"
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "def remove_substantive(items: list[object]) -> None:\n"
+            "    items[:] = [\n"
+            "        item for item in items\n"
+            '        if getattr(item, "name", "") != "test_substantive"\n'
+            "    ]\n\n"
+            "pytest_collection_modifyitems = remove_substantive\n\n"
+            "def test_substantive() -> None:\n"
+            "    raise AssertionError\n\n"
+            "def test_count_preserving_filler() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "pytest_collection_modifyitems = lambda items: items.__setitem__(\n"
+            "    slice(None),\n"
+            "    [item for item in items if item.name != 'test_substantive'],\n"
+            ")\n\n"
+            "def test_substantive() -> None:\n"
+            "    raise AssertionError\n\n"
+            "def test_count_preserving_filler() -> None:\n"
+            "    assert True\n"
+        ),
+        (
+            "import pytest\n\n"
+            'member = "sk" + "ip"\n\n'
+            "def test_probe() -> None:\n"
+            '    getattr(pytest, member)("computed member")\n'
+        ),
+        (
+            "import pytest\n\n"
+            "def test_probe() -> None:\n"
+            '    pytest.__dict__["skip"]("mapping member")\n'
+        ),
+        (
+            "from pytest import importorskip as require_module\n\n"
+            'require_module("japp_missing_optional_module")\n\n'
+            "def test_probe() -> None:\n"
+            "    assert True\n"
+        ),
+    )
+    for source in variants:
+        probe.write_text(source, encoding="utf-8")
+        failures = verify.check_focused_tests(fixture_repo, ())
+        assert any("test_probe.py" in failure for failure in failures), source
+
+
+def test_python_ast_scan_allows_ordinary_pytest_usage_and_lookalikes(
+    fixture_repo: verify.Context,
+) -> None:
+    probe = fixture_repo.repo / "services" / "orchestrator" / "tests" / "test_probe.py"
+    probe.parent.mkdir(parents=True, exist_ok=True)
+    variants = (
+        (
+            "import pytest\n\n"
+            '@pytest.mark.parametrize("value", [1, 2])\n'
+            "def test_probe(value: int) -> None:\n"
+            "    skipped_results = value\n"
+            "    assert skipped_results > 0\n"
+        ),
+        (
+            "import pytest\n\n"
+            "class Reporter:\n"
+            "    def skip(self) -> None:\n"
+            "        return None\n\n"
+            "def helper(pytest: Reporter) -> None:\n"
+            "    pytest.skip()\n\n"
+            "def test_probe() -> None:\n"
+            "    helper(Reporter())\n"
+        ),
+        (
+            "import pytest\n\n"
+            "class Reporter:\n"
+            "    def skip(self) -> None:\n"
+            "        return None\n\n"
+            "pytest = Reporter()\n\n"
+            "def test_probe() -> None:\n"
+            "    pytest.skip()\n"
+        ),
+        (
+            "class Reporter:\n"
+            "    def skip(self) -> None:\n"
+            "        return None\n\n"
+            "def ordinary() -> object:\n"
+            "    import pytest as policy\n"
+            "    return policy.param(1)\n\n"
+            "def lookalike() -> None:\n"
+            "    policy = Reporter()\n"
+            "    policy.skip()\n\n"
+            "def test_probe() -> None:\n"
+            "    assert ordinary() is not None\n"
+        ),
+    )
+    for source in variants:
+        probe.write_text(source, encoding="utf-8")
+        assert verify.check_focused_tests(fixture_repo, ()) == [], source
 
 
 def test_workspace_package_noop_script_rejected(

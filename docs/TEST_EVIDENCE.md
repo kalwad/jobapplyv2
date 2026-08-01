@@ -33,6 +33,233 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Revised audit validation and bounded bypass correction (2026-07-30)
+
+- Revision: implementation working tree based on exact clean `main` commit
+  `f5cb2fc26b628c1b74594aafbbc6aadd4840028f`, tree
+  `8c5b5698f4c60b908284659de905beb265da8a42`; `origin/main` matched. The
+  ending commit and content tree are reported in the implementation handoff.
+- Environment: macOS 27.0; Node 24.18.0; pnpm 11.17.0; Vitest 4.1.10; uv
+  0.11.32; uv-managed Python 3.12.13.
+- Interruption and recovery (2026-08-01): the corrective session was
+  interrupted after its regression tests were authored but before the
+  analyzer implementations converged. The recovery session verified the
+  committed boundary unchanged, preserved the dirty writer tree (9 modified
+  tracked files, +13,322/−669 against `f5cb2fc`, no staged or untracked
+  entries) in a durable external snapshot before any edit, and reproduced
+  the interrupted checkpoint exactly: nine focused failures — two scanner
+  dynamic-import regressions, three verifier reporter-channel regressions,
+  and four Python execution-stage-hook regressions — plus mechanical
+  ESLint/Prettier/Ruff/tsc defects in the scanner, the platform guard, and
+  two Python test files. The recovery completed only those residuals; no
+  new bypass family was searched for and no architecture changed.
+- Boundary: JAPP-MASTER-001 version 1.4 remained canonical. M00 and M01 were
+  ACCEPTED; M02-W01 was the sole IN_PROGRESS package; M02-W02 was NOT_STARTED;
+  no package was READY; M02 remained IN_PROGRESS; the release was NOT_READY;
+  and all four critical gates were NOT_EVALUATED. Every pre-correction
+  reproduction ran in a disposable exact-start copy. Neither protected Opus
+  audit worktree was modified or reused.
+- Independent Phase A classifications and exact-start evidence:
+  - **B-01 CONFIRMED blocker.** In
+    `/private/tmp/jobapplyv2-root-triage.AKoDr5/b01-integration`, the tracked
+    `governance-discovery.test.ts` replacement used
+    `const C = ["a", "b", "c"]; (() => { C.length = 0; })(); test.each(C)`
+    plus one filler. `node scripts/check-ts-test-policy.mjs
+    packages/test-fixtures/test/m02-w01/governance-discovery.test.ts` exited 0
+    with zero diagnostic bytes. The machine-readable M02-W01 Vitest run
+    exited 0 with 105/105 passed and no non-pass category; the attacked
+    registration contributed zero cases and the filler preserved the exact
+    count. `uv run python scripts/verify.py --suite integrity` and
+    `--suite fixture-corpus` both exited 0. The 26-source direct-call matrix
+    registered and passed 48/48 runtime cases. It covered direct, nested,
+    async, `.call`, `.apply`, named-function, function-expression, arrow,
+    argument, returned-alias, before/after-registration, conditional, uncalled
+    declaration, and callback controls. Root cause: function bodies were
+    pruned without resolving definitely invoked local callables, while
+    uncalled arrow/function-expression bodies could be treated as executed.
+  - **B-02 CONFIRMED blocker.** In the sibling `b02-integration` copy, the
+    replacement used `const T = [].concat("abc"); T.splice(0, 1);
+    test.each(T)` plus one filler. The same direct scanner command exited 0
+    with zero diagnostic bytes; machine-readable Vitest exited 0 with 105/105
+    passed, and both verifier suites exited 0. The concat matrix registered
+    and passed 55/55 runtime cases across primitives, nullish values, objects,
+    dense/sparse/nested arrays, spread arguments, static and unknown
+    `Symbol.isConcatSpreadable`, aliases, shadowed/subclassed arrays, and
+    `pop`/`shift`/`splice`/`delete`/length mutation. Root cause: concat
+    arguments were evaluated with iterable/string cardinality rather than
+    `Array.prototype.concat` slot semantics, so the string primitive was
+    modeled as three slots instead of one.
+  - **B-03 CONFIRMED blocker.** In the sibling `b03-integration` copy, one
+    substantive assertion became a knowingly false `test.fails` assertion
+    and one filler was added. The direct scanner exited 0. Pinned Vitest
+    exited 0 and printed `105 passed | 1 expected fail (106)`; its JSON
+    reporter labeled all 106 assertions passed, with no failed, pending, or
+    todo count. Both verifier suites exited 0. The spelling matrix covered
+    `test.fails`, `it.fails`, aliases, computed literal members, supported
+    `.fails.each`/`.fails.for` and concurrent modifier orderings, expected
+    failures that failed or unexpectedly passed, ordinary failures, and
+    skip/todo/pending/excluded controls. Root cause: `fails` was absent from
+    the TypeScript policy and the summary proof trusted the ordinary passed
+    count without rejecting Vitest's expected-fail category.
+  - **B-04 CONFIRMED blocker.** Exact-start disposable matrices exercised 24
+    JSON cases, 26 TypeScript cases, and 12 Markdown/text cases; respectively
+    13, 9, and 6 required rejects passed the old guard. A combined
+    `evidence-record:v1` producer attack left the direct guard, integrity
+    verifier, and fixture-corpus verifier green with the focused suite at
+    105/105. JSON alias/major pairs, numeric/string/case majors, nested/array
+    shapes, bounded percent/escape forms, static TypeScript concatenation,
+    templates, aliases and joins, unresolved per-expression values, malformed
+    syntax, runtime-derived values, and textual forms were covered. After the
+    initial correction, an additional exact-start regression for direct
+    assignment to `Array.prototype.join` and
+    `Object.defineProperty(Array.prototype, "join", ...)` failed 2/2 because
+    both reports remained valid. Root causes were incomplete bounded
+    normalization/static evaluation, a file-global resolved-value flag that
+    suppressed an unrelated unresolved expression, and trusting intrinsic
+    array-join semantics after a statically visible prototype override.
+  - **N-23 CONFIRMED blocker.** A Ruff- and mypy-clean exact-start mutation
+    imported pytest normally, aliased a skip callable, skipped one substantive
+    Python test, and added one filler. Machine-readable pytest collected 696
+    tests and reported 695 passed / 1 skipped, while
+    `uv run python scripts/verify.py --suite python` exited 0. Separate
+    controls covered `from pytest import skip`, module aliases,
+    `importorskip`, `mark.skip`, `mark.skipif`, module-level, parametrized,
+    collection-time, and collection-filter skips. A stronger exact-start
+    `pytest_plugins = ["inventory_plugin"]` reproduction removed one
+    substantive test during collection and added one filler: focused pytest
+    and JUnit each reported one ordinary pass with no non-pass category,
+    integrity remained PASS, and the complete Python verifier remained PASS at
+    696 collected / 695 passed. Root causes were regex-based skip discovery
+    that did not model Python bindings/scopes, plugin loading, namespace
+    provenance, or collection hooks, plus a minimum-pass summary proof that
+    did not reject nonordinary result categories.
+- Bounded correction:
+  - The TypeScript test-policy scanner now interprets definitely invoked local
+    callables and direct/nested IIFEs without treating every definition as
+    executed; uncertain calls fail closed when table safety depends on them.
+    It models concat slot/length/spreadability semantics without executing
+    JavaScript and rejects expected-fail modifiers.
+  - The verifier accepts only ordinary Vitest pass summaries, rejects every
+    known or unknown extra category, and uses a lexical,
+    statement-order-aware Python AST policy for skip/xfail/importorskip and
+    collection bypasses. Pytest LF and CRLF summaries reject failed, error,
+    skipped, xfailed, xpassed, deselected, and rerun categories.
+  - The platform-v1 guard performs bounded deterministic decoding and
+    TypeScript constant evaluation, evaluates unresolved schema-like
+    expressions independently, invalidates mutable static arrays, and fails
+    closed after statically visible `Array.prototype.join` overrides. It
+    preserves the exact 15-pair inventory, historical v1 reads, redacted
+    diagnostics, and the no-arbitrary-execution boundary.
+  - The scanner statically resolves dynamic `import()` specifiers through
+    literal, concatenated, unique-`const`, and resolvable-template forms
+    into the relative-helper closure scan, and fails closed with a finding
+    when a dynamic-import specifier cannot be statically resolved. Bare and
+    resolvable non-relative specifiers remain ordinary.
+  - The verifier owns the canonical Vitest reporter channel: a registry
+    Vitest command that declares its own reporter is rejected before any
+    child process runs, and `--reporter=default` is appended to direct
+    Vitest commands and forwarded through `--` pass-through to turbo-run
+    Vitest tasks, so neither a registry argument nor a repository
+    vitest-config reporter can replace the summary grammar the proofs parse.
+  - The Python policy names and forbids the execution-stage session hooks
+    `pytest_collection_finish` and `pytest_runtestloop` at module scope
+    across assignment, definition, import-alias, and namespace-write
+    spellings, closing the post-collection `session.items` removal vector.
+  - The platform-version guard and scanner additionally received
+    type/lint/format-only repairs during recovery; guard semantics, the
+    15-pair inventory, and every producer verdict are unchanged, and the
+    committed-surface scan still reports 15 pairs over 25 producer files.
+- Focused corrected evidence (final recovered candidate, 2026-08-01):
+  - `uv run pytest -q scripts/tests/test_integrity.py` → exit 0, 42 passed
+    in 81.09s: the complete scanner policy matrix, including definitely
+    invoked IIFE/local-callable table pruning, concat slot semantics,
+    expected-fail rejection, cross-file `test.fails` laundering through
+    static helper imports, statically resolvable dynamic-import helpers
+    (concatenated, unique-`const`, and template specifiers all reach the
+    laundered helper), fail-closed unresolved dynamic imports, bounded
+    ordinary dynamic-import controls, and the aliased-skip end-to-end
+    Python rejections.
+  - `uv run pytest -q scripts/tests/test_suite_states.py` → exit 0, 175
+    passed in 6.77s: ordinary-pass Vitest summary grammar, exact-count and
+    per-package proofs, repository custom-reporter rejection before
+    execution, forced `--reporter=default` on direct and turbo-run Vitest
+    commands, LF/CRLF pytest nonordinary-category rejection, the lexical
+    Python AST skip/collection policy including `pytest_collection_finish`
+    and `pytest_runtestloop`, and the Ruff- and mypy-clean count-preserving
+    conftest/plugin/execution-stage bypass end-to-end rejections. Remaining
+    dynamically evaluable collection forms stay independently blocked by
+    Ruff S307/S102; skip/xfail capability forms that survive static policy
+    still produce nonordinary runtime categories and are rejected by the
+    summary parser.
+  - `uv run pytest -q scripts/tests/test_integrity.py
+    scripts/tests/test_suite_states.py` → exit 0, 217 passed in 95.34s.
+  - `pnpm --filter @japp/test-fixtures exec vitest run
+    test/m02-w01/privacy-security.test.ts --no-file-parallelism
+    --maxWorkers=1` → exit 0, 22/22 passed, including the platform-producer
+    reject/control tables with the direct, defineProperty, alias,
+    `Reflect.set`, and `Object.assign` array-join override rejections and
+    the unrelated-object and corrected-v2 controls.
+  - The temporal/oracle, re-signed-contradiction, generator check-mode, and
+    platform-producer regressions all pass inside the 105-test focused
+    fixture aggregate below.
+  - Full-repository scanner scan: 37 discovered TypeScript test files in
+    0.93 s wall; the verifier's 120 s scanner budget and every other
+    timeout are unchanged.
+- Aggregate corrected evidence (final recovered candidate, 2026-08-01):
+  - `pnpm --filter @japp/test-fixtures exec vitest run test/m02-w01
+    --no-file-parallelism --maxWorkers=1` → exit 0, 8 files and 105/105
+    tests passed with zero failed, pending, or todo cases.
+  - `pnpm --filter @japp/test-fixtures fixtures:seed:check`,
+    `fixtures:validate`, `fixtures:privacy`, `fixtures:platform-v1`, and
+    `fixtures:discover` → exit 0. Counts were 12 profiles, 72 evidence
+    artifacts, 12 resumes, 24 jobs, 72 requirements, 36 scenarios / 108
+    evaluations, 77 claims, 31 gaps, and 69 policies; privacy scanned 25 files
+    / 26,179 scalar fields; the platform guard derived 15 pairs and scanned 25
+    producer files; discovery found 9 collections, 405 records, 108
+    evaluations, and 8 focused test files.
+  - `pnpm --filter @japp/test-fixtures test` → exit 0, 9 files and 106/106
+    tests passed.
+  - `uv run pytest -q scripts/tests` → exit 0, 856 passed in 122.12s.
+  - `pnpm install --frozen-lockfile`, `uv sync --locked`, and both
+    `cargo fetch --locked` commands → exit 0 with byte-identical lockfile
+    SHA-256 digests before and after the complete verification pass.
+  - `python3 scripts/validate_status.py` → exit 0, all 45 check groups passed.
+    `pnpm traceability:check` → exit 0, 193 requirements and 300 work packages
+    validated. `pnpm generate:contracts --check` → exit 0, 183 files
+    byte-identical. `pnpm run doctor` → exit 0, 22 pass / 1 warning / 0 fail
+    / 1 not-yet-applicable.
+  - An initial `pnpm verify` candidate run exited 1 after all runtime suites
+    passed because ESLint found one redundant TypeScript condition and mypy
+    found one reused loop variable in the new static-string evaluator. The
+    conditions/names were corrected without changing policy behavior. A later
+    expanded-matrix candidate again completed every runtime suite but exited 1
+    only because Prettier and Ruff requested mechanical formatting of the
+    scanner and one regression string; both formatters were applied. The
+    interruption then left five tsc errors, ten ESLint findings, two
+    Prettier-unformatted files, and one Ruff finding plus two
+    Ruff-unformatted Python test files in place; the recovery repaired all
+    of them without changing any analyzer verdict.
+  - Final `pnpm verify` on the recovered candidate → exit 0. All 15 ACTIVE
+    suites passed and visual remained honestly NOT_YET_APPLICABLE. Executed
+    counts included 9/9 TypeScript package tasks with 2,553 tests (including
+    106 fixture and 2,440 contract tests), 8/8 focused M02-W01 files with
+    105/105 tests, 6/6 focused contract files with 662/662 tests, 857/857
+    Python tests, 11/11 Rust tests, and 1/1 Playwright test. No skipped,
+    pending, todo, excluded, expected-fail, deselected, xfail/xpass, or
+    rerun category was reported.
+- Scope and governance: no runtime guard mandate or other architecture change
+  was required. The changes remain limited to the static policy/summary
+  verifiers, platform-version producer guard, focused regressions, and this
+  truthful corrective evidence. No governance stamp was created; no issue was
+  closed or marked FIXED; M02-W01 remains IN_PROGRESS and unaccepted; M02-W02
+  remains NOT_STARTED and was not begun; no package is READY; M02 remains
+  IN_PROGRESS; the release remains NOT_READY; and no critical gate was
+  evaluated. Final aggregate and three-platform hosted evidence are reported
+  in the implementation handoff.
+- Artifacts: no retained reporter or reproduction artifact. All disposable
+  copies and temporary environments are removed before handoff. No flaky
+  behavior observed.
+
 ### M02-W01 — Independent Opus-audit triage and bounded correction (2026-07-30)
 
 - Revision: implementation working tree based on exact clean `main` commit

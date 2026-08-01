@@ -131,13 +131,24 @@ reopen their preserved scope or any accepted M00/M01 milestone.
 - Reproduction: each requested representation using the deprecated
   `evidence-record:v1` family passes the invalidated guard, while a direct URN
   fails and corrected v2 passes. The canonical inventory still contains the
-  exact fifteen reviewed v1/v2 pairs.
+  exact fifteen reviewed v1/v2 pairs. Revised-audit validation on 2026-07-30
+  additionally reproduced JSON alias/major, encoded text, nested static
+  TypeScript construction, per-expression unresolved-value suppression, and
+  statically visible `Array.prototype.join` override bypasses. The direct and
+  `Object.defineProperty` prototype-override regressions both remained valid
+  at the exact starting tree. The final bounded matrix also covered canonical
+  schema selectors, split JSON/text representations, current-value aliases,
+  schema destinations/sinks, intrinsic shadowing and statement order, with
+  separate historical-read and benign-v2 controls.
 - Workaround: none accepted; new producers must select corrected v2
   semantics.
 - Resolution + evidence link: IN_PROGRESS. Preserve exact pair discovery,
   parse JSON aliases and pinned-TypeScript AST constants, fail closed on
-  producer parse/type errors, redact diagnostics, then run clean clones,
-  fresh CI, and fresh audit.
+  producer parse/type errors and statically visible intrinsic overrides,
+  evaluate unresolved schema-like expressions independently, redact
+  diagnostics, then run clean clones, fresh CI, and fresh audit. Bounded
+  corrective execution is recorded in `docs/TEST_EVIDENCE.md`; it is
+  implementation evidence only and does not close this issue.
 
 ### KI-0043 — Fixture seed check mode mutates missing roots
 
@@ -171,13 +182,37 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   `test.skipIf(true)` and add a trivial pass. Pinned Vitest reports 50 passed
   and one skipped with exit zero; the original static and exact-count proofs
   also accept. Shared count imports and non-enumerating positive tests are
-  visible in the invalidated tree.
+  visible in the invalidated tree. Revised-audit validation on 2026-07-30
+  separately reproduced three count-preserving green bypasses: a definitely
+  invoked IIFE emptied a parameter table, concat modeled a scalar string as
+  three slots instead of one, and a knowingly false `test.fails` assertion
+  was reported as `105 passed | 1 expected fail (106)`. A Ruff-clean Python
+  mutation also skipped a substantive test through an aliased pytest callable
+  while a filler preserved the pass threshold; machine-readable pytest
+  reported 695 passed / 1 skipped and the Python verifier remained green. A
+  second Ruff- and mypy-clean exact-start mutation loaded a collection plugin
+  through `pytest_plugins`, removed one substantive item, and added a filler;
+  focused JUnit exposed only one ordinary pass while both integrity and the
+  complete Python verifier remained green. Recovery validation on 2026-08-01
+  confirmed three further already-represented residual families: cross-file
+  `test.fails` laundering through statically resolvable dynamic `import()`
+  helpers; a registry-declared custom Vitest reporter forging the
+  ordinary-pass summary; and Ruff- and mypy-clean `pytest_collection_finish`
+  / `pytest_runtestloop` conftest hooks removing collected items after
+  collection while a filler preserved the ordinary pass count.
 - Workaround: none accepted. Metadata author/reviewer inequality is
   provenance hygiene, not independent certification.
 - Resolution + evidence link: IN_PROGRESS. Add a literal test-only oracle
   with every count/scenario/evaluation/credential decision, coherent-drift
-  tests, TypeScript-AST conditional-skip detection, strict non-pass summary
-  parsing, clean clones, fresh CI, and a separate fresh audit.
+  tests, sound definitely-executed table mutation and concat semantics,
+  TypeScript-AST conditional-skip/expected-fail detection, static
+  dynamic-import closure resolution that fails closed on unresolved
+  specifiers, a verifier-owned Vitest reporter channel, lexical Python AST
+  skip/collection policy with named execution-stage session hooks, strict
+  cross-platform non-pass summary parsing, clean clones, fresh CI, and a
+  separate fresh audit. Bounded corrective execution is recorded in
+  `docs/TEST_EVIDENCE.md`; it is implementation evidence only and does not
+  close this issue.
 
 ### KI-0045 — Fixture topology and consequential-policy coverage are shallow
 
