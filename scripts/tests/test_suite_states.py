@@ -84,8 +84,8 @@ def write_python_inventory(
     }
     path = ctx.repo / "scripts/python-test-inventory.v1.json"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    path.write_bytes(
+        (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     )
     return path
 
@@ -1507,7 +1507,10 @@ def test_python_inventory_loads_exact_windows_and_posix_identities(
             "test_atomic_adoption_rejects_non_regular_source"
         ),
     ]
-    write_python_inventory(fixture_repo, common)
+    inventory_path = write_python_inventory(fixture_repo, common)
+    inventory_bytes = inventory_path.read_bytes()
+    assert inventory_bytes.endswith(b"\n")
+    assert b"\r\n" not in inventory_bytes
     test_relatives = (
         "scripts/tests/test_probe.py",
         "scripts/tests/test_v14_migration.py",
