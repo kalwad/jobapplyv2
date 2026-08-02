@@ -60,7 +60,7 @@ def test_vitest_per_package_proof_requires_fresh_counts() -> None:
     assert "fresh execution required" in failure
 
 
-def test_cargo_and_pytest_proofs_require_minimum_counts() -> None:
+def test_cargo_minimum_and_pytest_exact_inventory_proofs() -> None:
     ctx = _ctx()
     cargo = verify.Proof(kind="cargo_min_passed")
     assert (
@@ -69,8 +69,10 @@ def test_cargo_and_pytest_proofs_require_minimum_counts() -> None:
     )
     failure = verify.check_proof(ctx, _suite_stub(), cargo, "test result: ok. 0 passed")
     assert failure is not None
-    pytest_proof = verify.Proof(kind="pytest_min_passed")
-    summary = "=========== 12 passed, 2 warnings in 0.01s ==========="
+    ctx.python_expected_count = 12
+    ctx.python_expected_digest = "expected"
+    pytest_proof = verify.Proof(kind="pytest_exact_inventory")
+    summary = "=========== 12 passed in 0.01s ==========="
     assert verify.check_proof(ctx, _suite_stub(), pytest_proof, summary) is None
     assert verify.check_proof(ctx, _suite_stub(), pytest_proof, "no tests") is not None
     echoed_title = "tests/test_x.py::test_5_passed_items PASSED"

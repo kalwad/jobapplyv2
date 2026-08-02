@@ -847,7 +847,7 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
       expect(report.valid, file).toBe(false);
       expect(
         report.issues.map((issue) => issue.code),
-        file,
+        `${file}: ${content}`,
       ).toContain(code);
     }
     for (const [file, content] of [
@@ -1057,6 +1057,205 @@ describe("M02-W01 privacy adversarial and producer-version tables", () => {
         (issue) => issue.code === "PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED",
       ),
     ).toHaveLength(2);
+  });
+
+  test("rejects definitely invoked join mutators through bounded local callable forms", () => {
+    const declaration =
+      "declare const runtimeJoin: (separator?: string) => string;";
+    const schema =
+      'const schema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void schema;';
+    const rejected = [
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const alias = mutate; alias(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const first = mutate; const second = first; second(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } mutate.call(undefined); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } mutate.apply(undefined, []); ${schema}`,
+      `${declaration} const mutate = () => { Array.prototype.join = runtimeJoin; }; const alias = mutate; alias(); ${schema}`,
+      `${declaration} const mutate = function () { Array.prototype.join = runtimeJoin; }; mutate(); ${schema}`,
+      `${declaration} declare const choose: boolean; function mutate() { Array.prototype.join = runtimeJoin; } const keep = () => {}; const alias = choose ? mutate : keep; alias(); ${schema}`,
+      `${declaration} declare const choose: boolean; function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} (choose ? mutate : keep)(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } (0, mutate)(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } let alias = mutate; alias = alias; alias(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const [alias] = [mutate]; alias(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } Reflect.apply(mutate, undefined, []); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function outer(_value = mutate()) {} outer(); ${schema}`,
+      `${declaration} function* mutate() { Array.prototype.join = runtimeJoin; } mutate().next(); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} Reflect.apply(outer, undefined, []); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function build() { const innerSchema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void innerSchema; } mutate(); build();`,
+      `${declaration} declare const key: "mutate" | "keep"; function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} const holder = { mutate, keep }; holder[key](); ${schema}`,
+      `${declaration} function* mutate() { Array.prototype.join = runtimeJoin; } const iterator = mutate(); iterator.next(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function build() { const innerSchema = ["urn", "japp", "schema", "platform", "evidence-record", "v2"].join(":"); void innerSchema; } function outer() { mutate(); build(); } outer();`,
+      `${declaration} declare const key: "mutate" | "keep"; function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} const holder = { mutate, keep }; const alias = holder; alias[key](); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const holder = { call: mutate }; holder.call(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const holder = { apply: mutate }; holder.apply(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} const holder = { run: keep }; holder.run = mutate; holder.run(); ${schema}`,
+      `${declaration} const holder = { run() { Array.prototype.join = runtimeJoin; } }; holder.run(); ${schema}`,
+      `${declaration} declare const extra: Record<string, () => void>; declare const key: string; const holder = { ...extra }; holder[key](); ${schema}`,
+      `${declaration} function* mutate() { yield 1; Array.prototype.join = runtimeJoin; } const iterator = mutate(); iterator.next(); iterator.next(); ${schema}`,
+      `${declaration} function* mutate() { if (false) yield 1; Array.prototype.join = runtimeJoin; } mutate().next(); ${schema}`,
+      `${declaration} declare const choose: boolean; function* mutate() { if (choose) yield 1; Array.prototype.join = runtimeJoin; } mutate().next(); ${schema}`,
+    ];
+    for (const source of rejected) {
+      expect(
+        scanPlatform("producer.ts", `${source}\n`).issues.map(
+          (issue) => issue.code,
+        ),
+      ).toContain("PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED");
+    }
+
+    const accepted = [
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } const alias = mutate; void alias; ${schema}`,
+      `${declaration} const mutate = () => { Array.prototype.join = runtimeJoin; }; void mutate; ${schema}`,
+      `${declaration} const mutate = function () { Array.prototype.join = runtimeJoin; }; void mutate; ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } ${schema} mutate();`,
+      `${declaration} const mutate = () => { Array.prototype.join = runtimeJoin; }; ${schema} mutate();`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } let alias = mutate; alias = () => {}; alias(); ${schema}`,
+      `${declaration} const unrelated = { call() {}, apply() {}, join() { return "ordinary"; } }; unrelated.call(); unrelated.apply(); unrelated.join(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } if (false) mutate(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } false && mutate(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; ["ordinary"].join(","); } ${schema} mutate();`,
+      `${declaration} function* mutate() { Array.prototype.join = runtimeJoin; } mutate(); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} outer("supplied"); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function outer(_value = mutate()) {} outer("supplied"); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} outer.call(undefined, "supplied"); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} outer.apply(undefined, ["supplied"]); ${schema}`,
+      `${declaration} function mutate() { return; Array.prototype.join = runtimeJoin; } mutate(); ${schema}`,
+      `${declaration} function* mutate() { yield 1; Array.prototype.join = runtimeJoin; } mutate().next(); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} const bound = outer.bind(undefined, "supplied"); bound(); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} const key = "keep"; const holder = { mutate, keep }; holder[key](); ${schema}`,
+      `${declaration} function mutate() { Array.prototype.join = runtimeJoin; } function keep() {} mutate.call = keep; mutate.call(); ${schema}`,
+      `${declaration} function outer(_value = (Array.prototype.join = runtimeJoin)) {} const once = outer.bind(undefined, "supplied"); const twice = once.bind(undefined); twice(); ${schema}`,
+    ];
+    for (const source of accepted) {
+      expect(scanPlatform("producer.ts", `${source}\n`).valid, source).toBe(
+        true,
+      );
+    }
+
+    const sentinelRoot = root("japp-m02-platform-callable-no-eval-");
+    const sentinel = join(sentinelRoot, "must-not-exist");
+    const noExecution = scanPlatform(
+      "producer.ts",
+      [
+        declaration,
+        "function mutate() {",
+        `  process.getBuiltinModule("node:fs").writeFileSync(${JSON.stringify(sentinel)}, "executed");`,
+        "  Array.prototype.join = runtimeJoin;",
+        "}",
+        "const alias = mutate;",
+        "alias();",
+        schema,
+      ].join("\n"),
+    );
+    expect(noExecution.valid).toBe(false);
+    expect(existsSync(sentinel)).toBe(false);
+  });
+
+  test("matches deprecated platform filenames and aliases with bounded ASCII case folding", () => {
+    const rejected = [
+      [
+        "Evidence-Record.V1.schema.json",
+        '{"schema_ref":"urn:japp:schema:platform:evidence-record:v2"}\n',
+        "DEPRECATED_PLATFORM_V1_FILENAME",
+      ],
+      [
+        "producer.md",
+        "schema path: ./Schemas/EvIdEnCe-ReCoRd.V1.ScHeMa.JsOn\n",
+        "DEPRECATED_PLATFORM_V1_FILENAME",
+      ],
+      [
+        "producer.json",
+        '{"schema_alias":"EVIDENCE-RECORD","major":"v1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"alias":"Evidence-Record","version":1}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+      [
+        "producer.json",
+        '{"root":"URN:JAPP:SCHEMA:PLATFORM:EVIDENCE-RECORD","major":"V1"}\n',
+        "DEPRECATED_PLATFORM_V1_ALIAS",
+      ],
+    ] as const;
+    for (const [file, content, code] of rejected) {
+      const report = scanPlatform(file, content);
+      expect(report.valid, file).toBe(false);
+      expect(
+        report.issues.map((issue) => issue.code),
+        file,
+      ).toContain(code);
+      const diagnostics = JSON.stringify(report.issues);
+      expect(diagnostics).not.toContain("EVIDENCE-RECORD");
+      expect(diagnostics).not.toContain("EvIdEnCe-ReCoRd");
+    }
+
+    for (const [file, content] of [
+      ["producer.json", '{"schema_alias":"EVIDENCE-RECORD","major":"V2"}\n'],
+      [
+        "producer.md",
+        "Evidence-Record V1 migration prose contains no platform schema reference.\n",
+      ],
+    ] as const) {
+      expect(scanPlatform(file, content).valid, file).toBe(true);
+    }
+  });
+
+  test("fails closed only for unresolved selector capability in schema objects", () => {
+    const rejected = [
+      "declare const runtimeSelection: Record<string, unknown>; const schema = { ...runtimeSelection }; void schema;",
+      'declare const runtimeSelection: Record<string, unknown>; const schema = { schema_alias: "evidence-record", major: "v2", ...runtimeSelection }; void schema;',
+      'declare const runtimeSelection: Record<string, unknown>; const schema = { ...runtimeSelection, schema_alias: "evidence-record", major: "v2" }; void schema;',
+      "declare const runtimeSelector: string; declare const runtimeValue: unknown; const schema = { [runtimeSelector]: runtimeValue }; void schema;",
+      'const runtimeSelection = JSON.parse("{\\"schema_alias\\":\\"evidence-record\\",\\"major\\":\\"v1\\"}") as Record<string, unknown>; const schema = { ...runtimeSelection }; void schema;',
+      'declare const choose: boolean; declare const runtimeSelection: Record<string, unknown>; let reviewed: Record<string, unknown> = { schema_alias: "evidence-record", major: "v2" }; if (choose) reviewed = runtimeSelection; const schema = { ...reviewed }; void schema;',
+      'const reviewed: { schema_alias: string; major: string } = { schema_alias: "evidence-record", major: "v2" }; reviewed.major = "v1"; const schema = { ...reviewed }; void schema;',
+      'const alias = { schema_alias: "evidence-record", major: "v2" }; let reviewed = alias; reviewed.major = "v1"; reviewed = alias; const schema = { ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; function mutate() { reviewed.major = "v1"; } mutate(); const schema = { ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; mutate(); function mutate() { reviewed.major = "v1"; } const schema = { ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; function mutate() { reviewed.major = "v1"; } mutate.call(undefined); const schema = { ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; function mutate() { reviewed.major = "v1"; } mutate.apply(undefined, []); const schema = { ...reviewed }; void schema;',
+      'declare const choose: boolean; const reviewed = { schema_alias: "evidence-record", major: "v2" }; function mutate() { reviewed.major = "v1"; } if (choose) mutate(); const schema = { ...reviewed }; void schema;',
+      'declare function mutate(value: unknown): void; const reviewed = { schema_alias: "evidence-record", major: "v2" }; mutate(reviewed); const schema = { ...reviewed }; void schema;',
+      'declare const runtimeSelection: Record<string, unknown>; const producer: Record<string, unknown> = {}; Reflect.set(producer, "schema_ref", { ...runtimeSelection });',
+      'declare const runtimeSelection: Record<string, unknown>; const producer: Record<string, unknown> = {}; Object.defineProperty(producer, "schema_ref", { value: { ...runtimeSelection } });',
+      'declare const runtimeSelector: string; const schema = { [runtimeSelector]: "evidence-record", major: "v2" }; void schema;',
+      'const schema = { [selector]: "evidence-record", major: "v2" }; const selector = "schema_alias"; void schema;',
+      'declare const runtimeSelector: string; const selector = "schema_alias"; { const selector = runtimeSelector; const schema = { [selector]: "evidence-record", major: "v2" }; void schema; }',
+    ];
+    for (const source of rejected) {
+      expect(
+        scanPlatform("producer.ts", `${source}\n`).issues.map(
+          (issue) => issue.code,
+        ),
+      ).toContain("PLATFORM_SCHEMA_EXPRESSION_UNRESOLVED");
+    }
+    expect(
+      scanPlatform(
+        "producer.ts",
+        'const reviewed = { schema_alias: "evidence-record", major: "v1" } as const; const schema = { schema_alias: "evidence-record", major: "v2", ...reviewed }; void schema;\n',
+      ).issues.map((issue) => issue.code),
+    ).toContain("DEPRECATED_PLATFORM_V1_ALIAS");
+
+    const accepted = [
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" } as const; const schema = { ...reviewed }; void schema;',
+      "declare const runtimeSelection: Record<string, unknown>; const metadata = { ...runtimeSelection }; void metadata;",
+      'const aliasKey = "schema_alias"; const majorKey = "major"; const schema = { [aliasKey]: "evidence-record", [majorKey]: "v2" }; void schema;',
+      'const schema = { schema_alias: "evidence-record", major: "v2" }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" } as const; const schema = { schema_alias: "evidence-record", major: "v1", ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" } as const; const alias = reviewed; const schema = { ...alias }; void schema;',
+      "declare const runtime: string; const config = { version: runtime }; void config;",
+      'declare const runtime: string; const schema = { schema_alias: runtime, schema_alias: "evidence-record", major: "v2" }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; { const reviewed = { major: "v2" }; reviewed.major = "v1"; } const schema = { ...reviewed }; void schema;',
+      'declare const runtimeSelection: Record<string, unknown>; let reviewed = runtimeSelection; reviewed = { schema_alias: "evidence-record", major: "v2" }; const schema = { ...reviewed }; void schema;',
+      'const reviewed = { schema_alias: "evidence-record", major: "v2" }; function mutate() { reviewed.major = "v1"; } void mutate; const schema = { ...reviewed }; void schema;',
+      'declare const runtimeSelection: Record<string, unknown>; let reviewed = runtimeSelection; reviewed.major = "v1"; const safe = { schema_alias: "evidence-record", major: "v2" }; reviewed = safe; const schema = { ...reviewed }; void schema;',
+    ];
+    for (const source of accepted) {
+      expect(scanPlatform("producer.ts", `${source}\n`).valid, source).toBe(
+        true,
+      );
+    }
   });
 
   test("constant-folds aliases, templates, parentheses, and concatenated TypeScript", () => {

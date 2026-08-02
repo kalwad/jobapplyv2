@@ -140,6 +140,16 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   schema selectors, split JSON/text representations, current-value aliases,
   schema destinations/sinks, intrinsic shadowing and statement order, with
   separate historical-read and benign-v2 controls.
+  The next independent audit of exact commit
+  `83d83ff1b805b57ca7fecf2797cf35e2036e0740` / tree
+  `f9fddf739fa21d06517574f839625bfb931521ee` found three further bounded
+  failures: invoked join-mutator aliases, alias chains, `.call`, and `.apply`
+  were not modeled (`AUD-PLAT-001`); platform v1 filenames, aliases, majors,
+  and URNs were matched inconsistently by case (`AUD-PLAT-002`); and
+  unresolved object spreads or computed selector keys could enter schema
+  destinations without a fail-closed verdict (`AUD-PLAT-003`). Disposable
+  exact-start probes reproduced all three while canonical controls retained
+  their prior behavior.
 - Workaround: none accepted; new producers must select corrected v2
   semantics.
 - Resolution + evidence link: IN_PROGRESS. Preserve exact pair discovery,
@@ -147,8 +157,12 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   producer parse/type errors and statically visible intrinsic overrides,
   evaluate unresolved schema-like expressions independently, redact
   diagnostics, then run clean clones, fresh CI, and fresh audit. Bounded
-  corrective execution is recorded in `docs/TEST_EVIDENCE.md`; it is
-  implementation evidence only and does not close this issue.
+  corrective execution is recorded in `docs/TEST_EVIDENCE.md`. The current
+  candidate adds bounded point-in-time callable execution, explicit ASCII
+  folding, ordered selector/spread resolution, mutation/escape checks, and
+  schema-sink coverage. Exact hosted three-OS proof and a genuinely fresh
+  independent audit are still required, so this implementation evidence does
+  not close the issue and it remains IN_PROGRESS.
 
 ### KI-0043 — Fixture seed check mode mutates missing roots
 
@@ -200,6 +214,17 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   ordinary-pass summary; and Ruff- and mypy-clean `pytest_collection_finish`
   / `pytest_runtestloop` conftest hooks removing collected items after
   collection while a filler preserved the ordinary pass count.
+  The next independent audit of exact commit
+  `83d83ff1b805b57ca7fecf2797cf35e2036e0740` / tree
+  `f9fddf739fa21d06517574f839625bfb931521ee` reproduced three further
+  verifier failures. Repository Vitest reporter sources in workspace scripts
+  or recognized config could coexist with the appended default reporter and
+  forge the proof channel (`AUD-VER-001`). The pytest terminal parser accepted
+  unknown categories, trailing text, duplicate summaries, and malformed
+  duration forms (`AUD-VER-002`). A minimum pass threshold also did not bind
+  execution to one exact cross-platform Python node-ID inventory, so
+  count-preserving platform-conditioned definitions and empty parameter
+  tables remained green (`AUD-VER-003`).
 - Workaround: none accepted. Metadata author/reviewer inequality is
   provenance hygiene, not independent certification.
 - Resolution + evidence link: IN_PROGRESS. Add a literal test-only oracle
@@ -210,9 +235,13 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   specifiers, a verifier-owned Vitest reporter channel, lexical Python AST
   skip/collection policy with named execution-stage session hooks, strict
   cross-platform non-pass summary parsing, clean clones, fresh CI, and a
-  separate fresh audit. Bounded corrective execution is recorded in
-  `docs/TEST_EVIDENCE.md`; it is implementation evidence only and does not
-  close this issue.
+  separate fresh audit. The current candidate rejects repository-controlled
+  reporter channels before every child process, parses one exact final
+  ordinary pytest summary, and compares collection and pass counts against a
+  canonical common-plus-POSIX node-ID inventory. Bounded corrective execution
+  is recorded in `docs/TEST_EVIDENCE.md`; exact hosted three-OS proof and a
+  fresh independent audit remain required, so this implementation evidence
+  does not close the issue and it remains IN_PROGRESS.
 
 ### KI-0045 — Fixture topology and consequential-policy coverage are shallow
 

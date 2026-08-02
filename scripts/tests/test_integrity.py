@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -14,6 +15,39 @@ from conftest import GOOD_SCRIPTS, REPO_ROOT, make_suite, run_git, write_registr
 
 def _registry() -> verify.Registry:
     return verify.Registry(suites=(), allowed_skips=())
+
+
+def test_committed_python_inventory_is_canonical_and_cross_platform_exact() -> None:
+    ctx = verify.Context(
+        repo=REPO_ROOT,
+        registry_path=REPO_ROOT / "scripts/verification-suites.json",
+        status_path=REPO_ROOT / "docs/PROJECT_STATUS.md",
+    )
+    path = REPO_ROOT / verify.PYTHON_TEST_INVENTORY_RELATIVE
+    metadata = path.lstat()
+    assert stat.S_ISREG(metadata.st_mode)
+    assert not path.is_symlink()
+    test_relatives = tuple(
+        test_path.relative_to(REPO_ROOT).as_posix()
+        for test_path in verify._unskipped_test_paths(
+            ctx, verify.PY_TEST_FILE_GLOBS, ()
+        )
+    )
+    windows, windows_failure = verify._load_python_test_inventory(
+        ctx, test_relatives, "win32"
+    )
+    posix, posix_failure = verify._load_python_test_inventory(
+        ctx, test_relatives, "linux"
+    )
+    assert windows_failure is None
+    assert posix_failure is None
+    assert windows is not None
+    assert posix is not None
+    assert posix.count == windows.count + 2
+    assert set(posix.node_ids).difference(windows.node_ids) == set(
+        verify.PYTHON_POSIX_ONLY_NODE_IDS
+    )
+    assert windows.sha256 != posix.sha256
 
 
 def test_noop_script_detector() -> None:

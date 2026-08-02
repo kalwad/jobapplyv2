@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+import os
+import subprocess
 import sys
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
@@ -14,6 +19,119 @@ from conftest import (
     write_registry,
     write_status,
 )
+
+POSIX_ONLY_NODE_IDS = (
+    (
+        "scripts/tests/test_v14_migration.py::"
+        "test_atomic_adoption_rejects_non_regular_source[fifo]"
+    ),
+    (
+        "scripts/tests/test_v14_migration.py::"
+        "test_atomic_adoption_rejects_non_regular_source[socket]"
+    ),
+)
+MINIMAL_PYTHON_COMMON_NODE_IDS = (
+    "scripts/tests/test_probe.py::test_mandatory_probe",
+    *(
+        "scripts/tests/test_v14_migration.py::"
+        f"test_atomic_adoption_rejects_non_regular_source[{kind}]"
+        for kind in ("missing", "directory", "symlink", "device")
+    ),
+)
+
+
+def write_vitest_workspace(
+    ctx: verify.Context,
+    *,
+    test_script: str = "vitest run --no-file-parallelism --maxWorkers=1",
+) -> Path:
+    (ctx.repo / "pnpm-workspace.yaml").write_text(
+        'packages:\n  - "packages/*"\n', encoding="utf-8"
+    )
+    (ctx.repo / "turbo.json").write_text(
+        json.dumps({"tasks": {"test": {}}}), encoding="utf-8"
+    )
+    package_root = ctx.repo / "packages/probe"
+    package_root.mkdir(parents=True)
+    (package_root / "package.json").write_text(
+        json.dumps(
+            {
+                "name": "@japp/probe",
+                "private": True,
+                "scripts": {"test": test_script},
+            }
+        ),
+        encoding="utf-8",
+    )
+    return package_root
+
+
+def write_python_inventory(
+    ctx: verify.Context,
+    common_node_ids: list[str],
+) -> Path:
+    ordered = sorted(common_node_ids)
+    digest = hashlib.sha256(("\n".join(ordered) + "\n").encode()).hexdigest()
+    payload = {
+        "schema_version": 1,
+        "normalization_version": 1,
+        "common": {
+            "count": len(ordered),
+            "sha256": digest,
+            "node_ids": ordered,
+        },
+        "posix_only_node_ids": list(POSIX_ONLY_NODE_IDS),
+    }
+    path = ctx.repo / "scripts/python-test-inventory.v1.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
+def write_minimal_python_surface(ctx: verify.Context) -> None:
+    (ctx.repo / "pyproject.toml").write_text(
+        "[tool.pytest.ini_options]\n"
+        'addopts = ["-ra", "--strict-markers", "--strict-config"]\n',
+        encoding="utf-8",
+    )
+    tests = ctx.repo / "scripts/tests"
+    tests.mkdir(parents=True, exist_ok=True)
+    (tests / "test_probe.py").write_text(
+        "def test_mandatory_probe() -> None:\n    assert True\n", encoding="utf-8"
+    )
+    (tests / "test_v14_migration.py").write_text(
+        "import os\nimport socket\nimport pytest\n\n"
+        "KINDS = [\n"
+        "    'missing', 'directory', 'symlink', 'device',\n"
+        "    *(['fifo'] if hasattr(os, 'mkfifo') else []),\n"
+        "    *(['socket'] if hasattr(socket, 'AF_UNIX') else []),\n"
+        "]\n\n"
+        "@pytest.mark.parametrize('kind', KINDS)\n"
+        "def test_atomic_adoption_rejects_non_regular_source(kind: str) -> None:\n"
+        "    assert kind\n",
+        encoding="utf-8",
+    )
+
+
+def platform_inventory_ids(common_node_ids: list[str]) -> list[str]:
+    additions = [] if sys.platform == "win32" else list(POSIX_ONLY_NODE_IDS)
+    return sorted([*common_node_ids, *additions])
+
+
+def pytest_collection_output(node_ids: list[str], ending: str = "\n") -> str:
+    return ending.join([*node_ids, "", f"{len(node_ids)} tests collected in 0.01s"])
+
+
+def record_successfully(
+    observed: list[tuple[str, ...]],
+) -> Callable[[verify.Context, tuple[str, ...]], tuple[int, str]]:
+    def runner(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        return 0, ""
+
+    return runner
 
 
 def test_real_registry_loads_and_states_match_project_state(
@@ -405,27 +523,61 @@ def test_vitest_proof_accepts_only_ordinary_pass_summaries(
     )
 
 
+@pytest.mark.parametrize(
+    "command",
+    [
+        [
+            "pnpm",
+            "--filter",
+            "@japp/probe",
+            "exec",
+            "vitest",
+            "run",
+            "--reporter=custom",
+        ],
+        [
+            "pnpm",
+            "--filter",
+            "@japp/probe",
+            "exec",
+            "vitest",
+            "run",
+            "--reporter",
+            "custom",
+        ],
+        [
+            "pnpm",
+            "exec",
+            "turbo",
+            "run",
+            "test",
+            "--",
+            "--reporter=custom",
+        ],
+        [
+            "pnpm",
+            "exec",
+            "turbo",
+            "run",
+            "test",
+            "--",
+            "--reporter",
+            "custom",
+        ],
+    ],
+)
 def test_vitest_suite_rejects_repository_custom_reporter_spoof(
     fixture_repo: verify.Context,
     monkeypatch: pytest.MonkeyPatch,
+    command: list[str],
 ) -> None:
+    write_vitest_workspace(fixture_repo)
     write_registry(
         fixture_repo.registry_path,
         [
             make_suite(
                 id="fixture-corpus",
-                commands=[
-                    [
-                        "pnpm",
-                        "--filter",
-                        "@japp/test-fixtures",
-                        "exec",
-                        "vitest",
-                        "run",
-                        "test/m02-w01",
-                        "--reporter=./spoof-reporter.mjs",
-                    ]
-                ],
+                commands=[command],
                 proofs=[{"kind": "vitest_exact_tests", "min": 105}],
             )
         ],
@@ -445,10 +597,149 @@ def test_vitest_suite_rejects_repository_custom_reporter_spoof(
     assert observed == []
 
 
-def test_vitest_suite_forces_default_reporter_and_rejects_expected_fail_filler(
+@pytest.mark.parametrize(
+    "test_script",
+    [
+        "vitest run --reporter=./spoof-reporter.mjs",
+        "vitest run --reporter ./spoof-reporter.mjs",
+    ],
+)
+def test_turbo_workspace_reporter_is_rejected_before_any_child(
     fixture_repo: verify.Context,
     monkeypatch: pytest.MonkeyPatch,
+    test_script: str,
 ) -> None:
+    package_root = write_vitest_workspace(fixture_repo, test_script=test_script)
+    marker = package_root / "reporter-loaded.marker"
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="unit-ts",
+                commands=[["pnpm", "exec", "turbo", "run", "test", "--force"]],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def would_execute(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        marker.write_text("executed\n", encoding="utf-8")
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", would_execute)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert any("reporter" in message for message in outcome.messages)
+    assert observed == []
+    assert not marker.exists()
+
+
+@pytest.mark.parametrize(
+    "config_source",
+    [
+        pytest.param(
+            'export default { test: { reporter: "custom" } };\n',
+            id="singular-reporter",
+        ),
+        pytest.param(
+            'import ForgedReporter from "./forged-reporter.mjs";\n'
+            "const forged = new ForgedReporter();\n"
+            "export default { test: { reporters: [forged] } };\n",
+            id="imported-instantiated-reporters",
+        ),
+        pytest.param(
+            'export default { test: { ["reporter"]: "custom" } };\n',
+            id="static-computed-reporter",
+        ),
+        pytest.param(
+            "declare const dynamic: object; export default { test: { ...dynamic } };\n",
+            id="spread-test-config",
+        ),
+        pytest.param(
+            "export default (() => ({ test: {} }))();\n",
+            id="dynamic-default-export",
+        ),
+        pytest.param(
+            "export default { test: {\n",
+            id="malformed-config",
+        ),
+        pytest.param(
+            "export default { test: { get reporters() { return []; } } };\n",
+            id="reporters-getter",
+        ),
+        pytest.param(
+            "export default { get test() { return { reporters: [] }; } };\n",
+            id="test-getter",
+        ),
+        pytest.param(
+            "export default { test: { async reporters() { return []; } } };\n",
+            id="reporters-method",
+        ),
+        pytest.param(
+            "const defineConfig = (value: object) => ({ ...value, "
+            "test: { reporters: ['custom'] } });\n"
+            "export default defineConfig({ test: {} });\n",
+            id="local-define-config",
+        ),
+        pytest.param(
+            'import { defineConfig } from "./malicious";\n'
+            "export default defineConfig({ test: {} });\n",
+            id="untrusted-define-config-import",
+        ),
+        pytest.param(
+            "export default { plugins: [], test: {} };\n",
+            id="unmodeled-root-plugin",
+        ),
+        pytest.param(
+            "".join(
+                [
+                    'export default { test: { "repo',
+                    "\\",
+                    '\nrter": "custom" } };\n',
+                ]
+            ),
+            id="escaped-line-continuation-reporter",
+        ),
+        pytest.param(
+            "export default { test: { benchmark: { reporters: ['custom'] } } };\n",
+            id="benchmark-reporters",
+        ),
+        pytest.param(
+            "export default { test: { safe: true // hidden\r, "
+            "reporters: ['./evil.mjs']\n} };\n",
+            id="comment-bare-cr-reporter",
+        ),
+        pytest.param(
+            "export default { test: { safe: true // hidden\u2028, "
+            "reporters: ['./evil.mjs']\n} };\n",
+            id="comment-line-separator-reporter",
+        ),
+        pytest.param(
+            "export default { test: { safe: true // hidden\u2029, "
+            "reporters: ['./evil.mjs']\n} };\n",
+            id="comment-paragraph-separator-reporter",
+        ),
+        pytest.param(
+            "export default { test: { 'repo\\\u2028rter': './evil.mjs' } };\n",
+            id="line-separator-string-continuation",
+        ),
+        pytest.param(
+            "export default { test: { 'repo\\\u2029rter': './evil.mjs' } };\n",
+            id="paragraph-separator-string-continuation",
+        ),
+    ],
+)
+def test_vitest_config_reporter_surface_is_rejected_before_any_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    config_source: str,
+) -> None:
+    package_root = write_vitest_workspace(fixture_repo)
+    (package_root / "vitest.config.ts").write_text(config_source, encoding="utf-8")
+    marker = package_root / "config-loaded.marker"
     write_registry(
         fixture_repo.registry_path,
         [
@@ -458,7 +749,559 @@ def test_vitest_suite_forces_default_reporter_and_rejects_expected_fail_filler(
                     [
                         "pnpm",
                         "--filter",
-                        "@japp/test-fixtures",
+                        "@japp/probe",
+                        "exec",
+                        "vitest",
+                        "run",
+                    ]
+                ],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def would_execute(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        marker.write_text("executed\n", encoding="utf-8")
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", would_execute)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+    assert not marker.exists()
+
+
+@pytest.mark.parametrize(
+    "config_source",
+    [
+        (
+            'import { defineConfig } from "vitest/config";\n'
+            "// reporter is an ordinary English word in this comment.\n"
+            "export default defineConfig({\n"
+            "  test: { coverage: { reporter: ['text'] },\n"
+            "    description: 'reporter documentation', testTimeout: 1_000 },\n"
+            "});\n"
+        ),
+        "export default { test: { fileParallelism: false } };\n",
+    ],
+)
+def test_vitest_config_preflight_allows_static_nonreporter_controls(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    config_source: str,
+) -> None:
+    package_root = write_vitest_workspace(fixture_repo)
+    (package_root / "vitest.config.ts").write_text(config_source, encoding="utf-8")
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="fixture-corpus",
+                commands=[
+                    [
+                        "pnpm",
+                        "--filter",
+                        "@japp/probe",
+                        "exec",
+                        "vitest",
+                        "run",
+                    ]
+                ],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def record_command(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", record_command)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.PASS
+    assert len(observed) == 1
+    assert "--reporter=default" in observed[0]
+
+
+def test_reached_root_vitest_reporter_is_rejected_before_any_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package = json.loads(
+        (fixture_repo.repo / "package.json").read_text(encoding="utf-8")
+    )
+    package["scripts"]["test"] = "vitest run --reporter=./spoof-reporter.mjs"
+    (fixture_repo.repo / "package.json").write_text(
+        json.dumps(package), encoding="utf-8"
+    )
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[["pnpm", "test"]])],
+    )
+    marker = fixture_repo.repo / "root-reporter-loaded.marker"
+    observed: list[tuple[str, ...]] = []
+
+    def would_execute(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        marker.write_text("executed\n", encoding="utf-8")
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", would_execute)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+    assert not marker.exists()
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        pytest.param(
+            ["pnpm", "test", "--reporter=./spoof-reporter.mjs"],
+            id="root-reporter-equals",
+        ),
+        pytest.param(
+            ["pnpm", "test", "--reporter", "./spoof-reporter.mjs"],
+            id="root-reporter-split",
+        ),
+        pytest.param(
+            ["pnpm", "test", "--", "--config=./unscanned.config.ts"],
+            id="root-forwarded-config",
+        ),
+        pytest.param(
+            ["pnpm", "test", "--", "--root=./unscanned"],
+            id="root-forwarded-root",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "--filter",
+                "@japp/probe",
+                "exec",
+                "vitest",
+                "run",
+                "-cfoo",
+            ],
+            id="direct-attached-config",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "--filter",
+                "@japp/probe",
+                "exec",
+                "vitest",
+                "run",
+                "-rfoo",
+            ],
+            id="direct-attached-root",
+        ),
+        pytest.param(
+            ["pnpm", "-C", "unscanned", "exec", "vitest", "run"],
+            id="pnpm-directory-override",
+        ),
+        pytest.param(
+            ["pnpm", "run", "--filter", "@japp/probe", "test"],
+            id="run-option-before-test",
+        ),
+        pytest.param(
+            ["pnpm", "run", "--if-present", "test"],
+            id="run-if-present",
+        ),
+        pytest.param(
+            ["pnpm", "--recursive", "exec", "vitest", "run"],
+            id="recursive-direct",
+        ),
+        pytest.param(
+            ["pnpm", "--filter-prod", "@japp/probe", "exec", "vitest", "run"],
+            id="filter-prod-direct",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "--filter",
+                "@japp/probe",
+                "--filter",
+                "@japp/contracts",
+                "exec",
+                "vitest",
+                "run",
+            ],
+            id="repeated-filter-direct",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "--filter",
+                "@japp/probe",
+                "--workspace-root",
+                "exec",
+                "vitest",
+                "run",
+            ],
+            id="workspace-root-direct",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "--force", "test"],
+            id="turbo-option-before-task",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "typecheck", "test"],
+            id="turbo-multiple-tasks",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "test", "--cwd=unscanned"],
+            id="turbo-cwd-override",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "turbo",
+                "run",
+                "test",
+                "--root-turbo-json=unscanned.json",
+            ],
+            id="turbo-root-config-override",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "--", "vitest", "run"],
+            id="outer-delimiter-direct",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "--", "turbo", "run", "test"],
+            id="outer-delimiter-turbo",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "vitest.cmd",
+                "run",
+                "--reporter=./evil.mjs",
+            ],
+            id="direct-vitest-cmd-reporter",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "turbo",
+                "run",
+                "@japp/probe#test",
+                "--",
+                "--reporter=./evil.mjs",
+            ],
+            id="turbo-qualified-test-task",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "turbo",
+                "run",
+                "//#test",
+                "--",
+                "--reporter=./evil.mjs",
+            ],
+            id="turbo-root-qualified-test-task",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "vitest",
+                "run",
+                "--",
+                "--filter",
+                "@japp/probe",
+            ],
+            id="forwarded-filter-does-not-select-config-root",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "turbo",
+                "run",
+                "test",
+                "--",
+                "--pool=threads",
+                "--",
+            ],
+            id="turbo-multiple-forwarded-delimiters",
+        ),
+    ],
+)
+def test_vitest_outer_forwarding_and_execution_root_overrides_are_zero_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    command: list[str],
+) -> None:
+    package = json.loads(
+        (fixture_repo.repo / "package.json").read_text(encoding="utf-8")
+    )
+    package["scripts"]["test"] = "vitest run"
+    (fixture_repo.repo / "package.json").write_text(
+        json.dumps(package), encoding="utf-8"
+    )
+    if "@japp/probe" in command:
+        write_vitest_workspace(fixture_repo)
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[command])],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+@pytest.mark.parametrize(
+    "test_script",
+    [
+        pytest.param(
+            "FLAG=--reporter=./evil.mjs; vitest run $FLAG",
+            id="shell-indirection",
+        ),
+        pytest.param("node ./vitest-wrapper.mjs", id="wrapped-invocation"),
+        pytest.param("vitest run --repo* ./evil.mjs", id="posix-glob-expansion"),
+        pytest.param("vitest run --rep^orter=./evil.mjs", id="windows-caret-expansion"),
+        pytest.param("vitest run --", id="embedded-forwarded-delimiter"),
+    ],
+)
+def test_dynamic_or_wrapped_root_test_script_is_zero_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    test_script: str,
+) -> None:
+    package = json.loads(
+        (fixture_repo.repo / "package.json").read_text(encoding="utf-8")
+    )
+    package["scripts"]["test"] = test_script
+    (fixture_repo.repo / "package.json").write_text(
+        json.dumps(package), encoding="utf-8"
+    )
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[["pnpm", "test"]])],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+def test_named_vitest_script_reporter_is_rejected_before_any_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = fixture_repo.repo / "package.json"
+    package = json.loads(manifest.read_text(encoding="utf-8"))
+    package["scripts"]["test:custom"] = "vitest run --reporter=./evil.mjs"
+    manifest.write_text(json.dumps(package), encoding="utf-8")
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="unit-ts",
+                commands=[["pnpm", "run", "test:custom"]],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(verify, "run_command", record_successfully(observed))
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+@pytest.mark.parametrize("surface", ["root-pretest", "workspace-posttest"])
+def test_reached_test_lifecycle_hooks_are_zero_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    surface: str,
+) -> None:
+    if surface == "root-pretest":
+        manifest = fixture_repo.repo / "package.json"
+        package = json.loads(manifest.read_text(encoding="utf-8"))
+        package["scripts"]["test"] = "vitest run"
+        package["scripts"]["pretest"] = "vitest run --reporter=./evil.mjs"
+        manifest.write_text(json.dumps(package), encoding="utf-8")
+        command = ["pnpm", "test"]
+    else:
+        package_root = write_vitest_workspace(fixture_repo)
+        manifest = package_root / "package.json"
+        package = json.loads(manifest.read_text(encoding="utf-8"))
+        package["scripts"]["posttest"] = "vitest run --reporter=./evil.mjs"
+        manifest.write_text(json.dumps(package), encoding="utf-8")
+        command = ["pnpm", "exec", "turbo", "run", "test"]
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[command])],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+@pytest.mark.parametrize("mutation", ["dependency", "package-config"])
+def test_turbo_reporter_graph_expansion_is_zero_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation: str,
+) -> None:
+    package_root = write_vitest_workspace(fixture_repo)
+    if mutation == "dependency":
+        (fixture_repo.repo / "turbo.json").write_text(
+            json.dumps(
+                {
+                    "tasks": {
+                        "test": {"dependsOn": ["//#test"]},
+                        "//#test": {},
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+    else:
+        (package_root / "turbo.json").write_text(
+            json.dumps({"tasks": {"test": {}}}), encoding="utf-8"
+        )
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="unit-ts",
+                commands=[["pnpm", "exec", "turbo", "run", "test"]],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+def test_workspace_single_quotes_are_supported_but_flow_syntax_fails_closed(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    write_vitest_workspace(fixture_repo)
+    workspace = fixture_repo.repo / "pnpm-workspace.yaml"
+    command = ["pnpm", "exec", "turbo", "run", "test"]
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[command])],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+
+    workspace.write_text("packages:\n  - 'packages/*'\n", encoding="utf-8")
+    accepted = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert accepted.verdict is verify.Verdict.PASS
+    assert len(observed) == 1
+
+    observed.clear()
+    workspace.write_text("packages: ['packages/*']\n", encoding="utf-8")
+    rejected = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert rejected.verdict is verify.Verdict.FAIL
+    assert observed == []
+
+
+def test_root_vitest_script_reuses_existing_forward_separator(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    package = json.loads(
+        (fixture_repo.repo / "package.json").read_text(encoding="utf-8")
+    )
+    package["scripts"]["test"] = "vitest run"
+    (fixture_repo.repo / "package.json").write_text(
+        json.dumps(package), encoding="utf-8"
+    )
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="unit-ts",
+                commands=[["pnpm", "test", "--", "--pool=threads"]],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(
+        verify,
+        "run_command",
+        record_successfully(observed),
+    )
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.PASS
+    assert observed[0].count("--") == 1
+    assert observed[0][-2:] == ("--reporter=default", "--pool=threads")
+
+
+def test_vitest_suite_forces_default_reporter_and_rejects_expected_fail_filler(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    write_vitest_workspace(fixture_repo)
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="fixture-corpus",
+                commands=[
+                    [
+                        "pnpm",
+                        "--filter",
+                        "@japp/probe",
                         "exec",
                         "vitest",
                         "run",
@@ -493,6 +1336,7 @@ def test_turbo_vitest_suite_forces_default_reporter(
     fixture_repo: verify.Context,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    write_vitest_workspace(fixture_repo)
     write_registry(
         fixture_repo.registry_path,
         [
@@ -516,32 +1360,552 @@ def test_turbo_vitest_suite_forces_default_reporter(
     assert observed[0][-2:] == ("--", "--reporter=default")
 
 
+def test_turbo_vitest_suite_preserves_safe_forwarded_arguments(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    write_vitest_workspace(fixture_repo)
+    command = [
+        "pnpm",
+        "exec",
+        "turbo",
+        "run",
+        "test",
+        "--force",
+        "--",
+        "--pool=threads",
+    ]
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[command])],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def record_command(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", record_command)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.PASS
+    assert observed[0][-3:] == (
+        "--",
+        "--reporter=default",
+        "--pool=threads",
+    )
+
+
 @pytest.mark.parametrize(
-    "category",
-    ["skipped", "xfailed", "xpassed", "deselected", "failed", "error"],
+    "summary",
+    [
+        "10 passed, 1 skipped in 0.10s",
+        "10 passed, 1 xfailed in 0.10s",
+        "10 passed, 1 xpassed in 0.10s",
+        "10 passed, 1 deselected in 0.10s",
+        "10 passed, 1 failed in 0.10s",
+        "10 passed, 1 error in 0.10s",
+        "10 passed, 1 rerun in 0.10s",
+        "10 passed, 1 mystery in 0.10s",
+        "10 passed nonsense",
+        "ten passed in 0.10s",
+        "10 passed in yesterday",
+        "10 passed in 0s",
+        "10 passed in 0.1s",
+        "10 passed in 60.00s",
+        "10 passed in 0.10s (0:00:00)",
+        "10 passed in 61.00s (0:01:00)",
+    ],
 )
 @pytest.mark.parametrize("line_ending", ["\n", "\r\n"])
-def test_pytest_proof_rejects_every_nonordinary_result_category(
+def test_pytest_proof_rejects_every_nonordinary_or_unknown_summary(
     fixture_repo: verify.Context,
-    category: str,
+    summary: str,
     line_ending: str,
 ) -> None:
-    proof = verify.Proof(kind="pytest_min_passed", min_count=1)
+    fixture_repo.python_expected_count = 10
+    fixture_repo.python_expected_digest = "expected"
+    proof = verify.Proof(kind="pytest_exact_inventory")
     suite = verify.load_registry(fixture_repo.registry_path).suites[0]
-    output = (
-        f"================ 10 passed, 1 {category} in 0.10s "
-        f"================{line_ending}"
-    )
+    output = f"================ {summary} ================{line_ending}"
     assert verify.check_proof(fixture_repo, suite, proof, output) is not None
+
+
+@pytest.mark.parametrize("line_ending", ["\n", "\r\n"])
+@pytest.mark.parametrize("duration", ["0.10s", "110.39s (0:01:50)"])
+def test_pytest_proof_accepts_one_final_exact_ordinary_summary(
+    fixture_repo: verify.Context,
+    line_ending: str,
+    duration: str,
+) -> None:
+    fixture_repo.python_expected_count = 10
+    fixture_repo.python_expected_digest = "expected"
+    proof = verify.Proof(kind="pytest_exact_inventory")
+    suite = verify.load_registry(fixture_repo.registry_path).suites[0]
     assert (
         verify.check_proof(
             fixture_repo,
             suite,
             proof,
-            f"================ 10 passed in 0.10s ================{line_ending}",
+            "10 tests collected in 0.01s"
+            f"{line_ending}================ 10 passed in {duration} "
+            f"================{line_ending}",
         )
         is None
     )
+
+
+@pytest.mark.parametrize(
+    "output",
+    [
+        "ordinary output without a terminal summary\n",
+        (
+            "================ 10 passed in 0.10s ================\n"
+            "================ 10 passed in 0.11s ================\n"
+        ),
+        "================ 10 passed in 0.10s ================\ntrailing text\n",
+        "================ 10 passed in 0.10s ================\r",
+        "================ 9 passed in 0.10s ================\n",
+    ],
+)
+def test_pytest_proof_rejects_missing_ambiguous_nonfinal_or_wrong_count(
+    fixture_repo: verify.Context,
+    output: str,
+) -> None:
+    fixture_repo.python_expected_count = 10
+    fixture_repo.python_expected_digest = "expected"
+    proof = verify.Proof(kind="pytest_exact_inventory")
+    suite = verify.load_registry(fixture_repo.registry_path).suites[0]
+    assert verify.check_proof(fixture_repo, suite, proof, output) is not None
+
+
+@pytest.mark.parametrize("category", ["mystery", "warning"])
+def test_pytest_proof_rejects_competing_unknown_only_summary(
+    fixture_repo: verify.Context,
+    category: str,
+) -> None:
+    fixture_repo.python_expected_count = 10
+    fixture_repo.python_expected_digest = "expected"
+    proof = verify.Proof(kind="pytest_exact_inventory")
+    suite = verify.load_registry(fixture_repo.registry_path).suites[0]
+    output = (
+        f"================ 1 {category} in 0.01s ================\n"
+        "================ 10 passed in 0.10s ================\n"
+    )
+    assert verify.check_proof(fixture_repo, suite, proof, output) is not None
+
+
+def test_python_inventory_loads_exact_windows_and_posix_identities(
+    fixture_repo: verify.Context,
+) -> None:
+    write_minimal_python_surface(fixture_repo)
+    common = [
+        "scripts/tests/test_probe.py::test_mandatory_probe",
+        (
+            "scripts/tests/test_v14_migration.py::"
+            "test_atomic_adoption_rejects_non_regular_source"
+        ),
+    ]
+    write_python_inventory(fixture_repo, common)
+    test_relatives = (
+        "scripts/tests/test_probe.py",
+        "scripts/tests/test_v14_migration.py",
+    )
+    windows, windows_failure = verify._load_python_test_inventory(
+        fixture_repo, test_relatives, "win32"
+    )
+    posix, posix_failure = verify._load_python_test_inventory(
+        fixture_repo, test_relatives, "linux"
+    )
+    assert windows_failure is None
+    assert posix_failure is None
+    assert windows is not None
+    assert posix is not None
+    assert windows.node_ids == tuple(sorted(common))
+    assert posix.node_ids == tuple(sorted([*common, *POSIX_ONLY_NODE_IDS]))
+    assert posix.count == windows.count + 2
+    assert set(posix.node_ids).difference(windows.node_ids) == set(POSIX_ONLY_NODE_IDS)
+    assert windows.sha256 != posix.sha256
+    unsupported, unsupported_failure = verify._load_python_test_inventory(
+        fixture_repo, test_relatives, "unsupported"
+    )
+    assert unsupported is None
+    assert unsupported_failure is not None
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["malformed", "duplicate", "unsorted", "noncanonical", "wrong_delta"],
+)
+def test_python_inventory_rejects_malformed_duplicate_or_unsorted_identity(
+    fixture_repo: verify.Context,
+    mutation: str,
+) -> None:
+    write_minimal_python_surface(fixture_repo)
+    path = write_python_inventory(
+        fixture_repo,
+        [
+            "scripts/tests/test_probe.py::test_mandatory_probe",
+            (
+                "scripts/tests/test_v14_migration.py::"
+                "test_atomic_adoption_rejects_non_regular_source"
+            ),
+        ],
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if mutation == "malformed":
+        path.write_text("{}\n", encoding="utf-8")
+    elif mutation == "duplicate":
+        payload["common"]["node_ids"].append(payload["common"]["node_ids"][0])
+        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    elif mutation == "unsorted":
+        payload["common"]["node_ids"].reverse()
+        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    elif mutation == "noncanonical":
+        path.write_text(json.dumps(payload), encoding="utf-8")
+    else:
+        payload["posix_only_node_ids"].append(
+            "scripts/tests/test_probe.py::test_third_platform_delta"
+        )
+        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    inventory, failure = verify._load_python_test_inventory(
+        fixture_repo,
+        (
+            "scripts/tests/test_probe.py",
+            "scripts/tests/test_v14_migration.py",
+        ),
+    )
+    assert inventory is None
+    assert failure is not None
+
+
+@pytest.mark.parametrize("kind", ["directory", "symlink"])
+def test_python_inventory_rejects_nonregular_or_symlink_path(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    kind: str,
+) -> None:
+    write_minimal_python_surface(fixture_repo)
+    path = write_python_inventory(
+        fixture_repo, ["scripts/tests/test_probe.py::test_mandatory_probe"]
+    )
+    if kind == "directory":
+        path.unlink()
+        path.mkdir()
+    else:
+        original_is_symlink = Path.is_symlink
+        monkeypatch.setattr(
+            Path,
+            "is_symlink",
+            lambda candidate: candidate == path or original_is_symlink(candidate),
+        )
+    inventory, failure = verify._load_python_test_inventory(
+        fixture_repo,
+        ("scripts/tests/test_probe.py", "scripts/tests/test_v14_migration.py"),
+    )
+    assert inventory is None
+    assert failure is not None
+
+
+@pytest.mark.parametrize(
+    "output",
+    [
+        (
+            "scripts/tests/test_probe.py::test_probe\n"
+            "scripts/tests/test_probe.py::test_probe\n\n"
+            "2 tests collected in 0.01s\n"
+        ),
+        "scripts/tests/test_unknown.py::test_probe\n\n1 test collected in 0.01s\n",
+        "scripts/tests/test_probe.py::test_probe\n\n2 tests collected in 0.01s\n",
+        "scripts/tests/test_probe.py::test_probe\n\ncollection complete\n",
+        "scripts/tests/test_probe.py::test_probe\r1 test collected in 0.01s\r",
+        (
+            "scripts/tests/test_probe.py::test_probe\n\n"
+            "1 test collected in 0.01s (0:00:00)\n"
+        ),
+        (
+            "scripts/tests/test_probe.py::test_probe\n\n"
+            "1 test collected in 61.00s (0:01:00)\n"
+        ),
+    ],
+)
+def test_python_collection_parser_rejects_duplicate_unknown_or_malformed_ids(
+    output: str,
+) -> None:
+    node_ids, failure = verify._parse_pytest_collection_output(
+        output, ("scripts/tests/test_probe.py",)
+    )
+    assert node_ids is None
+    assert failure is not None
+
+
+def test_python_collection_parser_normalizes_only_the_node_path() -> None:
+    selector = r"test_probe[value\with\meaningful\backslashes]"
+    output = (
+        f"scripts\\tests\\test_probe.py::{selector}\r\n\r\n"
+        "1 test collected in 0.01s\r\n"
+    )
+    node_ids, failure = verify._parse_pytest_collection_output(
+        output, ("scripts/tests/test_probe.py",)
+    )
+    assert failure is None
+    assert node_ids == (f"scripts/tests/test_probe.py::{selector}",)
+
+
+def test_python_collection_parser_accepts_pinned_long_duration() -> None:
+    output = (
+        "scripts/tests/test_probe.py::test_probe\n\n"
+        "1 test collected in 61.00s (0:01:01)\n"
+    )
+    node_ids, failure = verify._parse_pytest_collection_output(
+        output, ("scripts/tests/test_probe.py",)
+    )
+    assert failure is None
+    assert node_ids == ("scripts/tests/test_probe.py::test_probe",)
+
+
+def test_python_suite_requires_inventory_before_any_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    write_minimal_python_surface(fixture_repo)
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="python",
+                commands=[["uv", "run", "pytest"]],
+                proofs=[{"kind": "pytest_exact_inventory"}],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def should_not_run(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        return 0, ""
+
+    monkeypatch.setattr(verify, "run_command", should_not_run)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert any("inventory" in message.lower() for message in outcome.messages)
+    assert observed == []
+
+
+@pytest.mark.parametrize(
+    ("mutation", "source", "replacement_ids"),
+    [
+        pytest.param(
+            "platform-conditioned definition",
+            (
+                "import sys\n"
+                "if sys.platform == 'unsupported':\n"
+                "    def test_mandatory() -> None:\n"
+                "        assert True\n"
+                "def test_platform_filler() -> None:\n"
+                "    assert True\n"
+            ),
+            ["scripts/tests/test_inventory.py::test_platform_filler"],
+            id="platform-definition",
+        ),
+        pytest.param(
+            "conditionally empty parameter table",
+            (
+                "import pytest\n"
+                "rows: list[str] = []\n"
+                "if rows:\n"
+                "    @pytest.mark.parametrize('row', rows)\n"
+                "    def test_parameterized(row: str) -> None:\n"
+                "        assert row\n"
+                "def test_filler_one() -> None:\n    assert True\n"
+                "def test_filler_two() -> None:\n    assert True\n"
+                "def test_filler_three() -> None:\n    assert True\n"
+            ),
+            [
+                "scripts/tests/test_inventory.py::test_filler_one",
+                "scripts/tests/test_inventory.py::test_filler_two",
+                "scripts/tests/test_inventory.py::test_filler_three",
+            ],
+            id="empty-parameter-definition",
+        ),
+        pytest.param(
+            "unknown replacement",
+            "def test_unknown_replacement() -> None:\n    assert True\n",
+            ["scripts/tests/test_inventory.py::test_unknown_replacement"],
+            id="unknown-replacement",
+        ),
+    ],
+)
+def test_python_inventory_rejects_count_preserving_identity_replacements(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    mutation: str,
+    source: str,
+    replacement_ids: list[str],
+) -> None:
+    write_minimal_python_surface(fixture_repo)
+    attack = fixture_repo.repo / "scripts/tests/test_inventory.py"
+    attack.write_text(source, encoding="utf-8")
+    stable = "scripts/tests/test_probe.py::test_mandatory_probe"
+    expected_attack_ids = [
+        f"scripts/tests/test_inventory.py::test_expected_{index}"
+        for index in range(len(replacement_ids))
+    ]
+    common = [stable, *expected_attack_ids]
+    write_python_inventory(fixture_repo, common)
+    collected = platform_inventory_ids([stable, *replacement_ids])
+    assert len(collected) == len(platform_inventory_ids(common)), mutation
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="python",
+                commands=[["uv", "run", "pytest"]],
+                proofs=[{"kind": "pytest_exact_inventory"}],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+
+    def collection_only(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
+        observed.append(argv)
+        if "--collect-only" in argv:
+            return 0, pytest_collection_output(collected)
+        return 0, (
+            f"================ {len(collected)} passed in 0.10s ================\n"
+        )
+
+    monkeypatch.setattr(verify, "run_command", collection_only)
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert any("inventory" in message.lower() for message in outcome.messages)
+    assert len(observed) == 1
+    assert "--collect-only" in observed[0]
+
+
+@pytest.mark.parametrize(
+    ("source", "expected_count"),
+    [
+        pytest.param(
+            "".join(
+                [
+                    "import sys\n",
+                    "if sys.platform == 'unsupported':\n",
+                    "    def test_mandatory() -> None:\n",
+                    "        assert True\n",
+                    "def test_platform_filler() -> None:\n",
+                    "    assert True\n",
+                ]
+            ),
+            1,
+            id="platform-definition",
+        ),
+        pytest.param(
+            "".join(
+                [
+                    "import pytest\n",
+                    "rows: list[str] = []\n",
+                    "if rows:\n",
+                    "    @pytest.mark.parametrize('row', rows)\n",
+                    "    def test_parameterized(row: str) -> None:\n",
+                    "        assert row\n",
+                    "def test_filler_one() -> None:\n    assert True\n",
+                    "def test_filler_two() -> None:\n    assert True\n",
+                    "def test_filler_three() -> None:\n    assert True\n",
+                ]
+            ),
+            3,
+            id="empty-parameter-definition",
+        ),
+        pytest.param(
+            "def test_unknown_replacement() -> None:\n    assert True\n",
+            1,
+            id="unknown-replacement",
+        ),
+    ],
+)
+def test_python_inventory_mutations_are_real_count_preserving_collections(
+    tmp_path: Path,
+    source: str,
+    expected_count: int,
+) -> None:
+    config = tmp_path / "pytest.ini"
+    config.write_text("[pytest]\n", encoding="utf-8")
+    test_file = tmp_path / "test_inventory.py"
+    expected_source = "".join(
+        f"def test_expected_{index}() -> None:\n    assert True\n"
+        for index in range(expected_count)
+    )
+    environment = dict(os.environ)
+    environment["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
+
+    def collect(candidate_source: str) -> tuple[str, ...]:
+        test_file.write_text(candidate_source, encoding="utf-8")
+        completed = subprocess.run(
+            (
+                sys.executable,
+                "-m",
+                "pytest",
+                "-c",
+                str(config),
+                "--rootdir=.",
+                "--confcutdir=.",
+                "--collect-only",
+                "-q",
+                "test_inventory.py",
+            ),
+            cwd=tmp_path,
+            env=environment,
+            capture_output=True,
+            encoding="utf-8",
+            errors="strict",
+            check=False,
+        )
+        assert completed.returncode == 0, completed.stdout + completed.stderr
+        node_ids, failure = verify._parse_pytest_collection_output(
+            completed.stdout + completed.stderr, ("test_inventory.py",)
+        )
+        assert failure is None
+        assert node_ids is not None
+        return node_ids
+
+    expected_ids = collect(expected_source)
+    mutated_ids = collect(source)
+    assert len(expected_ids) == len(mutated_ids) == expected_count
+    assert expected_ids != mutated_ids
+
+    completed = subprocess.run(
+        (
+            sys.executable,
+            "-m",
+            "pytest",
+            "-c",
+            str(config),
+            "--rootdir=.",
+            "--confcutdir=.",
+            "-ra",
+            "--strict-markers",
+            "--strict-config",
+            "test_inventory.py",
+        ),
+        cwd=tmp_path,
+        env=environment,
+        capture_output=True,
+        encoding="utf-8",
+        errors="strict",
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    passed, failure = verify._pytest_terminal_pass_count(
+        completed.stdout + completed.stderr
+    )
+    assert failure is None
+    assert passed == expected_count
 
 
 @pytest.mark.parametrize(
@@ -1232,10 +2596,25 @@ def test_python_suite_rejects_collection_narrowing_addopts(
 )
 def test_python_suite_allows_nonpytest_tool_configuration(
     fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
     filename: str,
     content: str,
 ) -> None:
     (fixture_repo.repo / filename).write_text(content, encoding="utf-8")
+    write_minimal_python_surface(fixture_repo)
+    write_python_inventory(fixture_repo, list(MINIMAL_PYTHON_COMMON_NODE_IDS))
+    expected_ids = platform_inventory_ids(list(MINIMAL_PYTHON_COMMON_NODE_IDS))
+
+    def successful_command(
+        _ctx: verify.Context, argv: tuple[str, ...]
+    ) -> tuple[int, str]:
+        return (
+            (0, pytest_collection_output(expected_ids))
+            if "--collect-only" in argv
+            else (0, "child ok\n")
+        )
+
+    monkeypatch.setattr(verify, "run_command", successful_command)
     write_registry(
         fixture_repo.registry_path,
         [make_suite(id="python")],
@@ -1294,7 +2673,7 @@ def test_python_suite_rejects_root_conftest_count_preserving_bypass(
             make_suite(
                 id="python",
                 commands=[list(command)],
-                proofs=[{"kind": "pytest_min_passed", "min": 1}],
+                proofs=[{"kind": "pytest_exact_inventory"}],
             )
         ],
     )
@@ -1377,7 +2756,7 @@ def test_python_suite_rejects_execution_stage_hook_count_preserving_bypass(
             make_suite(
                 id="python",
                 commands=[list(command)],
-                proofs=[{"kind": "pytest_min_passed", "min": 1}],
+                proofs=[{"kind": "pytest_exact_inventory"}],
             )
         ],
     )
@@ -1414,7 +2793,7 @@ def test_python_suite_rejects_pyproject_plugin_count_preserving_bypass(
             make_suite(
                 id="python",
                 commands=[list(command)],
-                proofs=[{"kind": "pytest_min_passed", "min": 1}],
+                proofs=[{"kind": "pytest_exact_inventory"}],
             )
         ],
     )
@@ -1474,17 +2853,16 @@ def test_python_suite_uses_explicit_hermetic_pytest_argv(
     fixture_repo: verify.Context,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    test_file = fixture_repo.repo / "scripts/tests/test_probe.py"
-    test_file.parent.mkdir(parents=True, exist_ok=True)
-    test_file.write_text(
-        "def test_probe() -> None:\n    assert True\n", encoding="utf-8"
-    )
+    write_minimal_python_surface(fixture_repo)
+    write_python_inventory(fixture_repo, list(MINIMAL_PYTHON_COMMON_NODE_IDS))
+    expected_ids = platform_inventory_ids(list(MINIMAL_PYTHON_COMMON_NODE_IDS))
     write_registry(
         fixture_repo.registry_path,
         [
             make_suite(
                 id="python",
                 commands=[["uv", "run", "pytest"]],
+                proofs=[{"kind": "pytest_exact_inventory"}],
             )
         ],
     )
@@ -1492,14 +2870,19 @@ def test_python_suite_uses_explicit_hermetic_pytest_argv(
 
     def record_command(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
         observed.append(argv)
-        return 0, ""
+        if "--collect-only" in argv:
+            return 0, pytest_collection_output(expected_ids)
+        return 0, (
+            f"================ {len(expected_ids)} passed in 0.10s ================\n"
+        )
 
     monkeypatch.setattr(verify, "run_command", record_command)
     registry = verify.load_registry(fixture_repo.registry_path)
     states = verify.parse_package_states(fixture_repo.status_path)
     outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
     assert outcome.verdict is verify.Verdict.PASS
-    (pytest_argv,) = observed
+    collection_argv, pytest_argv = observed
+    assert "--collect-only" in collection_argv
     assert pytest_argv[:3] == ("uv", "run", "pytest")
     assert pytest_argv[3:5] == ("-c", "pyproject.toml")
     assert "--rootdir=." in pytest_argv
@@ -1507,13 +2890,17 @@ def test_python_suite_uses_explicit_hermetic_pytest_argv(
     assert "--disable-plugin-autoload" in pytest_argv
     assert pytest_argv.count("-o") == 1
     assert "addopts=" in pytest_argv
-    assert test_file.relative_to(fixture_repo.repo).as_posix() in pytest_argv
+    assert "scripts/tests/test_probe.py" in pytest_argv
+    assert "scripts/tests/test_v14_migration.py" in pytest_argv
 
 
 def test_python_suite_pins_every_quality_tool_configuration(
     fixture_repo: verify.Context,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    write_minimal_python_surface(fixture_repo)
+    write_python_inventory(fixture_repo, list(MINIMAL_PYTHON_COMMON_NODE_IDS))
+    expected_ids = platform_inventory_ids(list(MINIMAL_PYTHON_COMMON_NODE_IDS))
     write_registry(
         fixture_repo.registry_path,
         [
@@ -1531,6 +2918,8 @@ def test_python_suite_pins_every_quality_tool_configuration(
 
     def record_command(_ctx: verify.Context, argv: tuple[str, ...]) -> tuple[int, str]:
         observed.append(argv)
+        if "--collect-only" in argv:
+            return 0, pytest_collection_output(expected_ids)
         return 0, ""
 
     monkeypatch.setattr(verify, "run_command", record_command)
@@ -1538,7 +2927,8 @@ def test_python_suite_pins_every_quality_tool_configuration(
     states = verify.parse_package_states(fixture_repo.status_path)
     outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
     assert outcome.verdict is verify.Verdict.PASS
-    assert observed == [
+    assert "--collect-only" in observed[0]
+    assert observed[1:] == [
         (
             "uv",
             "run",

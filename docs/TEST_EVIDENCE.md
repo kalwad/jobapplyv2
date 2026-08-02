@@ -33,6 +33,158 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Six-blocker post-audit corrective content pass (2026-08-02)
+
+- Revision and boundary: implementation working tree based on exact clean
+  `main` commit and `origin/main`
+  `83d83ff1b805b57ca7fecf2797cf35e2036e0740`, tree
+  `f9fddf739fa21d06517574f839625bfb931521ee`, parent `07f36c2`, with the
+  preserved linear history `f5cb2fc` → `07f36c2` → `83d83ff`. The canonical
+  JAPP-MASTER-001 v1.4 specification remained byte-identical at SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  M00 and M01 remained ACCEPTED; M02 and M02-W01 remained IN_PROGRESS;
+  M02-W02 remained NOT_STARTED; no package was READY; KI-0039 through KI-0045
+  were not marked FIXED; all four critical gates remained NOT_EVALUATED; and
+  release remained NOT_READY.
+- Audit truth and invalidated claims: the fresh independent audit of exact
+  `83d83ff` returned verdict B with `AUD-PLAT-001` through `AUD-PLAT-003` and
+  `AUD-VER-001` through `AUD-VER-003`. Therefore the older claims that unknown
+  pytest categories were already rejected, that a repository Vitest reporter
+  could not coexist with the verifier's default reporter, and that all bounded
+  invoked join-mutator aliases, case variants, unresolved spreads, and
+  computed selectors already failed closed are explicitly invalidated. The
+  recorded doctor result of 22 pass / 1 warning was historical pre-final
+  candidate evidence; the exact final `83d83ff` hosted truth was 23 pass / 0
+  warning on macos-15, ubuntu-24.04, and windows-2025. The audit handoff used a
+  63-probe headline but enumerated 68 probes; no tracked 63-probe overlap claim
+  was found, so 68 is the reconciled arithmetic without inventing an overlap.
+  The audit-side installation incident created ignored dependencies but
+  changed no tracked bytes; that checkout was quarantined and was not treated
+  as untouched afterward.
+- Exact-start reproduction: all six findings were reconstructed independently
+  in disposable no-hardlinks clone
+  `/tmp/m02w01-six-blockers.K9PEUv/exact-83d83ff` before writer-tree edits.
+  The platform guard accepted invoked mutators through an alias, alias chain,
+  `.call`, and `.apply` while the direct-call control rejected; accepted
+  mixed/upper-case v1 filenames, URNs, and JSON aliases while lowercase v1
+  rejected and v2/prose controls passed; and accepted spread-only, reviewed-v2
+  followed by unresolved spread, unresolved computed selector, and runtime
+  alias/major-pair schema surfaces while static-safe controls passed. Producer
+  source was never executed and the observable side-effect marker count was
+  zero. The verifier allowed package-script and config reporters to coexist
+  with its appended default reporter; the reporter marker ran once before a
+  later proof mismatch. Its pytest parser accepted `855 passed, 1 mystery`,
+  trailing nonsense, ambiguous summaries, malformed durations, and unknown
+  categories. Two real count-preserving Python mutations—one platform-
+  conditioned mandatory test plus filler and one conditionally empty
+  parameter definition plus fillers—both remained ordinary green because the
+  registry required only `pytest_min_passed: 1` and had no independent item
+  identity.
+- Root causes and bounded correction:
+  - `AUD-PLAT-001`: join-override analysis tracked direct bodies but did not
+    propagate point-in-time local callable identity and execution through
+    aliases, intrinsic `.call`/`.apply`, methods, bound/default arguments,
+    generator resumption, nested invocations, member reassignment, or
+    unresolved same-class targets. The correction resolves bounded lexical
+    callables without executing source, distinguishes user-owned members,
+    models statement order and generator yield boundaries, propagates nested
+    invocation state per join, and fails closed when a schema result depends
+    on an unresolved local invocation.
+  - `AUD-PLAT-002`: deprecated representations were normalized
+    inconsistently. One bounded deterministic ASCII fold now precedes exact
+    vocabulary matching for URNs, aliases, majors, filenames, and paths while
+    v2 and benign prose controls remain valid and diagnostics remain redacted.
+  - `AUD-PLAT-003`: object analysis ignored unresolved selector capability and
+    lost object identity across spreads, mutation, escape, and rebinding. The
+    correction resolves exact ordered spreads/computed keys, tracks
+    point-in-time binding identity and definitely invoked closure mutation,
+    preserves overwrite semantics, covers schema destinations and sinks, and
+    rejects only schema surfaces whose selector capability cannot be proved
+    safe.
+  - `AUD-VER-001`: reporter ownership covered registry argv but not all
+    effective package scripts, Turbo forwarding, or recognized config syntax.
+    A zero-child preflight now accepts only bounded direct/script/Turbo command
+    grammars; rejects repository reporters, unmodeled roots/configs, lifecycle
+    hooks, dynamic config fields, alternate task graphs, and malformed
+    ECMAScript line-terminator forms; then places exactly
+    `--reporter=default` in the effective Vitest argument channel.
+  - `AUD-VER-002`: substring matching selected a convenient `N passed` token.
+    One complete final ordinary-only grammar now requires an exact count,
+    `D.DDs`, the pinned and arithmetically matching long-duration clock only at
+    60 seconds or more, LF/CRLF discipline, and exactly one terminal outcome;
+    all known and unknown categories, competing summaries, trailing text, and
+    malformed durations reject.
+  - `AUD-VER-003`: a minimum count was not an identity proof. The verifier now
+    performs canonical explicit-file collection before execution, normalizes
+    only repository-relative path components to POSIX spelling, and compares
+    exact sorted unique node IDs, count, and SHA-256 against committed
+    `scripts/python-test-inventory.v1.json`. Verification never rewrites that
+    file and unsupported platforms fail closed.
+- Regression and independent replay evidence: the focused platform file
+  remains 25 top-level tests but its tables now cover the six named platform
+  findings plus directly adjacent alias, method, bind, default, generator,
+  mutation/escape, rebinding, sink, mixed-case, spread, and computed-key
+  controls. A read-only reviewer replayed the final ten concrete edge cases
+  and the complete focused file: 25/25 passed, with every intended reject
+  producing a fail-closed unresolved result and both intended-valid controls
+  clean. Reporter tests cover direct, Turbo, root/workspace/named scripts,
+  configs, CR/LF/LS/PS tokenization, `vitest.cmd`, qualified tasks, filter
+  provenance, delimiter placement, marker non-creation, and exact zero-child
+  behavior; final read-only reporter replay passed 66 focused tests and
+  executed no child module. Parser/inventory replay passed 67 focused tests;
+  three real subprocess mutations for platform-conditioned disappearance,
+  empty parameter definition, and unknown replacement all failed the identity
+  proof despite count preservation.
+- Exact cross-platform Python identity: normalization/schema version 1 has
+  975 common/Windows node IDs, SHA-256
+  `091078f72fe887c21980f601f95e2996190b2fccf7b5bf32e9567897f0a62f36`.
+  macOS/Linux add exactly
+  `test_atomic_adoption_rejects_non_regular_source[fifo]` and
+  `test_atomic_adoption_rejects_non_regular_source[socket]`, for 977 items and
+  SHA-256
+  `196a4cfd4c08bc56a7b96eb5be7454ec50d479a39a313c127729b34fd078f55f`.
+  The committed JSON is regular, non-symlink, canonical UTF-8, sorted, unique,
+  and byte-for-identity equal to fresh POSIX collection; `win32`, `darwin`, and
+  `linux` select only the declared inventories and an unsupported platform
+  rejects.
+- Focused execution on the stable implementation bytes:
+  - Prettier, ESLint, and TypeScript checking of the changed guard/tests → exit
+    0. `privacy-security.test.ts` → 25/25 passed in 2.07 s; complete M02-W01 →
+    108/108 passed; complete fixture package → 109/109 passed.
+  - Ruff format/check and mypy over affected Python → exit 0.
+    `scripts/tests/test_suite_states.py` → 294/294 passed in 8.74 s. The
+    combined integrity, suite-state, and real-repository proof set passed
+    before the final six strict-clock cases; the final exact inventory run
+    collected and passed 977/977 with no nonordinary category.
+  - `python3 -B scripts/verify.py --suite integrity` and `--suite unit-ts` →
+    exit 0. Unit TypeScript ran 9/9 tasks and 2,556 tests: 2,440 contracts, 109
+    fixture tests, and seven one-test packages. `--suite fixture-corpus` → exit
+    0 after the truthful independent exact-count controls were raised from 105
+    to 108. `--suite python` uses the exact collection/run command and passes
+    the platform inventory.
+  - The fixed committed producer surface was measured three times with
+    `/usr/bin/time -p pnpm --filter @japp/test-fixtures
+    fixtures:platform-v1`: each run derived 15 pairs and scanned 25 files;
+    wall times were 0.78 s, 0.78 s, and 0.77 s with unchanged verifier budgets.
+- Aggregate status: the first canonical aggregate on the expanded truthful
+  tests ran every implementation suite successfully and exposed only the stale
+  independently duplicated 105 focused-test expectation. That exact
+  accounting control was updated to 108 and focused fixture verification then
+  passed. The final writer-tree `pnpm verify` exited 0 with every ACTIVE suite
+  passing and visual remaining truthfully NOT_YET_APPLICABLE: unit-ts ran
+  2,556 tests, the independently counted focused fixture suite ran 108, the
+  focused contract suite ran 662, browser ran 1, Python collected and passed
+  exactly 977 POSIX items in 116.15 s, and the native/harness Rust suites ran 1
+  and 10 tests. The clean-room result, content commit, and hosted three-OS
+  identifiers are bound in the implementation handoff because this evidence
+  entry cannot self-reference results that occur after its containing commit.
+- Scope and governance: this is implementation evidence, not independent
+  acceptance. No fixture data, oracle, schema, generated contract, workflow,
+  dependency, lockfile, toolchain pin, global timeout, package command,
+  canonical specification, product surface, M02-W02 work, gate state, issue
+  closure, acceptance, or governance stamp was changed. A fresh independent
+  read-only audit of the ending content SHA/tree remains mandatory.
+
 ### M02-W01 — Revised audit validation and bounded bypass correction (2026-07-30)
 
 - Revision: implementation working tree based on exact clean `main` commit

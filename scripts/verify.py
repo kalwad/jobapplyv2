@@ -30,6 +30,7 @@ import json
 import os
 import re
 import shlex
+import stat
 import subprocess
 import sys
 import tomllib
@@ -128,6 +129,7 @@ LOCKFILES = (
 
 REQUIRED_SCRIPT_FILES = (
     "scripts/check-ts-test-policy.mjs",
+    "scripts/python-test-inventory.v1.json",
     "scripts/validate_status.py",
     "scripts/traceability.py",
     "scripts/verify.py",
@@ -199,6 +201,20 @@ PYTEST_ALTERNATE_CONFIGS = (
     "setup.cfg",
 )
 PYTEST_CANONICAL_ADDOPTS = ("-ra", "--strict-markers", "--strict-config")
+PYTEST_LONG_DURATION_SECONDS = 60
+PYTHON_TEST_INVENTORY_RELATIVE = "scripts/python-test-inventory.v1.json"
+PYTHON_INVENTORY_SCHEMA_VERSION = 1
+PYTHON_INVENTORY_NORMALIZATION_VERSION = 1
+PYTHON_POSIX_ONLY_NODE_IDS = (
+    (
+        "scripts/tests/test_v14_migration.py::"
+        "test_atomic_adoption_rejects_non_regular_source[fifo]"
+    ),
+    (
+        "scripts/tests/test_v14_migration.py::"
+        "test_atomic_adoption_rejects_non_regular_source[socket]"
+    ),
+)
 TS_FOCUS_RE = re.compile(
     r"\b(?:test|it|describe|suite|bench)\s*\.\s*(?:only|skip|fixme|todo)\b"
 )
@@ -222,11 +238,20 @@ VITEST_ORDINARY_PASS_RE = re.compile(
 )
 PLAYWRIGHT_LIST_RE = re.compile(r"Total:\s*(\d+) tests? in")
 PLAYWRIGHT_PASSED_RE = re.compile(r"^\s*(\d+) passed", re.MULTILINE)
-PYTEST_PASSED_RE = re.compile(r"=+.*?\b(\d+) passed\b.*?=+")
-PYTEST_SUMMARY_RE = re.compile(r"^=+\s*(.*?)\s*=+$")
-PYTEST_NONPASSING_RE = re.compile(
-    r"\b([1-9]\d*)\s+"
-    r"(failed|errors?|skipped|xfailed|xpassed|deselected|rerun)\b",
+PYTEST_ORDINARY_SUMMARY_RE = re.compile(
+    r"^=+\s+(?P<passed>0|[1-9]\d*) passed in "
+    r"(?P<seconds>0|[1-9]\d*)\.\d{2}s"
+    r"(?P<clock> \([0-9]+:[0-5][0-9]:[0-5][0-9]\))?\s+=+$"
+)
+PYTEST_COLLECTION_SUMMARY_RE = re.compile(
+    r"^(?:=+\s*)?(?P<count>0|[1-9]\d*) tests? collected in "
+    r"(?P<seconds>0|[1-9]\d*)\.\d{2}s"
+    r"(?P<clock> \([0-9]+:[0-5][0-9]:[0-5][0-9]\))?(?:\s*=+)?$"
+)
+PYTEST_OUTCOME_CANDIDATE_RE = re.compile(
+    r"^=+\s+(?:(?:0|[1-9]\d*)\s+\S+|no tests ran\b|"
+    r".*\b(?:passed|failed|errors?|skipped|xfailed|xpassed|deselected|"
+    r"rerun|warnings?)\b)",
     re.IGNORECASE,
 )
 CARGO_PASSED_RE = re.compile(r"test result: ok\. (\d+) passed")
@@ -284,6 +309,17 @@ class Context:
     repo: Path
     registry_path: Path
     status_path: Path
+    python_expected_count: int | None = None
+    python_expected_digest: str | None = None
+    python_test_relatives: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class PythonTestInventory:
+    node_ids: tuple[str, ...]
+    count: int
+    sha256: str
+    platform: str
 
 
 @dataclass
@@ -535,25 +571,68 @@ def run_command(ctx: Context, argv: tuple[str, ...]) -> tuple[int, str]:
     return proc.returncode, ANSI_ESCAPE_RE.sub("", combined)
 
 
-def _workspace_manifest_paths(ctx: Context) -> list[Path]:
-    """package.json paths of every pnpm workspace member."""
+def _workspace_manifest_paths_checked(  # noqa: PLR0911, PLR0912
+    ctx: Context,
+) -> tuple[list[Path], str | None]:
+    """Strictly resolve package.json paths from the supported workspace YAML."""
     workspace_file = ctx.repo / "pnpm-workspace.yaml"
     globs: list[str] = []
-    if workspace_file.is_file():
-        in_packages = False
-        for raw in workspace_file.read_text(encoding="utf-8").splitlines():
-            if re.match(r"^packages:\s*$", raw):
+    try:
+        metadata = workspace_file.lstat()
+        source = workspace_file.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return [], "pnpm workspace definition is missing or unreadable"
+    if workspace_file.is_symlink() or not stat.S_ISREG(metadata.st_mode):
+        return [], "pnpm workspace definition must be a regular nonsymlink file"
+    in_packages = False
+    saw_packages = False
+    for raw in source.splitlines():
+        stripped = raw.strip()
+        if not in_packages:
+            if re.fullmatch(r"packages:\s*", raw):
+                if saw_packages:
+                    return [], "pnpm workspace has duplicate packages sections"
+                saw_packages = True
                 in_packages = True
-                continue
-            if in_packages:
-                item = re.match(r'^\s+-\s+"?([^"#\s]+)"?\s*$', raw)
-                if item:
-                    globs.append(item.group(1))
-                elif raw.strip() and not raw.startswith((" ", "\t", "#")):
-                    in_packages = False
+            elif re.match(r"^packages\s*:", raw):
+                return [], "pnpm workspace packages syntax is unsupported"
+            continue
+        if not stripped or stripped.startswith("#"):
+            continue
+        if not raw.startswith((" ", "\t")):
+            in_packages = False
+            continue
+        item = re.fullmatch(
+            r"\s+-\s+(?:\"([^\"]+)\"|'([^']+)'|([^\s#]+))\s*(?:#.*)?",
+            raw,
+        )
+        if item is None:
+            return [], "pnpm workspace packages list contains unsupported syntax"
+        pattern = next(value for value in item.groups() if value is not None)
+        if (
+            not pattern
+            or pattern.startswith(("/", "\\"))
+            or ".." in Path(pattern).parts
+        ):
+            return [], "pnpm workspace package pattern is unsafe"
+        globs.append(pattern)
+    if not saw_packages or not globs:
+        return [], "pnpm workspace packages list is empty or unsupported"
     paths: list[Path] = []
     for pattern in globs:
-        paths.extend(sorted(ctx.repo.glob(f"{pattern}/package.json")))
+        matches = sorted(ctx.repo.glob(f"{pattern}/package.json"))
+        if not matches:
+            return [], "pnpm workspace package pattern resolves to no manifests"
+        paths.extend(matches)
+    ordered = sorted(set(paths))
+    if not ordered:
+        return [], "pnpm workspace resolves to no package manifests"
+    return ordered, None
+
+
+def _workspace_manifest_paths(ctx: Context) -> list[Path]:
+    """package.json paths of every supported pnpm workspace member."""
+    paths, _failure = _workspace_manifest_paths_checked(ctx)
     return paths
 
 
@@ -689,30 +768,65 @@ def _proof_playwright_min_passed(
     return None
 
 
-def _proof_pytest_min_passed(
-    _ctx: Context, _suite: Suite, proof: Proof, output: str
+def _pytest_terminal_pass_count(output: str) -> tuple[int | None, str | None]:
+    """Parse one final, complete, ordinary-only pinned-pytest summary."""
+    normalized = output.replace("\r\n", "\n")
+    if "\r" in normalized:
+        return None, "pytest output contains unsupported bare carriage returns"
+    lines = [line.strip() for line in normalized.split("\n") if line.strip()]
+    summary_lines = [line for line in lines if PYTEST_OUTCOME_CANDIDATE_RE.match(line)]
+    if len(summary_lines) != 1:
+        return None, (
+            "pytest output must contain exactly one terminal outcome summary; "
+            f"found {len(summary_lines)}"
+        )
+    summary = summary_lines[0]
+    if lines[-1] != summary:
+        return None, "pytest outcome summary is not the final output line"
+    match = PYTEST_ORDINARY_SUMMARY_RE.fullmatch(summary)
+    if match is None:
+        return None, "pytest terminal summary is not an ordinary-only pass result"
+    duration_failure = _pytest_duration_clock_failure(match, "terminal summary")
+    if duration_failure:
+        return None, duration_failure
+    return int(match.group("passed")), None
+
+
+def _pytest_duration_clock_failure(match: re.Match[str], surface: str) -> str | None:
+    """Require the pinned pytest clock exactly when the duration is long."""
+    seconds = int(match.group("seconds"))
+    clock = match.group("clock")
+    if seconds < PYTEST_LONG_DURATION_SECONDS:
+        return (
+            f"pytest {surface} has an unexpected short-duration clock"
+            if clock is not None
+            else None
+        )
+    if clock is None:
+        return f"pytest {surface} lacks the pinned long-duration clock"
+    hours, remainder = divmod(seconds, 3600)
+    minutes, remaining_seconds = divmod(remainder, 60)
+    expected = f" ({hours}:{minutes:02d}:{remaining_seconds:02d})"
+    return (
+        f"pytest {surface} long-duration clock differs from elapsed seconds"
+        if clock != expected
+        else None
+    )
+
+
+def _proof_pytest_exact_inventory(
+    ctx: Context, _suite: Suite, _proof: Proof, output: str
 ) -> str | None:
-    nonpassing = _pytest_nonpassing_failure(output)
-    if nonpassing:
-        return nonpassing
-    match = PYTEST_PASSED_RE.search(output)
-    if not match or int(match.group(1)) < proof.min_count:
-        return f"pytest did not report >= {proof.min_count} passed tests"
-    return None
-
-
-def _pytest_nonpassing_failure(output: str) -> str | None:
-    """Reject every positive nonordinary pytest result in summary lines."""
-    for line in output.splitlines():
-        summary = PYTEST_SUMMARY_RE.fullmatch(line.strip())
-        if summary is None:
-            continue
-        match = PYTEST_NONPASSING_RE.search(summary.group(1))
-        if match:
-            return (
-                "pytest reported a non-passing outcome: "
-                f"{match.group(1)} {match.group(2).lower()}"
-            )
+    if ctx.python_expected_count is None or ctx.python_expected_digest is None:
+        return "pytest exact inventory expectation is unavailable (fail closed)"
+    passed, failure = _pytest_terminal_pass_count(output)
+    if failure:
+        return failure
+    if passed != ctx.python_expected_count:
+        return (
+            f"pytest reported {passed or 0} passed tests; exact platform "
+            f"inventory requires {ctx.python_expected_count}"
+        )
     return None
 
 
@@ -732,7 +846,7 @@ PROOF_CHECKS: dict[str, Callable[[Context, Suite, Proof, str], str | None]] = {
     "vitest_exact_tests": _proof_vitest_exact_tests,
     "playwright_list_min": _proof_playwright_list_min,
     "playwright_min_passed": _proof_playwright_min_passed,
-    "pytest_min_passed": _proof_pytest_min_passed,
+    "pytest_exact_inventory": _proof_pytest_exact_inventory,
     "cargo_min_passed": _proof_cargo_min_passed,
 }
 
@@ -2185,26 +2299,187 @@ def _python_conftest_quality_commands(
     )
 
 
+def _python_inventory_digest(node_ids: tuple[str, ...]) -> str:
+    return hashlib.sha256(("\n".join(node_ids) + "\n").encode("utf-8")).hexdigest()
+
+
+def _normalize_python_node_id(
+    value: str, test_relatives: tuple[str, ...]
+) -> str | None:
+    path_text, separator, selector = value.partition("::")
+    if (
+        not separator
+        or not selector
+        or any(character.isspace() for character in path_text)
+    ):
+        return None
+    normalized_path = path_text.replace("\\", "/")
+    if normalized_path not in set(test_relatives):
+        return None
+    return f"{normalized_path}::{selector}"
+
+
+def _load_python_test_inventory(  # noqa: PLR0911, PLR0912 - schema validation
+    ctx: Context,
+    test_relatives: tuple[str, ...],
+    platform_name: str | None = None,
+) -> tuple[PythonTestInventory | None, str | None]:
+    path = ctx.repo / PYTHON_TEST_INVENTORY_RELATIVE
+    try:
+        metadata = path.lstat()
+    except OSError:
+        return None, "Python test inventory is missing or unreadable"
+    if path.is_symlink() or not stat.S_ISREG(metadata.st_mode):
+        return None, "Python test inventory must be a regular nonsymlink file"
+    try:
+        raw_bytes = path.read_bytes()
+        raw: object = json.loads(raw_bytes.decode("utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return None, "Python test inventory is not canonical UTF-8 JSON"
+    if not isinstance(raw, dict) or set(raw) != {
+        "schema_version",
+        "normalization_version",
+        "common",
+        "posix_only_node_ids",
+    }:
+        return None, "Python test inventory has an unsupported schema"
+    if (
+        raw.get("schema_version") != PYTHON_INVENTORY_SCHEMA_VERSION
+        or isinstance(raw.get("schema_version"), bool)
+        or raw.get("normalization_version") != PYTHON_INVENTORY_NORMALIZATION_VERSION
+        or isinstance(raw.get("normalization_version"), bool)
+    ):
+        return None, "Python test inventory schema or normalization version differs"
+    common = raw.get("common")
+    posix_raw = raw.get("posix_only_node_ids")
+    if (
+        not isinstance(common, dict)
+        or set(common) != {"count", "sha256", "node_ids"}
+        or not isinstance(posix_raw, list)
+        or not all(isinstance(item, str) for item in posix_raw)
+    ):
+        return None, "Python test inventory payload is malformed"
+    common_raw = common.get("node_ids")
+    count_raw = common.get("count")
+    digest_raw = common.get("sha256")
+    if (
+        not isinstance(common_raw, list)
+        or not all(isinstance(item, str) for item in common_raw)
+        or not isinstance(count_raw, int)
+        or isinstance(count_raw, bool)
+        or not isinstance(digest_raw, str)
+    ):
+        return None, "Python test inventory common identity is malformed"
+    common_ids = tuple(common_raw)
+    posix_ids = tuple(posix_raw)
+    if (
+        common_ids != tuple(sorted(common_ids))
+        or len(common_ids) != len(set(common_ids))
+        or count_raw != len(common_ids)
+        or digest_raw != _python_inventory_digest(common_ids)
+    ):
+        return None, "Python test inventory common identity is inconsistent"
+    if posix_ids != PYTHON_POSIX_ONLY_NODE_IDS:
+        return None, "Python test inventory POSIX delta is not the approved exact pair"
+    for node_id in (*common_ids, *posix_ids):
+        if _normalize_python_node_id(node_id, test_relatives) != node_id:
+            return None, "Python test inventory contains a noncanonical node ID"
+    if set(common_ids).intersection(posix_ids):
+        return None, "Python test inventory common and POSIX identities overlap"
+    canonical_payload = {
+        "schema_version": PYTHON_INVENTORY_SCHEMA_VERSION,
+        "normalization_version": PYTHON_INVENTORY_NORMALIZATION_VERSION,
+        "common": {
+            "count": len(common_ids),
+            "sha256": _python_inventory_digest(common_ids),
+            "node_ids": list(common_ids),
+        },
+        "posix_only_node_ids": list(PYTHON_POSIX_ONLY_NODE_IDS),
+    }
+    canonical_bytes = (
+        json.dumps(canonical_payload, ensure_ascii=False, indent=2) + "\n"
+    ).encode("utf-8")
+    if raw_bytes != canonical_bytes:
+        return None, "Python test inventory JSON serialization is not canonical"
+    platform_value = sys.platform if platform_name is None else platform_name
+    if platform_value in {"darwin", "linux"}:
+        platform_ids = tuple(sorted((*common_ids, *posix_ids)))
+        platform_label = "posix"
+    elif platform_value == "win32":
+        platform_ids = common_ids
+        platform_label = "windows"
+    else:
+        return None, "Python test inventory does not support this host platform"
+    return (
+        PythonTestInventory(
+            node_ids=platform_ids,
+            count=len(platform_ids),
+            sha256=_python_inventory_digest(platform_ids),
+            platform=platform_label,
+        ),
+        None,
+    )
+
+
+def _parse_pytest_collection_output(  # noqa: PLR0911 - fail-closed parser exits
+    output: str, test_relatives: tuple[str, ...]
+) -> tuple[tuple[str, ...] | None, str | None]:
+    normalized = output.replace("\r\n", "\n")
+    if "\r" in normalized:
+        return None, "pytest collection output contains a bare carriage return"
+    lines = [line.strip() for line in normalized.split("\n") if line.strip()]
+    if not lines:
+        return None, "pytest collection output is empty"
+    summary = PYTEST_COLLECTION_SUMMARY_RE.fullmatch(lines[-1])
+    if summary is None:
+        return None, "pytest collection lacks one complete terminal summary"
+    duration_failure = _pytest_duration_clock_failure(summary, "collection summary")
+    if duration_failure:
+        return None, duration_failure
+    raw_node_ids = lines[:-1]
+    normalized_node_ids: list[str] = []
+    for raw_node_id in raw_node_ids:
+        node_id = _normalize_python_node_id(raw_node_id, test_relatives)
+        if node_id is None:
+            return None, "pytest collection emitted a noncanonical or unknown node ID"
+        normalized_node_ids.append(node_id)
+    if int(summary.group("count")) != len(normalized_node_ids):
+        return None, "pytest collection summary count differs from emitted node IDs"
+    if len(normalized_node_ids) != len(set(normalized_node_ids)):
+        return None, "pytest collection emitted duplicate node IDs"
+    return tuple(sorted(normalized_node_ids)), None
+
+
+def _canonical_pytest_command(
+    test_relatives: tuple[str, ...], *, collect_only: bool
+) -> tuple[str, ...]:
+    collection_args = ("--collect-only", "-q") if collect_only else ()
+    return (
+        "uv",
+        "run",
+        "pytest",
+        "-c",
+        "pyproject.toml",
+        "--rootdir=.",
+        "--confcutdir=.",
+        "-o",
+        "addopts=",
+        *PYTEST_CANONICAL_ADDOPTS,
+        "--disable-plugin-autoload",
+        *collection_args,
+        *test_relatives,
+    )
+
+
 def _canonical_python_suite_command(
     ctx: Context, argv: tuple[str, ...]
 ) -> tuple[str, ...]:
     if argv == ("uv", "run", "pytest"):
-        test_paths = _unskipped_test_paths(ctx, PY_TEST_FILE_GLOBS, ())
-        relatives = tuple(path.relative_to(ctx.repo).as_posix() for path in test_paths)
-        return (
-            "uv",
-            "run",
-            "pytest",
-            "-c",
-            "pyproject.toml",
-            "--rootdir=.",
-            "--confcutdir=.",
-            "-o",
-            "addopts=",
-            *PYTEST_CANONICAL_ADDOPTS,
-            "--disable-plugin-autoload",
-            *relatives,
+        relatives = ctx.python_test_relatives or tuple(
+            path.relative_to(ctx.repo).as_posix()
+            for path in _unskipped_test_paths(ctx, PY_TEST_FILE_GLOBS, ())
         )
+        return _canonical_pytest_command(relatives, collect_only=False)
     if (
         argv[:4]
         in {
@@ -2222,6 +2497,9 @@ def _canonical_python_suite_command(
 def _run_python_suite_preflight(
     ctx: Context, registry: Registry
 ) -> tuple[list[str], list[str]]:
+    ctx.python_expected_count = None
+    ctx.python_expected_digest = None
+    ctx.python_test_relatives = ()
     messages = [
         *_pytest_configuration_failures(ctx),
         *_python_test_policy_failures(ctx, registry.allowed_skips),
@@ -2230,6 +2508,40 @@ def _run_python_suite_preflight(
     if messages:
         return messages, output_parts
     test_paths = _unskipped_test_paths(ctx, PY_TEST_FILE_GLOBS, registry.allowed_skips)
+    test_relatives = tuple(path.relative_to(ctx.repo).as_posix() for path in test_paths)
+    inventory, inventory_failure = _load_python_test_inventory(ctx, test_relatives)
+    if inventory_failure or inventory is None:
+        messages.append(inventory_failure or "Python test inventory is unavailable")
+        return messages, output_parts
+    collection_argv = _canonical_pytest_command(test_relatives, collect_only=True)
+    collection_code, collection_output = run_command(ctx, collection_argv)
+    output_parts.append(collection_output)
+    if collection_code != 0:
+        messages.append(
+            f"pytest exact-inventory collection failed (exit {collection_code})"
+        )
+        return messages, output_parts
+    collected, collection_failure = _parse_pytest_collection_output(
+        collection_output, test_relatives
+    )
+    if collection_failure or collected is None:
+        messages.append(collection_failure or "pytest collection is unavailable")
+        return messages, output_parts
+    collected_digest = _python_inventory_digest(collected)
+    if (
+        len(collected) != inventory.count
+        or collected_digest != inventory.sha256
+        or collected != inventory.node_ids
+    ):
+        messages.append(
+            "pytest collection differs from the committed exact platform "
+            f"inventory (collected {len(collected)}/{collected_digest}; "
+            f"expected {inventory.count}/{inventory.sha256})"
+        )
+        return messages, output_parts
+    ctx.python_expected_count = inventory.count
+    ctx.python_expected_digest = inventory.sha256
+    ctx.python_test_relatives = test_relatives
     conftests = _pytest_loaded_conftest_paths(ctx, test_paths)
     for quality_argv in _python_conftest_quality_commands(ctx, conftests):
         code, output = run_command(ctx, quality_argv)
@@ -2314,9 +2626,20 @@ def check_integrity(  # noqa: PLR0912 - explicit independent integrity checks
 
 
 _VITEST_DEFAULT_REPORTER_ARG = "--reporter=default"
-# Turbo tasks whose underlying workspace scripts are Vitest invocations; the
-# canonical reporter is forwarded to them through turbo's `--` pass-through.
-_TURBO_VITEST_TASKS = frozenset({"test"})
+_VITEST_CONFIG_NAMES = tuple(
+    f"{stem}.config.{suffix}"
+    for stem in ("vitest", "vite")
+    for suffix in ("ts", "mts", "cts", "js", "mjs", "cjs")
+)
+_REPORTER_PREFLIGHT_MAX_TOKENS = 256
+_PNPM_TURBO_TEST_PREFIX_LENGTH = 5
+_VITEST_SCRIPT_MIN_TOKENS = 2
+
+
+@dataclass(frozen=True)
+class _JavaScriptToken:
+    kind: str
+    value: str
 
 
 def _argv_element_basename(element: str) -> str:
@@ -2324,20 +2647,557 @@ def _argv_element_basename(element: str) -> str:
 
 
 def _argv_vitest_invocation_kind(argv: tuple[str, ...]) -> str | None:
-    """'vitest' for direct Vitest argv, 'turbo' for turbo-run Vitest tasks."""
+    """Classify only the bounded direct/Turbo Vitest command grammars."""
     names = [_argv_element_basename(element) for element in argv]
-    if "vitest" in names:
-        return "vitest"
-    if "turbo" in names:
-        rest = argv[names.index("turbo") + 1 :]
-        if rest[:1] == ("run",) and any(
-            task in _TURBO_VITEST_TASKS for task in rest[1:2]
+    if any(name in {"vitest", "vitest.cmd"} for name in names):
+        index = 1
+        if names[:1] not in (["pnpm"], ["pnpm.cmd"]):
+            return "invalid"
+        if argv[index : index + 1] in (("--filter",), ("-F",)):
+            index += 2
+        if (
+            index + 2 < len(argv)
+            and argv[index] == "exec"
+            and names[index + 1] in {"vitest", "vitest.cmd"}
+            and argv[index + 2] == "run"
+            and names.count("vitest") + names.count("vitest.cmd") == 1
+        ):
+            return "vitest"
+        return "invalid"
+    turbo_test_surface = "turbo" in names and any(
+        argument == "test" or argument.endswith("#test") for argument in argv
+    )
+    if turbo_test_surface:
+        if (
+            len(argv) >= _PNPM_TURBO_TEST_PREFIX_LENGTH
+            and names[:3] in (["pnpm", "exec", "turbo"], ["pnpm.cmd", "exec", "turbo"])
+            and argv[3:5] == ("run", "test")
+            and names.count("turbo") == 1
+            and argv.count("--") <= 1
+            and argv[5 : argv.index("--") if "--" in argv else len(argv)]
+            in ((), ("--force",))
         ):
             return "turbo"
+        return "invalid"
     return None
 
 
-def _prepared_reporter_commands(
+def _javascript_string_token(
+    source: str, start: int
+) -> tuple[_JavaScriptToken | None, int, str | None]:
+    quote = source[start]
+    index = start + 1
+    value: list[str] = []
+    dynamic = False
+    while index < len(source):
+        character = source[index]
+        if character == quote:
+            kind = "dynamic" if dynamic else "string"
+            return _JavaScriptToken(kind, "".join(value)), index + 1, None
+        if quote == "`" and source.startswith("${", index):
+            dynamic = True
+            value.append("${}")
+            index += 2
+            continue
+        if character in "\r\n\u2028\u2029" and quote != "`":
+            return None, index, "unterminated JavaScript string"
+        if character != "\\":
+            value.append(character)
+            index += 1
+            continue
+        index += 1
+        if index >= len(source):
+            return None, index, "unterminated JavaScript escape"
+        escaped = source[index]
+        if escaped in "\r\n\u2028\u2029":
+            return None, index, "JavaScript string line continuations are forbidden"
+        escapes = {"n": "\n", "r": "\r", "t": "\t", "b": "\b", "f": "\f"}
+        if escaped in escapes:
+            value.append(escapes[escaped])
+            index += 1
+            continue
+        if escaped == "x" and re.fullmatch(
+            r"[0-9a-fA-F]{2}", source[index + 1 : index + 3]
+        ):
+            value.append(chr(int(source[index + 1 : index + 3], 16)))
+            index += 3
+            continue
+        if escaped == "u":
+            braced = re.match(r"\{([0-9a-fA-F]{1,6})\}", source[index + 1 :])
+            if braced:
+                value.append(chr(int(braced.group(1), 16)))
+                index += len(braced.group(0)) + 1
+                continue
+            fixed = source[index + 1 : index + 5]
+            if re.fullmatch(r"[0-9a-fA-F]{4}", fixed):
+                value.append(chr(int(fixed, 16)))
+                index += 5
+                continue
+        value.append(escaped)
+        index += 1
+    return None, index, "unterminated JavaScript string"
+
+
+def _tokenize_vitest_config(
+    source: str,
+) -> tuple[tuple[_JavaScriptToken, ...] | None, str | None]:
+    tokens: list[_JavaScriptToken] = []
+    index = 0
+    while index < len(source):
+        character = source[index]
+        if character.isspace():
+            index += 1
+            continue
+        if source.startswith("//", index):
+            terminators = [
+                position
+                for character in ("\r", "\n", "\u2028", "\u2029")
+                if (position := source.find(character, index + 2)) >= 0
+            ]
+            newline = min(terminators, default=-1)
+            index = len(source) if newline < 0 else newline + 1
+            continue
+        if source.startswith("/*", index):
+            end = source.find("*/", index + 2)
+            if end < 0:
+                return None, "unterminated JavaScript comment"
+            index = end + 2
+            continue
+        if character in {'"', "'", "`"}:
+            token, index, failure = _javascript_string_token(source, index)
+            if failure or token is None:
+                return None, failure or "invalid JavaScript string"
+            tokens.append(token)
+            continue
+        identifier = re.match(r"[$A-Za-z_][$0-9A-Za-z_]*", source[index:])
+        if identifier:
+            value = identifier.group(0)
+            tokens.append(_JavaScriptToken("identifier", value))
+            index += len(value)
+            continue
+        number = re.match(r"[0-9][0-9A-Za-z_.]*", source[index:])
+        if number:
+            value = number.group(0)
+            tokens.append(_JavaScriptToken("number", value))
+            index += len(value)
+            continue
+        if source.startswith("...", index):
+            tokens.append(_JavaScriptToken("punctuation", "..."))
+            index += 3
+            continue
+        if source.startswith("=>", index):
+            tokens.append(_JavaScriptToken("punctuation", "=>"))
+            index += 2
+            continue
+        tokens.append(_JavaScriptToken("punctuation", character))
+        index += 1
+    return tuple(tokens), None
+
+
+def _computed_config_key(
+    tokens: tuple[_JavaScriptToken, ...], start: int
+) -> tuple[str | None, int | None]:
+    if (
+        start + 2 < len(tokens)
+        and tokens[start].value == "["
+        and tokens[start + 1].kind == "string"
+        and tokens[start + 2].value == "]"
+    ):
+        return tokens[start + 1].value, start + 3
+    return None, None
+
+
+def _parse_vitest_static_value(  # noqa: PLR0911
+    tokens: tuple[_JavaScriptToken, ...], start: int, surface: str
+) -> tuple[int | None, str | None]:
+    if start >= len(tokens):
+        return None, f"Vitest {surface} configuration is truncated"
+    token = tokens[start]
+    if token.value == "{":
+        return _parse_vitest_config_object(tokens, start, surface)
+    if token.value == "[":
+        index = start + 1
+        while index < len(tokens):
+            if tokens[index].value == "]":
+                return index + 1, None
+            end, failure = _parse_vitest_static_value(tokens, index, "nested")
+            if failure or end is None:
+                return None, failure or "Vitest static array is malformed"
+            index = end
+            if index < len(tokens) and tokens[index].value == ",":
+                index += 1
+                continue
+            if index < len(tokens) and tokens[index].value == "]":
+                continue
+            return None, "Vitest static array is malformed"
+        return None, "Vitest static array is truncated"
+    if token.kind in {"string", "number"} or (
+        token.kind == "identifier" and token.value in {"false", "null", "true"}
+    ):
+        return start + 1, None
+    return None, f"Vitest {surface} configuration contains a dynamic value"
+
+
+def _parse_vitest_config_object(  # noqa: PLR0911, PLR0912
+    tokens: tuple[_JavaScriptToken, ...], start: int, surface: str
+) -> tuple[int | None, str | None]:
+    if start >= len(tokens) or tokens[start].value != "{":
+        return None, f"Vitest {surface} configuration is not a static object"
+    index = start + 1
+    while index < len(tokens):
+        if tokens[index].value == "}":
+            return index + 1, None
+        if tokens[index].value == "...":
+            return None, f"Vitest {surface} configuration contains a spread"
+        key: str | None
+        after_key: int | None
+        if tokens[index].value == "[":
+            key, after_key = _computed_config_key(tokens, index)
+            if key is None or after_key is None:
+                return None, f"Vitest {surface} configuration has a dynamic key"
+        elif tokens[index].kind in {"identifier", "string", "number"}:
+            key = tokens[index].value
+            after_key = index + 1
+        else:
+            return None, f"Vitest {surface} configuration is malformed"
+        if after_key >= len(tokens):
+            return None, f"Vitest {surface} configuration is truncated"
+        if tokens[after_key].value != ":":
+            return None, (
+                f"Vitest {surface} configuration requires colon data properties"
+            )
+        if surface == "root" and key != "test":
+            return None, "Vitest root configuration contains an unmodeled field"
+        if surface in {"test", "benchmark"} and key in {
+            "reporter",
+            "reporters",
+        }:
+            return None, "repository Vitest reporter configuration is forbidden"
+        if surface == "root":
+            end, failure = _parse_vitest_config_object(tokens, after_key + 1, "test")
+        else:
+            child_surface = (
+                "benchmark" if surface == "test" and key == "benchmark" else "nested"
+            )
+            end, failure = _parse_vitest_static_value(
+                tokens, after_key + 1, child_surface
+            )
+        if failure or end is None:
+            return None, failure or f"Vitest {surface} configuration is malformed"
+        index = end
+        if index < len(tokens) and tokens[index].value == ",":
+            index += 1
+            continue
+        if index < len(tokens) and tokens[index].value == "}":
+            continue
+        return None, f"Vitest {surface} configuration is malformed"
+    return None, f"Vitest {surface} configuration is truncated"
+
+
+def _vitest_config_failure(path: Path) -> str | None:  # noqa: PLR0911, PLR0912
+    try:
+        metadata = path.lstat()
+        source = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return "recognized Vitest configuration is unreadable"
+    if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISREG(metadata.st_mode):
+        return "recognized Vitest configuration must be a regular nonsymlink file"
+    tokens, token_failure = _tokenize_vitest_config(source)
+    if token_failure or tokens is None:
+        return token_failure or "recognized Vitest configuration is malformed"
+    defaults = [
+        index
+        for index in range(len(tokens) - 1)
+        if tokens[index].value == "export" and tokens[index + 1].value == "default"
+    ]
+    if len(defaults) != 1:
+        return "recognized Vitest configuration must have one static default export"
+    default_index = defaults[0]
+    index = default_index + 2
+    wrapped = index < len(tokens) and tokens[index].value == "defineConfig"
+    if wrapped:
+        prefix = tuple((token.kind, token.value) for token in tokens[:default_index])
+        required_prefix = (
+            ("identifier", "import"),
+            ("punctuation", "{"),
+            ("identifier", "defineConfig"),
+            ("punctuation", "}"),
+            ("identifier", "from"),
+            ("string", "vitest/config"),
+            ("punctuation", ";"),
+        )
+        if prefix != required_prefix:
+            return "Vitest defineConfig must be the exact import from vitest/config"
+        if index + 1 >= len(tokens) or tokens[index + 1].value != "(":
+            return "recognized Vitest defineConfig call is malformed"
+        index += 2
+    elif default_index != 0:
+        return "recognized Vitest configuration has executable prefix code"
+    end, parse_failure = _parse_vitest_config_object(tokens, index, "root")
+    if parse_failure or end is None:
+        return parse_failure or "recognized Vitest configuration is malformed"
+    index = end
+    if wrapped:
+        if index >= len(tokens) or tokens[index].value != ")":
+            return "recognized Vitest defineConfig call is malformed"
+        index += 1
+    if index < len(tokens) and tokens[index].value == ";":
+        index += 1
+    if index != len(tokens):
+        return "recognized Vitest configuration has a dynamic default export"
+    return None
+
+
+def _manifest_name_and_scripts(
+    path: Path,
+) -> tuple[str | None, dict[str, str] | None, str | None]:
+    try:
+        raw: object = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return None, None, "reached package manifest is unreadable or malformed"
+    if not isinstance(raw, dict):
+        return None, None, "reached package manifest is not an object"
+    name = raw.get("name")
+    scripts_raw = raw.get("scripts")
+    scripts = (
+        {
+            key: value
+            for key, value in scripts_raw.items()
+            if isinstance(key, str) and isinstance(value, str)
+        }
+        if isinstance(scripts_raw, dict)
+        else {}
+    )
+    return name if isinstance(name, str) else None, scripts, None
+
+
+def _vitest_cli_surface_failure(  # noqa: PLR0911 - explicit forbidden channels
+    tokens: tuple[str, ...],
+) -> str | None:
+    if tokens.count("--") > 1:
+        return "Vitest command contains multiple forwarded delimiters"
+    for index, token in enumerate(tokens):
+        if token in {"--filter", "-F"} and index != 1:
+            return "repository-selected pnpm filter is outside the bounded prefix"
+        if token.startswith("--filter="):
+            return "repository-selected pnpm filter is outside the bounded prefix"
+        if token == "--reporter" or token.startswith("--reporter="):  # noqa: S105
+            return "repository Vitest reporter arguments are forbidden"
+        if (
+            token in {"--config", "-c"}
+            or token.startswith("--config=")
+            or (token.startswith("-c") and token != "-c")  # noqa: S105
+        ):
+            return "repository-selected Vitest configuration is forbidden"
+        if (
+            token in {"--root", "-r", "--dir", "-C", "--cwd", "--root-turbo-json"}
+            or token.startswith(("--root=", "--dir=", "--cwd=", "--root-turbo-json="))
+            or (token.startswith("-r") and token != "-r")  # noqa: S105
+            or (token.startswith("-C") and token != "-C")  # noqa: S105
+        ):
+            return "repository-selected Vitest execution root is forbidden"
+        if index > _REPORTER_PREFLIGHT_MAX_TOKENS:
+            return "Vitest argument surface exceeds the bounded preflight"
+    return None
+
+
+def _script_tokens(  # noqa: PLR0911 - bounded grammar failure reasons
+    value: str,
+) -> tuple[tuple[str, ...] | None, str | None]:
+    if re.search(r"[$;&|<>`*?\[\]{}()~^%!\\\r\n]", value) or re.search(
+        r"(?:^|\s)[A-Za-z_][A-Za-z0-9_]*=", value
+    ):
+        return None, "reached package test script contains shell indirection"
+    try:
+        tokens = tuple(shlex.split(value, posix=True))
+    except ValueError:
+        return None, "reached package test script is malformed"
+    if len(tokens) > _REPORTER_PREFLIGHT_MAX_TOKENS:
+        return None, "reached package test script exceeds the bounded preflight"
+    if not tokens or _argv_element_basename(tokens[0]) not in {
+        "vitest",
+        "vitest.cmd",
+    }:
+        return None, "reached package test script is not a direct Vitest invocation"
+    if len(tokens) < _VITEST_SCRIPT_MIN_TOKENS or tokens[1] != "run":
+        return None, "reached package test script is not canonical vitest run"
+    if "--" in tokens:
+        return None, "reached package test script contains a forwarded delimiter"
+    return tokens, None
+
+
+def _tokens_invoke_vitest(tokens: tuple[str, ...]) -> bool:
+    return bool(tokens) and _argv_element_basename(tokens[0]) in {
+        "vitest",
+        "vitest.cmd",
+    }
+
+
+def _argv_filter_name(argv: tuple[str, ...]) -> str | None:
+    if argv[1:2] in (("--filter",), ("-F",)):
+        return argv[2] if len(argv) > 2 else ""  # noqa: PLR2004
+    return None
+
+
+def _workspace_vitest_roots(
+    ctx: Context, filter_name: str | None
+) -> tuple[list[Path], list[str]]:
+    roots: list[Path] = []
+    failures: list[str] = []
+    manifests, workspace_failure = _workspace_manifest_paths_checked(ctx)
+    if workspace_failure:
+        return [], [workspace_failure]
+    for manifest in manifests:
+        name, scripts, failure = _manifest_name_and_scripts(manifest)
+        if failure or scripts is None:
+            failures.append(failure or "workspace package manifest is unavailable")
+            continue
+        if filter_name is not None and name != filter_name:
+            continue
+        script = scripts.get("test")
+        if script is None:
+            continue
+        if "pretest" in scripts or "posttest" in scripts:
+            failures.append("reached workspace test lifecycle hooks are forbidden")
+            continue
+        tokens, token_failure = _script_tokens(script)
+        if token_failure or tokens is None:
+            failures.append(token_failure or "workspace test script is unavailable")
+            continue
+        cli_failure = _vitest_cli_surface_failure(tokens)
+        if cli_failure:
+            failures.append(cli_failure)
+            continue
+        if not _tokens_invoke_vitest(tokens):
+            failures.append(
+                "reached workspace test script is not a bounded Vitest invocation"
+            )
+            continue
+        roots.append(manifest.parent)
+    if filter_name is not None and not roots and not failures:
+        failures.append("Vitest workspace filter does not resolve to a test package")
+    return roots, failures
+
+
+def _workspace_roots_for_filter(
+    ctx: Context, filter_name: str
+) -> tuple[list[Path], list[str]]:
+    roots: list[Path] = []
+    failures: list[str] = []
+    manifests, workspace_failure = _workspace_manifest_paths_checked(ctx)
+    if workspace_failure:
+        return [], [workspace_failure]
+    for manifest in manifests:
+        name, _scripts, failure = _manifest_name_and_scripts(manifest)
+        if failure:
+            failures.append(failure)
+        elif name == filter_name:
+            roots.append(manifest.parent)
+    if not roots and not failures:
+        failures.append("Vitest workspace filter does not resolve to a package")
+    return roots, failures
+
+
+def _root_script_vitest_surface(  # noqa: PLR0911, PLR0912 - bounded forms
+    ctx: Context, argv: tuple[str, ...]
+) -> tuple[list[Path], bool, list[str]]:
+    if not argv or _argv_element_basename(argv[0]) not in {"pnpm", "pnpm.cmd"}:
+        return [], False, []
+    index = 1
+    filter_name: str | None = None
+    if argv[index : index + 1] in (("--filter",), ("-F",)):
+        if index + 1 >= len(argv):
+            return [], True, ["pnpm test filter is missing its exact package name"]
+        filter_name = argv[index + 1]
+        index += 2
+    if argv[index : index + 1] == ("run",):
+        index += 1
+    if index >= len(argv) or argv[index].startswith("-"):
+        if any(
+            argument == "test" or argument.startswith("test:")
+            for argument in argv[index:]
+        ):
+            return (
+                [],
+                True,
+                ["pnpm script command shape is outside the bounded grammar"],
+            )
+        return [], False, []
+    script_name = argv[index]
+    if filter_name is not None:
+        roots, failures = _workspace_roots_for_filter(ctx, filter_name)
+        if failures:
+            return [], True, failures
+        if len(roots) != 1:
+            return [], True, ["pnpm script filter does not resolve uniquely"]
+        manifest = roots[0] / "package.json"
+    else:
+        manifest = ctx.repo / "package.json"
+    _name, scripts, failure = _manifest_name_and_scripts(manifest)
+    if failure or scripts is None:
+        return [], True, [failure or "root package manifest is unavailable"]
+    script = scripts.get(script_name)
+    if script is None:
+        return [], False, []
+    vitest_surface = re.search(
+        r"(?:^|\s)(?:[^\s/\\]+[/\\])*vitest(?:\.cmd)?(?:\s|$)", script
+    )
+    if vitest_surface is None and not (
+        script_name == "test" or script_name.startswith("test:")
+    ):
+        return [], False, []
+    if f"pre{script_name}" in scripts or f"post{script_name}" in scripts:
+        return [], True, ["reached package script lifecycle hooks are forbidden"]
+    tokens, token_failure = _script_tokens(script)
+    if token_failure or tokens is None:
+        return [], True, [token_failure or "reached package script is unavailable"]
+    cli_failure = _vitest_cli_surface_failure(tokens)
+    if cli_failure:
+        return [], True, [cli_failure]
+    if not _tokens_invoke_vitest(tokens):
+        return [], True, ["reached package script is not a bounded Vitest invocation"]
+    return [manifest.parent], True, []
+
+
+def _turbo_reporter_graph_failures(ctx: Context, roots: list[Path]) -> list[str]:
+    path = ctx.repo / "turbo.json"
+    try:
+        metadata = path.lstat()
+        raw: object = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return ["Turbo test graph is missing, unreadable, or malformed"]
+    if path.is_symlink() or not stat.S_ISREG(metadata.st_mode):
+        return ["Turbo test graph must be a regular nonsymlink file"]
+    if not isinstance(raw, dict) or not isinstance(raw.get("tasks"), dict):
+        return ["Turbo test graph lacks a static tasks object"]
+    tasks = raw["tasks"]
+    if tasks.get("test") != {} or any(
+        not isinstance(name, str) or "#" in name or name.startswith("//")
+        for name in tasks
+    ):
+        return ["Turbo test graph is not the bounded dependency-free test task"]
+    for root in roots:
+        package_config = root / "turbo.json"
+        if package_config.exists() or package_config.is_symlink():
+            return ["package-local Turbo configuration is forbidden for test"]
+    return []
+
+
+def _recognized_vitest_config_failures(roots: list[Path]) -> list[str]:
+    failures: list[str] = []
+    for root in sorted(set(roots)):
+        for name in _VITEST_CONFIG_NAMES:
+            path = root / name
+            if not path.exists() and not path.is_symlink():
+                continue
+            failure = _vitest_config_failure(path)
+            if failure:
+                failures.append(failure)
+    return failures
+
+
+def _prepared_reporter_commands(  # noqa: PLR0912 - explicit command channels
+    ctx: Context,
     commands: tuple[tuple[str, ...], ...],
 ) -> tuple[list[str], tuple[tuple[str, ...], ...]]:
     """Force the canonical Vitest reporter channel onto suite commands.
@@ -2352,28 +3212,73 @@ def _prepared_reporter_commands(
     prepared: list[tuple[str, ...]] = []
     for argv in commands:
         kind = _argv_vitest_invocation_kind(argv)
-        if kind is None:
-            prepared.append(argv)
-            continue
-        if any(
-            element == "--reporter" or element.startswith("--reporter=")
-            for element in argv
-        ):
-            failures.append(
-                "suite command declares its own Vitest reporter; the "
-                "verifier owns the canonical reporter channel: "
-                f"{' '.join(argv)}"
-            )
-        elif kind == "turbo" and "--" in argv:
-            failures.append(
-                "turbo Vitest command already forwards arguments; the "
-                "verifier owns the canonical reporter channel: "
-                f"{' '.join(argv)}"
+        roots: list[Path] = []
+        script_backed = False
+        command_failures: list[str] = []
+        if kind == "invalid":
+            command_failures.append(
+                "Vitest command shape is outside the bounded grammar"
             )
         elif kind == "turbo":
-            prepared.append((*argv, "--", _VITEST_DEFAULT_REPORTER_ARG))
+            roots, command_failures = _workspace_vitest_roots(ctx, None)
+        elif kind == "vitest":
+            filter_name = _argv_filter_name(argv)
+            if filter_name is None:
+                roots = [ctx.repo]
+            else:
+                roots, command_failures = _workspace_roots_for_filter(ctx, filter_name)
         else:
-            prepared.append((*argv, _VITEST_DEFAULT_REPORTER_ARG))
+            roots, script_backed, command_failures = _root_script_vitest_surface(
+                ctx, argv
+            )
+        cli_failure = (
+            _vitest_cli_surface_failure(argv)
+            if kind is not None or script_backed
+            else None
+        )
+        if cli_failure:
+            command_failures.append(cli_failure)
+        if kind == "turbo" and not command_failures:
+            command_failures.extend(_turbo_reporter_graph_failures(ctx, roots))
+        failures.extend(command_failures)
+        failures.extend(_recognized_vitest_config_failures(roots))
+        if command_failures:
+            prepared.append(argv)
+            continue
+        if kind == "turbo":
+            if "--" in argv:
+                separator = argv.index("--")
+                prepared.append(
+                    (
+                        *argv[: separator + 1],
+                        _VITEST_DEFAULT_REPORTER_ARG,
+                        *argv[separator + 1 :],
+                    )
+                )
+            else:
+                prepared.append((*argv, "--", _VITEST_DEFAULT_REPORTER_ARG))
+        elif kind == "vitest":
+            if "--" in argv:
+                separator = argv.index("--")
+                prepared.append(
+                    (*argv[:separator], _VITEST_DEFAULT_REPORTER_ARG, *argv[separator:])
+                )
+            else:
+                prepared.append((*argv, _VITEST_DEFAULT_REPORTER_ARG))
+        elif script_backed:
+            if "--" in argv:
+                separator = argv.index("--")
+                prepared.append(
+                    (
+                        *argv[: separator + 1],
+                        _VITEST_DEFAULT_REPORTER_ARG,
+                        *argv[separator + 1 :],
+                    )
+                )
+            else:
+                prepared.append((*argv, "--", _VITEST_DEFAULT_REPORTER_ARG))
+        else:
+            prepared.append(argv)
     return failures, tuple(prepared)
 
 
@@ -2414,7 +3319,9 @@ def run_suite(  # noqa: PLR0912 - explicit independent suite outcomes
                 _canonical_python_suite_command(ctx, argv) for argv in suite.commands
             )
         else:
-            reporter_failures, commands = _prepared_reporter_commands(suite.commands)
+            reporter_failures, commands = _prepared_reporter_commands(
+                ctx, suite.commands
+            )
             messages.extend(reporter_failures)
         for argv in commands if not messages else ():
             code, output = run_command(ctx, argv)
