@@ -33,6 +33,114 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W01 — Governance closeout after independent Fable acceptance verification (2026-08-03)
+
+- Revision: audited content commit `7523e096b51c1c3a0490924235879d4d6d386b81`
+  / tree `666987a702d274aabcee8bbfdfae5afd5d9c18e7`; parent correction commit
+  `f1b727450c2a25bfb6f806a51bcde30b9fed156c`. The governance commit containing
+  this entry is recorded post-commit per the anchoring convention; it changes
+  governance documents only.
+- Environment: independent Fable 5 Max acceptance session on macOS (Apple
+  Silicon, Darwin 27), Node 24 with pnpm, uv-managed Python 3.12, Rust
+  1.97.1, pinned Playwright Chromium; all execution occurred in a disposable
+  no-hardlinks exact-SHA clone prepared with `pnpm install --frozen-lockfile`,
+  `uv sync --locked`, `pnpm exec playwright install chromium`, and both
+  `cargo fetch --locked` manifests, with zero lockfile/workflow/toolchain/
+  specification drift. Hosted evidence ran on ubuntu-24.04, macos-15, and
+  windows-2025 GitHub-hosted runners.
+- Verdict: the required Fable-only acceptance verification returned
+  `FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT`, confirming `AUD-PLAT-001`,
+  `AUD-PLAT-002`, `AUD-PLAT-003`, `AUD-VER-001`, `AUD-VER-002`, and
+  `AUD-VER-003` all CLEAR against their committed regression tests and
+  implementations. No new technical audit, syntax family, or security probe
+  was opened during this closeout.
+- Commands and observed results (disposable exact-SHA clone; every command
+  exited 0):
+  - `uv run pytest -q scripts/tests/test_integrity.py` → exit 0, 43 passed.
+  - `uv run pytest -q scripts/tests/test_suite_states.py` → exit 0,
+    294 passed.
+  - `uv run pytest -q scripts/tests/test_proofs_and_real_repo.py` → exit 0,
+    7 passed.
+  - `uv run pytest -q scripts/tests` → exit 0, 976 passed; the 977th
+    inventory item, `services/orchestrator/tests/test_package.py::`
+    `test_package_version_matches_distribution_metadata`, lies outside the
+    `scripts/tests` path scope and runs in the canonical verifier command.
+  - `pnpm --filter @japp/test-fixtures exec vitest run test/m02-w01
+    --no-file-parallelism --maxWorkers=1 --reporter=default` → exit 0,
+    108/108 across 8 files.
+  - `pnpm --filter @japp/test-fixtures test` → exit 0, 109/109 across 9
+    files.
+  - `fixtures:seed:check` (zero-mutation check mode), `fixtures:validate`,
+    `fixtures:privacy` (25 files, 26,179 scalar fields clean),
+    `fixtures:platform-v1` (15 deprecated v1/v2 sibling pairs over 25
+    producer files), and `fixtures:discover` → all exit 0.
+  - `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+    `pnpm generate:contracts --check`, and `pnpm run doctor` (summary: 23
+    pass, 0 warning, 0 fail, 1 not-yet-applicable) → all exit 0.
+  - `pnpm verify` → exit 0: unit-ts 2,556 tests (2,440 contracts + 109
+    fixtures + seven one-test packages, 9/9 tasks), focused fixture suite
+    108, focused contract suite 662, browser 1, Python 977/977 POSIX items,
+    Rust 1 and 10; visual remained truthfully NOT_YET_APPLICABLE; zero
+    tracked-byte drift after the complete chain.
+- Exact Python inventory identities: 975 common/Windows node IDs at SHA-256
+  `091078f72fe887c21980f601f95e2996190b2fccf7b5bf32e9567897f0a62f36` and 977
+  macOS/Linux node IDs at SHA-256
+  `196a4cfd4c08bc56a7b96eb5be7454ec50d479a39a313c127729b34fd078f55f`; both
+  digests were independently recomputed from
+  `scripts/python-test-inventory.v1.json` using the verifier's exact
+  canonicalization, and the only two POSIX-only nodes are
+  `test_atomic_adoption_rejects_non_regular_source[fifo]` and
+  `test_atomic_adoption_rejects_non_regular_source[socket]`.
+- Hosted evidence: final run `30741379567` at head SHA exactly
+  `7523e096b51c1c3a0490924235879d4d6d386b81` succeeded with doctor + verify
+  (ubuntu-24.04) job `91479336277` success, doctor + verify (macos-15) job
+  `91479336288` success, and doctor + verify (windows-2025) job
+  `91479336324` success. Every job checked out the exact final SHA, reported
+  doctor 23 pass / 0 warning / 0 fail, collected and passed the
+  platform-exact Python inventory (977 POSIX; 975 Windows), printed
+  `verification exit code: 0` with every ACTIVE suite PASS, and passed the
+  tracked-cleanliness assertion.
+- Failed parent-content run recorded: run `30740481965` at
+  `f1b727450c2a25bfb6f806a51bcde30b9fed156c` failed only on windows-2025
+  because the temporary Python-inventory test fixture helper used text-mode
+  writing, Windows translated the fixture bytes to CRLF, and the production
+  canonicality rule correctly rejected the noncanonical serialization
+  (`test_python_inventory_loads_exact_windows_and_posix_identities` plus its
+  dependent identity tests). Final commit `7523e09` changed the fixture
+  writer to explicit UTF-8/LF byte writing and added direct no-CRLF
+  assertions. Earlier run `30723624756` at `83d83ff` was genuinely three-OS
+  green but was later invalidated semantically by the six independently
+  reproduced blockers; hosted-green execution is evidence, not the sole
+  reason for verification.
+- Wording correction: the 2026-08-02 entry's sentence "the focused platform
+  file remains 25 top-level tests" was inaccurate. The focused platform file
+  increased from 22 top-level tests at the audited predecessor
+  (`f5cb2fc`/`83d83ff`) to 25 tests at the final corrected content. A
+  correction label is added in place below; the historical counts are
+  otherwise unaltered.
+- Known-issue closeout: KI-0039 (temporal boundary/credential validity),
+  KI-0040 (fully re-signed contradictions), KI-0041 (privacy scanning and
+  diagnostic non-disclosure; the generic Base64 hypothesis remains explicitly
+  outside the accepted M02-W01 detector contract and nonblocking), KI-0042
+  (ADR-0004 producer guard), KI-0043 (non-mutating check mode), KI-0044
+  (test integrity and exact inventory), and KI-0045 (topology and policy
+  diversity) all transition IN_PROGRESS → FIXED with their defect histories
+  preserved in docs/KNOWN_ISSUES.md.
+- Lifecycle result: M02-W01 becomes VERIFIED, not ACCEPTED; M02-W02 becomes
+  the sole READY package and was not begun; M02 remains IN_PROGRESS; M00 and
+  M01 remain ACCEPTED; all four critical gates remain NOT_EVALUATED — this
+  package verification did not evaluate any critical gate, and the Autofill
+  Feasibility evaluation/decision remains owned by M02-W14/M02-W15 — and the
+  overall release gate remains NOT_READY.
+- Artifacts: governance updates to docs/PROJECT_STATUS.md,
+  docs/KNOWN_ISSUES.md, docs/TEST_EVIDENCE.md, docs/traceability.json, and
+  the regenerated docs/REQUIREMENTS_TRACEABILITY.md in this closeout commit;
+  hosted job logs inspected through authenticated GitHub tooling, including
+  the raw windows-2025 log.
+- Notes: governance-only change. No production code, test logic, fixture
+  data, schema, generated contract, workflow, dependency, lockfile, or
+  toolchain byte changed, and no M02-W02 implementation bytes exist.
+
 ### M02-W01 — Six-blocker post-audit corrective content pass (2026-08-02)
 
 - Revision and boundary: implementation working tree based on exact clean
@@ -121,10 +229,13 @@ Exact verification commands and summarized results
     `scripts/python-test-inventory.v1.json`. Verification never rewrites that
     file and unsupported platforms fail closed.
 - Regression and independent replay evidence: the focused platform file
-  remains 25 top-level tests but its tables now cover the six named platform
-  findings plus directly adjacent alias, method, bind, default, generator,
-  mutation/escape, rebinding, sink, mixed-case, spread, and computed-key
-  controls. A read-only reviewer replayed the final ten concrete edge cases
+  remains 25 top-level tests [correction, 2026-08-03 governance closeout:
+  the file increased from 22 top-level tests at the audited predecessor
+  (`f5cb2fc`/`83d83ff`) to 25 tests at this final corrected content;
+  "remains 25" was inaccurate] but its tables now cover the six named
+  platform findings plus directly adjacent alias, method, bind, default,
+  generator, mutation/escape, rebinding, sink, mixed-case, spread, and
+  computed-key controls. A read-only reviewer replayed the final ten concrete edge cases
   and the complete focused file: 25/25 passed, with every intended reject
   producing a fail-closed unresolved result and both intended-valid controls
   clean. Reporter tests cover direct, Turbo, root/workspace/named scripts,

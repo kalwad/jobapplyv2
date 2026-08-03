@@ -34,15 +34,21 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-KI-0039, KI-0040, KI-0041, KI-0042, and KI-0044 are live HIGH corrective
-blockers for M02-W01. KI-0043 and KI-0045 are associated MEDIUM corrective
-work. KI-0033 through KI-0038 remain historically FIXED; the audit does not
-reopen their preserved scope or any accepted M00/M01 milestone.
+KI-0039 through KI-0045 are FIXED as of the 2026-08-03 governance closeout
+that followed the independent Fable 5 Max acceptance verification
+(FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT) of exact content commit
+`7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+`666987a702d274aabcee8bbfdfae5afd5d9c18e7` with final hosted three-OS run
+`30741379567` green. Their entries below preserve the complete defect and
+reproduction history, including every invalidated revision. KI-0033 through
+KI-0038 remain historically FIXED; the closeout does not reopen their
+preserved scope or any accepted M00/M01 milestone, does not evaluate any
+critical gate, and does not accept M02.
 
 ### KI-0039 — Stale credential evidence was released as current truth
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 fixture truth, credential validity, schemas, model,
   generator, development data, consistency validation, and truth oracle
@@ -61,15 +67,25 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   semantic clock.
 - Workaround: none accepted. Extending the expired date would hide rather
   than repair the defect.
-- Resolution + evidence link: IN_PROGRESS. Preserve the expired adversarial
-  record, migrate temporal semantics, add current/non-expiring positives and
-  an independent date oracle, then require corrected content, two clean
-  clones, fresh three-OS CI, and a genuinely fresh read-only audit.
+- Resolution + evidence link: FIXED. The correction preserved the expired
+  adversarial record, migrated temporal semantics, and added
+  current/non-expiring positives and an independent date oracle; the required
+  corrected content, clean clones, fresh three-OS CI, and genuinely fresh
+  read-only audit have all completed. Closed by the 2026-08-03 governance
+  closeout: the independent Fable 5 Max acceptance verification of exact
+  content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7` confirmed the temporal boundary
+  and credential-validity tests green within the focused M02-W01 suite
+  (108/108) and the complete fixture package (109/109), with final hosted
+  three-OS run `30741379567` green; see docs/TEST_EVIDENCE.md § M02-W01 —
+  Governance closeout after independent Fable acceptance verification
+  (2026-08-03). Package verification does not evaluate a critical gate; the
+  invalidated revisions above remain preserved historical evidence.
 
 ### KI-0040 — Fully re-signed semantic contradictions bypass consistency checks
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 semantic consistency, loader/validator matrices, and
   fully re-signed mutation tests
@@ -85,14 +101,24 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   prose with updated hashes. The invalidated loader and validator accept all
   five with zero issues.
 - Workaround: none accepted; re-signing cannot authorize incoherent meaning.
-- Resolution + evidence link: IN_PROGRESS. Add exhaustive coupling and
-  structured-source matrices, nested-ID uniqueness, fully re-signed
-  negatives, corrected content, clean clones, fresh CI, and fresh audit.
+- Resolution + evidence link: FIXED. The correction added exhaustive coupling
+  and structured-source matrices, nested-ID uniqueness, and fully re-signed
+  negatives; corrected content, clean clones, fresh three-OS CI, and the
+  genuinely fresh audit have all completed. Closed by the 2026-08-03
+  governance closeout: the independent Fable 5 Max acceptance verification of
+  exact content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7` confirmed the fully re-signed
+  contradiction suite green (resigned-contradictions.test.ts, 7/7, within the
+  108/108 focused M02-W01 run), with final hosted three-OS run `30741379567`
+  green; see docs/TEST_EVIDENCE.md § M02-W01 — Governance closeout after
+  independent Fable acceptance verification (2026-08-03). Package
+  verification does not evaluate a critical gate; the invalidated revisions
+  above remain preserved historical evidence.
 
 ### KI-0041 — Privacy scanning misses dangerous inputs and leaks raw diagnostics
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 privacy scanning, strict JSON, loader/platform/consistency
   diagnostics, and adversarial tests
@@ -107,10 +133,24 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   key appears in the strict-JSON pointer and loader exception.
 - Workaround: none accepted. Manual inspection is not a deterministic privacy
   boundary.
-- Resolution + evidence link: IN_PROGRESS. Add bounded normalization,
-  semantic/context checks, traversal and dangerous-key detection, centrally
-  redacted diagnostic locations, exact non-disclosure tests, clean clones,
-  fresh CI, and fresh audit.
+- Resolution + evidence link: FIXED for the scoped M02-W01 defect. The
+  correction added bounded normalization, semantic/context checks, traversal
+  and dangerous-key detection, centrally redacted diagnostic locations, and
+  exact non-disclosure tests; clean clones, fresh three-OS CI, and the
+  genuinely fresh audit have all completed. Closed by the 2026-08-03
+  governance closeout: the independent Fable 5 Max acceptance verification of
+  exact content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7` confirmed the privacy and
+  non-disclosure tests green (privacy-security.test.ts within the 108/108
+  focused suite; committed-producer privacy scan of 25 files and 26,179
+  scalar fields clean), with final hosted three-OS run `30741379567` green;
+  see docs/TEST_EVIDENCE.md § M02-W01 — Governance closeout after independent
+  Fable acceptance verification (2026-08-03). The generic Base64 hypothesis
+  recorded below remains explicitly outside the accepted M02-W01 detector
+  contract and nonblocking: generic Base64 scanning was not implemented, and
+  the privacy/diagnostic boundary is not weakened by this closeout. Package
+  verification does not evaluate a critical gate; the invalidated revisions
+  above remain preserved historical evidence.
   Nonblocking follow-up hypothesis (2026-07-30): generic Base64 text encoding
   a synthetic email, SSN, phone, or address passes the current scan. The
   bounded normalization contract implemented to date covers escaped literals,
@@ -122,7 +162,7 @@ reopen their preserved scope or any accepted M00/M01 milestone.
 ### KI-0042 — ADR-0004 new-producer guard accepts constructed v1 references
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 ADR-0004 new-producer platform-version guard and tests
 - Description: the direct-URN regex misses deprecated schema filenames and
@@ -152,22 +192,29 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   their prior behavior.
 - Workaround: none accepted; new producers must select corrected v2
   semantics.
-- Resolution + evidence link: IN_PROGRESS. Preserve exact pair discovery,
-  parse JSON aliases and pinned-TypeScript AST constants, fail closed on
-  producer parse/type errors and statically visible intrinsic overrides,
-  evaluate unresolved schema-like expressions independently, redact
-  diagnostics, then run clean clones, fresh CI, and fresh audit. Bounded
-  corrective execution is recorded in `docs/TEST_EVIDENCE.md`. The current
-  candidate adds bounded point-in-time callable execution, explicit ASCII
-  folding, ordered selector/spread resolution, mutation/escape checks, and
-  schema-sink coverage. Exact hosted three-OS proof and a genuinely fresh
-  independent audit are still required, so this implementation evidence does
-  not close the issue and it remains IN_PROGRESS.
+- Resolution + evidence link: FIXED. Preserved exact pair discovery, parsed
+  JSON aliases and pinned-TypeScript AST constants, failed closed on producer
+  parse/type errors and statically visible intrinsic overrides, evaluated
+  unresolved schema-like expressions independently, and redacted diagnostics.
+  Bounded corrective execution is recorded in `docs/TEST_EVIDENCE.md`. The
+  final candidate added bounded point-in-time callable execution, explicit
+  ASCII folding, ordered selector/spread resolution, mutation/escape checks,
+  and schema-sink coverage. The exact hosted three-OS proof (run
+  `30741379567` at commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7`) and the genuinely fresh
+  independent audit (Fable 5 Max, FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT,
+  confirming AUD-PLAT-001 through AUD-PLAT-003 CLEAR with the guard deriving
+  15 deprecated v1/v2 sibling pairs over 25 producer files, never executing
+  producer source) have now completed, closing the issue on 2026-08-03; see
+  docs/TEST_EVIDENCE.md § M02-W01 — Governance closeout after independent
+  Fable acceptance verification (2026-08-03). Package verification does not
+  evaluate a critical gate; the invalidated revisions above remain preserved
+  historical evidence.
 
 ### KI-0043 — Fixture seed check mode mutates missing roots
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 deterministic seed check behavior and filesystem tests
 - Description: `fixtures:seed:check` creates `data/development` before
@@ -177,14 +224,22 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   directory. It exits nonzero for missing fixtures but creates both missing
   directories and changes the parent metadata.
 - Workaround: none accepted; verification must be status-neutral.
-- Resolution + evidence link: IN_PROGRESS. Isolate all mutators in explicit
-  write mode and prove byte/mode/time-neutral behavior across every reviewed
-  starting state.
+- Resolution + evidence link: FIXED. All mutators are isolated in explicit
+  write mode and byte/mode/time-neutral check behavior is proven across every
+  reviewed starting state (generator-check-mode.test.ts zero-mutation suite,
+  6/6, within the 108/108 focused M02-W01 run). Closed by the 2026-08-03
+  governance closeout: the independent Fable 5 Max acceptance verification of
+  exact content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7` ran `fixtures:seed:check` with
+  exit 0 and zero tracked-byte drift locally and on all three hosted jobs of
+  run `30741379567`; see docs/TEST_EVIDENCE.md § M02-W01 — Governance
+  closeout after independent Fable acceptance verification (2026-08-03).
+  Package verification does not evaluate a critical gate.
 
 ### KI-0044 — Shared expected truth and conditional skips invalidate closeout proof
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 truth oracle and closeout verification;
   `scripts/verify.py` and its focused tests
@@ -227,26 +282,39 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   tables remained green (`AUD-VER-003`).
 - Workaround: none accepted. Metadata author/reviewer inequality is
   provenance hygiene, not independent certification.
-- Resolution + evidence link: IN_PROGRESS. Add a literal test-only oracle
-  with every count/scenario/evaluation/credential decision, coherent-drift
-  tests, sound definitely-executed table mutation and concat semantics,
+- Resolution + evidence link: FIXED. Added a literal test-only oracle with
+  every count/scenario/evaluation/credential decision, coherent-drift tests,
+  sound definitely-executed table mutation and concat semantics,
   TypeScript-AST conditional-skip/expected-fail detection, static
   dynamic-import closure resolution that fails closed on unresolved
   specifiers, a verifier-owned Vitest reporter channel, lexical Python AST
-  skip/collection policy with named execution-stage session hooks, strict
-  cross-platform non-pass summary parsing, clean clones, fresh CI, and a
-  separate fresh audit. The current candidate rejects repository-controlled
-  reporter channels before every child process, parses one exact final
-  ordinary pytest summary, and compares collection and pass counts against a
-  canonical common-plus-POSIX node-ID inventory. Bounded corrective execution
-  is recorded in `docs/TEST_EVIDENCE.md`; exact hosted three-OS proof and a
-  fresh independent audit remain required, so this implementation evidence
-  does not close the issue and it remains IN_PROGRESS.
+  skip/collection policy with named execution-stage session hooks, and strict
+  cross-platform non-pass summary parsing. The final candidate rejects
+  repository-controlled reporter channels before every child process, parses
+  one exact final ordinary pytest summary, and compares collection and pass
+  counts against the canonical common-plus-POSIX node-ID inventory. Bounded
+  corrective execution is recorded in `docs/TEST_EVIDENCE.md`. The exact
+  hosted three-OS proof (run `30741379567` at commit
+  `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7`) and the genuinely fresh
+  independent audit (Fable 5 Max, FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT,
+  confirming AUD-VER-001 through AUD-VER-003 CLEAR: 294/294 verifier
+  suite-state tests, exact inventories of 975 common/Windows node IDs at
+  SHA-256 `091078f72fe887c21980f601f95e2996190b2fccf7b5bf32e9567897f0a62f36`
+  and 977 POSIX node IDs at SHA-256
+  `196a4cfd4c08bc56a7b96eb5be7454ec50d479a39a313c127729b34fd078f55f` with the
+  FIFO and Unix-domain-socket cases as the only POSIX delta, and three real
+  count-preserving mutations all rejected by the identity proof) have now
+  completed, closing the issue on 2026-08-03; see docs/TEST_EVIDENCE.md §
+  M02-W01 — Governance closeout after independent Fable acceptance
+  verification (2026-08-03). Package verification does not evaluate a
+  critical gate; the invalidated revisions above remain preserved historical
+  evidence.
 
 ### KI-0045 — Fixture topology and consequential-policy coverage are shallow
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-07-29 during the post-acceptance M02-W01 independent audit
 - Affects: M02-W01 fixture diversity, scenario reasoning, and policy coverage
 - Description: all profiles share one six-record topology, all resumes have
@@ -258,11 +326,21 @@ reopen their preserved scope or any accepted M00/M01 milestone.
   actions and zero BLOCK_FIELD_POLICY outcomes.
 - Workaround: none accepted; relabeling or count inflation is not meaningful
   diversity.
-- Resolution + evidence link: IN_PROGRESS. Add at least four substantive
-  evidence topologies, varied resumes, twelve structured job shapes,
-  multi-evidence claims, all requested policy concepts/kinds/actions, and at
-  least three genuine field-policy blocks without claiming final corpus or
-  gate minima.
+- Resolution + evidence link: FIXED. The committed corpus now measures five
+  distinct evidence topologies, resume fact counts of 4/5/6, twenty-two
+  structured job shapes, thirty-one scenario signatures, eighteen
+  multi-evidence claims (sixteen with three or more evidence references),
+  twenty BLOCK_FIELD_POLICY scenarios, sixty-nine policy evaluations, and all
+  four expected actions including BLOCK_AND_EXPLAIN (corpus-positive.test.ts
+  diversity measurement), all above the recorded thresholds and without
+  claiming final corpus or gate minima. Closed by the 2026-08-03 governance
+  closeout: the independent Fable 5 Max acceptance verification of exact
+  content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree
+  `666987a702d274aabcee8bbfdfae5afd5d9c18e7` confirmed those measurements
+  green within the 108/108 focused suite, with final hosted three-OS run
+  `30741379567` green; see docs/TEST_EVIDENCE.md § M02-W01 — Governance
+  closeout after independent Fable acceptance verification (2026-08-03).
+  Package verification does not evaluate a critical gate.
 
 ### KI-0033 — Future Gate D guidance named deprecated platform roots
 

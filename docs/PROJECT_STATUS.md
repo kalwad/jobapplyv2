@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: bounded six-blocker corrective candidate based on 83d83ff1b805b57ca7fecf2797cf35e2036e0740
-Last updated: 2026-08-02T03:47:03-04:00
+Repository revision: governance closeout of audited content commit 7523e096b51c1c3a0490924235879d4d6d386b81 / tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7
+Last updated: 2026-08-03T18:51:07-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: M02-W01
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,14 +23,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W01 is the sole IN_PROGRESS package after independent audit verdict B invalidated its prior acceptance; M02-W02 is NOT_STARTED, no package is READY, and M02 remains IN_PROGRESS. M01-W07 remains VERIFIED and M01 remains ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M02-W01 content anchor `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` and stamp `5309909a881fef8fd00bc16c6203700683aa8fb5` are historical evidence only. Prior corrective base `4fb164ff3351fdedcee3542350a9fa565264d1fa` / tree `c21d246256d844bd839de08609a0694e52df2303` remains unaccepted execution evidence after the reconciled Opus/SOL verdict B.
-- Exact boundary: the fresh independent audit of commit `83d83ff1b805b57ca7fecf2797cf35e2036e0740` / tree `f9fddf739fa21d06517574f839625bfb931521ee` reported six bounded blockers: `AUD-PLAT-001` through `AUD-PLAT-003` and `AUD-VER-001` through `AUD-VER-003`. That exact tree is failed audit evidence, not an accepted M02-W01 anchor. This pass is a corrective content candidate only.
-- Objective: correct the bounded M02-W01 fixture truth, consistency, privacy/diagnostic, platform-version, check-mode, independent-oracle, test-policy/summary, skip-verification, and diversity defects. The current corrective pass closes independently reproduced IIFE/concat static-cardinality, expected-fail/nonordinary-summary, ADR-0004 producer-expression, Python skip/collection, dynamic-import helper-laundering, custom-reporter summary-forgery, and execution-stage session-hook verification bypasses within the existing architecture. M02-W02 question/answer work has not begun and is explicitly not ready. No M02-W03 mock ATS form, benchmark runner, corpus freeze, holdout content, extension behavior, product schema, autofill capability, or later-package artifact is authorized.
-- Six-blocker correction: the current candidate adds bounded invoked join-mutator resolution, explicit ASCII case folding, ordered fail-closed schema selector/spread analysis, a verifier-owned and repository-independent Vitest reporter preflight, one strict ordinary-only pytest terminal grammar, and a canonical common-plus-POSIX Python node-ID inventory. These changes address only the six named audit blockers and do not authorize governance closeout.
-- Dependencies and historical proof: M00 and M01 remain ACCEPTED. The canonical spec hash `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943` remains unchanged. The prior M02-W01 clean clones and three-OS run `30446331580` prove only that the invalidated bytes executed as recorded; they do not establish semantic correctness or current acceptance. Final M01 run `30423199771` remains the preserved hosted prerequisite.
-- Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED.
-- Evidence: the post-acceptance audit reproduced stale credential truth, five fully re-signed semantic contradictions, privacy false negatives/positives and raw disclosure, ADR-0004 guard bypasses, check-mode mutation, shared expected truth, conditional-skip evasion, shallow diversity, unused consequential policies, and an unobserved root-identity replacement. The later Opus/SOL review of `4fb164f` additionally reproduced positional evidence/citation defects, numeric-experience release bypass, stale explicit-field release, oracle blind spots, and remaining privacy/test-policy gaps. The revised audit validation at exact base `f5cb2fc` confirmed additional IIFE/local-call, concat-cardinality, expected-fail summary, encoded/static/unresolved platform-v1 producer, intrinsic-join override, and Python skip/collection bypasses. Recovery produced commit `83d83ff`, whose fresh audit then invalidated earlier broad claims about join-call aliases, case-variant platform forms, unresolved spreads/computed selectors, repository reporter coexistence, permissive pytest summaries, and count-only Python verification. The current focused and real-repository results are implementation evidence only. Automated author/reviewer labels are provenance hygiene, not independent certification. Exact post-candidate three-OS CI, a genuinely fresh independent audit, ChatGPT repository/CI verification, and separate governance-only closeout remain pending.
-- Blockers: KI-0039, KI-0040, KI-0041, KI-0042, and KI-0044 are live HIGH IN_PROGRESS blockers scoped to M02-W01. KI-0043 and KI-0045 are associated MEDIUM corrective work. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. KI-0033 through KI-0038 remain historically FIXED and do not reopen M01.
+- State: M02-W01 is VERIFIED after the independent Fable 5 Max acceptance verification returned FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT (2026-08-03) for the exact audited content commit `7523e096b51c1c3a0490924235879d4d6d386b81` / tree `666987a702d274aabcee8bbfdfae5afd5d9c18e7` (parent correction commit `f1b727450c2a25bfb6f806a51bcde30b9fed156c`). M02-W02 is the sole READY package and its implementation has not begun; no package is IN_PROGRESS and M02 remains IN_PROGRESS. M01-W07 remains VERIFIED and M01 remains ACCEPTED at corrective content tree `51c81bedb909ae7b6d54569abc8b8fb13af1c590` (commit `c24ccf989726a4870c152a22eec7b6f48e125be8`). M00-W01 through M00-W11 and M01-W01 through M01-W06 remain VERIFIED at their preserved content trees, and M00 remains ACCEPTED. The invalidated M02-W01 content anchor `a88fa6787db88c322938e6c0c5a89e67584a34a5` / tree `c0b7e8312e8ffce6771cbce55b1e62cf8a1302d5` and stamp `5309909a881fef8fd00bc16c6203700683aa8fb5` are historical evidence only. Prior corrective base `4fb164ff3351fdedcee3542350a9fa565264d1fa` / tree `c21d246256d844bd839de08609a0694e52df2303` remains unaccepted execution evidence after the reconciled Opus/SOL verdict B.
+- Exact boundary: the earlier fresh independent audit of commit `83d83ff1b805b57ca7fecf2797cf35e2036e0740` / tree `f9fddf739fa21d06517574f839625bfb931521ee` reported six bounded blockers (`AUD-PLAT-001` through `AUD-PLAT-003` and `AUD-VER-001` through `AUD-VER-003`); that exact tree remains failed audit evidence, and its three-OS run `30723624756` was genuinely green but later semantically invalidated by those six independently reproduced blockers. Parent-content run `30740481965` at `f1b7274` failed only on windows-2025 because a text-mode test helper emitted CRLF Python-inventory fixture bytes that the production canonicality rule correctly rejected; final commit `7523e09` writes those fixtures as explicit UTF-8/LF bytes and adds direct no-CRLF assertions. Hosted-green execution is evidence, not the sole reason for verification.
+- Objective: M02-W01 is complete and VERIFIED, not ACCEPTED; M02 milestone acceptance and the Autofill Feasibility Gate remain future work (gate evaluation belongs to M02-W14 and the M02-W15 decision). The next work is M02-W02 question/answer fixtures, which has produced no implementation bytes yet. No M02-W03 mock ATS form, benchmark runner, corpus freeze, holdout content, extension behavior, product schema, autofill capability, or later-package artifact is authorized.
+- Closeout verification: the Fable 5 Max acceptance session independently confirmed all six recorded corrections — bounded invoked join-mutator callable resolution (aliases, alias chains, `.call`, `.apply`), explicit ASCII case folding for deprecated platform representations, ordered fail-closed schema selector/spread analysis, the verifier-owned zero-child Vitest reporter preflight, the strict ordinary-only pytest terminal grammar under LF and CRLF, and the exact canonical Python node-ID inventory proof — with focused M02-W01 fixtures 108/108, the complete fixture package 109/109, unit TypeScript 2,556, focused contracts 662, browser 1, Rust 1 plus 10, and Python inventories of 977 POSIX items (SHA-256 `196a4cfd4c08bc56a7b96eb5be7454ec50d479a39a313c127729b34fd078f55f`) and 975 Windows/common items (SHA-256 `091078f72fe887c21980f601f95e2996190b2fccf7b5bf32e9567897f0a62f36`); the only two POSIX-only nodes are the FIFO and Unix-domain-socket cases.
+- Dependencies and historical proof: M00 and M01 remain ACCEPTED. The canonical spec hash `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943` remains unchanged. The prior M02-W01 clean clones and three-OS run `30446331580` prove only that the invalidated bytes executed as recorded; they do not establish semantic correctness. Final M01 run `30423199771` remains the preserved hosted prerequisite.
+- Critical-gate state: AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED. Package verification does not evaluate a critical gate.
+- Evidence: final hosted run `30741379567` at the exact audited SHA succeeded on ubuntu-24.04 (job `91479336277`), macos-15 (job `91479336288`), and windows-2025 (job `91479336324`) with doctor 23 pass / 0 warning / 0 fail on every job, canonical verification exit 0, every ACTIVE suite PASS with visual truthfully NOT_YET_APPLICABLE, platform-exact Python inventories (977/977 POSIX, 975/975 Windows), and a passing tracked-cleanliness assertion. The defect history that drove the corrective cycle — the post-acceptance audit findings, the Opus/SOL review of `4fb164f`, the revised audit validation at `f5cb2fc`, and the six-blocker audit of `83d83ff` — remains preserved in docs/KNOWN_ISSUES.md (KI-0039 through KI-0045, now FIXED) and in the historical docs/TEST_EVIDENCE.md entries. The governance closeout record is docs/TEST_EVIDENCE.md § M02-W01 — Governance closeout after independent Fable acceptance verification (2026-08-03).
+- Blockers: NONE. KI-0039 through KI-0045 are FIXED with closeout evidence in docs/KNOWN_ISSUES.md; the KI-0041 generic-Base64 hypothesis remains explicitly outside the accepted M02-W01 detector contract and nonblocking. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners. KI-0033 through KI-0038 remain historically FIXED and do not reopen M01.
 
 ## Milestone table
 
@@ -38,7 +38,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 reopened IN_PROGRESS and M02-W02 NOT_STARTED |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7 and M02-W02 READY |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -98,8 +98,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M01-W05` | VERIFIED | tree 77fb23c61482ff87643db30f10ed27263254a7b2 | docs/TEST_EVIDENCE.md § M01-W05 | Build contract compatibility tests |
 | `M01-W06` | VERIFIED | tree 6ed03405b8e252a583f6f89709722e1bd680d8de | docs/TEST_EVIDENCE.md § M01-W06 | Define feasibility and benchmark contracts |
 | `M01-W07` | VERIFIED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | docs/TEST_EVIDENCE.md § M01-W07 | Corrected KI-0029 through KI-0032; all prior M01-W07 trees remain historical evidence |
-| `M02-W01` | IN_PROGRESS | — | — | Correct the invalidated synthetic profile/job/resume fixture foundation |
-| `M02-W02` | NOT_STARTED | — | — | Create question and answer fixtures; readiness withdrawn, implementation not started |
+| `M02-W01` | VERIFIED | tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7 | docs/TEST_EVIDENCE.md § M02-W01 | Create synthetic profile/job/resume fixtures; corrected foundation verified after independent Fable acceptance (hosted run 30741379567) |
+| `M02-W02` | READY | — | — | Create question and answer fixtures; sole READY package, implementation not started |
 | `M02-W03` | NOT_STARTED | — | — | Build mock ATS lab v1 |
 | `M02-W04` | NOT_STARTED | — | — | Capture baseline algorithms |
 | `M02-W05` | NOT_STARTED | — | — | Build evaluation runner |
@@ -383,17 +383,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M02-W01 is IN_PROGRESS after independent audit verdict B; M02-W02 cannot become READY before a separate fresh audit and governance-only closeout.
-- Required reading: n/a while M02-W01 is IN_PROGRESS.
+- ID: M02-W02
+- Reason: M02-W01 is VERIFIED at the audited content tree after the independent Fable 5 Max acceptance verification and this governance closeout; M00 and M01 are ACCEPTED, no critical-gate prerequisite applies to M02 packages, and deterministic next-work selection chooses the first eligible unfinished package in canonical order.
+- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md (M02 section and the M02-W02 package row), CLAUDE.md, docs/PROJECT_STATUS.md, docs/TEST_EVIDENCE.md § M02-W01, docs/KNOWN_ISSUES.md (KI-0039 through KI-0045 closeouts, including the KI-0041 nonblocking Base64 exclusion), packages/test-fixtures/README.md.
 
 ## Known release blockers
 
-- KI-0039 (HIGH, IN_PROGRESS) — stale/current fixture truth and credential validity.
-- KI-0040 (HIGH, IN_PROGRESS) — fully re-signed semantic contradictions.
-- KI-0041 (HIGH, IN_PROGRESS) — privacy scanner gaps and diagnostic disclosure.
-- KI-0042 (HIGH, IN_PROGRESS) — ADR-0004 producer-guard bypasses.
-- KI-0044 (HIGH, IN_PROGRESS) — shared truth oracle and conditional-skip verification.
+- NONE
 
 ## Status conventions and update rules
 
