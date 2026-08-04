@@ -2,19 +2,37 @@
   "id": "manifest_00000000000000000000000001",
   "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
   "schema_version": "2.0.0",
-  "corpus_version": "0.2.0",
+  "corpus_version": "0.3.0",
   "corpus_state": "DEVELOPMENT_MUTABLE",
   "holdout_content_present": false,
   "metadata": {
-    "author": "m02w01-lead-author",
-    "reviewer": "m02w01-fixture-reviewer",
-    "reviewed_at": "2026-07-29T08:55:00Z",
-    "expected_result_provenance": "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+    "author": "m02w02-lead-author",
+    "reviewer": "m02w02-fixture-reviewer",
+    "reviewed_at": "2026-08-04T09:00:00Z",
+    "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
     "synthetic_data": true,
     "redaction_state": "SYNTHETIC_RESERVED",
-    "historical_content_hash": "sha256:55adb4f3262032107c2cfd9f40698180b628a2f4b1f39356e7d6bd32264edc5d"
+    "historical_content_hash": "sha256:6bef665841c7912ba59b32a369968863cdc24b5a339b53ccdec22597f98d9a45"
   },
   "files": [
+    {
+      "path": "answer-constraints.v2.json",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "record_count": 10,
+      "byte_count": 8500,
+      "sha256": "sha256:d86c7daedde38ddcb278137e7e1298a87649599b7a445fbe803b81015d0eb89c"
+    },
+    {
+      "path": "answer-scenarios.v2.json",
+      "entity_type": "ANSWER_SCENARIO",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-scenario:v2",
+      "schema_version": "2.0.0",
+      "record_count": 58,
+      "byte_count": 89964,
+      "sha256": "sha256:9129840cefa8a81a9b01388a8a237f80c7a5bd942feee1598dc0dfaf08b1e2de"
+    },
     {
       "path": "evidence-artifacts.v2.json",
       "entity_type": "EVIDENCE_ARTIFACT",
@@ -70,6 +88,15 @@
       "sha256": "sha256:148b204d10d67e54ccd15a77c52decb118319dcc41a51737ccd7d8913212a622"
     },
     {
+      "path": "question-cases.v2.json",
+      "entity_type": "QUESTION_CASE",
+      "schema_ref": "urn:japp:schema:test-fixture:question-case:v2",
+      "schema_version": "2.0.0",
+      "record_count": 144,
+      "byte_count": 127618,
+      "sha256": "sha256:4511568885b2d17f4b73df88feadaa8306cd51b5a1401745792c9a7ca94fec42"
+    },
+    {
       "path": "scenario-bundles.v2.json",
       "entity_type": "SCENARIO_BUNDLE",
       "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
@@ -109,6 +136,12 @@
     "scenario_bundles": 36,
     "scenario_evaluations": 108
   },
+  "answer_counts": {
+    "question_cases": 144,
+    "question_clusters": 48,
+    "answer_constraints": 10,
+    "answer_scenarios": 58
+  },
   "evidence_category_counts": {
     "CREDENTIAL_RECORD": 15,
     "EDUCATION_RECORD": 12,
@@ -127,5 +160,5 @@
     "SALES": 1,
     "SOFTWARE": 2
   },
-  "corpus_digest": "sha256:4825a6c713833104ab7bcb8eb1b9649688f513fb823cb9f6a9125be5919f69d2"
+  "corpus_digest": "sha256:122cb8275fab93c9cdd92dda8eb8bbe3ab28b2ced44a5cf2cf90a5787f8fe35f"
 }

@@ -63,9 +63,22 @@ import {
   type SemanticEvidenceSelector,
 } from "../src/semantic-evidence.ts";
 import { credentialStateAt, policyDecisionAt } from "../src/temporal-policy.ts";
+import { makeAnswerFixtures, W02_REVIEWED_AT } from "./generate-answer-seed.ts";
 
 const ZERO_DIGEST = `sha256:${"0".repeat(64)}` as const;
 const REVIEWED_AT = "2026-07-29T08:55:00Z";
+
+function w02ManifestMetadata(): FixtureMetadata {
+  return {
+    author: "m02w02-lead-author",
+    reviewer: "m02w02-fixture-reviewer",
+    reviewed_at: W02_REVIEWED_AT,
+    expected_result_provenance: "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+    synthetic_data: true,
+    redaction_state: "SYNTHETIC_RESERVED",
+    historical_content_hash: ZERO_DIGEST,
+  };
+}
 
 interface ProfileSeed {
   readonly roleFamily: RoleFamily;
@@ -1738,13 +1751,18 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
       left.requirement_ref.localeCompare(right.requirement_ref),
     );
   }
+  const { questionCases, answerConstraints, answerScenarios } =
+    makeAnswerFixtures({ profiles, evidence, jobs, policies });
   const collections = new Map<string, FixtureEntity[]>([
+    ["answer-constraints.v2.json", answerConstraints],
+    ["answer-scenarios.v2.json", answerScenarios],
     ["evidence-artifacts.v2.json", evidence],
     ["expected-requirements.v2.json", requirements],
     ["expected-supported-claims.v2.json", claims],
     ["field-value-policies.v2.json", policies],
     ["jobs.v2.json", jobs],
     ["profiles.v2.json", profiles],
+    ["question-cases.v2.json", questionCases],
     ["scenario-bundles.v2.json", scenarios],
     ["source-resumes.v2.json", resumes],
     ["unsupported-gaps.v2.json", gaps],
@@ -1825,6 +1843,14 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
       0,
     ),
   };
+  const answerCounts = {
+    question_cases: questionCases.length,
+    question_clusters: new Set(
+      questionCases.map((question) => question.cluster_ref),
+    ).size,
+    answer_constraints: answerConstraints.length,
+    answer_scenarios: answerScenarios.length,
+  };
   const manifest: FixtureManifest = {
     id: stableId("manifest", 1),
     schema_ref: SCHEMA_REFS.MANIFEST,
@@ -1832,9 +1858,10 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
     corpus_version: CORPUS_VERSION,
     corpus_state: "DEVELOPMENT_MUTABLE",
     holdout_content_present: false,
-    metadata: metadata(),
+    metadata: w02ManifestMetadata(),
     files,
     counts,
+    answer_counts: answerCounts,
     evidence_category_counts: evidenceCategoryCounts,
     role_family_counts: roleFamilyCounts,
     corpus_digest: sha256Canonical(files),
@@ -1860,6 +1887,9 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
     unsupportedGaps: gaps,
     fieldValuePolicies: policies,
     scenarioBundles: scenarios,
+    questionCases,
+    answerConstraints,
+    answerScenarios,
   };
   const consistency = validateFixtureConsistency(generatedCorpus);
   if (!consistency.valid) {
@@ -1893,8 +1923,12 @@ async function runSeed(rootPath: string, checkMode: boolean): Promise<void> {
   const claimCount = String(claims.length);
   const gapCount = String(gaps.length);
   const policyCount = String(policies.length);
+  const questionCount = String(questionCases.length);
+  const clusterCount = String(answerCounts.question_clusters);
+  const constraintCount = String(answerConstraints.length);
+  const answerScenarioCount = String(answerScenarios.length);
   console.log(
-    `fixture seed ${mode}: ${profileCount} profiles, ${evidenceCount} evidence artifacts, ${resumeCount} resumes, ${jobCount} jobs, ${requirementCount} requirements, ${scenarioCount} scenarios/${evaluationCount} evaluations, ${claimCount} claims, ${gapCount} gaps, ${policyCount} policies`,
+    `fixture seed ${mode}: ${profileCount} profiles, ${evidenceCount} evidence artifacts, ${resumeCount} resumes, ${jobCount} jobs, ${requirementCount} requirements, ${scenarioCount} scenarios/${evaluationCount} evaluations, ${claimCount} claims, ${gapCount} gaps, ${policyCount} policies, ${questionCount} questions/${clusterCount} clusters, ${constraintCount} constraints, ${answerScenarioCount} answer scenarios`,
   );
 }
 

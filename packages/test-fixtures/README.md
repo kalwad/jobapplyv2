@@ -1,14 +1,20 @@
-# M02-W01 synthetic development fixtures
+# M02 synthetic development fixtures (M02-W01 foundation plus M02-W02 questions and answers)
 
 This package owns test/evaluation data only. It is not a product profile,
-resume, job, evidence, or application storage model, and product packages must
-not depend on it. The future product-domain schemas remain owned by M06, M09,
-and M11.
+resume, job, evidence, question, answer, or application storage model, and
+product packages must not depend on it. The future product-domain schemas
+remain owned by M06, M09, M11, M15, and M16; the M02-W02 question/answer
+layers anticipate the later answer requirements without claiming any M15 or
+M16 product behavior exists.
 
 The committed `data/development/` seed is visible to implementation agents and
 intentionally mutable until M02-W06 freezes a corpus. It contains no holdout
 body, benchmark result, ATS form, extension behavior, or critical-gate
 evidence. Owner-controlled holdout content stays outside this working tree.
+Corpus version 0.3.0 adds the M02-W02 question/answer development layers on
+top of the verified M02-W01 foundation; every M02-W01 collection file remains
+byte-identical, and each record binds the exact review event of its authoring
+package (`M02W01_…` at 2026-07-29, `M02W02_…` at 2026-08-04).
 
 ## Deterministic layers
 
@@ -90,6 +96,37 @@ cardinality is outside that static proof; exact Vitest non-pass and discovered
 test-count checks remain a separate backstop. `PROCEED_WITH_GAPS` is
 intentionally absent from this bounded seed because no reviewed scenario has
 a nonblocking residual gap; M02-W06 owns any broader corpus expansion.
+
+## M02-W02 question and answer development layers
+
+- `question-cases.v2.json` holds 144 question phrasings in 48 paraphrase
+  clusters: two BASE canonical clusters for every v1.4 intent (the taxonomy
+  is represented in the fixture layer's UPPER_SNAKE_CASE token grammar) plus
+  eight sensitive overlays, so all fifteen sensitive/consequential concepts
+  carry a dedicated question. Each cluster has exactly one canonical case and
+  two materially reworded paraphrases; punctuation-, case-, whitespace-, or
+  word-order-only variants are rejected.
+- `answer-constraints.v2.json` holds ten exact limit/format fixtures. The
+  closed fixture metric is deterministic: CRLF and lone CR normalize to LF,
+  outer whitespace is trimmed, words are maximal non-whitespace runs,
+  characters are Unicode code points of the normalized text, and single-line
+  or exact HTTPS-URL/Yes-No formats are matched literally. Word and character
+  maxima each carry one-below, exactly-at, and one-above boundary scenarios.
+- `answer-scenarios.v2.json` holds 58 expected answer decisions binding one
+  question, profile, job, jurisdiction, and evaluation date. Supported
+  narrative and explicit-record answers reference only approved M02-W01
+  evidence, field records, or the profile website and never invent metrics;
+  sensitive outcomes derive from the existing M02-W01 field-value policies
+  (all six kinds exercised) or a reviewed fixture-only concept-default
+  matrix; eight stale-context kinds (including verbatim cross-company,
+  cross-role, and cross-location reuse traps) and eight insufficient-evidence
+  kinds release no answer text. A prohibited, missing, expired, contradicted,
+  or unconfirmed sensitive answer has no releasable text.
+- The hand-reviewed M02-W02 oracle under `test/m02-w02/oracles/` pins the
+  exact counts, per-intent balance, outcome distribution, policy-kind and
+  concept coverage, stale/insufficiency decisions, limit boundaries, explicit
+  answer bindings, reuse traps, and a full projection digest. Generator and
+  production validator source do not import, read, or rewrite it.
 
 Confirmed defects must become append-only regression cases. An expectation
 correction must be reviewed and supersede history rather than silently

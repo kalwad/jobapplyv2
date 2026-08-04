@@ -1,0 +1,197 @@
+{
+  "entity_type": "ANSWER_CONSTRAINT",
+  "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+  "schema_version": "2.0.0",
+  "items": [
+    {
+      "id": "ansconstraint_00000000000000000000000001",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:98191c8e272f29a6088905f9113c43b31877e24c56f7bce8139d7f4e4f42a620"
+      },
+      "description": "Deterministic word-limit boundary control: at most twelve words on one line.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "max_words": 12
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000002",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c28bdf4a0f231087a259748bd17cd15fb3b6622d60f8b1d5b196c0682335f846"
+      },
+      "description": "Deterministic character-limit boundary control: at most forty Unicode code points on one line.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "max_characters": 40
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000003",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:ea0506c6d46c20c48670d787df8b17408fd470179ab6a6a040b1abd158adc33d"
+      },
+      "description": "Minimum-substance control: between five and sixty words, one line.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "max_words": 60,
+      "min_words": 5
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000004",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:12b8bccb33e3e66c5aca4a3a338eadaef13f31104316c6348cf7eddb281ea627"
+      },
+      "description": "Single-line HTTPS URL in the reserved synthetic domain.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "exact_format": "HTTPS_URL"
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000005",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:c07373308a72be0beff2cb557f7eb42a10f8aeefce32242431be8c23177a788b"
+      },
+      "description": "Exact single-line Yes or No response.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "exact_format": "YES_NO"
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000006",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:2684e50ddc2b1aba0dc0cc43ffee6499931c8e0b521c85252340398b34f648d1"
+      },
+      "description": "Short narrative: at most two hundred eighty code points, line breaks allowed.",
+      "answer_required": true,
+      "line_policy": "MULTILINE_ALLOWED",
+      "max_characters": 280
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000007",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:568ffbb57e7c105612e913e07c08ed8b6e31751fb4b5fa49631829d5518add41"
+      },
+      "description": "Compact single-line answer of at most one hundred twenty code points.",
+      "answer_required": true,
+      "line_policy": "SINGLE_LINE",
+      "max_characters": 120
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000008",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:e7f97bef0a3f2ee34947b1ee4bf0100c1013e16fbb345fc6573c6339a898715f"
+      },
+      "description": "Standard narrative answer of at most one hundred fifty words, line breaks allowed.",
+      "answer_required": true,
+      "line_policy": "MULTILINE_ALLOWED",
+      "max_words": 150
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000009",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1a12ea288b2d37948d2794cadfca30ca1bff7ba904ffe4b3869b5288ece33fa0"
+      },
+      "description": "Required reflective answer of at least twenty code points, line breaks allowed.",
+      "answer_required": true,
+      "line_policy": "MULTILINE_ALLOWED",
+      "min_characters": 20
+    },
+    {
+      "id": "ansconstraint_00000000000000000000000010",
+      "entity_type": "ANSWER_CONSTRAINT",
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0",
+      "metadata": {
+        "author": "m02w02-lead-author",
+        "reviewer": "m02w02-fixture-reviewer",
+        "reviewed_at": "2026-08-04T09:00:00Z",
+        "expected_result_provenance": "M02W02_SYNTHETIC_AUTHORING_REVIEW",
+        "synthetic_data": true,
+        "redaction_state": "SYNTHETIC_RESERVED",
+        "historical_content_hash": "sha256:1bd1d3995efa16d79345d0285680a175ff79190664ce73162b1141e2476a41f8"
+      },
+      "description": "Optional narrative answer with line breaks allowed.",
+      "answer_required": false,
+      "line_policy": "MULTILINE_ALLOWED"
+    }
+  ]
+}

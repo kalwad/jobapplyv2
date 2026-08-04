@@ -57,11 +57,14 @@ const EXPECTED_DEPRECATED_ROOTS = [
 ] as const;
 
 const EXPECTED_FIXTURE_SCHEMA_REF_MEMBERS = new Set([
+  "ANSWER_CONSTRAINT",
+  "ANSWER_SCENARIO",
   "EVIDENCE_ARTIFACT",
   "EXPECTED_REQUIREMENT",
   "EXPECTED_SUPPORTED_CLAIM",
   "FIELD_VALUE_POLICY",
   "MANIFEST",
+  "QUESTION_CASE",
   "SCENARIO_BUNDLE",
   "SOURCE_RESUME",
   "SYNTHETIC_JOB",
@@ -2506,7 +2509,7 @@ function canonicalCollectionSpecsAreReviewed(
     }
     schemaReferences.push(value);
   }
-  return schemaReferences.length === 9;
+  return schemaReferences.length === 12;
 }
 
 function isCanonicalSchemaRefSelector(

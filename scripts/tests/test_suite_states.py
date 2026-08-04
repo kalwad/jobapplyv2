@@ -191,7 +191,8 @@ def test_fixture_corpus_transitions_from_nya_to_active(
         is verify.SuiteState.NOT_YET_APPLICABLE
     )
     assert verify.derive_state(real_ctx, suite, states) is verify.SuiteState.ACTIVE
-    assert len(verify.discovery_matches(real_ctx, suite.discovery_globs)) == 8
+    # Eight focused M02-W01 files plus the four focused M02-W02 files.
+    assert len(verify.discovery_matches(real_ctx, suite.discovery_globs)) == 12
 
 
 def test_started_fixture_corpus_with_empty_discovery_is_required_missing(

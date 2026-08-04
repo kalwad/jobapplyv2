@@ -37,18 +37,21 @@
       "properties": {
         "author": {
           "type": "string",
-          "pattern": "^m02w01-[a-z0-9-]{3,63}$"
+          "pattern": "^m02w0[12]-[a-z0-9-]{3,63}$"
         },
         "reviewer": {
           "type": "string",
-          "pattern": "^m02w01-[a-z0-9-]{3,63}$"
+          "pattern": "^m02w0[12]-[a-z0-9-]{3,63}$"
         },
         "reviewed_at": {
           "$ref": "#/$defs/utcTimestamp"
         },
         "expected_result_provenance": {
           "type": "string",
-          "enum": ["M02W01_SYNTHETIC_AUTHORING_REVIEW"]
+          "enum": [
+            "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+            "M02W02_SYNTHETIC_AUTHORING_REVIEW"
+          ]
         },
         "synthetic_data": {
           "const": true

@@ -267,8 +267,25 @@ describe("M02-W01 committed development corpus", () => {
   });
 
   test("matches independent collection and evidence-category inventories", () => {
-    const manifest = loadFixtureCorpus().manifest;
-    expect(manifest.metadata.reviewed_at).toBe(ORACLE.reviewed_at);
+    const corpus = loadFixtureCorpus();
+    const manifest = corpus.manifest;
+    const w01Records = [
+      ...corpus.profiles,
+      ...corpus.evidenceArtifacts,
+      ...corpus.sourceResumes,
+      ...corpus.jobs,
+      ...corpus.expectedRequirements,
+      ...corpus.expectedSupportedClaims,
+      ...corpus.unsupportedGaps,
+      ...corpus.fieldValuePolicies,
+      ...corpus.scenarioBundles,
+    ];
+    for (const record of w01Records) {
+      expect(record.metadata.expected_result_provenance).toBe(
+        "M02W01_SYNTHETIC_AUTHORING_REVIEW",
+      );
+      expect(record.metadata.reviewed_at).toBe(ORACLE.reviewed_at);
+    }
     expect(manifest.counts).toEqual(ORACLE.counts);
     expect(manifest.evidence_category_counts).toEqual(
       ORACLE.evidence_category_counts,

@@ -16,6 +16,7 @@
     "metadata",
     "files",
     "counts",
+    "answer_counts",
     "evidence_category_counts",
     "role_family_counts",
     "corpus_digest"
@@ -31,7 +32,7 @@
       "const": "2.0.0"
     },
     "corpus_version": {
-      "const": "0.2.0"
+      "const": "0.3.0"
     },
     "corpus_state": {
       "const": "DEVELOPMENT_MUTABLE"
@@ -44,8 +45,8 @@
     },
     "files": {
       "type": "array",
-      "minItems": 9,
-      "maxItems": 9,
+      "minItems": 12,
+      "maxItems": 12,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -66,10 +67,13 @@
           "entity_type": {
             "type": "string",
             "enum": [
+              "ANSWER_CONSTRAINT",
+              "ANSWER_SCENARIO",
               "EVIDENCE_ARTIFACT",
               "EXPECTED_REQUIREMENT",
               "EXPECTED_SUPPORTED_CLAIM",
               "FIELD_VALUE_POLICY",
+              "QUESTION_CASE",
               "SCENARIO_BUNDLE",
               "SOURCE_RESUME",
               "SYNTHETIC_JOB",
@@ -125,6 +129,22 @@
         "field_value_policies": { "type": "integer", "minimum": 48 },
         "scenario_bundles": { "type": "integer", "minimum": 36 },
         "scenario_evaluations": { "type": "integer", "minimum": 108 }
+      }
+    },
+    "answer_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question_cases",
+        "question_clusters",
+        "answer_constraints",
+        "answer_scenarios"
+      ],
+      "properties": {
+        "question_cases": { "type": "integer", "minimum": 120 },
+        "question_clusters": { "type": "integer", "minimum": 40 },
+        "answer_constraints": { "type": "integer", "minimum": 8 },
+        "answer_scenarios": { "type": "integer", "minimum": 40 }
       }
     },
     "evidence_category_counts": {

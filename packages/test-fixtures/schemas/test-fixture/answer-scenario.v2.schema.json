@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:answer-scenario:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "M02-W02 synthetic answer scenario",
+  "description": "TEST-ONLY expected answer decision for one question in one explicit profile/job/context at one evaluation date; not the production M16 answer API.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "question_ref",
+    "profile_ref",
+    "job_ref",
+    "evaluation_date",
+    "context",
+    "expected_outcome",
+    "expected_action",
+    "release_eligible",
+    "rationale"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "ANSWER_SCENARIO"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:answer-scenario:v2"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
+    },
+    "question_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "profile_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "job_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "evaluation_date": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/calendarDate"
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["company", "role", "location", "jurisdiction"],
+      "properties": {
+        "company": {
+          "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+        },
+        "role": {
+          "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+        },
+        "location": {
+          "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "enum": ["NON_US_FIXTURE", "US_FIXTURE"]
+        },
+        "required_evidence_category": {
+          "type": "string",
+          "enum": [
+            "CREDENTIAL_RECORD",
+            "EDUCATION_RECORD",
+            "EMPLOYMENT_RECORD",
+            "PROJECT_RECORD",
+            "USER_ASSERTION"
+          ]
+        }
+      }
+    },
+    "expected_outcome": {
+      "type": "string",
+      "enum": [
+        "BLOCKED_BY_POLICY",
+        "CONFIRMATION_REQUIRED",
+        "EXPLICIT_RECORD_ANSWER",
+        "INSUFFICIENT_EVIDENCE",
+        "STALE_CONTEXT",
+        "SUPPORTED_NARRATIVE_ANSWER",
+        "UNSUPPORTED_OR_CONTRADICTED",
+        "VOLUNTARY_DECLINE"
+      ]
+    },
+    "expected_action": {
+      "type": "string",
+      "enum": [
+        "ABSTAIN",
+        "BLOCK_AND_EXPLAIN",
+        "REQUIRE_CONFIRMATION",
+        "USE_SUPPORTED_EVIDENCE"
+      ]
+    },
+    "release_eligible": {
+      "type": "boolean"
+    },
+    "constraint_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "constraint_evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "measured_words",
+        "measured_characters",
+        "measured_lines",
+        "compliant"
+      ],
+      "properties": {
+        "measured_words": { "type": "integer", "minimum": 0 },
+        "measured_characters": { "type": "integer", "minimum": 0 },
+        "measured_lines": { "type": "integer", "minimum": 0 },
+        "compliant": { "type": "boolean" },
+        "boundary": {
+          "type": "string",
+          "enum": ["AT_LIMIT", "ONE_ABOVE_LIMIT", "ONE_BELOW_LIMIT"]
+        }
+      }
+    },
+    "field_policy_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "policy_basis": {
+      "type": "string",
+      "enum": ["CONCEPT_DEFAULT", "FIELD_VALUE_POLICY"]
+    },
+    "default_policy": {
+      "type": "string",
+      "enum": [
+        "BLOCK_AND_EXPLAIN",
+        "CONFIRM_IF_RECORD_EXPIRED",
+        "CONFIRM_ONCE_PER_JOB",
+        "FILL_FROM_EXPLICIT_RECORD",
+        "NEVER_AUTOFILL",
+        "VOLUNTARY_PREFER_NOT_TO_ANSWER"
+      ]
+    },
+    "answer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "evidence_refs"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+          }
+        },
+        "explicit_source": {
+          "type": "string",
+          "enum": ["FIELD_RECORD", "PROFILE_CONTACT_WEBSITE"]
+        },
+        "source_field_record_id": {
+          "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+        }
+      }
+    },
+    "reused_answer_scenario_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "stale_reason": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZATION_CONTEXT_CHANGED",
+        "COMPENSATION_CONTEXT_CHANGED",
+        "EXPIRED_SOURCE_RECORD",
+        "SUPERSEDED_PROFILE_FACT",
+        "WRONG_COMPANY",
+        "WRONG_JURISDICTION",
+        "WRONG_LOCATION",
+        "WRONG_ROLE"
+      ]
+    },
+    "insufficiency_reason": {
+      "type": "string",
+      "enum": [
+        "EVIDENCE_CONTRADICTS_REQUEST",
+        "EVIDENCE_STALE_AT_EVALUATION",
+        "EVIDENCE_SUPPORTS_NARROWER_ANSWER",
+        "METRIC_NEVER_RECORDED",
+        "NO_RELEVANT_EVIDENCE",
+        "PRESUPPOSED_EXPERIENCE_ABSENT",
+        "SENSITIVE_RECORD_MISSING",
+        "WEAK_RELATED_EVIDENCE_ONLY"
+      ]
+    },
+    "context_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+      }
+    },
+    "rationale": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@japp/test-fixtures",
   "version": "0.0.1",
   "private": true,
-  "description": "Test-only synthetic profile, evidence, resume, job, expected-result, and field-policy fixtures owned by M02-W01; never product storage authority or real PII.",
+  "description": "Test-only synthetic profile, evidence, resume, job, expected-result, field-policy, question, and answer fixtures owned by M02-W01 and M02-W02; never product storage authority or real PII.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

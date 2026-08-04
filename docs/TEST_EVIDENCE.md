@@ -33,6 +33,113 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W02 — Create question and answer fixtures (2026-08-04)
+
+- Revision: implementation working tree over parent commit
+  `9da85bcc98c39b071e5047304b0101a2f8397f9d` (tree
+  `8d281bad76a8a50aac9985d146ad12cf40db74d8`); the containing commit is
+  recorded post-commit per the anchoring convention. Owner-selected
+  implementation agent: Claude Fable 5 Max, single writer.
+- Environment: macOS (Apple Silicon, Darwin 27), Node 24 with pnpm 10, uv
+  Python 3.12, Rust 1.97.1, pinned Playwright Chromium; installs remained
+  frozen/locked and `scripts/python-test-inventory.v1.json` is byte-identical
+  (no Python node ID changed).
+- Scope: test-only M02-W02 question/answer development fixtures extending
+  `@japp/test-fixtures` in place. Three new closed Draft 2020-12 schemas
+  (`question-case:v2`, `answer-constraint:v2`, `answer-scenario:v2`), three
+  new development collections, corpus version 0.2.0 → 0.3.0, a
+  per-authoring-package review-event model
+  (`M02W02_SYNTHETIC_AUTHORING_REVIEW` at 2026-08-04T09:00:00Z; every
+  M02-W01 collection file remains byte-identical), a deterministic
+  fixture-only word/code-point/line/format metric
+  (`src/answer-metrics.ts`), the answer-layer consistency stage
+  (`src/answer-consistency.ts`), loader/manifest/CLI/schema-catalog/platform-
+  guard extensions, and the deterministic authoring module
+  (`scripts/generate-answer-seed.ts`). No product application, service,
+  LLM client, prompt registry, embedding, mock ATS, evaluation runner,
+  corpus freeze, holdout body, or gate artifact was created.
+- Authored matrix: 144 question cases in 48 paraphrase clusters — two BASE
+  canonical clusters per v1.4 intent (20 intents, balance exactly 2, fixture
+  UPPER_SNAKE_CASE token grammar) plus eight sensitive overlays; every
+  cluster has exactly one canonical case and two materially reworded
+  paraphrases (word-order/punctuation/case-only variants rejected). All 15
+  sensitive/consequential concepts carry a dedicated question. 10 answer
+  constraints (word, character, minimum, single-line, multiline, HTTPS-URL,
+  Yes/No). 58 answer scenarios: 21 supported narratives, 5 explicit-record
+  answers (3 approved field-record disclosures reproduced exactly plus 2
+  profile-website links), 5 confirmations, 3 voluntary declines, 7 policy
+  blocks, 8 stale-context traps (all 8 reasons incl. verbatim wrong-company,
+  wrong-role, and wrong-location reuse traps), and 9 insufficient-evidence
+  cases (all 8 reasons; contradicted and presupposed requests classified
+  UNSUPPORTED_OR_CONTRADICTED). All six W01 field-policy kinds are exercised
+  through real policy references; concepts without W01 records use a
+  reviewed fixture-only concept-default matrix. Word and character maxima
+  carry exact one-below/at/one-above boundary scenarios (11/12/13 words;
+  39/40/41 code points), recomputed deterministically by the validator.
+- Commands and observed results:
+  - `pnpm --filter @japp/test-fixtures typecheck` → exit 0.
+  - `fixtures:seed:check` → exit 0, deterministic and status-neutral;
+    `fixtures:validate` → exit 0 (full consistency including the new answer
+    layer); `fixtures:privacy` → exit 0 (32 files, 36,736 scalar fields
+    clean); `fixtures:platform-v1` → exit 0 (15 deprecated pairs, 32
+    producer files, extended schema-ref/collection expectations);
+    `fixtures:discover` → exit 0 (12 non-empty collections, 617 records,
+    12 focused test files).
+  - Focused `vitest run test/m02-w02` → 57/57 across 4 files
+    (answer-consistency-mutations, answer-governance, answer-metrics,
+    question-answer-matrix) with a literal test-owned oracle
+    (`test/m02-w02/oracles/answer-truth.v2.json`) pinning counts, per-intent
+    balance, outcome distribution, policy/concept coverage,
+    stale/insufficiency decisions, limit boundaries, explicit bindings,
+    reuse traps, and a full projection digest; implementation source does
+    not reference it.
+  - M02-W01 regression `vitest run test/m02-w01` → 108/108; complete
+    fixture package `pnpm --filter @japp/test-fixtures test` → 166/166
+    across 13 files.
+  - `uv run pytest -q scripts/tests/test_integrity.py` → 43 passed;
+    `test_suite_states.py` → 294 passed; `test_proofs_and_real_repo.py` →
+    7 passed; full `scripts/tests` → 976 passed (the 977th inventory item
+    runs from `services/orchestrator/tests` in the canonical verifier
+    command; platform inventories remain 977 POSIX / 975 Windows,
+    byte-identical file).
+  - `python3 scripts/validate_status.py` → PASS (45 groups);
+    `pnpm traceability:check` → PASS (193/300);
+    `pnpm generate:contracts --check` → 183 files byte-identical;
+    `pnpm run doctor` → 22 pass / 1 warning (uncommitted work in progress) /
+    0 fail / 1 not-yet-applicable.
+  - `pnpm verify` → exit 0 with every ACTIVE suite PASS and visual
+    truthfully NOT_YET_APPLICABLE; the registry `fixture-corpus` suite now
+    runs both focused directories with the exact combined proof of 165
+    tests; unit-ts runs 2,613 tests (2,440 contracts + 166 fixtures + seven
+    one-test packages, 9/9 tasks); verification changed no tracked bytes
+    and `git diff --check` stayed clean.
+- Reviewed global-shape control updates (no W01 semantic truth changed; the
+  W01 oracle file is untouched): `governance-discovery.test.ts` (fourteen-
+  schema catalog, thirteen schema refs, corpus 0.3.0, combined registry
+  count 165), `corpus-positive.test.ts` (per-entity W01 review-event
+  assertion strengthened after the manifest moved to the latest corpus
+  review event), `resigned-contradictions.test.ts` (the coherent policy
+  drift now also carries through the answer scenario bound to the same
+  policy, preserving the oracle-only detection premise),
+  `scripts/verification-suites.json` (second focused command, second
+  discovery glob, exact 165), and
+  `scripts/tests/test_suite_states.py::test_fixture_corpus_transitions_from_nya_to_active`
+  (real-repo discovery 8 → 12 files; assertion content only, no node-ID or
+  inventory change).
+- Security/privacy: all values remain synthetic reserved data; prompts and
+  answers pass the committed privacy scanner (no PII shapes, secrets, local
+  identities, hidden text, or prompt-injection phrasing); sensitive
+  scenarios with prohibited, missing, expired, contradicted, or unconfirmed
+  records carry no releasable answer text; no generic Base64 scanning was
+  added (KI-0041's excluded hypothesis remains outside this package).
+- Scope and governance: implementation evidence only. M02-W02 remains
+  IN_PROGRESS and unaccepted; M02-W03 remains NOT_STARTED; no package is
+  READY; M02-W01 remains VERIFIED; KI-0039 through KI-0045 remain FIXED;
+  all four critical gates remain NOT_EVALUATED; release remains NOT_READY.
+  The exact hosted three-OS run for the ending content SHA and the separate
+  fresh verification plus governance closeout remain pending and are bound
+  in the implementation handoff.
+
 ### M02-W01 — Governance closeout after independent Fable acceptance verification (2026-08-03)
 
 - Revision: audited content commit `7523e096b51c1c3a0490924235879d4d6d386b81`

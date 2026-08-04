@@ -1,3 +1,4 @@
+import { checkAnswerLayer } from "./answer-consistency.ts";
 import { sha256Bytes } from "./canonical-json.ts";
 import { safeDiagnosticPointer, safeDiagnosticToken } from "./diagnostics.ts";
 import {
@@ -85,6 +86,9 @@ function allEntities(corpus: FixtureCorpus): FixtureEntity[] {
     ...corpus.unsupportedGaps,
     ...corpus.fieldValuePolicies,
     ...corpus.scenarioBundles,
+    ...corpus.questionCases,
+    ...corpus.answerConstraints,
+    ...corpus.answerScenarios,
   ];
 }
 
@@ -137,10 +141,13 @@ function checkStableIds(
     /^manifest_[0-9]{26}$/u,
   );
   const typedPatterns: Record<FixtureEntityType, RegExp> = {
+    ANSWER_CONSTRAINT: /^ansconstraint_[0-9]{26}$/u,
+    ANSWER_SCENARIO: /^ansscenario_[0-9]{26}$/u,
     EVIDENCE_ARTIFACT: /^evidence_[0-9]{26}$/u,
     EXPECTED_REQUIREMENT: /^requirement_[0-9]{26}$/u,
     EXPECTED_SUPPORTED_CLAIM: /^claim_[0-9]{26}$/u,
     FIELD_VALUE_POLICY: /^policy_[0-9]{26}$/u,
+    QUESTION_CASE: /^question_[0-9]{26}$/u,
     SCENARIO_BUNDLE: /^scenario_[0-9]{26}$/u,
     SOURCE_RESUME: /^resume_[0-9]{26}$/u,
     SYNTHETIC_JOB: /^job_[0-9]{26}$/u,
@@ -236,27 +243,50 @@ function monthGap(previousEnd: string, nextStart: string): number {
   );
 }
 
+export const PACKAGE_REVIEW_EVENTS = {
+  M02W01_SYNTHETIC_AUTHORING_REVIEW: {
+    reviewedAt: "2026-07-29T08:55:00Z",
+    rolePrefix: "m02w01-",
+  },
+  M02W02_SYNTHETIC_AUTHORING_REVIEW: {
+    reviewedAt: "2026-08-04T09:00:00Z",
+    rolePrefix: "m02w02-",
+  },
+} as const;
+
+function reviewEventFor(
+  provenance: string,
+):
+  | (typeof PACKAGE_REVIEW_EVENTS)[keyof typeof PACKAGE_REVIEW_EVENTS]
+  | undefined {
+  return Object.hasOwn(PACKAGE_REVIEW_EVENTS, provenance)
+    ? PACKAGE_REVIEW_EVENTS[provenance as keyof typeof PACKAGE_REVIEW_EVENTS]
+    : undefined;
+}
+
 function checkMetadata(
   corpus: FixtureCorpus,
   issues: FixtureValidationIssue[],
 ): void {
   const values = [corpus.manifest, ...allEntities(corpus)];
-  const reviewedAt = corpus.manifest.metadata.reviewed_at;
-  const reviewedDate = reviewedAt.slice(0, 10);
   for (const value of values) {
+    const event = reviewEventFor(
+      (value.metadata as { expected_result_provenance: string })
+        .expected_result_provenance,
+    );
     if (
       value.metadata.author === "" ||
       value.metadata.reviewer === "" ||
-      (value.metadata as { expected_result_provenance: string })
-        .expected_result_provenance !== "M02W01_SYNTHETIC_AUTHORING_REVIEW"
+      event === undefined
     ) {
       issue(
         issues,
         "REVIEW_METADATA_MISSING",
         value.id,
         "/metadata",
-        "review metadata is required",
+        "review metadata with a known authoring-package provenance is required",
       );
+      continue;
     }
     if (value.metadata.author === value.metadata.reviewer) {
       issue(
@@ -267,18 +297,42 @@ function checkMetadata(
         "fixture author and recorded reviewer role labels must differ; this is provenance hygiene, not independent certification",
       );
     }
-    if (value.metadata.reviewed_at !== reviewedAt) {
+    if (
+      !value.metadata.author.startsWith(event.rolePrefix) ||
+      !value.metadata.reviewer.startsWith(event.rolePrefix)
+    ) {
+      issue(
+        issues,
+        "REVIEW_METADATA_MISSING",
+        value.id,
+        "/metadata/author",
+        "author and reviewer role labels must carry their authoring-package prefix",
+      );
+    }
+    if (value.metadata.reviewed_at !== event.reviewedAt) {
       issue(
         issues,
         "REVIEW_DATE_DIVERGENCE",
         value.id,
         "/metadata/reviewed_at",
-        "all reviewed corpus records must bind the manifest review event",
+        "every record must bind the exact review event of its authoring package",
       );
     }
   }
+  if (
+    corpus.manifest.metadata.expected_result_provenance !==
+    "M02W02_SYNTHETIC_AUTHORING_REVIEW"
+  ) {
+    issue(
+      issues,
+      "REVIEW_METADATA_MISSING",
+      corpus.manifest.id,
+      "/metadata/expected_result_provenance",
+      "the regenerated manifest must bind the latest corpus review event",
+    );
+  }
   for (const scenario of corpus.scenarioBundles) {
-    if (scenario.evaluation_date > reviewedDate) {
+    if (scenario.evaluation_date > scenario.metadata.reviewed_at.slice(0, 10)) {
       issue(
         issues,
         "REVIEW_PRECEDES_EVALUATION",
@@ -288,7 +342,19 @@ function checkMetadata(
       );
     }
   }
+  for (const scenario of corpus.answerScenarios) {
+    if (scenario.evaluation_date > scenario.metadata.reviewed_at.slice(0, 10)) {
+      issue(
+        issues,
+        "REVIEW_PRECEDES_EVALUATION",
+        scenario.id,
+        "/evaluation_date",
+        "the recorded review event cannot precede an answer evaluation it certifies",
+      );
+    }
+  }
   for (const artifact of corpus.evidenceArtifacts) {
+    const reviewedDate = artifact.metadata.reviewed_at.slice(0, 10);
     if (
       artifact.category === "USER_ASSERTION" &&
       (artifact.effective_period.start > reviewedDate ||
@@ -2829,6 +2895,7 @@ export function validateFixtureConsistency(
   checkScenariosAndResults(corpus, global, issues);
   checkFieldPolicies(corpus, global, issues);
   checkCoverage(corpus, issues);
+  checkAnswerLayer(corpus, issues);
   const counts = {
     profiles: corpus.profiles.length,
     evidence_artifacts: corpus.evidenceArtifacts.length,

@@ -7,6 +7,7 @@ import { afterEach, describe, expect, test } from "vitest";
 import { validateFixtureConsistency } from "../../src/consistency.ts";
 import { loadFixtureCorpus } from "../../src/loader.ts";
 import type {
+  AnswerScenario,
   EvidenceArtifact,
   ExpectedSupportedClaim,
   FieldValuePolicy,
@@ -27,6 +28,7 @@ import {
 const roots: string[] = [];
 
 interface CollectionEntityByFile {
+  "answer-scenarios.v2.json": AnswerScenario;
   "evidence-artifacts.v2.json": EvidenceArtifact;
   "expected-requirements.v2.json": ExpectedRequirement;
   "expected-supported-claims.v2.json": ExpectedSupportedClaim;
@@ -294,6 +296,22 @@ describe("M02-W01 fully re-signed semantic contradictions", () => {
       evaluation.expected_action = "BLOCK_AND_EXPLAIN";
       evaluation.release_eligible = false;
       scenario.expected_outcome = "BLOCK_FIELD_POLICY";
+    });
+    // Since M02-W02 the same policy also backs an explicit answer scenario;
+    // the coherent drift must carry through that layer to stay
+    // validator-accepted, which is exactly what the oracle then catches.
+    mutateCollection(root, "answer-scenarios.v2.json", (scenarios) => {
+      const scenario = scenarios.find(
+        (candidate) =>
+          candidate.id === "ansscenario_00000000000000000000000032",
+      );
+      if (scenario === undefined) {
+        throw new Error("answer scenario drift input missing");
+      }
+      scenario.expected_outcome = "BLOCKED_BY_POLICY";
+      scenario.expected_action = "BLOCK_AND_EXPLAIN";
+      scenario.release_eligible = false;
+      delete scenario.answer;
     });
     fullyResignCorpus(root);
     const loaded = loadFixtureCorpus(root);

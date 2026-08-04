@@ -15,12 +15,15 @@ export const FIXTURE_SCHEMAS_ROOT = fileURLToPath(
 let cachedValidator: ContractValidator | undefined;
 
 const EXPECTED_SCHEMA_FILES = [
+  "answer-constraint.v2.schema.json",
+  "answer-scenario.v2.schema.json",
   "common.v2.schema.json",
   "evidence-artifact.v2.schema.json",
   "expected-requirement.v2.schema.json",
   "expected-supported-claim.v2.schema.json",
   "field-value-policy.v2.schema.json",
   "manifest.v2.schema.json",
+  "question-case.v2.schema.json",
   "scenario-bundle.v2.schema.json",
   "source-resume.v2.schema.json",
   "synthetic-job.v2.schema.json",
@@ -54,7 +57,7 @@ function verifyFixtureSchemaInventory(): void {
     }
   } catch {
     throw new Error(
-      "fixture schema inventory must contain exactly eleven regular non-link files",
+      "fixture schema inventory must contain exactly fourteen regular non-link files",
     );
   }
 }

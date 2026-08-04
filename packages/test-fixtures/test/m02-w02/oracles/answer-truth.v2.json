@@ -1,0 +1,121 @@
+{
+  "review_boundary": "Test-only M02-W02 expectations authored and reviewed separately from the generator, loader, and production consistency validator; those implementation sources must never import, read, or rewrite this file.",
+  "reviewed_at": "2026-08-04T09:00:00Z",
+  "answer_counts": {
+    "question_cases": 144,
+    "question_clusters": 48,
+    "answer_constraints": 10,
+    "answer_scenarios": 58
+  },
+  "base_canonical_per_intent": {
+    "AVAILABILITY": 2,
+    "CAREER_GOAL": 2,
+    "CONFLICT": 2,
+    "DEMOGRAPHIC_VOLUNTARY": 2,
+    "EXPERIENCE_EXAMPLE": 2,
+    "EXPORT_CONTROL": 2,
+    "FAILURE_LEARNING": 2,
+    "LEADERSHIP": 2,
+    "LEGAL_COMPLIANCE": 2,
+    "LOCATION_RELOCATION": 2,
+    "MOTIVATION_COMPANY": 2,
+    "MOTIVATION_ROLE": 2,
+    "OTHER_FACTUAL": 2,
+    "OTHER_NARRATIVE": 2,
+    "PORTFOLIO_LINK": 2,
+    "PROJECT_EXAMPLE": 2,
+    "SALARY": 2,
+    "SPONSORSHIP": 2,
+    "STRENGTH": 2,
+    "WORK_AUTHORIZATION": 2
+  },
+  "outcome_counts": {
+    "BLOCKED_BY_POLICY": 7,
+    "CONFIRMATION_REQUIRED": 5,
+    "EXPLICIT_RECORD_ANSWER": 5,
+    "INSUFFICIENT_EVIDENCE": 7,
+    "STALE_CONTEXT": 8,
+    "SUPPORTED_NARRATIVE_ANSWER": 21,
+    "UNSUPPORTED_OR_CONTRADICTED": 2,
+    "VOLUNTARY_DECLINE": 3
+  },
+  "exercised_policy_kinds": [
+    "BLOCK_AND_EXPLAIN",
+    "CONFIRM_IF_RECORD_EXPIRED",
+    "CONFIRM_ONCE_PER_JOB",
+    "FILL_FROM_EXPLICIT_RECORD",
+    "NEVER_AUTOFILL",
+    "VOLUNTARY_PREFER_NOT_TO_ANSWER"
+  ],
+  "exercised_sensitive_concepts": [
+    "AGE_DATE_OF_BIRTH",
+    "CONFLICT_OF_INTEREST",
+    "CRIMINAL_LEGAL_DISCLOSURE",
+    "DISABILITY_STATUS",
+    "EMPLOYEE_IDENTIFIER",
+    "EXPORT_CONTROL_STATUS",
+    "GENDER_IDENTITY",
+    "NONCOMPETE_RESTRICTION",
+    "RACE_ETHNICITY",
+    "RELOCATION_COMMITMENT",
+    "SALARY_EXPECTATION_UNITS",
+    "SECURITY_CLEARANCE",
+    "VETERAN_STATUS",
+    "VISA_SPONSORSHIP",
+    "WORK_AUTHORIZATION_STATUS"
+  ],
+  "stale_decisions": [
+    [27, "COMPENSATION_CONTEXT_CHANGED", "ABSTAIN"],
+    [30, "WRONG_LOCATION", "ABSTAIN"],
+    [31, "EXPIRED_SOURCE_RECORD", "REQUIRE_CONFIRMATION"],
+    [36, "AUTHORIZATION_CONTEXT_CHANGED", "BLOCK_AND_EXPLAIN"],
+    [38, "WRONG_JURISDICTION", "ABSTAIN"],
+    [43, "SUPERSEDED_PROFILE_FACT", "ABSTAIN"],
+    [57, "WRONG_COMPANY", "ABSTAIN"],
+    [58, "WRONG_ROLE", "ABSTAIN"]
+  ],
+  "insufficiency_decisions": [
+    [4, "PRESUPPOSED_EXPERIENCE_ABSENT", "UNSUPPORTED_OR_CONTRADICTED"],
+    [6, "WEAK_RELATED_EVIDENCE_ONLY", "INSUFFICIENT_EVIDENCE"],
+    [8, "METRIC_NEVER_RECORDED", "INSUFFICIENT_EVIDENCE"],
+    [10, "NO_RELEVANT_EVIDENCE", "INSUFFICIENT_EVIDENCE"],
+    [18, "EVIDENCE_SUPPORTS_NARROWER_ANSWER", "INSUFFICIENT_EVIDENCE"],
+    [23, "NO_RELEVANT_EVIDENCE", "INSUFFICIENT_EVIDENCE"],
+    [41, "EVIDENCE_CONTRADICTS_REQUEST", "UNSUPPORTED_OR_CONTRADICTED"],
+    [42, "EVIDENCE_STALE_AT_EVALUATION", "INSUFFICIENT_EVIDENCE"],
+    [55, "SENSITIVE_RECORD_MISSING", "INSUFFICIENT_EVIDENCE"]
+  ],
+  "limit_boundaries": [
+    [15, "ONE_BELOW_LIMIT", 11, 74, true],
+    [16, "AT_LIMIT", 12, 83, true],
+    [17, "ONE_ABOVE_LIMIT", 13, 91, false],
+    [19, "ONE_BELOW_LIMIT", 6, 39, true],
+    [20, "AT_LIMIT", 6, 40, true],
+    [21, "ONE_ABOVE_LIMIT", 6, 41, false]
+  ],
+  "explicit_answers": [
+    [
+      29,
+      "FIELD_RECORD",
+      "Synthetic Candidate 02 explicitly approved relocation preference OPEN."
+    ],
+    [
+      32,
+      "FIELD_RECORD",
+      "Synthetic Candidate 01 explicitly approved work authorization value AUTHORIZED."
+    ],
+    [
+      34,
+      "FIELD_RECORD",
+      "Synthetic Candidate 03 explicitly approved sponsorship requirement value NOT_REQUIRED."
+    ],
+    [45, "PROFILE_CONTACT_WEBSITE", "https://candidate01.example.test/profile"],
+    [46, "PROFILE_CONTACT_WEBSITE", "https://candidate04.example.test/profile"]
+  ],
+  "reuse_traps": [
+    [30, 29],
+    [57, 1],
+    [58, 3]
+  ],
+  "projection_sha256": "sha256:905309c428358a2860ddd3cb29f9048d1879844caa5989502bdb3f07892eccdf"
+}

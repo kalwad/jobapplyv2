@@ -14,12 +14,15 @@ export {
   SCHEMA_REFS,
 } from "./model.ts";
 export type {
+  AnswerConstraint,
+  AnswerScenario,
   EvidenceArtifact,
   ExpectedRequirement,
   ExpectedSupportedClaim,
   FieldValuePolicy,
   FixtureCorpus,
   FixtureManifest,
+  QuestionCase,
   ScenarioBundle,
   SourceResume,
   SyntheticJob,

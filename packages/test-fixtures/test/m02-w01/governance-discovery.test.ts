@@ -24,21 +24,25 @@ const EXPECTED_TEST_FILES = [
   "semantic-matrices.test.ts",
 ] as const;
 // This test-layer value is deliberately duplicated, not imported by the
-// generator, loader, validator, CLI, or root verifier.
-const EXPECTED_FOCUSED_TEST_COUNT = 108;
+// generator, loader, validator, CLI, or root verifier. Since M02-W02 the
+// registry proof counts the combined m02-w01 plus m02-w02 focused suites.
+const EXPECTED_FOCUSED_TEST_COUNT = 165;
 
 describe("M02-W01 fail-closed discovery and ownership", () => {
-  test("eagerly compiles the exact eleven-schema v2 test-only catalog", () => {
+  test("eagerly compiles the exact fourteen-schema v2 test-only catalog", () => {
     expect(() => fixtureSchemaValidator()).not.toThrow();
     expect(
       readdirSync(join(FIXTURE_SCHEMAS_ROOT, "test-fixture")).sort(),
     ).toEqual([
+      "answer-constraint.v2.schema.json",
+      "answer-scenario.v2.schema.json",
       "common.v2.schema.json",
       "evidence-artifact.v2.schema.json",
       "expected-requirement.v2.schema.json",
       "expected-supported-claim.v2.schema.json",
       "field-value-policy.v2.schema.json",
       "manifest.v2.schema.json",
+      "question-case.v2.schema.json",
       "scenario-bundle.v2.schema.json",
       "source-resume.v2.schema.json",
       "synthetic-job.v2.schema.json",
@@ -47,13 +51,16 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
     ]);
   });
 
-  test("locks all ten fixture schema identifiers to explicit v2 roots", () => {
+  test("locks all thirteen fixture schema identifiers to explicit v2 roots", () => {
     expect(Object.values(SCHEMA_REFS)).toEqual([
+      "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "urn:japp:schema:test-fixture:answer-scenario:v2",
       "urn:japp:schema:test-fixture:evidence-artifact:v2",
       "urn:japp:schema:test-fixture:expected-requirement:v2",
       "urn:japp:schema:test-fixture:expected-supported-claim:v2",
       "urn:japp:schema:test-fixture:field-value-policy:v2",
       "urn:japp:schema:test-fixture:manifest:v2",
+      "urn:japp:schema:test-fixture:question-case:v2",
       "urn:japp:schema:test-fixture:scenario-bundle:v2",
       "urn:japp:schema:test-fixture:source-resume:v2",
       "urn:japp:schema:test-fixture:synthetic-job:v2",
@@ -62,11 +69,11 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
     ]);
   });
 
-  test("labels mutable development corpus v0.2 with no holdout body", () => {
+  test("labels the mutable development corpus with no holdout body", () => {
     const manifest = loadFixtureCorpus().manifest;
     expect(manifest.corpus_state).toBe("DEVELOPMENT_MUTABLE");
     expect(manifest.holdout_content_present).toBe(false);
-    expect(manifest.corpus_version).toBe("0.2.0");
+    expect(manifest.corpus_version).toBe("0.3.0");
     expect(manifest.schema_version).toBe("2.0.0");
   });
 

@@ -18,7 +18,7 @@ function validate(): void {
   const corpus = loadFixtureCorpus();
   assertFixtureConsistency(corpus);
   console.log(
-    `fixture validation passed: ${count(corpus.profiles.length)} profiles, ${count(corpus.evidenceArtifacts.length)} evidence artifacts, ${count(corpus.sourceResumes.length)} resumes, ${count(corpus.jobs.length)} jobs, ${count(corpus.expectedRequirements.length)} requirements, ${count(corpus.scenarioBundles.length)} scenarios/${count(corpus.manifest.counts.scenario_evaluations)} evaluations, ${count(corpus.expectedSupportedClaims.length)} claims, ${count(corpus.unsupportedGaps.length)} gaps, ${count(corpus.fieldValuePolicies.length)} policies`,
+    `fixture validation passed: ${count(corpus.profiles.length)} profiles, ${count(corpus.evidenceArtifacts.length)} evidence artifacts, ${count(corpus.sourceResumes.length)} resumes, ${count(corpus.jobs.length)} jobs, ${count(corpus.expectedRequirements.length)} requirements, ${count(corpus.scenarioBundles.length)} scenarios/${count(corpus.manifest.counts.scenario_evaluations)} evaluations, ${count(corpus.expectedSupportedClaims.length)} claims, ${count(corpus.unsupportedGaps.length)} gaps, ${count(corpus.fieldValuePolicies.length)} policies, ${count(corpus.questionCases.length)} questions/${count(corpus.manifest.answer_counts.question_clusters)} clusters, ${count(corpus.answerConstraints.length)} constraints, ${count(corpus.answerScenarios.length)} answer scenarios`,
   );
 }
 
@@ -37,20 +37,24 @@ function platformV1(): void {
 }
 
 function discover(): void {
-  const root = join(PACKAGE_ROOT, "test", "m02-w01");
-  const testFiles = readdirSync(root)
-    .filter((file) => file.endsWith(".test.ts"))
-    .sort();
-  if (testFiles.length === 0) {
-    throw new Error("M02 test discovery failed: no focused test files");
-  }
-  for (const file of testFiles) {
-    const stats = lstatSync(join(root, file));
-    if (stats.isSymbolicLink() || !stats.isFile()) {
-      throw new Error(
-        `M02 test discovery failed: ${file} is not a regular file`,
-      );
+  const testFiles: string[] = [];
+  for (const focused of ["m02-w01", "m02-w02"]) {
+    const root = join(PACKAGE_ROOT, "test", focused);
+    const files = readdirSync(root)
+      .filter((file) => file.endsWith(".test.ts"))
+      .sort();
+    if (files.length === 0) {
+      throw new Error("M02 test discovery failed: no focused test files");
     }
+    for (const file of files) {
+      const stats = lstatSync(join(root, file));
+      if (stats.isSymbolicLink() || !stats.isFile()) {
+        throw new Error(
+          `M02 test discovery failed: ${file} is not a regular file`,
+        );
+      }
+    }
+    testFiles.push(...files.map((file) => `${focused}/${file}`));
   }
   const corpus = loadFixtureCorpus();
   const fixtureRecords =
@@ -62,9 +66,12 @@ function discover(): void {
     corpus.expectedSupportedClaims.length +
     corpus.unsupportedGaps.length +
     corpus.fieldValuePolicies.length +
-    corpus.scenarioBundles.length;
+    corpus.scenarioBundles.length +
+    corpus.questionCases.length +
+    corpus.answerConstraints.length +
+    corpus.answerScenarios.length;
   console.log(
-    `fixture discovery passed: 9 non-empty collections, ${count(fixtureRecords)} records, ${count(corpus.manifest.counts.scenario_evaluations)} scenario evaluations, ${count(testFiles.length)} focused test files; exact zero-skip count is enforced independently by the root verification registry`,
+    `fixture discovery passed: 12 non-empty collections, ${count(fixtureRecords)} records, ${count(corpus.manifest.counts.scenario_evaluations)} scenario evaluations, ${count(testFiles.length)} focused test files; exact zero-skip count is enforced independently by the root verification registry`,
   );
 }
 

@@ -175,17 +175,29 @@
           "vitest",
           "run",
           "test/m02-w01"
+        ],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/test-fixtures",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w02"
         ]
       ],
       "proofs": [
         {
           "kind": "vitest_exact_tests",
-          "min": 108
+          "min": 165
         }
       ],
-      "discovery_globs": ["packages/test-fixtures/test/m02-w01/**/*.test.ts"],
+      "discovery_globs": [
+        "packages/test-fixtures/test/m02-w01/**/*.test.ts",
+        "packages/test-fixtures/test/m02-w02/**/*.test.ts"
+      ],
       "artifacts": [],
-      "explanation": "ACTIVE when M02-W01 begins. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, any skipped/todo/pending/excluded outcome, or any discovered-test count other than the separately authored test-layer exact 108."
+      "explanation": "ACTIVE when M02-W01 begins; since M02-W02 the focused surface is the combined m02-w01 and m02-w02 suites. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, any skipped/todo/pending/excluded outcome, or any discovered-test count other than the separately authored test-layer exact 165."
     },
     {
       "id": "contract",

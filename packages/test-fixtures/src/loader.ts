@@ -23,6 +23,8 @@ import { parseStrictJson, StrictJsonError } from "./strict-json.ts";
 import {
   FIXTURE_SCHEMA_VERSION,
   SCHEMA_REFS,
+  type AnswerConstraint,
+  type AnswerScenario,
   type EvidenceArtifact,
   type ExpectedRequirement,
   type ExpectedSupportedClaim,
@@ -32,6 +34,7 @@ import {
   type FixtureEntity,
   type FixtureEntityType,
   type FixtureManifest,
+  type QuestionCase,
   type ScenarioBundle,
   type SourceResume,
   type SyntheticJob,
@@ -62,6 +65,18 @@ interface CollectionSpec {
 }
 
 export const COLLECTION_SPECS: readonly CollectionSpec[] = [
+  {
+    file: "answer-constraints.v2.json",
+    entityType: "ANSWER_CONSTRAINT",
+    schemaRef: SCHEMA_REFS.ANSWER_CONSTRAINT,
+    corpusKey: "answerConstraints",
+  },
+  {
+    file: "answer-scenarios.v2.json",
+    entityType: "ANSWER_SCENARIO",
+    schemaRef: SCHEMA_REFS.ANSWER_SCENARIO,
+    corpusKey: "answerScenarios",
+  },
   {
     file: "evidence-artifacts.v2.json",
     entityType: "EVIDENCE_ARTIFACT",
@@ -97,6 +112,12 @@ export const COLLECTION_SPECS: readonly CollectionSpec[] = [
     entityType: "SYNTHETIC_PROFILE",
     schemaRef: SCHEMA_REFS.SYNTHETIC_PROFILE,
     corpusKey: "profiles",
+  },
+  {
+    file: "question-cases.v2.json",
+    entityType: "QUESTION_CASE",
+    schemaRef: SCHEMA_REFS.QUESTION_CASE,
+    corpusKey: "questionCases",
   },
   {
     file: "scenario-bundles.v2.json",
@@ -636,6 +657,25 @@ function verifyCounts(corpus: FixtureCorpus): void {
       "manifest counts do not match loaded data",
     );
   }
+  const actualAnswerCounts = {
+    question_cases: corpus.questionCases.length,
+    question_clusters: new Set(
+      corpus.questionCases.map((question) => question.cluster_ref),
+    ).size,
+    answer_constraints: corpus.answerConstraints.length,
+    answer_scenarios: corpus.answerScenarios.length,
+  };
+  if (
+    JSON.stringify(actualAnswerCounts) !==
+    JSON.stringify(corpus.manifest.answer_counts)
+  ) {
+    fail(
+      "FIXTURE_MANIFEST_COUNT",
+      MANIFEST_FILE,
+      "/answer_counts",
+      "manifest answer counts do not match loaded data",
+    );
+  }
 }
 
 function assignCollection(
@@ -670,6 +710,15 @@ function assignCollection(
       break;
     case "unsupportedGaps":
       corpus.unsupportedGaps = items as UnsupportedGap[];
+      break;
+    case "questionCases":
+      corpus.questionCases = items as QuestionCase[];
+      break;
+    case "answerConstraints":
+      corpus.answerConstraints = items as AnswerConstraint[];
+      break;
+    case "answerScenarios":
+      corpus.answerScenarios = items as AnswerScenario[];
       break;
   }
 }
@@ -739,6 +788,9 @@ function loadFixtureCorpusInternal(
     unsupportedGaps: [],
     fieldValuePolicies: [],
     scenarioBundles: [],
+    questionCases: [],
+    answerConstraints: [],
+    answerScenarios: [],
   };
   const allIds = new Set<string>([manifest.id]);
   for (const [index, spec] of COLLECTION_SPECS.entries()) {

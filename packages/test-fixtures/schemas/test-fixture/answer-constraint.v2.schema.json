@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:answer-constraint:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "M02-W02 synthetic answer constraint",
+  "description": "TEST-ONLY exact answer length/format constraint. Words are maximal non-whitespace runs and characters are Unicode code points of the normalized (CRLF-to-LF, outer-trimmed) text; this closed metric is fixture truth only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "description",
+    "answer_required",
+    "line_policy"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "ANSWER_CONSTRAINT"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:answer-constraint:v2"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
+    },
+    "description": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/boundedText"
+    },
+    "answer_required": {
+      "type": "boolean"
+    },
+    "line_policy": {
+      "type": "string",
+      "enum": ["MULTILINE_ALLOWED", "SINGLE_LINE"]
+    },
+    "max_words": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "min_words": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "max_characters": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "min_characters": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "exact_format": {
+      "type": "string",
+      "enum": ["HTTPS_URL", "YES_NO"]
+    }
+  }
+}

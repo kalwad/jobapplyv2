@@ -1,13 +1,16 @@
 export const FIXTURE_SCHEMA_VERSION = "2.0.0" as const;
-export const CORPUS_VERSION = "0.2.0" as const;
+export const CORPUS_VERSION = "0.3.0" as const;
 
 export const SCHEMA_REFS = {
+  ANSWER_CONSTRAINT: "urn:japp:schema:test-fixture:answer-constraint:v2",
+  ANSWER_SCENARIO: "urn:japp:schema:test-fixture:answer-scenario:v2",
   EVIDENCE_ARTIFACT: "urn:japp:schema:test-fixture:evidence-artifact:v2",
   EXPECTED_REQUIREMENT: "urn:japp:schema:test-fixture:expected-requirement:v2",
   EXPECTED_SUPPORTED_CLAIM:
     "urn:japp:schema:test-fixture:expected-supported-claim:v2",
   FIELD_VALUE_POLICY: "urn:japp:schema:test-fixture:field-value-policy:v2",
   MANIFEST: "urn:japp:schema:test-fixture:manifest:v2",
+  QUESTION_CASE: "urn:japp:schema:test-fixture:question-case:v2",
   SCENARIO_BUNDLE: "urn:japp:schema:test-fixture:scenario-bundle:v2",
   SOURCE_RESUME: "urn:japp:schema:test-fixture:source-resume:v2",
   SYNTHETIC_JOB: "urn:japp:schema:test-fixture:synthetic-job:v2",
@@ -72,11 +75,14 @@ export type ExpectedAction =
   | "REQUIRE_CONFIRMATION"
   | "USE_SUPPORTED_EVIDENCE";
 
+export type FixtureProvenance =
+  "M02W01_SYNTHETIC_AUTHORING_REVIEW" | "M02W02_SYNTHETIC_AUTHORING_REVIEW";
+
 export interface FixtureMetadata {
   author: string;
   reviewer: string;
   reviewed_at: string;
-  expected_result_provenance: "M02W01_SYNTHETIC_AUTHORING_REVIEW";
+  expected_result_provenance: FixtureProvenance;
   synthetic_data: true;
   redaction_state: "SYNTHETIC_RESERVED";
   historical_content_hash: ContentDigest;
@@ -334,11 +340,152 @@ export interface ScenarioBundle extends BaseFixture {
   coverage_tags: string[];
 }
 
+export type QuestionIntent =
+  | "AVAILABILITY"
+  | "CAREER_GOAL"
+  | "CONFLICT"
+  | "DEMOGRAPHIC_VOLUNTARY"
+  | "EXPERIENCE_EXAMPLE"
+  | "EXPORT_CONTROL"
+  | "FAILURE_LEARNING"
+  | "LEADERSHIP"
+  | "LEGAL_COMPLIANCE"
+  | "LOCATION_RELOCATION"
+  | "MOTIVATION_COMPANY"
+  | "MOTIVATION_ROLE"
+  | "OTHER_FACTUAL"
+  | "OTHER_NARRATIVE"
+  | "PORTFOLIO_LINK"
+  | "PROJECT_EXAMPLE"
+  | "SALARY"
+  | "SPONSORSHIP"
+  | "STRENGTH"
+  | "WORK_AUTHORIZATION";
+
+export type SensitiveConcept =
+  | "AGE_DATE_OF_BIRTH"
+  | "CONFLICT_OF_INTEREST"
+  | "CRIMINAL_LEGAL_DISCLOSURE"
+  | "DISABILITY_STATUS"
+  | "EMPLOYEE_IDENTIFIER"
+  | "EXPORT_CONTROL_STATUS"
+  | "GENDER_IDENTITY"
+  | "NONCOMPETE_RESTRICTION"
+  | "RACE_ETHNICITY"
+  | "RELOCATION_COMMITMENT"
+  | "SALARY_EXPECTATION_UNITS"
+  | "SECURITY_CLEARANCE"
+  | "VETERAN_STATUS"
+  | "VISA_SPONSORSHIP"
+  | "WORK_AUTHORIZATION_STATUS";
+
+export interface QuestionCase extends BaseFixture {
+  entity_type: "QUESTION_CASE";
+  schema_ref: typeof SCHEMA_REFS.QUESTION_CASE;
+  cluster_ref: string;
+  intent: QuestionIntent;
+  case_role: "CANONICAL" | "PARAPHRASE";
+  layer: "BASE" | "SENSITIVE_OVERLAY";
+  prompt_text: string;
+  sensitive_concept?: SensitiveConcept;
+}
+
+export interface AnswerConstraint extends BaseFixture {
+  entity_type: "ANSWER_CONSTRAINT";
+  schema_ref: typeof SCHEMA_REFS.ANSWER_CONSTRAINT;
+  description: string;
+  answer_required: boolean;
+  line_policy: "MULTILINE_ALLOWED" | "SINGLE_LINE";
+  max_words?: number;
+  min_words?: number;
+  max_characters?: number;
+  min_characters?: number;
+  exact_format?: "HTTPS_URL" | "YES_NO";
+}
+
+export type AnswerOutcome =
+  | "BLOCKED_BY_POLICY"
+  | "CONFIRMATION_REQUIRED"
+  | "EXPLICIT_RECORD_ANSWER"
+  | "INSUFFICIENT_EVIDENCE"
+  | "STALE_CONTEXT"
+  | "SUPPORTED_NARRATIVE_ANSWER"
+  | "UNSUPPORTED_OR_CONTRADICTED"
+  | "VOLUNTARY_DECLINE";
+
+export type StaleReason =
+  | "AUTHORIZATION_CONTEXT_CHANGED"
+  | "COMPENSATION_CONTEXT_CHANGED"
+  | "EXPIRED_SOURCE_RECORD"
+  | "SUPERSEDED_PROFILE_FACT"
+  | "WRONG_COMPANY"
+  | "WRONG_JURISDICTION"
+  | "WRONG_LOCATION"
+  | "WRONG_ROLE";
+
+export type InsufficiencyReason =
+  | "EVIDENCE_CONTRADICTS_REQUEST"
+  | "EVIDENCE_STALE_AT_EVALUATION"
+  | "EVIDENCE_SUPPORTS_NARROWER_ANSWER"
+  | "METRIC_NEVER_RECORDED"
+  | "NO_RELEVANT_EVIDENCE"
+  | "PRESUPPOSED_EXPERIENCE_ABSENT"
+  | "SENSITIVE_RECORD_MISSING"
+  | "WEAK_RELATED_EVIDENCE_ONLY";
+
+export interface AnswerConstraintEvaluation {
+  measured_words: number;
+  measured_characters: number;
+  measured_lines: number;
+  compliant: boolean;
+  boundary?: "AT_LIMIT" | "ONE_ABOVE_LIMIT" | "ONE_BELOW_LIMIT";
+}
+
+export interface AnswerContent {
+  text: string;
+  evidence_refs: string[];
+  explicit_source?: "FIELD_RECORD" | "PROFILE_CONTACT_WEBSITE";
+  source_field_record_id?: string;
+}
+
+export interface AnswerScenario extends BaseFixture {
+  entity_type: "ANSWER_SCENARIO";
+  schema_ref: typeof SCHEMA_REFS.ANSWER_SCENARIO;
+  question_ref: string;
+  profile_ref: string;
+  job_ref: string;
+  evaluation_date: string;
+  context: {
+    company: string;
+    role: string;
+    location: string;
+    jurisdiction: "NON_US_FIXTURE" | "US_FIXTURE";
+    required_evidence_category?: EvidenceCategory;
+  };
+  expected_outcome: AnswerOutcome;
+  expected_action: ExpectedAction;
+  release_eligible: boolean;
+  constraint_ref?: string;
+  constraint_evaluation?: AnswerConstraintEvaluation;
+  field_policy_ref?: string;
+  policy_basis?: "CONCEPT_DEFAULT" | "FIELD_VALUE_POLICY";
+  default_policy?: FieldValuePolicyKind;
+  answer?: AnswerContent;
+  reused_answer_scenario_ref?: string;
+  stale_reason?: StaleReason;
+  insufficiency_reason?: InsufficiencyReason;
+  context_refs?: string[];
+  rationale: string;
+}
+
 export type FixtureEntity =
+  | AnswerConstraint
+  | AnswerScenario
   | EvidenceArtifact
   | ExpectedRequirement
   | ExpectedSupportedClaim
   | FieldValuePolicy
+  | QuestionCase
   | ScenarioBundle
   | SourceResume
   | SyntheticJob
@@ -375,6 +522,13 @@ export interface FixtureCounts {
   scenario_evaluations: number;
 }
 
+export interface AnswerFixtureCounts {
+  question_cases: number;
+  question_clusters: number;
+  answer_constraints: number;
+  answer_scenarios: number;
+}
+
 export interface FixtureManifest {
   id: string;
   schema_ref: typeof SCHEMA_REFS.MANIFEST;
@@ -385,6 +539,7 @@ export interface FixtureManifest {
   metadata: FixtureMetadata;
   files: FixtureManifestFile[];
   counts: FixtureCounts;
+  answer_counts: AnswerFixtureCounts;
   evidence_category_counts: Record<EvidenceCategory, number>;
   role_family_counts: Record<RoleFamily, number>;
   corpus_digest: ContentDigest;
@@ -401,4 +556,7 @@ export interface FixtureCorpus {
   unsupportedGaps: UnsupportedGap[];
   fieldValuePolicies: FieldValuePolicy[];
   scenarioBundles: ScenarioBundle[];
+  questionCases: QuestionCase[];
+  answerConstraints: AnswerConstraint[];
+  answerScenarios: AnswerScenario[];
 }

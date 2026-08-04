@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:test-fixture:question-case:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "M02-W02 synthetic question case",
+  "description": "TEST-ONLY application question phrasing bound to one taxonomy intent and one paraphrase cluster; not the production M16 question schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "entity_type",
+    "schema_ref",
+    "schema_version",
+    "metadata",
+    "cluster_ref",
+    "intent",
+    "case_role",
+    "layer",
+    "prompt_text"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "entity_type": {
+      "const": "QUESTION_CASE"
+    },
+    "schema_ref": {
+      "const": "urn:japp:schema:test-fixture:question-case:v2"
+    },
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "metadata": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/fixtureMetadata"
+    },
+    "cluster_ref": {
+      "$ref": "urn:japp:schema:test-fixture:common:v2#/$defs/stableId"
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "AVAILABILITY",
+        "CAREER_GOAL",
+        "CONFLICT",
+        "DEMOGRAPHIC_VOLUNTARY",
+        "EXPERIENCE_EXAMPLE",
+        "EXPORT_CONTROL",
+        "FAILURE_LEARNING",
+        "LEADERSHIP",
+        "LEGAL_COMPLIANCE",
+        "LOCATION_RELOCATION",
+        "MOTIVATION_COMPANY",
+        "MOTIVATION_ROLE",
+        "OTHER_FACTUAL",
+        "OTHER_NARRATIVE",
+        "PORTFOLIO_LINK",
+        "PROJECT_EXAMPLE",
+        "SALARY",
+        "SPONSORSHIP",
+        "STRENGTH",
+        "WORK_AUTHORIZATION"
+      ]
+    },
+    "case_role": {
+      "type": "string",
+      "enum": ["CANONICAL", "PARAPHRASE"]
+    },
+    "layer": {
+      "type": "string",
+      "enum": ["BASE", "SENSITIVE_OVERLAY"]
+    },
+    "prompt_text": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 300
+    },
+    "sensitive_concept": {
+      "type": "string",
+      "enum": [
+        "AGE_DATE_OF_BIRTH",
+        "CONFLICT_OF_INTEREST",
+        "CRIMINAL_LEGAL_DISCLOSURE",
+        "DISABILITY_STATUS",
+        "EMPLOYEE_IDENTIFIER",
+        "EXPORT_CONTROL_STATUS",
+        "GENDER_IDENTITY",
+        "NONCOMPETE_RESTRICTION",
+        "RACE_ETHNICITY",
+        "RELOCATION_COMMITMENT",
+        "SALARY_EXPECTATION_UNITS",
+        "SECURITY_CLEARANCE",
+        "VETERAN_STATUS",
+        "VISA_SPONSORSHIP",
+        "WORK_AUTHORIZATION_STATUS"
+      ]
+    }
+  }
+}
