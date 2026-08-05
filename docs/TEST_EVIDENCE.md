@@ -33,6 +33,124 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W02 — Governance closeout after independent Fable verification (2026-08-05)
+
+- Revision: verified content commit `0c52cab5987a6497e28db5a30186c82a053c88aa`
+  / tree `ebe546966ed403f3155dcd04779984671e565d06`; parent commit
+  `9da85bcc98c39b071e5047304b0101a2f8397f9d`. The governance commit containing
+  this entry is recorded post-commit per the anchoring convention; it changes
+  governance documents only.
+- Environment: independent Fable 5 Max verification session on macOS (Apple
+  Silicon, Darwin 27), Node 24.18.0 with pnpm 11.17.0, uv-managed Python
+  3.12, Rust 1.97.1, pinned Playwright Chromium; all execution occurred in a
+  disposable no-hardlinks exact-SHA clone prepared with
+  `pnpm install --frozen-lockfile`, `uv sync --locked`,
+  `pnpm exec playwright install chromium`, and both `cargo fetch --locked`
+  manifests, with zero lockfile/workflow/toolchain/generated-contract/
+  specification drift. Hosted evidence ran on ubuntu-24.04, macos-15, and
+  windows-2025 GitHub-hosted runners.
+- Verdict: the owner-directed fixed-scope Fable verification returned
+  `FABLE_CLEAR_FOR_M02_W02_GOVERNANCE`. The finite contract matrix —
+  taxonomy balance and meaningful paraphrases, context/stale-reuse traps,
+  sensitive policy under all six kinds, deterministic exact limits with
+  one-below/at/one-above boundaries, insufficient-evidence outcomes,
+  evidence-bound supported answers, closed schemas/loader/manifest/privacy,
+  and the test-owned literal oracle — was confirmed against the complete
+  36-file / 10,245-insertion / 73-deletion diff. No additional requirement
+  was invented and no adversarial campaign beyond the fixed scope was run.
+- Finite independent checks: the complete diff, all three new closed Draft
+  2020-12 schemas, the generator/consistency/metric/loader/CLI extensions,
+  all four focused test files, the M02-W02 oracle, and all three committed
+  collections were read and independently re-projected: 144 question cases
+  in exactly 48 clusters (every cluster exactly one canonical case plus two
+  materially reworded paraphrases; 20/20 intents at exactly two BASE
+  canonical clusters; zero trivial-variant signatures; zero duplicate
+  prompts), all 15 sensitive concepts covered, outcome distribution
+  21/5/5/3/7/8/(7+2), all six field-policy kinds exercised through real
+  M02-W01 policy records, all eight stale reasons (three verbatim
+  cross-company/role/location reuse traps citing released scenarios), all
+  eight insufficiency reasons, boundary trios 11/12/13 words and 39/40/41
+  code points, zero answer text on any non-released outcome, and zero
+  duplicate question/profile/job/date combinations. The oracle is imported
+  by test files only; the M02-W01 oracle and every M02-W01 data collection
+  remain byte-identical except the reviewed manifest integration.
+- Six independent mutations (fresh disposable corpus copies; mutations 1–5
+  fully re-signed so byte digests could not mask semantics): (1) a question
+  moved to a wrong intent inside its cluster → `QUESTION_CLUSTER_MIXED`;
+  (2) the stale-company reuse trap marked releasable with the reused text →
+  `STALE_RELEASE_FORBIDDEN` plus `ANSWER_TEXT_FORBIDDEN`; (3) a
+  policy-blocked sensitive scenario given releasable answer text →
+  `ANSWER_TEXT_FORBIDDEN`; (4) an exact at-limit boundary measurement moved
+  by one → `CONSTRAINT_EVALUATION_INCOHERENT`; (5) an insufficient-evidence
+  scenario given a released factual answer → `ANSWER_TEXT_FORBIDDEN` plus
+  `INSUFFICIENCY_INCOHERENT`; (6) a collection byte tampered without
+  updating the manifest → loader `FIXTURE_FILE_DIGEST` rejection. All six
+  rejected as required; no further mutation was added.
+- Commands and observed results (disposable exact-SHA clone; every command
+  exited 0): `pnpm --filter @japp/test-fixtures typecheck`;
+  `fixtures:seed:check` (deterministic, status-neutral); `fixtures:validate`
+  (full consistency including the answer layer); `fixtures:privacy` — 32
+  files and 36,773 scalar fields clean; `fixtures:platform-v1` — 15
+  deprecated pairs over 32 producer files; `fixtures:discover` — 12
+  non-empty collections, 617 records, 12 focused test files; focused
+  `vitest run test/m02-w02` — 57/57 across 4 files; M02-W01 regression
+  `vitest run test/m02-w01` — 108/108 across 8 files (combined focused
+  registry proof 165); `pnpm --filter @japp/test-fixtures test` — 166/166
+  across 13 files; `uv run pytest -q scripts/tests/test_suite_states.py` —
+  294 passed; `python3 scripts/validate_status.py` — 45 groups;
+  `pnpm traceability:check` — 193 requirements / 300 packages;
+  `pnpm generate:contracts --check` — 183 files byte-identical;
+  `pnpm run doctor` — 23 pass / 0 warning / 0 fail / 1 not-yet-applicable;
+  `pnpm verify` — exit 0 with every ACTIVE suite PASS and visual truthfully
+  NOT_YET_APPLICABLE (unit TypeScript 2,613 = 2,440 contracts + 166
+  fixtures + seven one-test packages; focused contracts 662; browser 1;
+  Rust 1 plus 10; Python 977/977 POSIX); `git diff --check` and
+  `git status --short` clean after the complete chain.
+- Privacy-count correction (labeled, history preserved): the 2026-08-04
+  implementation entry recorded the committed-producer privacy scan as
+  "32 files, 36,736 scalar fields". The deterministic scanner output at this
+  exact content revision is 32 files and 36,773 scalar fields on every local
+  and hosted execution; 36,736 was a prose transposition of 36,773, not a
+  scanner or data defect. A correction label is added in place below; every
+  other implementation figure reproduced exactly.
+- Hosted evidence: final run `30932832896` at head SHA exactly
+  `0c52cab5987a6497e28db5a30186c82a053c88aa` succeeded with doctor + verify
+  (ubuntu-24.04) job `92071496949` success, doctor + verify (macos-15) job
+  `92071496974` success, and doctor + verify (windows-2025) job
+  `92071497000` success. Every raw log was inspected: each job checked out
+  the exact content SHA, reported doctor 23 pass / 0 warning / 0 fail / 1
+  not-yet-applicable, ran the focused suites at 57/57 and 108/108 with the
+  complete package at 166/166, reported privacy 32 files / 36,773 scalar
+  fields and discovery 12 collections / 617 records, collected and passed
+  the platform-exact Python inventory (977/977 on ubuntu-24.04 and
+  macos-15; 975/975 on windows-2025), printed `verification exit code: 0`
+  with every ACTIVE suite PASS and visual truthfully NOT_YET_APPLICABLE,
+  and passed the tracked-cleanliness assertion. The previously observed
+  Windows EPERM cleanup race did not recur (zero EPERM occurrences in the
+  raw windows-2025 log).
+- Manual/UI validation: none — M02-W02 is a fixture-only test-data package
+  with no UI, browser, extension, or document surface; spec §1.3(6) manual
+  inspection is not applicable and no browser/manual evidence is claimed.
+- Lifecycle result: M02-W02 becomes VERIFIED at content tree
+  `ebe546966ed403f3155dcd04779984671e565d06`, not ACCEPTED; M02-W03 becomes
+  the sole READY package and was not begun; no package remains IN_PROGRESS;
+  M02 remains IN_PROGRESS; M00 and M01 remain ACCEPTED; M02-W01 remains
+  VERIFIED at its preserved tree; KI-0039 through KI-0045 remain FIXED; all
+  four critical gates remain NOT_EVALUATED — package verification did not
+  evaluate any critical gate, and the Autofill Feasibility evaluation/
+  decision remains owned by M02-W14/M02-W15 — and the overall release gate
+  remains NOT_READY.
+- Artifacts: governance updates to docs/PROJECT_STATUS.md,
+  docs/TEST_EVIDENCE.md, docs/traceability.json, and the regenerated
+  docs/REQUIREMENTS_TRACEABILITY.md in this closeout commit; hosted job
+  logs inspected through authenticated GitHub tooling, including the raw
+  windows-2025 log. The disposable Stage A clone was removed after
+  verification.
+- Notes: governance-only change. No fixture datum, schema, generator,
+  loader, validator, test, product code, workflow, dependency, lockfile,
+  toolchain, or canonical-specification byte changed, and no M02-W03
+  implementation bytes exist.
+
 ### M02-W02 — Create question and answer fixtures (2026-08-04)
 
 - Revision: implementation working tree over parent commit
@@ -81,7 +199,10 @@ Exact verification commands and summarized results
   - `fixtures:seed:check` → exit 0, deterministic and status-neutral;
     `fixtures:validate` → exit 0 (full consistency including the new answer
     layer); `fixtures:privacy` → exit 0 (32 files, 36,736 scalar fields
-    clean); `fixtures:platform-v1` → exit 0 (15 deprecated pairs, 32
+    clean [correction, 2026-08-05 governance closeout: the deterministic
+    scanner output at this content revision is 36,773 scalar fields on every
+    local and hosted execution; "36,736" was a prose transposition, not a
+    scanner or data defect]); `fixtures:platform-v1` → exit 0 (15 deprecated pairs, 32
     producer files, extended schema-ref/collection expectations);
     `fixtures:discover` → exit 0 (12 non-empty collections, 617 records,
     12 focused test files).
