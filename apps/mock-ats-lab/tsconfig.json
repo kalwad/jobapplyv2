@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Fixture pages execute in the pinned Chromium, so the DOM lib is
+    // semantically required here; the node types stay available for the
+    // Vitest suite and the catalog check script.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "site/src/**/*.ts",
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "vite.lab.config.ts",
+    "vitest.config.ts"
+  ]
+}

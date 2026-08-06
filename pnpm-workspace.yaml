@@ -32,3 +32,11 @@ minimumReleaseAgeExclude:
   - "@turbo/windows-64@2.10.7"
   - "@turbo/windows-arm64@2.10.7"
   - turbo@2.10.7
+
+# esbuild (a vite/vitest dependency of the M02-W03 mock ATS lab) resolves
+# its platform binary through optionalDependencies; its postinstall script
+# is unnecessary and deliberately NOT executed (fewer lifecycle scripts,
+# same deterministic binary). Recording the decision here keeps
+# `pnpm install --frozen-lockfile` exit-0 on every certified platform.
+allowBuilds:
+  esbuild: false

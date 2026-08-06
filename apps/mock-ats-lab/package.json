@@ -1,6 +1,28 @@
 {
   "name": "@japp/mock-ats-lab",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "Deterministic local ATS fixture web app (spec §5.1, §8.2). Workspace slot created in M00-W02; the fixture lab is built in M02-W03, so this package intentionally has no code or scripts yet."
+  "description": "Deterministic local ATS fixture web app (spec §5.1, §8.2), built by M02-W03. Test-only synthetic forms served on 127.0.0.1; never a product surface and never a live-submission path.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.lab.config.ts --host 127.0.0.1 --port 4760 --strictPort",
+    "build": "vite build --config vite.lab.config.ts",
+    "e2e-server": "vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort",
+    "catalog:check": "node scripts/check-catalog.ts --check",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --no-file-parallelism --maxWorkers=1"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "vue": "3.5.41"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "typescript": "catalog:",
+    "vite": "7.3.6",
+    "vitest": "catalog:"
+  }
 }

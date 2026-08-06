@@ -7271,7 +7271,7 @@
       "id": "M02-W03",
       "milestone": "M02",
       "title": "Build mock ATS lab v1",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W02"

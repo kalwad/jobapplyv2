@@ -33,6 +33,174 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W03 — Build deterministic mock ATS lab v1 (2026-08-06)
+
+- Revision: implementation working tree over parent commit
+  `b4e48101df78b89107aec2de6f1d1c877c3f5513` (pre-evidence staged tree
+  `8da98b8fbbb14b678ac3f3759463d82c6e518925`); the containing commit is
+  recorded post-commit per the anchoring convention. Owner-selected
+  implementation agent: Claude Fable 5 Max, single writer.
+- Environment: macOS (Apple Silicon, Darwin 27), Node 24.18.0 with pnpm
+  11.17.0, uv-managed Python 3.12.13, Rust 1.97.1, pinned Playwright
+  Chromium; installs remained frozen/locked
+  (`pnpm install --frozen-lockfile` exit 0 after the reviewed lockfile
+  update) and `scripts/python-test-inventory.v1.json` is byte-identical
+  (no Python node ID changed).
+- Scope: deterministic mock ATS lab v1 under `apps/mock-ats-lab` (spec
+  §5.1, §8.2) — one Vite 7.3.6 multi-page app (18 HTML entries rooted at
+  `site/`, hash-free unminified byte-deterministic build; two consecutive
+  builds hash identically), real React 19.2.8 (`createElement` + hooks via
+  `react-dom/client`) and real Vue 3.5.41 (`h()` render functions +
+  `reactive`) controlled forms, vanilla-DOM fixtures built through
+  text-only helpers, one custom element with an open shadow root, a
+  same-origin iframe document, versioned sessionStorage flow/receipt state
+  with an explicit reset action, fixed delay constants
+  (400/500/500/600 ms), and ordinal receipts (`RCPT-MOCK-####`). Serving
+  binds 127.0.0.1 only (dev 4760 / E2E 4761, `--strictPort`); the root
+  Playwright config builds and serves the lab per run
+  (`reuseExistingServer: false`) with an explicit baseURL. New exact
+  dependency pins (react/react-dom 19.2.8, vue 3.5.41, vite 7.3.6,
+  @types/react 19.2.18, @types/react-dom 19.2.4 plus catalog
+  typescript/vitest/@types/node) are test-only; esbuild's unnecessary
+  postinstall is recorded as not executed (`allowBuilds: esbuild: false`
+  in pnpm-workspace.yaml; its platform binary comes from
+  optionalDependencies). The Vite build configuration is deliberately
+  named `vite.lab.config.ts` (explicit `--config` only) so the verifier's
+  minimal-auto-loadable-Vitest-config boundary holds; `vitest.config.ts`
+  is the minimal static test shape. No extension, scanner, resolver,
+  driver, evaluation runner, corpus freeze, holdout body, product UI,
+  live-site interaction, production ATS adapter or support claim, or
+  critical-gate artifact was created.
+- Fixture catalog: version 1.0.0, schema version 1 — 32 cases across 16
+  routes with stable `MAL-###-###` IDs, surface tags, provenance, and
+  explicit synthetic-data status; committed `catalog.manifest.json` pins
+  canonical SHA-256
+  `a1fb06f97b156785937b1b6251cf9cd96d330c39e6cab274aafd63f10ccf4c28`
+  (recomputed by `catalog:check` and the unit suite). Expected state
+  transitions live test-side
+  (`e2e/mock-ats-lab/support/expected-transitions.ts`, asserted 1:1
+  against the catalog); pages expose realistic labels/ARIA/values only —
+  a browser test proves no `data-expected*`/`data-sensitive*`/
+  `data-honeypot*` attribute exists in the served DOM.
+- Commands and observed results:
+  - `pnpm install` (reviewed lockfile update) then
+    `pnpm install --frozen-lockfile` → exit 0.
+  - `pnpm --filter @japp/mock-ats-lab typecheck` → exit 0;
+    `... test` → 32/32 across 4 files (catalog identity/inventory/digest,
+    flow/receipt state machines, fixed-delay and loopback-config
+    determinism, static source policy: no external URLs or live form
+    actions, no HTML-string sinks or dynamic code, no network APIs, no
+    randomness/wall-clock identity, no expected-value leakage);
+    `... build` → exit 0; `... catalog:check` → OK (32 cases, 16 routes,
+    digest above); two clean builds produced identical file-hash sets.
+  - `pnpm exec playwright test --list` → 59 tests in 17 files;
+    `pnpm exec playwright test` → 59/59 passed in real pinned Chromium
+    (58 mock-ATS-lab tests in 16 spec files + the original
+    browser-infrastructure smoke test, unchanged). Coverage proven against
+    site-visible accepted state: catalog index exposes all 32 cases;
+    native required/optional/validation incl. cleared errors; realistic
+    sensitive fields with zero fixture-metadata attributes; React and Vue
+    values commit through real framework events, persist across forced and
+    fixed-delay rerenders, direct stale DOM writes never become accepted
+    state, and site-side rewrites (email lowercase, employee-ID uppercase)
+    are observable; conditional insertion/removal with dependent required
+    state, 400 ms delayed insertion, and node replacement beside a
+    stable-identity control; three-step flow with validation-blocked Next,
+    Back preservation, full review table, 600 ms delayed deterministic
+    receipt `RCPT-MOCK-0001`, duplicate warning without a second receipt,
+    and reset returning the exact initial state (both storage keys null);
+    CAPTCHA placeholder pauses with explicit reason, survives reload, and
+    unlocks only via the labeled test-only manual action; same-origin
+    iframe with frame-local identity/validation/isolation; open shadow
+    root control with accessible label and validation on a stable host;
+    ARIA combobox filtering/keyboard/exact-option-identity/empty-state and
+    required-commit check; ARIA listbox keyboard selection; genuinely
+    virtualized listbox (480 options, ≤ ~17 mounted, scroll re-windows,
+    offscreen selection by scroll+click and keyboard, selection survives
+    rerender; `overflow-anchor: none` prevents scroll-anchoring feedback);
+    composite date (leading-zero normalization, impossible-day and
+    leap-year rules, ISO commit) and phone (separator stripping, exact
+    per-country national length, E.164 commit) widgets; upload
+    accept/reject/oversize/clear with exact name/type/size metadata from
+    in-memory synthetic buffers; custom/cross-field/500 ms
+    delayed validation with errors clearing on correction and a blocked
+    continue action; prompt-injection text in the help block and job
+    description rendered inert (visible as text, zero child elements, zero
+    scripts/images materialized, `__labInjectionExecuted` sentinel
+    undefined, form behavior unchanged); and a shared auto-fixture that
+    fails ANY lab test issuing a non-loopback request (dedicated spec
+    additionally inventories full-visit requests → all
+    `http://127.0.0.1:4761/`).
+  - Regressions: `vitest run test/m02-w01` → 108/108;
+    `vitest run test/m02-w02` → 57/57;
+    `pnpm --filter @japp/test-fixtures test` → 166/166.
+  - `uv sync --locked`, both `cargo fetch --locked` manifests → exit 0.
+  - `uv run pytest -q scripts/tests/test_integrity.py` → 43 passed;
+    `test_suite_states.py` → 294 passed; `test_proofs_and_real_repo.py` →
+    7 passed; full `scripts/tests` → 976 passed (the 977th inventory item
+    runs from `services/orchestrator/tests` in the canonical verifier
+    command; platform inventories remain 977 POSIX / 975 Windows,
+    byte-identical file).
+  - `python3 scripts/validate_status.py` → PASS (45 groups);
+    `pnpm traceability:check` → PASS (193/300);
+    `pnpm generate:contracts --check` → 183 files byte-identical;
+    `pnpm run doctor` → 22 pass / 1 warning (uncommitted work in
+    progress) / 0 fail / 1 not-yet-applicable.
+  - `pnpm verify` → exit 0 with every ACTIVE suite PASS and visual
+    truthfully NOT_YET_APPLICABLE; unit-ts now runs 2,645 tests
+    (2,440 contracts + 166 fixtures + 32 mock-ats-lab + seven one-test
+    packages, 10/10 turbo tasks); e2e-browser runs all 59 Playwright
+    tests through the lab webServer; verification changed no tracked
+    bytes and `git diff --check` stayed clean.
+- Manual/UI validation (spec §1.3(6)): bounded inspection in bundled
+  Playwright Chromium after automated tests — all 17 top-level routes plus
+  the CAPTCHA-pause, review, receipt, and duplicate-warning interactive
+  states were loaded and screenshotted (temporary artifacts under the
+  session scratchpad only; none committed), with the fixture index,
+  native, virtualized, CAPTCHA, and review captures visually reviewed: the
+  synthetic-lab notice is prominent on every page, no text clipping or
+  unusable control was observed, the CAPTCHA pause shows its reason with
+  Next disabled, and the review table lists every persisted answer.
+  Keyboard behavior spot-checked (Tab order on the combobox page:
+  input → check button → listbox; arrow/Enter selection in both custom
+  widgets). Zero browser-console errors and zero failed requests across
+  every inspected route and state.
+- Reviewed control updates (no fixture truth or W01/W02 datum changed):
+  `scripts/tests/test_proofs_and_real_repo.py` workspace script counts
+  9 → 10 (assertion content only);
+  `scripts/tests/test_v14_migration.py::test_dependency_lockfiles_preserve_history_except_m02_importer`
+  extended — the M02-W01/W02 lockfile stage is now proven byte-identical
+  to the immutable verified M02-W02 commit's lockfile, the reviewed
+  historical importer bytes must survive in the current lockfile, the
+  reviewed M02-W03 mock-ats-lab importer must appear exactly once with its
+  exact pins, and the complete current lockfile is pinned by reviewed
+  SHA-256 (fail-closed on unreviewed drift; uv.lock and Cargo.lock digests
+  unchanged); `scripts/verification-suites.json` e2e-browser explanation
+  updated truthfully (no command, proof, or threshold changed); root
+  `playwright.config.ts` gained the lab webServer/baseURL with retries 0,
+  workers 1, and failure-only artifacts preserved; no Python node ID
+  changed anywhere.
+- Security/privacy: all values are synthetic reserved data
+  (`example.test`, 555-01xx, invented employers); no real resume,
+  credential, or applicant datum exists in fixtures or tests; upload tests
+  use in-memory synthetic buffers; prompt-injection strings are inert data
+  rendered through Text nodes only (unit scan forbids HTML-string sinks
+  and dynamic code); the lab performs no external network activity and no
+  live submission — a browser-level assertion enforces loopback-only
+  requests on every lab test.
+- Scope and governance: implementation evidence only. M02-W03 remains
+  IN_PROGRESS and unaccepted; no package is READY; M02-W01 and M02-W02
+  remain VERIFIED at their preserved trees and were not reopened; M02
+  remains IN_PROGRESS; M00 and M01 remain ACCEPTED; all four critical
+  gates remain NOT_EVALUATED (this package neither evaluates a gate nor
+  claims production ATS support — mock-lab coverage is synthetic research
+  fixture behavior, per docs/COMPATIBILITY_MATRIX.md); visual regression
+  remains truthfully NOT_YET_APPLICABLE (M10-W06 owns the first mandated
+  surface); the release gate remains NOT_READY. The exact hosted three-OS
+  run for the ending content SHA and the separate fresh verification plus
+  governance closeout remain pending and are bound in the implementation
+  handoff.
+
 ### M02-W02 — Governance closeout after independent Fable verification (2026-08-05)
 
 - Revision: verified content commit `0c52cab5987a6497e28db5a30186c82a053c88aa`

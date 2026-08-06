@@ -412,6 +412,47 @@ def test_canonical_name_symlink_to_directory_is_rejected(tmp_path: Path) -> None
 
 
 M02_W01_START_COMMIT = "0c8efc9212162bcb4fa846e453007d9404d97429"
+M02_W02_VERIFIED_COMMIT = "0c52cab5987a6497e28db5a30186c82a053c88aa"
+
+# Reviewed M02-W03 delta: the mock ATS lab importer with its exact pinned
+# test-only dependencies (spec §8.2; the lab is built by M02-W03). The
+# current-lockfile digest below fails closed on any unreviewed drift.
+REVIEWED_MOCK_ATS_LAB_IMPORTER = (
+    b"""  apps/mock-ats-lab:
+    dependencies:
+      react:
+        specifier: 19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
+      vue:
+        specifier: 3.5.41
+        version: 3.5.41(typescript@6.0.3)
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      '@types/react':
+        specifier: 19.2.18
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: 19.2.4
+        version: 19.2.4(@types/react@19.2.18)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vite:
+        specifier: 7.3.6
+        version: 7.3.6(@types/node@24.13.3)(lightningcss@1.33.0)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)"""
+    b"(vite@7.3.6(@types/node@24.13.3)(lightningcss@1.33.0))\n"
+)
+REVIEWED_PNPM_LOCK_SHA256 = (
+    "56bc9557b049b55e86ea12d147b2be4a43eb50a03596ca55718aae8da03a726a"
+)
 
 
 def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
@@ -448,7 +489,29 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
         + reviewed_prettier
         + expected_pnpm[typescript_start:]
     )
-    assert (REPO_ROOT / "pnpm-lock.yaml").read_bytes() == expected_pnpm
+    # Historical proof: the M02-W01/W02 lockfile stage is exactly the
+    # baseline plus those two reviewed splices, byte for byte, anchored to
+    # the immutable verified M02-W02 content commit.
+    historical_pnpm = subprocess.run(
+        ["git", "show", f"{M02_W02_VERIFIED_COMMIT}:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert historical_pnpm == expected_pnpm
+
+    # Current lockfile: the reviewed historical importer bytes survive
+    # unchanged, the reviewed M02-W03 mock ATS lab importer exists exactly
+    # once with its exact pins, and the complete file matches the reviewed
+    # digest (any other change fails closed).
+    current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
+    assert current_pnpm.count(reviewed_importer) == 1
+    assert current_pnpm.count(reviewed_prettier) == historical_pnpm.count(
+        reviewed_prettier
+    )
+    assert current_pnpm.count(REVIEWED_MOCK_ATS_LAB_IMPORTER) == 1
+    assert current_pnpm.count(b"  apps/mock-ats-lab:") == 1
+    assert _sha256(current_pnpm) == REVIEWED_PNPM_LOCK_SHA256
 
     unchanged = {
         "uv.lock": ("4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"),

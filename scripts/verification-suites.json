@@ -252,7 +252,7 @@
       "artifacts": [
         "test-results/ (failure-only traces/screenshots/videos, git-ignored)"
       ],
-      "explanation": "Runs every discovered Playwright test (currently the browser-infrastructure smoke test). Discovery is proven with `playwright test --list` as one of the suite's proofs (evaluated with the run itself; an empty discovered set fails the suite); forbidOnly in playwright.config.ts rejects focused tests; no external sites are contacted. Future product e2e specs are added under e2e/ without changing this command contract."
+      "explanation": "Runs every discovered Playwright test: the browser-infrastructure smoke test plus the M02-W03 mock ATS lab suites under e2e/mock-ats-lab/, which exercise the deterministic fixture app that playwright.config.ts builds and serves on 127.0.0.1:4761 for each run (strict port, never attaching to an existing process). Discovery is proven with `playwright test --list` as one of the suite's proofs (evaluated with the run itself; an empty discovered set fails the suite); forbidOnly in playwright.config.ts rejects focused tests; no external sites are contacted and a shared lab fixture fails any test that issues a non-loopback request. Future product e2e specs are added under e2e/ without changing this command contract."
     },
     {
       "id": "visual",
