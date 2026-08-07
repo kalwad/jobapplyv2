@@ -1,5 +1,5 @@
 {
-  "authored_note": "Test-owned literal truth for M02-W04. Derived once from a reviewed implementation run and spot-verified independently; the implementation never reads this file.",
+  "authored_note": "Test-owned literal truth for M02-W04. Version 1.0.1 deliberately replaces the blocked claim-bearing stuffing suffix with the reviewed non-claiming annotation; the implementation never reads this file.",
   "case_matrix": {
     "case_count": 34,
     "case_matrix_digest": "sha256:384c8118f93f9a2793ee672183301f3e960c3867bf5c927a09f091f999ae4b92",
@@ -8,8 +8,8 @@
   "catalog": {
     "algorithm_versions": {
       "baseline_keyword_overlap_v1": "1.0.0",
-      "baseline_legacy_behavior_observation_v1": "1.0.0",
-      "baseline_naive_keyword_stuffing_v1": "1.0.0",
+      "baseline_legacy_behavior_observation_v1": "1.0.1",
+      "baseline_naive_keyword_stuffing_v1": "1.0.1",
       "baseline_one_shot_answer_generation_v1": "1.0.0",
       "baseline_one_shot_resume_generation_v1": "1.0.0",
       "baseline_original_untailored_v1": "1.0.0"
@@ -22,8 +22,8 @@
       "baseline_one_shot_resume_generation_v1",
       "baseline_original_untailored_v1"
     ],
-    "catalog_digest": "sha256:cbcad2219667d7efe78a170fa83039658ac4e727c1a0617519611f1187bd7384",
-    "catalog_version": "1.0.0",
+    "catalog_digest": "sha256:e2b45d1ffd71f5328c56f65cca23dd4cf425fd2f06d543b069abfb1456fc4f20",
+    "catalog_version": "1.0.1",
     "classification": ["EVALUATION_ONLY", "NON_PRODUCTION"],
     "one_shot_execution_state": "NOT_EXECUTED_NO_APPROVED_MODEL_LOCK",
     "schema_version": 1,
@@ -208,9 +208,9 @@
   },
   "keyword_stuffing": {
     "NO_MISSING_TERMS_text": "python sql modeling",
-    "ONE_MISSING_TERM_text": "python experience\n\nSkills: sql",
+    "ONE_MISSING_TERM_text": "python experience\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: sql]",
     "SEVERAL_MISSING_TERMS_FIXTURE": {
-      "appended_suffix": "\n\nSkills: certification, compatibility, constraint, credential, experience, field, foundation, have, importance, location, minimum, mode, must, none, preference, preferred, relocation, remote, requirement, skill, tagged, work, years",
+      "appended_suffix": "\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: certification, compatibility, constraint, credential, experience, field, foundation, have, importance, location, minimum, mode, must, none, preference, preferred, relocation, remote, requirement, skill, tagged, work, years]",
       "inserted_terms": [
         "certification",
         "compatibility",
@@ -236,12 +236,14 @@
         "work",
         "years"
       ],
-      "transformed_sha256": "sha256:09e869bf561a3a18c08e105098043d49af0e7d30872f2766c806507645a2b249"
+      "transformed_sha256": "sha256:822d5699c1f6d22f292c7b36be0691cfd955f376ac3310948a19b7c9c14780a5"
     },
+    "annotation_template": "\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: <missing terms joined by ', '>]",
     "idempotent_second_pass": {
       "identical": true,
       "inserted_terms": []
-    }
+    },
+    "insertion_format": "EVALUATION_ONLY_UNGROUNDED_TARGET_TERMS_ANNOTATION"
   },
   "legacy_observations": {
     "careerpulse": {
@@ -325,7 +327,7 @@
       "prompt_digest": "sha256:87bc34d473eb1538c82b1d81fe39f366ddd912e46c21de84952ef6685d7dd22d"
     }
   },
-  "oracle_version": "1.0.0",
+  "oracle_version": "1.0.1",
   "prompts": {
     "one_shot_answer": {
       "prompt_digest": "sha256:e229eb1610841add3bf1abce99d3a97968b7b3368c111587f7acfed9c81be8f2",

@@ -33,6 +33,147 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W04 — Narrow correction of independently reproduced acceptance blockers (2026-08-07)
+
+- Revision boundary: forward-only corrective writer working tree over exact
+  blocked content commit `7fcdfa34797c29289737f558a7826cd12fb42fc0` /
+  tree `616a1a8048f5d91ed67cae899b60ea0f3a882481`, parent
+  `d8148d68790a49bea13437d13ea049aa574e75ce`; starting HEAD and
+  `origin/main` were equal and the writer tree was clean. JAPP-MASTER-001
+  v1.4 remained byte-exact at SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  The containing correction commit/tree is reported post-commit under the
+  repository anchoring convention. Owner-selected corrective writer model:
+  GPT-5.6 Sol Ultra. The original `7fcdfa3` content is blocked historical
+  implementation evidence, not a VERIFIED revision.
+- Independent findings and pre-edit reproduction: the independent GPT-5.6
+  Sol Ultra acceptance verifier reported exactly two bounded blockers. An
+  inline temporary reproduction outside committed bytes called
+  `validateLegacyObservationFile` against three variants and recorded
+  positive acceptance for every invalid state:
+  `ACCEPTED: UNAVAILABLE + fabricated safety`,
+  `ACCEPTED: CAPTURED + source_revision main`, and
+  `ACCEPTED: CAPTURED + const copied = 1;`. The separate exact stuffing
+  reproduction for original `Analyst with Excel experience.` and target
+  `SQL` returned
+  `"Analyst with Excel experience.\n\nSkills: sql"`,
+  `inserted_terms=["sql"]`,
+  `insertion_format=SKILLS_LINE_COMMA_SEPARATED`, and
+  `grounded_in_evidence=false`.
+- KI-0046 correction: `safety_observations` is retained after parsing and is
+  subject to the same clean-room observation boundary as
+  `structured_observations`. Every status other than CAPTURED now requires
+  all five payload channels to be empty/absent: `fixture_inputs`,
+  `observed_output_digest`, `structured_observations`,
+  `safety_observations`, and `regression_fixture_refs`; the explicit reason
+  and `comparable=false` rules remain. Any non-null Git revision must be one
+  full lowercase 40-hex commit SHA, and CAPTURED additionally requires its
+  repository URL. The observation-only plain-language boundary retains the
+  existing credential/email/traversal/snippet checks and rejects bounded
+  source shapes including declarations, static imports/modules, assignments,
+  operators, braces, backticks, arrows, calls, and function/control
+  statements without applying that stricter grammar to general procedure or
+  provenance prose. This is not a generic language detector. Both committed
+  records remain byte-identical and truthful: CareerPulse UNAVAILABLE,
+  legacy JobApply NOT_ATTEMPTED, empty observation payloads,
+  `source_code_viewed=false`, `code_copied=false`, and no fabricated CAPTURED
+  record.
+- KI-0047 correction: the intentionally naive lexical baseline still inserts
+  target-only terms once in deterministic normalized order, but only inside
+  the exact artifact annotation
+  `[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: …]`.
+  No target-only term is placed under a Skills, Experience, Qualifications,
+  Technologies, or similar claim-bearing heading. The original input remains
+  separately preserved, no-op output remains byte-identical, duplicate
+  prevention and a second pass remain deterministic/idempotent,
+  `grounded_in_evidence=false`, and the artifact remains
+  UNVERIFIED/EVALUATION_ONLY/NON_PRODUCTION with no factual or gate authority.
+- Versioning and reviewed truth: because the committed README/manifest promise
+  frozen behavior with no silent default drift, the smallest truthful patch
+  bumps the catalog, naive-stuffing algorithm, and legacy-validation algorithm
+  from 1.0.0 to 1.0.1. Catalog schema 1, legacy record/file version 1.0.0,
+  `_v1` IDs, package 0.0.1, the 34-case development matrix/version, and every
+  unrelated algorithm/prompt version remain unchanged. The test-owned oracle
+  was deliberately edited from reviewed expected truth to oracle 1.0.1; its
+  fixture stuffing output hash is now
+  `sha256:822d5699c1f6d22f292c7b36be0691cfd955f376ac3310948a19b7c9c14780a5`.
+  It is never imported by production implementation code.
+- Manifest reconciliation: the explicit `baselines:write` authoring command
+  was used exactly once after source review. Catalog digest changed from
+  `sha256:cbcad2219667d7efe78a170fa83039658ac4e727c1a0617519611f1187bd7384`
+  to
+  `sha256:e2b45d1ffd71f5328c56f65cca23dd4cf425fd2f06d543b069abfb1456fc4f20`;
+  combined digest changed from
+  `sha256:db8eac35318da668fb837bee44fccd66c85c1f97be88ed15e1245dc672477519`
+  to
+  `sha256:5b5e0307743ac0c339cac638c1cff2bf85d0d497d8c5dae463d931f3356d5994`.
+  Only the five expected source hashes changed (`catalog.ts`, `index.ts`,
+  `keyword-stuffing.ts`, `legacy-observation.ts`, `model.ts`). Two subsequent
+  `baselines:check` runs reported that same combined digest; the complete
+  working diff SHA-256 was identical before/after each check, proving both
+  were read-only. Case count/digest, both prompt digests, all unrelated source
+  hashes, and the legacy observation file digest
+  `sha256:2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb`
+  remained unchanged.
+- Direct regressions: legacy tests cover UNAVAILABLE, UNRUNNABLE, and
+  NOT_ATTEMPTED with non-empty safety payload; independent rejection of each
+  of the five non-capture payload fields; CAPTURED revisions `main`, `HEAD`,
+  and a short SHA; missing CAPTURED repository coordinate;
+  `const copied = 1;`, a static import, and a representative function in both
+  structured and safety observations; the full immutable-SHA clean-room
+  CAPTURED positive; and both committed non-captured records with every
+  payload field empty. Stuffing tests cover the exact audit input, explicit
+  non-claim wording, deterministic normalized order, already-present-term
+  suppression, byte-identical no-op, second-pass idempotence, and exact
+  implementation/catalog/README/oracle format agreement. The finite mutation
+  matrix rejects restoration of a claim-bearing `Skills:` heading with an
+  explicit corrected positive control.
+- Post-correction auditor reproduction: the same three invalid legacy cases
+  now return, respectively,
+  `LEGACY_OBSERVATION_UNCAPTURED_SAFETY /records/0/safety_observations`,
+  `LEGACY_OBSERVATION_SOURCE_REVISION /records/1/source_revision`, and
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET /records/1/structured_observations/0`.
+  The exact stuffing input now returns
+  `"Analyst with Excel experience.\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: sql]"`,
+  the new insertion-format ID, and `grounded_in_evidence=false`.
+- Focused/local verification: affected legacy plus stuffing tests 44/44;
+  fixed finite mutations 13/13; complete `@japp/evaluation-baselines` suite
+  118/118 across 9 files; typecheck, ESLint, Prettier, and both manifest checks
+  exit 0. Preserved W01 is 108/108, W02 57/57, full fixtures 166/166, mock ATS
+  unit 32/32 plus typecheck/build, and Playwright 59/59 across 17 files.
+  Frozen/locked pnpm, uv, and both Cargo fetches exit 0. Focused Python suites
+  pass: integrity 43, suite states 294, real-repo proofs 7, traceability 62,
+  v1.4 migration 31; full `scripts/tests` is 976/976 and the canonical POSIX
+  inventory is 977/977. Status validation passes all 45 groups, traceability
+  passes 193 requirements/300 packages, and generated contracts remain 183
+  files byte-identical.
+- Complete repository verification: local doctor reports 22 pass / 1 expected
+  uncommitted-writer warning / 0 fail / 1 not-yet-applicable. `pnpm verify`
+  exits 0: typecheck 11/11 tasks; unit TypeScript 2,763 (contracts 2,440,
+  fixtures 166, evaluation baselines 118, mock ATS 32, seven one-test
+  packages); focused contracts 662; Playwright 59; Python 977; Rust 1 plus
+  10; every ACTIVE suite PASS; visual truthfully NOT_YET_APPLICABLE.
+  Verification produced no tracked drift.
+- Protected truth/scope: `model/model-lock.json` remains byte-identical at
+  SHA-256
+  `b0ca4bb23d85499e95359993f802057a68d510031d0b2ee81230d3747e65ad82`;
+  `prompts/registry.yaml` remains byte-identical at
+  `34db63d8702f5d457bb45a5f0f70a83513372842e00408bd2fa8cb8d17be5ea5`;
+  Python inventory remains byte-identical at
+  `37f6199a380853d42386ff9f54dcc5c77223f8bddbc40f6970189cf6f26433a5`.
+  No W01/W02 fixture truth, workflow, toolchain, production prompt, model
+  lock, critical-gate state, traceability ownership/dependency/gate effect,
+  or M02-W05/later behavior changed. Existing REQ-GATE-007/008 paths and the
+  M02-W04 evidence anchor remain accurate, so no traceability hash/view churn
+  was required.
+- Governance: correction implementation evidence only. KI-0046 and KI-0047
+  remain HIGH/IN_PROGRESS pending exact correction-SHA Ubuntu/macOS/Windows
+  hosted success and a separate independent GPT-5.6 Sol Ultra acceptance
+  session. M02-W04 remains IN_PROGRESS and unaccepted; M02-W05 remains
+  NOT_STARTED; no package is READY; M02-W01/W02/W03 remain VERIFIED; M02
+  remains IN_PROGRESS; all four critical gates remain NOT_EVALUATED; release
+  remains NOT_READY. No governance closeout occurred.
+
 ### M02-W04 — Capture evaluation baseline algorithms (2026-08-07)
 
 - Revision: implementation working tree over parent commit

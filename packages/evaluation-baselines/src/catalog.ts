@@ -5,7 +5,11 @@
 // change a critical gate.
 import { sha256Canonical, type ContentDigest } from "./canonical-json.ts";
 import { KEYWORD_OVERLAP_ALGORITHM_VERSION } from "./keyword-overlap.ts";
-import { KEYWORD_STUFFING_ALGORITHM_VERSION } from "./keyword-stuffing.ts";
+import {
+  KEYWORD_STUFFING_ALGORITHM_VERSION,
+  KEYWORD_STUFFING_ANNOTATION_TEMPLATE,
+} from "./keyword-stuffing.ts";
+import { LEGACY_OBSERVATION_ALGORITHM_VERSION } from "./legacy-observation.ts";
 import {
   BASELINE_CATALOG_SCHEMA_VERSION,
   BASELINE_CATALOG_VERSION,
@@ -53,13 +57,13 @@ const STUFFING_CONTRACT = {
   algorithm_version: KEYWORD_STUFFING_ALGORITHM_VERSION,
   source_of_terms: "keyword-overlap missing-term result over the same texts",
   insertion_position: "DOCUMENT_END",
-  insertion_format: "\\n\\nSkills: <missing terms joined by ', '>",
+  insertion_format: KEYWORD_STUFFING_ANNOTATION_TEMPLATE,
   term_order: "normalized ascending code-unit order",
   no_missing_terms_rule: "output is byte-identical to the original text",
   duplicate_rule:
     "only missing terms are inserted; repeated application is idempotent",
   truth_rule:
-    "no achievement, employer, date, metric, certification, tool, or experience claim is invented; output is UNVERIFIED and not grounded",
+    "target-only terms are visibly EVALUATION-ONLY and UNGROUNDED, expressly not candidate skills or experience; no achievement, employer, date, metric, certification, tool, qualification, or experience claim is invented; output is UNVERIFIED and not grounded",
 } as const;
 
 function oneShotContract(promptId: string, digest: ContentDigest) {
@@ -85,9 +89,11 @@ const LEGACY_CONTRACT = {
   isolation:
     "no legacy dependency, submodule, import, vendored file, or copied source; runnable inspection only outside this repository in a temporary isolated checkout",
   capture_rule:
-    "CAPTURED requires synthetic fixture inputs with digests, an observed output digest, an exact source revision, and bounded structured observations",
+    "CAPTURED requires a repository URL, full lowercase 40-hex Git commit SHA, synthetic fixture inputs with digests, an observed output digest, and bounded plain-language observations",
   unavailable_rule:
-    "non-captured records carry an explicit reason, no observation payload, and comparable=false",
+    "non-captured records carry an explicit reason, comparable=false, and no fixture inputs, output digest, structured observations, safety observations, or regression fixture references",
+  observation_text_rule:
+    "structured and safety observations are clean-room plain-language behavior only; source-code-shaped declarations, imports, modules, assignments, operators, braces, backticks, arrows, calls, and snippets fail closed",
   regression_rule:
     "clean-room regression fixtures may derive only from CAPTURED observations (REQ-GATE-008)",
 } as const;
@@ -151,12 +157,11 @@ export const BASELINE_CATALOG: BaselineCatalog = {
       classification: BASELINE_CLASSIFICATION,
       artifact_types: ["RESUME_TEXT"],
       input_contract: "original synthetic text and target/job text",
-      output_contract:
-        "original text preserved separately plus a transformed text with one appended Skills line of missing lexical terms, labeled UNVERIFIED",
+      output_contract: `original text preserved separately plus transformed text with one appended ${KEYWORD_STUFFING_ANNOTATION_TEMPLATE}, labeled UNVERIFIED and explicitly not a candidate claim`,
       determinism: "BYTE_DETERMINISTIC",
       algorithm_contract_digest: sha256Canonical(STUFFING_CONTRACT),
       limitations: [
-        "Deliberately inadequate: inserted terms are unsupported bare tokens with no evidence, truthfulness, ATS-safety, or readability claim.",
+        "Deliberately inadequate: inserted target terms are ungrounded lexical annotations with no evidence, truthfulness, ATS-safety, readability, candidate-skill, or experience claim.",
         "Exists to demonstrate why raw keyword insertion is not tailoring.",
       ],
       gate_authority: "NONE",
@@ -219,7 +224,7 @@ export const BASELINE_CATALOG: BaselineCatalog = {
       title:
         "Isolated legacy behavior observation (CareerPulse / legacy JobApply)",
       kind: "ISOLATED_OBSERVATION_CONTRACT",
-      algorithm_version: "1.0.0",
+      algorithm_version: LEGACY_OBSERVATION_ALGORITHM_VERSION,
       classification: BASELINE_CLASSIFICATION,
       artifact_types: ["LEGACY_BEHAVIOR_RECORD"],
       input_contract:

@@ -34,6 +34,88 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
+KI-0046 and KI-0047 are the two bounded M02-W04 acceptance blockers reported
+by the independent GPT-5.6 Sol Ultra verifier against content commit
+`7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
+`616a1a8048f5d91ed67cae899b60ea0f3a882481`. Their narrow corrective
+implementation is locally green, but both remain IN_PROGRESS until the
+forward correction has exact-SHA three-OS hosted success and a separate
+independent GPT-5.6 Sol Ultra session verifies the corrected content. The
+blocked `7fcdfa3` revision remains historical implementation evidence only.
+No governance closeout has occurred.
+
+### KI-0046 — Legacy observation records did not fail closed
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-07 during independent M02-W04 acceptance verification
+- Affects: M02-W04; REQ-GATE-007; REQ-GATE-008;
+  `packages/evaluation-baselines` legacy-observation validation and clean-room
+  provenance contract
+- Description: the validator parsed then discarded `safety_observations`, so
+  non-CAPTURED records could carry fabricated safety-behavior claims. It also
+  accepted mutable or short `source_revision` values for CAPTURED records and
+  its bounded snippet rules admitted ordinary copied code such as
+  `const copied = 1;`. Those states contradicted the advertised no-payload,
+  immutable-provenance, clean-room record contract.
+- Reproduction: at exact blocked content commit
+  `7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
+  `616a1a8048f5d91ed67cae899b60ea0f3a882481`, call
+  `validateLegacyObservationFile` on (1) an `UNAVAILABLE` record with
+  `safety_observations: ["Fabricated safety behavior claim"]`, (2) a complete
+  synthetic `CAPTURED` record with `source_revision: "main"`, and (3) the same
+  CAPTURED record with `structured_observations: ["const copied = 1;"]`.
+  All three returned successfully instead of failing closed.
+- Workaround: none accepted. Manual review cannot replace the executable
+  record boundary, and no CAPTURED observation may be fabricated.
+- Resolution + evidence link: IN_PROGRESS. The correction retains and checks
+  safety observations, rejects all five payload fields for every non-CAPTURED
+  status, requires a repository URL plus full lowercase 40-hex Git commit for
+  CAPTURED source coordinates, and applies a stricter plain-language boundary
+  to structured and safety observation text. Direct status/revision/snippet
+  regressions and the committed non-captured positive controls pass locally;
+  the exact auditor examples now fail with
+  `LEGACY_OBSERVATION_UNCAPTURED_SAFETY`,
+  `LEGACY_OBSERVATION_SOURCE_REVISION`, and
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`. See docs/TEST_EVIDENCE.md § M02-W04 —
+  Narrow correction of independently reproduced acceptance blockers
+  (2026-08-07). Closure still requires exact-SHA hosted success and separate
+  independent acceptance verification; M02-W04 remains unaccepted.
+
+### KI-0047 — Keyword stuffing asserted an unsupported candidate skill
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-07 during independent M02-W04 acceptance verification
+- Affects: M02-W04; `packages/evaluation-baselines` naive keyword-stuffing
+  transformation, catalog, README, literal oracle, manifest, and truth tests
+- Description: for original `Analyst with Excel experience.` and target
+  `SQL`, the supposedly ungrounded baseline emitted a claim-bearing
+  `Skills: sql` line while also reporting `grounded_in_evidence=false`. A
+  reasonable reader could interpret the target-only token as a candidate
+  skill, contradicting the W04 promise not to invent tool or experience
+  claims.
+- Reproduction: at exact blocked content commit
+  `7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
+  `616a1a8048f5d91ed67cae899b60ea0f3a882481`, run
+  `naiveKeywordStuffing("Analyst with Excel experience.", "SQL")`; the exact
+  transformed text is
+  `Analyst with Excel experience.\n\nSkills: sql`, `inserted_terms` is
+  `["sql"]`, and `grounded_in_evidence` is false.
+- Workaround: none accepted. A label stored only in side metadata does not
+  remove the claim-bearing heading from the transformed artifact.
+- Resolution + evidence link: IN_PROGRESS. The corrected transform preserves
+  target-only terms in deterministic order only inside
+  `[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: …]`,
+  keeps original input separately, remains UNVERIFIED/EVALUATION_ONLY/
+  NON_PRODUCTION and ungrounded, and retains byte-identical no-op and
+  idempotence. Direct truth tests cover the exact audit example and a fixed
+  mutation proves that restoring `Skills:` is rejected. See
+  docs/TEST_EVIDENCE.md § M02-W04 — Narrow correction of independently
+  reproduced acceptance blockers (2026-08-07). Closure still requires
+  exact-SHA hosted success and separate independent acceptance verification;
+  M02-W04 remains unaccepted.
+
 KI-0039 through KI-0045 are FIXED as of the 2026-08-03 governance closeout
 that followed the independent Fable 5 Max acceptance verification
 (FABLE_CLEAR_FOR_GOVERNANCE_CLOSEOUT) of exact content commit

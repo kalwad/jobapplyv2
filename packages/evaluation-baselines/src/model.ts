@@ -7,7 +7,7 @@
 // M02-W14 and the M02-W15 decision; the evaluation runner to M02-W05).
 import type { ContentDigest } from "./canonical-json.ts";
 
-export const BASELINE_CATALOG_VERSION = "1.0.0" as const;
+export const BASELINE_CATALOG_VERSION = "1.0.1" as const;
 export const BASELINE_CATALOG_SCHEMA_VERSION = 1 as const;
 
 /** Classification labels every baseline artifact must carry. */
@@ -164,7 +164,7 @@ export interface KeywordStuffingResult {
   readonly inserted_terms: readonly string[];
   readonly already_present_terms: readonly string[];
   readonly insertion_position: "DOCUMENT_END";
-  readonly insertion_format: "SKILLS_LINE_COMMA_SEPARATED";
+  readonly insertion_format: "EVALUATION_ONLY_UNGROUNDED_TARGET_TERMS_ANNOTATION";
   readonly grounded_in_evidence: false;
 }
 

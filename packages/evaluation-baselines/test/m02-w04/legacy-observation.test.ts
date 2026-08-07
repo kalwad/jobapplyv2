@@ -121,7 +121,11 @@ describe("committed legacy observation records", () => {
     expect(record?.code_copied).toBe(false);
     expect(record?.comparable).toBe(false);
     expect(record?.failure_or_unavailability_reason).toContain("M02-W13");
+    expect(record?.fixture_inputs).toEqual([]);
+    expect(record?.observed_output_digest).toBeNull();
     expect(record?.structured_observations.length).toBe(0);
+    expect(record?.safety_observations.length).toBe(0);
+    expect(record?.regression_fixture_refs).toEqual([]);
   });
 
   test("the legacy JobApply record pins probed identity while capture stays NOT_ATTEMPTED", () => {
@@ -139,7 +143,11 @@ describe("committed legacy observation records", () => {
     expect(record?.comparable).toBe(false);
     expect(record?.license_provenance).toContain("NOASSERTION");
     expect(record?.procedure.join(" ")).toContain("metadata only");
+    expect(record?.fixture_inputs).toEqual([]);
     expect(record?.observed_output_digest).toBeNull();
+    expect(record?.structured_observations).toEqual([]);
+    expect(record?.safety_observations).toEqual([]);
+    expect(record?.regression_fixture_refs).toEqual([]);
   });
 });
 
@@ -163,12 +171,33 @@ describe("legacy observation validation", () => {
     );
   });
 
-  test("a CAPTURED record without an exact source revision is rejected", () => {
+  test("a CAPTURED record without a source revision is rejected", () => {
     expectRejection(
       mutate((file) => {
         firstRecord(file).source_revision = null;
       }),
       "LEGACY_OBSERVATION_CAPTURE_REVISION",
+    );
+  });
+
+  test.each(["main", "HEAD", "c937e366b9f7"])(
+    "a CAPTURED record at mutable or short revision %s is rejected",
+    (revision) => {
+      expectRejection(
+        mutate((file) => {
+          firstRecord(file).source_revision = revision;
+        }),
+        "LEGACY_OBSERVATION_SOURCE_REVISION",
+      );
+    },
+  );
+
+  test("a CAPTURED record without its repository coordinate is rejected", () => {
+    expectRejection(
+      mutate((file) => {
+        firstRecord(file).repository_url = null;
+      }),
+      "LEGACY_OBSERVATION_CAPTURE_REPOSITORY",
     );
   });
 
@@ -195,6 +224,52 @@ describe("legacy observation validation", () => {
     );
   });
 
+  test.each([
+    "const copied = 1;",
+    "import copied from './legacy.js';",
+    "function copied() { return legacyValue; }",
+  ])("source-code-shaped structured observation is rejected: %s", (snippet) => {
+    expectRejection(
+      mutate((file) => {
+        firstRecord(file).structured_observations = [snippet];
+      }),
+      "LEGACY_OBSERVATION_SOURCE_SNIPPET",
+    );
+  });
+
+  test.each([
+    "const copied = 1;",
+    "import copied from './legacy.js';",
+    "function copied() { return legacyValue; }",
+  ])("source-code-shaped safety observation is rejected: %s", (snippet) => {
+    expectRejection(
+      mutate((file) => {
+        firstRecord(file).safety_observations = [snippet];
+      }),
+      "LEGACY_OBSERVATION_SOURCE_SNIPPET",
+    );
+  });
+
+  test.each(["UNAVAILABLE", "UNRUNNABLE", "NOT_ATTEMPTED"])(
+    "%s cannot carry a fabricated safety observation",
+    (status) => {
+      expectRejection(
+        mutate((file) => {
+          const record = firstRecord(file);
+          record.observation_status = status;
+          record.fixture_inputs = [];
+          record.observed_output_digest = null;
+          record.structured_observations = [];
+          record.safety_observations = ["Fabricated safety behavior claim"];
+          record.regression_fixture_refs = [];
+          record.failure_or_unavailability_reason = "not captured";
+          record.comparable = false;
+        }),
+        "LEGACY_OBSERVATION_UNCAPTURED_SAFETY",
+      );
+    },
+  );
+
   test("code_copied can never be true", () => {
     expectRejection(
       mutate((file) => {
@@ -212,6 +287,7 @@ describe("legacy observation validation", () => {
         record.fixture_inputs = [];
         record.observed_output_digest = null;
         record.structured_observations = [];
+        record.safety_observations = [];
         record.failure_or_unavailability_reason = "not runnable in session";
         record.comparable = true;
       }),
@@ -231,6 +307,58 @@ describe("legacy observation validation", () => {
     );
   });
 
+  test.each([
+    [
+      "fixture_inputs",
+      [
+        {
+          fixture_id: "profile_00000000000000000000000001",
+          content_digest: `sha256:${"a".repeat(64)}`,
+        },
+      ],
+      "LEGACY_OBSERVATION_UNCAPTURED_INPUTS",
+    ],
+    [
+      "observed_output_digest",
+      `sha256:${"b".repeat(64)}`,
+      "LEGACY_OBSERVATION_UNCAPTURED_OUTPUT",
+    ],
+    [
+      "structured_observations",
+      ["Fabricated behavioral observation"],
+      "LEGACY_OBSERVATION_UNCAPTURED_CONTENT",
+    ],
+    [
+      "safety_observations",
+      ["Fabricated safety behavior claim"],
+      "LEGACY_OBSERVATION_UNCAPTURED_SAFETY",
+    ],
+    [
+      "regression_fixture_refs",
+      ["profile_00000000000000000000000001"],
+      "LEGACY_OBSERVATION_UNCAPTURED_REGRESSION",
+    ],
+  ] as const)(
+    "a non-captured record rejects %s payload independently",
+    (field, payload, code) => {
+      expectRejection(
+        mutate((file) => {
+          const record = firstRecord(file);
+          record.observation_status = "UNAVAILABLE";
+          record.fixture_inputs = [];
+          record.observed_output_digest = null;
+          record.structured_observations = [];
+          record.safety_observations = [];
+          record.regression_fixture_refs = [];
+          record.failure_or_unavailability_reason = "not captured";
+          record.comparable = false;
+          record[field] = payload;
+        }),
+        code,
+      );
+    },
+  );
+
   test("a non-captured record without a reason is rejected", () => {
     expectRejection(
       mutate((file) => {
@@ -239,6 +367,7 @@ describe("legacy observation validation", () => {
         record.fixture_inputs = [];
         record.observed_output_digest = null;
         record.structured_observations = [];
+        record.safety_observations = [];
         record.comparable = false;
         record.failure_or_unavailability_reason = null;
       }),

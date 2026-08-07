@@ -21,11 +21,15 @@ export {
   KEYWORD_OVERLAP_ALGORITHM_VERSION,
 } from "./keyword-overlap.ts";
 export {
+  KEYWORD_STUFFING_ANNOTATION_LABEL,
+  KEYWORD_STUFFING_ANNOTATION_TEMPLATE,
   KEYWORD_STUFFING_ALGORITHM_VERSION,
+  KEYWORD_STUFFING_INSERTION_FORMAT,
   naiveKeywordStuffing,
 } from "./keyword-stuffing.ts";
 export {
   BaselineValidationError,
+  LEGACY_OBSERVATION_ALGORITHM_VERSION,
   validateLegacyObservationFile,
 } from "./legacy-observation.ts";
 export {

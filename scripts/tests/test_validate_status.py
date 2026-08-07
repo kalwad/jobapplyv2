@@ -47,6 +47,8 @@ CURRENT_M02_CORRECTIVE_ISSUE_IDS = (
     "KI-0043",
     "KI-0044",
     "KI-0045",
+    "KI-0046",
+    "KI-0047",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",

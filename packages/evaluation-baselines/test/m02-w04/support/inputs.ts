@@ -78,6 +78,8 @@ export interface BaselineOracle {
   };
   readonly keyword_overlap: Readonly<Record<string, OverlapTruth>>;
   readonly keyword_stuffing: {
+    readonly insertion_format: string;
+    readonly annotation_template: string;
     readonly NO_MISSING_TERMS_text: string;
     readonly ONE_MISSING_TERM_text: string;
     readonly SEVERAL_MISSING_TERMS_FIXTURE: {

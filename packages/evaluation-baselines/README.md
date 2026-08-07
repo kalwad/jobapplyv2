@@ -20,16 +20,20 @@ packages must not depend on this package (enforced by test).
   both boundaries are asserted by tests. Baseline prompts live here, in
   `src/prompts.ts`, and are never production prompts.
 
-## Baseline catalog (`src/catalog.ts`, catalog 1.0.0 / schema 1)
+## Baseline catalog (`src/catalog.ts`, catalog 1.0.1 / schema 1)
 
 | Baseline ID                               | Kind                                                                                      | Version |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------- | ------- |
 | `baseline_original_untailored_v1`         | exact passthrough (text byte-identical; structured digest-identical, input never mutated) | 1.0.0   |
 | `baseline_keyword_overlap_v1`             | transparent lexical unigram matcher                                                       | 1.0.0   |
-| `baseline_naive_keyword_stuffing_v1`      | intentionally weak deterministic transform                                                | 1.0.0   |
+| `baseline_naive_keyword_stuffing_v1`      | intentionally weak deterministic transform                                                | 1.0.1   |
 | `baseline_one_shot_resume_generation_v1`  | one injected `generateOnce` call                                                          | 1.0.0   |
 | `baseline_one_shot_answer_generation_v1`  | one injected `generateOnce` call                                                          | 1.0.0   |
-| `baseline_legacy_behavior_observation_v1` | isolated observation contract                                                             | 1.0.0   |
+| `baseline_legacy_behavior_observation_v1` | isolated observation contract                                                             | 1.0.1   |
+
+The 1.0.1 patch versions correct the pre-verification stuffing representation
+and legacy-validation boundary. Record/file schema 1.0.0, the 34-case matrix,
+and every unrelated baseline algorithm remain unchanged.
 
 A closed **Simplify comparison slot** (`baseline_simplify_comparison_slot_v1`)
 is truthfully `NOT_CAPTURED`; the manual, terms-compliant capture is owned by
@@ -52,14 +56,17 @@ misleading-overlap case demonstrates this).
 
 ## Naive keyword stuffing — frozen transformation
 
-Compute the overlap baseline's missing terms, then append exactly one line
-at the document end: `\n\nSkills: <missing terms, sorted, comma-separated>`.
-No missing terms → output byte-identical to the input. Only missing terms
-are ever inserted (repeated application is idempotent), the original text is
-preserved separately, and no achievement, employer, date, metric,
-certification, tool, or experience claim is invented. The output is labeled
-`UNVERIFIED`/ungrounded — the baseline exists to demonstrate why raw keyword
-insertion is inadequate.
+Compute the overlap baseline's missing terms, then append exactly one
+annotation at the document end:
+`\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: <missing terms joined by ', '>]`.
+No missing terms → output byte-identical to the input. Only missing terms are
+ever inserted in deterministic normalized order (repeated application is
+idempotent), and the original text is preserved separately. Target-only terms
+never appear under a claim-bearing Skills, Experience, Qualifications, or
+Technologies heading: the annotation visibly marks them as evaluation-only
+and ungrounded and expressly denies candidate-skill or experience authority.
+The output remains `UNVERIFIED`/ungrounded — the baseline exists to
+demonstrate why raw keyword insertion is inadequate.
 
 ## One-shot generation — injected boundary, exactly one call
 
@@ -92,11 +99,21 @@ isolated CareerPulse / legacy `kalwad/JobApply` baselines (spec §0(16),
   viewed. Behavioral capture is deferred to the M02-W13 clean-room harness.
 
 Validation rejects copied source snippets, credentials, missing provenance,
-capture claims without fixture digests/output digest/source revision,
-non-captured records claiming comparability or carrying observation payload,
-traversal-shaped fixture ids, and time/random-derived identities.
-`code_copied` can never be true. Clean-room regression fixtures
-(REQ-GATE-008) may derive only from future `CAPTURED` observations.
+and capture claims without a repository URL, a full lowercase 40-hex Git
+commit SHA, fixture digests, an output digest, and bounded plain-language
+observations. Mutable refs such as `main`, `master`, `develop`, and `HEAD`,
+short SHAs, and uppercase/non-hex revision forms are not immutable source
+coordinates. Every non-`CAPTURED` record requires an explicit reason,
+`comparable=false`, and empty `fixture_inputs`, `observed_output_digest`,
+`structured_observations`, `safety_observations`, and
+`regression_fixture_refs`. Structured and safety observation text has a
+stricter clean-room plain-language boundary than procedure/provenance prose:
+source-shaped declarations, imports/modules, assignments/operators, braces,
+backticks, arrows, calls, and snippets fail closed while ordinary behavioral
+prose remains valid. Traversal-shaped fixture ids and time/random-derived
+identities also fail closed. `code_copied` can never be true. Clean-room
+regression fixtures (REQ-GATE-008) may derive only from future `CAPTURED`
+observations.
 
 ## Development case matrix and literal oracle
 
@@ -115,7 +132,7 @@ holdout body, and no `benchmark/result.v1` record is emitted.
 pnpm --filter @japp/evaluation-baselines baselines:check   # read-only drift check
 pnpm --filter @japp/evaluation-baselines baselines:write   # explicit manifest authoring
 pnpm --filter @japp/evaluation-baselines typecheck
-pnpm --filter @japp/evaluation-baselines test              # 95 tests in 9 files
+pnpm --filter @japp/evaluation-baselines test              # 118 tests in 9 files
 ```
 
 `baseline.manifest.json` commits canonical digests over the catalog, both

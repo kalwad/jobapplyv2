@@ -2,10 +2,10 @@
   "case_count": 34,
   "case_matrix_digest": "sha256:384c8118f93f9a2793ee672183301f3e960c3867bf5c927a09f091f999ae4b92",
   "case_matrix_version": "1.0.0",
-  "catalog_digest": "sha256:cbcad2219667d7efe78a170fa83039658ac4e727c1a0617519611f1187bd7384",
+  "catalog_digest": "sha256:e2b45d1ffd71f5328c56f65cca23dd4cf425fd2f06d543b069abfb1456fc4f20",
   "catalog_schema_version": 1,
-  "catalog_version": "1.0.0",
-  "combined_digest": "sha256:db8eac35318da668fb837bee44fccd66c85c1f97be88ed15e1245dc672477519",
+  "catalog_version": "1.0.1",
+  "combined_digest": "sha256:5b5e0307743ac0c339cac638c1cff2bf85d0d497d8c5dae463d931f3356d5994",
   "legacy_observation_file": {
     "path": "data/legacy-observations.v1.json",
     "record_count": 2,
@@ -23,7 +23,7 @@
     },
     {
       "path": "src/catalog.ts",
-      "sha256": "sha256:e35b8ac6970f443e3665e487fe69edb86d202a2e160ba3116fc593cfc0dab02c"
+      "sha256": "sha256:becf73371314b9460b679a9956bd100f796cb7badb95d3f727102fe8308ed25a"
     },
     {
       "path": "src/cli.ts",
@@ -35,7 +35,7 @@
     },
     {
       "path": "src/index.ts",
-      "sha256": "sha256:2ca39e5247bde3477c70f78505fb9ac77d9ad48be882826e285c5c2089644fcf"
+      "sha256": "sha256:aa5ebdd07951f084a5a9b2cd44b9c259c3e26074bd4bc38b833e03d628ff4a67"
     },
     {
       "path": "src/keyword-overlap.ts",
@@ -43,11 +43,11 @@
     },
     {
       "path": "src/keyword-stuffing.ts",
-      "sha256": "sha256:429d4d43779eb7d521a3ab3133230728186fad721c3b7a4430ef01ac5ff2f5f4"
+      "sha256": "sha256:1e1e286675fb89f318c075efe2401b4f20416a5a2fd3c2151c51aec9adacae26"
     },
     {
       "path": "src/legacy-observation.ts",
-      "sha256": "sha256:bb54130ce57471433f4b3866605957d36cd334a290fef966fa411da440db8ec5"
+      "sha256": "sha256:ac2501a39a1e71c0545a7fa12ff2b8703a20d5c0f748a0e76e79712592be65d2"
     },
     {
       "path": "src/manifest.ts",
@@ -55,7 +55,7 @@
     },
     {
       "path": "src/model.ts",
-      "sha256": "sha256:ab8259255833392c36d7f27e856d9f0fdc6ed3f436625dedff0c1e3efabe2196"
+      "sha256": "sha256:3c25c71c2b30ab311006a00eaac7e5e55173afcdf4717165305aacc3866487ec"
     },
     {
       "path": "src/normalize.ts",

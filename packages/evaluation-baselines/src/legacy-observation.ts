@@ -13,6 +13,8 @@ import {
   type LegacyObservationFile,
 } from "./model.ts";
 
+export const LEGACY_OBSERVATION_ALGORITHM_VERSION = "1.0.1" as const;
+
 export class BaselineValidationError extends Error {
   public readonly code: string;
   public readonly pointer: string;
@@ -71,7 +73,7 @@ const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const DIGEST_PATTERN = /^sha256:[0-9a-f]{64}$/;
 const FIXTURE_ID_PATTERN = /^[a-z]+_[0-9a-z]{1,40}$/;
 const REPOSITORY_URL_PATTERN = /^https:\/\/[A-Za-z0-9./_-]+$/;
-const SOURCE_REVISION_PATTERN = /^[A-Za-z0-9._-]{1,64}$/;
+const SOURCE_REVISION_PATTERN = /^[0-9a-f]{40}$/u;
 
 /**
  * Bounded refusal patterns: legacy source snippets and secrets are not
@@ -88,6 +90,26 @@ const SOURCE_SNIPPET_PATTERNS: readonly RegExp[] = [
   /<script/iu,
   /\bmodule\.exports\b/u,
   /\bdocument\.querySelector\b/u,
+];
+/**
+ * Observation payloads have a deliberately narrower grammar than general
+ * procedure/provenance prose: they describe behavior in plain language and
+ * cannot carry source-code-shaped text. This is a bounded clean-room
+ * boundary, not a general programming-language detector.
+ */
+const OBSERVATION_SOURCE_SHAPE_PATTERNS: readonly RegExp[] = [
+  /[`{}]/u,
+  /=>/u,
+  /\b(?:const|let|var)\s+[A-Za-z_$][\w$]*(?:\s*[:=;])/u,
+  /\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*(?:\+=|-=|\*=|\/=|%=|=)\s*/u,
+  /(?:^|\n)\s*(?:import|export)\s+(?:(?:type\s+)?[A-Za-z_$*{]|default\b)/u,
+  /(?:^|\n)\s*from\s+[A-Za-z_][\w.]*\s+import\s+[A-Za-z_*]/u,
+  /(?:^|\n)\s*(?:async\s+)?def\s+[A-Za-z_][\w]*\s*\(/u,
+  /\b(?:class|interface|enum|type)\s+[A-Za-z_$][\w$]*/u,
+  /\b(?:module\.exports|exports\.[A-Za-z_$][\w$]*|require\s*\()/u,
+  /(?:^|\n)\s*(?:if|for|while|switch|catch)\s*\([^)]*\)/u,
+  /(?:^|\n)\s*(?:return|throw|break|continue)\b[^.!?]*;\s*(?:\n|$)/u,
+  /(?:^|\n)\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*\([^)]*\)\s*;?\s*(?:\n|$)/u,
 ];
 const CREDENTIAL_PATTERNS: readonly RegExp[] = [
   /\bBearer\s+\S+/iu,
@@ -172,6 +194,26 @@ function freeTextArray(
   return value.map((item, index) =>
     boundedFreeText(item, `${pointer}/${String(index)}`, maxLength),
   );
+}
+
+function observationTextArray(
+  value: unknown,
+  pointer: string,
+  maxItems: number,
+  maxLength: number,
+): string[] {
+  const items = freeTextArray(value, pointer, maxItems, maxLength);
+  for (const [index, item] of items.entries()) {
+    for (const pattern of OBSERVATION_SOURCE_SHAPE_PATTERNS) {
+      if (pattern.test(item)) {
+        fail(
+          "LEGACY_OBSERVATION_SOURCE_SNIPPET",
+          `${pointer}/${String(index)}`,
+        );
+      }
+    }
+  }
+  return items;
 }
 
 function validateRecord(
@@ -276,13 +318,13 @@ function validateRecord(
   ) {
     fail("LEGACY_OBSERVATION_DIGEST", `${pointer}/observed_output_digest`);
   }
-  const structured = freeTextArray(
+  const structured = observationTextArray(
     record.structured_observations,
     `${pointer}/structured_observations`,
     32,
     500,
   );
-  freeTextArray(
+  const safety = observationTextArray(
     record.safety_observations,
     `${pointer}/safety_observations`,
     32,
@@ -348,6 +390,12 @@ function validateRecord(
 
   const captured = status === "CAPTURED";
   if (captured) {
+    if (record.repository_url === null) {
+      fail(
+        "LEGACY_OBSERVATION_CAPTURE_REPOSITORY",
+        `${pointer}/repository_url`,
+      );
+    }
     if (fixtureInputs.length === 0) {
       fail("LEGACY_OBSERVATION_CAPTURE_INPUTS", `${pointer}/fixture_inputs`);
     }
@@ -386,6 +434,12 @@ function validateRecord(
       fail(
         "LEGACY_OBSERVATION_UNCAPTURED_CONTENT",
         `${pointer}/structured_observations`,
+      );
+    }
+    if (safety.length !== 0) {
+      fail(
+        "LEGACY_OBSERVATION_UNCAPTURED_SAFETY",
+        `${pointer}/safety_observations`,
       );
     }
     if (regressionRefs.length !== 0) {

@@ -103,6 +103,26 @@ describe("finite mutation matrix", () => {
     expect(mutated).not.toEqual(real);
   });
 
+  test("restoring a claim-bearing Skills heading fails the stuffing truth boundary", () => {
+    const original = "Analyst with Excel experience.";
+    const target = "SQL";
+    const real = naiveKeywordStuffing(original, target);
+    const mutated = `${original}\n\nSkills: ${real.inserted_terms.join(", ")}`;
+    const claimHeading =
+      /(?:^|\n)(?:Skills|Experience|Qualifications|Technologies)\s*:/iu;
+
+    expect(real.transformed_text).not.toMatch(claimHeading);
+    expect(real.transformed_text).toBe(
+      original +
+        oracle.keyword_stuffing.annotation_template.replace(
+          "<missing terms joined by ', '>",
+          "sql",
+        ),
+    );
+    expect(mutated).toMatch(claimHeading);
+    expect(mutated).not.toBe(real.transformed_text);
+  });
+
   test("prompt tampering without a digest update is caught at both layers", () => {
     const tampered = {
       ...ONE_SHOT_ANSWER_PROMPT,
