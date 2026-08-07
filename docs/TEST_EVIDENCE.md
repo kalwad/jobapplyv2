@@ -33,6 +33,197 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W03 — Governance closeout after independent Fable verification (2026-08-07)
+
+- Revision: verified content commit `e3a5859d0e30823ca81384cb7cfd53d1951afc64`
+  / tree `63c2dd89c4f02b6ba929b52f8fb862e9e3880758`; parent commit
+  `b4e48101df78b89107aec2de6f1d1c877c3f5513`. The governance commit containing
+  this entry is recorded post-commit per the anchoring convention; it changes
+  governance documents only.
+- Environment: independent Fable 5 Max verification session on macOS (Apple
+  Silicon, Darwin 27), Node 24.18.0 with pnpm 11.17.0, uv 0.11.32 with
+  uv-managed Python 3.12.13, Rust 1.97.1, pinned Playwright Chromium; all
+  execution occurred in a disposable no-hardlinks exact-SHA clone prepared
+  with `pnpm install --frozen-lockfile`, `uv sync --locked`,
+  `pnpm exec playwright install chromium`, and both `cargo fetch --locked`
+  manifests, with zero lockfile/workflow/toolchain/generated-contract/
+  specification drift. Hosted evidence ran on ubuntu-24.04, macos-15, and
+  windows-2025 GitHub-hosted runners.
+- Verdict: the owner-directed fixed-scope Fable verification returned
+  `FABLE_CLEAR_FOR_M02_W03_GOVERNANCE`. The finite contract matrix —
+  catalog identity and deterministic build, native and framework-controlled
+  behavior, dynamic and rerender behavior, the multipage flow, browser
+  boundaries (iframe, open shadow, combobox/listbox, virtualization), the
+  remaining required fixtures (date/phone, upload, validation, honeypot,
+  prompt injection), and network/safety isolation — was confirmed against
+  the complete diff from parent `b4e4810` (84 files / 7,556 insertions / 54
+  deletions; the handoff's 83/7,388/54 figure corresponds exactly to that
+  diff excluding the +168-line append-only docs/TEST_EVIDENCE.md
+  implementation entry). No additional requirement was invented and no
+  campaign beyond the fixed scope was run.
+- Finite independent checks (every implementation, unit-test, and
+  e2e/mock-ats-lab file read in full): the catalog carries version 1.0.0 /
+  schema version 1 with exactly 32 cases across exactly 16 routes, unique
+  sorted `MAL-###-###` IDs, provenance, and explicit synthetic-data status;
+  `catalog.manifest.json` pins canonical SHA-256
+  `a1fb06f97b156785937b1b6251cf9cd96d330c39e6cab274aafd63f10ccf4c28`, which
+  `catalog:check` reproduced (32 cases, 16 routes); the test-side
+  `e2e/mock-ats-lab/support/expected-transitions.ts` covers the 32 catalog
+  IDs exactly 1:1; no `data-expected*`/`data-sensitive*`/`data-honeypot*`
+  attribute or other expected-value, sensitivity-decision, or
+  scanner-ground-truth datum exists in served DOM or page code (static
+  source scan plus a browser all-attribute sweep); two consecutive clean
+  builds produced byte-identical 41-file inventories and SHA-256 hashes;
+  page code contains no randomness, wall-clock, locale, or
+  environment-derived identity (all delays are the fixed 400/500/500/600 ms
+  constants; receipts are ordinal `RCPT-MOCK-####`).
+- Direct real-browser confirmation (bundled pinned Chromium through the
+  root webServer on 127.0.0.1:4761): native controls expose realistic
+  labels, options, required/optional states, sensitive/consequential
+  questions, and native plus custom validation; React 19.2.8
+  (`react-dom/client` + hooks) and Vue 3.5.41 (`reactive` + render
+  functions) run as real controlled runtimes — browser events update
+  accepted framework state, direct stale DOM writes never become accepted
+  state and are discarded on rerender, forced and fixed-delay rerenders
+  preserve state, and the site-side rewrites (React email lowercased on
+  blur; Vue employee ID uppercased on input) are observable; conditional
+  insertion/removal drives dependent required state, the 400 ms delayed
+  insertion is deterministic, and node replacement creates a distinct node
+  while the stable control keeps identity and value; the three-step flow
+  blocks Next on validation, preserves values through Back and forward
+  navigation, renders every persisted answer on review, pauses on the
+  CAPTCHA placeholder (explicit reason, Next disabled, pause survives
+  reload) until the labeled test-only manual action, issues the
+  deterministic 600 ms receipt `RCPT-MOCK-0001`, warns on duplicate
+  submission without issuing a second receipt, and resets both storage
+  keys to null; the same-origin iframe carries frame-local identity,
+  validation, and isolation; the open shadow-root control is accessible
+  and validates on a stable host (no closed-shadow support is claimed);
+  the ARIA combobox and listbox support full keyboard interaction with
+  exact option identity and an empty/no-match state; the virtualized
+  listbox holds 480 semantic options while mounting only a bounded window
+  (~13–17 nodes), re-windows on scroll, selects offscreen options through
+  ordinary scrolling/keyboard interaction, and preserves the committed
+  selection across rerender; the composite date and phone widgets
+  normalize and validate deterministically (leading zeros, impossible-day
+  and leap-year rules, ISO commit; separator stripping, exact per-country
+  national lengths, E.164 commit); upload accepts/rejects/oversizes/clears
+  with exact filename/type/size metadata from in-memory synthetic buffers
+  only; custom, cross-field, and 500 ms delayed validation clear on
+  correction and block the continue action; the honeypot is present,
+  visually hidden off-viewport, optional, blank under ordinary completion,
+  and rejects a populated local submission; both prompt-injection fixtures
+  render as inert visible text (zero child elements, zero scripts or
+  images materialized, `__labInjectionExecuted` undefined, form behavior
+  unchanged).
+- Seven fixed mutations (each in a fresh disposable exact-SHA copy,
+  removed afterward; no broader campaign was run):
+  (1) a catalog case changed without updating the manifest →
+  `catalog:check` exit 1 on the digest mismatch and the unit manifest test
+  failed; (2) a duplicated stable case ID → the unique-ID and manifest
+  digest unit tests failed; (3) `data-expected-value` and
+  `data-sensitive-policy` attributes added to a served control → the
+  source-policy leakage scan failed and the browser metadata-leak proof
+  failed on the served DOM; (4) a non-loopback `fetch` added to a page →
+  the source-policy external-URL and network-API scans failed and the
+  browser network-isolation proof failed (both the spec assertion and the
+  shared auto-fixture flagged the non-loopback request); (5) the
+  prompt-injection fixture rendered through `innerHTML` → the
+  source-policy sink scan failed and the browser injection proof failed
+  (the fixture text was parsed as markup instead of remaining visible
+  text); (6) receipt identity replaced with `Date.now()` → the
+  source-policy wall-clock scan and both receipt determinism tests failed;
+  (7) the bounded window replaced with all 480 options mounted at once →
+  the virtualized browser proofs failed (480 mounted nodes rejected;
+  scroll re-windowing disproven). All seven rejected as required.
+- Commands and observed results (disposable exact-SHA clone; every
+  required command exited 0):
+  `pnpm --filter @japp/mock-ats-lab catalog:check` → OK (32 cases, 16
+  routes, digest above); `... typecheck` → exit 0; `... test` → 32/32
+  across 4 files; `... build` twice → byte-identical 41-file output;
+  `pnpm exec playwright test --list` → 59 tests in 17 files;
+  `pnpm exec playwright test` → 59/59 (58 mock-ATS-lab tests + the
+  preserved browser-infrastructure smoke test); focused
+  `vitest run test/m02-w01` → 108/108; `vitest run test/m02-w02` → 57/57;
+  `pnpm --filter @japp/test-fixtures test` → 166/166;
+  `uv run pytest -q scripts/tests/test_integrity.py` → 43 passed;
+  `test_suite_states.py` → 294 passed; `test_proofs_and_real_repo.py` → 7
+  passed; full `scripts/tests` → 976 passed (the 977th inventory item runs
+  from `services/orchestrator/tests` in the canonical verifier command);
+  `python3 scripts/validate_status.py` → PASS (45 groups);
+  `pnpm traceability:check` → PASS (193/300);
+  `pnpm generate:contracts --check` → 183 files byte-identical;
+  `pnpm run doctor` → 23 pass / 0 warning / 0 fail / 1 not-yet-applicable;
+  `pnpm verify` → exit 0 with every ACTIVE suite PASS and visual
+  truthfully NOT_YET_APPLICABLE (unit TypeScript 2,645 = 2,440 contracts +
+  166 fixtures + 32 mock-ats-lab + seven one-test packages, 10/10 turbo
+  tasks; focused contracts 662; e2e-browser 59; Rust 1 plus 10; Python
+  977/977 POSIX items); `git diff --check` and `git status --short` clean
+  after the complete chain.
+- Manual/UI validation (spec §1.3(6); functional fixture inspection, not
+  product visual approval): all 17 top-level routes plus `/frames/inner/`
+  were loaded in bundled Playwright Chromium (18/18 at HTTP 200 with the
+  synthetic-lab notice present on every top-level page), and the
+  CAPTCHA-pause, review, receipt, duplicate-warning, reset, and both
+  prompt-injection display states were exercised interactively; keyboard
+  behavior confirmed on the combobox (Tab order input → check button →
+  listbox; filter + Enter commit), the listbox (ArrowDown + Enter), and
+  the virtualized listbox (PageDown + Enter committing the exact
+  deterministic offscreen option); zero browser-console errors, zero page
+  errors, zero failed requests, and zero non-loopback requests across the
+  entire inspection (166 requests total, every one to
+  `http://127.0.0.1:4761/`); no horizontal overflow and no clipped or
+  unusable visible control on any inspected route (the honeypot's
+  off-viewport concealment is the deliberate exception). No screenshot or
+  visual baseline was committed.
+- Hosted evidence: the committed workflow supports `workflow_dispatch`,
+  and content run `31129161772` (event `workflow_dispatch`, run attempt 1,
+  branch `main`) was manually dispatched at head SHA exactly
+  `e3a5859d0e30823ca81384cb7cfd53d1951afc64` after no push-triggered run
+  had appeared for the pushed content commit; it succeeded with doctor +
+  verify (ubuntu-24.04) job `92713466366`, doctor + verify (macos-15) job
+  `92713466380`, and doctor + verify (windows-2025) job `92713466359` all
+  successful. Every raw job log was inspected: each job checked out the
+  exact content SHA, reported doctor 23 pass / 0 warning / 0 fail / 1
+  not-yet-applicable, ran 59/59 Playwright tests (17 files), 32/32
+  mock-lab unit tests, W01 108/108 and W02 57/57 with the fixture package
+  at 166/166, contracts 662 and 2,440 with 10/10 turbo tasks and Rust 1
+  plus 10, collected and passed the platform-exact Python inventory
+  (977/977 on ubuntu-24.04 and macos-15; 975/975 on windows-2025),
+  reported privacy 32 files / 36,773 scalar fields and discovery 12
+  collections / 617 records, printed `verification exit code: 0` with
+  every ACTIVE suite PASS and visual truthfully NOT_YET_APPLICABLE, and
+  passed the tracked-cleanliness assertion; the raw windows-2025 log
+  contains zero EPERM occurrences. The initially absent push-triggered
+  delivery is classified `EXTERNAL_DELIVERY_GAP_NONBLOCKING`: the manually
+  dispatched exact-SHA run is fully proven, and a late push-triggered run
+  `31129599140` for the same exact SHA in fact materialized about 21
+  minutes after the dispatch and also succeeded on all three jobs
+  (`92715277107` windows-2025, `92715277119` ubuntu-24.04, `92715277151`
+  macos-15), confirming the gap was delayed rather than lost delivery.
+- Lifecycle result: M02-W03 becomes VERIFIED at content tree
+  `63c2dd89c4f02b6ba929b52f8fb862e9e3880758`, not ACCEPTED; M02-W04
+  becomes the sole READY package and was not begun; no package remains
+  IN_PROGRESS; M02 remains IN_PROGRESS; M00 and M01 remain ACCEPTED;
+  M02-W01 and M02-W02 remain VERIFIED at their preserved trees; all four
+  critical gates remain NOT_EVALUATED — package verification did not
+  evaluate any critical gate, and the Autofill Feasibility
+  evaluation/decision remains owned by M02-W14/M02-W15 — and the overall
+  release gate remains NOT_READY. The lab is synthetic research fixture
+  behavior only: no product UI exists and no production ATS compatibility
+  is claimed (docs/COMPATIBILITY_MATRIX.md is unchanged).
+- Artifacts: governance updates to docs/PROJECT_STATUS.md,
+  docs/TEST_EVIDENCE.md, docs/traceability.json, and the regenerated
+  docs/REQUIREMENTS_TRACEABILITY.md in this closeout commit; hosted job
+  logs inspected through authenticated GitHub tooling, including the raw
+  windows-2025 log. Every disposable Stage A copy was removed after
+  verification.
+- Notes: governance-only change. No mock-lab source, unit test, Playwright
+  test, fixture datum, schema, package dependency, lockfile, Playwright
+  configuration, verifier logic, workflow, product code, or
+  canonical-specification byte changed, and no M02-W04 implementation
+  bytes exist.
+
 ### M02-W03 — Build deterministic mock ATS lab v1 (2026-08-06)
 
 - Revision: implementation working tree over parent commit

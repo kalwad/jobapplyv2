@@ -7271,8 +7271,8 @@
       "id": "M02-W03",
       "milestone": "M02",
       "title": "Build mock ATS lab v1",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758",
       "direct_package_prerequisites": [
         "M02-W02"
       ],
@@ -7314,14 +7314,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W03"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W04",
       "milestone": "M02",
       "title": "Capture baseline algorithms",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W03"
