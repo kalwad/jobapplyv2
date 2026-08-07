@@ -19,6 +19,65 @@ import { loadOracle } from "./support/inputs.ts";
 
 const oracle = loadOracle();
 
+const ORDINARY_OBSERVATION_PROSE = [
+  "The interface displayed three ordinary fields.",
+  "The type field remained empty.",
+  "Filled three ordinary fields...",
+  "The class field was hidden.",
+  "The switch control remained off.",
+  "The return value was empty.",
+  "The interface loaded after navigation.",
+  "The type selector showed no value.",
+  "The enum field label was visible.",
+  "The application displayed one required field.",
+  "The operator selected the first option.",
+  "Submit (disabled)",
+] as const;
+
+const SOURCE_SHAPED_OBSERVATION_TEXT = [
+  "const copied = 1;",
+  "let value = 2;",
+  "var total = 3;",
+  "type Result = string;",
+  "interface Result { value: string }",
+  "class Result { }",
+  "enum Result { One }",
+  'import value from "module";',
+  'import { value } from "module";',
+  "import module as alias",
+  "export const value = 1;",
+  "export default value;",
+  "from module import value",
+  "module.exports = value;",
+  'require("module");',
+  "value + 1;",
+  "value - 1;",
+  "value * 2;",
+  "value / 2;",
+  "value % 2;",
+  "value + 1 + 2;",
+  "total = value;",
+  "total += 1;",
+  "total -= 1;",
+  "total *= 2;",
+  "total /= 2;",
+  "object.field = value;",
+  "run(value);",
+  "object.run(value);",
+  "console.log(value);",
+  "return value;",
+  "throw error;",
+  "if (ready) {",
+  "if (ready) { run(); }",
+  "while (ready) {",
+  "for (item of items) {",
+] as const;
+
+const OBSERVATION_FIELDS = [
+  "structured_observations",
+  "safety_observations",
+] as const;
+
 function validCapturedFile(): Record<string, unknown> {
   return {
     file_version: "1.0.0",
@@ -248,6 +307,57 @@ describe("legacy observation validation", () => {
       }),
       "LEGACY_OBSERVATION_SOURCE_SNIPPET",
     );
+  });
+
+  test.each(ORDINARY_OBSERVATION_PROSE)(
+    "ordinary behavioral prose remains valid: %s",
+    (text) => {
+      for (const field of OBSERVATION_FIELDS) {
+        const file = mutate((candidate) => {
+          firstRecord(candidate)[field] = [text];
+        });
+        expect(() => validateLegacyObservationFile(file)).not.toThrow();
+      }
+    },
+  );
+
+  test.each(SOURCE_SHAPED_OBSERVATION_TEXT)(
+    "source-shaped observation text is rejected: %s",
+    (text) => {
+      for (const field of OBSERVATION_FIELDS) {
+        expectRejection(
+          mutate((file) => {
+            firstRecord(file)[field] = [text];
+          }),
+          "LEGACY_OBSERVATION_SOURCE_SNIPPET",
+        );
+      }
+    },
+  );
+
+  test("ordinary multiline behavioral prose remains valid", () => {
+    const text =
+      "The interface displayed three fields.\nThe type field remained empty.";
+    for (const field of OBSERVATION_FIELDS) {
+      const file = mutate((candidate) => {
+        firstRecord(candidate)[field] = [text];
+      });
+      expect(() => validateLegacyObservationFile(file)).not.toThrow();
+    }
+  });
+
+  test.each([
+    "The interface displayed three fields.\nvalue + 1;",
+    "The type field remained empty.\nconst copied = 1;",
+  ])("source shape hidden on a later line is rejected: %s", (text) => {
+    for (const field of OBSERVATION_FIELDS) {
+      expectRejection(
+        mutate((file) => {
+          firstRecord(file)[field] = [text];
+        }),
+        "LEGACY_OBSERVATION_SOURCE_SNIPPET",
+      );
+    }
   });
 
   test.each(["UNAVAILABLE", "UNRUNNABLE", "NOT_ATTEMPTED"])(

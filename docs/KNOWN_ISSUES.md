@@ -34,15 +34,17 @@ broadening a work package (spec §1.5).
 
 ## Open defects
 
-KI-0046 and KI-0047 are the two bounded M02-W04 acceptance blockers reported
-by the independent GPT-5.6 Sol Ultra verifier against content commit
-`7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
-`616a1a8048f5d91ed67cae899b60ea0f3a882481`. Their narrow corrective
-implementation is locally green, but both remain IN_PROGRESS until the
-forward correction has exact-SHA three-OS hosted success and a separate
-independent GPT-5.6 Sol Ultra session verifies the corrected content. The
-blocked `7fcdfa3` revision remains historical implementation evidence only.
-No governance closeout has occurred.
+KI-0046 and KI-0047 remain the two bounded M02-W04 acceptance blockers. The
+independent GPT-5.6 Sol Ultra verifier first reported both against content
+commit `7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
+`616a1a8048f5d91ed67cae899b60ea0f3a882481`; correction `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f`
+closed those original reproductions. A fresh independent GPT-5.6 Sol Ultra
+verifier then found a residual KI-0046 clean-room classifier mismatch in
+`a5aa436`; the narrow second correction is locally green. Both issues remain
+IN_PROGRESS until the new forward correction has exact-SHA three-OS hosted
+success and a separate fresh GPT-5.6 Sol Ultra session verifies the corrected
+content. The blocked revisions remain historical implementation evidence
+only. No governance closeout has occurred.
 
 ### KI-0046 — Legacy observation records did not fail closed
 
@@ -52,12 +54,17 @@ No governance closeout has occurred.
 - Affects: M02-W04; REQ-GATE-007; REQ-GATE-008;
   `packages/evaluation-baselines` legacy-observation validation and clean-room
   provenance contract
-- Description: the validator parsed then discarded `safety_observations`, so
-  non-CAPTURED records could carry fabricated safety-behavior claims. It also
-  accepted mutable or short `source_revision` values for CAPTURED records and
-  its bounded snippet rules admitted ordinary copied code such as
-  `const copied = 1;`. Those states contradicted the advertised no-payload,
-  immutable-provenance, clean-room record contract.
+- Description: at `7fcdfa3`, the validator parsed then discarded
+  `safety_observations`, so non-CAPTURED records could carry fabricated
+  safety-behavior claims. It also accepted mutable or short `source_revision`
+  values for CAPTURED records and its bounded snippet rules admitted ordinary
+  copied code such as `const copied = 1;`. First correction `a5aa436` closed
+  those fail-open paths, but its new unanchored declaration-keyword heuristic
+  incorrectly treated ordinary English such as `The interface displayed…`
+  and `The type field…` as source while failing to reject a simple source-
+  shaped arithmetic statement such as `value + 1;`. Both generations
+  contradicted the advertised immutable-provenance, no-payload, clean-room
+  observation contract.
 - Reproduction: at exact blocked content commit
   `7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
   `616a1a8048f5d91ed67cae899b60ea0f3a882481`, call
@@ -65,22 +72,35 @@ No governance closeout has occurred.
   `safety_observations: ["Fabricated safety behavior claim"]`, (2) a complete
   synthetic `CAPTURED` record with `source_revision: "main"`, and (3) the same
   CAPTURED record with `structured_observations: ["const copied = 1;"]`.
-  All three returned successfully instead of failing closed.
+  All three returned successfully instead of failing closed. At exact first
+  correction `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f` / tree
+  `9f49c0c388f4905b8b9eb4e9d8e0e0cee4470c97`, reproduce the fresh residual:
+  `"The interface displayed three ordinary fields."` and
+  `"The type field remained empty."` both reject with
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`; `"value + 1;"` incorrectly accepts;
+  and `"Filled three ordinary fields..."` correctly accepts.
 - Workaround: none accepted. Manual review cannot replace the executable
   record boundary, and no CAPTURED observation may be fabricated.
-- Resolution + evidence link: IN_PROGRESS. The correction retains and checks
-  safety observations, rejects all five payload fields for every non-CAPTURED
-  status, requires a repository URL plus full lowercase 40-hex Git commit for
-  CAPTURED source coordinates, and applies a stricter plain-language boundary
-  to structured and safety observation text. Direct status/revision/snippet
-  regressions and the committed non-captured positive controls pass locally;
-  the exact auditor examples now fail with
+- Resolution + evidence link: IN_PROGRESS. First correction `a5aa436` retains
+  and checks safety observations, rejects all five payload fields for every
+  non-CAPTURED status, requires a repository URL plus full lowercase 40-hex
+  Git commit for CAPTURED source coordinates, and rejects bounded source
+  shapes in both observation arrays. The narrow second correction replaces
+  its keyword-substring declaration rule with anchored, line-oriented syntax-
+  shaped predicates for declarations, imports/modules, assignments,
+  arithmetic expressions, calls, controls, returns/throws, and unambiguous
+  source delimiters. Twelve ordinary-prose positives, 36 source-shaped
+  negatives, three multiline controls, and two finite mutation witnesses are
+  direct executable truth; all pass locally. The original auditor examples
+  still fail with
   `LEGACY_OBSERVATION_UNCAPTURED_SAFETY`,
   `LEGACY_OBSERVATION_SOURCE_REVISION`, and
-  `LEGACY_OBSERVATION_SOURCE_SNIPPET`. See docs/TEST_EVIDENCE.md § M02-W04 —
-  Narrow correction of independently reproduced acceptance blockers
-  (2026-08-07). Closure still requires exact-SHA hosted success and separate
-  independent acceptance verification; M02-W04 remains unaccepted.
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`; the two residual prose examples now
+  accept, `value + 1;` rejects, and the original prose positive still accepts.
+  See docs/TEST_EVIDENCE.md § M02-W04 — Residual KI-0046 clean-room
+  observation correction (2026-08-07). Closure still requires exact-SHA
+  hosted success and separate fresh independent acceptance verification;
+  M02-W04 remains unaccepted.
 
 ### KI-0047 — Keyword stuffing asserted an unsupported candidate skill
 

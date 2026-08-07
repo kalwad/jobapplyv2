@@ -93,7 +93,7 @@ const LEGACY_CONTRACT = {
   unavailable_rule:
     "non-captured records carry an explicit reason, comparable=false, and no fixture inputs, output digest, structured observations, safety observations, or regression fixture references",
   observation_text_rule:
-    "structured and safety observations are clean-room plain-language behavior only; source-code-shaped declarations, imports, modules, assignments, operators, braces, backticks, arrows, calls, and snippets fail closed",
+    "structured and safety observations are clean-room plain-language behavior only; bounded whole-text markers and line-oriented syntax-shaped declarations, imports, modules, assignments, operators, delimiters, calls, and control statements fail closed without treating reserved words in ordinary prose as code",
   regression_rule:
     "clean-room regression fixtures may derive only from CAPTURED observations (REQ-GATE-008)",
 } as const;

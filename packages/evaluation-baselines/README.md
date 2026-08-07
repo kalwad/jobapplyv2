@@ -20,7 +20,7 @@ packages must not depend on this package (enforced by test).
   both boundaries are asserted by tests. Baseline prompts live here, in
   `src/prompts.ts`, and are never production prompts.
 
-## Baseline catalog (`src/catalog.ts`, catalog 1.0.1 / schema 1)
+## Baseline catalog (`src/catalog.ts`, catalog 1.0.2 / schema 1)
 
 | Baseline ID                               | Kind                                                                                      | Version |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------- | ------- |
@@ -29,11 +29,16 @@ packages must not depend on this package (enforced by test).
 | `baseline_naive_keyword_stuffing_v1`      | intentionally weak deterministic transform                                                | 1.0.1   |
 | `baseline_one_shot_resume_generation_v1`  | one injected `generateOnce` call                                                          | 1.0.0   |
 | `baseline_one_shot_answer_generation_v1`  | one injected `generateOnce` call                                                          | 1.0.0   |
-| `baseline_legacy_behavior_observation_v1` | isolated observation contract                                                             | 1.0.1   |
+| `baseline_legacy_behavior_observation_v1` | isolated observation contract                                                             | 1.0.2   |
 
-The 1.0.1 patch versions correct the pre-verification stuffing representation
-and legacy-validation boundary. Record/file schema 1.0.0, the 34-case matrix,
-and every unrelated baseline algorithm remain unchanged.
+The 1.0.1 patch versions corrected the pre-verification stuffing
+representation and the original legacy-validation fail-open paths. Legacy
+validation 1.0.2 replaces the residual keyword-substring classifier with a
+bounded line-oriented source-shape rule: declaration keywords require
+declaration syntax, while simple assignment, operator, call, import/export,
+control, and delimiter statements still fail closed. Keyword stuffing remains
+1.0.1. Record/file schema 1.0.0, the 34-case matrix, and every unrelated
+baseline algorithm remain unchanged.
 
 A closed **Simplify comparison slot** (`baseline_simplify_comparison_slot_v1`)
 is truthfully `NOT_CAPTURED`; the manual, terms-compliant capture is owned by
@@ -108,12 +113,14 @@ coordinates. Every non-`CAPTURED` record requires an explicit reason,
 `structured_observations`, `safety_observations`, and
 `regression_fixture_refs`. Structured and safety observation text has a
 stricter clean-room plain-language boundary than procedure/provenance prose:
-source-shaped declarations, imports/modules, assignments/operators, braces,
-backticks, arrows, calls, and snippets fail closed while ordinary behavioral
-prose remains valid. Traversal-shaped fixture ids and time/random-derived
-identities also fail closed. `code_copied` can never be true. Clean-room
-regression fixtures (REQ-GATE-008) may derive only from future `CAPTURED`
-observations.
+bounded source-shaped declarations, imports/modules, assignments/operators,
+delimiters, backticks, arrows, calls, control statements, and snippets fail
+closed on each logical line. Reserved words such as `interface`, `type`,
+`class`, `enum`, `switch`, and `return` remain valid in ordinary behavioral
+prose unless the line has explicit source syntax. Traversal-shaped fixture ids
+and time/random-derived identities also fail closed. `code_copied` can never
+be true. Clean-room regression fixtures (REQ-GATE-008) may derive only from
+future `CAPTURED` observations.
 
 ## Development case matrix and literal oracle
 
@@ -132,7 +139,7 @@ holdout body, and no `benchmark/result.v1` record is emitted.
 pnpm --filter @japp/evaluation-baselines baselines:check   # read-only drift check
 pnpm --filter @japp/evaluation-baselines baselines:write   # explicit manifest authoring
 pnpm --filter @japp/evaluation-baselines typecheck
-pnpm --filter @japp/evaluation-baselines test              # 118 tests in 9 files
+pnpm --filter @japp/evaluation-baselines test              # 171 tests in 9 files
 ```
 
 `baseline.manifest.json` commits canonical digests over the catalog, both

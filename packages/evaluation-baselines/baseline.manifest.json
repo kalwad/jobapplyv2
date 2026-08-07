@@ -2,10 +2,10 @@
   "case_count": 34,
   "case_matrix_digest": "sha256:384c8118f93f9a2793ee672183301f3e960c3867bf5c927a09f091f999ae4b92",
   "case_matrix_version": "1.0.0",
-  "catalog_digest": "sha256:e2b45d1ffd71f5328c56f65cca23dd4cf425fd2f06d543b069abfb1456fc4f20",
+  "catalog_digest": "sha256:c8b9858242481ca2532e2a55589c478d14e3bdaf7761e1f74ff9effd3a4593cc",
   "catalog_schema_version": 1,
-  "catalog_version": "1.0.1",
-  "combined_digest": "sha256:5b5e0307743ac0c339cac638c1cff2bf85d0d497d8c5dae463d931f3356d5994",
+  "catalog_version": "1.0.2",
+  "combined_digest": "sha256:71c41a754e997998328535670095debb4c068576f788863cd3a458fe31996cc5",
   "legacy_observation_file": {
     "path": "data/legacy-observations.v1.json",
     "record_count": 2,
@@ -23,7 +23,7 @@
     },
     {
       "path": "src/catalog.ts",
-      "sha256": "sha256:becf73371314b9460b679a9956bd100f796cb7badb95d3f727102fe8308ed25a"
+      "sha256": "sha256:840281459e7ca0a375f0b852ba9d029b9706d3e7f2606215450288d865a6db19"
     },
     {
       "path": "src/cli.ts",
@@ -47,7 +47,7 @@
     },
     {
       "path": "src/legacy-observation.ts",
-      "sha256": "sha256:ac2501a39a1e71c0545a7fa12ff2b8703a20d5c0f748a0e76e79712592be65d2"
+      "sha256": "sha256:ea4ccf4d95187bba3dc31ace5e6c0bbed8bd2848f80461ce1c6debaebf0948dd"
     },
     {
       "path": "src/manifest.ts",
@@ -55,7 +55,7 @@
     },
     {
       "path": "src/model.ts",
-      "sha256": "sha256:3c25c71c2b30ab311006a00eaac7e5e55173afcdf4717165305aacc3866487ec"
+      "sha256": "sha256:4e8bb94cbeed2bfb718ccb8ddcccb734e265ef22b55d7093c6fef6a351c619f4"
     },
     {
       "path": "src/normalize.ts",

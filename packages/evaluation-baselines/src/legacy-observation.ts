@@ -13,7 +13,7 @@ import {
   type LegacyObservationFile,
 } from "./model.ts";
 
-export const LEGACY_OBSERVATION_ALGORITHM_VERSION = "1.0.1" as const;
+export const LEGACY_OBSERVATION_ALGORITHM_VERSION = "1.0.2" as const;
 
 export class BaselineValidationError extends Error {
   public readonly code: string;
@@ -97,19 +97,30 @@ const SOURCE_SNIPPET_PATTERNS: readonly RegExp[] = [
  * cannot carry source-code-shaped text. This is a bounded clean-room
  * boundary, not a general programming-language detector.
  */
-const OBSERVATION_SOURCE_SHAPE_PATTERNS: readonly RegExp[] = [
-  /[`{}]/u,
+const OBSERVATION_WHOLE_TEXT_SOURCE_SHAPE_PATTERNS: readonly RegExp[] = [
+  /`/u,
   /=>/u,
-  /\b(?:const|let|var)\s+[A-Za-z_$][\w$]*(?:\s*[:=;])/u,
-  /\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*(?:\+=|-=|\*=|\/=|%=|=)\s*/u,
-  /(?:^|\n)\s*(?:import|export)\s+(?:(?:type\s+)?[A-Za-z_$*{]|default\b)/u,
-  /(?:^|\n)\s*from\s+[A-Za-z_][\w.]*\s+import\s+[A-Za-z_*]/u,
-  /(?:^|\n)\s*(?:async\s+)?def\s+[A-Za-z_][\w]*\s*\(/u,
-  /\b(?:class|interface|enum|type)\s+[A-Za-z_$][\w$]*/u,
-  /\b(?:module\.exports|exports\.[A-Za-z_$][\w$]*|require\s*\()/u,
-  /(?:^|\n)\s*(?:if|for|while|switch|catch)\s*\([^)]*\)/u,
-  /(?:^|\n)\s*(?:return|throw|break|continue)\b[^.!?]*;\s*(?:\n|$)/u,
-  /(?:^|\n)\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*\([^)]*\)\s*;?\s*(?:\n|$)/u,
+];
+
+const OBSERVATION_LINE_SOURCE_SHAPE_PATTERNS: readonly RegExp[] = [
+  /^(?:const|let|var)\s+[A-Za-z_$][\w$]*(?:\s*:\s*[^=;]+)?\s*(?:=|;|$)/u,
+  /^type\s+[A-Za-z_$][\w$]*(?:\s*<[^>{}]+>)?\s*=/u,
+  /^(?:interface|class|enum)\s+[A-Za-z_$][\w$]*(?:\s+extends\s+[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)?(?:\s+implements\s+[A-Za-z_$][\w$]*(?:\s*,\s*[A-Za-z_$][\w$]*)*)?\s*\{/u,
+  /^import\s+(?:(?:type\s+)?(?:[A-Za-z_$][\w$]*|\*\s+as\s+[A-Za-z_$][\w$]*|\{[^{}]+\})\s+from\s+)?["'][^"']+["']\s*;?$/u,
+  /^import\s+[A-Za-z_][\w.]*(?:\s+as\s+[A-Za-z_][\w]*)?(?:\s*,\s*[A-Za-z_][\w.]*(?:\s+as\s+[A-Za-z_][\w]*)?)*\s*;?$/u,
+  /^export\s+(?:default\s+)?(?:const|let|var|function|class|interface|type|enum)\b/u,
+  /^export\s+default\s+\S(?:.*\S)?\s*;?$/u,
+  /^export\s*(?:\{[^{}]+\}|\*)\s*(?:from\s+["'][^"']+["'])?\s*;?$/u,
+  /^from\s+[A-Za-z_][\w.]*\s+import\s+(?:[A-Za-z_*][\w*]*(?:\s+as\s+[A-Za-z_][\w]*)?|\([^()]+\))(?:\s*,\s*[A-Za-z_*][\w*]*)*\s*;?$/u,
+  /^(?:async\s+)?def\s+[A-Za-z_][\w]*\s*\([^)]*\)\s*:?$/u,
+  /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]+\])*\s*(?:\+=|-=|\*=|\/=|%=|=(?!=))\s*\S.*;?$/u,
+  /^(?:[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*|\d+(?:\.\d+)?)(?:\s*[+\-*/%]\s*(?:[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*|\d+(?:\.\d+)?|["'][^"']*["']))+\s*;?$/u,
+  /^(?:await\s+)?[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\([^()]*\)\s*;?$/u,
+  /^(?:await\s+)?[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s+\([^()]*\)\s*;$/u,
+  /^(?:if|for|while|switch|catch)\s*\([^)]*\)\s*(?:\{.*\}|[;{])?$/u,
+  /^(?:return|throw)\b[^.!?]*;$/u,
+  /^(?:break|continue)\s*;$/u,
+  /^(?:\{|\})\s*;?$|^\{[^{}]*\}\s*;?$|^(?:else|try|finally|do)\s*\{$/u,
 ];
 const CREDENTIAL_PATTERNS: readonly RegExp[] = [
   /\bBearer\s+\S+/iu,
@@ -204,13 +215,21 @@ function observationTextArray(
 ): string[] {
   const items = freeTextArray(value, pointer, maxItems, maxLength);
   for (const [index, item] of items.entries()) {
-    for (const pattern of OBSERVATION_SOURCE_SHAPE_PATTERNS) {
-      if (pattern.test(item)) {
-        fail(
-          "LEGACY_OBSERVATION_SOURCE_SNIPPET",
-          `${pointer}/${String(index)}`,
-        );
-      }
+    const wholeTextSourceShape =
+      OBSERVATION_WHOLE_TEXT_SOURCE_SHAPE_PATTERNS.some((pattern) =>
+        pattern.test(item),
+      );
+    const lineSourceShape = item
+      .split(/\r\n?|\n/u)
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0)
+      .some((line) =>
+        OBSERVATION_LINE_SOURCE_SHAPE_PATTERNS.some((pattern) =>
+          pattern.test(line),
+        ),
+      );
+    if (wholeTextSourceShape || lineSourceShape) {
+      fail("LEGACY_OBSERVATION_SOURCE_SNIPPET", `${pointer}/${String(index)}`);
     }
   }
   return items;

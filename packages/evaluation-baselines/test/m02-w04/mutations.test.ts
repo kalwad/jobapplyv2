@@ -42,6 +42,53 @@ import {
 const oracle = loadOracle();
 const temporaryRoots: string[] = [];
 
+function capturedObservationWith(text: string): Record<string, unknown> {
+  return {
+    file_version: "1.0.0",
+    classification: ["EVALUATION_ONLY", "NON_PRODUCTION"],
+    isolation_statement:
+      "Synthetic in-memory mutation witness; no legacy code is present.",
+    records: [
+      {
+        id: "legacyobs_00000000000000000000000009",
+        record_version: "1.0.0",
+        system: "LEGACY_JOBAPPLY",
+        system_display_name: "kalwad/JobApply (isolated mutation witness)",
+        repository_url: "https://github.com/kalwad/JobApply",
+        source_revision: "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+        observation_status: "CAPTURED",
+        observation_date: "2026-08-07",
+        observer: "m02w04-residual-mutation-witness",
+        environment: "In-memory clean-room validation witness.",
+        procedure: ["Validated one synthetic observation text value."],
+        fixture_inputs: [
+          {
+            fixture_id: "profile_00000000000000000000000001",
+            content_digest: `sha256:${"a".repeat(64)}`,
+          },
+        ],
+        observed_output_digest: `sha256:${"b".repeat(64)}`,
+        structured_observations: [text],
+        safety_observations: [],
+        failure_or_unavailability_reason: null,
+        source_code_viewed: false,
+        code_copied: false,
+        comparable: true,
+        classification: "NON_PRODUCTION",
+        license_provenance:
+          "License NOASSERTION; behavior-only synthetic mutation witness.",
+        regression_fixture_refs: [],
+        provenance: {
+          authored_in: "M02-W04",
+          author: "m02w04-lead-author",
+          reviewer: "m02w04-baseline-reviewer",
+          reviewed_on: "2026-08-07",
+        },
+      },
+    ],
+  };
+}
+
 function temporaryPackageCopy(): string {
   const root = mkdtempSync(join(tmpdir(), "japp-baseline-mutation-"));
   temporaryRoots.push(root);
@@ -284,6 +331,37 @@ describe("finite mutation matrix", () => {
     );
     // Positive control: the untouched committed file still validates.
     expect(() => validateLegacyObservationFile(committed)).not.toThrow();
+  });
+
+  test("restoring keyword-only declaration detection fails ordinary prose controls", () => {
+    const keywordOnlyMutation = (text: string): boolean =>
+      /\b(?:class|interface|enum|type)\s+[A-Za-z_$][\w$]*/u.test(text);
+    const ordinary = [
+      "The interface displayed three ordinary fields.",
+      "The type field remained empty.",
+      "The class field was hidden.",
+      "The enum field label was visible.",
+    ];
+
+    for (const text of ordinary) {
+      expect(keywordOnlyMutation(text)).toBe(true);
+      expect(() =>
+        validateLegacyObservationFile(capturedObservationWith(text)),
+      ).not.toThrow();
+    }
+  });
+
+  test("keyword-only detection cannot silently admit source-shaped operators or calls", () => {
+    const keywordOnlyMutation = (text: string): boolean =>
+      /\b(?:class|interface|enum|type)\s+[A-Za-z_$][\w$]*/u.test(text);
+    const sourceShaped = ["value + 1;", "object.run(value);", "return value;"];
+
+    for (const text of sourceShaped) {
+      expect(keywordOnlyMutation(text)).toBe(false);
+      expect(() =>
+        validateLegacyObservationFile(capturedObservationWith(text)),
+      ).toThrow(/LEGACY_OBSERVATION_SOURCE_SNIPPET/u);
+    }
   });
 
   test("nondeterministic identity shapes are rejected", () => {

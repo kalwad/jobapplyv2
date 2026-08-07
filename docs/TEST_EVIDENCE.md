@@ -33,6 +33,160 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W04 — Residual KI-0046 clean-room observation correction (2026-08-07)
+
+- Revision boundary: forward-only corrective writer working tree over exact
+  first-correction commit `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f` /
+  tree `9f49c0c388f4905b8b9eb4e9d8e0e0cee4470c97`, parent
+  `7fcdfa34797c29289737f558a7826cd12fb42fc0`; starting HEAD and
+  `origin/main` were equal and the writer tree was clean. JAPP-MASTER-001
+  v1.4 remained byte-exact at SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  Owner-selected narrow corrective writer model: GPT-5.6 Sol Ultra. The
+  containing correction commit/tree is reported post-commit under the
+  repository anchoring convention. This is implementation evidence only,
+  not acceptance verification or governance closeout.
+- Defect history and exact primary pre-edit reproduction: the original
+  `7fcdfa3` KI-0046 fail-open defect was first corrected by `a5aa436`, but a
+  fresh independent GPT-5.6 Sol Ultra verifier found a residual mismatch
+  between the documented clean-room contract and the new observation-text
+  classifier. Against exact `a5aa436`, the independent writer probe recorded
+  `"The interface displayed three ordinary fields."` →
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`,
+  `"The type field remained empty."` →
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`, `"value + 1;"` → `ACCEPTED`, and
+  the positive control `"Filled three ordinary fields..."` → `ACCEPTED`.
+- Expanded pre-edit matrix: of the eleven required ordinary-prose controls,
+  `Filled…`, `switch control…`, `return value…`, `application displayed…`,
+  and `operator selected…` were accepted, while both exact primary prose
+  cases plus `class field…`, `interface loaded…`, `type selector…`, and
+  `enum field…` were incorrectly rejected as source snippets. Declaration,
+  import/export, assignment, call, and return examples were rejected, but
+  each simple arithmetic statement `value + 1;`, `value - 1;`,
+  `value * 2;`, `value / 2;`, and `value % 2;` was incorrectly accepted.
+  Ordinary multiline prose was therefore also incorrectly rejected; mixed
+  multiline payloads returned a rejection, but the first prose line's false
+  positive made that result insufficient evidence that a hidden line-2
+  source statement was detected.
+- Test-first proof: before production bytes changed, table-driven positive,
+  negative, and multiline regressions were added for both
+  `structured_observations` and `safety_observations`. The direct legacy file
+  then failed 12 of 79 tests: six reserved-word prose cases, five arithmetic
+  expressions, and the clean multiline prose case. The bounded mutation file
+  failed its two new witnesses (13 passed / 2 failed), proving the added
+  truth caught both reintroduction of a keyword-only false-positive rule and
+  silent acceptance of operator/call/return source shapes.
+- Narrow post-change review proof: before the final predicate refinement, five
+  additional direct assertions failed in the 84-test legacy file exactly as
+  intended: `Submit (disabled)` exposed an over-broad whitespace-before-call
+  rule, while Python `import module as alias`, `export default value;`,
+  repeated arithmetic `value + 1 + 2;`, and inline control block
+  `if (ready) { run(); }` exposed bounded undercoverage. The final production
+  refinement was made only after those five failures were recorded.
+- Root cause and corrected design: the first correction used an unanchored
+  keyword pattern equivalent to
+  `/\b(?:class|interface|enum|type)\s+[A-Za-z_$][\w$]*/`, so ordinary English
+  noun/verb sequences looked like declarations, while no predicate recognized
+  a standalone arithmetic expression. Version 1.0.2 replaces that heuristic
+  with a bounded line-oriented boundary: high-confidence whole-text markers
+  retain code-fence/backtick/arrow rejection; each trimmed logical line is
+  then checked against explicit anchored declaration, import/export/module,
+  assignment, arithmetic-expression, call, return/throw/control, and source-
+  delimiter shapes. Declaration keywords require declaration punctuation or
+  grammar (`type Name =`, `interface|class|enum Name {`, optional
+  `extends`/`implements`) rather than a following English word. Arithmetic
+  detection requires an identifier/member/literal operand, a programming
+  operator, one or more bounded operands, and statement shape, so
+  `value + 1;` fails without globally banning ordinary punctuation. Adjacent
+  call syntax may omit a semicolon, while whitespace-separated call syntax
+  requires one, preserving prose such as `Submit (disabled)`. Bounded Python
+  imports, default exports, and inline control blocks also fail closed.
+  Splitting CRLF/LF input means a source-shaped line 2 fails even when line 1
+  is valid prose.
+- Preservation: all prior KI-0046 regressions remain unchanged and green:
+  the five non-CAPTURED payload families fail closed; fabricated safety
+  observations fail for UNAVAILABLE, UNRUNNABLE, and NOT_ATTEMPTED; CAPTURED
+  requires a repository URL and full lowercase 40-hex revision (`main`,
+  `HEAD`, and a short SHA reject); `code_copied` can only be false; malformed
+  provenance rejects; source snippet/import/function text rejects in both
+  observation arrays; and a clean immutable CAPTURED record validates.
+  Committed bytes remain CareerPulse UNAVAILABLE and legacy JobApply
+  NOT_ATTEMPTED with `source_code_viewed=false`, `code_copied=false`, and
+  empty non-capture payloads. The exact KI-0047 reproduction remains byte-
+  exact at stuffing algorithm 1.0.1:
+  `Analyst with Excel experience.\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: sql]`;
+  it does not contain `Skills: sql`, remains deterministic/idempotent,
+  EVALUATION_ONLY/NON_PRODUCTION/UNVERIFIED, and reports
+  `grounded_in_evidence=false`. No stuffing implementation byte changed.
+- Versioning and reviewed truth: executable legacy validation changes from
+  1.0.1 to 1.0.2, and the catalog that commits that algorithm identity changes
+  from 1.0.1 to 1.0.2. Stuffing remains 1.0.1. Catalog schema 1, record/file
+  schema 1.0.0, `_v1` IDs, package 0.0.1, case matrix 1.0.0 with 34 cases,
+  prompts, baseline IDs, and all unrelated algorithms remain unchanged. The
+  literal test oracle was reviewed and changed only for oracle/catalog/legacy
+  version identity plus the genuinely changed catalog digest; stuffing truth
+  is untouched (oracle file SHA-256
+  `2135f8521fd4f0389bbeb8442e11435bf3430afe255cd820e0c6d42408e2aaa6`).
+- Manifest reconciliation: `baselines:write` was used only through the
+  package's explicit authoring path: once for the initial source result and
+  once as required after the narrow review refined source bytes. Catalog
+  digest moves
+  from
+  `sha256:e2b45d1ffd71f5328c56f65cca23dd4cf425fd2f06d543b069abfb1456fc4f20`
+  to
+  `sha256:c8b9858242481ca2532e2a55589c478d14e3bdaf7761e1f74ff9effd3a4593cc`;
+  combined digest moves from
+  `sha256:5b5e0307743ac0c339cac638c1cff2bf85d0d497d8c5dae463d931f3356d5994`
+  to
+  `sha256:71c41a754e997998328535670095debb4c068576f788863cd3a458fe31996cc5`.
+  Review confirmed only `catalog.ts`, `legacy-observation.ts`, and `model.ts`
+  source hashes changed. Both post-write `baselines:check` runs passed and
+  left manifest SHA-256
+  `ce7dee195f5e78a93e2fe2fd816e18bb3cb09968e1cd577b0b43b55e7181cf1d`
+  identical before/between/after. Observation bytes/count/digest
+  (`sha256:2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb`),
+  case matrix, prompts, and unrelated source hashes remain unchanged.
+- Direct and mutation results: direct legacy 84/84, stuffing freeze 11/11,
+  finite mutations 15/15, and complete evaluation-baselines 171/171 across
+  9 files. The keyword-only mutation flags four valid reserved-word prose
+  controls while the production validator accepts them; the preserved
+  source-shape mutation misses arithmetic/call/return controls while the
+  production validator rejects them.
+- Independent post-correction probe: all 12 ordinary-prose controls accepted,
+  including the 11 owner-required controls; all 36 bounded source-shaped
+  declaration/import/module/
+  assignment/operator/call/control controls rejected with
+  `LEGACY_OBSERVATION_SOURCE_SNIPPET`; clean multiline prose accepted and both
+  line-2 source cases rejected. The same independent probe confirmed the
+  original KI-0046 revision/repository/code-copy/provenance/snippet,
+  non-CAPTURED safety, and five-payload cases; a valid clean CAPTURED record;
+  both committed records; and the exact frozen KI-0047 output.
+- Local verification: typecheck, ESLint, Prettier, two read-only manifest
+  checks, and complete package tests exit 0. Preserved W01 is 108/108, W02
+  57/57, full fixtures 166/166, mock ATS 32/32 plus typecheck/build, and
+  Playwright 59/59 across 17 files. Frozen/locked pnpm, uv, and both Cargo
+  fetches exit 0. Focused Python suites pass: integrity 43, suite states 294,
+  real-repo proofs 7, traceability 62, v1.4 migration 31, and status-validator
+  148; full `scripts/tests` is 976/976. Status passes 45 groups, traceability
+  passes 193 requirements / 300 packages, and generated contracts remain 183
+  files byte-identical. Doctor reports 22 pass / 1 expected uncommitted-writer
+  warning / 0 fail / 1 not-yet-applicable. `pnpm verify` exits 0: typecheck
+  11/11 tasks; unit TypeScript 2,816 (contracts 2,440, fixtures 166,
+  evaluation baselines 171, mock ATS 32, seven one-test packages); focused
+  contracts 662; Playwright 59; exact POSIX Python inventory 977; Rust 1 plus
+  10; every ACTIVE suite PASS; visual truthfully NOT_YET_APPLICABLE.
+- Scope/governance: traceability ownership/dependency/gate-effect truth,
+  W01/W02 fixtures, legacy record data, one-shot/original/overlap baselines,
+  mock lab, evaluation runner, holdout, extension, scanner, resolver, drivers,
+  runtime/model lock, production prompt registry, critical gates, and
+  M02-W05/later behavior are untouched. KI-0046 and KI-0047 remain
+  HIGH/IN_PROGRESS pending this correction's exact-SHA three-OS hosted result
+  and a separate fresh GPT-5.6 Sol Ultra acceptance verifier. M02-W04 remains
+  IN_PROGRESS and unaccepted; M02-W05 remains NOT_STARTED; no package is
+  READY; M02-W01/W02/W03 remain VERIFIED; M02 remains IN_PROGRESS; all gates
+  remain NOT_EVALUATED; release remains NOT_READY. No governance closeout
+  occurred.
+
 ### M02-W04 — Narrow correction of independently reproduced acceptance blockers (2026-08-07)
 
 - Revision boundary: forward-only corrective writer working tree over exact
