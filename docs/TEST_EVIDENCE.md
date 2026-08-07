@@ -33,6 +33,191 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W04 — Capture evaluation baseline algorithms (2026-08-07)
+
+- Revision: implementation working tree over parent commit
+  `d8148d68790a49bea13437d13ea049aa574e75ce` (pre-evidence staged tree
+  `d8a82a682e243286c5d3e5de6874a17dfee852bc`); the containing commit is
+  recorded post-commit per the anchoring convention. Owner-selected
+  implementation agent: Claude Fable 5 Max, single writer.
+- Environment: macOS (Apple Silicon, Darwin 27), Node 24.18.0 with pnpm
+  11.17.0, uv-managed Python 3.12.13, Rust 1.97.1, pinned Playwright
+  Chromium; installs remained frozen/locked (`pnpm install
+  --frozen-lockfile`, `uv sync --locked`, and both `cargo fetch --locked`
+  manifests → exit 0 after the reviewed one-importer lockfile update) and
+  `scripts/python-test-inventory.v1.json` is byte-identical (no Python node
+  ID changed).
+- Scope: new test-only workspace package `packages/evaluation-baselines`
+  (`@japp/evaluation-baselines`) owned by M02-W04 (spec §8.4, §5.13,
+  §0(16); REQ-GATE-007/008) — a versioned EVALUATION_ONLY/NON_PRODUCTION
+  baseline catalog (1.0.0 / schema 1, canonical digest
+  `sha256:cbcad2219667d7efe78a170fa83039658ac4e727c1a0617519611f1187bd7384`)
+  holding six distinct baselines: exact original-untailored passthrough
+  (text byte-identical; structured records digest-identical with proven
+  input non-mutation), a transparent keyword-overlap lexical unigram
+  matcher (frozen NFKC/lowercase/`[a-z0-9+#&.]`/hyphen-slash-split/
+  trailing-dot/unique-sorted normalization 1.0.0; score = unique matched /
+  unique target terms with explicit zero-denominator flag; full term-set
+  transparency; explicitly LEXICAL_ONLY_NOT_SEMANTIC_MATCHING), an
+  intentionally weak naive keyword-stuffing transform (missing terms
+  appended once as `\n\nSkills: …` in sorted order; byte-identical when
+  nothing is missing; idempotent; UNVERIFIED/ungrounded; no invented
+  achievement, employer, date, metric, certification, tool, or experience
+  claim), one-shot résumé and short-answer generation through an injected
+  `generateOnce` boundary (versioned baseline-owned prompts
+  `baseline_prompt_one_shot_resume` 1.0.0 digest
+  `sha256:87bc34d473eb1538c82b1d81fe39f366ddd912e46c21de84952ef6685d7dd22d`
+  and `baseline_prompt_one_shot_answer` 1.0.0 digest
+  `sha256:e229eb1610841add3bf1abce99d3a97968b7b3368c111587f7acfed9c81be8f2`;
+  exactly one call, no retry/repair/second-model/retrieval/tools/
+  verification/fallback; raw output preserved verbatim as UNVERIFIED with
+  factual_authority NONE; real-model execution truthfully
+  NOT_EXECUTED_NO_APPROVED_MODEL_LOCK), and an isolated
+  legacy-behavior-observation contract with committed truthful records —
+  CareerPulse UNAVAILABLE (no pinned coordinates exist in project memory)
+  and legacy kalwad/JobApply NOT_ATTEMPTED with one bounded metadata-only
+  GitHub API probe (no clone, no code fetch, no execution, no source
+  viewed) pinning default branch `main`, head commit
+  `c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd`, and license NOASSERTION.
+  A closed Simplify comparison slot is truthfully NOT_CAPTURED with future
+  owners M02-W13/M02-W14/M05-W11. A 34-case development matrix (10 overlap,
+  3 original, 5 stuffing, 4 one-shot résumé, 6 one-shot answer, 6 legacy
+  validation scenarios) binds the public W01/W02 corpus; the test-owned
+  literal oracle `test/m02-w04/oracles/baseline-truth.v1.json` was derived
+  once from a reviewed run and spot-verified independently (Python sha256
+  recomputation of the resume prompt template, the resume-1 fact
+  projection, and the job-1 block projection all matched exactly), and the
+  implementation never reads it. `baseline.manifest.json` commits canonical
+  digests over catalog, prompts, case matrix, observation records, and
+  every `src/` file; `baselines:check` recomputes read-only and
+  `baselines:write` is the explicit authoring command. No evaluation
+  runner, threshold, aggregate scoring, result issuance, corpus freeze,
+  holdout content/manifest, extension, scanner, resolver, driver,
+  benchmark harness, gate artifact, model runtime/lock, production prompt
+  registry entry, retrieval/repair loop, ATS compatibility claim, live
+  employer interaction, or product UI was created. `model/model-lock.json`
+  and `prompts/registry.yaml` remain byte-identical placeholders (asserted
+  by test), and the benchmark contracts are untouched.
+- Layering: the baseline package depends only on `@japp/test-fixtures`
+  (workspace link) plus catalog-pinned `@types/node`/`typescript`/`vitest`;
+  no new external dependency, no network/provider/time/randomness/
+  environment dependence (static source-policy test). No workspace package
+  depends on the baseline owner (asserted by test). The M02-W01 fixture
+  governance test `governance-discovery.test.ts` («keeps the fixture
+  package outside every product dependency graph») previously asserted an
+  empty consumer set because no consumer existed; it now asserts the exact
+  reviewed allowlist `["packages/evaluation-baselines"]` and additionally
+  proves that consumer is private, named `@japp/evaluation-baselines`, and
+  explicitly NON_PRODUCTION — product packages still cannot consume the
+  fixture package, and no fixture datum or W01 truth changed (W01 count
+  remains 108/108).
+- Commands and observed results:
+  - `pnpm install` (reviewed one-importer lockfile update) then
+    `pnpm install --frozen-lockfile` → exit 0.
+  - `pnpm --filter @japp/evaluation-baselines typecheck` → exit 0;
+    `pnpm exec eslint packages/evaluation-baselines` → exit 0 (typed
+    strict); `pnpm exec prettier --check packages/evaluation-baselines` →
+    clean (the two byte-exact canonical JSON artifacts are prettier-ignored
+    with a recorded rationale, mirroring the canonical-docs and
+    deterministic-baseline precedents).
+  - `pnpm --filter @japp/evaluation-baselines baselines:write` (explicit
+    authoring) then `baselines:check` twice → OK both times with identical
+    combined digest
+    `sha256:db8eac35318da668fb837bee44fccd66c85c1f97be88ed15e1245dc672477519`
+    (catalog v1.0.0 schema 1, 34 cases, 2 legacy observation records);
+    check mode changed no tracked bytes.
+  - `pnpm --filter @japp/evaluation-baselines test` → 95/95 across 9 files
+    (catalog/case-matrix identity and classification truth, frozen
+    normalization semantics incl. NFKC fullwidth folding and kept
+    `c++/c#/.net/r&d` specials, oracle-exact overlap term sets and
+    numerator/denominator scores for all ten scenarios incl. zero
+    denominator and misleading-overlap, passthrough byte/digest identity
+    with input non-mutation, exact stuffing outputs with idempotence and
+    UNVERIFIED labeling, one-shot exactly-once/failure/no-fallback/digest
+    stability with fabricated-metric raw preservation, committed legacy
+    records and fourteen closed-contract rejection classes, manifest
+    integrity and read-only check neutrality, package layering,
+    model-lock/prompt-registry boundaries, static source policy, and the
+    finite mutation matrix — overlap-formula drift, normalization drift,
+    prompt tampering at both digest and committed-manifest layers,
+    NON_PRODUCTION removal, second generator call, retry after failure,
+    silent fallback substitution, provenance stripping, source-code field,
+    nondeterministic identity, manifest and data tampering — each with an
+    explicit positive control).
+  - Regressions: `pnpm --filter @japp/test-fixtures exec vitest run
+    test/m02-w01 --no-file-parallelism --maxWorkers=1` → 108/108;
+    `… test/m02-w02 …` → 57/57; `pnpm --filter @japp/test-fixtures test` →
+    166/166; `pnpm --filter @japp/mock-ats-lab test` → 32/32;
+    `pnpm --filter @japp/mock-ats-lab build` → exit 0;
+    `pnpm exec playwright test --list` → 59 tests in 17 files;
+    `pnpm exec playwright test` → 59/59 in real pinned Chromium.
+  - `uv run pytest -q scripts/tests/test_integrity.py` → 43 passed;
+    `scripts/tests/test_suite_states.py` → 294 passed;
+    `scripts/tests/test_proofs_and_real_repo.py` → 7 passed (workspace
+    script counts 10 → 11 from actual discovery);
+    `scripts/tests/test_v14_migration.py` focused with
+    `test_proofs_and_real_repo.py` → 38 passed (the reviewed
+    evaluation-baselines importer must appear exactly once with its exact
+    pins and the complete current lockfile is pinned by reviewed SHA-256
+    `c69c28bb8f2083d105f8190a7027131a808ba10d229b5525a8f1c1dd936170a1`;
+    uv.lock and Cargo.lock digests unchanged); full `uv run pytest -q
+    scripts/tests` → 976 passed (the 977th inventory item runs from
+    `services/orchestrator/tests` in the canonical verifier command;
+    platform inventories remain 977 POSIX / 975 Windows, byte-identical
+    file).
+  - `python3 scripts/validate_status.py` → PASS (45 groups);
+    `uv run python scripts/traceability.py generate` then
+    `pnpm traceability:check` → PASS (193/300) after the reviewed
+    REQ-GATE-007/REQ-GATE-008 SCAFFOLD_ONLY update re-locked the v1.4
+    requirement-mapping hash to
+    `21fec7167e31ac8fd7ab31ba2eb4861f046b51546f271baa2ad3618ded0bdb6c`
+    (package dependency hash unchanged);
+    `pnpm generate:contracts --check` → 183 files byte-identical;
+    `pnpm run doctor` → 22 pass / 1 warning (uncommitted work in
+    progress) / 0 fail / 1 not-yet-applicable.
+  - `pnpm verify` → exit 0 with every ACTIVE suite PASS and visual
+    truthfully NOT_YET_APPLICABLE; unit-ts now runs 2,740 tests
+    (2,440 contracts + 166 fixtures + 95 evaluation-baselines +
+    32 mock-ats-lab + seven one-test packages, 11/11 turbo tasks);
+    e2e-browser runs all 59 Playwright tests through the lab webServer;
+    the canonical python suite passes after the reviewed fixture-repo
+    anchor extension in `scripts/tests/test_traceability.py` (the isolated
+    trace-repo fixture now copies the four M02-W04 completed-path anchors,
+    following the same pattern as the M01-W06/M01-W07 anchors; no Python
+    node ID changed); verification changed no tracked bytes and
+    `git diff --check` stayed clean.
+- Manual validation (spec §1.3(6)): no UI, browser surface, or document
+  renderer is owned by this package (deterministic algorithms, records,
+  and validation only), so browser/UI inspection is not applicable; the
+  real-browser obligation for this milestone remains with the M02-W03 lab
+  and later extension packages. Deterministic replay was inspected
+  directly: two consecutive `baselines:check` runs and repeated in-test
+  executions produced byte-identical results, and the one-shot digest
+  stability test pins identical prompt/input digests across runs.
+- Security/privacy: all committed data is synthetic reserved fixture
+  content; the legacy observation records contain no source code, no
+  snippet, no credential, no PII, and no real applicant datum (validator
+  refuses source-snippet, credential, non-example.test email, traversal,
+  and time/random identity shapes; `code_copied` can never be true). The
+  bounded legacy probe was metadata-only against the public GitHub API;
+  no legacy code was cloned, fetched, viewed, executed, or copied, and no
+  live employer workflow was touched. No network access exists in package
+  code or tests (static source policy); prompts are evaluation-only and
+  never entered the production registry.
+- Scope and governance: implementation evidence only. M02-W04 remains
+  IN_PROGRESS and unaccepted; no package is READY; M02-W01, M02-W02, and
+  M02-W03 remain VERIFIED at their preserved trees (the W01 consumer-
+  allowlist evolution is a reviewed W04 integration, not a reopening —
+  no W01 fixture byte or truth changed); M02 remains IN_PROGRESS; M00 and
+  M01 remain ACCEPTED; all four critical gates remain NOT_EVALUATED (this
+  package neither evaluates a gate nor claims production ATS support —
+  baselines are an evaluation comparison floor with gate_authority NONE);
+  visual regression remains truthfully NOT_YET_APPLICABLE (M10-W06 owns
+  the first mandated surface); the release gate remains NOT_READY. The
+  exact hosted three-OS run for the ending content SHA and the separate
+  fresh verification plus governance closeout remain pending and are bound
+  in the implementation handoff.
+
 ### M02-W03 — Governance closeout after independent Fable verification (2026-08-07)
 
 - Revision: verified content commit `e3a5859d0e30823ca81384cb7cfd53d1951afc64`

@@ -1,0 +1,75 @@
+{
+  "classification": [
+    "EVALUATION_ONLY",
+    "NON_PRODUCTION"
+  ],
+  "file_version": "1.0.0",
+  "isolation_statement": "CareerPulse and legacy JobApply are isolated behavioral baselines (spec §0(16), §5.13). This repository contains no legacy dependency, submodule, import, vendored file, or copied source; any runnable inspection occurs outside the writer repository in a temporary isolated checkout, and captured behavior may enter only as validated records and independently authored clean-room regression fixtures.",
+  "records": [
+    {
+      "classification": "NON_PRODUCTION",
+      "code_copied": false,
+      "comparable": false,
+      "environment": "M02-W04 implementation session on the writer repository; no legacy checkout, artifact, or runtime present.",
+      "failure_or_unavailability_reason": "No repository URL, commit, or runnable artifact for CareerPulse is recorded in project memory; capture requires an owner-supplied isolated checkout outside this repository. The measured clean-room capture harness is owned by M02-W13.",
+      "fixture_inputs": [],
+      "id": "legacyobs_00000000000000000000000001",
+      "license_provenance": "Unknown license; no source was viewed or copied. Any future reuse requires license and provenance review plus an approved ADR per REQ-GATE-007.",
+      "observation_date": "2026-08-07",
+      "observation_status": "UNAVAILABLE",
+      "observed_output_digest": null,
+      "observer": "m02w04-lead-author",
+      "procedure": [
+        "Searched canonical project memory - specification, decisions, known issues, and test evidence - for pinned CareerPulse coordinates; none are recorded."
+      ],
+      "provenance": {
+        "author": "m02w04-lead-author",
+        "authored_in": "M02-W04",
+        "reviewed_on": "2026-08-07",
+        "reviewer": "m02w04-baseline-reviewer"
+      },
+      "record_version": "1.0.0",
+      "regression_fixture_refs": [],
+      "repository_url": null,
+      "safety_observations": [],
+      "source_code_viewed": false,
+      "source_revision": null,
+      "structured_observations": [],
+      "system": "CAREERPULSE",
+      "system_display_name": "CareerPulse (legacy applicant autofill project)"
+    },
+    {
+      "classification": "NON_PRODUCTION",
+      "code_copied": false,
+      "comparable": false,
+      "environment": "Metadata-only GitHub API probe from the M02-W04 implementation session; no clone, no code fetch, no execution, and no legacy file was opened.",
+      "failure_or_unavailability_reason": "Behavioral capture was deliberately not attempted in this session: running legacy code requires a temporary isolated checkout outside the writer repository plus the M02-W13 clean-room harness that scores behavior on the synthetic development fixtures. Only repository identity metadata was recorded.",
+      "fixture_inputs": [],
+      "id": "legacyobs_00000000000000000000000002",
+      "license_provenance": "GitHub reports license NOASSERTION - no recognized license grant; code reuse is prohibited without license and provenance review plus an approved ADR per REQ-GATE-007.",
+      "observation_date": "2026-08-07",
+      "observation_status": "NOT_ATTEMPTED",
+      "observed_output_digest": null,
+      "observer": "m02w04-lead-author",
+      "procedure": [
+        "gh api repos/kalwad/JobApply, metadata only: public JavaScript repository, default branch main, license NOASSERTION, pushed 2026-07-25.",
+        "gh api repos/kalwad/JobApply/commits/main, metadata only: recorded the exact default-branch head commit as source_revision."
+      ],
+      "provenance": {
+        "author": "m02w04-lead-author",
+        "authored_in": "M02-W04",
+        "reviewed_on": "2026-08-07",
+        "reviewer": "m02w04-baseline-reviewer"
+      },
+      "record_version": "1.0.0",
+      "regression_fixture_refs": [],
+      "repository_url": "https://github.com/kalwad/JobApply",
+      "safety_observations": [],
+      "source_code_viewed": false,
+      "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+      "structured_observations": [],
+      "system": "LEGACY_JOBAPPLY",
+      "system_display_name": "kalwad/JobApply (legacy applicant autofill project)"
+    }
+  ]
+}

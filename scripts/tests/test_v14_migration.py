@@ -450,8 +450,29 @@ REVIEWED_MOCK_ATS_LAB_IMPORTER = (
         version: 4.1.10(@types/node@24.13.3)"""
     b"(vite@7.3.6(@types/node@24.13.3)(lightningcss@1.33.0))\n"
 )
+# Reviewed M02-W04 delta: the evaluation-baselines importer with only the
+# workspace fixture link and catalog-pinned dev tooling (spec §8.4; the
+# baseline owner is built by M02-W04 and adds no external dependency).
+REVIEWED_EVALUATION_BASELINES_IMPORTER = (
+    b"""  packages/evaluation-baselines:
+    dependencies:
+      '@japp/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)"""
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
+)
 REVIEWED_PNPM_LOCK_SHA256 = (
-    "56bc9557b049b55e86ea12d147b2be4a43eb50a03596ca55718aae8da03a726a"
+    "c69c28bb8f2083d105f8190a7027131a808ba10d229b5525a8f1c1dd936170a1"
 )
 
 
@@ -511,6 +532,8 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     )
     assert current_pnpm.count(REVIEWED_MOCK_ATS_LAB_IMPORTER) == 1
     assert current_pnpm.count(b"  apps/mock-ats-lab:") == 1
+    assert current_pnpm.count(REVIEWED_EVALUATION_BASELINES_IMPORTER) == 1
+    assert current_pnpm.count(b"  packages/evaluation-baselines:") == 1
     assert _sha256(current_pnpm) == REVIEWED_PNPM_LOCK_SHA256
 
     unchanged = {

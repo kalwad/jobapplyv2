@@ -1,0 +1,24 @@
+{
+  "name": "@japp/evaluation-baselines",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Test-only evaluation baseline algorithms owned by M02-W04 (spec §8.4): original-untailored passthrough, keyword overlap, naive keyword stuffing, injected one-shot generation, and isolated legacy behavior-observation records. EVALUATION_ONLY and NON_PRODUCTION; never a product resume, answer, matching, or autofill feature, and never gate authority.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "baselines:check": "node src/cli.ts check",
+    "baselines:write": "node src/cli.ts write",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --no-file-parallelism --maxWorkers=1"
+  },
+  "dependencies": {
+    "@japp/test-fixtures": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

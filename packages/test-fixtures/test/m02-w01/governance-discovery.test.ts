@@ -149,7 +149,20 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
         }
       }
     }
-    expect(consumers).toEqual([]);
+    // The only reviewed consumer is the M02-W04 test-only evaluation
+    // baseline owner. Product packages still must not depend on the
+    // fixture package: the allowed consumer itself must be private,
+    // @japp/evaluation-baselines by name, and explicitly non-production.
+    expect(consumers).toEqual(["packages/evaluation-baselines"]);
+    const consumerManifest = JSON.parse(
+      readFileSync(
+        join(REPO_ROOT, "packages", "evaluation-baselines", "package.json"),
+        "utf8",
+      ),
+    ) as { name?: string; private?: boolean; description?: string };
+    expect(consumerManifest.name).toBe("@japp/evaluation-baselines");
+    expect(consumerManifest.private).toBe(true);
+    expect(consumerManifest.description).toContain("NON_PRODUCTION");
     expect(readFileSync(join(PACKAGE_ROOT, "README.md"), "utf8")).toContain(
       "test/evaluation data only",
     );

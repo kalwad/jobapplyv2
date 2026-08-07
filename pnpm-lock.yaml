@@ -129,6 +129,22 @@ importers:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))
 
+  packages/evaluation-baselines:
+    dependencies:
+      '@japp/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))
+
   packages/form-engine:
     devDependencies:
       '@types/node':

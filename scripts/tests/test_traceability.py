@@ -95,6 +95,12 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/test/contract/breaking.test.ts",
         "packages/contracts/test/schema/w07-platform.test.ts",
         "scripts/tests/test_generated_platform_contracts.py",
+        # M02-W04 REQ-GATE-007/REQ-GATE-008 completed-path anchors (isolated
+        # legacy-baseline observation contract and truthful records).
+        "packages/evaluation-baselines/src/legacy-observation.ts",
+        "packages/evaluation-baselines/data/legacy-observations.v1.json",
+        "packages/evaluation-baselines/test/m02-w04/legacy-observation.test.ts",
+        "packages/evaluation-baselines/test/m02-w04/mutations.test.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

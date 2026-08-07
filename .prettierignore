@@ -15,6 +15,13 @@ packages/contracts/generated/
 packages/contracts/test/contract/baseline/structural-signature.v1.json
 packages/contracts/test/contract/baseline/compatibility-signature.v2.json
 
+# M02-W04 committed baseline artifacts are byte-exact canonical JSON
+# (sorted keys, 2-space stringify, LF EOF) enforced read-only by
+# `baselines:check`; generic formatting would break the canonical-byte
+# identity that rejects duplicate keys and ordering drift.
+packages/evaluation-baselines/baseline.manifest.json
+packages/evaluation-baselines/data/legacy-observations.v1.json
+
 # Lockfiles and tool/build output
 pnpm-lock.yaml
 uv.lock

@@ -1,0 +1,341 @@
+{
+  "authored_note": "Test-owned literal truth for M02-W04. Derived once from a reviewed implementation run and spot-verified independently; the implementation never reads this file.",
+  "case_matrix": {
+    "case_count": 34,
+    "case_matrix_digest": "sha256:384c8118f93f9a2793ee672183301f3e960c3867bf5c927a09f091f999ae4b92",
+    "matrix_version": "1.0.0"
+  },
+  "catalog": {
+    "algorithm_versions": {
+      "baseline_keyword_overlap_v1": "1.0.0",
+      "baseline_legacy_behavior_observation_v1": "1.0.0",
+      "baseline_naive_keyword_stuffing_v1": "1.0.0",
+      "baseline_one_shot_answer_generation_v1": "1.0.0",
+      "baseline_one_shot_resume_generation_v1": "1.0.0",
+      "baseline_original_untailored_v1": "1.0.0"
+    },
+    "baseline_ids": [
+      "baseline_keyword_overlap_v1",
+      "baseline_legacy_behavior_observation_v1",
+      "baseline_naive_keyword_stuffing_v1",
+      "baseline_one_shot_answer_generation_v1",
+      "baseline_one_shot_resume_generation_v1",
+      "baseline_original_untailored_v1"
+    ],
+    "catalog_digest": "sha256:cbcad2219667d7efe78a170fa83039658ac4e727c1a0617519611f1187bd7384",
+    "catalog_version": "1.0.0",
+    "classification": ["EVALUATION_ONLY", "NON_PRODUCTION"],
+    "one_shot_execution_state": "NOT_EXECUTED_NO_APPROVED_MODEL_LOCK",
+    "schema_version": 1,
+    "simplify_slot": {
+      "future_execution_owners": ["M02-W13", "M02-W14", "M05-W11"],
+      "slot_id": "baseline_simplify_comparison_slot_v1",
+      "status": "NOT_CAPTURED"
+    }
+  },
+  "fixture_bindings": {
+    "job_1_blocks_projection_sha256": "sha256:4191d8a4007918f82854d641c7e963bb9c0d5b08f9a53a1b9d93c26cd6c826d5",
+    "job_1_id": "job_00000000000000000000000001",
+    "resume_1_id": "resume_00000000000000000000000001",
+    "resume_1_projection_sha256": "sha256:003a36adcc2c79c028ac0b575a1e63b23e0b90c0d7d970e49dc7b93ae2c5153f",
+    "resume_1_record_digest": "sha256:d32e22b05da2ea6fa12b0ca4411c108d8a5dbc4b5829eef8d27573668810fe0e"
+  },
+  "keyword_overlap": {
+    "COMPLETE_OVERLAP": {
+      "candidate_terms": ["and", "node.js", "typescript"],
+      "denominator": 2,
+      "matched": ["node.js", "typescript"],
+      "missing": [],
+      "numerator": 2,
+      "target_terms": ["node.js", "typescript"],
+      "zero_target_terms": false
+    },
+    "DUPLICATE_TERMS_UNIQUE_SET": {
+      "candidate_terms": ["python"],
+      "denominator": 2,
+      "matched": ["python"],
+      "missing": ["sql"],
+      "numerator": 1,
+      "target_terms": ["python", "sql"],
+      "zero_target_terms": false
+    },
+    "EMPTY_CANDIDATE": {
+      "candidate_terms": [],
+      "denominator": 2,
+      "matched": [],
+      "missing": ["python", "sql"],
+      "numerator": 0,
+      "target_terms": ["python", "sql"],
+      "zero_target_terms": false
+    },
+    "EMPTY_TARGET_ZERO_DENOMINATOR": {
+      "candidate_terms": ["python"],
+      "denominator": 0,
+      "matched": [],
+      "missing": [],
+      "numerator": 0,
+      "target_terms": [],
+      "zero_target_terms": true
+    },
+    "HYPHEN_SLASH_SEPARATION": {
+      "candidate_terms": ["cd", "ci", "js", "node"],
+      "denominator": 4,
+      "matched": ["cd", "ci", "js", "node"],
+      "missing": [],
+      "numerator": 4,
+      "target_terms": ["cd", "ci", "js", "node"],
+      "zero_target_terms": false
+    },
+    "MISLEADING_LEXICAL_OVERLAP_WITHOUT_EVIDENCE": {
+      "candidate_terms": ["hope", "i", "learn", "someday", "to", "typescript"],
+      "denominator": 1,
+      "matched": ["typescript"],
+      "missing": [],
+      "numerator": 1,
+      "target_terms": ["typescript"],
+      "zero_target_terms": false
+    },
+    "NO_OVERLAP": {
+      "candidate_terms": ["alpha", "bravo", "charlie"],
+      "denominator": 3,
+      "matched": [],
+      "missing": ["delta", "echo", "foxtrot"],
+      "numerator": 0,
+      "target_terms": ["delta", "echo", "foxtrot"],
+      "zero_target_terms": false
+    },
+    "PARTIAL_OVERLAP_FIXTURE": {
+      "candidate_terms": [
+        "01",
+        "1",
+        "2",
+        "3",
+        "and",
+        "applied",
+        "before",
+        "beginning",
+        "candidate",
+        "career",
+        "completed",
+        "declared",
+        "education",
+        "employment",
+        "in",
+        "node.js",
+        "program",
+        "record",
+        "reviewed",
+        "synthetic",
+        "the",
+        "typescript"
+      ],
+      "denominator": 26,
+      "matched": ["3", "synthetic", "typescript"],
+      "missing": [
+        "certification",
+        "compatibility",
+        "constraint",
+        "credential",
+        "experience",
+        "field",
+        "foundation",
+        "have",
+        "importance",
+        "location",
+        "minimum",
+        "mode",
+        "must",
+        "none",
+        "preference",
+        "preferred",
+        "relocation",
+        "remote",
+        "requirement",
+        "skill",
+        "tagged",
+        "work",
+        "years"
+      ],
+      "numerator": 3,
+      "target_terms": [
+        "3",
+        "certification",
+        "compatibility",
+        "constraint",
+        "credential",
+        "experience",
+        "field",
+        "foundation",
+        "have",
+        "importance",
+        "location",
+        "minimum",
+        "mode",
+        "must",
+        "none",
+        "preference",
+        "preferred",
+        "relocation",
+        "remote",
+        "requirement",
+        "skill",
+        "synthetic",
+        "tagged",
+        "typescript",
+        "work",
+        "years"
+      ],
+      "zero_target_terms": false
+    },
+    "PUNCTUATION_CASE_WHITESPACE_VARIANTS": {
+      "candidate_terms": ["node.js", "typescript"],
+      "denominator": 2,
+      "matched": ["node.js", "typescript"],
+      "missing": [],
+      "numerator": 2,
+      "target_terms": ["node.js", "typescript"],
+      "zero_target_terms": false
+    },
+    "STABLE_TIE_AND_ORDER": {
+      "candidate_terms": ["beta", "zeta"],
+      "denominator": 3,
+      "matched": ["beta", "zeta"],
+      "missing": ["alpha"],
+      "numerator": 2,
+      "target_terms": ["alpha", "beta", "zeta"],
+      "zero_target_terms": false
+    }
+  },
+  "keyword_stuffing": {
+    "NO_MISSING_TERMS_text": "python sql modeling",
+    "ONE_MISSING_TERM_text": "python experience\n\nSkills: sql",
+    "SEVERAL_MISSING_TERMS_FIXTURE": {
+      "appended_suffix": "\n\nSkills: certification, compatibility, constraint, credential, experience, field, foundation, have, importance, location, minimum, mode, must, none, preference, preferred, relocation, remote, requirement, skill, tagged, work, years",
+      "inserted_terms": [
+        "certification",
+        "compatibility",
+        "constraint",
+        "credential",
+        "experience",
+        "field",
+        "foundation",
+        "have",
+        "importance",
+        "location",
+        "minimum",
+        "mode",
+        "must",
+        "none",
+        "preference",
+        "preferred",
+        "relocation",
+        "remote",
+        "requirement",
+        "skill",
+        "tagged",
+        "work",
+        "years"
+      ],
+      "transformed_sha256": "sha256:09e869bf561a3a18c08e105098043d49af0e7d30872f2766c806507645a2b249"
+    },
+    "idempotent_second_pass": {
+      "identical": true,
+      "inserted_terms": []
+    }
+  },
+  "legacy_observations": {
+    "careerpulse": {
+      "code_copied": false,
+      "comparable": false,
+      "id": "legacyobs_00000000000000000000000001",
+      "observation_status": "UNAVAILABLE",
+      "observer": "m02w04-lead-author",
+      "repository_url": null,
+      "source_code_viewed": false,
+      "source_revision": null
+    },
+    "file_sha256": "sha256:2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb",
+    "legacy_jobapply": {
+      "code_copied": false,
+      "comparable": false,
+      "id": "legacyobs_00000000000000000000000002",
+      "observation_status": "NOT_ATTEMPTED",
+      "observer": "m02w04-lead-author",
+      "repository_url": "https://github.com/kalwad/JobApply",
+      "source_code_viewed": false,
+      "source_revision": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd"
+    },
+    "record_count": 2
+  },
+  "one_shot": {
+    "answers": {
+      "FACTUAL_QUESTION": {
+        "input_digest": "sha256:5aa409bbf0a845052994011dfcdaf8fa95484ab40bf0e36496d51461074f3e89",
+        "input_refs": [
+          "question_00000000000000000000000067",
+          "profile_00000000000000000000000002",
+          "job_00000000000000000000000003"
+        ],
+        "instantiated_prompt_digest": "sha256:0c487edb1f99eeeebaf8c9b79e1f1872d3521d8f2f1eaa1cc5c040207e1ac277"
+      },
+      "INSUFFICIENT_EVIDENCE_RAW_PRESERVED": {
+        "input_digest": "sha256:b722aa31c7ed4d2355a369aabd0bb22f6434c07c28a38f8bd85979c9679b3a72",
+        "input_refs": [
+          "question_00000000000000000000000016",
+          "profile_00000000000000000000000003",
+          "job_00000000000000000000000008"
+        ],
+        "instantiated_prompt_digest": "sha256:c703d167e472781e305e6eff3bf0cd4336fa96f2cf3a88fe6bafac4f3e4fc98b"
+      },
+      "NARRATIVE_QUESTION": {
+        "input_digest": "sha256:03c42253f28e5ce1da4de0903a6b966a8c96251597e35b8349c4f20e93729d04",
+        "input_refs": [
+          "question_00000000000000000000000001",
+          "profile_00000000000000000000000001",
+          "job_00000000000000000000000001"
+        ],
+        "instantiated_prompt_digest": "sha256:44e3e2df561858eb276f7b4fe877310f4b8558070cef609296b71aa2846c34b8"
+      },
+      "SENSITIVE_CONSEQUENTIAL_QUESTION": {
+        "input_digest": "sha256:b1bdff593386badac708f6d7bc6df6c0e5aa55ee7a613e906ae5ffc643b0d0b3",
+        "input_refs": [
+          "question_00000000000000000000000061",
+          "profile_00000000000000000000000003",
+          "job_00000000000000000000000005"
+        ],
+        "instantiated_prompt_digest": "sha256:09c1a1d9ff171fdca95ace12264c3031a91ce588fe7ad0626541683730068d4b"
+      }
+    },
+    "fabricated_metric_text": "I reduced ML pipeline costs by 47% across 12 production models.",
+    "failure_expectation": {
+      "fallback_used": false,
+      "outcome": "GENERATION_FAILED",
+      "reason_class": "GENERATOR_ERROR",
+      "retries": 0
+    },
+    "fake_success_text": "FAKE_BASELINE_OUTPUT",
+    "resume": {
+      "input_digest": "sha256:49e58f2820346fc4ab6deadfb148f2d38b974333273761f0d7c8b98b21b2af85",
+      "input_refs": [
+        "profile_00000000000000000000000001",
+        "job_00000000000000000000000001",
+        "resume_00000000000000000000000001"
+      ],
+      "instantiated_prompt_digest": "sha256:1bd964da7ff0132b6664b1adafb72029138deb0f37272e7be0d96c966b6134cf",
+      "prompt_digest": "sha256:87bc34d473eb1538c82b1d81fe39f366ddd912e46c21de84952ef6685d7dd22d"
+    }
+  },
+  "oracle_version": "1.0.0",
+  "prompts": {
+    "one_shot_answer": {
+      "prompt_digest": "sha256:e229eb1610841add3bf1abce99d3a97968b7b3368c111587f7acfed9c81be8f2",
+      "prompt_id": "baseline_prompt_one_shot_answer",
+      "prompt_version": "1.0.0"
+    },
+    "one_shot_resume": {
+      "prompt_digest": "sha256:87bc34d473eb1538c82b1d81fe39f366ddd912e46c21de84952ef6685d7dd22d",
+      "prompt_id": "baseline_prompt_one_shot_resume",
+      "prompt_version": "1.0.0"
+    }
+  }
+}
