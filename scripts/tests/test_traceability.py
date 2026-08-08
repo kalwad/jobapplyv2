@@ -84,6 +84,18 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/test/contract/semantic-adapters.test.ts",
         "packages/contracts/test/generated/semantic-rules.test.ts",
         "scripts/tests/test_generated_semantic_rules.py",
+        # M02-W05 REQ-GATE-006 completed-path anchors (deterministic runner,
+        # provenance, aggregation, reports, and synthetic-only proof).
+        "packages/evaluation-runner/src/model.ts",
+        "packages/evaluation-runner/src/runner.ts",
+        "packages/evaluation-runner/src/aggregate.ts",
+        "packages/evaluation-runner/src/report.ts",
+        "packages/evaluation-runner/test/m02-w05/runner.test.ts",
+        "packages/evaluation-runner/test/m02-w05/aggregation-statistics.test.ts",
+        "packages/evaluation-runner/test/m02-w05/reports.test.ts",
+        "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
+        "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
+        "packages/evaluation-runner/test/m02-w05/mutations.test.ts",
         # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
         # capability and platform-service contracts).
         "packages/contracts/generator/semantic-rules.ts",

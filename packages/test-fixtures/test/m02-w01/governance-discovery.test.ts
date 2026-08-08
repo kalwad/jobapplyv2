@@ -149,20 +149,30 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
         }
       }
     }
-    // The only reviewed consumer is the M02-W04 test-only evaluation
-    // baseline owner. Product packages still must not depend on the
-    // fixture package: the allowed consumer itself must be private,
-    // @japp/evaluation-baselines by name, and explicitly non-production.
-    expect(consumers).toEqual(["packages/evaluation-baselines"]);
-    const consumerManifest = JSON.parse(
-      readFileSync(
-        join(REPO_ROOT, "packages", "evaluation-baselines", "package.json"),
-        "utf8",
-      ),
-    ) as { name?: string; private?: boolean; description?: string };
-    expect(consumerManifest.name).toBe("@japp/evaluation-baselines");
-    expect(consumerManifest.private).toBe(true);
-    expect(consumerManifest.description).toContain("NON_PRODUCTION");
+    // The exact reviewed consumers are the M02-W04 baseline owner and the
+    // M02-W05 runner's development-only integration proof. Both must remain
+    // private evaluation packages; no product package may consume fixtures.
+    expect(consumers).toEqual([
+      "packages/evaluation-baselines",
+      "packages/evaluation-runner",
+    ]);
+    const expected = new Map([
+      ["evaluation-baselines", "@japp/evaluation-baselines"],
+      ["evaluation-runner", "@japp/evaluation-runner"],
+    ]);
+    for (const [directory, name] of expected) {
+      const consumerManifest = JSON.parse(
+        readFileSync(
+          join(REPO_ROOT, "packages", directory, "package.json"),
+          "utf8",
+        ),
+      ) as { name?: string; private?: boolean; description?: string };
+      expect(consumerManifest.name).toBe(name);
+      expect(consumerManifest.private).toBe(true);
+      expect(consumerManifest.description?.toLowerCase()).toContain(
+        "evaluation",
+      );
+    }
     expect(readFileSync(join(PACKAGE_ROOT, "README.md"), "utf8")).toContain(
       "test/evaluation data only",
     );

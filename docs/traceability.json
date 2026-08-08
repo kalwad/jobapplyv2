@@ -11,7 +11,7 @@
     "derived_dependency_review": "The complete v1.4 direct-package graph is reviewed from specification \u00a71/\u00a79, including explicit M00-W11, M01-W07, and M27 exceptions; reverse downstream edges are derived from that graph. Historical v1.2/v1.3 hashes remain immutable snapshots. The v1.4 hashes lock requirement honesty, ownership, gate effects, package dependencies, deliverables, automated verification, and manual evidence plans.",
     "v1_3_reviewed_in_work_package": "M00-W10",
     "v1_4_reviewed_in_work_package": "M00-W11",
-    "v1_4_requirements_mapping_sha256": "21fec7167e31ac8fd7ab31ba2eb4861f046b51546f271baa2ad3618ded0bdb6c",
+    "v1_4_requirements_mapping_sha256": "e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39",
     "v1_4_work_package_dependency_sha256": "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1",
     "v1_4_prior_requirement_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
     "v1_4_intentionally_changed_packages": [
@@ -4441,6 +4441,10 @@
         {
           "path": "docs/TEST_EVIDENCE.md",
           "heading": "### M01-W06"
+        },
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W05"
         }
       ],
       "completed_code_paths": [
@@ -4449,15 +4453,25 @@
         "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
         "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
         "packages/contracts/schemas/gate/decision.v1.schema.json",
-        "packages/contracts/catalog/semantic-rules.v1.json"
+        "packages/contracts/catalog/semantic-rules.v1.json",
+        "packages/evaluation-runner/src/model.ts",
+        "packages/evaluation-runner/src/runner.ts",
+        "packages/evaluation-runner/src/aggregate.ts",
+        "packages/evaluation-runner/src/report.ts"
       ],
       "completed_test_paths": [
         "packages/contracts/test/contract/semantic-adapters.test.ts",
         "packages/contracts/test/contract/corpus/cases.v1.json",
         "packages/contracts/test/generated/semantic-rules.test.ts",
-        "scripts/tests/test_generated_semantic_rules.py"
+        "scripts/tests/test_generated_semantic_rules.py",
+        "packages/evaluation-runner/test/m02-w05/runner.test.ts",
+        "packages/evaluation-runner/test/m02-w05/aggregation-statistics.test.ts",
+        "packages/evaluation-runner/test/m02-w05/reports.test.ts",
+        "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
+        "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
+        "packages/evaluation-runner/test/m02-w05/mutations.test.ts"
       ],
-      "notes": "M01-W06 defines and cross-language-tests strict benchmark, holdout, gate-evidence, and decision record contracts, but executes no benchmark or gate run. The full requirement remains future work under M02-W05, M05-W05, and M20-W09: no measured gate artifact, manual scorer identity, owner decision, or acceptance evidence exists, so the requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE.",
+      "notes": "M01-W06 defines and cross-language-tests strict benchmark, holdout, gate-evidence, and decision contracts. M02-W05 adds the deterministic measurement scaffold: trusted repository/schema/corpus/runtime/implementation commitments; actual-only browser/model/prompt participation; per-case timing, memory, artifact and report digests; derived result truth; raw aggregates; uncertainty; immutable regression references; and deterministic JSON/Markdown/HTML reports with zero gate authority. W05 executes only public synthetic development proof and creates no gate run, real W06 holdout, manual scorer identity, owner decision, or acceptance evidence. The complete every-gate-run requirement therefore remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE for M02-W06/W14/W15, M05-W05, and M20-W09.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -7399,7 +7413,7 @@
       "id": "M02-W05",
       "milestone": "M02",
       "title": "Build evaluation runner",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W04"

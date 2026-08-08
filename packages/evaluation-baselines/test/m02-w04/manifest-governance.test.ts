@@ -60,7 +60,7 @@ describe("baseline manifest", () => {
 });
 
 describe("package layering and production boundaries", () => {
-  test("no other workspace package depends on the baseline owner", () => {
+  test("only the W05 evaluation runner consumes baselines, and only for development", () => {
     const workspacePackageFiles: string[] = [];
     for (const group of ["apps", "packages"]) {
       for (const name of readdirSync(join(REPO_ROOT, group))) {
@@ -74,6 +74,7 @@ describe("package layering and production boundaries", () => {
       }
     }
     expect(workspacePackageFiles.length).toBeGreaterThanOrEqual(3);
+    const developmentConsumers: string[] = [];
     for (const manifestPath of workspacePackageFiles) {
       const parsed = JSON.parse(readFileSync(manifestPath, "utf8")) as {
         name?: string;
@@ -87,11 +88,15 @@ describe("package layering and production boundaries", () => {
         Object.keys(parsed.dependencies ?? {}),
         `${manifestPath} must not depend on the baseline package`,
       ).not.toContain("@japp/evaluation-baselines");
-      expect(
-        Object.keys(parsed.devDependencies ?? {}),
-        `${manifestPath} must not depend on the baseline package`,
-      ).not.toContain("@japp/evaluation-baselines");
+      if (
+        Object.keys(parsed.devDependencies ?? {}).includes(
+          "@japp/evaluation-baselines",
+        )
+      ) {
+        developmentConsumers.push(parsed.name ?? "UNNAMED");
+      }
     }
+    expect(developmentConsumers).toEqual(["@japp/evaluation-runner"]);
   });
 
   test("the baseline package depends only on the fixture package and pinned dev tooling", () => {

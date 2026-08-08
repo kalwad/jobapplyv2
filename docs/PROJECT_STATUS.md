@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: governance closeout of verified content commit 5ed2768c895bc2ce3c236d089745556c7e563d5f / tree 656c61d87d0615b6a9b96319888856057686223b
-Last updated: 2026-08-07T20:08:11-04:00
+Repository revision: M02-W05 implementation in progress from governance commit 5f8af91a92f1fe533962d9ac99833b68ed9bf0a8 / tree a13a9c2ef10cf81b809b5ef9e47e5e3a3dbccdbe
+Last updated: 2026-08-07T23:46:37-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W05
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W04 (capture baseline algorithms) is VERIFIED, not ACCEPTED, at exact content commit `5ed2768c895bc2ce3c236d089745556c7e563d5f` / tree `656c61d87d0615b6a9b96319888856057686223b` (parent `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f`) after a genuinely fresh independent GPT-5.6 Sol Ultra audit returned `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE` on 2026-08-07. M02-W05 is the sole READY package and has not begun; no package is IN_PROGRESS and M02 remains IN_PROGRESS. M02-W01, M02-W02, and M02-W03 remain VERIFIED at their preserved trees; M00 and M01 remain ACCEPTED.
+- State: M02-W05 (build evaluation runner) is IN_PROGRESS and unaccepted from exact governance commit `5f8af91a92f1fe533962d9ac99833b68ed9bf0a8` / tree `a13a9c2ef10cf81b809b5ef9e47e5e3a3dbccdbe`; no package is READY. M02-W04 remains VERIFIED, not ACCEPTED, at exact content commit `5ed2768c895bc2ce3c236d089745556c7e563d5f` / tree `656c61d87d0615b6a9b96319888856057686223b` after the independent `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE` audit. M02-W01, M02-W02, and M02-W03 remain VERIFIED at their preserved trees; M02 and M02-W05 remain IN_PROGRESS; M00 and M01 remain ACCEPTED.
 - Defect history: original implementation `7fcdfa34797c29289737f558a7826cd12fb42fc0` received `SOL_BLOCKED_M02_W04_GOVERNANCE`; first correction `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f` received `SOL_BLOCKED_CORRECTED_M02_W04_GOVERNANCE`; second correction `5ed2768c895bc2ce3c236d089745556c7e563d5f` received the final clear verdict. All earlier reports remain reproduction targets rather than acceptance evidence. KI-0046 and KI-0047 are FIXED with the complete reproduction and closure history preserved in docs/KNOWN_ISSUES.md.
 - Acceptance evidence: the independent audit reproduced and closed every historical blocker; accepted all 12 required ordinary-prose controls independently in both observation arrays; rejected all 28 required source-shaped controls independently in both arrays; passed the LF/CRLF multiline accept/reject matrix; and preserved the exact corrected KI-0047 output. Standalone reference proof passed 29/29 without importing W04 helpers, implementation semantic proof passed 22/22, and exactly fifteen independently executed mutation classes rejected with clean positive controls.
-- Verification: catalog 1.0.2 / schema 1 has exactly six EVALUATION_ONLY/NON_PRODUCTION baselines, 34 development cases, and gate authority NONE. Legacy validation 1.0.2, stuffing 1.0.1, both one-shot baselines, original passthrough, lexical overlap, manifest commitments, literal oracle 1.0.2, and the truthful NOT_CAPTURED Simplify slot passed the complete finite review. W04 passed 171/171 across 9 files (legacy 84/84, stuffing 11/11, committed mutation file 15/15); W01 108/108; W02 57/57; fixtures 166/166; mock lab 32/32; Playwright 59/59 across 17 files; TypeScript 2,816; contracts 2,440 and focused contracts 662; scripts tests 976/976 and canonical POSIX Python 977/977 with Windows inventory 975; Rust 1 plus 10; status 45 groups; traceability 193 requirements / 300 packages; and 183 generated contracts byte-identical. Every ACTIVE suite passed and visual remains NOT_YET_APPLICABLE.
-- Hosted content proof: push run `31225740045` is successful at exact head SHA `5ed2768c895bc2ce3c236d089745556c7e563d5f` on ubuntu-24.04 job `93019549384`, macos-15 job `93019549289`, and windows-2025 job `93019549294`. Every job checked out the exact SHA and reproduced the substantive counts, doctor success, verification exit 0, all ACTIVE suites PASS, visual NOT_YET_APPLICABLE, and tracked cleanliness. The complete Windows log (2,993 lines / 618,256 bytes) records Python 975/975 and no EPERM or action error.
-- Scope: no production package depends on or exports `@japp/evaluation-baselines`; no real provider/model/runtime/network dependency exists; `model/model-lock.json` and `prompts/registry.yaml` remain untouched; no legacy repository was cloned or executed; CareerPulse remains UNAVAILABLE and legacy JobApply NOT_ATTEMPTED with no CAPTURED record and `code_copied=false`; no M02-W05 runner or later behavior exists. REQ-GATE-007 and REQ-GATE-008 remain SCAFFOLD_ONLY. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED; release remains NOT_READY. No critical gate was evaluated.
+- Local implementation proof: evaluation-runner formats 1.0.0 pass 200/200 tests across 9 files; the required finite mutation campaign is exactly 18/18; deterministic JSON/Markdown/standalone-HTML replay passes, including canonical normalization of set-like adapter observations and fail-closed record/result replay; exact-decimal thresholds, result derivation, raw aggregates, paired precision/recall, Wilson uncertainty, immutable regression references, provenance commitments, report escaping, strict local-file input, and the finite W04 integration subset all pass. W04 remains 171/171; W01 108/108; W02 57/57; fixtures 166/166; mock lab 32/32; Playwright 59/59 across 17 files; focused Python files pass 43, 294, 7, 62, 31, and 148 tests; scripts tests remain 976/976 with no Python inventory change; status remains 45 groups; traceability remains 193 requirements / 300 packages; generated contracts remain 183 byte-identical. The final local canonical verifier passed 3,016/3,016 TypeScript tests, 977/977 POSIX Python inventory items, focused contracts 662/662, Rust 1+10, and every ACTIVE suite; visual remained NOT_YET_APPLICABLE. Exact-SHA hosted proof is recorded after the content push, without changing package state.
+- Preserved prerequisite hosted proof: W04 push run `31225740045` remains successful at exact SHA `5ed2768c895bc2ce3c236d089745556c7e563d5f` on ubuntu-24.04, macos-15, and windows-2025. W05 exact-SHA hosted verification follows its content push and does not constitute independent acceptance verification or governance closeout.
+- Scope: `@japp/evaluation-runner` is reusable evaluation-only measurement infrastructure with runtime dependency only on `@japp/contracts`; its W04 baseline and W01/W02 fixture links are development-only, and no production package depends on the runner. No real provider/model/network dependency, production model runtime, model lock, production prompt, real holdout body/manifest, W13 autofill harness, Simplify worksheet, W14 evaluation, W15 decision, product UI, extension, scanner, resolver, driver, state engine, live employer interaction, or critical-gate mutation exists. `model/model-lock.json`, `prompts/registry.yaml`, and all gate reports remain untouched. REQ-GATE-006 truthfully remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE with its new W05 infrastructure anchors; REQ-GATE-007 and REQ-GATE-008 remain SCAFFOLD_ONLY. All four critical gates remain NOT_EVALUATED and release remains NOT_READY.
 - Blockers: NONE. KI-0046 and KI-0047 are FIXED by the verified content and independent acceptance evidence. KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners; all previously fixed issues remain fixed and no earlier package is reopened.
 
 ## Milestone table
@@ -37,7 +37,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, and M02-W05 READY but not begun |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, and M02-W05 IN_PROGRESS and unaccepted |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -101,7 +101,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W02` | VERIFIED | tree ebe546966ed403f3155dcd04779984671e565d06 | docs/TEST_EVIDENCE.md § M02-W02 | Create question and answer fixtures; verified after independent fixed-scope Fable verification (hosted run 30932832896) |
 | `M02-W03` | VERIFIED | tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758 | docs/TEST_EVIDENCE.md § M02-W03 | Build mock ATS lab v1; verified after independent fixed-scope Fable verification (hosted run 31129161772) |
 | `M02-W04` | VERIFIED | tree 656c61d87d0615b6a9b96319888856057686223b | docs/TEST_EVIDENCE.md § M02-W04 | Capture baseline algorithms; corrected content independently verified after `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE` (hosted content run 31225740045) |
-| `M02-W05` | READY | — | — | Build evaluation runner; sole READY package, not begun |
+| `M02-W05` | IN_PROGRESS | — | — | Build evaluation runner; implementation writer pass in progress and unaccepted |
 | `M02-W06` | NOT_STARTED | — | — | Freeze v1 corpus and holdout manifest |
 | `M02-W07` | NOT_STARTED | — | — | Scaffold the real MV3 feasibility extension |
 | `M02-W08` | NOT_STARTED | — | — | Implement semantic field identity and per-frame scanner |
@@ -382,9 +382,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W05
-- Reason: M02-W04 is VERIFIED at exact content commit 5ed2768c895bc2ce3c236d089745556c7e563d5f / tree 656c61d87d0615b6a9b96319888856057686223b after `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE`, with content run 31225740045 green on all three certified runners. M00 and M01 remain ACCEPTED and M02-W01 through M02-W04 are VERIFIED, so M02-W05 is the sole READY package. Implementation has not begun.
-- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md § M02 (M02-W05 row — build evaluation runner), §8.4, the M02-W04 governance-closeout evidence in docs/TEST_EVIDENCE.md, and the M02 package dependency/traceability records.
+- ID: NONE
+- Reason: M02-W05 is the sole IN_PROGRESS package. M02-W06 remains NOT_STARTED until a separate fresh session independently verifies the exact M02-W05 content revision and governance explicitly marks M02-W05 VERIFIED.
+- Required reading: NONE while M02-W05 remains IN_PROGRESS.
 
 ## Known release blockers
 

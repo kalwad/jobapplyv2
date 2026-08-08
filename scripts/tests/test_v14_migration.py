@@ -471,8 +471,34 @@ REVIEWED_EVALUATION_BASELINES_IMPORTER = (
         version: 4.1.10(@types/node@24.13.3)"""
     b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
 )
+# Reviewed M02-W05 delta: runtime ownership is limited to stable contracts;
+# W04 baselines and W01/W02 fixtures are explicit development-only links.
+REVIEWED_EVALUATION_RUNNER_IMPORTER = (
+    b"""  packages/evaluation-runner:
+    dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      '@japp/evaluation-baselines':
+        specifier: workspace:*
+        version: link:../evaluation-baselines
+      '@japp/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)"""
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
+)
 REVIEWED_PNPM_LOCK_SHA256 = (
-    "c69c28bb8f2083d105f8190a7027131a808ba10d229b5525a8f1c1dd936170a1"
+    "35ced3349a4647ea828bed61cb7e349eb7b3edc5ccff670a863b910d5f140414"
 )
 
 
@@ -521,10 +547,9 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     ).stdout
     assert historical_pnpm == expected_pnpm
 
-    # Current lockfile: the reviewed historical importer bytes survive
-    # unchanged, the reviewed M02-W03 mock ATS lab importer exists exactly
-    # once with its exact pins, and the complete file matches the reviewed
-    # digest (any other change fails closed).
+    # Current lockfile: every reviewed historical importer survives unchanged,
+    # the additive M02-W05 importer exists exactly once with its exact
+    # evaluation-only links, and the complete file matches the reviewed digest.
     current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
     assert current_pnpm.count(reviewed_importer) == 1
     assert current_pnpm.count(reviewed_prettier) == historical_pnpm.count(
@@ -534,6 +559,8 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert current_pnpm.count(b"  apps/mock-ats-lab:") == 1
     assert current_pnpm.count(REVIEWED_EVALUATION_BASELINES_IMPORTER) == 1
     assert current_pnpm.count(b"  packages/evaluation-baselines:") == 1
+    assert current_pnpm.count(REVIEWED_EVALUATION_RUNNER_IMPORTER) == 1
+    assert current_pnpm.count(b"  packages/evaluation-runner:") == 1
     assert _sha256(current_pnpm) == REVIEWED_PNPM_LOCK_SHA256
 
     unchanged = {

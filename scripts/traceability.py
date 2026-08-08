@@ -79,10 +79,13 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # M02-W04 recorded the isolated legacy-baseline scaffold portion of
 # REQ-GATE-007 and REQ-GATE-008 (state SCAFFOLD_ONLY plus evidence anchor,
 # observation-contract/data code paths, validation/mutation test paths, and
-# notes — no ownership, mapping, gate effect, or dependency changed) and
-# re-locked the hash below.
+# notes — no ownership, mapping, gate effect, or dependency changed). M02-W05
+# then recorded the deterministic runner/provenance/report scaffold portion of
+# REQ-GATE-006 (additional evidence/code/test anchors and honest future-work
+# notes only; state, ownership, mapping, gate effects, and dependencies remain
+# unchanged) and re-locked the hash below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "21fec7167e31ac8fd7ab31ba2eb4861f046b51546f271baa2ad3618ded0bdb6c"
+    "e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

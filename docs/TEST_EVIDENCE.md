@@ -33,6 +33,103 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W05 — Build deterministic evaluation runner (2026-08-07)
+
+- Revision: implementation working tree over exact governance parent
+  `5f8af91a92f1fe533962d9ac99833b68ed9bf0a8` / tree
+  `a13a9c2ef10cf81b809b5ef9e47e5e3a3dbccdbe`; the containing content
+  commit and tree are reported post-commit because neither can
+  self-authenticate inside its own bytes. Owner-selected implementation
+  agent: GPT-5.6 Sol Ultra, one authoritative writer with no delegation or
+  automatic model switching.
+- Architecture: additive private workspace owner
+  `packages/evaluation-runner` (`@japp/evaluation-runner`) with format version
+  1.0.0 for execution requests, adapter observations, internal per-case
+  records, aggregates, immutable regression comparisons, report models,
+  JSON/Markdown/standalone-HTML projections, and the out-of-band report
+  artifact manifest. Runtime dependency is only `@japp/contracts`; W04
+  baselines and W01/W02 fixtures are explicit development-only dependencies.
+  No production workspace package depends on the runner, and package source
+  has no product, provider, network, process-execution, randomness, ambient
+  environment, extension, or form-engine dependency.
+- Existing contracts: every input case is structurally validated by generated
+  `BenchmarkCaseV1` and semantically validated by the existing
+  `BENCHMARK_CASE_INTEGRITY` rules. Complete and partial observations with at
+  least one metric issue the authoritative generated `BenchmarkResultV1` and
+  pass its structural plus `BENCHMARK_RESULT_INTEGRITY` validators. A setup
+  failure has no fabricated metric, so the versioned internal record retains
+  it visibly as `FAILED_SETUP`/`INVALID` without falsely issuing result v1.
+- Threshold and result truth: committed threshold payloads support exact
+  `AT_LEAST`, `AT_MOST`, and `EXACT` comparison across `BYTES`, `COUNT`,
+  `MILLISECONDS`, `RATIO`, and `SCORE`. Finite bounded values are converted
+  from canonical shortest decimal text into normalized BigInt
+  coefficient/scale values and compared exactly—no epsilon or subtraction
+  drift. Duplicate, missing-complete, unexpected, mismatched-unit, mutable,
+  or digest-tampered metrics reject. The runner, never the caller, derives
+  threshold pass/fail, completeness, environment/hash/holdout state,
+  comparability, and `PASS`/`FAIL`/`INVALID` outcome.
+- Aggregation/statistics: every finite record remains visible in raw
+  completeness, comparability, outcome, environment, hash, holdout, failure
+  code, metric, zero-tolerance, and implementation/baseline counts. Rates
+  always carry raw numerator and denominator. Declared proportion metrics
+  pool raw counts rather than averaging ratios. TP/FP/FN groups always emit
+  precision and recall together with all raw counts and explicit zero-
+  denominator handling. Comparable Bernoulli evidence uses a fixed two-sided
+  95% Wilson score interval (`z=1.959963984540054`); no observations,
+  `n=1`, non-Bernoulli metrics, zero-tolerance counts, environment mismatch,
+  and incomparable evidence remain explicit rather than acquiring a fake
+  interval or a superiority claim.
+- Regression/reporting: comparisons accept only an explicitly supplied,
+  versioned, content-addressed reference and require compatible metric/unit,
+  corpus, runtime, metric/threshold semantics, implementation identity,
+  prompt set, and browser commitment. They report both values/raw counts,
+  exact signed and meaningful relative deltas, threshold/comparator truth,
+  reasons, and both provenance digests; no “latest” selection exists. JSON is
+  canonical machine truth. Markdown and script-free standalone HTML validate
+  the same report model, recompute aggregate truth from visible cases, verify
+  content-derived record/run IDs, escape untrusted text/provenance, sort
+  stably, normalize set-like adapter observations before identity hashing,
+  re-derive record/result truth during replay, and carry exact artifact
+  SHA-256/byte counts in a non-self-referential manifest. Every human report states
+  `THIS REPORT HAS NO CRITICAL-GATE AUTHORITY`.
+- Pre-W06 boundary and integration: only public synthetic cases may use the
+  reviewed fixed `DEVELOPMENT_NOT_APPLICABLE_V1` commitment. It yields the
+  existing result contract's truthful `NOT_APPLICABLE` holdout state and is
+  explicitly not a W06 manifest, hidden corpus, or gate-evidence artifact.
+  The finite W04 integration proof invokes original passthrough, lexical
+  overlap with raw counts, explicitly UNVERIFIED/NON_PRODUCTION keyword
+  stuffing, one-shot generation through one deterministic fake call, and the
+  existing unavailable/not-attempted legacy observations, which remain
+  partial/incomparable/invalid rather than becoming benchmark PASS evidence.
+- Focused verification completed in this writer pass:
+  - frozen/locked `pnpm`, `uv`, and both Rust-manifest fetches → exit 0;
+    workspace discovery reports 15 projects (root plus 14 workspace
+    packages), with one reviewed lockfile importer and no external package.
+  - W05 typecheck, strict ESLint, Prettier, and `runner:check` → exit 0;
+    deterministic report replay PASS; W05 Vitest 200/200 across 9 files.
+  - finite required mutation campaign → exactly 18/18 ordinary passes, each
+    retaining a clean positive control.
+  - preserved W04 typecheck/check/test → 171/171 across 9 files; W01 →
+    108/108; W02 → 57/57; full fixtures → 166/166; mock lab → 32/32 and build
+    success; Playwright discovery/execution → 59 tests in 17 files / 59/59.
+  - final local `pnpm verify` with pinned Node 24.18.0 → exit 0: 12/12
+    typecheck tasks; 12/12 test tasks and 3,016/3,016 TypeScript tests;
+    generated contracts 183/183 byte-identical; focused contracts 662/662;
+    exact POSIX Python inventory 977/977; Rust 1/1 plus 10/10; status 45
+    groups; traceability 193/300; every ACTIVE suite PASS; visual remained
+    truthfully NOT_YET_APPLICABLE; no skipped, xfailed, xpassed, or other
+    nonordinary test outcome.
+- Scope/governance: implementation evidence only. M02-W05 remains
+  IN_PROGRESS and unaccepted; M02-W06 remains NOT_STARTED; no package is
+  READY; M02-W01 through M02-W04 remain VERIFIED; KI-0046/KI-0047 remain
+  FIXED; M02 remains IN_PROGRESS; all critical gates remain NOT_EVALUATED;
+  release remains NOT_READY. No real holdout, W13 autofill benchmark harness,
+  W14 evaluation, W15 decision, gate report change, production model/prompt,
+  live employer interaction, or governance closeout occurred. Exact-SHA
+  three-OS hosted execution and a separate fresh independent verification
+  remain subsequent evidence steps; only that separate session may move W05
+  to VERIFIED and make W06 READY.
+
 ### M02-W04 — Governance closeout after final independent Sol verification (2026-08-07)
 
 - Accepted content boundary: exact commit
