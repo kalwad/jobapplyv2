@@ -33,6 +33,169 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W04 — Governance closeout after final independent Sol verification (2026-08-07)
+
+- Accepted content boundary: exact commit
+  `5ed2768c895bc2ce3c236d089745556c7e563d5f`, tree
+  `656c61d87d0615b6a9b96319888856057686223b`, parent
+  `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f`, title
+  `M02-W04: refine clean-room observation boundary`. Before Stage A and again
+  before governance, clean `main`, HEAD, and `origin/main` were exact. The
+  JAPP-MASTER-001 v1.4 SHA-256 remained
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  The fresh authoritative verifier started and finished on the owner-selected
+  GPT-5.6 Sol Ultra model and had not authored, edited, supervised, committed,
+  pushed, or repaired any M02-W04 revision.
+- Preserved defect lifecycle: original implementation
+  `7fcdfa34797c29289737f558a7826cd12fb42fc0` received
+  `SOL_BLOCKED_M02_W04_GOVERNANCE`; first correction
+  `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f` received
+  `SOL_BLOCKED_CORRECTED_M02_W04_GOVERNANCE`; second correction
+  `5ed2768c895bc2ce3c236d089745556c7e563d5f` received
+  `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE`. Every prior Fable/Sol report was
+  treated only as a reproduction target.
+- Historical-blocker probe: an independently authored temporary probe outside
+  tracked bytes passed 99/99 controls. Current content rejected UNAVAILABLE
+  with nonempty safety observations and CAPTURED records using `main`, `HEAD`,
+  a short SHA, or `const copied = 1;`; it accepted a valid synthetic CAPTURED
+  record with an HTTPS repository coordinate, full lowercase 40-hex Git SHA,
+  synthetic fixture input/digest, output digest, plain-language observations,
+  and `code_copied=false`.
+- Complete ordinary-prose matrix: each value independently accepted in both
+  `structured_observations` and `safety_observations` (24/24):
+  `The interface displayed three ordinary fields.`,
+  `The type field remained empty.`, `Filled three ordinary fields…`,
+  `The class field was hidden.`, `The switch control remained off.`,
+  `The return value was empty.`, `The interface loaded after navigation.`,
+  `The type selector showed no value.`, `The enum field label was visible.`,
+  `The application displayed one required field.`,
+  `The operator selected the first option.`, and `Submit (disabled)`.
+- Complete source-shape matrix: each value independently rejected in both
+  observation arrays (56/56): `const copied = 1;`, `let value = 2;`,
+  `var total = 3;`, `type Result = string;`,
+  `interface Result { value: string }`, `class Result { }`,
+  `enum Result { One }`, `import value from "module";`,
+  `export const value = 1;`, `module.exports = value;`,
+  `require("module");`, `value + 1;`, `value - 1;`, `value * 2;`,
+  `value / 2;`, `value % 2;`, `value + 1 + 2;`, `total = value;`,
+  `total += 1;`, `object.field = value;`, `run(value);`,
+  `object.run(value);`, `console.log(value);`, `return value;`,
+  `throw error;`, `if (ready) {`, `while (ready) {`, and
+  `for (item of items) {`.
+- Multiline matrix: LF and CRLF variants in both arrays accepted
+  `The interface displayed three fields.` followed by
+  `The type field remained empty.` and rejected that first prose line followed
+  by `value + 1;`, plus `The type field remained empty.` followed by
+  `const copied = 1;` (12/12). The exact KI-0047 call produced
+  `Analyst with Excel experience.\n\n[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: sql]`,
+  never `Skills: sql`, with `inserted_terms=["sql"]`,
+  `grounded_in_evidence=false`, `verification_status=UNVERIFIED`, and both
+  EVALUATION_ONLY/NON_PRODUCTION classifications.
+- Complete finite semantic result: `@japp/evaluation-baselines` is a private
+  test/evaluation-only package; no production package depends on, exports,
+  imports, or reads it or its literal oracle. No provider, model, runtime,
+  network, legacy-code, vendor, submodule, or copied-source dependency exists;
+  the correction changed no dependency or lock file; and no M02-W05 runner
+  exists. Catalog 1.0.2 / schema 1 has exactly six definitions and 34
+  development cases: ORIGINAL_UNTAILORED, KEYWORD_OVERLAP,
+  NAIVE_KEYWORD_STUFFING, ONE_SHOT_RESUME_GENERATION,
+  ONE_SHOT_ANSWER_GENERATION, and LEGACY_BEHAVIOR_OBSERVATION. Every baseline
+  is EVALUATION_ONLY/NON_PRODUCTION with gate authority NONE.
+- Algorithm result: original text is byte-identical, structured output is a
+  canonical-content-equal distinct clone, inputs are not mutated, metadata is
+  separate, and no fact changes. Keyword overlap independently reproduced
+  NFKC/lowercase/token/punctuation/hyphen/slash/trailing-dot/duplicate/stable-
+  order behavior, no stemming/stopwords/embeddings/weights/model calls, exact
+  `unique matched target terms / unique target terms`, and explicit zero-
+  target score 0. Stuffing 1.0.1 preserves deterministic missing-term order,
+  contains no claim-bearing heading, is byte-identical on no-op, prevents
+  duplicates, is idempotent, preserves original text, stays UNVERIFIED and
+  ungrounded, and has no authority. Resume and answer control flow each makes
+  exactly one injected `generateOnce` call with no retry, repair, second model,
+  retrieval, tool, verifier loop, fallback, or additional call after failure;
+  raw output is preserved with factual authority NONE. Only deterministic
+  in-process fakes are used; `model/model-lock.json` and
+  `prompts/registry.yaml` are untouched.
+- Legacy/Simplify result: legacy validation 1.0.2 keeps CareerPulse
+  UNAVAILABLE and JobApply NOT_ATTEMPTED, commits no CAPTURED record, requires
+  empty noncapture payload channels and immutable captured repository/full-SHA
+  coordinates, forbids `code_copied=true`, accepts ordinary behavioral prose,
+  and rejects the bounded source shapes. No legacy repository was cloned or
+  executed. The Simplify slot remains truthfully NOT_CAPTURED with no
+  fabricated observation or live-employer automation and with future owners
+  M02-W13, M02-W14, and M05-W11. REQ-GATE-007 and REQ-GATE-008 remain
+  SCAFFOLD_ONLY.
+- Manifest/oracle proof: two consecutive read-only `baselines:check` commands
+  passed with no tracked mutation. Catalog digest is
+  `sha256:c8b9858242481ca2532e2a55589c478d14e3bdaf7761e1f74ff9effd3a4593cc`,
+  combined digest
+  `sha256:71c41a754e997998328535670095debb4c068576f788863cd3a458fe31996cc5`,
+  legacy-data digest
+  `sha256:2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb`,
+  case digest
+  `sha256:384c8118f93f9a2793ee672183301f3e960c3867bf5c927a09f091f999ae4b92`,
+  and literal oracle version 1.0.2. Production does not read the oracle.
+- Independent reference proof: a temporary 29-check program outside tracked
+  bytes imported no W04 helper and independently reproduced all six IDs,
+  catalog/schema versions, 34-case count, raw catalog/manifest commitments,
+  combined digest, both prompt digests, normalization and exact overlap
+  scores, corrected single/multi-term stuffing order, original byte/canonical
+  identity, committed legacy statuses, mutable-versus-full-SHA classification,
+  prose-versus-source examples, and absence of production-package dependency.
+  It passed 29/29. A separate implementation semantic probe passed 22/22.
+- Exactly fifteen independent mutations: each disposable copy first passed
+  its clean positive-control command with exit 0, then its mutant exited 1.
+  Rejected classes were `OVERLAP_FORMULA_DRIFT`, `NORMALIZATION_DRIFT`,
+  `CLAIM_BEARING_STUFFING`, `RESUME_PROMPT_TAMPER`, `ANSWER_PROMPT_TAMPER`,
+  `AUTHORITY_ESCALATION`, `SECOND_GENERATOR_CALL`, `RETRY_AFTER_FAILURE`,
+  `SILENT_FALLBACK`, `NONCAPTURED_PAYLOAD`, `MUTABLE_CAPTURE_REVISION`,
+  `SOURCE_SNIPPET_ACCEPTANCE`, `KEYWORD_ONLY_FALSE_POSITIVE_REGRESSION`,
+  `ARITHMETIC_FALSE_NEGATIVE_REGRESSION`, and `MANIFEST_OR_DATA_TAMPER`.
+  Targeted failures included exact-score mismatches, the NFKC control,
+  claim-bearing literal/oracle mismatch, prompt/manifest drift, classification
+  drift, call-count/retry/fallback failures, noncapture payload acceptance,
+  mutable revision acceptance, const/import/function acceptance, ordinary-
+  prose rejection, arithmetic acceptance, and legacy-data/combined-digest
+  drift. No additional mutation family was added.
+- Fresh-clone local execution: Node 24.18.0, pnpm 11.17.0, uv 0.11.32,
+  Python 3.12.13, Rust/Cargo 1.97.1, and Playwright 1.62.0. W04 typecheck,
+  ESLint, Prettier, and manifest checks passed; W04 tests were 171/171 across
+  9 files (legacy 84/84, stuffing 11/11, committed mutation file 15/15).
+  W01 was 108/108, W02 57/57, fixtures 166/166, mock lab 32/32 plus successful
+  typecheck/build, and Playwright 59/59 across 17 files. Focused Python suites
+  were integrity 43, suite states 294, real-repo proofs 7, traceability 62,
+  v1.4 migration 31, and status validation 148; full `scripts/tests` was
+  976/976. Status passed 45 groups, traceability 193 requirements / 300 work
+  packages, generated contracts 183 byte-identical, and doctor 23 pass / 0
+  warning / 0 fail / 1 not-yet-applicable.
+- Canonical verification: `pnpm verify` exited 0 with TypeScript 2,816,
+  contracts 2,440, focused contracts 662, W04/W01/W02/fixtures/mock/Playwright
+  counts above, POSIX Python 977/977, committed Windows Python inventory
+  975/975, Rust 1 plus 10, every ACTIVE suite PASS, visual
+  NOT_YET_APPLICABLE, and no nonordinary outcome. Protected model, prompt,
+  pnpm/uv/Cargo lock, workflow, Python-inventory, and master-spec bytes were
+  identical to the content commit after execution.
+- Hosted content proof: push-triggered workflow `31225740045` completed
+  successfully at exact head SHA
+  `5ed2768c895bc2ce3c236d089745556c7e563d5f`: ubuntu-24.04 job
+  `93019549384`, macos-15 job `93019549289`, and windows-2025 job
+  `93019549294`. Every complete log reproduced W04 171, W01 108, W02 57,
+  fixtures 166, mock 32, Playwright 59, contracts 2,440, focused contracts
+  662, Python 977 POSIX / 975 Windows, Rust 1+10, doctor success, verification
+  exit 0, every ACTIVE suite PASS, visual NYA, and clean tracked state. The
+  complete Windows stream was 618,256 bytes / 2,993 lines, ended at normal job
+  cleanup, and contained no EPERM or action error.
+- Governance result: M02-W04 transitions IN_PROGRESS → VERIFIED at tree
+  `656c61d87d0615b6a9b96319888856057686223b`; M02-W05 transitions
+  NOT_STARTED → READY as the sole READY package and remains unbegun; current
+  work becomes NONE; KI-0046 and KI-0047 transition IN_PROGRESS → FIXED.
+  M00/M01 remain ACCEPTED, M02 remains IN_PROGRESS, M02-W01/W02/W03 remain
+  VERIFIED, REQ-GATE-007/008 remain SCAFFOLD_ONLY, all four critical gates
+  remain NOT_EVALUATED, and release remains NOT_READY. No implementation,
+  test, package, manifest, oracle, dependency, lock, workflow, model, prompt,
+  schema, contract, or gate-report byte changed; no M02-W05 or later behavior
+  was implemented and no critical gate was evaluated.
+
 ### M02-W04 — Residual KI-0046 clean-room observation correction (2026-08-07)
 
 - Revision boundary: forward-only corrective writer working tree over exact

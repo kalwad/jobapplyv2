@@ -32,24 +32,25 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
-## Open defects
+## M02-W04 acceptance defect history
 
-KI-0046 and KI-0047 remain the two bounded M02-W04 acceptance blockers. The
-independent GPT-5.6 Sol Ultra verifier first reported both against content
-commit `7fcdfa34797c29289737f558a7826cd12fb42fc0` / tree
-`616a1a8048f5d91ed67cae899b60ea0f3a882481`; correction `a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f`
-closed those original reproductions. A fresh independent GPT-5.6 Sol Ultra
-verifier then found a residual KI-0046 clean-room classifier mismatch in
-`a5aa436`; the narrow second correction is locally green. Both issues remain
-IN_PROGRESS until the new forward correction has exact-SHA three-OS hosted
-success and a separate fresh GPT-5.6 Sol Ultra session verifies the corrected
-content. The blocked revisions remain historical implementation evidence
-only. No governance closeout has occurred.
+KI-0046 and KI-0047 are FIXED by independently accepted M02-W04 content commit
+`5ed2768c895bc2ce3c236d089745556c7e563d5f` / tree
+`656c61d87d0615b6a9b96319888856057686223b` and exact-SHA three-OS content run
+`31225740045`. The independent GPT-5.6 Sol Ultra verifier first reported both
+against original implementation `7fcdfa34797c29289737f558a7826cd12fb42fc0`
+and returned `SOL_BLOCKED_M02_W04_GOVERNANCE`. First correction
+`a5aa43602e67a66c5319fa7b24aa8b6b32bfd71f` closed those reproductions, but a
+fresh independent verifier found the residual KI-0046 classifier mismatch and
+returned `SOL_BLOCKED_CORRECTED_M02_W04_GOVERNANCE`. A final genuinely fresh
+GPT-5.6 Sol Ultra session reproduced the full history, completed the finite
+audit, and returned `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE` for `5ed2768`.
+All three generations remain below as immutable defect/reproduction history.
 
 ### KI-0046 — Legacy observation records did not fail closed
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-07 during independent M02-W04 acceptance verification
 - Affects: M02-W04; REQ-GATE-007; REQ-GATE-008;
   `packages/evaluation-baselines` legacy-observation validation and clean-room
@@ -81,7 +82,7 @@ only. No governance closeout has occurred.
   and `"Filled three ordinary fields..."` correctly accepts.
 - Workaround: none accepted. Manual review cannot replace the executable
   record boundary, and no CAPTURED observation may be fabricated.
-- Resolution + evidence link: IN_PROGRESS. First correction `a5aa436` retains
+- Resolution + evidence link: FIXED. First correction `a5aa436` retains
   and checks safety observations, rejects all five payload fields for every
   non-CAPTURED status, requires a repository URL plus full lowercase 40-hex
   Git commit for CAPTURED source coordinates, and rejects bounded source
@@ -97,15 +98,19 @@ only. No governance closeout has occurred.
   `LEGACY_OBSERVATION_SOURCE_REVISION`, and
   `LEGACY_OBSERVATION_SOURCE_SNIPPET`; the two residual prose examples now
   accept, `value + 1;` rejects, and the original prose positive still accepts.
-  See docs/TEST_EVIDENCE.md § M02-W04 — Residual KI-0046 clean-room
-  observation correction (2026-08-07). Closure still requires exact-SHA
-  hosted success and separate fresh independent acceptance verification;
-  M02-W04 remains unaccepted.
+  Final content `5ed2768c895bc2ce3c236d089745556c7e563d5f` passed the
+  complete independent 12-prose/28-source/LF-and-CRLF matrix in both payload
+  arrays, the standalone 29/29 reference program, all fifteen independent
+  mutations, the complete local inventory, and exact-SHA three-OS run
+  `31225740045`; the final verifier returned
+  `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE`. See docs/TEST_EVIDENCE.md §
+  M02-W04 — Governance closeout after final independent Sol verification
+  (2026-08-07). M02-W04 is VERIFIED, not ACCEPTED.
 
 ### KI-0047 — Keyword stuffing asserted an unsupported candidate skill
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-07 during independent M02-W04 acceptance verification
 - Affects: M02-W04; `packages/evaluation-baselines` naive keyword-stuffing
   transformation, catalog, README, literal oracle, manifest, and truth tests
@@ -124,17 +129,21 @@ only. No governance closeout has occurred.
   `["sql"]`, and `grounded_in_evidence` is false.
 - Workaround: none accepted. A label stored only in side metadata does not
   remove the claim-bearing heading from the transformed artifact.
-- Resolution + evidence link: IN_PROGRESS. The corrected transform preserves
+- Resolution + evidence link: FIXED. The corrected transform preserves
   target-only terms in deterministic order only inside
   `[EVALUATION-ONLY UNGROUNDED TARGET TERMS — NOT CANDIDATE SKILLS OR EXPERIENCE: …]`,
   keeps original input separately, remains UNVERIFIED/EVALUATION_ONLY/
   NON_PRODUCTION and ungrounded, and retains byte-identical no-op and
   idempotence. Direct truth tests cover the exact audit example and a fixed
-  mutation proves that restoring `Skills:` is rejected. See
-  docs/TEST_EVIDENCE.md § M02-W04 — Narrow correction of independently
-  reproduced acceptance blockers (2026-08-07). Closure still requires
-  exact-SHA hosted success and separate independent acceptance verification;
-  M02-W04 remains unaccepted.
+  mutation proves that restoring `Skills:` is rejected.
+  Final content `5ed2768c895bc2ce3c236d089745556c7e563d5f` reproduced the
+  exact required non-claiming output, passed the standalone reference and
+  semantic probes, rejected the independent CLAIM_BEARING_STUFFING mutation,
+  and completed exact-SHA three-OS run `31225740045`; the final verifier
+  returned `SOL_CLEAR_FOR_FINAL_M02_W04_GOVERNANCE`. See
+  docs/TEST_EVIDENCE.md § M02-W04 — Governance closeout after final
+  independent Sol verification (2026-08-07). M02-W04 is VERIFIED, not
+  ACCEPTED.
 
 KI-0039 through KI-0045 are FIXED as of the 2026-08-03 governance closeout
 that followed the independent Fable 5 Max acceptance verification

@@ -7346,8 +7346,8 @@
       "id": "M02-W04",
       "milestone": "M02",
       "title": "Capture baseline algorithms",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 656c61d87d0615b6a9b96319888856057686223b",
       "direct_package_prerequisites": [
         "M02-W03"
       ],
@@ -7387,14 +7387,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W04"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W05",
       "milestone": "M02",
       "title": "Build evaluation runner",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W04"
