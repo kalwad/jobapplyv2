@@ -32,6 +32,202 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W05 acceptance defect history
+
+KI-0048 through KI-0052 were reported by the independent GPT-5.6 Sol Ultra
+acceptance verifier on 2026-08-08 against exact blocked M02-W05 content
+commit `383ae578512910b17d98aee30e1f24531fa746c8` / tree
+`a5544b13da96d1d6bc9ce0db50ab5b2d23c454ce`; the verifier returned
+`SOL_BLOCKED_M02_W05_GOVERNANCE`. A corrective Fable 5 writer pass reproduced
+all five defects on the exact blocked content, corrected them, and recorded
+permanent regression coverage; all five issues remain IN_PROGRESS because
+M02-W05 acceptance must come from a separate fresh independent session, not
+from the correcting writer.
+
+### KI-0048 — Report replay lacked authoritative source binding
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-08 during independent M02-W05 acceptance verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` report
+  validation, execution identity derivation, and serialized report replay
+- Description: at blocked content `383ae578` / tree `a5544b1`, a serialized
+  `RunReportV1` could be made internally self-consistent after changing
+  derived execution truth because report replay lacked the original
+  canonical request and raw observation material needed to reconstruct the
+  relevant commitments. `validateRunReport` recomputed aggregates and
+  per-case consistency only from mutually confirming serialized
+  projections, so coordinated edits that retained the old request digest,
+  observation digest, record ID, result ID, and execution ID validated and
+  rendered.
+- Reproduction: at exact blocked commit
+  `383ae578512910b17d98aee30e1f24531fa746c8`, (1) build a genuine complete
+  comparable report whose threshold outcome is FAIL (measured 0.7 against
+  AT_LEAST 0.8), then set measured/passed/outcome/aggregate to PASS while
+  keeping every old identity — the coordinated mutant validates and
+  renders; (2) relabel an `UNAVAILABLE` caller-supplied holdout report to
+  `VALID`/comparable/PASS — accepted; (3) replace repository/runtime
+  provenance coordinately (recomputing only `runtime_commitment_digest`)
+  while keeping the old execution identity — accepted; (4) change raw
+  paired-count observation truth (TP 2 to 200) under the old
+  `observation_digest` — accepted with derived precision from the forged
+  counts.
+- Workaround: none accepted. Serialized-projection cross-checks cannot
+  substitute for reconstructible source truth.
+- Resolution + evidence link: IN_PROGRESS. The correction introduces
+  `ExecutionReplayWitnessV1` (canonical validated `ExecutionRequestV1` plus
+  each case's actual start/end instants and canonical normalized
+  `AdapterObservationV1`), embeds it in the execution and the report JSON,
+  and refactors execution and replay onto one shared pure derivation
+  (`src/derive.ts`) so request digest, observation digests, provenance,
+  holdout, limitations, all identities, and the aggregate are independently
+  recomputed from source during `validateRunReport`; all four
+  reproductions now reject (`RUNNER_REPORT_REPLAY_MISMATCH` /
+  `RUNNER_REPORT_SOURCE_BINDING` / `RUNNER_REPORT_IDENTITY`), a legitimate
+  semantic source change yields new identities, and permanent regression
+  coverage lives in
+  `packages/evaluation-runner/test/m02-w05/replay-source.test.ts`. See
+  docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
+  Acceptance requires a separate fresh independent session.
+
+### KI-0049 — Serialized regression comparisons lacked authenticated candidate/reference compatibility
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-08 during independent M02-W05 acceptance verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` regression
+  comparison model, comparison validation, and report embedding
+- Description: at blocked content `383ae578`, a report-embedded
+  `RegressionComparisonV1` carried only digests and projections, so a
+  passing serialized comparison whose `candidate_run_digest` did not belong
+  to the embedding execution was accepted, and a genuine `CORPUS_MISMATCH`
+  comparison relabeled `comparable=true` / `incomparable_reasons=[]` /
+  `passed=true` was accepted by both the standalone comparison validator
+  and the report validator because the projection remained internally
+  consistent.
+- Reproduction: at exact blocked commit `383ae578`, (1) attach a passing
+  comparison with foreign `candidate_run_digest`
+  `sha256:ff…ff` to a fresh execution's report — accepted; (2) build a
+  genuine CORPUS_MISMATCH comparison, then serialize it with
+  `comparable=true`, `incomparable_reasons=[]`, `passed=true` — accepted
+  standalone and inside a report.
+- Workaround: none accepted. Two mutable projections agreeing with each
+  other is not authentication.
+- Resolution + evidence link: IN_PROGRESS. The correction makes a
+  report-embedded comparison carry its complete immutable source — the
+  full reviewed reference (digest recomputed from the embedded payload)
+  plus a versioned candidate selector (`CASE_THRESHOLD_METRIC`,
+  `AGGREGATE_PASS_RATE`, `AGGREGATE_POOLED_PROPORTION`,
+  `AGGREGATE_PRECISION`, `AGGREGATE_RECALL`) — and resolves the candidate
+  side exclusively from the embedding execution's canonical truth,
+  requiring `candidate_run_digest` to equal the current execution content
+  digest and re-deriving compatibility, reasons, comparability, deltas,
+  and pass/null during report replay. Foreign executions, forged values or
+  raw counts, relabeled compatibility states, tampered references, and
+  sourceless or unresolvable selectors now reject
+  (`RUNNER_REGRESSION_SOURCE_REQUIRED` /
+  `RUNNER_REGRESSION_SOURCE_MISMATCH` /
+  `RUNNER_REGRESSION_REFERENCE_TAMPER` /
+  `RUNNER_REGRESSION_CANDIDATE_SOURCE`); permanent coverage lives in
+  `packages/evaluation-runner/test/m02-w05/regression-source.test.ts`. See
+  docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
+  Acceptance requires a separate fresh independent session.
+
+### KI-0050 — FAILED_SETUP admitted paired measurement statistics
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-08 during independent M02-W05 acceptance verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` adapter
+  observation boundary, aggregation, and report replay
+- Description: at blocked content `383ae578`, the raw observation boundary
+  rejected metrics and artifact observations for `FAILED_SETUP` but not
+  `paired_counts`, so a setup failure that occurred before measurement
+  could still contribute TP/FP/FN statistics, and aggregation derived
+  precision/recall from them.
+- Reproduction: at exact blocked commit `383ae578`, return a
+  `FAILED_SETUP` observation with paired counts TP=7, FP=1, FN=2: the
+  runner accepted it and the report derived precision 7/8 (0.875) and
+  recall 7/9 despite setup failure preceding measurement.
+- Workaround: none accepted. Measurement-derived statistics cannot come
+  from a run that never measured.
+- Resolution + evidence link: IN_PROGRESS. The correction rejects
+  `FAILED_SETUP` observations carrying paired counts at the raw boundary
+  with the stable diagnostic `RUNNER_SETUP_PAIRED_COUNT_PAYLOAD` (metrics
+  and artifact observations were already rejected; the visible setup error
+  code is retained), independently rejects failed-setup paired statistics
+  during aggregation (`RUNNER_AGGREGATE_SETUP_PAIRED_COUNTS`) and during
+  report replay, and still issues no canonical benchmark result for failed
+  setup; permanent coverage lives in
+  `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
+  See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
+  Acceptance requires a separate fresh independent session.
+
+### KI-0051 — Execution records admitted nonexistent UTC calendar dates
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-08 during independent M02-W05 acceptance verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` clock
+  boundary, duration derivation, and report replay timestamp validation
+- Description: at blocked content `383ae578`, execution and replay
+  validated timestamps with a shape regex plus `Date.parse`, which rolls
+  nonexistent calendar dates forward, so `2026-02-30T00:00:00Z` and
+  `2026-02-30T00:00:01Z` were accepted as real instants and derived a
+  1000 ms duration; the canonical common timestamp contract, which owns
+  calendar validity, was never consulted.
+- Reproduction: at exact blocked commit `383ae578`, run any case with a
+  clock returning `2026-02-30T00:00:00Z` then `2026-02-30T00:00:01Z`
+  (`Date.parse` maps both onto 2026-03-02): the failed-setup record was
+  accepted with `duration_ms` 1000 and the report validated.
+- Workaround: none accepted. A regex plus `Date.parse` is not calendar
+  validation.
+- Resolution + evidence link: IN_PROGRESS. The correction adds one shared
+  W05 timestamp authority (`src/time.ts`) built on the generated contract
+  validator `validateCommonTimestampUtcV1UtcTimestamp`, used identically
+  by execution and replay for COMPLETE, PARTIAL, and FAILED_SETUP;
+  duration now derives deterministically from contract-valid instants
+  (leap-second control `2026-06-30T23:59:60Z` and fractional forms
+  accepted by the contract corpus remain accepted; February 30, invalid
+  common-year leap days, invalid months/days/hours, lowercase `z`, and
+  offsets reject with `RUNNER_CLOCK_TIMESTAMP`); permanent coverage lives
+  in
+  `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
+  See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
+  Acceptance requires a separate fresh independent session.
+
+### KI-0052 — Maximum valid limitation request could not build a report
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-08-08 during independent M02-W05 acceptance verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` output
+  policy validation and report limitation bounds
+- Description: at blocked content `383ae578`, the request boundary
+  accepted up to 32 user limitations while the report boundary rejected
+  more than 34 limitation entries; because the runner prepends 3 fixed
+  limitations (two always plus one pre-W06 development notice), a
+  legitimate maximal 32-user-limitation request produced a 35-entry report
+  that its own validator rejected (`RUNNER_REPORT_STRUCTURE`).
+- Reproduction: at exact blocked commit `383ae578`, validate a request
+  with exactly 32 user limitations (accepted), run it, and call
+  `buildRunReport`: report validation rejected the 35-entry limitation
+  array.
+- Workaround: none accepted. Silently dropping or truncating limitations
+  would hide honest scope statements.
+- Resolution + evidence link: IN_PROGRESS. The correction replaces the
+  duplicated numeric limits with shared constants
+  (`MAX_USER_LIMITATIONS = 32`, `MAX_FIXED_REPORT_LIMITATIONS = 3`,
+  `MAX_REPORT_LIMITATIONS = 35`); a 32-user request now builds, renders,
+  and replays a 35-entry report, a 33-user request rejects
+  (`RUNNER_LIMITATION_COUNT`), and replay recomputes the exact limitation
+  array from the canonical witnessed request so fixed limitations cannot
+  be removed, replaced, reordered, or invented; permanent coverage lives
+  in
+  `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
+  See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
+  Acceptance requires a separate fresh independent session.
+
 ## M02-W04 acceptance defect history
 
 KI-0046 and KI-0047 are FIXED by independently accepted M02-W04 content commit

@@ -14,6 +14,7 @@ import {
 import {
   DEVELOPMENT_HOLDOUT_COMMITMENT,
   EXECUTION_REQUEST_FORMAT_VERSION,
+  MAX_USER_LIMITATIONS,
   REPORT_FORMAT_VERSION,
   SUPPORTED_METRIC_UNITS,
 } from "./constants.ts";
@@ -382,11 +383,11 @@ function validateOutputPolicy(value: unknown): void {
   }
   reportTextAt(policy.report_title, "/output_policy/report_title", 160);
   const limitations = arrayAt(policy.limitations, "/output_policy/limitations");
-  if (limitations.length > 32) {
+  if (limitations.length > MAX_USER_LIMITATIONS) {
     runnerFail(
       "RUNNER_LIMITATION_COUNT",
       "/output_policy/limitations",
-      "at most 32 limitations are accepted",
+      `at most ${String(MAX_USER_LIMITATIONS)} limitations are accepted`,
     );
   }
   limitations.forEach((entry, index) =>
@@ -1085,6 +1086,13 @@ export function validateAdapterObservation(
     "/observation/paired_counts",
     "RUNNER_DUPLICATE_PAIRED_GROUP",
   );
+  if (status === "FAILED_SETUP" && pairedCounts.length !== 0) {
+    runnerFail(
+      "RUNNER_SETUP_PAIRED_COUNT_PAYLOAD",
+      "/observation/paired_counts",
+      "failed setup occurs before measurement and cannot claim paired TP/FP/FN counts",
+    );
+  }
 
   const validated = structuredClone(root) as unknown as AdapterObservationV1;
   return deepFreeze({

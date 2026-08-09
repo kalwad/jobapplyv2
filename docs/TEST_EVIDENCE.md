@@ -33,6 +33,141 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W05 — Corrective writer pass: bind replay and regression evidence (2026-08-09)
+
+- Revision: corrective working tree over exact blocked M02-W05 content commit
+  `383ae578512910b17d98aee30e1f24531fa746c8` / tree
+  `a5544b13da96d1d6bc9ce0db50ab5b2d23c454ce` (governance parent
+  `5f8af91a92f1fe533962d9ac99833b68ed9bf0a8`); the containing correction
+  commit and tree are reported post-commit. The independent GPT-5.6 Sol
+  Ultra acceptance review of `383ae578` returned
+  `SOL_BLOCKED_M02_W05_GOVERNANCE` (2026-08-08) with five defects, recorded
+  as KI-0048 through KI-0052. Owner-selected corrective implementation
+  agent: Fable 5 Ultra Code (single authoritative writer; no automatic
+  model switching; read-only Fable 5 reviewers only).
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv-managed Python 3.12.13, uv 0.11.32, Rust 1.97.1; frozen/locked
+  installs (`pnpm install --frozen-lockfile`, `uv sync --locked`, both
+  `cargo fetch --locked` manifests) → exit 0.
+- Pre-fix reproductions on the exact blocked `383ae578` content (temporary
+  scripts outside the repository; no fixture bytes changed): (A) a genuine
+  FAIL report accepted a coordinated measured/passed/outcome/aggregate
+  PASS rewrite with every old identity retained; an UNAVAILABLE holdout
+  report accepted a VALID/comparable/PASS relabel; a coordinated
+  repository/runtime provenance replacement kept the old execution
+  identity; and a raw paired-count truth change (TP 2→200) was accepted
+  under the old observation digest. (B) a passing comparison with foreign
+  `candidate_run_digest` `sha256:ff…ff` and a CORPUS_MISMATCH comparison
+  relabeled comparable/passed were accepted standalone and in reports.
+  (C) FAILED_SETUP with paired counts TP=7/FP=1/FN=2 was accepted and
+  derived precision 7/8 and recall 7/9. (D) `2026-02-30T00:00:00Z` /
+  `…:01Z` were accepted (`Date.parse` rollover to 2026-03-02) deriving
+  1000 ms. (E) a request with exactly 32 user limitations validated but
+  `buildRunReport` rejected the legitimate 35-entry report
+  (`RUNNER_REPORT_STRUCTURE`, bound 34).
+- Correction architecture: new `ExecutionReplayWitnessV1` (canonical
+  validated `ExecutionRequestV1` plus per-case `case_id`, actual
+  `started_at`/`ended_at`, and canonical normalized `AdapterObservationV1`)
+  embedded in `RunnerExecutionV1` and in report JSON; new `src/derive.ts`
+  is the single pure derivation path used by both `runEvaluation` and
+  report replay, independently recomputing request digest,
+  request-derived provenance, runtime commitment, output policy, title,
+  fixed/user limitations, case digests, threshold truth, observation
+  digests, timestamps/durations, completeness, environment/hash/holdout
+  state, comparability, outcomes, participation, paired-count state,
+  canonical `BenchmarkResultV1`, record/result identities, aggregate,
+  execution digest/identity, and the comparability banner, then requiring
+  the serialized report to equal the derived report byte-for-byte in
+  canonical JSON (`RUNNER_REPORT_REPLAY_MISMATCH`,
+  `RUNNER_REPORT_SOURCE_BINDING`, `RUNNER_WITNESS_*`). Report-embedded
+  regression comparisons now carry their complete immutable source
+  (full reviewed reference with recomputed digest plus versioned
+  candidate selector: `CASE_THRESHOLD_METRIC`, `AGGREGATE_PASS_RATE`,
+  `AGGREGATE_POOLED_PROPORTION`, `AGGREGATE_PRECISION`,
+  `AGGREGATE_RECALL`); the candidate side resolves exclusively from the
+  embedding execution's canonical truth with `candidate_run_digest` bound
+  to the current execution content digest, and compatibility, reasons,
+  comparability, deltas, and pass/null re-derive during replay
+  (`RUNNER_REGRESSION_SOURCE_REQUIRED`,
+  `RUNNER_REGRESSION_SOURCE_MISMATCH`,
+  `RUNNER_REGRESSION_REFERENCE_TAMPER`,
+  `RUNNER_REGRESSION_CANDIDATE_SOURCE`). FAILED_SETUP now rejects paired
+  counts at the raw observation boundary
+  (`RUNNER_SETUP_PAIRED_COUNT_PAYLOAD`) with independent aggregation
+  (`RUNNER_AGGREGATE_SETUP_PAIRED_COUNTS`) and replay defenses. One
+  shared timestamp authority (`src/time.ts`) delegates calendar validity
+  to the generated contract validator
+  `validateCommonTimestampUtcV1UtcTimestamp` for execution and replay
+  alike (leap-second control `2026-06-30T23:59:60Z` and fractional forms
+  remain accepted; `2026-02-30`, `2025-02-29`, month/day/hour/offset and
+  lowercase-`z` forms reject). Shared limitation constants bind request
+  and report bounds (`MAX_USER_LIMITATIONS = 32`,
+  `MAX_FIXED_REPORT_LIMITATIONS = 3`, `MAX_REPORT_LIMITATIONS = 35`).
+  Internal runner formats were revised in place under the normal
+  pre-verification policy (package never VERIFIED, no external consumer);
+  a pre-correction serialized report now rejects fail-closed.
+- Corrected reproduction behavior re-executed on the final corrected
+  bytes: A1–A4 → `RUNNER_REPORT_REPLAY_MISMATCH`; B foreign/sourceless →
+  `RUNNER_REGRESSION_SOURCE_REQUIRED` (and relabeled sourced comparisons →
+  `RUNNER_REGRESSION_SOURCE_MISMATCH` in permanent tests); C →
+  `RUNNER_SETUP_PAIRED_COUNT_PAYLOAD`; D → `RUNNER_CLOCK_TIMESTAMP`;
+  E → 32-user request builds, renders, and replays a 35-limitation
+  report.
+- Focused verification completed in this corrective writer pass:
+  - W05 typecheck, strict ESLint, and Prettier → exit 0; `runner:check`
+    executed twice → deterministic JSON/Markdown/HTML PASS both times,
+    with byte-identical `git status --porcelain=v1 -uall` SHA-256 before,
+    between, and after the two runs (read-only proof).
+  - W05 Vitest 259/259 across 12 files: aggregation-statistics 24,
+    governance-layering 6, measurement-boundaries 32 (new), mutations 18,
+    regression-source 16 (new), regression 22, replay-source 11 (new),
+    reports 22, runner 27, thresholds 32, validation-boundaries 48,
+    w04-integration 1. The historical finite mutation campaign remains
+    exactly 18/18 with its original classes untouched; the 59 new tests
+    are the permanent replay-source, regression-source, failed-setup,
+    UTC, and limitation regression matrix for KI-0048…KI-0052.
+  - preserved W04 typecheck/`baselines:check`/test → 171/171 across 9
+    files; W01 → 108/108; W02 → 57/57; full fixtures → 166/166; mock lab
+    typecheck/test/build → 32/32 and build success; Playwright discovery/
+    execution → 59 tests in 17 files / 59/59.
+  - focused Python suites: test_integrity 43, test_suite_states 294,
+    test_proofs_and_real_repo 7, test_traceability 62, test_v14_migration
+    31, test_validate_status 148 (fixture corrective-issue tuple extended
+    to KI-0052; no Python test added or removed); full `scripts/tests`
+    976/976.
+  - `python3 scripts/validate_status.py` → PASS (45 check groups) with
+    KI-0048…KI-0051 as HIGH/IN_PROGRESS live blockers and KI-0052
+    MEDIUM/IN_PROGRESS; `pnpm traceability:check` → PASS 193/300 with no
+    traceability.json change; `pnpm generate:contracts --check` → 183
+    byte-identical; `pnpm run doctor` → 22 pass / 0 fail / 1
+    not-yet-applicable (single warning: expected pre-commit uncommitted
+    changes).
+  - final local `pnpm verify` with pinned Node 24.18.0 → exit 0: 12/12
+    typecheck tasks; 12/12 test tasks and 3,075/3,075 TypeScript tests
+    (contracts 2440, evaluation-runner 259, evaluation-baselines 171,
+    test-fixtures 166, mock-ats-lab 32, seven scaffold packages 1 each);
+    generated contracts 183/183 byte-identical; focused contracts
+    662/662; fixture-corpus focused W01 108 + W02 57 (exact 165);
+    Playwright 59/59 across 17 files; exact POSIX Python inventory
+    977/977; Rust 1/1 plus 10/10; status 45 groups; traceability
+    193/300; portability and integrity PASS; every ACTIVE suite PASS;
+    visual remained truthfully NOT_YET_APPLICABLE; worktree
+    status-neutrality held; no skipped, xfailed, xpassed, or other
+    nonordinary test outcome.
+- Scope/governance: M02-W05 remains IN_PROGRESS and unaccepted; M02-W06
+  remains NOT_STARTED; no package is READY; M02 remains IN_PROGRESS; M00
+  and M01 remain ACCEPTED; M02-W01/W02/W03/W04 remain VERIFIED at their
+  preserved trees; KI-0046/KI-0047 remain FIXED; KI-0048…KI-0052 remain
+  IN_PROGRESS pending separate fresh independent verification; all four
+  critical gates remain NOT_EVALUATED and release remains NOT_READY. No
+  benchmark schema, generated contract, W04 baseline semantic, W01/W02
+  fixture body, mock ATS semantic, Playwright scenario, model-lock,
+  prompt-registry, CI-workflow, toolchain-pin, lockfile, or gate-report
+  byte changed; no W06/W13/W14/W15 behavior was implemented; no critical
+  gate was evaluated; no governance closeout occurred. Exact-SHA
+  three-OS hosted execution follows the correction push; only a separate
+  fresh independent session may move M02-W05 to VERIFIED.
+
 ### M02-W05 — Build deterministic evaluation runner (2026-08-07)
 
 - Revision: implementation working tree over exact governance parent

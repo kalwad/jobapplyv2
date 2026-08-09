@@ -17,19 +17,24 @@ import {
 import {
   DEVELOPMENT_HOLDOUT_COMMITMENT,
   EVALUATION_RUNNER_VERSION,
+  MAX_REPORT_LIMITATIONS,
   NO_GATE_AUTHORITY_STATEMENT,
   REPORT_BUNDLE_MANIFEST_VERSION,
   REPORT_FORMAT_VERSION,
   SUPPORTED_METRIC_UNITS,
   SUPPORTED_THRESHOLD_COMPARATORS,
 } from "./constants.ts";
+import { deriveExecutionFromWitness } from "./derive.ts";
 import { EvaluationRunnerError, runnerFail } from "./errors.ts";
 import {
   compareExactDecimals,
   exactDecimalFromNumber,
   exactDecimalIsZero,
 } from "./exact-decimal.ts";
-import { validateRegressionComparison } from "./regression.ts";
+import {
+  compareRegressionForExecution,
+  validateRegressionComparison,
+} from "./regression.ts";
 import type {
   AggregateCountsV1,
   AggregateSummaryV1,
@@ -43,13 +48,12 @@ import type {
   WilsonIntervalV1,
 } from "./model.ts";
 import { countRate } from "./statistics.ts";
+import { deriveDurationMilliseconds } from "./time.ts";
 
 const STABLE_ID = /^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
 const GIT_OBJECT = /^[0-9a-f]{40}$/u;
 const SEMVER = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/u;
 const ENUM_TOKEN = /^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$/u;
-const UTC_TIMESTAMP =
-  /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,9})?Z$/u;
 
 function reportObject(
   value: unknown,
@@ -114,30 +118,19 @@ function reportMetric(value: unknown, pointer: string): number {
 }
 
 function validateRecordTime(record: CaseExecutionRecordV1): void {
+  const duration = deriveDurationMilliseconds(
+    record.started_at,
+    record.ended_at,
+    "/cases/timestamps",
+  );
   if (
-    !UTC_TIMESTAMP.test(record.started_at) ||
-    !UTC_TIMESTAMP.test(record.ended_at)
-  ) {
-    runnerFail(
-      "RUNNER_REPORT_CASE_DERIVATION",
-      "/cases/timestamps",
-      "case timestamps must be canonical UTC instants",
-    );
-  }
-  const started = Date.parse(record.started_at);
-  const ended = Date.parse(record.ended_at);
-  if (
-    !Number.isFinite(started) ||
-    !Number.isFinite(ended) ||
     !Number.isSafeInteger(record.duration_ms) ||
-    record.duration_ms < 0 ||
-    record.duration_ms > 86_400_000 ||
-    ended - started !== record.duration_ms
+    record.duration_ms !== duration
   ) {
     runnerFail(
       "RUNNER_REPORT_CASE_DERIVATION",
       "/cases/duration_ms",
-      "case duration must equal the bounded timestamp difference",
+      "case duration must equal the bounded contract-valid timestamp difference",
     );
   }
 }
@@ -587,6 +580,13 @@ function validateCaseRecordTruth(
   }
 
   if (completeness === "FAILED_SETUP") {
+    if (record.paired_counts.length !== 0) {
+      runnerFail(
+        "RUNNER_REPORT_CASE_DERIVATION",
+        `${pointer}/paired_counts`,
+        "failed setup occurs before measurement and cannot carry paired TP/FP/FN counts",
+      );
+    }
     if (record.canonical_result !== undefined) {
       runnerFail(
         "RUNNER_REPORT_CASE_DERIVATION",
@@ -763,7 +763,7 @@ function validateReportIdentityAndProvenance(
   }
   if (
     !Array.isArray(report.limitations) ||
-    report.limitations.length > 34 ||
+    report.limitations.length > MAX_REPORT_LIMITATIONS ||
     report.limitations.some(
       (limitation) => typeof limitation !== "string" || limitation.length > 512,
     )
@@ -1147,12 +1147,12 @@ function fixedLimitations(execution: RunnerExecutionV1): readonly string[] {
   ];
 }
 
-export function buildRunReport(
+function composeRunReport(
   execution: RunnerExecutionV1,
-  regressionComparisons: readonly RegressionComparisonV1[] = [],
+  regressionComparisons: readonly RegressionComparisonV1[],
 ): RunReportV1 {
   const aggregate = aggregateCaseResults(execution.records);
-  const report: RunReportV1 = {
+  return {
     report_format_version: REPORT_FORMAT_VERSION,
     runner_version: execution.runner_version,
     execution_id: execution.execution_id,
@@ -1179,7 +1179,15 @@ export function buildRunReport(
       ...execution.output_policy.limitations,
     ],
     artifact_digest_policy: "OUT_OF_BAND_MANIFEST_AVOIDS_SELF_REFERENCE",
+    replay_witness: execution.replay_witness,
   };
+}
+
+export function buildRunReport(
+  execution: RunnerExecutionV1,
+  regressionComparisons: readonly RegressionComparisonV1[] = [],
+): RunReportV1 {
+  const report = composeRunReport(execution, regressionComparisons);
   validateRunReport(report);
   return report;
 }
@@ -1201,6 +1209,7 @@ export function validateRunReport(
     "limitations",
     "provenance",
     "regression_comparisons",
+    "replay_witness",
     "report_format_version",
     "request_digest",
     "runner_version",
@@ -1332,6 +1341,55 @@ export function validateRunReport(
       "RUNNER_REPORT_ORDER",
       "/regression_comparisons",
       "regression comparisons must have unique canonically sorted identities",
+    );
+  }
+
+  /*
+   * Authoritative source replay. Everything above validated projections;
+   * from here the report must be independently re-derivable from its
+   * canonical replay witness through the same pure derivation path the
+   * live execution used, so no serialized field survives on internal
+   * consistency alone.
+   */
+  const derivedExecution = deriveExecutionFromWitness(report.replay_witness);
+  if (typedReport.request_digest !== derivedExecution.request_digest) {
+    runnerFail(
+      "RUNNER_REPORT_SOURCE_BINDING",
+      "/request_digest",
+      "report request digest does not commit the witnessed canonical request",
+    );
+  }
+  const derivedComparisons = (
+    comparisons as readonly RegressionComparisonV1[]
+  ).map((comparison, index) => {
+    const source = comparison.source;
+    if (source === undefined) {
+      return runnerFail(
+        "RUNNER_REGRESSION_SOURCE_REQUIRED",
+        `/regression_comparisons/${String(index)}/source`,
+        "a report-embedded comparison must carry its immutable reference and candidate selector",
+      );
+    }
+    const derived = compareRegressionForExecution(
+      source.reference,
+      source.candidate_selector,
+      derivedExecution,
+    );
+    if (canonicalJson(derived) !== canonicalJson(comparison)) {
+      return runnerFail(
+        "RUNNER_REGRESSION_SOURCE_MISMATCH",
+        `/regression_comparisons/${String(index)}`,
+        "serialized comparison differs from the comparison reconstructed from its source material and this execution",
+      );
+    }
+    return derived;
+  });
+  const derivedReport = composeRunReport(derivedExecution, derivedComparisons);
+  if (canonicalJson(derivedReport) !== canonicalJson(report)) {
+    runnerFail(
+      "RUNNER_REPORT_REPLAY_MISMATCH",
+      "",
+      "serialized report differs from the report derived from its canonical replay witness",
     );
   }
 }

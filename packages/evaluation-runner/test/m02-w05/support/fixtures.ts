@@ -323,6 +323,19 @@ export async function runCases(
   );
 }
 
+export async function runEvaluationWithHoldout(
+  holdout: ExecutionRequestV1["holdout"],
+): Promise<RunnerExecutionV1> {
+  const base = makeRequest([makeCase()]);
+  const request = { ...base, holdout };
+  return runEvaluation(
+    request,
+    adapterReturning((benchmarkCase) => makeObservation(benchmarkCase)),
+    new FixedClock(),
+    trustedContext(request),
+  );
+}
+
 export function semanticClone<T>(value: T): T {
   return JSON.parse(canonicalJson(value)) as T;
 }

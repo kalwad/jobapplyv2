@@ -385,6 +385,16 @@ function addPairedCounts(
 function aggregatePairedCounts(records: readonly CaseExecutionRecordV1[]) {
   const groups = new Map<string, MutablePairedCounts>();
   for (const record of records) {
+    if (
+      record.completeness_state === "FAILED_SETUP" &&
+      record.paired_counts.length > 0
+    ) {
+      runnerFail(
+        "RUNNER_AGGREGATE_SETUP_PAIRED_COUNTS",
+        `/records/${record.case_id}/paired_counts`,
+        "a failed-setup record cannot contribute paired precision/recall statistics",
+      );
+    }
     for (const counts of record.paired_counts) {
       const target = groups.get(counts.group_id) ?? {
         truePositive: 0,

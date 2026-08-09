@@ -235,6 +235,31 @@ export interface CaseExecutionRecordV1 {
   readonly canonical_result?: BenchmarkResultV1;
 }
 
+/**
+ * Immutable per-case replay source: the exact wall-clock window and the
+ * canonical validated normalized adapter observation actually measured for
+ * one case. It never serializes adapter code, callbacks, commands, shell
+ * text, credentials, remote targets, or hidden holdout bodies.
+ */
+export interface ExecutionCaseWitnessV1 {
+  readonly case_id: string;
+  readonly started_at: string;
+  readonly ended_at: string;
+  readonly observation: AdapterObservationV1;
+}
+
+/**
+ * Authoritative replay source for one execution: the canonical validated
+ * ExecutionRequestV1 plus one case witness per request case in canonical
+ * case order. Every derived execution, record, aggregate, and report field
+ * must be independently reconstructible from this witness alone.
+ */
+export interface ExecutionReplayWitnessV1 {
+  readonly witness_format_version: "1.0.0";
+  readonly request: ExecutionRequestV1;
+  readonly case_witnesses: readonly ExecutionCaseWitnessV1[];
+}
+
 export interface ExecutionProvenanceV1 {
   readonly repository: RepositoryCommitmentV1;
   readonly schema: SchemaCommitmentV1;
@@ -256,6 +281,7 @@ export interface RunnerExecutionV1 {
   readonly records: readonly CaseExecutionRecordV1[];
   readonly provenance: ExecutionProvenanceV1;
   readonly output_policy: OutputPolicyV1;
+  readonly replay_witness: ExecutionReplayWitnessV1;
 }
 
 export interface CountRateV1 {
@@ -399,6 +425,49 @@ export interface RegressionCandidateV1 {
   readonly compatibility: RegressionCompatibilityV1;
 }
 
+/**
+ * Versioned identity of the canonical execution value a regression
+ * candidate was resolved from. Only these explicitly supported W05 sources
+ * exist; an unsupported or ambiguous selector rejects instead of guessing.
+ */
+export type RegressionCandidateSelectorV1 =
+  | {
+      readonly selector_format_version: "1.0.0";
+      readonly source: "AGGREGATE_PASS_RATE";
+    }
+  | {
+      readonly selector_format_version: "1.0.0";
+      readonly source: "AGGREGATE_POOLED_PROPORTION";
+      readonly metric_id: string;
+    }
+  | {
+      readonly selector_format_version: "1.0.0";
+      readonly source: "AGGREGATE_PRECISION";
+      readonly group_id: string;
+    }
+  | {
+      readonly selector_format_version: "1.0.0";
+      readonly source: "AGGREGATE_RECALL";
+      readonly group_id: string;
+    }
+  | {
+      readonly selector_format_version: "1.0.0";
+      readonly source: "CASE_THRESHOLD_METRIC";
+      readonly case_id: string;
+      readonly metric_id: string;
+    };
+
+/**
+ * Complete immutable source material of a serialized regression comparison:
+ * the full reviewed reference payload and the candidate selector that binds
+ * the candidate side to the embedding report's own execution truth.
+ */
+export interface RegressionComparisonSourceV1 {
+  readonly source_format_version: "1.0.0";
+  readonly reference: RegressionReferenceV1;
+  readonly candidate_selector: RegressionCandidateSelectorV1;
+}
+
 export interface RegressionComparisonV1 {
   readonly regression_format_version: "1.0.0";
   readonly reference_id: string;
@@ -424,6 +493,7 @@ export interface RegressionComparisonV1 {
   readonly candidate_provenance_digest: ContentDigest;
   readonly reference_provenance_digest: ContentDigest;
   readonly reference_digest: ContentDigest;
+  readonly source?: RegressionComparisonSourceV1;
 }
 
 export interface RunReportV1 {
@@ -441,6 +511,7 @@ export interface RunReportV1 {
   readonly provenance: ExecutionProvenanceV1;
   readonly limitations: readonly string[];
   readonly artifact_digest_policy: "OUT_OF_BAND_MANIFEST_AVOIDS_SELF_REFERENCE";
+  readonly replay_witness: ExecutionReplayWitnessV1;
 }
 
 export interface ReportArtifactCommitmentV1 {

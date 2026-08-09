@@ -1,12 +1,18 @@
+import { aggregateCaseResults } from "./aggregate.ts";
 import {
   compareCanonicalText,
   isContentDigest,
   sha256Canonical,
 } from "./canonical.ts";
 import {
+  CANDIDATE_SELECTOR_FORMAT_VERSION,
+  METRIC_SEMANTICS_COMMITMENT_V1,
   REGRESSION_FORMAT_VERSION,
+  REGRESSION_SOURCE_FORMAT_VERSION,
   SUPPORTED_METRIC_UNITS,
+  THRESHOLD_SEMANTICS_COMMITMENT_V1,
 } from "./constants.ts";
+import { computeExecutionContentDigest } from "./derive.ts";
 import {
   absoluteExactDecimal,
   compareExactDecimals,
@@ -18,10 +24,13 @@ import {
 } from "./exact-decimal.ts";
 import { runnerFail } from "./errors.ts";
 import type {
+  CountRateV1,
+  RegressionCandidateSelectorV1,
   RegressionCandidateV1,
   RegressionComparisonV1,
   RegressionCompatibilityV1,
   RegressionReferenceV1,
+  RunnerExecutionV1,
 } from "./model.ts";
 
 const STABLE_ID = /^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
@@ -273,6 +282,291 @@ function validateCompatibility(
       "browser version is malformed",
     );
   }
+}
+
+function validateCandidateSelector(
+  input: unknown,
+  pointer: string,
+): asserts input is RegressionCandidateSelectorV1 {
+  const raw = objectAt(input, pointer);
+  if (raw.selector_format_version !== CANDIDATE_SELECTOR_FORMAT_VERSION) {
+    runnerFail(
+      "RUNNER_REGRESSION_VERSION",
+      `${pointer}/selector_format_version`,
+      "unsupported candidate-selector version",
+    );
+  }
+  const source = raw.source;
+  switch (source) {
+    case "AGGREGATE_PASS_RATE": {
+      exactKeys(raw, ["selector_format_version", "source"], [], pointer);
+      return;
+    }
+    case "AGGREGATE_POOLED_PROPORTION": {
+      exactKeys(
+        raw,
+        ["selector_format_version", "source", "metric_id"],
+        [],
+        pointer,
+      );
+      if (
+        typeof raw.metric_id !== "string" ||
+        !ENUM_TOKEN.test(raw.metric_id)
+      ) {
+        runnerFail(
+          "RUNNER_REGRESSION_METRIC_ID",
+          `${pointer}/metric_id`,
+          "selector metric identity must be an enum token",
+        );
+      }
+      return;
+    }
+    case "AGGREGATE_PRECISION":
+    case "AGGREGATE_RECALL": {
+      exactKeys(
+        raw,
+        ["selector_format_version", "source", "group_id"],
+        [],
+        pointer,
+      );
+      if (typeof raw.group_id !== "string" || !ENUM_TOKEN.test(raw.group_id)) {
+        runnerFail(
+          "RUNNER_REGRESSION_METRIC_ID",
+          `${pointer}/group_id`,
+          "selector group identity must be an enum token",
+        );
+      }
+      return;
+    }
+    case "CASE_THRESHOLD_METRIC": {
+      exactKeys(
+        raw,
+        ["selector_format_version", "source", "case_id", "metric_id"],
+        [],
+        pointer,
+      );
+      if (typeof raw.case_id !== "string" || !STABLE_ID.test(raw.case_id)) {
+        runnerFail(
+          "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+          `${pointer}/case_id`,
+          "selector case identity must be a canonical stable id",
+        );
+      }
+      if (
+        typeof raw.metric_id !== "string" ||
+        !ENUM_TOKEN.test(raw.metric_id)
+      ) {
+        runnerFail(
+          "RUNNER_REGRESSION_METRIC_ID",
+          `${pointer}/metric_id`,
+          "selector metric identity must be an enum token",
+        );
+      }
+      return;
+    }
+    default: {
+      runnerFail(
+        "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+        `${pointer}/source`,
+        "unsupported candidate selector source",
+      );
+    }
+  }
+}
+
+function candidateRate(
+  rate: CountRateV1 | null,
+  pointer: string,
+): {
+  readonly value: number;
+  readonly numerator: number;
+  readonly denominator: number;
+} {
+  const value = rate?.rate;
+  if (rate === null || value === null || value === undefined) {
+    return runnerFail(
+      "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+      pointer,
+      "selected canonical value has no defined rate to compare",
+    );
+  }
+  return {
+    value,
+    numerator: rate.numerator,
+    denominator: rate.denominator,
+  };
+}
+
+/**
+ * Derived compatibility of the current execution. Corpus, runtime,
+ * implementation, prompt, and browser commitments come from execution
+ * provenance; metric/threshold semantics digests commit this runner's own
+ * versioned measurement semantics.
+ */
+export function deriveExecutionCompatibility(
+  execution: RunnerExecutionV1,
+): RegressionCompatibilityV1 {
+  const promptDigests = [
+    ...new Set(
+      execution.provenance.prompt_commitments.map((prompt) => prompt.digest),
+    ),
+  ].sort(compareCanonicalText);
+  const browser = execution.provenance.runtime.browser;
+  return {
+    corpus_digest: execution.provenance.corpus.digest,
+    runtime_commitment_digest: execution.provenance.runtime_commitment_digest,
+    metric_semantics_digest: sha256Canonical(METRIC_SEMANTICS_COMMITMENT_V1),
+    threshold_semantics_digest: sha256Canonical(
+      THRESHOLD_SEMANTICS_COMMITMENT_V1,
+    ),
+    implementation_identity: execution.provenance.implementation.identity,
+    prompt_digests: promptDigests,
+    ...(browser === undefined
+      ? {}
+      : {
+          browser_family: browser.family,
+          browser_version: browser.version,
+        }),
+  };
+}
+
+/**
+ * Resolve a regression candidate from canonical execution truth only. The
+ * candidate run digest is the current execution content digest, so a
+ * serialized comparison can never claim a foreign execution as its source.
+ */
+export function resolveRegressionCandidate(
+  execution: RunnerExecutionV1,
+  selector: unknown,
+): RegressionCandidateV1 {
+  validateCandidateSelector(selector, "/candidate_selector");
+  const executionDigest = computeExecutionContentDigest(
+    execution.request_digest,
+    execution.records.map((record) => record.record_id),
+  );
+  let resolved: {
+    readonly metric_id: string;
+    readonly unit: RegressionCandidateV1["unit"];
+    readonly value: number;
+    readonly raw?: { readonly numerator: number; readonly denominator: number };
+  };
+  switch (selector.source) {
+    case "AGGREGATE_PASS_RATE": {
+      const aggregate = aggregateCaseResults(execution.records);
+      const rate = candidateRate(
+        aggregate.pass_rate,
+        "/candidate_selector/pass_rate",
+      );
+      resolved = {
+        metric_id: "AGGREGATE_PASS_RATE",
+        unit: "RATIO",
+        value: rate.value,
+        raw: { numerator: rate.numerator, denominator: rate.denominator },
+      };
+      break;
+    }
+    case "AGGREGATE_POOLED_PROPORTION": {
+      const aggregate = aggregateCaseResults(execution.records);
+      const metric = aggregate.metric_summaries.find(
+        (entry) => entry.metric_id === selector.metric_id,
+      );
+      if (metric === undefined) {
+        return runnerFail(
+          "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+          "/candidate_selector/metric_id",
+          "selected metric does not exist in canonical execution truth",
+        );
+      }
+      const rate = candidateRate(
+        metric.pooled_proportion,
+        "/candidate_selector/pooled_proportion",
+      );
+      resolved = {
+        metric_id: selector.metric_id,
+        unit: "RATIO",
+        value: rate.value,
+        raw: { numerator: rate.numerator, denominator: rate.denominator },
+      };
+      break;
+    }
+    case "AGGREGATE_PRECISION":
+    case "AGGREGATE_RECALL": {
+      const aggregate = aggregateCaseResults(execution.records);
+      const summary = aggregate.precision_recall_summaries.find(
+        (entry) => entry.group_id === selector.group_id,
+      );
+      if (summary === undefined) {
+        return runnerFail(
+          "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+          "/candidate_selector/group_id",
+          "selected paired-count group does not exist in canonical execution truth",
+        );
+      }
+      const rate = candidateRate(
+        selector.source === "AGGREGATE_PRECISION"
+          ? summary.precision
+          : summary.recall,
+        "/candidate_selector/paired_rate",
+      );
+      resolved = {
+        metric_id: selector.source,
+        unit: "RATIO",
+        value: rate.value,
+        raw: { numerator: rate.numerator, denominator: rate.denominator },
+      };
+      break;
+    }
+    case "CASE_THRESHOLD_METRIC": {
+      const record = execution.records.find(
+        (entry) => entry.case_id === selector.case_id,
+      );
+      if (record === undefined) {
+        return runnerFail(
+          "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+          "/candidate_selector/case_id",
+          "selected case does not exist in canonical execution truth",
+        );
+      }
+      const result = record.threshold_results.find(
+        (entry) => entry.metric_id === selector.metric_id,
+      );
+      if (result === undefined) {
+        return runnerFail(
+          "RUNNER_REGRESSION_CANDIDATE_SOURCE",
+          "/candidate_selector/metric_id",
+          "selected threshold metric was not measured in canonical execution truth",
+        );
+      }
+      resolved = {
+        metric_id: result.metric_id,
+        unit: result.unit,
+        value: result.measured_value,
+        ...(result.proportion !== null && result.proportion.denominator >= 1
+          ? {
+              raw: {
+                numerator: result.proportion.numerator,
+                denominator: result.proportion.denominator,
+              },
+            }
+          : {}),
+      };
+      break;
+    }
+  }
+  return {
+    candidate_run_digest: executionDigest,
+    metric_id: resolved.metric_id,
+    unit: resolved.unit,
+    value: resolved.value,
+    ...(resolved.raw === undefined
+      ? {}
+      : {
+          raw_numerator: resolved.raw.numerator,
+          raw_denominator: resolved.raw.denominator,
+        }),
+    implementation_version: execution.provenance.implementation.version,
+    compatibility: deriveExecutionCompatibility(execution),
+  };
 }
 
 export function validateRegressionReference(
@@ -558,6 +852,7 @@ export function validateRegressionComparison(
       "candidate_raw_denominator",
       "reference_raw_numerator",
       "reference_raw_denominator",
+      "source",
     ],
     "/comparison",
   );
@@ -708,6 +1003,51 @@ export function validateRegressionComparison(
       );
     }
   }
+  if (raw.source !== undefined) {
+    const source = objectAt(raw.source, "/comparison/source");
+    exactKeys(
+      source,
+      ["source_format_version", "reference", "candidate_selector"],
+      [],
+      "/comparison/source",
+    );
+    if (source.source_format_version !== REGRESSION_SOURCE_FORMAT_VERSION) {
+      runnerFail(
+        "RUNNER_REGRESSION_VERSION",
+        "/comparison/source/source_format_version",
+        "unsupported comparison-source version",
+      );
+    }
+    const reference = source.reference;
+    validateRegressionReference(reference);
+    const selector = source.candidate_selector;
+    validateCandidateSelector(
+      selector,
+      "/comparison/source/candidate_selector",
+    );
+    const referenceRawMatches =
+      (raw.reference_raw_numerator === undefined
+        ? reference.raw_numerator === undefined
+        : raw.reference_raw_numerator === reference.raw_numerator) &&
+      (raw.reference_raw_denominator === undefined
+        ? reference.raw_denominator === undefined
+        : raw.reference_raw_denominator === reference.raw_denominator);
+    if (
+      raw.reference_id !== reference.reference_id ||
+      raw.reference_digest !== reference.reference_digest ||
+      raw.reference_provenance_digest !== reference.source_run_digest ||
+      raw.reference_value !== reference.value ||
+      raw.threshold !== reference.allowed_regression ||
+      raw.comparator !== reference.comparator ||
+      !referenceRawMatches
+    ) {
+      runnerFail(
+        "RUNNER_REGRESSION_SOURCE_MISMATCH",
+        "/comparison/source/reference",
+        "comparison projection differs from its embedded immutable reference",
+      );
+    }
+  }
 }
 
 export function compareRegression(
@@ -759,6 +1099,32 @@ export function compareRegression(
     reference_provenance_digest: reference.source_run_digest,
     reference_digest: reference.reference_digest,
   } satisfies RegressionComparisonV1;
+  validateRegressionComparison(comparison);
+  return comparison;
+}
+
+/**
+ * Build a report-embeddable comparison whose candidate side is resolved
+ * from the supplied execution's canonical truth and whose complete source
+ * material (reviewed reference plus candidate selector) travels with it, so
+ * replay can independently reconstruct compatibility, comparability, and
+ * the comparator result.
+ */
+export function compareRegressionForExecution(
+  reference: RegressionReferenceV1,
+  selector: RegressionCandidateSelectorV1,
+  execution: RunnerExecutionV1,
+): RegressionComparisonV1 {
+  const candidate = resolveRegressionCandidate(execution, selector);
+  const base = compareRegression(reference, candidate);
+  const comparison: RegressionComparisonV1 = {
+    ...base,
+    source: {
+      source_format_version: REGRESSION_SOURCE_FORMAT_VERSION,
+      reference,
+      candidate_selector: selector,
+    },
+  };
   validateRegressionComparison(comparison);
   return comparison;
 }
