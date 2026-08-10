@@ -6,8 +6,10 @@ import {
   MAX_USER_LIMITATIONS,
   aggregateCaseResults,
   buildRunReport,
+  deriveDurationMilliseconds,
   renderReportBundle,
   runEvaluation,
+  utcInstantEpochMilliseconds,
   validateRunReport,
   validateUtcInstantText,
   type CaseExecutionRecordV1,
@@ -344,6 +346,288 @@ describe("shared contract-authoritative UTC instants", () => {
       ]),
     );
     expect(execution.records[0]?.duration_ms).toBe(1000);
+  });
+
+  test("the leap-second instant projects to the next minute boundary end to end", async () => {
+    // Documented leap-table-free Unix-style projection: second 60 shares the
+    // epoch millisecond of the following 00:00:00, so this duration is 0.
+    const execution = await runWithClock(
+      new SequenceClock(["2026-06-30T23:59:60Z", "2026-07-01T00:00:00Z"]),
+    );
+    expect(execution.records[0]?.duration_ms).toBe(0);
+    expect(() => {
+      validateRunReport(semanticClone(buildRunReport(execution)));
+    }).not.toThrow();
+  });
+});
+
+describe("proleptic-Gregorian whole-domain UTC projection", () => {
+  // Test-only reference calendar. Deliberately structured unlike the
+  // implementation: leap days are accumulated by direct per-year iteration
+  // instead of closed-form division, so a shared arithmetic mistake cannot
+  // hide in both sides.
+  function referenceIsLeap(year: number): boolean {
+    return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  }
+  const REFERENCE_MONTH_LENGTHS = [
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+  ] as const;
+  const referenceCumulativeYearDays: number[] = [0];
+  for (let year = 0; year < 10_000; year += 1) {
+    referenceCumulativeYearDays.push(
+      (referenceCumulativeYearDays[year] ?? 0) +
+        (referenceIsLeap(year) ? 366 : 365),
+    );
+  }
+  function referenceEpochMilliseconds(
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    second: number,
+  ): number {
+    let dayOfYear = 0;
+    for (let m = 1; m < month; m += 1) {
+      dayOfYear += REFERENCE_MONTH_LENGTHS[m - 1] ?? 0;
+      if (m === 2 && referenceIsLeap(year)) {
+        dayOfYear += 1;
+      }
+    }
+    dayOfYear += day - 1;
+    const epochDays =
+      (referenceCumulativeYearDays[year] ?? 0) +
+      dayOfYear -
+      (referenceCumulativeYearDays[1970] ?? 0);
+    return (
+      epochDays * 86_400_000 +
+      hour * 3_600_000 +
+      minute * 60_000 +
+      second * 1_000
+    );
+  }
+  function pad(value: number, width: number): string {
+    return String(value).padStart(width, "0");
+  }
+  function instantText(
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    second: number,
+  ): string {
+    return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}T${pad(hour, 2)}:${pad(minute, 2)}:${pad(second, 2)}Z`;
+  }
+
+  test.each([
+    "0000-01-01T00:00:00Z",
+    "0000-02-29T00:00:00Z",
+    "0001-01-01T00:00:00Z",
+    "0004-02-29T00:00:00Z",
+    "0099-12-31T23:59:59Z",
+    "0100-01-01T00:00:00Z",
+    "0400-02-29T00:00:00Z",
+    "2000-02-29T00:00:00Z",
+    "9999-12-31T23:59:59Z",
+  ])(
+    "contract-valid low- and high-year instant remains accepted: %s",
+    (text) => {
+      expect(validateUtcInstantText(text, "/test")).toBe(text);
+    },
+  );
+
+  test.each([
+    "0001-02-29T00:00:00Z",
+    "0100-02-29T00:00:00Z",
+    "1900-02-29T00:00:00Z",
+  ])("century and common-year leap days remain rejected: %s", (text) => {
+    expectCode(
+      () => validateUtcInstantText(text, "/test"),
+      "RUNNER_CLOCK_TIMESTAMP",
+    );
+  });
+
+  test("reviewed literal epoch anchors hold across the year domain", () => {
+    // Literal expected values reviewed against an external proleptic
+    // Gregorian calculation; the production arithmetic is never its own
+    // oracle here.
+    const anchors: readonly [string, number][] = [
+      ["0000-01-01T00:00:00Z", -62_167_219_200_000],
+      ["0000-02-29T00:00:00Z", -62_162_121_600_000],
+      ["0000-03-01T12:00:00Z", -62_161_992_000_000],
+      ["0001-01-01T00:00:00Z", -62_135_596_800_000],
+      ["0099-12-31T23:59:59Z", -59_011_459_201_000],
+      ["0100-01-01T00:00:00Z", -59_011_459_200_000],
+      ["1970-01-01T00:00:00Z", 0],
+      ["2000-02-29T00:00:00Z", 951_782_400_000],
+      ["9999-12-31T23:59:59Z", 253_402_300_799_000],
+    ];
+    for (const [text, expected] of anchors) {
+      expect(utcInstantEpochMilliseconds(text, "/test")).toBe(expected);
+      expect(Number.isSafeInteger(expected)).toBe(true);
+    }
+  });
+
+  test("the complete 0000-9999 domain matches the independent reference", () => {
+    for (let year = 0; year < 10_000; year += 1) {
+      const samples: [number, number][] = [
+        [1, 1],
+        [2, 28],
+        [3, 1],
+        [12, 31],
+      ];
+      if (referenceIsLeap(year)) {
+        samples.push([2, 29]);
+      }
+      for (const [month, day] of samples) {
+        const text = instantText(year, month, day, 12, 34, 56);
+        expect(utcInstantEpochMilliseconds(text, "/test")).toBe(
+          referenceEpochMilliseconds(year, month, day, 12, 34, 56),
+        );
+      }
+      // Second 60 at every year-end 23:59Z projects onto the next minute
+      // boundary under the documented leap-table-free Unix-style mapping.
+      const yearEndLeapSecond = utcInstantEpochMilliseconds(
+        instantText(year, 12, 31, 23, 59, 60),
+        "/test",
+      );
+      const nextMinuteBoundary =
+        year < 9_999
+          ? utcInstantEpochMilliseconds(
+              instantText(year + 1, 1, 1, 0, 0, 0),
+              "/test",
+            )
+          : referenceEpochMilliseconds(9_999, 12, 31, 23, 59, 60);
+      expect(yearEndLeapSecond).toBe(nextMinuteBoundary);
+    }
+  });
+
+  test.each([
+    ["0000-01-01T00:00:00Z", "0000-01-01T00:00:01Z", 1_000],
+    ["0000-02-28T00:00:00Z", "0000-02-29T00:00:00Z", 86_400_000],
+    ["0000-02-29T00:00:00Z", "0000-03-01T00:00:00Z", 86_400_000],
+    ["0099-12-31T23:59:59Z", "0100-01-01T00:00:00Z", 1_000],
+    ["0100-02-28T00:00:00Z", "0100-03-01T00:00:00Z", 86_400_000],
+    ["0400-02-28T00:00:00Z", "0400-02-29T00:00:00Z", 86_400_000],
+    ["0400-02-29T00:00:00Z", "0400-03-01T00:00:00Z", 86_400_000],
+    ["1900-02-28T00:00:00Z", "1900-03-01T00:00:00Z", 86_400_000],
+    ["2000-02-28T00:00:00Z", "2000-02-29T00:00:00Z", 86_400_000],
+    ["2000-02-29T00:00:00Z", "2000-03-01T00:00:00Z", 86_400_000],
+    ["9999-12-31T23:59:58Z", "9999-12-31T23:59:59Z", 1_000],
+  ])(
+    "calendar-boundary duration %s -> %s is exactly %d ms",
+    (started, ended, expected) => {
+      expect(deriveDurationMilliseconds(started, ended, "/test")).toBe(
+        expected,
+      );
+    },
+  );
+
+  test("the 36-hour year-zero window rejects from its true duration end to end", async () => {
+    // Contract-valid 0000-02-29T00:00:00Z -> 0000-03-01T12:00:00Z spans
+    // 129600000 ms; it must reject against the 86400000 ms bound instead of
+    // being remapped into a 12-hour 1900 window.
+    await expectAsyncCode(
+      runWithClock(
+        new SequenceClock(["0000-02-29T00:00:00Z", "0000-03-01T12:00:00Z"]),
+      ),
+      "RUNNER_CLOCK_DURATION",
+    );
+  });
+
+  test("low-year execution and report replay derive identical duration truth", async () => {
+    const execution = await runWithClock(
+      new SequenceClock(["0099-12-31T23:59:59Z", "0100-01-01T00:00:00Z"]),
+    );
+    expect(execution.records[0]?.duration_ms).toBe(1000);
+    expect(execution.records[0]?.canonical_result?.duration_ms).toBe(1000);
+    const report = buildRunReport(execution);
+    expect(report.cases[0]?.duration_ms).toBe(1000);
+    expect(() => {
+      validateRunReport(semanticClone(report));
+    }).not.toThrow();
+  });
+
+  test("fractional low-year instants keep deterministic millisecond truncation", async () => {
+    const execution = await runWithClock(
+      new SequenceClock([
+        "0000-01-01T00:00:00.123456789Z",
+        "0000-01-01T00:00:01.123456789Z",
+      ]),
+    );
+    expect(execution.records[0]?.duration_ms).toBe(1000);
+    expect(
+      deriveDurationMilliseconds(
+        "0000-01-01T00:00:00.9999Z",
+        "0000-01-01T00:00:01Z",
+        "/test",
+      ),
+    ).toBe(1);
+    // Short fractions pad to milliseconds (.5 is 500 ms, .05 is 50 ms),
+    // never re-scale (.5 must not become 5 ms).
+    const base = utcInstantEpochMilliseconds("0000-01-01T00:00:00Z", "/test");
+    expect(utcInstantEpochMilliseconds("0000-01-01T00:00:00.5Z", "/test")).toBe(
+      base + 500,
+    );
+    expect(
+      utcInstantEpochMilliseconds("0000-01-01T00:00:00.05Z", "/test"),
+    ).toBe(base + 50);
+    expect(
+      deriveDurationMilliseconds(
+        "0000-01-01T00:00:00.5Z",
+        "0000-01-01T00:00:01.5Z",
+        "/test",
+      ),
+    ).toBe(1000);
+  });
+
+  test("a witness-only low-year timestamp edit rejects during replay", async () => {
+    const clean = buildRunReport(
+      await runWithClock(
+        new SequenceClock(["0000-01-01T00:00:00Z", "0000-01-01T00:00:01Z"]),
+      ),
+    );
+    const mutant = semanticClone(clean) as unknown as {
+      replay_witness: {
+        case_witnesses: { started_at: string; ended_at: string }[];
+      };
+    };
+    const witnessed = required(
+      mutant.replay_witness.case_witnesses[0],
+      "low-year case witness",
+    );
+    witnessed.started_at = "0000-01-01T00:01:00Z";
+    witnessed.ended_at = "0000-01-01T00:01:01Z";
+    expectCode(() => {
+      validateRunReport(mutant);
+    }, "RUNNER_REPORT_REPLAY_MISMATCH");
+  });
+
+  test("a low-year semantic timestamp change changes the replayed report truth", async () => {
+    const first = renderReportBundle(
+      buildRunReport(
+        await runWithClock(
+          new SequenceClock(["0000-01-01T00:00:00Z", "0000-01-01T00:00:01Z"]),
+        ),
+      ),
+    );
+    const shifted = renderReportBundle(
+      buildRunReport(
+        await runWithClock(
+          new SequenceClock(["0000-01-01T00:00:00Z", "0000-01-01T00:00:02Z"]),
+        ),
+      ),
+    );
+    const identical = renderReportBundle(
+      buildRunReport(
+        await runWithClock(
+          new SequenceClock(["0000-01-01T00:00:00Z", "0000-01-01T00:00:01Z"]),
+        ),
+      ),
+    );
+    expect(shifted.json).not.toBe(first.json);
+    expect(identical.json).toBe(first.json);
   });
 });
 

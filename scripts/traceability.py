@@ -83,9 +83,14 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # then recorded the deterministic runner/provenance/report scaffold portion of
 # REQ-GATE-006 (additional evidence/code/test anchors and honest future-work
 # notes only; state, ownership, mapping, gate effects, and dependencies remain
-# unchanged) and re-locked the hash below.
+# unchanged). The M02-W05 proleptic-UTC correction then refreshed the same
+# REQ-GATE-006 anchors with the correction's authoritative shared-derivation
+# and timestamp-authority code paths (src/derive.ts, src/time.ts) and its
+# permanent replay-source, regression-source, and measurement-boundary
+# regression test paths (state, ownership, mapping, gate effects, and
+# dependencies again unchanged) and re-locked the hash below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39"
+    "89db8aaa77d196dd7ab2db389756fe48c2bafe809271984d695373116e4984c3"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

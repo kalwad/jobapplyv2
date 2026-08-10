@@ -11,7 +11,7 @@
     "derived_dependency_review": "The complete v1.4 direct-package graph is reviewed from specification \u00a71/\u00a79, including explicit M00-W11, M01-W07, and M27 exceptions; reverse downstream edges are derived from that graph. Historical v1.2/v1.3 hashes remain immutable snapshots. The v1.4 hashes lock requirement honesty, ownership, gate effects, package dependencies, deliverables, automated verification, and manual evidence plans.",
     "v1_3_reviewed_in_work_package": "M00-W10",
     "v1_4_reviewed_in_work_package": "M00-W11",
-    "v1_4_requirements_mapping_sha256": "e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39",
+    "v1_4_requirements_mapping_sha256": "89db8aaa77d196dd7ab2db389756fe48c2bafe809271984d695373116e4984c3",
     "v1_4_work_package_dependency_sha256": "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1",
     "v1_4_prior_requirement_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
     "v1_4_intentionally_changed_packages": [
@@ -4456,6 +4456,8 @@
         "packages/contracts/catalog/semantic-rules.v1.json",
         "packages/evaluation-runner/src/model.ts",
         "packages/evaluation-runner/src/runner.ts",
+        "packages/evaluation-runner/src/derive.ts",
+        "packages/evaluation-runner/src/time.ts",
         "packages/evaluation-runner/src/aggregate.ts",
         "packages/evaluation-runner/src/report.ts"
       ],
@@ -4469,7 +4471,10 @@
         "packages/evaluation-runner/test/m02-w05/reports.test.ts",
         "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
         "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
-        "packages/evaluation-runner/test/m02-w05/mutations.test.ts"
+        "packages/evaluation-runner/test/m02-w05/mutations.test.ts",
+        "packages/evaluation-runner/test/m02-w05/replay-source.test.ts",
+        "packages/evaluation-runner/test/m02-w05/regression-source.test.ts",
+        "packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts"
       ],
       "notes": "M01-W06 defines and cross-language-tests strict benchmark, holdout, gate-evidence, and decision contracts. M02-W05 adds the deterministic measurement scaffold: trusted repository/schema/corpus/runtime/implementation commitments; actual-only browser/model/prompt participation; per-case timing, memory, artifact and report digests; derived result truth; raw aggregates; uncertainty; immutable regression references; and deterministic JSON/Markdown/HTML reports with zero gate authority. W05 executes only public synthetic development proof and creates no gate run, real W06 holdout, manual scorer identity, owner decision, or acceptance evidence. The complete every-gate-run requirement therefore remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE for M02-W06/W14/W15, M05-W05, and M20-W09.",
       "mapping_review_state": "REVIEWED_V1_2"

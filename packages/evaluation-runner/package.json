@@ -2,7 +2,7 @@
   "name": "@japp/evaluation-runner",
   "version": "0.0.1",
   "private": true,
-  "description": "Deterministic evaluation-only benchmark runner, aggregation, regression comparison, and report projections for M02-W05.",
+  "description": "Deterministic evaluation-only benchmark runner, aggregation, regression comparison, and report projections for M02-W05. EVALUATION_ONLY and NON_PRODUCTION; never a product runtime dependency and never critical-gate authority.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

@@ -18,7 +18,7 @@
 - Expanded v1.3 requirement-mapping SHA-256: `e6c477f3083b07555dff66b1e7e281a8719785b606d93cce80289eca2505a355`
 - Expanded v1.3 dependency-map SHA-256: `549e793e447ba43d11d43992e81a0fb8137a4ebb6da1db9c04b4bce226707760`
 - v1.3 extension review state: `REVIEWED_V1_3`
-- Reviewed v1.4 requirement-mapping SHA-256: `e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39`
+- Reviewed v1.4 requirement-mapping SHA-256: `89db8aaa77d196dd7ab2db389756fe48c2bafe809271984d695373116e4984c3`
 - Reviewed v1.4 dependency/proof-plan SHA-256: `ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1`
 - v1.4 extension review state: `REVIEWED_V1_4`
 

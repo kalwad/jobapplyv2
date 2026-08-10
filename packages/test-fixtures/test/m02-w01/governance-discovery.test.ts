@@ -151,7 +151,9 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
     }
     // The exact reviewed consumers are the M02-W04 baseline owner and the
     // M02-W05 runner's development-only integration proof. Both must remain
-    // private evaluation packages; no product package may consume fixtures.
+    // private, explicitly NON_PRODUCTION evaluation packages; no product
+    // package may consume fixtures. The exact NON_PRODUCTION token is the
+    // pre-W05 invariant and must not be weakened to a generic word.
     expect(consumers).toEqual([
       "packages/evaluation-baselines",
       "packages/evaluation-runner",
@@ -169,6 +171,7 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
       ) as { name?: string; private?: boolean; description?: string };
       expect(consumerManifest.name).toBe(name);
       expect(consumerManifest.private).toBe(true);
+      expect(consumerManifest.description).toContain("NON_PRODUCTION");
       expect(consumerManifest.description?.toLowerCase()).toContain(
         "evaluation",
       );

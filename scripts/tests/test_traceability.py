@@ -85,9 +85,13 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/contracts/test/generated/semantic-rules.test.ts",
         "scripts/tests/test_generated_semantic_rules.py",
         # M02-W05 REQ-GATE-006 completed-path anchors (deterministic runner,
-        # provenance, aggregation, reports, and synthetic-only proof).
+        # provenance, aggregation, reports, and synthetic-only proof), plus
+        # the proleptic-UTC correction's shared derivation/timestamp authority
+        # and its permanent replay/regression/measurement regression tests.
         "packages/evaluation-runner/src/model.ts",
         "packages/evaluation-runner/src/runner.ts",
+        "packages/evaluation-runner/src/derive.ts",
+        "packages/evaluation-runner/src/time.ts",
         "packages/evaluation-runner/src/aggregate.ts",
         "packages/evaluation-runner/src/report.ts",
         "packages/evaluation-runner/test/m02-w05/runner.test.ts",
@@ -96,6 +100,9 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
         "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
         "packages/evaluation-runner/test/m02-w05/mutations.test.ts",
+        "packages/evaluation-runner/test/m02-w05/replay-source.test.ts",
+        "packages/evaluation-runner/test/m02-w05/regression-source.test.ts",
+        "packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts",
         # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
         # capability and platform-service contracts).
         "packages/contracts/generator/semantic-rules.ts",

@@ -33,6 +33,172 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W05 — Proleptic-UTC corrective writer pass (2026-08-09)
+
+- Revision: second corrective working tree over exact corrected M02-W05
+  content commit `fdf7bdaa0488179bff1d0aa9d78e7c1787d25090` / tree
+  `554bdc075967a2667cc37379465f06e931af1b21` (parent
+  `383ae578512910b17d98aee30e1f24531fa746c8`); the containing correction
+  commit and tree are reported post-commit. The fresh independent Fable 5
+  acceptance verification of `fdf7bda` returned
+  `FABLE_BLOCKED_M02_W05_GOVERNANCE` (2026-08-09): it independently closed
+  the five KI-0048…KI-0052 defect classes and accepted the documented
+  leap-table-free leap-second projection, but found the low-year UTC
+  projection acceptance-blocking (KI-0053) and a W05-caused dilution of the
+  M02-W01 NON_PRODUCTION fixture-consumer assertion (KI-0054).
+  Owner-selected corrective implementation agent: Fable 5 Ultra Code
+  (single authoritative writer; no automatic model switching; bounded
+  read-only Fable 5 reviewers only; the writer personally reproduced every
+  acceptance-critical result).
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv-managed Python 3.12.13, uv 0.11.32, Rust 1.97.1; frozen/locked
+  installs (`pnpm install --frozen-lockfile`, `uv sync --locked`, both
+  `cargo fetch --locked` manifests) → exit 0.
+- Pre-fix reproductions on the exact corrected `fdf7bda` content
+  (temporary scripts outside the repository; no repository bytes changed):
+  (1) canonical contract truth determined exclusively through
+  `validateCommonTimestampUtcV1UtcTimestamp`: years 0000–0099 accepted;
+  `0000-02-29`, `0004-02-29`, `0400-02-29`, `2000-02-29` valid;
+  `0001-02-29`, `0100-02-29`, `1900-02-29` invalid; `0099-12-31T23:59:59Z`,
+  `0100-01-01T00:00:00Z`, `9999-12-31T23:59:59Z`, and the `23:59:60Z`
+  leap-second forms valid. (2) through the real `runEvaluation` →
+  canonical `BenchmarkResultV1` → `buildRunReport` →
+  `validateRunReport`/render path, the contract-valid 36-hour window
+  `0000-02-29T00:00:00Z -> 0000-03-01T12:00:00Z` was ACCEPTED as
+  `duration_ms` 43200000 (canonical result issued, report validated and
+  rendered), because `Date.UTC` projected `0000-02-29` to −2203891200000
+  (1900-03-01 after the nonexistent 1900-02-29 rolled forward); the
+  contract-valid 1000 ms window
+  `0099-12-31T23:59:59Z -> 0100-01-01T00:00:00Z` was REJECTED
+  (`RUNNER_CLOCK_DURATION`) because 0099 projected into 1999
+  (946684799000) against a correctly projected 0100 (−59011459200000);
+  and the year-zero control `0000-01-01T00:00:00Z -> +1 s` returned
+  1000 ms only by offset cancellation while projecting to −2208988800000
+  (1900-01-01) instead of −62167219200000. (3) a standalone
+  pure-integer reference (Python, no datetime/Date API, per-year
+  iterative leap counting) confirmed the true values: 36-hour window
+  129600000 ms; `0099 -> 0100` 1000 ms; anchors
+  `0000-01-01T00:00:00Z` = −62167219200000,
+  `0001-01-01T00:00:00Z` = −62135596800000, `1970-01-01` = 0,
+  `2000-02-29` = 951782400000, `9999-12-31T23:59:59Z` = 253402300799000;
+  leap-second `23:59:59 -> :60` = 1000 ms and `:60 -> next day` = 0 ms;
+  and the whole 0000–9999 domain (minimum −62167219200000, maximum
+  253402300800999 with second 60 and .999) inside ±(2^53−1).
+- Correction architecture: `src/time.ts` now projects contract-valid
+  instants through deterministic proleptic-Gregorian integer arithmetic —
+  canonical generated contract validation first, a positive day-ordinal
+  count from year zero (closed-form leap counting over non-negative
+  operands only; no negative integer division anywhere), subtraction of
+  the fixed 1970 ordinal, BigInt combination of
+  day/hour/minute/second/fraction, a fail-closed decomposed-field domain
+  guard, and conversion to Number only after a proven safe-integer bound.
+  Year 0000 and 0400 are leap; 0100 and 1900 are common. The accepted
+  leap-table-free Unix-style leap-second projection (second 60 at 23:59Z
+  onto the next minute boundary) and deterministic fractional truncation
+  are preserved; `deriveDurationMilliseconds` still enforces integer ≥ 0
+  and ≤ 86400000; execution and replay continue to share the single
+  `time.ts`/`derive.ts` derivation authority (`runner.ts`, `derive.ts`,
+  and `report.ts` remain the only call sites). A static governance rule in
+  `governance-layering.test.ts` now forbids `Date.UTC`/`Date.parse` in
+  runner source. The M02-W01 fixture-consumer invariant in
+  `packages/test-fixtures/test/m02-w01/governance-discovery.test.ts` again
+  requires, for BOTH reviewed consumers, the exact package name,
+  `private === true`, and a description containing the exact token
+  `NON_PRODUCTION` (the retained lowercase `evaluation` check makes the
+  restored assertion strictly stronger than the `5f8af91` parent);
+  `packages/evaluation-runner/package.json` truthfully declares
+  `EVALUATION_ONLY` / `NON_PRODUCTION` / never critical-gate authority
+  with no version, dependency, or lockfile change, and W05's own
+  `governance-layering.test.ts` independently asserts that
+  classification. REQ-GATE-006 completed anchors were refreshed
+  (`src/derive.ts`, `src/time.ts`,
+  `test/m02-w05/replay-source.test.ts`,
+  `test/m02-w05/regression-source.test.ts`,
+  `test/m02-w05/measurement-boundaries.test.ts`) through the canonical
+  reviewed procedure: `review.v1_4_requirements_mapping_sha256` and
+  `FINAL_V1_4_REQUIREMENT_MAPPING_SHA256` transitioned
+  `e2075f706e223b14ba8af8ebce4a53fa062b4e069531e02a7a59ebe697675e39` →
+  `89db8aaa77d196dd7ab2db389756fe48c2bafe809271984d695373116e4984c3`
+  (states, ownership, mapping, gate effects, dependencies unchanged; the
+  package dependency hash `ea991a04…` is unchanged), and
+  `docs/REQUIREMENTS_TRACEABILITY.md` was regenerated only via
+  `pnpm traceability:generate`.
+- Corrected reproduction behavior re-executed on the new content through
+  the same real path: the 36-hour year-zero window now rejects
+  `RUNNER_CLOCK_DURATION` from its true 129600000 ms duration; the
+  `0099 -> 0100` window derives exactly 1000 ms, issues its canonical
+  result, builds, replays, and renders; every probe projection equals the
+  standalone reference exactly; and a 62,428-comparison sweep across the
+  complete 0000–9999 domain (Jan 1, Feb 28, Mar 1, Jun 30, Dec 31, every
+  leap-day, every year-end leap second, and low-year fraction truncation)
+  matched an independent iterative reference with zero mismatches.
+- Focused verification completed in this corrective writer pass:
+  - W05 typecheck, strict ESLint, and Prettier → exit 0; `runner:check`
+    executed twice → deterministic JSON/Markdown/HTML PASS both times,
+    with byte-identical `git status --porcelain=v1 -uall` SHA-256 before,
+    between, and after the two runs (read-only proof).
+  - W05 Vitest 290/290 across 12 files: aggregation-statistics 24,
+    governance-layering 6, measurement-boundaries 63 (31 new permanent
+    low-year/leap-second regressions: contract acceptance matrix 9,
+    common-year rejection matrix 3, literal reviewed epoch anchors, the
+    complete 0000–9999 independent-reference matrix, 11 calendar-boundary
+    duration rows, the end-to-end 36-hour rejection, low-year
+    execution/replay equality, fractional truncation, witness-edit
+    rejection, low-year report-truth change, and the leap-second
+    next-minute-boundary end-to-end control), mutations 18 (historical
+    finite campaign untouched), regression-source 16, regression 22,
+    replay-source 11, reports 22, runner 27, thresholds 32,
+    validation-boundaries 48, w04-integration 1. Focused
+    measurement-boundaries + governance-layering run → 69/69.
+  - M02-W01 focused discovery/governance suite → 108/108 with the
+    restored NON_PRODUCTION assertion passing for both reviewed
+    consumers (`governance-discovery.test.ts` 7/7 within it).
+  - preserved W04 typecheck/`baselines:check`/test → 171/171 across 9
+    files (catalog v1.0.2 digest unchanged); W02 → 57/57; full fixtures →
+    166/166; mock lab typecheck/test/build → 32/32 and build success;
+    Playwright discovery/execution → 59 tests in 17 files / 59/59.
+  - focused Python suites: test_integrity 43, test_suite_states 294,
+    test_proofs_and_real_repo 7, test_traceability 62 (fixture path
+    anchors extended for the five refreshed REQ-GATE-006 paths),
+    test_v14_migration 31, test_validate_status 148 (corrective-issue
+    tuple extended to KI-0054; no Python test added or removed); full
+    `scripts/tests` 976/976.
+  - `python3 scripts/validate_status.py` → PASS (45 check groups) with
+    KI-0048…KI-0051 and KI-0053 as HIGH/IN_PROGRESS live blockers and
+    KI-0052/KI-0054 MEDIUM/IN_PROGRESS (not live blockers);
+    `pnpm traceability:check` → PASS 193/300 after the reviewed hash
+    transition; `pnpm generate:contracts --check` → 183 byte-identical;
+    `pnpm run doctor` → 22 pass / 0 fail / 1 not-yet-applicable (single
+    warning: expected pre-commit uncommitted changes); `git diff --check`
+    → clean.
+  - full `pnpm verify` with pinned Node 24.18.0 → exit 0: 12/12
+    typecheck tasks; 12/12 test tasks and 3,106/3,106 TypeScript tests
+    (contracts 2440, evaluation-runner 290, evaluation-baselines 171,
+    test-fixtures 166, mock-ats-lab 32, seven scaffold packages 1 each);
+    generated contracts 183/183 byte-identical; focused contracts
+    662/662; fixture-corpus focused W01 108 + W02 57 (exact 165);
+    Playwright 59/59 across 17 files; exact POSIX Python inventory
+    977/977; Rust 1/1 plus 10/10; status 45 groups; traceability
+    193/300; portability and integrity PASS; every ACTIVE suite PASS;
+    visual remained truthfully NOT_YET_APPLICABLE; worktree
+    status-neutrality held; no skipped, xfailed, xpassed, or other
+    nonordinary test outcome.
+- Scope/governance: M02-W05 remains IN_PROGRESS and unaccepted; M02-W06
+  remains NOT_STARTED; no package is READY; M02 remains IN_PROGRESS; M00
+  and M01 remain ACCEPTED; M02-W01/W02/W03/W04 remain VERIFIED at their
+  preserved trees; KI-0046/KI-0047 remain FIXED; KI-0048…KI-0054 remain
+  IN_PROGRESS pending separate fresh independent verification; all four
+  critical gates remain NOT_EVALUATED and release remains NOT_READY. No
+  timestamp/benchmark/generated schema, W04 baseline semantic, W01/W02
+  fixture body, mock ATS semantic, Playwright scenario, model-lock,
+  prompt-registry, CI-workflow, toolchain-pin, lockfile, or gate-report
+  byte changed; M02-W01 was reopened only to restore the one governance
+  assertion W05 itself weakened; no W06/W13/W14/W15 behavior was
+  implemented; no critical gate was evaluated; no governance closeout
+  occurred. Exact-SHA three-OS hosted execution follows the correction
+  push; only a separate fresh independent session may move M02-W05 to
+  VERIFIED.
+
 ### M02-W05 — Corrective writer pass: bind replay and regression evidence (2026-08-09)
 
 - Revision: corrective working tree over exact blocked M02-W05 content commit

@@ -32,6 +32,125 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W05 fresh acceptance defect history (second verification)
+
+KI-0053 and KI-0054 were reported by the fresh independent Fable 5 acceptance
+verifier on 2026-08-09 against exact corrected M02-W05 content commit
+`fdf7bdaa0488179bff1d0aa9d78e7c1787d25090` / tree
+`554bdc075967a2667cc37379465f06e931af1b21`; the verifier returned
+`FABLE_BLOCKED_M02_W05_GOVERNANCE`. The same verification independently
+closed the five KI-0048 through KI-0052 defect classes and explicitly
+accepted the documented leap-table-free leap-second projection, but found the
+low-year UTC projection acceptance-blocking and a separate W05-caused
+test-governance dilution. A second corrective Fable 5 writer pass reproduced
+both findings on the exact corrected content, corrected them, and recorded
+permanent regression coverage; both issues remain IN_PROGRESS because
+M02-W05 acceptance must come from a separate fresh independent session, not
+from the correcting writer.
+
+### KI-0053 — Low-year UTC projection violated canonical proleptic-Gregorian time
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-09 during fresh independent Fable 5 M02-W05 acceptance
+  verification
+- Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` timestamp
+  projection (`src/time.ts`), duration derivation, execution records,
+  canonical result issuance, and report replay
+- Description: at corrected content `fdf7bda` / tree `554bdc0`, the canonical
+  timestamp contract correctly accepts proleptic-Gregorian years 0000–0099
+  (year 0000 is leap; ajv-formats full-mode calendar validation), but
+  `utcInstantEpochMilliseconds` projected numeric fields through JavaScript
+  `Date.UTC`, which remaps numeric years 0–99 onto 1900–1999. Contract-valid
+  low-year instants therefore projected into the wrong century: the
+  nonexistent 1900-02-29 rolled forward, so the contract-valid 36-hour window
+  `0000-02-29T00:00:00Z -> 0000-03-01T12:00:00Z` (truly 129600000 ms)
+  derived `duration_ms` 43200000 and bypassed the W05
+  `duration <= 86400000` boundary end to end (accepted by `runEvaluation`,
+  issued as a canonical `BenchmarkResultV1`, built, replayed, and rendered),
+  while the contract-valid 1000 ms window
+  `0099-12-31T23:59:59Z -> 0100-01-01T00:00:00Z` was spuriously rejected
+  (`RUNNER_CLOCK_DURATION`) because 0099 projected into 1999 against a
+  correctly projected 0100.
+- Reproduction: at exact corrected commit
+  `fdf7bdaa0488179bff1d0aa9d78e7c1787d25090`, (1) run any case with a clock
+  returning `0000-02-29T00:00:00Z` then `0000-03-01T12:00:00Z`: the runner
+  accepted `duration_ms` 43200000 (canonical result included) and the report
+  validated and rendered; (2) run `0099-12-31T23:59:59Z` then
+  `0100-01-01T00:00:00Z`: rejected `RUNNER_CLOCK_DURATION` although the true
+  duration is exactly 1000 ms; (3) projection evidence: `0000-01-01T00:00:00Z`
+  projected to -2208988800000 (1900-01-01) instead of -62167219200000.
+  An independent no-Date-API integer reference confirmed the true values.
+- Workaround: none accepted. The canonical timestamp contract owns validity;
+  bounding accepted years or weakening the schema to fit JavaScript Date was
+  rejected.
+- Resolution + evidence link: IN_PROGRESS. The correction replaces the
+  Date-based numeric projection in `src/time.ts` with deterministic
+  proleptic-Gregorian integer arithmetic over the whole 0000–9999 contract
+  domain: canonical contract validation first, positive day-ordinal counting
+  from year zero (no negative integer division), subtraction of the fixed
+  1970 ordinal, BigInt combination of day/hour/minute/second/fraction, and
+  conversion to Number only after a proven safe-integer bound. Year 0000 and
+  0400 are leap; 0100 and 1900 are common; the accepted leap-table-free
+  Unix-style leap-second projection (`23:59:60Z` to the next minute
+  boundary) and deterministic fractional truncation are preserved
+  byte-identically; execution and replay continue to share the single
+  `time.ts`/`derive.ts` authority. The 36-hour year-zero window now rejects
+  from its true 129600000 ms duration, and the 0099->0100 window derives
+  exactly 1000 ms. A static governance rule now forbids `Date.UTC` and
+  `Date.parse` in runner source, and permanent regression coverage (literal
+  reviewed anchors, an independent iterative reference over the complete
+  0000–9999 domain, calendar-boundary durations, end-to-end rejection,
+  replay equality, fraction truncation, and leap-second preservation) lives
+  in `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`
+  and `packages/evaluation-runner/test/m02-w05/governance-layering.test.ts`.
+  See docs/TEST_EVIDENCE.md § M02-W05 (proleptic-UTC corrective writer pass,
+  2026-08-09). Acceptance requires a separate fresh independent session.
+
+### KI-0054 — W05 weakened the M02-W01 NON_PRODUCTION fixture-consumer assertion
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-08-09 during fresh independent Fable 5 M02-W05 acceptance
+  verification
+- Affects: M02-W05; M02-W01 test governance
+  (`packages/test-fixtures/test/m02-w01/governance-discovery.test.ts`);
+  `packages/evaluation-runner/package.json` classification
+- Description: at governance parent `5f8af91`, the M02-W01 fixture-consumer
+  invariant required the single reviewed consumer
+  (`@japp/evaluation-baselines`) to be `private: true` with a description
+  containing the exact token `NON_PRODUCTION`. When W05 legitimately added
+  `@japp/evaluation-runner` as a second reviewed consumer, the original W05
+  content weakened the shared assertion to
+  `description.toLowerCase()` containing the generic word `"evaluation"` for
+  both consumers. That is weaker than the pre-existing explicit
+  NON_PRODUCTION invariant and violated the spec §1.5 no-test-weakening
+  rule, even though the actual package layering remained
+  evaluation-only/private throughout.
+- Reproduction: compare
+  `packages/test-fixtures/test/m02-w01/governance-discovery.test.ts` at
+  `5f8af91` (`expect(consumerManifest.description).toContain("NON_PRODUCTION")`)
+  with `383ae57`/`fdf7bda`
+  (`expect(consumerManifest.description?.toLowerCase()).toContain("evaluation")`);
+  at `fdf7bda` the runner manifest description contained no `NON_PRODUCTION`
+  token, so restoring the parent assertion verbatim fails against the runner
+  consumer.
+- Workaround: none accepted. A generic lowercase word is not a
+  non-production classification proof.
+- Resolution + evidence link: IN_PROGRESS. The correction restores the exact
+  `NON_PRODUCTION` token assertion for BOTH reviewed consumers (name,
+  `private === true`, description containing exact `NON_PRODUCTION`, plus
+  the retained evaluation wording check) without undoing W05's legitimate
+  second consumer, and updates
+  `packages/evaluation-runner/package.json` to truthfully declare
+  `EVALUATION_ONLY`, `NON_PRODUCTION`, and no critical-gate authority (no
+  version or dependency change; no lockfile change). W05's own
+  `governance-layering.test.ts` now independently asserts the runner
+  manifest's private/NON_PRODUCTION/EVALUATION_ONLY classification. M02-W01
+  fixture bodies and fixture truth are untouched. See docs/TEST_EVIDENCE.md
+  § M02-W05 (proleptic-UTC corrective writer pass, 2026-08-09). Acceptance
+  requires a separate fresh independent session.
+
 ## M02-W05 acceptance defect history
 
 KI-0048 through KI-0052 were reported by the independent GPT-5.6 Sol Ultra
@@ -40,9 +159,12 @@ commit `383ae578512910b17d98aee30e1f24531fa746c8` / tree
 `a5544b13da96d1d6bc9ce0db50ab5b2d23c454ce`; the verifier returned
 `SOL_BLOCKED_M02_W05_GOVERNANCE`. A corrective Fable 5 writer pass reproduced
 all five defects on the exact blocked content, corrected them, and recorded
-permanent regression coverage; all five issues remain IN_PROGRESS because
-M02-W05 acceptance must come from a separate fresh independent session, not
-from the correcting writer.
+permanent regression coverage; the fresh independent Fable 5 verification of
+2026-08-09 (`FABLE_BLOCKED_M02_W05_GOVERNANCE` at `fdf7bda`) independently
+closed all five defect classes, but all five issues remain IN_PROGRESS
+because M02-W05 acceptance must come from a separate fresh independent
+session verifying the complete corrected W05 revision, not from the
+correcting writer.
 
 ### KI-0048 — Report replay lacked authoritative source binding
 

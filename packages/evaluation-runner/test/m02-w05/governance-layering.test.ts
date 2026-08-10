@@ -51,6 +51,8 @@ describe("M02-W05 package layering and governance boundaries", () => {
     const manifest = JSON.parse(
       readFileSync(join(PACKAGE_ROOT, "package.json"), "utf8"),
     ) as {
+      private?: boolean;
+      description?: string;
       dependencies?: Record<string, string>;
       devDependencies?: Record<string, string>;
     };
@@ -64,6 +66,12 @@ describe("M02-W05 package layering and governance boundaries", () => {
       "typescript",
       "vitest",
     ]);
+    // The runner itself must declare the same classification the reviewed
+    // M02-W01 fixture-consumer invariant enforces: a private, explicitly
+    // NON_PRODUCTION evaluation package with no critical-gate authority.
+    expect(manifest.private).toBe(true);
+    expect(manifest.description).toContain("NON_PRODUCTION");
+    expect(manifest.description).toContain("EVALUATION_ONLY");
   });
 
   it("keeps the production model lock and prompt registry at their pre-M05 placeholders", () => {
@@ -119,6 +127,12 @@ describe("M02-W05 static source boundary", () => {
     readonly pattern: RegExp;
   }[] = [
     { label: "wall-clock identity", pattern: /Date\.now|new Date\s*\(/u },
+    {
+      // Numeric Date-API construction remaps years 0-99 onto 1900-1999, so
+      // no Date API may own W05 timestamp semantics (KI-0053).
+      label: "Date-API calendar semantics",
+      pattern: /Date\.UTC|Date\.parse/u,
+    },
     { label: "random identity", pattern: /Math\.random|randomUUID/u },
     { label: "environment-derived behavior", pattern: /process\.env/u },
     {
