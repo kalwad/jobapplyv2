@@ -1,0 +1,2162 @@
+{
+  "artifact_count": 103,
+  "artifact_role_counts": {
+    "PUBLIC_BASELINE": 16,
+    "PUBLIC_DEVELOPMENT_INPUT": 6,
+    "PUBLIC_EXPECTED_TRUTH": 12,
+    "PUBLIC_FORM_VARIANT": 44,
+    "SCHEMA_SEMANTICS": 25
+  },
+  "artifacts": [
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 173,
+      "content_digest": "sha256:b94bfdf67b140f350db0c5942d6524a654db0f47a52902cb08117f81a81d2db5",
+      "expected_truth": true,
+      "path": "apps/mock-ats-lab/catalog.manifest.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 430,
+      "content_digest": "sha256:9a6f45dd509b40b34039cf13bdd04ec8eb303c0a3581a26d18fc23bfc08ca8bc",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/apply/receipt/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 428,
+      "content_digest": "sha256:5e5a03954ccfe1fe3f4ae2ad80fbfcfd7218154257174e83e5c62e77f190c2bb",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/apply/review/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 433,
+      "content_digest": "sha256:f237a996a1101f08f3d275c4266a95902d3347cc81aa50249f8d7fd4b2061aec",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/apply/step-1/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 433,
+      "content_digest": "sha256:59797ef222396bb09fec7a0f697194ea3e9c3c4f478bfe488f44ff8fdb47cb0d",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/apply/step-2/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 433,
+      "content_digest": "sha256:8b3bc38a4eb3c66c0e13a0800f5c7473ad3a77d18f579e252c35108035e38e31",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/apply/step-3/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 435,
+      "content_digest": "sha256:44062a5367ec9097ccb921d1411e5fcc0f1fa3abcc07b489be3efd92148db098",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/combobox/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 433,
+      "content_digest": "sha256:7a5a560150b8743cb942d196ce2644c1420e7d39f0000e69465e03c4c5f9757b",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/datephone/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 426,
+      "content_digest": "sha256:bfea07f2cc4464a1e931e6bcdc793fa57406f275523062a09a5d687fc3668cf0",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/dynamic/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 429,
+      "content_digest": "sha256:b59f3745ada3f90d86391279b068042bc113099788fc66f70fc841480bf7a8ec",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/frames/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 442,
+      "content_digest": "sha256:74e5d37d97ddf900c4fb30d86356f02f59720379e4641045010eb472a65a691d",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/frames/inner/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 429,
+      "content_digest": "sha256:1a95f4cc9c99a17ef607a967e067e57615d6e6197862c1d3b09a8b34d22473b1",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 449,
+      "content_digest": "sha256:f4cd735484350fe920692f72c781cc963aeb5466016306c4cd0e0a7c81f2d8d2",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/native/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 4207,
+      "content_digest": "sha256:d207d148223170229aee37e9eb48df37c510318719fabad25100de907ee62405",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/public/styles.css",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 434,
+      "content_digest": "sha256:b7dea6df16e3cfd8997148beaad6734ac9bc7cbd47f41873cac9e7ad194c2814",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/react/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 426,
+      "content_digest": "sha256:abaea86445cd1866b1587697093632f6e8c356bef3892fe8009177701bbde9a1",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/shadow/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 7799,
+      "content_digest": "sha256:500cf14d06136cf6a04e5443a4fe9597247cd258e056ac4fcdbd3e6a265b061b",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/catalog/cases.ts",
+      "record_count": 32,
+      "record_ids": [
+        "MAL-CBX-001",
+        "MAL-CBX-002",
+        "MAL-DTP-001",
+        "MAL-DTP-002",
+        "MAL-DYN-001",
+        "MAL-DYN-002",
+        "MAL-DYN-003",
+        "MAL-FLW-001",
+        "MAL-FLW-002",
+        "MAL-FLW-003",
+        "MAL-FLW-004",
+        "MAL-FLW-005",
+        "MAL-FLW-006",
+        "MAL-FLW-007",
+        "MAL-FLW-008",
+        "MAL-FRM-001",
+        "MAL-IDX-001",
+        "MAL-NAT-001",
+        "MAL-NAT-002",
+        "MAL-NAT-003",
+        "MAL-NAT-004",
+        "MAL-NAT-005",
+        "MAL-REA-001",
+        "MAL-REA-002",
+        "MAL-REA-003",
+        "MAL-SHD-001",
+        "MAL-UPL-001",
+        "MAL-VAL-001",
+        "MAL-VIR-001",
+        "MAL-VUE-001",
+        "MAL-VUE-002",
+        "MAL-VUE-003"
+      ],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 470,
+      "content_digest": "sha256:b6d54fdd4a92c2091d36cb94bd4f6499059e606c415ce012beea011f5987095a",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/banner.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2901,
+      "content_digest": "sha256:a9e9188e4256d2a2baea0f98ac01e19dde12935989bbf19369a64ac91ebf06e0",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/constants.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2738,
+      "content_digest": "sha256:3584b5ca9e144f86ffe893f859fd11605f784b958a77786047965fdcf5038d17",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/dom.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5070,
+      "content_digest": "sha256:a6bd9f7061dd7122d29d3739d263ca7f32cdfded427b9f4ca82417ee1ebb72e1",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/flow-state.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2031,
+      "content_digest": "sha256:a0781eca28279e13a9b2786bf2e7957824e839b5703af488bf2150df5c92a825",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/receipts.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1763,
+      "content_digest": "sha256:5dc93b70fc770b007965f09a9d1ff05a73f3245e8049701c2b8faf44622a76fb",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/lab/storage.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1540,
+      "content_digest": "sha256:b5076b2705e4d9314f028972bc2986fc1993b3735798baf5a938295c544d27ff",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/apply-receipt.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 4669,
+      "content_digest": "sha256:619f50a871257be33125631123310b2bee259c62323ed2c84f337fbdad59e78a",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/apply-review.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3404,
+      "content_digest": "sha256:ab2146c1a6b881042263f880e7c42465b052754618c8737a964852b2760819c5",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/apply-step-1.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3828,
+      "content_digest": "sha256:7f18447df1a4136f198a180cd1f1083918fafd53c1a31ba8152f7b326ffeb65f",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/apply-step-2.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5974,
+      "content_digest": "sha256:6380b75121ebfb856943084ab0d6779a8ddfeb5d472924d418eba77dc6af2e1e",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/apply-step-3.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 8145,
+      "content_digest": "sha256:fc2d25867d6f9867db81e64aa3a73cd5659999eb65979382cc89ab23ad16bcae",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/combobox.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 6722,
+      "content_digest": "sha256:cb25cd1b120617012cf3320238f91b60d93085d0b57fefb8eee1be2e2e6c3e6a",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/datephone.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 6475,
+      "content_digest": "sha256:a0f4fff5a317989b98c053494e2a5b9f1bf971b5f41774a03395745965e04f70",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/dynamic.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2066,
+      "content_digest": "sha256:f857cde7940dfee2a5f27927c98b025933fe5ff92fce7cc2e5682af767154880",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/frames-inner.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 768,
+      "content_digest": "sha256:d4d7fa6133ed358525cd8ebb9a35bd4b48f9c0ab5d3abdc9cb4f17a64e869045",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/frames.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1157,
+      "content_digest": "sha256:b277f356bf829c0dc78133f42a7e0473e2efb64cefd1517a0ba750e0114bae9f",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/index.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 9688,
+      "content_digest": "sha256:9c53317269b30ecc82ad7f4c9131c510737ef10a392efd8de5233e4a3f35d576",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/native.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5883,
+      "content_digest": "sha256:f4e0380a8f96e6cf250d7e7db2a266c0050fd4b09dbf720c693842d5bab3c596",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/react-page.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3131,
+      "content_digest": "sha256:d360b265037f197350a3a17ecc7fbde595845576097903c466f2613ad09d9a0c",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/shadow.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3593,
+      "content_digest": "sha256:a97ae516a1eb85ace1d9f01eab87d18f4309a97521a2db5f860ee1ad6663d302",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/upload.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5588,
+      "content_digest": "sha256:2c9b3a8926008d9f0ee616ca5bfd3a2983286d5a4cba34962bbad7049185ccfa",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/validation.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5879,
+      "content_digest": "sha256:52ebdc1ac799780a28f4d4c27cdc774e28b1029a152b2c7d385ac9e0d19c7192",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/virtualized.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 4706,
+      "content_digest": "sha256:9bfbce278e4bbe010efc8849ed45010493e0258d40c09c0509471d6e2e86a419",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/src/pages/vue-page.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 423,
+      "content_digest": "sha256:e8501379c41a7979cab3ef2e5d649588149e536b652803375d6ac1604777f55b",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/upload/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 432,
+      "content_digest": "sha256:e629b643c82543d61612d34b0b22c60cfa54a658ff06654a3026763ce04c3bdd",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/validation/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 436,
+      "content_digest": "sha256:15260949a792877e85229417c63c32a12e1f054af5be564c34f2fb76c063e650",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/virtualized/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 430,
+      "content_digest": "sha256:8cd4b8b195e9f7a55be36255a462c68725d6d5a810b7aa7e621ea2a6bd065cf9",
+      "expected_truth": false,
+      "path": "apps/mock-ats-lab/site/vue/index.html",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_FORM_VARIANT"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 6244,
+      "content_digest": "sha256:60da2b28e6b87d8b9c94332a1303ed9f4bc8665ae77381554cd9407472628de2",
+      "expected_truth": true,
+      "path": "e2e/mock-ats-lab/support/expected-transitions.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 323307,
+      "content_digest": "sha256:d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02",
+      "expected_truth": false,
+      "path": "packages/contracts/generator/semantic-rules.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:benchmark:case:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 5440,
+      "content_digest": "sha256:83122bef37c57220caf3467e2ba915a436111ac478817ecc9ddf414503ee9d53",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/benchmark/case.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 4661,
+      "content_digest": "sha256:139441d5b1bbcd44b35dafe8103d671825b6e9cfb79008a3dfd94d9b4927c738",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:benchmark:result:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 6557,
+      "content_digest": "sha256:8ab75abe179c4fc29f8f057dc40023665edb7e79d6d6ab75134eaa56068e286f",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/benchmark/result.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:confidence:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 715,
+      "content_digest": "sha256:bc9314800ff05d7ae0bd99149a998c3760063e084a5a1bd49b06c11422f6b2c7",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/confidence.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:contract-text:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2521,
+      "content_digest": "sha256:94f461e99d94614fa7fa982bfab36f0d80198eb613b8ca266d98ee4f942a4638",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/contract-text.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:enum-token:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 829,
+      "content_digest": "sha256:4a884f43f45bd583270098438d4ea49039ac617023e5498a5904f9f750f8ae6a",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/enum-token.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:provenance:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2228,
+      "content_digest": "sha256:98568be9ee00446795785588cf352e84fd39bb3dc13dd9e2d5772917b88d828a",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/provenance.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:stable-id:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 1223,
+      "content_digest": "sha256:7ee382607fd83579464bc3f913f7eeecfb435d8cc9f9a145c128781a2ecf7b29",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/stable-id.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:common:timestamp-utc:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 904,
+      "content_digest": "sha256:a8a37fd4cb55ea0b48b73ed9dc031ed14955bb9345dbdefccc3b63ff46bd68ac",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/common/timestamp-utc.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:error:taxonomy:v1",
+        "schema_version": "1.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 8103,
+      "content_digest": "sha256:815d0eeab696f73a30892053d121872b7dae6d394d6a72331cc62d3cddf8f137",
+      "expected_truth": false,
+      "path": "packages/contracts/schemas/error/taxonomy.v1.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2809,
+      "content_digest": "sha256:ce7dee195f5e78a93e2fe2fd816e18bb3cb09968e1cd577b0b43b55e7181cf1d",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/baseline.manifest.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 4198,
+      "content_digest": "sha256:2a979f5592cbbc5c84fefcc241c3d0c95fb346c77e7b0ac2d2dcd66d9de5bcfb",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/data/legacy-observations.v1.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1823,
+      "content_digest": "sha256:216f1dfd1c14830b38d2dfcf8f4def551601d39a5dba9293418a6548473e1a76",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/canonical-json.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 12942,
+      "content_digest": "sha256:840281459e7ca0a375f0b852ba9d029b9706d3e7f2606215450288d865a6db19",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/catalog.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1725,
+      "content_digest": "sha256:15a99d257b24e3ab37229f6551f1b469a57b3de0e57d0217401d73aeecf87d17",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/cli.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 14454,
+      "content_digest": "sha256:4be9f2c35711624f6f9a77f6baceb41955a0aeffa9b8bf5c8ff0bd5d914a53c6",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/dev-cases.ts",
+      "record_count": 34,
+      "record_ids": [
+        "bcase_00000000000000000000000001",
+        "bcase_00000000000000000000000002",
+        "bcase_00000000000000000000000003",
+        "bcase_00000000000000000000000004",
+        "bcase_00000000000000000000000005",
+        "bcase_00000000000000000000000006",
+        "bcase_00000000000000000000000007",
+        "bcase_00000000000000000000000008",
+        "bcase_00000000000000000000000009",
+        "bcase_00000000000000000000000010",
+        "bcase_00000000000000000000000011",
+        "bcase_00000000000000000000000012",
+        "bcase_00000000000000000000000013",
+        "bcase_00000000000000000000000014",
+        "bcase_00000000000000000000000015",
+        "bcase_00000000000000000000000016",
+        "bcase_00000000000000000000000017",
+        "bcase_00000000000000000000000018",
+        "bcase_00000000000000000000000019",
+        "bcase_00000000000000000000000020",
+        "bcase_00000000000000000000000021",
+        "bcase_00000000000000000000000022",
+        "bcase_00000000000000000000000023",
+        "bcase_00000000000000000000000024",
+        "bcase_00000000000000000000000025",
+        "bcase_00000000000000000000000026",
+        "bcase_00000000000000000000000027",
+        "bcase_00000000000000000000000028",
+        "bcase_00000000000000000000000029",
+        "bcase_00000000000000000000000030",
+        "bcase_00000000000000000000000031",
+        "bcase_00000000000000000000000032",
+        "bcase_00000000000000000000000033",
+        "bcase_00000000000000000000000034"
+      ],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2363,
+      "content_digest": "sha256:aa5ebdd07951f084a5a9b2cd44b9c259c3e26074bd4bc38b833e03d628ff4a67",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/index.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 1734,
+      "content_digest": "sha256:9694e30917c2761de7b413199b5efaa7ee74312b13c4edc9cc37a6f77a15b5f1",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/keyword-overlap.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2564,
+      "content_digest": "sha256:1e1e286675fb89f318c075efe2401b4f20416a5a2fd3c2151c51aec9adacae26",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/keyword-stuffing.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 16223,
+      "content_digest": "sha256:ea4ccf4d95187bba3dc31ace5e6c0bbed8bd2848f80461ce1c6debaebf0948dd",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/legacy-observation.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 6065,
+      "content_digest": "sha256:095631d0670604d6e2dc2800c418af5d367e70e19ecd79bf333df1c7b9c6f93f",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/manifest.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 13448,
+      "content_digest": "sha256:4e8bb94cbeed2bfb718ccb8ddcccb734e265ef22b55d7093c6fef6a351c619f4",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/model.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2414,
+      "content_digest": "sha256:ebee61c0ff275aa37ecbf347b71c75ee41c58d1a898aaada341ba50a2cad93f9",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/normalize.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 5503,
+      "content_digest": "sha256:72e489720217232bfe0638726154cbf59298859ff6777854ed08014230c101ec",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/one-shot.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 2095,
+      "content_digest": "sha256:74c04d194b6c0a2869c6f47d12804c92f69e4f7825a45bce789df48e47d7d33f",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/original-untailored.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3680,
+      "content_digest": "sha256:53dd07bac4c5fd5117339f5975bce962ebfde51f1acf21b19c55c2e43789c973",
+      "expected_truth": false,
+      "path": "packages/evaluation-baselines/src/prompts.ts",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_BASELINE"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 11543,
+      "content_digest": "sha256:2135f8521fd4f0389bbeb8442e11435bf3430afe255cd820e0c6d42408e2aaa6",
+      "expected_truth": true,
+      "path": "packages/evaluation-baselines/test/m02-w04/oracles/baseline-truth.v1.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 8500,
+      "content_digest": "sha256:d86c7daedde38ddcb278137e7e1298a87649599b7a445fbe803b81015d0eb89c",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/answer-constraints.v2.json",
+      "record_count": 10,
+      "record_ids": [
+        "ansconstraint_00000000000000000000000001",
+        "ansconstraint_00000000000000000000000002",
+        "ansconstraint_00000000000000000000000003",
+        "ansconstraint_00000000000000000000000004",
+        "ansconstraint_00000000000000000000000005",
+        "ansconstraint_00000000000000000000000006",
+        "ansconstraint_00000000000000000000000007",
+        "ansconstraint_00000000000000000000000008",
+        "ansconstraint_00000000000000000000000009",
+        "ansconstraint_00000000000000000000000010"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:answer-scenario:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 89964,
+      "content_digest": "sha256:9129840cefa8a81a9b01388a8a237f80c7a5bd942feee1598dc0dfaf08b1e2de",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/answer-scenarios.v2.json",
+      "record_count": 58,
+      "record_ids": [
+        "ansscenario_00000000000000000000000001",
+        "ansscenario_00000000000000000000000002",
+        "ansscenario_00000000000000000000000003",
+        "ansscenario_00000000000000000000000004",
+        "ansscenario_00000000000000000000000005",
+        "ansscenario_00000000000000000000000006",
+        "ansscenario_00000000000000000000000007",
+        "ansscenario_00000000000000000000000008",
+        "ansscenario_00000000000000000000000009",
+        "ansscenario_00000000000000000000000010",
+        "ansscenario_00000000000000000000000011",
+        "ansscenario_00000000000000000000000012",
+        "ansscenario_00000000000000000000000013",
+        "ansscenario_00000000000000000000000014",
+        "ansscenario_00000000000000000000000015",
+        "ansscenario_00000000000000000000000016",
+        "ansscenario_00000000000000000000000017",
+        "ansscenario_00000000000000000000000018",
+        "ansscenario_00000000000000000000000019",
+        "ansscenario_00000000000000000000000020",
+        "ansscenario_00000000000000000000000021",
+        "ansscenario_00000000000000000000000022",
+        "ansscenario_00000000000000000000000023",
+        "ansscenario_00000000000000000000000024",
+        "ansscenario_00000000000000000000000025",
+        "ansscenario_00000000000000000000000026",
+        "ansscenario_00000000000000000000000027",
+        "ansscenario_00000000000000000000000028",
+        "ansscenario_00000000000000000000000029",
+        "ansscenario_00000000000000000000000030",
+        "ansscenario_00000000000000000000000031",
+        "ansscenario_00000000000000000000000032",
+        "ansscenario_00000000000000000000000033",
+        "ansscenario_00000000000000000000000034",
+        "ansscenario_00000000000000000000000035",
+        "ansscenario_00000000000000000000000036",
+        "ansscenario_00000000000000000000000037",
+        "ansscenario_00000000000000000000000038",
+        "ansscenario_00000000000000000000000039",
+        "ansscenario_00000000000000000000000040",
+        "ansscenario_00000000000000000000000041",
+        "ansscenario_00000000000000000000000042",
+        "ansscenario_00000000000000000000000043",
+        "ansscenario_00000000000000000000000044",
+        "ansscenario_00000000000000000000000045",
+        "ansscenario_00000000000000000000000046",
+        "ansscenario_00000000000000000000000047",
+        "ansscenario_00000000000000000000000048",
+        "ansscenario_00000000000000000000000049",
+        "ansscenario_00000000000000000000000050",
+        "ansscenario_00000000000000000000000051",
+        "ansscenario_00000000000000000000000052",
+        "ansscenario_00000000000000000000000053",
+        "ansscenario_00000000000000000000000054",
+        "ansscenario_00000000000000000000000055",
+        "ansscenario_00000000000000000000000056",
+        "ansscenario_00000000000000000000000057",
+        "ansscenario_00000000000000000000000058"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 127612,
+      "content_digest": "sha256:38a85db4450b3c10d3ed70660dbed1e1b83bd45d3efacfe7920c55ed2b17ab9a",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/evidence-artifacts.v2.json",
+      "record_count": 72,
+      "record_ids": [
+        "evidence_00000000000000000000000001",
+        "evidence_00000000000000000000000002",
+        "evidence_00000000000000000000000003",
+        "evidence_00000000000000000000000004",
+        "evidence_00000000000000000000000005",
+        "evidence_00000000000000000000000006",
+        "evidence_00000000000000000000000007",
+        "evidence_00000000000000000000000008",
+        "evidence_00000000000000000000000009",
+        "evidence_00000000000000000000000010",
+        "evidence_00000000000000000000000011",
+        "evidence_00000000000000000000000012",
+        "evidence_00000000000000000000000013",
+        "evidence_00000000000000000000000014",
+        "evidence_00000000000000000000000015",
+        "evidence_00000000000000000000000016",
+        "evidence_00000000000000000000000017",
+        "evidence_00000000000000000000000018",
+        "evidence_00000000000000000000000019",
+        "evidence_00000000000000000000000020",
+        "evidence_00000000000000000000000021",
+        "evidence_00000000000000000000000022",
+        "evidence_00000000000000000000000023",
+        "evidence_00000000000000000000000024",
+        "evidence_00000000000000000000000025",
+        "evidence_00000000000000000000000026",
+        "evidence_00000000000000000000000027",
+        "evidence_00000000000000000000000028",
+        "evidence_00000000000000000000000029",
+        "evidence_00000000000000000000000030",
+        "evidence_00000000000000000000000031",
+        "evidence_00000000000000000000000032",
+        "evidence_00000000000000000000000033",
+        "evidence_00000000000000000000000034",
+        "evidence_00000000000000000000000035",
+        "evidence_00000000000000000000000036",
+        "evidence_00000000000000000000000037",
+        "evidence_00000000000000000000000038",
+        "evidence_00000000000000000000000039",
+        "evidence_00000000000000000000000040",
+        "evidence_00000000000000000000000041",
+        "evidence_00000000000000000000000042",
+        "evidence_00000000000000000000000043",
+        "evidence_00000000000000000000000044",
+        "evidence_00000000000000000000000045",
+        "evidence_00000000000000000000000046",
+        "evidence_00000000000000000000000047",
+        "evidence_00000000000000000000000048",
+        "evidence_00000000000000000000000049",
+        "evidence_00000000000000000000000050",
+        "evidence_00000000000000000000000051",
+        "evidence_00000000000000000000000052",
+        "evidence_00000000000000000000000053",
+        "evidence_00000000000000000000000054",
+        "evidence_00000000000000000000000055",
+        "evidence_00000000000000000000000056",
+        "evidence_00000000000000000000000057",
+        "evidence_00000000000000000000000058",
+        "evidence_00000000000000000000000059",
+        "evidence_00000000000000000000000060",
+        "evidence_00000000000000000000000061",
+        "evidence_00000000000000000000000062",
+        "evidence_00000000000000000000000063",
+        "evidence_00000000000000000000000064",
+        "evidence_00000000000000000000000065",
+        "evidence_00000000000000000000000066",
+        "evidence_00000000000000000000000067",
+        "evidence_00000000000000000000000068",
+        "evidence_00000000000000000000000069",
+        "evidence_00000000000000000000000070",
+        "evidence_00000000000000000000000071",
+        "evidence_00000000000000000000000072"
+      ],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 86444,
+      "content_digest": "sha256:d843a004f604c3062cad61d99f747f6e5271f2f592737f3ead70bd8f137a771e",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/expected-requirements.v2.json",
+      "record_count": 72,
+      "record_ids": [
+        "requirement_00000000000000000000000001",
+        "requirement_00000000000000000000000002",
+        "requirement_00000000000000000000000003",
+        "requirement_00000000000000000000000004",
+        "requirement_00000000000000000000000005",
+        "requirement_00000000000000000000000006",
+        "requirement_00000000000000000000000007",
+        "requirement_00000000000000000000000008",
+        "requirement_00000000000000000000000009",
+        "requirement_00000000000000000000000010",
+        "requirement_00000000000000000000000011",
+        "requirement_00000000000000000000000012",
+        "requirement_00000000000000000000000013",
+        "requirement_00000000000000000000000014",
+        "requirement_00000000000000000000000015",
+        "requirement_00000000000000000000000016",
+        "requirement_00000000000000000000000017",
+        "requirement_00000000000000000000000018",
+        "requirement_00000000000000000000000019",
+        "requirement_00000000000000000000000020",
+        "requirement_00000000000000000000000021",
+        "requirement_00000000000000000000000022",
+        "requirement_00000000000000000000000023",
+        "requirement_00000000000000000000000024",
+        "requirement_00000000000000000000000025",
+        "requirement_00000000000000000000000026",
+        "requirement_00000000000000000000000027",
+        "requirement_00000000000000000000000028",
+        "requirement_00000000000000000000000029",
+        "requirement_00000000000000000000000030",
+        "requirement_00000000000000000000000031",
+        "requirement_00000000000000000000000032",
+        "requirement_00000000000000000000000033",
+        "requirement_00000000000000000000000034",
+        "requirement_00000000000000000000000035",
+        "requirement_00000000000000000000000036",
+        "requirement_00000000000000000000000037",
+        "requirement_00000000000000000000000038",
+        "requirement_00000000000000000000000039",
+        "requirement_00000000000000000000000040",
+        "requirement_00000000000000000000000041",
+        "requirement_00000000000000000000000042",
+        "requirement_00000000000000000000000043",
+        "requirement_00000000000000000000000044",
+        "requirement_00000000000000000000000045",
+        "requirement_00000000000000000000000046",
+        "requirement_00000000000000000000000047",
+        "requirement_00000000000000000000000048",
+        "requirement_00000000000000000000000049",
+        "requirement_00000000000000000000000050",
+        "requirement_00000000000000000000000051",
+        "requirement_00000000000000000000000052",
+        "requirement_00000000000000000000000053",
+        "requirement_00000000000000000000000054",
+        "requirement_00000000000000000000000055",
+        "requirement_00000000000000000000000056",
+        "requirement_00000000000000000000000057",
+        "requirement_00000000000000000000000058",
+        "requirement_00000000000000000000000059",
+        "requirement_00000000000000000000000060",
+        "requirement_00000000000000000000000061",
+        "requirement_00000000000000000000000062",
+        "requirement_00000000000000000000000063",
+        "requirement_00000000000000000000000064",
+        "requirement_00000000000000000000000065",
+        "requirement_00000000000000000000000066",
+        "requirement_00000000000000000000000067",
+        "requirement_00000000000000000000000068",
+        "requirement_00000000000000000000000069",
+        "requirement_00000000000000000000000070",
+        "requirement_00000000000000000000000071",
+        "requirement_00000000000000000000000072"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 106393,
+      "content_digest": "sha256:3758b6e2d694dcccef1f5998595da50e1f389c041fda2139eafcf670d83efa03",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/expected-supported-claims.v2.json",
+      "record_count": 77,
+      "record_ids": [
+        "claim_00000000000000000000000001",
+        "claim_00000000000000000000000002",
+        "claim_00000000000000000000000003",
+        "claim_00000000000000000000000004",
+        "claim_00000000000000000000000005",
+        "claim_00000000000000000000000006",
+        "claim_00000000000000000000000007",
+        "claim_00000000000000000000000008",
+        "claim_00000000000000000000000009",
+        "claim_00000000000000000000000010",
+        "claim_00000000000000000000000011",
+        "claim_00000000000000000000000012",
+        "claim_00000000000000000000000013",
+        "claim_00000000000000000000000014",
+        "claim_00000000000000000000000015",
+        "claim_00000000000000000000000016",
+        "claim_00000000000000000000000017",
+        "claim_00000000000000000000000018",
+        "claim_00000000000000000000000019",
+        "claim_00000000000000000000000020",
+        "claim_00000000000000000000000021",
+        "claim_00000000000000000000000022",
+        "claim_00000000000000000000000023",
+        "claim_00000000000000000000000024",
+        "claim_00000000000000000000000025",
+        "claim_00000000000000000000000026",
+        "claim_00000000000000000000000027",
+        "claim_00000000000000000000000028",
+        "claim_00000000000000000000000029",
+        "claim_00000000000000000000000030",
+        "claim_00000000000000000000000031",
+        "claim_00000000000000000000000032",
+        "claim_00000000000000000000000033",
+        "claim_00000000000000000000000034",
+        "claim_00000000000000000000000035",
+        "claim_00000000000000000000000036",
+        "claim_00000000000000000000000037",
+        "claim_00000000000000000000000038",
+        "claim_00000000000000000000000039",
+        "claim_00000000000000000000000040",
+        "claim_00000000000000000000000041",
+        "claim_00000000000000000000000042",
+        "claim_00000000000000000000000043",
+        "claim_00000000000000000000000044",
+        "claim_00000000000000000000000045",
+        "claim_00000000000000000000000046",
+        "claim_00000000000000000000000047",
+        "claim_00000000000000000000000048",
+        "claim_00000000000000000000000049",
+        "claim_00000000000000000000000050",
+        "claim_00000000000000000000000051",
+        "claim_00000000000000000000000052",
+        "claim_00000000000000000000000053",
+        "claim_00000000000000000000000054",
+        "claim_00000000000000000000000055",
+        "claim_00000000000000000000000056",
+        "claim_00000000000000000000000057",
+        "claim_00000000000000000000000058",
+        "claim_00000000000000000000000059",
+        "claim_00000000000000000000000060",
+        "claim_00000000000000000000000061",
+        "claim_00000000000000000000000062",
+        "claim_00000000000000000000000063",
+        "claim_00000000000000000000000064",
+        "claim_00000000000000000000000065",
+        "claim_00000000000000000000000066",
+        "claim_00000000000000000000000067",
+        "claim_00000000000000000000000068",
+        "claim_00000000000000000000000069",
+        "claim_00000000000000000000000070",
+        "claim_00000000000000000000000071",
+        "claim_00000000000000000000000072",
+        "claim_00000000000000000000000073",
+        "claim_00000000000000000000000074",
+        "claim_00000000000000000000000075",
+        "claim_00000000000000000000000076",
+        "claim_00000000000000000000000077"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:field-value-policy:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 73200,
+      "content_digest": "sha256:9caf45941580b5fb56c48741fee1785adc3cbea300e98ecfb81008c7b02efb0a",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/field-value-policies.v2.json",
+      "record_count": 69,
+      "record_ids": [
+        "policy_00000000000000000000000001",
+        "policy_00000000000000000000000002",
+        "policy_00000000000000000000000003",
+        "policy_00000000000000000000000004",
+        "policy_00000000000000000000000005",
+        "policy_00000000000000000000000006",
+        "policy_00000000000000000000000007",
+        "policy_00000000000000000000000008",
+        "policy_00000000000000000000000009",
+        "policy_00000000000000000000000010",
+        "policy_00000000000000000000000011",
+        "policy_00000000000000000000000012",
+        "policy_00000000000000000000000013",
+        "policy_00000000000000000000000014",
+        "policy_00000000000000000000000015",
+        "policy_00000000000000000000000016",
+        "policy_00000000000000000000000017",
+        "policy_00000000000000000000000018",
+        "policy_00000000000000000000000019",
+        "policy_00000000000000000000000020",
+        "policy_00000000000000000000000021",
+        "policy_00000000000000000000000022",
+        "policy_00000000000000000000000023",
+        "policy_00000000000000000000000024",
+        "policy_00000000000000000000000025",
+        "policy_00000000000000000000000026",
+        "policy_00000000000000000000000027",
+        "policy_00000000000000000000000028",
+        "policy_00000000000000000000000029",
+        "policy_00000000000000000000000030",
+        "policy_00000000000000000000000031",
+        "policy_00000000000000000000000032",
+        "policy_00000000000000000000000033",
+        "policy_00000000000000000000000034",
+        "policy_00000000000000000000000035",
+        "policy_00000000000000000000000036",
+        "policy_00000000000000000000000037",
+        "policy_00000000000000000000000038",
+        "policy_00000000000000000000000039",
+        "policy_00000000000000000000000040",
+        "policy_00000000000000000000000041",
+        "policy_00000000000000000000000042",
+        "policy_00000000000000000000000043",
+        "policy_00000000000000000000000044",
+        "policy_00000000000000000000000045",
+        "policy_00000000000000000000000046",
+        "policy_00000000000000000000000047",
+        "policy_00000000000000000000000048",
+        "policy_00000000000000000000000049",
+        "policy_00000000000000000000000050",
+        "policy_00000000000000000000000051",
+        "policy_00000000000000000000000052",
+        "policy_00000000000000000000000053",
+        "policy_00000000000000000000000054",
+        "policy_00000000000000000000000055",
+        "policy_00000000000000000000000056",
+        "policy_00000000000000000000000057",
+        "policy_00000000000000000000000058",
+        "policy_00000000000000000000000059",
+        "policy_00000000000000000000000060",
+        "policy_00000000000000000000000061",
+        "policy_00000000000000000000000062",
+        "policy_00000000000000000000000063",
+        "policy_00000000000000000000000064",
+        "policy_00000000000000000000000065",
+        "policy_00000000000000000000000066",
+        "policy_00000000000000000000000067",
+        "policy_00000000000000000000000068",
+        "policy_00000000000000000000000069"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 61444,
+      "content_digest": "sha256:30d0ce067564df4e41de20f01fa9403bd734ae217c671b3ad0d8b045e99484b0",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/jobs.v2.json",
+      "record_count": 24,
+      "record_ids": [
+        "job_00000000000000000000000001",
+        "job_00000000000000000000000002",
+        "job_00000000000000000000000003",
+        "job_00000000000000000000000004",
+        "job_00000000000000000000000005",
+        "job_00000000000000000000000006",
+        "job_00000000000000000000000007",
+        "job_00000000000000000000000008",
+        "job_00000000000000000000000009",
+        "job_00000000000000000000000010",
+        "job_00000000000000000000000011",
+        "job_00000000000000000000000012",
+        "job_00000000000000000000000013",
+        "job_00000000000000000000000014",
+        "job_00000000000000000000000015",
+        "job_00000000000000000000000016",
+        "job_00000000000000000000000017",
+        "job_00000000000000000000000018",
+        "job_00000000000000000000000019",
+        "job_00000000000000000000000020",
+        "job_00000000000000000000000021",
+        "job_00000000000000000000000022",
+        "job_00000000000000000000000023",
+        "job_00000000000000000000000024"
+      ],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 5702,
+      "content_digest": "sha256:b5f20716c78ab70c2bd32b063a220bf53e4bfa15f1698896974114e1bccb7640",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/manifest.v2.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 19874,
+      "content_digest": "sha256:148b204d10d67e54ccd15a77c52decb118319dcc41a51737ccd7d8913212a622",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/profiles.v2.json",
+      "record_count": 12,
+      "record_ids": [
+        "profile_00000000000000000000000001",
+        "profile_00000000000000000000000002",
+        "profile_00000000000000000000000003",
+        "profile_00000000000000000000000004",
+        "profile_00000000000000000000000005",
+        "profile_00000000000000000000000006",
+        "profile_00000000000000000000000007",
+        "profile_00000000000000000000000008",
+        "profile_00000000000000000000000009",
+        "profile_00000000000000000000000010",
+        "profile_00000000000000000000000011",
+        "profile_00000000000000000000000012"
+      ],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:question-case:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 127618,
+      "content_digest": "sha256:4511568885b2d17f4b73df88feadaa8306cd51b5a1401745792c9a7ca94fec42",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/question-cases.v2.json",
+      "record_count": 144,
+      "record_ids": [
+        "question_00000000000000000000000001",
+        "question_00000000000000000000000002",
+        "question_00000000000000000000000003",
+        "question_00000000000000000000000004",
+        "question_00000000000000000000000005",
+        "question_00000000000000000000000006",
+        "question_00000000000000000000000007",
+        "question_00000000000000000000000008",
+        "question_00000000000000000000000009",
+        "question_00000000000000000000000010",
+        "question_00000000000000000000000011",
+        "question_00000000000000000000000012",
+        "question_00000000000000000000000013",
+        "question_00000000000000000000000014",
+        "question_00000000000000000000000015",
+        "question_00000000000000000000000016",
+        "question_00000000000000000000000017",
+        "question_00000000000000000000000018",
+        "question_00000000000000000000000019",
+        "question_00000000000000000000000020",
+        "question_00000000000000000000000021",
+        "question_00000000000000000000000022",
+        "question_00000000000000000000000023",
+        "question_00000000000000000000000024",
+        "question_00000000000000000000000025",
+        "question_00000000000000000000000026",
+        "question_00000000000000000000000027",
+        "question_00000000000000000000000028",
+        "question_00000000000000000000000029",
+        "question_00000000000000000000000030",
+        "question_00000000000000000000000031",
+        "question_00000000000000000000000032",
+        "question_00000000000000000000000033",
+        "question_00000000000000000000000034",
+        "question_00000000000000000000000035",
+        "question_00000000000000000000000036",
+        "question_00000000000000000000000037",
+        "question_00000000000000000000000038",
+        "question_00000000000000000000000039",
+        "question_00000000000000000000000040",
+        "question_00000000000000000000000041",
+        "question_00000000000000000000000042",
+        "question_00000000000000000000000043",
+        "question_00000000000000000000000044",
+        "question_00000000000000000000000045",
+        "question_00000000000000000000000046",
+        "question_00000000000000000000000047",
+        "question_00000000000000000000000048",
+        "question_00000000000000000000000049",
+        "question_00000000000000000000000050",
+        "question_00000000000000000000000051",
+        "question_00000000000000000000000052",
+        "question_00000000000000000000000053",
+        "question_00000000000000000000000054",
+        "question_00000000000000000000000055",
+        "question_00000000000000000000000056",
+        "question_00000000000000000000000057",
+        "question_00000000000000000000000058",
+        "question_00000000000000000000000059",
+        "question_00000000000000000000000060",
+        "question_00000000000000000000000061",
+        "question_00000000000000000000000062",
+        "question_00000000000000000000000063",
+        "question_00000000000000000000000064",
+        "question_00000000000000000000000065",
+        "question_00000000000000000000000066",
+        "question_00000000000000000000000067",
+        "question_00000000000000000000000068",
+        "question_00000000000000000000000069",
+        "question_00000000000000000000000070",
+        "question_00000000000000000000000071",
+        "question_00000000000000000000000072",
+        "question_00000000000000000000000073",
+        "question_00000000000000000000000074",
+        "question_00000000000000000000000075",
+        "question_00000000000000000000000076",
+        "question_00000000000000000000000077",
+        "question_00000000000000000000000078",
+        "question_00000000000000000000000079",
+        "question_00000000000000000000000080",
+        "question_00000000000000000000000081",
+        "question_00000000000000000000000082",
+        "question_00000000000000000000000083",
+        "question_00000000000000000000000084",
+        "question_00000000000000000000000085",
+        "question_00000000000000000000000086",
+        "question_00000000000000000000000087",
+        "question_00000000000000000000000088",
+        "question_00000000000000000000000089",
+        "question_00000000000000000000000090",
+        "question_00000000000000000000000091",
+        "question_00000000000000000000000092",
+        "question_00000000000000000000000093",
+        "question_00000000000000000000000094",
+        "question_00000000000000000000000095",
+        "question_00000000000000000000000096",
+        "question_00000000000000000000000097",
+        "question_00000000000000000000000098",
+        "question_00000000000000000000000099",
+        "question_00000000000000000000000100",
+        "question_00000000000000000000000101",
+        "question_00000000000000000000000102",
+        "question_00000000000000000000000103",
+        "question_00000000000000000000000104",
+        "question_00000000000000000000000105",
+        "question_00000000000000000000000106",
+        "question_00000000000000000000000107",
+        "question_00000000000000000000000108",
+        "question_00000000000000000000000109",
+        "question_00000000000000000000000110",
+        "question_00000000000000000000000111",
+        "question_00000000000000000000000112",
+        "question_00000000000000000000000113",
+        "question_00000000000000000000000114",
+        "question_00000000000000000000000115",
+        "question_00000000000000000000000116",
+        "question_00000000000000000000000117",
+        "question_00000000000000000000000118",
+        "question_00000000000000000000000119",
+        "question_00000000000000000000000120",
+        "question_00000000000000000000000121",
+        "question_00000000000000000000000122",
+        "question_00000000000000000000000123",
+        "question_00000000000000000000000124",
+        "question_00000000000000000000000125",
+        "question_00000000000000000000000126",
+        "question_00000000000000000000000127",
+        "question_00000000000000000000000128",
+        "question_00000000000000000000000129",
+        "question_00000000000000000000000130",
+        "question_00000000000000000000000131",
+        "question_00000000000000000000000132",
+        "question_00000000000000000000000133",
+        "question_00000000000000000000000134",
+        "question_00000000000000000000000135",
+        "question_00000000000000000000000136",
+        "question_00000000000000000000000137",
+        "question_00000000000000000000000138",
+        "question_00000000000000000000000139",
+        "question_00000000000000000000000140",
+        "question_00000000000000000000000141",
+        "question_00000000000000000000000142",
+        "question_00000000000000000000000143",
+        "question_00000000000000000000000144"
+      ],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 89956,
+      "content_digest": "sha256:b9bada6e9b890dd4cdfd27e0042b31c51b78536abaf5417d27b5fd170c7c03e7",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/scenario-bundles.v2.json",
+      "record_count": 36,
+      "record_ids": [
+        "scenario_00000000000000000000000001",
+        "scenario_00000000000000000000000002",
+        "scenario_00000000000000000000000003",
+        "scenario_00000000000000000000000004",
+        "scenario_00000000000000000000000005",
+        "scenario_00000000000000000000000006",
+        "scenario_00000000000000000000000007",
+        "scenario_00000000000000000000000008",
+        "scenario_00000000000000000000000009",
+        "scenario_00000000000000000000000010",
+        "scenario_00000000000000000000000011",
+        "scenario_00000000000000000000000012",
+        "scenario_00000000000000000000000013",
+        "scenario_00000000000000000000000014",
+        "scenario_00000000000000000000000015",
+        "scenario_00000000000000000000000016",
+        "scenario_00000000000000000000000017",
+        "scenario_00000000000000000000000018",
+        "scenario_00000000000000000000000019",
+        "scenario_00000000000000000000000020",
+        "scenario_00000000000000000000000021",
+        "scenario_00000000000000000000000022",
+        "scenario_00000000000000000000000023",
+        "scenario_00000000000000000000000024",
+        "scenario_00000000000000000000000025",
+        "scenario_00000000000000000000000026",
+        "scenario_00000000000000000000000027",
+        "scenario_00000000000000000000000028",
+        "scenario_00000000000000000000000029",
+        "scenario_00000000000000000000000030",
+        "scenario_00000000000000000000000031",
+        "scenario_00000000000000000000000032",
+        "scenario_00000000000000000000000033",
+        "scenario_00000000000000000000000034",
+        "scenario_00000000000000000000000035",
+        "scenario_00000000000000000000000036"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 35191,
+      "content_digest": "sha256:4c2ba387cb5eb08be82684e62284bee9a238a479b78b2280ae80b17a4134f099",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/data/development/source-resumes.v2.json",
+      "record_count": 12,
+      "record_ids": [
+        "resume_00000000000000000000000001",
+        "resume_00000000000000000000000002",
+        "resume_00000000000000000000000003",
+        "resume_00000000000000000000000004",
+        "resume_00000000000000000000000005",
+        "resume_00000000000000000000000006",
+        "resume_00000000000000000000000007",
+        "resume_00000000000000000000000008",
+        "resume_00000000000000000000000009",
+        "resume_00000000000000000000000010",
+        "resume_00000000000000000000000011",
+        "resume_00000000000000000000000012"
+      ],
+      "role": "PUBLIC_DEVELOPMENT_INPUT"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 38849,
+      "content_digest": "sha256:568ea6f007386f0d1836338fd1b2ed8cb91f635d64758f8a6102f775990a2771",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/data/development/unsupported-gaps.v2.json",
+      "record_count": 31,
+      "record_ids": [
+        "gap_00000000000000000000000001",
+        "gap_00000000000000000000000002",
+        "gap_00000000000000000000000003",
+        "gap_00000000000000000000000004",
+        "gap_00000000000000000000000005",
+        "gap_00000000000000000000000006",
+        "gap_00000000000000000000000007",
+        "gap_00000000000000000000000008",
+        "gap_00000000000000000000000009",
+        "gap_00000000000000000000000010",
+        "gap_00000000000000000000000011",
+        "gap_00000000000000000000000012",
+        "gap_00000000000000000000000013",
+        "gap_00000000000000000000000014",
+        "gap_00000000000000000000000015",
+        "gap_00000000000000000000000016",
+        "gap_00000000000000000000000017",
+        "gap_00000000000000000000000018",
+        "gap_00000000000000000000000019",
+        "gap_00000000000000000000000020",
+        "gap_00000000000000000000000021",
+        "gap_00000000000000000000000022",
+        "gap_00000000000000000000000023",
+        "gap_00000000000000000000000024",
+        "gap_00000000000000000000000025",
+        "gap_00000000000000000000000026",
+        "gap_00000000000000000000000027",
+        "gap_00000000000000000000000028",
+        "gap_00000000000000000000000029",
+        "gap_00000000000000000000000030",
+        "gap_00000000000000000000000031"
+      ],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 1831,
+      "content_digest": "sha256:1f8c71b5bb163ca70367cadc4424187200e905ad9512d99bbb4d695b2ee3d6eb",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/answer-constraint.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:answer-scenario:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 6041,
+      "content_digest": "sha256:c7dfd27c4233e24162634084baf55e2b84f87be3fb87fa226551c19df0629ddb",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/answer-scenario.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:common:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2642,
+      "content_digest": "sha256:1bb91e9d04dccf254064b8268ea6116189cf5d0545df672c5f67135f57cbbbe6",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/common.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 7138,
+      "content_digest": "sha256:e837cfb8671eee1a30fb3cb31297f339af1b1b24697226ee7adb82007ebc2569",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/evidence-artifact.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2487,
+      "content_digest": "sha256:16da7a187a08c96dbeef7d181dfd12c46619045e5d28e8cecdd7767a55e78c4c",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/expected-requirement.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2746,
+      "content_digest": "sha256:9e8bbb62a1ef90a2f93607cbe920ab6f6d2f8c61724985a1bf52eb7261ee570f",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/expected-supported-claim.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:field-value-policy:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2346,
+      "content_digest": "sha256:54745f625e7758444704116a63a8a73ec0a8d80b64f863f712574ea4e729708b",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/field-value-policy.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 5983,
+      "content_digest": "sha256:9759f78eb51285668dc344327416e4933c7d7ac09ab6e5a53b8079b0335ba39f",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/manifest.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:question-case:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2535,
+      "content_digest": "sha256:7156f811331be38b718d85b65b5fc4cce138d1ceb67a8f987d3d16adce2f3c51",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/question-case.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 4335,
+      "content_digest": "sha256:41e0946833cb1b7069eeb5e99bbead961db75bedd351cc39053fbd628d93e968",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/scenario-bundle.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2815,
+      "content_digest": "sha256:b603a79d7f63d17ab93cc04dfc3ab895cd113412362ccdc9c3864cbe199f84cd",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/source-resume.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 3872,
+      "content_digest": "sha256:fe0ec2a99005fb40843bf16d496d9babb4d068f29ce4319a1616943a49097afe",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/synthetic-job.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 5422,
+      "content_digest": "sha256:7a8a1bb3945ec656c3260ac66fbcb9e5a77edfa67add4a58e6f91a3ba5fc4a5e",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/synthetic-profile.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+        "schema_version": "2.0.0",
+        "state": "APPLICABLE"
+      },
+      "byte_count": 2473,
+      "content_digest": "sha256:6a5e3df96d17e37a4c51cfbed2137ae7a05808f31ac93237a6cc490d9343dd22",
+      "expected_truth": false,
+      "path": "packages/test-fixtures/schemas/test-fixture/unsupported-gap.v2.schema.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "SCHEMA_SEMANTICS"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 16665,
+      "content_digest": "sha256:2ccf654f34d4fd33c450e2c730aa3f5ddd6e83636e04cb8dfbdd81187d856db1",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/test/m02-w01/oracles/development-truth.v2.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    },
+    {
+      "applicable_schema": {
+        "state": "NOT_APPLICABLE"
+      },
+      "byte_count": 3937,
+      "content_digest": "sha256:3782cad7a9779fb02862935fc21bef4f9bbc0a0a5746b9cc8d9c0aedb6576973",
+      "expected_truth": true,
+      "path": "packages/test-fixtures/test/m02-w02/oracles/answer-truth.v2.json",
+      "record_count": 0,
+      "record_ids": [],
+      "role": "PUBLIC_EXPECTED_TRUTH"
+    }
+  ],
+  "benchmark_family": "AUTOFILL_FEASIBILITY",
+  "change_policy": {
+    "correction_record_required": true,
+    "history_policy": "PRESERVE_GIT_BLOB_AND_VERSION_PATH",
+    "invalidation_and_rerun_required": true,
+    "same_version_rewrite": "FORBIDDEN",
+    "versioning": "FULL_MAJOR_VERSION_ONLY"
+  },
+  "classification": [
+    "EVALUATION_ONLY",
+    "NON_PRODUCTION"
+  ],
+  "corpus_digest": "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8",
+  "corpus_id": "M02_AUTOFILL_DEVELOPMENT_V1",
+  "corpus_state": "FROZEN",
+  "corpus_version": "1.0.0",
+  "coverage_summary_digest": "sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a",
+  "data_classification": [
+    "PUBLIC",
+    "SYNTHETIC"
+  ],
+  "expected_truth_policy": "Exact W01/W02 oracle bytes, W03 transition truth, and W04 literal oracle bytes are direct commitments; hidden expected outputs remain owner-external.",
+  "format_version": "1.0.0",
+  "gate_authority": "NONE",
+  "provenance": {
+    "checker_version": "1.0.0",
+    "freeze_source": "EXACT_REPOSITORY_TREE",
+    "generator_package": "@japp/evaluation-corpus",
+    "generator_version": "0.0.1",
+    "owner": "M02-W06"
+  },
+  "record_count": 683,
+  "schema_versions": [
+    {
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:confidence:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:contract-text:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:enum-token:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:provenance:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:stable-id:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:timestamp-utc:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:error:taxonomy:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:answer-scenario:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:common:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:field-value-policy:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:question-case:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0"
+    }
+  ],
+  "source_fixture_commitment": {
+    "digest": "sha256:122cb8275fab93c9cdd92dda8eb8bbe3ab28b2ced44a5cf2cf90a5787f8fe35f",
+    "id": "manifest_00000000000000000000000001",
+    "version": "0.3.0"
+  },
+  "source_tree": "2d52740dc164c51d7b3741b91045095bf92c8441",
+  "threshold_policy": {
+    "field_scoring_thresholds": "NOT_YET_APPLICABLE",
+    "frozen_existing_truth": true,
+    "future_owner": "M02-W13",
+    "ignored_regions": "NOT_YET_APPLICABLE",
+    "tolerances": "NOT_YET_APPLICABLE"
+  }
+}

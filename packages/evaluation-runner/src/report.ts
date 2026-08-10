@@ -17,6 +17,7 @@ import {
 import {
   DEVELOPMENT_HOLDOUT_COMMITMENT,
   EVALUATION_RUNNER_VERSION,
+  FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT,
   MAX_REPORT_LIMITATIONS,
   NO_GATE_AUTHORITY_STATEMENT,
   REPORT_BUNDLE_MANIFEST_VERSION,
@@ -54,6 +55,7 @@ const STABLE_ID = /^[a-z][a-z0-9]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
 const GIT_OBJECT = /^[0-9a-f]{40}$/u;
 const SEMVER = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/u;
 const ENUM_TOKEN = /^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$/u;
+const INERT_IDENTITY = /^[A-Za-z0-9][A-Za-z0-9._:@+-]{0,127}$/u;
 
 function reportObject(
   value: unknown,
@@ -643,7 +645,9 @@ function validateCaseRecordTruth(
   const holdoutDigest =
     report.provenance.holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1"
       ? report.provenance.holdout.development_commitment_digest
-      : report.provenance.holdout.manifest_digest;
+      : report.provenance.holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1"
+        ? report.provenance.holdout.frozen_public_commitment_digest
+        : report.provenance.holdout.manifest_digest;
   const resultProjection = {
     result_id: result.result_id,
     case_id: result.case_id,
@@ -890,7 +894,12 @@ function validateReportIdentityAndProvenance(
     "/provenance/schema",
   );
   const corpus = reportObject(provenance.corpus, "/provenance/corpus");
-  reportExactKeys(corpus, ["version", "digest"], [], "/provenance/corpus");
+  reportExactKeys(
+    corpus,
+    ["id", "version", "digest"],
+    [],
+    "/provenance/corpus",
+  );
   const holdout = reportObject(provenance.holdout, "/provenance/holdout");
   if (holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1") {
     reportExactKeys(
@@ -908,6 +917,27 @@ function validateReportIdentityAndProvenance(
         "RUNNER_REPORT_PROVENANCE",
         "/provenance/holdout",
         "development holdout provenance is malformed",
+      );
+    }
+  } else if (holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1") {
+    reportExactKeys(
+      holdout,
+      ["policy", "state", "frozen_public_commitment_digest"],
+      [],
+      "/provenance/holdout",
+    );
+    if (
+      holdout.state !== "NOT_APPLICABLE" ||
+      holdout.frozen_public_commitment_digest !==
+        sha256Canonical(FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT) ||
+      corpus.id !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.id ||
+      corpus.version !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.version ||
+      corpus.digest !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.digest
+    ) {
+      runnerFail(
+        "RUNNER_REPORT_PROVENANCE",
+        "/provenance/holdout",
+        "frozen-public holdout provenance is malformed",
       );
     }
   } else if (holdout.policy === "CALLER_SUPPLIED_MANIFEST_V1") {
@@ -1023,6 +1053,8 @@ function validateReportIdentityAndProvenance(
     !isContentDigest(schema.manifest_digest) ||
     typeof schema.generator_format_version !== "string" ||
     !SEMVER.test(schema.generator_format_version) ||
+    typeof corpus.id !== "string" ||
+    !INERT_IDENTITY.test(corpus.id) ||
     typeof corpus.version !== "string" ||
     !SEMVER.test(corpus.version) ||
     !isContentDigest(corpus.digest) ||
@@ -1142,6 +1174,11 @@ function fixedLimitations(execution: RunnerExecutionV1): readonly string[] {
     ...(execution.provenance.holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1"
       ? [
           "This is a public synthetic pre-W06 development run. The NOT_APPLICABLE commitment is not an M02-W06 holdout manifest or holdout evidence.",
+        ]
+      : []),
+    ...(execution.provenance.holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1"
+      ? [
+          "This run uses the frozen public W06 corpus without executing an owner holdout. NOT_APPLICABLE is not holdout or critical-gate evidence.",
         ]
       : []),
   ];
@@ -1518,7 +1555,7 @@ export function renderReportMarkdown(report: RunReportV1): string {
     `| Runner source | \`${escapeMarkdown(provenance.repository.runner_source_digest)}\` |`,
     `| Schema manifest | \`${escapeMarkdown(provenance.schema.manifest_digest)}\` |`,
     `| Generator format | \`${escapeMarkdown(provenance.schema.generator_format_version)}\` |`,
-    `| Corpus | \`${escapeMarkdown(provenance.corpus.version)}\` / \`${escapeMarkdown(provenance.corpus.digest)}\` |`,
+    `| Corpus | \`${escapeMarkdown(provenance.corpus.id)}\` / \`${escapeMarkdown(provenance.corpus.version)}\` / \`${escapeMarkdown(provenance.corpus.digest)}\` |`,
     `| Holdout state | \`${escapeMarkdown(provenance.holdout.state)}\` |`,
     `| Runtime/toolchain | \`${escapeMarkdown(provenance.runtime_commitment_digest)}\` |`,
     `| Operating system / architecture | \`${escapeMarkdown(provenance.runtime.operating_system)}\` / \`${escapeMarkdown(provenance.runtime.architecture)}\` |`,
@@ -1620,7 +1657,7 @@ export function renderReportHtml(report: RunReportV1): string {
 <section><h2>Precision and recall</h2>${precision}</section>
 <section><h2>Failure/error-code counts</h2>${failureSection}</section>
 <section><h2>Regression comparison</h2>${regressions}</section>
-<section><h2>Provenance</h2><table><tbody><tr><th scope="row">Repository commit</th><td><code>${escapeHtml(provenance.repository.commit)}</code></td></tr><tr><th scope="row">Repository tree</th><td><code>${escapeHtml(provenance.repository.tree)}</code></td></tr><tr><th scope="row">Runner source</th><td><code>${escapeHtml(provenance.repository.runner_source_digest)}</code></td></tr><tr><th scope="row">Schema manifest</th><td><code>${escapeHtml(provenance.schema.manifest_digest)}</code></td></tr><tr><th scope="row">Generator format</th><td>${escapeHtml(provenance.schema.generator_format_version)}</td></tr><tr><th scope="row">Corpus</th><td>${escapeHtml(provenance.corpus.version)} / <code>${escapeHtml(provenance.corpus.digest)}</code></td></tr><tr><th scope="row">Holdout state</th><td>${escapeHtml(provenance.holdout.state)}</td></tr><tr><th scope="row">Runtime/toolchain</th><td><code>${escapeHtml(provenance.runtime_commitment_digest)}</code></td></tr><tr><th scope="row">Operating system / architecture</th><td>${escapeHtml(provenance.runtime.operating_system)} / ${escapeHtml(provenance.runtime.architecture)}</td></tr><tr><th scope="row">Browser</th><td>${provenance.runtime.browser === undefined ? "NOT_APPLICABLE" : `${escapeHtml(provenance.runtime.browser.family)} ${escapeHtml(provenance.runtime.browser.version)}`}</td></tr><tr><th scope="row">Model digest</th><td>${provenance.runtime.model_digest === undefined ? "NOT_APPLICABLE" : `<code>${escapeHtml(provenance.runtime.model_digest)}</code>`}</td></tr><tr><th scope="row">Implementation</th><td>${escapeHtml(provenance.implementation.identity)}@${escapeHtml(provenance.implementation.version)} / <code>${escapeHtml(provenance.implementation.source_digest)}</code></td></tr><tr><th scope="row">Adapter</th><td>${escapeHtml(provenance.adapter.identity)}@${escapeHtml(provenance.adapter.version)}</td></tr><tr><th scope="row">Clock</th><td>${escapeHtml(provenance.clock.identity)}@${escapeHtml(provenance.clock.version)}</td></tr><tr><th scope="row">Prompt digests</th><td>${promptDigests}</td></tr></tbody></table></section>
+<section><h2>Provenance</h2><table><tbody><tr><th scope="row">Repository commit</th><td><code>${escapeHtml(provenance.repository.commit)}</code></td></tr><tr><th scope="row">Repository tree</th><td><code>${escapeHtml(provenance.repository.tree)}</code></td></tr><tr><th scope="row">Runner source</th><td><code>${escapeHtml(provenance.repository.runner_source_digest)}</code></td></tr><tr><th scope="row">Schema manifest</th><td><code>${escapeHtml(provenance.schema.manifest_digest)}</code></td></tr><tr><th scope="row">Generator format</th><td>${escapeHtml(provenance.schema.generator_format_version)}</td></tr><tr><th scope="row">Corpus</th><td>${escapeHtml(provenance.corpus.id)} / ${escapeHtml(provenance.corpus.version)} / <code>${escapeHtml(provenance.corpus.digest)}</code></td></tr><tr><th scope="row">Holdout state</th><td>${escapeHtml(provenance.holdout.state)}</td></tr><tr><th scope="row">Runtime/toolchain</th><td><code>${escapeHtml(provenance.runtime_commitment_digest)}</code></td></tr><tr><th scope="row">Operating system / architecture</th><td>${escapeHtml(provenance.runtime.operating_system)} / ${escapeHtml(provenance.runtime.architecture)}</td></tr><tr><th scope="row">Browser</th><td>${provenance.runtime.browser === undefined ? "NOT_APPLICABLE" : `${escapeHtml(provenance.runtime.browser.family)} ${escapeHtml(provenance.runtime.browser.version)}`}</td></tr><tr><th scope="row">Model digest</th><td>${provenance.runtime.model_digest === undefined ? "NOT_APPLICABLE" : `<code>${escapeHtml(provenance.runtime.model_digest)}</code>`}</td></tr><tr><th scope="row">Implementation</th><td>${escapeHtml(provenance.implementation.identity)}@${escapeHtml(provenance.implementation.version)} / <code>${escapeHtml(provenance.implementation.source_digest)}</code></td></tr><tr><th scope="row">Adapter</th><td>${escapeHtml(provenance.adapter.identity)}@${escapeHtml(provenance.adapter.version)}</td></tr><tr><th scope="row">Clock</th><td>${escapeHtml(provenance.clock.identity)}@${escapeHtml(provenance.clock.version)}</td></tr><tr><th scope="row">Prompt digests</th><td>${promptDigests}</td></tr></tbody></table></section>
 <section><h2>Limitations</h2><ul>${report.limitations.map((limitation) => `<li>${escapeHtml(limitation)}</li>`).join("")}</ul></section>
 </main>
 <footer><p class="authority">${report.authority_statement}</p></footer>

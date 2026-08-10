@@ -190,9 +190,13 @@ function runtimeMetadata(
 }
 
 function holdoutDigest(request: ExecutionRequestV1): ContentDigest {
-  return request.holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1"
-    ? request.holdout.development_commitment_digest
-    : request.holdout.manifest_digest;
+  if (request.holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1") {
+    return request.holdout.development_commitment_digest;
+  }
+  if (request.holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1") {
+    return request.holdout.frozen_public_commitment_digest;
+  }
+  return request.holdout.manifest_digest;
 }
 
 function validateCanonicalResult(result: BenchmarkResultV1): BenchmarkResultV1 {

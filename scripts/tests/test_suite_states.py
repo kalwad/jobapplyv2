@@ -156,6 +156,7 @@ def test_real_registry_loads_and_states_match_project_state(
         "unit-ts",
         "contract-gen",
         "fixture-corpus",
+        "evaluation-corpus",
         "contract",
         "e2e-browser",
         "python",

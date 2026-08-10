@@ -1,0 +1,19 @@
+{
+  "format_version": "1.0.0",
+  "owner": "M02-W06",
+  "manifest_schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+  "manifest_schema_version": "1.0.0",
+  "owner_mapping_schema_ref": "urn:japp:schema:evaluation-corpus:owner-mapping:v1",
+  "owner_mapping_schema_version": "1.0.0",
+  "evaluator_package": "@japp/evaluation-corpus",
+  "evaluator_package_version": "0.0.1",
+  "compatible_runner_package": "@japp/evaluation-runner",
+  "compatible_runner_package_version": "0.0.1",
+  "storage_policy": "OWNER_CONTROLLED_EXTERNAL",
+  "visibility_class": "OWNER_REVIEWER",
+  "verification_output": "SANITIZED_METADATA_RECEIPT_ONLY",
+  "ordinary_runner_hidden_case_access": "FORBIDDEN",
+  "future_execution_owner": "M02-W14",
+  "future_decision_owner": "M02-W15",
+  "gate_authority": "NONE"
+}

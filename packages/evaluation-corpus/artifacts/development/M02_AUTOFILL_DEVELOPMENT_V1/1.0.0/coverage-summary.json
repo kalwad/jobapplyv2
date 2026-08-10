@@ -1,0 +1,246 @@
+{
+  "corpus_id": "M02_AUTOFILL_DEVELOPMENT_V1",
+  "corpus_version": "1.0.0",
+  "coverage_digest": "sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a",
+  "format_version": "1.0.0",
+  "future_gate_a_targets": [
+    {
+      "current": 32,
+      "metric": "form_variants",
+      "owner": "M02-W12",
+      "shortfall": 168,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 200
+    },
+    {
+      "current": 0,
+      "metric": "scored_controls",
+      "owner": "M02-W13",
+      "shortfall": 2500,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 2500
+    },
+    {
+      "current": 0,
+      "metric": "sensitive_prohibited_scored_controls",
+      "owner": "M02-W13",
+      "shortfall": 100,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 100
+    },
+    {
+      "current": 0,
+      "metric": "honeypot_scored_controls",
+      "owner": "M02-W13",
+      "shortfall": 50,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 50
+    },
+    {
+      "current": 0,
+      "metric": "workday_like_variants",
+      "owner": "M02-W12",
+      "shortfall": 50,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 50
+    },
+    {
+      "current": 0,
+      "metric": "greenhouse_structural_variants",
+      "owner": "M02-W12",
+      "shortfall": "UNAVAILABLE",
+      "state": "NOT_YET_APPLICABLE",
+      "target": "REQUIRED"
+    },
+    {
+      "current": 0,
+      "metric": "lever_structural_variants",
+      "owner": "M02-W12",
+      "shortfall": "UNAVAILABLE",
+      "state": "NOT_YET_APPLICABLE",
+      "target": "REQUIRED"
+    },
+    {
+      "current": 0,
+      "metric": "ashby_structural_variants",
+      "owner": "M02-W12",
+      "shortfall": "UNAVAILABLE",
+      "state": "NOT_YET_APPLICABLE",
+      "target": "REQUIRED"
+    },
+    {
+      "current": 0,
+      "metric": "required_scored_control_families",
+      "owner": "M02-W13",
+      "shortfall": "UNAVAILABLE",
+      "state": "NOT_YET_APPLICABLE",
+      "target": "REQUIRED"
+    },
+    {
+      "current": 0,
+      "metric": "public_no_submit_variants",
+      "owner": "M02-W14",
+      "shortfall": 30,
+      "state": "NOT_YET_APPLICABLE",
+      "target": 30
+    },
+    {
+      "current": "UNAVAILABLE",
+      "metric": "genuine_hidden_ratio",
+      "owner": "M02-W14",
+      "shortfall": "UNAVAILABLE",
+      "state": "NOT_YET_APPLICABLE",
+      "target": "REQUIRED"
+    }
+  ],
+  "raw_counts": {
+    "answer_constraints": 10,
+    "answer_scenarios": 58,
+    "artifact_files": 103,
+    "ashby_structural_variants": 0,
+    "baseline_cases": 34,
+    "committed_record_identities": 683,
+    "evidence_artifacts": 72,
+    "evidence_category_credential_record": 15,
+    "evidence_category_education_record": 12,
+    "evidence_category_employment_record": 19,
+    "evidence_category_project_record": 14,
+    "evidence_category_user_assertion": 12,
+    "expected_requirements": 72,
+    "expected_supported_claims": 77,
+    "field_value_policies": 69,
+    "fixture_collection_bytes": 865045,
+    "greenhouse_structural_variants": 0,
+    "honeypot_scored_controls": 0,
+    "jobs": 24,
+    "lever_structural_variants": 0,
+    "mock_ats_cases": 32,
+    "mock_ats_routes": 16,
+    "mock_ats_surface_tags": 37,
+    "mock_expected_transition_clauses": 67,
+    "mock_honeypot_tagged_cases": 1,
+    "mock_sensitive_tagged_cases": 1,
+    "policy_consequential_records": 57,
+    "policy_personal_records": 45,
+    "policy_sensitive_records": 24,
+    "profiles": 12,
+    "public_no_submit_variants": 0,
+    "question_cases": 144,
+    "question_clusters": 48,
+    "role_family_business": 1,
+    "role_family_data": 2,
+    "role_family_education": 1,
+    "role_family_entry_level": 2,
+    "role_family_finance": 1,
+    "role_family_healthcare": 1,
+    "role_family_operations": 1,
+    "role_family_sales": 1,
+    "role_family_software": 2,
+    "scenario_bundles": 36,
+    "scenario_evaluations": 108,
+    "scored_control_families": 0,
+    "scored_controls": 0,
+    "sensitive_prohibited_scored_controls": 0,
+    "source_resumes": 12,
+    "unsupported_gaps": 31,
+    "workday_like_variants": 0
+  },
+  "schema_versions": [
+    {
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:benchmark:holdout-manifest:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:benchmark:result:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:confidence:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:contract-text:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:enum-token:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:provenance:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:stable-id:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:common:timestamp-utc:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:error:taxonomy:v1",
+      "schema_version": "1.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:answer-constraint:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:answer-scenario:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:common:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:evidence-artifact:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:expected-requirement:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:expected-supported-claim:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:field-value-policy:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:manifest:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:question-case:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:scenario-bundle:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:source-resume:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-job:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:synthetic-profile:v2",
+      "schema_version": "2.0.0"
+    },
+    {
+      "schema_ref": "urn:japp:schema:test-fixture:unsupported-gap:v2",
+      "schema_version": "2.0.0"
+    }
+  ]
+}

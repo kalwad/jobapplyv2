@@ -14,6 +14,7 @@ import {
 import {
   DEVELOPMENT_HOLDOUT_COMMITMENT,
   EXECUTION_REQUEST_FORMAT_VERSION,
+  FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT,
   MAX_USER_LIMITATIONS,
   REPORT_FORMAT_VERSION,
   SUPPORTED_METRIC_UNITS,
@@ -304,7 +305,11 @@ function validateHoldout(value: unknown): void {
   const holdout = objectAt(value, "/holdout");
   const policy = literalAt(
     holdout.policy,
-    ["DEVELOPMENT_NOT_APPLICABLE_V1", "CALLER_SUPPLIED_MANIFEST_V1"],
+    [
+      "DEVELOPMENT_NOT_APPLICABLE_V1",
+      "FROZEN_PUBLIC_NO_HOLDOUT_V1",
+      "CALLER_SUPPLIED_MANIFEST_V1",
+    ],
     "/holdout/policy",
   );
   if (policy === "DEVELOPMENT_NOT_APPLICABLE_V1") {
@@ -325,6 +330,27 @@ function validateHoldout(value: unknown): void {
         "RUNNER_DEVELOPMENT_HOLDOUT_COMMITMENT",
         "/holdout/development_commitment_digest",
         "development NOT_APPLICABLE commitment does not match the reviewed W05 policy",
+      );
+    }
+    return;
+  }
+  if (policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1") {
+    exactKeys(
+      holdout,
+      ["policy", "state", "frozen_public_commitment_digest"],
+      [],
+      "/holdout",
+    );
+    literalAt(holdout.state, ["NOT_APPLICABLE"], "/holdout/state");
+    const actual = digestAt(
+      holdout.frozen_public_commitment_digest,
+      "/holdout/frozen_public_commitment_digest",
+    );
+    if (actual !== sha256Canonical(FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT)) {
+      runnerFail(
+        "RUNNER_FROZEN_PUBLIC_HOLDOUT_COMMITMENT",
+        "/holdout/frozen_public_commitment_digest",
+        "frozen-public NOT_APPLICABLE commitment does not match the reviewed W06 policy",
       );
     }
     return;
@@ -446,11 +472,25 @@ export function validateExecutionRequest(input: unknown): ExecutionRequestV1 {
   semverAt(schema.generator_format_version, "/schema/generator_format_version");
 
   const corpus = objectAt(root.corpus, "/corpus");
-  exactKeys(corpus, ["version", "digest"], [], "/corpus");
+  exactKeys(corpus, ["id", "version", "digest"], [], "/corpus");
+  identityAt(corpus.id, "/corpus/id");
   semverAt(corpus.version, "/corpus/version");
   digestAt(corpus.digest, "/corpus/digest");
 
   validateHoldout(root.holdout);
+  const holdout = objectAt(root.holdout, "/holdout");
+  if (
+    holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1" &&
+    (corpus.id !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.id ||
+      corpus.version !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.version ||
+      corpus.digest !== FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT.corpus.digest)
+  ) {
+    runnerFail(
+      "RUNNER_FROZEN_PUBLIC_CORPUS_COMMITMENT",
+      "/corpus",
+      "frozen-public execution must use the exact reviewed W06 corpus commitment",
+    );
+  }
   validateRuntime(root.runtime);
   const runtimeDigest = digestAt(
     root.runtime_commitment_digest,
@@ -619,7 +659,8 @@ export function validateExecutionRequest(input: unknown): ExecutionRequestV1 {
     }
     const holdout = objectAt(root.holdout, "/holdout");
     if (
-      holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1" &&
+      (holdout.policy === "DEVELOPMENT_NOT_APPLICABLE_V1" ||
+        holdout.policy === "FROZEN_PUBLIC_NO_HOLDOUT_V1") &&
       (!benchmarkCase.synthetic_data ||
         benchmarkCase.holdout_visibility !== "PUBLIC_SYNTHETIC")
     ) {
@@ -667,6 +708,7 @@ export function validateTrustedContext(
     "/trusted/generator_format_version",
   );
   semverAt(context.corpus.version, "/trusted/corpus/version");
+  identityAt(context.corpus.id, "/trusted/corpus/id");
   digestAt(context.corpus.digest, "/trusted/corpus/digest");
   validateHoldout(context.holdout);
   digestAt(

@@ -24,16 +24,30 @@ function workspacePackageFiles(): readonly string[] {
 }
 
 describe("M02-W05 package layering and governance boundaries", () => {
-  it("adds exactly one reviewed workspace owner and no production dependency on it", () => {
+  it("keeps the reviewed W06 evaluation-only consumer out of production dependency graphs", () => {
     const manifests = workspacePackageFiles();
-    expect(manifests).toHaveLength(14);
+    expect(manifests).toHaveLength(15);
     for (const manifest of manifests) {
       const parsed = JSON.parse(readFileSync(manifest, "utf8")) as {
         name?: string;
+        description?: string;
         dependencies?: Record<string, string>;
         devDependencies?: Record<string, string>;
       };
-      if (parsed.name === "@japp/evaluation-runner") {
+      if (
+        parsed.name === "@japp/evaluation-runner" ||
+        parsed.name === "@japp/evaluation-corpus"
+      ) {
+        if (parsed.name === "@japp/evaluation-corpus") {
+          expect(parsed.description).toContain("EVALUATION_ONLY");
+          expect(parsed.description).toContain("NON_PRODUCTION");
+          expect(Object.keys(parsed.dependencies ?? {})).not.toContain(
+            "@japp/evaluation-runner",
+          );
+          expect(Object.keys(parsed.devDependencies ?? {})).toContain(
+            "@japp/evaluation-runner",
+          );
+        }
         continue;
       }
       expect(

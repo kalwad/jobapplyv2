@@ -149,6 +149,7 @@ export function makeRequest(
       generator_format_version: "1.5.0",
     },
     corpus: options.corpus ?? {
+      id: "manifest_00000000000000000000000001",
       version: "0.3.0",
       digest: CORPUS_DIGEST,
     },
@@ -274,6 +275,7 @@ export function trustedContext(
     schema_manifest_digest: SCHEMA_DIGEST,
     generator_format_version: "1.5.0",
     corpus: request?.corpus ?? {
+      id: "manifest_00000000000000000000000001",
       version: "0.3.0",
       digest: CORPUS_DIGEST,
     },

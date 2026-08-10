@@ -35,6 +35,20 @@ export const DEVELOPMENT_HOLDOUT_COMMITMENT = Object.freeze({
   explicitly_not: "M02-W06_HOLDOUT_MANIFEST_OR_GATE_EVIDENCE",
 } as const);
 
+export const FROZEN_PUBLIC_NO_HOLDOUT_COMMITMENT = Object.freeze({
+  commitment_version: "1.0.0",
+  owner: "M02-W06",
+  purpose: "FROZEN_PUBLIC_SYNTHETIC_EXECUTION_WITHOUT_HOLDOUT",
+  holdout_state: "NOT_APPLICABLE",
+  corpus: {
+    id: "M02_AUTOFILL_DEVELOPMENT_V1",
+    version: "1.0.0",
+    digest:
+      "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8",
+  },
+  explicitly_not: "OWNER_HOLDOUT_EXECUTION_OR_CRITICAL_GATE_EVIDENCE",
+} as const);
+
 export const SUPPORTED_METRIC_UNITS = Object.freeze([
   "BYTES",
   "COUNT",

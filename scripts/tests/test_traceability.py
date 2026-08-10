@@ -103,6 +103,21 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/evaluation-runner/test/m02-w05/replay-source.test.ts",
         "packages/evaluation-runner/test/m02-w05/regression-source.test.ts",
         "packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts",
+        # M02-W06 REQ-GATE-002/006/010 completed-path anchors (frozen public
+        # corpus, owner-external holdout boundary, exact identity propagation,
+        # immutable correction/version history, and append-only log proof).
+        "packages/evaluation-corpus/src/corpus.ts",
+        "packages/evaluation-corpus/src/owner-holdout.ts",
+        "packages/evaluation-corpus/src/log.ts",
+        "packages/evaluation-corpus/schemas/owner-mapping.v1.schema.json",
+        "packages/evaluation-corpus/policies/holdout-boundary.v1.json",
+        "packages/evaluation-corpus/policies/change-policy.v1.json",
+        "packages/evaluation-corpus/artifacts/development/corpus-versions.v1.json",
+        "packages/evaluation-corpus/test/m02-w06/corpus-freeze.test.ts",
+        "packages/evaluation-corpus/test/m02-w06/holdout-boundary.test.ts",
+        "packages/evaluation-corpus/test/m02-w06/version-log-runner.test.ts",
+        "packages/evaluation-corpus/test/m02-w06/mutation-campaign.test.ts",
+        "benchmarks/holdout-manifests/status.v1.json",
         # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
         # capability and platform-service contracts).
         "packages/contracts/generator/semantic-rules.ts",

@@ -340,6 +340,7 @@ describe("M02-W05 W04 development integration", () => {
 
     const request = makeRequest(cases, {
       corpus: {
+        id: fixtureCorpus.manifest.id,
         version: fixtureCorpus.manifest.corpus_version,
         digest: fixtureCorpus.manifest.corpus_digest,
       },

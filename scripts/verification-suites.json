@@ -200,6 +200,37 @@
       "explanation": "ACTIVE when M02-W01 begins; since M02-W02 the focused surface is the combined m02-w01 and m02-w02 suites. Fails closed on an empty focused inventory, deterministic seed drift, schema/version/hash/reference/consistency defects, real-looking PII or secrets, deprecated corrected-platform v1 producer references, scanner bypass, any skipped/todo/pending/excluded outcome, or any discovered-test count other than the separately authored test-layer exact 165."
     },
     {
+      "id": "evaluation-corpus",
+      "name": "Frozen evaluation corpus and owner-external holdout boundary",
+      "owner": "M02-W06",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W06"]
+      },
+      "commands": [
+        ["pnpm", "--filter", "@japp/evaluation-corpus", "corpus:check"],
+        ["pnpm", "--filter", "@japp/evaluation-corpus", "coverage:check"],
+        ["pnpm", "--filter", "@japp/evaluation-corpus", "privacy:check"],
+        ["pnpm", "--filter", "@japp/evaluation-corpus", "log:check"],
+        ["pnpm", "--filter", "@japp/evaluation-corpus", "test"]
+      ],
+      "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 124
+        }
+      ],
+      "discovery_globs": [
+        "packages/evaluation-corpus/test/m02-w06/**/*.test.ts"
+      ],
+      "artifacts": [
+        "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
+        "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/coverage-summary.json"
+      ],
+      "explanation": "ACTIVE when M02-W06 begins. Recomputes the complete public corpus and coverage commitments from authoritative source bytes, checks immutable full-version history and the first-parent append-only holdout log, and runs exactly 124 W06 tests including exactly 15 named core mutants. Synthetic temporary owner roots prove strict UTF-8/JSON, exact inventory, traversal/symlink/nonregular defenses, contract and self-digest validation, safe diagnostics, W05 corpus-ID propagation, and zero hidden-body serialization. It never reads an ambient owner root or executes Gate A."
+    },
+    {
       "id": "contract",
       "name": "Cross-language contract tests",
       "owner": "M01-W05",

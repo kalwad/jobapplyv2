@@ -1,0 +1,33 @@
+{
+  "name": "@japp/evaluation-corpus",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Frozen public evaluation-corpus and owner-external holdout commitment tooling for M02-W06. EVALUATION_ONLY and NON_PRODUCTION; gate authority NONE.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./owner-holdout": "./src/owner-holdout.ts"
+  },
+  "scripts": {
+    "corpus:write": "node src/cli.ts corpus-write",
+    "corpus:check": "node src/cli.ts corpus-check",
+    "coverage:check": "node src/cli.ts coverage-check",
+    "privacy:check": "node src/cli.ts privacy-check",
+    "holdout:verify": "node src/cli.ts holdout-verify",
+    "holdout:export-manifest": "node src/cli.ts holdout-export",
+    "log:check": "node src/cli.ts log-check",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --no-file-parallelism --maxWorkers=1",
+    "mutations:check": "vitest run test/m02-w06/mutation-campaign.test.ts --no-file-parallelism --maxWorkers=1"
+  },
+  "dependencies": {
+    "@japp/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@japp/evaluation-baselines": "workspace:*",
+    "@japp/evaluation-runner": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

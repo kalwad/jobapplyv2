@@ -105,6 +105,7 @@ const request: ExecutionRequestV1 = {
     generator_format_version: "1.5.0",
   },
   corpus: {
+    id: "DEVELOPMENT_MUTABLE_PRE_W06",
     version: benchmarkCase.corpus_version,
     digest: corpusDigest,
   },

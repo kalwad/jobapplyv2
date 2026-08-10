@@ -1,0 +1,28 @@
+{
+  "format_version": "1.0.0",
+  "owner": "M02-W06",
+  "corpus_versioning": "FULL_MAJOR_VERSION_ONLY",
+  "same_version_semantic_rewrite": "FORBIDDEN",
+  "historical_preservation": [
+    "IMMUTABLE_VERSION_PATH",
+    "FIRST_INTRODUCING_GIT_BLOB",
+    "EXACT_SOURCE_TREE",
+    "DIRECT_EXPECTED_TRUTH_BYTES"
+  ],
+  "correction_record_required_fields": [
+    "old_version",
+    "old_digest",
+    "new_version",
+    "new_digest",
+    "reason",
+    "owner_role",
+    "reviewer_role",
+    "affected_comparisons",
+    "affected_evidence",
+    "invalidation",
+    "rerun"
+  ],
+  "invalidation_policy": "ALL_AFFECTED_COMPARISONS_AND_EVIDENCE_INVALIDATED",
+  "rerun_policy": "FRESH_EXACT_VERSION_EXECUTION_REQUIRED",
+  "gate_authority": "NONE"
+}

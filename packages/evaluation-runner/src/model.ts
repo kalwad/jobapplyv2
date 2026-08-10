@@ -43,6 +43,7 @@ export interface SchemaCommitmentV1 {
 }
 
 export interface CorpusCommitmentV1 {
+  readonly id: string;
   readonly version: string;
   readonly digest: ContentDigest;
 }
@@ -52,6 +53,11 @@ export type HoldoutMetadataV1 =
       readonly policy: "DEVELOPMENT_NOT_APPLICABLE_V1";
       readonly state: "NOT_APPLICABLE";
       readonly development_commitment_digest: ContentDigest;
+    }
+  | {
+      readonly policy: "FROZEN_PUBLIC_NO_HOLDOUT_V1";
+      readonly state: "NOT_APPLICABLE";
+      readonly frozen_public_commitment_digest: ContentDigest;
     }
   | {
       readonly policy: "CALLER_SUPPLIED_MANIFEST_V1";

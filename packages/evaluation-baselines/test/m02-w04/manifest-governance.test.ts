@@ -96,7 +96,10 @@ describe("package layering and production boundaries", () => {
         developmentConsumers.push(parsed.name ?? "UNNAMED");
       }
     }
-    expect(developmentConsumers).toEqual(["@japp/evaluation-runner"]);
+    expect(developmentConsumers).toEqual([
+      "@japp/evaluation-corpus",
+      "@japp/evaluation-runner",
+    ]);
   });
 
   test("the baseline package depends only on the fixture package and pinned dev tooling", () => {

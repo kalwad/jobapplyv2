@@ -1,0 +1,9 @@
+{
+  "format_version": "1.0.0",
+  "owner_manifest_state": "OWNER_HOLDOUT_MANIFEST_REQUIRED",
+  "public_corpus_independent": true,
+  "placeholder_manifest_forbidden": true,
+  "hidden_content_in_repository": false,
+  "future_execution_owner": "M02-W14",
+  "future_decision_owner": "M02-W15"
+}

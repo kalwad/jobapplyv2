@@ -33,6 +33,65 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W06 — Freeze v1 corpus and owner-external holdout commitment boundary (2026-08-10)
+
+- Revision: implementation working tree over exact starting commit
+  `7833f22c0fe8aa57f8264938ff3484d456b66ef8` / tree
+  `2d52740dc164c51d7b3741b91045095bf92c8441`; content commit is recorded in
+  the writer handoff and awaits fresh independent verification. Canonical
+  JAPP-MASTER-001 v1.4 SHA-256:
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0 and pnpm 11.17.0.
+- Commands and observed results:
+  - `pnpm --filter @japp/evaluation-corpus corpus:write` → exit 0; created
+    immutable public corpus `M02_AUTOFILL_DEVELOPMENT_V1` v1.0.0.
+  - `pnpm --filter @japp/evaluation-corpus corpus:check` → exit 0; exact
+    recomputation matched corpus digest
+    `sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`.
+  - `pnpm --filter @japp/evaluation-corpus coverage:check` → exit 0; exact
+    recomputation matched coverage digest
+    `sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a`.
+  - Two consecutive `corpus:write`, `corpus:check`, `coverage:check`,
+    `privacy:check`, and `log:check` passes → exit 0; both writes reported
+    `CORPUS_UNCHANGED`. Before/after raw artifact SHA-256 values were identical:
+    corpus file `b162839ac5cc2654cc6c83c05c25ba91233722861dcf6c06749e6a0e036c6644`,
+    coverage file `7096f3e9990c8df59d09a5126552791c281f2523ae8658c6695291311e0abc99`,
+    and version index
+    `d5bc4d2d2bce5e5fbbe61b0db480cf6d5978a109799e14c76e9e7568321ec0f9`.
+  - `pnpm --filter @japp/evaluation-corpus test` → exit 0; 124/124 across
+    five files.
+  - `pnpm --filter @japp/evaluation-corpus mutations:check` → exit 0;
+    exactly 15/15 named core mutation classes rejected with clean controls.
+  - `pnpm --filter @japp/evaluation-runner test` → exit 0; preserved W05
+    290/290 across 12 files after exact corpus-ID propagation.
+  - `pnpm --filter @japp/evaluation-baselines test` → exit 0; preserved W04
+    171/171 across nine files.
+  - `pnpm verify` → exit 0; all 16 ACTIVE suites passed and visual remained
+    NOT_YET_APPLICABLE. The canonical run included 13/13 workspace
+    typechecks, W06 124/124, W05 290/290, W04 171/171, W01 108/108, W02
+    57/57, fixtures 166/166, mock ATS 32/32, Playwright 59/59 across 17 files,
+    focused contracts 662/662, full contracts 2440/2440, 183 generated
+    contracts byte-identical, Python 977/977 on macOS, and Rust 1/1 + 10/10.
+- Test counts: W06 124/124 (corpus-freeze 19, coverage-policy 28,
+  holdout-boundary 44, mutation-campaign 15, version-log-runner 18); no
+  skipped/todo/pending tests. The exact core mutant names are
+  DEVELOPMENT_FILE_TAMPER, EXPECTED_RESULT_TAMPER, CASE_ID_REPLACEMENT,
+  CORPUS_DIGEST_BYPASS, COVERAGE_COUNT_DRIFT,
+  SAME_VERSION_SEMANTIC_REWRITE, HIDDEN_EXPECTED_OUTPUT_LEAK,
+  HOLDOUT_CASE_COUNT_DRIFT, HOLDOUT_MANIFEST_DIGEST_BYPASS,
+  OWNER_PATH_TRAVERSAL, OWNER_SYMLINK_ESCAPE, APPEND_ONLY_ROW_MUTATION,
+  HISTORICAL_EXPECTATION_OVERWRITE, VERSION_BUMP_BYPASS, and
+  GATE_AUTHORITY_INJECTION.
+- Artifacts: public corpus manifest (103 exact source artifacts / 683 stable
+  producer-owned record identities), coverage summary, append-only version
+  index, mapping/change/boundary policies, and owner handoff instructions.
+  No owner manifest or hidden body/expected-output/key/path/result artifact
+  exists in the repository.
+- Notes: the genuine sanitized owner manifest was unavailable at the explicit
+  handoff boundary. W06 therefore remains IN_PROGRESS and unaccepted; W07 is
+  NOT_STARTED, no package is READY, no gate was evaluated, and hosted CI plus
+  fresh independent verification remain separate post-content evidence.
+
 ### M02-W05 — Governance closeout after final independent Fable verification (2026-08-10)
 
 - Revision: exact verified content commit

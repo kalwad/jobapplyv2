@@ -148,6 +148,11 @@ def doctor_repo(tmp_path: Path) -> Path:
     )
     fixture_test.parent.mkdir(parents=True)
     fixture_test.write_text("export {};\n", encoding="utf-8")
+    evaluation_corpus_test = (
+        repo / "packages" / "evaluation-corpus" / "test" / "m02-w06" / "fixture.test.ts"
+    )
+    evaluation_corpus_test.parent.mkdir(parents=True)
+    evaluation_corpus_test.write_text("export {};\n", encoding="utf-8")
     for rel in (
         "validate_status.py",
         "traceability.py",

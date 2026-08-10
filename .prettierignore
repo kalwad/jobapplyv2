@@ -22,6 +22,10 @@ packages/contracts/test/contract/baseline/compatibility-signature.v2.json
 packages/evaluation-baselines/baseline.manifest.json
 packages/evaluation-baselines/data/legacy-observations.v1.json
 
+# M02-W06 frozen corpus artifacts are byte-exact canonical JSON generated and
+# checked by @japp/evaluation-corpus; generic formatting would change identity.
+packages/evaluation-corpus/artifacts/
+
 # Lockfiles and tool/build output
 pnpm-lock.yaml
 uv.lock

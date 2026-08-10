@@ -1,0 +1,14 @@
+{
+  "corrections": [],
+  "format_version": "1.0.0",
+  "policy": "APPEND_ONLY_FULL_MAJOR_VERSIONS",
+  "versions": [
+    {
+      "corpus_digest": "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8",
+      "corpus_id": "M02_AUTOFILL_DEVELOPMENT_V1",
+      "corpus_version": "1.0.0",
+      "manifest_path": "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
+      "source_tree": "2d52740dc164c51d7b3741b91045095bf92c8441"
+    }
+  ]
+}

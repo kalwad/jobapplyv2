@@ -88,9 +88,15 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # and timestamp-authority code paths (src/derive.ts, src/time.ts) and its
 # permanent replay-source, regression-source, and measurement-boundary
 # regression test paths (state, ownership, mapping, gate effects, and
-# dependencies again unchanged) and re-locked the hash below.
+# dependencies again unchanged). M02-W06 then recorded the public corpus,
+# owner-external holdout boundary, exact corpus-identity propagation,
+# immutable correction/history policy, and append-only log portions of
+# REQ-GATE-002, REQ-GATE-006, and REQ-GATE-010. Those requirements remain
+# SCAFFOLD_ONLY / NOT_YET_APPLICABLE because no genuine owner manifest,
+# execution, independent decision, or cross-milestone completion exists;
+# ownership, gate effects, dependencies, and all gate states remain unchanged.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "89db8aaa77d196dd7ab2db389756fe48c2bafe809271984d695373116e4984c3"
+    "aa2e1ae686974c6c4e40828fef3237fb98c3262ca511373bd2fb0146d4788152"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"
