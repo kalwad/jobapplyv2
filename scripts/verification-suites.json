@@ -218,7 +218,7 @@
       "proofs": [
         {
           "kind": "vitest_exact_tests",
-          "min": 124
+          "min": 163
         }
       ],
       "discovery_globs": [
@@ -228,7 +228,7 @@
         "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
         "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/coverage-summary.json"
       ],
-      "explanation": "ACTIVE when M02-W06 begins. Recomputes the complete public corpus and coverage commitments from authoritative source bytes, checks immutable full-version history and the first-parent append-only holdout log, and runs exactly 124 W06 tests including exactly 15 named core mutants. Synthetic temporary owner roots prove strict UTF-8/JSON, exact inventory, traversal/symlink/nonregular defenses, contract and self-digest validation, safe diagnostics, W05 corpus-ID propagation, and zero hidden-body serialization. It never reads an ambient owner root or executes Gate A."
+      "explanation": "ACTIVE when M02-W06 begins. Recomputes the complete public corpus and coverage commitments from authoritative source bytes, checks immutable full-version history and the first-parent append-only holdout log, and runs exactly 163 W06 tests: the preserved 124-test layer including exactly 15 named historical core mutants, 38 substantive artifact-preimage correction regressions, and one direct public-directory privacy regression for both mapping versions. Synthetic temporary owner roots prove mapping v2 exact artifact-preimage cross-binding, v1 insufficiency, strict UTF-8/JSON, closed inventory, traversal/symlink/hardlink/nonregular defenses, contract and self-digest validation, safe diagnostics, Windows cross-volume semantics, W05 corpus-ID propagation, and zero hidden-body/path serialization. It never reads an ambient owner root, exports a genuine owner manifest, or executes Gate A."
     },
     {
       "id": "contract",

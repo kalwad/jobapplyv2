@@ -56,7 +56,8 @@ describe("M02-W06 owner-external holdout boundary", () => {
     const fixture = owner();
     const snapshot = verifyOwnerHoldout(fixture.root);
     expect(snapshot.verified_case_count).toBe(1);
-    expect(snapshot.verified_file_count).toBe(1);
+    expect(snapshot.verified_case_file_count).toBe(1);
+    expect(snapshot.verified_artifact_count).toBe(1);
     expect(snapshot.manifest.case_ids).toEqual([CASE_ID_1]);
     const output = join(
       REPOSITORY_ROOT,

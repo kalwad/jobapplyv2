@@ -91,12 +91,15 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # dependencies again unchanged). M02-W06 then recorded the public corpus,
 # owner-external holdout boundary, exact corpus-identity propagation,
 # immutable correction/history policy, and append-only log portions of
-# REQ-GATE-002, REQ-GATE-006, and REQ-GATE-010. Those requirements remain
-# SCAFFOLD_ONLY / NOT_YET_APPLICABLE because no genuine owner manifest,
-# execution, independent decision, or cross-milestone completion exists;
-# ownership, gate effects, dependencies, and all gate states remain unchanged.
+# REQ-GATE-002, REQ-GATE-006, and REQ-GATE-010. The M02-W06 artifact-preimage
+# correction then added reviewed mapping/policy-v2 and regression anchors plus
+# truthful blocked-review notes for REQ-GATE-002, REQ-GATE-006,
+# REQ-GATE-010, and REQ-GATE-011. Those requirements remain SCAFFOLD_ONLY /
+# NOT_YET_APPLICABLE because no genuine owner manifest, execution, independent
+# decision, or cross-milestone completion exists; ownership, gate effects,
+# dependencies, and all gate states remain unchanged.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "aa2e1ae686974c6c4e40828fef3237fb98c3262ca511373bd2fb0146d4788152"
+    "753a52d5b5497bf27099210380b4fa56bc9f8222e5ae6c6a48e80ddeabae7b7e"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

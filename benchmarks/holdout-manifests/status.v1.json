@@ -1,6 +1,11 @@
 {
   "format_version": "1.0.0",
   "owner_manifest_state": "OWNER_HOLDOUT_MANIFEST_REQUIRED",
+  "owner_holdout_review_state": "OWNER_HOLDOUT_REVIEW_BLOCKED",
+  "blocking_reason": "INPUT_ARTIFACT_PREIMAGE_UNAVAILABLE",
+  "rejected_draft_affected_cases": "11/11",
+  "required_owner_mapping_version": "2.0.0",
+  "correction_verification_state": "AWAITING_INDEPENDENT_VERIFICATION",
   "public_corpus_independent": true,
   "placeholder_manifest_forbidden": true,
   "hidden_content_in_repository": false,

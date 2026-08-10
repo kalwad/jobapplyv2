@@ -33,64 +33,98 @@ Exact verification commands and summarized results
 
 ## Entries
 
-### M02-W06 — Freeze v1 corpus and owner-external holdout commitment boundary (2026-08-10)
+### M02-W06 — Artifact-preimage corrective writer pass (2026-08-10)
 
-- Revision: implementation working tree over exact starting commit
-  `7833f22c0fe8aa57f8264938ff3484d456b66ef8` / tree
-  `2d52740dc164c51d7b3741b91045095bf92c8441`; content commit is recorded in
-  the writer handoff and awaits fresh independent verification. Canonical
-  JAPP-MASTER-001 v1.4 SHA-256:
+- Revision: corrective working tree over exact blocked content commit
+  `3d8b18ccc86109a2b6a3bb3cc3ae6d16f5ced9f9` / tree
+  `383fdd61fbebc61ec346734b02a7dba62af1e8b2` (parent
+  `d3626e813424414621ad59c5053b50f53ed9d454`). Canonical JAPP-MASTER-001
+  v1.4 SHA-256 remains
   `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
-- Environment: macOS 27.0 arm64; pinned Node 24.18.0 and pnpm 11.17.0.
+  Final correction commit/tree and exact-SHA hosted results are recorded in
+  the writer handoff after the forward-only push.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, Cargo/rustc 1.97.1, and Chromium 1.62.0.
+- Independent-review finding and reproduction: fresh owner-controlled review
+  returned `OWNER_HOLDOUT_REVIEW_BLOCKED` /
+  `INPUT_ARTIFACT_PREIMAGE_UNAVAILABLE` for 11/11 hidden cases. A disposable
+  synthetic root independently reproduced the defect without owner data: the
+  prior verifier accepted a valid hidden `BenchmarkCaseV1` container whose
+  declared artifact digest had no preimage bytes anywhere in the closed v1
+  inventory. The failed owner draft remained external and untouched; no
+  hidden value or case was disclosed and the reviewer made no repository
+  mutation.
+- Correction architecture: historical `owner-mapping:v1` and
+  `holdout-boundary.v1` are byte-preserved. Private `owner-mapping:v2` adds a
+  sorted exact `artifacts[{artifact_ref,relative_path}]` inventory. The
+  verifier validates hidden-case identity/classification, builds the unique
+  authoritative ref→digest/schema set, rejects missing/extra/conflicting
+  mappings, safely reads every opaque preimage, recomputes SHA-256 over exact
+  bytes, rejects path/inode/inventory/race violations, and returns private
+  snapshot/receipt v2 with separate case-file/artifact counts and bytes. The
+  public sanitized manifest remains `benchmark/holdout-manifest:v1` and
+  contains case-container commitments only.
 - Commands and observed results:
-  - `pnpm --filter @japp/evaluation-corpus corpus:write` → exit 0; created
-    immutable public corpus `M02_AUTOFILL_DEVELOPMENT_V1` v1.0.0.
-  - `pnpm --filter @japp/evaluation-corpus corpus:check` → exit 0; exact
-    recomputation matched corpus digest
-    `sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`.
-  - `pnpm --filter @japp/evaluation-corpus coverage:check` → exit 0; exact
-    recomputation matched coverage digest
+  - `pnpm install --frozen-lockfile`; `uv sync --locked`; both locked
+    `cargo fetch --locked --manifest-path ...` commands → exit 0.
+  - W06 typecheck, `corpus:check`, `coverage:check`, `privacy:check`, and
+    `log:check` → exit 0; corpus digest remains
+    `sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`
+    and coverage digest remains
     `sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a`.
-  - Two consecutive `corpus:write`, `corpus:check`, `coverage:check`,
-    `privacy:check`, and `log:check` passes → exit 0; both writes reported
-    `CORPUS_UNCHANGED`. Before/after raw artifact SHA-256 values were identical:
-    corpus file `b162839ac5cc2654cc6c83c05c25ba91233722861dcf6c06749e6a0e036c6644`,
-    coverage file `7096f3e9990c8df59d09a5126552791c281f2523ae8658c6695291311e0abc99`,
-    and version index
-    `d5bc4d2d2bce5e5fbbe61b0db480cf6d5978a109799e14c76e9e7568321ec0f9`.
-  - `pnpm --filter @japp/evaluation-corpus test` → exit 0; 124/124 across
-    five files.
-  - `pnpm --filter @japp/evaluation-corpus mutations:check` → exit 0;
-    exactly 15/15 named core mutation classes rejected with clean controls.
-  - `pnpm --filter @japp/evaluation-runner test` → exit 0; preserved W05
-    290/290 across 12 files after exact corpus-ID propagation.
-  - `pnpm --filter @japp/evaluation-baselines test` → exit 0; preserved W04
-    171/171 across nine files.
-  - `pnpm verify` → exit 0; all 16 ACTIVE suites passed and visual remained
-    NOT_YET_APPLICABLE. The canonical run included 13/13 workspace
-    typechecks, W06 124/124, W05 290/290, W04 171/171, W01 108/108, W02
-    57/57, fixtures 166/166, mock ATS 32/32, Playwright 59/59 across 17 files,
-    focused contracts 662/662, full contracts 2440/2440, 183 generated
-    contracts byte-identical, Python 977/977 on macOS, and Rust 1/1 + 10/10.
-- Test counts: W06 124/124 (corpus-freeze 19, coverage-policy 28,
-  holdout-boundary 44, mutation-campaign 15, version-log-runner 18); no
-  skipped/todo/pending tests. The exact core mutant names are
-  DEVELOPMENT_FILE_TAMPER, EXPECTED_RESULT_TAMPER, CASE_ID_REPLACEMENT,
-  CORPUS_DIGEST_BYPASS, COVERAGE_COUNT_DRIFT,
-  SAME_VERSION_SEMANTIC_REWRITE, HIDDEN_EXPECTED_OUTPUT_LEAK,
-  HOLDOUT_CASE_COUNT_DRIFT, HOLDOUT_MANIFEST_DIGEST_BYPASS,
-  OWNER_PATH_TRAVERSAL, OWNER_SYMLINK_ESCAPE, APPEND_ONLY_ROW_MUTATION,
+  - `pnpm --filter @japp/evaluation-corpus test` → exit 0, 163/163 across
+    six files; correction-specific suite 38/38. `mutations:check` → exit 0,
+    historical campaign exactly 15/15 with original meanings.
+  - W05 typecheck/check/test → exit 0, 290/290; W04 typecheck/check/test →
+    exit 0, 171/171; W01 108/108; W02 57/57; full fixtures 166/166; mock ATS
+    32/32; Playwright 59/59 across 17 files.
+  - `pnpm generate:contracts --check` → exit 0, 183 generated files
+    byte-identical; focused contracts 662/662 and full contracts 2440/2440.
+  - Required focused Python commands → exit 0: integrity 43, suite states
+    294, proofs/real-repo 7, traceability 62, v1.4 migration 31, status 148;
+    `uv run pytest -q scripts/tests` → 976/976. The canonical root inventory
+    additionally includes `services/orchestrator/tests/test_package.py` and
+    passes 977/977.
+  - Native Rust 1/1 and contract-harness Rust 10/10 → exit 0.
+  - `python3 scripts/validate_status.py` and `pnpm traceability:check` → exit
+    0, 45 status check groups and 193 requirements / 300 work packages.
+  - `pnpm run doctor` → 23 pass, 0 fail, one expected dirty-writer warning,
+    visual NOT_YET_APPLICABLE; `pnpm verify` → exit 0 with all 16 ACTIVE
+    suites PASS and visual NOT_YET_APPLICABLE.
+- Test counts: W06 163/163 (corpus-freeze 20, coverage-policy 28,
+  holdout-boundary 44, artifact-preimage correction 38, mutation-campaign 15,
+  version-log-runner 18); no skipped/todo/pending tests. The correction suite
+  covers every mandated v1 rejection, v2 clean path, missing/extra/conflicting
+  binding, digest/ref mutation, reuse policy, storage/path/closed-inventory
+  defense, receipt truth, non-leak, exported-manifest re-verification, v1/public
+  schema preservation, Windows cross-volume semantics, and truthful manifest
+  absence. The historical mutant names remain DEVELOPMENT_FILE_TAMPER,
+  EXPECTED_RESULT_TAMPER, CASE_ID_REPLACEMENT, CORPUS_DIGEST_BYPASS,
+  COVERAGE_COUNT_DRIFT, SAME_VERSION_SEMANTIC_REWRITE,
+  HIDDEN_EXPECTED_OUTPUT_LEAK, HOLDOUT_CASE_COUNT_DRIFT,
+  HOLDOUT_MANIFEST_DIGEST_BYPASS, OWNER_PATH_TRAVERSAL,
+  OWNER_SYMLINK_ESCAPE, APPEND_ONLY_ROW_MUTATION,
   HISTORICAL_EXPECTATION_OVERWRITE, VERSION_BUMP_BYPASS, and
   GATE_AUTHORITY_INJECTION.
-- Artifacts: public corpus manifest (103 exact source artifacts / 683 stable
-  producer-owned record identities), coverage summary, append-only version
-  index, mapping/change/boundary policies, and owner handoff instructions.
-  No owner manifest or hidden body/expected-output/key/path/result artifact
-  exists in the repository.
-- Notes: the genuine sanitized owner manifest was unavailable at the explicit
-  handoff boundary. W06 therefore remains IN_PROGRESS and unaccepted; W07 is
-  NOT_STARTED, no package is READY, no gate was evaluated, and hosted CI plus
-  fresh independent verification remain separate post-content evidence.
+- Byte preservation: before/after hashes remain corpus manifest
+  `b162839ac5cc2654cc6c83c05c25ba91233722861dcf6c06749e6a0e036c6644`,
+  coverage `7096f3e9990c8df59d09a5126552791c281f2523ae8658c6695291311e0abc99`,
+  version index `d5bc4d2d2bce5e5fbbe61b0db480cf6d5978a109799e14c76e9e7568321ec0f9`,
+  owner-mapping v1
+  `04361a9abecded3b6a1545df144149f796ea52790b3f65fb872ad09a3b5b8d4b`,
+  boundary policy v1
+  `c1937caaa91f6cc04cc4ddf79356f5b3679f27eb09f77f4d648d350bbb357e96`,
+  and public holdout-manifest schema v1
+  `139441d5b1bbcd44b35dafe8103d671825b6e9cfb79008a3dfd94d9b4927c738`;
+  benchmark case schema v1 remains
+  `83122bef37c57220caf3467e2ba915a436111ac478817ecc9ddf414503ee9d53`
+  and generated-contract manifest remains
+  `57d08eab5f18b6afe8a70a52ff0ad4a2c3e496d3620508392701076c3b04e31d`.
+- Notes: KI-0055 remains HIGH / IN_PROGRESS pending fresh independent tooling
+  verification. No genuine owner manifest is available, no placeholder or
+  hidden body/artifact/expected truth entered Git, W06 remains IN_PROGRESS and
+  unaccepted, W07 is NOT_STARTED, no package is READY, W13/W14/W15 did not
+  begin, no gate was evaluated, and release remains NOT_READY.
 
 ### M02-W05 — Governance closeout after final independent Fable verification (2026-08-10)
 

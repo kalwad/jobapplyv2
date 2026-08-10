@@ -40,18 +40,21 @@ import { REPOSITORY_ROOT } from "./corpus.ts";
 import { decodeStrictUtf8, parseStrictJson } from "./strict-json.ts";
 
 export const OWNER_ROOT_ENV = "JAPP_HOLDOUT_V1_ROOT" as const;
-export const OWNER_MAPPING_FILE = "mapping.v1.json" as const;
-export const OWNER_MAPPING_FORMAT_VERSION = "1.0.0" as const;
+export const OWNER_MAPPING_V1_FILE = "mapping.v1.json" as const;
+export const OWNER_MAPPING_V1_FORMAT_VERSION = "1.0.0" as const;
+export const OWNER_MAPPING_FILE = "mapping.v2.json" as const;
+export const OWNER_MAPPING_FORMAT_VERSION = "2.0.0" as const;
+export const SNAPSHOT_FORMAT_VERSION = "2.0.0" as const;
 export const HOLDOUT_FORMAT_VERSION = "1.0.0" as const;
 export const HOLDOUT_SCHEMA_REF = "urn:japp:schema:benchmark:case:v1" as const;
 export const HOLDOUT_SCHEMA_VERSION = "1.0.0" as const;
 export const HOLDOUT_VISIBILITY = "OWNER_REVIEWER" as const;
 
-const MAX_MAPPING_BYTES = 1024 * 1024;
+const MAX_MAPPING_BYTES = 128 * 1024 * 1024;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
 const MAX_TOTAL_BYTES = 64 * 1024 * 1024;
 const SAFE_SEGMENT = /^[a-z0-9][a-z0-9._-]{0,63}$/u;
-const STABLE_ID = /^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
+const STABLE_ID_SUFFIX = /^[0-9A-HJKMNP-TV-Z]{26}$/u;
 const CONTENT_DIGEST = /^sha256:[0-9a-f]{64}$/u;
 const GENERIC_CATEGORIES = new Set([
   "AUTOFILL_ACCESSIBILITY",
@@ -87,6 +90,10 @@ const RESERVED_SEGMENTS = new Set([
 ]);
 
 export type HoldoutErrorCode =
+  | "HOLDOUT_ARTIFACT_CONFLICT"
+  | "HOLDOUT_ARTIFACT_DIGEST_MISMATCH"
+  | "HOLDOUT_ARTIFACT_MAPPING_INVALID"
+  | "HOLDOUT_ARTIFACT_MISSING"
   | "HOLDOUT_BODY_INVALID"
   | "HOLDOUT_CASE_MISMATCH"
   | "HOLDOUT_EXTERNAL_ROOT_REQUIRED"
@@ -129,7 +136,24 @@ interface MappingFileV1 {
   readonly relative_path: string;
 }
 
+interface MappingArtifactV2 {
+  readonly artifact_ref: string;
+  readonly relative_path: string;
+}
+
 export interface OwnerMappingV1 {
+  readonly mapping_format_version: typeof OWNER_MAPPING_V1_FORMAT_VERSION;
+  readonly manifest_id: string;
+  readonly holdout_format_version: typeof HOLDOUT_FORMAT_VERSION;
+  readonly storage_policy: "OWNER_CONTROLLED_EXTERNAL";
+  readonly visibility_class: typeof HOLDOUT_VISIBILITY;
+  readonly creation_provenance: BenchmarkHoldoutManifestV1["creation_provenance"];
+  readonly review_provenance: BenchmarkHoldoutManifestV1["review_provenance"];
+  readonly cases: readonly MappingCaseV1[];
+  readonly files: readonly MappingFileV1[];
+}
+
+export interface OwnerMappingV2 {
   readonly mapping_format_version: typeof OWNER_MAPPING_FORMAT_VERSION;
   readonly manifest_id: string;
   readonly holdout_format_version: typeof HOLDOUT_FORMAT_VERSION;
@@ -139,6 +163,7 @@ export interface OwnerMappingV1 {
   readonly review_provenance: BenchmarkHoldoutManifestV1["review_provenance"];
   readonly cases: readonly MappingCaseV1[];
   readonly files: readonly MappingFileV1[];
+  readonly artifacts: readonly MappingArtifactV2[];
 }
 
 interface HiddenFileV1 {
@@ -152,6 +177,26 @@ export interface VerifiedHoldoutSnapshotV1 {
   readonly verified_case_count: number;
   readonly verified_file_count: number;
   readonly verified_total_bytes: number;
+  readonly receipt_digest: ContentDigest;
+}
+
+export interface VerifiedArtifactV2 {
+  readonly artifact_ref: string;
+  readonly artifact_digest: ContentDigest;
+  readonly schema_ref: string;
+  readonly byte_count: number;
+}
+
+export interface VerifiedHoldoutSnapshotV2 {
+  readonly snapshot_format_version: typeof SNAPSHOT_FORMAT_VERSION;
+  readonly manifest: BenchmarkHoldoutManifestV1;
+  readonly verified_case_count: number;
+  readonly verified_case_file_count: number;
+  readonly verified_artifact_count: number;
+  readonly verified_case_file_bytes: number;
+  readonly verified_artifact_bytes: number;
+  readonly verified_total_bytes: number;
+  readonly verified_artifacts: readonly VerifiedArtifactV2[];
   readonly receipt_digest: ContentDigest;
 }
 
@@ -171,12 +216,12 @@ function exactKeys(
 
 function genericStableId(
   value: unknown,
-  prefix: "case" | "file" | "manifest" | "review" | "source",
+  prefix: "artifact" | "case" | "file" | "manifest" | "review" | "source",
 ): value is string {
   return (
     typeof value === "string" &&
-    STABLE_ID.test(value) &&
-    value.startsWith(`${prefix}_`)
+    value.startsWith(`${prefix}_`) &&
+    STABLE_ID_SUFFIX.test(value.slice(prefix.length + 1))
   );
 }
 
@@ -207,24 +252,18 @@ function validProvenance(value: unknown, prefix: "review" | "source"): boolean {
   );
 }
 
-export function validateOwnerMapping(value: unknown): OwnerMappingV1 {
-  if (
-    !isRecord(value) ||
-    !exactKeys(value, [
-      "mapping_format_version",
-      "manifest_id",
-      "holdout_format_version",
-      "storage_policy",
-      "visibility_class",
-      "creation_provenance",
-      "review_provenance",
-      "cases",
-      "files",
-    ])
-  )
+function validateMappingCore(
+  value: unknown,
+  mappingFormatVersion: "1.0.0" | "2.0.0",
+  expectedKeys: readonly string[],
+): Readonly<{
+  record: Record<string, unknown>;
+  paths: Set<string>;
+}> {
+  if (!isRecord(value) || !exactKeys(value, expectedKeys))
     return fail("HOLDOUT_MAPPING_INVALID");
   if (
-    value.mapping_format_version !== OWNER_MAPPING_FORMAT_VERSION ||
+    value.mapping_format_version !== mappingFormatVersion ||
     value.holdout_format_version !== HOLDOUT_FORMAT_VERSION ||
     value.storage_policy !== "OWNER_CONTROLLED_EXTERNAL" ||
     value.visibility_class !== HOLDOUT_VISIBILITY ||
@@ -299,7 +338,109 @@ export function validateOwnerMapping(value: unknown): OwnerMappingV1 {
     [...fileIds].some((id) => !fileIdsFromCases.has(id))
   )
     return fail("HOLDOUT_MAPPING_INVALID");
-  return value as unknown as OwnerMappingV1;
+  return { record: value, paths };
+}
+
+export function validateOwnerMappingV1(value: unknown): OwnerMappingV1 {
+  const { record } = validateMappingCore(
+    value,
+    OWNER_MAPPING_V1_FORMAT_VERSION,
+    [
+      "mapping_format_version",
+      "manifest_id",
+      "holdout_format_version",
+      "storage_policy",
+      "visibility_class",
+      "creation_provenance",
+      "review_provenance",
+      "cases",
+      "files",
+    ],
+  );
+  return record as unknown as OwnerMappingV1;
+}
+
+function registerNonCollidingPath(
+  paths: Set<string>,
+  parentsOfMappedPaths: Set<string>,
+  candidate: string,
+): boolean {
+  if (paths.has(candidate) || parentsOfMappedPaths.has(candidate)) return false;
+  const parents: string[] = [];
+  for (
+    let separatorIndex = candidate.indexOf("/");
+    separatorIndex !== -1;
+    separatorIndex = candidate.indexOf("/", separatorIndex + 1)
+  ) {
+    const parent = candidate.slice(0, separatorIndex);
+    if (paths.has(parent)) return false;
+    parents.push(parent);
+  }
+  paths.add(candidate);
+  for (const parent of parents) parentsOfMappedPaths.add(parent);
+  return true;
+}
+
+export function validateOwnerMappingV2(value: unknown): OwnerMappingV2 {
+  const { record, paths: casePaths } = validateMappingCore(
+    value,
+    OWNER_MAPPING_FORMAT_VERSION,
+    [
+      "mapping_format_version",
+      "manifest_id",
+      "holdout_format_version",
+      "storage_policy",
+      "visibility_class",
+      "creation_provenance",
+      "review_provenance",
+      "cases",
+      "files",
+      "artifacts",
+    ],
+  );
+  if (
+    !Array.isArray(record.artifacts) ||
+    record.artifacts.length === 0 ||
+    record.artifacts.length > 131_072 ||
+    [...casePaths].some(
+      (path) => path === OWNER_MAPPING_FILE || path === OWNER_MAPPING_V1_FILE,
+    )
+  )
+    return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+  const paths = new Set<string>();
+  const parentsOfMappedPaths = new Set<string>();
+  for (const path of casePaths) {
+    if (!registerNonCollidingPath(paths, parentsOfMappedPaths, path))
+      return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+  }
+  let previousArtifact = "";
+  const artifactRefs = new Set<string>();
+  for (const item of record.artifacts) {
+    if (
+      !isRecord(item) ||
+      !exactKeys(item, ["artifact_ref", "relative_path"]) ||
+      !genericStableId(item.artifact_ref, "artifact") ||
+      typeof item.relative_path !== "string" ||
+      item.artifact_ref <= previousArtifact ||
+      artifactRefs.has(item.artifact_ref)
+    )
+      return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+    const relativePath = item.relative_path;
+    validateRelativePath(relativePath);
+    if (
+      relativePath === OWNER_MAPPING_FILE ||
+      relativePath === OWNER_MAPPING_V1_FILE ||
+      !registerNonCollidingPath(paths, parentsOfMappedPaths, relativePath)
+    )
+      return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+    previousArtifact = item.artifact_ref;
+    artifactRefs.add(item.artifact_ref);
+  }
+  return record as unknown as OwnerMappingV2;
+}
+
+export function validateOwnerMapping(value: unknown): OwnerMappingV2 {
+  return validateOwnerMappingV2(value);
 }
 
 export function validateRelativePath(path: string): readonly string[] {
@@ -365,7 +506,15 @@ function sameIdentity(left: Identity, right: Identity): boolean {
   );
 }
 
-function safeReadRegular(path: string, limit: number): Uint8Array {
+interface SafeReadResult {
+  readonly bytes: Uint8Array;
+  readonly identity: Identity;
+}
+
+function safeReadRegularWithIdentity(
+  path: string,
+  limit: number,
+): SafeReadResult {
   let before: Stats;
   try {
     before = lstatSync(path);
@@ -406,10 +555,51 @@ function safeReadRegular(path: string, limit: number): Uint8Array {
     const after = fstatSync(descriptor);
     if (!sameIdentity(identity(opened), identity(after)))
       return fail("HOLDOUT_RACE_DETECTED");
-    return bytes;
+    return { bytes, identity: identity(after) };
   } finally {
     closeSync(descriptor);
   }
+}
+
+function safeReadRegular(path: string, limit: number): Uint8Array {
+  return safeReadRegularWithIdentity(path, limit).bytes;
+}
+
+export interface PathRelationApi {
+  readonly isAbsolute: (value: string) => boolean;
+  readonly relative: (from: string, to: string) => string;
+  readonly sep: string;
+}
+
+const NATIVE_PATH_RELATION_API: PathRelationApi = {
+  isAbsolute,
+  relative,
+  sep,
+};
+
+function isWithinOrSame(
+  base: string,
+  candidate: string,
+  pathApi: PathRelationApi,
+): boolean {
+  const relation = pathApi.relative(base, candidate);
+  return (
+    relation === "" ||
+    (!pathApi.isAbsolute(relation) &&
+      !relation.startsWith(`..${pathApi.sep}`) &&
+      relation !== "..")
+  );
+}
+
+export function isExternalRootRelation(
+  repositoryPath: string,
+  rootPath: string,
+  pathApi: PathRelationApi = NATIVE_PATH_RELATION_API,
+): boolean {
+  return (
+    !isWithinOrSame(repositoryPath, rootPath, pathApi) &&
+    !isWithinOrSame(rootPath, repositoryPath, pathApi)
+  );
 }
 
 function assertExternalRoot(root: string): {
@@ -418,16 +608,9 @@ function assertExternalRoot(root: string): {
 } {
   if (!isAbsolute(root)) return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
   const absolute = resolve(root);
-  const relativeToRepo = relative(
-    realpathSync(REPOSITORY_ROOT),
-    realpathSync(absolute),
-  );
-  if (
-    relativeToRepo === "" ||
-    (!isAbsolute(relativeToRepo) &&
-      !relativeToRepo.startsWith(`..${sep}`) &&
-      relativeToRepo !== "..")
-  )
+  const repositoryRealPath = realpathSync(REPOSITORY_ROOT);
+  const rootRealPath = realpathSync(absolute);
+  if (!isExternalRootRelation(repositoryRealPath, rootRealPath))
     return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
   const stats = lstatSync(absolute);
   if (!stats.isDirectory() || stats.isSymbolicLink())
@@ -455,7 +638,11 @@ function assertComponents(root: string, segments: readonly string[]): string {
   return current;
 }
 
-function inventory(root: string): Set<string> {
+function inventory(
+  root: string,
+  expected: ReadonlySet<string>,
+  unexpectedCode: "HOLDOUT_INVENTORY_INVALID" | "HOLDOUT_RACE_DETECTED",
+): Set<string> {
   const entries = new Set<string>();
   const visit = (directory: string): void => {
     for (const name of readdirSync(directory).sort()) {
@@ -463,7 +650,9 @@ function inventory(root: string): Set<string> {
       const stats = lstatSync(path);
       if (stats.isSymbolicLink()) return fail("HOLDOUT_STORAGE_INVALID");
       const logical = relative(root, path).split(sep).join("/");
-      entries.add(stats.isDirectory() ? `${logical}/` : logical);
+      const entry = stats.isDirectory() ? `${logical}/` : logical;
+      if (!expected.has(entry)) return fail(unexpectedCode);
+      entries.add(entry);
       if (stats.isDirectory()) visit(path);
       else if (!stats.isFile()) return fail("HOLDOUT_STORAGE_INVALID");
     }
@@ -472,9 +661,9 @@ function inventory(root: string): Set<string> {
   return entries;
 }
 
-function expectedInventory(mapping: OwnerMappingV1): Set<string> {
+function expectedInventory(mapping: OwnerMappingV2): Set<string> {
   const expected = new Set<string>([OWNER_MAPPING_FILE]);
-  for (const { relative_path } of mapping.files) {
+  for (const { relative_path } of [...mapping.files, ...mapping.artifacts]) {
     const segments = relative_path.split("/");
     for (let index = 1; index < segments.length; index++)
       expected.add(`${segments.slice(0, index).join("/")}/`);
@@ -499,14 +688,23 @@ function parseHiddenFile(bytes: Uint8Array): HiddenFileV1 {
   )
     return fail("HOLDOUT_BODY_INVALID");
   for (const benchmarkCase of parsed.cases) {
-    if (!validateBenchmarkCaseV1(benchmarkCase).valid)
+    const validation = validateBenchmarkCaseV1(benchmarkCase);
+    if (
+      !validation.valid ||
+      validation.value.benchmark_family !== "AUTOFILL_FEASIBILITY" ||
+      validation.value.holdout_visibility !== "OWNER_CONTROLLED_HIDDEN" ||
+      !validation.value.synthetic_data ||
+      validation.value.input_artifacts.some(
+        ({ artifact_ref }) => !genericStableId(artifact_ref, "artifact"),
+      )
+    )
       return fail("HOLDOUT_BODY_INVALID");
   }
   return parsed as unknown as HiddenFileV1;
 }
 
 function buildManifest(
-  mapping: OwnerMappingV1,
+  mapping: OwnerMappingV2,
   fileCommitments: readonly BenchmarkHoldoutManifestV1["files"][number][],
 ): BenchmarkHoldoutManifestV1 {
   const categories = new Map<string, number>();
@@ -596,7 +794,7 @@ function deepFreeze<T>(value: T): T {
 
 function verifyOwnerHoldoutInternal(
   rootValue = process.env[OWNER_ROOT_ENV],
-): VerifiedHoldoutSnapshotV1 {
+): VerifiedHoldoutSnapshotV2 {
   if (rootValue === undefined || rootValue.length === 0)
     return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
   let root: { readonly absolute: string; readonly identity: Identity };
@@ -606,36 +804,65 @@ function verifyOwnerHoldoutInternal(
     if (error instanceof HoldoutBoundaryError) throw error;
     return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
   }
+  if (!existsSync(join(root.absolute, OWNER_MAPPING_FILE)))
+    return fail("HOLDOUT_MAPPING_INVALID");
   const mappingPath = assertComponents(root.absolute, [OWNER_MAPPING_FILE]);
-  let mapping: OwnerMappingV1;
+  let mapping: OwnerMappingV2;
+  let mappingRead: SafeReadResult;
   try {
+    mappingRead = safeReadRegularWithIdentity(mappingPath, MAX_MAPPING_BYTES);
     mapping = validateOwnerMapping(
-      parseStrictJson(
-        decodeStrictUtf8(safeReadRegular(mappingPath, MAX_MAPPING_BYTES)),
-      ),
+      parseStrictJson(decodeStrictUtf8(mappingRead.bytes)),
     );
   } catch (error) {
     if (error instanceof HoldoutBoundaryError) throw error;
     return fail("HOLDOUT_MAPPING_INVALID");
   }
-  const actualInventory = inventory(root.absolute);
+  const readIdentities = new Map<string, Identity>();
+  const inodeKeys = new Set<string>();
+  const rememberIdentity = (path: string, value: Identity): void => {
+    if (value.ino !== 0) {
+      const key = `${String(value.dev)}:${String(value.ino)}`;
+      if (inodeKeys.has(key)) return fail("HOLDOUT_STORAGE_INVALID");
+      inodeKeys.add(key);
+    }
+    readIdentities.set(path, value);
+  };
+  rememberIdentity(mappingPath, mappingRead.identity);
   const expected = expectedInventory(mapping);
+  const actualInventory = inventory(
+    root.absolute,
+    expected,
+    "HOLDOUT_INVENTORY_INVALID",
+  );
+  if (
+    mapping.artifacts.some(
+      ({ relative_path }) => !actualInventory.has(relative_path),
+    )
+  )
+    return fail("HOLDOUT_ARTIFACT_MISSING");
   if (
     actualInventory.size !== expected.size ||
     [...actualInventory].some((entry) => !expected.has(entry))
   )
     return fail("HOLDOUT_INVENTORY_INVALID");
-  let totalBytes = 0;
+  let caseFileBytes = 0;
   const commitments: BenchmarkHoldoutManifestV1["files"][number][] = [];
   const actualCaseIds = new Set<string>();
+  const artifactDeclarations = new Map<
+    string,
+    Readonly<{ artifact_digest: ContentDigest; schema_ref: string }>
+  >();
   for (const file of mapping.files) {
     const path = assertComponents(
       root.absolute,
       validateRelativePath(file.relative_path),
     );
-    const bytes = safeReadRegular(path, MAX_FILE_BYTES);
-    totalBytes += bytes.byteLength;
-    if (totalBytes > MAX_TOTAL_BYTES) return fail("HOLDOUT_SIZE_LIMIT");
+    const read = safeReadRegularWithIdentity(path, MAX_FILE_BYTES);
+    rememberIdentity(path, read.identity);
+    const { bytes } = read;
+    caseFileBytes += bytes.byteLength;
+    if (caseFileBytes > MAX_TOTAL_BYTES) return fail("HOLDOUT_SIZE_LIMIT");
     const hidden = parseHiddenFile(bytes);
     const expectedCases = mapping.cases
       .filter(({ file_id }) => file_id === file.file_id)
@@ -647,6 +874,21 @@ function verifyOwnerHoldoutInternal(
     )
       return fail("HOLDOUT_CASE_MISMATCH");
     for (const id of actualCases) actualCaseIds.add(id);
+    for (const benchmarkCase of hidden.cases) {
+      for (const declaration of benchmarkCase.input_artifacts) {
+        const existing = artifactDeclarations.get(declaration.artifact_ref);
+        if (
+          existing !== undefined &&
+          (existing.artifact_digest !== declaration.artifact_digest ||
+            existing.schema_ref !== declaration.schema_ref)
+        )
+          return fail("HOLDOUT_ARTIFACT_CONFLICT");
+        artifactDeclarations.set(declaration.artifact_ref, {
+          artifact_digest: declaration.artifact_digest as ContentDigest,
+          schema_ref: declaration.schema_ref,
+        });
+      }
+    }
     commitments.push({
       file_id: file.file_id,
       content_digest: sha256Bytes(bytes),
@@ -656,12 +898,70 @@ function verifyOwnerHoldoutInternal(
   }
   if (actualCaseIds.size !== mapping.cases.length)
     return fail("HOLDOUT_CASE_MISMATCH");
-  const finalInventory = inventory(root.absolute);
+  const mappedArtifactRefs = new Set(
+    mapping.artifacts.map(({ artifact_ref }) => artifact_ref),
+  );
+  if (
+    [...artifactDeclarations].some(
+      ([artifactRef]) => !mappedArtifactRefs.has(artifactRef),
+    )
+  )
+    return fail("HOLDOUT_ARTIFACT_MISSING");
+  if (
+    [...mappedArtifactRefs].some(
+      (artifactRef) => !artifactDeclarations.has(artifactRef),
+    )
+  )
+    return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+  let artifactBytes = 0;
+  const verifiedArtifacts: VerifiedArtifactV2[] = [];
+  for (const artifact of mapping.artifacts) {
+    const declaration = artifactDeclarations.get(artifact.artifact_ref);
+    if (declaration === undefined)
+      return fail("HOLDOUT_ARTIFACT_MAPPING_INVALID");
+    const path = assertComponents(
+      root.absolute,
+      validateRelativePath(artifact.relative_path),
+    );
+    const read = safeReadRegularWithIdentity(path, MAX_FILE_BYTES);
+    rememberIdentity(path, read.identity);
+    const { bytes } = read;
+    artifactBytes += bytes.byteLength;
+    if (caseFileBytes + artifactBytes > MAX_TOTAL_BYTES)
+      return fail("HOLDOUT_SIZE_LIMIT");
+    if (sha256Bytes(bytes) !== declaration.artifact_digest)
+      return fail("HOLDOUT_ARTIFACT_DIGEST_MISMATCH");
+    verifiedArtifacts.push({
+      artifact_ref: artifact.artifact_ref,
+      artifact_digest: declaration.artifact_digest,
+      schema_ref: declaration.schema_ref,
+      byte_count: bytes.byteLength,
+    });
+  }
+  const finalInventory = inventory(
+    root.absolute,
+    expected,
+    "HOLDOUT_RACE_DETECTED",
+  );
   if (
     finalInventory.size !== expected.size ||
     [...finalInventory].some((entry) => !expected.has(entry))
   )
     return fail("HOLDOUT_RACE_DETECTED");
+  for (const [path, expectedIdentity] of readIdentities) {
+    let current: Stats;
+    try {
+      current = lstatSync(path);
+    } catch {
+      return fail("HOLDOUT_RACE_DETECTED");
+    }
+    if (
+      !current.isFile() ||
+      current.isSymbolicLink() ||
+      !sameIdentity(expectedIdentity, identity(current))
+    )
+      return fail("HOLDOUT_RACE_DETECTED");
+  }
   const after = lstatSync(root.absolute);
   if (!sameIdentity(root.identity, identity(after)))
     return fail("HOLDOUT_RACE_DETECTED");
@@ -669,26 +969,34 @@ function verifyOwnerHoldoutInternal(
     buildManifest(mapping, commitments),
   );
   const receiptPayload = {
-    snapshot_format_version: "1.0.0" as const,
+    snapshot_format_version: SNAPSHOT_FORMAT_VERSION,
     manifest_id: manifest.manifest_id,
     manifest_digest: manifest.manifest_digest,
     verified_case_count: manifest.case_count,
-    verified_file_count: manifest.files.length,
-    verified_total_bytes: totalBytes,
+    verified_case_file_count: manifest.files.length,
+    verified_artifact_count: verifiedArtifacts.length,
+    verified_case_file_bytes: caseFileBytes,
+    verified_artifact_bytes: artifactBytes,
+    verified_total_bytes: caseFileBytes + artifactBytes,
+    verified_artifacts: verifiedArtifacts,
   };
   return deepFreeze({
-    snapshot_format_version: "1.0.0" as const,
+    snapshot_format_version: SNAPSHOT_FORMAT_VERSION,
     manifest,
     verified_case_count: manifest.case_count,
-    verified_file_count: manifest.files.length,
-    verified_total_bytes: totalBytes,
+    verified_case_file_count: manifest.files.length,
+    verified_artifact_count: verifiedArtifacts.length,
+    verified_case_file_bytes: caseFileBytes,
+    verified_artifact_bytes: artifactBytes,
+    verified_total_bytes: caseFileBytes + artifactBytes,
+    verified_artifacts: verifiedArtifacts,
     receipt_digest: sha256Canonical(receiptPayload),
   });
 }
 
 export function verifyOwnerHoldout(
   rootValue = process.env[OWNER_ROOT_ENV],
-): VerifiedHoldoutSnapshotV1 {
+): VerifiedHoldoutSnapshotV2 {
   try {
     return verifyOwnerHoldoutInternal(rootValue);
   } catch (error) {
@@ -700,7 +1008,7 @@ export function verifyOwnerHoldout(
 export function exportSanitizedManifest(
   output: string,
   rootValue?: string,
-): VerifiedHoldoutSnapshotV1 {
+): VerifiedHoldoutSnapshotV2 {
   const snapshot = verifyOwnerHoldout(rootValue);
   const absolute = resolveVisibleManifestPath(output);
   try {
@@ -748,7 +1056,7 @@ function resolveVisibleManifestPath(value: string): string {
 export function verifyExportedManifest(
   manifestPath: string,
   rootValue?: string,
-): VerifiedHoldoutSnapshotV1 {
+): VerifiedHoldoutSnapshotV2 {
   const snapshot = verifyOwnerHoldout(rootValue);
   const absolute = resolveVisibleManifestPath(manifestPath);
   let parsed: unknown;
@@ -767,7 +1075,7 @@ export function verifyExportedManifest(
 
 export function assertManifestMatchesSnapshot(
   manifest: BenchmarkHoldoutManifestV1,
-  snapshot: VerifiedHoldoutSnapshotV1,
+  snapshot: VerifiedHoldoutSnapshotV1 | VerifiedHoldoutSnapshotV2,
 ): void {
   if (canonicalFile(manifest) !== canonicalFile(snapshot.manifest))
     return fail("HOLDOUT_MANIFEST_INVALID");

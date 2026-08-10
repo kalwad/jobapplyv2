@@ -32,6 +32,55 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W06 owner-holdout corrective review
+
+### KI-0055 — M02-W06 owner holdout verification lacked input-artifact preimage binding
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-10 during fresh independent owner-controlled M02-W06
+  holdout review
+- Affects: M02-W06; REQ-GATE-002; REQ-GATE-010; REQ-GATE-011;
+  `packages/evaluation-corpus` owner-external mapping, verification, receipt,
+  and sanitized-manifest export
+- Description: exact reviewed content
+  `3d8b18ccc86109a2b6a3bb3cc3ae6d16f5ced9f9` / tree
+  `383fdd61fbebc61ec346734b02a7dba62af1e8b2` used owner mapping v1, whose
+  closed inventory represented only hidden case-container files. It did not
+  represent the preimage bytes committed by
+  `BenchmarkCaseV1.input_artifacts[].artifact_digest`. The fresh independent
+  review therefore returned `OWNER_HOLDOUT_REVIEW_BLOCKED` with exact reason
+  `INPUT_ARTIFACT_PREIMAGE_UNAVAILABLE`; all 11/11 cases in the rejected
+  owner draft were affected. The reviewer did not disclose hidden values,
+  mutate the repository, or modify the external draft.
+- Reproduction: a disposable synthetic owner root containing
+  `mapping.v1.json` and one valid hidden `BenchmarkCaseV1` container, but no
+  artifact preimage anywhere in its closed inventory, was accepted by the
+  prior `verifyOwnerHoldout`. The case declared a valid generic artifact ref
+  and SHA-256 digest that did not resolve to any inventoried bytes; acceptance
+  still produced a sanitized manifest and receipt. This exact synthetic
+  reproducer uses no genuine owner data.
+- Consequences: the source input could not be independently inspected; digest
+  authenticity could not be established from bytes; expected-truth
+  independence could not be completed; category review could not be
+  completed; and meaningful duplication review could not be completed.
+- Workaround: none accepted. The failed owner draft remains preserved
+  externally and must not be treated as evidence or retrofitted in place.
+  No owner manifest may be exported until corrected tooling is independently
+  accepted and a fresh author builds a complete v2 executable root.
+- Resolution + evidence link: IN_PROGRESS. The writer correction preserves
+  owner-mapping v1 byte-for-byte and introduces private `owner-mapping:v2`
+  with a closed `artifacts` inventory, exact ref-set equality, opaque-byte
+  SHA-256 recomputation, digest/schema-consistent reuse, finite safe error
+  codes, v2 case-file/artifact receipt accounting, v1-only execution refusal,
+  and unchanged public `benchmark/holdout-manifest:v1` output. Permanent
+  synthetic regression coverage is separate from the historical 15-class
+  campaign in
+  `packages/evaluation-corpus/test/m02-w06/artifact-preimage-correction.test.ts`.
+  See docs/TEST_EVIDENCE.md § M02-W06. This issue deliberately remains
+  IN_PROGRESS until a fresh independent tooling verifier accepts the
+  correction; no owner-manifest dependency or gate is resolved by this pass.
+
 ## M02-W05 fresh acceptance defect history (second verification)
 
 KI-0053 and KI-0054 were reported by the fresh independent Fable 5 acceptance

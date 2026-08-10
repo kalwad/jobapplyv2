@@ -20,6 +20,7 @@ import {
   computeCorpus,
   sourceInventory,
   validateCommittedManifest,
+  validateVisibleHoldoutInventory,
 } from "../../src/corpus.ts";
 import { CORPUS_ID, CORPUS_VERSION } from "../../src/model.ts";
 import { parseStrictJson } from "../../src/strict-json.ts";
@@ -222,6 +223,14 @@ describe("M02-W06 frozen public corpus", () => {
     expect(readFileSync(VERSION_INDEX_FILE, "utf8")).toBe(
       canonicalFile(computeCorpus().versionIndex),
     );
+  });
+
+  it("rejects both historical and executable owner mappings from the public directory", () => {
+    for (const mappingFile of ["mapping.v1.json", "mapping.v2.json"]) {
+      expect(() => {
+        validateVisibleHoldoutInventory([mappingFile]);
+      }).toThrow("CORPUS_PRIVACY_MAPPING_COMMITTED");
+    }
   });
 
   it("strictly parses the committed manifest and validates its self-digest", () => {

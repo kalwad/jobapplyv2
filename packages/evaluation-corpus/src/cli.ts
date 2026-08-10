@@ -26,7 +26,11 @@ function receipt(snapshot: ReturnType<typeof verifyOwnerHoldout>): string {
     `manifest_id=${snapshot.manifest.manifest_id}`,
     `manifest_digest=${snapshot.manifest.manifest_digest}`,
     `case_count=${String(snapshot.verified_case_count)}`,
-    `file_count=${String(snapshot.verified_file_count)}`,
+    `case_file_count=${String(snapshot.verified_case_file_count)}`,
+    `artifact_count=${String(snapshot.verified_artifact_count)}`,
+    `case_file_bytes=${String(snapshot.verified_case_file_bytes)}`,
+    `artifact_bytes=${String(snapshot.verified_artifact_bytes)}`,
+    `total_bytes=${String(snapshot.verified_total_bytes)}`,
     `receipt_digest=${snapshot.receipt_digest}`,
   ].join(" ");
 }

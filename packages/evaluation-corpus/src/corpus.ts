@@ -836,9 +836,15 @@ export function validateCommittedCoverage(value: unknown): CoverageSummaryV1 {
   return value as unknown as CoverageSummaryV1;
 }
 
-export function checkPublicPrivacy(): void {
-  const visibleRoot = join(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
-  const visibleFiles = readdirSync(visibleRoot).sort();
+export function validateVisibleHoldoutInventory(
+  visibleFiles: readonly string[],
+): void {
+  if (
+    visibleFiles.includes("mapping.v1.json") ||
+    visibleFiles.includes("mapping.v2.json")
+  ) {
+    throw new Error("CORPUS_PRIVACY_MAPPING_COMMITTED");
+  }
   const allowed = new Set([
     "README.md",
     "status.v1.json",
@@ -847,9 +853,12 @@ export function checkPublicPrivacy(): void {
   if (visibleFiles.some((name) => !allowed.has(name))) {
     throw new Error("CORPUS_PRIVACY_UNEXPECTED_HOLDOUT_FILE");
   }
-  if (visibleFiles.includes("mapping.v1.json")) {
-    throw new Error("CORPUS_PRIVACY_MAPPING_COMMITTED");
-  }
+}
+
+export function checkPublicPrivacy(): void {
+  const visibleRoot = join(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
+  const visibleFiles = readdirSync(visibleRoot).sort();
+  validateVisibleHoldoutInventory(visibleFiles);
   for (const path of [
     CORPUS_MANIFEST_FILE,
     COVERAGE_SUMMARY_FILE,
