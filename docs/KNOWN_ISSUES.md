@@ -44,14 +44,19 @@ accepted the documented leap-table-free leap-second projection, but found the
 low-year UTC projection acceptance-blocking and a separate W05-caused
 test-governance dilution. A second corrective Fable 5 writer pass reproduced
 both findings on the exact corrected content, corrected them, and recorded
-permanent regression coverage; both issues remain IN_PROGRESS because
-M02-W05 acceptance must come from a separate fresh independent session, not
-from the correcting writer.
+permanent regression coverage in final correction commit
+`b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+`40bbe111a4f80702c1fdd98b576534f1284873fc`. A separate genuinely fresh
+independent Fable 5 Ultra Code acceptance session then independently closed
+both defect classes on the exact final content and returned
+`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE` (2026-08-10, hosted content run
+`31355141330`); both issues are FIXED, and all three W05 content generations
+remain below as immutable defect/reproduction history.
 
 ### KI-0053 — Low-year UTC projection violated canonical proleptic-Gregorian time
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-09 during fresh independent Fable 5 M02-W05 acceptance
   verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` timestamp
@@ -84,7 +89,7 @@ from the correcting writer.
 - Workaround: none accepted. The canonical timestamp contract owns validity;
   bounding accepted years or weakening the schema to fit JavaScript Date was
   rejected.
-- Resolution + evidence link: IN_PROGRESS. The correction replaces the
+- Resolution + evidence link: FIXED. The correction replaces the
   Date-based numeric projection in `src/time.ts` with deterministic
   proleptic-Gregorian integer arithmetic over the whole 0000–9999 contract
   domain: canonical contract validation first, positive day-ordinal counting
@@ -105,12 +110,19 @@ from the correcting writer.
   in `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`
   and `packages/evaluation-runner/test/m02-w05/governance-layering.test.ts`.
   See docs/TEST_EVIDENCE.md § M02-W05 (proleptic-UTC corrective writer pass,
-  2026-08-09). Acceptance requires a separate fresh independent session.
+  2026-08-09). Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ### KI-0054 — W05 weakened the M02-W01 NON_PRODUCTION fixture-consumer assertion
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-09 during fresh independent Fable 5 M02-W05 acceptance
   verification
 - Affects: M02-W05; M02-W01 test governance
@@ -137,7 +149,7 @@ from the correcting writer.
   consumer.
 - Workaround: none accepted. A generic lowercase word is not a
   non-production classification proof.
-- Resolution + evidence link: IN_PROGRESS. The correction restores the exact
+- Resolution + evidence link: FIXED. The correction restores the exact
   `NON_PRODUCTION` token assertion for BOTH reviewed consumers (name,
   `private === true`, description containing exact `NON_PRODUCTION`, plus
   the retained evaluation wording check) without undoing W05's legitimate
@@ -148,8 +160,14 @@ from the correcting writer.
   `governance-layering.test.ts` now independently asserts the runner
   manifest's private/NON_PRODUCTION/EVALUATION_ONLY classification. M02-W01
   fixture bodies and fixture truth are untouched. See docs/TEST_EVIDENCE.md
-  § M02-W05 (proleptic-UTC corrective writer pass, 2026-08-09). Acceptance
-  requires a separate fresh independent session.
+  § M02-W05 (proleptic-UTC corrective writer pass, 2026-08-09). Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ## M02-W05 acceptance defect history
 
@@ -161,15 +179,19 @@ commit `383ae578512910b17d98aee30e1f24531fa746c8` / tree
 all five defects on the exact blocked content, corrected them, and recorded
 permanent regression coverage; the fresh independent Fable 5 verification of
 2026-08-09 (`FABLE_BLOCKED_M02_W05_GOVERNANCE` at `fdf7bda`) independently
-closed all five defect classes, but all five issues remain IN_PROGRESS
-because M02-W05 acceptance must come from a separate fresh independent
-session verifying the complete corrected W05 revision, not from the
-correcting writer.
+closed all five defect classes. The final genuinely fresh independent
+Fable 5 Ultra Code acceptance session re-reproduced all five defect-class
+controls on the complete corrected revision
+`b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+`40bbe111a4f80702c1fdd98b576534f1284873fc` and returned
+`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE` (2026-08-10, hosted content run
+`31355141330`); all five issues are FIXED, and the blocked revisions remain
+immutable defect/reproduction history.
 
 ### KI-0048 — Report replay lacked authoritative source binding
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-08 during independent M02-W05 acceptance verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` report
   validation, execution identity derivation, and serialized report replay
@@ -196,7 +218,7 @@ correcting writer.
   counts.
 - Workaround: none accepted. Serialized-projection cross-checks cannot
   substitute for reconstructible source truth.
-- Resolution + evidence link: IN_PROGRESS. The correction introduces
+- Resolution + evidence link: FIXED. The correction introduces
   `ExecutionReplayWitnessV1` (canonical validated `ExecutionRequestV1` plus
   each case's actual start/end instants and canonical normalized
   `AdapterObservationV1`), embeds it in the execution and the report JSON,
@@ -210,12 +232,19 @@ correcting writer.
   coverage lives in
   `packages/evaluation-runner/test/m02-w05/replay-source.test.ts`. See
   docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
-  Acceptance requires a separate fresh independent session.
+  Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ### KI-0049 — Serialized regression comparisons lacked authenticated candidate/reference compatibility
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-08 during independent M02-W05 acceptance verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` regression
   comparison model, comparison validation, and report embedding
@@ -235,7 +264,7 @@ correcting writer.
   standalone and inside a report.
 - Workaround: none accepted. Two mutable projections agreeing with each
   other is not authentication.
-- Resolution + evidence link: IN_PROGRESS. The correction makes a
+- Resolution + evidence link: FIXED. The correction makes a
   report-embedded comparison carry its complete immutable source — the
   full reviewed reference (digest recomputed from the embedded payload)
   plus a versioned candidate selector (`CASE_THRESHOLD_METRIC`,
@@ -253,12 +282,19 @@ correcting writer.
   `RUNNER_REGRESSION_CANDIDATE_SOURCE`); permanent coverage lives in
   `packages/evaluation-runner/test/m02-w05/regression-source.test.ts`. See
   docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
-  Acceptance requires a separate fresh independent session.
+  Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ### KI-0050 — FAILED_SETUP admitted paired measurement statistics
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-08 during independent M02-W05 acceptance verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` adapter
   observation boundary, aggregation, and report replay
@@ -273,7 +309,7 @@ correcting writer.
   recall 7/9 despite setup failure preceding measurement.
 - Workaround: none accepted. Measurement-derived statistics cannot come
   from a run that never measured.
-- Resolution + evidence link: IN_PROGRESS. The correction rejects
+- Resolution + evidence link: FIXED. The correction rejects
   `FAILED_SETUP` observations carrying paired counts at the raw boundary
   with the stable diagnostic `RUNNER_SETUP_PAIRED_COUNT_PAYLOAD` (metrics
   and artifact observations were already rejected; the visible setup error
@@ -283,12 +319,19 @@ correcting writer.
   setup; permanent coverage lives in
   `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
   See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
-  Acceptance requires a separate fresh independent session.
+  Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ### KI-0051 — Execution records admitted nonexistent UTC calendar dates
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-08 during independent M02-W05 acceptance verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` clock
   boundary, duration derivation, and report replay timestamp validation
@@ -304,7 +347,7 @@ correcting writer.
   accepted with `duration_ms` 1000 and the report validated.
 - Workaround: none accepted. A regex plus `Date.parse` is not calendar
   validation.
-- Resolution + evidence link: IN_PROGRESS. The correction adds one shared
+- Resolution + evidence link: FIXED. The correction adds one shared
   W05 timestamp authority (`src/time.ts`) built on the generated contract
   validator `validateCommonTimestampUtcV1UtcTimestamp`, used identically
   by execution and replay for COMPLETE, PARTIAL, and FAILED_SETUP;
@@ -316,12 +359,19 @@ correcting writer.
   in
   `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
   See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
-  Acceptance requires a separate fresh independent session.
+  Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ### KI-0052 — Maximum valid limitation request could not build a report
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-08 during independent M02-W05 acceptance verification
 - Affects: M02-W05; REQ-GATE-006; `packages/evaluation-runner` output
   policy validation and report limitation bounds
@@ -337,7 +387,7 @@ correcting writer.
   array.
 - Workaround: none accepted. Silently dropping or truncating limitations
   would hide honest scope statements.
-- Resolution + evidence link: IN_PROGRESS. The correction replaces the
+- Resolution + evidence link: FIXED. The correction replaces the
   duplicated numeric limits with shared constants
   (`MAX_USER_LIMITATIONS = 32`, `MAX_FIXED_REPORT_LIMITATIONS = 3`,
   `MAX_REPORT_LIMITATIONS = 35`); a 32-user request now builds, renders,
@@ -348,7 +398,14 @@ correcting writer.
   in
   `packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts`.
   See docs/TEST_EVIDENCE.md § M02-W05 (corrective writer pass, 2026-08-09).
-  Acceptance requires a separate fresh independent session.
+  Closed by the final genuinely fresh independent Fable 5 Ultra Code
+  acceptance verification of exact content
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`
+  (`FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, 2026-08-10, hosted
+  content run `31355141330`); see docs/TEST_EVIDENCE.md § M02-W05 —
+  Governance closeout after final independent Fable verification
+  (2026-08-10). M02-W05 is VERIFIED, not ACCEPTED.
 
 ## M02-W04 acceptance defect history
 

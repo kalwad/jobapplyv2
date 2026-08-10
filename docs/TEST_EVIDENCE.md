@@ -33,6 +33,237 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W05 — Governance closeout after final independent Fable verification (2026-08-10)
+
+- Revision: exact verified content commit
+  `b27b192aa18c86da180badc43b5f32efe96d88ab` / tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc` (parent
+  `fdf7bdaa0488179bff1d0aa9d78e7c1787d25090`, branch `main`, HEAD equal to
+  `origin/main`, clean writer checkout, canonical JAPP-MASTER-001 v1.4 spec
+  SHA-256 `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`).
+  Verifier: owner-selected Fable 5 Ultra Code in a genuinely fresh
+  independent session that authored no M02-W05 content revision; every prior
+  Codex/Sol/Fable report was treated strictly as a claim and independently
+  reproduced; one authoritative lead verifier personally reproduced every
+  acceptance-critical result, with bounded read-only Fable 5 reviewers used
+  only for document reading (no edits, no verdicts). Verdict:
+  `FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE`, followed by this
+  governance-only closeout in the same session.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv-managed Python 3.12.13, Rust via pinned rustup toolchain; all
+  independent execution in a fresh disposable no-hardlinks system-temp clone
+  detached at the exact SHA with `pnpm install --frozen-lockfile`,
+  `uv sync --locked`, `pnpm exec playwright install chromium`, and both
+  `cargo fetch --locked` manifests → exit 0; all mutation probes in separate
+  fresh disposable clones; the writer checkout was never modified during
+  Stage A.
+- Final correction diff review: exactly one forward-only commit
+  `fdf7bda -> b27b192` touching the expected 14-file surface; no dependency,
+  lockfile, schema, generated-contract, fixture-body, W04-semantic,
+  model-lock, prompt-registry, CI-workflow, toolchain-pin, or gate-report
+  byte changed (per-path `git diff` sweeps all empty); the runner
+  `package.json` change is description-only.
+- KI-0053 independent closure: a standalone Python integer reference
+  (iterative per-year leap accumulation, explicit month lengths, no
+  `datetime`, no Date API, written outside repository bytes) independently
+  established year 0000/0004/0400/2000 leap and 0001/0100/1900 common;
+  canonical accepted timestamp text was determined exclusively through the
+  generated `validateCommonTimestampUtcV1UtcTimestamp` (26-case matrix:
+  proleptic low-year instants, century rejections `0100-02-29`/`1900-02-29`,
+  strict-form rejections including lowercase `z`, `+02:00`, hour 24,
+  month 13, ten-digit fraction; plus all 10,000 February-29 decisions across
+  0000–9999 agreeing with the reference leap rule). The W05 projection
+  matched the reference on all 33 mandatory/representative instants
+  (including `0000-01-01T00:00:00Z` = −62167219200000 and fractional
+  `.1`/`.12`/`.123456789` truncation) and on a complete-domain sweep of
+  every calendar day 0000-01-01 through 9999-12-31: 3,652,425 comparisons,
+  byte-identical SHA-256 digests
+  (`ce63efc23507fcc0698d8134962ffd51a7de62ccaeaf7c1bf088905fc7fdde09`),
+  zero mismatches, domain minimum −62167219200000 ms and maximum
+  253402300800999 ms both inside ±(2^53−1). Mandatory duration cases:
+  `0000-01-01` +1 s = 1000 ms; `0000-02-28 -> 02-29` and
+  `0000-02-29 -> 03-01` = 86400000 ms; the contract-valid 36-hour window
+  `0000-02-29T00:00:00Z -> 0000-03-01T12:00:00Z` (reference 129600000 ms)
+  rejects `RUNNER_CLOCK_DURATION` in `deriveDurationMilliseconds` and end to
+  end through `runEvaluation`, and a falsified 43200000 ms result cannot
+  survive replay (projection edit rejects
+  `RUNNER_REPORT_CASE_DERIVATION`; witness edit rejects
+  `RUNNER_CLOCK_DURATION`); `0099-12-31T23:59:59Z -> 0100-01-01T00:00:00Z`
+  derives exactly 1000 ms through execution, canonical `BenchmarkResultV1`,
+  report build, replay, and render; representative boundaries at
+  0100/0400/1900/2000/9999 all exact.
+- Leap-second and fractional preservation: `2026-06-30T23:59:59Z -> :60Z`
+  = 1000 ms and `:60Z -> 2026-07-01T00:00:00Z` = 0 ms end to end with replay
+  agreement under the documented leap-table-free Unix-style projection; the
+  contract accepts second 60 only at 23:59 (independently probed at other
+  minutes); fractional low-year runs are deterministic across repeated
+  executions; no leap-second table, external time database, network path, or
+  environmental timezone dependency exists in runner source.
+- No JavaScript Date semantic authority: zero `Date.UTC`, `Date.parse`,
+  `new Date`, `setUTCFullYear`, or Date-constructor projection paths in
+  `packages/evaluation-runner/src/` (lead grep plus complete-source reviewer
+  read); the static governance ban in `governance-layering.test.ts` covers
+  `Date.UTC|Date.parse` and `Date.now|new Date(`. Recorded observation: the
+  static scan is a flat `readdirSync` of `src/`, which truthfully covers the
+  current flat source tree and fails loud (read error) if a subdirectory
+  ever appears — not acceptance-blocking.
+- KI-0054 independent closure: at governance parent `5f8af91` the invariant
+  required the exact `NON_PRODUCTION` token for the single reviewed
+  consumer; the final content restores that exact token assertion for BOTH
+  reviewed consumers (`packages/evaluation-baselines`,
+  `packages/evaluation-runner`: exact name, `private === true`, description
+  containing exact `NON_PRODUCTION`, retained lowercase `evaluation` check)
+  without removing W05's legitimate second consumer; the runner manifest
+  truthfully declares `EVALUATION_ONLY`/`NON_PRODUCTION`/never critical-gate
+  authority with no version, dependency, or lockfile change; focused
+  `test/m02-w01/governance-discovery.test.ts` → 7/7.
+- KI-0048…KI-0052 re-reproduction on the final content (independent probe
+  through the real API, not the test suite): FAIL→PASS coordinated
+  projection mutation rejects `RUNNER_REPORT_DERIVATION_MISMATCH`; holdout
+  relabels reject at projection and witness levels; provenance/runtime
+  replacement rejects; raw-observation mutation under old identities rejects
+  `RUNNER_REPORT_REPLAY_MISMATCH`; a legitimate semantic change yields new
+  observation/record/execution identities and validates. Foreign-execution
+  candidate rejects `RUNNER_REGRESSION_CANDIDATE_SOURCE`; candidate
+  value/selector/raw-count tampers reject
+  (`RUNNER_REGRESSION_DERIVATION`/`RUNNER_REGRESSION_CANDIDATE_SOURCE`/
+  `RUNNER_REGRESSION_RAW_RATE_MISMATCH`); corpus-mismatch relabel rejects;
+  reference and compatibility payload tampers reject
+  `RUNNER_REGRESSION_REFERENCE_TAMPER`; clean compatible and clean
+  incompatible comparisons behave correctly. FAILED_SETUP yields
+  `metrics=[]`, `artifact_observations=[]`, `paired_counts=[]`, visible
+  `BENCHMARK_INCOMPLETE_RUN`, no precision/recall, no canonical result, and
+  overall INVALID. Strict calendar validation rejects `2026-02-30`,
+  `2025-02-29`, `2026-04-31`, month 13, hour 24, lowercase `z`, and non-Z
+  offsets end to end (`RUNNER_CLOCK_TIMESTAMP`) while accepting ordinary
+  UTC, leap day 2024, 1–9 fractional digits, and end-of-day second 60.
+  32 caller limitations → exactly 35 report limitations
+  (validates/renders/replays); 33 → `RUNNER_LIMITATION_COUNT`;
+  deletion/replacement/reordering of derived fixed limitations rejects
+  `RUNNER_REPORT_REPLAY_MISMATCH`.
+- Replay/regression architecture and statistics: the single canonical replay
+  witness, request/observation-digest rederivation, record/result/execution
+  identity rederivation, report-equals-reconstruction, execution-bound
+  candidate resolution, immutable reference digest, compatibility
+  rederivation, and zero gate authority were confirmed by complete source
+  reads plus the probes above. Independent reference calculations matched
+  exactly: Wilson-95 bounds for 2/3, 4/5, 4/6, 1/1 byte-identical to a
+  standalone z=1.959963984540054 computation (0/0 → NO_OBSERVATIONS);
+  exact-decimal thresholds discriminate `0.1+0.2` from `0.3` under EXACT and
+  hold AT_LEAST/AT_MOST boundaries for BYTES/COUNT/MILLISECONDS/RATIO/SCORE;
+  pooled proportions micro-pool (3/4 + 1/2 → 4/6) and value/count mismatches
+  reject; zero-tolerance failures are integer counts; paired
+  precision/recall reports raw numerators/denominators with matching Wilson
+  bounds; regression deltas are exact decimal text (`-0.01`, presentation
+  `-0.0125`) with correct boundary pass/fail; hostile titles/limitations are
+  escaped in HTML with deterministic JSON/Markdown/HTML; conditional
+  model/browser/prompt provenance is enforced fail-closed
+  (`RUNNER_MODEL_PROVENANCE`/`RUNNER_MODEL_METADATA_PAIR` observed).
+- Traceability honesty: REQ-GATE-006 remains SCAFFOLD_ONLY /
+  NOT_YET_APPLICABLE with the refreshed correction anchors
+  (`src/derive.ts`, `src/time.ts`, `replay-source`, `regression-source`,
+  `measurement-boundaries` test paths); reviewed v1.4 mapping hash
+  `89db8aaa…` and unchanged dependency hash `ea991a04…` verified in JSON and
+  generated view; package census at verification time was exactly one
+  IN_PROGRESS (M02-W05), zero READY; ownership and gate effects unchanged;
+  no requirement promoted because W05 infrastructure exists.
+- Historical mutation campaign: `test/m02-w05/mutations.test.ts` is
+  byte-identical since `383ae57` (empty `git diff` across all three W05
+  revisions) and passed exactly 18/18.
+- Twelve final independent mutation families, each in a fresh disposable
+  clone with its detector run green before the exact semantic edit and
+  rerun after (command → focused `vitest run` of the named detector; exit 0
+  control, exit 1 mutated; relevant failing tests inspected):
+  1. YEAR_0_TO_1900_REMAP (numeric year 0–99 → +1900 remap in `time.ts`) →
+     measurement-boundaries, 6 relevant failures including the literal
+     anchors and complete-domain reference;
+  2. YEAR_ZERO_LEAP_REMOVAL (year 0 common) → 4 failures including
+     `0000-02-29 -> 03-01` and the 36-hour control;
+  3. CENTURY_RULE_DRIFT (every %4 year leap) → 4 failures including the
+     0100/1900 boundary rows;
+  4. LOW_YEAR_CROSSING_DRIFT (+1 day for years ≥ 100) → 4 failures
+     including the `0099 -> 0100` 1000-ms row;
+  5. DURATION_TRUE_VALUE_BYPASS (clamp duration to ≤ 86400000) → exactly
+     the end-to-end 36-hour rejection control;
+  6. LEAP_SECOND_MAPPING_DRIFT (second 60 capped to 59) → 3 leap-second
+     failures including the year-end next-minute control;
+  7. NON_PRODUCTION_ASSERTION_WEAKENING (baselines description token →
+     generic words) → governance-discovery rejects on the exact
+     `to contain 'NON_PRODUCTION'` assertion;
+  8. RUNNER_CLASSIFICATION_DRIFT (runner description token removed) →
+     BOTH governance-discovery and W05 governance-layering reject;
+  9. REPLAY_SOURCE_DRIFT (final derived-vs-serialized comparison
+     tautologized in `report.ts`) → replay-source rejects (4 failures:
+     FAIL→PASS, holdout relabel, provenance replacement,
+     observation-source change);
+  10. FOREIGN_REGRESSION_CANDIDATE (per-comparison reconstruction
+      tautologized) → regression-source rejects (4 failures including
+      candidate bound to an unrelated execution);
+  11. FAILED_SETUP_MEASUREMENT_REINTRODUCTION (direct validation boundary
+      disabled) → measurement-boundaries rejects (raw-boundary and
+      witness-forgery controls; the aggregate-layer invariant still
+      fires independently);
+  12. LIMITATION_SOURCE_DRIFT (`MAX_USER_LIMITATIONS` 32 → 33) →
+      measurement-boundaries shared-constants binding rejects.
+  No thirteenth family was added after all twelve rejected.
+- Complete clean execution (disposable clone at the exact SHA):
+  - `pnpm --filter @japp/evaluation-runner typecheck` → exit 0; two
+    `runner:check` runs → deterministic JSON/Markdown/HTML PASS twice with
+    byte-identical empty `git status --porcelain=v1 -uall` hashes before,
+    between, and after (read-only proof); `pnpm exec eslint
+    packages/evaluation-runner` and `pnpm exec prettier --check
+    packages/evaluation-runner` → exit 0.
+  - W05 Vitest 290/290 across 12 files: aggregation-statistics 24,
+    governance-layering 6, measurement-boundaries 63, mutations 18,
+    regression-source 16, regression 22, replay-source 11, reports 22,
+    runner 27, thresholds 32, validation-boundaries 48, w04-integration 1.
+  - W04 typecheck/`baselines:check`/test → 171/171 across 9 files with
+    combined digest
+    `sha256:71c41a754e997998328535670095debb4c068576f788863cd3a458fe31996cc5`
+    unchanged; focused W01 → 108/108; focused W02 → 57/57; full fixtures →
+    166/166; mock lab typecheck/test/build → 32/32 and build success;
+    `pnpm exec playwright test --list` → 59 tests in 17 files;
+    `pnpm exec playwright test` → 59/59.
+  - Focused Python: test_integrity 43, test_suite_states 294,
+    test_proofs_and_real_repo 7, test_traceability 62, test_v14_migration
+    31, test_validate_status 148; full `uv run pytest -q scripts/tests` →
+    976/976. `python3 scripts/validate_status.py` → PASS (45 check groups);
+    `pnpm traceability:check` → PASS (193 requirements / 300 packages);
+    `pnpm generate:contracts --check` → 183 byte-identical; `pnpm run
+    doctor` → 23 pass / 0 warning / 0 fail / 1 not-yet-applicable; full
+    `pnpm verify` → exit 0 with 15 workspace projects, 12/12 typecheck and
+    12/12 test Turbo tasks, 3,106 TypeScript tests (contracts 2440, runner
+    290, baselines 171, fixtures 166, mock lab 32, seven scaffold packages
+    1 each), focused contracts 662, every ACTIVE suite PASS, visual
+    truthfully NOT_YET_APPLICABLE, and no nonordinary outcome;
+    `git diff --check` and `git status --short` → clean.
+- Hosted final content evidence: push run `31355141330` at exact head SHA
+  `b27b192aa18c86da180badc43b5f32efe96d88ab`, successful on ubuntu-24.04
+  job `93353321052`, macos-15 job `93353321082`, and windows-2025 job
+  `93353321075`. Raw logs confirm the dedicated exact-revision checkout
+  step, frozen pnpm, locked uv, both locked cargo fetches, doctor
+  23/0/0/1-NYA, W05 290, W04 171, W01 108, W02 57, fixtures 166, mock 32,
+  Playwright 59 in 17 files, contracts 2440, focused 662, generated 183
+  byte-identical, Python 977 POSIX / 975 Windows, Rust 1+10, status 45
+  groups, traceability ACTIVE PASS, every ACTIVE suite PASS, visual
+  NOT_YET_APPLICABLE, `verification exit code: 0`, and the fail-closed
+  tracked-cleanliness assertion. The ENTIRE windows-2025 raw log
+  (3,087 lines) was inspected and fully classified into its 27 expected
+  steps; the only warnings are a benign uv hardlink-performance fallback
+  and a NO_COLOR/FORCE_COLOR notice; no relevant EPERM or command failure.
+- Governance transitions applied after the clear verdict (this closeout):
+  M02-W05 IN_PROGRESS → VERIFIED at tree
+  `40bbe111a4f80702c1fdd98b576534f1284873fc`; M02-W06 NOT_STARTED → READY
+  (sole READY package, not begun); current work package NONE; KI-0048
+  through KI-0054 → FIXED with complete histories preserved. M02-W05 is
+  VERIFIED, not ACCEPTED; M02 remains IN_PROGRESS; M00/M01 remain ACCEPTED;
+  M02-W01…W04 remain VERIFIED; REQ-GATE-006 remains SCAFFOLD_ONLY /
+  NOT_YET_APPLICABLE; all four critical gates remain NOT_EVALUATED; release
+  remains NOT_READY. No W06 corpus/holdout was created, no W13 harness
+  implemented, no W14 evaluation run, no W15 decision made, and no critical
+  gate evaluated. Only the five governance files changed in this closeout
+  commit.
+
 ### M02-W05 — Proleptic-UTC corrective writer pass (2026-08-09)
 
 - Revision: second corrective working tree over exact corrected M02-W05

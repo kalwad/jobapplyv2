@@ -7418,8 +7418,8 @@
       "id": "M02-W05",
       "milestone": "M02",
       "title": "Build evaluation runner",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 40bbe111a4f80702c1fdd98b576534f1284873fc",
       "direct_package_prerequisites": [
         "M02-W04"
       ],
@@ -7462,14 +7462,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W05"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W06",
       "milestone": "M02",
       "title": "Freeze v1 corpus and holdout manifest",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W05"
