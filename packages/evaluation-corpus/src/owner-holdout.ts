@@ -424,7 +424,9 @@ function assertExternalRoot(root: string): {
   );
   if (
     relativeToRepo === "" ||
-    (!relativeToRepo.startsWith(`..${sep}`) && relativeToRepo !== "..")
+    (!isAbsolute(relativeToRepo) &&
+      !relativeToRepo.startsWith(`..${sep}`) &&
+      relativeToRepo !== "..")
   )
     return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
   const stats = lstatSync(absolute);
