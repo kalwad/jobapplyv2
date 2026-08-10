@@ -9,6 +9,7 @@ import {
   readdirSync,
   realpathSync,
   writeFileSync,
+  type BigIntStats,
   type Stats,
 } from "node:fs";
 import {
@@ -473,24 +474,24 @@ export function validateRelativePath(path: string): readonly string[] {
 }
 
 interface Identity {
-  readonly dev: number;
-  readonly ino: number;
-  readonly size: number;
-  readonly mode: number;
-  readonly nlink: number;
-  readonly mtimeMs: number;
-  readonly ctimeMs: number;
+  readonly dev: bigint;
+  readonly ino: bigint;
+  readonly size: bigint;
+  readonly mode: bigint;
+  readonly nlink: bigint;
+  readonly mtimeNs: bigint;
+  readonly ctimeNs: bigint;
 }
 
-function identity(stats: Stats): Identity {
+function identity(stats: BigIntStats): Identity {
   return {
     dev: stats.dev,
     ino: stats.ino,
     size: stats.size,
     mode: stats.mode,
     nlink: stats.nlink,
-    mtimeMs: stats.mtimeMs,
-    ctimeMs: stats.ctimeMs,
+    mtimeNs: stats.mtimeNs,
+    ctimeNs: stats.ctimeNs,
   };
 }
 
@@ -501,8 +502,8 @@ function sameIdentity(left: Identity, right: Identity): boolean {
     left.size === right.size &&
     left.mode === right.mode &&
     left.nlink === right.nlink &&
-    left.mtimeMs === right.mtimeMs &&
-    left.ctimeMs === right.ctimeMs
+    left.mtimeNs === right.mtimeNs &&
+    left.ctimeNs === right.ctimeNs
   );
 }
 
@@ -515,15 +516,15 @@ function safeReadRegularWithIdentity(
   path: string,
   limit: number,
 ): SafeReadResult {
-  let before: Stats;
+  let before: BigIntStats;
   try {
-    before = lstatSync(path);
+    before = lstatSync(path, { bigint: true });
   } catch {
     return fail("HOLDOUT_STORAGE_INVALID");
   }
-  if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1)
+  if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1n)
     return fail("HOLDOUT_STORAGE_INVALID");
-  if (before.size > limit) return fail("HOLDOUT_SIZE_LIMIT");
+  if (before.size > BigInt(limit)) return fail("HOLDOUT_SIZE_LIMIT");
   const platformSafeFlags =
     process.platform === "win32"
       ? 0
@@ -536,10 +537,10 @@ function safeReadRegularWithIdentity(
     return fail("HOLDOUT_STORAGE_INVALID");
   }
   try {
-    const opened = fstatSync(descriptor);
+    const opened = fstatSync(descriptor, { bigint: true });
     if (!opened.isFile() || !sameIdentity(identity(before), identity(opened)))
       return fail("HOLDOUT_RACE_DETECTED");
-    const bytes = Buffer.alloc(before.size);
+    const bytes = Buffer.alloc(Number(before.size));
     let offset = 0;
     while (offset < bytes.length) {
       const count = readSync(
@@ -552,7 +553,7 @@ function safeReadRegularWithIdentity(
       if (count === 0) return fail("HOLDOUT_RACE_DETECTED");
       offset += count;
     }
-    const after = fstatSync(descriptor);
+    const after = fstatSync(descriptor, { bigint: true });
     if (!sameIdentity(identity(opened), identity(after)))
       return fail("HOLDOUT_RACE_DETECTED");
     return { bytes, identity: identity(after) };
@@ -612,7 +613,7 @@ function assertExternalRoot(root: string): {
   const rootRealPath = realpathSync(absolute);
   if (!isExternalRootRelation(repositoryRealPath, rootRealPath))
     return fail("HOLDOUT_EXTERNAL_ROOT_REQUIRED");
-  const stats = lstatSync(absolute);
+  const stats = lstatSync(absolute, { bigint: true });
   if (!stats.isDirectory() || stats.isSymbolicLink())
     return fail("HOLDOUT_STORAGE_INVALID");
   return { absolute, identity: identity(stats) };
@@ -821,7 +822,7 @@ function verifyOwnerHoldoutInternal(
   const readIdentities = new Map<string, Identity>();
   const inodeKeys = new Set<string>();
   const rememberIdentity = (path: string, value: Identity): void => {
-    if (value.ino !== 0) {
+    if (value.ino !== 0n) {
       const key = `${String(value.dev)}:${String(value.ino)}`;
       if (inodeKeys.has(key)) return fail("HOLDOUT_STORAGE_INVALID");
       inodeKeys.add(key);
@@ -949,9 +950,9 @@ function verifyOwnerHoldoutInternal(
   )
     return fail("HOLDOUT_RACE_DETECTED");
   for (const [path, expectedIdentity] of readIdentities) {
-    let current: Stats;
+    let current: BigIntStats;
     try {
-      current = lstatSync(path);
+      current = lstatSync(path, { bigint: true });
     } catch {
       return fail("HOLDOUT_RACE_DETECTED");
     }
@@ -962,7 +963,7 @@ function verifyOwnerHoldoutInternal(
     )
       return fail("HOLDOUT_RACE_DETECTED");
   }
-  const after = lstatSync(root.absolute);
+  const after = lstatSync(root.absolute, { bigint: true });
   if (!sameIdentity(root.identity, identity(after)))
     return fail("HOLDOUT_RACE_DETECTED");
   const manifest = validateSanitizedManifest(
