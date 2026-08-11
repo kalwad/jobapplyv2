@@ -74,6 +74,20 @@ describe("M02-W06 owner-external holdout boundary", () => {
     }
   });
 
+  it("resolves the documented repository-relative manifest path", () => {
+    const fixture = owner();
+    const relativeOutput =
+      "benchmarks/holdout-manifests/w06-relative-path.manifest.json";
+    const absoluteOutput = join(REPOSITORY_ROOT, relativeOutput);
+    try {
+      const exported = exportSanitizedManifest(relativeOutput, fixture.root);
+      const verified = verifyExportedManifest(relativeOutput, fixture.root);
+      expect(verified.receipt_digest).toBe(exported.receipt_digest);
+    } finally {
+      rmSync(absoluteOutput, { force: true });
+    }
+  });
+
   it("derives exact file bytes and self-digest commitments", () => {
     const fixture = owner();
     const { manifest } = verifyOwnerHoldout(fixture.root);

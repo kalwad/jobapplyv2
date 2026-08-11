@@ -4,12 +4,18 @@ This directory may contain only sanitized `holdout-manifest.v1` commitments.
 Hidden cases, expected outputs, paths, mapping files, keys, credentials, and
 private data remain outside the repository under owner control.
 
-No genuine owner manifest exists. The rejected 11-case owner draft remains
-external and untouched after independent review found
-`INPUT_ARTIFACT_PREIMAGE_UNAVAILABLE` in 11/11 cases. Do not inspect it through
-ordinary tooling, retrofit it in place, or create a placeholder from contract
-fixtures. A fresh author may build a new executable bundle only after this
-corrected tooling receives independent acceptance.
+The independently reviewed owner mapping-v2 bundle now exists externally under
+owner control. This directory carries only its sanitized public commitment in
+`m02-autofill-v1.manifest.json`; private executable bytes, paths, artifact
+preimages, case bodies, and expected truth remain outside Git. Ordinary hosted
+CI does not receive those private owner bytes and validates only the committed
+sanitized boundary.
+
+The rejected 11-case mapping-v1 draft remains external and untouched after its
+historical review found `INPUT_ARTIFACT_PREIMAGE_UNAVAILABLE` in 11/11 cases.
+It is preserved only as defect history and is not executable evidence. Never
+replace the reviewed manifest with a placeholder derived from contract
+fixtures.
 
 The owner/evaluator supplies one dedicated external root containing
 `mapping.v2.json`, mapped case-container files, and mapped artifact-preimage
@@ -65,3 +71,8 @@ contains case-container commitments only. The private mapping and private
 snapshot/receipt are v2. Historical owner mapping v1 remains preserved but is
 insufficient and is refused as final evidence. The CLI emits sanitized
 commitments and counts only; errors emit finite codes and no path or body.
+
+This handoff resolves the owner-manifest dependency but does not verify or
+accept M02-W06. A completely fresh verifier must inspect the exact integration
+commit and the preserved owner bundle. M02-W14 remains the future hidden
+execution owner, and M02-W15 remains the future gate-decision owner.

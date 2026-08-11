@@ -76,10 +76,16 @@ broadening a work package (spec §1.5).
   Permanent differential controls cover each v1 role, whole mappings,
   accepted and rejected boundaries, v1 schema distinction, v1-only execution
   refusal, and v2 runtime/schema agreement. This is historical-runtime
-  preservation, not a live mapping-v2 security relaxation. See
-  docs/TEST_EVIDENCE.md § M02-W06. A completely fresh independent tooling
-  verifier must accept the correction before owner authoring resumes; this
-  issue deliberately remains IN_PROGRESS in the writer pass.
+  preservation, not a live mapping-v2 security relaxation. Exact corrected
+  tooling content `b317705f1ca9f0db699162e97b37c5ca55527e62` / tree
+  `8da3a523b0876d55370e3450f874a7b840e23aff` subsequently received
+  `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`; fresh external v2 authoring and
+  independent owner review then completed with
+  `OWNER_HOLDOUT_V2_REVIEW_CLEAR`. The reviewed sanitized manifest is now in
+  the integration working tree. See docs/TEST_EVIDENCE.md § M02-W06. A
+  completely fresh verifier must still inspect the exact final integration
+  commit and preserved owner bundle before governance, so this issue remains
+  MEDIUM / IN_PROGRESS.
 
 ### KI-0055 — M02-W06 owner holdout verification lacked input-artifact preimage binding
 
@@ -124,9 +130,17 @@ broadening a work package (spec §1.5).
   synthetic regression coverage is separate from the historical 15-class
   campaign in
   `packages/evaluation-corpus/test/m02-w06/artifact-preimage-correction.test.ts`.
-  See docs/TEST_EVIDENCE.md § M02-W06. This issue deliberately remains
-  IN_PROGRESS until a fresh independent tooling verifier accepts the
-  correction; no owner-manifest dependency or gate is resolved by this pass.
+  Exact corrected tooling content subsequently received
+  `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`. A fresh author created a new v2
+  executable bundle with all declared artifact preimages, and a separate
+  independent owner reviewer returned `OWNER_HOLDOUT_V2_REVIEW_CLEAR`. The
+  integration writer independently reproduced the reviewed 14-case / 4-case-
+  container / 14-artifact closed inventory and exact byte/digest bindings,
+  then exported only the schema-valid sanitized repository manifest. See
+  docs/TEST_EVIDENCE.md § M02-W06. The owner-manifest dependency is resolved,
+  but exact integration content and the preserved owner root still require a
+  completely fresh final package verifier before governance; this issue
+  remains HIGH / IN_PROGRESS.
 
 ## M02-W05 fresh acceptance defect history (second verification)
 

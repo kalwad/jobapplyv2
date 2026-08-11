@@ -94,12 +94,16 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # REQ-GATE-002, REQ-GATE-006, and REQ-GATE-010. The M02-W06 artifact-preimage
 # correction then added reviewed mapping/policy-v2 and regression anchors plus
 # truthful blocked-review notes for REQ-GATE-002, REQ-GATE-006,
-# REQ-GATE-010, and REQ-GATE-011. Those requirements remain SCAFFOLD_ONLY /
-# NOT_YET_APPLICABLE because no genuine owner manifest, execution, independent
-# decision, or cross-milestone completion exists; ownership, gate effects,
-# dependencies, and all gate states remain unchanged.
+# REQ-GATE-010, and REQ-GATE-011. The reviewed owner-manifest integration then
+# refreshed only those four notes after independent tooling clearance, fresh
+# external v2 authoring, independent owner review, and sanitized-manifest
+# export. Those requirements remain SCAFFOLD_ONLY / NOT_YET_APPLICABLE because
+# no holdout execution, independent gate decision, package acceptance, or
+# cross-milestone completion exists; ownership, implementation/verification
+# states, evidence paths, gate effects, dependencies, and all gate states
+# remain unchanged.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "753a52d5b5497bf27099210380b4fa56bc9f8222e5ae6c6a48e80ddeabae7b7e"
+    "0937bcc3e2626527094f6a9983e68380c64ac46b65d161162bfae7411a02ab5d"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

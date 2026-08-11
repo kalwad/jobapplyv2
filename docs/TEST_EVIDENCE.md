@@ -33,6 +33,135 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W06 — Reviewed owner-manifest integration writer pass (2026-08-11)
+
+- Revision: integration working tree over exact synchronized starting commit
+  `b317705f1ca9f0db699162e97b37c5ca55527e62` / tree
+  `8da3a523b0876d55370e3450f874a7b840e23aff` (parent
+  `4bf08f8ddf8bd4452d6a7575fc3fd04f22540084`, branch `main`, initially
+  equal to `origin/main`). Final integration commit/tree and exact-SHA hosted
+  results are recorded in the writer handoff after the single forward-only
+  push. Canonical JAPP-MASTER-001 v1.4 remains SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, Cargo/rustc 1.97.1, Playwright 1.62.0,
+  and pinned Chromium.
+- Prior independent inputs: corrected tooling at the exact starting content
+  received `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`. A fresh author then built
+  a new external mapping-v2 owner bundle, and a separate independent owner
+  reviewer returned `OWNER_HOLDOUT_V2_REVIEW_CLEAR`. This session was only the
+  integration writer; it did not author or semantically review hidden truth.
+- Owner authentication: before any repository write, the designated final
+  root passed absolute/external/nonsymlink, owner-only-permission, exact closed
+  inventory, mapping-v2-only, no-narrative-record, regular-file, and canonical
+  direct-verifier checks. A separate byte-level recomputation validated every
+  hidden case against the generated contract, rebuilt all four case-container
+  commitments, authenticated all 14 artifact preimages, and independently
+  rebuilt the sanitized manifest and private receipt. Results were 14 cases,
+  category counts accessibility 2 / adversarial 3 / dynamic 3 / honeypot 2 /
+  sensitive 2 / standard 2, four case containers, 14 artifact preimages,
+  26,730 case bytes, 20,494 artifact bytes, and 47,224 combined bytes.
+  Recomputed manifest digest was
+  `sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79`;
+  private receipt digest was
+  `sha256:ae7aea1d4f8c7da588f6ca648de02680af507eba42858b75b3c71f4020192948`.
+  The sanitized review record independently hashed to
+  `sha256:9588f417e90d8d95f5486d25e850cb03a1d0beb936b46d75feac95b69f73414d`
+  and exactly bound the mapping's review provenance and reviewed authoring
+  commitment. No hidden identifier, body, answer, or private path was logged.
+- Export and direct integration finding: the first exact documented
+  repository-relative filtered-pnpm export failed safely before writing with
+  `HOLDOUT_PATH_INVALID`, because the package script's current directory is
+  the package rather than the repository. The smallest correction resolves a
+  relative visible-manifest argument against the existing authoritative
+  `REPOSITORY_ROOT`, while retaining the same exact allowed-directory,
+  filename, file-type, symlink, and link-count confinement. A permanent
+  regression covers the documented relative path. The exact export command
+  and direct owner-bound verify then passed with all reviewed totals and exact
+  manifest/receipt digests. Independent source-vs-export recomputation,
+  public-v1 schema validation, self-digest validation, complete key allowlist,
+  external/private path comparison, artifact-identifier comparison, and
+  PII/secret-pattern review all passed.
+- Status and memory transition: current machine truth is now
+  `OWNER_HOLDOUT_MANIFEST_AVAILABLE`, `OWNER_HOLDOUT_V2_REVIEW_CLEAR`,
+  `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`, and
+  `PENDING_FINAL_INDEPENDENT_VERIFICATION`, with manifest-digest binding and
+  unchanged M02-W14/M02-W15 future ownership. Historical rejected-draft facts
+  remain in memory rather than current blocker fields. KI-0055 remains HIGH /
+  IN_PROGRESS; KI-0056 remains MEDIUM / IN_PROGRESS. Four stale requirement
+  notes were narrowly refreshed without changing ownership, state, evidence
+  paths, gate effects, or dependencies; the explicit reviewed v1.4
+  requirement-mapping hash is now
+  `0937bcc3e2626527094f6a9983e68380c64ac46b65d161162bfae7411a02ab5d`,
+  and the generated 193-requirement / 300-package view is byte-consistent.
+- Commands and observed results:
+  - `pnpm install --frozen-lockfile`; `uv sync --locked`; both locked
+    `cargo fetch --locked --manifest-path ...` commands → exit 0.
+  - W06 typecheck, corpus, coverage, privacy, log, test, mutation, ESLint, and
+    Prettier checks → final exit 0. The first lint pass found one unsafe
+    untyped JSON assignment in the new schema test; it was narrowed to
+    `unknown`, after which typed lint and formatting passed. Corpus and
+    coverage digests remain
+    `sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`
+    and
+    `sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a`.
+  - Preserved predecessors → exit 0: W05 typecheck/check/test 290/290; W04
+    typecheck/check/test 171/171; W01 108/108; W02 57/57; full fixtures
+    166/166; mock ATS typecheck/test/build 32/32; Playwright list and run
+    59/59 across 17 files.
+  - Focused Python suites → exit 0: integrity 43, suite states 294,
+    proofs/real-repo 7, traceability 62, v1.4 migration 31, status 148; full
+    `uv run pytest -q scripts/tests` → 976/976.
+  - `python3 scripts/validate_status.py` → PASS, 45 groups;
+    `pnpm traceability:check` → PASS, 193 requirements / 300 packages;
+    `pnpm generate:contracts --check` → 183 files byte-identical; doctor →
+    23 pass / 1 expected dirty-writer warning / 0 fail / 1 visual
+    NOT_YET_APPLICABLE.
+  - `pnpm verify` → exit 0: 3,313/3,313 TypeScript unit tests, contracts
+    2440 / focused 662, W06 207, W05 290, W04 171, W01 108, W02 57,
+    fixtures 166, mock ATS 32, Playwright 59, generated contracts 183
+    byte-identical, canonical Python inventory 977/977, Rust 1+10,
+    portability/integrity/status/traceability PASS, all 16 ACTIVE suites
+    PASS, and visual truthfully NOT_YET_APPLICABLE.
+  - Final read-only sequence → exit 0 twice owner-bound with identical
+    reviewed totals/digests, then W06 207, mutations 15, ESLint, Prettier,
+    status 45 groups, traceability 193/300, contracts 183 byte-identical,
+    sanitized schema/self-digest/status binding, and `git diff --check`.
+    Before/after repository-byte SHA-256 was identically
+    `dc547cf953dcba10727be1d9ea0a34c3eb7747e86f0c8a5723bbcc066927d408`;
+    before/after porcelain SHA-256 was identically
+    `9c8d4dbd74b9d1a56272c163c018a4997e412ff493dd581c2840da3b526aed61`;
+    before/after tracked-diff SHA-256 was identically
+    `ed8d5dfe93f955fad9b0628de757b9795787985f72feeabc7bb526daf186ec63`.
+    The final owner-root metadata/content fingerprint also remained identical
+    before/after, and the sanitized review-record digest remained exact.
+- Test counts: W06 207/207 (corpus-freeze 20, coverage-policy 28,
+  holdout-boundary 45, artifact-preimage/runtime-preservation/reviewed-
+  manifest 81, mutation-campaign 15, version/log/runner 18). The predecessor
+  194-test layer and every historical mutation meaning remain intact. The
+  obsolete one-test absence assertion was replaced by 13 fail-closed
+  current-state tests for exact manifest inventory, public contract,
+  self-digest, counts, top-level allowlist, leak absence, exact status/digest
+  binding, and future owners; one direct repository-relative path regression
+  raises the total to 207. The historical campaign remains exactly 15/15.
+- Bounded repository-only review: one read-only reviewer independently passed
+  manifest schema/self-digest/leak controls, lifecycle/status consistency,
+  test discovery/split, and export confinement. It identified an omitted
+  preserved privacy test in the registry prose and stale hash-locked
+  traceability notes; both were corrected through the canonical explicit
+  re-lock/regeneration path. Its final bounded recheck returned PASS with no
+  remaining actionable issue. The reviewer did not edit, access owner
+  evidence, commit, push, or issue package acceptance.
+- Artifacts: sanitized public manifest
+  `benchmarks/holdout-manifests/m02-autofill-v1.manifest.json` and its
+  machine-readable status only. Private executable bytes and sanitized review
+  support remain external and preserved. No holdout execution-log row was
+  added because M02-W14 did not run.
+- Notes: exact-SHA three-OS hosted CI remains to be completed after the single
+  forward-only push. M02-W06 remains IN_PROGRESS and unaccepted; M02-W07
+  remains NOT_STARTED; no package is READY; W13/W14/W15 did not begin; no gate
+  was evaluated; release remains NOT_READY.
+
 ### M02-W06 — Historical v1 runtime-preservation corrective writer pass (2026-08-11)
 
 - Revision: corrective working tree over exact independently blocked content

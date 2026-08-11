@@ -19,6 +19,7 @@ import {
   canonicalFile,
   sha256Bytes,
   sha256Canonical,
+  withoutKey,
 } from "../../src/canonical.ts";
 import { REPOSITORY_ROOT } from "../../src/corpus.ts";
 import {
@@ -587,17 +588,217 @@ describe("M02-W06 artifact-preimage correction", () => {
     );
   });
 
-  it("30 keeps the absence of a genuine owner manifest truthful", () => {
+  it("30a commits exactly the reviewed sanitized owner manifest", () => {
     const directory = join(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
     const manifestFiles = readdirSync(directory).filter((name) =>
       name.endsWith(".manifest.json"),
     );
+    expect(manifestFiles).toEqual(["m02-autofill-v1.manifest.json"]);
+  });
+
+  it("30b validates the committed manifest against the public v1 contract", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as unknown;
+    expect(validateBenchmarkHoldoutManifestV1(manifest).valid).toBe(true);
+  });
+
+  it("30c verifies the committed manifest self digest", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(manifest.manifest_digest).toBe(
+      sha256Canonical(withoutKey(manifest, "manifest_digest")),
+    );
+  });
+
+  it("30d locks the reviewed sanitized case count", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(manifest.case_count).toBe(14);
+  });
+
+  it("30e locks the reviewed sanitized category counts", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(manifest.category_counts).toEqual([
+      { category: "AUTOFILL_ACCESSIBILITY", count: 2 },
+      { category: "AUTOFILL_ADVERSARIAL", count: 3 },
+      { category: "AUTOFILL_DYNAMIC", count: 3 },
+      { category: "AUTOFILL_HONEYPOT", count: 2 },
+      { category: "AUTOFILL_SENSITIVE", count: 2 },
+      { category: "AUTOFILL_STANDARD", count: 2 },
+    ]);
+  });
+
+  it("30f locks the reviewed case-container commitment count", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(manifest.files).toHaveLength(4);
+  });
+
+  it("30g fails closed on fields outside the sanitized contract surface", () => {
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          REPOSITORY_ROOT,
+          "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+        ),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(Object.keys(manifest).sort()).toEqual(
+      [
+        "case_count",
+        "case_ids",
+        "category_counts",
+        "creation_provenance",
+        "files",
+        "holdout_format_version",
+        "manifest_digest",
+        "manifest_id",
+        "review_provenance",
+        "schema_versions",
+        "storage_policy",
+        "synthetic_only",
+        "visibility_class",
+      ].sort(),
+    );
+  });
+
+  it("30h excludes private and external filesystem paths", () => {
+    const serialized = readFileSync(
+      join(
+        REPOSITORY_ROOT,
+        "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+      ),
+      "utf8",
+    );
+    expect(serialized).not.toMatch(
+      /(?:\/Users\/|\/home\/|[A-Z]:\\|file:\/\/|\.jobapplyv2-eval)/u,
+    );
+  });
+
+  it("30i excludes private mapping material", () => {
+    const serialized = readFileSync(
+      join(
+        REPOSITORY_ROOT,
+        "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+      ),
+      "utf8",
+    );
+    expect(serialized).not.toMatch(
+      /(?:mapping\.v[12]\.json|mapping_format_version|relative_path|artifact_ref)/u,
+    );
+  });
+
+  it("30j excludes hidden inputs and expected truth", () => {
+    const serialized = readFileSync(
+      join(
+        REPOSITORY_ROOT,
+        "benchmarks/holdout-manifests/m02-autofill-v1.manifest.json",
+      ),
+      "utf8",
+    );
+    expect(serialized).not.toMatch(
+      /(?:input_artifacts|expected_behavior|expected_output|hidden_answer|reviewer_notes)/u,
+    );
+  });
+
+  it("30k records reviewed availability with final W06 verification pending", () => {
+    const directory = join(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
     const status = JSON.parse(
       readFileSync(join(directory, "status.v1.json"), "utf8"),
     ) as Record<string, unknown>;
-    expect(manifestFiles).toEqual([]);
-    expect(status.owner_manifest_state).toBe("OWNER_HOLDOUT_MANIFEST_REQUIRED");
+    const manifest = JSON.parse(
+      readFileSync(join(directory, "m02-autofill-v1.manifest.json"), "utf8"),
+    ) as Record<string, unknown>;
+    expect(Object.keys(status).sort()).toEqual(
+      [
+        "correction_verification_state",
+        "format_version",
+        "future_decision_owner",
+        "future_execution_owner",
+        "hidden_content_in_repository",
+        "m02_w06_package_verification_state",
+        "owner_holdout_review_state",
+        "owner_manifest_state",
+        "placeholder_manifest_forbidden",
+        "public_corpus_independent",
+        "required_owner_mapping_version",
+        "sanitized_manifest_digest",
+      ].sort(),
+    );
+    expect(status.owner_manifest_state).toBe(
+      "OWNER_HOLDOUT_MANIFEST_AVAILABLE",
+    );
+    expect(status.owner_holdout_review_state).toBe(
+      "OWNER_HOLDOUT_V2_REVIEW_CLEAR",
+    );
+    expect(status.correction_verification_state).toBe(
+      "SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS",
+    );
+    expect(status.m02_w06_package_verification_state).toBe(
+      "PENDING_FINAL_INDEPENDENT_VERIFICATION",
+    );
+    expect(status.sanitized_manifest_digest).toBe(manifest.manifest_digest);
+    expect(status.required_owner_mapping_version).toBe("2.0.0");
+    expect(status.public_corpus_independent).toBe(true);
+    expect(status.placeholder_manifest_forbidden).toBe(true);
     expect(status.hidden_content_in_repository).toBe(false);
+  });
+
+  it("30l preserves M02-W14 as the future holdout execution owner", () => {
+    const status = JSON.parse(
+      readFileSync(
+        join(REPOSITORY_ROOT, "benchmarks/holdout-manifests/status.v1.json"),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(status.future_execution_owner).toBe("M02-W14");
+  });
+
+  it("30m preserves M02-W15 as the future gate-decision owner", () => {
+    const status = JSON.parse(
+      readFileSync(
+        join(REPOSITORY_ROOT, "benchmarks/holdout-manifests/status.v1.json"),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    expect(status.future_decision_owner).toBe("M02-W15");
   });
 
   it("31 rejects one relative path serving both case and artifact roles", () => {

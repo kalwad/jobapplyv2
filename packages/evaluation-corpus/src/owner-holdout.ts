@@ -1064,7 +1064,9 @@ export function exportSanitizedManifest(
 }
 
 function resolveVisibleManifestPath(value: string): string {
-  const absolute = resolve(value);
+  const absolute = isAbsolute(value)
+    ? resolve(value)
+    : resolve(REPOSITORY_ROOT, value);
   const allowedRoot = resolve(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
   let rootStats: Stats;
   try {

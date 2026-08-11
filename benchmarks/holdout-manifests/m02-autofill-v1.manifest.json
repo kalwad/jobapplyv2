@@ -1,0 +1,95 @@
+{
+  "case_count": 14,
+  "case_ids": [
+    "case_2NMNMPKG930AH6R9K4S5V0BDYP",
+    "case_50X7B4X8S508RE6VW3F3RVZ1XG",
+    "case_6973YJ4NWYA21QQEKBQJF464QY",
+    "case_6FWTS60YA3B6MD6PPC66XKBRBS",
+    "case_A574DH2KB82R7487CP02Z9STHJ",
+    "case_DRPP03WD0CSYEG7PTHDRNMSAE3",
+    "case_H97JQVG43KPQRXD1128GHTBRWG",
+    "case_JGRXE1HY838179S2BRJVDH4M9R",
+    "case_KSGTK78QHRVHWPHM7Q4C35H1ZQ",
+    "case_M88AT4SNBAZYYCS9MGGTPV04PK",
+    "case_N5B7HPF8QATPDP03PHMMGCAQ9W",
+    "case_T34WK8K9CQ9KYNP7RY600YRN8S",
+    "case_TK7C5ZXAM423G4KTRNP9A7XST6",
+    "case_XPZBX6BZ1RS1MY09F03QWHG8QA"
+  ],
+  "category_counts": [
+    {
+      "category": "AUTOFILL_ACCESSIBILITY",
+      "count": 2
+    },
+    {
+      "category": "AUTOFILL_ADVERSARIAL",
+      "count": 3
+    },
+    {
+      "category": "AUTOFILL_DYNAMIC",
+      "count": 3
+    },
+    {
+      "category": "AUTOFILL_HONEYPOT",
+      "count": 2
+    },
+    {
+      "category": "AUTOFILL_SENSITIVE",
+      "count": 2
+    },
+    {
+      "category": "AUTOFILL_STANDARD",
+      "count": 2
+    }
+  ],
+  "creation_provenance": {
+    "observed_at": "2026-08-11T21:02:57Z",
+    "source_digest": "sha256:4d04e05f3af45f32d17e3ba85e6b276298f61adf5fbc0d4b6182b9cd0d7f2b3a",
+    "source_id": "source_ENF3FTYDDZ590D43FAHSP7TMQG",
+    "source_kind": "GENERATED"
+  },
+  "files": [
+    {
+      "byte_count": 7577,
+      "case_count": 4,
+      "content_digest": "sha256:2e7bc1ef4b28a73272cd5cb429b0d273d78e337a7716225a17dc6902e54aabcc",
+      "file_id": "file_4SE93YWER2ZDCH3SP7CBWRZNSM"
+    },
+    {
+      "byte_count": 7570,
+      "case_count": 4,
+      "content_digest": "sha256:71e169ce4ebabede02cde8d3bf3cb7a2d49b65afaeeafd3fa9bd4b1331669232",
+      "file_id": "file_AP532SNK0R44Z7WE156GR4BK4P"
+    },
+    {
+      "byte_count": 5856,
+      "case_count": 3,
+      "content_digest": "sha256:ea7dcfa2100c27f00612a2c803b4c4203945bb155b773354b074ea59308468b6",
+      "file_id": "file_BGF9KRF3JD1NCXG2M8DAFCT3R6"
+    },
+    {
+      "byte_count": 5727,
+      "case_count": 3,
+      "content_digest": "sha256:4a4559b2adc7afa5a0927cf7d67bf553650c9fd7166d7c3073d831d842c9a285",
+      "file_id": "file_HW8VV083BGC6DX0YMYYVXVNY76"
+    }
+  ],
+  "holdout_format_version": "1.0.0",
+  "manifest_digest": "sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79",
+  "manifest_id": "manifest_X5TK15N07RJE2RNYS0WF3G6S09",
+  "review_provenance": {
+    "observed_at": "2026-08-11T21:39:33Z",
+    "source_digest": "sha256:9588f417e90d8d95f5486d25e850cb03a1d0beb936b46d75feac95b69f73414d",
+    "source_id": "review_M1CMWHGANPNJ1AG82SXXFK2817",
+    "source_kind": "GENERATED"
+  },
+  "schema_versions": [
+    {
+      "schema_ref": "urn:japp:schema:benchmark:case:v1",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "storage_policy": "OWNER_CONTROLLED_EXTERNAL",
+  "synthetic_only": true,
+  "visibility_class": "OWNER_REVIEWER"
+}
