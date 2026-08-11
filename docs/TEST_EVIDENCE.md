@@ -33,6 +33,104 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W06 — Historical v1 runtime-preservation corrective writer pass (2026-08-11)
+
+- Revision: corrective working tree over exact independently blocked content
+  commit `4bf08f8ddf8bd4452d6a7575fc3fd04f22540084` / tree
+  `ff63971ac29e0b187c582d1d4df822a70aa4f7e7` (parent
+  `b6ca109519940058ac222ce7d95a3d92a5b2b607`, branch `main`, initially
+  equal to `origin/main`). Canonical JAPP-MASTER-001 v1.4 SHA-256 remains
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, Cargo/rustc 1.97.1, and Chromium 1.62.0.
+- Independent finding: fresh Sol tooling verification returned
+  `SOL_BLOCKED_M02_W06_ARTIFACT_PREIMAGE_CORRECTION` at the exact starting
+  content. A16 found that mapping v2's exact-prefix stable-ID helper had been
+  reused by `validateOwnerMappingV1`, narrowing historical v1 runtime
+  compatibility. Before stopping on A16, the verifier independently
+  reproduced KI-0055 and passed a clean synthetic 3-case / 2-container /
+  3-preimage v2 control, cross-binding, closed-inventory, filesystem, BigInt
+  identity, Windows-root-relation, sanitized-export, exported-manifest
+  source-authority, and safe-diagnostic checks. Those partial checks are not
+  final KI-0055 acceptance.
+- Exact reproduction: the writer and one bounded read-only reviewer each used
+  separate fresh no-hardlink disposable clones at historical commit
+  `3d8b18ccc86109a2b6a3bb3cc3ae6d16f5ced9f9` and affected commit `4bf08f8`,
+  with synthetic mappings only. Historical `validateOwnerMapping` accepted
+  `manifest_acme_00000000000000000000000001`; affected
+  `validateOwnerMappingV1` rejected it. The same split occurred independently
+  for manifest, case, file, creation-source, and review-source IDs, including
+  empty and repeated-underscore extensions and the maximum 24-character stem.
+  Canonical IDs passed both; 25-character stems, wrong prefixes, uppercase
+  extensions, missing final separators, 25/27-character bodies, and bodies
+  containing excluded Crockford letters failed both. A complete mapping with
+  all five IDs extended also passed historical v1 and failed affected v1.
+- Correction architecture: v1 now selects a literal copy of the historical
+  whole-ID regex
+  `^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$` plus the separate required
+  prefix check. V2 retains exact `prefix_` plus one 26-character Crockford
+  suffix. The selected policy is injected through mapping-core and provenance
+  validation, so all five v1 roles are historical while all five v2 roles and
+  v2-only artifact refs remain strict. Sanitized public-manifest validation
+  also remains strict. This deliberately preserves the pre-existing v1
+  runtime/schema distinction; it does not broaden mapping v2.
+- Commands and observed results:
+  - `pnpm install --frozen-lockfile`; `uv sync --locked`; both locked
+    `cargo fetch --locked --manifest-path ...` commands → exit 0.
+  - The complete W06 command set (typecheck, corpus, coverage, privacy, log,
+    test, mutations, ESLint, and Prettier) ran twice → exit 0 both times.
+    Each run was 194/194 across six files plus the historical campaign exactly
+    15/15. Before/after tracked-diff SHA-256 was identically
+    `6098be4609969c3f50ccc44d7c40aead1e280ae65ad455880b332582b06d189e`;
+    before/after porcelain-status SHA-256 was identically
+    `41dce79179887f1ca5bdfbe51fc00ad3799d6a6ba6f7179c3f7828079b75c563`,
+    proving the checks read-only at that correction state.
+  - Preserved predecessors → exit 0: W05 typecheck/check/test 290/290; W04
+    171/171; W01 108/108; W02 57/57; full fixtures 166/166; mock ATS
+    typecheck/test/build 32/32; Playwright 59/59 across 17 files.
+  - Focused Python suites → exit 0: integrity 43, suite states 294,
+    proofs/real-repo 7, traceability 62, v1.4 migration 31, status 148; full
+    `uv run pytest -q scripts/tests` → 976/976.
+  - `python3 scripts/validate_status.py` → PASS, 45 groups;
+    `pnpm traceability:check` → PASS, 193 requirements / 300 packages;
+    `pnpm generate:contracts --check` → 183 files byte-identical; doctor →
+    23 pass / 1 expected dirty-writer warning / 0 fail / 1 visual
+    NOT_YET_APPLICABLE.
+  - The first `pnpm verify` execution passed every substantive suite, including
+    contracts 2440 / focused 662, Python 977, and Rust 1+10, then correctly
+    failed the evaluation-corpus discovery proof because its registry still
+    required the pre-correction exact total 163. The registry expectation was
+    narrowly updated to 194. The complete rerun then exited 0: 3,300/3,300
+    TypeScript tests, contracts 2440 / focused 662, generated contracts 183
+    byte-identical, W01 108, W02 57, W06 194, Playwright 59, Python 977, Rust
+    1+10, status 45 groups, traceability 193/300, portability and integrity
+    PASS, all 16 ACTIVE suites PASS, and visual truthfully
+    NOT_YET_APPLICABLE.
+- Test counts: W06 194/194 (corpus-freeze 20, coverage-policy 28,
+  holdout-boundary 44, artifact-preimage/runtime-preservation correction 69,
+  mutation-campaign 15, version-log-runner 18); 31 substantive differential
+  tests were added to the correction file. They cover canonical and extended
+  IDs across all five historical v1 roles, whole-mapping compatibility,
+  accepted and rejected stem/body/prefix boundaries, the explicit v1
+  schema/runtime distinction, v1-only final-execution refusal, strict v2
+  rejection across manifest/case/file/artifact/source/review, representative
+  v2 runtime/schema agreement, and the clean artifact-backed v2 positive.
+  No existing test or historical mutation was removed or weakened.
+- Byte preservation: `owner-mapping.v1.schema.json` remains SHA-256
+  `04361a9abecded3b6a1545df144149f796ea52790b3f65fb872ad09a3b5b8d4b`;
+  `owner-mapping.v2.schema.json`, both holdout policies, the public
+  holdout-manifest schema, generated contracts, public corpus commitments,
+  lockfiles, BigInt Windows identity logic, and Windows cross-volume logic
+  were not changed. No traceability regeneration was required because the
+  permanent compatibility controls extend an already registered test path.
+- Notes: KI-0055 remains HIGH / IN_PROGRESS and KI-0056 remains MEDIUM /
+  IN_PROGRESS pending completely fresh independent verification. M02-W06
+  remains IN_PROGRESS and unaccepted; M02-W07 is NOT_STARTED; no package is
+  READY; W13/W14/W15 did not begin; no gate was evaluated; release remains
+  NOT_READY. No genuine owner root/draft was read or modified, no owner bundle
+  was rebuilt, no real manifest was exported, and no hidden owner content
+  entered Git.
+
 ### M02-W06 — Artifact-preimage corrective writer pass (2026-08-10)
 
 - Revision: corrective working tree over exact blocked content commit

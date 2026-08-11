@@ -55,6 +55,8 @@ const MAX_MAPPING_BYTES = 128 * 1024 * 1024;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
 const MAX_TOTAL_BYTES = 64 * 1024 * 1024;
 const SAFE_SEGMENT = /^[a-z0-9][a-z0-9._-]{0,63}$/u;
+const HISTORICAL_V1_STABLE_ID =
+  /^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
 const STABLE_ID_SUFFIX = /^[0-9A-HJKMNP-TV-Z]{26}$/u;
 const CONTENT_DIGEST = /^sha256:[0-9a-f]{64}$/u;
 const GENERIC_CATEGORIES = new Set([
@@ -215,9 +217,28 @@ function exactKeys(
   );
 }
 
-function genericStableId(
+type StableIdPrefix =
+  "artifact" | "case" | "file" | "manifest" | "review" | "source";
+
+type StableIdValidator = (
   value: unknown,
-  prefix: "artifact" | "case" | "file" | "manifest" | "review" | "source",
+  prefix: StableIdPrefix,
+) => value is string;
+
+function historicalV1StableId(
+  value: unknown,
+  prefix: StableIdPrefix,
+): value is string {
+  return (
+    typeof value === "string" &&
+    HISTORICAL_V1_STABLE_ID.test(value) &&
+    value.startsWith(`${prefix}_`)
+  );
+}
+
+function strictStableId(
+  value: unknown,
+  prefix: StableIdPrefix,
 ): value is string {
   return (
     typeof value === "string" &&
@@ -232,7 +253,11 @@ function strictlySortedUnique(values: readonly string[]): boolean {
   );
 }
 
-function validProvenance(value: unknown, prefix: "review" | "source"): boolean {
+function validProvenance(
+  value: unknown,
+  prefix: "review" | "source",
+  stableId: StableIdValidator,
+): boolean {
   if (
     !isRecord(value) ||
     !exactKeys(value, [
@@ -245,7 +270,7 @@ function validProvenance(value: unknown, prefix: "review" | "source"): boolean {
     return false;
   return (
     value.source_kind === "GENERATED" &&
-    genericStableId(value.source_id, prefix) &&
+    stableId(value.source_id, prefix) &&
     typeof value.observed_at === "string" &&
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/u.test(value.observed_at) &&
     typeof value.source_digest === "string" &&
@@ -257,6 +282,7 @@ function validateMappingCore(
   value: unknown,
   mappingFormatVersion: "1.0.0" | "2.0.0",
   expectedKeys: readonly string[],
+  stableId: StableIdValidator,
 ): Readonly<{
   record: Record<string, unknown>;
   paths: Set<string>;
@@ -268,9 +294,9 @@ function validateMappingCore(
     value.holdout_format_version !== HOLDOUT_FORMAT_VERSION ||
     value.storage_policy !== "OWNER_CONTROLLED_EXTERNAL" ||
     value.visibility_class !== HOLDOUT_VISIBILITY ||
-    !genericStableId(value.manifest_id, "manifest") ||
-    !validProvenance(value.creation_provenance, "source") ||
-    !validProvenance(value.review_provenance, "review") ||
+    !stableId(value.manifest_id, "manifest") ||
+    !validProvenance(value.creation_provenance, "source", stableId) ||
+    !validProvenance(value.review_provenance, "review", stableId) ||
     !Array.isArray(value.cases) ||
     !Array.isArray(value.files) ||
     value.cases.length === 0 ||
@@ -301,8 +327,8 @@ function validateMappingCore(
     )
       return fail("HOLDOUT_MAPPING_INVALID");
     if (
-      !genericStableId(item.case_id, "case") ||
-      !genericStableId(item.file_id, "file") ||
+      !stableId(item.case_id, "case") ||
+      !stableId(item.file_id, "file") ||
       typeof item.category !== "string" ||
       !GENERIC_CATEGORIES.has(item.category) ||
       item.schema_ref !== HOLDOUT_SCHEMA_REF ||
@@ -322,7 +348,7 @@ function validateMappingCore(
     if (!isRecord(item) || !exactKeys(item, ["file_id", "relative_path"]))
       return fail("HOLDOUT_MAPPING_INVALID");
     if (
-      !genericStableId(item.file_id, "file") ||
+      !stableId(item.file_id, "file") ||
       typeof item.relative_path !== "string" ||
       item.file_id <= previousFile ||
       fileIds.has(item.file_id) ||
@@ -357,6 +383,7 @@ export function validateOwnerMappingV1(value: unknown): OwnerMappingV1 {
       "cases",
       "files",
     ],
+    historicalV1StableId,
   );
   return record as unknown as OwnerMappingV1;
 }
@@ -398,6 +425,7 @@ export function validateOwnerMappingV2(value: unknown): OwnerMappingV2 {
       "files",
       "artifacts",
     ],
+    strictStableId,
   );
   if (
     !Array.isArray(record.artifacts) ||
@@ -420,7 +448,7 @@ export function validateOwnerMappingV2(value: unknown): OwnerMappingV2 {
     if (
       !isRecord(item) ||
       !exactKeys(item, ["artifact_ref", "relative_path"]) ||
-      !genericStableId(item.artifact_ref, "artifact") ||
+      !strictStableId(item.artifact_ref, "artifact") ||
       typeof item.relative_path !== "string" ||
       item.artifact_ref <= previousArtifact ||
       artifactRefs.has(item.artifact_ref)
@@ -696,7 +724,7 @@ function parseHiddenFile(bytes: Uint8Array): HiddenFileV1 {
       validation.value.holdout_visibility !== "OWNER_CONTROLLED_HIDDEN" ||
       !validation.value.synthetic_data ||
       validation.value.input_artifacts.some(
-        ({ artifact_ref }) => !genericStableId(artifact_ref, "artifact"),
+        ({ artifact_ref }) => !strictStableId(artifact_ref, "artifact"),
       )
     )
       return fail("HOLDOUT_BODY_INVALID");
@@ -747,18 +775,18 @@ export function validateSanitizedManifest(
     manifest.storage_policy !== "OWNER_CONTROLLED_EXTERNAL" ||
     manifest.visibility_class !== HOLDOUT_VISIBILITY ||
     !manifest.synthetic_only ||
-    !genericStableId(manifest.manifest_id, "manifest") ||
+    !strictStableId(manifest.manifest_id, "manifest") ||
     manifest.case_count <= 0 ||
     manifest.case_count !== manifest.case_ids.length ||
     !strictlySortedUnique(manifest.case_ids) ||
     manifest.schema_versions.length !== 1 ||
     manifest.schema_versions[0]?.schema_ref !== HOLDOUT_SCHEMA_REF ||
     manifest.schema_versions[0].schema_version !== HOLDOUT_SCHEMA_VERSION ||
-    manifest.case_ids.some((id) => !genericStableId(id, "case")) ||
+    manifest.case_ids.some((id) => !strictStableId(id, "case")) ||
     !strictlySortedUnique(manifest.files.map(({ file_id }) => file_id)) ||
     manifest.files.some(
       (file) =>
-        !genericStableId(file.file_id, "file") ||
+        !strictStableId(file.file_id, "file") ||
         file.byte_count <= 0 ||
         file.case_count <= 0,
     ) ||
@@ -772,8 +800,8 @@ export function validateSanitizedManifest(
     ) ||
     manifest.category_counts.reduce((sum, item) => sum + item.count, 0) !==
       manifest.case_count ||
-    !validProvenance(manifest.creation_provenance, "source") ||
-    !validProvenance(manifest.review_provenance, "review") ||
+    !validProvenance(manifest.creation_provenance, "source", strictStableId) ||
+    !validProvenance(manifest.review_provenance, "review", strictStableId) ||
     manifest.review_provenance.observed_at <
       manifest.creation_provenance.observed_at ||
     sha256Canonical(withoutKey(record, "manifest_digest")) !==

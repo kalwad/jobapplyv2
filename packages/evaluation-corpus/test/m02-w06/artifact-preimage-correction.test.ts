@@ -11,6 +11,7 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, isAbsolute, join, win32 } from "node:path";
 
+import { buildStrictAjv } from "@japp/contracts";
 import { validateBenchmarkHoldoutManifestV1 } from "@japp/contracts/generated";
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -26,6 +27,7 @@ import {
   isExternalRootRelation,
   validateOwnerMapping,
   validateOwnerMappingV1,
+  validateOwnerMappingV2,
   verifyExportedManifest,
   verifyOwnerHoldout,
 } from "../../src/owner-holdout.ts";
@@ -42,6 +44,103 @@ import {
 
 const cleanups: (() => void)[] = [];
 let exportIndex = 0;
+const STABLE_BODY = "00000000000000000000000001";
+const HISTORICAL_V1_STABLE_ID =
+  /^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
+
+const V1_ID_ROLES = [
+  { role: "manifest", prefix: "manifest" },
+  { role: "case", prefix: "case" },
+  { role: "file", prefix: "file" },
+  { role: "source", prefix: "source" },
+  { role: "review", prefix: "review" },
+] as const;
+
+const V2_ID_ROLES = [
+  ...V1_ID_ROLES,
+  { role: "artifact", prefix: "artifact" },
+] as const;
+
+type MappingIdRole = (typeof V2_ID_ROLES)[number]["role"];
+
+function ownerMappingV1(): Record<string, unknown> {
+  const mapping = structuredClone(validMapping()) as unknown as Record<
+    string,
+    unknown
+  >;
+  mapping.mapping_format_version = "1.0.0";
+  delete mapping.artifacts;
+  return mapping;
+}
+
+function setMappingId(
+  mapping: Record<string, unknown>,
+  role: MappingIdRole,
+  value: unknown,
+): void {
+  const cases = mapping.cases as Record<string, unknown>[];
+  const files = mapping.files as Record<string, unknown>[];
+  const creation = mapping.creation_provenance as Record<string, unknown>;
+  const review = mapping.review_provenance as Record<string, unknown>;
+  if (role === "manifest") mapping.manifest_id = value;
+  if (role === "case") first(cases).case_id = value;
+  if (role === "file") {
+    first(cases).file_id = value;
+    first(files).file_id = value;
+  }
+  if (role === "source") creation.source_id = value;
+  if (role === "review") review.source_id = value;
+  if (role === "artifact") {
+    const artifacts = mapping.artifacts as Record<string, unknown>[];
+    first(artifacts).artifact_ref = value;
+  }
+}
+
+function withMappingId(
+  mapping: Record<string, unknown>,
+  role: MappingIdRole,
+  value: unknown,
+): Record<string, unknown> {
+  const candidate = structuredClone(mapping);
+  setMappingId(candidate, role, value);
+  return candidate;
+}
+
+function accepts(
+  validator: (value: unknown) => unknown,
+  value: unknown,
+): boolean {
+  try {
+    validator(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function historicalV1Oracle(value: unknown, prefix: string): boolean {
+  return (
+    typeof value === "string" &&
+    HISTORICAL_V1_STABLE_ID.test(value) &&
+    value.startsWith(`${prefix}_`)
+  );
+}
+
+function ownerMappingSchema(version: "v1" | "v2") {
+  const schema = JSON.parse(
+    readFileSync(
+      join(
+        REPOSITORY_ROOT,
+        `packages/evaluation-corpus/schemas/owner-mapping.${version}.schema.json`,
+      ),
+      "utf8",
+    ),
+  ) as object;
+  return buildStrictAjv().compile(schema);
+}
+
+const validateOwnerMappingV1Schema = ownerMappingSchema("v1");
+const validateOwnerMappingV2Schema = ownerMappingSchema("v2");
 
 function owner(twoFiles = false): ReturnType<typeof createOwnerRoot> {
   const fixture = createOwnerRoot(twoFiles);
@@ -613,5 +712,136 @@ describe("M02-W06 artifact-preimage correction", () => {
     expect(() => verifyOwnerHoldout(dirname(REPOSITORY_ROOT))).toThrow(
       new HoldoutBoundaryError("HOLDOUT_EXTERNAL_ROOT_REQUIRED"),
     );
+  });
+
+  it.each(V1_ID_ROLES)(
+    "39 preserves the canonical historical v1 $role ID",
+    ({ role, prefix }) => {
+      const id = `${prefix}_${STABLE_BODY}`;
+      const candidate = withMappingId(ownerMappingV1(), role, id);
+      expect(historicalV1Oracle(id, prefix)).toBe(true);
+      expect(accepts(validateOwnerMappingV1, candidate)).toBe(true);
+    },
+  );
+
+  it.each(V1_ID_ROLES)(
+    "40 preserves every reviewed historical v1 $role extension form",
+    ({ role, prefix }) => {
+      const reviewedAcceptedIds = [
+        `${prefix}_acme_${STABLE_BODY}`,
+        `${prefix}__${STABLE_BODY}`,
+        `${prefix}_9__x2_${STABLE_BODY}`,
+        `${prefix}_${"a".repeat(23 - prefix.length)}_${STABLE_BODY}`,
+      ];
+      for (const id of reviewedAcceptedIds) {
+        expect(historicalV1Oracle(id, prefix)).toBe(true);
+        expect(
+          accepts(
+            validateOwnerMappingV1,
+            withMappingId(ownerMappingV1(), role, id),
+          ),
+        ).toBe(true);
+      }
+    },
+  );
+
+  it.each(V1_ID_ROLES)(
+    "41 preserves historical v1 rejection boundaries for $role IDs",
+    ({ role, prefix }) => {
+      const otherPrefix = prefix === "manifest" ? "case" : "manifest";
+      const reviewedRejectedIds: readonly unknown[] = [
+        `${prefix}_${"a".repeat(24 - prefix.length)}_${STABLE_BODY}`,
+        `${prefix}_${STABLE_BODY.slice(1)}`,
+        `${prefix}_${STABLE_BODY}2`,
+        `${prefix}_I${STABLE_BODY.slice(1)}`,
+        `${prefix}_Acme_${STABLE_BODY}`,
+        `${prefix}_acme${STABLE_BODY}`,
+        `${otherPrefix}_${STABLE_BODY}`,
+        17,
+      ];
+      for (const id of reviewedRejectedIds) {
+        expect(historicalV1Oracle(id, prefix)).toBe(false);
+        expect(
+          accepts(
+            validateOwnerMappingV1,
+            withMappingId(ownerMappingV1(), role, id),
+          ),
+        ).toBe(false);
+      }
+    },
+  );
+
+  it("42 accepts a complete historical v1 mapping with all five extended ID roles", () => {
+    const mapping = ownerMappingV1();
+    for (const { role, prefix } of V1_ID_ROLES) {
+      setMappingId(mapping, role, `${prefix}_9__x2_${STABLE_BODY}`);
+    }
+    expect(accepts(validateOwnerMappingV1, mapping)).toBe(true);
+    expect(validateOwnerMappingV1Schema(mapping)).toBe(false);
+  });
+
+  it("43 records the pre-existing v1 schema/runtime distinction literally", () => {
+    const id = `manifest_acme_${STABLE_BODY}`;
+    const mapping = withMappingId(ownerMappingV1(), "manifest", id);
+    expect(historicalV1Oracle(id, "manifest")).toBe(true);
+    expect(validateOwnerMappingV1Schema(mapping)).toBe(false);
+    expect(accepts(validateOwnerMappingV1, mapping)).toBe(true);
+  });
+
+  it("44 keeps a historically accepted v1 owner root non-executable as final evidence", () => {
+    const fixture = owner();
+    const legacy = ownerMappingV1();
+    for (const { role, prefix } of V1_ID_ROLES) {
+      setMappingId(legacy, role, `${prefix}_acme_${STABLE_BODY}`);
+    }
+    expect(accepts(validateOwnerMappingV1, legacy)).toBe(true);
+    writeFileSync(join(fixture.root, "mapping.v1.json"), canonicalFile(legacy));
+    rmSync(fixture.mappingPath);
+    expect(() => verifyOwnerHoldout(fixture.root)).toThrow(
+      new HoldoutBoundaryError("HOLDOUT_MAPPING_INVALID"),
+    );
+  });
+
+  it.each(V2_ID_ROLES)(
+    "45 rejects the historical-only extension in the v2 $role role",
+    ({ role, prefix }) => {
+      const mapping = withMappingId(
+        structuredClone(validMapping()) as unknown as Record<string, unknown>,
+        role,
+        `${prefix}_acme_${STABLE_BODY}`,
+      );
+      expect(validateOwnerMappingV2Schema(mapping)).toBe(false);
+      expect(accepts(validateOwnerMappingV2, mapping)).toBe(false);
+    },
+  );
+
+  it.each(V2_ID_ROLES)(
+    "46 keeps v2 runtime/schema agreement for representative $role boundaries",
+    ({ role, prefix }) => {
+      const variants = [
+        { id: `${prefix}_${STABLE_BODY}`, expected: true },
+        { id: `other_${STABLE_BODY}`, expected: false },
+        { id: `${prefix}_${STABLE_BODY.slice(1)}`, expected: false },
+        { id: `${prefix}_${STABLE_BODY}2`, expected: false },
+        { id: `${prefix}_I${STABLE_BODY.slice(1)}`, expected: false },
+      ];
+      for (const { id, expected } of variants) {
+        const mapping = withMappingId(
+          structuredClone(validMapping()) as unknown as Record<string, unknown>,
+          role,
+          id,
+        );
+        expect(validateOwnerMappingV2Schema(mapping)).toBe(expected);
+        expect(accepts(validateOwnerMappingV2, mapping)).toBe(expected);
+      }
+    },
+  );
+
+  it("47 keeps clean artifact-backed v2 evidence schema-valid and executable", () => {
+    const fixture = owner();
+    expect(validateOwnerMappingV2Schema(fixture.mapping)).toBe(true);
+    const snapshot = verifyOwnerHoldout(fixture.root);
+    expect(snapshot.verified_case_count).toBe(1);
+    expect(snapshot.verified_artifact_count).toBe(1);
   });
 });

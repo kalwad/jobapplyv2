@@ -34,6 +34,53 @@ broadening a work package (spec §1.5).
 
 ## M02-W06 owner-holdout corrective review
 
+### KI-0056 — M02-W06 mapping-v2 correction tightened historical v1 runtime IDs
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-08-11 during fresh independent Sol verification of the
+  KI-0055 correction
+- Affects: M02-W06; exact content
+  `4bf08f8ddf8bd4452d6a7575fc3fd04f22540084` / tree
+  `ff63971ac29e0b187c582d1d4df822a70aa4f7e7`;
+  `packages/evaluation-corpus/src/owner-holdout.ts`
+- Description: the mapping-v2 correction reused its strict exact-prefix ID
+  predicate in `validateOwnerMappingV1`. That accidentally narrowed the
+  historical v1 runtime accepted language. For example, historical content
+  `3d8b18ccc86109a2b6a3bb3cc3ae6d16f5ced9f9` accepted
+  `manifest_acme_00000000000000000000000001`, while the v1 runtime at the
+  affected content rejected it. The historical runtime required the whole-ID
+  grammar `^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$` plus a separate
+  `value.startsWith(prefix + "_")` check; the shared mapping-v2 predicate
+  instead required the text after the exact prefix separator to be precisely
+  one 26-character body. Manifest, case, file, creation-source, and
+  review-source IDs were all affected.
+- Reproduction: two fresh no-hardlink disposable clones at `3d8b18c` and
+  `4bf08f8` executed complete synthetic v1 mappings directly through the
+  historical `validateOwnerMapping` and affected `validateOwnerMappingV1`.
+  Canonical IDs passed both. Bounded extended lowercase/digit/underscore
+  stems (including empty and repeated-underscore extensions and the 24-byte
+  maximum stem) passed the historical runtime across all five roles but
+  failed at `4bf08f8`; overlong stems, wrong prefixes, and invalid or
+  non-26-character Crockford bodies failed both.
+- Workaround: none accepted. Do not broaden mapping v2 or treat a v1-only
+  owner root as executable final evidence.
+- Resolution + evidence link: IN_PROGRESS. The writer correction restores a
+  literal historical v1 whole-ID predicate and keeps an intentionally
+  separate strict mapping-v2 predicate, including strict artifact IDs and
+  strict sanitized-manifest validation. The pre-existing v1 schema/runtime
+  distinction is explicit: `owner-mapping.v1.schema.json` was already
+  stricter, rejects the runtime-only example, and remains byte-identical
+  (SHA-256
+  `04361a9abecded3b6a1545df144149f796ea52790b3f65fb872ad09a3b5b8d4b`).
+  Permanent differential controls cover each v1 role, whole mappings,
+  accepted and rejected boundaries, v1 schema distinction, v1-only execution
+  refusal, and v2 runtime/schema agreement. This is historical-runtime
+  preservation, not a live mapping-v2 security relaxation. See
+  docs/TEST_EVIDENCE.md § M02-W06. A completely fresh independent tooling
+  verifier must accept the correction before owner authoring resumes; this
+  issue deliberately remains IN_PROGRESS in the writer pass.
+
 ### KI-0055 — M02-W06 owner holdout verification lacked input-artifact preimage binding
 
 - Severity: HIGH
