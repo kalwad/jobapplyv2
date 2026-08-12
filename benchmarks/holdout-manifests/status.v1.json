@@ -4,7 +4,7 @@
   "owner_holdout_review_state": "OWNER_HOLDOUT_V2_REVIEW_CLEAR",
   "required_owner_mapping_version": "2.0.0",
   "correction_verification_state": "SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS",
-  "m02_w06_package_verification_state": "PENDING_FINAL_INDEPENDENT_VERIFICATION",
+  "m02_w06_package_verification_state": "FINAL_INDEPENDENT_VERIFICATION_CLEAR",
   "sanitized_manifest_digest": "sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79",
   "public_corpus_independent": true,
   "placeholder_manifest_forbidden": true,

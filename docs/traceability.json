@@ -7521,8 +7521,8 @@
       "id": "M02-W06",
       "milestone": "M02",
       "title": "Freeze v1 corpus and holdout manifest",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9",
       "direct_package_prerequisites": [
         "M02-W05"
       ],
@@ -7564,14 +7564,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W06"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W07",
       "milestone": "M02",
       "title": "Scaffold the real MV3 feasibility extension",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W06"

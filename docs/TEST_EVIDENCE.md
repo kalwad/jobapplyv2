@@ -33,6 +33,112 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W06 — Governance closeout after final independent Sol verification (2026-08-12)
+
+- Accepted content boundary: exact commit
+  `f4ffcf7064fe0f077b948690cebbee385fe190fb`, tree
+  `6fd4219460a7659b21576f2ca20b19b744f3bbf9`, parent
+  `b4d8137b51df15bb1492b998d01aa031ade933ca`, title
+  `M02-W06: make owner verification status lifecycle-aware`. Canonical
+  JAPP-MASTER-001 v1.4 remained SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+  The owner-selected lead verifier was GPT-5.6 Sol Ultra and had not authored,
+  edited, supervised, committed, pushed, or repaired any accepted content.
+- Mandatory isolation: before substantive work, the lead attested the exact
+  authoritative repository, verification SHA, and three authorized owner
+  roots; prohibited any query of the rejected historical root or enumeration
+  of an owner-evidence parent/ancestor; and kept the authoritative checkout and
+  genuine owner roots read-only until the content-clear gate. All mutations
+  ran only in fresh `git clone --no-local --no-hardlinks` checkouts or
+  synthetic test copies. Two bounded independent reviewers received their
+  role-specific allowlists and the mandatory prohibition text. Neither
+  reviewer recursively delegated.
+- Baseline and pre-verdict checkpoint: before review and immediately before
+  the content verdict, authoritative `HEAD` and `origin/main` were both
+  `f4ffcf7064fe0f077b948690cebbee385fe190fb`, tree was
+  `6fd4219460a7659b21576f2ca20b19b744f3bbf9`, status was clean, and all 693
+  tracked worktree entries reproduced SHA-256
+  `427f1d5ca4b081fa34013d732302506ed57316e36025394969f5dc548ea18c75`.
+  Lead content/mode fingerprints for AUTHOR, REVIEW, and FINAL reproduced
+  exactly before and after; counts remained 21 files/two directories, one
+  file, and 19 files/two directories respectively, with no symlink, special
+  file, or lexical escape. The independent owner reviewer additionally
+  reproduced byte- and metadata-identical before/after fingerprints and
+  owner-only directory/file modes. No command, tool call, or reviewer targeted
+  the prohibited historical root, and no owner parent/ancestor enumeration
+  occurred.
+- Lifecycle/history reviewer: PASS with no finding. In fresh no-hardlink
+  clones it proved the linear, merge-free W06 first-parent chain; reproduced
+  the exact `b4d8137` lifecycle dead end (pending passed, marker-only final
+  clear produced the sole expected 1/81 failure, and no final token existed in
+  reachable prior history); and verified current W06 207/207, status 157/157,
+  central validation 45 groups, lifecycle current/future/eight-invalid matrix
+  10/10, history/mutation subset 33/33, and the disposable
+  W06-VERIFIED/W07-READY/final-clear state at 207/207. The original corpus
+  version index, manifest, coverage artifact, and holdout log remained
+  append-only and byte-preserved.
+- Owner-source reviewer: PASS with no finding. Direct final-root verification
+  and independent recomputation authenticated exact author record digest
+  `sha256:4d04e05f3af45f32d17e3ba85e6b276298f61adf5fbc0d4b6182b9cd0d7f2b3a`,
+  author rationale digest
+  `sha256:90ea4e1c6748fd2bb4c4321f5e68dbc72dac3955e4bf04fbefad09e9a238f44d`,
+  review record digest
+  `sha256:9588f417e90d8d95f5486d25e850cb03a1d0beb936b46d75feac95b69f73414d`,
+  case-container commitment
+  `sha256:cae3cb54c0a9d0d2abaa2e5610fdbf6055d54bc953ba48647414134a8d0eebc7`,
+  and artifact-preimage commitment
+  `sha256:a5d6ac3952a71ffe28c370031c0b2a40fa5c4cc70c1df2e0bb5ee9bc47ae4f84`.
+  Author-to-final case/artifact bytes, author-draft/final core mapping,
+  source/timestamp/digest provenance, closed inventories, contract/schema
+  bindings, and the public sanitized manifest all agreed exactly. The author
+  revision `b317705f1ca9f0db699162e97b37c5ca55527e62` exists in the accepted
+  ancestry, and every bound spec/schema/corpus input remained unchanged.
+- Lead owner verification: the exact final root produced 14 cases, four case
+  containers, 14 authenticated artifact preimages, 26,730 case bytes, 20,494
+  artifact bytes, and 47,224 total bytes. Manifest digest was
+  `sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79`
+  and receipt digest was
+  `sha256:ae7aea1d4f8c7da588f6ca648de02680af507eba42858b75b3c71f4020192948`.
+  Direct export in the disposable clone reproduced the committed sanitized
+  manifest byte-for-byte and left the clone clean. No hidden case, artifact,
+  expected truth, mapping, path, or narrative entered repository output.
+- Lead commands and observed results in a fresh no-hardlink clone on macOS 27
+  arm64 with pinned Node 24.18.0, pnpm 11.17.0, uv 0.11.32, Python 3.12.13,
+  and Cargo/rustc 1.97.1:
+  - frozen pnpm install and locked uv sync -> exit 0;
+  - W06 typecheck, corpus, coverage, privacy, log, test, and mutation commands
+    -> exit 0; W06 207/207 and the historical mutation campaign 15/15;
+  - direct owner verify/export -> exit 0 with the exact counts and digests
+    above; export was byte-neutral;
+  - central status validation -> PASS, 45 groups; traceability -> PASS,
+    193 requirements / 300 packages; focused lifecycle matrix -> 10/10;
+  - `pnpm verify` -> exit 0: all 16 ACTIVE suites PASS, 3,313 TypeScript
+    tests, generated contracts 183 byte-identical, focused contracts 662,
+    Playwright 59, canonical Python 986, Rust 1+10, portability/integrity
+    PASS, and visual truthfully NOT_YET_APPLICABLE.
+- Final content verdict: `SOL_CLEAR_FINAL_M02_W06_CONTENT`. Only after that
+  exact verdict and the immediate integrity checkpoint did governance begin.
+- Governance transition: M02-W06 moves IN_PROGRESS -> VERIFIED at accepted
+  content tree `6fd4219460a7659b21576f2ca20b19b744f3bbf9`; M02-W07 moves NOT_STARTED ->
+  READY and becomes the sole next package; current work becomes NONE;
+  `m02_w06_package_verification_state` moves to the one canonical
+  `FINAL_INDEPENDENT_VERIFICATION_CLEAR` token; and KI-0055, KI-0056, and
+  KI-0057 move to FIXED. Human and generated traceability are refreshed only
+  for that state/evidence transition. M02 remains IN_PROGRESS, release remains
+  NOT_READY, all four critical gates remain NOT_EVALUATED, and W07/W13/W14/W15
+  have not begun. This is package governance only: no holdout benchmark was
+  executed and no Autofill Feasibility, gate, compatibility, or milestone
+  acceptance claim is made.
+- Post-transition verification in the authoritative governance-only working
+  tree: `uv run python scripts/validate_status.py` -> exit 0, 45 check groups;
+  `pnpm traceability:check` -> exit 0, 193 requirements / 300 packages;
+  `pnpm --filter @japp/evaluation-corpus test` -> exit 0, 207/207;
+  `uv run pytest -q scripts/tests/test_validate_status.py` -> exit 0, 157/157;
+  Prettier checks across all six transitioned files -> exit 0; and
+  `PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm verify` -> exit 0, all 16
+  ACTIVE suites PASS, Playwright 59/59, canonical Python 986/986, Rust 1+10,
+  and visual truthfully NOT_YET_APPLICABLE. No flaky behavior was observed.
+
 ### M02-W06 — Governance-lifecycle corrective writer pass (2026-08-12)
 
 - Revision: corrective working tree over exact synchronized blocked integration

@@ -37,7 +37,7 @@ broadening a work package (spec §1.5).
 ### KI-0057 — M02-W06 reviewed-manifest integration hard-coded pending verification state
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-12 during fresh final M02-W06 independent verification
 - Affects: M02-W06; exact integration content
   `b4d8137b51df15bb1492b998d01aa031ade933ca` / tree
@@ -64,7 +64,7 @@ broadening a work package (spec §1.5).
 - Workaround: none accepted. Do not perform final governance by weakening or
   changing tests in the governance session, and do not conflate package
   verification with Gate A or M02 acceptance.
-- Resolution + evidence link: IN_PROGRESS. This correction introduces one
+- Resolution + evidence link: FIXED. This correction introduces one
   explicit final token, `FINAL_INDEPENDENT_VERIFICATION_CLEAR`, and binds the
   two-state package-verification lifecycle to the canonical W06/W07 rows in
   `docs/PROJECT_STATUS.md` in both test 30k and the central status validator.
@@ -75,15 +75,18 @@ broadening a work package (spec §1.5).
   Feasibility passed, or M02-W14/M02-W15 completed. Final-clear additionally
   requires the owner manifest to remain available, owner review to remain
   clear, and the tooling correction to remain clear. Cross-wired, unknown,
-  and missing states fail closed. The writer checkout remains at the pending
-  pre-governance state; KI-0055, KI-0056, and KI-0057 can close only after a
-  completely fresh verifier accepts the corrected integration content and
-  performs governance. See docs/TEST_EVIDENCE.md § M02-W06.
+  and missing states fail closed. Exact corrected content commit
+  `f4ffcf7064fe0f077b948690cebbee385fe190fb` / tree
+  `6fd4219460a7659b21576f2ca20b19b744f3bbf9` received
+  `SOL_CLEAR_FINAL_M02_W06_CONTENT` from a completely fresh final verifier;
+  the current VERIFIED/READY/final-clear governance state passed the complete
+  W06 suite and central validators without implementation or test edits. See
+  docs/TEST_EVIDENCE.md § M02-W06.
 
 ### KI-0056 — M02-W06 mapping-v2 correction tightened historical v1 runtime IDs
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-11 during fresh independent Sol verification of the
   KI-0055 correction
 - Affects: M02-W06; exact content
@@ -111,7 +114,7 @@ broadening a work package (spec §1.5).
   non-26-character Crockford bodies failed both.
 - Workaround: none accepted. Do not broaden mapping v2 or treat a v1-only
   owner root as executable final evidence.
-- Resolution + evidence link: IN_PROGRESS. The writer correction restores a
+- Resolution + evidence link: FIXED. The writer correction restores a
   literal historical v1 whole-ID predicate and keeps an intentionally
   separate strict mapping-v2 predicate, including strict artifact IDs and
   strict sanitized-manifest validation. The pre-existing v1 schema/runtime
@@ -128,15 +131,17 @@ broadening a work package (spec §1.5).
   `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`; fresh external v2 authoring and
   independent owner review then completed with
   `OWNER_HOLDOUT_V2_REVIEW_CLEAR`. The reviewed sanitized manifest is now in
-  the integration working tree. See docs/TEST_EVIDENCE.md § M02-W06. A
-  completely fresh verifier must still inspect the exact final integration
-  commit and preserved owner bundle before governance, so this issue remains
-  MEDIUM / IN_PROGRESS.
+  the integration working tree. A completely fresh final verifier reproduced
+  the historical v1 differential, mapping-v2 schema/runtime agreement, full
+  207-test W06 suite, and preserved owner-source binding at exact corrected
+  content commit `f4ffcf7064fe0f077b948690cebbee385fe190fb` / tree
+  `6fd4219460a7659b21576f2ca20b19b744f3bbf9`, then returned
+  `SOL_CLEAR_FINAL_M02_W06_CONTENT`. See docs/TEST_EVIDENCE.md § M02-W06.
 
 ### KI-0055 — M02-W06 owner holdout verification lacked input-artifact preimage binding
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-10 during fresh independent owner-controlled M02-W06
   holdout review
 - Affects: M02-W06; REQ-GATE-002; REQ-GATE-010; REQ-GATE-011;
@@ -167,7 +172,7 @@ broadening a work package (spec §1.5).
   externally and must not be treated as evidence or retrofitted in place.
   No owner manifest may be exported until corrected tooling is independently
   accepted and a fresh author builds a complete v2 executable root.
-- Resolution + evidence link: IN_PROGRESS. The writer correction preserves
+- Resolution + evidence link: FIXED. The writer correction preserves
   owner-mapping v1 byte-for-byte and introduces private `owner-mapping:v2`
   with a closed `artifacts` inventory, exact ref-set equality, opaque-byte
   SHA-256 recomputation, digest/schema-consistent reuse, finite safe error
@@ -183,10 +188,17 @@ broadening a work package (spec §1.5).
   integration writer independently reproduced the reviewed 14-case / 4-case-
   container / 14-artifact closed inventory and exact byte/digest bindings,
   then exported only the schema-valid sanitized repository manifest. See
-  docs/TEST_EVIDENCE.md § M02-W06. The owner-manifest dependency is resolved,
-  but exact integration content and the preserved owner root still require a
-  completely fresh final package verifier before governance; this issue
-  remains HIGH / IN_PROGRESS.
+  docs/TEST_EVIDENCE.md § M02-W06. A completely fresh final verifier and a
+  separate independent owner-source reviewer then recomputed the complete
+  14-case / four-container / 14-artifact trust chain, reproduced manifest
+  digest `sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79`
+  and receipt digest
+  `sha256:ae7aea1d4f8c7da588f6ca648de02680af507eba42858b75b3c71f4020192948`,
+  and found the genuine owner roots byte- and metadata-unchanged. Exact
+  corrected content commit `f4ffcf7064fe0f077b948690cebbee385fe190fb` /
+  tree `6fd4219460a7659b21576f2ca20b19b744f3bbf9` received
+  `SOL_CLEAR_FINAL_M02_W06_CONTENT`; no hidden body entered Git. See
+  docs/TEST_EVIDENCE.md § M02-W06.
 
 ## M02-W05 fresh acceptance defect history (second verification)
 
