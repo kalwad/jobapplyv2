@@ -46,6 +46,18 @@ import {
 const cleanups: (() => void)[] = [];
 let exportIndex = 0;
 const STABLE_BODY = "00000000000000000000000001";
+const PENDING_W06_PACKAGE_VERIFICATION =
+  "PENDING_FINAL_INDEPENDENT_VERIFICATION";
+const FINAL_W06_PACKAGE_VERIFICATION_CLEAR =
+  "FINAL_INDEPENDENT_VERIFICATION_CLEAR";
+const POST_W06_W07_STATES = new Set([
+  "READY",
+  "IN_PROGRESS",
+  "BLOCKED",
+  "IMPLEMENTED",
+  "VERIFIED",
+  "ACCEPTED",
+]);
 const HISTORICAL_V1_STABLE_ID =
   /^[a-z][a-z0-9_]{1,23}_[0-9A-HJKMNP-TV-Z]{26}$/u;
 
@@ -63,6 +75,36 @@ const V2_ID_ROLES = [
 ] as const;
 
 type MappingIdRole = (typeof V2_ID_ROLES)[number]["role"];
+
+function projectPackageState(packageId: "M02-W06" | "M02-W07"): string {
+  const status = readFileSync(
+    join(REPOSITORY_ROOT, "docs/PROJECT_STATUS.md"),
+    "utf8",
+  );
+  const pattern = new RegExp(
+    `^\\| \\x60${packageId}\\x60 \\| ([A-Z_]+) \\|`,
+    "gmu",
+  );
+  const matches = [...status.matchAll(pattern)];
+  if (matches.length !== 1 || matches[0]?.[1] === undefined) {
+    throw new Error(`M02_W06_PROJECT_STATUS_LIFECYCLE_INVALID:${packageId}`);
+  }
+  return matches[0][1];
+}
+
+function expectedPackageVerificationState(): string {
+  const w06 = projectPackageState("M02-W06");
+  const w07 = projectPackageState("M02-W07");
+  if (w06 === "IN_PROGRESS" && w07 === "NOT_STARTED") {
+    return PENDING_W06_PACKAGE_VERIFICATION;
+  }
+  if (w06 === "VERIFIED" && POST_W06_W07_STATES.has(w07)) {
+    return FINAL_W06_PACKAGE_VERIFICATION_CLEAR;
+  }
+  throw new Error(
+    `M02_W06_PACKAGE_VERIFICATION_LIFECYCLE_INVALID:${w06}/${w07}`,
+  );
+}
 
 function ownerMappingV1(): Record<string, unknown> {
   const mapping = structuredClone(validMapping()) as unknown as Record<
@@ -738,7 +780,7 @@ describe("M02-W06 artifact-preimage correction", () => {
     );
   });
 
-  it("30k records reviewed availability with final W06 verification pending", () => {
+  it("30k binds reviewed availability to the canonical W06 lifecycle", () => {
     const directory = join(REPOSITORY_ROOT, "benchmarks/holdout-manifests");
     const status = JSON.parse(
       readFileSync(join(directory, "status.v1.json"), "utf8"),
@@ -772,7 +814,7 @@ describe("M02-W06 artifact-preimage correction", () => {
       "SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS",
     );
     expect(status.m02_w06_package_verification_state).toBe(
-      "PENDING_FINAL_INDEPENDENT_VERIFICATION",
+      expectedPackageVerificationState(),
     );
     expect(status.sanitized_manifest_digest).toBe(manifest.manifest_digest);
     expect(status.required_owner_mapping_version).toBe("2.0.0");

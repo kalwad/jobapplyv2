@@ -33,6 +33,131 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W06 — Governance-lifecycle corrective writer pass (2026-08-12)
+
+- Revision: corrective working tree over exact synchronized blocked integration
+  commit `b4d8137b51df15bb1492b998d01aa031ade933ca` / tree
+  `76d98c7e1f3459ae0739419cef6f7908026eab96` (parent
+  `b317705f1ca9f0db699162e97b37c5ca55527e62`, branch `main`, initially equal
+  to `origin/main`). Canonical JAPP-MASTER-001 v1.4 remains SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, Cargo/rustc 1.97.1, Playwright 1.62.0,
+  and pinned Chromium.
+- Independent terminal finding: a fresh final verifier returned
+  `SOL_BLOCKED_FINAL_M02_W06_VERIFICATION` before substantive final
+  verification or governance. On the affected exact content, test 30k passed
+  with checked-in `PENDING_FINAL_INDEPENDENT_VERIFICATION`. In a disposable
+  exact-content clone, changing only
+  `m02_w06_package_verification_state` to
+  `FINAL_INDEPENDENT_VERIFICATION_CLEAR` produced exactly one failure within
+  the otherwise passing 81-test artifact-preimage file: test 30k still
+  required pending. A full-history search found neither the final token nor an
+  alternate lifecycle branch. Governance was prohibited from changing tests,
+  so W06 could not move from IN_PROGRESS to VERIFIED while keeping the active
+  suite green. No hidden owner case, expected truth, mapping, artifact
+  preimage, or reviewed-manifest defect was implicated.
+- Correction architecture: `docs/PROJECT_STATUS.md` remains the authoritative
+  live package-state surface already parsed by status and traceability
+  validation. Test 30k now reads exactly one canonical M02-W06 row and one
+  M02-W07 row from that independent source. W06 IN_PROGRESS plus W07
+  NOT_STARTED requires pending. W06 VERIFIED plus W07 READY requires the one
+  model-neutral token `FINAL_INDEPENDENT_VERIFICATION_CLEAR`; later legitimate
+  W07 IN_PROGRESS, BLOCKED, IMPLEMENTED, VERIFIED, or ACCEPTED states preserve
+  final clear rather than recreating a lifecycle dead end. Every other
+  relevant pair fails closed. All pre-existing owner availability, owner
+  review, tooling correction, manifest digest, mapping-v2, public-corpus
+  independence, placeholder prohibition, leak-absence, and future W14/W15
+  ownership assertions remain active.
+- Token meaning: `FINAL_INDEPENDENT_VERIFICATION_CLEAR` means, exactly, “The
+  exact integrated M02-W06 content and preserved owner-controlled source
+  bundle have received the required fresh independent final package
+  verification.” It is package governance only. It does not mean M02 is
+  accepted, Gate A was evaluated or passed, the holdout benchmark was
+  executed, product Autofill Feasibility passed, or M02-W14/M02-W15 completed;
+  it does not substitute for owner review, tooling verification, or the fresh
+  verifier. The checked-in writer marker remains pending.
+- Central enforcement: `scripts/validate_status.py` independently reads the
+  machine status and cross-checks it against the canonical W06/W07 rows. It
+  accepts the current IN_PROGRESS/NOT_STARTED/pending state and the immediate
+  VERIFIED/READY/final-clear governance state, preserves final clear through
+  legitimate later W07 states, and rejects invalid row pairs, missing or
+  unknown tokens, and pending/final cross-wires. Final clear additionally
+  requires exactly `OWNER_HOLDOUT_MANIFEST_AVAILABLE`,
+  `OWNER_HOLDOUT_V2_REVIEW_CLEAR`, and
+  `SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS`. The check is error-only, so the
+  canonical validator remains exactly 45 reported groups.
+- Permanent controls: the current repository positive is asserted directly;
+  one future governance fixture proves W06 VERIFIED / W07 READY / final clear
+  while M02 remains IN_PROGRESS, release remains NOT_READY, and all four gates
+  remain NOT_EVALUATED. Eight individually collected negative cases reject
+  VERIFIED/READY plus pending, IN_PROGRESS/NOT_STARTED plus final clear,
+  IN_PROGRESS/READY plus pending, final clear plus owner manifest unavailable,
+  final clear plus owner review not clear, final clear plus tooling correction
+  not clear, an unknown token, and a removed marker. The exact Python
+  inventory was regenerated without weakening count or identity enforcement.
+- Commands and observed results:
+  - `pnpm install --frozen-lockfile`; `uv sync --locked`; both locked Cargo
+    fetch commands → exit 0 with the pinned dependency graph unchanged.
+  - Focused test 30k and the complete W06 suite → exit 0, 207/207 across six
+    files: corpus-freeze 20, coverage-policy 28, holdout-boundary 45,
+    artifact-preimage/runtime-preservation/reviewed-manifest 81, historical
+    mutation campaign 15, and version/log/runner 18. The TypeScript total did
+    not change.
+  - Focused status tests → 157/157; strict Ruff and mypy checks → exit 0;
+    `uv run pytest -q scripts/tests` → 985/985; canonical POSIX collection →
+    986 exact IDs, with 984 common-and-Windows IDs and the two preserved
+    POSIX-only IDs.
+  - Preserved substantive suites → exit 0: W05 290, W04 171, W01 108, W02
+    57, fixtures 166, mock ATS 32, Playwright 59, contracts 2440 / focused
+    662 / generated 183 byte-identical, and Rust 1+10.
+  - `python3 scripts/validate_status.py` → PASS, 45 groups;
+    `pnpm traceability:check` → PASS, 193 requirements / 300 packages; doctor
+    → 23 pass / 1 expected dirty-writer warning / 0 fail / 1 visual
+    NOT_YET_APPLICABLE.
+  - `pnpm verify` → exit 0: 3,313 TypeScript tests, canonical Python 986,
+    all 16 ACTIVE suites PASS, status 45 groups, traceability PASS, and visual
+    truthfully NOT_YET_APPLICABLE.
+- Disposable future-governance simulation: an exact writer-tree clone was
+  changed only on existing canonical governance surfaces to W06 VERIFIED at a
+  synthetic tree anchor, W07 READY, current package NONE, final-clear, and
+  KI-0055/KI-0056/KI-0057 FIXED. Traceability JSON was mirrored and its
+  generated Markdown refreshed only inside the clone. M02 remained
+  IN_PROGRESS, release remained NOT_READY, and all four gates remained
+  NOT_EVALUATED. W06 207/207, status 45 groups, and traceability 193/300 passed
+  immediately. The first deliberately broad aggregate found three Python
+  regression-fixture assertions that still assumed the repository itself
+  would forever be pending; production W06 and both governance validators had
+  already passed. The fixtures were made bidirectional without changing test
+  identities or counts. Focused status 157/157 and scripts Python 985/985 then
+  passed in the simulated state, followed by a complete `pnpm verify` exit 0:
+  all 16 ACTIVE suites PASS, canonical Python 986, W06 207, the preserved
+  predecessor counts, Rust 1+10, status 45 groups, traceability PASS, and
+  visual NOT_YET_APPLICABLE. This proves the future governance transition no
+  longer requires implementation or test edits. The clone was moved to Trash;
+  none of its governance bytes entered the writer checkout.
+- Owner-bound non-regression: the one permitted read-only final-owner-root
+  verification returned 14 cases, four case containers, 14 artifact
+  preimages, 26,730 case bytes, 20,494 artifact bytes, and 47,224 total bytes.
+  Manifest digest remained
+  `sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79`
+  and receipt digest remained
+  `sha256:ae7aea1d4f8c7da588f6ca648de02680af507eba42858b75b3c71f4020192948`.
+  Aggregate content fingerprint
+  `f1561813d2924a78f1b8aed63e31be6f8fd5cc90e510659e13344117670b9159`
+  and metadata fingerprint
+  `600da2d6241bd527424fd4e9405943717f938959b46677e89cf97c53e63338df`
+  were identical before and after. No hidden body was logged or copied.
+- Scope and memory: KI-0057 is MEDIUM / IN_PROGRESS. KI-0055 remains HIGH /
+  IN_PROGRESS and KI-0056 remains MEDIUM / IN_PROGRESS. M02-W06 remains
+  IN_PROGRESS, M02-W07 remains NOT_STARTED, no package is READY, M02 remains
+  IN_PROGRESS, all four critical gates remain NOT_EVALUATED, and release
+  remains NOT_READY. No W07, W13, W14, W15, Gate A, holdout-execution, or
+  governance work occurred. The sanitized manifest, status marker, owner
+  semantics, traceability mappings/derivative, generated contracts, public
+  corpus, critical-gate files, lockfiles, model lock, prompts registry, and
+  CI workflow remain byte-identical. No hidden content entered Git.
+
 ### M02-W06 — Reviewed owner-manifest integration writer pass (2026-08-11)
 
 - Revision: integration working tree over exact synchronized starting commit

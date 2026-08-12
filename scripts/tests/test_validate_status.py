@@ -15,6 +15,7 @@ the explicit M27-W13/W14/W12 graph, and fail-closed Gate D revision binding.
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import shutil
 import subprocess
@@ -58,11 +59,18 @@ CURRENT_M02_CORRECTIVE_ISSUE_IDS = (
     "KI-0054",
     "KI-0055",
     "KI-0056",
+    "KI-0057",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
     "- KI-0030 (HIGH, IN_PROGRESS) — semantic contradictions",
     "- KI-0031 (HIGH, IN_PROGRESS) — compatibility classification",
+]
+M02_W06_BLOCKER_LINES = [
+    (
+        "- KI-0055 (HIGH, IN_PROGRESS) — M02-W06 owner holdout verification lacked "
+        "input-artifact preimage binding"
+    ),
 ]
 
 
@@ -95,6 +103,12 @@ def repo_copy(tmp_path: Path) -> Path:
             / f"{name}.v2.schema.json",
             platform_schemas / f"{name}.v2.schema.json",
         )
+    holdout_status = repo / "benchmarks" / "holdout-manifests"
+    holdout_status.mkdir(parents=True)
+    shutil.copy2(
+        REPO_ROOT / holdout_status.relative_to(repo) / "status.v1.json",
+        holdout_status / "status.v1.json",
+    )
     return repo
 
 
@@ -247,6 +261,76 @@ def set_next_ready(repo: Path, value: str) -> None:
         set_current_milestone(repo, match.group(1)[:3])
 
 
+def update_m02_w06_holdout_status(
+    repo: Path, changes: dict[str, object | None]
+) -> None:
+    path = repo / "benchmarks" / "holdout-manifests" / "status.v1.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert isinstance(payload, dict)
+    for key, value in changes.items():
+        if value is None:
+            payload.pop(key, None)
+        else:
+            payload[key] = value
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def prepare_m02_w06_pre_governance(repo: Path) -> None:
+    """Build the valid pending fixture from either side of W06 governance."""
+    for issue_id in ("KI-0055", "KI-0056", "KI-0057"):
+        set_issue_state(repo, issue_id, "IN_PROGRESS")
+    set_live_blockers(repo, M02_W06_BLOCKER_LINES)
+    path = status_path(repo)
+    text = path.read_text(encoding="utf-8")
+    replacements = {
+        "M02-W06": (
+            "| `M02-W06` | IN_PROGRESS | — | — | "
+            "synthetic pre-governance lifecycle fixture |"
+        ),
+        "M02-W07": (
+            "| `M02-W07` | NOT_STARTED | — | — | "
+            "synthetic pre-governance lifecycle fixture |"
+        ),
+    }
+    for package_id, replacement in replacements.items():
+        pattern = re.compile(
+            rf"^\| `{re.escape(package_id)}` \|[^\n]*$", flags=re.MULTILINE
+        )
+        assert pattern.search(text), f"no work-package row for {package_id}"
+        text = pattern.sub(replacement, text, count=1)
+    path.write_text(text, encoding="utf-8")
+    set_current_package(repo, "M02-W06")
+    set_next_ready(repo, "NONE")
+    update_m02_w06_holdout_status(
+        repo,
+        {
+            "m02_w06_package_verification_state": (
+                "PENDING_FINAL_INDEPENDENT_VERIFICATION"
+            )
+        },
+    )
+
+
+def prepare_m02_w06_future_governance(repo: Path) -> None:
+    resolve_corrective_issues(repo)
+    promote(repo, "M02-W06")
+    set_pkg_state(repo, "M02-W06", "VERIFIED")
+    set_pkg_state(repo, "M02-W07", "READY")
+    set_current_package(repo, "NONE")
+    set_next_ready(repo, "`M02-W07`")
+    update_m02_w06_holdout_status(
+        repo,
+        {
+            "m02_w06_package_verification_state": (
+                "FINAL_INDEPENDENT_VERIFICATION_CLEAR"
+            )
+        },
+    )
+
+
 def activate_corrective_blockers(repo: Path) -> None:
     """Build a coherent reopened M01 fixture independent of live closeout state."""
     resolve_corrective_issues(repo)
@@ -287,7 +371,7 @@ def promote(repo: Path, pid: str) -> None:
     text = path.read_text(encoding="utf-8")
     pattern = re.compile(rf"^\| `{pid}` \|[^\n]*$", flags=re.MULTILINE)
     assert pattern.search(text), f"no work-package row for {pid}"
-    state = "VERIFIED" if pid.startswith("M00-") else "ACCEPTED"
+    state = "VERIFIED" if pid.startswith("M00-") or pid == "M02-W06" else "ACCEPTED"
     row = (
         f"| `{pid}` | {state} | {FAKE_TREE} | "
         f"docs/TEST_EVIDENCE.md § {pid} | promoted fixture |"
@@ -296,6 +380,15 @@ def promote(repo: Path, pid: str) -> None:
     evidence = repo / "docs" / "TEST_EVIDENCE.md"
     with evidence.open("a", encoding="utf-8") as handle:
         handle.write(f"\n### {pid} — promoted fixture (synthetic)\n")
+    if pid == "M02-W06":
+        update_m02_w06_holdout_status(
+            repo,
+            {
+                "m02_w06_package_verification_state": (
+                    "FINAL_INDEPENDENT_VERIFICATION_CLEAR"
+                )
+            },
+        )
 
 
 def promote_milestones(repo: Path, mids: list[str]) -> None:
@@ -644,9 +737,121 @@ def prepare_m28_ready(repo: Path, *, gate_d_revision: str = FAKE_TREE) -> None:
 
 
 def test_migrated_repository_passes() -> None:
+    parsed = validate_status.parse_status(REPO_ROOT / "docs" / "PROJECT_STATUS.md")
+    package_states = {cells[0]: cells[1] for cells in parsed.package_rows}
+    holdout_status = json.loads(
+        (REPO_ROOT / "benchmarks" / "holdout-manifests" / "status.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    w06_state = package_states["M02-W06"]
+    w07_state = package_states["M02-W07"]
+    verification_state = holdout_status["m02_w06_package_verification_state"]
+    if w06_state == "IN_PROGRESS":
+        assert (w07_state, verification_state) == (
+            "NOT_STARTED",
+            "PENDING_FINAL_INDEPENDENT_VERIFICATION",
+        )
+    else:
+        assert w06_state == "VERIFIED"
+        assert w07_state in validate_status.M02_W06_POST_GOVERNANCE_W07_STATES
+        assert verification_state == "FINAL_INDEPENDENT_VERIFICATION_CLEAR"
     result = run_validator(REPO_ROOT)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "PASS" in result.stdout
+
+
+def test_m02_w06_verification_lifecycle_accepts_future_governance_state(
+    repo_copy: Path,
+) -> None:
+    prepare_m02_w06_pre_governance(repo_copy)
+    pre_governance = run_validator(repo_copy)
+    assert pre_governance.returncode == 0, pre_governance.stdout + pre_governance.stderr
+    prepare_m02_w06_future_governance(repo_copy)
+    parsed = validate_status.parse_status(status_path(repo_copy))
+    milestone_states = dict(parsed.milestone_rows)
+    assert milestone_states["M02"] == "IN_PROGRESS"
+    assert parsed.header["Overall release gate:"] == "NOT_READY"
+    assert {cells[1] for cells in parsed.gate_rows} == {"NOT_EVALUATED"}
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.parametrize(
+    "case",
+    [
+        "verified-ready-pending",
+        "in-progress-not-started-final-clear",
+        "in-progress-ready-pending",
+        "final-clear-owner-manifest-unavailable",
+        "final-clear-owner-review-not-clear",
+        "final-clear-tooling-correction-not-clear",
+        "unknown-verification-state",
+        "missing-verification-state",
+    ],
+)
+def test_m02_w06_verification_lifecycle_rejects_invalid_state(
+    repo_copy: Path, case: str
+) -> None:
+    if case in {
+        "verified-ready-pending",
+        "final-clear-owner-manifest-unavailable",
+        "final-clear-owner-review-not-clear",
+        "final-clear-tooling-correction-not-clear",
+    }:
+        prepare_m02_w06_future_governance(repo_copy)
+    else:
+        prepare_m02_w06_pre_governance(repo_copy)
+    if case == "verified-ready-pending":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {
+                "m02_w06_package_verification_state": (
+                    "PENDING_FINAL_INDEPENDENT_VERIFICATION"
+                )
+            },
+        )
+    elif case == "in-progress-not-started-final-clear":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {
+                "m02_w06_package_verification_state": (
+                    "FINAL_INDEPENDENT_VERIFICATION_CLEAR"
+                )
+            },
+        )
+    elif case == "in-progress-ready-pending":
+        set_pkg_state(repo_copy, "M02-W07", "READY")
+    elif case == "final-clear-owner-manifest-unavailable":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {"owner_manifest_state": "OWNER_HOLDOUT_MANIFEST_UNAVAILABLE"},
+        )
+    elif case == "final-clear-owner-review-not-clear":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {"owner_holdout_review_state": "OWNER_HOLDOUT_V2_REVIEW_PENDING"},
+        )
+    elif case == "final-clear-tooling-correction-not-clear":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {"correction_verification_state": "M02_W06_TOOLING_CORRECTION_PENDING"},
+        )
+    elif case == "unknown-verification-state":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {"m02_w06_package_verification_state": "UNKNOWN"},
+        )
+    elif case == "missing-verification-state":
+        update_m02_w06_holdout_status(
+            repo_copy,
+            {"m02_w06_package_verification_state": None},
+        )
+    else:
+        pytest.fail(f"unhandled lifecycle case: {case}")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "M02-W06 package verification" in result.stdout
 
 
 def test_owner_approved_hash_and_exact_v14_inventory() -> None:

@@ -34,6 +34,52 @@ broadening a work package (spec §1.5).
 
 ## M02-W06 owner-holdout corrective review
 
+### KI-0057 — M02-W06 reviewed-manifest integration hard-coded pending verification state
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-08-12 during fresh final M02-W06 independent verification
+- Affects: M02-W06; exact integration content
+  `b4d8137b51df15bb1492b998d01aa031ade933ca` / tree
+  `76d98c7e1f3459ae0739419cef6f7908026eab96`;
+  `packages/evaluation-corpus/test/m02-w06/artifact-preimage-correction.test.ts`
+  test 30k; `benchmarks/holdout-manifests/status.v1.json`;
+  `scripts/validate_status.py`
+- Description: test 30k unconditionally required
+  `PENDING_FINAL_INDEPENDENT_VERIFICATION`. Final W06 governance necessarily
+  needs a distinct final-clear package-verification state, but no canonical
+  final token or alternate lifecycle branch existed, and governance was
+  correctly forbidden from altering implementation or test bytes. The fresh
+  final verifier therefore returned `SOL_BLOCKED_FINAL_M02_W06_VERIFICATION`
+  before governance. No hidden owner case, expected truth, mapping, artifact
+  preimage, or reviewed-manifest defect was implicated.
+- Reproduction: at the affected exact content, the checked-in pending state
+  passes test 30k. In a disposable exact-content clone, changing only
+  `m02_w06_package_verification_state` to
+  `FINAL_INDEPENDENT_VERIFICATION_CLEAR` makes test 30k fail because lines
+  774–776 still expect the pending token. A full-history search finds neither
+  that final token nor another lifecycle branch, so the integration cannot
+  transition from W06 `IN_PROGRESS` / W07 `NOT_STARTED` to W06 `VERIFIED` /
+  W07 `READY` while preserving the active test suite.
+- Workaround: none accepted. Do not perform final governance by weakening or
+  changing tests in the governance session, and do not conflate package
+  verification with Gate A or M02 acceptance.
+- Resolution + evidence link: IN_PROGRESS. This correction introduces one
+  explicit final token, `FINAL_INDEPENDENT_VERIFICATION_CLEAR`, and binds the
+  two-state package-verification lifecycle to the canonical W06/W07 rows in
+  `docs/PROJECT_STATUS.md` in both test 30k and the central status validator.
+  The token means: "The exact integrated M02-W06 content and preserved
+  owner-controlled source bundle have received the required fresh independent
+  final package verification." It does not mean M02 accepted, Gate A
+  evaluated or passed, the holdout benchmark executed, product Autofill
+  Feasibility passed, or M02-W14/M02-W15 completed. Final-clear additionally
+  requires the owner manifest to remain available, owner review to remain
+  clear, and the tooling correction to remain clear. Cross-wired, unknown,
+  and missing states fail closed. The writer checkout remains at the pending
+  pre-governance state; KI-0055, KI-0056, and KI-0057 can close only after a
+  completely fresh verifier accepts the corrected integration content and
+  performs governance. See docs/TEST_EVIDENCE.md § M02-W06.
+
 ### KI-0056 — M02-W06 mapping-v2 correction tightened historical v1 runtime IDs
 
 - Severity: MEDIUM

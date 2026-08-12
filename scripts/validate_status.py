@@ -17,7 +17,8 @@ Checks performed
       milestone/work-package table completeness against the spec, valid
       state enums, no duplicates, no more than one IN_PROGRESS package,
       current-package and next-READY consistency, and the canonical current
-      release-gate value.
+      release-gate value. The M02-W06 owner-manifest package-verification
+      marker is cross-checked against the canonical M02-W06/M02-W07 rows.
   4.  Critical-gates table: exactly the four v1.4 gates, valid gate-state
       enums, report paths present on disk, state agreement with the
       docs/CRITICAL_GATES.md ledger, and full evidence fields (revision,
@@ -127,6 +128,22 @@ GATE_EVALUATION_PACKAGES = {
     "RESUME_PAGEFIT_FEASIBILITY": "M05-W11",
     "WORKDAY_GUIDED_PRE_SUBMIT": "M20-W10",
     "CROSS_PLATFORM_CORE": "M27-W12",
+}
+
+M02_W06_PENDING_PACKAGE_VERIFICATION = "PENDING_FINAL_INDEPENDENT_VERIFICATION"
+M02_W06_FINAL_PACKAGE_VERIFICATION_CLEAR = "FINAL_INDEPENDENT_VERIFICATION_CLEAR"
+M02_W06_POST_GOVERNANCE_W07_STATES = {
+    "READY",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "IMPLEMENTED",
+    "VERIFIED",
+    "ACCEPTED",
+}
+M02_W06_FINAL_CLEAR_PREREQUISITES = {
+    "owner_manifest_state": "OWNER_HOLDOUT_MANIFEST_AVAILABLE",
+    "owner_holdout_review_state": "OWNER_HOLDOUT_V2_REVIEW_CLEAR",
+    "correction_verification_state": "SOL_CLEAR_M02_W06_TOOLING_CORRECTIONS",
 }
 
 PRESERVED_PACKAGE_ANCHORS = {
@@ -972,6 +989,65 @@ def check_status_shell(status: Status, report: Report) -> None:
             "PROJECT_STATUS header fields and sections present; release gate "
             f"is {CANONICAL_RELEASE_GATE}"
         )
+
+
+def check_m02_w06_package_verification_lifecycle(
+    repo: Path, package_states: dict[str, str], report: Report
+) -> None:
+    """Bind the owner-manifest verification marker to canonical package state."""
+    w06_state = package_states.get("M02-W06")
+    if w06_state in {"NOT_STARTED", "READY"}:
+        return
+    path = repo / "benchmarks/holdout-manifests/status.v1.json"
+    try:
+        raw: object = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        report.fail(f"M02-W06 package verification status is unreadable: {exc}")
+        return
+    if not isinstance(raw, dict):
+        report.fail("M02-W06 package verification status must be a JSON object")
+        return
+
+    verification_state = raw.get("m02_w06_package_verification_state")
+    if not isinstance(verification_state, str):
+        report.fail("M02-W06 package verification state is missing or is not a string")
+        return
+    allowed_states = {
+        M02_W06_PENDING_PACKAGE_VERIFICATION,
+        M02_W06_FINAL_PACKAGE_VERIFICATION_CLEAR,
+    }
+    if verification_state not in allowed_states:
+        report.fail(
+            "M02-W06 package verification state has unknown token "
+            f"{verification_state!r}"
+        )
+        return
+
+    w07_state = package_states.get("M02-W07")
+    expected: str | None = None
+    if w06_state == "IN_PROGRESS" and w07_state == "NOT_STARTED":
+        expected = M02_W06_PENDING_PACKAGE_VERIFICATION
+    elif w06_state == "VERIFIED" and w07_state in M02_W06_POST_GOVERNANCE_W07_STATES:
+        expected = M02_W06_FINAL_PACKAGE_VERIFICATION_CLEAR
+    if expected is None:
+        report.fail(
+            "M02-W06 package verification lifecycle rejects package states "
+            f"M02-W06={w06_state!r}, M02-W07={w07_state!r}"
+        )
+    elif verification_state != expected:
+        report.fail(
+            "M02-W06 package verification lifecycle requires "
+            f"{expected!r} for M02-W06={w06_state!r}, M02-W07={w07_state!r}; "
+            f"found {verification_state!r}"
+        )
+
+    if verification_state == M02_W06_FINAL_PACKAGE_VERIFICATION_CLEAR:
+        for field_name, required_value in M02_W06_FINAL_CLEAR_PREREQUISITES.items():
+            if raw.get(field_name) != required_value:
+                report.fail(
+                    "M02-W06 package verification final clear requires "
+                    f"{field_name}={required_value!r}; found {raw.get(field_name)!r}"
+                )
 
 
 def _known_issue_sections(path: Path, report: Report) -> list[tuple[str, list[str]]]:
@@ -2622,6 +2698,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
     gate_states = check_gates(repo, status, report)
     check_gate_d_schema_guidance(repo, report)
     ms_states, pkg_states = check_tables(spec, status, report)
+    check_m02_w06_package_verification_lifecycle(repo, pkg_states, report)
     check_progress_consistency(status, pkg_states, report)
     check_live_blockers(repo, status, ms_states, pkg_states, report)
     check_dependencies(spec, ms_states, pkg_states, gate_states, report)
