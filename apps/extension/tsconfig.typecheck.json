@@ -1,0 +1,20 @@
+{
+  // Typecheck-only project: identical to tsconfig.json plus WXT's generated
+  // `.wxt/types/paths.d.ts` augmentation (the `PublicPath` type that WXT's
+  // published `wxt/browser` surface requires), which `wxt prepare`
+  // regenerates deterministically. Only that one augmentation is included:
+  // the broader generated `.wxt/wxt.d.ts` umbrella pulls auto-import and
+  // vite-env shims that this package does not use (imports: false) and that
+  // do not hold under skipLibCheck:false. The package `typecheck` script
+  // always runs `wxt prepare` first, so this project is complete on every
+  // platform; ESLint keeps using tsconfig.json so a clean checkout lints
+  // without any generated state.
+  "extends": "./tsconfig.json",
+  "include": [
+    "entrypoints/**/*.ts",
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "wxt.config.ts",
+    ".wxt/types/paths.d.ts"
+  ]
+}

@@ -6,6 +6,11 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  // M02-W07: build the real @japp/extension MV3 output before any test
+  // runs, so the canonical `playwright test` command always exercises the
+  // freshly built extension. Playwright skips global setup for `--list`,
+  // so discovery performs no build or filesystem mutation.
+  globalSetup: "./e2e/extension/support/global-setup.ts",
   fullyParallel: false,
   forbidOnly: true,
   retries: 0,

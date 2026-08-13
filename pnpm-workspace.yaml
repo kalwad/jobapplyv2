@@ -40,3 +40,10 @@ minimumReleaseAgeExclude:
 # `pnpm install --frozen-lockfile` exit-0 on every certified platform.
 allowBuilds:
   esbuild: false
+  # spawn-sync (a wxt -> web-ext-run -> fx-runner transitive dependency of
+  # the M02-W07 feasibility extension) uses postinstall only to compile a
+  # child_process.spawnSync fallback for pre-0.12 Node. The pinned Node 24
+  # runtime has native spawnSync, so the lifecycle script is unnecessary and
+  # deliberately NOT executed; recording the decision keeps
+  # `pnpm install --frozen-lockfile` exit-0 on every certified platform.
+  spawn-sync: false

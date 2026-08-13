@@ -909,6 +909,61 @@ def test_missing_gitattributes_lf_rule_fails(policy_repo: Path) -> None:
     assert "PORT-SRC-006" in rules_of(policy_repo)
 
 
+def test_hardcoded_tmp_in_ts_runtime_source_fails(policy_repo: Path) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "cache.ts").write_text(
+        'const CACHE_DIR = "/tmp/japp-cache";\nexport default CACHE_DIR;\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_bash_wrapper_in_ts_runtime_source_fails(policy_repo: Path) -> None:
+    source_dir = policy_repo / "packages" / "form-engine" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "runner.ts").write_text(
+        'export const WRAPPER = "bash -c ./verify-all";\n', encoding="utf-8"
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_shell_true_spawn_in_ts_runtime_source_fails(policy_repo: Path) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        'export const run = () => spawnSync("pnpm build", { shell: true });\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_hardcoded_tmp_in_ts_node_tool_script_fails(policy_repo: Path) -> None:
+    # Node-executed TypeScript tool scripts (apps/*/scripts, root
+    # scripts/*.ts, package scripts/generator trees) are inside the
+    # PORT-SRC-008 scan surface too.
+    source_dir = policy_repo / "apps" / "mock-ats-lab" / "scripts"
+    source_dir.mkdir(parents=True)
+    (source_dir / "check-helper.ts").write_text(
+        'const STAGING_DIR = "/tmp/japp-catalog";\nexport default STAGING_DIR;\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_platform_neutral_ts_runtime_source_passes(policy_repo: Path) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "profile.ts").write_text(
+        'import { tmpdir } from "node:os";\n'
+        'import { join } from "node:path";\n'
+        'export const profileRoot = () => join(tmpdir(), "japp-profile");\n',
+        encoding="utf-8",
+    )
+    assert rules_of(policy_repo) == set()
+
+
 def test_bash_only_package_script_fails(policy_repo: Path) -> None:
     manifest_path = policy_repo / "package.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))

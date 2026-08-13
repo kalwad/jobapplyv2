@@ -261,6 +261,28 @@
       "explanation": "ACTIVE since M01-W05 began. One versioned, hash-locked synthetic corpus drives the canonical strict Ajv/generated TypeScript path, generated Pydantic v2 path, and a private test-only Rust harness built --locked --offline. The suite proves bounded protocol execution, normalization, representative round trips, version behavior, authorization/default-deny escalation, hostile raw-wire rejection, historical compatibility mutations, infrastructure failure propagation, and deterministic non-empty discovery. It does not expose production Rust contracts or claim coverage beyond the committed representative set."
     },
     {
+      "id": "build",
+      "name": "Workspace build targets (Turborepo; WXT MV3 extension)",
+      "owner": "M02-W07",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W07"]
+      },
+      "commands": [["pnpm", "exec", "turbo", "run", "build", "--force"]],
+      "proofs": [
+        {
+          "kind": "turbo_task_count",
+          "script": "build"
+        }
+      ],
+      "discovery_globs": ["apps/extension/wxt.config.ts"],
+      "artifacts": [
+        "apps/extension/dist/ (WXT chrome-mv3 output, git-ignored)"
+      ],
+      "explanation": "ACTIVE since M02-W07 (Scaffold the real MV3 feasibility extension) began: the first real JS/TS build targets exist, closing the KI-0001 deliberate deferral non-vacuously. `turbo run build --force` executes every workspace package that declares a build script (the @japp/extension WXT Manifest V3 build and the @japp/mock-ats-lab fixture build) and the turbo_task_count proof requires the executed task count to equal the declared implementer count, so an execution-level task drop fails the aggregate; the implementer inventory itself is pinned exactly (@japp/extension and @japp/mock-ats-lab) by scripts/tests/test_proofs_and_real_repo.py, so a manifest-level drop of a build script fails the python suite. Output stays under git-ignored dist/ trees; the browser suite additionally rebuilds the extension through the Playwright global setup so the e2e path never runs stale bytes. If apps/extension/wxt.config.ts ever disappears while M02-W07 remains started, this suite returns to REQUIRED_MISSING and pnpm verify fails."
+    },
+    {
       "id": "e2e-browser",
       "name": "Browser end-to-end tests (Playwright, pinned Chromium)",
       "owner": "M00-W03",

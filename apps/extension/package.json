@@ -2,5 +2,17 @@
   "name": "@japp/extension",
   "version": "0.0.1",
   "private": true,
-  "description": "Browser extension (WXT + React + TypeScript, Manifest V3 per spec §5.2). Workspace slot created in M00-W02; per spec v1.2 the real MV3 feasibility extension is scaffolded in M02-W07 and productionized in M17-W01, so this package intentionally has no code or scripts yet."
+  "description": "Browser extension (WXT + TypeScript, Manifest V3 per spec §5.2). M02-W07 scaffolds the real minimal MV3 feasibility substrate: one background service worker, one loopback-only feasibility content script, and one closed typed probe protocol, proven in bundled Playwright Chromium with a persistent context. No product UI, native host, database, model runtime, scanner, resolver, driver, fill, or submit capability exists; those arrive in M02-W08+ and productionization (including React UI) in M17.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "wxt prepare && tsc -p tsconfig.typecheck.json",
+    "build": "wxt build -b chrome",
+    "test": "vitest run --no-file-parallelism --maxWorkers=1"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "wxt": "0.20.27"
+  }
 }

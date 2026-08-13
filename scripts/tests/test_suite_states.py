@@ -147,7 +147,9 @@ def test_real_registry_loads_and_states_match_project_state(
     assert derived["visual"] is verify.SuiteState.NOT_YET_APPLICABLE
     active = {sid for sid, st in derived.items() if st is verify.SuiteState.ACTIVE}
     # contract-gen activated when M01-W02 began and its generator landed at
-    # scripts/generate-contracts.*; it stays ACTIVE for every later state.
+    # scripts/generate-contracts.*; build activated when M02-W07 began and
+    # apps/extension/wxt.config.ts landed; both stay ACTIVE for every later
+    # state.
     assert active == {
         "toolchain",
         "format",
@@ -158,6 +160,7 @@ def test_real_registry_loads_and_states_match_project_state(
         "fixture-corpus",
         "evaluation-corpus",
         "contract",
+        "build",
         "e2e-browser",
         "python",
         "rust",

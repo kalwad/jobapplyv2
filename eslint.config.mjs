@@ -14,6 +14,10 @@ export default tseslint.config(
       "**/node_modules/**",
       "**/dist/**",
       "**/.turbo/**",
+      // WXT generated prepare/type state (M02-W07): generator output, not
+      // lintable source; the tracked extension sources use explicit imports
+      // so linting never depends on this directory existing.
+      "**/.wxt/**",
       "**/coverage/**",
       ".venv/**",
       "services/native-host/target/**",

@@ -153,6 +153,11 @@ def doctor_repo(tmp_path: Path) -> Path:
     )
     evaluation_corpus_test.parent.mkdir(parents=True)
     evaluation_corpus_test.write_text("export {};\n", encoding="utf-8")
+    # The build suite discovers apps/extension/wxt.config.ts; a healthy
+    # fixture repo must carry it now that M02-W07 activated the suite.
+    extension_config = repo / "apps" / "extension" / "wxt.config.ts"
+    extension_config.parent.mkdir(parents=True)
+    extension_config.write_text("export {};\n", encoding="utf-8")
     for rel in (
         "validate_status.py",
         "traceability.py",

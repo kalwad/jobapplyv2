@@ -18,17 +18,25 @@ REQ-PLAT-025). Two rule families:
   ``shell=True``/``bash -c`` wrappers, no manual ``+ "/" +`` separator
   concatenation, no executable-permission-bit or chmod dependence outside
   the designated ``scripts/portability.py`` isolation module, no tracked
-  paths differing only by case, an LF-enforcing ``.gitattributes``, and no
-  Bash-only package.json scripts or registry commands.
+  paths differing only by case, an LF-enforcing ``.gitattributes``, no
+  Bash-only package.json scripts or registry commands, and (PORT-SRC-008,
+  since the first real TypeScript runtime surface landed in M02-W07;
+  KI-0006) no hard-coded POSIX system paths, Bash wrappers, or
+  ``shell: true`` spawns in TypeScript runtime sources.
 
 Scope control (spec M00-W09 §H): only executable policy surfaces are
 scanned — the workflow, runtime scripts (``scripts/*.py`` and
-``services/*/src/**/*.py``), package manifests, and the verification-suite
-registry. Documentation, prose, and ``scripts/tests`` fixtures are never
-scanned, string constants are read from the AST (comments and docstrings
-cannot false-positive), and this checker file itself is exempt from the
-literal scan because the banned fragments are its rule vocabulary. Every
-violation names the rule, the location, and the required fix.
+``services/*/src/**/*.py``), TypeScript runtime sources (extension
+entrypoints, package ``src``/``scripts``/``generator`` trees, per-app
+``scripts``, and root ``scripts/*.ts`` Node tools), package manifests, and
+the verification-suite registry. Documentation, prose, and
+``scripts/tests`` fixtures are never scanned; Python string constants are
+read from the AST (comments and docstrings cannot false-positive) while
+the TypeScript scan is
+deliberately text-level (stricter: comments cannot smuggle guidance toward
+banned constructs); this checker file itself is exempt from the literal
+scan because the banned fragments are its rule vocabulary. Every violation
+names the rule, the location, and the required fix.
 
 Exit codes: 0 = compliant, 1 = at least one violation, 2 = usage/internal
 error (including an unreadable workflow). Requires PyYAML — run through
@@ -183,6 +191,24 @@ REGISTRY_ARGV0_ALLOWLIST = frozenset({"pnpm", "uv", "cargo", "python3", "git", "
 # documented as such. Empty today: macOS-only remediation text lives under
 # /opt (not a banned prefix) and all runtime paths go through pathlib.
 AST_LITERAL_ALLOWLIST: frozenset[tuple[str, str]] = frozenset()
+
+# TypeScript runtime sources (PORT-SRC-008, added with M02-W07 per KI-0006:
+# the first real TS runtime surface must carry an ecosystem source rule).
+# Extension entrypoints/runtime modules, workspace-package runtime sources,
+# and Node-executed TypeScript tool scripts (root scripts/*.ts, per-package
+# scripts/, and generator sources) are scanned; test suites, fixture site
+# pages, and generated output (dist/, .wxt/) live outside these globs by
+# construction.
+TS_RUNTIME_SOURCE_GLOBS = (
+    "apps/*/entrypoints/**/*.ts",
+    "apps/*/scripts/**/*.ts",
+    "apps/*/src/**/*.ts",
+    "packages/*/generator/**/*.ts",
+    "packages/*/scripts/**/*.ts",
+    "packages/*/src/**/*.ts",
+    "scripts/*.ts",
+)
+TS_SHELL_TRUE_FRAGMENTS = ("shell: true", "shell:true")
 
 
 @dataclass(frozen=True)
@@ -1205,6 +1231,62 @@ def _check_runtime_script(repo: Path, path: Path, violations: list[Violation]) -
             break
 
 
+def _ts_runtime_sources(repo: Path) -> list[Path]:
+    files: set[Path] = set()
+    for pattern in TS_RUNTIME_SOURCE_GLOBS:
+        files.update(path for path in repo.glob(pattern) if path.is_file())
+    return sorted(files)
+
+
+def _check_ts_runtime_source(
+    repo: Path, path: Path, violations: list[Violation]
+) -> None:
+    """PORT-SRC-008: TypeScript runtime sources stay platform-neutral.
+
+    Deliberately text-level (comments included): TypeScript has no stdlib
+    AST available here, and runtime TS must not reference POSIX system
+    paths, Bash wrappers, or ``shell: true`` spawns even in guidance text.
+    """
+
+    rel = path.relative_to(repo).as_posix()
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for line_number, line in enumerate(lines, start=1):
+        banned_path = BANNED_POSIX_PATH_RE.search(line)
+        if banned_path is not None:
+            violations.append(
+                Violation(
+                    "PORT-SRC-008",
+                    f"{rel}:{line_number}",
+                    f"hard-coded POSIX system path {banned_path.group()!r} "
+                    "in TypeScript runtime source; use node:os tmpdir() and "
+                    "node:path joins or isolate it in a platform-specific "
+                    "module with a tested per-platform equivalent",
+                )
+            )
+        for fragment in BANNED_SHELL_WRAPPER_FRAGMENTS:
+            if fragment in line:
+                violations.append(
+                    Violation(
+                        "PORT-SRC-008",
+                        f"{rel}:{line_number}",
+                        f"Bash-only wrapper literal {fragment!r} in "
+                        "TypeScript runtime source",
+                    )
+                )
+        for fragment in TS_SHELL_TRUE_FRAGMENTS:
+            if fragment in line:
+                violations.append(
+                    Violation(
+                        "PORT-SRC-008",
+                        f"{rel}:{line_number}",
+                        "child-process shell mode masks failures and "
+                        "assumes a host shell; use argv arrays with "
+                        "spawnSync/execFileSync",
+                    )
+                )
+                break
+
+
 def _check_case_collisions(repo: Path, violations: list[Violation]) -> None:
     proc = subprocess.run(
         ("git", "ls-files"),
@@ -1384,6 +1466,8 @@ def run_checks(repo: Path) -> list[Violation]:
 
     for script in _runtime_scripts(repo):
         _check_runtime_script(repo, script, violations)
+    for source in _ts_runtime_sources(repo):
+        _check_ts_runtime_source(repo, source, violations)
     _check_case_collisions(repo, violations)
     _check_gitattributes(repo, violations)
     _check_package_scripts(repo, violations)

@@ -138,6 +138,20 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/evaluation-baselines/data/legacy-observations.v1.json",
         "packages/evaluation-baselines/test/m02-w04/legacy-observation.test.ts",
         "packages/evaluation-baselines/test/m02-w04/mutations.test.ts",
+        # M02-W07 REQ-FORM-020 completed-path anchors (real MV3 feasibility
+        # substrate: WXT config, entrypoints, closed probe protocol, and the
+        # real-extension Playwright harness with its fail-closed tests).
+        "apps/extension/wxt.config.ts",
+        "apps/extension/entrypoints/background.ts",
+        "apps/extension/entrypoints/feasibility.content.ts",
+        "apps/extension/src/feasibility-protocol.ts",
+        "apps/extension/test/m02-w07/feasibility-protocol.test.ts",
+        "apps/extension/test/m02-w07/built-manifest.test.ts",
+        "e2e/extension/support/global-setup.ts",
+        "e2e/extension/support/extension-test.ts",
+        "e2e/extension/extension-substrate.spec.ts",
+        "e2e/extension/extension-probe.spec.ts",
+        "e2e/extension/extension-inert.spec.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

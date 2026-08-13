@@ -3,6 +3,7 @@
   "globalDependencies": ["tsconfig.base.json"],
   "tasks": {
     "typecheck": {},
-    "test": {}
+    "test": {},
+    "build": {}
   }
 }

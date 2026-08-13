@@ -101,9 +101,14 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # no holdout execution, independent gate decision, package acceptance, or
 # cross-milestone completion exists; ownership, implementation/verification
 # states, evidence paths, gate effects, dependencies, and all gate states
-# remain unchanged.
+# remain unchanged. M02-W07 then recorded the real MV3 feasibility-substrate
+# portion of REQ-FORM-020 (state SCAFFOLD_ONLY plus evidence anchor, the
+# WXT-config/entrypoint/protocol/Playwright-harness code paths, the
+# protocol/built-manifest unit-test and real-browser E2E test paths, and
+# honest notes naming the M02-W08+ and M17-W06 remainder — no ownership,
+# mapping, gate effect, or dependency changed) and re-locked the hash below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "0937bcc3e2626527094f6a9983e68380c64ac46b65d161162bfae7411a02ab5d"
+    "828cc6d7296043074919c2a2dcf0db710d322d4895fc0e096a6cf6db1965e550"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

@@ -2427,7 +2427,7 @@ validator exception or weakening was introduced.
 ### KI-0001 — No JS/TS `build` task exists in the M00-W02 scaffold (deliberate deferral)
 
 - Severity: LOW
-- State: DEFERRED
+- State: FIXED
 - Discovered: 2026-07-26 during M00-W02
 - Affects: M00-W02 (scaffold); resolved by the first real build targets —
   under spec v1.2 (adopted in M00-W05) that is M02-W07 (real MV3 feasibility
@@ -2446,9 +2446,20 @@ validator exception or weakening was introduced.
   and M00-W04's aggregate `pnpm verify` must fail on skipped mandatory
   suites.
 - Reproduction: `turbo run build` — no such task is defined (by design, this
-  errors rather than passing vacuously).
+  errors rather than passing vacuously). No longer reproducible after
+  M02-W07.
 - Workaround: n/a (nothing exists to build yet).
-- Resolution + evidence link: pending the packages above.
+- Resolution + evidence link: M02-W07 landed the first real JS/TS build
+  target, closing the deferral non-vacuously: `turbo.json` defines the
+  `build` task, `@japp/extension` implements it with the real WXT Manifest
+  V3 build (and `@japp/mock-ats-lab` already declared a real `build`
+  script), and the new ACTIVE `build` verification suite runs
+  `pnpm exec turbo run build --force` inside `pnpm verify` with a
+  `turbo_task_count` proof so a dropped or vacuous build target fails the
+  aggregate. The Playwright global setup additionally rebuilds the
+  extension before every browser run. Evidence:
+  docs/TEST_EVIDENCE.md § M02-W07. The M03-W01 desktop shell later adds its
+  own build implementer to the same task without changing these semantics.
 
 ### KI-0002 — scripts/validate_status.py predates the strict Python gates (fixed in M00-W05)
 
@@ -2531,9 +2542,21 @@ validator exception or weakening was introduced.
   corresponding ecosystem rule or lint coverage before verification.
 - Reproduction: n/a (scope boundary, not a defect).
 - Workaround: n/a.
-- Resolution + evidence link: pending those first packages that add real
-  TypeScript or Rust runtime logic; no vacuous source scan is added during
-  M00-W10.
+- Resolution + evidence link: the TypeScript half is resolved by M02-W07,
+  which introduced the first real TS runtime surface and, with it,
+  PORT-SRC-008: a text-level scan of `apps/*/entrypoints/**/*.ts`,
+  `apps/*/scripts/**/*.ts`, `apps/*/src/**/*.ts`,
+  `packages/*/generator/**/*.ts`, `packages/*/scripts/**/*.ts`,
+  `packages/*/src/**/*.ts`, and root `scripts/*.ts` Node tools for
+  hard-coded POSIX system paths, Bash wrapper literals, and `shell: true`
+  child-process spawns, with negative and positive coverage in
+  scripts/tests/test_portability.py (evidence:
+  docs/TEST_EVIDENCE.md § M02-W07). Test suites and fixture site pages
+  stay outside the scan by design, mirroring the Python scope. The entry
+  stays DEFERRED for the Rust half only: M17-W04 and M17-W07…W10 must add
+  the equivalent Rust/native source rule (or clippy lint coverage) when
+  the first real Rust runtime logic beyond the current crate skeleton
+  lands.
 
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 

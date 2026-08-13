@@ -50,8 +50,15 @@ claim).
 
 ## Browsers (extension)
 
-Nothing measured yet (feasibility extension: M02-W07 in pinned Playwright
-Chromium; production extension foundation: M17).
+Nothing measured yet as a support claim (production extension foundation:
+M17). M02-W07 produced feasibility research evidence only: the minimal
+built Manifest V3 extension loads in bundled Playwright Chromium (pinned
+Playwright 1.62.0) through a persistent context with the actual service
+worker and a loopback-only content-script probe against the synthetic mock
+ATS fixture (docs/TEST_EVIDENCE.md § M02-W07). That is research (non-claim)
+evidence — not Chrome Web Store distribution, not general ATS support, and
+not production autofill support — and it adds no browser row; rows begin
+with M03/M17 measured evidence per the population rule above.
 
 | Browser | Version range | Extension status | Last verified revision | Evidence |
 |---|---|---|---|---|

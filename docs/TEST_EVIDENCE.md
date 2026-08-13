@@ -33,6 +33,181 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — Scaffold the real MV3 feasibility extension (2026-08-12)
+
+- Revision: implementation writer pass on top of the M02-W06 governance
+  closeout commit `e884917a2f82c392e99d340018c6da6919641bf0` / tree
+  `0ca9a10fed3ecf0760c79571dda8382d4f4fcd53`; the exact content commit hash
+  is recorded by the commit itself (an evidence edit cannot contain its own
+  hash). Canonical JAPP-MASTER-001 v1.4 remained SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.14.4 host interpreter for `python3` entrypoints with
+  the pinned uv-managed project environment, Cargo/rustc 1.97.1,
+  Playwright 1.62.0 with pinned bundled Chromium, WXT 0.20.27 (exact).
+- Implementation boundary: the empty `apps/extension` M00-W02 slot became
+  the real minimal WXT Manifest V3 feasibility substrate — one background
+  service-worker entrypoint publishing a fixed runtime identity marker, one
+  loopback-only content script bounded to `http://127.0.0.1:4761/*`, and
+  one closed typed probe protocol
+  (`M02_W07_PROBE` -> `M02_W07_ACK`, strict finite validation, extra
+  members rejected, marker
+  `data-japp-m02-w07-extension-ready="true"` set only after a valid ACK
+  from the real service worker). No product UI, popup, side panel, options
+  page, devtools page, native host, database, model runtime, profile
+  access, scanner, ontology/resolver, control driver, MutationObserver
+  engine, ATS-specific behavior, fill, navigation, or submission capability
+  exists; W08–W11 own those surfaces and M17 owns productionization.
+- Generated-manifest checks: WXT generates the manifest from
+  `wxt.config.ts` plus the two entrypoints (never hand-authored);
+  `apps/extension/test/m02-w07/built-manifest.test.ts` runs the real WXT
+  build and fails closed unless the output is exactly
+  `manifest_version: 3`, the six-member top-level allowlist
+  (`background`/`content_scripts`/`description`/`manifest_version`/`name`/`version`),
+  a real `background.service_worker` file, exactly one content script with
+  matches exactly `["http://127.0.0.1:4761/*"]`, no
+  permissions/host_permissions/optional permissions, no
+  action/options/side-panel/devtools/page surfaces, no
+  externally_connectable, no web_accessible_resources, no broad host
+  pattern, and no submission-authority code token (`.submit(`,
+  `requestSubmit`, `.click(`, `AUTO_SUBMIT`, `credential`, `captcha`) in
+  runtime sources or shipped bytes.
+- Real-browser proofs (`e2e/extension/`, three spec files, ten tests, run
+  by the canonical root `playwright test` command which builds the
+  extension through `e2e/extension/support/global-setup.ts` first;
+  `--list` performs no build): each test launches a fresh
+  `chromium.launchPersistentContext` (channel `chromium`, fresh
+  `mkdtemp` system-temp profile, `--disable-extensions-except` /
+  `--load-extension` of the built `apps/extension/dist/chrome-mv3`), and
+  the shared fixture removes the profile with bounded Windows-safe retries
+  (including on launch failure) and fails any test whose context issues an
+  observed non-loopback request (loopback lab origin plus
+  about:/blob:/chrome:/chrome-extension:/data: only). Runtime request
+  observation cannot see the browser-launch window or non-HTTP channels,
+  so the deterministic isolation guarantee is the static egress-token scan
+  (`fetch(`, `XMLHttpRequest`, `WebSocket`, `sendBeacon`, `EventSource`,
+  `RTCPeerConnection`, …) over runtime sources and shipped bytes in the
+  built-manifest suite; the shipped W07 bytes contain no egress primitive
+  at all. WXT's default page-world `content-script-started` postMessage
+  broadcast is suppressed (`noScriptStartedPostMessage: true`) and the
+  inertness proof's page-world message collector asserts no such broadcast
+  is observable; WXT's internal injection CustomEvent on `document`
+  (content-script name plus injection id) is the one reviewed non-marker
+  page-observable artifact. Proven: (A) a real `chrome-extension://<id>/background.js`
+  service worker exists for the loaded build (extension ID derived from
+  the worker URL, never hard-coded); (B) the worker is the W07 runtime —
+  its global `__JAPP_M02_W07_BACKGROUND__` identity equals the protocol
+  constants, and `chrome.runtime.getManifest()` inside the running browser
+  is genuine MV3 with the reviewed minimal boundary; (C) the real content
+  script establishes the probe round-trip and sets the namespaced marker,
+  while the same lab page in a no-extension context never carries the
+  marker (the marker is extension evidence, not page JavaScript); (D) the
+  extension is inert — on `/native/` every control value/checked state,
+  the hidden honeypot, and the status line are byte-identical before and
+  after activation and reload, and on `/apply/step-1/` no navigation
+  occurs and no receipt/flow receipt state is created; (E) the content
+  script does not execute on a non-matching document (`about:blank`);
+  (F) a reload re-establishes the probe through the real extension
+  runtime.
+- Package unit tests: `apps/extension/test/m02-w07/` — 40 Vitest tests
+  (closed-protocol adversarial cases: null/undefined/array/extra-member/
+  unknown-kind/cross-kind/malformed-version probes and ACKs, foreign
+  runtime marker, canonical round-trips; plus the generated-manifest and
+  no-submission-authority suite above).
+- Verification-surface updates in this package: the `build` suite joined
+  `scripts/verification-suites.json` (ACTIVE once M02-W07 began;
+  `pnpm exec turbo run build --force` with a `turbo_task_count` proof over
+  the two real build implementers), closing KI-0001 non-vacuously;
+  `turbo.json` gained the `build` task; PORT-SRC-008 (KI-0006 TypeScript
+  half) joined `scripts/check_portability.py` with four new tests in
+  `scripts/tests/test_portability.py`; the reviewed-lockfile oracle in
+  `scripts/tests/test_v14_migration.py` was re-reviewed for the exact WXT
+  0.20.27 addition (new `apps/extension` importer, jiti peer-resolution
+  keys, re-locked digest); `scripts/python-test-inventory.v1.json` moved
+  to 989 common + 2 POSIX-only node IDs; and repository-inventory pins
+  (14 workspace packages with test/typecheck scripts, ACTIVE suite set
+  including `build`, doctor healthy-fixture artifact) were updated in
+  `scripts/tests/`.
+- Commands and observed results (each run and inspected in the current
+  repository state):
+  - `pnpm install --frozen-lockfile` -> exit 0 (spawn-sync lifecycle
+    script deliberately not executed; decision recorded in
+    pnpm-workspace.yaml `allowBuilds`).
+  - `uv sync --locked` -> exit 0; `cargo fetch --locked` (native-host and
+    rust-harness manifests) -> exit 0.
+  - `pnpm --filter @japp/extension typecheck` -> exit 0 (wxt prepare +
+    tsc against tsconfig.typecheck.json; repository strictness inherited
+    unchanged, skipLibCheck stays false).
+  - `pnpm --filter @japp/extension test` -> exit 0, 40/40 (2 files).
+  - `pnpm --filter @japp/extension build` -> exit 0, WXT chrome-mv3
+    output 5.96 kB (manifest.json, background.js,
+    content-scripts/feasibility.js).
+  - `pnpm exec playwright test --list` -> exit 0, `Total: 69 tests in 20
+    files`, with no build side effect (dist absent before and after).
+  - `pnpm exec playwright test` -> exit 0, 69/69 passed (59 preserved
+    browser tests plus the 10 new real-extension tests) against the real
+    built extension in bundled Chromium persistent contexts.
+  - `pnpm --filter @japp/evaluation-corpus test` -> exit 0, 207/207
+    (M02-W06 regression preserved).
+  - `pnpm exec turbo run build --force` -> exit 0, `Tasks: 2 successful,
+    2 total` (@japp/extension WXT build + @japp/mock-ats-lab build).
+  - `uv run python scripts/check_portability.py --quiet` -> exit 0 (PASS
+    including the new PORT-SRC-008 TypeScript runtime scan).
+  - `python3 scripts/validate_status.py` -> exit 0, PASS (45 check
+    groups).
+  - `pnpm traceability:check` -> exit 0, PASS (193 requirements / 300
+    packages) after the REQ-FORM-020 SCAFFOLD_ONLY re-lock.
+  - `pnpm generate:contracts --check` -> exit 0, generated contracts up
+    to date (183 files, byte-identical).
+  - `pnpm run doctor` -> exit 0, 24 pass / 1 expected dirty-writer-tree
+    warning / 0 fail / 1 visual NOT_YET_APPLICABLE.
+  - `pnpm verify` -> exit 0, all 17 ACTIVE suites PASS (toolchain,
+    format, lint, typecheck, unit-ts, contract-gen, fixture-corpus,
+    evaluation-corpus, contract, build, e2e-browser, python, rust,
+    portability, traceability, status, integrity), 3,353 TypeScript
+    tests, Playwright 69/69, canonical Python inventory 991 POSIX / 989
+    common-and-Windows, Rust 1+10, contracts 2440 / focused 662 /
+    generated 183 byte-identical, visual truthfully NOT_YET_APPLICABLE.
+  - Second full verification pass (`python3 scripts/validate_status.py`,
+    `pnpm traceability:check`, `pnpm generate:contracts --check`,
+    `pnpm run doctor`, `pnpm verify`, `git diff --check`) -> all exit 0
+    with identical totals and byte-identical tracked content
+    (`git status --porcelain` unchanged; generated `.wxt/` and `dist/`
+    state remained ignored and caused no drift).
+- Test counts: extension unit 40/40; Playwright 69/69 (20 files); W06
+  regression 207/207; portability pytest 95/95 within canonical Python
+  991 POSIX / 989 common; no skipped, focused, todo, xfail, xpass,
+  deselected, or rerun outcomes anywhere.
+- Artifacts: git-ignored `apps/extension/dist/chrome-mv3/` (rebuilt by
+  every unit/e2e/build-suite run) and `apps/extension/.wxt/` (generated
+  types); no tracked build output, no screenshots/traces retained (all
+  tests passed).
+- Manual/UI validation performed: inspected the generated
+  `dist/chrome-mv3/manifest.json` byte content directly (six top-level
+  members, single loopback content-script match, no permissions) and
+  observed the real service worker, probe round-trip, readiness marker,
+  and untouched `/native/` form through the Playwright-driven bundled
+  Chromium runs recorded above.
+- Security/privacy impact: the extension has zero permissions, zero
+  network egress (its context is failed by the harness on any
+  non-loopback request), a single loopback-only content-script match, a
+  closed strictly-validated message protocol (untrusted content-script
+  input rejected without response, spec §5.4), no credential, CAPTCHA,
+  MFA, or submission surface, and no data collection or storage of any
+  kind.
+- Known limitations: this is feasibility research evidence, not product
+  support — no Chrome Web Store distribution, no general ATS support, no
+  production autofill capability, and no Gate A evaluation. REQ-FORM-020
+  is SCAFFOLD_ONLY: the production-scale test surface (field engine,
+  drivers, ATS matrix, rerender/recovery/performance negatives, gate
+  benchmark) belongs to M02-W08+ and M17-W06. The probe retry bound
+  (3 × 200 ms) covers service-worker startup races only. Hosted three-OS
+  proof of the exact content SHA did not exist when this entry was
+  written: it is produced by the push-triggered CI run after the content
+  commit and is recorded in the writer's completion handoff, not here.
+  M02-W07 remains IN_PROGRESS pending a completely fresh independent
+  verifier.
+
 ### M02-W06 — Governance closeout after final independent Sol verification (2026-08-12)
 
 - Accepted content boundary: exact commit

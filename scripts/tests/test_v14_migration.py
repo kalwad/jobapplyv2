@@ -417,6 +417,10 @@ M02_W02_VERIFIED_COMMIT = "0c52cab5987a6497e28db5a30186c82a053c88aa"
 # Reviewed M02-W03 delta: the mock ATS lab importer with its exact pinned
 # test-only dependencies (spec §8.2; the lab is built by M02-W03). The
 # current-lockfile digest below fails closed on any unreviewed drift.
+# Reviewed M02-W07 refresh: adding wxt to apps/extension brought jiti (an
+# eslint peer of wxt) into the graph, so pnpm's peer-resolution keys for
+# vite/vitest now carry a (jiti@2.7.0) component; every dependency version
+# is unchanged.
 REVIEWED_MOCK_ATS_LAB_IMPORTER = (
     b"""  apps/mock-ats-lab:
     dependencies:
@@ -444,11 +448,33 @@ REVIEWED_MOCK_ATS_LAB_IMPORTER = (
         version: 6.0.3
       vite:
         specifier: 7.3.6
-        version: 7.3.6(@types/node@24.13.3)(lightningcss@1.33.0)
+        version: 7.3.6(@types/node@24.13.3)(jiti@2.7.0)(lightningcss@1.33.0)
       vitest:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)"""
-    b"(vite@7.3.6(@types/node@24.13.3)(lightningcss@1.33.0))\n"
+    b"(vite@7.3.6(@types/node@24.13.3)(jiti@2.7.0)(lightningcss@1.33.0))\n"
+)
+# Reviewed M02-W07 delta: the real feasibility-extension importer — exactly
+# the catalog-pinned dev tooling plus the single exact-pinned wxt build
+# framework (spec §5.2 stack lock; no React until a UI surface exists in
+# M17, no runtime dependency, no product capability).
+REVIEWED_EXTENSION_IMPORTER = (
+    b"""  apps/extension:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)"""
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.27.7)(jiti@2.7.0))\n"
+    b"""      wxt:
+        specifier: 0.20.27
+        version: 0.20.27(@types/node@24.13.3)(eslint@10.8.0(jiti@2.7.0))"""
+    b"(jiti@2.7.0)(lightningcss@1.33.0)(rolldown@1.1.5)(rollup@4.62.4)\n"
 )
 # Reviewed M02-W04 delta: the evaluation-baselines importer with only the
 # workspace fixture link and catalog-pinned dev tooling (spec §8.4; the
@@ -469,7 +495,7 @@ REVIEWED_EVALUATION_BASELINES_IMPORTER = (
       vitest:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)"""
-    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
 # Reviewed M02-W06 delta: runtime ownership is limited to stable contracts;
 # W04/W05 evaluation packages are explicit development-only links. No new
@@ -496,7 +522,7 @@ REVIEWED_EVALUATION_CORPUS_IMPORTER = (
       vitest:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)"""
-    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
 # Reviewed M02-W05 delta: runtime ownership is limited to stable contracts;
 # W04 baselines and W01/W02 fixtures are explicit development-only links.
@@ -522,10 +548,10 @@ REVIEWED_EVALUATION_RUNNER_IMPORTER = (
       vitest:
         specifier: 'catalog:'
         version: 4.1.10(@types/node@24.13.3)"""
-    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1))\n"
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
 REVIEWED_PNPM_LOCK_SHA256 = (
-    "5f00162b69b2757a08c51764de6cd84b56f75c7996537d9d28e948d0a6f5d7e0"
+    "3a735d5f344214abee2eda1142a1cbc63e3f1ce5ae0787b79eeba9295afc4c4c"
 )
 
 
@@ -585,6 +611,8 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     )
     assert current_pnpm.count(REVIEWED_MOCK_ATS_LAB_IMPORTER) == 1
     assert current_pnpm.count(b"  apps/mock-ats-lab:") == 1
+    assert current_pnpm.count(REVIEWED_EXTENSION_IMPORTER) == 1
+    assert current_pnpm.count(b"  apps/extension:") == 1
     assert current_pnpm.count(REVIEWED_EVALUATION_BASELINES_IMPORTER) == 1
     assert current_pnpm.count(b"  packages/evaluation-baselines:") == 1
     assert current_pnpm.count(REVIEWED_EVALUATION_CORPUS_IMPORTER) == 1

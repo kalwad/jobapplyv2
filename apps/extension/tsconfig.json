@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Entrypoints execute inside the pinned Chromium (service worker and
+    // content script), so the DOM lib is semantically required here; node
+    // types stay available for the Vitest build/manifest suite. Browser
+    // typing stays scoped to this package (workspace packages remain
+    // DOM-free).
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    // This package is built by a bundler (WXT/Vite), so bundler-style
+    // module resolution is the semantically correct scoped setting; WXT's
+    // published type surface targets it. Every repository strictness flag
+    // (strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes,
+    // skipLibCheck:false, isolatedModules, verbatimModuleSyntax) is
+    // inherited unchanged from tsconfig.base.json.
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    "entrypoints/**/*.ts",
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "wxt.config.ts"
+  ]
+}

@@ -17,6 +17,10 @@ dist/
 .turbo/
 coverage/
 
+# WXT generated prepare/type state for apps/extension (M02-W07); build
+# output itself goes to the already-ignored dist/ convention
+.wxt/
+
 # Rust (scoped per crate)
 services/native-host/target/
 packages/contracts/test/contract/rust-harness/target/

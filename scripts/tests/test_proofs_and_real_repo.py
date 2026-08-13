@@ -33,26 +33,34 @@ def test_workspace_package_enumeration_matches_scaffold() -> None:
     ctx = _ctx()
     with_test = verify.workspace_packages_with_script(ctx, "test")
     with_typecheck = verify.workspace_packages_with_script(ctx, "typecheck")
-    assert len(with_test) == 13
-    assert len(with_typecheck) == 13
+    with_build = verify.workspace_packages_with_script(ctx, "build")
+    # 14 since M02-W07 turned the apps/extension slot into a real package
+    # with test/typecheck (and build) scripts.
+    assert len(with_test) == 14
+    assert len(with_typecheck) == 14
     assert all(name.startswith("@japp/") for name in with_test)
+    # The build-implementer inventory is pinned exactly: turbo_task_count
+    # derives its expected count from these same manifests, so a
+    # manifest-level drop of a build script must fail here rather than
+    # silently shrinking the build suite's expectation (KI-0001).
+    assert sorted(with_build) == ["@japp/extension", "@japp/mock-ats-lab"]
 
 
 def test_turbo_task_count_proof_detects_dropped_tasks() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="turbo_task_count", script="test")
-    good = "Tasks:    13 successful, 13 total"
-    bad = "Tasks:    12 successful, 12 total"
+    good = "Tasks:    14 successful, 14 total"
+    bad = "Tasks:    13 successful, 13 total"
     assert verify.check_proof(ctx, _suite_stub(), proof, good) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, bad)
     assert failure is not None
-    assert "13 workspace packages" in failure
+    assert "14 workspace packages" in failure
 
 
 def test_vitest_per_package_proof_requires_fresh_counts() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="vitest_per_package", script="test")
-    fresh = "\n".join(["Tests  1 passed (1)"] * 13)
+    fresh = "\n".join(["Tests  1 passed (1)"] * 14)
     cached = "\n".join(["Tests  1 passed (1)"] * 3)
     assert verify.check_proof(ctx, _suite_stub(), proof, fresh) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, cached)
