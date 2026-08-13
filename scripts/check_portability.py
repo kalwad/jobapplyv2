@@ -30,13 +30,13 @@ scanned — the workflow, runtime scripts (``scripts/*.py`` and
 entrypoints, package ``src``/``scripts``/``generator`` trees, per-app
 ``scripts``, and root ``scripts/*.ts`` Node tools), package manifests, and
 the verification-suite registry. Documentation, prose, and
-``scripts/tests`` fixtures are never scanned; Python string constants are
-read from the AST (comments and docstrings cannot false-positive) while
-the TypeScript scan is
-deliberately text-level (stricter: comments cannot smuggle guidance toward
-banned constructs); this checker file itself is exempt from the literal
-scan because the banned fragments are its rule vocabulary. Every violation
-names the rule, the location, and the required fix.
+``scripts/tests`` fixtures are never scanned. Python and TypeScript-family
+runtime files are parsed through their ecosystem ASTs, so comments,
+documentation-only string statements, type-only declarations, and innocent
+strings cannot create literal-search false positives. This checker file is
+outside the runtime globs because the banned fragments are its rule
+vocabulary. Every violation names the rule, the location, and the required
+fix.
 
 Exit codes: 0 = compliant, 1 = at least one violation, 2 = usage/internal
 error (including an unreadable workflow). Requires PyYAML — run through
@@ -70,6 +70,9 @@ WORKFLOW_REL = ".github/workflows/ci.yml"
 REGISTRY_REL = "scripts/verification-suites.json"
 CHECKER_REL = "scripts/check_portability.py"
 PORTABILITY_MODULE_REL = "scripts/portability.py"
+TYPESCRIPT_PORTABILITY_HELPER = Path(__file__).with_name(
+    "check_typescript_portability.mjs"
+)
 
 REQUIRED_RUNNERS = ("macos-15", "windows-2025", "ubuntu-24.04")
 MATRIX_RUNS_ON = "${{ matrix.os }}"
@@ -198,17 +201,20 @@ AST_LITERAL_ALLOWLIST: frozenset[tuple[str, str]] = frozenset()
 # and Node-executed TypeScript tool scripts (root scripts/*.ts, per-package
 # scripts/, and generator sources) are scanned; test suites, fixture site
 # pages, and generated output (dist/, .wxt/) live outside these globs by
-# construction.
+# construction. TypeScript, TSX, and the Node ESM/CommonJS-specific TypeScript
+# extensions are all executable implementation formats in the pinned compiler;
+# declaration files are intentionally excluded because they carry no runtime.
 TS_RUNTIME_SOURCE_GLOBS = (
-    "apps/*/entrypoints/**/*.ts",
-    "apps/*/scripts/**/*.ts",
-    "apps/*/src/**/*.ts",
-    "packages/*/generator/**/*.ts",
-    "packages/*/scripts/**/*.ts",
-    "packages/*/src/**/*.ts",
-    "scripts/*.ts",
+    "apps/*/entrypoints/**/*",
+    "apps/*/scripts/**/*",
+    "apps/*/src/**/*",
+    "packages/*/generator/**/*",
+    "packages/*/scripts/**/*",
+    "packages/*/src/**/*",
+    "scripts/*",
 )
-TS_SHELL_TRUE_FRAGMENTS = ("shell: true", "shell:true")
+TS_RUNTIME_SOURCE_SUFFIXES = frozenset({".ts", ".tsx", ".mts", ".cts"})
+TS_DECLARATION_SUFFIXES = (".d.ts", ".d.mts", ".d.cts")
 
 
 @dataclass(frozen=True)
@@ -1234,57 +1240,96 @@ def _check_runtime_script(repo: Path, path: Path, violations: list[Violation]) -
 def _ts_runtime_sources(repo: Path) -> list[Path]:
     files: set[Path] = set()
     for pattern in TS_RUNTIME_SOURCE_GLOBS:
-        files.update(path for path in repo.glob(pattern) if path.is_file())
+        files.update(
+            path
+            for path in repo.glob(pattern)
+            if path.is_file()
+            and path.suffix.lower() in TS_RUNTIME_SOURCE_SUFFIXES
+            and not path.name.lower().endswith(TS_DECLARATION_SUFFIXES)
+        )
     return sorted(files)
 
 
-def _check_ts_runtime_source(
-    repo: Path, path: Path, violations: list[Violation]
+def _check_ts_runtime_sources(
+    repo: Path, paths: list[Path], violations: list[Violation]
 ) -> None:
-    """PORT-SRC-008: TypeScript runtime sources stay platform-neutral.
+    """PORT-SRC-008: inspect executable TypeScript syntax, not raw text."""
 
-    Deliberately text-level (comments included): TypeScript has no stdlib
-    AST available here, and runtime TS must not reference POSIX system
-    paths, Bash wrappers, or ``shell: true`` spawns even in guidance text.
-    """
-
-    rel = path.relative_to(repo).as_posix()
-    lines = path.read_text(encoding="utf-8").splitlines()
-    for line_number, line in enumerate(lines, start=1):
-        banned_path = BANNED_POSIX_PATH_RE.search(line)
-        if banned_path is not None:
-            violations.append(
-                Violation(
-                    "PORT-SRC-008",
-                    f"{rel}:{line_number}",
-                    f"hard-coded POSIX system path {banned_path.group()!r} "
-                    "in TypeScript runtime source; use node:os tmpdir() and "
-                    "node:path joins or isolate it in a platform-specific "
-                    "module with a tested per-platform equivalent",
-                )
+    if not paths:
+        return
+    if not TYPESCRIPT_PORTABILITY_HELPER.is_file():
+        raise PolicyError(
+            "TypeScript portability parser missing: "
+            f"{TYPESCRIPT_PORTABILITY_HELPER.name}"
+        )
+    relative_paths = [path.relative_to(repo).as_posix() for path in paths]
+    try:
+        proc = subprocess.run(
+            ("node", str(TYPESCRIPT_PORTABILITY_HELPER)),
+            cwd=repo,
+            input=json.dumps(relative_paths),
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise PolicyError(
+            f"TypeScript portability parser could not run: {exc}"
+        ) from exc
+    if proc.returncode != 0:
+        parser_output = (proc.stderr or proc.stdout).strip()
+        raise PolicyError(
+            "TypeScript portability parser failed"
+            + (f": {parser_output}" if parser_output else " without diagnostics")
+        )
+    try:
+        findings = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        raise PolicyError(
+            "TypeScript portability parser returned invalid JSON"
+        ) from exc
+    if not isinstance(findings, list):
+        raise PolicyError("TypeScript portability parser returned a non-list result")
+    allowed_paths = set(relative_paths)
+    for finding in findings:
+        if not isinstance(finding, dict):
+            raise PolicyError(
+                "TypeScript portability parser returned a malformed finding"
             )
-        for fragment in BANNED_SHELL_WRAPPER_FRAGMENTS:
-            if fragment in line:
-                violations.append(
-                    Violation(
-                        "PORT-SRC-008",
-                        f"{rel}:{line_number}",
-                        f"Bash-only wrapper literal {fragment!r} in "
-                        "TypeScript runtime source",
-                    )
-                )
-        for fragment in TS_SHELL_TRUE_FRAGMENTS:
-            if fragment in line:
-                violations.append(
-                    Violation(
-                        "PORT-SRC-008",
-                        f"{rel}:{line_number}",
-                        "child-process shell mode masks failures and "
-                        "assumes a host shell; use argv arrays with "
-                        "spawnSync/execFileSync",
-                    )
-                )
-                break
+        rel = finding.get("path")
+        line = finding.get("line")
+        kind = finding.get("kind")
+        finding_detail = finding.get("detail")
+        if (
+            not isinstance(rel, str)
+            or rel not in allowed_paths
+            or not isinstance(line, int)
+            or line < 1
+            or kind not in {"posix-path", "shell-wrapper", "shell-true"}
+            or not isinstance(finding_detail, str)
+        ):
+            raise PolicyError(
+                "TypeScript portability parser returned a malformed finding"
+            )
+        if kind == "posix-path":
+            message = (
+                f"hard-coded POSIX system path {finding_detail!r} in TypeScript "
+                "runtime source; use node:os tmpdir() and node:path joins "
+                "or isolate it in a platform-specific module with a tested "
+                "per-platform equivalent"
+            )
+        elif kind == "shell-wrapper":
+            message = (
+                f"Bash-only wrapper literal {finding_detail!r} in "
+                "TypeScript runtime source"
+            )
+        else:
+            message = (
+                "child-process shell mode masks failures and assumes a host "
+                "shell; use argv arrays with spawnSync/execFileSync"
+            )
+        violations.append(Violation("PORT-SRC-008", f"{rel}:{line}", message))
 
 
 def _check_case_collisions(repo: Path, violations: list[Violation]) -> None:
@@ -1466,8 +1511,7 @@ def run_checks(repo: Path) -> list[Violation]:
 
     for script in _runtime_scripts(repo):
         _check_runtime_script(repo, script, violations)
-    for source in _ts_runtime_sources(repo):
-        _check_ts_runtime_source(repo, source, violations)
+    _check_ts_runtime_sources(repo, _ts_runtime_sources(repo), violations)
     _check_case_collisions(repo, violations)
     _check_gitattributes(repo, violations)
     _check_package_scripts(repo, violations)

@@ -56,10 +56,12 @@ async function establishFeasibilityProbe(): Promise<void> {
 export default defineContentScript({
   matches: [FEASIBILITY_CONTENT_MATCH],
   // Suppress WXT's default page-world `window.postMessage` broadcast on
-  // injection: the page must not observe the extension beyond the reviewed
-  // readiness marker. (WXT's internal lifecycle CustomEvent on `document`
-  // remains — it carries only the content-script name and an injection id
-  // and is asserted against in the inertness E2E proof.)
+  // injection. WXT 0.20.27 unavoidably dispatches a document CustomEvent when
+  // this content-script context is created; it carries only the fixed script
+  // name and a random injection id. The real-browser proof observes its exact
+  // shape, traces every extension-origin DOM dispatch during a bounded
+  // pre-navigation-through-settle window, and requires the full message list
+  // empty. Source/shipped-byte checks close the broader static surface.
   noScriptStartedPostMessage: true,
   main(): void {
     void establishFeasibilityProbe();

@@ -27,27 +27,34 @@ function resolveWxtBin(): string {
   return wxtBin;
 }
 
-export default function globalSetup(): void {
+function buildExtension(config?: string): void {
   // Real pinned WXT build through the current Node binary: argv array, no
   // shell, portable across macOS/Windows/Ubuntu runners.
-  const result = spawnSync(
-    process.execPath,
-    [resolveWxtBin(), "build", "-b", "chrome"],
-    {
-      cwd: EXTENSION_ROOT,
-      stdio: "inherit",
-      timeout: BUILD_TIMEOUT_MS,
-    },
-  );
+  const args = [resolveWxtBin(), "build", "-b", "chrome"];
+  if (config !== undefined) {
+    args.push("-c", config);
+  }
+  const result = spawnSync(process.execPath, args, {
+    cwd: EXTENSION_ROOT,
+    stdio: "inherit",
+    timeout: BUILD_TIMEOUT_MS,
+  });
   if (result.status !== 0) {
     // Preserve every child-outcome detail: a 180s timeout kill arrives as
     // {status: null, signal: 'SIGTERM', error: ETIMEDOUT} and must be
     // distinguishable from an immediate crash or a spawn failure.
     throw new Error(
-      `@japp/extension WXT build failed: status ${String(result.status)}, ` +
+      `@japp/extension WXT build${config ? ` (${config})` : ""} failed: ` +
+        `status ${String(result.status)}, ` +
         `signal ${String(result.signal)}, error ${String(result.error)}`,
     );
   }
+}
+
+export default function globalSetup(): void {
+  buildExtension();
+  buildExtension("test/m02-w07/fixtures/invalid-ack/wxt.config.ts");
+
   const manifestPath = join(
     EXTENSION_ROOT,
     "dist",
@@ -57,6 +64,18 @@ export default function globalSetup(): void {
   if (!existsSync(manifestPath)) {
     throw new Error(
       `@japp/extension build completed but ${manifestPath} is missing`,
+    );
+  }
+  const invalidAckManifestPath = join(
+    EXTENSION_ROOT,
+    "dist",
+    "invalid-ack",
+    "chrome-mv3",
+    "manifest.json",
+  );
+  if (!existsSync(invalidAckManifestPath)) {
+    throw new Error(
+      `invalid-ACK causal build completed but ${invalidAckManifestPath} is missing`,
     );
   }
 }

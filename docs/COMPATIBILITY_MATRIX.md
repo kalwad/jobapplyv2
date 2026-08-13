@@ -55,7 +55,11 @@ M17). M02-W07 produced feasibility research evidence only: the minimal
 built Manifest V3 extension loads in bundled Playwright Chromium (pinned
 Playwright 1.62.0) through a persistent context with the actual service
 worker and a loopback-only content-script probe against the synthetic mock
-ATS fixture (docs/TEST_EVIDENCE.md § M02-W07). That is research (non-claim)
+ATS fixture. The W07 code performs no product action; the measured page-
+observable boundary is its ACK-gated readiness marker plus WXT 0.20.27's
+bounded non-sensitive content-script-started CustomEvent, with WXT's default
+postMessage suppressed and zero additional extension-originated event/message
+observed (docs/TEST_EVIDENCE.md § M02-W07). That is research (non-claim)
 evidence — not Chrome Web Store distribution, not general ATS support, and
 not production autofill support — and it adds no browser row; rows begin
 with M03/M17 measured evidence per the population rule above.

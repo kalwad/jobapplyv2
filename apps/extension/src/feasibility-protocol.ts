@@ -27,11 +27,10 @@ export const FEASIBILITY_CONTENT_MATCH = "http://127.0.0.1:4761/*";
 
 // Namespaced test-observable marker set on the document root only after a
 // valid ACK from the real service worker. It is the only page mutation the
-// W07 feasibility code itself makes; WXT's bundled content-script wrapper
-// additionally dispatches one internal lifecycle CustomEvent on `document`
-// at injection (its page-world postMessage broadcast is suppressed in the
-// entrypoint), and the inertness E2E proof asserts that no page-world
-// message beyond that reviewed boundary is observable.
+// W07 product code makes. WXT 0.20.27's wrapper additionally dispatches one
+// page-observable, non-sensitive lifecycle CustomEvent on `document`; its
+// default postMessage is suppressed, and runtime plus shipped-byte proofs
+// bound the reviewed framework artifact explicitly.
 export const CONTENT_READY_ATTRIBUTE = "data-japp-m02-w07-extension-ready";
 export const CONTENT_READY_VALUE = "true";
 

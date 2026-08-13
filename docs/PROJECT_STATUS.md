@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W07 implementation on top of the M02-W06 governance closeout commit e884917a2f82c392e99d340018c6da6919641bf0 / tree 0ca9a10fed3ecf0760c79571dda8382d4f4fcd53
-Last updated: 2026-08-13T16:41:00-04:00
+Repository revision: M02-W07 correction writer pass on blocked commit 6cf4d4b2860c054868dbe22600a0f6455cc7b60a / tree ddb6df168684ab5f534ac1125f14bb85067e613c / parent e884917a2f82c392e99d340018c6da6919641bf0
+Last updated: 2026-08-13T18:47:00-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W07
@@ -23,12 +23,18 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W07 (scaffold the real MV3 feasibility extension) is IN_PROGRESS. The implementation writer began on top of the M02-W06 governance closeout commit `e884917a2f82c392e99d340018c6da6919641bf0` / tree `0ca9a10fed3ecf0760c79571dda8382d4f4fcd53`. No package is READY, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED. M02-W06 remains VERIFIED, not ACCEPTED, at exact content commit `f4ffcf7064fe0f077b948690cebbee385fe190fb` / tree `6fd4219460a7659b21576f2ca20b19b744f3bbf9` after the completely fresh final lead verification returned `SOL_CLEAR_FINAL_M02_W06_CONTENT` on 2026-08-12.
+- State: M02-W07 (scaffold the real MV3 feasibility extension) is IN_PROGRESS. This narrow correction writer pass began at independently blocked commit `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree `ddb6df168684ab5f534ac1125f14bb85067e613c` / parent `e884917a2f82c392e99d340018c6da6919641bf0` after verdict `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`. No package is READY, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED. M02-W06 remains VERIFIED, not ACCEPTED, at exact content commit `f4ffcf7064fe0f077b948690cebbee385fe190fb` / tree `6fd4219460a7659b21576f2ca20b19b744f3bbf9` after the completely fresh final lead verification returned `SOL_CLEAR_FINAL_M02_W06_CONTENT` on 2026-08-12.
 - Scope: the canonical M02-W07 objective is the minimal WXT Manifest V3 extension required for later scanning/filling tests: one background service-worker entrypoint, one loopback-only feasibility content script bounded to the deterministic mock ATS origin `http://127.0.0.1:4761/*`, and one tiny closed typed probe protocol, proven by loading the built extension into bundled Playwright Chromium through a persistent context with the actual MV3 service worker observed. The package includes no product UI, popup, side panel, options page, native host, database, model runtime, profile access, scanner, ontology/resolver, control driver, MutationObserver engine, ATS-specific behavior, filling logic, navigation logic, or submission capability; W08–W11 own those surfaces. No Gate A execution occurs and no owner-controlled holdout material is touched.
-- Implementation: the writer landed the real substrate at WXT 0.20.27 (exact pin): `apps/extension` gained wxt.config.ts, the two entrypoints, the closed probe protocol, real typecheck/build/test scripts, and 40 fail-closed unit tests over the protocol and the generated manifest (MV3, six-member top-level allowlist, single loopback content-script match, zero permissions, no UI surface, no submission-authority code token). The root browser suite grew from 59 to 69 Playwright tests in 20 files: ten new real-extension tests launch fresh persistent bundled-Chromium contexts, derive the extension ID from the real `chrome-extension://` service worker, prove the worker is the W07 runtime, prove the content-script probe round-trip and its namespaced readiness marker, prove inertness on the native form and multipage flow (no value/checked/honeypot/receipt/navigation change across activation and reload), prove the non-matching-document boundary, and fail any context that issues a non-loopback request. `playwright test` builds the extension through a global setup (`--list` performs no build). The `build` verification suite (turbo `build` task, `turbo_task_count` proof) closed KI-0001 non-vacuously, PORT-SRC-008 extended portability rules to TypeScript runtime sources (KI-0006 TypeScript half; the Rust half stays DEFERRED to M17), REQ-FORM-020 moved to SCAFFOLD_ONLY with reviewed hash re-lock, and the reviewed-lockfile oracle was re-reviewed for the exact WXT addition. Full evidence with exact commands sits in docs/TEST_EVIDENCE.md § M02-W07; exact-SHA three-OS hosted evidence for the content commit is pending this writer pass.
+- Implementation: the WXT 0.20.27 substrate remains minimal and performs no product action. Its 63 extension tests lock the one probe/ACK surface and the generated manifest. The 72-test / 23-file Playwright suite includes 13 W07 tests against fresh persistent bundled-Chromium contexts: a test-only invalid-ACK build re-exports the actual production content entrypoint and proves the marker is ACK-caused; a pristine no-extension baseline is compared with activation and reload through a generic snapshot of every live form control, validation state, status/error region, storage, route, flow, honeypot, and receipt state; extension-origin messaging proves only the literal probe receives the literal ACK and rejects multiple unrelated command values; and a pre-navigation Chrome trace plus exact page observer bounds WXT's unavoidable non-sensitive lifecycle CustomEvent while the full message list remains empty. PORT-SRC-008 now parses runtime `.ts`, `.tsx`, `.mts`, and `.cts` with the TypeScript compiler AST, rejects quoted/computed/multiline or const-true shorthand `shell` options and hard-coded POSIX paths, and ignores comments/type-only/innocent text (KI-0006 TypeScript half; the Rust half stays DEFERRED to M17). Runtime request observation covers only traffic after listener attachment; static source/shipped-byte checks cover the launch-window absence of egress primitives. REQ-FORM-020 remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE. Full evidence and exact mutation kills sit in docs/TEST_EVIDENCE.md § M02-W07; exact-SHA three-OS hosted evidence is pending this writer pass.
 - Preserved predecessor evidence: M02-W06 remains VERIFIED with its hosted three-OS governance proof (run `31645800902` at governance commit `e884917a2f82c392e99d340018c6da6919641bf0`) and the preserved owner-bundle verification chain recorded in docs/TEST_EVIDENCE.md § M02-W06. The sanitized owner-holdout commitment (manifest digest `sha256:a10ecd8f5eb4f930b056e6ed375627ef42055fece1c5ffb86ef198b1cebe5a79`), `benchmarks/holdout-manifests/status.v1.json` lifecycle markers, `model/model-lock.json`, `prompts/registry.yaml`, generated benchmark contracts, public corpus truth, and all four critical-gate reports remain untouched by M02-W07. KI-0046 through KI-0057 remain FIXED; KI-0001 is FIXED by this package's real build task, build suite, and evidence; KI-0006 records its TypeScript half resolved here and stays DEFERRED for the M17 Rust half; KI-0003, KI-0022, KI-0026, and KI-0027 remain DEFERRED with their named future owners.
 - Gate posture: REQ-GATE-002, REQ-GATE-006, REQ-GATE-010, and REQ-GATE-011 remain SCAFFOLD_ONLY / NOT_YET_APPLICABLE; all four critical gates remain NOT_EVALUATED and release remains NOT_READY. M02-W07 builds the real execution substrate that Gate A packages later plug into; it does not evaluate, approve, or advance any gate.
-- Blockers: NONE.
+- Blockers: KI-0058 through KI-0062 are HIGH / IN_PROGRESS correction
+  findings against blocked content commit
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`. They remain live until a
+  completely fresh independent verifier reproduces their closures on the new
+  exact correction content and performs W07 governance. W07 remains
+  IN_PROGRESS, W08 remains NOT_STARTED, and no package is READY.
 
 ## Milestone table
 
@@ -387,7 +393,11 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Known release blockers
 
-- NONE
+- KI-0058 (HIGH, IN_PROGRESS) — PORT-SRC-008 TypeScript portability bypasses
+- KI-0059 (HIGH, IN_PROGRESS) — readiness marker lacked real ACK-causality proof
+- KI-0060 (HIGH, IN_PROGRESS) — inertness proof omitted live select and validation state
+- KI-0061 (HIGH, IN_PROGRESS) — WXT page-visible artifact contradicted marker-only evidence
+- KI-0062 (HIGH, IN_PROGRESS) — protocol closure allowed command-shaped expansion
 
 ## Status conventions and update rules
 

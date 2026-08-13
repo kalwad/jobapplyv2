@@ -106,9 +106,14 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # WXT-config/entrypoint/protocol/Playwright-harness code paths, the
 # protocol/built-manifest unit-test and real-browser E2E test paths, and
 # honest notes naming the M02-W08+ and M17-W06 remainder — no ownership,
-# mapping, gate effect, or dependency changed) and re-locked the hash below.
+# mapping, gate effect, or dependency changed). The M02-W07 correction then
+# added its actual-content invalid-ACK causal build, generic complete-form
+# inertness proof, WXT lifecycle-event/runtime-tracing boundary, and real-worker
+# closed-protocol paths while correcting the no-product-action notes; states,
+# ownership, mapping, gate effects, and dependencies remain unchanged. The
+# reviewed correction re-locked the hash below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "828cc6d7296043074919c2a2dcf0db710d322d4895fc0e096a6cf6db1965e550"
+    "203252e04ce7e212d3520c8bd6365df47e24839cbf49a10bef028039067f788b"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

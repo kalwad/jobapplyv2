@@ -60,6 +60,11 @@ CURRENT_M02_CORRECTIVE_ISSUE_IDS = (
     "KI-0055",
     "KI-0056",
     "KI-0057",
+    "KI-0058",
+    "KI-0059",
+    "KI-0060",
+    "KI-0061",
+    "KI-0062",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -280,6 +285,8 @@ def update_m02_w06_holdout_status(
 
 def prepare_m02_w06_pre_governance(repo: Path) -> None:
     """Build the valid pending fixture from either side of W06 governance."""
+    for issue_id in ("KI-0058", "KI-0059", "KI-0060", "KI-0061", "KI-0062"):
+        set_issue_state(repo, issue_id, "FIXED")
     for issue_id in ("KI-0055", "KI-0056", "KI-0057"):
         set_issue_state(repo, issue_id, "IN_PROGRESS")
     set_live_blockers(repo, M02_W06_BLOCKER_LINES)

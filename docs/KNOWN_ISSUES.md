@@ -32,6 +32,162 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W07 final-verification correction
+
+### KI-0062 — M02-W07 protocol closure allowed unreviewed command-shaped expansion
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
+- Affects: M02-W07; exact blocked content
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; feasibility probe/ACK
+  protocol and real background worker
+- Description: the canonical parser rejected its fixed malformed corpus, but
+  the permanent suite did not prove that the runtime message surface was
+  finite. A second accepted product-shaped request could be added without any
+  canonical test observing the expansion.
+- Reproduction: in a disposable no-hardlink clone of the affected content,
+  add a second `parseFeasibilityProbe` success branch for
+  `{ command: "fill" }`; all 40 extension tests and all ten W07 real-extension
+  E2E tests still pass. The independent verdict was
+  `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
+- Workaround: none accepted. W07 cannot expose a product command bus, and
+  banning one command word would leave the equivalent protocol expansion.
+- Resolution + evidence link: IN_PROGRESS in this writer correction. The
+  permanent parser matrix now covers command/kind/payload/data/nested and
+  extra-operation families, while a bundled-Chromium test sends the literal
+  canonical probe plus hostile shapes to the actual built worker and admits
+  only the literal canonical ACK. The issue must remain IN_PROGRESS until a
+  completely fresh independent verifier reproduces the original and
+  alternate-command mutations against the corrected exact content and performs
+  W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+
+### KI-0061 — M02-W07 WXT page-visible bootstrap artifact contradicted marker-only evidence
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
+- Affects: M02-W07; exact blocked content
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; WXT 0.20.27 content-script
+  bootstrap, E2E, traceability, compatibility, and evidence wording
+- Description: W07 evidence claimed page observability was limited to the
+  readiness marker, while WXT 0.20.27 also dispatches a page-observable
+  document CustomEvent named
+  `<extension-id>:feasibility:wxt:content-script-started`. Its detail contains
+  only the fixed content-script name and a random injection id, but the E2E
+  suite listened only for `window.message` and therefore did not prove or bound
+  the event it claimed to assert.
+- Reproduction: load the affected built extension in two fresh Chromium
+  profiles and install an exact-name document listener before navigation; each
+  document observes the WXT lifecycle CustomEvent while the page-world message
+  collector remains empty. The independent verdict was
+  `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
+- Workaround: no supported narrow suppression exists in installed WXT 0.20.27.
+  `noScriptStartedPostMessage` suppresses only its postMessage, and changing to
+  the MAIN world would weaken the reviewed extension architecture.
+- Resolution + evidence link: IN_PROGRESS in this writer correction. The
+  corrected real-browser proof observes the exact event type/detail and zero
+  window messages; a Chrome trace begun before navigation detects every DOM
+  event dispatch whose stack originates in the extension and admits only that
+  exact lifecycle event. Source and shipped-byte tests provide defense in
+  depth. Documentation now models the event as a bounded non-sensitive
+  framework lifecycle artifact and makes no marker-only claim.
+  The issue must remain IN_PROGRESS until a completely fresh independent
+  verifier reproduces that boundary on the corrected exact content and
+  performs W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+
+### KI-0060 — M02-W07 inertness proof omitted live select and validation state
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
+- Affects: M02-W07; exact blocked content
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; native-form
+  real-extension inertness E2E
+- Description: the native-form snapshot listed `nat-disclosure`, an actual
+  `HTMLSelectElement`, among checked inputs, so it collapsed to `false` and its
+  value/selection was absent. Validation state was also omitted, and the
+  nominal before-activation snapshot occurred after content-script injection.
+- Reproduction: in a disposable no-hardlink clone of the affected content,
+  make the actual production content script set `nat-disclosure` to the real
+  non-default `not-veteran` option after ACK; all 40 extension tests and the
+  three inertness E2E tests pass. The independent verdict was
+  `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
+- Workaround: none accepted. Moving one ID between hand-maintained arrays would
+  retain silent gaps and would not supply a pristine pre-extension baseline.
+- Resolution + evidence link: IN_PROGRESS in this writer correction. The test
+  now compares an ordinary no-extension page with extension state after ACK and
+  reload, generically serializing every form-listed control, select/checked/
+  default state, disabled/required/read-only state, complete native validity,
+  status/error regions, honeypot, storage, and route/history state. The issue
+  must remain IN_PROGRESS until a completely fresh independent verifier kills
+  the select and representative second-control mutants and performs W07
+  governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+
+### KI-0059 — M02-W07 readiness marker lacked real ACK-causality proof
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
+- Affects: M02-W07; exact blocked content
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; built content-script and
+  background-worker readiness proof
+- Description: the clean implementation correctly gated the marker on a valid
+  real-worker ACK, but the permanent suite proved only that a worker and marker
+  both existed. It did not prove that the ACK caused the actual content
+  entrypoint to set the marker.
+- Reproduction: in a disposable no-hardlink clone of the affected content,
+  make the production content script set readiness unconditionally and make
+  the production worker return an invalid ACK; all 40 extension tests and all
+  ten W07 real-extension E2E tests pass. The independent verdict was
+  `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
+- Workaround: none accepted. A pure helper or a second content implementation
+  would not close a bypass in the built entrypoint.
+- Resolution + evidence link: IN_PROGRESS in this writer correction. A
+  test-only WXT variant re-exports the actual production content entrypoint and
+  substitutes only an isolated worker that records the canonical probe and
+  returns an invalid ACK; real Chromium requires the probe and absence of the
+  marker. It adds no product hook, permission, command, or manifest authority.
+  The issue must remain IN_PROGRESS until a completely fresh independent
+  verifier kills the exact combined mutant and performs W07 governance.
+  Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+
+### KI-0058 — PORT-SRC-008 TypeScript portability bypasses
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
+- Affects: M02-W07; exact blocked content
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; PORT-SRC-008 and the
+  TypeScript half of KI-0006
+- Description: PORT-SRC-008 scanned only `.ts` files and matched two literal,
+  line-local `shell: true` spellings. Quoted or multiline object properties and
+  every `.tsx` runtime file bypassed it; raw-text scanning also treated comments
+  as violations.
+- Reproduction: in a disposable no-hardlink clone of the affected content,
+  `{ "shell": true }`, `{ 'shell': true }`, and multiline `shell : true` in a
+  covered `.ts` file each pass portability, as does a hard-coded `/tmp` path in
+  a covered `.tsx` file. A comment containing the same guidance false-positives.
+  The independent verdict was `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
+- Workaround: none accepted. Adding more literal regex spellings would keep the
+  rule bypassable and preserve false positives.
+- Resolution + evidence link: IN_PROGRESS in this writer correction.
+  PORT-SRC-008 now invokes the pinned TypeScript compiler AST over executable
+  `.ts`, `.tsx`, `.mts`, and `.cts` runtime files (excluding declarations),
+  rejects normalized identifier/quoted/computed `shell` property assignments
+  that are statically true (including const aliases and shorthand) across
+  whitespace, and applies path/wrapper rules to runtime
+  string/template nodes while ignoring comments, type-only syntax, and
+  documentation expressions. KI-0006 remains DEFERRED for its untouched Rust
+  half. This issue must remain IN_PROGRESS until a completely fresh independent
+  verifier reproduces A1–A4 against the corrected exact content and performs
+  W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+
 ## M02-W06 owner-holdout corrective review
 
 ### KI-0057 — M02-W06 reviewed-manifest integration hard-coded pending verification state
@@ -2544,19 +2700,21 @@ validator exception or weakening was introduced.
 - Workaround: n/a.
 - Resolution + evidence link: the TypeScript half is resolved by M02-W07,
   which introduced the first real TS runtime surface and, with it,
-  PORT-SRC-008: a text-level scan of `apps/*/entrypoints/**/*.ts`,
-  `apps/*/scripts/**/*.ts`, `apps/*/src/**/*.ts`,
-  `packages/*/generator/**/*.ts`, `packages/*/scripts/**/*.ts`,
-  `packages/*/src/**/*.ts`, and root `scripts/*.ts` Node tools for
-  hard-coded POSIX system paths, Bash wrapper literals, and `shell: true`
-  child-process spawns, with negative and positive coverage in
-  scripts/tests/test_portability.py (evidence:
-  docs/TEST_EVIDENCE.md § M02-W07). Test suites and fixture site pages
-  stay outside the scan by design, mirroring the Python scope. The entry
-  stays DEFERRED for the Rust half only: M17-W04 and M17-W07…W10 must add
-  the equivalent Rust/native source rule (or clippy lint coverage) when
-  the first real Rust runtime logic beyond the current crate skeleton
-  lands.
+  PORT-SRC-008: runtime discovery across `.ts`, `.tsx`, `.mts`, and `.cts`
+  under application entrypoints/scripts/src, package generator/scripts/src,
+  and root Node tools (declarations excluded), with a fail-closed TypeScript
+  compiler AST check. Runtime string/template nodes are checked for hard-coded
+  POSIX paths and Bash wrappers; identifier, quoted, and statically computed
+  `shell` properties that are statically true, including const aliases and
+  shorthand, are rejected across ordinary whitespace/newlines. Comments, documentation-only
+  expressions, type-only nodes, and innocent string content do not trigger the
+  semantic shell rule. Negative and positive coverage is in
+  scripts/tests/test_portability.py (evidence: docs/TEST_EVIDENCE.md §
+  M02-W07). Test suites and fixture site pages stay outside the scan by design,
+  mirroring the Python scope. The entry stays DEFERRED for the Rust half only:
+  M17-W04 and M17-W07…W10 must add the equivalent Rust/native source rule (or
+  clippy lint coverage) when the first real Rust runtime logic beyond the
+  current crate skeleton lands.
 
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 

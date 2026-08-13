@@ -86,6 +86,44 @@ describe("parseFeasibilityProbe", () => {
       "a null protocol version",
       { kind: FEASIBILITY_PROBE_KIND, protocolVersion: null },
     ],
+    ["a standalone product command", { command: "fill" }],
+    ["an alternate product command", { command: "scan" }],
+    ["another unrelated product command", { command: "delete" }],
+    ["an alternate operation", { operation: "scan" }],
+    ["a distinct command-shaped kind", { kind: "COMMAND", command: "fill" }],
+    [
+      "an alternate command-shaped kind",
+      { kind: "COMMAND", command: "inspect" },
+    ],
+    [
+      "a command added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, command: "fill" },
+    ],
+    [
+      "an alternate command added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, command: "scan" },
+    ],
+    [
+      "a payload added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, payload: {} },
+    ],
+    [
+      "data added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, data: [] },
+    ],
+    ["a nested command object", { request: { command: "fill" } }],
+    [
+      "an operation member added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, operation: "scan" },
+    ],
+    [
+      "an action member added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, action: "inspect" },
+    ],
+    [
+      "a request member added to the canonical probe",
+      { kind: FEASIBILITY_PROBE_KIND, protocolVersion: 1, request: {} },
+    ],
   ])("rejects %s", (_label, value: unknown) => {
     expect(parseFeasibilityProbe(value)).toBeNull();
   });
@@ -153,6 +191,28 @@ describe("parseFeasibilityAck", () => {
         runtimeMarker: BACKGROUND_RUNTIME_MARKER,
       },
     ],
+    ["a standalone product response", { command: "fill" }],
+    ["an alternate product response", { command: "scan" }],
+    ["another unrelated product response", { command: "delete" }],
+    [
+      "a command member added to the canonical ACK",
+      {
+        kind: FEASIBILITY_ACK_KIND,
+        protocolVersion: 1,
+        runtimeMarker: BACKGROUND_RUNTIME_MARKER,
+        command: "fill",
+      },
+    ],
+    [
+      "a payload member added to the canonical ACK",
+      {
+        kind: FEASIBILITY_ACK_KIND,
+        protocolVersion: 1,
+        runtimeMarker: BACKGROUND_RUNTIME_MARKER,
+        payload: {},
+      },
+    ],
+    ["a nested operation response", { data: { operation: "scan" } }],
   ])("rejects %s", (_label, value: unknown) => {
     expect(parseFeasibilityAck(value)).toBeNull();
   });
@@ -160,5 +220,26 @@ describe("parseFeasibilityAck", () => {
   test("a probe is never a valid ACK and an ACK is never a valid probe", () => {
     expect(parseFeasibilityAck(buildFeasibilityProbe())).toBeNull();
     expect(parseFeasibilityProbe(buildFeasibilityAck())).toBeNull();
+  });
+
+  test("builders expose only the finite reviewed wire members", () => {
+    expect(Object.keys(buildFeasibilityProbe()).sort()).toEqual([
+      "kind",
+      "protocolVersion",
+    ]);
+    expect(buildFeasibilityProbe()).toEqual({
+      kind: "M02_W07_PROBE",
+      protocolVersion: 1,
+    });
+    expect(Object.keys(buildFeasibilityAck()).sort()).toEqual([
+      "kind",
+      "protocolVersion",
+      "runtimeMarker",
+    ]);
+    expect(buildFeasibilityAck()).toEqual({
+      kind: "M02_W07_ACK",
+      protocolVersion: 1,
+      runtimeMarker: "japp-m02-w07-feasibility-background",
+    });
   });
 });

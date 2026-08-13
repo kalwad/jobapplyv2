@@ -16,6 +16,16 @@ import { FEASIBILITY_CONTENT_MATCH } from "../../src/feasibility-protocol.ts";
 const PACKAGE_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const BUILD_OUTPUT_DIR = join(PACKAGE_ROOT, "dist", "chrome-mv3");
 const MANIFEST_PATH = join(BUILD_OUTPUT_DIR, "manifest.json");
+const CONTENT_ENTRYPOINT_PATH = join(
+  PACKAGE_ROOT,
+  "entrypoints",
+  "feasibility.content.ts",
+);
+const SHIPPED_CONTENT_PATH = join(
+  BUILD_OUTPUT_DIR,
+  "content-scripts",
+  "feasibility.js",
+);
 const BUILD_TIMEOUT_MS = 180_000;
 
 // The only top-level manifest members the W07 feasibility scaffold may
@@ -206,5 +216,38 @@ describe("no submission authority", () => {
         );
       }
     }
+  });
+});
+
+describe("bounded page-observable framework surface", () => {
+  test("production code emits no page-world event or message and keeps WXT postMessage disabled", () => {
+    const source = readFileSync(CONTENT_ENTRYPOINT_PATH, "utf-8");
+    expect(source.match(/noScriptStartedPostMessage:\s*true/g)).toHaveLength(1);
+    for (const eventPrimitive of [
+      "dispatchEvent(",
+      "postMessage(",
+      "new CustomEvent(",
+      "new MessageEvent(",
+    ]) {
+      expect(
+        source,
+        `product source must not emit ${eventPrimitive}`,
+      ).not.toContain(eventPrimitive);
+    }
+  });
+
+  test("shipped WXT wrapper retains exactly its reviewed lifecycle machinery", () => {
+    const shipped = readFileSync(SHIPPED_CONTENT_PATH, "utf-8");
+    const occurrences = (needle: string): number =>
+      shipped.split(needle).length - 1;
+    // WXT 0.20.27 always bundles one document CustomEvent lifecycle emission,
+    // two alternative dormant location-watcher branches, and one disabled
+    // postMessage branch. Runtime E2E proves only the lifecycle event emits.
+    expect(occurrences("document.dispatchEvent(")).toBe(1);
+    expect(occurrences("window.dispatchEvent(")).toBe(2);
+    expect(occurrences("window.postMessage(")).toBe(1);
+    expect(occurrences("new CustomEvent(")).toBe(1);
+    expect(occurrences("wxt:content-script-started")).toBe(1);
+    expect(shipped).toMatch(/noScriptStartedPostMessage:!0/);
   });
 });

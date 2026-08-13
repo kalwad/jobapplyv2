@@ -939,6 +939,81 @@ def test_shell_true_spawn_in_ts_runtime_source_fails(policy_repo: Path) -> None:
     assert "PORT-SRC-008" in rules_of(policy_repo)
 
 
+@pytest.mark.parametrize("quote", ['"', "'"])
+def test_quoted_shell_true_spawn_in_ts_runtime_source_fails(
+    policy_repo: Path, quote: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "quoted-helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        f"spawnSync('pnpm', [], {{ {quote}shell{quote}: true }});\n",
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_multiline_shell_true_spawn_in_ts_runtime_source_fails(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "multiline-helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        "spawnSync('pnpm', [], { shell\n  :\n  true });\n",
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_computed_shell_true_spawn_in_ts_runtime_source_fails(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "computed-helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        "spawnSync('pnpm', [], { ['shell']: true });\n",
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_const_true_shorthand_shell_spawn_in_ts_runtime_source_fails(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "shorthand-helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        "const shell = true;\n"
+        "spawnSync('pnpm', [], { shell });\n",
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_hardcoded_tmp_in_tsx_runtime_source_fails(policy_repo: Path) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "profile.tsx").write_text(
+        'export const profile = <span data-path="/tmp/japp-profile" />;\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize("suffix", [".mts", ".cts"])
+def test_node_specific_typescript_runtime_extensions_are_scanned(
+    policy_repo: Path, suffix: str
+) -> None:
+    source_dir = policy_repo / "scripts"
+    (source_dir / f"profile{suffix}").write_text(
+        'export const profileRoot = "/tmp/japp-profile";\n', encoding="utf-8"
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
 def test_hardcoded_tmp_in_ts_node_tool_script_fails(policy_repo: Path) -> None:
     # Node-executed TypeScript tool scripts (apps/*/scripts, root
     # scripts/*.ts, package scripts/generator trees) are inside the
@@ -960,6 +1035,35 @@ def test_platform_neutral_ts_runtime_source_passes(policy_repo: Path) -> None:
         'import { join } from "node:path";\n'
         'export const profileRoot = () => join(tmpdir(), "japp-profile");\n',
         encoding="utf-8",
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_typescript_comments_documentation_and_innocent_strings_pass(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "portability-guidance.ts").write_text(
+        "// Never use /tmp or shell: true.\n"
+        "/** Avoid bash -c wrappers and /usr paths. */\n"
+        "'Documentation-only /var example';\n"
+        "('Parenthesized documentation-only /tmp example');\n"
+        "('/usr documentation-only example' as const);\n"
+        'export const literal = "shell: true is not an option object";\n'
+        "export const options = { shell: false };\n",
+        encoding="utf-8",
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_typescript_declaration_files_are_not_runtime_sources(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "ambient.d.ts").write_text(
+        'declare const path: "/tmp/type-only";\n', encoding="utf-8"
     )
     assert rules_of(policy_repo) == set()
 
