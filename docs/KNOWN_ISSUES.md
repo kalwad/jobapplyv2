@@ -160,33 +160,63 @@ broadening a work package (spec §1.5).
 
 - Severity: HIGH
 - State: IN_PROGRESS
-- Discovered: 2026-08-13 during fresh final M02-W07 independent verification
-- Affects: M02-W07; exact blocked content
+- Discovered: 2026-08-13 during fresh final M02-W07 independent verification;
+  the first correction was re-blocked on 2026-08-14
+- Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
-  `ddb6df168684ab5f534ac1125f14bb85067e613c`; PORT-SRC-008 and the
-  TypeScript half of KI-0006
-- Description: PORT-SRC-008 scanned only `.ts` files and matched two literal,
-  line-local `shell: true` spellings. Quoted or multiline object properties and
-  every `.tsx` runtime file bypassed it; raw-text scanning also treated comments
-  as violations.
-- Reproduction: in a disposable no-hardlink clone of the affected content,
-  `{ "shell": true }`, `{ 'shell': true }`, and multiline `shell : true` in a
-  covered `.ts` file each pass portability, as does a hard-coded `/tmp` path in
-  a covered `.tsx` file. A comment containing the same guidance false-positives.
-  The independent verdict was `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
-- Workaround: none accepted. Adding more literal regex spellings would keep the
-  rule bypassable and preserve false positives.
-- Resolution + evidence link: IN_PROGRESS in this writer correction.
-  PORT-SRC-008 now invokes the pinned TypeScript compiler AST over executable
-  `.ts`, `.tsx`, `.mts`, and `.cts` runtime files (excluding declarations),
-  rejects normalized identifier/quoted/computed `shell` property assignments
-  that are statically true (including const aliases and shorthand) across
-  whitespace, and applies path/wrapper rules to runtime
-  string/template nodes while ignoring comments, type-only syntax, and
-  documentation expressions. KI-0006 remains DEFERRED for its untouched Rust
-  half. This issue must remain IN_PROGRESS until a completely fresh independent
-  verifier reproduces A1–A4 against the corrected exact content and performs
-  W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+  `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
+  `f4ee49e6f056f2cc15257a6d8a0cbc43de7b1941` / tree
+  `04721b7ea4fd0c2eec2506e507ea3e37c743e2ba`; PORT-SRC-008 and the
+  TypeScript surface of KI-0006
+- Description: the initial checker missed TypeScript-family suffixes and used
+  raw, line-local spellings. The first AST correction closed those syntax holes
+  but still conflated constant evaluation with policy relevance: it did not
+  prove unary/aliased boolean truth, const-computed property names, or composed
+  operational strings, while globally classifying embedded fragments in
+  descriptive runtime strings. It therefore retained both false negatives and
+  false positives despite its permanent suite passing.
+- Reproduction: on the exact first-correction content, `shell: !0`,
+  `const shellKey = "shell"; { [shellKey]: true }`, and
+  `const path = "/" + "tmp/reviewer-a"` survive PORT-SRC-008, while
+  `export const portabilityHelp = "Documentation says to avoid /tmp and bash -c wrappers"`
+  fails. Its focused portability suite still reports 105/105. The completely
+  fresh verdict was `SOL_BLOCKED_FINAL_M02_W07_CORRECTED_VERIFICATION`.
+  Writer-side regressions additionally require composed plain-assignment and
+  exact call/new values to fail, bounded `.cts` CommonJS provenance to work,
+  filesystem payload and `process.stdout.write` prose to pass, and
+  `bash -client` not to be mistaken for a wrapper.
+- Workaround: none accepted. Adding literal regex variants, scanning every
+  runtime string, trusting arbitrary imports/requires, or treating every
+  argument of every Node API as operational would preserve bypasses or false
+  positives.
+- Resolution + evidence link: IN_PROGRESS in this second narrow writer
+  correction. PORT-SRC-008 now parses executable `.ts`, `.tsx`, `.mts`, and
+  `.cts` with the pinned TypeScript compiler without executing repository
+  source. A bounded allowlisted evaluator resolves primitive literals, constant
+  templates, safe wrappers, const aliases, relevant unary/binary/logical/
+  conditional forms, concatenation, and computed property names; unsupported,
+  mutable, cyclic, and over-budget expressions remain UNKNOWN. The object rule
+  resolves object-literal property-assignment/shorthand names and values and
+  rejects the proved fact `shell = true`, including computed and aliased forms.
+  Complete-value checks cover variable/parameter/property/class/enum
+  initializers, array elements, return/yield/concise-arrow/export/JSX values,
+  plain `=` right-hand sides, and every call/new argument. They use anchored
+  path-segment and exact shell-token matching; compound assignments and
+  component literals inside an evaluated composition are not treated as
+  complete values. Embedded checks require non-type ESM or bounded non-shadowed
+  `.cts` CommonJS provenance plus a closed module/operation/argument-position
+  signature: child-process command/static-argv and selected option fields;
+  allowlisted filesystem path operands, excluding content/data/encoding/
+  callbacks; path operands and `format` path fields; and only
+  `process.chdir`, `loadEnvFile`, and `dlopen` path positions. Wrapper tokens
+  accept spaces/tabs between the exact executable and flag and require a flag
+  boundary, so `bash -client` passes. Malformed/unloadable TypeScript and
+  helper/process/JSON protocol failures fail closed; UNKNOWN expressions do not
+  establish a violation. The permanent matrix and writer mutation evidence are
+  recorded in docs/TEST_EVIDENCE.md § M02-W07. KI-0006 remains DEFERRED for its
+  untouched Rust surface. KI-0058 must remain HIGH / IN_PROGRESS until a
+  completely fresh independent verifier reproduces the correction on its exact
+  content and performs W07 governance.
 
 ## M02-W06 owner-holdout corrective review
 
@@ -2698,23 +2728,33 @@ validator exception or weakening was introduced.
   corresponding ecosystem rule or lint coverage before verification.
 - Reproduction: n/a (scope boundary, not a defect).
 - Workaround: n/a.
-- Resolution + evidence link: the TypeScript half is resolved by M02-W07,
-  which introduced the first real TS runtime surface and, with it,
-  PORT-SRC-008: runtime discovery across `.ts`, `.tsx`, `.mts`, and `.cts`
-  under application entrypoints/scripts/src, package generator/scripts/src,
-  and root Node tools (declarations excluded), with a fail-closed TypeScript
-  compiler AST check. Runtime string/template nodes are checked for hard-coded
-  POSIX paths and Bash wrappers; identifier, quoted, and statically computed
-  `shell` properties that are statically true, including const aliases and
-  shorthand, are rejected across ordinary whitespace/newlines. Comments, documentation-only
-  expressions, type-only nodes, and innocent string content do not trigger the
-  semantic shell rule. Negative and positive coverage is in
-  scripts/tests/test_portability.py (evidence: docs/TEST_EVIDENCE.md §
-  M02-W07). Test suites and fixture site pages stay outside the scan by design,
-  mirroring the Python scope. The entry stays DEFERRED for the Rust half only:
-  M17-W04 and M17-W07…W10 must add the equivalent Rust/native source rule (or
-  clippy lint coverage) when the first real Rust runtime logic beyond the
-  current crate skeleton lands.
+- Resolution + evidence link: the TypeScript rule surface is implemented in
+  M02-W07, while HIGH / IN_PROGRESS KI-0058 tracks independent sufficiency
+  verification of that implementation; this KI therefore remains DEFERRED for
+  the untouched Rust/native-host surface. PORT-SRC-008 discovers executable
+  `.ts`, `.tsx`, `.mts`, and `.cts` under the established application/package/
+  root-tool runtime globs, excluding declarations and tests, and invokes the
+  repository-pinned TypeScript compiler without executing repository source.
+  Its bounded allowlisted evaluator proves primitive constants, aliases,
+  compositions, and computed property names; UNKNOWN is not a positive policy
+  fact. The rule rejects proved `shell = true` object-literal property
+  assignments/shorthands, anchored prohibited complete values at the finite
+  initializer/value/plain-assignment/call/new roots, and embedded fragments
+  only at a closed Node module/operation/argument-position table. Callee
+  provenance covers non-type ESM imports and bounded, non-shadowed `.cts`
+  TypeScript import-equals plus const/inline/destructured literal `require`
+  forms, following const aliases. Filesystem payload/data/encoding/callback
+  positions and operations without a signature, such as
+  `process.stdout.write`, are deliberately not embedded sinks. Exact token
+  boundaries distinguish `bash -c`/`bash -lc`/`sh -c` from lookalikes.
+  Comments, JSDoc, type-only syntax, standalone descriptions, descriptive
+  complete values, unrelated computed properties, and UNKNOWN dynamics do not
+  violate without a proved policy fact; malformed input and helper/protocol
+  failures fail closed. Permanent positive, negative, provenance,
+  token-boundary, and fail-closed coverage is in
+  `scripts/tests/test_portability.py`, with evidence in docs/TEST_EVIDENCE.md §
+  M02-W07. M17-W04 and M17-W07…W10 still own equivalent Rust/native enforcement
+  when real Rust runtime logic lands.
 
 ### KI-0003 — Verification-runner hardening backlog (residual, non-blocking)
 

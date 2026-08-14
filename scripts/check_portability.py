@@ -22,7 +22,8 @@ REQ-PLAT-025). Two rule families:
   Bash-only package.json scripts or registry commands, and (PORT-SRC-008,
   since the first real TypeScript runtime surface landed in M02-W07;
   KI-0006) no hard-coded POSIX system paths, Bash wrappers, or
-  ``shell: true`` spawns in TypeScript runtime sources.
+  statically known prohibited operational values or ``shell: true`` object
+  options in TypeScript runtime sources.
 
 Scope control (spec M00-W09 §H): only executable policy surfaces are
 scanned — the workflow, runtime scripts (``scripts/*.py`` and
@@ -32,11 +33,33 @@ entrypoints, package ``src``/``scripts``/``generator`` trees, per-app
 the verification-suite registry. Documentation, prose, and
 ``scripts/tests`` fixtures are never scanned. Python and TypeScript-family
 runtime files are parsed through their ecosystem ASTs, so comments,
-documentation-only string statements, type-only declarations, and innocent
-strings cannot create literal-search false positives. This checker file is
-outside the runtime globs because the banned fragments are its rule
-vocabulary. Every violation names the rule, the location, and the required
-fix.
+documentation-only string statements, and type-only declarations cannot
+create literal-search false positives. PORT-SRC-008 additionally separates a
+bounded, allowlisted primitive-constant evaluator from operational relevance;
+unsupported, mutable, cyclic, and over-budget expressions remain UNKNOWN. An
+object-literal property assignment or shorthand violates the rule when its
+resolved non-type name and value prove the exact fact ``shell = true``.
+
+Path/wrapper analysis has two finite layers. Whole strings are checked at
+variable, parameter-default, object/class/enum-property, array-element,
+return/yield/concise-arrow, export-assignment, JSX, plain ``=`` right-hand-side,
+and call/new-argument roots. After leading whitespace, a whole string violates
+only when it begins with a prohibited absolute path segment or exact
+space/tab-delimited ``bash -c``, ``bash -lc``, or ``sh -c`` tokens; for example,
+``bash -client`` is clean. Component literals inside an evaluated composition
+and compound assignments are not treated as complete values.
+
+Embedded fragments require proved Node-module provenance and a closed
+operation/argument-position table. Provenance covers non-type ESM imports and
+bounded, unshadowed ``.cts`` import-equals/const/inline/destructured literal
+``require`` forms, following const callee and namespace aliases. The table
+admits only child-process command/static-argv and selected path-like option
+fields, allowlisted filesystem path operands, path operands/format path fields,
+and the documented process path positions. Filesystem payload/data/encoding/
+callback positions and operations without signatures are excluded. A policy
+fragment mention alone does not make descriptive prose operational. This
+checker file is outside the runtime globs because the banned fragments are its
+rule vocabulary. Every violation names the rule, location, and required fix.
 
 Exit codes: 0 = compliant, 1 = at least one violation, 2 = usage/internal
 error (including an unreadable workflow). Requires PyYAML — run through

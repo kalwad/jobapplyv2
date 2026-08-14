@@ -33,6 +33,163 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 TypeScript portability semantic second correction writer evidence (2026-08-14)
+
+- Revision: second narrow correction writer pass starting from independently
+  blocked first-correction commit
+  `f4ee49e6f056f2cc15257a6d8a0cbc43de7b1941` / tree
+  `04721b7ea4fd0c2eec2506e507ea3e37c743e2ba` / parent
+  `6cf4d4b2860c054868dbe22600a0f6455cc7b60a`, after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_CORRECTED_VERIFICATION`. The forward correction
+  commit is self-recording because this evidence edit cannot contain its own
+  commit hash. JAPP-MASTER-001 v1.4 remained SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, rustc/cargo 1.97.1, and Playwright 1.62.0
+  with bundled Chromium.
+- Correction boundary: the fresh verifier identified KI-0058 as the only
+  remaining substantive blocker and independently cleared the KI-0059,
+  KI-0060, KI-0061, and KI-0062 implementation/test surfaces. This pass changes
+  only PORT-SRC-008 checker/helper semantics, its permanent pytest inventory,
+  and truthful project memory; no extension runtime, E2E, WXT, dependency,
+  lockfile, mock-ATS, W06, gate, contract, model, or prompt surface is reopened.
+  All five issues remain HIGH / IN_PROGRESS pending governance; W07 remains
+  IN_PROGRESS, W08 remains NOT_STARTED, and no package is READY.
+- Reproduced defect: the first correction's 105/105 focused suite did not
+  reject `shell: !0`, a const-computed `"shell"` key, or constant-composed
+  prohibited operational paths, and it rejected the verifier's exact
+  descriptive export. Its earlier semantic-sufficiency prose is therefore
+  superseded, while its original commands and 105 / 1001 / 999 totals remain
+  unchanged historical results.
+- Constant evaluation: the repository-pinned TypeScript compiler parses
+  executable `.ts`, `.tsx`, `.mts`, and `.cts` without executing repository
+  source. A depth-, step-, string-length-, and structure-bounded evaluator
+  resolves only allowlisted primitive literals, constant templates, safe
+  TypeScript wrappers, const aliases, relevant unary/binary/logical/conditional
+  forms, concatenation, and computed property names. Unsupported, mutable,
+  cyclic, and over-budget expressions remain UNKNOWN; UNKNOWN does not prove a
+  violation.
+- Complete-value and shell policy: an object-literal property assignment or
+  shorthand whose resolved non-type name is `shell` is rejected when its value
+  resolves to `true`, including computed and aliased forms. Whole strings are
+  checked at variable/parameter/property/class/enum initializers, array
+  elements, return/yield/concise-arrow/export/JSX values, plain `=` right-hand
+  sides, and every call/new argument. After leading whitespace, a whole string
+  violates only when it begins with `/tmp`, `/bin`, `/usr`, `/etc`, or `/var`
+  as a complete path segment, or the exact space/tab-delimited tokens
+  `bash -c`, `bash -lc`, or `sh -c`; compound assignments and component
+  literals inside an evaluated composition are not treated as complete values.
+  The flag must end or be followed by a space/tab, so `bash -client` is
+  accepted.
+- Provenance and embedded sinks: embedded fragments require both a proved
+  callee and a closed operation/argument-position signature. ESM named,
+  default, and namespace imports are recognized for `child_process`, `fs`,
+  `fs/promises`, `path`, and `process`, including `node:` spellings, in every
+  scanned TypeScript-family suffix. Only `.cts` additionally recognizes
+  TypeScript import-equals, const namespace or object-destructured literal
+  `require`, and inline literal `require(...).member`; dynamic module names,
+  mutable bindings, and locally declared/shadowed `require` are excluded.
+  Bounded const aliases of imported callees and namespaces are followed.
+  Child-process signatures inspect `exec`/`execSync` command 0;
+  `execFile`/`execFileSync` file 0 and static argv 1;
+  `spawn`/`spawnSync` command 0 and static argv 1; and `fork` module path 0 and
+  static argv 1. Resolved option objects at overload positions 1/2 expose only
+  `cwd`, `argv0`, `shell`, `execPath`, and `execArgv`; exact Bash/sh argv tuples
+  apply only to execFile/execFileSync/spawn/spawnSync.
+- Filesystem/path/process sink boundary: filesystem index 0 is inspected only
+  for the closed one-path operation table, and indices 0/1 only for
+  `copyFile`, `cp`, `link`, `rename`, and `symlink` plus listed sync variants;
+  content/data/encoding/callback arguments are not sinks. Path signatures
+  inspect every `join`/`resolve` argument, arguments 0/1 of
+  `relative`/`matchesGlob`, argument 0 of the closed one-path operation table,
+  and only `root`, `dir`, `base`, `name`, and `ext` in `format` objects.
+  Process signatures are `chdir` 0, `loadEnvFile` 0, and `dlopen` 1. Embedded
+  wrappers must begin the string or follow ASCII whitespace, `;`, `&`, `|`, or
+  `(`. Operations without a signature, including `process.stdout.write`, are
+  not embedded sinks.
+- Permanent regression matrix: 40 new node IDs cover 21 required violations
+  (seven shell-equivalence, seven composed operational, five direct/token/
+  signature, and two `.cts` provenance cases), 13 required passes (ten prose/
+  UNKNOWN and three payload/lookalike controls), and six fail-closed parser/
+  helper/JSON cases. `uv run pytest scripts/tests/test_portability.py -q`
+  exited 0 with 145/145 before documentation freeze. The twenty-first violation
+  resolves a signed `execArgv` shorthand to its const array initializer and
+  rejects an embedded prohibited path. The inventory records 1,039
+  common-and-Windows IDs plus the unchanged two POSIX-only IDs, for 1,041 on
+  POSIX; full-registry reproduction belongs to the post-freeze handoff.
+- Failure behavior: syntactically malformed or unloadable TypeScript and helper
+  nonzero, invalid-JSON, non-list-JSON, or malformed-finding output raise
+  PORT-SRC-008 internal-error policy failures rather than silently passing.
+  UNKNOWN expressions remain non-findings by design and are not described as
+  fail-closed.
+- Fresh mutation campaign: every case ran in its own disposable
+  `git clone --no-local --no-hardlinks` candidate. F1 `shell: !0`, F2 a
+  const-computed `shell` key, F3 a concatenated `/tmp` path, F4 const fragments
+  flowing to `fs.readFileSync`, and F5 a constant-built Bash argv tuple each
+  made the direct checker exit 1 with the exact PORT-SRC-008 fact and the
+  permanent suite fail only `test_real_repository_passes_the_policy` at
+  1 failed / 143 passed. Novel N1 combined a logical computed key with an
+  arithmetic/equality true value and was rejected as `shell = true`; novel N2
+  followed an aliased computed namespace callee plus a nested template into a
+  signed child-process argv position and rejected embedded `/var`. Each novel
+  case produced the same direct exit 1 and sole focused-suite failure.
+  Controls P1 the exact exported verifier string, P2 comments/JSDoc, P3 an
+  innocent constant concatenation, P4 the exact help prose as a `writeFileSync`
+  payload, P5 the prose through `process.stdout.write`, and P6
+  `spawnSync("bash -client")` each made the direct checker exit 0/PASS and the
+  focused suite pass 144/144. All logs were inspected; the campaign directory
+  was then moved to Trash rather than recursively deleted. This campaign
+  preceded the later signed-option shorthand regression, so its exact 144/144
+  control and 1 failed / 143 passed mutation summaries remain historical.
+- Confirmed pre-freeze setup and focused commands: `pnpm install
+  --frozen-lockfile`, `uv sync --locked`, `cargo fetch --locked
+  --manifest-path services/native-host/Cargo.toml`, `cargo fetch --locked
+  --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml`, and
+  `pnpm exec playwright install chromium` exited 0 without tracked lockfile
+  drift. `PATH="/Users/tanishkalwad/jobapplyv2/.venv/bin:$PATH" python3
+  scripts/check_portability.py` and `uv run python scripts/check_portability.py`
+  both exited 0/PASS. Prettier, ESLint, Node syntax, Ruff format/lint, mypy, and
+  `git diff --check` all passed on the corrected helper/checker/test/inventory
+  surfaces.
+- First full verification commands and observed results:
+  - `PATH="/Users/tanishkalwad/jobapplyv2/.venv/bin:$PATH" python3
+    scripts/check_portability.py` -> exit 0, PORT-SRC policy PASS;
+    `python3 scripts/validate_status.py` -> exit 0,
+    PASS across 45 check groups.
+  - `pnpm traceability:check` -> exit 0, 193 requirements / 300 work packages;
+    `pnpm generate:contracts --check` -> exit 0, 183 generated files
+    byte-identical.
+  - `pnpm run doctor` -> exit 0, 24 pass / one expected dirty-writer-tree
+    warning / zero fail / visual NOT_YET_APPLICABLE.
+  - `pnpm verify` -> exit 0. All 17 ACTIVE suites passed: toolchain, format,
+    lint, typecheck, unit-ts, contract-gen, fixture-corpus, evaluation-corpus,
+    contract, build, e2e-browser, python, rust, portability, traceability,
+    status, and integrity. Visual remained truthfully NOT_YET_APPLICABLE.
+    Exact preserved totals were 3,376 TypeScript tests; extension 63/63;
+    Playwright 72/72 in 23 files; W06 207/207; contracts 2,440 / focused 662 /
+    generated 183 byte-identical; build 2/2; and Rust 1+10. The new canonical
+    Python inventory collected and passed 1,040/1,040 on POSIX, comprising
+    1,038 common-and-Windows IDs plus the unchanged FIFO/socket pair. That first
+    full run preceded the later signed-option shorthand regression and its one
+    additional permanent node; the frozen-state handoff must reproduce the
+    current 1,041 total.
+  - `git diff --check` -> exit 0. Before and after that complete sequence,
+    `git diff --binary HEAD | shasum -a 256` remained
+    `b8d19259b99248c60fcfc3b1e598ae07cd71fd712c8de75a8e52337a0a225567`,
+    and the complete untracked-aware status fingerprint remained
+    `1acb5f334f354c2be2842d9e8e6adae1fe3528512eea4ac61a3dac4a09ddf42c`;
+    the commands caused no tracked-byte or path-set drift.
+- Documentation freeze: this entry records only inspected results. The required
+  second complete substantive pass occurs after this line is frozen and is
+  reported in the final writer handoff rather than preclaimed here. Exact-SHA
+  three-OS hosted evidence likewise belongs to the later pushed correction
+  commit and final handoff, not this pre-commit evidence entry.
+- Governance: this is writer evidence, not independent verification. KI-0058
+  remains HIGH / IN_PROGRESS; KI-0059 through KI-0062 remain HIGH / IN_PROGRESS
+  without reopened implementation; M02/W07 remain IN_PROGRESS; W08 remains
+  NOT_STARTED; REQ-FORM-020 remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE; all
+  critical gates remain NOT_EVALUATED; release remains NOT_READY.
+
 ### M02-W07 — Final-verification correction writer evidence (2026-08-13)
 
 - Revision: narrow correction writer pass starting from the independently

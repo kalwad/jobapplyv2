@@ -993,6 +993,210 @@ def test_const_true_shorthand_shell_spawn_in_ts_runtime_source_fails(
     assert "PORT-SRC-008" in rules_of(policy_repo)
 
 
+@pytest.mark.parametrize(
+    "source",
+    [
+        'spawnSync("node", ["--version"], { shell: !0 });\n',
+        'spawnSync("node", ["--version"], { shell: !!1 });\n',
+        (
+            "const shellValue = !0;\n"
+            'spawnSync("node", ["--version"], { shell: shellValue });\n'
+        ),
+        (
+            'const shellKey = "shell";\n'
+            'spawnSync("node", ["--version"], { [shellKey]: true });\n'
+        ),
+        (
+            "const shellKey = `shell`;\n"
+            'spawnSync("node", ["--version"], { [shellKey]: !0 });\n'
+        ),
+        (
+            'const shellKey = "sh" + "ell";\n'
+            "const enabled = false || !!2;\n"
+            'spawnSync("node", ["--version"], { [shellKey]: enabled });\n'
+        ),
+        (
+            "const enabled = (1 ? true : false) satisfies boolean;\n"
+            "const shell = enabled;\n"
+            'spawnSync("node", ["--version"], { shell });\n'
+        ),
+    ],
+    ids=[
+        "bang-zero",
+        "double-bang-one",
+        "const-value-alias",
+        "const-computed-key",
+        "template-computed-key",
+        "logical-value-and-concatenated-key",
+        "conditional-satisfies-shorthand",
+    ],
+)
+def test_constant_equivalent_shell_true_spawn_fails(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "entrypoints"
+    source_dir.mkdir(parents=True)
+    (source_dir / "constant-shell-helper.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n' + source,
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        'export const staging = "/" + "tmp/example";\n',
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'const root = "/";\n'
+            'const folder = "tmp";\n'
+            'readFileSync(root + folder + "/example");\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'const root = "/";\n'
+            "const folder = `tmp`;\n"
+            "readFileSync(`${root}${folder}/example`);\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const shellName = "ba" + "sh";\n'
+            'const wrapper = `${shellName} ${"-c"} echo ready`;\n'
+            "spawnSync(wrapper);\n"
+        ),
+        (
+            'const root = true ? "/" : "portable";\n'
+            'export const staging = root + "var/cache";\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const operationalArgument = "copy input /tmp/output";\n'
+            'spawnSync("tool", [operationalArgument]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const executable = "ba" + "sh";\n'
+            'const executeFlag = `-${"c"}`;\n'
+            'spawnSync(executable, [executeFlag, "echo ready"]);\n'
+        ),
+    ],
+    ids=[
+        "concatenated-path",
+        "const-alias-path-in-filesystem-sink",
+        "template-path-in-filesystem-sink",
+        "constant-built-bash-wrapper",
+        "conditional-path",
+        "embedded-path-in-process-sink",
+        "constant-built-shell-argv-tuple",
+    ],
+)
+def test_constant_built_operational_typescript_values_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "operational-value.ts").write_text(source, encoding="utf-8")
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    ("source", "expected_detail"),
+    [
+        (
+            'let target = "portable";\ntarget = "/" + "tmp/reviewer";\n',
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("bash\\t   -c echo ready");\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import { execFileSync } from "node:child_process";\n'
+                'execFileSync("bash", ["-c", "echo ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                "declare function consume(value: string): void;\n"
+                'consume("/tmp/reviewer");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'const execArgv = ["--require=/tmp/hook.js"];\n'
+                'spawnSync("node", [], { execArgv });\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+    ],
+    ids=[
+        "composed-assignment-rhs",
+        "tab-multispace-wrapper",
+        "exec-file-sync-shell-tuple",
+        "generic-call-exact-path",
+        "shorthand-exec-argv-embedded-path",
+    ],
+)
+def test_additional_operational_typescript_values_fail(
+    policy_repo: Path, source: str, expected_detail: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "additional-operational-value.ts").write_text(
+        source, encoding="utf-8"
+    )
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008" and expected_detail in violation.message
+        for violation in violations
+    )
+
+
+@pytest.mark.parametrize(
+    ("source", "expected_detail"),
+    [
+        (
+            (
+                'import fs = require("node:fs");\n'
+                'const sourcePath = "source=/tmp/reviewer";\n'
+                "fs.readFileSync(sourcePath);\n"
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'const childProcess = require("node:child_process");\n'
+                'childProcess.spawnSync("bash", ["-c", "echo ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+    ],
+    ids=[
+        "import-equals-filesystem-embedded-path",
+        "require-child-process-shell-tuple",
+    ],
+)
+def test_commonjs_typescript_operational_provenance_fails(
+    policy_repo: Path, source: str, expected_detail: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "commonjs-operational.cts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008" and expected_detail in violation.message
+        for violation in violations
+    )
+
+
 def test_hardcoded_tmp_in_tsx_runtime_source_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "apps" / "extension" / "src"
     source_dir.mkdir(parents=True)
@@ -1057,6 +1261,97 @@ def test_typescript_comments_documentation_and_innocent_strings_pass(
     assert rules_of(policy_repo) == set()
 
 
+@pytest.mark.parametrize(
+    "source",
+    [
+        "// shell: true; /tmp/example; bash -c echo docs\nexport const value = 1;\n",
+        (
+            "/**\n"
+            " * shell: true is forbidden; avoid /tmp and bash -c wrappers.\n"
+            " */\n"
+            "export const value = 1;\n"
+        ),
+        (
+            'type RuntimeExamples = { shell: true; path: "/tmp/example" };\n'
+            'export type WrapperExample = "bash -c echo docs";\n'
+        ),
+        '"Standalone documentation says to avoid /tmp and bash -c wrappers";\n',
+        (
+            "export const portabilityHelp =\n"
+            '  "Documentation says to avoid /tmp and bash -c wrappers";\n'
+        ),
+        (
+            "export const portabilityTemplate =\n"
+            '  `Do not use ${"/tmp"} in examples or ${"bash -c"} wrappers`;\n'
+        ),
+        'export const shellDescription = "The shell guide is descriptive";\n',
+        (
+            'const optionKey = "portable";\n'
+            "export const options = { [optionKey]: true };\n"
+        ),
+        ('declare const segment: string;\nexport const unresolved = "/" + segment;\n'),
+        (
+            'export const guidance = "Avoid " + "/tmp" +\n'
+            '  " and bash -c in documentation";\n'
+        ),
+    ],
+    ids=[
+        "line-comment",
+        "jsdoc",
+        "type-only",
+        "standalone-description",
+        "exact-exported-verifier-reproduction",
+        "exported-descriptive-template",
+        "innocent-shell-word",
+        "unrelated-computed-property",
+        "dynamic-unknown",
+        "innocent-constant-concatenation",
+    ],
+)
+def test_typescript_nonoperational_documentation_and_unknown_values_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "nonoperational.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { writeFile } from "node:fs";\n'
+            "const portabilityHelp =\n"
+            '  "Documentation says to avoid /tmp and bash -c wrappers";\n'
+            'writeFile("portability-help.txt", portabilityHelp, () => {});\n'
+        ),
+        (
+            'import process from "node:process";\n'
+            "process.stdout.write(\n"
+            '  "Documentation says to avoid /tmp and bash -c wrappers",\n'
+            ");\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("bash -client");\n'
+        ),
+    ],
+    ids=[
+        "write-file-payload-exact-help",
+        "process-stdout-write-exact-help",
+        "bash-client-lookalike",
+    ],
+)
+def test_typescript_operational_payloads_and_wrapper_lookalikes_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "operational-payload.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:
@@ -1066,6 +1361,57 @@ def test_typescript_declaration_files_are_not_runtime_sources(
         'declare const path: "/tmp/type-only";\n', encoding="utf-8"
     )
     assert rules_of(policy_repo) == set()
+
+
+def test_unparseable_typescript_runtime_source_fails_closed(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "malformed.ts").write_text(
+        "export const broken = { shell: true;\n", encoding="utf-8"
+    )
+    with pytest.raises(check_portability.PolicyError, match="not parseable TypeScript"):
+        rules_of(policy_repo)
+
+
+def test_unloadable_typescript_runtime_source_fails_closed(
+    policy_repo: Path,
+) -> None:
+    missing = policy_repo / "apps" / "extension" / "src" / "missing.ts"
+    with pytest.raises(
+        check_portability.PolicyError, match="TypeScript portability parser failed"
+    ):
+        check_portability._check_ts_runtime_sources(policy_repo, [missing], [])
+
+
+@pytest.mark.parametrize(
+    "outcome",
+    [
+        (1, "", "helper crashed", "TypeScript portability parser failed"),
+        (0, "not-json", "", "returned invalid JSON"),
+        (0, '{"unexpected":true}', "", "returned a non-list result"),
+        (0, '[{"path":"bad"}]', "", "returned a malformed finding"),
+    ],
+    ids=["helper-crash", "invalid-json", "non-list-json", "malformed-finding"],
+)
+def test_typescript_portability_helper_failures_fail_closed(
+    policy_repo: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    outcome: tuple[int, str, str, str],
+) -> None:
+    returncode, stdout, stderr, message = outcome
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    source = source_dir / "helper.ts"
+    source.write_text("export const value = 1;\n", encoding="utf-8")
+
+    def fake_run(*_args: object, **_kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess("node", returncode, stdout, stderr)
+
+    monkeypatch.setattr("check_portability.subprocess.run", fake_run)
+    with pytest.raises(check_portability.PolicyError, match=message):
+        check_portability._check_ts_runtime_sources(policy_repo, [source], [])
 
 
 def test_bash_only_package_script_fails(policy_repo: Path) -> None:
