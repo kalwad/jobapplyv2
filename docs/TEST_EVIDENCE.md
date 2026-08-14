@@ -33,6 +33,165 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 TypeScript portability semantic third correction writer evidence (2026-08-14)
+
+- Revision: third narrow correction writer pass starting from independently
+  blocked second-correction commit
+  `2b85c9b1e1f80cd41334752e14b259dc61151058` / tree
+  `7c97431ef520b3ebefe0c0a0a81c147c830d7351` / parent
+  `f4ee49e6f056f2cc15257a6d8a0cbc43de7b1941`, after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_KI0058_VERIFICATION`. The forward correction
+  commit is self-recording because this evidence edit cannot contain its own
+  hash. JAPP-MASTER-001 v1.4 remained byte-identical at SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Environment: macOS 27.0 arm64; pinned Node 24.18.0, pnpm 11.17.0,
+  uv 0.11.32, Python 3.12.13, rustc/cargo 1.97.1, and Playwright 1.62.0.
+- Correction boundary: only PORT-SRC-008 helper/orchestration semantics,
+  permanent portability tests and exact Python inventory, and truthful project
+  memory are changed. The extension runtime, E2E, WXT configuration,
+  dependencies/lockfile, contracts, mock ATS, W06, gate reports, model lock,
+  prompt registry, and all KI-0059…KI-0062 implementation/test surfaces remain
+  byte-identical. KI-0058 stays HIGH / IN_PROGRESS; KI-0059…KI-0062 stay HIGH /
+  IN_PROGRESS pending final W07 governance; W07 stays IN_PROGRESS, W08 stays
+  NOT_STARTED, and no package becomes READY.
+- Exact second-correction reproduction: before modifying the helper, a
+  disposable `git clone --no-hardlinks` of the starting content reproduced all
+  seven fresh findings. Post-construction `options.shell = true`, computed
+  `options[key] = !0`, `join("/", "tmp", "reviewer")` in `readFileSync`,
+  const-aliased `path.resolve("/", "tmp", "reviewer")` in `readFileSync`, and
+  object-literal `shell: !+"0"` each returned PORT-SRC-008 PASS when failure
+  was required. Exported descriptive values beginning `/tmp/example is ...`
+  and `bash -c is ...` each returned FAIL when PASS was required. The blocked
+  145/145 suite and prior numeric evidence remain historical, but the second
+  correction's broad complete-value semantic claims are superseded.
+- Authoritative policy interpretation: JAPP-MASTER-001 M00-W09 requires
+  platform-neutral executable/canonical flows and does not mandate rejecting
+  every unused TypeScript string. A TypeScript path/wrapper fact now requires a
+  reviewed operational use. Therefore unused `const p = "/tmp/x"`, descriptive
+  exports/runtime data, arbitrary-call data, console/stdout data, and an unused
+  trusted `node:path` result pass; the same proved value fails when it reaches a
+  reviewed filesystem, process, child-process command/argv, or selected option
+  position. Variable names never supply operational provenance. This removes a
+  W07 implementation assumption, not an authoritative requirement, and leaves
+  the older Python literal rule unchanged.
+- Layer 1 — primitive constant semantics: the non-executing allowlist supports
+  only null, booleans, numbers, and bounded strings. ToBoolean makes null,
+  false, ±0, NaN, and the empty string false. ToNumber maps null→0,
+  false→0, true→1, preserves numbers (including NaN, ±0, and infinities), and
+  applies JavaScript numeric string conversion to already-proved bounded
+  strings. Primitive `+` concatenates after primitive string conversion when
+  either operand is a string and otherwise numerically coerces both operands;
+  the supported unary `!`, `+`, `-`, and `~`, strict equality, relational,
+  arithmetic, logical, conditional, and template operations use the matching
+  primitive behavior. Thus `+false`, `+null`, `+""`, and `+"0"` are 0;
+  `+true` and `+"1"` are 1; `+" 2 "` is 2; `+"not-number"` is NaN;
+  `!+"0"` and `!!+"1"` are true; and `-"2"` is -2. Objects, arrays,
+  Symbols, BigInts, mutable values, calls, and unsupported syntax remain
+  UNKNOWN. Depth 64, 512 steps, 16,384-character strings, structural bounds,
+  and declaration-cycle guards remain enforced; no `eval`, `Function`, `vm`,
+  transpile/run, dynamic repository import, or repository-source execution is
+  used.
+- Layer 2 — pure operational expressions: proved ESM and bounded `.cts`
+  CommonJS provenance identifies named/aliased `join`, namespace
+  `path.join`/`path.resolve`, const callee/namespace aliases, and explicit
+  `posix`/`win32` flavor while respecting local shadowing. Known string
+  arguments produce a lexical abstract path fact; no Node host path function is
+  called on source expressions. Join normalizes dot segments and preserves a
+  known leading POSIX root; resolve walks right-to-left to the last known
+  absolute operand and is UNKNOWN if no absolute root is established. Nested
+  const composition and result aliases propagate to a later sink. Explicit
+  win32 operations remain UNKNOWN rather than being flattened into POSIX facts;
+  relative `join("fixtures", "x")` remains clean.
+- Layer 3 — bounded local object state: a tracked symbol must originate in a
+  local object literal and remain identifiable. The five reviewed
+  child-process fields are represented as ABSENT, KNOWN, UNKNOWN, or a bounded
+  possible set of proved references. Ordered duplicate literal properties,
+  post-construction direct/computed writes, same-statement writes, sink argument
+  evaluation order, and final overwrites replace earlier facts. Consequently
+  true→false is clean and false→true fails. Supported if/logical/conditional/
+  bounded-loop flow honors statically unreachable paths; when a condition is
+  unknown, any reachable possible proved `shell=true` fails. State merging
+  never discards an already-proved possible violation because of the path
+  budget. Each optional-chain link is classified as never, maybe, or always
+  reached: a proved-null base short-circuits later keys/arguments, a proved
+  non-null base continues, and an unknown intermediate base merges skipped and
+  reached states. Unknown calls, alias assignment/capture, reassignment,
+  spread or `Object.assign`, unresolved computed keys, destructuring/binding
+  defaults, deferred function-like captures, nested abrupt flow,
+  switch/try-to-sink, unsupported expression containers, and other unsupported
+  mutation invalidate relevant state to UNKNOWN rather than retaining stale
+  certainty. Direct `break`/`continue`, false loop conditions, and definite for
+  initializers are ordered explicitly.
+- Layer 4 — operational sink classification: only the closed reviewed
+  signatures consume facts. Filesystem path operands and the documented
+  process path positions are path-only. Child-process executable/static argv
+  positions are command contexts; only `cwd`, `argv0`, `execArgv`, `execPath`,
+  and `shell` are inspected in options, with `shell` accepting a proved boolean
+  true or command string. Path-only contexts never run wrapper classification.
+  Filesystem data/encoding/callback operands, `process.stdout.write`, exports,
+  JSX/data values, arbitrary calls, and `node:path` calls by themselves are not
+  sinks. The exact Bash argv tuple remains closed to `bash -c`, `bash -lc`, and
+  `sh -c`, including safe constant composition; `bash -client` remains clean.
+- Fail-closed infrastructure: malformed TypeScript, unloadable sources, helper
+  nonzero, invalid JSON, non-list JSON, malformed objects, invalid finding
+  kinds/paths/details, and non-integer or boolean line values raise policy
+  errors. Unsupported source semantics remain UNKNOWN/non-findings and are not
+  mislabeled as infrastructure success.
+- Permanent matrix: the focused portability file now passes 266/266, a net 121
+  increase over 145. T1…T10 lock every required failure and C1…C10 lock every
+  required control. Additional permanent families cover the full primitive
+  coercion table and infinity/NaN/±0 controls; ordered duplicate/late writes;
+  same-declaration state; possible/unreachable branches; logical/conditional
+  nesting; loop initializer, zero-iteration, and abrupt-flow boundaries; sink
+  argument and nested-container order; assignment-LHS evaluation order;
+  per-link optional-chain short-circuiting; alias/capture/unknown-key/
+  destructuring/binding-default invalidation; deferred-sink boundaries and
+  unsupported-container invalidation; path callee aliases, nested composition,
+  POSIX/win32 flavor, local shadowing, and over-budget UNKNOWN; path-only versus
+  command classification; data-versus-path argument positions; CommonJS result
+  propagation; and boolean-line response-schema rejection. The former
+  `generic-call-exact-path` negative was deliberately reclassified as a data
+  control under the authoritative operational-use interpretation. Canonical
+  collection is 1,160 common-and-Windows IDs at SHA-256
+  `7437536ab1b27670bc40175ae9ad0d888103cd0760f75eb089a07c9a78774c4d`
+  plus the unchanged FIFO/socket pair, or 1,162 on POSIX.
+- Fresh mutation campaign: a disposable no-hardlink clone contained 13
+  substantive mutants and 13 paired clean controls. All 13 mutants were
+  rejected and all 13 controls remained clean (14 findings because the M6
+  operational counterpart intentionally carried both a path and wrapper).
+  M1 post-construction true, M2 computed post-construction `!0`, M3 joined
+  absolute path, M4 resolved/result-aliased absolute path, M5 `!+"0"`, and M6
+  operational versus descriptive path/wrapper values reproduced and killed the
+  six exact independent families. Seven fresh pairs covered overwrite order,
+  alias escape, computed-key aliases, const path-callee aliases, local
+  shadowing, nested const path composition, and filesystem data-versus-path
+  argument position. Whitespace-only variants were not counted.
+- Bounded adversarial review: Reviewer A found and the writer fixed numeric
+  Infinity, transparent-wrapper budget, and multi-link optional-chain
+  reachability defects, then cleared the primitive/control boundary. Reviewer
+  B found and the writer fixed state-cap loss, same-statement
+  ordering, nested expression flow, loop/abrupt ordering, sink argument order,
+  assignment-LHS evaluation, event collision, and unsupported-flow
+  invalidation, then cleared the changed boundaries. Reviewer C found and the
+  writer fixed path/command conflation, explicit win32 provenance flattening,
+  and boolean-line schema acceptance, then cleared provenance/sinks. These are
+  writer-side adversarial reviews, not independent package verification or
+  governance evidence.
+- Confirmed pre-freeze commands: `node --check
+  scripts/check_typescript_portability.mjs`, Ruff lint, and
+  `git diff --check` passed. The canonical focused command
+  `uv run pytest -c pyproject.toml --rootdir=. --confcutdir=. -o addopts= -ra
+  --strict-markers --strict-config --disable-plugin-autoload -q
+  scripts/tests/test_portability.py` exited 0 with 266/266. The exact Python
+  inventory collection emitted 1,162 tests. Required full substantive
+  verification is intentionally run twice only after this documentation freeze
+  and is reported in the final writer handoff rather than preclaimed here.
+- Governance: this correction does not verify W07, ready W08, fix KI-0058,
+  evaluate Gate A, or change any critical gate. KI-0006 remains DEFERRED for
+  future Rust/native enforcement; REQ-FORM-020 remains SCAFFOLD_ONLY /
+  NOT_YET_APPLICABLE; all gates remain NOT_EVALUATED and release remains
+  NOT_READY.
+
 ### M02-W07 — KI-0058 TypeScript portability semantic second correction writer evidence (2026-08-14)
 
 - Revision: second narrow correction writer pass starting from independently

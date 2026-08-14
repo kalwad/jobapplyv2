@@ -35,31 +35,38 @@ the verification-suite registry. Documentation, prose, and
 runtime files are parsed through their ecosystem ASTs, so comments,
 documentation-only string statements, and type-only declarations cannot
 create literal-search false positives. PORT-SRC-008 additionally separates a
-bounded, allowlisted primitive-constant evaluator from operational relevance;
-unsupported, mutable, cyclic, and over-budget expressions remain UNKNOWN. An
-object-literal property assignment or shorthand violates the rule when its
-resolved non-type name and value prove the exact fact ``shell = true``.
+bounded, allowlisted primitive-constant evaluator from operational relevance.
+Its primitive-only JavaScript model implements ToBoolean, ToNumber, unary
+coercion, primitive ``+``, and the other allowlisted operators; unsupported
+objects/types, mutable values, cycles, and over-budget expressions remain
+UNKNOWN. A separate pure-expression layer recognizes only trusted-provenance
+``node:path.join``/``resolve`` calls over known strings and derives an abstract
+normalized path fact without invoking host path functions or repository code.
 
-Path/wrapper analysis has two finite layers. Whole strings are checked at
-variable, parameter-default, object/class/enum-property, array-element,
-return/yield/concise-arrow, export-assignment, JSX, plain ``=`` right-hand-side,
-and call/new-argument roots. After leading whitespace, a whole string violates
-only when it begins with a prohibited absolute path segment or exact
-space/tab-delimited ``bash -c``, ``bash -lc``, or ``sh -c`` tokens; for example,
-``bash -client`` is clean. Component literals inside an evaluated composition
-and compound assignments are not treated as complete values.
+Child-process option analysis models point-in-time local object state when the
+object originates in a local literal. Ordered direct/computed writes replace
+earlier values, so a final definitely-false ``shell`` value is clean and a
+final true value violates. Statically possible true branches violate; a
+statically unreachable branch does not. Unknown keys/mutations become UNKNOWN,
+while alias escape, reassignment, unsupported mutation, and unsupported control
+flow invalidate retained facts instead of inventing a result.
 
-Embedded fragments require proved Node-module provenance and a closed
-operation/argument-position table. Provenance covers non-type ESM imports and
-bounded, unshadowed ``.cts`` import-equals/const/inline/destructured literal
-``require`` forms, following const callee and namespace aliases. The table
-admits only child-process command/static-argv and selected path-like option
-fields, allowlisted filesystem path operands, path operands/format path fields,
-and the documented process path positions. Filesystem payload/data/encoding/
-callback positions and operations without signatures are excluded. A policy
-fragment mention alone does not make descriptive prose operational. This
-checker file is outside the runtime globs because the banned fragments are its
-rule vocabulary. Every violation names the rule, location, and required fix.
+Path/wrapper findings require a reviewed operational sink plus proved Node
+module provenance. Provenance covers non-type ESM imports and bounded,
+unshadowed ``.cts`` import-equals/const/inline/destructured literal ``require``
+forms, following const callee and namespace aliases. The closed signature table
+admits only child-process executable/static argv and selected option fields,
+allowlisted filesystem path operands, and documented process path positions.
+Filesystem payload/data/encoding/callback positions, arbitrary calls, exports,
+initializers, JSX/data values, unused ``node:path`` results, and operations
+without signatures are excluded. Thus unused or descriptive TypeScript values
+such as ``const p = "/tmp/example"`` are not violations until they reach a
+reviewed sink; variable names never supply operational provenance. This is the
+canonical-flow interpretation of JAPP-MASTER-001 M00-W09 and deliberately does
+not change the older Python literal rule. A policy-fragment mention alone does
+not make descriptive prose operational. This checker file is outside the
+runtime globs because the banned fragments are its rule vocabulary. Every
+violation names the rule, location, and required fix.
 
 Exit codes: 0 = compliant, 1 = at least one violation, 2 = usage/internal
 error (including an unreadable workflow). Requires PyYAML — run through
@@ -1328,6 +1335,7 @@ def _check_ts_runtime_sources(
             not isinstance(rel, str)
             or rel not in allowed_paths
             or not isinstance(line, int)
+            or isinstance(line, bool)
             or line < 1
             or kind not in {"posix-path", "shell-wrapper", "shell-true"}
             or not isinstance(finding_detail, str)

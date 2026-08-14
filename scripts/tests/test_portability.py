@@ -913,7 +913,9 @@ def test_hardcoded_tmp_in_ts_runtime_source_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "apps" / "extension" / "src"
     source_dir.mkdir(parents=True)
     (source_dir / "cache.ts").write_text(
-        'const CACHE_DIR = "/tmp/japp-cache";\nexport default CACHE_DIR;\n',
+        'import { readFileSync } from "node:fs";\n'
+        'const CACHE_DIR = "/tmp/japp-cache";\n'
+        "readFileSync(CACHE_DIR);\n",
         encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
@@ -923,7 +925,10 @@ def test_bash_wrapper_in_ts_runtime_source_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "packages" / "form-engine" / "src"
     source_dir.mkdir(parents=True)
     (source_dir / "runner.ts").write_text(
-        'export const WRAPPER = "bash -c ./verify-all";\n', encoding="utf-8"
+        'import { spawnSync } from "node:child_process";\n'
+        'const WRAPPER = "bash -c ./verify-all";\n'
+        "spawnSync(WRAPPER);\n",
+        encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
 
@@ -1046,7 +1051,11 @@ def test_constant_equivalent_shell_true_spawn_fails(
 @pytest.mark.parametrize(
     "source",
     [
-        'export const staging = "/" + "tmp/example";\n',
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'const staging = "/" + "tmp/example";\n'
+            "readFileSync(staging);\n"
+        ),
         (
             'import { readFileSync } from "node:fs";\n'
             'const root = "/";\n'
@@ -1066,8 +1075,10 @@ def test_constant_equivalent_shell_true_spawn_fails(
             "spawnSync(wrapper);\n"
         ),
         (
+            'import { readFileSync } from "node:fs";\n'
             'const root = true ? "/" : "portable";\n'
-            'export const staging = root + "var/cache";\n'
+            'const staging = root + "var/cache";\n'
+            "readFileSync(staging);\n"
         ),
         (
             'import { spawnSync } from "node:child_process";\n'
@@ -1104,7 +1115,11 @@ def test_constant_built_operational_typescript_values_fail(
     ("source", "expected_detail"),
     [
         (
-            'let target = "portable";\ntarget = "/" + "tmp/reviewer";\n',
+            (
+                'import { readFileSync } from "node:fs";\n'
+                'const target = "/" + "tmp/reviewer";\n'
+                "readFileSync(target);\n"
+            ),
             "hard-coded POSIX system path '/tmp'",
         ),
         (
@@ -1123,13 +1138,6 @@ def test_constant_built_operational_typescript_values_fail(
         ),
         (
             (
-                "declare function consume(value: string): void;\n"
-                'consume("/tmp/reviewer");\n'
-            ),
-            "hard-coded POSIX system path '/tmp'",
-        ),
-        (
-            (
                 'import { spawnSync } from "node:child_process";\n'
                 'const execArgv = ["--require=/tmp/hook.js"];\n'
                 'spawnSync("node", [], { execArgv });\n'
@@ -1141,7 +1149,6 @@ def test_constant_built_operational_typescript_values_fail(
         "composed-assignment-rhs",
         "tab-multispace-wrapper",
         "exec-file-sync-shell-tuple",
-        "generic-call-exact-path",
         "shorthand-exec-argv-embedded-path",
     ],
 )
@@ -1197,11 +1204,26 @@ def test_commonjs_typescript_operational_provenance_fails(
     )
 
 
+def test_commonjs_node_path_result_propagates_into_filesystem_sink(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "commonjs-path-result.cts").write_text(
+        'const { readFileSync } = require("node:fs");\n'
+        'const { join: combine } = require("node:path");\n'
+        'readFileSync(combine("/", "tmp", "reviewer"));\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
 def test_hardcoded_tmp_in_tsx_runtime_source_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "apps" / "extension" / "src"
     source_dir.mkdir(parents=True)
     (source_dir / "profile.tsx").write_text(
-        'export const profile = <span data-path="/tmp/japp-profile" />;\n',
+        'import { readFileSync } from "node:fs";\n'
+        'export const profile = <span>{readFileSync("/tmp/japp-profile")}</span>;\n',
         encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
@@ -1213,7 +1235,8 @@ def test_node_specific_typescript_runtime_extensions_are_scanned(
 ) -> None:
     source_dir = policy_repo / "scripts"
     (source_dir / f"profile{suffix}").write_text(
-        'export const profileRoot = "/tmp/japp-profile";\n', encoding="utf-8"
+        'import { readFileSync } from "node:fs";\nreadFileSync("/tmp/japp-profile");\n',
+        encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
 
@@ -1225,7 +1248,9 @@ def test_hardcoded_tmp_in_ts_node_tool_script_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "apps" / "mock-ats-lab" / "scripts"
     source_dir.mkdir(parents=True)
     (source_dir / "check-helper.ts").write_text(
-        'const STAGING_DIR = "/tmp/japp-catalog";\nexport default STAGING_DIR;\n',
+        'import { readFileSync } from "node:fs";\n'
+        'const STAGING_DIR = "/tmp/japp-catalog";\n'
+        "readFileSync(STAGING_DIR);\n",
         encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
@@ -1352,6 +1377,953 @@ def test_typescript_operational_payloads_and_wrapper_lookalikes_pass(
     assert rules_of(policy_repo) == set()
 
 
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", ["--version"], { shell: !+"0" });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            "options.shell = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            'const key = "shell";\n'
+            "options[key] = !0;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "options.shell = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            'readFileSync(join("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import * as path from "node:path";\n'
+            'const p = path.resolve("/", "tmp", "reviewer");\n'
+            "readFileSync(p);\n"
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join as combine } from "node:path";\n'
+            'readFileSync(combine("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            'const root = "/";\n'
+            'const dir = "tmp";\n'
+            'const p = join(root, dir, "reviewer");\n'
+            "readFileSync(p);\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const executable = "ba" + "sh";\n'
+            'const flag = "-" + "c";\n'
+            'spawnSync(executable, [flag, "echo hi"]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const keyPart = "sh";\n'
+            'const key = keyPart + "ell";\n'
+            'const enabled = !+"0";\n'
+            "const options = {};\n"
+            "options[key] = enabled;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+    ],
+    ids=[
+        "t1-unary-numeric-shell",
+        "t2-post-construction-shell",
+        "t3-computed-post-construction-shell",
+        "t4-overwrite-to-shell-true",
+        "t5-direct-join-result-in-fs-sink",
+        "t6-namespace-resolve-result-in-fs-sink",
+        "t7-aliased-node-path-join",
+        "t8-constant-composed-join-path",
+        "t9-composed-bash-executable-and-flag",
+        "t10-aliased-computed-shell-write",
+    ],
+)
+def test_third_correction_required_typescript_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "third-correction-violation.ts").write_text(source, encoding="utf-8")
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            "export const example =\n"
+            '  "/tmp/example is a prohibited portability example";\n'
+        ),
+        (
+            "export const wrapperExample =\n"
+            '  "bash -c is forbidden in runtime commands";\n'
+        ),
+        (
+            'import { writeFileSync } from "node:fs";\n'
+            'writeFileSync("portable.txt", "/tmp/example is documentation");\n'
+        ),
+        (
+            'import process from "node:process";\n'
+            'process.stdout.write("/tmp/example is documentation");\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            'readFileSync(join("fixtures", "reviewer"));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("bash", ["-client"]);\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            "function join(...parts: string[]): string {\n"
+            '  return "/tmp/" + parts.join("/");\n'
+            "}\n"
+            'readFileSync(join("reviewer"));\n'
+        ),
+        (
+            "function spawnSync(..._args: unknown[]): void {}\n"
+            'spawnSync("bash", ["-c"], { shell: true });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            "options.shell = true;\n"
+            "options.shell = false;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const enabled: boolean;\n"
+            "const options = {};\n"
+            "options.shell = enabled;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+    ],
+    ids=[
+        "c1-descriptive-leading-path",
+        "c2-descriptive-leading-wrapper",
+        "c3-write-file-data-position",
+        "c4-process-stdout-data",
+        "c5-relative-join-in-fs-sink",
+        "c6-bash-client-lookalike",
+        "c7-local-shadowed-join",
+        "c8-local-shadowed-spawn-sync",
+        "c9-final-shell-false",
+        "c10-dynamic-unknown-shell-value",
+    ],
+)
+def test_third_correction_required_typescript_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "third-correction-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "expression",
+    [
+        "!+false",
+        "!!+true",
+        "!+null",
+        '!+""',
+        '!!+"1"',
+        '!!+" 2 "',
+        '!+"not-number"',
+        '!!-"2"',
+        "!!1e309",
+    ],
+    ids=[
+        "to-number-false",
+        "to-number-true",
+        "to-number-null",
+        "to-number-empty-string",
+        "to-number-one-string",
+        "to-number-whitespace-string",
+        "to-number-nan-string",
+        "unary-minus-string",
+        "numeric-literal-infinity",
+    ],
+)
+def test_third_correction_primitive_coercions_to_shell_true_fail(
+    policy_repo: Path, expression: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "primitive-coercion.ts").write_text(
+        'import { spawnSync } from "node:child_process";\n'
+        f'spawnSync("node", [], {{ shell: {expression} }});\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true, shell: false };\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const options = {};\n"
+            "if (condition) {\n"
+            "  options.shell = true;\n"
+            "  options.shell = false;\n"
+            "}\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            "if (false) options.shell = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function mutate(value: object): void;\n"
+            "const options = { shell: true };\n"
+            "mutate(options);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "Object.assign(options, { shell: false });\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { join } from "node:path";\n'
+            'const text = join("/", "tmp", "reviewer");\n'
+            "void text;\n"
+        ),
+        (
+            'import { writeFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            'writeFileSync("portable.txt", join("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const key: string;\n"
+            "const options = {};\n"
+            "options[key] = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { shell: !!+false });\n'
+        ),
+        ('const p = "/tmp/x";\nvoid p;\n'),
+        ('const help = "/tmp/example";\nvoid help;\n'),
+        ('console.log("/tmp/example is documentation");\n'),
+        ('declare function consume(value: string): void;\nconsume("/tmp/reviewer");\n'),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { shell: ' + "(" * 65 + "!0" + ")" * 65 + " });\n"
+        ),
+    ],
+    ids=[
+        "literal-last-shell-false",
+        "conditional-branch-final-false",
+        "statically-unreachable-shell-write",
+        "unknown-call-alias-escape",
+        "object-assign-escape",
+        "unused-trusted-path-result",
+        "trusted-path-result-in-data-position",
+        "unknown-computed-property-key",
+        "primitive-coercion-final-false",
+        "unused-direct-path-constant",
+        "unused-help-path-value",
+        "console-log-data",
+        "generic-call-data",
+        "over-depth-primitive-expression-is-unknown",
+    ],
+)
+def test_third_correction_additional_semantic_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "additional-semantic-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false, shell: true };\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const options = {};\n"
+            "if (condition) options.shell = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            'const key = "sh" + "ell";\n'
+            "options[key] = true;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            "const buildPath = join;\n"
+            'readFileSync(buildPath("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { join } from "node:path";\n'
+            'const nested = join("tmp", "nested");\n'
+            'readFileSync(join("/", nested, "reviewer"));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'import { join } from "node:path";\n'
+            "const options = {};\n"
+            'options.cwd = join("/", "tmp", "reviewer");\n'
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const c1: boolean, c2: boolean, c3: boolean;\n"
+            "declare const c4: boolean, c5: boolean, c6: boolean, c7: boolean;\n"
+            "const options = { shell: true };\n"
+            "if (c1) {}\nif (c2) {}\nif (c3) {}\nif (c4) {}\n"
+            "if (c5) {}\nif (c6) {}\nif (c7) {}\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {}, configured = (options.shell = true);\n"
+            "void configured;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "false && (options.shell = false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            'spawnSync("node", (options.shell = true, []), options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            'spawnSync("node", [], (options.shell = true, options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = {};\n"
+            "for (options.shell = true; ; ) {\n"
+            '  spawnSync("node", [], options);\n'
+            "  break;\n"
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const options = { shell: false };\n"
+            "condition ? (options.shell = true) : (options.shell = false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { posix } from "node:path";\n'
+            'readFileSync(posix.join("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const options = { shell: true, cwd: "portable" };\n'
+            "options.cwd = false && (options.shell = false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "do {\n"
+            "  continue;\n"
+            "  options.shell = false;\n"
+            "} while (false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'options.shell = Boolean(spawnSync("node", [], options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const target: { value: number };\n"
+            "const options = { shell: false };\n"
+            "(options.shell = true, target).value = 0;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const branch: boolean;\n"
+            "const options = {};\n"
+            "for (options.shell = true; false; ) {\n"
+            "  if (branch) break;\n"
+            "}\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const value = {\n"
+            "  before: false && (options.shell = false),\n"
+            '  sink: spawnSync("node", [], options),\n'
+            "};\n"
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const value = ({\n"
+            "  before: false && (options.shell = false),\n"
+            '  sink: spawnSync("node", [], options),\n'
+            "}).sink;\n"
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function consume(...values: unknown[]): void;\n"
+            "const options = { shell: true };\n"
+            "consume(...[false && (options.shell = false)]);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function tag(parts: TemplateStringsArray, "
+            "...values: unknown[]): unknown;\n"
+            "const options = { shell: true };\n"
+            "const value = tag`${false && (options.shell = false)}"
+            '${spawnSync("node", [], options)}`;\n'
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function tag(parts: TemplateStringsArray, "
+            "...values: unknown[]): unknown;\n"
+            "const options = { shell: true };\n"
+            "const value = tag`${false && (options.shell = false)}`;\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const invoke: ((value: unknown) => unknown) | null;\n"
+            "const options = { shell: true };\n"
+            'invoke?.(spawnSync("node", [], options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const target = null as { run(value: unknown): unknown } | null;\n"
+            "target?.run(false && (options.shell = false));\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            '"live"?.[spawnSync("node", [], options) as unknown as string];\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const value = (null as Record<string, unknown> | null)?.[\n"
+            "  false && (options.shell = false) as unknown as string\n"
+            "];\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'const root = "live" as unknown as '
+            "{ child?: (value: unknown) => unknown };\n"
+            "root?.child?.(options.shell = false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'const root = "live" as unknown as '
+            "{ child?: (value: unknown) => unknown };\n"
+            "root?.child?.(options.shell = true);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'const root = "live" as unknown as { child?: Record<string, unknown> };\n'
+            "root?.child?.[options.shell = false as unknown as string];\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'const root = "live" as unknown as { child?: Record<string, unknown> };\n'
+            "root?.child?.[options.shell = true as unknown as string];\n"
+            'spawnSync("node", [], options);\n'
+        ),
+    ],
+    ids=[
+        "literal-last-shell-true",
+        "possible-branch-shell-true",
+        "concatenated-computed-property-key",
+        "const-path-callee-alias",
+        "nested-path-composition",
+        "post-construction-path-option",
+        "state-merge-preserves-definite-shell-true",
+        "same-declaration-post-construction-write",
+        "unreachable-logical-overwrite-preserves-true",
+        "earlier-sink-argument-write",
+        "comma-wrapped-options-write",
+        "for-initializer-write-before-in-loop-sink",
+        "conditional-expression-possible-shell-true",
+        "esm-posix-path-flavor",
+        "nested-unreachable-overwrite-preserves-true",
+        "continue-skips-shell-false-write",
+        "sink-in-assignment-rhs-sees-prior-state",
+        "assignment-lhs-base-write-is-visible",
+        "loop-initializer-precedes-unreachable-ambiguous-body",
+        "object-container-sink-preserves-unreachable-false-write",
+        "property-wrapper-sink-preserves-unreachable-false-write",
+        "spread-argument-skips-unreachable-false-write",
+        "tagged-template-sink-preserves-unreachable-false-write",
+        "tagged-template-before-sink-skips-unreachable-false-write",
+        "optional-call-unknown-callee-may-reach-sink",
+        "optional-method-null-base-skips-false-write-before-later-sink",
+        "optional-element-live-base-reaches-sink",
+        "optional-element-null-base-skips-false-write-before-later-sink",
+        "multi-link-optional-call-unknown-intermediate-preserves-true",
+        "multi-link-optional-call-unknown-intermediate-may-write-true",
+        "multi-link-optional-element-unknown-intermediate-preserves-true",
+        "multi-link-optional-element-unknown-intermediate-may-write-true",
+    ],
+)
+def test_third_correction_additional_semantic_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "additional-semantic-violation.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true }, configured = "
+            "(options.shell = false);\n"
+            "void configured;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "false && (options.shell = true);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "while (false) { options.shell = true; }\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "({ shell: options.shell } = { shell: false });\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "({ shell: options.shell } = { shell: true });\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true }, alias = options;\n"
+            "alias.shell = false;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const deferred = () => { options.shell = false; };\n"
+            "void deferred;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'readFileSync("bash -c is a filename");\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { cwd: "bash -c is a directory" });\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'import { win32 } from "node:path";\n'
+            'readFileSync(win32.join("/", "tmp", "reviewer"));\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            "readFileSync(" + "(" * 65 + '"/tmp/reviewer"' + ")" * 65 + ");\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'false && spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'true || spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'false ? spawnSync("node", [], options) : undefined;\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const options = { shell: false, cwd: "portable" };\n'
+            "options.cwd = false && (options.shell = true);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'const options = { shell: true, cwd: "portable" };\n'
+            "({ shell: options.shell, cwd: options.cwd } =\n"
+            '  { shell: false, cwd: "portable" });\n'
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "do {\n"
+            "  continue;\n"
+            "  options.shell = true;\n"
+            "} while (false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "switch (1) {\n"
+            "  case 0: options.shell = false; break;\n"
+            '  case 1: spawnSync("node", [], options); break;\n'
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'options.shell = Boolean(spawnSync("node", [], options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function holder(value: object): { value: number };\n"
+            "const options = { shell: true };\n"
+            "holder(options).value = 0;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const value = {\n"
+            "  before: false && (options.shell = true),\n"
+            '  sink: spawnSync("node", [], options),\n'
+            "};\n"
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const value = ({\n"
+            "  before: false && (options.shell = true),\n"
+            '  sink: spawnSync("node", [], options),\n'
+            "}).sink;\n"
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function consume(...values: unknown[]): void;\n"
+            "const options = { shell: false };\n"
+            "consume(...[false && (options.shell = true)]);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function tag(parts: TemplateStringsArray, "
+            "...values: unknown[]): unknown;\n"
+            "const options = { shell: false };\n"
+            "const value = tag`${false && (options.shell = true)}"
+            '${spawnSync("node", [], options)}`;\n'
+            "void value;\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function tag(parts: TemplateStringsArray, "
+            "...values: unknown[]): unknown;\n"
+            "const options = { shell: false };\n"
+            "const value = tag`${false && (options.shell = true)}`;\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "(null as ((value: unknown) => unknown) | null)?.(\n"
+            '  spawnSync("node", [], options)\n'
+            ");\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "(null as { run(value: unknown): unknown } | null)?.run(\n"
+            '  spawnSync("node", [], options)\n'
+            ");\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const target = null as { run(value: unknown): unknown } | null;\n"
+            "target?.run(false && (options.shell = true));\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'const run = () => spawnSync("node", [], options);\n'
+            "options.shell = false;\n"
+            "run();\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'const run = () => spawnSync("node", [], options);\n'
+            "options.shell = true;\n"
+            "run();\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const runner = {\n"
+            '  run() { spawnSync("node", [], options); },\n'
+            "};\n"
+            "options.shell = false;\n"
+            "runner.run();\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "(null as Record<string, unknown> | null)?.[\n"
+            '  spawnSync("node", [], options) as unknown as string\n'
+            "];\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const value = (null as Record<string, unknown> | null)?.[\n"
+            "  false && (options.shell = true) as unknown as string\n"
+            "];\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const { value = (options.shell = false) } = {};\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const { value = (options.shell = true) } = {};\n"
+            "void value;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "(null as { child?: { run(value: unknown): unknown } } | null)\n"
+            '  ?.child?.run(spawnSync("node", [], options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const root = null as "
+            "{ child?: { run(value: unknown): unknown } } | null;\n"
+            "root?.child?.run(false && (options.shell = true));\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const root = null as { child?: (value: unknown) => unknown } | null;\n"
+            'root?.child?.(spawnSync("node", [], options));\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const root = null as { child?: (value: unknown) => unknown } | null;\n"
+            "root?.child?.(false && (options.shell = true));\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const root = null as { child?: Record<string, unknown> } | null;\n"
+            'root?.child?.[spawnSync("node", [], options) as unknown as string];\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const root = null as { child?: Record<string, unknown> } | null;\n"
+            "root?.child?.[false && (options.shell = true) as unknown as string];\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'const root = "live" as unknown as '
+            "{ child?: (value: unknown) => unknown };\n"
+            "root?.child?.(options.shell = false);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'const root = "live" as unknown as { child?: Record<string, unknown> };\n'
+            "root?.child?.[(options.shell = false) as unknown as string];\n"
+            'spawnSync("node", [], options);\n'
+        ),
+    ],
+    ids=[
+        "same-declaration-final-false",
+        "unreachable-logical-shell-write",
+        "statically-zero-iteration-loop",
+        "unsupported-destructuring-invalidates-true",
+        "unsupported-destructuring-invalidates-false",
+        "same-declaration-alias-escape",
+        "closure-capture-invalidates-state",
+        "filesystem-path-does-not-use-wrapper-classifier",
+        "cwd-path-does-not-use-wrapper-classifier",
+        "esm-win32-path-flavor-is-unknown",
+        "over-depth-operational-path-is-unknown",
+        "unreachable-and-sink",
+        "unreachable-or-sink",
+        "unreachable-conditional-sink",
+        "nested-unreachable-shell-write",
+        "multi-property-destructuring-invalidates-all",
+        "continue-skips-shell-true-write",
+        "unsupported-switch-sink-is-unknown",
+        "sink-in-assignment-rhs-does-not-see-later-write",
+        "assignment-lhs-base-alias-escape",
+        "object-container-sink-skips-unreachable-true-write",
+        "property-wrapper-sink-skips-unreachable-true-write",
+        "spread-argument-skips-unreachable-true-write",
+        "tagged-template-sink-skips-unreachable-true-write",
+        "tagged-template-before-sink-skips-unreachable-true-write",
+        "optional-call-null-callee-skips-sink",
+        "optional-method-null-base-skips-sink-argument",
+        "optional-method-null-base-skips-true-write-before-later-sink",
+        "captured-options-at-arrow-sink-are-unknown-after-false-write",
+        "captured-options-at-arrow-sink-are-unknown-after-true-write",
+        "captured-options-at-method-sink-are-unknown",
+        "optional-element-null-base-skips-sink",
+        "optional-element-null-base-skips-true-write-before-later-sink",
+        "unsupported-binding-default-invalidates-true",
+        "unsupported-binding-default-invalidates-false",
+        "multi-link-optional-chain-null-root-skips-sink",
+        "multi-link-optional-chain-null-root-skips-later-write",
+        "multi-link-direct-optional-call-null-root-skips-sink",
+        "multi-link-direct-optional-call-null-root-skips-later-write",
+        "multi-link-direct-optional-element-null-root-skips-sink",
+        "multi-link-direct-optional-element-null-root-skips-later-write",
+        "multi-link-optional-call-unknown-intermediate-stays-false",
+        "multi-link-optional-element-unknown-intermediate-stays-false",
+    ],
+)
+def test_third_correction_reviewed_boundary_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "reviewed-boundary-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+def test_third_correction_commonjs_posix_path_flavor_fails(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "posix-path-flavor.cts").write_text(
+        'const { readFileSync } = require("node:fs");\n'
+        'const { posix } = require("node:path");\n'
+        'readFileSync(posix.resolve("/", "tmp", "reviewer"));\n',
+        encoding="utf-8",
+    )
+    assert "PORT-SRC-008" in rules_of(policy_repo)
+
+
+def test_third_correction_commonjs_win32_path_flavor_is_unknown(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "win32-path-flavor.cts").write_text(
+        'const { readFileSync } = require("node:fs");\n'
+        'const { win32 } = require("node:path");\n'
+        'readFileSync(win32.resolve("/", "tmp", "reviewer"));\n',
+        encoding="utf-8",
+    )
+    assert rules_of(policy_repo) == set()
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:
@@ -1392,8 +2364,23 @@ def test_unloadable_typescript_runtime_source_fails_closed(
         (0, "not-json", "", "returned invalid JSON"),
         (0, '{"unexpected":true}', "", "returned a non-list result"),
         (0, '[{"path":"bad"}]', "", "returned a malformed finding"),
+        (
+            0,
+            (
+                '[{"path":"apps/extension/src/helper.ts","line":true,'
+                '"kind":"posix-path","detail":"/tmp"}]'
+            ),
+            "",
+            "returned a malformed finding",
+        ),
     ],
-    ids=["helper-crash", "invalid-json", "non-list-json", "malformed-finding"],
+    ids=[
+        "helper-crash",
+        "invalid-json",
+        "non-list-json",
+        "malformed-finding",
+        "boolean-line-is-malformed",
+    ],
 )
 def test_typescript_portability_helper_failures_fail_closed(
     policy_repo: Path,

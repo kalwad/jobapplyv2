@@ -161,62 +161,76 @@ broadening a work package (spec §1.5).
 - Severity: HIGH
 - State: IN_PROGRESS
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification;
-  the first correction was re-blocked on 2026-08-14
+  both the first and second corrections were independently re-blocked on
+  2026-08-14
 - Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
   `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
   `f4ee49e6f056f2cc15257a6d8a0cbc43de7b1941` / tree
-  `04721b7ea4fd0c2eec2506e507ea3e37c743e2ba`; PORT-SRC-008 and the
-  TypeScript surface of KI-0006
+  `04721b7ea4fd0c2eec2506e507ea3e37c743e2ba`; insufficient second correction
+  `2b85c9b1e1f80cd41334752e14b259dc61151058` / tree
+  `7c97431ef520b3ebefe0c0a0a81c147c830d7351`; PORT-SRC-008 and the TypeScript
+  surface of KI-0006
 - Description: the initial checker missed TypeScript-family suffixes and used
   raw, line-local spellings. The first AST correction closed those syntax holes
-  but still conflated constant evaluation with policy relevance: it did not
-  prove unary/aliased boolean truth, const-computed property names, or composed
-  operational strings, while globally classifying embedded fragments in
-  descriptive runtime strings. It therefore retained both false negatives and
-  false positives despite its permanent suite passing.
+  but still conflated constant evaluation with policy relevance and was blocked
+  on unary/aliased truth, computed keys, composed operational values, and prose
+  false positives. The second correction added a bounded evaluator and reviewed
+  sink/provenance tables, but its semantic model stopped at object literals,
+  inspected `node:path` arguments rather than composed results, implemented
+  unary numeric operators without JavaScript primitive coercion, and retained a
+  broad complete-value root that treated arbitrary runtime data as operational.
 - Reproduction: on the exact first-correction content, `shell: !0`,
   `const shellKey = "shell"; { [shellKey]: true }`, and
   `const path = "/" + "tmp/reviewer-a"` survive PORT-SRC-008, while
   `export const portabilityHelp = "Documentation says to avoid /tmp and bash -c wrappers"`
   fails. Its focused portability suite still reports 105/105. The completely
   fresh verdict was `SOL_BLOCKED_FINAL_M02_W07_CORRECTED_VERIFICATION`.
-  Writer-side regressions additionally require composed plain-assignment and
-  exact call/new values to fail, bounded `.cts` CommonJS provenance to work,
-  filesystem payload and `process.stdout.write` prose to pass, and
-  `bash -client` not to be mistaken for a wrapper.
+  On the exact second-correction content, post-construction `options.shell =
+  true`, a computed post-construction `options[key] = !0`, `join("/", "tmp",
+  ...)` or `resolve("/", "tmp", ...)` flowing to `readFileSync`, and `shell:
+  !+"0"` all pass, while exported descriptive values beginning `/tmp` or
+  `bash -c` fail. Its focused suite still reports 145/145. The fresh verdict
+  was `SOL_BLOCKED_FINAL_M02_W07_KI0058_VERIFICATION`.
 - Workaround: none accepted. Adding literal regex variants, scanning every
   runtime string, trusting arbitrary imports/requires, or treating every
   argument of every Node API as operational would preserve bypasses or false
   positives.
-- Resolution + evidence link: IN_PROGRESS in this second narrow writer
-  correction. PORT-SRC-008 now parses executable `.ts`, `.tsx`, `.mts`, and
-  `.cts` with the pinned TypeScript compiler without executing repository
-  source. A bounded allowlisted evaluator resolves primitive literals, constant
-  templates, safe wrappers, const aliases, relevant unary/binary/logical/
-  conditional forms, concatenation, and computed property names; unsupported,
-  mutable, cyclic, and over-budget expressions remain UNKNOWN. The object rule
-  resolves object-literal property-assignment/shorthand names and values and
-  rejects the proved fact `shell = true`, including computed and aliased forms.
-  Complete-value checks cover variable/parameter/property/class/enum
-  initializers, array elements, return/yield/concise-arrow/export/JSX values,
-  plain `=` right-hand sides, and every call/new argument. They use anchored
-  path-segment and exact shell-token matching; compound assignments and
-  component literals inside an evaluated composition are not treated as
-  complete values. Embedded checks require non-type ESM or bounded non-shadowed
-  `.cts` CommonJS provenance plus a closed module/operation/argument-position
-  signature: child-process command/static-argv and selected option fields;
-  allowlisted filesystem path operands, excluding content/data/encoding/
-  callbacks; path operands and `format` path fields; and only
-  `process.chdir`, `loadEnvFile`, and `dlopen` path positions. Wrapper tokens
-  accept spaces/tabs between the exact executable and flag and require a flag
-  boundary, so `bash -client` passes. Malformed/unloadable TypeScript and
-  helper/process/JSON protocol failures fail closed; UNKNOWN expressions do not
-  establish a violation. The permanent matrix and writer mutation evidence are
-  recorded in docs/TEST_EVIDENCE.md § M02-W07. KI-0006 remains DEFERRED for its
-  untouched Rust surface. KI-0058 must remain HIGH / IN_PROGRESS until a
-  completely fresh independent verifier reproduces the correction on its exact
-  content and performs W07 governance.
+- Resolution + evidence link: IN_PROGRESS in this third narrow writer
+  correction. Four separate layers now provide: (1) bounded primitive
+  JavaScript constants with explicit ToBoolean, ToNumber, primitive string
+  conversion, numeric/string `+`, and supported operator semantics; (2) pure
+  trusted-provenance abstract results for POSIX/host `node:path.join` and
+  `resolve`, propagated through const aliases into reviewed sinks without
+  executing source or invoking host path functions; (3) point-in-time local
+  option-object property state across ordered literal properties, direct and
+  computed writes, supported straight-line/branch/expression/loop flow, and
+  sink argument evaluation; and (4) closed operational sink classification.
+  The state lattice retains KNOWN/ABSENT/UNKNOWN plus possible proved values;
+  a reachable possible `shell=true` fails, while unsupported alias escape,
+  reassignment, destructuring, nested abrupt flow, and other unsupported
+  mutation invalidate facts to UNKNOWN instead of preserving stale certainty.
+  Final definitely-known overwrites are honored in order. Optional chains use
+  a bounded per-link never/maybe/always reachability decision, so a proved-null
+  base skips later effects while an unknown intermediate link preserves both
+  reached and skipped states.
+
+  Path and wrapper findings now require a reviewed filesystem/process/
+  child-process argument position. `node:path` is a pure fact producer, not a
+  sink. Unused constants/results, exports, console/stdout data, arbitrary call
+  arguments, and filesystem payload positions are not operational merely
+  because their text begins with `/tmp` or `bash -c`; variable names never
+  establish provenance. This is the operational/canonical-flow interpretation
+  of JAPP-MASTER-001 M00-W09; it replaces the second correction's over-broad
+  TypeScript complete-value assumption without changing the legacy Python
+  literal rule. Exact shell-token and Bash argv-tuple handling remains, so
+  composed `bash` plus `-c`/`-lc` and `sh` plus `-c` fail while `bash -client`
+  passes. Malformed/unloadable TypeScript and helper nonzero, invalid JSON,
+  non-list, or malformed response schema remain fail-closed. Permanent and
+  mutation evidence is recorded in docs/TEST_EVIDENCE.md § M02-W07. KI-0006
+  remains DEFERRED for its untouched Rust/native surface. KI-0058 must remain
+  HIGH / IN_PROGRESS until a completely fresh independent verifier reproduces
+  the correction on its exact content and performs W07 governance.
 
 ## M02-W06 owner-holdout corrective review
 
@@ -2735,23 +2749,27 @@ validator exception or weakening was introduced.
   `.ts`, `.tsx`, `.mts`, and `.cts` under the established application/package/
   root-tool runtime globs, excluding declarations and tests, and invokes the
   repository-pinned TypeScript compiler without executing repository source.
-  Its bounded allowlisted evaluator proves primitive constants, aliases,
-  compositions, and computed property names; UNKNOWN is not a positive policy
-  fact. The rule rejects proved `shell = true` object-literal property
-  assignments/shorthands, anchored prohibited complete values at the finite
-  initializer/value/plain-assignment/call/new roots, and embedded fragments
-  only at a closed Node module/operation/argument-position table. Callee
-  provenance covers non-type ESM imports and bounded, non-shadowed `.cts`
-  TypeScript import-equals plus const/inline/destructured literal `require`
-  forms, following const aliases. Filesystem payload/data/encoding/callback
-  positions and operations without a signature, such as
-  `process.stdout.write`, are deliberately not embedded sinks. Exact token
-  boundaries distinguish `bash -c`/`bash -lc`/`sh -c` from lookalikes.
-  Comments, JSDoc, type-only syntax, standalone descriptions, descriptive
-  complete values, unrelated computed properties, and UNKNOWN dynamics do not
-  violate without a proved policy fact; malformed input and helper/protocol
-  failures fail closed. Permanent positive, negative, provenance,
-  token-boundary, and fail-closed coverage is in
+  Its bounded primitive evaluator implements the supported JavaScript
+  coercions/operators over null, booleans, numbers, and strings; unsupported
+  types and expressions remain UNKNOWN. Trusted `node:path.join`/`resolve`
+  expressions produce lexical abstract path facts which propagate through const
+  aliases into reviewed operational positions. A bounded intra-procedural
+  object model tracks the five reviewed child-process option fields from local
+  object literals through ordered direct/computed writes and supported control
+  flow; possible proved violations remain visible, while alias escape and
+  unsupported mutation invalidate state to UNKNOWN.
+
+  Findings require a closed operational sink and proved non-type ESM or bounded
+  non-shadowed `.cts` CommonJS provenance. Child-process executable/static argv
+  and reviewed option fields, allowlisted filesystem path operands, and the
+  closed process path positions are operational; filesystem payload/data/
+  encoding/callback positions, `process.stdout.write`, arbitrary calls,
+  exports, and unused values/results are not. Exact token boundaries distinguish
+  `bash -c`/`bash -lc`/`sh -c` from lookalikes. Comments, JSDoc, type-only
+  syntax, descriptive data, unrelated properties, and UNKNOWN dynamics do not
+  violate without a proved operational fact; malformed input and helper/
+  protocol failures fail closed. Permanent positive, negative, provenance,
+  state-ordering, control-flow, token-boundary, and fail-closed coverage is in
   `scripts/tests/test_portability.py`, with evidence in docs/TEST_EVIDENCE.md §
   M02-W07. M17-W04 and M17-W07…W10 still own equivalent Rust/native enforcement
   when real Rust runtime logic lands.
