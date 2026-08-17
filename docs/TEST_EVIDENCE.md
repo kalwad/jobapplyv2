@@ -272,6 +272,24 @@ Exact verification commands and summarized results
   tracked bytes only after this documentation freeze and reported in the
   final writer handoff, not preclaimed here. Exact-SHA three-OS hosted
   evidence is pending this writer pass.
+- Hosted verification history (recorded truthfully): the first
+  fourth-correction commit `b9b509345f4f2cb33ad959da6d2fd9521b94730c` / tree
+  `da28987ab9713874510b406ba2aff9a7884bad83` triggered push run
+  `32060897638`, which succeeded on macos-15 (job `95481711982`) and
+  ubuntu-24.04 (job `95481712203`) but failed on windows-2025 (job
+  `95481712268`): exactly the two fourth-correction tests that spawn `pnpm
+  exec tsc` failed with `FileNotFoundError [WinError 2]` because bare `pnpm`
+  cannot launch the Windows `.cmd` shim through `CreateProcess` (2 failed,
+  1239 passed; every other suite green). The complete Windows raw log was
+  read. The fix resolves `pnpm` through the repository's own
+  `portability.host_resolve_executable` PATH/PATHEXT mechanism in both
+  tests — the same boundary `scripts/verify.py` already uses and
+  `test_windows_resolves_cmd_shim_for_pnpm` already pins — with no test
+  added, removed, or renamed (collection stays 1243/1241 at the recorded
+  digest). The two-pass frozen requirement was restarted on the fixed bytes,
+  and the fix lands as a follow-up forward-only commit on top of
+  `b9b5093…` (never amended or rewritten); final three-OS hosted evidence
+  binds to that follow-up SHA.
 - Test counts: focused portability 347/347; Python canonical collection 1243
   POSIX / 1241 common-and-Windows; all other package suites unchanged and
   re-proved in the post-freeze verification passes.

@@ -3049,9 +3049,12 @@ def test_fourth_correction_namespace_default_member_semantics(
     )
     fixture = tmp_path / "namespace-default.mts"
     fixture.write_text(source, encoding="utf-8")
+    # Resolve pnpm through PATH/PATHEXT so the Windows .cmd shim spawns.
+    pnpm_executable = portability.host_resolve_executable("pnpm")
+    assert pnpm_executable is not None
     proc = subprocess.run(
         (
-            "pnpm",
+            pnpm_executable,
             "exec",
             "tsc",
             "--ignoreConfig",
@@ -3133,9 +3136,12 @@ def test_fourth_correction_typescript_fixtures_compile(
         path = tmp_path / f"fourth-correction-{index}.ts"
         path.write_text(source, encoding="utf-8")
         paths.append(str(path))
+    # Resolve pnpm through PATH/PATHEXT so the Windows .cmd shim spawns.
+    pnpm_executable = portability.host_resolve_executable("pnpm")
+    assert pnpm_executable is not None
     proc = subprocess.run(
         (
-            "pnpm",
+            pnpm_executable,
             "exec",
             "tsc",
             "--ignoreConfig",
