@@ -161,15 +161,19 @@ broadening a work package (spec §1.5).
 - Severity: HIGH
 - State: IN_PROGRESS
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification;
-  both the first and second corrections were independently re-blocked on
-  2026-08-14
+  the first and second corrections were independently re-blocked on
+  2026-08-14, and the third correction was subsequently independently
+  re-blocked (verdict
+  `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`)
 - Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
   `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
   `f4ee49e6f056f2cc15257a6d8a0cbc43de7b1941` / tree
   `04721b7ea4fd0c2eec2506e507ea3e37c743e2ba`; insufficient second correction
   `2b85c9b1e1f80cd41334752e14b259dc61151058` / tree
-  `7c97431ef520b3ebefe0c0a0a81c147c830d7351`; PORT-SRC-008 and the TypeScript
+  `7c97431ef520b3ebefe0c0a0a81c147c830d7351`; insufficient third correction
+  `8c8ef32952516123343fdec3bc035ab569ab2d3d` / tree
+  `adb3257b3990cc7ab5e2d47a861f038513055f22`; PORT-SRC-008 and the TypeScript
   surface of KI-0006
 - Description: the initial checker missed TypeScript-family suffixes and used
   raw, line-local spellings. The first AST correction closed those syntax holes
@@ -192,45 +196,77 @@ broadening a work package (spec §1.5).
   !+"0"` all pass, while exported descriptive values beginning `/tmp` or
   `bash -c` fail. Its focused suite still reports 145/145. The fresh verdict
   was `SOL_BLOCKED_FINAL_M02_W07_KI0058_VERIFICATION`.
+  On the exact third-correction content, a reachable conditional option
+  expression (`true ? options : { shell: false }`), loop-carried state that
+  first proves `shell=true` on the second iteration, a known enabled string
+  selector (`shell: "bash"`), a known Bash executable path plus `-c` argv,
+  and `import { default as … }` provenance all survive PORT-SRC-008, while
+  inert `execFileSync` argv text is falsely wrapper-classified, arbitrary
+  augmented member chains retain trusted provenance, and the pinned fs
+  inventory omits nested `.native` and disposable-temp surfaces. Its focused
+  suite still reports 266/266. The fresh verdict was
+  `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`.
 - Workaround: none accepted. Adding literal regex variants, scanning every
   runtime string, trusting arbitrary imports/requires, or treating every
   argument of every Node API as operational would preserve bypasses or false
   positives.
-- Resolution + evidence link: IN_PROGRESS in this third narrow writer
-  correction. Four separate layers now provide: (1) bounded primitive
-  JavaScript constants with explicit ToBoolean, ToNumber, primitive string
-  conversion, numeric/string `+`, and supported operator semantics; (2) pure
-  trusted-provenance abstract results for POSIX/host `node:path.join` and
-  `resolve`, propagated through const aliases into reviewed sinks without
-  executing source or invoking host path functions; (3) point-in-time local
-  option-object property state across ordered literal properties, direct and
-  computed writes, supported straight-line/branch/expression/loop flow, and
-  sink argument evaluation; and (4) closed operational sink classification.
-  The state lattice retains KNOWN/ABSENT/UNKNOWN plus possible proved values;
-  a reachable possible `shell=true` fails, while unsupported alias escape,
-  reassignment, destructuring, nested abrupt flow, and other unsupported
-  mutation invalidate facts to UNKNOWN instead of preserving stale certainty.
-  Final definitely-known overwrites are honored in order. Optional chains use
-  a bounded per-link never/maybe/always reachability decision, so a proved-null
-  base skips later effects while an unknown intermediate link preserves both
-  reached and skipped states.
+- Resolution + evidence link: IN_PROGRESS in this fourth narrow writer
+  correction. The fourth correction was begun by GPT-5.6 Sol Ultra, which
+  produced substantial uncommitted implementation, catalog, and test work;
+  after its usage limit the owner explicitly reassigned the same dirty writer
+  worktree to Claude Fable 5 Ultracode, which recovered and verified the
+  inherited bytes and completed the pass. That transition is implementation
+  provenance only, not independent verification. The correction replaces
+  scattered hand-maintained maps with one reviewed pinned Node operational
+  catalog (`scripts/typescript-portability-node24-catalog.v1.json`, bound to
+  Node 24.18.0 / TypeScript 6.0.3 / @types/node 24.13.3 with fail-closed pin
+  and field validation) and closes the fourth-round semantic families:
+  expression-resolved option state (conditional/logical/comma/alias forms
+  with reachability-aware unions), real loop back-edge fixed points across
+  `while`/`do`/`for`/`for-in`/`for-of`/`for await` (zero/one/second/later
+  iterations, continue/break/incrementor semantics, body-mutation-guarded
+  exact counts, a shared exact-replay budget, provably-empty iterables,
+  modeled `delete`-to-absent), empirically verified pinned `shell` truth
+  (`exec`-family default shell with the empty-selector exception;
+  truthy-selector spawn/execFile family; forced-disabled fork), role-exact
+  executable/argv/module-path/options dispatch mirroring Node's
+  `Array.isArray` overload dispatch (inert argv stays inert; options bags in
+  the argv slot, provably nullish options, `shell: undefined`, and typed
+  callback parameters are handled; constant argv prefixes survive spread
+  tails), executable-basename wrapper tuples with `sh -lc` parity and
+  `process.execve` argv0-convention coverage, closed module/member provenance
+  (default and `default as`, namespaces and their `default` member,
+  renamed/type-only imports, `.cts` require forms, the ambient global
+  `process`, direct `await import()` and `process.getBuiltinModule`
+  re-entry, official `path/posix` and `path/win32` submodules,
+  augmented-member termination), and a strengthened declaration oracle whose
+  nested-surface rule makes pin drift on unreferenced callable members fail
+  review.
 
-  Path and wrapper findings now require a reviewed filesystem/process/
-  child-process argument position. `node:path` is a pure fact producer, not a
-  sink. Unused constants/results, exports, console/stdout data, arbitrary call
-  arguments, and filesystem payload positions are not operational merely
-  because their text begins with `/tmp` or `bash -c`; variable names never
-  establish provenance. This is the operational/canonical-flow interpretation
-  of JAPP-MASTER-001 M00-W09; it replaces the second correction's over-broad
-  TypeScript complete-value assumption without changing the legacy Python
-  literal rule. Exact shell-token and Bash argv-tuple handling remains, so
-  composed `bash` plus `-c`/`-lc` and `sh` plus `-c` fail while `bash -client`
-  passes. Malformed/unloadable TypeScript and helper nonzero, invalid JSON,
-  non-list, or malformed response schema remain fail-closed. Permanent and
-  mutation evidence is recorded in docs/TEST_EVIDENCE.md § M02-W07. KI-0006
-  remains DEFERRED for its untouched Rust/native surface. KI-0058 must remain
-  HIGH / IN_PROGRESS until a completely fresh independent verifier reproduces
-  the correction on its exact content and performs W07 governance.
+  The fail-closed contract is preserved: unsupported program semantics stay
+  UNKNOWN and never prove a violation, while analyzer infrastructure
+  failures — malformed TypeScript, helper nonzero/invalid output, catalog
+  pin, field, or completeness violations — refuse to pass. Reviewed
+  suppressive-direction boundaries stay pinned by permanent controls
+  (switch/try/labeled statement sinks, spread of tracked objects, win32 path
+  flavor, closure-captured sinks, `bash -client`/`sh -client`, exact-token
+  wrapper flags). Parked future-hardening families, all
+  provenance-terminating or suppressive-direction only: shell short-option
+  clusters (`-ec`, `-cl`, leading options) pending an owner-reviewed
+  empirical truth matrix; `env(1)` trampolines (`env bash -c …` shapes);
+  `createRequire` module re-entry; `globalThis.process` chains; compound
+  logical-assignment enables (`options.shell ||= true`); and oracle scanning
+  of constructible static surfaces and uncatalogued data members. Three
+  writer-side reviewer lenses (control flow/loops, child-process semantics,
+  provenance/catalog) were run against the candidate; every substantive
+  finding was reproduced by the writer and either fixed with paired
+  permanent violation/control regressions or parked above, and a 32-family
+  mutation campaign in disposable no-hardlink clones killed every family
+  through the permanent suite. Permanent and mutation evidence is recorded
+  in docs/TEST_EVIDENCE.md § M02-W07. KI-0006 remains DEFERRED for its
+  untouched Rust/native surface. KI-0058 must remain HIGH / IN_PROGRESS
+  until a completely fresh independent verifier reproduces the correction on
+  its exact content and performs W07 governance.
 
 ## M02-W06 owner-holdout corrective review
 

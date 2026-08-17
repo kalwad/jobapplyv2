@@ -3,7 +3,7 @@
 // Node boundary uses the repository-pinned TypeScript compiler and never
 // executes repository source.
 //
-// The policy has four deliberately separate semantic layers:
+// The policy has five deliberately separate semantic layers:
 // 1. Primitive constants: a bounded evaluator implements an allowlisted
 //    primitive-only subset of JavaScript coercion. Unsupported, mutable,
 //    cyclic, or over-budget expressions are UNKNOWN.
@@ -13,11 +13,16 @@
 // 3. Local property state: child-process option objects that originate in a
 //    local object literal are tracked to the sink across ordered writes and a
 //    small control-flow model. Unsupported aliasing/mutation invalidates facts.
-// 4. Operational sinks: only reviewed Node API argument positions consume
-//    path/wrapper/property facts. Arbitrary runtime data is not operational
-//    merely because its text starts with a policy token.
+// 4. Exact provenance and invocation roles: a version-locked closed Node API
+//    graph distinguishes executables, argv data, shell commands, options, and
+//    path sinks. Arbitrary members/data terminate trusted provenance.
+// 5. Catalog completeness: a pinned declaration oracle forces every reviewed
+//    callable surface to remain operational or explicitly non-operational.
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { resolve } from "node:path";
 import process from "node:process";
+import { URL } from "node:url";
 import ts from "typescript";
 
 const BANNED_PATH = /(?<![\w:/#.-])\/(tmp|bin|usr|etc|var)(?![\w.-])/;
@@ -27,7 +32,7 @@ const WRAPPER_PATTERNS = [
     shell: "bash",
   },
   {
-    pattern: /(?:^|[ \t\r\n;&|(])sh[ \t]+-(c)(?=$|[ \t])/,
+    pattern: /(?:^|[ \t\r\n;&|(])sh[ \t]+-(lc|c)(?=$|[ \t])/,
     shell: "sh",
   },
 ];
@@ -38,122 +43,217 @@ const MAX_CONSTANT_STRING_LENGTH = 16_384;
 const MAX_STRUCTURAL_DEPTH = 64;
 const MAX_OBJECT_ANALYSIS_STEPS = 2_048;
 const MAX_OBJECT_STATE_PATHS = 64;
+const MAX_LOOP_FIXED_POINT_STEPS = 128;
+const MAX_KNOWN_LOOP_ITERATIONS = 128;
+const MAX_TOTAL_EXACT_LOOP_REPLAYS = 1_024;
+const CATALOG_URL = new URL(
+  "./typescript-portability-node24-catalog.v1.json",
+  import.meta.url,
+);
+const require = createRequire(import.meta.url);
 
-const OPERATIONAL_MODULES = new Map([
-  ["child_process", "child-process"],
-  ["node:child_process", "child-process"],
-  ["fs", "filesystem"],
-  ["fs/promises", "filesystem"],
-  ["node:fs", "filesystem"],
-  ["node:fs/promises", "filesystem"],
-  ["path", "path"],
-  ["node:path", "path"],
-  ["process", "process"],
-  ["node:process", "process"],
-]);
-const NAMESPACE_NAMED_IMPORTS = new Set(["posix", "promises", "win32"]);
-const CHILD_PROCESS_ARGUMENTS = new Map([
-  ["exec", { values: [0], arrays: [], options: [1] }],
-  ["execSync", { values: [0], arrays: [], options: [1] }],
-  ["execFile", { values: [0], arrays: [1], options: [1, 2] }],
-  ["execFileSync", { values: [0], arrays: [1], options: [1, 2] }],
-  ["spawn", { values: [0], arrays: [1], options: [1, 2] }],
-  ["spawnSync", { values: [0], arrays: [1], options: [1, 2] }],
-  ["fork", { values: [0], arrays: [1], options: [1, 2] }],
-]);
-const CHILD_PROCESS_OPTION_PROPERTIES = new Set([
-  "argv0",
-  "cwd",
-  "execArgv",
-  "execPath",
-  "shell",
-]);
-const SHELL_ARGV_OPERATIONS = new Set([
-  "execFile",
-  "execFileSync",
-  "spawn",
-  "spawnSync",
-]);
-const FILESYSTEM_PATH_ARGUMENTS = new Map([
-  ...[
-    "access",
-    "accessSync",
-    "appendFile",
-    "appendFileSync",
-    "chmod",
-    "chmodSync",
-    "chown",
-    "chownSync",
-    "createReadStream",
-    "createWriteStream",
-    "exists",
-    "existsSync",
-    "glob",
-    "globSync",
-    "lchmod",
-    "lchmodSync",
-    "lchown",
-    "lchownSync",
-    "lstat",
-    "lstatSync",
-    "lutimes",
-    "lutimesSync",
-    "mkdir",
-    "mkdirSync",
-    "mkdtemp",
-    "mkdtempSync",
-    "open",
-    "openAsBlob",
-    "openSync",
-    "opendir",
-    "opendirSync",
-    "readFile",
-    "readFileSync",
-    "readdir",
-    "readdirSync",
-    "readlink",
-    "readlinkSync",
-    "realpath",
-    "realpathSync",
-    "rm",
-    "rmSync",
-    "rmdir",
-    "rmdirSync",
-    "stat",
-    "statSync",
-    "statfs",
-    "statfsSync",
-    "truncate",
-    "truncateSync",
-    "unlink",
-    "unlinkSync",
-    "unwatchFile",
-    "utimes",
-    "utimesSync",
-    "watch",
-    "watchFile",
-    "writeFile",
-    "writeFileSync",
-  ].map((operation) => [operation, [0]]),
-  ...[
-    "copyFile",
-    "copyFileSync",
-    "cp",
-    "cpSync",
-    "link",
-    "linkSync",
-    "rename",
-    "renameSync",
-    "symlink",
-    "symlinkSync",
-  ].map((operation) => [operation, [0, 1]]),
-]);
-const PURE_PATH_OPERATIONS = new Set(["join", "resolve"]);
-const PROCESS_PATH_ARGUMENTS = new Map([
-  ["chdir", [0]],
-  ["dlopen", [1]],
-  ["loadEnvFile", [0]],
-]);
+function isRecord(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function exactPackageVersion(packageName) {
+  const path = require.resolve(`${packageName}/package.json`);
+  const manifest = JSON.parse(readFileSync(path, "utf8"));
+  if (!isRecord(manifest) || typeof manifest.version !== "string") {
+    throw new Error(`malformed ${packageName} package metadata`);
+  }
+  return manifest.version;
+}
+
+function validateIndexArray(value, label) {
+  if (
+    !Array.isArray(value) ||
+    value.some(
+      (index, position) =>
+        !Number.isInteger(index) ||
+        index < 0 ||
+        (position > 0 && value[position - 1] >= index),
+    )
+  ) {
+    throw new Error(`malformed Node portability catalog ${label}`);
+  }
+}
+
+function loadNodeCatalog() {
+  let catalog;
+  try {
+    catalog = JSON.parse(readFileSync(CATALOG_URL, "utf8"));
+  } catch (error) {
+    throw new Error(
+      `unable to load Node portability catalog: ${error.message}`,
+      {
+        cause: error,
+      },
+    );
+  }
+  if (
+    !isRecord(catalog) ||
+    catalog.schema_version !== 1 ||
+    !isRecord(catalog.metadata) ||
+    !isRecord(catalog.modules)
+  ) {
+    throw new Error("malformed Node portability catalog root");
+  }
+  const expected = {
+    node_runtime: process.versions.node,
+    node_policy: process.versions.node.split(".").slice(0, 2).join("."),
+    typescript: ts.version,
+    types_node: exactPackageVersion("@types/node"),
+  };
+  for (const [name, actual] of Object.entries(expected)) {
+    if (catalog.metadata[name] !== actual) {
+      throw new Error(
+        `Node portability catalog ${name} mismatch: expected ${actual}, got ${String(catalog.metadata[name])}`,
+      );
+    }
+  }
+  const allowedCallableKinds = new Set([
+    "child-process",
+    "filesystem-path",
+    "non-operational",
+    "path-compose",
+    "process-execve",
+    "process-path",
+  ]);
+  const specifiers = new Set();
+  for (const [moduleId, module] of Object.entries(catalog.modules)) {
+    if (
+      !isRecord(module) ||
+      !Array.isArray(module.specifiers) ||
+      !module.specifiers.every((value) => typeof value === "string") ||
+      typeof module.root !== "string" ||
+      !isRecord(module.nodes) ||
+      !isRecord(module.nodes[module.root])
+    ) {
+      throw new Error(`malformed Node portability catalog module ${moduleId}`);
+    }
+    for (const specifier of module.specifiers) {
+      if (specifiers.has(specifier)) {
+        throw new Error(`duplicate Node portability specifier ${specifier}`);
+      }
+      specifiers.add(specifier);
+    }
+    for (const [nodeId, node] of Object.entries(module.nodes)) {
+      if (!isRecord(node) || !isRecord(node.members)) {
+        throw new Error(
+          `malformed Node portability catalog node ${moduleId}.${nodeId}`,
+        );
+      }
+      for (const [memberName, member] of Object.entries(node.members)) {
+        const label = `${moduleId}.${nodeId}.${memberName}`;
+        if (!isRecord(member)) {
+          throw new Error(`malformed Node portability catalog member ${label}`);
+        }
+        if (
+          member.callable !== undefined &&
+          !allowedCallableKinds.has(member.callable)
+        ) {
+          throw new Error(`unknown callable classification at ${label}`);
+        }
+        if (
+          member.callable === "non-operational" &&
+          typeof member.rationale !== "string"
+        ) {
+          throw new Error(`missing non-operational rationale at ${label}`);
+        }
+        if (member.path_indices !== undefined) {
+          validateIndexArray(member.path_indices, `${label}.path_indices`);
+        }
+        if (member.roles !== undefined && !isRecord(member.roles)) {
+          throw new Error(`malformed invocation roles at ${label}`);
+        }
+        if (
+          (member.callable === "filesystem-path" ||
+            member.callable === "process-path") &&
+          member.path_indices === undefined
+        ) {
+          throw new Error(`missing path indices at ${label}`);
+        }
+        if (
+          member.callable === "path-compose" &&
+          member.operation !== "join" &&
+          member.operation !== "resolve"
+        ) {
+          throw new Error(`unknown path operation at ${label}`);
+        }
+        if (member.callable === "child-process") {
+          if (
+            !["exec-default", "truthy-selector", "forced-disabled"].includes(
+              member.shell_mode,
+            ) ||
+            !Array.isArray(member.option_paths) ||
+            member.option_paths.length === 0 ||
+            !member.option_paths.every((value) => typeof value === "string") ||
+            new Set(member.option_paths).size !== member.option_paths.length ||
+            !isRecord(member.roles)
+          ) {
+            throw new Error(`malformed child-process semantics at ${label}`);
+          }
+          for (const [role, value] of Object.entries(member.roles)) {
+            if (role === "options") {
+              validateIndexArray(value, `${label}.roles.options`);
+            } else if (
+              ["argv", "executable", "module_path", "shell_command"].includes(
+                role,
+              )
+            ) {
+              if (!Number.isInteger(value) || value < 0) {
+                throw new Error(`malformed role index at ${label}.${role}`);
+              }
+            } else {
+              throw new Error(`unknown invocation role ${role} at ${label}`);
+            }
+          }
+          const primaryRoles = [
+            "shell_command",
+            "executable",
+            "module_path",
+          ].filter((role) => member.roles[role] !== undefined);
+          if (primaryRoles.length !== 1) {
+            throw new Error(`ambiguous primary invocation role at ${label}`);
+          }
+        }
+        if (
+          member.callable === "process-execve" &&
+          (!isRecord(member.roles) ||
+            !Number.isInteger(member.roles.executable) ||
+            member.roles.executable < 0 ||
+            !Number.isInteger(member.roles.argv) ||
+            member.roles.argv < 0)
+        ) {
+          throw new Error(`malformed execve semantics at ${label}`);
+        }
+        if (member.node !== undefined) {
+          const targetModule = member.module ?? moduleId;
+          if (
+            typeof member.node !== "string" ||
+            typeof targetModule !== "string" ||
+            !isRecord(catalog.modules[targetModule]) ||
+            !isRecord(catalog.modules[targetModule].nodes[member.node])
+          ) {
+            throw new Error(`unresolved catalog node reference at ${label}`);
+          }
+        }
+        if (member.module !== undefined && member.node === undefined) {
+          throw new Error(`catalog module reference lacks node at ${label}`);
+        }
+      }
+    }
+  }
+  return catalog;
+}
+
+const NODE_CATALOG = loadNodeCatalog();
+const MODULE_BY_SPECIFIER = new Map(
+  Object.entries(NODE_CATALOG.modules).flatMap(([moduleId, module]) =>
+    module.specifiers.map((specifier) => [specifier, moduleId]),
+  ),
+);
 
 function unwrapExpression(node, state) {
   let current = node;
@@ -512,24 +612,85 @@ function shellWrapperDetail(value) {
 }
 
 function moduleKind(specifier) {
-  return OPERATIONAL_MODULES.get(specifier);
+  return MODULE_BY_SPECIFIER.get(specifier);
 }
 
-function namespaceBinding(kind, member) {
-  if (kind !== "path") return { kind };
+function catalogRootBinding(moduleId) {
+  const module = NODE_CATALOG.modules[moduleId];
   return {
-    kind,
-    pathFlavor:
-      member === "posix" ? "posix" : member === "win32" ? "win32" : "host",
+    moduleId,
+    nodeId: module.root,
+    entry: undefined,
+    operationPath: [],
   };
 }
 
-function directBinding(kind, operation) {
+function catalogMemberBinding(binding, memberName) {
+  if (binding.nodeId === undefined) return undefined;
+  // The ESM namespace object exposes the module itself as `default`; only
+  // module roots have that property, never individual members.
+  if (memberName === "default" && binding.entry === undefined) return binding;
+  const node = NODE_CATALOG.modules[binding.moduleId]?.nodes[binding.nodeId];
+  const member = node?.members?.[memberName];
+  if (member === undefined) return undefined;
+  const moduleId = member.module ?? binding.moduleId;
   return {
-    kind,
-    operation,
-    ...(kind === "path" ? { pathFlavor: "host" } : {}),
+    moduleId,
+    nodeId: member.node,
+    parentNodeId: binding.nodeId,
+    entry: member,
+    operationPath: [...binding.operationPath, memberName],
   };
+}
+
+function sinkFromBinding(binding) {
+  const entry = binding?.entry;
+  if (entry === undefined || entry.callable === undefined) return undefined;
+  const operation = binding.operationPath.at(-1);
+  if (entry.callable === "child-process") {
+    return { kind: "child-process", operation, entry };
+  }
+  if (entry.callable === "filesystem-path") {
+    return { kind: "filesystem", operation, entry };
+  }
+  if (entry.callable === "path-compose") {
+    const node =
+      NODE_CATALOG.modules[binding.moduleId].nodes[
+        binding.nodeId ?? NODE_CATALOG.modules[binding.moduleId].root
+      ];
+    // Callable path members do not themselves point at a node. Their flavor is
+    // inherited from the namespace node on which the exact member was found.
+    const parentNodeId = binding.parentNodeId;
+    const parent = NODE_CATALOG.modules[binding.moduleId].nodes[parentNodeId];
+    return {
+      kind: "path",
+      operation: entry.operation ?? operation,
+      pathFlavor: parent?.path_flavor ?? node?.path_flavor ?? "host",
+      entry,
+    };
+  }
+  if (entry.callable === "process-path") {
+    return { kind: "process", operation, entry };
+  }
+  if (entry.callable === "process-execve") {
+    return { kind: "process-execve", operation, entry };
+  }
+  return undefined;
+}
+
+function dynamicImportModuleKind(node) {
+  let current = unwrapExpression(node);
+  if (!ts.isAwaitExpression(current)) return undefined;
+  current = unwrapExpression(current.expression);
+  if (
+    !ts.isCallExpression(current) ||
+    current.expression.kind !== ts.SyntaxKind.ImportKeyword ||
+    current.arguments.length !== 1 ||
+    !ts.isStringLiteral(current.arguments[0])
+  ) {
+    return undefined;
+  }
+  return moduleKind(current.arguments[0].text);
 }
 
 function requireModuleKind(node, checker, allowCommonJs) {
@@ -556,8 +717,7 @@ function requireModuleKind(node, checker, allowCommonJs) {
 }
 
 function collectSinkBindings(source, checker) {
-  const direct = new Map();
-  const namespaces = new Map();
+  const provenance = new Map();
   const allowCommonJs = source.fileName.toLowerCase().endsWith(".cts");
   for (const statement of source.statements) {
     if (
@@ -568,10 +728,10 @@ function collectSinkBindings(source, checker) {
       statement.moduleReference.expression !== undefined &&
       ts.isStringLiteral(statement.moduleReference.expression)
     ) {
-      const kind = moduleKind(statement.moduleReference.expression.text);
+      const moduleId = moduleKind(statement.moduleReference.expression.text);
       const symbol = checker.getSymbolAtLocation(statement.name);
-      if (kind !== undefined && symbol !== undefined) {
-        namespaces.set(symbol, namespaceBinding(kind));
+      if (moduleId !== undefined && symbol !== undefined) {
+        provenance.set(symbol, catalogRootBinding(moduleId));
       }
       continue;
     }
@@ -581,14 +741,14 @@ function collectSinkBindings(source, checker) {
     ) {
       continue;
     }
-    const kind = moduleKind(statement.moduleSpecifier.text);
+    const moduleId = moduleKind(statement.moduleSpecifier.text);
     const clause = statement.importClause;
-    if (kind === undefined || clause === undefined || clause.isTypeOnly)
+    if (moduleId === undefined || clause === undefined || clause.isTypeOnly)
       continue;
     if (clause.name !== undefined) {
       const symbol = checker.getSymbolAtLocation(clause.name);
       if (symbol !== undefined) {
-        namespaces.set(symbol, namespaceBinding(kind));
+        provenance.set(symbol, catalogRootBinding(moduleId));
       }
     }
     const bindings = clause.namedBindings;
@@ -596,7 +756,7 @@ function collectSinkBindings(source, checker) {
     if (ts.isNamespaceImport(bindings)) {
       const symbol = checker.getSymbolAtLocation(bindings.name);
       if (symbol !== undefined) {
-        namespaces.set(symbol, namespaceBinding(kind));
+        provenance.set(symbol, catalogRootBinding(moduleId));
       }
       continue;
     }
@@ -605,24 +765,30 @@ function collectSinkBindings(source, checker) {
       const symbol = checker.getSymbolAtLocation(element.name);
       if (symbol === undefined) continue;
       const importedName = (element.propertyName ?? element.name).text;
-      if (NAMESPACE_NAMED_IMPORTS.has(importedName)) {
-        namespaces.set(symbol, namespaceBinding(kind, importedName));
-      } else {
-        direct.set(symbol, directBinding(kind, importedName));
+      // `default as` resolves through the same catalog rule that models the
+      // ESM namespace `default` member: the module root itself.
+      const binding = catalogMemberBinding(
+        catalogRootBinding(moduleId),
+        importedName,
+      );
+      if (binding !== undefined) {
+        provenance.set(symbol, binding);
       }
     }
   }
 
-  if (allowCommonJs) {
-    function visitRequireBinding(node) {
+  {
+    function visitModuleBinding(node) {
       if (
         ts.isVariableDeclaration(node) &&
         node.initializer !== undefined &&
         ts.isVariableDeclarationList(node.parent) &&
         (node.parent.flags & ts.NodeFlags.Const) !== 0
       ) {
-        const kind = requireModuleKind(node.initializer, checker, true);
-        if (kind !== undefined && ts.isObjectBindingPattern(node.name)) {
+        const moduleId =
+          requireModuleKind(node.initializer, checker, allowCommonJs) ??
+          dynamicImportModuleKind(node.initializer);
+        if (moduleId !== undefined && ts.isObjectBindingPattern(node.name)) {
           for (const element of node.name.elements) {
             if (
               element.dotDotDotToken !== undefined ||
@@ -637,19 +803,21 @@ function collectSinkBindings(source, checker) {
                 ? element.name.text
                 : propertyNameValue(element.propertyName, checker);
             if (importedName === UNKNOWN) continue;
-            if (NAMESPACE_NAMED_IMPORTS.has(importedName)) {
-              namespaces.set(symbol, namespaceBinding(kind, importedName));
-            } else {
-              direct.set(symbol, directBinding(kind, importedName));
+            const binding = catalogMemberBinding(
+              catalogRootBinding(moduleId),
+              importedName,
+            );
+            if (binding !== undefined) {
+              provenance.set(symbol, binding);
             }
           }
         }
       }
-      ts.forEachChild(node, visitRequireBinding);
+      ts.forEachChild(node, visitModuleBinding);
     }
-    visitRequireBinding(source);
+    visitModuleBinding(source);
   }
-  return { allowCommonJs, direct, namespaces };
+  return { allowCommonJs, provenance };
 }
 
 function constCalleeInitializer(identifier, checker, seen) {
@@ -659,77 +827,82 @@ function constCalleeInitializer(identifier, checker, seen) {
   return resolved.initializer;
 }
 
-function namespaceKind(node, checker, bindings, seen = new Set()) {
+function resolveProvenance(node, checker, bindings, seen = new Set()) {
   const current = unwrapExpression(node);
   const required = requireModuleKind(current, checker, bindings.allowCommonJs);
-  if (required !== undefined) return namespaceBinding(required);
-  if (ts.isIdentifier(current)) {
-    const symbol = checker.getSymbolAtLocation(current);
-    const direct =
-      symbol === undefined ? undefined : bindings.namespaces.get(symbol);
-    if (direct !== undefined) return direct;
-    const initializer = constCalleeInitializer(current, checker, seen);
-    return initializer === null
-      ? undefined
-      : namespaceKind(initializer, checker, bindings, seen);
-  }
-  if (ts.isPropertyAccessExpression(current)) {
-    const namespace = namespaceKind(
+  if (required !== undefined) return catalogRootBinding(required);
+  const dynamicKind = dynamicImportModuleKind(current);
+  if (dynamicKind !== undefined) return catalogRootBinding(dynamicKind);
+  if (
+    ts.isCallExpression(current) &&
+    current.arguments.length === 1 &&
+    ts.isStringLiteral(current.arguments[0])
+  ) {
+    // process.getBuiltinModule("specifier") mints the reviewed module itself.
+    const callee = resolveProvenance(
       current.expression,
       checker,
       bindings,
       seen,
     );
-    return namespace?.kind === "path" &&
-      (current.name.text === "posix" || current.name.text === "win32")
-      ? namespaceBinding("path", current.name.text)
-      : namespace;
+    if (
+      callee?.moduleId === "process" &&
+      callee.operationPath.at(-1) === "getBuiltinModule"
+    ) {
+      const target = moduleKind(current.arguments[0].text);
+      if (target !== undefined) return catalogRootBinding(target);
+    }
+  }
+  if (ts.isIdentifier(current)) {
+    const symbol = checker.getSymbolAtLocation(current);
+    const direct =
+      symbol === undefined ? undefined : bindings.provenance.get(symbol);
+    if (direct !== undefined) return direct;
+    if (
+      current.text === "process" &&
+      (symbol?.declarations === undefined ||
+        symbol.declarations.every(
+          (declaration) => declaration.getSourceFile().isDeclarationFile,
+        ))
+    ) {
+      // The ambient Node global `process` is the process module itself; a
+      // local declaration shadows it and terminates this provenance.
+      return catalogRootBinding(moduleKind("node:process"));
+    }
+    const initializer = constCalleeInitializer(current, checker, seen);
+    // A plain const alias preserves exact provenance. Type assertions and
+    // transformed/augmented views intentionally terminate module identity.
+    if (
+      initializer === null ||
+      ts.isAsExpression(initializer) ||
+      ts.isTypeAssertionExpression(initializer) ||
+      ts.isSatisfiesExpression(initializer)
+    ) {
+      return undefined;
+    }
+    return resolveProvenance(initializer, checker, bindings, seen);
+  }
+  if (ts.isPropertyAccessExpression(current)) {
+    const base = resolveProvenance(current.expression, checker, bindings, seen);
+    return base === undefined
+      ? undefined
+      : catalogMemberBinding(base, current.name.text);
   }
   if (
     ts.isElementAccessExpression(current) &&
     current.argumentExpression !== undefined
   ) {
-    const namespace = namespaceKind(
-      current.expression,
-      checker,
-      bindings,
-      seen,
-    );
+    const base = resolveProvenance(current.expression, checker, bindings, seen);
     const member = evaluateConstant(current.argumentExpression, checker);
-    return namespace?.kind === "path" &&
-      (member === "posix" || member === "win32")
-      ? namespaceBinding("path", member)
-      : namespace;
+    return base === undefined || typeof member !== "string"
+      ? undefined
+      : catalogMemberBinding(base, member);
   }
   return undefined;
 }
 
 function resolveSink(node, checker, bindings, seen = new Set()) {
-  const current = unwrapExpression(node);
-  if (ts.isIdentifier(current)) {
-    const symbol = checker.getSymbolAtLocation(current);
-    const direct =
-      symbol === undefined ? undefined : bindings.direct.get(symbol);
-    if (direct !== undefined) return direct;
-    const initializer = constCalleeInitializer(current, checker, seen);
-    return initializer === null
-      ? undefined
-      : resolveSink(initializer, checker, bindings, seen);
-  }
-  if (ts.isPropertyAccessExpression(current)) {
-    const namespace = namespaceKind(current.expression, checker, bindings);
-    return namespace === undefined
-      ? undefined
-      : { ...namespace, operation: current.name.text };
-  }
-  if (ts.isElementAccessExpression(current) && current.argumentExpression) {
-    const namespace = namespaceKind(current.expression, checker, bindings);
-    const operation = evaluateConstant(current.argumentExpression, checker);
-    return namespace === undefined || typeof operation !== "string"
-      ? undefined
-      : { ...namespace, operation };
-  }
-  return undefined;
+  return sinkFromBinding(resolveProvenance(node, checker, bindings, seen));
 }
 
 function normalizeAbstractPath(parts, absolute) {
@@ -827,7 +1000,6 @@ function evaluateOperationalValue(
   if (
     sink?.kind !== "path" ||
     sink.pathFlavor === "win32" ||
-    !PURE_PATH_OPERATIONS.has(sink.operation) ||
     current.arguments.some(ts.isSpreadElement)
   ) {
     return UNKNOWN;
@@ -894,7 +1066,11 @@ function inspectOperationalStructure(
   }
 }
 
-function constantArrayElements(
+// Longest constant leading run of an array expression. Elements after the
+// first unresolvable spread or elision keep no reliable index, so they are
+// dropped and the prefix is marked incomplete; the known prefix indices stay
+// exact.
+function constantArrayPrefix(
   node,
   checker,
   seen = new Set(),
@@ -908,7 +1084,7 @@ function constantArrayElements(
     if (resolved === null || seen.has(resolved.declaration)) return null;
     const nextSeen = new Set(seen);
     nextSeen.add(resolved.declaration);
-    return constantArrayElements(
+    return constantArrayPrefix(
       resolved.initializer,
       checker,
       nextSeen,
@@ -918,21 +1094,138 @@ function constantArrayElements(
   if (!ts.isArrayLiteralExpression(current)) return null;
   const elements = [];
   for (const element of current.elements) {
-    if (ts.isOmittedExpression(element)) return null;
+    if (ts.isOmittedExpression(element)) return { elements, complete: false };
     if (ts.isSpreadElement(element)) {
-      const spread = constantArrayElements(
+      const spread = constantArrayPrefix(
         element.expression,
         checker,
         seen,
         depth + 1,
       );
-      if (spread === null) return null;
-      elements.push(...spread);
+      if (spread === null) return { elements, complete: false };
+      elements.push(...spread.elements);
+      if (!spread.complete) return { elements, complete: false };
     } else {
       elements.push(element);
     }
   }
-  return elements;
+  return { elements, complete: true };
+}
+
+// Node dispatches the (command, args-or-options, ...) overloads on
+// Array.isArray, so a syntactic array literal (through const aliases) proves
+// the argv role even when its element values stay UNKNOWN.
+function isArgvArrayExpression(node, checker, seen = new Set(), depth = 0) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return false;
+  const current = unwrapExpression(node);
+  if (ts.isArrayLiteralExpression(current)) return true;
+  if (!ts.isIdentifier(current)) return false;
+  const resolved = constInitializer(current, checker);
+  if (resolved === null || seen.has(resolved.declaration)) return false;
+  const nextSeen = new Set(seen);
+  nextSeen.add(resolved.declaration);
+  return isArgvArrayExpression(
+    resolved.initializer,
+    checker,
+    nextSeen,
+    depth + 1,
+  );
+}
+
+function provablyUndefinedValue(node, checker) {
+  const current = unwrapExpression(node);
+  if (!ts.isIdentifier(current) || current.text !== "undefined") return false;
+  const declarations = checker.getSymbolAtLocation(current)?.declarations;
+  return (
+    declarations === undefined ||
+    declarations.every(
+      (declaration) => declaration.getSourceFile().isDeclarationFile,
+    )
+  );
+}
+
+function provablyNullishValue(node, checker) {
+  return (
+    evaluateConstant(node, checker) === null ||
+    provablyUndefinedValue(node, checker)
+  );
+}
+
+function childProcessInvocation(call, sink, checker) {
+  const args = call.arguments ?? [];
+  const roles = sink.entry.roles;
+  const invocation = {
+    argvIndex: undefined,
+    commandIndex: roles.shell_command,
+    executableIndex: roles.executable,
+    modulePathIndex: roles.module_path,
+    optionsIndex: undefined,
+  };
+  if (roles.argv === undefined) {
+    const candidate = roles.options?.[0];
+    const argument = candidate === undefined ? undefined : args[candidate];
+    invocation.optionsIndex =
+      argument === undefined ||
+      argumentIsFunction(argument, checker) ||
+      provablyNullishValue(argument, checker)
+        ? undefined
+        : candidate;
+    return invocation;
+  }
+  const argvSlot = args[roles.argv];
+  if (
+    argvSlot !== undefined &&
+    !isArgvArrayExpression(argvSlot, checker) &&
+    (resolveOptionTargets(argvSlot, checker).length > 0 ||
+      provablyNullishValue(argvSlot, checker))
+  ) {
+    // The documented (file, options[, callback]) overloads place a provable
+    // non-array options bag in the argv slot; Node dispatches on
+    // Array.isArray.
+    invocation.optionsIndex = roles.argv;
+    return invocation;
+  }
+  if (args.length >= 3) {
+    invocation.argvIndex = roles.argv;
+    invocation.optionsIndex = roles.options?.find(
+      (index) => index > roles.argv,
+    );
+    return invocation;
+  }
+  if (argvSlot !== undefined && isArgvArrayExpression(argvSlot, checker)) {
+    invocation.argvIndex = roles.argv;
+  } else {
+    invocation.optionsIndex = roles.options?.[0];
+  }
+  return invocation;
+}
+
+function provablyFunctionType(type) {
+  if (type.isUnion()) return type.types.every(provablyFunctionType);
+  return type.getCallSignatures().length > 0;
+}
+
+function argumentIsFunction(node, checker) {
+  const current = unwrapExpression(node);
+  if (ts.isArrowFunction(current) || ts.isFunctionExpression(current)) {
+    return true;
+  }
+  if (!ts.isIdentifier(current)) return false;
+  const symbol = checker.getSymbolAtLocation(current);
+  const declaration = symbol?.valueDeclaration;
+  if (
+    declaration !== undefined &&
+    (ts.isFunctionDeclaration(declaration) ||
+      (ts.isVariableDeclaration(declaration) &&
+        declaration.initializer !== undefined &&
+        (ts.isArrowFunction(unwrapExpression(declaration.initializer)) ||
+          ts.isFunctionExpression(unwrapExpression(declaration.initializer)))))
+  ) {
+    return true;
+  }
+  // A declared function type (for example a typed callback parameter) proves
+  // the callback overload even without a syntactic function initializer.
+  return provablyFunctionType(checker.getTypeAtLocation(current));
 }
 
 function inspectOperationalArray(
@@ -945,15 +1238,15 @@ function inspectOperationalArray(
   classification,
   symbolOverride,
 ) {
-  const elements = constantArrayElements(
+  const prefix = constantArrayPrefix(
     node,
     checker,
     new Set(),
     0,
     symbolOverride,
   );
-  if (elements === null) return;
-  for (const element of elements) {
+  if (prefix === null) return;
+  for (const element of prefix.elements) {
     inspectOperationalStructure(
       element,
       relativePath,
@@ -1162,8 +1455,9 @@ function crossesDeferredBoundary(node, container) {
   return false;
 }
 
-function sameResolvedSymbol(identifier, symbol, checker) {
-  return checker.getSymbolAtLocation(identifier) === symbol;
+function sameResolvedSymbol(identifier, symbol, checker, aliases = new Set()) {
+  const resolved = checker.getSymbolAtLocation(identifier);
+  return resolved === symbol || aliases.has(resolved);
 }
 
 function objectAccessFromReference(identifier) {
@@ -1251,16 +1545,14 @@ function isSafeChildProcessOptionsReference(identifier, checker, bindings) {
   const index = call.arguments?.indexOf(current) ?? -1;
   if (index < 0) return false;
   const sink = resolveSink(call.expression, checker, bindings);
-  const signature =
-    sink?.kind === "child-process"
-      ? CHILD_PROCESS_ARGUMENTS.get(sink.operation)
-      : undefined;
-  return signature?.options.includes(index) ?? false;
+  if (sink?.kind !== "child-process") return false;
+  return childProcessInvocation(call, sink, checker).optionsIndex === index;
 }
 
 function collectTrackedObjectEvents(
   node,
   symbol,
+  aliases,
   declaration,
   checker,
   bindings,
@@ -1269,6 +1561,26 @@ function collectTrackedObjectEvents(
   startPosition = Number.NEGATIVE_INFINITY,
 ) {
   const events = new Map();
+  function isSupportedOptionAliasRead(identifier) {
+    let current = identifier.parent;
+    while (current !== undefined && !ts.isStatement(current)) {
+      if (
+        ts.isVariableDeclaration(current) &&
+        current.initializer !== undefined &&
+        nodeContains(current.initializer, identifier) &&
+        ts.isVariableDeclarationList(current.parent) &&
+        (current.parent.flags & ts.NodeFlags.Const) !== 0
+      ) {
+        return resolveOptionTargets(current.initializer, checker).some(
+          (target) =>
+            ts.isIdentifier(target) &&
+            checker.getSymbolAtLocation(target) === symbol,
+        );
+      }
+      current = current.parent;
+    }
+    return false;
+  }
   function addEvent(event) {
     if (
       event.node.getStart() >= stopPosition ||
@@ -1310,8 +1622,25 @@ function collectTrackedObjectEvents(
     if (
       ts.isIdentifier(current) &&
       current !== declaration.name &&
-      sameResolvedSymbol(current, symbol, checker)
+      sameResolvedSymbol(current, symbol, checker, aliases)
     ) {
+      const currentSymbol = checker.getSymbolAtLocation(current);
+      if (
+        ts.isVariableDeclaration(current.parent) &&
+        current.parent.name === current &&
+        aliases.has(currentSymbol)
+      ) {
+        return;
+      }
+      if (isSupportedOptionAliasRead(current)) return;
+      if (
+        ts.isVariableDeclaration(current.parent) &&
+        current.parent.initializer === current &&
+        ts.isIdentifier(current.parent.name) &&
+        aliases.has(checker.getSymbolAtLocation(current.parent.name))
+      ) {
+        return;
+      }
       if (currentDeferred) {
         addEvent({ kind: "escape", node: current });
         return;
@@ -1432,6 +1761,7 @@ function invalidateForUnsupportedMutation(
   const events = collectTrackedObjectEvents(
     node,
     context.symbol,
+    context.aliases,
     context.declaration,
     context.checker,
     context.bindings,
@@ -1448,7 +1778,12 @@ function directAssignmentEvent(target, assignment, context) {
   const current = unwrapExpression(target);
   if (
     ts.isIdentifier(current) &&
-    sameResolvedSymbol(current, context.symbol, context.checker)
+    sameResolvedSymbol(
+      current,
+      context.symbol,
+      context.checker,
+      context.aliases,
+    )
   ) {
     return { kind: "identity-loss", node: assignment };
   }
@@ -1461,7 +1796,12 @@ function directAssignmentEvent(target, assignment, context) {
   const object = unwrapExpression(current.expression);
   if (
     !ts.isIdentifier(object) ||
-    !sameResolvedSymbol(object, context.symbol, context.checker)
+    !sameResolvedSymbol(
+      object,
+      context.symbol,
+      context.checker,
+      context.aliases,
+    )
   ) {
     return null;
   }
@@ -1480,7 +1820,12 @@ function isDirectTrackedIdentifier(node, context) {
   const current = unwrapExpression(node);
   return (
     ts.isIdentifier(current) &&
-    sameResolvedSymbol(current, context.symbol, context.checker)
+    sameResolvedSymbol(
+      current,
+      context.symbol,
+      context.checker,
+      context.aliases,
+    )
   );
 }
 
@@ -1892,12 +2237,32 @@ function processTrackedExpression(
     );
   }
 
+  if (ts.isDeleteExpression(current)) {
+    const target = unwrapExpression(current.expression);
+    if (
+      (ts.isPropertyAccessExpression(target) ||
+        ts.isElementAccessExpression(target)) &&
+      isDirectTrackedIdentifier(target.expression, context)
+    ) {
+      // delete of a reviewed property is a modeled transition to absent.
+      const property = accessPropertyName(target, context.checker);
+      return applyTrackedObjectEvents(states, [
+        { kind: "delete", node: current, property },
+      ]);
+    }
+    return processTrackedExpression(
+      current.expression,
+      states,
+      context,
+      stopPosition,
+    );
+  }
+
   if (
     ts.isPrefixUnaryExpression(current) ||
     ts.isPostfixUnaryExpression(current) ||
     ts.isVoidExpression(current) ||
     ts.isTypeOfExpression(current) ||
-    ts.isDeleteExpression(current) ||
     ts.isAwaitExpression(current) ||
     ts.isYieldExpression(current)
   ) {
@@ -2356,53 +2721,246 @@ function processTrackedForInitializer(initializer, states, context) {
     : processTrackedExpression(initializer, states, context);
 }
 
-function loopAbruptPolicy(statement) {
-  if (ts.isBreakStatement(statement)) return "break";
-  if (ts.isContinueStatement(statement)) return "continue";
-  if (!ts.isBlock(statement)) return "none";
-  for (const child of statement.statements) {
-    if (ts.isBreakStatement(child)) return "break";
-    if (ts.isContinueStatement(child)) return "continue";
-  }
-  let ambiguous = false;
-  function visit(node) {
-    if (ambiguous) return;
-    if (
-      node !== statement &&
-      (ts.isFunctionLike(node) ||
-        ts.isClassDeclaration(node) ||
-        ts.isClassExpression(node) ||
-        ts.isIterationStatement(node, false))
-    ) {
-      return;
-    }
-    if (ts.isBreakStatement(node) || ts.isContinueStatement(node)) {
-      ambiguous = true;
-      return;
-    }
-    ts.forEachChild(node, visit);
-  }
-  visit(statement);
-  return ambiguous ? "ambiguous" : "none";
-}
-
 function unknownTrackedStates(states) {
   const unknown = cloneTrackedObjectStates(states);
   for (const state of unknown) invalidateTrackedState(state);
   return unknown;
 }
 
-function processTrackedStatement(statement, states, context) {
-  if (ts.isBlock(statement)) {
-    let current = states;
-    for (const child of statement.statements) {
-      if (ts.isBreakStatement(child) || ts.isContinueStatement(child)) {
-        return current;
+function mergeStateSets(groups, context) {
+  return boundedObjectStates(groups.flat(), context.names);
+}
+
+function referenceStateKey(reference) {
+  const declaration = reference.symbolOverride?.valueDeclaration;
+  return `${reference.node.pos}:${reference.node.end}:${declaration?.pos ?? ""}`;
+}
+
+function trackedStateSetKey(states, names) {
+  const canonical = boundedObjectStates(states, names);
+  return canonical
+    .map((state) => {
+      const properties = [...names].sort().map((name) => {
+        const property = state.properties.get(name);
+        if (property.kind === "possible") {
+          return `${name}:possible:${property.mayBeAbsent}:${property.mayBeUnknown}:${property.references.map(referenceStateKey).sort().join(",")}`;
+        }
+        if (property.kind === "known") {
+          return `${name}:known:${referenceStateKey(property.reference)}`;
+        }
+        return `${name}:${property.kind}`;
+      });
+      return `${state.escaped}:${state.identifiable}:${properties.join("|")}`;
+    })
+    .sort()
+    .join("\n");
+}
+
+function emptyFlow(states = []) {
+  return { normal: states, continues: [], breaks: [] };
+}
+
+function mergeFlows(flows, context) {
+  return {
+    normal: mergeStateSets(
+      flows.map((flow) => flow.normal),
+      context,
+    ),
+    continues: mergeStateSets(
+      flows.map((flow) => flow.continues),
+      context,
+    ),
+    breaks: mergeStateSets(
+      flows.map((flow) => flow.breaks),
+      context,
+    ),
+  };
+}
+
+function trackedLoopVariable(statement, checker) {
+  if (
+    !ts.isForStatement(statement) ||
+    statement.initializer === undefined ||
+    !ts.isVariableDeclarationList(statement.initializer) ||
+    statement.initializer.declarations.length !== 1
+  ) {
+    return null;
+  }
+  const declaration = statement.initializer.declarations[0];
+  if (
+    !ts.isIdentifier(declaration.name) ||
+    declaration.initializer === undefined
+  ) {
+    return null;
+  }
+  const initial = evaluateConstant(declaration.initializer, checker);
+  const symbol = checker.getSymbolAtLocation(declaration.name);
+  return typeof initial === "number" && symbol !== undefined
+    ? { initial, symbol }
+    : null;
+}
+
+function loopVariableOperand(node, symbol, checker) {
+  const current = unwrapExpression(node);
+  return (
+    ts.isIdentifier(current) && checker.getSymbolAtLocation(current) === symbol
+  );
+}
+
+// The exact-iteration model is only sound while the header owns every write
+// to the loop variable. Any body write (direct, compound, ++/--, destructured,
+// or deferred through a nested function) makes the count unknowable here.
+function loopVariableMutatedInBody(body, symbol, checker) {
+  let mutated = false;
+  function visit(node) {
+    if (mutated) return;
+    if (ts.isIdentifier(node) && checker.getSymbolAtLocation(node) === symbol) {
+      if (crossesDeferredBoundary(node, body)) {
+        mutated = true;
+        return;
       }
-      current = processTrackedStatement(child, current, context);
-      if (current.length === 0) return current;
+      let cursor = node;
+      while (cursor.parent !== undefined && !ts.isStatement(cursor.parent)) {
+        const parent = cursor.parent;
+        if (
+          ts.isBinaryExpression(parent) &&
+          isAssignmentOperator(parent.operatorToken.kind) &&
+          nodeContains(parent.left, node)
+        ) {
+          mutated = true;
+          return;
+        }
+        if (
+          ((ts.isPrefixUnaryExpression(parent) &&
+            (parent.operator === ts.SyntaxKind.PlusPlusToken ||
+              parent.operator === ts.SyntaxKind.MinusMinusToken)) ||
+            ts.isPostfixUnaryExpression(parent)) &&
+          nodeContains(parent.operand, node)
+        ) {
+          mutated = true;
+          return;
+        }
+        cursor = parent;
+      }
     }
-    return current;
+    ts.forEachChild(node, visit);
+  }
+  visit(body);
+  return mutated;
+}
+
+function knownForIterationCount(statement, checker) {
+  const variable = trackedLoopVariable(statement, checker);
+  if (
+    variable === null ||
+    statement.condition === undefined ||
+    statement.incrementor === undefined
+  ) {
+    return UNKNOWN;
+  }
+  if (
+    loopVariableMutatedInBody(statement.statement, variable.symbol, checker)
+  ) {
+    return UNKNOWN;
+  }
+  const condition = unwrapExpression(statement.condition);
+  if (!ts.isBinaryExpression(condition)) return UNKNOWN;
+  let bound;
+  let test;
+  if (loopVariableOperand(condition.left, variable.symbol, checker)) {
+    bound = evaluateConstant(condition.right, checker);
+    test = (value) => {
+      if (condition.operatorToken.kind === ts.SyntaxKind.LessThanToken)
+        return value < bound;
+      if (condition.operatorToken.kind === ts.SyntaxKind.LessThanEqualsToken)
+        return value <= bound;
+      if (condition.operatorToken.kind === ts.SyntaxKind.GreaterThanToken)
+        return value > bound;
+      if (condition.operatorToken.kind === ts.SyntaxKind.GreaterThanEqualsToken)
+        return value >= bound;
+      return UNKNOWN;
+    };
+  } else if (loopVariableOperand(condition.right, variable.symbol, checker)) {
+    bound = evaluateConstant(condition.left, checker);
+    test = (value) => {
+      if (condition.operatorToken.kind === ts.SyntaxKind.LessThanToken)
+        return bound < value;
+      if (condition.operatorToken.kind === ts.SyntaxKind.LessThanEqualsToken)
+        return bound <= value;
+      if (condition.operatorToken.kind === ts.SyntaxKind.GreaterThanToken)
+        return bound > value;
+      if (condition.operatorToken.kind === ts.SyntaxKind.GreaterThanEqualsToken)
+        return bound >= value;
+      return UNKNOWN;
+    };
+  } else {
+    return UNKNOWN;
+  }
+  if (typeof bound !== "number" || !Number.isFinite(bound)) return UNKNOWN;
+
+  const incrementor = unwrapExpression(statement.incrementor);
+  let step;
+  if (
+    (ts.isPostfixUnaryExpression(incrementor) ||
+      ts.isPrefixUnaryExpression(incrementor)) &&
+    loopVariableOperand(incrementor.operand, variable.symbol, checker)
+  ) {
+    if (incrementor.operator === ts.SyntaxKind.PlusPlusToken) step = 1;
+    if (incrementor.operator === ts.SyntaxKind.MinusMinusToken) step = -1;
+  } else if (
+    ts.isBinaryExpression(incrementor) &&
+    loopVariableOperand(incrementor.left, variable.symbol, checker) &&
+    (incrementor.operatorToken.kind === ts.SyntaxKind.PlusEqualsToken ||
+      incrementor.operatorToken.kind === ts.SyntaxKind.MinusEqualsToken)
+  ) {
+    const amount = evaluateConstant(incrementor.right, checker);
+    if (typeof amount === "number" && Number.isFinite(amount)) {
+      step =
+        incrementor.operatorToken.kind === ts.SyntaxKind.PlusEqualsToken
+          ? amount
+          : -amount;
+    }
+  }
+  if (step === undefined || step === 0) return UNKNOWN;
+  let value = variable.initial;
+  for (let count = 0; count <= MAX_KNOWN_LOOP_ITERATIONS; count += 1) {
+    const reached = test(value);
+    if (reached === UNKNOWN) return UNKNOWN;
+    if (!reached) return count;
+    value += step;
+    if (!Number.isFinite(value)) return UNKNOWN;
+  }
+  return UNKNOWN;
+}
+
+function processTrackedFlow(statement, states, context) {
+  if (states.length === 0) return emptyFlow();
+  if (ts.isBlock(statement)) {
+    let normal = states;
+    const continues = [];
+    const breaks = [];
+    for (const child of statement.statements) {
+      if (normal.length === 0) break;
+      const flow = processTrackedFlow(child, normal, context);
+      continues.push(...flow.continues);
+      breaks.push(...flow.breaks);
+      normal = flow.normal;
+    }
+    return {
+      normal,
+      continues: boundedObjectStates(continues, context.names),
+      breaks: boundedObjectStates(breaks, context.names),
+    };
+  }
+  if (ts.isContinueStatement(statement)) {
+    return statement.label === undefined
+      ? { normal: [], continues: states, breaks: [] }
+      : emptyFlow(unknownTrackedStates(states));
+  }
+  if (ts.isBreakStatement(statement)) {
+    return statement.label === undefined
+      ? { normal: [], continues: [], breaks: states }
+      : emptyFlow(unknownTrackedStates(states));
   }
   if (ts.isIfStatement(statement)) {
     const conditioned = processTrackedExpression(
@@ -2410,180 +2968,81 @@ function processTrackedStatement(statement, states, context) {
       states,
       context,
     );
-    const condition = evaluateConstant(statement.expression, context.checker);
-    const truth =
-      condition === UNKNOWN ? UNKNOWN : primitiveToBoolean(condition);
+    const truth = expressionTruth(statement.expression, context.checker);
     if (truth === true) {
-      return processTrackedStatement(
-        statement.thenStatement,
-        conditioned,
-        context,
-      );
+      return processTrackedFlow(statement.thenStatement, conditioned, context);
     }
     if (truth === false) {
       return statement.elseStatement === undefined
-        ? conditioned
-        : processTrackedStatement(
-            statement.elseStatement,
-            conditioned,
-            context,
-          );
+        ? emptyFlow(conditioned)
+        : processTrackedFlow(statement.elseStatement, conditioned, context);
     }
-    const whenTrue = processTrackedStatement(
-      statement.thenStatement,
-      cloneTrackedObjectStates(conditioned),
+    return mergeFlows(
+      [
+        processTrackedFlow(
+          statement.thenStatement,
+          cloneTrackedObjectStates(conditioned),
+          context,
+        ),
+        statement.elseStatement === undefined
+          ? emptyFlow(cloneTrackedObjectStates(conditioned))
+          : processTrackedFlow(
+              statement.elseStatement,
+              cloneTrackedObjectStates(conditioned),
+              context,
+            ),
+      ],
       context,
     );
-    const whenFalse =
-      statement.elseStatement === undefined
-        ? cloneTrackedObjectStates(conditioned)
-        : processTrackedStatement(
-            statement.elseStatement,
-            cloneTrackedObjectStates(conditioned),
-            context,
-          );
-    return boundedObjectStates([...whenTrue, ...whenFalse], context.names);
   }
   if (
     ts.isWhileStatement(statement) ||
     ts.isDoStatement(statement) ||
-    ts.isForStatement(statement)
+    ts.isForStatement(statement) ||
+    ts.isForInStatement(statement) ||
+    ts.isForOfStatement(statement)
   ) {
-    let entry = cloneTrackedObjectStates(states);
-    if (ts.isForStatement(statement) && statement.initializer !== undefined) {
-      entry = processTrackedForInitializer(
-        statement.initializer,
-        entry,
-        context,
-      );
-    }
-    const condition = ts.isForStatement(statement)
-      ? statement.condition
-      : statement.expression;
-    let truth = true;
-    if (!ts.isDoStatement(statement) && condition !== undefined) {
-      entry = processTrackedExpression(condition, entry, context);
-      truth = expressionTruth(condition, context.checker);
-    }
-    if (!ts.isDoStatement(statement) && truth === false) return entry;
-    const abrupt = loopAbruptPolicy(statement.statement);
-    if (abrupt === "ambiguous") {
-      return boundedObjectStates(
-        [...entry, ...unknownTrackedStates(entry)],
-        context.names,
-      );
-    }
-    let iterated = processTrackedStatement(
-      statement.statement,
-      cloneTrackedObjectStates(entry),
-      context,
-    );
-    if (
-      abrupt !== "break" &&
-      ts.isForStatement(statement) &&
-      statement.incrementor !== undefined
-    ) {
-      iterated = processTrackedExpression(
-        statement.incrementor,
-        iterated,
-        context,
-      );
-    }
-    if (ts.isDoStatement(statement)) {
-      if (abrupt !== "break") {
-        iterated = processTrackedExpression(
-          statement.expression,
-          iterated,
-          context,
-        );
-      }
-      return iterated;
-    }
-    return truth === true && abrupt === "break"
-      ? iterated
-      : boundedObjectStates([...entry, ...iterated], context.names);
-  }
-  if (ts.isForInStatement(statement) || ts.isForOfStatement(statement)) {
-    const entry = processTrackedExpression(
-      statement.expression,
-      cloneTrackedObjectStates(states),
-      context,
-    );
-    const iteratedEntry = invalidateForUnsupportedMutation(
-      statement.initializer,
-      cloneTrackedObjectStates(entry),
-      context,
-    );
-    const iterated = processTrackedStatement(
-      statement.statement,
-      iteratedEntry,
-      context,
-    );
-    return boundedObjectStates([...entry, ...iterated], context.names);
-  }
-  if (
-    ts.isSwitchStatement(statement) ||
-    ts.isTryStatement(statement) ||
-    ts.isWithStatement(statement)
-  ) {
-    const events = collectTrackedObjectEvents(
-      statement,
-      context.symbol,
-      context.declaration,
-      context.checker,
-      context.bindings,
-      Number.POSITIVE_INFINITY,
-      context.budget,
-    );
-    if (events.length > 0) {
-      for (const state of states) invalidateTrackedState(state);
-    }
-    return states;
+    return emptyFlow(processTrackedLoop(statement, states, context).exits);
   }
   if (ts.isExpressionStatement(statement)) {
-    return processTrackedExpression(statement.expression, states, context);
+    return emptyFlow(
+      processTrackedExpression(statement.expression, states, context),
+    );
   }
   if (ts.isVariableStatement(statement)) {
-    return processTrackedVariableDeclarationList(
-      statement.declarationList,
-      states,
-      context,
+    return emptyFlow(
+      processTrackedVariableDeclarationList(
+        statement.declarationList,
+        states,
+        context,
+      ),
     );
   }
   if (ts.isReturnStatement(statement) || ts.isThrowStatement(statement)) {
     if (statement.expression !== undefined) {
       processTrackedExpression(statement.expression, states, context);
     }
-    return [];
+    return emptyFlow();
   }
-  return invalidateForUnsupportedMutation(statement, states, context);
+  if (ts.isEmptyStatement(statement) || ts.isDebuggerStatement(statement)) {
+    return emptyFlow(states);
+  }
+  return emptyFlow(
+    invalidateForUnsupportedMutation(statement, states, context),
+  );
 }
 
-function processTrackedStatementToSink(statement, states, context, sinkCall) {
+function observeTrackedStatement(statement, states, context, sinkCall) {
+  if (states.length === 0) return [];
   if (ts.isBlock(statement)) {
-    let current = states;
+    let normal = states;
     for (const child of statement.statements) {
+      if (normal.length === 0) return [];
       if (nodeContains(child, sinkCall)) {
-        return processTrackedStatementToSink(child, current, context, sinkCall);
+        return observeTrackedStatement(child, normal, context, sinkCall);
       }
-      if (
-        ts.isBreakStatement(child) ||
-        ts.isContinueStatement(child) ||
-        ts.isReturnStatement(child) ||
-        ts.isThrowStatement(child)
-      ) {
-        return [];
-      }
-      current = processTrackedStatement(child, current, context);
+      normal = processTrackedFlow(child, normal, context).normal;
     }
-    return current;
-  }
-
-  if (
-    ts.isSwitchStatement(statement) ||
-    ts.isTryStatement(statement) ||
-    ts.isWithStatement(statement)
-  ) {
     return [];
   }
   if (ts.isIfStatement(statement)) {
@@ -2595,19 +3054,18 @@ function processTrackedStatementToSink(statement, states, context, sinkCall) {
         sinkCall,
       );
     }
-    const current = processTrackedExpression(
+    const conditioned = processTrackedExpression(
       statement.expression,
       states,
       context,
-      sinkCall.getStart(),
     );
     const truth = expressionTruth(statement.expression, context.checker);
     if (nodeContains(statement.thenStatement, sinkCall)) {
       return truth === false
         ? []
-        : processTrackedStatementToSink(
+        : observeTrackedStatement(
             statement.thenStatement,
-            current,
+            conditioned,
             context,
             sinkCall,
           );
@@ -2618,15 +3076,15 @@ function processTrackedStatementToSink(statement, states, context, sinkCall) {
     ) {
       return truth === true
         ? []
-        : processTrackedStatementToSink(
+        : observeTrackedStatement(
             statement.elseStatement,
-            current,
+            conditioned,
             context,
             sinkCall,
           );
     }
+    return [];
   }
-
   if (
     ts.isWhileStatement(statement) ||
     ts.isDoStatement(statement) ||
@@ -2634,101 +3092,9 @@ function processTrackedStatementToSink(statement, states, context, sinkCall) {
     ts.isForInStatement(statement) ||
     ts.isForOfStatement(statement)
   ) {
-    let entry = states;
-    if (ts.isForStatement(statement) && statement.initializer !== undefined) {
-      if (nodeContains(statement.initializer, sinkCall)) {
-        return ts.isVariableDeclarationList(statement.initializer)
-          ? processTrackedVariableDeclarationListToSink(
-              statement.initializer,
-              entry,
-              context,
-              sinkCall,
-            )
-          : processTrackedExpressionToSink(
-              statement.initializer,
-              entry,
-              context,
-              sinkCall,
-            );
-      }
-      entry = processTrackedForInitializer(
-        statement.initializer,
-        entry,
-        context,
-      );
-    }
-
-    const condition = ts.isForStatement(statement)
-      ? statement.condition
-      : ts.isForInStatement(statement) || ts.isForOfStatement(statement)
-        ? undefined
-        : statement.expression;
-    if (
-      condition !== undefined &&
-      !ts.isDoStatement(statement) &&
-      nodeContains(condition, sinkCall)
-    ) {
-      return processTrackedExpressionToSink(
-        condition,
-        entry,
-        context,
-        sinkCall,
-      );
-    }
-    if (condition !== undefined && !ts.isDoStatement(statement)) {
-      entry = processTrackedExpression(condition, entry, context);
-      if (expressionTruth(condition, context.checker) === false) return [];
-    }
-    if (ts.isForInStatement(statement) || ts.isForOfStatement(statement)) {
-      entry = invalidateForUnsupportedMutation(
-        statement.initializer,
-        entry,
-        context,
-      );
-    }
-    if (nodeContains(statement.statement, sinkCall)) {
-      return processTrackedStatementToSink(
-        statement.statement,
-        entry,
-        context,
-        sinkCall,
-      );
-    }
-    let afterBody = processTrackedStatement(
-      statement.statement,
-      entry,
-      context,
-    );
-    if (ts.isDoStatement(statement)) {
-      if (nodeContains(statement.expression, sinkCall)) {
-        return processTrackedExpressionToSink(
-          statement.expression,
-          afterBody,
-          context,
-          sinkCall,
-        );
-      }
-      afterBody = processTrackedExpression(
-        statement.expression,
-        afterBody,
-        context,
-      );
-    }
-    if (
-      ts.isForStatement(statement) &&
-      statement.incrementor !== undefined &&
-      nodeContains(statement.incrementor, sinkCall)
-    ) {
-      return processTrackedExpressionToSink(
-        statement.incrementor,
-        afterBody,
-        context,
-        sinkCall,
-      );
-    }
-    return afterBody;
+    return processTrackedLoop(statement, states, context, sinkCall)
+      .observations;
   }
-
   if (ts.isVariableStatement(statement)) {
     return processTrackedVariableDeclarationListToSink(
       statement.declarationList,
@@ -2747,7 +3113,7 @@ function processTrackedStatementToSink(statement, states, context, sinkCall) {
   }
   if (ts.isReturnStatement(statement) || ts.isThrowStatement(statement)) {
     return statement.expression === undefined
-      ? states
+      ? []
       : processTrackedExpressionToSink(
           statement.expression,
           states,
@@ -2755,61 +3121,516 @@ function processTrackedStatementToSink(statement, states, context, sinkCall) {
           sinkCall,
         );
   }
-  return invalidateForUnsupportedMutation(
-    statement,
-    states,
-    context,
-    sinkCall.getStart(),
+  return [];
+}
+
+function referencesTrackedSymbol(node, context, depth = 0) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return true;
+  if (
+    ts.isIdentifier(node) &&
+    sameResolvedSymbol(node, context.symbol, context.checker, context.aliases)
+  ) {
+    return true;
+  }
+  return (
+    ts.forEachChild(node, (child) =>
+      referencesTrackedSymbol(child, context, depth + 1) ? true : undefined,
+    ) === true
   );
 }
 
-function splitSequenceResult(node) {
-  const prefixes = [];
-  let current = unwrapExpression(node);
-  let depth = 0;
-  while (depth < MAX_STRUCTURAL_DEPTH) {
-    if (
-      ts.isParenthesizedExpression(current) ||
-      ts.isAsExpression(current) ||
-      ts.isSatisfiesExpression(current) ||
-      ts.isTypeAssertionExpression(current) ||
-      ts.isNonNullExpression(current)
-    ) {
-      return null;
-    }
-    if (
-      ts.isBinaryExpression(current) &&
-      current.operatorToken.kind === ts.SyntaxKind.CommaToken
-    ) {
-      prefixes.push(current.left);
-      current = unwrapExpression(current.right);
-      depth += 1;
-      continue;
-    }
-    if (ts.isCommaListExpression(current) && current.elements.length > 0) {
-      prefixes.push(...current.elements.slice(0, -1));
-      current = unwrapExpression(current.elements.at(-1));
-      depth += 1;
-      continue;
-    }
-    return { prefixes, result: current };
+function iterationBindingStates(initializer, states, context) {
+  if (ts.isVariableDeclarationList(initializer)) {
+    return invalidateForUnsupportedMutation(initializer, states, context);
   }
-  return null;
+  // An expression binding assigns each iterated value through an arbitrary
+  // target on every pass; tracked-object involvement is beyond this bounded
+  // model, so any reference invalidates to UNKNOWN.
+  return referencesTrackedSymbol(initializer, context)
+    ? unknownTrackedStates(states)
+    : states;
 }
 
-function processSinkArgumentEffects(
-  call,
-  optionNode,
-  prefixes,
+function processTrackedLoop(statement, states, context, sinkCall) {
+  const iterates =
+    ts.isForInStatement(statement) || ts.isForOfStatement(statement);
+  let head = cloneTrackedObjectStates(states);
+  const exits = [];
+  const observations = [];
+  if (ts.isForStatement(statement) && statement.initializer !== undefined) {
+    if (sinkCall && nodeContains(statement.initializer, sinkCall)) {
+      observations.push(
+        ...cloneTrackedObjectStates(
+          ts.isVariableDeclarationList(statement.initializer)
+            ? processTrackedVariableDeclarationListToSink(
+                statement.initializer,
+                head,
+                context,
+                sinkCall,
+              )
+            : processTrackedExpressionToSink(
+                statement.initializer,
+                head,
+                context,
+                sinkCall,
+              ),
+        ),
+      );
+    }
+    head = processTrackedForInitializer(statement.initializer, head, context);
+  }
+  if (iterates) {
+    // The iterated expression evaluates exactly once at loop entry.
+    if (sinkCall && nodeContains(statement.expression, sinkCall)) {
+      observations.push(
+        ...cloneTrackedObjectStates(
+          processTrackedExpressionToSink(
+            statement.expression,
+            head,
+            context,
+            sinkCall,
+          ),
+        ),
+      );
+    }
+    head = processTrackedExpression(statement.expression, head, context);
+    const iterable = unwrapExpression(statement.expression);
+    const constantIterable = evaluateConstant(
+      statement.expression,
+      context.checker,
+    );
+    if (
+      (ts.isArrayLiteralExpression(iterable) &&
+        iterable.elements.length === 0) ||
+      (typeof constantIterable === "string" && constantIterable.length === 0)
+    ) {
+      // A provably empty iterable never runs the binding or the body.
+      return {
+        exits: boundedObjectStates(head, context.names),
+        observations: boundedObjectStates(observations, context.names),
+      };
+    }
+  }
+  const knownIterations = ts.isForStatement(statement)
+    ? knownForIterationCount(statement, context.checker)
+    : UNKNOWN;
+  let exact = knownIterations !== UNKNOWN;
+  if (exact) {
+    // Nested exact loops replay multiplicatively; once the shared budget is
+    // spent, fall back to the bounded fixed point instead of stalling the
+    // gate on legal code.
+    context.budget.exactLoopReplays =
+      (context.budget.exactLoopReplays ?? 0) + knownIterations;
+    if (context.budget.exactLoopReplays > MAX_TOTAL_EXACT_LOOP_REPLAYS) {
+      exact = false;
+    }
+  }
+  let previousKey = "";
+  const limit = exact ? knownIterations : MAX_LOOP_FIXED_POINT_STEPS;
+  for (let iteration = 0; iteration < limit; iteration += 1) {
+    let bodyEntry = cloneTrackedObjectStates(head);
+    const condition = ts.isForStatement(statement)
+      ? statement.condition
+      : iterates
+        ? undefined
+        : statement.expression;
+    if (iterates) {
+      // The iterator can stop before any binding, so every pre-binding state
+      // is a possible loop exit, including the zero-iteration entry state.
+      exits.push(...cloneTrackedObjectStates(bodyEntry));
+      if (
+        sinkCall &&
+        statement.initializer !== undefined &&
+        nodeContains(statement.initializer, sinkCall)
+      ) {
+        observations.push(
+          ...cloneTrackedObjectStates(
+            ts.isVariableDeclarationList(statement.initializer)
+              ? processTrackedVariableDeclarationListToSink(
+                  statement.initializer,
+                  bodyEntry,
+                  context,
+                  sinkCall,
+                )
+              : processTrackedExpressionToSink(
+                  statement.initializer,
+                  bodyEntry,
+                  context,
+                  sinkCall,
+                ),
+          ),
+        );
+      }
+      bodyEntry = iterationBindingStates(
+        statement.initializer,
+        bodyEntry,
+        context,
+      );
+    }
+    if (!ts.isDoStatement(statement) && condition !== undefined) {
+      if (sinkCall && nodeContains(condition, sinkCall)) {
+        observations.push(
+          ...cloneTrackedObjectStates(
+            processTrackedExpressionToSink(
+              condition,
+              bodyEntry,
+              context,
+              sinkCall,
+            ),
+          ),
+        );
+      }
+      bodyEntry = processTrackedExpression(condition, bodyEntry, context);
+      const truth = exact ? true : expressionTruth(condition, context.checker);
+      if (truth === false) {
+        exits.push(...bodyEntry);
+        head = [];
+        break;
+      }
+      if (truth === UNKNOWN) exits.push(...cloneTrackedObjectStates(bodyEntry));
+    }
+    if (sinkCall && nodeContains(statement.statement, sinkCall)) {
+      observations.push(
+        ...cloneTrackedObjectStates(
+          observeTrackedStatement(
+            statement.statement,
+            bodyEntry,
+            context,
+            sinkCall,
+          ),
+        ),
+      );
+    }
+    const body = processTrackedFlow(statement.statement, bodyEntry, context);
+    exits.push(...body.breaks);
+    let back = mergeStateSets([body.normal, body.continues], context);
+    if (
+      ts.isForStatement(statement) &&
+      statement.incrementor !== undefined &&
+      back.length > 0
+    ) {
+      if (sinkCall && nodeContains(statement.incrementor, sinkCall)) {
+        observations.push(
+          ...cloneTrackedObjectStates(
+            processTrackedExpressionToSink(
+              statement.incrementor,
+              back,
+              context,
+              sinkCall,
+            ),
+          ),
+        );
+      }
+      back = processTrackedExpression(statement.incrementor, back, context);
+    }
+    if (ts.isDoStatement(statement) && back.length > 0) {
+      if (sinkCall && nodeContains(statement.expression, sinkCall)) {
+        observations.push(
+          ...cloneTrackedObjectStates(
+            processTrackedExpressionToSink(
+              statement.expression,
+              back,
+              context,
+              sinkCall,
+            ),
+          ),
+        );
+      }
+      back = processTrackedExpression(statement.expression, back, context);
+      const doTruth = expressionTruth(statement.expression, context.checker);
+      if (doTruth !== true) exits.push(...cloneTrackedObjectStates(back));
+      if (doTruth === false) back = [];
+    }
+    if (exact) {
+      head = back;
+      if (head.length === 0) break;
+      continue;
+    }
+    const nextHead = mergeStateSets([head, back], context);
+    const nextKey = trackedStateSetKey(nextHead, context.names);
+    if (
+      nextKey === previousKey ||
+      nextKey === trackedStateSetKey(head, context.names)
+    ) {
+      head = nextHead;
+      break;
+    }
+    previousKey = trackedStateSetKey(head, context.names);
+    head = nextHead;
+  }
+  if (exact && head.length > 0) {
+    const condition = statement.condition;
+    let afterCondition = head;
+    if (condition !== undefined) {
+      afterCondition = processTrackedExpression(condition, head, context);
+    }
+    exits.push(...afterCondition);
+  } else if (!exact && head.length > 0) {
+    const condition = ts.isForStatement(statement)
+      ? statement.condition
+      : iterates
+        ? undefined
+        : statement.expression;
+    const truth = iterates
+      ? UNKNOWN
+      : ts.isDoStatement(statement) || condition === undefined
+        ? true
+        : expressionTruth(condition, context.checker);
+    if (truth !== true) exits.push(...head);
+  }
+  return {
+    exits: boundedObjectStates(exits, context.names),
+    observations: boundedObjectStates(observations, context.names),
+  };
+}
+
+function processTrackedStatement(statement, states, context) {
+  return processTrackedFlow(statement, states, context).normal;
+}
+
+function processTrackedStatementToSink(statement, states, context, sinkCall) {
+  return observeTrackedStatement(statement, states, context, sinkCall);
+}
+
+function optionTargetKey(target, checker) {
+  if (ts.isObjectLiteralExpression(target))
+    return `literal:${target.pos}:${target.end}`;
+  const symbol = checker.getSymbolAtLocation(target);
+  if (symbol === undefined) return `identifier:${target.pos}:${target.end}`;
+  const declaration = symbol.valueDeclaration ?? symbol.declarations?.[0];
+  if (declaration === undefined)
+    return `identifier:${target.pos}:${target.end}`;
+  return `symbol:${declaration.getSourceFile().fileName}:${declaration.pos}:${declaration.end}`;
+}
+
+function resolveOptionTargets(node, checker, seen = new Set(), depth = 0) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return [];
+  const current = unwrapExpression(node);
+  if (ts.isObjectLiteralExpression(current)) return [current];
+  if (ts.isIdentifier(current)) {
+    const symbol = checker.getSymbolAtLocation(current);
+    if (symbol === undefined || seen.has(symbol)) return [];
+    const resolved = variableInitializerFromSymbol(symbol);
+    if (resolved === null) return [];
+    const initializer = unwrapExpression(resolved.initializer);
+    if (ts.isObjectLiteralExpression(initializer)) return [current];
+    if (
+      !ts.isVariableDeclarationList(resolved.declaration.parent) ||
+      (resolved.declaration.parent.flags & ts.NodeFlags.Const) === 0
+    ) {
+      return [];
+    }
+    const nextSeen = new Set(seen);
+    nextSeen.add(symbol);
+    return resolveOptionTargets(
+      resolved.initializer,
+      checker,
+      nextSeen,
+      depth + 1,
+    );
+  }
+  if (ts.isConditionalExpression(current)) {
+    const truth = expressionTruth(current.condition, checker);
+    if (truth === true) {
+      return resolveOptionTargets(current.whenTrue, checker, seen, depth + 1);
+    }
+    if (truth === false) {
+      return resolveOptionTargets(current.whenFalse, checker, seen, depth + 1);
+    }
+    return [
+      ...resolveOptionTargets(current.whenTrue, checker, seen, depth + 1),
+      ...resolveOptionTargets(current.whenFalse, checker, seen, depth + 1),
+    ];
+  }
+  if (ts.isCommaListExpression(current) && current.elements.length > 0) {
+    return resolveOptionTargets(
+      current.elements.at(-1),
+      checker,
+      seen,
+      depth + 1,
+    );
+  }
+  if (ts.isBinaryExpression(current)) {
+    const operator = current.operatorToken.kind;
+    if (operator === ts.SyntaxKind.CommaToken) {
+      return resolveOptionTargets(current.right, checker, seen, depth + 1);
+    }
+    if (
+      operator === ts.SyntaxKind.AmpersandAmpersandToken ||
+      operator === ts.SyntaxKind.BarBarToken ||
+      operator === ts.SyntaxKind.QuestionQuestionToken
+    ) {
+      const leftConstant = evaluateConstant(current.left, checker);
+      const leftTargets = resolveOptionTargets(
+        current.left,
+        checker,
+        seen,
+        depth + 1,
+      );
+      let takeRight = UNKNOWN;
+      if (leftConstant !== UNKNOWN) {
+        takeRight =
+          operator === ts.SyntaxKind.QuestionQuestionToken
+            ? leftConstant === null
+            : operator === ts.SyntaxKind.AmpersandAmpersandToken
+              ? primitiveToBoolean(leftConstant)
+              : !primitiveToBoolean(leftConstant);
+      } else if (leftTargets.length > 0) {
+        // Every supported option object is truthy and non-nullish.
+        takeRight = operator === ts.SyntaxKind.AmpersandAmpersandToken;
+      }
+      if (takeRight === true) {
+        return resolveOptionTargets(current.right, checker, seen, depth + 1);
+      }
+      if (takeRight === false) return leftTargets;
+      return [
+        ...leftTargets,
+        ...resolveOptionTargets(current.right, checker, seen, depth + 1),
+      ];
+    }
+  }
+  return [];
+}
+
+function uniqueOptionTargets(node, checker) {
+  const unique = new Map();
+  for (const target of resolveOptionTargets(node, checker)) {
+    unique.set(optionTargetKey(target, checker), target);
+  }
+  return [...unique.values()];
+}
+
+function optionBranchContainsTarget(node, target, checker) {
+  const key = optionTargetKey(target, checker);
+  return uniqueOptionTargets(node, checker).some(
+    (candidate) => optionTargetKey(candidate, checker) === key,
+  );
+}
+
+function processOptionExpressionToTarget(
+  node,
+  target,
   states,
   context,
+  depth = 0,
 ) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return unknownTrackedStates(states);
+  const current = unwrapExpression(node);
+  if (
+    current === target ||
+    (ts.isIdentifier(current) &&
+      optionBranchContainsTarget(current, target, context.checker))
+  ) {
+    return states;
+  }
+  if (ts.isCommaListExpression(current) && current.elements.length > 0) {
+    let ordered = states;
+    for (const prefix of current.elements.slice(0, -1)) {
+      ordered = processTrackedExpression(prefix, ordered, context);
+    }
+    return processOptionExpressionToTarget(
+      current.elements.at(-1),
+      target,
+      ordered,
+      context,
+      depth + 1,
+    );
+  }
+  if (ts.isConditionalExpression(current)) {
+    const conditioned = processTrackedExpression(
+      current.condition,
+      states,
+      context,
+    );
+    const truth = expressionTruth(current.condition, context.checker);
+    const branches = [];
+    if (
+      truth !== false &&
+      optionBranchContainsTarget(current.whenTrue, target, context.checker)
+    ) {
+      branches.push(
+        processOptionExpressionToTarget(
+          current.whenTrue,
+          target,
+          cloneTrackedObjectStates(conditioned),
+          context,
+          depth + 1,
+        ),
+      );
+    }
+    if (
+      truth !== true &&
+      optionBranchContainsTarget(current.whenFalse, target, context.checker)
+    ) {
+      branches.push(
+        processOptionExpressionToTarget(
+          current.whenFalse,
+          target,
+          cloneTrackedObjectStates(conditioned),
+          context,
+          depth + 1,
+        ),
+      );
+    }
+    return mergeTrackedBranches(branches, context.names);
+  }
+  if (ts.isBinaryExpression(current)) {
+    const operator = current.operatorToken.kind;
+    if (operator === ts.SyntaxKind.CommaToken) {
+      const afterLeft = processTrackedExpression(current.left, states, context);
+      return processOptionExpressionToTarget(
+        current.right,
+        target,
+        afterLeft,
+        context,
+        depth + 1,
+      );
+    }
+    if (
+      operator === ts.SyntaxKind.AmpersandAmpersandToken ||
+      operator === ts.SyntaxKind.BarBarToken ||
+      operator === ts.SyntaxKind.QuestionQuestionToken
+    ) {
+      const afterLeft = processTrackedExpression(current.left, states, context);
+      const onLeft = optionBranchContainsTarget(
+        current.left,
+        target,
+        context.checker,
+      );
+      const onRight = optionBranchContainsTarget(
+        current.right,
+        target,
+        context.checker,
+      );
+      const branches = [];
+      if (onLeft) branches.push(cloneTrackedObjectStates(afterLeft));
+      if (onRight) {
+        branches.push(
+          processOptionExpressionToTarget(
+            current.right,
+            target,
+            cloneTrackedObjectStates(afterLeft),
+            context,
+            depth + 1,
+          ),
+        );
+      }
+      return mergeTrackedBranches(branches, context.names);
+    }
+  }
+  return states;
+}
+
+function processSinkArgumentEffects(call, optionNode, target, states, context) {
   let current = states;
   for (const argument of call.arguments ?? []) {
     if (argument === optionNode) {
-      for (const prefix of prefixes) {
-        current = processTrackedExpression(prefix, current, context);
-      }
+      current = processOptionExpressionToTarget(
+        argument,
+        target,
+        current,
+        context,
+      );
       continue;
     }
     current = processTrackedExpression(argument, current, context);
@@ -2817,15 +3638,67 @@ function processSinkArgumentEffects(
   return current;
 }
 
-function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
-  const sequence = splitSequenceResult(node);
-  if (sequence === null) return [];
-  const current = sequence.result;
-  if (ts.isObjectLiteralExpression(current)) {
-    return [stateFromObjectLiteral(current, names, checker)];
+function plainAliasIdentifier(node) {
+  let current = node;
+  while (
+    ts.isParenthesizedExpression(current) ||
+    ts.isNonNullExpression(current)
+  ) {
+    current = current.expression;
   }
-  if (!ts.isIdentifier(current)) return [];
-  const symbol = checker.getSymbolAtLocation(current);
+  return ts.isIdentifier(current) ? current : undefined;
+}
+
+function collectTrackedAliases(container, symbol, checker) {
+  const aliases = new Set();
+  let changed = true;
+  while (changed) {
+    changed = false;
+    function visit(node) {
+      if (
+        node !== container &&
+        (ts.isFunctionLike(node) ||
+          ts.isClassDeclaration(node) ||
+          ts.isClassExpression(node))
+      ) {
+        return;
+      }
+      if (
+        ts.isVariableDeclaration(node) &&
+        ts.isIdentifier(node.name) &&
+        node.initializer !== undefined &&
+        ts.isVariableDeclarationList(node.parent) &&
+        (node.parent.flags & ts.NodeFlags.Const) !== 0
+      ) {
+        const initializer = plainAliasIdentifier(node.initializer);
+        const sourceSymbol =
+          initializer === undefined
+            ? undefined
+            : checker.getSymbolAtLocation(initializer);
+        if (sourceSymbol === symbol || aliases.has(sourceSymbol)) {
+          const alias = checker.getSymbolAtLocation(node.name);
+          if (alias !== undefined && !aliases.has(alias)) {
+            aliases.add(alias);
+            changed = true;
+          }
+        }
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(container);
+  }
+  return aliases;
+}
+
+function trackedIdentifierStatesAtSink(
+  node,
+  optionNode,
+  names,
+  sinkCall,
+  checker,
+  bindings,
+) {
+  const symbol = checker.getSymbolAtLocation(node);
   const resolved = variableInitializerFromSymbol(symbol);
   if (symbol === undefined || resolved === null) return [];
   const initializer = unwrapExpression(resolved.initializer);
@@ -2858,6 +3731,7 @@ function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
   }
 
   const context = {
+    aliases: collectTrackedAliases(container, symbol, checker),
     bindings,
     budget: { steps: 0 },
     checker,
@@ -2891,45 +3765,113 @@ function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
   }
   return processSinkArgumentEffects(
     sinkCall,
+    optionNode,
     node,
-    sequence.prefixes,
     states,
     context,
   );
 }
 
+function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
+  const states = [];
+  for (const target of uniqueOptionTargets(node, checker)) {
+    if (ts.isObjectLiteralExpression(target)) {
+      states.push(stateFromObjectLiteral(target, names, checker));
+    } else {
+      states.push(
+        ...trackedIdentifierStatesAtSink(
+          target,
+          node,
+          names,
+          sinkCall,
+          checker,
+          bindings,
+        ),
+      );
+    }
+  }
+  return boundedObjectStates(states, names);
+}
+
 function inspectChildProcessOptions(
   node,
   call,
+  sink,
   relativePath,
   source,
   checker,
   bindings,
   findings,
 ) {
+  const names = new Set(sink.entry.option_paths);
   const states = trackedObjectStatesAtSink(
     node,
-    CHILD_PROCESS_OPTION_PROPERTIES,
+    names,
     call,
     checker,
     bindings,
   );
+  const addShellFinding = (valueNode, detail) => {
+    findings.push({
+      path: relativePath,
+      line: lineOf(source, valueNode),
+      kind: "shell-true",
+      detail,
+    });
+  };
+  const shellState = (valueNode, symbolOverride) => {
+    const value = evaluateConstant(
+      valueNode,
+      checker,
+      undefined,
+      symbolOverride,
+    );
+    if (value === UNKNOWN) return "unknown";
+    if (sink.entry.shell_mode === "exec-default") {
+      return typeof value === "string" && value.length === 0
+        ? "disabled"
+        : "enabled";
+    }
+    if (sink.entry.shell_mode === "forced-disabled") return "disabled";
+    if (value === true || (typeof value === "string" && value.length > 0)) {
+      return "enabled";
+    }
+    if (value === false || value === null || value === "") return "disabled";
+    return "unknown";
+  };
   for (const state of states) {
     for (const [name, property] of state.properties) {
+      if (
+        name === "shell" &&
+        sink.entry.shell_mode === "exec-default" &&
+        (property.kind === "absent" ||
+          (property.kind === "possible" && property.mayBeAbsent))
+      ) {
+        addShellFinding(node, `${sink.operation} default shell`);
+      }
       for (const { node: valueNode, symbolOverride } of propertyReferences(
         property,
       )) {
         if (name === "shell") {
           if (
-            evaluateConstant(valueNode, checker, undefined, symbolOverride) ===
-            true
+            sink.entry.shell_mode === "exec-default" &&
+            provablyUndefinedValue(valueNode, checker)
           ) {
-            findings.push({
-              path: relativePath,
-              line: lineOf(source, valueNode),
-              kind: "shell-true",
-              detail: "shell=true",
-            });
+            // shell: undefined leaves the exec-family default shell active.
+            addShellFinding(valueNode, `${sink.operation} default shell`);
+          } else if (shellState(valueNode, symbolOverride) === "enabled") {
+            const value = evaluateConstant(
+              valueNode,
+              checker,
+              undefined,
+              symbolOverride,
+            );
+            addShellFinding(
+              valueNode,
+              typeof value === "string"
+                ? `shell=${JSON.stringify(value)}`
+                : `shell=${String(value)}`,
+            );
           }
           inspectOperationalStructure(
             valueNode,
@@ -2938,7 +3880,7 @@ function inspectChildProcessOptions(
             checker,
             bindings,
             findings,
-            "command",
+            "path",
             new Set(),
             0,
             symbolOverride,
@@ -3000,42 +3942,57 @@ function inspectSinkArguments(
   };
 
   if (sink.kind === "child-process") {
-    const signature = CHILD_PROCESS_ARGUMENTS.get(sink.operation);
-    if (signature === undefined) return;
-    inspectIndices(signature.values, "command");
-    for (const index of signature.arrays) {
-      const argument = args[index];
-      if (argument !== undefined) {
-        inspectOperationalArray(
-          argument,
-          relativePath,
-          source,
-          checker,
-          bindings,
-          findings,
-          "command",
-        );
-      }
+    const invocation = childProcessInvocation(call, sink, checker);
+    if (invocation.commandIndex !== undefined) {
+      inspectIndices([invocation.commandIndex], "command");
     }
-    for (const index of signature.options) {
-      const argument = args[index];
-      if (argument !== undefined) {
-        inspectChildProcessOptions(
-          argument,
-          call,
-          relativePath,
-          source,
-          checker,
-          bindings,
-          findings,
-        );
-      }
+    if (invocation.executableIndex !== undefined) {
+      inspectIndices([invocation.executableIndex], "path");
+    }
+    if (invocation.modulePathIndex !== undefined) {
+      inspectIndices([invocation.modulePathIndex], "path");
+    }
+    if (invocation.argvIndex !== undefined && args[invocation.argvIndex]) {
+      inspectOperationalArray(
+        args[invocation.argvIndex],
+        relativePath,
+        source,
+        checker,
+        bindings,
+        findings,
+        "path",
+      );
+    }
+    if (
+      sink.entry.shell_mode === "exec-default" &&
+      invocation.optionsIndex === undefined
+    ) {
+      findings.push({
+        path: relativePath,
+        line: lineOf(source, call),
+        kind: "shell-true",
+        detail: `${sink.operation} default shell`,
+      });
+    }
+    if (
+      invocation.optionsIndex !== undefined &&
+      args[invocation.optionsIndex]
+    ) {
+      inspectChildProcessOptions(
+        args[invocation.optionsIndex],
+        call,
+        sink,
+        relativePath,
+        source,
+        checker,
+        bindings,
+        findings,
+      );
     }
     return;
   }
   if (sink.kind === "filesystem") {
-    const indices = FILESYSTEM_PATH_ARGUMENTS.get(sink.operation);
-    if (indices !== undefined) inspectIndices(indices);
+    inspectIndices(sink.entry.path_indices);
     return;
   }
   // node:path calls are pure fact producers, not sinks. Their abstract result
@@ -3043,8 +4000,23 @@ function inspectSinkArguments(
   // or a process path position below.
   if (sink.kind === "path") return;
   if (sink.kind === "process") {
-    const indices = PROCESS_PATH_ARGUMENTS.get(sink.operation);
-    if (indices !== undefined) inspectIndices(indices);
+    inspectIndices(sink.entry.path_indices);
+    return;
+  }
+  if (sink.kind === "process-execve") {
+    inspectIndices([sink.entry.roles.executable], "path");
+    const argv = args[sink.entry.roles.argv];
+    if (argv !== undefined) {
+      inspectOperationalArray(
+        argv,
+        relativePath,
+        source,
+        checker,
+        bindings,
+        findings,
+        "path",
+      );
+    }
   }
 }
 
@@ -3056,34 +4028,400 @@ function inspectShellArgvTuple(
   checker,
   findings,
 ) {
+  let executableIndex;
+  let argvIndex;
+  let flagIndex;
   if (
-    sink.kind !== "child-process" ||
-    !SHELL_ARGV_OPERATIONS.has(sink.operation) ||
-    call.arguments.length < 2
+    sink.kind === "child-process" &&
+    sink.entry.roles.executable !== undefined
   ) {
+    const invocation = childProcessInvocation(call, sink, checker);
+    if (invocation.argvIndex === undefined) return;
+    executableIndex = invocation.executableIndex;
+    argvIndex = invocation.argvIndex;
+    flagIndex = 0;
+  } else if (sink.kind === "process-execve") {
+    executableIndex = sink.entry.roles.executable;
+    argvIndex = sink.entry.roles.argv;
+    // POSIX execve argv carries the program name in slot 0; the executed
+    // shell parses its options starting at slot 1.
+    flagIndex = 1;
+  } else {
     return;
   }
-  const command = evaluateConstant(call.arguments[0], checker);
-  const argv = constantArrayElements(call.arguments[1], checker);
+  const executableNode = call.arguments[executableIndex];
+  const argvNode = call.arguments[argvIndex];
+  if (executableNode === undefined || argvNode === undefined) return;
+  const command = evaluateConstant(executableNode, checker);
+  const argv = constantArrayPrefix(argvNode, checker)?.elements ?? null;
+  const basename =
+    typeof command === "string"
+      ? command
+          .split(/[\\/]/)
+          .at(-1)
+          ?.toLowerCase()
+          .replace(/\.exe$/, "")
+      : undefined;
   if (
-    (command !== "bash" && command !== "sh") ||
+    (basename !== "bash" && basename !== "sh") ||
     argv === null ||
-    argv.length === 0
+    argv.length <= flagIndex
   ) {
     return;
   }
-  const flag = evaluateConstant(argv[0], checker);
-  if (flag !== "-c" && !(command === "bash" && flag === "-lc")) return;
+  const flag = evaluateConstant(argv[flagIndex], checker);
+  if (flag !== "-c" && flag !== "-lc") return;
   findings.push({
     path: relativePath,
-    line: lineOf(source, call.arguments[0]),
+    line: lineOf(source, executableNode),
     kind: "shell-wrapper",
-    detail: `${command} ${flag}`,
+    detail: `${basename} ${flag}`,
   });
 }
 
 function diagnosticText(diagnostic) {
   return ts.flattenDiagnosticMessageText(diagnostic.messageText, " ");
+}
+
+function callableType(type) {
+  if (type.getCallSignatures().length > 0) return true;
+  return type.isUnion() && type.types.some(callableType);
+}
+
+function constructibleType(type) {
+  if (type.getConstructSignatures().length > 0) return true;
+  return type.isUnion() && type.types.some(constructibleType);
+}
+
+function checkedSymbolType(checker, symbol, label) {
+  const resolved =
+    (symbol.flags & ts.SymbolFlags.Alias) !== 0
+      ? checker.getAliasedSymbol(symbol)
+      : symbol;
+  const location = resolved.valueDeclaration ?? resolved.declarations?.[0];
+  if (location === undefined) {
+    throw new Error(`declaration oracle cannot locate ${label}`);
+  }
+  return checker.getTypeOfSymbolAtLocation(resolved, location);
+}
+
+function typeSurface(checker, type, label) {
+  const surface = new Map();
+  for (const symbol of type.getProperties()) {
+    if (surface.has(symbol.name)) {
+      throw new Error(`duplicate declaration member ${label}.${symbol.name}`);
+    }
+    surface.set(symbol.name, {
+      symbol,
+      type: checkedSymbolType(checker, symbol, `${label}.${symbol.name}`),
+    });
+  }
+  return surface;
+}
+
+function moduleSurface(checker, ambient, specifier, exportEquals) {
+  const moduleSymbol = ambient.find(
+    (candidate) => candidate.name === JSON.stringify(specifier),
+  );
+  if (moduleSymbol === undefined) {
+    throw new Error(`declaration oracle cannot resolve module ${specifier}`);
+  }
+  if (exportEquals) {
+    const exported = moduleSymbol.exports?.get("export=");
+    if (exported === undefined) {
+      throw new Error(
+        `declaration oracle cannot resolve export= for ${specifier}`,
+      );
+    }
+    return typeSurface(
+      checker,
+      checkedSymbolType(checker, exported, `${specifier}.export=`),
+      specifier,
+    );
+  }
+  const surface = new Map();
+  for (const symbol of checker.getExportsOfModule(moduleSymbol)) {
+    surface.set(symbol.name, {
+      symbol,
+      type: checkedSymbolType(checker, symbol, `${specifier}.${symbol.name}`),
+    });
+  }
+  return surface;
+}
+
+function setDifference(left, right) {
+  return [...left].filter((value) => !right.has(value)).sort();
+}
+
+function assertSameSet(actual, expected, label) {
+  const missing = setDifference(expected, actual);
+  const unexpected = setDifference(actual, expected);
+  if (missing.length > 0 || unexpected.length > 0) {
+    throw new Error(
+      `Node portability catalog completeness mismatch at ${label}; missing=[${missing.join(", ")}], unexpected=[${unexpected.join(", ")}]`,
+    );
+  }
+}
+
+// Any callable or constructible member of a reviewed callable surface must be
+// represented by an explicit catalog node; otherwise a pin bump could expose
+// a new nested operation (a future `.native`-style member) without failing
+// review.
+function assertNoUnreviewedNestedSurface(
+  surface,
+  label,
+  excludedPrefixes,
+  isLibraryMember,
+) {
+  for (const [name, member] of surface) {
+    if (excludedPrefixes.some((prefix) => name.startsWith(prefix))) continue;
+    // Members inherited from the TypeScript default library (Function
+    // prototype members on interface-typed functions) are not Node surface.
+    if (isLibraryMember(member.symbol)) continue;
+    if (callableType(member.type) || constructibleType(member.type)) {
+      throw new Error(
+        `Node portability catalog nested surface unreviewed at ${label}.${name}; add an explicit catalog node`,
+      );
+    }
+  }
+}
+
+function verifyCatalogCompletenessGuard() {
+  let rejectedKnownMismatch = false;
+  try {
+    assertSameSet(
+      new Set(["unexpected-member"]),
+      new Set(),
+      "completeness guard self-test",
+    );
+  } catch {
+    rejectedKnownMismatch = true;
+  }
+  if (!rejectedKnownMismatch) {
+    throw new Error(
+      "Node portability catalog completeness guard accepted a known mismatch",
+    );
+  }
+  let rejectedNestedSurface = false;
+  try {
+    assertNoUnreviewedNestedSurface(
+      new Map([
+        [
+          "native",
+          {
+            type: {
+              getCallSignatures: () => [{}],
+              getConstructSignatures: () => [],
+              isUnion: () => false,
+            },
+          },
+        ],
+      ]),
+      "completeness guard nested self-test",
+      [],
+      () => false,
+    );
+  } catch {
+    rejectedNestedSurface = true;
+  }
+  if (!rejectedNestedSurface) {
+    throw new Error(
+      "Node portability catalog completeness guard accepted an unreviewed nested surface",
+    );
+  }
+}
+
+function validateCatalogNodeAgainstSurface(
+  checker,
+  moduleId,
+  nodeId,
+  surface,
+  label,
+  seen,
+  isLibraryMember,
+) {
+  const key = `${moduleId}:${nodeId}`;
+  if (seen.has(key)) return;
+  seen.add(key);
+  const module = NODE_CATALOG.modules[moduleId];
+  const node = module.nodes[nodeId];
+  if (node === undefined) {
+    throw new Error(`declaration oracle missing catalog node ${key}`);
+  }
+  const excludedPrefixes = Object.keys(
+    module.oracle_symbol_exclusion_prefixes ?? {},
+  );
+  const observedCallable = new Set();
+  const observedConstructible = new Set();
+  for (const [name, member] of surface) {
+    if (excludedPrefixes.some((prefix) => name.startsWith(prefix))) continue;
+    if (callableType(member.type)) observedCallable.add(name);
+    if (constructibleType(member.type)) observedConstructible.add(name);
+  }
+  const expectedCallable = new Set(
+    Object.entries(node.members)
+      .filter(([, member]) => member.callable !== undefined)
+      .map(([name]) => name),
+  );
+  const expectedConstructible = new Set(
+    Object.entries(node.members)
+      .filter(([, member]) => member.constructible !== undefined)
+      .map(([name]) => name),
+  );
+  assertSameSet(observedCallable, expectedCallable, `${label} callables`);
+  assertSameSet(
+    observedConstructible,
+    expectedConstructible,
+    `${label} constructibles`,
+  );
+  for (const [memberName, catalogMember] of Object.entries(node.members)) {
+    if (catalogMember.node === undefined) continue;
+    const declared = surface.get(memberName);
+    if (declared === undefined) {
+      throw new Error(
+        `declaration oracle cannot resolve ${label}.${memberName}`,
+      );
+    }
+    const targetModule = catalogMember.module ?? moduleId;
+    validateCatalogNodeAgainstSurface(
+      checker,
+      targetModule,
+      catalogMember.node,
+      typeSurface(checker, declared.type, `${label}.${memberName}`),
+      `${label}.${memberName}`,
+      seen,
+      isLibraryMember,
+    );
+  }
+  for (const [memberName, declared] of surface) {
+    if (excludedPrefixes.some((prefix) => memberName.startsWith(prefix))) {
+      continue;
+    }
+    const catalogMember = node.members[memberName];
+    if (catalogMember === undefined || catalogMember.node !== undefined) {
+      continue;
+    }
+    if (catalogMember.callable === undefined) continue;
+    assertNoUnreviewedNestedSurface(
+      typeSurface(checker, declared.type, `${label}.${memberName}`),
+      `${label}.${memberName}`,
+      excludedPrefixes,
+      isLibraryMember,
+    );
+  }
+}
+
+function verifyDefaultAsImports(options) {
+  const probePath = resolve(
+    process.cwd(),
+    "scripts/.node-catalog-default-probe.ts",
+  );
+  const probe = [
+    'import { default as childProcess } from "node:child_process";',
+    'import { default as fs } from "node:fs";',
+    'import { default as fsp } from "node:fs/promises";',
+    'import { default as path } from "node:path";',
+    'import { default as process } from "node:process";',
+    "void [childProcess, fs, fsp, path, process];",
+  ].join("\n");
+  const host = ts.createCompilerHost(options);
+  const originalFileExists = host.fileExists.bind(host);
+  const originalReadFile = host.readFile.bind(host);
+  const originalGetSourceFile = host.getSourceFile.bind(host);
+  host.fileExists = (fileName) =>
+    resolve(fileName) === probePath || originalFileExists(fileName);
+  host.readFile = (fileName) =>
+    resolve(fileName) === probePath ? probe : originalReadFile(fileName);
+  host.getSourceFile = (fileName, languageVersion, onError, shouldCreate) =>
+    resolve(fileName) === probePath
+      ? ts.createSourceFile(fileName, probe, languageVersion, true)
+      : originalGetSourceFile(fileName, languageVersion, onError, shouldCreate);
+  const program = ts.createProgram({
+    rootNames: [probePath],
+    options,
+    host,
+  });
+  const diagnostics = ts.getPreEmitDiagnostics(program);
+  if (diagnostics.length > 0) {
+    throw new Error(
+      `default-as declaration probe failed: ${diagnostics.map(diagnosticText).join("; ")}`,
+    );
+  }
+}
+
+function verifyNodeCatalogCompleteness() {
+  verifyCatalogCompletenessGuard();
+  const declarationRoot = require.resolve("@types/node/index.d.ts");
+  const options = {
+    module: ts.ModuleKind.NodeNext,
+    moduleResolution: ts.ModuleResolutionKind.NodeNext,
+    noEmit: true,
+    skipLibCheck: false,
+    target: ts.ScriptTarget.ES2024,
+    types: ["node"],
+  };
+  const program = ts.createProgram({ rootNames: [declarationRoot], options });
+  const diagnostics = ts.getPreEmitDiagnostics(program);
+  if (diagnostics.length > 0) {
+    throw new Error(
+      `pinned Node declaration oracle failed: ${diagnostics.map(diagnosticText).join("; ")}`,
+    );
+  }
+  const checker = program.getTypeChecker();
+  const ambient = checker.getAmbientModules();
+  const isLibraryMember = (symbol) =>
+    symbol?.declarations !== undefined &&
+    symbol.declarations.length > 0 &&
+    symbol.declarations.every((declaration) =>
+      program.isSourceFileDefaultLibrary(declaration.getSourceFile()),
+    );
+  const exportEqualsModules = new Set([
+    "path",
+    "path-posix",
+    "path-win32",
+    "process",
+  ]);
+  for (const [moduleId, module] of Object.entries(NODE_CATALOG.modules)) {
+    const surfaces = module.specifiers.map((specifier) =>
+      moduleSurface(
+        checker,
+        ambient,
+        specifier,
+        exportEqualsModules.has(moduleId),
+      ),
+    );
+    const callableSets = surfaces.map(
+      (surface) =>
+        new Set(
+          [...surface]
+            .filter(([, member]) => callableType(member.type))
+            .map(([name]) => name),
+        ),
+    );
+    for (let index = 1; index < callableSets.length; index += 1) {
+      assertSameSet(
+        callableSets[index],
+        callableSets[0],
+        `${module.specifiers[0]} alias ${module.specifiers[index]}`,
+      );
+    }
+    validateCatalogNodeAgainstSurface(
+      checker,
+      moduleId,
+      module.root,
+      surfaces[0],
+      module.specifiers[0],
+      new Set(),
+      isLibraryMember,
+    );
+  }
+  verifyDefaultAsImports(options);
+  return {
+    node: NODE_CATALOG.metadata.node_runtime,
+    types_node: NODE_CATALOG.metadata.types_node,
+    typescript: NODE_CATALOG.metadata.typescript,
+    modules: Object.keys(NODE_CATALOG.modules).sort(),
+  };
 }
 
 function inspect(relativePath, source, program) {
@@ -3136,6 +4474,11 @@ function inspect(relativePath, source, program) {
       left.kind.localeCompare(right.kind) ||
       left.detail.localeCompare(right.detail),
   );
+}
+
+if (process.argv.slice(2).includes("--verify-node-catalog")) {
+  process.stdout.write(JSON.stringify(verifyNodeCatalogCompleteness()));
+  process.exit(0);
 }
 
 let input = "";

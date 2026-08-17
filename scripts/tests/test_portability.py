@@ -925,9 +925,9 @@ def test_bash_wrapper_in_ts_runtime_source_fails(policy_repo: Path) -> None:
     source_dir = policy_repo / "packages" / "form-engine" / "src"
     source_dir.mkdir(parents=True)
     (source_dir / "runner.ts").write_text(
-        'import { spawnSync } from "node:child_process";\n'
+        'import { execSync } from "node:child_process";\n'
         'const WRAPPER = "bash -c ./verify-all";\n'
-        "spawnSync(WRAPPER);\n",
+        "execSync(WRAPPER);\n",
         encoding="utf-8",
     )
     assert "PORT-SRC-008" in rules_of(policy_repo)
@@ -1069,10 +1069,10 @@ def test_constant_equivalent_shell_true_spawn_fails(
             "readFileSync(`${root}${folder}/example`);\n"
         ),
         (
-            'import { spawnSync } from "node:child_process";\n'
+            'import { execSync } from "node:child_process";\n'
             'const shellName = "ba" + "sh";\n'
             'const wrapper = `${shellName} ${"-c"} echo ready`;\n'
-            "spawnSync(wrapper);\n"
+            "execSync(wrapper);\n"
         ),
         (
             'import { readFileSync } from "node:fs";\n'
@@ -1124,8 +1124,8 @@ def test_constant_built_operational_typescript_values_fail(
         ),
         (
             (
-                'import { spawnSync } from "node:child_process";\n'
-                'spawnSync("bash\\t   -c echo ready");\n'
+                'import { execSync } from "node:child_process";\n'
+                'execSync("bash\\t   -c echo ready");\n'
             ),
             "Bash-only wrapper literal 'bash -c'",
         ),
@@ -1138,9 +1138,9 @@ def test_constant_built_operational_typescript_values_fail(
         ),
         (
             (
-                'import { spawnSync } from "node:child_process";\n'
+                'import { fork } from "node:child_process";\n'
                 'const execArgv = ["--require=/tmp/hook.js"];\n'
-                'spawnSync("node", [], { execArgv });\n'
+                'fork("worker.js", [], { execArgv });\n'
             ),
             "hard-coded POSIX system path '/tmp'",
         ),
@@ -2324,6 +2324,844 @@ def test_third_correction_commonjs_win32_path_flavor_is_unknown(
     assert rules_of(policy_repo) == set()
 
 
+@pytest.mark.parametrize(
+    ("source", "expected_detail"),
+    [
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: true };\n"
+                'spawnSync("node", [], true ? options : { shell: false });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const choose: boolean;\n"
+                "const options = { shell: true };\n"
+                'spawnSync("node", [], choose ? options : { shell: false });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "for (let i = 0; i < 2; i += 1) {\n"
+                '  spawnSync("node", ["--version"], options);\n'
+                "  options.shell = true;\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "for (let i = 0; i < 4; i += 1) {\n"
+                '  spawnSync("node", ["--version"], options);\n'
+                "  options.shell = true;\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("node", [], { shell: "bash" });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("bash", ["-c", "printf ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("/opt/homebrew/bin/bash", ["-c", "printf ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import { default as path } from "node:path";\n'
+                'import { readFileSync } from "node:fs";\n'
+                'readFileSync(path.join("/", "tmp", "x"));\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            'import { default as fs } from "node:fs";\nfs.readFileSync("/tmp/x");\n',
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { default as childProcess } from "node:child_process";\n'
+                'childProcess.spawnSync("node", [], { shell: true });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import fs, { realpathSync } from "node:fs";\n'
+                'fs.realpathSync.native("/tmp/x");\n'
+                'realpathSync.native("/tmp/y");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import fs from "node:fs";\n'
+                'import fsp from "node:fs/promises";\n'
+                'fs.mkdtempDisposableSync("/tmp/sync-");\n'
+                'void fsp.mkdtempDisposable("/tmp/async-");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        # Additional semantic cases, distributed across all five abstractions.
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: true };\n"
+                'spawnSync("node", [], (void 0, options));\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: true };\n"
+                'spawnSync("node", [], true && options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: true };\n"
+                "declare const empty: null;\n"
+                'spawnSync("node", [], empty ?? options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: true };\n"
+                "const selected = true ? options : { shell: false };\n"
+                'spawnSync("node", [], selected);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "for (let i = 0; i < 2; options.shell = true, i += 1) {\n"
+                '  spawnSync("node", [], options);\n'
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "for (let i = 0; i < 2; i += 1) {\n"
+                '  spawnSync("node", [], options);\n'
+                "  options.shell = true;\n"
+                "  continue;\n"
+                "  options.shell = false;\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            # The proved enabled reference is established FIRST and must
+            # survive seventy later conditional merges; a widening or
+            # reference cap that erases old references loses it.
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const "
+            + ", ".join(f"c{index}: boolean" for index in range(70))
+            + ";\n"
+            + "const options = { shell: true };\n"
+            + "".join(f"if (c{index}) options.shell = false;\n" for index in range(70))
+            + 'spawnSync("node", [], options);\n',
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("C:\\\\tools\\\\bash.exe", ["-lc", "printf ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -lc'",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                'execSync("printf ready", { shell: false as unknown as string });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { default as process } from "node:process";\n'
+                'process.report.writeReport("/tmp/report.json");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import fs from "node:fs";\n'
+                'void fs.promises.mkdtempDisposable("/tmp/nested-");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { default as fsp } from "node:fs/promises";\n'
+                'void fsp.realpath("/tmp/default-as");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                'for (const step of ["first", "second"]) {\n'
+                '  spawnSync("node", [String(step)], options);\n'
+                "  options.shell = true;\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "const record = { first: 1, second: 2 };\n"
+                "for (const key in record) {\n"
+                '  spawnSync("node", [key], options);\n'
+                "  options.shell = true;\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "async function run(items: AsyncIterable<string>): Promise<void> {\n"
+                "  const options = { shell: false };\n"
+                "  for await (const item of items) {\n"
+                '    spawnSync("node", [item], options);\n'
+                "    options.shell = true;\n"
+                "  }\n"
+                "}\n"
+                "void run;\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import process from "node:process";\n'
+                'process.execve?.("bash", ["bash", "-c", "printf ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import { execFile } from "node:child_process";\n'
+                'execFile("printf hi", { shell: "/bin/bash" }, () => {});\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("sh", ["-lc", "printf ready"]);\n'
+            ),
+            "Bash-only wrapper literal 'sh -lc'",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                'execSync("sh -lc ./run-all");\n'
+            ),
+            "Bash-only wrapper literal 'sh -lc'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const rest: string[];\n"
+                'spawnSync("bash", ["-c", "printf ok", ...rest]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const rest: string[];\n"
+                'spawnSync("cp", ["/tmp/source", ...rest]);\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { exec } from "node:child_process";\n'
+                'exec("printf ok", undefined, () => {});\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { exec } from "node:child_process";\n'
+                'exec("printf ok", null, () => {});\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                'execSync("printf ok", { shell: undefined });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { exec } from "node:child_process";\n'
+                "export function run(\n"
+                "  callback: (error: Error | null) => void,\n"
+                "): void {\n"
+                '  exec("printf ok", callback);\n'
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options = { shell: false };\n"
+                "let redo = true;\n"
+                "for (let i = 0; i < 1; i += 1) {\n"
+                '  spawnSync("node", [], options);\n'
+                "  options.shell = true;\n"
+                "  if (redo) {\n"
+                "    redo = false;\n"
+                "    i -= 1;\n"
+                "  }\n"
+                "}\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                'const options: { shell?: string } = { shell: "" };\n'
+                "delete options.shell;\n"
+                'execSync("printf ready", options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            'process.chdir("/tmp");\n',
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                "async function run(): Promise<void> {\n"
+                '  const { execSync } = await import("node:child_process");\n'
+                '  execSync("printf ok");\n'
+                "}\n"
+                "void run;\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                "async function run(): Promise<void> {\n"
+                '  const cp = await import("node:child_process");\n'
+                '  cp.spawnSync("node", [], { shell: true });\n'
+                "}\n"
+                "void run;\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import process from "node:process";\n'
+                'process.getBuiltinModule("node:fs").rmSync("/tmp/x");\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+        (
+            (
+                'import { join } from "node:path/posix";\n'
+                'import { rmSync } from "node:fs";\n'
+                'rmSync(join("/", "tmp", "sub"));\n'
+            ),
+            "hard-coded POSIX system path '/tmp'",
+        ),
+    ],
+    ids=[
+        "p1-known-true-conditional-options",
+        "p2-unknown-conditional-options",
+        "p3-second-iteration",
+        "p4-later-iteration",
+        "p5-string-shell",
+        "p6-bare-bash-c",
+        "p7-absolute-bash-c",
+        "p8-default-as-path",
+        "p9-default-as-fs",
+        "p10-default-as-child-process",
+        "p11-realpath-sync-native",
+        "p12-disposable-temp-surfaces",
+        "extra-comma-options",
+        "extra-logical-and-options",
+        "extra-nullish-options",
+        "extra-const-selector-alias",
+        "extra-loop-incrementor-mutation",
+        "extra-loop-continue-skips-reset",
+        "extra-state-cap-preserves-violation",
+        "extra-windows-bash-executable",
+        "extra-exec-false-still-shell",
+        "extra-process-report-path",
+        "extra-fs-promises-namespace",
+        "extra-default-as-fs-promises",
+        "extra-forof-second-iteration",
+        "extra-forin-second-iteration",
+        "extra-forawait-second-iteration",
+        "extra-execve-bash-wrapper",
+        "extra-execfile-options-callback",
+        "extra-sh-lc-tuple",
+        "extra-sh-lc-string",
+        "extra-spread-tail-wrapper",
+        "extra-spread-tail-path",
+        "extra-exec-undefined-options",
+        "extra-exec-null-options",
+        "extra-execsync-shell-undefined",
+        "extra-exec-callback-parameter",
+        "extra-exact-loop-body-mutation",
+        "extra-delete-shell-exec-default",
+        "extra-global-process-chdir",
+        "extra-dynamic-import-destructure",
+        "extra-dynamic-import-namespace",
+        "extra-get-builtin-module",
+        "extra-path-posix-submodule",
+    ],
+)
+def test_fourth_correction_semantic_violations_fail(
+    policy_repo: Path, source: str, expected_detail: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fourth-correction-violation.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008" and expected_detail in violation.message
+        for violation in violations
+    )
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            'spawnSync("node", [], false ? options : { shell: false });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "for (let i = 0; i < 3; i += 1) {\n"
+            "  options.shell = false;\n"
+            '  spawnSync("node", [], options);\n'
+            "  options.shell = true;\n"
+            "}\n"
+        ),
+        (
+            'import { execFileSync } from "node:child_process";\n'
+            'execFileSync("printf", ["bash -c is inert argv data"]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("printf", ["documentation mentions bash -lc"]);\n'
+        ),
+        (
+            'import path from "node:path";\n'
+            'import { readFileSync } from "node:fs";\n'
+            "type Tools = { join(...segments: string[]): string };\n"
+            "const augmentedPath = path as typeof path & { tools: Tools };\n"
+            'augmentedPath.tools = { join: (...segments) => segments.join("/") };\n'
+            'readFileSync(augmentedPath.tools.join("/", "tmp", "x"));\n'
+        ),
+        (
+            'import * as path from "node:path";\n'
+            'import { readFileSync } from "node:fs";\n'
+            'const tools = { join: (...parts: string[]) => parts.join("/") };\n'
+            'readFileSync(tools.join("/", "tmp", "x"));\n'
+            "void path;\n"
+        ),
+        (
+            'import { writeFileSync } from "node:fs";\n'
+            'writeFileSync("portable.txt", "/tmp is payload data");\n'
+        ),
+        (
+            'import { readFileSync } from "node:fs";\n'
+            'readFileSync("fixtures/example.txt");\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { shell: false });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { shell: "" });\n'
+        ),
+        # Paired controls for the new loop/invocation/provenance boundaries.
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "for (let i = 0; i < 1; i += 1) {\n"
+            '  spawnSync("node", [], options);\n'
+            "  options.shell = true;\n"
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "for (let i = 0; i < 2; i += 1) {\n"
+            "  if (true) continue;\n"
+            "  options.shell = true;\n"
+            '  spawnSync("node", [], options);\n'
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "for (let i = 0; i < 2; i += 1) {\n"
+            '  spawnSync("node", [], options);\n'
+            "  options.shell = true;\n"
+            "  break;\n"
+            "}\n"
+        ),
+        (
+            'import { fork } from "node:child_process";\n'
+            'fork("worker.js", [], { shell: true } as unknown as '
+            "Parameters<typeof fork>[2]);\n"
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            'execSync("printf ready", { shell: "" });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const shell: boolean | string;\n"
+            'spawnSync("node", [], { shell });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("/opt/homebrew/bin/bash", ["-client"]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'for (const step of ["first", "second"]) {\n'
+            "  options.shell = false;\n"
+            '  spawnSync("node", [String(step)], options);\n'
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'for (const step of ["first", "second"]) {\n'
+            '  spawnSync("node", [String(step)], options);\n'
+            "  options.shell = true;\n"
+            "  break;\n"
+            "}\n"
+        ),
+        (
+            'import process from "node:process";\n'
+            'process.execve?.("printf", ["printf", "bash -c stays inert data"]);\n'
+        ),
+        ('import process from "node:process";\nprocess.execve?.("bash", ["-c"]);\n'),
+        (
+            'import path from "node:path";\n'
+            'import { readFileSync } from "node:fs";\n'
+            'declare module "path" {\n'
+            "  interface PlatformPath {\n"
+            "    tools?: { join(...parts: string[]): string };\n"
+            "  }\n"
+            "}\n"
+            'readFileSync(path.tools!.join("/", "tmp", "x"));\n'
+        ),
+        (
+            'import { execFile } from "node:child_process";\n'
+            'execFile("printf", ["ready"], () => {});\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("sh", ["-client"]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const rest: string[];\n"
+            'spawnSync("bash", [...rest]);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("node", [], { shell: undefined });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "let redo = true;\n"
+            "for (let i = 0; i < 1; i += 1) {\n"
+            "  options.shell = false;\n"
+            '  spawnSync("node", [], options);\n'
+            "  if (redo) {\n"
+            "    redo = false;\n"
+            "    i -= 1;\n"
+            "  }\n"
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options: { shell?: boolean } = { shell: true };\n"
+            "delete options.shell;\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "for (const step of []) {\n"
+            '  spawnSync("node", [String(step)], options);\n'
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "let counter = 0;\n"
+            "for (let a = 0; a < 128; a += 1) {\n"
+            "  for (let b = 0; b < 128; b += 1) {\n"
+            "    for (let c = 0; c < 128; c += 1) {\n"
+            "      for (let d = 0; d < 128; d += 1) {\n"
+            "        counter += 1;\n"
+            "      }\n"
+            "    }\n"
+            "  }\n"
+            "}\n"
+            'spawnSync("node", [String(counter)], options);\n'
+        ),
+        (
+            "export {};\n"
+            "const process = {\n"
+            "  chdir(target: string): void {\n"
+            "    void target;\n"
+            "  },\n"
+            "};\n"
+            'process.chdir("/tmp");\n'
+        ),
+        (
+            "async function run(): Promise<void> {\n"
+            '  const os = await import("node:os");\n'
+            "  void os.tmpdir();\n"
+            "}\n"
+            "void run;\n"
+        ),
+        (
+            'import { join } from "node:path/win32";\n'
+            'import { readFileSync } from "node:fs";\n'
+            'readFileSync(join("/", "tmp", "x"));\n'
+        ),
+    ],
+    ids=[
+        "n1-known-false-conditional-options",
+        "n2-reset-before-every-sink",
+        "n3-exec-file-inert-argv",
+        "n4-spawn-inert-prose",
+        "n5-augmented-path-terminates-provenance",
+        "n6-local-shadowed-member",
+        "n7-payload-path-text",
+        "n8-relative-fs-path",
+        "n9-shell-false",
+        "n10-empty-shell-selector",
+        "extra-statically-one-iteration",
+        "extra-continue-skips-violation",
+        "extra-break-prevents-backedge",
+        "extra-fork-forces-shell-off",
+        "extra-exec-empty-selector",
+        "extra-dynamic-shell-unknown",
+        "extra-bash-client-lookalike",
+        "extra-forof-reset-before-sink",
+        "extra-forof-break-prevents-backedge",
+        "extra-execve-inert-argv",
+        "extra-execve-argv0-slot-only",
+        "extra-augmented-module-member-terminates",
+        "extra-execfile-args-callback",
+        "extra-sh-client-lookalike",
+        "extra-spread-only-dynamic",
+        "extra-spawn-shell-undefined",
+        "extra-exact-loop-reset-body-mutation",
+        "extra-delete-shell-spawnsync",
+        "extra-forof-empty-literal-dead",
+        "extra-nested-exact-loop-budget",
+        "extra-global-process-shadowed",
+        "extra-dynamic-import-unknown-module",
+        "extra-path-win32-submodule",
+    ],
+)
+def test_fourth_correction_semantic_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fourth-correction-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+def test_fourth_correction_namespace_default_member_semantics(
+    policy_repo: Path, tmp_path: Path
+) -> None:
+    # At runtime the ESM namespace object exposes the module itself as
+    # `default`, but the pinned compiler types no synthetic `default` member
+    # for CJS builtins, so the surface is unreachable in compiling code
+    # without a provenance-terminating cast. The checker still flags it as
+    # defense-in-depth; both facts are pinned here, which is why this fixture
+    # is not part of the compile-clean fixture batch.
+    source = (
+        'import * as cpns from "node:child_process";\n'
+        'cpns.default.execSync("printf ok");\n'
+    )
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "namespace-default.mts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008"
+        and "child-process shell mode" in violation.message
+        for violation in violations
+    )
+    fixture = tmp_path / "namespace-default.mts"
+    fixture.write_text(source, encoding="utf-8")
+    proc = subprocess.run(
+        (
+            "pnpm",
+            "exec",
+            "tsc",
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            str(fixture),
+        ),
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode != 0
+    assert "TS2339" in proc.stdout
+
+
+def test_node24_operational_catalog_is_complete_against_pinned_declarations() -> None:
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "scripts" / "check_typescript_portability.mjs"),
+            "--verify-node-catalog",
+        ),
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stderr
+    result = json.loads(proc.stdout)
+    assert result == {
+        "node": "24.18.0",
+        "types_node": "24.13.3",
+        "typescript": "6.0.3",
+        "modules": [
+            "child-process",
+            "filesystem",
+            "filesystem-promises",
+            "path",
+            "path-posix",
+            "path-win32",
+            "process",
+        ],
+    }
+
+
+def test_fourth_correction_typescript_fixtures_compile(
+    tmp_path: Path,
+) -> None:
+    violation_mark = next(
+        mark
+        for mark in cast(
+            "Any", test_fourth_correction_semantic_violations_fail
+        ).pytestmark
+        if mark.name == "parametrize"
+    )
+    control_mark = next(
+        mark
+        for mark in cast(
+            "Any", test_fourth_correction_semantic_controls_pass
+        ).pytestmark
+        if mark.name == "parametrize"
+    )
+    sources = [case[0] for case in violation_mark.args[1]] + list(control_mark.args[1])
+    paths = []
+    for index, source in enumerate(sources):
+        path = tmp_path / f"fourth-correction-{index}.ts"
+        path.write_text(source, encoding="utf-8")
+        paths.append(str(path))
+    proc = subprocess.run(
+        (
+            "pnpm",
+            "exec",
+            "tsc",
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *paths,
+        ),
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:
@@ -2399,6 +3237,20 @@ def test_typescript_portability_helper_failures_fail_closed(
     monkeypatch.setattr("check_portability.subprocess.run", fake_run)
     with pytest.raises(check_portability.PolicyError, match=message):
         check_portability._check_ts_runtime_sources(policy_repo, [source], [])
+
+
+def test_empty_typescript_surface_still_validates_helper_infrastructure(
+    policy_repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def fake_run(*_args: object, **_kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess("node", 1, "", "catalog unavailable")
+
+    monkeypatch.setattr("check_portability.subprocess.run", fake_run)
+    with pytest.raises(
+        check_portability.PolicyError,
+        match="TypeScript portability parser failed: catalog unavailable",
+    ):
+        check_portability._check_ts_runtime_sources(policy_repo, [], [])
 
 
 def test_bash_only_package_script_fails(policy_repo: Path) -> None:

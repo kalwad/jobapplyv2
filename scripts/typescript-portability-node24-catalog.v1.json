@@ -1,0 +1,1662 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "node_runtime": "24.18.0",
+    "node_policy": "24.18",
+    "typescript": "6.0.3",
+    "types_node": "24.13.3"
+  },
+  "modules": {
+    "child-process": {
+      "specifiers": ["child_process", "node:child_process"],
+      "root": "root",
+      "nodes": {
+        "root": {
+          "members": {
+            "ChildProcess": {
+              "constructible": "non-operational",
+              "rationale": "Node documents direct construction as unsupported"
+            },
+            "exec": {
+              "callable": "child-process",
+              "roles": {
+                "shell_command": 0,
+                "options": [1]
+              },
+              "shell_mode": "exec-default",
+              "option_paths": ["cwd", "shell"],
+              "node": "exec"
+            },
+            "execFile": {
+              "callable": "child-process",
+              "roles": {
+                "executable": 0,
+                "argv": 1,
+                "options": [1, 2]
+              },
+              "shell_mode": "truthy-selector",
+              "option_paths": ["cwd", "shell"],
+              "node": "execFile"
+            },
+            "execFileSync": {
+              "callable": "child-process",
+              "roles": {
+                "executable": 0,
+                "argv": 1,
+                "options": [1, 2]
+              },
+              "shell_mode": "truthy-selector",
+              "option_paths": ["cwd", "shell"]
+            },
+            "execSync": {
+              "callable": "child-process",
+              "roles": {
+                "shell_command": 0,
+                "options": [1]
+              },
+              "shell_mode": "exec-default",
+              "option_paths": ["cwd", "shell"]
+            },
+            "fork": {
+              "callable": "child-process",
+              "roles": {
+                "module_path": 0,
+                "argv": 1,
+                "options": [1, 2]
+              },
+              "shell_mode": "forced-disabled",
+              "option_paths": ["cwd", "execArgv", "execPath"]
+            },
+            "spawn": {
+              "callable": "child-process",
+              "roles": {
+                "executable": 0,
+                "argv": 1,
+                "options": [1, 2]
+              },
+              "shell_mode": "truthy-selector",
+              "option_paths": ["argv0", "cwd", "shell"]
+            },
+            "spawnSync": {
+              "callable": "child-process",
+              "roles": {
+                "executable": 0,
+                "argv": 1,
+                "options": [1, 2]
+              },
+              "shell_mode": "truthy-selector",
+              "option_paths": ["argv0", "cwd", "shell"]
+            }
+          }
+        },
+        "exec": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper, not a public runtime string member"
+            }
+          }
+        },
+        "execFile": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper, not a public runtime string member"
+            }
+          }
+        }
+      }
+    },
+    "filesystem": {
+      "specifiers": ["fs", "node:fs"],
+      "root": "root",
+      "nodes": {
+        "root": {
+          "members": {
+            "Dir": {
+              "constructible": "non-operational",
+              "rationale": "directory handle class"
+            },
+            "Dirent": {
+              "constructible": "non-operational",
+              "rationale": "directory entry data class"
+            },
+            "ReadStream": {
+              "constructible": "non-operational",
+              "rationale": "stream class; factory path is reviewed"
+            },
+            "Stats": {
+              "constructible": "non-operational",
+              "rationale": "stat result data class"
+            },
+            "StatsFs": {
+              "constructible": "non-operational",
+              "rationale": "filesystem-stat result data class"
+            },
+            "Utf8Stream": {
+              "constructible": "non-operational",
+              "rationale": "stream class; factory path is reviewed"
+            },
+            "WriteStream": {
+              "constructible": "non-operational",
+              "rationale": "stream class; factory path is reviewed"
+            },
+            "access": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "access"
+            },
+            "accessSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "appendFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "appendFile"
+            },
+            "appendFileSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "chmod": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "chmod"
+            },
+            "chmodSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "chown": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "chown"
+            },
+            "chownSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "close": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "close"
+            },
+            "closeSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "copyFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1],
+              "node": "copyFile"
+            },
+            "copyFileSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "cp": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "cpSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "createReadStream": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "createWriteStream": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "exists": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "exists"
+            },
+            "existsSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "fchmod": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "fchmod"
+            },
+            "fchmodSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "fchown": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "fchown"
+            },
+            "fchownSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "fdatasync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "fdatasync"
+            },
+            "fdatasyncSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "fstat": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "fstat"
+            },
+            "fstatSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "fsync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "fsync"
+            },
+            "fsyncSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "ftruncate": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "ftruncate"
+            },
+            "ftruncateSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "futimes": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only",
+              "node": "futimes"
+            },
+            "futimesSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor only"
+            },
+            "glob": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "globSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lchmod": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "lchmod"
+            },
+            "lchmodSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lchown": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "lchown"
+            },
+            "lchownSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "link": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1],
+              "node": "link"
+            },
+            "linkSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "lstat": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "lstat"
+            },
+            "lstatSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lutimes": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "lutimes"
+            },
+            "lutimesSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "mkdir"
+            },
+            "mkdirSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdtemp": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "mkdtemp"
+            },
+            "mkdtempDisposableSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdtempSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "open": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "open"
+            },
+            "openAsBlob": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "openSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "opendir": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "opendir"
+            },
+            "opendirSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "promises": {
+              "module": "filesystem-promises",
+              "node": "root"
+            },
+            "read": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only",
+              "node": "read"
+            },
+            "readFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "readFile"
+            },
+            "readFileSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "readdir"
+            },
+            "readdirSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "readlink"
+            },
+            "readlinkSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only"
+            },
+            "readv": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only",
+              "node": "readv"
+            },
+            "readvSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only"
+            },
+            "realpath": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "realpath"
+            },
+            "realpathSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "realpathSync"
+            },
+            "rename": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1],
+              "node": "rename"
+            },
+            "renameSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "rm": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "rm"
+            },
+            "rmSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "rmdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "rmdir"
+            },
+            "rmdirSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "stat": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "stat"
+            },
+            "statSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "statfs": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "statfs"
+            },
+            "statfsSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "symlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1],
+              "node": "symlink"
+            },
+            "symlinkSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "truncate": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "truncate"
+            },
+            "truncateSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "unlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "unlink"
+            },
+            "unlinkSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "unwatchFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "utimes": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "utimes"
+            },
+            "utimesSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "watch": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "watchFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "write": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only",
+              "node": "write"
+            },
+            "writeFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0],
+              "node": "writeFile"
+            },
+            "writeFileSync": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "writeSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only"
+            },
+            "writev": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only",
+              "node": "writev"
+            },
+            "writevSync": {
+              "callable": "non-operational",
+              "rationale": "file-descriptor and data only"
+            }
+          }
+        },
+        "realpath": {
+          "members": {
+            "native": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "realpathSync": {
+          "members": {
+            "native": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            }
+          }
+        },
+        "access": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "appendFile": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "chmod": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "chown": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "close": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "copyFile": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "exists": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "fchmod": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "fchown": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "fdatasync": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "fstat": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "fsync": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "ftruncate": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "futimes": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "lchmod": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "lchown": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "link": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "lstat": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "lutimes": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "mkdir": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "mkdtemp": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "open": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "opendir": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "read": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "readFile": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "readdir": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "readlink": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "readv": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "rename": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "rm": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "rmdir": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "stat": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "statfs": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "symlink": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "truncate": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "unlink": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "utimes": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "write": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "writeFile": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        },
+        "writev": {
+          "members": {
+            "__promisify__": {
+              "callable": "non-operational",
+              "rationale": "declaration helper"
+            }
+          }
+        }
+      }
+    },
+    "filesystem-promises": {
+      "specifiers": ["fs/promises", "node:fs/promises"],
+      "root": "root",
+      "nodes": {
+        "root": {
+          "members": {
+            "access": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "appendFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "chmod": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "chown": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "copyFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "cp": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "glob": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lchmod": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lchown": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "link": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "lstat": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "lutimes": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdtemp": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "mkdtempDisposable": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "open": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "opendir": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "readlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "realpath": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "rename": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "rm": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "rmdir": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "stat": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "statfs": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "symlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0, 1]
+            },
+            "truncate": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "unlink": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "utimes": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "watch": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            },
+            "writeFile": {
+              "callable": "filesystem-path",
+              "path_indices": [0]
+            }
+          }
+        }
+      }
+    },
+    "path": {
+      "specifiers": ["path", "node:path"],
+      "root": "host",
+      "nodes": {
+        "host": {
+          "path_flavor": "host",
+          "members": {
+            "basename": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "dirname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "extname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "format": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "isAbsolute": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "join": {
+              "callable": "path-compose",
+              "operation": "join"
+            },
+            "matchesGlob": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "normalize": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "parse": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "posix": {
+              "module": "path",
+              "node": "posix"
+            },
+            "relative": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "resolve": {
+              "callable": "path-compose",
+              "operation": "resolve"
+            },
+            "toNamespacedPath": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "win32": {
+              "module": "path",
+              "node": "win32"
+            }
+          }
+        },
+        "posix": {
+          "path_flavor": "posix",
+          "members": {
+            "basename": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "dirname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "extname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "format": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "isAbsolute": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "join": {
+              "callable": "path-compose",
+              "operation": "join"
+            },
+            "matchesGlob": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "normalize": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "parse": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "posix": {
+              "module": "path",
+              "node": "posix"
+            },
+            "relative": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "resolve": {
+              "callable": "path-compose",
+              "operation": "resolve"
+            },
+            "toNamespacedPath": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "win32": {
+              "module": "path",
+              "node": "win32"
+            }
+          }
+        },
+        "win32": {
+          "path_flavor": "win32",
+          "members": {
+            "basename": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "dirname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "extname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "format": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "isAbsolute": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "join": {
+              "callable": "path-compose",
+              "operation": "join"
+            },
+            "matchesGlob": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "normalize": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "parse": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "posix": {
+              "module": "path",
+              "node": "posix"
+            },
+            "relative": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "resolve": {
+              "callable": "path-compose",
+              "operation": "resolve"
+            },
+            "toNamespacedPath": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "win32": {
+              "module": "path",
+              "node": "win32"
+            }
+          }
+        }
+      }
+    },
+    "process": {
+      "specifiers": ["process", "node:process"],
+      "oracle_symbol_exclusion_prefixes": {
+        "__@captureRejectionSymbol@": "symbol-keyed EventEmitter hook is not a source-addressable string member"
+      },
+      "root": "root",
+      "nodes": {
+        "root": {
+          "members": {
+            "abort": {
+              "callable": "non-operational",
+              "rationale": "process control"
+            },
+            "addListener": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "availableMemory": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "chdir": {
+              "callable": "process-path",
+              "path_indices": [0]
+            },
+            "constrainedMemory": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "cpuUsage": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "cwd": {
+              "callable": "non-operational",
+              "rationale": "path producer, not consumer"
+            },
+            "disconnect": {
+              "callable": "non-operational",
+              "rationale": "IPC control"
+            },
+            "dlopen": {
+              "callable": "process-path",
+              "path_indices": [1]
+            },
+            "emit": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "emitWarning": {
+              "callable": "non-operational",
+              "rationale": "diagnostic payload"
+            },
+            "eventNames": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "execve": {
+              "callable": "process-execve",
+              "roles": {
+                "executable": 0,
+                "argv": 1
+              }
+            },
+            "exit": {
+              "callable": "non-operational",
+              "rationale": "process control"
+            },
+            "finalization": {
+              "module": "process",
+              "node": "finalization"
+            },
+            "getActiveResourcesInfo": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "getBuiltinModule": {
+              "callable": "non-operational",
+              "rationale": "mints reviewed module namespaces; modeled as provenance re-entry, not an operational sink"
+            },
+            "getMaxListeners": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "getegid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "geteuid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "getgid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "getgroups": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "getuid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "hasUncaughtExceptionCaptureCallback": {
+              "callable": "non-operational",
+              "rationale": "exception control"
+            },
+            "hrtime": {
+              "callable": "non-operational",
+              "rationale": "process metric",
+              "node": "hrtime"
+            },
+            "kill": {
+              "callable": "non-operational",
+              "rationale": "process control"
+            },
+            "listenerCount": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "listeners": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "loadEnvFile": {
+              "callable": "process-path",
+              "path_indices": [0]
+            },
+            "memoryUsage": {
+              "callable": "non-operational",
+              "rationale": "process metric",
+              "node": "memoryUsage"
+            },
+            "nextTick": {
+              "callable": "non-operational",
+              "rationale": "task scheduling"
+            },
+            "off": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "on": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "once": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "permission": {
+              "module": "process",
+              "node": "permission"
+            },
+            "prependListener": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "prependOnceListener": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "rawListeners": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "ref": {
+              "callable": "non-operational",
+              "rationale": "process lifecycle"
+            },
+            "removeAllListeners": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "removeListener": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "report": {
+              "module": "process",
+              "node": "report"
+            },
+            "resourceUsage": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "send": {
+              "callable": "non-operational",
+              "rationale": "IPC payload"
+            },
+            "setMaxListeners": {
+              "callable": "non-operational",
+              "rationale": "event API"
+            },
+            "setSourceMapsEnabled": {
+              "callable": "non-operational",
+              "rationale": "runtime configuration"
+            },
+            "setUncaughtExceptionCaptureCallback": {
+              "callable": "non-operational",
+              "rationale": "exception control"
+            },
+            "setegid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "seteuid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "setgid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "setgroups": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "setuid": {
+              "callable": "non-operational",
+              "rationale": "POSIX identity"
+            },
+            "threadCpuUsage": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            },
+            "umask": {
+              "callable": "non-operational",
+              "rationale": "permission-mask control"
+            },
+            "unref": {
+              "callable": "non-operational",
+              "rationale": "process lifecycle"
+            },
+            "uptime": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            }
+          }
+        },
+        "finalization": {
+          "members": {
+            "register": {
+              "callable": "non-operational",
+              "rationale": "lifecycle registration"
+            },
+            "registerBeforeExit": {
+              "callable": "non-operational",
+              "rationale": "lifecycle registration"
+            },
+            "unregister": {
+              "callable": "non-operational",
+              "rationale": "lifecycle registration"
+            }
+          }
+        },
+        "hrtime": {
+          "members": {
+            "bigint": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            }
+          }
+        },
+        "memoryUsage": {
+          "members": {
+            "rss": {
+              "callable": "non-operational",
+              "rationale": "process metric"
+            }
+          }
+        },
+        "permission": {
+          "members": {
+            "has": {
+              "callable": "non-operational",
+              "rationale": "permission predicate"
+            }
+          }
+        },
+        "report": {
+          "members": {
+            "getReport": {
+              "callable": "non-operational",
+              "rationale": "diagnostic data producer"
+            },
+            "writeReport": {
+              "callable": "process-path",
+              "path_indices": [0]
+            }
+          }
+        }
+      }
+    },
+    "path-posix": {
+      "specifiers": ["path/posix", "node:path/posix"],
+      "root": "root",
+      "nodes": {
+        "root": {
+          "path_flavor": "posix",
+          "members": {
+            "basename": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "dirname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "extname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "format": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "isAbsolute": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "join": {
+              "callable": "path-compose",
+              "operation": "join"
+            },
+            "matchesGlob": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "normalize": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "parse": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "posix": {
+              "module": "path",
+              "node": "posix"
+            },
+            "relative": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "resolve": {
+              "callable": "path-compose",
+              "operation": "resolve"
+            },
+            "toNamespacedPath": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "win32": {
+              "module": "path",
+              "node": "win32"
+            }
+          }
+        }
+      }
+    },
+    "path-win32": {
+      "specifiers": ["path/win32", "node:path/win32"],
+      "root": "root",
+      "nodes": {
+        "root": {
+          "path_flavor": "win32",
+          "members": {
+            "basename": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "dirname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "extname": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "format": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "isAbsolute": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "join": {
+              "callable": "path-compose",
+              "operation": "join"
+            },
+            "matchesGlob": {
+              "callable": "non-operational",
+              "rationale": "pure predicate"
+            },
+            "normalize": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "parse": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "posix": {
+              "module": "path",
+              "node": "posix"
+            },
+            "relative": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "resolve": {
+              "callable": "path-compose",
+              "operation": "resolve"
+            },
+            "toNamespacedPath": {
+              "callable": "non-operational",
+              "rationale": "unmodeled pure transform"
+            },
+            "win32": {
+              "module": "path",
+              "node": "win32"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -33,6 +33,258 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 TypeScript portability semantic fourth correction writer evidence (2026-08-17)
+
+- Revision: fourth narrow correction writer pass starting from independently
+  blocked third-correction commit
+  `8c8ef32952516123343fdec3bc035ab569ab2d3d` / tree
+  `adb3257b3990cc7ab5e2d47a861f038513055f22`; the fourth-correction content
+  tree is recorded post-commit by the containing commit.
+- Environment: macOS 27.0 arm64; Node 24.18.0 (keg-only pinned); pnpm 11.17.0;
+  uv 0.11.32 with uv-managed Python 3.12.13; TypeScript 6.0.3; @types/node
+  24.13.3; specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943` verified.
+- Writer provenance (owner-directed handoff): GPT-5.6 Sol Ultra began this
+  fourth correction and produced substantial uncommitted implementation,
+  catalog, and test work (the dirty worktree recovered below). After the Codex
+  usage limit, the owner explicitly reassigned the same dirty writer worktree
+  to Claude Fable 5 Ultracode. Fable recovered the inherited bytes, verified
+  them, completed the remaining semantic, review, and campaign work, and froze
+  this pass. This is implementation provenance only, NOT independent
+  verification; neither writer's work has been independently verified.
+- Inherited-state recovery and reconciliation:
+  - `git status --porcelain=v1 -uall` / `--porcelain=v2 --branch`,
+    `git branch --show-current`, `git rev-parse HEAD`, `git rev-parse
+    origin/main`, `git rev-parse 'HEAD^{tree}'`, `git diff --name-status`,
+    `--stat`, `--check` → branch `main`; HEAD == origin/main ==
+    `8c8ef32952516123343fdec3bc035ab569ab2d3d`; tree
+    `adb3257b3990cc7ab5e2d47a861f038513055f22`; dirty set exactly
+    `scripts/check_portability.py`, `scripts/check_typescript_portability.mjs`,
+    `scripts/python-test-inventory.v1.json`,
+    `scripts/tests/test_portability.py`, plus untracked
+    `scripts/typescript-portability-node24-catalog.v1.json`; no whitespace
+    errors.
+  - Every inherited byte was read and classified before the first edit. One
+    incomplete inherited edge was found and closed: the inventory recorded
+    `count` 1202 / stale sha256 while `node_ids` already held 1204 entries;
+    the inventory was regenerated from the actual canonical collection.
+- Fourth-correction semantic surface (inherited Codex design completed by
+  Fable):
+  - Reviewed pinned Node operational catalog
+    `scripts/typescript-portability-node24-catalog.v1.json` (schema 1) bound
+    to Node 24.18.0 / TypeScript 6.0.3 / @types/node 24.13.3 with exact
+    runtime/policy/tool pin equality enforced at load; modules
+    `child-process`, `filesystem`, `filesystem-promises`, `path`,
+    `path-posix`, `path-win32`, `process`; operational vs explicitly reviewed
+    non-operational classification with rationales; nested
+    `realpath(.Sync).native`, `mkdtempDisposable(.Sync)`, `fs.promises` hop,
+    `path.posix`/`path.win32` flavor nodes, `process.report.writeReport`,
+    `process.execve`; catalog semantic fields (`shell_mode`, `option_paths`,
+    invocation `roles`, path indices, path-compose operation) are validated
+    fail-closed at load.
+  - Exact child-process signature semantics per empirically verified pinned
+    Node 24.18.0 behavior: `exec`/`execSync` are `exec-default` (a shell
+    always runs except for the empty-string selector, which disables it —
+    verified ENOENT at runtime); `execFile`/`execFileSync`/`spawn`/`spawnSync`
+    are `truthy-selector` (true or a nonempty string enables; false, null,
+    empty string, and undefined disable); `fork` is `forced-disabled` with a
+    module-path role. Overload dispatch mirrors Node's `Array.isArray`
+    dispatch: a provable non-array options bag (object target or provably
+    nullish value) in the argv slot takes the options role
+    (`execFile(file, options, callback)`); syntactic array literals through
+    const aliases prove the argv role; typed callback parameters are proved by
+    declared function type. Provably nullish exec-family options and
+    `shell: undefined` yield the default-shell finding. Inert argv data never
+    receives wrapper classification; executable+argv wrapper tuples
+    (`bash`/`sh` basename after Windows-path/`.exe`/case normalization with
+    exact `-c`/`-lc` flags, `sh -lc` parity included) apply to the
+    spawn/execFile families and to `process.execve` with the POSIX argv0
+    convention (flag slot 1); constant argv prefixes survive an unresolvable
+    spread tail; `bash -client`/`sh -client` remain clean.
+  - Options-expression state: object literals, tracked identifiers, const
+    aliases, transparent wrappers, comma/sequence, conditional, `&&`, `||`,
+    `??` with known-reachability selection and unknown-reachability state
+    union; a reachable proved `shell=true` reference never disappears,
+    including through the seventy-merge reference-preservation regression.
+  - Loop dataflow: bounded back-edge fixed point with convergence keys over
+    `while`/`do`/`for` and (added by Fable) `for-in`/`for-of`/`for await`;
+    normal/continue/break flows; zero/one/second/later-iteration behavior;
+    write-before-sink and sink-before-write; reset-before-every-sink;
+    continue skipping reset or violation; break preventing the back edge;
+    incrementor mutation; per-iteration binding invalidation; iterated
+    expression evaluated exactly once; provably empty iterables are dead;
+    exact iteration counts are trusted only when the loop variable has no
+    body writes or deferred captures; nested exact replays are bounded by a
+    shared budget (`MAX_TOTAL_EXACT_LOOP_REPLAYS` 1024) with sound fixed-point
+    fallback; `delete` of a reviewed property is a modeled transition to
+    absent.
+  - Module provenance: closed catalog graph over static ESM imports (default,
+    `default as`, namespace, named, renamed, type-only excluded), bounded
+    `.cts` CommonJS require forms, the ambient Node global `process`
+    (shadow-aware), direct `await import("specifier")` expressions and const
+    destructures, and `process.getBuiltinModule("specifier")` string-literal
+    re-entry; the official `node:path/posix` / `node:path/win32` submodule
+    specifiers are cataloged with runtime-true flavors; the ESM namespace
+    `default` member resolves to the module root through one unified catalog
+    rule (`default as` uses the same rule; the member is additionally proved
+    type-unreachable for CJS builtins under the pinned compiler and pinned as
+    defense-in-depth); arbitrary or augmented members terminate provenance.
+  - Catalog completeness oracle: `--verify-node-catalog` builds the pinned
+    @types/node declaration program (skipLibCheck false), enforces exact
+    callable/constructible set equality per reviewed node, bare-vs-`node:`
+    alias equality, `export =` handling for the path/process family, symbol
+    exclusion prefixes, a completeness-guard self-test, a `default as` import
+    probe, and (added by Fable) a nested-surface rule: every catalog-callable
+    member without an explicit node reference must expose zero
+    non-default-library callable/constructible members, with its own guard
+    self-test, so a pin bump exposing a new nested operation fails review.
+  - Fail-closed integration preserved and extended:
+    `check_portability.py::_check_ts_runtime_sources` validates helper
+    infrastructure even with zero TypeScript sources; helper missing/nonzero/
+    timeout, invalid JSON, non-list, malformed finding schema, foreign paths,
+    invalid lines, catalog pin/field/completeness failures all raise
+    PolicyError.
+- Fresh fourth-round blockers (B1–B8) independently re-verified closed on the
+  final content with paired clean controls (twelve direct checker
+  reproductions): conditional option expressions, loop-carried second/later
+  iteration state, known string shell selectors, inert execFile argv, bare
+  and absolute Bash executable + `-c`, `default as` provenance,
+  arbitrary-member provenance termination, and
+  `realpathSync.native`/`mkdtempDisposable(.Sync)` classification.
+- Writer-side adversarial review (three bounded lenses; writer-side only, not
+  independent verification). Reviewer B (child-process semantics) reported
+  six reproduced findings: B1 `execFile(file, options, callback)` role
+  misassignment, B2 `sh -lc` parity, B3 spread-tail argv prefix loss, B5
+  provably-nullish exec options, B6 typed-callback proof — all five fixed
+  with permanent violation/control pairs — and B4 (short-option clusters such
+  as `-ec`) which stays a reviewed exact-token boundary, parked below.
+  Reviewer A (control flow/loops) reported four reproduced findings, all
+  fixed: RA-1 exact-loop body mutation of the loop variable, RA-2 `delete`
+  routing to the absent transition, RA-3 nested exact-loop replay cost
+  exceeding the 120 s gate timeout on clean code, RA-4 provably-empty
+  iterable inconsistency. Reviewer C (provenance/catalog) reported eight
+  findings: C-01 un-imported global `process`, C-02 dynamic
+  `import()`/`getBuiltinModule` re-entry, C-03 missing `path/posix`+
+  `path/win32` specifiers, C-04 namespace `default` member, C-05 unvalidated
+  catalog semantic fields — all five fixed — plus C-06/C-07/C-08 oracle-scope
+  observations on provenance-terminating surfaces, parked below. Every
+  substantive finding was re-reproduced by the writer against the real
+  checker before any edit.
+- Reviewed boundaries preserved unchanged (all pinned by permanent controls;
+  all err only in the suppressive, non-flagging direction): switch/try/
+  labeled statement sinks, spread of a tracked object, win32 path flavor,
+  closure-captured sinks, `bash -client`/`sh -client`, dynamic shell values,
+  and exact-token wrapper flags.
+- Parked future-hardening record (accepted misses/observations, all
+  provenance-terminating or suppressive-direction; no fail-open): shell
+  short-option clusters (`-ec`, `-cl`, leading options) pending an
+  owner-reviewed empirical truth matrix; `env(1)` trampolines
+  (`env bash -c …` shapes); `createRequire` module re-entry;
+  `globalThis.process` chains; compound logical-assignment enables
+  (`options.shell ||= true`); oracle scan of constructible static surfaces
+  and of uncatalogued data members; alias-surface classification depth.
+- Commands and observed results (canonical hermetic forms, pinned
+  environment, all run and inspected in the current repository state):
+  - `node --check scripts/check_typescript_portability.mjs` → exit 0.
+  - `node scripts/check_typescript_portability.mjs --verify-node-catalog` →
+    exit 0; `{"node":"24.18.0","types_node":"24.13.3","typescript":"6.0.3",
+    "modules":["child-process","filesystem","filesystem-promises","path",
+    "path-posix","path-win32","process"]}`.
+  - `uv run pytest -c pyproject.toml --rootdir=. --confcutdir=. -o addopts=
+    -ra --strict-markers --strict-config --disable-plugin-autoload -q
+    scripts/tests/test_portability.py` → exit 0, **347 passed** (347
+    collected; third correction was 266; the fourth correction adds 81
+    permanent semantic/catalog regressions).
+  - Canonical collection over all sixteen Python test files → **1243 tests
+    collected** on POSIX; regenerated
+    `scripts/python-test-inventory.v1.json` holds **1241 common/Windows node
+    IDs** at SHA-256
+    `40129c42d9e8a325d9c9dc732f47094f04617c24bedce8b1b31fce93fc978bad` plus
+    the approved FIFO/socket POSIX-only pair (= 1243 on POSIX).
+  - `uv run python scripts/check_portability.py` and
+    `PATH="$PWD/.venv/bin:$PATH" python3 scripts/check_portability.py` →
+    exit 0, PASS (no findings on the real repository under the stricter
+    fourth-correction analysis).
+  - `uv run ruff check --config pyproject.toml scripts/check_portability.py
+    scripts/tests/test_portability.py` and `uv run ruff format --check …` →
+    clean after ISC004/ISC003 parenthesization of the fixture tables.
+  - `git diff --check` → exit 0.
+- Mutation campaign (writer-side): 32 semantic mutation families were applied one
+  at a time in disposable `git clone --no-local --no-hardlinks` candidates of
+  the frozen fourth-correction content (committed base plus the exact
+  uncommitted candidate diff), each with a paired clean control run of the
+  complete focused suite (347/347 in every clone) before the mutation; every
+  mutant stayed parseable and every family was killed by its intended
+  permanent tests: M1/M2 conditional-option branch or unknown-branch state
+  dropped → p2; M3 loop back edge removed → five loop-family regressions;
+  M4 continue edge dropped → the continue-skips-reset pair; M5 reference-cap
+  widening collapse → extra-state-cap-preserves-violation (an earlier
+  front-slice variant survived because merge order preserves the newest
+  reference, so the fixture was corrected to bury an early proved enable
+  under seventy merges and the complete campaign was rerun); M6 string shell
+  treated as disabled → p5; M7 argv wrapper classification → the n3/n4
+  inert-argv controls; M8 basename normalization removed → p7 +
+  windows-bash; M9 unified `default` rule dropped → six default-as/namespace
+  regressions (the original collectSinkBindings special case became
+  equivalent code after the namespace-default unification and was simplified
+  away; the separate namespace-default family merged into M9); M10 arbitrary
+  member preserving provenance → the augmented-module control; M11 nested
+  `.native` omitted → p11 plus the strengthened oracle; M12/M14 pinned
+  fs/promises callable omitted → the oracle (plus behavioral kills);
+  M13 assertSameSet weakened → the oracle guard self-test; M15 exec
+  role/overload swap → twelve wrapper/exec regressions; M16
+  iteration-statement back edge capped → the for-of/for-in/for-await trio;
+  M17 execve flag position → the execve violation plus argv0 control; M18
+  options-in-argv-slot dispatch dropped → execfile-options-callback; M19
+  `sh -lc` parity dropped → the sh-lc tuple and string pair; M20 spread
+  prefix dropped → the spread-tail pair; M21 nested-surface oracle rule
+  weakened → the oracle guard self-test; M22 nullish-options handling
+  dropped → the exec undefined/null/shell-undefined trio; M23
+  typed-callback proof dropped → exec-callback-parameter; M24 catalog
+  shell_mode typo → fail-closed refusal (323 tests fail with PolicyError
+  instead of the pre-validation silent finding loss); M25 global-process
+  provenance dropped → global-process-chdir; M26 await-import provenance
+  dropped → the dynamic-import pair; M27 path submodule catalog modules
+  removed → the submodule test plus the oracle; M28 delete routing
+  reverted → delete-shell-exec-default; M29 exact-count body-mutation guard
+  removed → exact-loop-body-mutation; M30 exact-replay budget removed → the
+  nested-exact-loop-budget control; M31 getBuiltinModule re-entry dropped →
+  get-builtin-module; M32 empty-iterable dead-body rule removed → the
+  forof-empty-literal-dead control. No whitespace-only variants were
+  counted; the authoritative checkout was never mutated. After the campaign,
+  the first frozen verification pass surfaced two gate-compliance issues in
+  the candidate: Prettier formatting of the analyzer and catalog files, and
+  a strict-mypy rejection of the fixture-compile test's `pytestmark`
+  introspection. Both were fixed with `pnpm exec prettier --write` (token
+  re-wrapping only) and a `cast("Any", …)` on the two introspection sites;
+  the focused suite (347/347), catalog oracle, canonical collection (1243),
+  and real-repository policy were re-proved on the exact frozen bytes, and
+  the two-pass requirement was restarted. The campaign verdicts were
+  recorded at the pre-format candidate, whose analyzer and tests differ from
+  the frozen content only by that Prettier re-wrapping of identical tokens
+  and the typing cast in test introspection, neither of which participates
+  in any kill assertion.
+- Frozen verification deferral: exactly as in the third-correction entry, the
+  complete substantive verification sequence (`python3
+  scripts/check_portability.py`, `python3 scripts/validate_status.py`, `pnpm
+  traceability:check`, `pnpm generate:contracts --check`, `pnpm run doctor`,
+  `pnpm verify`, `git diff --check`) is intentionally run twice on identical
+  tracked bytes only after this documentation freeze and reported in the
+  final writer handoff, not preclaimed here. Exact-SHA three-OS hosted
+  evidence is pending this writer pass.
+- Test counts: focused portability 347/347; Python canonical collection 1243
+  POSIX / 1241 common-and-Windows; all other package suites unchanged and
+  re-proved in the post-freeze verification passes.
+- Artifacts: n/a (no screenshots; all evidence is command output recorded
+  above; mutation campaign ran only in disposable `git clone --no-local
+  --no-hardlinks` candidates that never touched the authoritative checkout).
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  independent verifier on the exact fourth-correction content and W07
+  governance. KI-0059..KI-0062 implementation/test surfaces were not
+  reopened; no extension, Playwright, W06, contracts, Rust, gate, or
+  governance surface changed. M02-W07 remains IN_PROGRESS; M02-W08 remains
+  NOT_STARTED; no package is READY.
+
 ### M02-W07 — KI-0058 TypeScript portability semantic third correction writer evidence (2026-08-14)
 
 - Revision: third narrow correction writer pass starting from independently

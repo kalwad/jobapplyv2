@@ -1285,8 +1285,6 @@ def _check_ts_runtime_sources(
 ) -> None:
     """PORT-SRC-008: inspect executable TypeScript syntax, not raw text."""
 
-    if not paths:
-        return
     if not TYPESCRIPT_PORTABILITY_HELPER.is_file():
         raise PolicyError(
             "TypeScript portability parser missing: "
