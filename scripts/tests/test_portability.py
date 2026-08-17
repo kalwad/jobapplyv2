@@ -3131,19 +3131,18 @@ def test_fourth_correction_typescript_fixtures_compile(
         if mark.name == "parametrize"
     )
     sources = [case[0] for case in violation_mark.args[1]] + list(control_mark.args[1])
-    paths = []
+    names = []
     for index, source in enumerate(sources):
-        path = tmp_path / f"fourth-correction-{index}.ts"
-        path.write_text(source, encoding="utf-8")
-        paths.append(str(path))
-    # Resolve pnpm through PATH/PATHEXT so the Windows .cmd shim spawns.
-    pnpm_executable = portability.host_resolve_executable("pnpm")
-    assert pnpm_executable is not None
+        name = f"fourth-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    # Run the pinned tsc entry script through node with short relative names
+    # from the fixture directory: no .cmd shim and no cmd.exe command-line
+    # length limit on Windows.
     proc = subprocess.run(
         (
-            pnpm_executable,
-            "exec",
-            "tsc",
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
             "--ignoreConfig",
             "--noEmit",
             "--target",
@@ -3157,9 +3156,9 @@ def test_fourth_correction_typescript_fixtures_compile(
             "--typeRoots",
             str(REPO_ROOT / "node_modules" / "@types"),
             "--esModuleInterop",
-            *paths,
+            *names,
         ),
-        cwd=REPO_ROOT,
+        cwd=tmp_path,
         capture_output=True,
         text=True,
         timeout=120,

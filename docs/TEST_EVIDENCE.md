@@ -287,9 +287,21 @@ Exact verification commands and summarized results
   `test_windows_resolves_cmd_shim_for_pnpm` already pins — with no test
   added, removed, or renamed (collection stays 1243/1241 at the recorded
   digest). The two-pass frozen requirement was restarted on the fixed bytes,
-  and the fix lands as a follow-up forward-only commit on top of
-  `b9b5093…` (never amended or rewritten); final three-OS hosted evidence
-  binds to that follow-up SHA.
+  and the fix landed as follow-up forward-only commit
+  `8cf5b74561ddd4d4fafff7f3bd1f3b22277f107e` (never amended or rewritten).
+  Its push run `32064775075` succeeded on macos-15 (job `95494108593`) and
+  ubuntu-24.04 (job `95494108688`); windows-2025 (job `95494108668`) proved
+  the shim spawn fixed (the namespace-default test passes there) but exposed
+  a second Windows boundary in the same fixtures-compile test: 59 absolute
+  temp-directory fixture paths exceeded the `cmd.exe` 8191-character command
+  line behind the `.cmd` shim (`AssertionError: The command line is too
+  long.`; 1 failed, 1240 passed; every other suite green; complete Windows
+  raw log read). The second fix runs the pinned `typescript/bin/tsc` entry
+  script directly through `node` from the fixture directory with short
+  relative names — no shim and no `cmd.exe` line limit — again with no test
+  added, removed, or renamed. The two-pass frozen requirement was restarted
+  once more, and the final three-OS hosted evidence binds to the next
+  forward-only commit's SHA.
 - Test counts: focused portability 347/347; Python canonical collection 1243
   POSIX / 1241 common-and-Windows; all other package suites unchanged and
   re-proved in the post-freeze verification passes.
