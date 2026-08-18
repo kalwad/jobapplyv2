@@ -33,6 +33,244 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 TypeScript portability semantic fifth correction writer evidence (2026-08-18)
+
+- Revision: fifth narrow correction writer pass starting from independently
+  blocked fourth-correction commit
+  `094d4ea5ff6adbfc829898e899e36d0a93401d5b` / tree
+  `a650f4054aff5f47a9274dc588cfc13b8f75fe4e` / parent
+  `8cf5b74561ddd4d4fafff7f3bd1f3b22277f107e` after verdict
+  `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`; the
+  fifth-correction content tree is recorded post-commit by the containing
+  commit.
+- Environment: macOS 27.0 arm64; Node 24.18.0 (keg-only pinned); pnpm
+  11.17.0; uv-managed project venv; TypeScript 6.0.3; @types/node 24.13.3;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+  verified by direct recomputation.
+- Writer provenance: the immediately preceding fifth-correction Claude Fable
+  5 Ultracode session ended at its session limit during
+  reconnaissance/bootstrap without reporting any edit, commit, or push; this
+  session (also Claude Fable 5 Ultracode) verified the worktree and resumed
+  the same fifth correction from the clean exact base. Implementation
+  provenance only, NOT independent verification.
+- Exact-boundary recovery: `git status --porcelain=v1 -uall` /
+  `--porcelain=v2 --branch`, `git branch --show-current`, `git rev-parse
+  HEAD`, `git rev-parse origin/main`, `git rev-parse 'HEAD^{tree}'`,
+  `git diff --name-status` / `--stat` / `--check` → branch `main`; clean
+  worktree; HEAD == origin/main ==
+  `094d4ea5ff6adbfc829898e899e36d0a93401d5b`; tree
+  `a650f4054aff5f47a9274dc588cfc13b8f75fe4e` — exactly the expected
+  interrupted-session boundary (clean is the expected state because the
+  prior session stopped during reconnaissance).
+- Blockers reproduced on the exact base before any edit (direct checker
+  invocations, scratch fixtures outside the repository):
+  - Exact verifier 4×4×4 reproducer (`spawnSync` sink inside a nested exact
+    loop; `options.shell = true` after the sink) → `[]`, exit 0 (Blocker A
+    erasure); the 3×3×3 form and the 4×4×4 sink-after-loop form both →
+    `shell-true shell=true`.
+  - An instrumented scratch copy of the analyzer proved the mechanism: the
+    shared object-analysis step budget exhausts at exactly steps=2048 during
+    nested exact-loop replay; immediately before the sink-argument
+    refinement pass the state set still contains a live
+    `escaped=false, shell=possible` state carrying the proved `true`
+    reference; after the pass every state is `escaped=true, shell=unknown`
+    and the checker returns `[]`.
+  - `new fs.Utf8Stream({ dest: "/tmp/parkf-utf8" })` → `[]` (Blocker B);
+    pinned @types/node 24.13.3 declares `class Utf8Stream` with
+    `constructor(options: Utf8StreamOptions)` and `dest?: string`, and no
+    `createUtf8*` factory exists in the pinned declarations.
+- Fifth-correction surface (scripts/check_typescript_portability.mjs,
+  scripts/typescript-portability-node24-catalog.v1.json,
+  scripts/check_portability.py, scripts/tests/test_portability.py,
+  scripts/python-test-inventory.v1.json):
+  - Budget monotonicity invariant (Blocker A): `MAX_OBJECT_ANALYSIS_STEPS`
+    is unchanged (2,048) and the analysis stays bounded. Intermediate
+    statements that never reference the tracked symbol or its aliases are
+    skipped (they cannot change tracked state; an escaped state is already
+    bottom), step-budget exhaustion is recorded on the shared budget,
+    sink-argument refinement runs on clones, an exhausted analysis returns
+    the union of refined and pre-refinement at-sink states so a proved
+    reachable violation is never erased, and every exhausted sink analysis
+    emits an explicit `analysis-budget` finding
+    ("bounded option-object analysis budget exhausted"), which
+    `check_portability.py` maps to an explicit PORT-SRC-008 message — a
+    documented fail-closed bounded outcome instead of a silently completed
+    clean analysis. Under-budget analyses are byte-for-byte unaffected, and
+    the clean 128⁴ unrelated-loop control stays green through the statement
+    skip.
+  - Operational-constructor catalog model (Blocker B): new constructible
+    classification `filesystem-path-options` (reviewed `option_paths` plus
+    `roles.options`, operational constructors may not also be callable,
+    non-operational constructibles require rationales, unknown constructible
+    tokens are rejected at load), `fs.Utf8Stream` reclassified with `dest`
+    as its reviewed path-bearing option, `new`-expression sinks resolved
+    only through trusted catalog provenance (local/shadowed classes,
+    augmented/cast members, and non-`dest` data fields stay clean), and a
+    validation-only `--validate-catalog <path>` mode that runs the exact
+    fail-closed loader against an alternate catalog file without ever
+    substituting the reviewed adjacent catalog.
+  - Reviewer-driven correction during the pass: the first construct gate
+    made `new` of a reviewed operational callable resolve no sink
+    (reviewer-reproduced regression against the fourth-correction base,
+    e.g. `new spawnSync(..., { shell: true })` → `[]` while HEAD flagged
+    it); the gate now falls through to the callable classification and the
+    permanent pin `new-of-operational-callable-stays-a-sink` locks the
+    behavior.
+  - S1–S8 pinned as permanent regressions after direct probes confirmed
+    current behavior correct in every case (no discrepancy; no
+    implementation change needed): do/while unknown-condition second
+    iteration and at-least-once exit, conditional-delete mayBeAbsent
+    exec-default propagation, unknown-guarded `&&`/`||` RHS sinks,
+    break-only exit states with clean-reset control, exec-family
+    string-selector semantics (nonempty enables, empty/alias disables),
+    uppercase/`.EXE` basename folding with `BASHX.EXE` control,
+    `process.chdir` absolute/relative behavior, and fail-closed
+    constructible catalog classification (five malformed-catalog shapes
+    plus the real-catalog control through `--validate-catalog`).
+- Permanent tests added (37 focused tests; suite 347 → 384): the A-series
+  budget-monotonicity table (exact 4×4×4 reproducer preserving both the
+  concrete `shell=true` finding and the explicit budget finding; 6×6×6
+  beyond-threshold equivalent proving no fixture-specific budget raise;
+  3×3×3 and sink-after-loop under-budget concrete-only; over-budget clean
+  explicit bounded result with no invented shell finding), the
+  budget-determinism test (identical repeated full-checker results on the
+  over-budget reproducer), the B1–B5 Utf8Stream violation table
+  (default/namespace/named/renamed imports and tracked const options), the
+  C1–C4 controls (portable dest, local shadowed class, augmented member,
+  non-dest data field), the S1–S8 pin and control tables, the
+  five-shape malformed-catalog fail-closed table plus real-catalog
+  validation-mode control, and the fifth-correction fixture compile batch
+  through the pinned `typescript/bin/tsc` entry script.
+- Writer-side adversarial review (two bounded lenses; writer-side only, not
+  independent verification):
+  - Reviewer A (budget monotonicity + S1–S4) found no defect in the
+    fifth-correction mechanism: all behavioral anchors reproduced, the
+    statement skip was proved behavior-neutral against the pre-correction
+    checker on every candidate differential, erasure could not be
+    reconstructed through argument refinement, observation cloning, or
+    state-group merging, and all S1–S4 pins assert their intended
+    semantics. It reproduced four pre-existing tracked-object defects that
+    behave identically at the blocked fourth-correction base (cast-minted
+    alias reads accepted without alias registration; shorthand-property
+    escape invisible to the event scan, including one demonstrated false
+    positive; `try`/`switch`/labeled sinks observing empty state; labeled
+    break/continue degradation) — recorded honestly in
+    docs/KNOWN_ISSUES.md § KI-0058 and intentionally not fixed in this
+    narrow pass because the independent verifier cleared those families
+    apart from budget exhaustion.
+  - Reviewer B (constructor catalog + Utf8Stream + S5–S8) validated the
+    constructor model across every provenance and option shape it could
+    construct (aliases, element access, `.cts` require forms, dynamic
+    import, `getBuiltinModule`, namespace `default`, computed keys,
+    post-declaration writes — all correctly flagged; controls all clean;
+    ten additional malformed-catalog shapes all fail closed; S5–S7
+    semantics verified against the pinned runtime including the
+    `execSync {shell:""}` ENOENT truth). Its substantive finding — the
+    construct-gate regression described above — was writer-reproduced
+    against both the working tree and the exact base, fixed, and pinned.
+    Its secondary observations (the completeness oracle anchors
+    callable/constructible membership, not per-member semantic fields;
+    spread forms of reviewed option objects remain the pre-existing
+    suppressive tracked-object boundary, now equally applicable to the
+    constructor sink) are recorded in docs/KNOWN_ISSUES.md § KI-0058 as
+    reviewed boundaries.
+- Commands and observed results (canonical hermetic forms, pinned
+  environment, all run and inspected in the current repository state):
+  - `node --check scripts/check_typescript_portability.mjs` → exit 0.
+  - `node scripts/check_typescript_portability.mjs --verify-node-catalog` →
+    exit 0; `{"node":"24.18.0","types_node":"24.13.3","typescript":"6.0.3",
+    "modules":["child-process","filesystem","filesystem-promises","path",
+    "path-posix","path-win32","process"]}`.
+  - `node scripts/check_typescript_portability.mjs --validate-catalog
+    scripts/typescript-portability-node24-catalog.v1.json` → exit 0,
+    `catalog ok`; the five mutated-catalog shapes → exit 1 with the exact
+    pinned loader errors (unknown constructible classification, malformed
+    constructor semantics ×2, unknown constructor role, missing
+    non-operational rationale).
+  - `uv run pytest -c pyproject.toml --rootdir=. --confcutdir=. -o addopts=
+    -ra --strict-markers --strict-config --disable-plugin-autoload -q
+    scripts/tests/test_portability.py` → exit 0, **384 passed** (fourth
+    correction was 347; this correction adds 37 permanent regressions).
+  - Canonical collection over all sixteen Python test files → **1280 tests
+    collected** on POSIX; regenerated
+    `scripts/python-test-inventory.v1.json` holds **1278 common/Windows
+    node IDs** at SHA-256
+    `2589daa94422e3cc26f4800d0512328e92b68a79ce3f63c1bf4770fadb438d9e`
+    plus the approved FIFO/socket POSIX-only pair (= 1280 on POSIX at
+    SHA-256
+    `641f53918790b607b648e83eedf0c7c2da182d0ebc6135ea3771df123fd10a86`).
+  - `uv run python scripts/check_portability.py` → exit 0, PASS (no
+    findings on the real repository under the stricter fifth-correction
+    analysis).
+  - `python3 scripts/validate_status.py` → PASS: all checks passed (45
+    check groups) after every status edit.
+  - `pnpm traceability:check` → PASS (193 requirements, 300 work
+    packages); `pnpm generate:contracts --check` → 183 files
+    byte-identical.
+  - `pnpm run doctor` → summary: 24 pass, 1 warning, 0 fail, 1
+    not-yet-applicable; the single warning is `Working tree state:
+    uncommitted changes present`, expected for the pre-commit candidate.
+  - `uv run ruff check` / `uv run ruff format --check` on
+    scripts/check_portability.py and scripts/tests/test_portability.py →
+    clean; `uv run mypy --config-file pyproject.toml` on both → clean;
+    `pnpm exec prettier --check` on the analyzer and catalog → clean.
+  - Focused fifth-correction subset re-run after the reviewer fix →
+    exit 0; full focused suite re-run → 384/384.
+- Mutation campaign (writer-side): exactly twelve semantic mutation families
+  were applied one at a time in disposable `git clone --no-local
+  --no-hardlinks` candidates of the exact base plus the exact uncommitted
+  candidate diff, each clone provisioned hermetically with `pnpm install
+  --frozen-lockfile --offline` and each running a paired clean control of
+  the complete focused suite (384/384 in every clone) before its mutation;
+  the authoritative checkout was never mutated, every mutant stayed
+  loadable/parseable, and every family was killed by its intended permanent
+  tests with zero survivors: M1 monotonic union dropped (exhausted analyses
+  return only refined states) → a1/a2 proved-violation preservation; M2
+  budget raised to 4,096 with the invariant machinery reverted → a1
+  (missing explicit bounded finding), a2 (erasure reproduced beyond the
+  raised threshold), a6; M3 budget shrunk to 512 → a3/a4 under-budget
+  precision plus the a5 clean near-boundary control; M4 Utf8Stream reverted
+  to non-operational → b1–b5 plus three s8 catalog-shape tests; M5 dest
+  mapping repointed to a non-path option → b1–b5; M6 unknown-constructible
+  validation removed → s8-unknown-constructible-token; M7 property-access
+  name trust replacing module provenance → c3 augmented-member control; M8
+  bare-identifier name trust of shadowed classes → c2 local-shadowed
+  control; M9 `process.chdir` reclassified non-operational → s7 pin plus
+  the fourth-correction global-process-chdir violation; M10 do/while
+  unknown-condition back edge dropped → s1 pin; M11 executable-basename
+  case folding removed → s6 pin; M12 `readFileSync` reclassified
+  non-operational → twenty-two third/fourth-correction operational
+  filesystem regressions. The campaign stopped at the twelve reviewed
+  families; campaign verdicts were recorded at the pre-freeze candidate,
+  which differs from the frozen content only by this documentation
+  paragraph and the final evidence text, neither of which participates in
+  any kill assertion.
+- Frozen verification deferral: exactly as in the third- and
+  fourth-correction entries, the complete substantive verification sequence
+  (`python3 scripts/check_portability.py`, `python3
+  scripts/validate_status.py`, `pnpm traceability:check`, `pnpm
+  generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, `git diff
+  --check`) is intentionally run twice on identical tracked bytes only
+  after this documentation freeze and reported in the final writer handoff,
+  not preclaimed here. Exact-SHA three-OS hosted evidence is pending this
+  writer pass.
+- Test counts: focused portability 384/384; Python canonical collection
+  1280 POSIX / 1278 common-and-Windows; all other package suites unchanged
+  and re-proved in the post-freeze verification passes.
+- Artifacts: n/a (no screenshots; all evidence is command output recorded
+  above; reproducers, probes, and the instrumented analyzer copy lived only
+  in the session scratchpad outside the repository; the mutation campaign
+  runs only in disposable `git clone --no-local --no-hardlinks` candidates
+  provisioned by `pnpm install --frozen-lockfile --offline` that never
+  touch the authoritative checkout).
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  independent verifier on the exact fifth-correction content and W07
+  governance. KI-0059..KI-0062 implementation/test surfaces were not
+  reopened; no extension, Playwright, W06, contracts, Rust, gate, or
+  governance surface changed. M02-W07 remains IN_PROGRESS; M02-W08 remains
+  NOT_STARTED; no package is READY.
+
 ### M02-W07 — KI-0058 TypeScript portability semantic fourth correction writer evidence (2026-08-17)
 
 - Revision: fourth narrow correction writer pass starting from independently

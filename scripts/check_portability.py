@@ -1335,7 +1335,8 @@ def _check_ts_runtime_sources(
             or not isinstance(line, int)
             or isinstance(line, bool)
             or line < 1
-            or kind not in {"posix-path", "shell-wrapper", "shell-true"}
+            or kind
+            not in {"analysis-budget", "posix-path", "shell-wrapper", "shell-true"}
             or not isinstance(finding_detail, str)
         ):
             raise PolicyError(
@@ -1352,6 +1353,13 @@ def _check_ts_runtime_sources(
             message = (
                 f"Bash-only wrapper literal {finding_detail!r} in "
                 "TypeScript runtime source"
+            )
+        elif kind == "analysis-budget":
+            message = (
+                "bounded TypeScript option-object analysis exhausted its "
+                "budget before this call could be proved portable; simplify "
+                "the control flow around the reviewed option object so the "
+                "bounded analysis completes"
             )
         else:
             message = (

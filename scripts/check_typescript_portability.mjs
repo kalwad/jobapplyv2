@@ -22,7 +22,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
 import process from "node:process";
-import { URL } from "node:url";
+import { URL, pathToFileURL } from "node:url";
 import ts from "typescript";
 
 const BANNED_PATH = /(?<![\w:/#.-])\/(tmp|bin|usr|etc|var)(?![\w.-])/;
@@ -79,10 +79,10 @@ function validateIndexArray(value, label) {
   }
 }
 
-function loadNodeCatalog() {
+function loadNodeCatalog(catalogUrl = CATALOG_URL) {
   let catalog;
   try {
-    catalog = JSON.parse(readFileSync(CATALOG_URL, "utf8"));
+    catalog = JSON.parse(readFileSync(catalogUrl, "utf8"));
   } catch (error) {
     throw new Error(
       `unable to load Node portability catalog: ${error.message}`,
@@ -119,6 +119,10 @@ function loadNodeCatalog() {
     "path-compose",
     "process-execve",
     "process-path",
+  ]);
+  const allowedConstructibleKinds = new Set([
+    "filesystem-path-options",
+    "non-operational",
   ]);
   const specifiers = new Set();
   for (const [moduleId, module] of Object.entries(catalog.modules)) {
@@ -160,6 +164,42 @@ function loadNodeCatalog() {
           typeof member.rationale !== "string"
         ) {
           throw new Error(`missing non-operational rationale at ${label}`);
+        }
+        if (
+          member.constructible !== undefined &&
+          !allowedConstructibleKinds.has(member.constructible)
+        ) {
+          throw new Error(`unknown constructible classification at ${label}`);
+        }
+        if (
+          member.constructible === "non-operational" &&
+          typeof member.rationale !== "string"
+        ) {
+          throw new Error(`missing non-operational rationale at ${label}`);
+        }
+        if (member.constructible === "filesystem-path-options") {
+          if (
+            member.callable !== undefined ||
+            !Array.isArray(member.option_paths) ||
+            member.option_paths.length === 0 ||
+            !member.option_paths.every((value) => typeof value === "string") ||
+            new Set(member.option_paths).size !== member.option_paths.length ||
+            !isRecord(member.roles)
+          ) {
+            throw new Error(`malformed constructor semantics at ${label}`);
+          }
+          for (const [role, value] of Object.entries(member.roles)) {
+            if (role !== "options") {
+              throw new Error(`unknown constructor role ${role} at ${label}`);
+            }
+            validateIndexArray(value, `${label}.roles.options`);
+          }
+          if (
+            !Array.isArray(member.roles.options) ||
+            member.roles.options.length === 0
+          ) {
+            throw new Error(`malformed constructor semantics at ${label}`);
+          }
         }
         if (member.path_indices !== undefined) {
           validateIndexArray(member.path_indices, `${label}.path_indices`);
@@ -643,9 +683,23 @@ function catalogMemberBinding(binding, memberName) {
   };
 }
 
-function sinkFromBinding(binding) {
+function sinkFromBinding(binding, construct = false) {
   const entry = binding?.entry;
-  if (entry === undefined || entry.callable === undefined) return undefined;
+  if (entry === undefined) return undefined;
+  if (construct && entry.constructible === "filesystem-path-options") {
+    // A reviewed operational constructor is a `new`-expression sink; a
+    // non-operational or uncataloged constructible resolves through the
+    // callable classification below (unknown constructible tokens are
+    // already rejected at catalog load). Reviewed operational callables stay
+    // sinks under `new` too: at the pinned runtime `new spawnSync(...)`
+    // still executes the function body.
+    return {
+      kind: "constructor-options",
+      operation: binding.operationPath.at(-1),
+      entry,
+    };
+  }
+  if (entry.callable === undefined) return undefined;
   const operation = binding.operationPath.at(-1);
   if (entry.callable === "child-process") {
     return { kind: "child-process", operation, entry };
@@ -901,8 +955,17 @@ function resolveProvenance(node, checker, bindings, seen = new Set()) {
   return undefined;
 }
 
-function resolveSink(node, checker, bindings, seen = new Set()) {
-  return sinkFromBinding(resolveProvenance(node, checker, bindings, seen));
+function resolveSink(
+  node,
+  checker,
+  bindings,
+  seen = new Set(),
+  construct = false,
+) {
+  return sinkFromBinding(
+    resolveProvenance(node, checker, bindings, seen),
+    construct,
+  );
 }
 
 function normalizeAbstractPath(parts, absolute) {
@@ -1544,9 +1607,20 @@ function isSafeChildProcessOptionsReference(identifier, checker, bindings) {
   if (!ts.isCallExpression(call) && !ts.isNewExpression(call)) return false;
   const index = call.arguments?.indexOf(current) ?? -1;
   if (index < 0) return false;
-  const sink = resolveSink(call.expression, checker, bindings);
-  if (sink?.kind !== "child-process") return false;
-  return childProcessInvocation(call, sink, checker).optionsIndex === index;
+  const sink = resolveSink(
+    call.expression,
+    checker,
+    bindings,
+    undefined,
+    ts.isNewExpression(call),
+  );
+  if (sink?.kind === "child-process") {
+    return childProcessInvocation(call, sink, checker).optionsIndex === index;
+  }
+  if (sink?.kind === "constructor-options") {
+    return sink.entry.roles.options.includes(index);
+  }
+  return false;
 }
 
 function collectTrackedObjectEvents(
@@ -1604,6 +1678,12 @@ function collectTrackedObjectEvents(
       depth > MAX_STRUCTURAL_DEPTH ||
       budget.steps >= MAX_OBJECT_ANALYSIS_STEPS
     ) {
+      // A spent step budget makes every later event scan degrade to a
+      // conservative escape. Record the exhaustion on the shared budget so the
+      // sink-level analysis can keep already-proved violations (monotonic
+      // facts) and surface an explicit bounded-analysis outcome instead of
+      // letting the degradation silently pass as a completed clean analysis.
+      if (budget.steps >= MAX_OBJECT_ANALYSIS_STEPS) budget.exhausted = true;
       addEvent({ kind: "escape", node: current });
       return;
     }
@@ -3697,6 +3777,7 @@ function trackedIdentifierStatesAtSink(
   sinkCall,
   checker,
   bindings,
+  diagnostics,
 ) {
   const symbol = checker.getSymbolAtLocation(node);
   const resolved = variableInitializerFromSymbol(symbol);
@@ -3750,11 +3831,13 @@ function trackedIdentifierStatesAtSink(
   } else {
     states = processTrackedStatement(declarationStatement, states, context);
     for (let index = declarationIndex + 1; index < sinkIndex; index += 1) {
-      states = processTrackedStatement(
-        container.statements[index],
-        states,
-        context,
-      );
+      const statement = container.statements[index];
+      // A statement with no reference to the tracked symbol or its aliases
+      // cannot change the tracked object's reviewed state (an already-escaped
+      // state is already bottom), so it is skipped instead of spending the
+      // shared analysis budget replaying unrelated control flow.
+      if (!referencesTrackedSymbol(statement, context)) continue;
+      states = processTrackedStatement(statement, states, context);
     }
     states = processTrackedStatementToSink(
       sinkStatement,
@@ -3763,16 +3846,32 @@ function trackedIdentifierStatesAtSink(
       sinkCall,
     );
   }
-  return processSinkArgumentEffects(
+  const refined = processSinkArgumentEffects(
     sinkCall,
     optionNode,
     node,
-    states,
+    cloneTrackedObjectStates(states),
     context,
   );
+  if (context.budget.exhausted !== true) return refined;
+  // Once the shared step budget is exhausted, later event scans degrade to
+  // conservative escapes and can invalidate states that already carried a
+  // proved reachable violation. Violation facts are monotonic: return the
+  // union of the refined states and the pre-refinement at-sink states so no
+  // proved fact is erased, and report the exhaustion so the sink records an
+  // explicit bounded-analysis outcome instead of a silently completed pass.
+  diagnostics.exhausted = true;
+  return [...refined, ...states];
 }
 
-function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
+function trackedObjectStatesAtSink(
+  node,
+  names,
+  sinkCall,
+  checker,
+  bindings,
+  diagnostics,
+) {
   const states = [];
   for (const target of uniqueOptionTargets(node, checker)) {
     if (ts.isObjectLiteralExpression(target)) {
@@ -3786,6 +3885,7 @@ function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
           sinkCall,
           checker,
           bindings,
+          diagnostics,
         ),
       );
     }
@@ -3793,7 +3893,10 @@ function trackedObjectStatesAtSink(node, names, sinkCall, checker, bindings) {
   return boundedObjectStates(states, names);
 }
 
-function inspectChildProcessOptions(
+// Inspects a reviewed option object at a sink: the options argument of a
+// child-process invocation (shell semantics plus reviewed path fields) or of
+// a reviewed operational constructor (reviewed path fields only).
+function inspectReviewedOptionObject(
   node,
   call,
   sink,
@@ -3804,13 +3907,27 @@ function inspectChildProcessOptions(
   findings,
 ) {
   const names = new Set(sink.entry.option_paths);
+  const diagnostics = { exhausted: false };
   const states = trackedObjectStatesAtSink(
     node,
     names,
     call,
     checker,
     bindings,
+    diagnostics,
   );
+  if (diagnostics.exhausted) {
+    // The bounded analysis ran out of budget, so this sink's option state is
+    // not proved. Failing closed with an explicit finding is the documented
+    // bounded outcome; silently reporting a completed clean analysis is not.
+    findings.push({
+      path: relativePath,
+      line: lineOf(source, call),
+      kind: "analysis-budget",
+      detail: "bounded option-object analysis budget exhausted",
+    });
+  }
+  const shellSemantics = sink.kind === "child-process";
   const addShellFinding = (valueNode, detail) => {
     findings.push({
       path: relativePath,
@@ -3842,6 +3959,7 @@ function inspectChildProcessOptions(
   for (const state of states) {
     for (const [name, property] of state.properties) {
       if (
+        shellSemantics &&
         name === "shell" &&
         sink.entry.shell_mode === "exec-default" &&
         (property.kind === "absent" ||
@@ -3852,7 +3970,7 @@ function inspectChildProcessOptions(
       for (const { node: valueNode, symbolOverride } of propertyReferences(
         property,
       )) {
-        if (name === "shell") {
+        if (shellSemantics && name === "shell") {
           if (
             sink.entry.shell_mode === "exec-default" &&
             provablyUndefinedValue(valueNode, checker)
@@ -3885,7 +4003,7 @@ function inspectChildProcessOptions(
             0,
             symbolOverride,
           );
-        } else if (name === "execArgv") {
+        } else if (shellSemantics && name === "execArgv") {
           inspectOperationalArray(
             valueNode,
             relativePath,
@@ -3978,8 +4096,25 @@ function inspectSinkArguments(
       invocation.optionsIndex !== undefined &&
       args[invocation.optionsIndex]
     ) {
-      inspectChildProcessOptions(
+      inspectReviewedOptionObject(
         args[invocation.optionsIndex],
+        call,
+        sink,
+        relativePath,
+        source,
+        checker,
+        bindings,
+        findings,
+      );
+    }
+    return;
+  }
+  if (sink.kind === "constructor-options") {
+    for (const index of sink.entry.roles.options) {
+      const argument = args[index];
+      if (argument === undefined) continue;
+      inspectReviewedOptionObject(
+        argument,
         call,
         sink,
         relativePath,
@@ -4436,7 +4571,13 @@ function inspect(relativePath, source, program) {
   const findings = [];
   function visit(node) {
     if (ts.isCallExpression(node) || ts.isNewExpression(node)) {
-      const sink = resolveSink(node.expression, checker, bindings);
+      const sink = resolveSink(
+        node.expression,
+        checker,
+        bindings,
+        undefined,
+        ts.isNewExpression(node),
+      );
       if (sink !== undefined) {
         inspectSinkArguments(
           node,
@@ -4479,6 +4620,22 @@ function inspect(relativePath, source, program) {
 if (process.argv.slice(2).includes("--verify-node-catalog")) {
   process.stdout.write(JSON.stringify(verifyNodeCatalogCompleteness()));
   process.exit(0);
+}
+
+{
+  // Validation-only support mode: run the exact fail-closed catalog loader
+  // against an alternate catalog file. The reviewed adjacent catalog above is
+  // always the one the checker uses; this flag can never substitute it.
+  const validateCatalogIndex = process.argv.indexOf("--validate-catalog");
+  if (validateCatalogIndex >= 0) {
+    const target = process.argv[validateCatalogIndex + 1];
+    if (target === undefined) {
+      throw new Error("--validate-catalog requires a catalog path");
+    }
+    loadNodeCatalog(pathToFileURL(resolve(process.cwd(), target)));
+    process.stdout.write("catalog ok");
+    process.exit(0);
+  }
 }
 
 let input = "";

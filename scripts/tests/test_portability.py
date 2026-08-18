@@ -3167,6 +3167,526 @@ def test_fourth_correction_typescript_fixtures_compile(
     assert proc.returncode == 0, proc.stdout + proc.stderr
 
 
+# ---------------------------------------------- fifth correction (KI-0058)
+
+# Exact independent-verifier reproducer: the proved second-iteration
+# shell:true violation must survive analysis-budget exhaustion.
+FIFTH_CORRECTION_BUDGET_REPRODUCER = (
+    'import { spawnSync } from "node:child_process";\n'
+    "\n"
+    "const options: { shell?: boolean } = { shell: false };\n"
+    "\n"
+    "for (let i = 0; i < 4; i += 1)\n"
+    "  for (let j = 0; j < 4; j += 1)\n"
+    "    for (let k = 0; k < 4; k += 1) {\n"
+    '      spawnSync("node", ["-v"], options);\n'
+    "      options.shell = true;\n"
+    "    }\n"
+)
+
+FIFTH_BUDGET_DETAIL = "bounded TypeScript option-object analysis"
+FIFTH_SHELL_DETAIL = "child-process shell mode"
+
+
+def fifth_nested_shell_loop(bound: int, body_value: str = "true") -> str:
+    return (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options: { shell?: boolean } = { shell: false };\n"
+        f"for (let i = 0; i < {bound}; i += 1)\n"
+        f"  for (let j = 0; j < {bound}; j += 1)\n"
+        f"    for (let k = 0; k < {bound}; k += 1) {{\n"
+        '      spawnSync("node", ["-v"], options);\n'
+        f"      options.shell = {body_value};\n"
+        "    }\n"
+    )
+
+
+@pytest.mark.parametrize(
+    ("source", "required_details", "absent_details"),
+    [
+        (
+            FIFTH_CORRECTION_BUDGET_REPRODUCER,
+            (FIFTH_SHELL_DETAIL, FIFTH_BUDGET_DETAIL),
+            (),
+        ),
+        (
+            fifth_nested_shell_loop(6),
+            (FIFTH_SHELL_DETAIL, FIFTH_BUDGET_DETAIL),
+            (),
+        ),
+        (
+            fifth_nested_shell_loop(3),
+            (FIFTH_SHELL_DETAIL,),
+            (FIFTH_BUDGET_DETAIL,),
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "const options: { shell?: boolean } = { shell: false };\n"
+                "for (let i = 0; i < 4; i += 1)\n"
+                "  for (let j = 0; j < 4; j += 1)\n"
+                "    for (let k = 0; k < 4; k += 1) {\n"
+                "      options.shell = true;\n"
+                "    }\n"
+                'spawnSync("node", ["-v"], options);\n'
+            ),
+            (FIFTH_SHELL_DETAIL,),
+            (FIFTH_BUDGET_DETAIL,),
+        ),
+        (
+            fifth_nested_shell_loop(4, body_value="false"),
+            (FIFTH_BUDGET_DETAIL,),
+            (FIFTH_SHELL_DETAIL,),
+        ),
+    ],
+    ids=[
+        "a1-a7-exact-verifier-4x4x4-proved-violation-survives-exhaustion",
+        "a2-6x6x6-beyond-threshold-no-fixture-specific-budget-raise",
+        "a3-3x3x3-under-budget-concrete-finding-only",
+        "a4-4x4x4-sink-after-loops-under-budget",
+        "a6-overbudget-clean-explicit-bounded-result-not-silent-success",
+    ],
+)
+def test_fifth_correction_budget_monotonicity_findings(
+    policy_repo: Path,
+    source: str,
+    required_details: tuple[str, ...],
+    absent_details: tuple[str, ...],
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fifth-correction-budget.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert {violation.rule for violation in violations} == {"PORT-SRC-008"}
+    messages = [violation.message for violation in violations]
+    for detail in required_details:
+        assert any(detail in message for message in messages), detail
+    for detail in absent_details:
+        assert not any(detail in message for message in messages), detail
+
+
+def test_fifth_correction_overbudget_analysis_is_deterministic(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fifth-correction-determinism.ts").write_text(
+        FIFTH_CORRECTION_BUDGET_REPRODUCER, encoding="utf-8"
+    )
+    first = [
+        (violation.rule, violation.location, violation.message)
+        for violation in check_portability.run_checks(policy_repo)
+    ]
+    second = [
+        (violation.rule, violation.location, violation.message)
+        for violation in check_portability.run_checks(policy_repo)
+    ]
+    assert first
+    assert first == second
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import fs from "node:fs";\n'
+            "\n"
+            "export const stream =\n"
+            '  new fs.Utf8Stream({ dest: "/tmp/parkf-utf8" });\n'
+        ),
+        (
+            'import * as fs from "node:fs";\n'
+            'export const stream = new fs.Utf8Stream({ dest: "/tmp/x" });\n'
+        ),
+        (
+            'import { Utf8Stream } from "node:fs";\n'
+            'export const stream = new Utf8Stream({ dest: "/tmp/x" });\n'
+        ),
+        (
+            'import { Utf8Stream as TextSink } from "node:fs";\n'
+            'export const stream = new TextSink({ dest: "/tmp/x" });\n'
+        ),
+        (
+            'import fs from "node:fs";\n'
+            'const options = { dest: "/tmp/x" };\n'
+            "export const stream = new fs.Utf8Stream(options);\n"
+        ),
+    ],
+    ids=[
+        "b1-exact-verifier-default-import-literal",
+        "b2-namespace-import",
+        "b3-named-import",
+        "b4-renamed-named-import",
+        "b5-tracked-const-options-object",
+    ],
+)
+def test_fifth_correction_utf8stream_constructor_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fifth-correction-utf8stream.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008"
+        and "hard-coded POSIX system path '/tmp'" in violation.message
+        for violation in violations
+    )
+
+
+@pytest.mark.parametrize(
+    ("source", "expected_detail"),
+    [
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const again: boolean;\n"
+                "const options = { shell: false };\n"
+                "do {\n"
+                '  spawnSync("node", [], options);\n'
+                "  options.shell = true;\n"
+                "} while (again);\n"
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                "declare const cond: boolean;\n"
+                'const options: { shell?: string } = { shell: "" };\n'
+                "if (cond) delete options.shell;\n"
+                'execSync("printf ok", options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const guard: boolean;\n"
+                "const options = { shell: true };\n"
+                'guard && spawnSync("node", [], options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const guard: boolean;\n"
+                "const options = { shell: true };\n"
+                'guard || spawnSync("node", [], options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "declare const stop: boolean;\n"
+                "const options = { shell: false };\n"
+                "while (true) {\n"
+                "  options.shell = true;\n"
+                "  if (stop) break;\n"
+                "  options.shell = false;\n"
+                "}\n"
+                'spawnSync("node", [], options);\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { execSync } from "node:child_process";\n'
+                'execSync("printf ok", { shell: "pwsh" });\n'
+            ),
+            "child-process shell mode",
+        ),
+        (
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                'spawnSync("C:\\\\tools\\\\BASH.EXE", ["-c", "printf ok"]);\n'
+            ),
+            "Bash-only wrapper literal 'bash -c'",
+        ),
+        (
+            (
+                'import process from "node:process";\n'
+                'process.chdir("/var/lib/example");\n'
+            ),
+            "hard-coded POSIX system path '/var'",
+        ),
+        (
+            # At the pinned runtime `new spawnSync(...)` still executes the
+            # function body, so reviewed callables stay sinks under `new`
+            # (reviewer-reproduced fifth-correction regression pin).
+            (
+                'import { spawnSync } from "node:child_process";\n'
+                "export const result = new (spawnSync as unknown as new (\n"
+                "  command: string,\n"
+                "  argv: string[],\n"
+                "  options: { shell: boolean },\n"
+                ') => object)("node", ["-v"], { shell: true });\n'
+            ),
+            "child-process shell mode",
+        ),
+    ],
+    ids=[
+        "s1-dowhile-unknown-condition-second-iteration",
+        "s2-conditional-delete-maybeabsent-exec-default",
+        "s3-unknown-and-guarded-sink",
+        "s3-unknown-or-guarded-sink",
+        "s4-break-only-exit-state",
+        "s5-exec-nonempty-string-selector",
+        "s6-uppercase-exe-basename-folding",
+        "s7-absolute-process-chdir",
+        "new-of-operational-callable-stays-a-sink",
+    ],
+)
+def test_fifth_correction_regression_pins_fail(
+    policy_repo: Path, source: str, expected_detail: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fifth-correction-pin.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert any(
+        violation.rule == "PORT-SRC-008" and expected_detail in violation.message
+        for violation in violations
+    )
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        fifth_nested_shell_loop(3, body_value="false"),
+        (
+            'import fs from "node:fs";\n'
+            'export const stream = new fs.Utf8Stream({ dest: "portable.txt" });\n'
+        ),
+        (
+            "export {};\n"
+            "class Utf8Stream {\n"
+            "  constructor(options: { dest: string }) {\n"
+            "    void options;\n"
+            "  }\n"
+            "}\n"
+            'void new Utf8Stream({ dest: "/tmp/x" });\n'
+        ),
+        (
+            'import fs from "node:fs";\n'
+            "const helpers = fs as typeof fs & {\n"
+            "  Utf8Stream: new (options: { dest: string }) => object;\n"
+            "};\n"
+            'void new helpers.Utf8Stream({ dest: "/tmp/x" });\n'
+        ),
+        (
+            'import fs, { type Utf8StreamOptions } from "node:fs";\n'
+            "const options: Utf8StreamOptions & { note: string } = {\n"
+            '  dest: "portable.txt",\n'
+            '  note: "/tmp/example",\n'
+            "};\n"
+            "export const stream = new fs.Utf8Stream(options);\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const again: boolean;\n"
+            "const options = { shell: true };\n"
+            "do {\n"
+            "  options.shell = false;\n"
+            "} while (again);\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const stop: boolean;\n"
+            "const options = { shell: false };\n"
+            "while (true) {\n"
+            "  options.shell = true;\n"
+            "  options.shell = false;\n"
+            "  if (stop) break;\n"
+            "}\n"
+            'spawnSync("node", [], options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            'const selector = "";\n'
+            'execSync("printf ok", { shell: selector });\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            'spawnSync("BASHX.EXE", ["-c", "printf ok"]);\n'
+        ),
+        ('import process from "node:process";\nprocess.chdir("workspace/subdir");\n'),
+    ],
+    ids=[
+        "a5-clean-3x3x3-near-boundary",
+        "c1-portable-dest",
+        "c2-local-shadowed-utf8stream-class",
+        "c3-augmented-untrusted-member",
+        "c4-non-dest-data-field",
+        "s1-dowhile-body-runs-at-least-once",
+        "s4-break-after-reset-is-clean",
+        "s5-exec-empty-string-selector-alias",
+        "s6-basename-lookalike-not-wrapper",
+        "s7-relative-process-chdir",
+    ],
+)
+def test_fifth_correction_semantic_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "fifth-correction-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+def run_catalog_validation(catalog_path: Path) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "scripts" / "check_typescript_portability.mjs"),
+            "--validate-catalog",
+            str(catalog_path),
+        ),
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+
+
+def test_fifth_correction_real_catalog_passes_validation_mode() -> None:
+    proc = run_catalog_validation(
+        REPO_ROOT / "scripts" / "typescript-portability-node24-catalog.v1.json"
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout == "catalog ok"
+
+
+def fifth_utf8stream_member(catalog: dict[str, Any]) -> dict[str, Any]:
+    member = catalog["modules"]["filesystem"]["nodes"]["root"]["members"]["Utf8Stream"]
+    assert isinstance(member, dict)
+    return cast("dict[str, Any]", member)
+
+
+def fifth_mutate_unknown_token(catalog: dict[str, Any]) -> None:
+    fifth_utf8stream_member(catalog)["constructible"] = "mystery-token"
+
+
+def fifth_mutate_missing_option_paths(catalog: dict[str, Any]) -> None:
+    fifth_utf8stream_member(catalog).pop("option_paths")
+
+
+def fifth_mutate_callable_conflict(catalog: dict[str, Any]) -> None:
+    member = fifth_utf8stream_member(catalog)
+    member["callable"] = "non-operational"
+    member["rationale"] = "conflicting classification"
+
+
+def fifth_mutate_unknown_role(catalog: dict[str, Any]) -> None:
+    fifth_utf8stream_member(catalog)["roles"] = {"options": [0], "extra": [1]}
+
+
+def fifth_mutate_missing_rationale(catalog: dict[str, Any]) -> None:
+    members = catalog["modules"]["child-process"]["nodes"]["root"]["members"]
+    members["ChildProcess"].pop("rationale")
+
+
+@pytest.mark.parametrize(
+    ("mutate", "expected_error"),
+    [
+        (
+            fifth_mutate_unknown_token,
+            "unknown constructible classification at filesystem.root.Utf8Stream",
+        ),
+        (
+            fifth_mutate_missing_option_paths,
+            "malformed constructor semantics at filesystem.root.Utf8Stream",
+        ),
+        (
+            fifth_mutate_callable_conflict,
+            "malformed constructor semantics at filesystem.root.Utf8Stream",
+        ),
+        (
+            fifth_mutate_unknown_role,
+            "unknown constructor role extra at filesystem.root.Utf8Stream",
+        ),
+        (
+            fifth_mutate_missing_rationale,
+            "missing non-operational rationale at child-process.root.ChildProcess",
+        ),
+    ],
+    ids=[
+        "s8-unknown-constructible-token",
+        "s8-operational-constructor-missing-option-paths",
+        "s8-operational-constructor-callable-conflict",
+        "s8-unknown-constructor-role",
+        "s8-non-operational-constructible-missing-rationale",
+    ],
+)
+def test_fifth_correction_malformed_constructible_catalog_fails_closed(
+    tmp_path: Path,
+    mutate: Callable[[dict[str, Any]], None],
+    expected_error: str,
+) -> None:
+    catalog = json.loads(
+        (
+            REPO_ROOT / "scripts" / "typescript-portability-node24-catalog.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert isinstance(catalog, dict)
+    mutate(catalog)
+    target = tmp_path / "mutated-catalog.json"
+    target.write_text(json.dumps(catalog), encoding="utf-8")
+    proc = run_catalog_validation(target)
+    assert proc.returncode != 0
+    assert expected_error in proc.stderr
+
+
+def test_fifth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
+    sources: list[str] = []
+    for test in (
+        test_fifth_correction_budget_monotonicity_findings,
+        test_fifth_correction_utf8stream_constructor_violations_fail,
+        test_fifth_correction_regression_pins_fail,
+        test_fifth_correction_semantic_controls_pass,
+    ):
+        mark = next(
+            mark for mark in cast("Any", test).pytestmark if mark.name == "parametrize"
+        )
+        for case in mark.args[1]:
+            sources.append(case[0] if isinstance(case, tuple) else case)
+    names = []
+    for index, source in enumerate(sources):
+        name = f"fifth-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *names,
+        ),
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:

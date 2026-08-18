@@ -162,9 +162,10 @@ broadening a work package (spec §1.5).
 - State: IN_PROGRESS
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification;
   the first and second corrections were independently re-blocked on
-  2026-08-14, and the third correction was subsequently independently
-  re-blocked (verdict
-  `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`)
+  2026-08-14, the third correction was subsequently independently re-blocked
+  (verdict `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`), and
+  the fourth correction was independently re-blocked on 2026-08-17 (verdict
+  `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`)
 - Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
   `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
@@ -173,7 +174,9 @@ broadening a work package (spec §1.5).
   `2b85c9b1e1f80cd41334752e14b259dc61151058` / tree
   `7c97431ef520b3ebefe0c0a0a81c147c830d7351`; insufficient third correction
   `8c8ef32952516123343fdec3bc035ab569ab2d3d` / tree
-  `adb3257b3990cc7ab5e2d47a861f038513055f22`; PORT-SRC-008 and the TypeScript
+  `adb3257b3990cc7ab5e2d47a861f038513055f22`; insufficient fourth correction
+  `094d4ea5ff6adbfc829898e899e36d0a93401d5b` / tree
+  `a650f4054aff5f47a9274dc588cfc13b8f75fe4e`; PORT-SRC-008 and the TypeScript
   surface of KI-0006
 - Description: the initial checker missed TypeScript-family suffixes and used
   raw, line-local spellings. The first AST correction closed those syntax holes
@@ -206,6 +209,28 @@ broadening a work package (spec §1.5).
   inventory omits nested `.native` and disposable-temp surfaces. Its focused
   suite still reports 266/266. The fresh verdict was
   `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`.
+  On the exact fourth-correction content (`094d4ea` / tree `a650f405…`), the
+  completely fresh verifier independently cleared nearly the entire
+  correction and reproduced exactly two substantive implementation blockers:
+  (1) a `{ shell: false }` option object mutated to `shell = true` after a
+  `spawnSync` sink inside a 4×4×4 nested exact loop returns zero findings
+  (exit 0) while the 3×3×3 form and the 4×4×4 sink-after-loop form are both
+  detected — the shared bounded object-analysis step budget is exhausted
+  during supported nested exact-loop analysis and the post-exhaustion
+  event/state handling invalidates the already-proved reachable violation;
+  and (2) `new fs.Utf8Stream({ dest: "/tmp/parkf-utf8" })` passes because
+  the catalog falsely classified the constructor non-operational
+  ("factory path is reviewed") even though pinned @types/node 24.13.3
+  declares the constructor with a filesystem-destination `dest` option, no
+  `createUtf8*` factory exists, and pinned Node 24.18.0 actually creates the
+  destination file. The verifier additionally identified eight
+  correct-but-weakly-pinned surfaces (S1–S8: do/while exit edges,
+  mayBeAbsent exec-default propagation, unknown-guarded logical RHS sinks,
+  break-only exits, exec string selectors, uppercase/`.EXE` basename
+  folding, `process.chdir` path behavior, and fail-closed constructible
+  catalog classification) as regression-test hardening, not implementation
+  defects. The verdict was
+  `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`.
 - Workaround: none accepted. Adding literal regex variants, scanning every
   runtime string, trusting arbitrary imports/requires, or treating every
   argument of every Node API as operational would preserve bypasses or false
@@ -263,10 +288,84 @@ broadening a work package (spec §1.5).
   permanent violation/control regressions or parked above, and a 32-family
   mutation campaign in disposable no-hardlink clones killed every family
   through the permanent suite. Permanent and mutation evidence is recorded
-  in docs/TEST_EVIDENCE.md § M02-W07. KI-0006 remains DEFERRED for its
-  untouched Rust/native surface. KI-0058 must remain HIGH / IN_PROGRESS
-  until a completely fresh independent verifier reproduces the correction on
-  its exact content and performs W07 governance.
+  in docs/TEST_EVIDENCE.md § M02-W07.
+
+  The fifth narrow correction (Claude Fable 5 Ultracode writer pass begun on
+  the exact blocked fourth-correction content `094d4ea5…` / tree
+  `a650f405…`) fixes only the two independently reproduced blockers and adds
+  the S1–S8 permanent pins, without reopening independently cleared
+  families. Blocker 1 is fixed as an invariant, not a budget raise:
+  `MAX_OBJECT_ANALYSIS_STEPS` is unchanged and the analysis stays bounded.
+  Intermediate statements that never reference the tracked symbol or its
+  aliases are skipped (they cannot change tracked state, and an
+  already-escaped state is already bottom), exhaustion of the shared step
+  budget is recorded on the budget itself, the sink-argument refinement runs
+  on clones, and an exhausted analysis returns the union of refined and
+  pre-refinement at-sink states so a proved reachable violation is never
+  erased. An exhausted sink analysis additionally emits an explicit
+  `analysis-budget` finding (a documented bounded outcome that fails closed)
+  instead of silently reporting a completed clean analysis; under-budget
+  analyses are unaffected, and the clean 128⁴ unrelated-loop control remains
+  green through the statement skip. Blocker 2 is fixed through the
+  declarative catalog: a new operational-constructor classification
+  (`constructible: "filesystem-path-options"` with reviewed `option_paths`
+  and `roles.options`, validated fail-closed with unknown tokens rejected)
+  reclassifies `fs.Utf8Stream` with `dest` as its reviewed path-bearing
+  option; `new`-expression sinks resolve only through trusted catalog
+  provenance, so local/shadowed or augmented `Utf8Stream` members stay
+  clean, and a validation-only `--validate-catalog` mode exercises the exact
+  loader against mutated catalogs. S1–S8 are recorded as permanent
+  regression pins of verified-correct current behavior, not as
+  implementation defects. Writer-side Reviewer B reproduced one real
+  regression introduced by the first fifth-correction construct gate —
+  `new` of a reviewed operational callable (for example
+  `new spawnSync(..., { shell: true })`) stopped resolving as a sink even
+  though the pinned runtime still executes the function body under `new` —
+  and the gate was corrected to fall through to the callable classification
+  with a permanent pin (`new-of-operational-callable-stays-a-sink`). Two
+  reviewer observations are recorded as reviewed boundaries rather than
+  blockers: the completeness oracle anchors callable/constructible
+  membership but not per-member semantic fields (`option_paths`, `roles`,
+  classification values), whose drift is caught by the permanent behavioral
+  pins rather than the oracle; and spread forms of reviewed option objects
+  (`{ ...base }` or spread arguments) remain the pre-existing
+  suppressive-direction tracked-object boundary, which applies to the
+  constructor sink exactly as it always has to child-process options.
+
+  Writer-side Reviewer A confirmed the budget-monotonicity mechanism sound
+  (no finding against the fifth-correction diff; every behavioral anchor
+  reproduced, and the statement skip proved behavior-neutral against the
+  pre-correction checker) and reproduced four pre-existing tracked-object
+  defects that are byte-identical in behavior at blocked fourth-correction
+  content `094d4ea` and are therefore outside this correction's two-blocker
+  scope; they are recorded here honestly rather than fixed, because the
+  independent verifier cleared these option-expression families apart from
+  budget exhaustion and this pass must not broaden scope. (a) An alias
+  minted through a runtime-no-op cast (`const alias = options as {…}`,
+  `satisfies`, `options || {…}`, `cond ? options : options`, `options ??
+  {…}`) is accepted by `isSupportedOptionAliasRead` without being registered
+  by `collectTrackedAliases`, so mutations through the alias are invisible
+  and the sink keeps a falsely proved clean state (`alias.shell = true`
+  before `spawnSync(..., options)` reports nothing) — an unsound proof, not
+  the documented conservative UNKNOWN. (b) A shorthand-property escape
+  (`const box = { options }`) is invisible to the event scan because the
+  shorthand name resolves to the property symbol, producing both a false
+  negative (`box.options.shell = true` unseen) and a demonstrated false
+  positive (`box.options.shell = ""` before `execSync` still reports the
+  default-shell finding from the falsely-proved absent state); the longhand
+  `{ opts: options }` escape behaves as designed. (c)/(d) Sinks inside
+  `try`/`switch`/labeled statements observe an empty state set and labeled
+  `break`/`continue` degrade to unknown state — these remain the reviewed
+  suppressive-direction boundaries pinned since the fourth correction,
+  now noting Reviewer A's demonstration that labeled variants of the S1/S4
+  shapes are silently clean while the unlabeled shapes are flagged. Families
+  (a) and (b) are fail-open in specific shapes and are the first
+  reviewer-demonstrated exceptions to the earlier "suppressive-direction
+  only" parked framing; they await the next fresh independent verifier and
+  owner disposition. KI-0006 remains DEFERRED for its untouched
+  Rust/native surface. KI-0058 must remain HIGH / IN_PROGRESS until a
+  completely fresh independent verifier reproduces the correction on its
+  exact content and performs W07 governance.
 
 ## M02-W06 owner-holdout corrective review
 

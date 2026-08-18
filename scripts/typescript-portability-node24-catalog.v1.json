@@ -134,8 +134,9 @@
               "rationale": "filesystem-stat result data class"
             },
             "Utf8Stream": {
-              "constructible": "non-operational",
-              "rationale": "stream class; factory path is reviewed"
+              "constructible": "filesystem-path-options",
+              "option_paths": ["dest"],
+              "roles": { "options": [0] }
             },
             "WriteStream": {
               "constructible": "non-operational",
