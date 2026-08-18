@@ -3687,6 +3687,314 @@ def test_fifth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
     assert proc.returncode == 0, proc.stdout + proc.stderr
 
 
+# ------------------- sixth correction: KI-0058 tracked option alias escapes
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const alias = options as { shell?: boolean };\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const alias = (options satisfies { shell?: boolean });\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const alias = (<{ shell?: boolean }>options)!;\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const fallback = { shell: false };\n"
+            "const options = { shell: false };\n"
+            "const alias = options || fallback;\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const options = { shell: false };\n"
+            "const alias = condition ? options : options;\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const fallback = { shell: false };\n"
+            "const options = { shell: false };\n"
+            "const alias = options ?? fallback;\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const direct = options;\n"
+            "const alias = direct as { shell?: boolean };\n"
+            "alias.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const first = options as { shell?: boolean };\n"
+            "const second = options!;\n"
+            "first.shell = false;\n"
+            "second.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "{\n"
+            "  const options = { shell: false };\n"
+            "  const box = { options };\n"
+            "  void box;\n"
+            "}\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const defaults: { shell?: string } = {};\n"
+            "const options: { shell?: string } = {};\n"
+            "const alias = options ? options : defaults;\n"
+            'execSync("node --version", options);\n'
+        ),
+    ],
+    ids=[
+        "a1-cast-alias-write-true",
+        "a2-satisfies-alias-write-true",
+        "a3-assertion-paren-nonnull-alias-write-true",
+        "a4-logical-or-alias-write-true",
+        "a5-same-object-conditional-alias-write-true",
+        "a6-nullish-alias-write-true",
+        "a1-chained-cast-alias-write-true",
+        "a10-two-alias-order-final-true",
+        "b5-shadowed-shorthand-preserves-outer-proof",
+        "a7-condition-slot-read-keeps-exec-default-proof",
+    ],
+)
+def test_sixth_correction_alias_mutation_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    # A same-object alias minted through a runtime-no-op expression is the
+    # same runtime object: a mutation through the registered alias must be as
+    # visible as a mutation through the tracked identifier itself.
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "sixth-correction-alias.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert {violation.rule for violation in violations} == {"PORT-SRC-008"}
+    messages = [violation.message for violation in violations]
+    assert any(FIFTH_SHELL_DETAIL in message for message in messages)
+    assert not any(FIFTH_BUDGET_DETAIL in message for message in messages)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        (
+            'import { execSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "declare const other: { shell?: string };\n"
+            "const options: { shell?: string } = {};\n"
+            "const maybe = condition ? options : other;\n"
+            'maybe.shell = "/bin/sh";\n'
+            'execSync("node --version", options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "declare function use(value: object): void;\n"
+            "declare const other: { shell?: boolean };\n"
+            "const options: { shell?: boolean } = { shell: true };\n"
+            "const maybe = condition ? options : other;\n"
+            "use(maybe);\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const clone = { shell: false };\n"
+            "clone.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const alias = options as { shell?: boolean };\n"
+            "alias.shell = false;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const first = options as { shell?: boolean };\n"
+            "const second = options!;\n"
+            "first.shell = true;\n"
+            "second.shell = false;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "const box = { options };\n"
+            "box.options.shell = true;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            "const box = { options };\n"
+            'box.options.shell = "";\n'
+            'execSync("node --version", options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const box = { options };\n"
+            "void box;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const box = { opts: options };\n"
+            "void box;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare function send(payload: { options: object }): void;\n"
+            "const options = { shell: true };\n"
+            "send({ options });\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            "const box = { options };\n"
+            "void box;\n"
+            'execSync("node --version", options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "const box = { inner: { options } };\n"
+            "void box;\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const defaults: { shell?: string } = {};\n"
+            "const options: { shell?: string } = {};\n"
+            "const maybe = condition ? options : defaults;\n"
+            "void maybe;\n"
+            'execSync("node --version", options);\n'
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            "const { shell } = options;\n"
+            "void shell;\n"
+            'execSync("node --version", options);\n'
+        ),
+    ],
+    ids=[
+        "a7-ambiguous-alias-write-invalidates-stale-exec-proof",
+        "a7-may-alias-call-escape-invalidates",
+        "a8-unrelated-clone-is-not-an-alias",
+        "a9-definite-alias-final-false-write-clean",
+        "a10-two-alias-order-final-false",
+        "b1-shorthand-escape-spawn-conservative-unknown",
+        "b2-shorthand-exec-stale-absent-proof-removed",
+        "b3-shorthand-store-unknown-before-spawn",
+        "b4-longhand-store-conservative-unchanged",
+        "b6-shorthand-data-argument-escapes",
+        "b6-exec-absent-proof-removed-by-shorthand-store",
+        "b7-nested-shorthand-store-unknown",
+        "a7-inert-may-alias-read-conservative-unknown",
+        "a1-destructuring-read-conservative-unknown",
+    ],
+)
+def test_sixth_correction_alias_escape_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    # An ambiguous alias or an escaped container degrades the tracked state to
+    # UNKNOWN, which follows the reviewed escape policy: nothing is proved in
+    # either direction, so no finding fires and no stale certainty survives.
+    # The exec-default probes in this table are the observable half of that
+    # invariant: they flip from a falsely proved absent-shell finding to clean
+    # exactly when the escape or may-write registers. The last two rows pin
+    # reviewer-confirmed conservative boundaries (an inert read of a may-alias
+    # and a destructuring read of the tracked object degrade to UNKNOWN even
+    # though no mutation can occur through them); they lose only exec-default
+    # absent proofs and never manufacture certainty.
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "sixth-correction-alias-control.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_sixth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
+    sources: list[str] = []
+    for test in (
+        test_sixth_correction_alias_mutation_violations_fail,
+        test_sixth_correction_alias_escape_controls_pass,
+    ):
+        mark = next(
+            mark for mark in cast("Any", test).pytestmark if mark.name == "parametrize"
+        )
+        for case in mark.args[1]:
+            sources.append(case[0] if isinstance(case, tuple) else case)
+    names = []
+    for index, source in enumerate(sources):
+        name = f"sixth-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *names,
+        ),
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:

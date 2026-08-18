@@ -367,6 +367,87 @@ broadening a work package (spec §1.5).
   completely fresh independent verifier reproduces the correction on its
   exact content and performs W07 governance.
 
+  Sixth narrow correction (Claude Fable 5 Ultracode writer pass,
+  2026-08-18): begun on the exact hosted-green fifth-correction content
+  `142f6fb5c759464dc8116d0b41a2ed13304543e2` / tree
+  `75449acb80cc50ec5a4829660a182935f4903807` (hosted content run
+  32154509246 SUCCESS on ubuntu-24.04, macos-15, and windows-2025) after
+  writer terminal
+  `FABLE_M02_W07_KI0058_FIFTH_CORRECTION_READY_FOR_INDEPENDENT_VERIFICATION`.
+  Scope was exactly the two pre-existing fail-open tracked-object families
+  (a) and (b) above — discovered and documented by the fifth writer's own
+  bounded Reviewer A, byte-identical in behavior at the blocked
+  fourth-correction base, and therefore not introduced by the fifth
+  correction. Both were re-reproduced on the exact base before any edit.
+  The fix is one shared alias abstraction in
+  `scripts/check_typescript_portability.mjs`: a strict same-object proof
+  (`provedSameTrackedObject`) registers a definite alias for every
+  runtime-no-op alias form the event scan accepts (wrapper expressions,
+  proved-taken `||`/`&&`/`??` operands, comma results, same-object and
+  known-truth conditionals), with unresolvable branches failing the proof
+  instead of being dropped, so mutations through registered aliases are
+  exactly as visible as mutations through the tracked identifier;
+  ambiguous initializers whose resolved option targets include the tracked
+  object register as may-aliases whose writes, deletes, and escapes only
+  degrade certainty to UNKNOWN; the event scan treats an alias-value read
+  as harmless only when its declaration is registered (a
+  transparent-position walk, `supportedAliasDeclarationFor`, that also
+  accepts the mutation-free condition slot), and a supported-looking read
+  whose binding is unregistered escapes conservatively — closing family
+  (a) as an invariant rather than per-syntax patches. Shorthand-property
+  stores escape by value symbol (`getShorthandAssignmentValueSymbol`)
+  exactly like their longhand equivalent at the store's evaluation point,
+  and the statement skip sees shorthand value symbols and may-alias
+  references — closing family (b) including its demonstrated exec-default
+  false positive. 25 permanent focused tests (10 violation, 14 control,
+  1 pinned-tsc compile batch; suite 384 → 409) cover A1–A10, B1–B7, and
+  the reviewer-confirmed boundaries below; the fifth correction's
+  budget-monotonicity and Utf8Stream pins were not reopened and stay
+  green. A targeted eight-family mutation campaign (cast, wrapper, and
+  conditional registration removal; stale ambiguous-alias state;
+  shorthand-escape removal; statement-skip shorthand blindness;
+  effects-after-sink ordering; over-broad symbol-agnostic escape) ran
+  twice in disposable `git clone --no-local --no-hardlinks` candidates
+  provisioned with `pnpm install --frozen-lockfile --offline` — once at
+  the pre-boundary-pin candidate and once at the exact final content
+  bytes — with a full-suite clean control in every clone (406/406 then
+  409/409) and every mutant killed by exactly its intended tests with
+  zero unexpected partition drift. Writer-side bounded Reviewer A
+  (restricted to alias registration/invalidation, shorthand escape, and
+  their evaluation ordering) ran twice: the first pass (65 adversarial
+  fixtures, pre/post-diff differentials) confirmed both invariants and
+  reported two strictly conservative detection regressions introduced
+  with the sound invariant, of which the condition-slot read inside an
+  alias initializer was fixed in-pass (the truthiness slot cannot escape
+  or mutate the object; the true exec-default finding is restored and
+  pinned by `a7-condition-slot-read-keeps-exec-default-proof`) while
+  destructuring reads and inert may-alias reads remain deliberately
+  conservative (pinned by `a1-destructuring-read-conservative-unknown`
+  and `a7-inert-may-alias-read-conservative-unknown`: they degrade to
+  UNKNOWN although no mutation can occur through them, losing only
+  exec-default absent proofs and never manufacturing certainty; the
+  pre-correction behavior rested on the same unsound blanket
+  supported-read this pass closes and was itself fail-open for
+  nested-object destructures, so precise scalar-aware destructuring
+  semantics are parked as future hardening, not silently restored); the
+  second pass on the exact final bytes (73 adversarial fixtures) returned
+  NO_DEFECT_FOUND on all three surfaces with all 37 fifth-correction pins
+  and the full 409-test suite green, noting only the documented
+  conservative boundaries (inert reads of a definite alias suppress by
+  escape exactly as `void options` always has — the alias abstraction is
+  symmetric with the tracked identifier — and a template-span read at the
+  comma-left of an alias initializer now escapes where the old blanket
+  harmlessness accidentally kept a true finding). One pre-existing
+  out-of-scope blindspot is parked here for a future package: a hoisted
+  function declared after the sink but called before it keeps stale
+  option-state proofs (byte-identical before and after this correction
+  and reproducible without any alias, so it belongs to the generic
+  statement-range/hoisting model, not to the two corrected surfaces).
+  The try/switch/labeled-statement and spread boundaries recorded above
+  remain untouched. KI-0058 remains HIGH / IN_PROGRESS pending a
+  completely fresh independent verifier on the exact sixth-correction
+  content and W07 governance.
+
 ## M02-W06 owner-holdout corrective review
 
 ### KI-0057 — M02-W06 reviewed-manifest integration hard-coded pending verification state

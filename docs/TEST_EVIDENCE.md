@@ -33,6 +33,196 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 tracked option alias/shorthand-escape sixth correction writer evidence (2026-08-18)
+
+- Revision: sixth narrow correction writer pass starting from hosted-green
+  fifth-correction commit `142f6fb5c759464dc8116d0b41a2ed13304543e2` / tree
+  `75449acb80cc50ec5a4829660a182935f4903807` / parent
+  `094d4ea5ff6adbfc829898e899e36d0a93401d5b` after writer terminal
+  `FABLE_M02_W07_KI0058_FIFTH_CORRECTION_READY_FOR_INDEPENDENT_VERIFICATION`
+  (hosted content run 32154509246 SUCCESS on ubuntu-24.04, macos-15,
+  windows-2025); the sixth-correction content tree is recorded post-commit
+  by the containing commit.
+- Environment: macOS 27.0 arm64; Node 24.18.0 (keg-only pinned); pnpm
+  11.17.0; uv-managed project venv; TypeScript 6.0.3; @types/node 24.13.3;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+  verified by direct recomputation.
+- Exact-boundary verification before any edit: `git status --porcelain`,
+  `git branch --show-current`, `git rev-parse HEAD` / `'HEAD^{tree}'` /
+  `HEAD^` / `origin/main` (after fetch) → branch `main`; clean tree;
+  HEAD == origin/main == `142f6fb5c759464dc8116d0b41a2ed13304543e2`; tree
+  `75449acb80cc50ec5a4829660a182935f4903807`; parent
+  `094d4ea5ff6adbfc829898e899e36d0a93401d5b` — the exact required start.
+- Authorized scope: exactly the two pre-existing fail-open tracked-object
+  defect families recorded by the fifth pass's Reviewer A in
+  docs/KNOWN_ISSUES.md § KI-0058 — (a) supported same-object alias reads
+  without alias registration and (b) shorthand-property escape invisible to
+  the tracked event/state analysis. No other analyzer surface was reopened.
+- Defect reproduction on the exact base (scratchpad fixtures outside the
+  repository, direct `node scripts/check_typescript_portability.mjs`
+  invocations with JSON path arrays on stdin):
+  - `const alias = options as {…}` / `(options satisfies {…})` /
+    `options || fallback` / `condition ? options : options` /
+    `options ?? fallback` each followed by `alias.shell = true` before
+    `spawnSync("node", …, options)` → `[]` (five silent false negatives).
+  - `const box = { options }; box.options.shell = true;` before spawnSync →
+    `[]` (false negative), while the longhand `{ opts: options }` escape
+    behaved conservatively.
+  - `const box = { options }; box.options.shell = "";` before
+    `execSync(…, options)` → `execSync default shell` finding (false
+    positive from the stale proved-absent state).
+  - `const maybe = condition ? options : other; maybe.shell = "/bin/sh";`
+    before execSync → stale `execSync default shell` finding retained.
+  - `const alias = options as {…}; alias.shell = false;` with initial
+    `shell: true` → `shell=true` finding (stale-proof false positive), and
+    the no-mutation shorthand store with `shell: true` → `shell=true`
+    finding while the longhand equivalent was already conservative.
+- Sixth-correction surface (scripts/check_typescript_portability.mjs only;
+  no catalog, wrapper, dependency, CI, extension, or gate change):
+  - `provedSameTrackedObject`: strict same-object proof through
+    `unwrapExpression` wrappers, known-truth and both-branch conditionals,
+    comma forms, and `||`/`&&`/`??` operands where the taken side is proved;
+    an unresolvable branch fails the proof instead of being dropped (the
+    may-semantics of `resolveOptionTargets` are never used as identity
+    proof).
+  - `referencesTrackedTarget` + `collectTrackedAliasSets`: fixed-point
+    registration of definite aliases (proof succeeds; they feed
+    `sameResolvedSymbol`, so `directAssignmentEvent` sees writes through
+    them as definite events) and may-aliases (resolved option targets
+    include the tracked object without proof).
+  - `supportedAliasDeclarationFor`: a resolution-transparent-position walk
+    (wrappers; conditional condition/whenTrue/whenFalse — the condition
+    slot only consumes a truthiness test and can neither escape nor mutate
+    the object; logical operands; comma results) from a tracked read to its
+    const alias declaration. The event scan treats such a read as harmless
+    ONLY when the declaration is registered; a supported-looking read whose
+    binding is unregistered escapes conservatively (the invariant that
+    closes family (a)).
+  - May-alias event branch in `collectTrackedObjectEvents`: writes,
+    deletes, and increment/decrement through a may-alias degrade the
+    property to unknown; call/new and other escape positions escape; reads
+    are free; the declaration-name position is exempt.
+  - Shorthand branch: an object-literal shorthand whose
+    `checker.getShorthandAssignmentValueSymbol` resolves to the tracked
+    symbol or a registered alias/may-alias adds an escape event at the
+    store's evaluation point — longhand parity, closing family (b).
+  - `referencesTrackedSymbol` extended to may-aliases and shorthand value
+    symbols so the statement-skip optimization cannot hide the new events.
+- Post-fix behavior (same fixtures): the five alias mutations →
+  `shell-true shell=true` at the write; the shorthand mutation degrades to
+  UNKNOWN with no false proof; the execSync stale-absent false positive,
+  the ambiguous-alias stale proof, the alias-write-false false positive,
+  and the shorthand-store false proof are all gone; longhand behavior
+  unchanged.
+- Permanent tests added (25 focused tests; suite 384 → 409):
+  `test_sixth_correction_alias_mutation_violations_fail` (10 violation
+  rows: cast/satisfies/assertion-paren-nonnull/logical-or/
+  same-object-conditional/nullish/chained-cast alias writes, two-alias
+  ordering final-true, shadowed-shorthand outer-proof preservation, and
+  the condition-slot read keeping the true exec-default proof),
+  `test_sixth_correction_alias_escape_controls_pass` (14 control rows:
+  ambiguous-alias and may-alias-escape stale-proof removal, unrelated
+  clone, definite-alias final-false, two-alias ordering final-false, the
+  B1–B7 shorthand/longhand table with both exec-default probes, and the
+  two reviewer-confirmed conservative boundary pins for inert may-alias
+  reads and destructuring reads), and
+  `test_sixth_correction_typescript_fixtures_compile` (all 24 fixture
+  sources compile through the pinned `typescript/bin/tsc` with the
+  fifth-correction flag set).
+- Commands and observed results (canonical hermetic forms, pinned
+  environment, all run and inspected in the current repository state):
+  - `node --check scripts/check_typescript_portability.mjs` → exit 0.
+  - `uv run pytest -c pyproject.toml --rootdir=. --confcutdir=. -o addopts=
+    -ra --strict-markers --strict-config --disable-plugin-autoload -q
+    scripts/tests/test_portability.py` → exit 0, **409 passed** (baseline
+    384 re-proved at the exact start; 406 at the pre-boundary-pin
+    candidate; 409 at the final content).
+  - Canonical collection over all Python test files → **1305 tests
+    collected** on POSIX (SHA-256
+    `a6f86f0a8e6feea20e12679e773296728c24e33ad013e9b47035f5ed4d67d118`);
+    regenerated `scripts/python-test-inventory.v1.json` holds **1303
+    common/Windows node IDs** at SHA-256
+    `ddd42895d994dab3b7ef59b5e4f0b9869e83d3927e6f9c8d522eb7f33640d4bb`
+    plus the approved FIFO/socket POSIX-only pair; exactly the 25 new
+    sixth-correction node IDs were added and none removed.
+  - `uv run python scripts/check_portability.py` → exit 0, PASS on the
+    real repository under the stricter sixth-correction analysis.
+  - `uv run ruff check` / `uv run ruff format --check` on
+    scripts/check_portability.py and scripts/tests/test_portability.py →
+    clean; `uv run mypy --config-file pyproject.toml` on both → clean;
+    `pnpm exec prettier --check` on the analyzer → clean.
+  - `python3 scripts/validate_status.py` → PASS: all checks passed (45
+    check groups) after every status edit; `pnpm traceability:check` →
+    PASS (193 requirements, 300 work packages); `pnpm generate:contracts
+    --check` → 183 files byte-identical; `git diff --check` → clean.
+- Mutation campaign (writer-side): exactly eight semantic mutation
+  families, each applied one at a time in a disposable `git clone
+  --no-local --no-hardlinks` candidate of the exact base plus the exact
+  uncommitted candidate diff, provisioned hermetically with `pnpm install
+  --frozen-lockfile --offline`, never touching the authoritative checkout,
+  every mutant loadable (`node --check`), each clone running a full-suite
+  clean control before its mutation. The campaign ran twice — at the
+  pre-boundary-pin candidate (clean controls 406/406) and again at the
+  exact final content bytes (clean controls 409/409) — with identical
+  kill outcomes and zero unexpected partition drift: M1 cast-alias
+  registration removed → killed by a1-cast/a1-chained-cast/a10-final-true;
+  M2 satisfies/wrapper registration removed → a2/a3/a10-final-true; M3
+  same-object conditional registration removed → a5 alone; M4 ambiguous
+  alias retains stale known state (unconditional supported-read plus
+  may-registration removal) → both a7 stale-proof controls plus the
+  inert-may-alias pin; M5 shorthand escape detection removed →
+  b2/b3/b6-data/b6-exec/b7 while b1/b4/b5 stay green (longhand and
+  symbol-precision intact); M6 statement-skip blind to shorthand → the
+  same five with b4 longhand green (the exact asymmetry of the original
+  defect); M7 escape/write effects applied only after sink observation →
+  19 ordering-dependent tests fail while the no-intermediate-effect
+  controls stay green; M8 over-broad symbol-agnostic shorthand escape →
+  killed by the shadowed-shorthand violation alone with every correct
+  escape still green. STOP at M8; no M9+.
+- Writer-side bounded review (one reviewer, two passes, scope limited to
+  alias registration/invalidation, shorthand escape, and their evaluation
+  ordering; no recursive delegation; disposable clone only):
+  - First pass at the pre-boundary-pin candidate: 65 adversarial fixtures
+    with pre/post-diff differentials confirmed both invariants sound and
+    symbol-precise and reported two strictly conservative detection
+    regressions (condition-slot alias-initializer reads; destructuring and
+    inert may-alias reads) plus one pre-existing out-of-scope hoisted-
+    function blindspot (byte-identical pre/post; reproducible without
+    aliases).
+  - Writer response: the condition-slot read was fixed in-pass (the
+    truthiness slot is mutation- and escape-free) and pinned by the
+    `a7-condition-slot-read-keeps-exec-default-proof` violation row; the
+    destructuring and inert-read boundaries were deliberately pinned as
+    conservative (they lose only exec-default absent proofs and never
+    manufacture certainty; the pre-correction "detection" rested on the
+    same unsound blanket supported-read this pass closes and was itself
+    fail-open for nested-object destructures), and the hoisted-function
+    blindspot was parked in docs/KNOWN_ISSUES.md § KI-0058.
+  - Second pass on the exact final content bytes: 73 adversarial fixtures →
+    verdict NO_DEFECT_FOUND on all three surfaces; all 37 fifth-correction
+    pins green; full focused suite 409 passed in the review clone.
+- Frozen verification deferral: exactly as in the prior correction entries,
+  the complete substantive verification sequence (`python3
+  scripts/check_portability.py`, `python3 scripts/validate_status.py`,
+  `pnpm traceability:check`, `pnpm generate:contracts --check`, `pnpm run
+  doctor`, `pnpm verify`, `git diff --check`) is intentionally run twice on
+  identical tracked bytes only after this documentation freeze and reported
+  in the final writer handoff, not preclaimed here. Exact-SHA three-OS
+  hosted evidence is pending this writer pass.
+- Test counts: focused portability 409/409; Python canonical collection
+  1305 POSIX / 1303 common-and-Windows; all other package suites unchanged
+  and re-proved in the post-freeze verification passes.
+- Artifacts: n/a (no screenshots; reproducers and probes lived only in the
+  session scratchpad outside the repository; mutation and review work ran
+  only in disposable clones that never touched the authoritative checkout).
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  independent verifier on the exact sixth-correction content and W07
+  governance. KI-0059..KI-0062 implementation/test surfaces were not
+  reopened; no extension, Playwright, W06, contracts, Rust, catalog, gate,
+  or governance surface changed. M02-W07 remains IN_PROGRESS; M02-W08
+  remains NOT_STARTED; no package is READY.
+
 ### M02-W07 — KI-0058 TypeScript portability semantic fifth correction writer evidence (2026-08-18)
 
 - Revision: fifth narrow correction writer pass starting from independently

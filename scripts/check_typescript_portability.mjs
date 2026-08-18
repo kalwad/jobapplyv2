@@ -1623,10 +1623,59 @@ function isSafeChildProcessOptionsReference(identifier, checker, bindings) {
   return false;
 }
 
+// Walks from a tracked-object read upward through resolution-transparent
+// positions only (wrappers, taken value slots of conditional/logical/comma
+// expressions) to the const alias declaration whose value the read supplies.
+// A read reached through any other construct (a call argument, a property
+// access, an object literal, a condition slot) is not an alias-value read and
+// must keep its ordinary event semantics.
+function supportedAliasDeclarationFor(identifier) {
+  let current = identifier;
+  while (current.parent !== undefined) {
+    const parent = current.parent;
+    if (
+      ts.isVariableDeclaration(parent) &&
+      parent.initializer === current &&
+      ts.isIdentifier(parent.name) &&
+      ts.isVariableDeclarationList(parent.parent) &&
+      (parent.parent.flags & ts.NodeFlags.Const) !== 0
+    ) {
+      return parent;
+    }
+    const transparent =
+      ((ts.isParenthesizedExpression(parent) ||
+        ts.isAsExpression(parent) ||
+        ts.isSatisfiesExpression(parent) ||
+        ts.isTypeAssertionExpression(parent) ||
+        ts.isNonNullExpression(parent)) &&
+        parent.expression === current) ||
+      // The condition slot only consumes the read as a truthiness test: the
+      // object can neither escape nor be mutated through it, so a bare read
+      // there is as harmless as a value-slot read of a registered alias.
+      (ts.isConditionalExpression(parent) &&
+        (parent.condition === current ||
+          parent.whenTrue === current ||
+          parent.whenFalse === current)) ||
+      (ts.isBinaryExpression(parent) &&
+        (parent.operatorToken.kind === ts.SyntaxKind.BarBarToken ||
+          parent.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken ||
+          parent.operatorToken.kind === ts.SyntaxKind.QuestionQuestionToken) &&
+        (parent.left === current || parent.right === current)) ||
+      (ts.isBinaryExpression(parent) &&
+        parent.operatorToken.kind === ts.SyntaxKind.CommaToken &&
+        parent.right === current) ||
+      (ts.isCommaListExpression(parent) && parent.elements.at(-1) === current);
+    if (!transparent) return undefined;
+    current = parent;
+  }
+  return undefined;
+}
+
 function collectTrackedObjectEvents(
   node,
   symbol,
   aliases,
+  mayAliases,
   declaration,
   checker,
   bindings,
@@ -1635,26 +1684,6 @@ function collectTrackedObjectEvents(
   startPosition = Number.NEGATIVE_INFINITY,
 ) {
   const events = new Map();
-  function isSupportedOptionAliasRead(identifier) {
-    let current = identifier.parent;
-    while (current !== undefined && !ts.isStatement(current)) {
-      if (
-        ts.isVariableDeclaration(current) &&
-        current.initializer !== undefined &&
-        nodeContains(current.initializer, identifier) &&
-        ts.isVariableDeclarationList(current.parent) &&
-        (current.parent.flags & ts.NodeFlags.Const) !== 0
-      ) {
-        return resolveOptionTargets(current.initializer, checker).some(
-          (target) =>
-            ts.isIdentifier(target) &&
-            checker.getSymbolAtLocation(target) === symbol,
-        );
-      }
-      current = current.parent;
-    }
-    return false;
-  }
   function addEvent(event) {
     if (
       event.node.getStart() >= stopPosition ||
@@ -1701,6 +1730,30 @@ function collectTrackedObjectEvents(
       ts.isClassExpression(current);
     if (
       ts.isIdentifier(current) &&
+      ts.isShorthandPropertyAssignment(current.parent) &&
+      current.parent.name === current
+    ) {
+      // A shorthand property resolves to the property symbol, not the value
+      // symbol, so it is invisible to the identifier checks below. Shorthand
+      // { options } stores the same runtime object as the longhand
+      // { options: options }: when the shorthand value is the tracked object
+      // or one of its aliases, the object escapes into the container at this
+      // evaluation point.
+      const valueSymbol = checker.getShorthandAssignmentValueSymbol(
+        current.parent,
+      );
+      if (
+        valueSymbol !== undefined &&
+        (valueSymbol === symbol ||
+          aliases.has(valueSymbol) ||
+          mayAliases.has(valueSymbol))
+      ) {
+        addEvent({ kind: "escape", node: current.parent });
+        return;
+      }
+    }
+    if (
+      ts.isIdentifier(current) &&
       current !== declaration.name &&
       sameResolvedSymbol(current, symbol, checker, aliases)
     ) {
@@ -1712,13 +1765,23 @@ function collectTrackedObjectEvents(
       ) {
         return;
       }
-      if (isSupportedOptionAliasRead(current)) return;
-      if (
-        ts.isVariableDeclaration(current.parent) &&
-        current.parent.initializer === current &&
-        ts.isIdentifier(current.parent.name) &&
-        aliases.has(checker.getSymbolAtLocation(current.parent.name))
-      ) {
+      const aliasDeclaration = supportedAliasDeclarationFor(current);
+      if (aliasDeclaration !== undefined) {
+        const aliasName = checker.getSymbolAtLocation(aliasDeclaration.name);
+        if (
+          aliasName !== undefined &&
+          (aliases.has(aliasName) || mayAliases.has(aliasName))
+        ) {
+          // The read supplies the value of a registered alias declaration:
+          // later mutations through that alias are visible (definite alias)
+          // or degrade certainty (may alias), so the read itself is harmless.
+          return;
+        }
+        // The read looks like a supported alias-value read, but the alias was
+        // not registered. Treating it as harmless while mutations through the
+        // unregistered binding stay invisible would preserve a falsely proved
+        // clean state, so it invalidates conservatively instead.
+        addEvent({ kind: "escape", node: current });
         return;
       }
       if (currentDeferred) {
@@ -1786,6 +1849,79 @@ function collectTrackedObjectEvents(
       }
       return;
     }
+    if (ts.isIdentifier(current)) {
+      const maybeSymbol = checker.getSymbolAtLocation(current);
+      if (maybeSymbol !== undefined && mayAliases.has(maybeSymbol)) {
+        // A may-alias binding may or may not be the tracked object at
+        // runtime. Reads are free; any mutation or escape through it can only
+        // degrade the tracked certainty, never establish or preserve it.
+        if (
+          ts.isVariableDeclaration(current.parent) &&
+          current.parent.name === current
+        ) {
+          return;
+        }
+        const aliasDeclaration = supportedAliasDeclarationFor(current);
+        if (aliasDeclaration !== undefined) {
+          const aliasName = checker.getSymbolAtLocation(aliasDeclaration.name);
+          if (
+            aliasName !== undefined &&
+            (aliases.has(aliasName) || mayAliases.has(aliasName))
+          ) {
+            return;
+          }
+        }
+        if (currentDeferred) {
+          addEvent({ kind: "escape", node: current });
+          return;
+        }
+        const access = objectAccessFromReference(current);
+        if (access !== null) {
+          const operation = enclosingOperation(access);
+          const parent = operation.parent;
+          const property = accessPropertyName(access, checker);
+          if (
+            (ts.isBinaryExpression(parent) &&
+              parent.left === operation.current &&
+              isAssignmentOperator(parent.operatorToken.kind)) ||
+            (ts.isDeleteExpression(parent) &&
+              parent.expression === operation.current) ||
+            (((ts.isPrefixUnaryExpression(parent) &&
+              (parent.operator === ts.SyntaxKind.PlusPlusToken ||
+                parent.operator === ts.SyntaxKind.MinusMinusToken)) ||
+              ts.isPostfixUnaryExpression(parent)) &&
+              parent.operand === operation.current)
+          ) {
+            addEvent({ kind: "unknown-write", node: parent, property });
+          } else if (
+            (ts.isCallExpression(parent) || ts.isNewExpression(parent)) &&
+            parent.expression === operation.current
+          ) {
+            addEvent({ kind: "escape", node: parent });
+          } else {
+            const assignment = containingAssignmentForAccess(access);
+            if (assignment !== null) {
+              addEvent({ kind: "unknown-write", node: assignment, property });
+            }
+          }
+          return;
+        }
+        const operation = enclosingOperation(current);
+        if (
+          ts.isBinaryExpression(operation.parent) &&
+          operation.parent.left === operation.current &&
+          isAssignmentOperator(operation.parent.operatorToken.kind)
+        ) {
+          // Rebinding the alias variable itself never mutates the tracked
+          // object (and a const may-alias cannot be rebound in valid code).
+          return;
+        }
+        if (!isSafeChildProcessOptionsReference(current, checker, bindings)) {
+          addEvent({ kind: "escape", node: operation.current });
+        }
+        return;
+      }
+    }
     ts.forEachChild(current, (child) =>
       visit(child, depth + 1, currentDeferred),
     );
@@ -1842,6 +1978,7 @@ function invalidateForUnsupportedMutation(
     node,
     context.symbol,
     context.aliases,
+    context.mayAliases,
     context.declaration,
     context.checker,
     context.bindings,
@@ -3206,11 +3343,32 @@ function observeTrackedStatement(statement, states, context, sinkCall) {
 
 function referencesTrackedSymbol(node, context, depth = 0) {
   if (depth > MAX_STRUCTURAL_DEPTH) return true;
-  if (
-    ts.isIdentifier(node) &&
-    sameResolvedSymbol(node, context.symbol, context.checker, context.aliases)
-  ) {
-    return true;
+  if (ts.isIdentifier(node)) {
+    if (
+      sameResolvedSymbol(node, context.symbol, context.checker, context.aliases)
+    ) {
+      return true;
+    }
+    const resolved = context.checker.getSymbolAtLocation(node);
+    if (resolved !== undefined && context.mayAliases.has(resolved)) return true;
+    if (
+      ts.isShorthandPropertyAssignment(node.parent) &&
+      node.parent.name === node
+    ) {
+      // Shorthand names resolve to property symbols; the escape they perform
+      // is keyed on the value symbol, so the statement skip must see it too.
+      const valueSymbol = context.checker.getShorthandAssignmentValueSymbol(
+        node.parent,
+      );
+      if (
+        valueSymbol !== undefined &&
+        (valueSymbol === context.symbol ||
+          context.aliases.has(valueSymbol) ||
+          context.mayAliases.has(valueSymbol))
+      ) {
+        return true;
+      }
+    }
   }
   return (
     ts.forEachChild(node, (child) =>
@@ -3718,19 +3876,151 @@ function processSinkArgumentEffects(call, optionNode, target, states, context) {
   return current;
 }
 
-function plainAliasIdentifier(node) {
-  let current = node;
-  while (
-    ts.isParenthesizedExpression(current) ||
-    ts.isNonNullExpression(current)
-  ) {
-    current = current.expression;
+// Proof that evaluating `node` always yields the tracked object itself. This
+// is the registration side of the supported same-object alias abstraction:
+// every expression this proof accepts must produce a registered definite
+// alias, because the event scan treats reads of the tracked object inside
+// such initializers as harmless. A branch that cannot be proved (an
+// unresolvable identifier, an unknown condition with a foreign arm) fails the
+// proof instead of being dropped, unlike the may-semantics of
+// resolveOptionTargets.
+function provedSameTrackedObject(node, symbol, aliases, checker, depth = 0) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return false;
+  const current = unwrapExpression(node);
+  if (ts.isIdentifier(current)) {
+    const resolved = checker.getSymbolAtLocation(current);
+    return (
+      resolved !== undefined && (resolved === symbol || aliases.has(resolved))
+    );
   }
-  return ts.isIdentifier(current) ? current : undefined;
+  if (ts.isConditionalExpression(current)) {
+    const truth = expressionTruth(current.condition, checker);
+    if (truth !== false && truth !== true) {
+      return (
+        provedSameTrackedObject(
+          current.whenTrue,
+          symbol,
+          aliases,
+          checker,
+          depth + 1,
+        ) &&
+        provedSameTrackedObject(
+          current.whenFalse,
+          symbol,
+          aliases,
+          checker,
+          depth + 1,
+        )
+      );
+    }
+    return provedSameTrackedObject(
+      truth === true ? current.whenTrue : current.whenFalse,
+      symbol,
+      aliases,
+      checker,
+      depth + 1,
+    );
+  }
+  if (ts.isCommaListExpression(current) && current.elements.length > 0) {
+    return provedSameTrackedObject(
+      current.elements.at(-1),
+      symbol,
+      aliases,
+      checker,
+      depth + 1,
+    );
+  }
+  if (ts.isBinaryExpression(current)) {
+    const operator = current.operatorToken.kind;
+    if (operator === ts.SyntaxKind.CommaToken) {
+      return provedSameTrackedObject(
+        current.right,
+        symbol,
+        aliases,
+        checker,
+        depth + 1,
+      );
+    }
+    if (
+      operator === ts.SyntaxKind.BarBarToken ||
+      operator === ts.SyntaxKind.QuestionQuestionToken
+    ) {
+      if (
+        provedSameTrackedObject(
+          current.left,
+          symbol,
+          aliases,
+          checker,
+          depth + 1,
+        )
+      ) {
+        // The tracked object is truthy and non-nullish, so a proved-same left
+        // operand is always the result.
+        return true;
+      }
+      const left = evaluateConstant(current.left, checker);
+      if (left === UNKNOWN) return false;
+      const takeRight =
+        operator === ts.SyntaxKind.QuestionQuestionToken
+          ? left === null
+          : !primitiveToBoolean(left);
+      return (
+        takeRight &&
+        provedSameTrackedObject(
+          current.right,
+          symbol,
+          aliases,
+          checker,
+          depth + 1,
+        )
+      );
+    }
+    if (operator === ts.SyntaxKind.AmpersandAmpersandToken) {
+      const left = evaluateConstant(current.left, checker);
+      const leftTaken =
+        left !== UNKNOWN
+          ? primitiveToBoolean(left)
+          : provedSameTrackedObject(
+              current.left,
+              symbol,
+              aliases,
+              checker,
+              depth + 1,
+            ) || UNKNOWN;
+      return (
+        leftTaken === true &&
+        provedSameTrackedObject(
+          current.right,
+          symbol,
+          aliases,
+          checker,
+          depth + 1,
+        )
+      );
+    }
+  }
+  return false;
 }
 
-function collectTrackedAliases(container, symbol, checker) {
+// May-side of the alias abstraction: the initializer's resolved option
+// targets include the tracked object (or one of its aliases), but the
+// same-object proof failed. The resulting binding may or may not be the
+// tracked object at runtime, so mutations through it can only degrade
+// certainty, never establish it.
+function referencesTrackedTarget(node, symbol, aliases, mayAliases, checker) {
+  return resolveOptionTargets(node, checker).some((target) => {
+    if (!ts.isIdentifier(target)) return false;
+    const resolved = checker.getSymbolAtLocation(target);
+    return (
+      resolved !== undefined &&
+      (resolved === symbol || aliases.has(resolved) || mayAliases.has(resolved))
+    );
+  });
+}
+
+function collectTrackedAliasSets(container, symbol, checker) {
   const aliases = new Set();
+  const mayAliases = new Set();
   let changed = true;
   while (changed) {
     changed = false;
@@ -3750,15 +4040,28 @@ function collectTrackedAliases(container, symbol, checker) {
         ts.isVariableDeclarationList(node.parent) &&
         (node.parent.flags & ts.NodeFlags.Const) !== 0
       ) {
-        const initializer = plainAliasIdentifier(node.initializer);
-        const sourceSymbol =
-          initializer === undefined
-            ? undefined
-            : checker.getSymbolAtLocation(initializer);
-        if (sourceSymbol === symbol || aliases.has(sourceSymbol)) {
-          const alias = checker.getSymbolAtLocation(node.name);
-          if (alias !== undefined && !aliases.has(alias)) {
-            aliases.add(alias);
+        const name = checker.getSymbolAtLocation(node.name);
+        if (name !== undefined) {
+          if (
+            provedSameTrackedObject(node.initializer, symbol, aliases, checker)
+          ) {
+            if (!aliases.has(name)) {
+              aliases.add(name);
+              mayAliases.delete(name);
+              changed = true;
+            }
+          } else if (
+            !aliases.has(name) &&
+            !mayAliases.has(name) &&
+            referencesTrackedTarget(
+              node.initializer,
+              symbol,
+              aliases,
+              mayAliases,
+              checker,
+            )
+          ) {
+            mayAliases.add(name);
             changed = true;
           }
         }
@@ -3767,7 +4070,7 @@ function collectTrackedAliases(container, symbol, checker) {
     }
     visit(container);
   }
-  return aliases;
+  return { aliases, mayAliases };
 }
 
 function trackedIdentifierStatesAtSink(
@@ -3811,12 +4114,14 @@ function trackedIdentifierStatesAtSink(
     return [];
   }
 
+  const aliasSets = collectTrackedAliasSets(container, symbol, checker);
   const context = {
-    aliases: collectTrackedAliases(container, symbol, checker),
+    aliases: aliasSets.aliases,
     bindings,
     budget: { steps: 0 },
     checker,
     declaration: resolved.declaration,
+    mayAliases: aliasSets.mayAliases,
     names,
     symbol,
   };
