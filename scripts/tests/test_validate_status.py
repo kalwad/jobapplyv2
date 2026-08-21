@@ -290,6 +290,7 @@ def prepare_m02_w06_pre_governance(repo: Path) -> None:
     for issue_id in ("KI-0055", "KI-0056", "KI-0057"):
         set_issue_state(repo, issue_id, "IN_PROGRESS")
     set_live_blockers(repo, M02_W06_BLOCKER_LINES)
+    reset_downstream(repo, after_package="M02-W07", after_milestone="M02")
     path = status_path(repo)
     text = path.read_text(encoding="utf-8")
     replacements = {
@@ -323,6 +324,7 @@ def prepare_m02_w06_pre_governance(repo: Path) -> None:
 
 def prepare_m02_w06_future_governance(repo: Path) -> None:
     resolve_corrective_issues(repo)
+    reset_downstream(repo, after_package="M02-W07", after_milestone="M02")
     promote(repo, "M02-W06")
     set_pkg_state(repo, "M02-W06", "VERIFIED")
     set_pkg_state(repo, "M02-W07", "READY")
