@@ -2359,6 +2359,121 @@ function localCallableReferencesTrackedState(
   );
 }
 
+// A non-direct callee can still produce a closure that is executed by the
+// enclosing CallExpression. Keep this result-only and bounded: ordinary
+// callee evaluation remains in processTrackedExpression, while finding a
+// possibly selected tracked capture only requests conservative call-time
+// invalidation. Merely creating any of these function-like values stays inert.
+function immediateCalleeResultReferencesTrackedState(
+  node,
+  context,
+  activeFunctions = new Set(),
+  functionDepth = 0,
+  structuralDepth = 0,
+) {
+  if (structuralDepth >= MAX_STRUCTURAL_DEPTH) return true;
+  const current = unwrapExpression(node);
+  if (
+    ts.isParenthesizedExpression(current) ||
+    ts.isAsExpression(current) ||
+    ts.isSatisfiesExpression(current) ||
+    ts.isTypeAssertionExpression(current) ||
+    ts.isNonNullExpression(current)
+  ) {
+    // unwrapExpression stopped at its structural bound.
+    return true;
+  }
+  let target;
+  if (ts.isArrowFunction(current) || ts.isFunctionExpression(current)) {
+    const internalSymbol =
+      current.name === undefined
+        ? undefined
+        : context.checker.getSymbolAtLocation(current.name);
+    target = {
+      declarations: [current],
+      symbol: internalSymbol ?? current,
+      unknownCapture: false,
+    };
+  } else if (ts.isIdentifier(current)) {
+    const symbol = context.checker.getSymbolAtLocation(current);
+    if (symbol === undefined) return false;
+    const resolved = callableDeclarationsFromValue(current, context);
+    if (resolved.declarations.length === 0 && !resolved.unknownCapture) {
+      return false;
+    }
+    target = {
+      declarations: resolved.declarations,
+      symbol,
+      unknownCapture: resolved.unknownCapture,
+    };
+  }
+  if (target !== undefined) {
+    return localCallableReferencesTrackedState(
+      target,
+      context,
+      activeFunctions,
+      functionDepth,
+    );
+  }
+
+  let results;
+  if (ts.isConditionalExpression(current)) {
+    const truth = expressionTruth(current.condition, context.checker);
+    results =
+      truth === true
+        ? [current.whenTrue]
+        : truth === false
+          ? [current.whenFalse]
+          : [current.whenTrue, current.whenFalse];
+  } else if (ts.isCommaListExpression(current)) {
+    results = [current.elements.at(-1)];
+  } else if (ts.isBinaryExpression(current)) {
+    const operator = current.operatorToken.kind;
+    if (operator === ts.SyntaxKind.CommaToken) {
+      results = [current.right];
+    } else if (
+      operator === ts.SyntaxKind.AmpersandAmpersandToken ||
+      operator === ts.SyntaxKind.BarBarToken ||
+      operator === ts.SyntaxKind.QuestionQuestionToken
+    ) {
+      const left = evaluateConstant(current.left, context.checker);
+      let takeRight = UNKNOWN;
+      if (operator === ts.SyntaxKind.QuestionQuestionToken) {
+        if (left !== UNKNOWN) takeRight = left === null;
+        else if (provablyUndefinedValue(current.left, context.checker)) {
+          takeRight = true;
+        }
+      } else if (left !== UNKNOWN) {
+        const truth = primitiveToBoolean(left);
+        takeRight =
+          operator === ts.SyntaxKind.AmpersandAmpersandToken ? truth : !truth;
+      }
+      results =
+        takeRight === true
+          ? [current.right]
+          : takeRight === false
+            ? [current.left]
+            : [current.left, current.right];
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+
+  return results.some(
+    (result) =>
+      result !== undefined &&
+      immediateCalleeResultReferencesTrackedState(
+        result,
+        context,
+        activeFunctions,
+        functionDepth,
+        structuralDepth + 1,
+      ),
+  );
+}
+
 function localFunctionBindingWrite(identifier) {
   let current = identifier;
   while (current.parent !== undefined) {
@@ -2486,10 +2601,12 @@ function localCallableBodyIsSummarizable(body, context) {
 
 function applyDirectLocalCallableCall(call, states, context) {
   const target = directLocalCallableTarget(call, context);
-  if (
-    target === null ||
-    !localCallableReferencesTrackedState(target, context)
-  ) {
+  if (target === null) {
+    return immediateCalleeResultReferencesTrackedState(call.expression, context)
+      ? unknownTrackedStates(states)
+      : states;
+  }
+  if (!localCallableReferencesTrackedState(target, context)) {
     return states;
   }
   const activeFunctions = context.activeLocalFunctions ?? new Set();
@@ -3878,13 +3995,20 @@ function referencesTrackedSymbol(
   if (ts.isCallExpression(node)) {
     const target = directLocalCallableTarget(node, context);
     if (
-      target !== null &&
-      localCallableReferencesTrackedState(
-        target,
-        context,
-        activeFunctions,
-        functionDepth,
-      )
+      (target === null &&
+        immediateCalleeResultReferencesTrackedState(
+          node.expression,
+          context,
+          activeFunctions,
+          functionDepth,
+        )) ||
+      (target !== null &&
+        localCallableReferencesTrackedState(
+          target,
+          context,
+          activeFunctions,
+          functionDepth,
+        ))
     ) {
       return true;
     }

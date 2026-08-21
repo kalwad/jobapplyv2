@@ -168,7 +168,13 @@ broadening a work package (spec §1.5).
   `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`), and the
   sixth correction was independently re-blocked on 2026-08-21 after its
   alias/shorthand surfaces cleared (verdict
-  `SOL_BLOCKED_FINAL_M02_W07_SIXTH_CORRECTION_VERIFICATION`)
+  `SOL_BLOCKED_FINAL_M02_W07_SIXTH_CORRECTION_VERIFICATION`), the seventh
+  correction was independently re-blocked after its hoisted-function surface
+  cleared (verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SEVENTH_CORRECTION_VERIFICATION`), and the eighth
+  correction was independently re-blocked after its direct local closure
+  surface cleared (verdict
+  `SOL_BLOCKED_FINAL_M02_W07_EIGHTH_CORRECTION_VERIFICATION`)
 - Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
   `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
@@ -578,6 +584,67 @@ broadening a work package (spec §1.5).
   dependency, lockfile, CI, model, prompt, W08, or owner-evidence surface
   changed. KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
   verifier on the exact eighth-correction content and W07 governance.
+
+  Ninth narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21): begun
+  on the exact independently blocked eighth-correction commit
+  `1a63145846e44f60903e48402c0c812d02581dd5` / tree
+  `ce945ff89af363e8da2bd28ba60113b5e6d2a75d` / parent
+  `3133a9348193a03759140dc2a32c35223be9717d` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_EIGHTH_CORRECTION_VERIFICATION`. That verifier
+  cleared the eighth correction's direct arrow/function-expression call
+  support and reproduced one remaining stale-certainty hole: with
+  `shell=true`, both branches of an immediately called conditional arrow
+  expression writing `shell=false`, the checker still emitted the original
+  `shell=true` finding. The exact starting analyzer walked the conditional
+  callee, correctly treated each merely created closure body as inert, then
+  found no direct identifier target; `applyDirectLocalCallableCall` returned
+  the incoming state. `referencesTrackedSymbol` had the matching hole, so the
+  entire pre-sink IIFE statement could also be skipped.
+
+  The correction adds one result-only, structurally bounded
+  `immediateCalleeResultReferencesTrackedState` helper used only when the
+  existing exact direct-local target resolver returns null. It recognizes
+  immediate arrow/function leaves and existing local callable leaves, unwraps
+  parentheses/`as`/`satisfies`/type assertions/non-null, honors a statically
+  known conditional branch and conservatively checks either branch when
+  unknown, takes only the result side of binary/CommaList comma expressions,
+  and applies the same bounded result rule to `&&`, `||`, and `??`. Normal
+  callee-prefix and argument effects remain ordered in
+  `processTrackedExpression`; a possible selected tracked capture invalidates
+  to UNKNOWN only at the reached call site. The same predicate makes the
+  statement relevance filter retain that call. Merely assigning a conditional
+  closure value remains inert, unrelated immediate callables preserve tracked
+  certainty, and the exact direct identifier summary path is unchanged.
+
+  Sixteen permanent ninth-correction nodes cover the exact conditional-IIFE
+  reproducer, inverse stale-clean and absent/default-shell guards, one-sided
+  capture, known-true/known-false selection, unrelated branches, uncalled and
+  post-sink timing, direct arrow/function IIFEs, comma-prefix ordering, every
+  ordinary wrapper kind in one nested fixture, bounded logical-result forms,
+  unrelated non-direct calls, and pinned TypeScript compilation. The ninth
+  slice passes 16/16; the eighth slice remains 46/46; the fifth-through-ninth
+  lock passes 146/146; and the complete portability module passes 493/493.
+  Canonical inventory regeneration added exactly those 16 IDs and removed
+  none: 1,387 common/Windows nodes at SHA-256
+  `72f8d4f65f625e569d7959c026c2280ea2ee275ed5e873304f9d8e6591d4cc8c`
+  and 1,389 POSIX nodes at SHA-256
+  `1b3cfe8786cc8f5dc3e255d2ac7999ea1fac9fea5a819281dc2f6d7e66552908`.
+
+  The single bounded no-delegation reviewer confirmed the starting root cause
+  and returned CLEAR twice on the final design/compaction, including a 62-node
+  eighth+ninth lock. Exactly five mutation families were run in disposable
+  `git clone --no-local --no-hardlinks` candidates against the final analyzer
+  and test bytes, then stopped at M5: restore conditional-IIFE blindness (M1,
+  7 failures / 9 controls), execute uncalled conditional closure values (M2,
+  1 / 15), drop direct arrow/function IIFEs (M3, 2 / 14), drop typed-wrapper
+  and comma-result relevance (M4, 2 / 14), and return incoming stale state
+  instead of UNKNOWN for unsupported immediate callees (M5, 9 / 7). All
+  clones were removed after inspection. No catalog, wrapper, extension,
+  browser, W06, contract, generated, gate, dependency, lockfile, CI, model,
+  prompt, W08, or owner-evidence surface changed, and no excluded private
+  owner-evidence path was accessed. KI-0058 remains HIGH / IN_PROGRESS pending
+  a completely fresh verifier on the exact ninth-correction content and W07
+  governance.
 
 ## M02-W06 owner-holdout corrective review
 

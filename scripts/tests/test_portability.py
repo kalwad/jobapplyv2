@@ -4869,6 +4869,241 @@ def test_eighth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
     assert proc.returncode == 0, proc.stdout + proc.stderr
 
 
+# -------- ninth correction: KI-0058 immediate non-direct callable expressions
+
+NINTH_CORRECTION_CONSERVATIVE_SOURCES = [
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: true };\n"
+        "(condition\n"
+        "  ? () => { options.shell = false; }\n"
+        "  : () => { options.shell = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: false };\n"
+        "(condition\n"
+        "  ? () => { options.shell = true; }\n"
+        "  : () => { options.shell = true; })();\n"
+        "options.shell = true;\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { execSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options: { shell?: string } = {};\n"
+        "(condition\n"
+        '  ? () => { options.shell = ""; }\n'
+        '  : () => { options.shell = ""; })();\n'
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const other = { value: false };\n"
+        "const options = { shell: true };\n"
+        "(condition\n"
+        "  ? () => { options.shell = false; }\n"
+        "  : () => { other.value = true; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const other = { value: false };\n"
+        "const options = { shell: true };\n"
+        "(true\n"
+        "  ? () => { options.shell = false; }\n"
+        "  : () => { other.value = true; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const other = { value: false };\n"
+        "const options = { shell: true };\n"
+        "(false\n"
+        "  ? () => { other.value = true; }\n"
+        "  : () => { options.shell = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: true };\n"
+        "(() => { options.shell = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: true };\n"
+        "(function () { options.shell = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "(options.shell = true, () => { options.shell = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: true };\n"
+        "(\n"
+        "  <(() => void)>(\n"
+        "    ((condition\n"
+        "      ? () => { options.shell = false; }\n"
+        "      : () => { options.shell = false; }) satisfies (() => void))!\n"
+        "  ) as (() => void)\n"
+        ")();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: true };\n"
+        "(((condition && (() => { options.shell = false; })) || undefined)\n"
+        "  ?? (() => {}))();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+]
+
+NINTH_CORRECTION_PRESERVED_FINDING_SOURCES = [
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const other = { value: false };\n"
+        "const options = { shell: true };\n"
+        "(condition\n"
+        "  ? () => { other.value = true; }\n"
+        "  : () => { other.value = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: true };\n"
+        "const selected = condition\n"
+        "  ? () => { options.shell = false; }\n"
+        "  : () => { options.shell = false; };\n"
+        "void selected;\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const options = { shell: true };\n"
+        'spawnSync("node", ["--version"], options);\n'
+        "(condition\n"
+        "  ? () => { options.shell = false; }\n"
+        "  : () => { options.shell = false; })();\n"
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const other = { value: false };\n"
+        "const options = { shell: true };\n"
+        "(other.value = true, condition\n"
+        "  ? () => { other.value = true; }\n"
+        "  : function () { other.value = false; })();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    "source",
+    NINTH_CORRECTION_CONSERVATIVE_SOURCES,
+    ids=[
+        "h1-conditional-iife-clears-stale-true",
+        "h2-inverse-guard-proves-unknown-not-stale-false",
+        "h3-conditional-iife-clears-stale-absent-default",
+        "h4-one-capturing-branch-is-conservative",
+        "h5-known-true-selected-capture-is-conservative",
+        "h6-known-false-selected-capture-is-conservative",
+        "h10-direct-parenthesized-arrow-iife",
+        "h11-direct-function-expression-iife",
+        "h12-comma-result-iife-preserves-prefix-order",
+        "h13-wrapped-conditional-iife",
+        "logical-result-iife-is-bounded-and-conservative",
+    ],
+)
+def test_ninth_correction_immediate_capture_is_conservative(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "ninth-correction-conservative.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "source",
+    NINTH_CORRECTION_PRESERVED_FINDING_SOURCES,
+    ids=[
+        "h7-unrelated-conditional-closures-do-not-invalidate",
+        "h8-uncalled-conditional-closure-value-is-inert",
+        "h9-post-sink-conditional-iife-is-not-retroactive",
+        "h14-unrelated-non-direct-call-does-not-invalidate",
+    ],
+)
+def test_ninth_correction_unrelated_or_deferred_forms_preserve_finding(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "ninth-correction-preserved.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    shell_violations = [
+        violation
+        for violation in violations
+        if violation.rule == "PORT-SRC-008" and FIFTH_SHELL_DETAIL in violation.message
+    ]
+    assert len(shell_violations) == 1
+    assert not any(FIFTH_BUDGET_DETAIL in violation.message for violation in violations)
+
+
+def test_ninth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
+    sources = [
+        *NINTH_CORRECTION_CONSERVATIVE_SOURCES,
+        *NINTH_CORRECTION_PRESERVED_FINDING_SOURCES,
+    ]
+    names = []
+    for index, source in enumerate(sources):
+        name = f"ninth-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *names,
+        ),
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:

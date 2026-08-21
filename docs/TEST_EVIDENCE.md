@@ -33,6 +33,126 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 immediate callable ninth correction writer evidence (2026-08-21)
+
+- Revision: ninth narrow correction writer pass starting from independently
+  blocked eighth-correction commit
+  `1a63145846e44f60903e48402c0c812d02581dd5` / tree
+  `ce945ff89af363e8da2bd28ba60113b5e6d2a75d` / parent
+  `3133a9348193a03759140dc2a32c35223be9717d` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_EIGHTH_CORRECTION_VERIFICATION`; the ninth
+  correction content tree is recorded post-commit by the containing commit.
+- Environment: macOS arm64; Node 24.18.0; pnpm 11.17.0; uv-managed Python
+  3.12.13 / pytest 9.1.1; TypeScript 6.0.3; @types/node 24.13.3;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact-boundary verification before any edit: `git fetch origin`, both
+  porcelain status forms, branch/upstream, HEAD/origin/tree/parent,
+  `git diff --check`, and specification digest → clean synchronized `main`;
+  HEAD == origin/main == `1a63145846e44f60903e48402c0c812d02581dd5`;
+  tree `ce945ff89af363e8da2bd28ba60113b5e6d2a75d`; parent
+  `3133a9348193a03759140dc2a32c35223be9717d`; required spec digest.
+- Fresh pre-fix reproduction on those exact analyzer bytes: the verifier's
+  conditional IIFE began with `{ shell: true }`, both possible arrow bodies
+  assigned `options.shell = false`, and the later `spawnSync` sink emitted
+  `[{"path":".codex-n9-reproducer.ts","line":4,"kind":"shell-true",`
+  `"detail":"shell=true"}]`. The temporary reproducer was deleted after the
+  result was inspected.
+- Confirmed root cause: `processTrackedExpression` first evaluated the
+  conditional callee and correctly treated each closure value as inert; the
+  later call helper supported direct arrows/functions and direct identifier
+  targets only, so the conditional expression resolved to no target and
+  returned the incoming state. `referencesTrackedSymbol` made the same direct
+  target query, then recursively pruned each deferred body, so the entire
+  reached IIFE statement could be misclassified as unrelated and skipped.
+- Ninth-correction architecture (`scripts/check_typescript_portability.mjs`):
+  - One `immediateCalleeResultReferencesTrackedState` helper is entered only
+    for a `CallExpression` without an exact supported direct-local target. It
+    is bounded by `MAX_STRUCTURAL_DEPTH` and reuses the existing bounded local
+    callable/capture discovery at function-like or local identifier leaves.
+  - Parentheses, `as`, `satisfies`, type assertions, and non-null wrappers are
+    transparent. Known conditional truth selects only the reachable result;
+    unknown truth checks either result. Binary/CommaList comma forms inspect
+    only the final callable result. `&&`, `||`, and `??` use known primitive
+    reachability when available and otherwise conservatively inspect either
+    possible result without exact logical-call interpretation.
+  - Callee and argument evaluation remains ordered by the existing expression
+    walker. If a possible immediately executed result may capture tracked
+    state, the reached call returns UNKNOWN; no branch body is interpreted as
+    an exact conditional-IIFE summary. The same predicate feeds statement
+    relevance, closing both halves of the stale-state hole.
+  - Exact direct identifier calls bypass the new fallback and retain the
+    eighth correction's exact summaries. Direct arrow/function IIFEs retain
+    their existing conservative path. Function-like values that are merely
+    created, including conditional values assigned to a variable, remain
+    inert until called. Unrelated immediate callables do not invalidate.
+- Permanent behavioral proof: the 16-node ninth slice covers H1–H14 plus one
+  bounded logical-result fixture and pinned TypeScript compilation. It locks
+  the exact reproducer; an UNKNOWN-vs-stale-false inverse guard; absent/default
+  shell; one-sided capture; known true/false selection; unrelated branches;
+  uncalled and post-sink timing; direct arrow/function IIFEs; comma-prefix
+  ordering; every ordinary wrapper kind in one nested fixture; logical result
+  forms; and an unrelated non-direct call. The pre-existing 46-node eighth
+  slice separately retains declaration parity, exact direct identifiers,
+  concise/function-expression/computed/delete/ordered effects, timing, symbol
+  identity, shadowing, and conservative unsupported fallbacks.
+- Bounded writer review: the one permitted read-only reviewer used no
+  subdelegation, independently confirmed the exact starting root cause, and
+  returned CLEAR on both the initial and compacted final helper. Its focused
+  eighth+ninth run passed 62/62, and it confirmed the direct-identifier path,
+  executed-vs-uncalled boundary, result-only comma behavior, wrapper/logical
+  coverage, and shared statement/call relevance wiring.
+- Targeted mutation campaign: exactly five families, each in a disposable
+  `git clone --no-local --no-hardlinks` candidate against the final analyzer
+  and test bytes, stopped at M5 and removed after inspection:
+  - M1 restored conditional-IIFE call blindness → 7 intended failures / 9
+    controls passed.
+  - M2 treated uncalled conditional closure creation as execution → H8 failed /
+    15 controls passed.
+  - M3 dropped direct arrow/function-expression IIFE relevance → H10/H11
+    failed / 14 controls passed.
+  - M4 dropped typed-wrapper and comma-result relevance → H12/H13 failed / 14
+    controls passed.
+  - M5 returned incoming stale state instead of UNKNOWN for unsupported
+    immediate callees → 9 intended failures / 7 controls passed.
+- Commands and observed results before documentation freeze:
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q -k
+    ninth_correction` → exit 0, **16 passed**, 477 deselected.
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q -k
+    eighth_correction` → exit 0, **46 passed**, 447 deselected.
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q -k
+    'fifth_correction or sixth_correction or seventh_correction or
+    eighth_correction or ninth_correction'` → exit 0, **146 passed**, 347
+    deselected.
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q` → exit 0,
+    **493 passed**.
+  - Canonical exact collection added exactly 16 ninth-correction node IDs and
+    removed none: **1,387 common/Windows** nodes at SHA-256
+    `72f8d4f65f625e569d7959c026c2280ea2ee275ed5e873304f9d8e6591d4cc8c`
+    and **1,389 POSIX** nodes at SHA-256
+    `1b3cfe8786cc8f5dc3e255d2ac7999ea1fac9fea5a819281dc2f6d7e66552908`.
+  - `node --check`, Ruff check/format, Prettier formatting, combined
+    eighth+ninth 62-node lock, and `git diff --check` → exit 0.
+- Frozen verification deferral: after these final documentation bytes, the
+  complete substantive sequence (`python3 scripts/check_portability.py`,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  `pnpm generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, and
+  `git diff --check`) is run twice with an identical tracked fingerprint and
+  reported in the final writer handoff; no result is preclaimed here. Hosted
+  exact-SHA ubuntu-24.04, macos-15, and windows-2025 evidence is likewise
+  pending the single forward commit and push.
+- Artifacts: n/a. The authoritative checkout and reviewer never accessed,
+  enumerated, tested, or inspected the excluded private owner-evidence path or
+  historical W06/Trash evidence. No W08 implementation, gate report, or Gate A
+  execution occurred.
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  verifier on the exact ninth-correction content and W07 governance.
+  KI-0059..KI-0062 remain HIGH / IN_PROGRESS with their cleared surfaces
+  untouched; KI-0006 remains LOW / DEFERRED for the M17 Rust/native surface;
+  REQ-FORM-020 remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE; M02-W07 remains
+  IN_PROGRESS, M02-W08 remains NOT_STARTED, no package is READY, all critical
+  gates remain NOT_EVALUATED, and release remains NOT_READY.
+
 ### M02-W07 — KI-0058 direct local closure eighth correction writer evidence (2026-08-21)
 
 - Revision: eighth narrow correction writer pass starting from independently
