@@ -3995,6 +3995,315 @@ def test_sixth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
     assert proc.returncode == 0, proc.stdout + proc.stderr
 
 
+# -------- seventh correction: KI-0058 hoisted tracked-state local functions
+
+SEVENTH_CORRECTION_H1_SOURCE = (
+    'import { spawnSync } from "node:child_process";\n'
+    "const options = { shell: false };\n"
+    "enableShell();\n"
+    'spawnSync("node", ["--version"], options);\n'
+    "function enableShell(): void {\n"
+    "  options.shell = true;\n"
+    "}\n"
+)
+
+SEVENTH_CORRECTION_H2_SOURCE = (
+    'import { execSync } from "node:child_process";\n'
+    "const options: { shell?: string } = {};\n"
+    "disableDefaultShell();\n"
+    'execSync("node --version", options);\n'
+    "function disableDefaultShell(): void {\n"
+    '  options.shell = "";\n'
+    "}\n"
+)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        SEVENTH_CORRECTION_H1_SOURCE,
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "function enableShell(): void { options.shell = true; }\n"
+            "enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "disableShell();\n"
+            "enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableShell(): void { options.shell = true; }\n"
+            "function disableShell(): void { options.shell = false; }\n"
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            'const options: { shell?: string } = { shell: "" };\n'
+            "restoreDefaultShell();\n"
+            'execSync("node --version", options);\n'
+            "function restoreDefaultShell(): void { delete options.shell; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            'function enableShell(): void { options["shell"] = true; }\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "{\n"
+            "  function setShell(): void { options.shell = false; }\n"
+            "  void setShell;\n"
+            "}\n"
+            "setShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function setShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "if (true) enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "declare const condition: boolean;\n"
+            "const options = { shell: false };\n"
+            "if (condition) enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+    ],
+    ids=[
+        "h1-declaration-after-sink-enables-shell",
+        "h3-declaration-before-call-parity",
+        "h8-disable-then-enable-final-enabled",
+        "h9-delete-restores-exec-default-shell",
+        "h10-computed-key-write-enables-shell",
+        "h12-same-name-other-scope-uses-symbol-identity",
+        "h14-known-true-branch-applies-call",
+        "h15-unknown-branch-retains-possible-violation",
+    ],
+)
+def test_seventh_correction_local_function_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "seventh-correction-function.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert {violation.rule for violation in violations} == {"PORT-SRC-008"}
+    assert any(FIFTH_SHELL_DETAIL in violation.message for violation in violations)
+    assert not any(FIFTH_BUDGET_DETAIL in violation.message for violation in violations)
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        SEVENTH_CORRECTION_H2_SOURCE,
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            'function disableDefaultShell(): void { options.shell = ""; }\n'
+            "disableDefaultShell();\n"
+            'execSync("node --version", options);\n'
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "enableShell();\n"
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "enableShell();\n"
+            "disableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function disableShell(): void { options.shell = false; }\n"
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "mutateShadow();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function mutateShadow(): void {\n"
+            "  const options = { shell: false };\n"
+            "  options.shell = true;\n"
+            "}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: false };\n"
+            "if (false) enableShell();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableShell(): void { options.shell = true; }\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const options = { shell: true };\n"
+            "disableWithRecursion();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function disableWithRecursion(): void {\n"
+            "  disableWithRecursion();\n"
+            "  options.shell = false;\n"
+            "}\n"
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            "disableWithTry();\n"
+            'execSync("node --version", options);\n'
+            "function disableWithTry(): void {\n"
+            '  try { options.shell = ""; } finally { void 0; }\n'
+            "}\n"
+        ),
+        (
+            'import { execSync } from "node:child_process";\n'
+            "const options: { shell?: string } = {};\n"
+            "disableDefaultShell();\n"
+            'execSync("node --version", options);\n'
+            "function disableDefaultShell(\n"
+            '  _unused = (options.shell = ""),\n'
+            "): void {}\n"
+        ),
+        (
+            'import { spawnSync } from "node:child_process";\n'
+            "const disableShell = (): void => { options.shell = false; };\n"
+            "const options = { shell: false };\n"
+            "enableThenDisable();\n"
+            'spawnSync("node", ["--version"], options);\n'
+            "function enableThenDisable(): void {\n"
+            "  options.shell = true;\n"
+            "  disableShell();\n"
+            "}\n"
+        ),
+    ],
+    ids=[
+        "h2-declaration-after-sink-disables-default-shell",
+        "h4-declaration-before-call-parity",
+        "h5-never-called-declaration-has-no-effect",
+        "h6-call-after-sink-has-no-retroactive-effect",
+        "h7-enable-then-disable-final-disabled",
+        "h11-function-local-shadow-does-not-mutate-outer",
+        "h13-known-false-branch-skips-call",
+        "h16-direct-recursion-falls-back-finitely",
+        "h17-unsupported-body-falls-back-to-unknown",
+        "review-default-parameter-capture-falls-back",
+        "review-unsupported-captured-arrow-call-falls-back",
+    ],
+)
+def test_seventh_correction_local_function_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "seventh-correction-function-control.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_seventh_correction_repeated_analysis_is_deterministic(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "seventh-correction-determinism.ts").write_text(
+        SEVENTH_CORRECTION_H1_SOURCE, encoding="utf-8"
+    )
+    expected = tuple(
+        violation.render() for violation in check_portability.run_checks(policy_repo)
+    )
+    assert expected
+    for _ in range(3):
+        assert (
+            tuple(
+                violation.render()
+                for violation in check_portability.run_checks(policy_repo)
+            )
+            == expected
+        )
+
+
+def test_seventh_correction_deep_call_chain_is_bounded(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    functions = "".join(
+        f"function f{index}(): void {{ f{index + 1}(); }}\n" for index in range(1_023)
+    )
+    source = (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "f0();\n"
+        'spawnSync("node", ["--version"], options);\n'
+        f"{functions}"
+        "function f1023(): void { options.shell = true; }\n"
+    )
+    (source_dir / "seventh-correction-deep-chain.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_seventh_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
+    sources: list[str] = []
+    for test in (
+        test_seventh_correction_local_function_violations_fail,
+        test_seventh_correction_local_function_controls_pass,
+    ):
+        mark = next(
+            mark for mark in cast("Any", test).pytestmark if mark.name == "parametrize"
+        )
+        sources.extend(mark.args[1])
+    names = []
+    for index, source in enumerate(sources):
+        name = f"seventh-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *names,
+        ),
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_typescript_declaration_files_are_not_runtime_sources(
     policy_repo: Path,
 ) -> None:

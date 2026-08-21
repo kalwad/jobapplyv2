@@ -165,7 +165,10 @@ broadening a work package (spec §1.5).
   2026-08-14, the third correction was subsequently independently re-blocked
   (verdict `SOL_BLOCKED_FINAL_M02_W07_THIRD_CORRECTION_VERIFICATION`), and
   the fourth correction was independently re-blocked on 2026-08-17 (verdict
-  `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`)
+  `FABLE_BLOCKED_FINAL_M02_W07_FOURTH_CORRECTION_VERIFICATION`), and the
+  sixth correction was independently re-blocked on 2026-08-21 after its
+  alias/shorthand surfaces cleared (verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SIXTH_CORRECTION_VERIFICATION`)
 - Affects: M02-W07; initial blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
   `ddb6df168684ab5f534ac1125f14bb85067e613c`; insufficient first correction
@@ -447,6 +450,67 @@ broadening a work package (spec §1.5).
   remain untouched. KI-0058 remains HIGH / IN_PROGRESS pending a
   completely fresh independent verifier on the exact sixth-correction
   content and W07 governance.
+
+  Seventh narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21):
+  begun on the exact independently blocked sixth-correction commit
+  `05bbcb340bd98e856367b5349d51be028669d3f7` / tree
+  `156417979f7e103ad7a7b5050dc7cd4eacd596d5` / parent
+  `142f6fb5c759464dc8116d0b41a2ed13304543e2` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SIXTH_CORRECTION_VERIFICATION`. That verifier
+  cleared the sixth correction's alias registration/invalidation and
+  shorthand-escape semantics and preserved the fifth-correction locks; its
+  sole blocker was the parked pre-existing hoisted-function blindspot. On
+  the exact base, H1 (`{ shell:false }`; call a hoisted function that writes
+  `true`; spawn sink; declaration text after the sink) returned no finding,
+  while H2 (absent shell; call a hoisted function that writes `""`; exec
+  sink; declaration after the sink) returned a false default-shell finding.
+  The direct-write equivalents were correct, and placing the H2 declaration
+  before the call merely erased certainty at declaration time, proving the
+  source-order artifact. The root cause was the tracked-state statement
+  filter: it followed statements only from the object declaration to the
+  sink and skipped a call identifier with no syntactic tracked-object
+  reference, while a declaration encountered before the sink was treated as
+  unsupported deferred capture rather than as a no-op.
+
+  The seventh correction resolves only direct local function declarations
+  through TypeScript symbol identity, keeps declaration statements inert,
+  and applies a deliberately small exact summary at the call site:
+  zero-parameter straight-line assignments of constant values to known
+  tracked properties and known-key deletes, including `options.shell =
+  true/false/""`, `delete options.shell`, and `options["shell"] = true`.
+  Runtime parameter/default-initializer captures are included in relevance
+  discovery but fall back to UNKNOWN; so do dynamic reassignment, direct or
+  mutual recursion, unsupported control flow/calls, and separately declared
+  captured arrow/function-expression calls. Symbol-active cycle detection
+  and a depth-16 capture/summary limit bound both cyclic and deep acyclic
+  chains before another callable is followed. Permanent H1–H18 tests plus
+  three reviewer regressions cover declaration parity, never-called and
+  post-sink timing, opposite declaration/call ordering, delete/computed
+  writes, local and lexical shadowing, known/unknown branches, stale-state
+  recursion and unsupported fallback, default parameters, captured-arrow
+  calls, a 1,024-function chain, determinism, and pinned-tsc compilation
+  (22 new nodes; focused suite 409 → 431). The fifth and sixth correction
+  regression lock passes 84/84.
+
+  Exactly six disposable `git clone --no-local --no-hardlinks` mutation
+  families were run and stopped at M6: exclude later declarations (M1, two
+  failures), no-op direct calls (M2, two), execute declarations as bodies
+  (M3, two), replay effects in declaration rather than call order (M4, two),
+  contaminate symbol identity with same-name matching (M5, one), and retain
+  stale state for recursion/unsupported fallback (M6, three). One bounded
+  reviewer, with no subdelegation, found three candidate blockers; the lead
+  independently reproduced each on the live checker before acting: a
+  default-parameter stale proof, an unsupported captured-arrow call falsely
+  summarized as exact, and a 1,024-function acyclic capture-discovery stack
+  overflow. All three are corrected and permanently pinned. The canonical
+  inventory is now 1,325 common/Windows nodes at SHA-256
+  `286a079115b8330e153d297e0afc295c80029f0d8b1f8d86d560235f9b4fc7d6`
+  and 1,327 POSIX nodes at SHA-256
+  `6d155b719af06d642549622489d5ac34f3893a2a9eb37c6d1818f6d61909c8c1`.
+  No catalog, wrapper, extension, browser, W06, contract, generated, gate,
+  dependency, lockfile, CI, model, prompt, or owner-evidence surface changed.
+  KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh verifier on
+  the exact seventh-correction content and W07 governance.
 
 ## M02-W06 owner-holdout corrective review
 

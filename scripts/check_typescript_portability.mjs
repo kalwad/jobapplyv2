@@ -43,6 +43,7 @@ const MAX_CONSTANT_STRING_LENGTH = 16_384;
 const MAX_STRUCTURAL_DEPTH = 64;
 const MAX_OBJECT_ANALYSIS_STEPS = 2_048;
 const MAX_OBJECT_STATE_PATHS = 64;
+const MAX_LOCAL_FUNCTION_SUMMARY_DEPTH = 16;
 const MAX_LOOP_FIXED_POINT_STEPS = 128;
 const MAX_KNOWN_LOOP_ITERATIONS = 128;
 const MAX_TOTAL_EXACT_LOOP_REPLAYS = 1_024;
@@ -2046,6 +2047,253 @@ function isDirectTrackedIdentifier(node, context) {
   );
 }
 
+// Resolve only direct identifier calls whose runtime implementation is a
+// function declaration in the tracked object's statement container. Symbol
+// identity is essential here: textual names are insufficient in the presence
+// of shadowing or same-named declarations in another scope.
+function directLocalFunctionTarget(call, context) {
+  if (!ts.isCallExpression(call)) return null;
+  const callee = unwrapExpression(call.expression);
+  if (!ts.isIdentifier(callee)) return null;
+  const symbol = context.checker.getSymbolAtLocation(callee);
+  if (symbol === undefined) return null;
+  const declarations = [];
+  const seen = new Set();
+  for (const declaration of [
+    symbol.valueDeclaration,
+    ...(symbol.declarations ?? []),
+  ]) {
+    if (
+      declaration === undefined ||
+      seen.has(declaration) ||
+      !ts.isFunctionDeclaration(declaration) ||
+      declaration.body === undefined ||
+      declaration.getSourceFile() !== context.container.getSourceFile() ||
+      !nodeContains(context.container, declaration)
+    ) {
+      continue;
+    }
+    seen.add(declaration);
+    declarations.push(declaration);
+  }
+  return declarations.length === 0 ? null : { declarations, symbol };
+}
+
+// A directly referenced local arrow/function expression never receives exact
+// summary semantics here. Its runtime-only nodes are inspected solely so a
+// function declaration that calls the captured closure falls back to UNKNOWN
+// instead of preserving stale tracked state.
+function directLocalDeferredFunctionTarget(call, context) {
+  if (!ts.isCallExpression(call)) return null;
+  const callee = unwrapExpression(call.expression);
+  if (!ts.isIdentifier(callee)) return null;
+  const symbol = context.checker.getSymbolAtLocation(callee);
+  if (symbol === undefined) return null;
+  const declarations = [];
+  const seen = new Set();
+  for (const symbolDeclaration of [
+    symbol.valueDeclaration,
+    ...(symbol.declarations ?? []),
+  ]) {
+    if (
+      symbolDeclaration === undefined ||
+      seen.has(symbolDeclaration) ||
+      !ts.isVariableDeclaration(symbolDeclaration) ||
+      symbolDeclaration.initializer === undefined ||
+      symbolDeclaration.getSourceFile() !== context.container.getSourceFile() ||
+      !nodeContains(context.container, symbolDeclaration)
+    ) {
+      continue;
+    }
+    const initializer = unwrapExpression(symbolDeclaration.initializer);
+    if (
+      !ts.isArrowFunction(initializer) &&
+      !ts.isFunctionExpression(initializer)
+    ) {
+      continue;
+    }
+    seen.add(symbolDeclaration);
+    declarations.push(initializer);
+  }
+  return declarations.length === 0 ? null : { declarations, symbol };
+}
+
+function functionRuntimeNodes(declaration) {
+  const nodes = [];
+  for (const parameter of declaration.parameters) {
+    nodes.push(parameter.name);
+    if (parameter.initializer !== undefined) nodes.push(parameter.initializer);
+  }
+  nodes.push(declaration.body);
+  return nodes;
+}
+
+function localFunctionReferencesTrackedState(
+  target,
+  context,
+  activeFunctions = new Set(),
+  functionDepth = 0,
+) {
+  if (activeFunctions.has(target.symbol)) return false;
+  if (functionDepth >= MAX_LOCAL_FUNCTION_SUMMARY_DEPTH) return true;
+  const nextActive = new Set(activeFunctions);
+  nextActive.add(target.symbol);
+  return target.declarations.some((declaration) =>
+    functionRuntimeNodes(declaration).some((node) =>
+      referencesTrackedSymbol(
+        node,
+        context,
+        0,
+        nextActive,
+        functionDepth + 1,
+        true,
+      ),
+    ),
+  );
+}
+
+function localFunctionBindingWrite(identifier) {
+  let current = identifier;
+  while (current.parent !== undefined) {
+    const parent = current.parent;
+    if (ts.isFunctionDeclaration(parent) && parent.name === current) {
+      return false;
+    }
+    if (
+      ts.isBinaryExpression(parent) &&
+      isAssignmentOperator(parent.operatorToken.kind) &&
+      nodeContains(parent.left, identifier)
+    ) {
+      return true;
+    }
+    if (
+      ((ts.isPrefixUnaryExpression(parent) &&
+        (parent.operator === ts.SyntaxKind.PlusPlusToken ||
+          parent.operator === ts.SyntaxKind.MinusMinusToken)) ||
+        ts.isPostfixUnaryExpression(parent)) &&
+      nodeContains(parent.operand, identifier)
+    ) {
+      return true;
+    }
+    if (
+      ts.isVariableDeclaration(parent) &&
+      nodeContains(parent.name, identifier) &&
+      parent.initializer !== undefined
+    ) {
+      return true;
+    }
+    if (
+      (ts.isForInStatement(parent) || ts.isForOfStatement(parent)) &&
+      nodeContains(parent.initializer, identifier)
+    ) {
+      return true;
+    }
+    if (ts.isStatement(parent)) return false;
+    current = parent;
+  }
+  return false;
+}
+
+function localFunctionBindingIsStable(target, call, context) {
+  if (target.declarations.length !== 1) return false;
+  let stable = true;
+  const stopPosition = call.getStart();
+  function visit(node) {
+    if (
+      !stable ||
+      (node !== context.container && node.getStart() >= stopPosition)
+    )
+      return;
+    if (
+      ts.isIdentifier(node) &&
+      context.checker.getSymbolAtLocation(node) === target.symbol &&
+      localFunctionBindingWrite(node)
+    ) {
+      stable = false;
+      return;
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(context.container);
+  return stable;
+}
+
+function directTrackedPropertyWithKnownKey(node, context) {
+  const current = unwrapExpression(node);
+  return (
+    (ts.isPropertyAccessExpression(current) ||
+      ts.isElementAccessExpression(current)) &&
+    isDirectTrackedIdentifier(current.expression, context) &&
+    accessPropertyName(current, context.checker) !== UNKNOWN
+  );
+}
+
+function localFunctionMutationIsSummarizable(node, context) {
+  const current = unwrapExpression(node);
+  if (ts.isDeleteExpression(current)) {
+    return directTrackedPropertyWithKnownKey(current.expression, context);
+  }
+  return (
+    ts.isBinaryExpression(current) &&
+    current.operatorToken.kind === ts.SyntaxKind.EqualsToken &&
+    directTrackedPropertyWithKnownKey(current.left, context) &&
+    evaluateConstant(current.right, context.checker) !== UNKNOWN
+  );
+}
+
+function localFunctionStatementIsSummarizable(statement, context, depth = 0) {
+  if (depth > MAX_STRUCTURAL_DEPTH) return false;
+  if (ts.isBlock(statement)) {
+    return statement.statements.every((child) =>
+      localFunctionStatementIsSummarizable(child, context, depth + 1),
+    );
+  }
+  return (
+    (ts.isExpressionStatement(statement) &&
+      localFunctionMutationIsSummarizable(statement.expression, context)) ||
+    ts.isEmptyStatement(statement) ||
+    ts.isDebuggerStatement(statement)
+  );
+}
+
+function applyDirectLocalFunctionCall(call, states, context) {
+  const target = directLocalFunctionTarget(call, context);
+  if (
+    target === null ||
+    !localFunctionReferencesTrackedState(target, context)
+  ) {
+    return states;
+  }
+  const activeFunctions = context.activeLocalFunctions ?? new Set();
+  const depth = context.localFunctionSummaryDepth ?? 0;
+  if (
+    activeFunctions.has(target.symbol) ||
+    depth >= MAX_LOCAL_FUNCTION_SUMMARY_DEPTH ||
+    !localFunctionBindingIsStable(target, call, context)
+  ) {
+    return unknownTrackedStates(states);
+  }
+  const declaration = target.declarations[0];
+  if (
+    declaration.parameters.length !== 0 ||
+    declaration.asteriskToken !== undefined ||
+    declaration.modifiers?.some(
+      (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
+    ) === true ||
+    !localFunctionStatementIsSummarizable(declaration.body, context)
+  ) {
+    return unknownTrackedStates(states);
+  }
+  const nextActive = new Set(activeFunctions);
+  nextActive.add(target.symbol);
+  const flow = processTrackedFlow(declaration.body, states, {
+    ...context,
+    activeLocalFunctions: nextActive,
+    localFunctionSummaryDepth: depth + 1,
+  });
+  return flow.normal.length === 0 ? unknownTrackedStates(states) : flow.normal;
+}
+
 // Evaluate only the ordering/control-flow needed to place visible writes before
 // a child-process sink. Constant branch conditions are honored. For an
 // unresolved logical/conditional branch, both reachable states are retained
@@ -2098,6 +2346,7 @@ function processTrackedExpression(
           stopPosition,
         );
       }
+      reached = applyDirectLocalFunctionCall(current, reached, context);
     }
     return reachability === UNKNOWN
       ? mergeTrackedBranches([afterBase, reached], context.names)
@@ -2140,6 +2389,7 @@ function processTrackedExpression(
           stopPosition,
         );
       }
+      reached = applyDirectLocalFunctionCall(current, reached, context);
     }
     return optionalReachability === UNKNOWN
       ? mergeTrackedBranches([afterPrefix, reached], context.names)
@@ -2350,7 +2600,9 @@ function processTrackedExpression(
         stopPosition,
       );
     }
-    return ordered;
+    return ts.isCallExpression(current)
+      ? applyDirectLocalFunctionCall(current, ordered, context)
+      : ordered;
   }
 
   if (ts.isCommaListExpression(current)) {
@@ -3244,6 +3496,11 @@ function processTrackedFlow(statement, states, context) {
   if (ts.isEmptyStatement(statement) || ts.isDebuggerStatement(statement)) {
     return emptyFlow(states);
   }
+  if (ts.isFunctionDeclaration(statement)) {
+    // Hoisting creates the callable binding, but reaching declaration text does
+    // not execute the body. Captured effects are applied only at direct calls.
+    return emptyFlow(states);
+  }
   return emptyFlow(
     invalidateForUnsupportedMutation(statement, states, context),
   );
@@ -3341,7 +3598,14 @@ function observeTrackedStatement(statement, states, context, sinkCall) {
   return [];
 }
 
-function referencesTrackedSymbol(node, context, depth = 0) {
+function referencesTrackedSymbol(
+  node,
+  context,
+  depth = 0,
+  activeFunctions = new Set(),
+  functionDepth = 0,
+  inspectDeferredFunctions = false,
+) {
   if (depth > MAX_STRUCTURAL_DEPTH) return true;
   if (ts.isIdentifier(node)) {
     if (
@@ -3370,9 +3634,46 @@ function referencesTrackedSymbol(node, context, depth = 0) {
       }
     }
   }
+  if (ts.isCallExpression(node)) {
+    const target = directLocalFunctionTarget(node, context);
+    if (
+      target !== null &&
+      localFunctionReferencesTrackedState(
+        target,
+        context,
+        activeFunctions,
+        functionDepth,
+      )
+    ) {
+      return true;
+    }
+    if (inspectDeferredFunctions) {
+      const deferredTarget = directLocalDeferredFunctionTarget(node, context);
+      if (
+        deferredTarget !== null &&
+        localFunctionReferencesTrackedState(
+          deferredTarget,
+          context,
+          activeFunctions,
+          functionDepth,
+        )
+      ) {
+        return true;
+      }
+    }
+  }
   return (
     ts.forEachChild(node, (child) =>
-      referencesTrackedSymbol(child, context, depth + 1) ? true : undefined,
+      referencesTrackedSymbol(
+        child,
+        context,
+        depth + 1,
+        activeFunctions,
+        functionDepth,
+        inspectDeferredFunctions,
+      )
+        ? true
+        : undefined,
     ) === true
   );
 }
@@ -4120,6 +4421,7 @@ function trackedIdentifierStatesAtSink(
     bindings,
     budget: { steps: 0 },
     checker,
+    container,
     declaration: resolved.declaration,
     mayAliases: aliasSets.mayAliases,
     names,
@@ -4137,6 +4439,7 @@ function trackedIdentifierStatesAtSink(
     states = processTrackedStatement(declarationStatement, states, context);
     for (let index = declarationIndex + 1; index < sinkIndex; index += 1) {
       const statement = container.statements[index];
+      if (ts.isFunctionDeclaration(statement)) continue;
       // A statement with no reference to the tracked symbol or its aliases
       // cannot change the tracked object's reviewed state (an already-escaped
       // state is already bottom), so it is skipped instead of spending the

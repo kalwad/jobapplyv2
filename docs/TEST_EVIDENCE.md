@@ -33,6 +33,143 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 hoisted tracked-state function seventh correction writer evidence (2026-08-21)
+
+- Revision: seventh narrow correction writer pass starting from independently
+  blocked sixth-correction commit
+  `05bbcb340bd98e856367b5349d51be028669d3f7` / tree
+  `156417979f7e103ad7a7b5050dc7cd4eacd596d5` / parent
+  `142f6fb5c759464dc8116d0b41a2ed13304543e2` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SIXTH_CORRECTION_VERIFICATION`; the seventh
+  correction content tree is recorded post-commit by the containing commit.
+- Environment: macOS arm64; Node 24.18.0 (keg-only pinned); pnpm 11.17.0;
+  uv-managed project venv; TypeScript 6.0.3; @types/node 24.13.3;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`
+  verified by direct recomputation.
+- Exact-boundary verification before any edit: fetch plus porcelain-v1/v2
+  status, branch, HEAD/tree/parent/upstream, and `git diff --check` → branch
+  `main`; clean tree; HEAD == origin/main ==
+  `05bbcb340bd98e856367b5349d51be028669d3f7`; tree
+  `156417979f7e103ad7a7b5050dc7cd4eacd596d5`; parent
+  `142f6fb5c759464dc8116d0b41a2ed13304543e2`.
+- Fresh-verifier boundary: the sixth correction's alias/shorthand families
+  and the fifth correction's budget/constructor locks were cleared. The sole
+  remaining blocker was the pre-existing direct hoisted-function state
+  defect; no alias, shorthand, catalog, wrapper, extension, browser, W06,
+  contract, generated, gate, model, prompt, dependency, lockfile, CI, or
+  owner-evidence surface was reopened.
+- Independent pre-edit reproduction on the exact base (temporary untracked
+  TypeScript fixtures, deleted immediately after inspection; direct helper
+  JSON protocol):
+  - H1, declaration text after the sink → `[]` (false clean); runtime state at
+    the sink is `shell === true`.
+  - H2, declaration text after the sink → `execSync default shell` (false
+    violation); runtime state at the sink is `shell === ""`.
+  - The direct-write H1 equivalent emitted `shell=true`; the direct-write H2
+    equivalent was clean.
+  - On the exact base, moving H2's declaration before its call made it clean
+    because declaration processing invalidated certainty; moving H1's
+    declaration before its call remained false-clean. Thus the verifier's
+    general source-order diagnosis was confirmed, while its statement that
+    the checker result changes was literally observable only for H2 at this
+    exact SHA.
+- Confirmed root cause: `trackedIdentifierStatesAtSink` locates the object and
+  sink, then filters only statements between them through
+  `referencesTrackedSymbol`; a call identifier has no syntactic tracked-object
+  reference, so the call is skipped, while declaration text after the sink is
+  outside the scan. A declaration before the sink was not a call effect: it
+  entered unsupported/deferred invalidation. Runtime hoisting and call-time
+  closure effects were therefore modeled as source-order declaration effects.
+- Seventh-correction implementation
+  (`scripts/check_typescript_portability.mjs` only):
+  - Direct identifier calls resolve local `FunctionDeclaration` targets by
+    TypeScript symbol identity inside the tracked statement container;
+    declaration position is irrelevant, and declaration statements are
+    explicit no-ops in tracked flow.
+  - Capture relevance includes runtime parameter binding/default initializer
+    nodes and bounded transitive direct declarations; separately declared
+    local arrow/function expressions are inspected only to discover a
+    captured-object unsupported call, never to grant them exact summary
+    semantics.
+  - The exact summary subset is intentionally straight-line and
+    zero-parameter: constant-value assignment to a known property or known-key
+    delete on the tracked object/definite alias. Existing tracked events apply
+    `true`, `false`, `""`, delete-to-absent, and computed `"shell"` writes at
+    the call site in evaluation order.
+  - Parameters/defaults, reassignment, generator/async declarations,
+    recursion, unsupported calls/control flow, and other unsupported captured
+    bodies invalidate to UNKNOWN at the call site. An active-symbol recursion
+    set and depth-16 capture/summary guard make cycles and deep acyclic chains
+    finite and deterministic.
+- Post-fix H1/H2 behavior: H1 emits `shell=true` and H2 is clean with the
+  declaration both before and after the call; declarations never called or
+  called only after the sink have no effect; opposite declaration ordering
+  does not alter call-order results.
+- Permanent tests added (22 focused nodes; suite 409 → 431): eight violation
+  rows and eleven control rows cover H1–H17 plus default-parameter and
+  captured-arrow reviewer regressions; H18 repeats the analysis four times;
+  a 1,024-function chain pins bounded discovery; and one pinned-tsc batch
+  compiles all table fixtures. The H1–H18 matrix covers declaration parity,
+  never-called/post-sink timing, enable/disable ordering with declaration
+  order intentionally reversed, delete and computed writes, local-variable
+  and same-name lexical shadowing, known-false/true/unknown branches,
+  recursion, unsupported fallback, and determinism.
+- Writer-side bounded review: exactly one read-only reviewer, limited to the
+  local-function scope and prohibited from subdelegation, ran the 22-test
+  predecessor slice (19/19 at review time) and reported three substantive
+  cases. The lead personally reproduced each before changing code: a runtime
+  default-parameter capture retained stale absent-shell state; an otherwise
+  supported body followed by a captured arrow call retained stale
+  `shell=true`; and a valid 1,024-function acyclic chain crashed capture
+  discovery with `RangeError: Maximum call stack size exceeded`. The runtime
+  parameter scan, narrow exact-expression gate, deferred-function capture
+  probe, and pre-recursion depth bound corrected them; all three permanent
+  regressions pass.
+- Targeted mutation campaign: exactly six families, one per disposable
+  `git clone --no-local --no-hardlinks` candidate (Node 24 selected explicitly;
+  `pnpm install --frozen-lockfile --offline --ignore-scripts`), stopped at M6.
+  M1 excluded later declarations (H1/H2, 2 failures); M2 made captured calls
+  no-ops (H1/H2, 2); M3 executed declaration bodies (H5/H6, 2); M4 replayed
+  effects in declaration order (H7/H8, 2); M5 contaminated symbol identity
+  with same-name matching (H12, 1); M6 preserved stale state on recursive/
+  unsupported fallback (H16/H17/default-parameter, 3). All six clones were
+  moved to recoverable Trash; no M7+ existed.
+- Commands and observed results before documentation freeze:
+  - `uv run pytest scripts/tests/test_portability.py -k
+    seventh_correction -q` → exit 0, **22 passed**, 409 deselected.
+  - `uv run pytest scripts/tests/test_portability.py -k
+    'fifth_correction or sixth_correction or seventh_correction' -q` → exit
+    0, **84 passed**, 347 deselected.
+  - `uv run pytest scripts/tests/test_portability.py -q` → exit 0,
+    **431 passed**.
+  - Canonical inventory validators → exit 0; inventory now holds **1,325
+    common/Windows nodes** at SHA-256
+    `286a079115b8330e153d297e0afc295c80029f0d8b1f8d86d560235f9b4fc7d6`
+    and **1,327 POSIX nodes** at SHA-256
+    `6d155b719af06d642549622489d5ac34f3893a2a9eb37c6d1818f6d61909c8c1`.
+  - `node --check`, focused Ruff check/format, analyzer Prettier check, and
+    `git diff --check` → exit 0.
+  - `PATH=.venv/bin:$PATH python3 scripts/check_portability.py` → exit 0,
+    PASS on the real repository under the seventh-correction analysis.
+- Frozen verification deferral: the complete substantive sequence
+  (`python3 scripts/check_portability.py` in the project venv,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  `pnpm generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, and
+  `git diff --check`) is run twice on identical tracked bytes only after this
+  documentation freeze and reported in the final writer handoff; it is not
+  preclaimed here. Exact-SHA three-OS hosted evidence is likewise pending.
+- Artifacts: n/a. Temporary reproducers were untracked and deleted; mutation
+  clones were trashed; the authoritative checkout never accessed owner-held
+  or historical private evaluation roots.
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  verifier on the exact seventh-correction content and W07 governance.
+  KI-0059..KI-0062 remain HIGH / IN_PROGRESS with their cleared surfaces
+  untouched; KI-0006 remains LOW / DEFERRED for the M17 Rust/native surface;
+  REQ-FORM-020 remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE; M02-W07 remains
+  IN_PROGRESS, M02-W08 remains NOT_STARTED, no package is READY, all critical
+  gates remain NOT_EVALUATED, and release remains NOT_READY.
+
 ### M02-W07 — KI-0058 tracked option alias/shorthand-escape sixth correction writer evidence (2026-08-18)
 
 - Revision: sixth narrow correction writer pass starting from hosted-green
