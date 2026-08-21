@@ -1989,8 +1989,8 @@ def test_third_correction_additional_semantic_violations_fail(
         ),
         (
             'import { spawnSync } from "node:child_process";\n'
-            "const options = { shell: true };\n"
-            "const deferred = () => { options.shell = false; };\n"
+            "const options = { shell: false };\n"
+            "const deferred = () => { options.shell = true; };\n"
             "void deferred;\n"
             'spawnSync("node", [], options);\n'
         ),
@@ -2248,7 +2248,7 @@ def test_third_correction_additional_semantic_violations_fail(
         "unsupported-destructuring-invalidates-true",
         "unsupported-destructuring-invalidates-false",
         "same-declaration-alias-escape",
-        "closure-capture-invalidates-state",
+        "uncalled-closure-body-is-inert",
         "filesystem-path-does-not-use-wrapper-classifier",
         "cwd-path-does-not-use-wrapper-classifier",
         "esm-win32-path-flavor-is-unknown",
@@ -4274,6 +4274,571 @@ def test_seventh_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
     names = []
     for index, source in enumerate(sources):
         name = f"seventh-correction-{index}.ts"
+        (tmp_path / name).write_text(source, encoding="utf-8")
+        names.append(name)
+    proc = subprocess.run(
+        (
+            "node",
+            str(REPO_ROOT / "node_modules" / "typescript" / "bin" / "tsc"),
+            "--ignoreConfig",
+            "--noEmit",
+            "--target",
+            "ES2024",
+            "--module",
+            "NodeNext",
+            "--moduleResolution",
+            "NodeNext",
+            "--types",
+            "node",
+            "--typeRoots",
+            str(REPO_ROOT / "node_modules" / "@types"),
+            "--esModuleInterop",
+            *names,
+        ),
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
+# -------- eighth correction: KI-0058 direct local closure calls
+
+EIGHTH_CORRECTION_H1_SOURCE = (
+    'import { spawnSync } from "node:child_process";\n'
+    "const enableShell = () => {\n"
+    '  options["shell"] = true;\n'
+    "};\n"
+    "const options = { shell: false };\n"
+    "enableShell();\n"
+    'spawnSync("node", ["--version"], options);\n'
+)
+
+EIGHTH_CORRECTION_H2_SOURCE = (
+    'import { execSync } from "node:child_process";\n'
+    "const disableDefaultShell = () => {\n"
+    '  options.shell = "";\n'
+    "};\n"
+    "const options: { shell?: string } = {};\n"
+    "disableDefaultShell();\n"
+    'execSync("node --version", options);\n'
+)
+
+EIGHTH_CORRECTION_VIOLATION_SOURCES = [
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "const enable = () => { options.shell = true; };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = function () { options.shell = true; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "const enable = function () { options.shell = true; };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = () => (options.shell = true);\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = () => { options.shell = true; };\n"
+        "const disable = () => { options.shell = false; };\n"
+        "const options = { shell: false };\n"
+        "disable();\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        'const key = "shell";\n'
+        "const enable = () => { options[key] = true; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { execSync } from "node:child_process";\n'
+        "const restoreDefault = () => { delete options.shell; };\n"
+        'const options: { shell?: string } = { shell: "" };\n'
+        "restoreDefault();\n"
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const mutate = () => { options.shell = true; };\n"
+        "const options = { shell: false };\n"
+        "{\n"
+        "  const mutate = () => { options.shell = false; };\n"
+        "  mutate();\n"
+        "}\n"
+        "mutate();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const innerName = () => { options.shell = false; };\n"
+        "const mutate = function innerName() { options.shell = true; };\n"
+        "const options = { shell: false };\n"
+        "mutate();\n"
+        'spawnSync("node", ["--version"], options);\n'
+        "void innerName;\n"
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const mutate = () => {\n"
+        "  options.shell = false;\n"
+        '  options["shell"] = true;\n'
+        "};\n"
+        "const options = { shell: false };\n"
+        "mutate();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const unrelated = () => { other.value = true; };\n"
+        "const options = { shell: true };\n"
+        "const other = { value: false };\n"
+        "unrelated();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "function factory() {\n"
+        "  const enable = () => { options.shell = false; };\n"
+        "  return enable;\n"
+        "}\n"
+        "const enable = () => { options.shell = true; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+        "void factory;\n"
+    ),
+]
+
+EIGHTH_CORRECTION_CONTROL_SOURCES = [
+    (
+        'import { execSync } from "node:child_process";\n'
+        "const options: { shell?: string } = {};\n"
+        'const disable = () => { options.shell = ""; };\n'
+        "disable();\n"
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { execSync } from "node:child_process";\n'
+        'const disable = function () { options.shell = ""; };\n'
+        "const options: { shell?: string } = {};\n"
+        "disable();\n"
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { execSync } from "node:child_process";\n'
+        "const options: { shell?: string } = {};\n"
+        'const disable = function namedDisable() { options.shell = ""; };\n'
+        "disable();\n"
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { execSync } from "node:child_process";\n'
+        'const disable = () => (options.shell = "");\n'
+        "const options: { shell?: string } = {};\n"
+        "disable();\n"
+        'execSync("node --version", options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "const enable = () => { options.shell = true; };\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const options = { shell: false };\n"
+        "const enable = () => { options.shell = true; };\n"
+        'spawnSync("node", ["--version"], options);\n'
+        "enable();\n"
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = () => { options.shell = true; };\n"
+        "const disable = () => { options.shell = false; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = (_value: number) => { options.shell = false; };\n"
+        "const options = { shell: true };\n"
+        "disable(1);\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = (_value = (options.shell = false)) => {};\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = async () => { options.shell = false; };\n"
+        "const options = { shell: true };\n"
+        "void disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "let disable = () => { options.shell = false; };\n"
+        "const options = { shell: true };\n"
+        "disable = () => { options.shell = false; };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = () => {\n"
+        "  disable();\n"
+        "  options.shell = false;\n"
+        "};\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = function recur() {\n"
+        "  recur();\n"
+        "  options.shell = false;\n"
+        "};\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = () => { options.shell = false; };\n"
+        "function outer() { disable(); }\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const mutate = (options: { shell: boolean }) => {\n"
+        "  options.shell = true;\n"
+        "};\n"
+        "const options = { shell: false };\n"
+        "mutate({ shell: false });\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const disable = () => {\n"
+        "  if (condition) options.shell = false;\n"
+        "};\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare function helper(): void;\n"
+        "const disable = () => {\n"
+        "  helper();\n"
+        "  options.shell = false;\n"
+        "};\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = function* () { options.shell = false; };\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const disable = () => { options.shell = false; };\n"
+        "const alias = disable;\n"
+        "const options = { shell: true };\n"
+        "alias();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "let disable = () => {};\n"
+        "const options = { shell: true };\n"
+        "disable = () => { options.shell = false; };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "let disable: () => void;\n"
+        "disable = () => { options.shell = false; };\n"
+        "const options = { shell: true };\n"
+        "disable();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "declare const condition: boolean;\n"
+        "const disable = () => { options.shell = false; };\n"
+        "const noop = () => {};\n"
+        "const selected = condition ? disable : noop;\n"
+        "const options = { shell: true };\n"
+        "selected();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const outer = (\n"
+        "  _value = (() => { options.shell = false; })(),\n"
+        ") => {};\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "const outer = () => {\n"
+        "  (() => { options.shell = false; })();\n"
+        "};\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "function outer(\n"
+        "  _value = (() => { options.shell = false; })(),\n"
+        "): void {}\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+    (
+        'import { spawnSync } from "node:child_process";\n'
+        "function outer(): void {\n"
+        "  (() => { options.shell = false; })();\n"
+        "}\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    ),
+]
+
+
+def test_eighth_correction_h1_arrow_before_object_enables_shell(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-h1.ts").write_text(
+        EIGHTH_CORRECTION_H1_SOURCE, encoding="utf-8"
+    )
+    violations = check_portability.run_checks(policy_repo)
+    assert {violation.rule for violation in violations} == {"PORT-SRC-008"}
+    assert any(FIFTH_SHELL_DETAIL in violation.message for violation in violations)
+
+
+def test_eighth_correction_h2_arrow_before_object_disables_default(
+    policy_repo: Path,
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-h2.ts").write_text(
+        EIGHTH_CORRECTION_H2_SOURCE, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+@pytest.mark.parametrize(
+    "source",
+    EIGHTH_CORRECTION_VIOLATION_SOURCES,
+    ids=[
+        "h3-arrow-after-object-enables",
+        "h5-function-expression-before-object-enables",
+        "h7-function-expression-after-object-enables",
+        "h8-concise-arrow-enables",
+        "h13-disable-then-enable",
+        "h14-computed-key-enables",
+        "h15-delete-restores-exec-default",
+        "h16-same-name-block-bindings-use-symbol-identity",
+        "h17-named-function-expression-uses-external-binding",
+        "e8-multiple-straight-line-writes-preserve-order",
+        "h25-unrelated-arrow-does-not-invalidate",
+        "s5-same-textual-name-in-another-function-is-inert",
+    ],
+)
+def test_eighth_correction_direct_closure_violations_fail(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-violation.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    assert {violation.rule for violation in violations} == {"PORT-SRC-008"}
+    assert any(FIFTH_SHELL_DETAIL in violation.message for violation in violations)
+    assert not any(FIFTH_BUDGET_DETAIL in violation.message for violation in violations)
+
+
+@pytest.mark.parametrize(
+    "source",
+    EIGHTH_CORRECTION_CONTROL_SOURCES,
+    ids=[
+        "h4-arrow-after-object-disables-default",
+        "h6-function-expression-before-object-disables-default",
+        "h7-function-expression-after-object-disables-default",
+        "h9-concise-arrow-disables-default",
+        "h10-never-called-arrow-is-inert",
+        "h11-post-sink-call-is-not-retroactive",
+        "h12-enable-then-disable",
+        "h18-parameterized-arrow-is-conservative",
+        "h19-default-parameter-arrow-is-conservative",
+        "h20-async-arrow-is-conservative",
+        "h21-mutable-reassigned-binding-is-conservative",
+        "h22-direct-arrow-recursion-is-finite",
+        "h23-named-function-expression-recursion-is-finite",
+        "h26-captured-arrow-inside-function-remains-conservative",
+        "s2-parameter-shadow-does-not-capture-outer-object",
+        "f5-unsupported-control-flow-is-conservative",
+        "f6-unknown-nested-call-is-conservative",
+        "f4-generator-function-expression-is-conservative",
+        "f8-callable-alias-is-conservative",
+        "f7-reassigned-binding-discovers-later-closure",
+        "f7-late-initialized-binding-is-conservative",
+        "f8-conditional-callable-alias-is-conservative",
+        "review-arrow-default-parameter-iife-is-conservative",
+        "review-arrow-body-iife-is-conservative",
+        "review-function-default-parameter-iife-is-conservative",
+        "review-function-body-iife-is-conservative",
+    ],
+)
+def test_eighth_correction_direct_closure_controls_pass(
+    policy_repo: Path, source: str
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-control.ts").write_text(source, encoding="utf-8")
+    assert rules_of(policy_repo) == set()
+
+
+def eighth_correction_deep_chain_source(length: int) -> str:
+    functions = "".join(
+        f"const f{index} = () => {{ f{index + 1}(); }};\n" for index in range(length)
+    )
+    return (
+        'import { spawnSync } from "node:child_process";\n'
+        f"{functions}"
+        f"const f{length} = () => {{ options.shell = false; }};\n"
+        "const options = { shell: true };\n"
+        "f0();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    )
+
+
+@pytest.mark.parametrize(
+    "length", [3, 16, 17], ids=["short", "near-depth", "over-depth"]
+)
+def test_eighth_correction_h24_arrow_call_chain_is_bounded(
+    policy_repo: Path, length: int
+) -> None:
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-deep-chain.ts").write_text(
+        eighth_correction_deep_chain_source(length), encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_eighth_correction_t6_each_sink_sees_only_prior_calls(
+    policy_repo: Path,
+) -> None:
+    source = (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = () => { options.shell = true; };\n"
+        "const disable = () => { options.shell = false; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--first"], options);\n'
+        "disable();\n"
+        'spawnSync("node", ["--second"], options);\n'
+    )
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-two-sinks.ts").write_text(source, encoding="utf-8")
+    violations = check_portability.run_checks(policy_repo)
+    shell_violations = [
+        violation
+        for violation in violations
+        if violation.rule == "PORT-SRC-008" and FIFTH_SHELL_DETAIL in violation.message
+    ]
+    assert len(shell_violations) == 1
+
+
+def test_eighth_correction_mixed_call_chain_is_bounded(
+    policy_repo: Path,
+) -> None:
+    source = (
+        'import { spawnSync } from "node:child_process";\n'
+        "function outer(): void { middle(); }\n"
+        "const middle = () => { inner(); };\n"
+        "function inner(): void { options.shell = false; }\n"
+        "const options = { shell: true };\n"
+        "outer();\n"
+        'spawnSync("node", ["--version"], options);\n'
+    )
+    source_dir = policy_repo / "apps" / "extension" / "src"
+    source_dir.mkdir(parents=True)
+    (source_dir / "eighth-correction-mixed-chain.ts").write_text(
+        source, encoding="utf-8"
+    )
+    assert rules_of(policy_repo) == set()
+
+
+def test_eighth_correction_typescript_fixtures_compile(tmp_path: Path) -> None:
+    timing_source = (
+        'import { spawnSync } from "node:child_process";\n'
+        "const enable = () => { options.shell = true; };\n"
+        "const disable = () => { options.shell = false; };\n"
+        "const options = { shell: false };\n"
+        "enable();\n"
+        'spawnSync("node", ["--first"], options);\n'
+        "disable();\n"
+        'spawnSync("node", ["--second"], options);\n'
+    )
+    sources = [
+        EIGHTH_CORRECTION_H1_SOURCE,
+        EIGHTH_CORRECTION_H2_SOURCE,
+        *EIGHTH_CORRECTION_VIOLATION_SOURCES,
+        *EIGHTH_CORRECTION_CONTROL_SOURCES,
+        *(eighth_correction_deep_chain_source(length) for length in (3, 16, 17)),
+        timing_source,
+    ]
+    names = []
+    for index, source in enumerate(sources):
+        name = f"eighth-correction-{index}.ts"
         (tmp_path / name).write_text(source, encoding="utf-8")
         names.append(name)
     proc = subprocess.run(

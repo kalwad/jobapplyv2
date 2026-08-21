@@ -33,6 +33,151 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W07 — KI-0058 direct local closure eighth correction writer evidence (2026-08-21)
+
+- Revision: eighth narrow correction writer pass starting from independently
+  blocked seventh-correction commit
+  `3133a9348193a03759140dc2a32c35223be9717d` / tree
+  `f4da4024b5b30c89bf06d1df66499f4d3082a660` / parent
+  `05bbcb340bd98e856367b5349d51be028669d3f7` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SEVENTH_CORRECTION_VERIFICATION`; the eighth
+  correction content tree is recorded post-commit by the containing commit.
+- Environment: macOS arm64; Node 24.18.0; pnpm 11.17.0; uv-managed Python
+  3.12.13 / pytest 9.1.1; TypeScript 6.0.3; @types/node 24.13.3;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact-boundary verification before any edit: `git fetch origin`, both
+  porcelain status forms, branch/upstream, HEAD/origin/tree/parent,
+  `git diff --check`, and specification digest → clean `main`; HEAD ==
+  origin/main == `3133a9348193a03759140dc2a32c35223be9717d`;
+  tree `f4da4024b5b30c89bf06d1df66499f4d3082a660`; parent
+  `05bbcb340bd98e856367b5349d51be028669d3f7`; required spec digest.
+- Fresh pre-fix reproductions on those exact analyzer bytes:
+  - H1, a stable arrow declared before the tracked object writes
+    `options["shell"] = true`, is called before a spawn sink, and returned
+    `[]` although runtime state is `shell === true`.
+  - H2, a stable arrow/function-expression equivalent declared before an
+    absent-shell tracked object writes `""`, is called before an exec sink,
+    and retained the stale default-shell violation although runtime state is
+    `shell === ""`.
+  - Both were pinned as failing tests before the analyzer changed: H1 actual
+    rules `set()` versus expected `PORT-SRC-008`; H2 actual
+    `PORT-SRC-008` versus expected clean.
+- Confirmed root cause: the seventh correction had an exact direct-call path
+  only for `FunctionDeclaration`. Direct arrows/function expressions lived
+  behind deferred-function capture discovery, while ordinary statement
+  relevance did not inspect that path. A call identifier declared before the
+  tracked object was therefore skipped; its mutation was neither summarized
+  nor conservatively invalidated. Conversely, a closure declaration after the
+  object exposed its body as an unsupported declaration-time reference,
+  creating the observed source-order artifact.
+- Eighth-correction architecture (`scripts/check_typescript_portability.mjs`):
+  - `directLocalCallableTarget` resolves direct identifier calls only through
+    TypeScript symbol identity and classifies function declarations, direct
+    closure bindings, indirect/local conservative values, named expression
+    recursion, and conservative IIFEs. Text names never select a binding.
+  - A unique local `const` initialized directly (through supported unwraps)
+    to an arrow or function expression and initialized before the call shares
+    the seventh correction's exact call-time summary when it has zero
+    parameters, no async/generator marker, and a supported body. Anonymous and
+    named function expressions both qualify through the external variable
+    symbol; the internal expression name remains separately scoped.
+  - Block bodies reuse `processTrackedFlow`; concise assignment/delete bodies
+    reuse `processTrackedExpression`. Thus known direct/computed writes of
+    `true`, `false`, and `""`, known-key delete, and multiple straight-line
+    writes use the existing tracked-property semantics rather than a second
+    shell evaluator.
+  - `referencesTrackedSymbol` prunes unexecuted function-like declarations,
+    while call-target relevance enters runtime parameter/default/body nodes.
+    Closure declarations are no-ops; effects occur only when the call is
+    reached. Immediately invoked nested closures are executed call targets,
+    not inert declarations, and conservatively invalidate if captured state
+    is involved.
+  - Parameters/defaults, async/generator forms, mutable/reassigned or late
+    bindings, alias/conditional callable values, unsupported control flow or
+    nested calls, unsupported captures, recursion/cycles, and over-depth or
+    mixed chains become UNKNOWN at the call site when they may touch tracked
+    state. Unrelated stable closures do not invalidate. The active-symbol set
+    and `MAX_LOCAL_FUNCTION_SUMMARY_DEPTH = 16` are preserved.
+- Behavioral proofs in the permanent 46-node eighth slice:
+  - Declaration parity: before/after-object arrows and function expressions
+    produce identical H1/H2 enable/disable outcomes.
+  - Call timing: never-called bodies and post-sink calls are inert; enable then
+    disable is clean, disable then enable is a finding, and the two-sink test
+    sees only prior calls.
+  - Symbol identity: nested same-name bindings, distinct blocks, a named
+    expression whose internal name matches an outer binding, a same textual
+    name in another function, and a shadowing parameter remain isolated.
+  - Exact forms: block/concise arrows, anonymous/named function expressions,
+    direct/computed writes, delete, and ordered multiple writes pass.
+  - Conservative forms: parameters/defaults, async/generator, mutable and
+    late-assigned bindings, direct/conditional aliases, control flow, unknown
+    nested calls, captured arrows inside declarations, direct/named recursion,
+    short/near/over-depth and mixed chains, and reviewer IIFEs are finite and
+    do not preserve stale certainty. Pinned TypeScript compilation passes.
+- Bounded writer review (two reviewers, separate disposable
+  `git clone --no-local --no-hardlinks` clones, no subdelegation):
+  - Reviewer A, limited to direct target resolution, declaration parity,
+    timing, symbol identity, concise bodies, and function-expression forms,
+    returned CLEAR after 46/46 permanent nodes and an independent 11-case
+    semantic matrix plus pinned compilation.
+  - Reviewer B, limited to conservative fallback/defaults/nesting/depth and
+    fifth-through-seventh regressions, found one candidate: an unconditional
+    deferred-function prune also hid executed nested IIFEs in defaults/bodies.
+    The lead personally reran the reviewer's exact five-case file under Node
+    24: named-helper control 1 passed and four IIFE forms failed. IIFEs now
+    enter conservative call-target relevance; the unchanged reviewer file
+    then passed 5/5. Four permanent regressions cover direct-arrow and
+    function-declaration default/body IIFEs.
+- Targeted mutation campaign: exactly six families, each in its own
+  `git clone --no-local --no-hardlinks` candidate with exact formatted
+  analyzer/test bytes and a frozen offline install; stopped at M6.
+  - M1 rejected closure declarations before the tracked object → H1/H2 killed
+    (2 failed, 2 after-object controls passed).
+  - M2 treated direct closures as no-op calls → H1/H2 and function-expression
+    enable/disable killed (4 failed, unrelated closure control passed).
+  - M3 marked deferred declarations relevant and executed bodies at
+    declaration time → never-called/post-sink timing killed (2 failed, H1
+    call-time control passed).
+  - M4 merged same textual callable names across symbols → two shadowing/
+    cross-function identity rows killed (2 failed, unrelated control passed).
+  - M5 returned stale state for parameterized/default closures → both fallback
+    rows killed (2 failed, exact zero-parameter H2 control passed).
+  - M6 dropped function-expression binding targets → dedicated enable/disable
+    rows killed (2 failed, both arrow controls passed). No M7 existed.
+- Commands and observed results before documentation freeze:
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q -k
+    eighth_correction` → exit 0, **46 passed**, 431 deselected.
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q -k
+    'fifth_correction or sixth_correction or seventh_correction or
+    eighth_correction'` → exit 0, **130 passed**, 347 deselected; the preserved
+    fifth-through-seventh subset is 84 nodes.
+  - `uv run --frozen pytest scripts/tests/test_portability.py -q` → exit 0,
+    **477 passed**.
+  - Canonical exact collection → **1,371 common/Windows** nodes at SHA-256
+    `54c2af8705db487eb4d77622e4ae30e632aac9074233d58f9bb032240648e875`
+    and **1,373 POSIX** nodes at SHA-256
+    `e87520b6f1fa8ce777a09999fa326ba41c5690d5258fd40a5dff6e31e894e099`.
+  - `node --check`, Ruff check/format, Prettier check, and
+    `git diff --check` → exit 0.
+- Frozen verification deferral: the complete substantive sequence
+  (`python3 scripts/check_portability.py` under the project venv,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  `pnpm generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, and
+  `git diff --check`) is run twice on identical tracked bytes after this
+  documentation freeze and reported in the final writer handoff; no result is
+  preclaimed here. Hosted exact-SHA three-OS evidence is also pending.
+- Artifacts: n/a. The authoritative checkout never accessed owner-held or
+  historical private evidence. Reviewer and mutation clones were disposable;
+  no W08 implementation, gate report, or Gate A execution occurred.
+- Notes: KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  verifier on the exact eighth-correction content and W07 governance.
+  KI-0059..KI-0062 remain HIGH / IN_PROGRESS with their cleared surfaces
+  untouched; KI-0006 remains LOW / DEFERRED for the M17 Rust/native surface;
+  REQ-FORM-020 remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE; M02-W07 remains
+  IN_PROGRESS, M02-W08 remains NOT_STARTED, no package is READY, all critical
+  gates remain NOT_EVALUATED, and release remains NOT_READY.
+
 ### M02-W07 — KI-0058 hoisted tracked-state function seventh correction writer evidence (2026-08-21)
 
 - Revision: seventh narrow correction writer pass starting from independently

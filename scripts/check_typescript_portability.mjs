@@ -2047,50 +2047,206 @@ function isDirectTrackedIdentifier(node, context) {
   );
 }
 
-// Resolve only direct identifier calls whose runtime implementation is a
-// function declaration in the tracked object's statement container. Symbol
-// identity is essential here: textual names are insufficient in the presence
-// of shadowing or same-named declarations in another scope.
-function directLocalFunctionTarget(call, context) {
-  if (!ts.isCallExpression(call)) return null;
-  const callee = unwrapExpression(call.expression);
-  if (!ts.isIdentifier(callee)) return null;
-  const symbol = context.checker.getSymbolAtLocation(callee);
-  if (symbol === undefined) return null;
+function callableDeclarationsFromValue(
+  node,
+  context,
+  seenSymbols = new Set(),
+  depth = 0,
+) {
+  if (depth >= MAX_LOCAL_FUNCTION_SUMMARY_DEPTH) {
+    return { declarations: [], unknownCapture: true };
+  }
+  const current = unwrapExpression(node);
+  if (ts.isArrowFunction(current) || ts.isFunctionExpression(current)) {
+    return { declarations: [current], unknownCapture: false };
+  }
+  if (ts.isConditionalExpression(current)) {
+    const whenTrue = callableDeclarationsFromValue(
+      current.whenTrue,
+      context,
+      seenSymbols,
+      depth + 1,
+    );
+    const whenFalse = callableDeclarationsFromValue(
+      current.whenFalse,
+      context,
+      seenSymbols,
+      depth + 1,
+    );
+    return {
+      declarations: [...whenTrue.declarations, ...whenFalse.declarations],
+      unknownCapture: whenTrue.unknownCapture || whenFalse.unknownCapture,
+    };
+  }
+  if (ts.isBinaryExpression(current)) {
+    const operator = current.operatorToken.kind;
+    if (operator === ts.SyntaxKind.CommaToken) {
+      return callableDeclarationsFromValue(
+        current.right,
+        context,
+        seenSymbols,
+        depth + 1,
+      );
+    }
+    if (
+      operator === ts.SyntaxKind.AmpersandAmpersandToken ||
+      operator === ts.SyntaxKind.BarBarToken ||
+      operator === ts.SyntaxKind.QuestionQuestionToken
+    ) {
+      const left = callableDeclarationsFromValue(
+        current.left,
+        context,
+        seenSymbols,
+        depth + 1,
+      );
+      const right = callableDeclarationsFromValue(
+        current.right,
+        context,
+        seenSymbols,
+        depth + 1,
+      );
+      return {
+        declarations: [...left.declarations, ...right.declarations],
+        unknownCapture: left.unknownCapture || right.unknownCapture,
+      };
+    }
+  }
+  if (!ts.isIdentifier(current)) {
+    return { declarations: [], unknownCapture: false };
+  }
+  const symbol = context.checker.getSymbolAtLocation(current);
+  if (symbol === undefined) {
+    return { declarations: [], unknownCapture: false };
+  }
+  if (seenSymbols.has(symbol)) {
+    return { declarations: [], unknownCapture: true };
+  }
+  const nextSeen = new Set(seenSymbols);
+  nextSeen.add(symbol);
   const declarations = [];
-  const seen = new Set();
+  let unknownCapture = false;
+  const seenDeclarations = new Set();
   for (const declaration of [
     symbol.valueDeclaration,
     ...(symbol.declarations ?? []),
   ]) {
     if (
       declaration === undefined ||
-      seen.has(declaration) ||
-      !ts.isFunctionDeclaration(declaration) ||
-      declaration.body === undefined ||
+      seenDeclarations.has(declaration) ||
       declaration.getSourceFile() !== context.container.getSourceFile() ||
       !nodeContains(context.container, declaration)
     ) {
       continue;
     }
-    seen.add(declaration);
-    declarations.push(declaration);
+    seenDeclarations.add(declaration);
+    if (
+      ts.isFunctionDeclaration(declaration) &&
+      declaration.body !== undefined
+    ) {
+      declarations.push(declaration);
+      continue;
+    }
+    if (ts.isFunctionExpression(declaration)) {
+      declarations.push(declaration);
+      continue;
+    }
+    if (
+      ts.isVariableDeclaration(declaration) &&
+      declaration.initializer !== undefined
+    ) {
+      const resolved = callableDeclarationsFromValue(
+        declaration.initializer,
+        context,
+        nextSeen,
+        depth + 1,
+      );
+      declarations.push(...resolved.declarations);
+      unknownCapture ||= resolved.unknownCapture;
+    }
   }
-  return declarations.length === 0 ? null : { declarations, symbol };
+  return { declarations, unknownCapture };
 }
 
-// A directly referenced local arrow/function expression never receives exact
-// summary semantics here. Its runtime-only nodes are inspected solely so a
-// function declaration that calls the captured closure falls back to UNKNOWN
-// instead of preserving stale tracked state.
-function directLocalDeferredFunctionTarget(call, context) {
+function callableBindingWritesBeforeCall(symbol, call, context) {
+  const declarations = [];
+  let sawCallableWrite = false;
+  let unknownCapture = false;
+  const stopPosition = call.getStart();
+  function visit(node) {
+    if (node !== context.container && node.getStart() >= stopPosition) return;
+    if (
+      node !== context.container &&
+      (ts.isFunctionLike(node) ||
+        ts.isClassDeclaration(node) ||
+        ts.isClassExpression(node))
+    ) {
+      return;
+    }
+    if (
+      ts.isBinaryExpression(node) &&
+      isAssignmentOperator(node.operatorToken.kind)
+    ) {
+      const target = unwrapExpression(node.left);
+      if (
+        ts.isIdentifier(target) &&
+        context.checker.getSymbolAtLocation(target) === symbol
+      ) {
+        if (node.operatorToken.kind !== ts.SyntaxKind.EqualsToken) {
+          unknownCapture = true;
+          return;
+        }
+        const resolved = callableDeclarationsFromValue(
+          node.right,
+          context,
+          new Set([symbol]),
+        );
+        if (resolved.declarations.length > 0 || resolved.unknownCapture) {
+          sawCallableWrite = true;
+          declarations.push(...resolved.declarations);
+          unknownCapture ||= resolved.unknownCapture;
+        }
+        return;
+      }
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(context.container);
+  return { declarations, sawCallableWrite, unknownCapture };
+}
+
+// Resolve only direct identifier calls whose runtime implementation is a
+// local function declaration or a directly initialized arrow/function
+// expression binding in the tracked object's statement container. Symbol
+// identity is essential here: textual names are insufficient in the presence
+// of shadowing or same-named declarations in another scope.
+function directLocalCallableTarget(call, context) {
   if (!ts.isCallExpression(call)) return null;
   const callee = unwrapExpression(call.expression);
+  if (ts.isArrowFunction(callee) || ts.isFunctionExpression(callee)) {
+    // This deferred body is executed now rather than merely declared. Keep
+    // IIFEs outside the exact identifier-binding subset, but expose their
+    // runtime nodes so a tracked capture conservatively invalidates at call.
+    const internalSymbol =
+      callee.name === undefined
+        ? undefined
+        : context.checker.getSymbolAtLocation(callee.name);
+    return {
+      bindingDeclarations: [],
+      declarations: [callee],
+      kind: "local-conservative",
+      symbol: internalSymbol ?? callee,
+      unknownCapture: false,
+    };
+  }
   if (!ts.isIdentifier(callee)) return null;
   const symbol = context.checker.getSymbolAtLocation(callee);
   if (symbol === undefined) return null;
   const declarations = [];
+  const bindingDeclarations = [];
+  const localVariableDeclarations = [];
+  const kinds = new Set();
   const seen = new Set();
+  let unknownCapture = false;
   for (const symbolDeclaration of [
     symbol.valueDeclaration,
     ...(symbol.declarations ?? []),
@@ -2098,27 +2254,84 @@ function directLocalDeferredFunctionTarget(call, context) {
     if (
       symbolDeclaration === undefined ||
       seen.has(symbolDeclaration) ||
-      !ts.isVariableDeclaration(symbolDeclaration) ||
-      symbolDeclaration.initializer === undefined ||
       symbolDeclaration.getSourceFile() !== context.container.getSourceFile() ||
       !nodeContains(context.container, symbolDeclaration)
     ) {
       continue;
     }
-    const initializer = unwrapExpression(symbolDeclaration.initializer);
     if (
-      !ts.isArrowFunction(initializer) &&
-      !ts.isFunctionExpression(initializer)
+      ts.isFunctionDeclaration(symbolDeclaration) &&
+      symbolDeclaration.body !== undefined
     ) {
+      seen.add(symbolDeclaration);
+      declarations.push(symbolDeclaration);
+      kinds.add("function-declaration");
       continue;
     }
-    seen.add(symbolDeclaration);
-    declarations.push(initializer);
+    if (ts.isVariableDeclaration(symbolDeclaration)) {
+      localVariableDeclarations.push(symbolDeclaration);
+      if (symbolDeclaration.initializer === undefined) continue;
+      const initializer = unwrapExpression(symbolDeclaration.initializer);
+      if (
+        ts.isArrowFunction(initializer) ||
+        ts.isFunctionExpression(initializer)
+      ) {
+        seen.add(symbolDeclaration);
+        declarations.push(initializer);
+        bindingDeclarations.push(symbolDeclaration);
+        kinds.add("direct-closure-binding");
+      } else {
+        const resolved = callableDeclarationsFromValue(
+          initializer,
+          context,
+          new Set([symbol]),
+        );
+        if (resolved.declarations.length > 0 || resolved.unknownCapture) {
+          seen.add(symbolDeclaration);
+          declarations.push(...resolved.declarations);
+          bindingDeclarations.push(symbolDeclaration);
+          kinds.add("local-conservative");
+          unknownCapture ||= resolved.unknownCapture;
+        }
+      }
+      continue;
+    }
+    if (
+      ts.isFunctionExpression(symbolDeclaration) &&
+      symbolDeclaration.body !== undefined
+    ) {
+      // A named function expression owns a distinct recursive name symbol.
+      // It is local and relevant for cycle discovery, but only its external
+      // variable binding can qualify for exact direct-call semantics.
+      seen.add(symbolDeclaration);
+      declarations.push(symbolDeclaration);
+      kinds.add("function-expression-name");
+    }
   }
-  return declarations.length === 0 ? null : { declarations, symbol };
+  const writes = callableBindingWritesBeforeCall(symbol, call, context);
+  if (writes.sawCallableWrite || writes.unknownCapture) {
+    declarations.push(...writes.declarations);
+    for (const declaration of localVariableDeclarations) {
+      if (!bindingDeclarations.includes(declaration)) {
+        bindingDeclarations.push(declaration);
+      }
+    }
+    kinds.add("local-conservative");
+    unknownCapture ||= writes.unknownCapture;
+  }
+  if (declarations.length === 0 && !unknownCapture) return null;
+  const kind =
+    kinds.size === 1 ? kinds.values().next().value : "local-conservative";
+  return {
+    bindingDeclarations,
+    declarations,
+    kind,
+    symbol,
+    unknownCapture,
+  };
 }
 
-function functionRuntimeNodes(declaration) {
+function callableRuntimeNodes(declaration) {
   const nodes = [];
   for (const parameter of declaration.parameters) {
     nodes.push(parameter.name);
@@ -2128,26 +2341,20 @@ function functionRuntimeNodes(declaration) {
   return nodes;
 }
 
-function localFunctionReferencesTrackedState(
+function localCallableReferencesTrackedState(
   target,
   context,
   activeFunctions = new Set(),
   functionDepth = 0,
 ) {
+  if (target.unknownCapture) return true;
   if (activeFunctions.has(target.symbol)) return false;
   if (functionDepth >= MAX_LOCAL_FUNCTION_SUMMARY_DEPTH) return true;
   const nextActive = new Set(activeFunctions);
   nextActive.add(target.symbol);
   return target.declarations.some((declaration) =>
-    functionRuntimeNodes(declaration).some((node) =>
-      referencesTrackedSymbol(
-        node,
-        context,
-        0,
-        nextActive,
-        functionDepth + 1,
-        true,
-      ),
+    callableRuntimeNodes(declaration).some((node) =>
+      referencesTrackedSymbol(node, context, 0, nextActive, functionDepth + 1),
     ),
   );
 }
@@ -2194,8 +2401,22 @@ function localFunctionBindingWrite(identifier) {
   return false;
 }
 
-function localFunctionBindingIsStable(target, call, context) {
+function localCallableBindingIsStable(target, call, context) {
   if (target.declarations.length !== 1) return false;
+  if (target.kind === "direct-closure-binding") {
+    if (target.bindingDeclarations.length !== 1) return false;
+    const binding = target.bindingDeclarations[0];
+    if (
+      !ts.isVariableDeclarationList(binding.parent) ||
+      (binding.parent.flags & ts.NodeFlags.Const) === 0 ||
+      binding.initializer === undefined ||
+      binding.initializer.end > call.getStart()
+    ) {
+      return false;
+    }
+  } else if (target.kind !== "function-declaration") {
+    return false;
+  }
   let stable = true;
   const stopPosition = call.getStart();
   function visit(node) {
@@ -2207,6 +2428,7 @@ function localFunctionBindingIsStable(target, call, context) {
     if (
       ts.isIdentifier(node) &&
       context.checker.getSymbolAtLocation(node) === target.symbol &&
+      !target.bindingDeclarations.some((binding) => binding.name === node) &&
       localFunctionBindingWrite(node)
     ) {
       stable = false;
@@ -2228,7 +2450,7 @@ function directTrackedPropertyWithKnownKey(node, context) {
   );
 }
 
-function localFunctionMutationIsSummarizable(node, context) {
+function localCallableMutationIsSummarizable(node, context) {
   const current = unwrapExpression(node);
   if (ts.isDeleteExpression(current)) {
     return directTrackedPropertyWithKnownKey(current.expression, context);
@@ -2241,26 +2463,32 @@ function localFunctionMutationIsSummarizable(node, context) {
   );
 }
 
-function localFunctionStatementIsSummarizable(statement, context, depth = 0) {
+function localCallableStatementIsSummarizable(statement, context, depth = 0) {
   if (depth > MAX_STRUCTURAL_DEPTH) return false;
   if (ts.isBlock(statement)) {
     return statement.statements.every((child) =>
-      localFunctionStatementIsSummarizable(child, context, depth + 1),
+      localCallableStatementIsSummarizable(child, context, depth + 1),
     );
   }
   return (
     (ts.isExpressionStatement(statement) &&
-      localFunctionMutationIsSummarizable(statement.expression, context)) ||
+      localCallableMutationIsSummarizable(statement.expression, context)) ||
     ts.isEmptyStatement(statement) ||
     ts.isDebuggerStatement(statement)
   );
 }
 
-function applyDirectLocalFunctionCall(call, states, context) {
-  const target = directLocalFunctionTarget(call, context);
+function localCallableBodyIsSummarizable(body, context) {
+  return ts.isBlock(body)
+    ? localCallableStatementIsSummarizable(body, context)
+    : localCallableMutationIsSummarizable(body, context);
+}
+
+function applyDirectLocalCallableCall(call, states, context) {
+  const target = directLocalCallableTarget(call, context);
   if (
     target === null ||
-    !localFunctionReferencesTrackedState(target, context)
+    !localCallableReferencesTrackedState(target, context)
   ) {
     return states;
   }
@@ -2269,7 +2497,7 @@ function applyDirectLocalFunctionCall(call, states, context) {
   if (
     activeFunctions.has(target.symbol) ||
     depth >= MAX_LOCAL_FUNCTION_SUMMARY_DEPTH ||
-    !localFunctionBindingIsStable(target, call, context)
+    !localCallableBindingIsStable(target, call, context)
   ) {
     return unknownTrackedStates(states);
   }
@@ -2280,17 +2508,21 @@ function applyDirectLocalFunctionCall(call, states, context) {
     declaration.modifiers?.some(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     ) === true ||
-    !localFunctionStatementIsSummarizable(declaration.body, context)
+    !localCallableBodyIsSummarizable(declaration.body, context)
   ) {
     return unknownTrackedStates(states);
   }
   const nextActive = new Set(activeFunctions);
   nextActive.add(target.symbol);
-  const flow = processTrackedFlow(declaration.body, states, {
+  const nextContext = {
     ...context,
     activeLocalFunctions: nextActive,
     localFunctionSummaryDepth: depth + 1,
-  });
+  };
+  if (!ts.isBlock(declaration.body)) {
+    return processTrackedExpression(declaration.body, states, nextContext);
+  }
+  const flow = processTrackedFlow(declaration.body, states, nextContext);
   return flow.normal.length === 0 ? unknownTrackedStates(states) : flow.normal;
 }
 
@@ -2308,6 +2540,11 @@ function processTrackedExpression(
   if (node === undefined || node.getStart() >= stopPosition) return states;
   const current = unwrapExpression(node);
   if (current.getStart() >= stopPosition) return states;
+  if (ts.isArrowFunction(current) || ts.isFunctionExpression(current)) {
+    // Creating a closure does not execute its parameters or body. A supported
+    // direct call re-enters those runtime nodes through the callable summary.
+    return states;
+  }
 
   if (
     (ts.isCallExpression(current) ||
@@ -2346,7 +2583,7 @@ function processTrackedExpression(
           stopPosition,
         );
       }
-      reached = applyDirectLocalFunctionCall(current, reached, context);
+      reached = applyDirectLocalCallableCall(current, reached, context);
     }
     return reachability === UNKNOWN
       ? mergeTrackedBranches([afterBase, reached], context.names)
@@ -2389,7 +2626,7 @@ function processTrackedExpression(
           stopPosition,
         );
       }
-      reached = applyDirectLocalFunctionCall(current, reached, context);
+      reached = applyDirectLocalCallableCall(current, reached, context);
     }
     return optionalReachability === UNKNOWN
       ? mergeTrackedBranches([afterPrefix, reached], context.names)
@@ -2601,7 +2838,7 @@ function processTrackedExpression(
       );
     }
     return ts.isCallExpression(current)
-      ? applyDirectLocalFunctionCall(current, ordered, context)
+      ? applyDirectLocalCallableCall(current, ordered, context)
       : ordered;
   }
 
@@ -3604,9 +3841,13 @@ function referencesTrackedSymbol(
   depth = 0,
   activeFunctions = new Set(),
   functionDepth = 0,
-  inspectDeferredFunctions = false,
 ) {
   if (depth > MAX_STRUCTURAL_DEPTH) return true;
+  if (ts.isFunctionLike(node)) {
+    // Deferred bodies are inert at declaration time. Runtime capture discovery
+    // enters a callable through the resolved direct call target instead.
+    return false;
+  }
   if (ts.isIdentifier(node)) {
     if (
       sameResolvedSymbol(node, context.symbol, context.checker, context.aliases)
@@ -3635,10 +3876,10 @@ function referencesTrackedSymbol(
     }
   }
   if (ts.isCallExpression(node)) {
-    const target = directLocalFunctionTarget(node, context);
+    const target = directLocalCallableTarget(node, context);
     if (
       target !== null &&
-      localFunctionReferencesTrackedState(
+      localCallableReferencesTrackedState(
         target,
         context,
         activeFunctions,
@@ -3646,20 +3887,6 @@ function referencesTrackedSymbol(
       )
     ) {
       return true;
-    }
-    if (inspectDeferredFunctions) {
-      const deferredTarget = directLocalDeferredFunctionTarget(node, context);
-      if (
-        deferredTarget !== null &&
-        localFunctionReferencesTrackedState(
-          deferredTarget,
-          context,
-          activeFunctions,
-          functionDepth,
-        )
-      ) {
-        return true;
-      }
     }
   }
   return (
@@ -3670,7 +3897,6 @@ function referencesTrackedSymbol(
         depth + 1,
         activeFunctions,
         functionDepth,
-        inspectDeferredFunctions,
       )
         ? true
         : undefined,

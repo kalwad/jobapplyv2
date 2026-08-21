@@ -512,6 +512,73 @@ broadening a work package (spec §1.5).
   KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh verifier on
   the exact seventh-correction content and W07 governance.
 
+  Eighth narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21):
+  begun on the exact independently blocked seventh-correction commit
+  `3133a9348193a03759140dc2a32c35223be9717d` / tree
+  `f4da4024b5b30c89bf06d1df66499f4d3082a660` / parent
+  `05bbcb340bd98e856367b5349d51be028669d3f7` after verdict
+  `SOL_BLOCKED_FINAL_M02_W07_SEVENTH_CORRECTION_VERIFICATION`. That verifier
+  cleared the seventh correction's hoisted `FunctionDeclaration` semantics
+  and found one remaining pre-existing direct-call hole. On the exact base,
+  H1 (arrow before tracked object; write `true`; spawn sink) returned `[]`,
+  while H2 (arrow/function-expression equivalent; write `""`; exec sink)
+  retained absent/default-shell state and returned a false violation. Moving
+  the callable declaration across the tracked object changed analysis because
+  its deferred body was visible at declaration time but its direct call was
+  excluded from ordinary tracked relevance.
+
+  The eighth correction replaces the split declaration/deferred target paths
+  with one TypeScript-symbol-resolved direct local callable abstraction.
+  Direct function declarations retain their existing semantics. A unique
+  local `const` initialized directly to an arrow or function expression,
+  initialized before the call and having zero parameters, no async/generator
+  marker, and a body in the existing straight-line tracked-write/delete
+  subset receives the same exact call-time summary. Block and concise
+  assignment bodies reuse the existing property evaluator; no second shell
+  model exists. Closure creation is inert, so never-called and post-sink calls
+  cannot act retroactively. Calls are relevant through their resolved target
+  even when callable text precedes the tracked object. Parameters/defaults,
+  async/generator forms, mutable or later-assigned bindings, callable aliases,
+  recursion/cycles, over-depth chains, unsupported calls/control flow,
+  captured nested closures, and directly invoked nested closures fall back to
+  UNKNOWN at the call site when they may touch tracked state. The existing
+  active-symbol cycle set and `MAX_LOCAL_FUNCTION_SUMMARY_DEPTH = 16` remain.
+
+  The permanent eighth slice has 46 nodes covering H1–H26, exact
+  true/false/empty/delete/computed writes, multiple ordered writes, anonymous
+  and named function expressions, concise arrows, declaration parity,
+  never-called/post-sink timing, opposite call order, per-sink timing,
+  symbol shadowing, unsupported parameters/defaults/async/generators/control
+  flow/nested calls, mutable and aliased callables, direct/named recursion,
+  short/near/over-depth and mixed chains, an unrelated-call non-invalidation
+  control, pinned-tsc compilation, and four reviewer IIFE regressions. The
+  fifth-through-eighth lock passes 130/130 and the complete portability module
+  passes 477/477.
+
+  Two bounded no-delegation reviewers used separate disposable
+  `git clone --no-local --no-hardlinks` candidates. Reviewer A returned CLEAR
+  after the 46-node slice and an independent 11-case target/order/timing/
+  identity/form matrix. Reviewer B found that the first deferred-node prune
+  also hid executed nested IIFEs in runtime defaults/bodies; the lead
+  reproduced all four failing forms under pinned Node 24 before changing code.
+  IIFEs now enter the same call-target relevance path as conservative local
+  callables, and the reviewer's original five-case file passes 5/5.
+
+  Exactly six disposable mutation families were run and stopped at M6: reject
+  pre-object closure declarations (M1, 2 failures / 2 controls), make direct
+  closures no-op (M2, 4 / 1), execute closure bodies at declaration time (M3,
+  2 / 1), contaminate symbol identity by textual-name collisions (M4, 2 / 1),
+  preserve stale state for parameterized/default closures (M5, 2 / 1), and
+  drop function-expression targets (M6, 2 / 2). The canonical inventory is
+  1,371 common/Windows nodes at SHA-256
+  `54c2af8705db487eb4d77622e4ae30e632aac9074233d58f9bb032240648e875`
+  and 1,373 POSIX nodes at SHA-256
+  `e87520b6f1fa8ce777a09999fa326ba41c5690d5258fd40a5dff6e31e894e099`.
+  No catalog, wrapper, extension, browser, W06, contract, generated, gate,
+  dependency, lockfile, CI, model, prompt, W08, or owner-evidence surface
+  changed. KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
+  verifier on the exact eighth-correction content and W07 governance.
+
 ## M02-W06 owner-holdout corrective review
 
 ### KI-0057 — M02-W06 reviewed-manifest integration hard-coded pending verification state
