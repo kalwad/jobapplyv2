@@ -33,6 +33,113 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W08 — Semantic field scanner implementation writer evidence (2026-08-21)
+
+- Revision: implementation writer pass starting from required synchronized
+  `main` commit `2131c3395f042aef9ebb7df4456f9b9fd3230ba4`, tree
+  `f31a17a7e593498e653e93f0fdb6500f537c0107`, parent
+  `5d2cc2322e215b2de9e363da996cf625afdb7424`; the W08 content tree is
+  recorded post-commit by the containing commit. M02-W07 remains CLOSED and
+  VERIFIED at its preserved evidence boundary.
+- Environment: macOS 27.0 arm64; Node 24.18.0; pnpm 11.17.0; WXT 0.20.27;
+  Playwright 1.62.0 with bundled Chromium; uv 0.11.32 with Python 3.12.13;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact starting boundary: `git fetch origin`, both required porcelain status
+  forms, branch/HEAD/origin/tree/parent checks, `git diff --check`, and the
+  specification digest confirmed a clean synchronized `main` at the required
+  commit/tree/parent before any edit.
+- Lifecycle: M02-W08 moved READY -> IN_PROGRESS; M02-W09 remains NOT_STARTED;
+  no package is READY; M02 remains IN_PROGRESS; every critical gate remains
+  NOT_EVALUATED; release remains NOT_READY.
+- Canonical identity and descriptor implementation:
+  - Production code imports the generated M01 `FormFieldAddressV1` and
+    `FormFieldDescriptorV1` types; no parallel field-contract type exists.
+    SHA-256 fingerprints and opaque deterministic stable IDs bind session,
+    frame, current document, route, application root, accessible name,
+    attributes, section path, and option-set evidence. Every address has at
+    least two authoritative semantic/structural signals. Resolution hints are
+    typed non-authoritative evidence; raw selectors and DOM indexes are absent
+    from the canonical wire shape and raw-selector-only input is rejected.
+  - Descriptors retain bounded normalized untrusted label/description text,
+    control kind, section/group context, option label/value-digest/disabled
+    evidence, visibility, enabled, required, frame/document context, and a
+    canonical observation timestamp. Unsafe page option strings remain only
+    one-way digests and cannot become stable tokens. W09 sensitivity/ontology
+    classification is not performed; the schema-required feasibility flag is
+    false and no current field value is captured.
+- Root and scan bounds: deterministic precedence is explicit application
+  region, unique form ownership, then unique semantic main. Missing or
+  multiple candidates return typed unresolved/ambiguous results. Root scans
+  and token-addressed subtree scans are distinct; a subtree request cannot
+  escape its selected element. Each frame report is capped at 512 descriptors,
+  each field at 256 options, and each tab at 64 registered frame agents.
+- Frame architecture: the same all-frame content entrypoint runs only on the
+  two permitted loopback fixture origins. Every agent scans its own `document`
+  only, registers typed session/frame/document identity, and reports through
+  the actual MV3 service worker. The worker targets registered Chrome frame
+  IDs, validates descriptor-to-frame coherence, preserves frame identity in
+  aggregation, and returns unavailable rather than traversing or flattening a
+  disappeared frame. Bundled-Chromium same-origin and cross-origin fixtures
+  prove isolated reports; the parent cannot read the cross-origin child DOM.
+- Re-resolution: the current registered frame/document is scanned again and
+  all populated authoritative address signals must match. Exactly one match
+  returns the current canonical descriptor; zero returns typed stale/no-match;
+  multiple return typed ambiguous. Hints, selectors, DOM order, and the first
+  candidate never override these outcomes. No fill is implemented.
+- Protocol authority: W07's synchronous probe/ACK and silent rejection
+  behavior are preserved. W08 adds only closed frame registration, root/subtree
+  descriptor scan, typed per-frame aggregation, and re-resolution/status
+  messages. There is no fill, click, upload, navigation, submission, arbitrary
+  command bus, database, native host, local model, or product UI authority.
+- One bounded writer reviewer: one read-only reviewer, with no subdelegation,
+  inspected only canonical contracts, frame isolation, scan bounds,
+  re-resolution, and protocol authority. The reviewer found and the lead
+  reproduced one blocker: `javascript:evil` could previously satisfy the
+  structural bounded-token grammar while failing canonical inert-text
+  semantics. Emission and wire validation were corrected and permanent unit
+  plus real-browser hostile-option tests added. The reviewer returned no
+  remaining blocker. Its non-blocking impossible-timestamp parity observation
+  was also reproduced and hardened with calendar-valid UTC/leap-second tests.
+- Exactly four mutation families were run against the final focused code and
+  stopped at M4. Every touched-file SHA-256 matched its pre-mutation value
+  afterward:
+  - M1 made a raw selector authoritative -> the direct W08 unit suite failed
+    the selector-only assertion (**1 failed, 15 controls passed**).
+  - M2 erased per-frame identity -> the same-origin built-extension isolation
+    test rejected the duplicate-frame aggregate (**1 failed**).
+  - M3 replaced the requested subtree with the application root -> the direct
+    boundary test observed the outside field and failed (**1 failed**).
+  - M4 resolved the first of multiple semantic matches -> the ambiguous
+    re-resolution test failed while the stale replacement control passed
+    (**1 failed, 1 control passed**).
+- Focused commands and observed results before documentation freeze:
+  - `pnpm --dir apps/extension exec vitest run
+    test/m02-w08/scanner-protocol.test.ts --no-file-parallelism --maxWorkers=1`
+    -> exit 0, **16 passed**.
+  - `pnpm exec playwright test e2e/extension --reporter=line` -> exit 0,
+    **22 passed** against freshly built canonical and invalid-ACK WXT variants,
+    including every retained W07 browser regression and all W08 real-browser
+    cases.
+  - extension typecheck and affected-file ESLint -> exit 0; `git diff --check`
+    -> exit 0.
+- Frozen verification deferral: after final documentation/traceability bytes,
+  the complete canonical sequence (`python3 scripts/check_portability.py`,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  `pnpm generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, and
+  `git diff --check`) is run twice against identical tracked bytes and reported
+  in the writer handoff. No canonical or hosted result is preclaimed here.
+- Artifacts: no UI snapshot is applicable; the visual suite remains
+  NOT_YET_APPLICABLE. Browser failure screenshots/traces existed only for the
+  intentionally killed mutants under ignored Playwright output.
+- Notes: REQ-FORM-013, REQ-FORM-014, and REQ-FORM-019 truthfully move only to
+  SCAFFOLD_ONLY / NOT_YET_APPLICABLE because later M17/M18 owners and fresh
+  independent W08 verification remain required. M02-W08 stays IN_PROGRESS;
+  M02-W09 stays NOT_STARTED; no W09 ontology/resolver, W10 fill/driver, W11
+  persistent mutation/reconciliation/performance engine, Gate A execution,
+  package verification, compatibility claim, gate decision, acceptance, or
+  release claim occurred.
+
 ### M02-W07 — Governance closeout after final independent Sol verification (2026-08-21)
 
 - Verified content boundary: exact commit

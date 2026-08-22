@@ -11,7 +11,7 @@
     "derived_dependency_review": "The complete v1.4 direct-package graph is reviewed from specification \u00a71/\u00a79, including explicit M00-W11, M01-W07, and M27 exceptions; reverse downstream edges are derived from that graph. Historical v1.2/v1.3 hashes remain immutable snapshots. The v1.4 hashes lock requirement honesty, ownership, gate effects, package dependencies, deliverables, automated verification, and manual evidence plans.",
     "v1_3_reviewed_in_work_package": "M00-W10",
     "v1_4_reviewed_in_work_package": "M00-W11",
-    "v1_4_requirements_mapping_sha256": "203252e04ce7e212d3520c8bd6365df47e24839cbf49a10bef028039067f788b",
+    "v1_4_requirements_mapping_sha256": "594657f83c0ddba1b99fc033dc5c2b44395d7a4602a8ad9c3639e6c9dc6cbde5",
     "v1_4_work_package_dependency_sha256": "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1",
     "v1_4_prior_requirement_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
     "v1_4_intentionally_changed_packages": [
@@ -1729,12 +1729,24 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "apps/extension/src/semantic-identity.ts",
+        "apps/extension/src/scanner-protocol.ts",
+        "apps/extension/src/field-scanner.ts"
+      ],
+      "completed_test_paths": [
+        "apps/extension/test/m02-w08/scanner-protocol.test.ts",
+        "e2e/extension/extension-scanner.spec.ts"
+      ],
+      "notes": "M02-W08 implements the feasibility portion with the generated M01 FieldAddress/FieldDescriptor types, multiple required semantic/structural authority signals, bounded inert evidence, and no raw-selector or DOM-index authority. Raw-selector-only input is rejected structurally and at the closed scanner wire boundary; current addresses are recovered only from canonical evidence. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because the writer does not independently verify W08 and M18-W01 still owns production form-engine completion; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -1759,12 +1771,25 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "apps/extension/entrypoints/background.ts",
+        "apps/extension/entrypoints/feasibility.content.ts",
+        "apps/extension/src/scanner-protocol.ts",
+        "apps/extension/src/field-scanner.ts"
+      ],
+      "completed_test_paths": [
+        "apps/extension/test/m02-w08/scanner-protocol.test.ts",
+        "e2e/extension/extension-scanner.spec.ts"
+      ],
+      "notes": "M02-W08 implements feasibility re-resolution against the current registered frame/document: one complete authoritative semantic/structural match resolves, zero is typed unresolved/stale, and more than one is typed ambiguous. Resolution hints, selectors, DOM order, and first-match behavior never select a control, and W08 performs no fill. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because the writer does not independently verify W08 and M18-W02 still owns production immediately-before-fill integration; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -1910,12 +1935,29 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W08"
+        }
+      ],
+      "completed_code_paths": [
+        "apps/extension/wxt.config.ts",
+        "apps/extension/entrypoints/background.ts",
+        "apps/extension/entrypoints/feasibility.content.ts",
+        "apps/extension/src/feasibility-protocol.ts",
+        "apps/extension/src/scanner-protocol.ts",
+        "apps/extension/src/field-scanner.ts"
+      ],
+      "completed_test_paths": [
+        "apps/extension/test/m02-w07/built-manifest.test.ts",
+        "apps/extension/test/m02-w08/scanner-protocol.test.ts",
+        "e2e/extension/extension-scanner.spec.ts",
+        "e2e/extension/extension-substrate.spec.ts"
+      ],
+      "notes": "M02-W08 implements the feasibility frame portion with one identical all-frame content agent per permitted loopback origin. Each agent scans only its own document, registers a typed session/frame/document identity, and returns bounded descriptors through the actual MV3 service worker; aggregation retains distinct frame context and rejects cross-frame descriptor substitution. Bundled-Chromium same-origin and cross-origin fixtures prove isolation without parent DOM traversal. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because the writer does not independently verify W08 and M17-W03/M18-W02 still own production trust and form-engine completion; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -7655,7 +7697,7 @@
       "id": "M02-W08",
       "milestone": "M02",
       "title": "Implement semantic field identity and per-frame scanner",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W07"

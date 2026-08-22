@@ -1,10 +1,10 @@
-// M02-W07 real-extension Playwright fixtures (REQ-FORM-020, spec §5.11.7).
+// M02-W07/W08 real-extension Playwright fixtures (REQ-FORM-020, spec §5.11.7).
 //
 // Every test gets a fresh persistent bundled-Chromium context with the real
 // built @japp/extension side-loaded from apps/extension/dist/chrome-mv3, the
 // actual Manifest V3 service worker resolved from that context, and an
 // automatic network-isolation assertion: the extension context may touch
-// only the loopback mock ATS origin and browser-internal schemes. Profiles
+// only the permitted loopback mock-frame origins and browser-internal schemes. Profiles
 // live in fresh system temp directories and are removed with bounded
 // Windows-safe retries (KI-0028 pattern).
 import {
@@ -20,6 +20,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const LAB_ORIGIN = "http://127.0.0.1:4761";
+export const CROSS_FRAME_ORIGIN = "http://127.0.0.1:4762";
 
 const REPO_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
 export const EXTENSION_DIST = join(
@@ -51,7 +52,11 @@ const LOCAL_PROTOCOLS = new Set([
 ]);
 
 function isLocalRequest(url: string): boolean {
-  if (url.startsWith(`${LAB_ORIGIN}/`) || url === LAB_ORIGIN) {
+  if (
+    [LAB_ORIGIN, CROSS_FRAME_ORIGIN].some(
+      (origin) => url === origin || url.startsWith(`${origin}/`),
+    )
+  ) {
     return true;
   }
   try {
@@ -92,7 +97,7 @@ async function provideExtensionContext(
   if (!existsSync(join(extensionDist, "manifest.json"))) {
     throw new Error(
       `built extension missing at ${extensionDist}; run the canonical ` +
-        "'playwright test' command so global setup builds every W07 variant",
+        "'playwright test' command so global setup builds every extension variant",
     );
   }
   const userDataDir = mkdtempSync(join(tmpdir(), profilePrefix));
@@ -127,7 +132,7 @@ async function provideExtensionContext(
     await use(context);
     expect(
       offenders,
-      "the W07 extension context must never issue an observed non-loopback request",
+      "the extension context must never issue an observed non-loopback request",
     ).toEqual([]);
   } finally {
     await context.close();

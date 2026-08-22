@@ -1,4 +1,4 @@
-// M02-W07 global setup: build the real @japp/extension WXT output before
+// M02-W07/W08 global setup: build the real @japp/extension WXT output before
 // any Playwright test runs. This makes the canonical `playwright test`
 // command self-sufficient — the browser suite always exercises the freshly
 // built Manifest V3 extension (REQ-FORM-020) — while `playwright test

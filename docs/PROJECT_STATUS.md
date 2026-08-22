@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: governance closeout of independently verified M02-W07 content commit ce74ef49e142bb7c2cab608cd0c800d312bd2217 / tree 9412c5b71437ee562534a1fb92e80ab50ffc333d; governance-fixture correction 5d2cc2322e215b2de9e363da996cf625afdb7424 / tree 77c1bec24ce694b879ec5f580146f7a1ad40f9b4
-Last updated: 2026-08-21T19:41:45-04:00
+Repository revision: M02-W08 implementation in progress on top of required governance commit 2131c3395f042aef9ebb7df4456f9b9fd3230ba4 / tree f31a17a7e593498e653e93f0fdb6500f537c0107
+Last updated: 2026-08-21T20:56:12-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W08
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W07 (scaffold the real MV3 feasibility extension) is VERIFIED, not ACCEPTED, at exact independently cleared content commit `ce74ef49e142bb7c2cab608cd0c800d312bd2217` / tree `9412c5b71437ee562534a1fb92e80ab50ffc333d` after verdict `SOL_CLEAR_FINAL_M02_W07_NINTH_CORRECTION_CONTENT` and exact-SHA hosted run `32522233170`. M02-W08 is the sole READY package and has not begun; no package is IN_PROGRESS, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED.
+- State: M02-W08 (implement semantic field identity and per-frame scanner) is IN_PROGRESS. The implementation writer began on top of required governance commit `2131c3395f042aef9ebb7df4456f9b9fd3230ba4` / tree `f31a17a7e593498e653e93f0fdb6500f537c0107`. No package is READY, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED. M02-W07 remains VERIFIED, not ACCEPTED, at exact independently cleared content commit `ce74ef49e142bb7c2cab608cd0c800d312bd2217` / tree `9412c5b71437ee562534a1fb92e80ab50ffc333d` after verdict `SOL_CLEAR_FINAL_M02_W07_NINTH_CORRECTION_CONTENT` and exact-SHA hosted run `32522233170`.
 - Verification chain: the final content verdict is carried forward without reopening PORT-SRC-008 semantics. The first post-clear governance simulation stopped with `SOL_BLOCKED_FINAL_M02_W07_GOVERNANCE` because historical M02-W06 lifecycle fixtures inherited the newly READY M02-W08 row. Governance-enablement commit `5d2cc2322e215b2de9e363da996cf625afdb7424` / tree `77c1bec24ce694b879ec5f580146f7a1ad40f9b4`, titled `M02-W07: isolate W06 lifecycle fixture from downstream state`, adds only the two required downstream resets in `scripts/tests/test_validate_status.py`; it changes no product, analyzer, validator, W07 test, Python inventory, extension/E2E, or project-memory semantics. Hosted push run `32534586594` is successful on macOS 15 (`96932982689`), Ubuntu 24.04 (`96932982826`), and Windows 2025 (`96932982836`).
-- Scope: M02-W07 remains the minimal WXT Manifest V3 feasibility substrate: one background service worker, one loopback-only content script, and one closed typed probe/ACK protocol proven through the real built extension in bundled Playwright Chromium. It performs no product autofill action and adds no scanner, field identity, ontology/resolver, control driver, navigation, or submission capability. Those later surfaces remain owned by M02-W08–W11. REQ-FORM-020 therefore remains deliberately `SCAFFOLD_ONLY` / `NOT_YET_APPLICABLE` with no production autofill acceptance claim.
+- Scope: M02-W08 extends the verified W07 MV3 substrate only with the canonical M01 `FieldAddress` / `FieldDescriptor` feasibility scanner, deterministic application-root discovery, frame-local scanning and typed service-worker aggregation, bounded subtree scanning, and current-document re-resolution. Its protocol authority is limited to scan and re-resolution status. The implemented M02 feasibility portions of REQ-FORM-013, REQ-FORM-014, and REQ-FORM-019 are recorded as `SCAFFOLD_ONLY` / `NOT_YET_APPLICABLE`; later M17/M18 owners and fresh independent W08 verification remain required. It adds no W09 ontology or answer resolver, W10 filling or control driver, W11 mutation/reconciliation engine, ATS-brand heuristic, product UI, native host, database, navigation, or submission capability.
 - Issue posture: KI-0058, KI-0059, KI-0060, KI-0061, and KI-0062 are FIXED by the independently verified W07 content and preserved correction evidence. KI-0006 remains LOW / DEFERRED for the untouched M17 Rust/native surface; other previously deferred issues retain their named future owners.
 - Preserved predecessor evidence: M02-W01 through M02-W06 remain VERIFIED at their recorded content trees. The W06 sanitized owner-holdout commitment, model lock, prompt registry, generated contracts, public corpus truth, and all critical-gate reports remain untouched. No excluded private owner evidence is required for or represented by M02-W07 governance.
-- Gate posture: M02 remains IN_PROGRESS. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED; release remains NOT_READY. No M02 acceptance, Gate A execution, or M02-W08 implementation occurred.
+- Gate posture: M02 remains IN_PROGRESS. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED; release remains NOT_READY. No M02 acceptance or Gate A execution occurs in M02-W08.
 
 ## Milestone table
 
@@ -36,7 +36,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, and M02-W08 READY but not begun |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, and M02-W08 IN_PROGRESS |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -103,7 +103,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W05` | VERIFIED | tree 40bbe111a4f80702c1fdd98b576534f1284873fc | docs/TEST_EVIDENCE.md § M02-W05 | Build evaluation runner; corrected content independently verified after `FABLE_CLEAR_FOR_FINAL_M02_W05_GOVERNANCE` (hosted content run 31355141330) |
 | `M02-W06` | VERIFIED | tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9 | docs/TEST_EVIDENCE.md § M02-W06 | Freeze v1 corpus and holdout manifest; lifecycle-corrected integration and preserved owner bundle independently verified after `SOL_CLEAR_FINAL_M02_W06_CONTENT` |
 | `M02-W07` | VERIFIED | tree 9412c5b71437ee562534a1fb92e80ab50ffc333d | docs/TEST_EVIDENCE.md § M02-W07 | Scaffold the real MV3 feasibility extension; final content independently verified after `SOL_CLEAR_FINAL_M02_W07_NINTH_CORRECTION_CONTENT` (hosted content run 32522233170); governance-fixture isolation recorded separately at 5d2cc2322e215b2de9e363da996cf625afdb7424 |
-| `M02-W08` | READY | — | — | Implement semantic field identity and per-frame scanner |
+| `M02-W08` | IN_PROGRESS | — | — | Implement semantic field identity and per-frame scanner |
 | `M02-W09` | NOT_STARTED | — | — | Implement deterministic ontology, resolver, and safety policy |
 | `M02-W10` | NOT_STARTED | — | — | Implement transactional control drivers |
 | `M02-W11` | NOT_STARTED | — | — | Implement dynamic state, reconciliation, and performance instrumentation |
@@ -381,9 +381,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: `M02-W08`
-- Reason: M02-W07 is VERIFIED at exact content tree `9412c5b71437ee562534a1fb92e80ab50ffc333d`; M02-W08 is the sole READY package and has not begun.
-- Required reading: docs/MASTER_IMPLEMENTATION_SPEC.md § M02-W08, apps/extension/README.md, and docs/TEST_EVIDENCE.md § M02-W07.
+- ID: NONE
+- Reason: M02-W08 is IN_PROGRESS (single-IN_PROGRESS rule; READY cannot coexist with IN_PROGRESS). M02-W09 remains NOT_STARTED until a fresh independent verifier confirms the exact M02-W08 content and M02-W08 is marked VERIFIED.
+- Required reading for the next transition: docs/MASTER_IMPLEMENTATION_SPEC.md § M02-W08, apps/extension/README.md, and docs/TEST_EVIDENCE.md § M02-W08.
 
 ## Known release blockers
 

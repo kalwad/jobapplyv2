@@ -13,6 +13,8 @@ import {
   CONTENT_READY_VALUE,
   FEASIBILITY_ACK_KIND,
   FEASIBILITY_CONTENT_MATCH,
+  FEASIBILITY_CONTENT_MATCHES,
+  FEASIBILITY_CROSS_ORIGIN_MATCH,
   FEASIBILITY_PROBE_KIND,
   FEASIBILITY_PROTOCOL_VERSION,
   parseFeasibilityAck,
@@ -22,8 +24,13 @@ import {
 } from "../../src/feasibility-protocol.ts";
 
 describe("protocol constants", () => {
-  test("the loopback content match is the exact deterministic mock ATS origin and nothing broader", () => {
+  test("the content matches are exactly the two deterministic loopback frame origins", () => {
     expect(FEASIBILITY_CONTENT_MATCH).toBe("http://127.0.0.1:4761/*");
+    expect(FEASIBILITY_CROSS_ORIGIN_MATCH).toBe("http://127.0.0.1:4762/*");
+    expect(FEASIBILITY_CONTENT_MATCHES).toEqual([
+      FEASIBILITY_CONTENT_MATCH,
+      FEASIBILITY_CROSS_ORIGIN_MATCH,
+    ]);
   });
 
   test("marker names are namespaced to the package and work item", () => {

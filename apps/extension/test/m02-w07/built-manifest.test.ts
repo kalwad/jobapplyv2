@@ -11,7 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { beforeAll, describe, expect, test } from "vitest";
 
-import { FEASIBILITY_CONTENT_MATCH } from "../../src/feasibility-protocol.ts";
+import { FEASIBILITY_CONTENT_MATCHES } from "../../src/feasibility-protocol.ts";
 
 const PACKAGE_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const BUILD_OUTPUT_DIR = join(PACKAGE_ROOT, "dist", "chrome-mv3");
@@ -167,11 +167,12 @@ describe("generated Chrome MV3 manifest", () => {
     expect(statSync(workerPath).size).toBeGreaterThan(0);
   });
 
-  test("exactly one content script exists, bounded to the loopback mock ATS origin", () => {
+  test("exactly one all-frame content script exists, bounded to the permitted loopback origins", () => {
     const manifest = readManifest();
     expect(manifest.content_scripts).toEqual([
       {
-        matches: [FEASIBILITY_CONTENT_MATCH],
+        matches: [...FEASIBILITY_CONTENT_MATCHES],
+        all_frames: true,
         js: ["content-scripts/feasibility.js"],
       },
     ]);
@@ -191,9 +192,9 @@ describe("generated Chrome MV3 manifest", () => {
     }
   });
 
-  test("the manifest identifies itself as the neutral test-only feasibility scaffold", () => {
+  test("the manifest identifies itself as the neutral test-only W08 scanner", () => {
     const manifest = readManifest();
-    expect(manifest.name).toBe("M02-W07 feasibility extension (test-only)");
+    expect(manifest.name).toBe("M02-W08 semantic scanner (test-only)");
     expect(manifest.version).toBe("0.0.1");
   });
 });

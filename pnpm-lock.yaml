@@ -54,6 +54,10 @@ importers:
   apps/desktop: {}
 
   apps/extension:
+    dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
     devDependencies:
       '@types/node':
         specifier: 'catalog:'

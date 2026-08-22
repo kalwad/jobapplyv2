@@ -6,7 +6,7 @@
 import {
   BACKGROUND_GLOBAL_KEY,
   BACKGROUND_RUNTIME_MARKER,
-  FEASIBILITY_CONTENT_MATCH,
+  FEASIBILITY_CONTENT_MATCHES,
   FEASIBILITY_PROTOCOL_VERSION,
 } from "../../apps/extension/src/feasibility-protocol.ts";
 import { expect, test } from "./support/extension-test.ts";
@@ -50,11 +50,12 @@ test("the manifest inside the running browser is genuine MV3 with the reviewed m
     return runtimeHost.chrome.runtime.getManifest();
   });
   expect(manifest.manifest_version).toBe(3);
-  expect(manifest.name).toBe("M02-W07 feasibility extension (test-only)");
+  expect(manifest.name).toBe("M02-W08 semantic scanner (test-only)");
   expect(manifest.background).toEqual({ service_worker: "background.js" });
   expect(manifest.content_scripts).toEqual([
     {
-      matches: [FEASIBILITY_CONTENT_MATCH],
+      matches: [...FEASIBILITY_CONTENT_MATCHES],
+      all_frames: true,
       js: ["content-scripts/feasibility.js"],
     },
   ]);

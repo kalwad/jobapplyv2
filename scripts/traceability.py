@@ -110,10 +110,15 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # added its actual-content invalid-ACK causal build, generic complete-form
 # inertness proof, WXT lifecycle-event/runtime-tracing boundary, and real-worker
 # closed-protocol paths while correcting the no-product-action notes; states,
-# ownership, mapping, gate effects, and dependencies remain unchanged. The
-# reviewed correction re-locked the hash below.
+# ownership, mapping, gate effects, and dependencies remain unchanged. M02-W08
+# then recorded only the feasibility portions of REQ-FORM-013, REQ-FORM-014,
+# and REQ-FORM-019 as SCAFFOLD_ONLY / NOT_YET_APPLICABLE with exact scanner,
+# protocol, frame-agent, unit, and built-browser evidence paths plus explicit
+# M17/M18 remainder notes. No ownership, mapping, gate effect, dependency,
+# independent-verification, acceptance, or release claim changed. The writer
+# re-locked that truthful expanded projection below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "203252e04ce7e212d3520c8bd6365df47e24839cbf49a10bef028039067f788b"
+    "594657f83c0ddba1b99fc033dc5c2b44395d7a4602a8ad9c3639e6c9dc6cbde5"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

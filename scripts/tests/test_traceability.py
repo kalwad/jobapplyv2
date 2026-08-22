@@ -158,6 +158,14 @@ def trace_repo(tmp_path: Path) -> Path:
         "e2e/extension/extension-substrate.spec.ts",
         "e2e/extension/extension-probe.spec.ts",
         "e2e/extension/extension-inert.spec.ts",
+        # M02-W08 REQ-FORM-013/014/019 feasibility anchors (canonical field
+        # identity/descriptor, closed scanner protocol, bounded frame-local
+        # scanner, and real built-extension browser proof).
+        "apps/extension/src/semantic-identity.ts",
+        "apps/extension/src/scanner-protocol.ts",
+        "apps/extension/src/field-scanner.ts",
+        "apps/extension/test/m02-w08/scanner-protocol.test.ts",
+        "e2e/extension/extension-scanner.spec.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

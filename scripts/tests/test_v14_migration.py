@@ -454,12 +454,16 @@ REVIEWED_MOCK_ATS_LAB_IMPORTER = (
         version: 4.1.10(@types/node@24.13.3)"""
     b"(vite@7.3.6(@types/node@24.13.3)(jiti@2.7.0)(lightningcss@1.33.0))\n"
 )
-# Reviewed M02-W07 delta: the real feasibility-extension importer — exactly
-# the catalog-pinned dev tooling plus the single exact-pinned wxt build
-# framework (spec §5.2 stack lock; no React until a UI surface exists in
-# M17, no runtime dependency, no product capability).
+# Reviewed M02-W07/W08 delta: the real feasibility-extension importer — the
+# canonical contracts workspace link used by the semantic scanner, the
+# catalog-pinned dev tooling, and the single exact-pinned wxt build framework
+# (spec §5.2 stack lock; no React until a UI surface exists in M17).
 REVIEWED_EXTENSION_IMPORTER = (
     b"""  apps/extension:
+    dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -551,7 +555,7 @@ REVIEWED_EVALUATION_RUNNER_IMPORTER = (
     b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
 REVIEWED_PNPM_LOCK_SHA256 = (
-    "3a735d5f344214abee2eda1142a1cbc63e3f1ce5ae0787b79eeba9295afc4c4c"
+    "06819996bc2e8b4b2478c4c4054a255c40b69ab49390cb28e9247a50826c4c87"
 )
 
 

@@ -1,6 +1,6 @@
-// M02-W07 proof E — exercise the actual built worker's complete runtime
-// message surface. This independent literal oracle admits one feasibility
-// request and one ACK; every product/command-shaped expansion is silent.
+// M02-W07 proof E preserved under W08 — malformed arbitrary command-shaped
+// messages remain silent. Canonical W08 scan/re-resolution authority is
+// exercised separately through scanner-protocol builders and E2E tests.
 import { expect, test } from "./support/extension-test.ts";
 
 const HOSTILE_MESSAGES: readonly unknown[] = [
@@ -20,7 +20,7 @@ const HOSTILE_MESSAGES: readonly unknown[] = [
   { kind: "M02_W07_PROBE", protocolVersion: 1, request: {} },
 ];
 
-test("the real worker accepts only the single reviewed feasibility message", async ({
+test("the real worker preserves the probe and rejects arbitrary command-shaped messages", async ({
   extensionContext,
   extensionId,
 }) => {

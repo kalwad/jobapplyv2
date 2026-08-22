@@ -3,8 +3,9 @@
 // This is a deliberately tiny, closed, single-purpose protocol: it exists
 // only so the real built content script can prove one typed round-trip
 // through the real Manifest V3 service worker. It is not a command bus and
-// must not grow product operations; W08+ own scanning/filling surfaces and
-// M17 owns the production message schemas (M01-W03/M01-W04 contracts).
+// must not grow product operations; W08 scanning uses its separate closed
+// scanner protocol, W10 owns filling, and M17 owns production message schemas
+// (M01-W03/M01-W04 contracts).
 //
 // Every parser here treats its input as untrusted (spec §1.5): messages are
 // validated against an exact closed member set, and anything else is
@@ -21,9 +22,14 @@ export const FEASIBILITY_ACK_KIND = "M02_W07_ACK";
 export const BACKGROUND_RUNTIME_MARKER = "japp-m02-w07-feasibility-background";
 export const BACKGROUND_GLOBAL_KEY = "__JAPP_M02_W07_BACKGROUND__";
 
-// The content script may execute only on the deterministic loopback mock
-// ATS origin (M02-W03 lab); never a broad host pattern (REQ-FORM-011).
+// The content script may execute only on deterministic loopback mock-frame
+// origins (M02-W03 lab); never a broad host pattern (REQ-FORM-011).
 export const FEASIBILITY_CONTENT_MATCH = "http://127.0.0.1:4761/*";
+export const FEASIBILITY_CROSS_ORIGIN_MATCH = "http://127.0.0.1:4762/*";
+export const FEASIBILITY_CONTENT_MATCHES = [
+  FEASIBILITY_CONTENT_MATCH,
+  FEASIBILITY_CROSS_ORIGIN_MATCH,
+] as const;
 
 // Namespaced test-observable marker set on the document root only after a
 // valid ACK from the real service worker. It is the only page mutation the
