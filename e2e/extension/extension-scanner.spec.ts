@@ -136,6 +136,69 @@ function descriptorByLabel(
   return requireValue(descriptor, `descriptor labelled ${label} is missing`);
 }
 
+function withoutObservationTime(
+  values: readonly FormFieldDescriptorV1[],
+): FormFieldDescriptorV1[] {
+  return values.map((value) => ({ ...value, observed_at: "<ignored>" }));
+}
+
+function visibilityByLabel(
+  descriptors: readonly FormFieldDescriptorV1[],
+): Record<string, boolean> {
+  return Object.fromEntries(
+    descriptors.map((descriptor) => [
+      descriptor.label.normalized_text ?? "<digest-only>",
+      descriptor.visible,
+    ]),
+  );
+}
+
+interface ControlGeometry {
+  readonly scrollY: number;
+  readonly innerHeight: number;
+  readonly top: number;
+  readonly bottom: number;
+  readonly right: number;
+  readonly width: number;
+  readonly height: number;
+}
+
+async function controlGeometry(
+  page: Page,
+  name: string,
+): Promise<ControlGeometry> {
+  return page.evaluate((controlName) => {
+    const control = document.querySelector(`[name='${controlName}']`);
+    if (control === null) {
+      throw new Error(`fixture control ${controlName} is missing`);
+    }
+    const rect = control.getBoundingClientRect();
+    return {
+      scrollY: window.scrollY,
+      innerHeight: window.innerHeight,
+      top: rect.top,
+      bottom: rect.bottom,
+      right: rect.right,
+      width: rect.width,
+      height: rect.height,
+    };
+  }, name);
+}
+
+async function scrollControlIntoView(page: Page, name: string): Promise<void> {
+  await page.bringToFront();
+  await page.evaluate((controlName) => {
+    document.querySelector(`[name='${controlName}']`)?.scrollIntoView();
+  }, name);
+}
+
+async function scrollWindowTo(page: Page, top: number): Promise<void> {
+  await page.bringToFront();
+  await page.evaluate((scrollTop) => {
+    window.scrollTo(0, scrollTop);
+  }, top);
+}
+
 async function setScannerFixture(page: Page, body: string): Promise<void> {
   await expect(page.locator("html")).toHaveAttribute(
     CONTENT_READY_ATTRIBUTE,
@@ -405,6 +468,235 @@ test("C6: a unique role=form root is not widened to its semantic main ancestor",
   ).toEqual(["Applicant name"]);
 });
 
+const FOLD_FIXTURE = `<main><form>
+  <label>Above fold field <input name="aboveFold" required></label>
+  <div style="height:3000px"></div>
+  <label>Below fold field <input name="belowFold" required></label>
+</form></main>`;
+
+const FOLD_VISIBILITY = { "Above fold field": true, "Below fold field": true };
+
+test("V1: an ordinary in-flow field below the initial fold is visible before any scroll", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(page, FOLD_FIXTURE);
+  const below = await controlGeometry(page, "belowFold");
+  expect(below.scrollY).toBe(0);
+  expect(below.top).toBeGreaterThan(below.innerHeight);
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const descriptors = foundDescriptors(
+    await waitForFrames(controller, tabId, 1),
+  );
+  expect(visibilityByLabel(descriptors)).toEqual(FOLD_VISIBILITY);
+  expect(descriptorByLabel(descriptors, "Below fold field").required).toBe(
+    true,
+  );
+});
+
+test("V2: window scroll position never changes the descriptors of an unchanged document", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(page, FOLD_FIXTURE);
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const initial = foundDescriptors(await waitForFrames(controller, tabId, 1));
+
+  await scrollControlIntoView(page, "belowFold");
+  const scrolledAbove = await controlGeometry(page, "aboveFold");
+  expect(scrolledAbove.scrollY).toBeGreaterThan(0);
+  expect(scrolledAbove.bottom).toBeLessThan(0);
+  const afterScroll = foundDescriptors(await scanTab(controller, tabId));
+
+  await scrollWindowTo(page, 0);
+  expect((await controlGeometry(page, "belowFold")).scrollY).toBe(0);
+  const afterReturn = foundDescriptors(await scanTab(controller, tabId));
+
+  expect({
+    initial: visibilityByLabel(initial),
+    afterScroll: visibilityByLabel(afterScroll),
+    afterReturn: visibilityByLabel(afterReturn),
+  }).toEqual({
+    initial: FOLD_VISIBILITY,
+    afterScroll: FOLD_VISIBILITY,
+    afterReturn: FOLD_VISIBILITY,
+  });
+  expect(withoutObservationTime(afterScroll)).toEqual(
+    withoutObservationTime(initial),
+  );
+  expect(withoutObservationTime(afterReturn)).toEqual(
+    withoutObservationTime(initial),
+  );
+});
+
+test("V3: deliberately displaced off-canvas controls with nonzero boxes stay invisible", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main><form>
+      <label>In-flow field <input name="inFlow"></label>
+      <label for="left-off-canvas">Left off-canvas field</label>
+      <input id="left-off-canvas" name="leftOffCanvas" style="position:absolute;left:-10000px;width:240px;height:32px">
+      <label for="top-off-canvas">Top off-canvas field</label>
+      <input id="top-off-canvas" name="topOffCanvas" style="position:absolute;top:-10000px;width:240px;height:32px">
+    </form></main>`,
+  );
+  const left = await controlGeometry(page, "leftOffCanvas");
+  expect(left.width).toBeGreaterThan(0);
+  expect(left.height).toBeGreaterThan(0);
+  expect(left.right).toBeLessThan(0);
+  const top = await controlGeometry(page, "topOffCanvas");
+  expect(top.width).toBeGreaterThan(0);
+  expect(top.height).toBeGreaterThan(0);
+  expect(top.bottom).toBeLessThan(0);
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  expect(
+    visibilityByLabel(
+      foundDescriptors(await waitForFrames(controller, tabId, 1)),
+    ),
+  ).toEqual({
+    "In-flow field": true,
+    "Left off-canvas field": false,
+    "Top off-canvas field": false,
+  });
+});
+
+const CONCEALMENT_FIXTURE = `<main><form>
+  <label>Above fold control <input name="aboveControl"></label>
+  <div style="height:3000px"></div>
+  <label>Below fold control <input name="belowControl"></label>
+  <label>Hidden attribute <input name="hiddenAttribute" hidden></label>
+  <div hidden><label>Hidden ancestor <input name="hiddenAncestor"></label></div>
+  <label>ARIA hidden <input name="ariaHidden" aria-hidden="true"></label>
+  <div aria-hidden="true"><label>ARIA hidden ancestor <input name="ariaHiddenAncestor"></label></div>
+  <label>Inert control <input name="inertControl" inert></label>
+  <div inert><label>Inert ancestor <input name="inertAncestor"></label></div>
+  <label>Display none <input name="displayNone" style="display:none"></label>
+  <label>Visibility hidden <input name="visibilityHidden" style="visibility:hidden"></label>
+  <label>Visibility collapse <input name="visibilityCollapse" style="visibility:collapse"></label>
+  <label>Opacity zero <input name="opacityZero" style="opacity:0"></label>
+  <label>Zero width <input name="zeroWidth" style="width:0;min-width:0;padding:0;border:0"></label>
+  <label>Zero height <input name="zeroHeight" style="height:0;min-height:0;padding:0;border:0"></label>
+</form></main>`;
+
+const CONCEALMENT_VISIBILITY = {
+  "Above fold control": true,
+  "Below fold control": true,
+  "Hidden attribute": false,
+  "Hidden ancestor": false,
+  "ARIA hidden": false,
+  "ARIA hidden ancestor": false,
+  "Inert control": false,
+  "Inert ancestor": false,
+  "Display none": false,
+  "Visibility hidden": false,
+  "Visibility collapse": false,
+  "Opacity zero": false,
+  "Zero width": false,
+  "Zero height": false,
+};
+
+test("V4-V6: concealed and zero-box controls stay invisible below the fold and after scrolling", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(page, CONCEALMENT_FIXTURE);
+  const below = await controlGeometry(page, "belowControl");
+  expect(below.scrollY).toBe(0);
+  expect(below.top).toBeGreaterThan(below.innerHeight);
+  expect((await controlGeometry(page, "zeroWidth")).width).toBe(0);
+  expect((await controlGeometry(page, "zeroHeight")).height).toBe(0);
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const initial = foundDescriptors(await waitForFrames(controller, tabId, 1));
+  expect(visibilityByLabel(initial)).toEqual(CONCEALMENT_VISIBILITY);
+
+  await scrollControlIntoView(page, "belowControl");
+  expect((await controlGeometry(page, "belowControl")).scrollY).toBeGreaterThan(
+    0,
+  );
+  const afterScroll = foundDescriptors(await scanTab(controller, tabId));
+  expect(visibilityByLabel(afterScroll)).toEqual(CONCEALMENT_VISIBILITY);
+  expect(withoutObservationTime(afterScroll)).toEqual(
+    withoutObservationTime(initial),
+  );
+});
+
+const FIXED_ANCHOR_VISIBILITY = {
+  "In-flow field": true,
+  "Pinned footer field": true,
+  "Closed drawer field": false,
+};
+
+test("V7: controls anchored to a fixed container keep scroll-independent visibility", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main><form>
+      <label>In-flow field <input name="inFlow"></label>
+      <div style="position:fixed;bottom:0;left:0;right:0;height:48px">
+        <label>Pinned footer field <input name="pinnedFooter"></label>
+      </div>
+      <div style="position:fixed;top:-200px;left:0;right:0;height:200px">
+        <label>Closed drawer field <input name="closedDrawer"></label>
+      </div>
+      <div style="height:3000px"></div>
+    </form></main>`,
+  );
+  const footer = await controlGeometry(page, "pinnedFooter");
+  expect(footer.scrollY).toBe(0);
+  expect(footer.top).toBeGreaterThanOrEqual(0);
+  expect(footer.bottom).toBeLessThanOrEqual(footer.innerHeight);
+  const drawer = await controlGeometry(page, "closedDrawer");
+  expect(drawer.height).toBeGreaterThan(0);
+  expect(drawer.bottom).toBeLessThan(0);
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const initial = foundDescriptors(await waitForFrames(controller, tabId, 1));
+
+  await scrollWindowTo(page, 1000);
+  const scrolledDrawer = await controlGeometry(page, "closedDrawer");
+  expect(scrolledDrawer.scrollY).toBeGreaterThan(0);
+  expect(scrolledDrawer.bottom).toBe(drawer.bottom);
+  expect((await controlGeometry(page, "pinnedFooter")).bottom).toBe(
+    footer.bottom,
+  );
+  const afterScroll = foundDescriptors(await scanTab(controller, tabId));
+
+  expect({
+    initial: visibilityByLabel(initial),
+    afterScroll: visibilityByLabel(afterScroll),
+  }).toEqual({
+    initial: FIXED_ANCHOR_VISIBILITY,
+    afterScroll: FIXED_ANCHOR_VISIBILITY,
+  });
+  expect(withoutObservationTime(afterScroll)).toEqual(
+    withoutObservationTime(initial),
+  );
+});
+
 test("M3: targeted subtree scanning never escapes the requested application subtree", async ({
   extensionContext,
   extensionId,
@@ -450,9 +742,7 @@ test("repeat scans are deterministic apart from the truthful observation time", 
   const controller = await scannerController(extensionContext, extensionId);
   const first = foundDescriptors(await waitForFrames(controller, tabId, 1));
   const second = foundDescriptors(await scanTab(controller, tabId));
-  const withoutTime = (values: readonly FormFieldDescriptorV1[]) =>
-    values.map((value) => ({ ...value, observed_at: "<ignored>" }));
-  expect(withoutTime(second)).toEqual(withoutTime(first));
+  expect(withoutObservationTime(second)).toEqual(withoutObservationTime(first));
 });
 
 test("M2: same-origin child agents remain frame-local and aggregation preserves frame identity", async ({

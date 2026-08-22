@@ -33,6 +33,147 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W08 — Scroll-independent visibility correction writer evidence (2026-08-22)
+
+- Revision: second correction writer pass starting from required synchronized
+  `main` commit `bc32eb21ea881dbdd46b8e40d9b07b0e653020aa`, tree
+  `4ef959a569c546b566c09557f26d27123197f88d`, parent
+  `b7b7a157aa10e8f2dd0b9f15a06c46e7327b33c3`; the correction content tree is
+  recorded post-commit by the containing commit. M02-W07 remains CLOSED and
+  VERIFIED at its preserved evidence boundary.
+- Environment: macOS 27.0 arm64; Node 24.18.0; pnpm 11.17.0; WXT 0.20.27;
+  Playwright 1.62.0 with bundled Chromium (measured persistent-context
+  viewport 1280x720); uv 0.11.32 with Python 3.12.13; specification
+  JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact starting boundary: `git fetch origin`, both required porcelain status
+  forms, branch/HEAD/origin/tree/parent checks, `git diff --check`, and the
+  specification digest confirmed a clean synchronized `main` at the required
+  commit/tree/parent before any correction edit.
+- Carried-forward verifier result: the second fresh verifier
+  (`SOL_BLOCKED_FINAL_M02_W08_CORRECTION_VERIFICATION`) independently found
+  the unique-form application-root correction CLEAR (exact blocker markup,
+  C1–C6, stronger explicit-root precedence, no-form semantic-main fallback,
+  multi-form ambiguity, narrow `role=form`, and subtree token outside the
+  unique root) and stopped on the next mandatory check. `detectApplicationRoot`
+  and root precedence were not changed by this pass.
+- Exact blocker reproduction on unchanged production bytes
+  (`apps/extension/src/field-scanner.ts` SHA-256
+  `91b38b819156e8f0e003308c5d40647982cf734dc9dd8117bcc7d98e5d0422df`): the
+  new bundled-MV3 Chromium regressions V1, V2, V3, and V4–V6 were written
+  first and run against the unchanged scanner with `pnpm exec playwright test
+  e2e/extension/extension-scanner.spec.ts --reporter=line` -> exit 1,
+  **3 failed, 15 passed**. V1: for `<main><form><label>Above fold field
+  <input name="aboveFold" required></label><div style="height:3000px"></div>
+  <label>Below fold field <input name="belowFold" required></label></form>
+  </main>` at `scrollY` 0 with the below-fold box entirely under
+  `innerHeight`, `Below fold field` reported `visible=false`. V2 on the same
+  unchanged document: initial `{Above fold field: true, Below fold field:
+  false}`; after `scrollIntoView` on the below-fold control `{Above fold
+  field: false, Below fold field: true}`; after scrolling back to the top
+  `{Above fold field: true, Below fold field: false}`. V4–V6: every
+  concealment family was already `false`, but the ordinary below-fold
+  positive control was `false`. V3 and C1–C6 passed on the unchanged bytes.
+- Root cause and correction: `isElementVisible` treated current viewport
+  intersection (`rect.bottom > 0 && rect.right > 0 && rect.top < innerHeight
+  && rect.left < innerWidth`) as visibility. The corrected definition keeps
+  every concealment rejection (hidden / `aria-hidden` / `inert` on the
+  element or an ancestor, `display:none`, `visibility:hidden` or `collapse`,
+  the element's own computed opacity zero, zero-width or zero-height box),
+  then shifts the bounding box by the owning window's `scrollX`/`scrollY`
+  and requires it to intersect `[0, documentElement.scrollWidth) x [0,
+  documentElement.scrollHeight)` in document coordinates. A control that is
+  itself `position:fixed` or has a `position:fixed` DOM ancestor does not
+  move with window scroll, so its box is compared unshifted against
+  `innerWidth`/`innerHeight`. Negative-coordinate displacement does not
+  extend the scrollable area, so `left:-10000px` / `top:-10000px` controls
+  remain invisible. No clip-path, ancestor overflow clipping, nested
+  scroll-container, or containing-block property modelling was added.
+- Permanent visibility matrix (real bundled Chromium; every fixture
+  self-checks its geometry before scanning): V1 keeps the below-fold required
+  field `visible=true` before any scroll (`scrollY` 0 and `rect.top >
+  innerHeight` asserted). V2 requires the complete descriptor set, apart from
+  `observed_at`, to be identical across the initial, scrolled-to-bottom
+  (`scrollY > 0` and above-fold `rect.bottom < 0` asserted), and
+  scrolled-back states with `{Above fold field: true, Below fold field:
+  true}` at every step. V3 keeps `position:absolute` controls at
+  `left:-10000px` and `top:-10000px` with 240x32 boxes (`rect.right < 0` /
+  `rect.bottom < 0` asserted) invisible while the in-flow control is visible;
+  the retained 1x1 `Offscreen field` case in the descriptor test is
+  unchanged. V4–V6 is one below-fold matrix in which hidden attribute, hidden
+  ancestor, `aria-hidden` self and ancestor, `inert` self and ancestor,
+  `display:none`, `visibility:hidden`, `visibility:collapse`, `opacity:0`,
+  zero-width, and zero-height inputs (0 asserted) are `false` while the
+  above- and below-fold positive controls are `true`, and the whole set is
+  unchanged after the matrix is scrolled into view. V7 keeps a control inside
+  a pinned `position:fixed` footer `true` and a control inside a closed
+  off-viewport `position:fixed` drawer (`top:-200px`, `rect.bottom < 0`
+  asserted) `false`, with the complete descriptor set identical at `scrollY`
+  0 and after `window.scrollTo(0, 1000)` (unchanged client rects asserted).
+- One bounded read-only reviewer, with no subdelegation or tracked edit,
+  inspected only scroll invariance, below-fold semantics, deliberate
+  off-canvas preservation, and the concealment families; it ran the W08 unit
+  suite (16 passed) and the scanner spec once (18 passed at that interim
+  point). It returned one in-scope defect, which the writer reproduced
+  before changing code: the interim correction classified viewport anchoring
+  from the control's own computed `position` only, so a static control
+  inside an off-viewport `position:fixed` container still received the
+  document scroll offsets and flipped from `visible=false` at `scrollY` 0 to
+  `true` after `window.scrollTo(0, 1000)`. The new V7 run against the
+  interim `field-scanner.ts` (SHA-256
+  `7cf0f74c53616fe162060fd1f443b6d3baefd6675926bc805144c4761fcb17ec`) exited
+  1 with **1 failed, 18 passed** and exactly that flip. The final correction
+  treats a control as viewport-anchored when it or any DOM ancestor has
+  computed `position:fixed`. The reviewer's second, lower-likelihood
+  observation — a control that is itself `position:fixed` beneath an
+  ancestor that re-anchors fixed descendants through `contain`, `filter`,
+  `will-change`, or `transform` — is recorded as a known limitation with the
+  clip-path, overflow-clipping, and nested-scroller (including
+  `html{overflow:hidden}` wrapper-scroller) families; no containing-block
+  property list was added. No second reviewer pass was run.
+- Focused commands and observed results on the final bytes before
+  documentation freeze (`field-scanner.ts` SHA-256
+  `68c23ea1b94baeda528787df2b95ac2470a8b93e6e1ac78e927b021d13b94aaa`):
+  - `pnpm exec playwright test e2e/extension/extension-scanner.spec.ts
+    --reporter=line` -> exit 0, **19 passed** (14 retained cases including
+    C1–C6 plus V1, V2, V3, V4–V6, and V7).
+  - `pnpm exec playwright test e2e/extension --reporter=line` -> exit 0,
+    **32 passed**, including every retained W07 extension regression.
+  - `pnpm --dir apps/extension exec vitest run
+    test/m02-w08/scanner-protocol.test.ts --no-file-parallelism --maxWorkers=1`
+    -> exit 0, **16 passed**.
+  - `pnpm --dir apps/extension test` -> exit 0, **79 passed** in 3 files.
+  - `pnpm exec playwright test --list` -> exit 0, **91 tests in 24 files**;
+    the five net-new browser cases are V1, V2, V3, V4–V6, and V7.
+  - `pnpm --dir apps/extension run typecheck`, affected-file Prettier and
+    ESLint checks, and `git diff --check` -> exit 0.
+- Exactly two mutation families were run against the final scanner bytes
+  through the scanner spec and stopped at M2; the final `field-scanner.ts`
+  SHA-256 matched its pre-mutation value after each restoration (the same
+  two families had earlier been run against the interim bytes with
+  3 failed / 15 passed and 2 failed / 16 passed):
+  - M1 restored vertical viewport dependence (zero scroll offset and
+    `innerHeight` as the reachable height) -> V1, V2, V4–V6, and V7 failed
+    with the below-fold and scrolled-past controls invisible again
+    (**4 failed, 15 passed**).
+  - M2 removed the negative-coordinate off-canvas rejection -> the retained
+    `Offscreen field` assertion, V3, and V7 failed with the displaced controls
+    reported visible (**3 failed, 16 passed**).
+- Scope and governance: only the `isElementVisible` function and its new
+  `hasFixedAncestor` helper in `apps/extension/src/field-scanner.ts`,
+  `e2e/extension/extension-scanner.spec.ts`, `docs/PROJECT_STATUS.md`, and
+  `docs/TEST_EVIDENCE.md` changed. `detectApplicationRoot`, the scanner
+  protocol, semantic identity, frame isolation, re-resolution, and every
+  other scanner surface were not changed. Excluded private owner evidence
+  was neither required nor accessed. M02-W08 remains IN_PROGRESS; M02-W09
+  remains NOT_STARTED; no package is READY; M02 remains IN_PROGRESS; all four
+  gates remain NOT_EVALUATED; release remains NOT_READY. No W09/W10/W11
+  implementation or Gate A execution occurred.
+- Frozen verification deferral: after final documentation bytes, the complete
+  canonical sequence is run twice without intervening edits and reported in
+  the writer handoff. No canonical, hosted, independent-verification, package
+  verification, gate, acceptance, or release result is preclaimed here.
+
 ### M02-W08 — Unique-form application-root correction writer evidence (2026-08-22)
 
 - Revision: correction writer pass starting from required synchronized `main`

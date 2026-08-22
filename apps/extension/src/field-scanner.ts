@@ -460,6 +460,31 @@ function collectCandidates(boundary: HTMLElement): FieldCandidate[] {
   return candidates;
 }
 
+/**
+ * W08 visibility is a property of the document layout, not of the current
+ * viewport: a control is visible when it has a rendered, non-concealed box
+ * inside the user-reachable scrollable area of its own document. Window
+ * scroll position therefore never changes the result: an ordinary control
+ * below the initial fold is visible, and an ordinary control scrolled past
+ * stays visible. Concealment (hidden/aria-hidden/inert ancestry, display
+ * none, visibility hidden/collapse, opacity zero, a zero-sized box) and
+ * deliberate displacement into negative or otherwise unreachable document
+ * coordinates remain invisible. Boxes anchored to a fixed-position element
+ * (the control itself or any ancestor) do not move with window scroll, so
+ * their reachable area is the viewport itself. This is a bounded feasibility
+ * definition, not a layout engine: clip paths, ancestor overflow clipping,
+ * nested scroll containers, and ancestors that re-anchor fixed descendants
+ * through transform, filter, or containment are not modelled.
+ */
+function hasFixedAncestor(start: HTMLElement | null, view: Window): boolean {
+  for (let current = start; current !== null; current = current.parentElement) {
+    if (view.getComputedStyle(current).position === "fixed") {
+      return true;
+    }
+  }
+  return false;
+}
+
 function isElementVisible(element: HTMLElement): boolean {
   if (
     element.hidden ||
@@ -467,7 +492,11 @@ function isElementVisible(element: HTMLElement): boolean {
   ) {
     return false;
   }
-  const style = getComputedStyle(element);
+  const view = element.ownerDocument.defaultView;
+  if (view === null) {
+    return false;
+  }
+  const style = view.getComputedStyle(element);
   if (
     style.display === "none" ||
     style.visibility === "hidden" ||
@@ -477,13 +506,24 @@ function isElementVisible(element: HTMLElement): boolean {
     return false;
   }
   const rect = element.getBoundingClientRect();
+  if (rect.width <= 0 || rect.height <= 0) {
+    return false;
+  }
+  const fixed =
+    style.position === "fixed" || hasFixedAncestor(element.parentElement, view);
+  const offsetX = fixed ? 0 : view.scrollX;
+  const offsetY = fixed ? 0 : view.scrollY;
+  const reachableWidth = fixed
+    ? view.innerWidth
+    : element.ownerDocument.documentElement.scrollWidth;
+  const reachableHeight = fixed
+    ? view.innerHeight
+    : element.ownerDocument.documentElement.scrollHeight;
   return (
-    rect.width > 0 &&
-    rect.height > 0 &&
-    rect.bottom > 0 &&
-    rect.right > 0 &&
-    rect.top < innerHeight &&
-    rect.left < innerWidth
+    rect.right + offsetX > 0 &&
+    rect.bottom + offsetY > 0 &&
+    rect.left + offsetX < reachableWidth &&
+    rect.top + offsetY < reachableHeight
   );
 }
 
