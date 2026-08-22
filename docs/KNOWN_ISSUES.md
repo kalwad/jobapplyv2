@@ -34,10 +34,21 @@ broadening a work package (spec §1.5).
 
 ## M02-W07 final-verification correction
 
+KI-0058 through KI-0062 are FIXED by exact independently cleared W07 content
+commit `ce74ef49e142bb7c2cab608cd0c800d312bd2217` / tree
+`9412c5b71437ee562534a1fb92e80ab50ffc333d` after verdict
+`SOL_CLEAR_FINAL_M02_W07_NINTH_CORRECTION_CONTENT` and hosted run
+`32522233170`. The later governance-enablement commit
+`5d2cc2322e215b2de9e363da996cf625afdb7424` / tree
+`77c1bec24ce694b879ec5f580146f7a1ad40f9b4` changes only historical W06
+lifecycle-fixture isolation and does not alter the product, analyzer, validator,
+or W07 semantics that fixed these issues. The blocked-verifier and correction
+history below remains preserved as reproduction evidence.
+
 ### KI-0062 — M02-W07 protocol closure allowed unreviewed command-shaped expansion
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification
 - Affects: M02-W07; exact blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
@@ -54,19 +65,17 @@ broadening a work package (spec §1.5).
   `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
 - Workaround: none accepted. W07 cannot expose a product command bus, and
   banning one command word would leave the equivalent protocol expansion.
-- Resolution + evidence link: IN_PROGRESS in this writer correction. The
-  permanent parser matrix now covers command/kind/payload/data/nested and
-  extra-operation families, while a bundled-Chromium test sends the literal
-  canonical probe plus hostile shapes to the actual built worker and admits
-  only the literal canonical ACK. The issue must remain IN_PROGRESS until a
-  completely fresh independent verifier reproduces the original and
-  alternate-command mutations against the corrected exact content and performs
-  W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+- Resolution + evidence link: FIXED. The permanent parser matrix covers
+  command/kind/payload/data/nested and extra-operation families, while a
+  bundled-Chromium test sends the literal canonical probe plus hostile shapes
+  to the actual built worker and admits only the literal canonical ACK. Fresh
+  independent verification cleared exact content commit `ce74ef49` / tree
+  `9412c5b7`; evidence: docs/TEST_EVIDENCE.md § M02-W07.
 
 ### KI-0061 — M02-W07 WXT page-visible bootstrap artifact contradicted marker-only evidence
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification
 - Affects: M02-W07; exact blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
@@ -87,21 +96,19 @@ broadening a work package (spec §1.5).
 - Workaround: no supported narrow suppression exists in installed WXT 0.20.27.
   `noScriptStartedPostMessage` suppresses only its postMessage, and changing to
   the MAIN world would weaken the reviewed extension architecture.
-- Resolution + evidence link: IN_PROGRESS in this writer correction. The
-  corrected real-browser proof observes the exact event type/detail and zero
-  window messages; a Chrome trace begun before navigation detects every DOM
-  event dispatch whose stack originates in the extension and admits only that
-  exact lifecycle event. Source and shipped-byte tests provide defense in
-  depth. Documentation now models the event as a bounded non-sensitive
-  framework lifecycle artifact and makes no marker-only claim.
-  The issue must remain IN_PROGRESS until a completely fresh independent
-  verifier reproduces that boundary on the corrected exact content and
-  performs W07 governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+- Resolution + evidence link: FIXED. The corrected real-browser proof observes
+  the exact event type/detail and zero window messages; a Chrome trace begun
+  before navigation detects every DOM event dispatch whose stack originates
+  in the extension and admits only that exact lifecycle event. Source and
+  shipped-byte tests provide defense in depth, and documentation models the
+  event as a bounded non-sensitive framework lifecycle artifact. Fresh
+  independent verification cleared exact content commit `ce74ef49` / tree
+  `9412c5b7`; evidence: docs/TEST_EVIDENCE.md § M02-W07.
 
 ### KI-0060 — M02-W07 inertness proof omitted live select and validation state
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification
 - Affects: M02-W07; exact blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
@@ -118,19 +125,18 @@ broadening a work package (spec §1.5).
   `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
 - Workaround: none accepted. Moving one ID between hand-maintained arrays would
   retain silent gaps and would not supply a pristine pre-extension baseline.
-- Resolution + evidence link: IN_PROGRESS in this writer correction. The test
-  now compares an ordinary no-extension page with extension state after ACK and
-  reload, generically serializing every form-listed control, select/checked/
-  default state, disabled/required/read-only state, complete native validity,
-  status/error regions, honeypot, storage, and route/history state. The issue
-  must remain IN_PROGRESS until a completely fresh independent verifier kills
-  the select and representative second-control mutants and performs W07
-  governance. Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+- Resolution + evidence link: FIXED. The test compares an ordinary no-extension
+  page with extension state after ACK and reload, generically serializing every
+  form-listed control, select/checked/default state,
+  disabled/required/read-only state, complete native validity, status/error
+  regions, honeypot, storage, and route/history state. Fresh independent
+  verification cleared exact content commit `ce74ef49` / tree `9412c5b7`;
+  evidence: docs/TEST_EVIDENCE.md § M02-W07.
 
 ### KI-0059 — M02-W07 readiness marker lacked real ACK-causality proof
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification
 - Affects: M02-W07; exact blocked content
   `6cf4d4b2860c054868dbe22600a0f6455cc7b60a` / tree
@@ -147,19 +153,18 @@ broadening a work package (spec §1.5).
   `SOL_BLOCKED_FINAL_M02_W07_VERIFICATION`.
 - Workaround: none accepted. A pure helper or a second content implementation
   would not close a bypass in the built entrypoint.
-- Resolution + evidence link: IN_PROGRESS in this writer correction. A
-  test-only WXT variant re-exports the actual production content entrypoint and
-  substitutes only an isolated worker that records the canonical probe and
-  returns an invalid ACK; real Chromium requires the probe and absence of the
-  marker. It adds no product hook, permission, command, or manifest authority.
-  The issue must remain IN_PROGRESS until a completely fresh independent
-  verifier kills the exact combined mutant and performs W07 governance.
-  Evidence draft: docs/TEST_EVIDENCE.md § M02-W07.
+- Resolution + evidence link: FIXED. A test-only WXT variant re-exports the
+  actual production content entrypoint and substitutes only an isolated worker
+  that records the canonical probe and returns an invalid ACK; real Chromium
+  requires the probe and absence of the marker. It adds no product hook,
+  permission, command, or manifest authority. Fresh independent verification
+  cleared exact content commit `ce74ef49` / tree `9412c5b7`; evidence:
+  docs/TEST_EVIDENCE.md § M02-W07.
 
 ### KI-0058 — PORT-SRC-008 TypeScript portability bypasses
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-08-13 during fresh final M02-W07 independent verification;
   the first and second corrections were independently re-blocked on
   2026-08-14, the third correction was subsequently independently re-blocked
@@ -244,8 +249,10 @@ broadening a work package (spec §1.5).
   runtime string, trusting arbitrary imports/requires, or treating every
   argument of every Node API as operational would preserve bypasses or false
   positives.
-- Resolution + evidence link: IN_PROGRESS in this fourth narrow writer
-  correction. The fourth correction was begun by GPT-5.6 Sol Ultra, which
+- Resolution + evidence link: FIXED after the ninth correction and fresh
+  independent verification. The complete correction history is retained
+  below; checkpoint statements are historical, not the current issue state.
+  The fourth correction was begun by GPT-5.6 Sol Ultra, which
   produced substantial uncommitted implementation, catalog, and test work;
   after its usage limit the owner explicitly reassigned the same dirty writer
   worktree to Claude Fable 5 Ultracode, which recovered and verified the
@@ -372,9 +379,8 @@ broadening a work package (spec §1.5).
   reviewer-demonstrated exceptions to the earlier "suppressive-direction
   only" parked framing; they await the next fresh independent verifier and
   owner disposition. KI-0006 remains DEFERRED for its untouched
-  Rust/native surface. KI-0058 must remain HIGH / IN_PROGRESS until a
-  completely fresh independent verifier reproduces the correction on its
-  exact content and performs W07 governance.
+  Rust/native surface. At that historical fifth-correction checkpoint,
+  KI-0058 remained HIGH / IN_PROGRESS pending fresh independent verification.
 
   Sixth narrow correction (Claude Fable 5 Ultracode writer pass,
   2026-08-18): begun on the exact hosted-green fifth-correction content
@@ -453,9 +459,8 @@ broadening a work package (spec §1.5).
   and reproducible without any alias, so it belongs to the generic
   statement-range/hoisting model, not to the two corrected surfaces).
   The try/switch/labeled-statement and spread boundaries recorded above
-  remain untouched. KI-0058 remains HIGH / IN_PROGRESS pending a
-  completely fresh independent verifier on the exact sixth-correction
-  content and W07 governance.
+  remain untouched. At that historical sixth-writer checkpoint, KI-0058
+  remained HIGH / IN_PROGRESS pending fresh independent verification.
 
   Seventh narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21):
   begun on the exact independently blocked sixth-correction commit
@@ -515,8 +520,8 @@ broadening a work package (spec §1.5).
   `6d155b719af06d642549622489d5ac34f3893a2a9eb37c6d1818f6d61909c8c1`.
   No catalog, wrapper, extension, browser, W06, contract, generated, gate,
   dependency, lockfile, CI, model, prompt, or owner-evidence surface changed.
-  KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh verifier on
-  the exact seventh-correction content and W07 governance.
+  At that historical seventh-writer checkpoint, KI-0058 remained HIGH /
+  IN_PROGRESS pending fresh independent verification.
 
   Eighth narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21):
   begun on the exact independently blocked seventh-correction commit
@@ -582,8 +587,8 @@ broadening a work package (spec §1.5).
   `e87520b6f1fa8ce777a09999fa326ba41c5690d5258fd40a5dff6e31e894e099`.
   No catalog, wrapper, extension, browser, W06, contract, generated, gate,
   dependency, lockfile, CI, model, prompt, W08, or owner-evidence surface
-  changed. KI-0058 remains HIGH / IN_PROGRESS pending a completely fresh
-  verifier on the exact eighth-correction content and W07 governance.
+  changed. At that historical eighth-writer checkpoint, KI-0058 remained
+  HIGH / IN_PROGRESS pending fresh independent verification.
 
   Ninth narrow correction (GPT-5.6 Sol Ultra writer pass, 2026-08-21): begun
   on the exact independently blocked eighth-correction commit
@@ -642,9 +647,15 @@ broadening a work package (spec §1.5).
   clones were removed after inspection. No catalog, wrapper, extension,
   browser, W06, contract, generated, gate, dependency, lockfile, CI, model,
   prompt, W08, or owner-evidence surface changed, and no excluded private
-  owner-evidence path was accessed. KI-0058 remains HIGH / IN_PROGRESS pending
-  a completely fresh verifier on the exact ninth-correction content and W07
-  governance.
+  owner-evidence path was accessed. Fresh independent verification then
+  cleared exact ninth-correction content commit
+  `ce74ef49e142bb7c2cab608cd0c800d312bd2217` / tree
+  `9412c5b71437ee562534a1fb92e80ab50ffc333d` with verdict
+  `SOL_CLEAR_FINAL_M02_W07_NINTH_CORRECTION_CONTENT`; hosted content run
+  `32522233170` succeeded. KI-0058 is FIXED. The later correction at
+  `5d2cc2322e215b2de9e363da996cf625afdb7424` is governance-fixture isolation
+  only and does not alter the analyzer semantics that received the clear
+  verdict. Final closeout evidence: docs/TEST_EVIDENCE.md § M02-W07.
 
 ## M02-W06 owner-holdout corrective review
 
@@ -3156,10 +3167,10 @@ validator exception or weakening was introduced.
   corresponding ecosystem rule or lint coverage before verification.
 - Reproduction: n/a (scope boundary, not a defect).
 - Workaround: n/a.
-- Resolution + evidence link: the TypeScript rule surface is implemented in
-  M02-W07, while HIGH / IN_PROGRESS KI-0058 tracks independent sufficiency
-  verification of that implementation; this KI therefore remains DEFERRED for
-  the untouched Rust/native-host surface. PORT-SRC-008 discovers executable
+- Resolution + evidence link: the TypeScript rule surface is implemented and
+  independently verified in M02-W07; the associated KI-0058 is FIXED. This KI
+  remains LOW / DEFERRED for the untouched Rust/native-host surface.
+  PORT-SRC-008 discovers executable
   `.ts`, `.tsx`, `.mts`, and `.cts` under the established application/package/
   root-tool runtime globs, excluding declarations and tests, and invokes the
   repository-pinned TypeScript compiler without executing repository source.

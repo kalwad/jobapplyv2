@@ -7600,8 +7600,8 @@
       "id": "M02-W07",
       "milestone": "M02",
       "title": "Scaffold the real MV3 feasibility extension",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 9412c5b71437ee562534a1fb92e80ab50ffc333d",
       "direct_package_prerequisites": [
         "M02-W06"
       ],
@@ -7643,14 +7643,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W07"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W08",
       "milestone": "M02",
       "title": "Implement semantic field identity and per-frame scanner",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W07"
