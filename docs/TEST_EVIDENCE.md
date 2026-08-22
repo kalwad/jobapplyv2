@@ -33,6 +33,82 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W08 — Unique-form application-root correction writer evidence (2026-08-22)
+
+- Revision: correction writer pass starting from required synchronized `main`
+  commit `b7b7a157aa10e8f2dd0b9f15a06c46e7327b33c3`, tree
+  `732a4d2241d267dc4c579f4622d3cd1991e98c84`, parent
+  `2131c3395f042aef9ebb7df4456f9b9fd3230ba4`; the correction content tree is
+  recorded post-commit by the containing commit. M02-W07 remains CLOSED and
+  VERIFIED at its preserved evidence boundary.
+- Environment: macOS 27.0 arm64; Node 24.18.0; pnpm 11.17.0; WXT 0.20.27;
+  Playwright 1.62.0 with bundled Chromium; uv 0.11.32 with Python 3.12.13;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact starting boundary: `git fetch origin`, both required porcelain status
+  forms, branch/HEAD/origin/tree/parent checks, and `git diff --check`
+  confirmed a clean synchronized `main` at the required commit/tree/parent
+  before any correction edit.
+- Exact blocker reproduction: on unchanged production bytes, the new C1
+  bundled-MV3 Chromium regression exited 1. For a semantic `main` containing
+  an unrelated `Newsletter email` sibling and one `job-application` form, the
+  expected descriptor labels were `["Applicant name"]`; the actual labels
+  were `["Newsletter email", "Applicant name"]`.
+- Root cause and correction: after finding exactly one qualifying native or
+  `role=form` candidate, `detectApplicationRoot` replaced that form with its
+  closest `main` / `role=main` ancestor. The correction returns the unique
+  form itself. Literal precedence is now: one supported explicit application
+  root; otherwise one supported form; otherwise one supported semantic main
+  only when no form qualifies. Multiple qualifying candidates at a winning
+  tier remain typed ambiguity.
+- Permanent correction matrix: C1 and C2 retain only intended controls inside
+  the unique form; C3 retains both the external application-level control and
+  native-form control because the explicit root wins; C4 retains the no-form
+  semantic-main fallback; C5 returns `AMBIGUOUS` with two candidates and zero
+  descriptors; C6 keeps a unique `role=form` boundary narrow. The direct
+  matrix command passed 6/6 in real bundled Chromium.
+- Re-resolution retention: the complete scanner slice passed its legitimate
+  same-field rerender, semantic-replacement no-match, and multiple-match
+  ambiguity cases. A focused reload check additionally passed with the prior
+  document's address returning typed `STALE_DOCUMENT`; that temporary check
+  was removed after execution because it is not a permanent root-segmentation
+  case. Final scanner/test SHA-256 values were restored afterward.
+- Focused commands and observed results before documentation freeze:
+  - `pnpm --dir apps/extension exec vitest run
+    test/m02-w08/scanner-protocol.test.ts --no-file-parallelism --maxWorkers=1`
+    -> exit 0, **16 passed**.
+  - `pnpm exec playwright test e2e/extension/extension-scanner.spec.ts
+    --reporter=line` -> exit 0, **14 passed**.
+  - `pnpm exec playwright test e2e/extension --reporter=line` -> exit 0,
+    **27 passed**, including every retained W07 extension regression.
+  - `pnpm exec playwright test --list` -> exit 0, **86 tests in 24 files**;
+    the five net-new browser cases are C1, C2, C3, C4, and C6, while the
+    existing multi-form ambiguity regression became C5.
+  - affected-file Prettier and ESLint checks plus `git diff --check` -> exit 0.
+- One bounded read-only reviewer, with no subdelegation or tracked edit,
+  inspected only unique-form/`role=form` boundaries, stronger explicit-root
+  precedence, semantic-main fallback, multi-form ambiguity, and direct
+  re-resolution impact. It returned **no blocker**.
+- Exactly two mutation families were run and stopped at M2. Both final file
+  SHA-256 values matched their pre-mutation values afterward:
+  - M1 restored unique-form-to-main widening -> C1 and C2 both failed with
+    the unrelated siblings entering the descriptor inventory (**2 failed**).
+  - M2 made the nested form override its stronger explicit root -> C3 failed
+    because the application-level external control disappeared (**1 failed**).
+- Scope and governance: only `apps/extension/src/field-scanner.ts`,
+  `e2e/extension/extension-scanner.spec.ts`, `docs/PROJECT_STATUS.md`, and
+  `docs/TEST_EVIDENCE.md` changed. `isElementVisible` and all other
+  scanner/protocol surfaces were not changed. Excluded private owner evidence
+  was neither required nor accessed.
+  M02-W08 remains IN_PROGRESS; M02-W09 remains NOT_STARTED; no package is
+  READY; M02 remains IN_PROGRESS; all four gates remain NOT_EVALUATED; release
+  remains NOT_READY. No W09/W10/W11 implementation or Gate A execution
+  occurred.
+- Frozen verification deferral: after final documentation bytes, the complete
+  canonical sequence is run twice without intervening edits and reported in
+  the writer handoff. No canonical, hosted, independent-verification, package
+  verification, gate, acceptance, or release result is preclaimed here.
+
 ### M02-W08 — Semantic field scanner implementation writer evidence (2026-08-21)
 
 - Revision: implementation writer pass starting from required synchronized

@@ -123,9 +123,7 @@ export function detectApplicationRoot(
     return { status: "AMBIGUOUS", candidateCount: forms.length };
   }
   if (forms.length === 1) {
-    const form = requiredValue(forms[0]);
-    const semanticAncestor = form.closest<HTMLElement>("main,[role='main']");
-    return { status: "FOUND", root: semanticAncestor ?? form };
+    return { status: "FOUND", root: requiredValue(forms[0]) };
   }
 
   const mainRegions = uniqueElements(

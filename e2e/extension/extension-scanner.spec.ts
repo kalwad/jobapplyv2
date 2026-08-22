@@ -254,7 +254,109 @@ test("W08 extracts canonical label, ARIA, section, option, visibility, enabled, 
   expect(descriptorByLabel(descriptors, "Optional field").required).toBe(false);
 });
 
-test("W08 returns a typed ambiguous application-root result instead of guessing", async ({
+test("C1: a unique native form is not widened to its semantic main ancestor", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main>
+      <label>Newsletter email <input name="newsletter"></label>
+      <form id="job-application">
+        <label>Applicant name <input name="applicant"></label>
+      </form>
+    </main>`,
+  );
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const reports = await waitForFrames(controller, tabId, 1);
+  expect(reports[0]?.root_status).toBe(CONTENT_FRAME_SCAN_FOUND);
+  expect(
+    foundDescriptors(reports).map((item) => item.label.normalized_text),
+  ).toEqual(["Applicant name"]);
+});
+
+test("C2: unrelated controls surrounding a unique form stay outside its descriptor inventory", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main>
+      <label>Newsletter email <input name="newsletter"></label>
+      <label>Site search <input name="search"></label>
+      <form id="job-application">
+        <label>Applicant name <input name="applicant"></label>
+      </form>
+      <label>Contact sales <input name="sales"></label>
+      <label>Footer feedback <textarea name="feedback"></textarea></label>
+    </main>`,
+  );
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const reports = await waitForFrames(controller, tabId, 1);
+  expect(reports[0]?.root_status).toBe(CONTENT_FRAME_SCAN_FOUND);
+  expect(
+    foundDescriptors(reports).map((item) => item.label.normalized_text),
+  ).toEqual(["Applicant name"]);
+});
+
+test("C3: a stronger explicit application root includes controls outside its native form", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main><div data-japp-application-root>
+      <label>Application-level external control
+        <input name="outsideNativeForm">
+      </label>
+      <form>
+        <label>Applicant name <input name="applicant"></label>
+      </form>
+    </div></main>`,
+  );
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const reports = await waitForFrames(controller, tabId, 1);
+  expect(reports[0]?.root_status).toBe(CONTENT_FRAME_SCAN_FOUND);
+  expect(
+    foundDescriptors(reports).map((item) => item.label.normalized_text),
+  ).toEqual(["Application-level external control", "Applicant name"]);
+});
+
+test("C4: a unique semantic main remains the fallback when no form qualifies", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main>
+      <label>Applicant name <input name="applicant"></label>
+    </main>`,
+  );
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const reports = await waitForFrames(controller, tabId, 1);
+  expect(reports[0]?.root_status).toBe(CONTENT_FRAME_SCAN_FOUND);
+  expect(
+    foundDescriptors(reports).map((item) => item.label.normalized_text),
+  ).toEqual(["Applicant name"]);
+});
+
+test("C5: two qualifying forms remain ambiguous instead of selecting either form", async ({
   extensionContext,
   extensionId,
   serviceWorker,
@@ -276,6 +378,31 @@ test("W08 returns a typed ambiguous application-root result instead of guessing"
     root_candidate_count: 2,
     descriptors: [],
   });
+});
+
+test("C6: a unique role=form root is not widened to its semantic main ancestor", async ({
+  extensionContext,
+  extensionId,
+  serviceWorker,
+}) => {
+  const page = await extensionContext.newPage();
+  await page.goto(`${LAB_ORIGIN}/native/`);
+  await setScannerFixture(
+    page,
+    `<main>
+      <label>Newsletter email <input name="newsletter"></label>
+      <div role="form">
+        <label>Applicant name <input name="applicant"></label>
+      </div>
+    </main>`,
+  );
+  const tabId = await tabIdForPage(serviceWorker, page);
+  const controller = await scannerController(extensionContext, extensionId);
+  const reports = await waitForFrames(controller, tabId, 1);
+  expect(reports[0]?.root_status).toBe(CONTENT_FRAME_SCAN_FOUND);
+  expect(
+    foundDescriptors(reports).map((item) => item.label.normalized_text),
+  ).toEqual(["Applicant name"]);
 });
 
 test("M3: targeted subtree scanning never escapes the requested application subtree", async ({
