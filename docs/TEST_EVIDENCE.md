@@ -33,6 +33,107 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W08 — Final independent verification and governance (2026-08-23)
+
+- Verdict: `FABLE_CLEAR_FINAL_M02_W08_CONTENT` on exact visibility-correction
+  commit `4afd0e97401794a113ff2bdfcff255e119296127` / tree
+  `3aab675ae852fe0f14ce4be52e1630a88ce2b202` (parent
+  `bc32eb21ea881dbdd46b8e40d9b07b0e653020aa`), issued by the final fresh
+  independent Fable verifier. This bounded continuation reused the prior
+  verifier's independently cleared application-root and carried-forward W08
+  results without reopening them and used no reviewer subagent.
+- Environment: macOS 27.0 arm64; Node 24.18.0; pnpm 11.17.0; Playwright
+  bundled Chromium; uv-managed Python for canonical suites; specification
+  JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Boundary: `git fetch origin`, both porcelain status forms,
+  branch/HEAD/origin/tree/parent equality, `git diff --check`, and the
+  specification digest confirmed a clean synchronized `main` at the exact
+  target before verification. Exactly one forward commit from the cleared
+  root correction; changed files confined to
+  `apps/extension/src/field-scanner.ts`,
+  `e2e/extension/extension-scanner.spec.ts`, `docs/PROJECT_STATUS.md`, and
+  `docs/TEST_EVIDENCE.md`; the production change is confined to
+  `isElementVisible` and the bounded `hasFixedAncestor` helper (final
+  `field-scanner.ts` SHA-256
+  `68c23ea1b94baeda528787df2b95ac2470a8b93e6e1ac78e927b021d13b94aaa`).
+- Focused commands and observed results on the exact final bytes:
+  - `pnpm --dir apps/extension exec vitest run
+    test/m02-w08/scanner-protocol.test.ts --no-file-parallelism
+    --maxWorkers=1` -> exit 0, **16 passed**.
+  - `pnpm --dir apps/extension test` -> exit 0, **79 passed** in 3 files.
+  - `pnpm exec playwright test e2e/extension/extension-scanner.spec.ts
+    --reporter=line` -> exit 0, **19 passed** (C1–C6, V1, V2, V3, V4–V6, V7,
+    and every retained case).
+  - `pnpm exec playwright test e2e/extension --reporter=line` -> exit 0,
+    **32 passed**, including every retained W07 extension regression.
+  - `pnpm exec playwright test --list` -> **91 tests in 24 files**.
+- One fresh visibility variant (one temporary spec file, deleted after the
+  run; the worktree returned byte-clean): a unique bare `<form>` with a
+  `for`-linked required `<textarea>` displaced below the initial fold by
+  `margin-top:2600px` on its paragraph wrapper — markup and layout distinct
+  from the permanent V1 fixture — self-checked its geometry (`scrollY` 0,
+  `rect.top > innerHeight`, nonzero box), reported `visible=true` before any
+  scroll, and kept the complete descriptor set apart from `observed_at`
+  byte-identical after `scrollIntoView` (`scrollY > 0`) -> exit 0,
+  **1 passed**. No second fresh visibility family was created.
+- Pending final verifier mutations (exactly two, stopped at N2; each
+  restoration verified byte-exact by SHA-256 against the pre-mutation value):
+  - N1 — frame/report coherence: `descriptorBelongsToFrame` in
+    `apps/extension/src/scanner-protocol.ts` was weakened to session-only so
+    a structurally valid frame scan report whose descriptor addresses
+    mismatch the report's own `frame_id`/`document_id` would parse and be
+    accepted into worker aggregation -> existing unit test "a frame report
+    rejects descriptors from another typed frame or an unresolved root"
+    failed (**1 failed, 15 passed**); restored
+    (`dd2025647bcb8813640bab8012bee0dc1dcb06a1d21c3b20fae32b25e2786f02`).
+  - N2 — no-guess boundary: the ambiguous branch of
+    `reresolveFrameAddress` in `apps/extension/src/field-scanner.ts` was
+    mutated to resolve the first candidate -> existing browser test "M4:
+    multiple current semantic matches return ambiguous and never pick the
+    first" failed (**1 failed**); restored
+    (`68c23ea1b94baeda528787df2b95ac2470a8b93e6e1ac78e927b021d13b94aaa`).
+- Canonical local verification at the exact target:
+  `python3 scripts/check_portability.py` PASS;
+  `python3 scripts/validate_status.py` PASS (45 check groups);
+  `pnpm traceability:check` PASS (193 requirements / 300 work packages);
+  `pnpm generate:contracts --check` -> 183 files byte-identical;
+  `pnpm run doctor` -> 25 pass, 0 warning, 0 fail, 1 not-yet-applicable;
+  `pnpm verify` -> verification exit code 0 with every ACTIVE suite PASS and
+  visual NOT_YET_APPLICABLE; `git diff --check` clean and the authoritative
+  checkout remained clean throughout.
+- Hosted correction proof: push run `32588226547` at exact head
+  `4afd0e97401794a113ff2bdfcff255e119296127` (tree
+  `3aab675ae852fe0f14ce4be52e1630a88ce2b202`), overall SUCCESS; jobs
+  Ubuntu 24.04 `97067740170`, macOS 15 `97067740274`, and Windows 2025
+  `97067740307` all SUCCESS. The complete Windows raw log reconciles
+  extension 79, browser 91 passed (91 tests in 24 files), contracts 2440 +
+  662, generated 183 byte-identical, Python Windows/common 1387, Rust 1 +
+  10, status 45 check groups, traceability ACTIVE PASS, visual
+  NOT_YET_APPLICABLE, verification exit code 0, and the tracked-clean
+  assertion.
+- Documented limitations preserved as limitations, not blockers or support
+  claims: fixed descendants whose containing block is re-established by
+  transform/filter/contain/will-change behavior; clip-path; ancestor
+  overflow clipping; nested scroll containers and wrapper-scroller SPAs;
+  RTL negative scrollX; positive overflow concealed by overflow roots. No
+  canonical or permanent supported W08 case exercises them incorrectly and
+  the canonical W08 specification does not require them, so no new
+  KNOWN_ISSUES entry was created.
+- Lifecycle simulation: a fresh `git clone --no-local --no-hardlinks` at the
+  exact content commit received exactly these governance edits (M02-W08
+  IN_PROGRESS -> VERIFIED at tree
+  `3aab675ae852fe0f14ce4be52e1630a88ce2b202`; M02-W09 NOT_STARTED ->
+  READY; exactly one READY and zero IN_PROGRESS packages; M02 IN_PROGRESS;
+  REQ-FORM-013/014/019 SCAFFOLD_ONLY / NOT_YET_APPLICABLE; all four critical
+  gates NOT_EVALUATED; release NOT_READY), regenerated the traceability view,
+  and passed `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  and `pnpm verify` (exit 0) with no implementation, test, or validator
+  change before this authoritative governance commit.
+- Owner-evidence exclusion: no private owner evidence was accessed,
+  enumerated, or required. No W09/W10/W11 implementation and no Gate A
+  execution occurred.
+
 ### M02-W08 — Scroll-independent visibility correction writer evidence (2026-08-22)
 
 - Revision: second correction writer pass starting from required synchronized
