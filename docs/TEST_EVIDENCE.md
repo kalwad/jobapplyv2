@@ -33,6 +33,110 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W09 — Deterministic resolver takeover implementation writer evidence (2026-08-23)
+
+- Revision: takeover writer pass from authoritative M02-W08 governance commit
+  `6e6e09beef0b391357b45da78d6eb08df989b920` / tree
+  `17f905f5e51abc6fc45959ad48775a8d4c7a3db3`; the W09 implementation tree is
+  recorded post-commit by the containing commit.
+- Environment: Darwin 27.0.0 arm64; Node 24.18.0; pnpm 11.17.0; Playwright
+  1.62.0 bundled Chromium; uv 0.11.32 with Python 3.12.13; Rust 1.97.1;
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Takeover boundary: `git fetch origin`, both porcelain status forms,
+  branch/HEAD/origin/log/diff checks, complete tracked/untracked inventory,
+  and SHA-256 capture of every dirty tracked and untracked W09 file confirmed
+  synchronized `main` at the authoritative commit with six modified tracked
+  files and eighteen untracked Fable files. No reset, restore, checkout,
+  clean, stash, rebase, amend, or byte discard occurred.
+- Recovered Fable implementation: closed/versioned feasibility ontology,
+  normalized evidence helpers, deterministic classifier and confidence bands,
+  semantic option resolver, approved synthetic-record boundary, safety-policy
+  synthesis, canonical `FormFieldDecisionV1` resolver/validation,
+  deterministic semantic identity helpers, inert optional-proposal merge, 73
+  focused tests, and the complete real-MV3 descriptor-to-decision spec.
+- Exact pre-edit reproduction: `pnpm --filter @japp/form-engine test` -> exit
+  0, **73 passed** in 7 files; package typecheck and scoped ESLint -> exit 0.
+  Prettier identified only the newly written browser spec, pinpointing the
+  actual stop. The unchanged `pnpm exec playwright test
+  e2e/extension/extension-resolver.spec.ts` -> exit 0, **2 passed** against a
+  fresh production WXT MV3 build.
+- One permitted read-only safety reviewer found four reproducible gaps while
+  confirming the single-option invariant: negative terms were label-only;
+  singular numbered reference sections escaped conflict matching; proposal
+  eligibility ignored stricter approved-record policy; and A1/A2 used
+  pre-normalized timeout/failure tokens instead of a real injected timeout /
+  thrown-failure boundary. The narrow corrections add description negatives,
+  singular `REFERENCE` section semantics, effective-record-policy enforcement,
+  and a bounded injected attempt normalizer with actual timeout/throw tests.
+- Final pre-freeze focused results: `pnpm --filter @japp/form-engine test` ->
+  exit 0, **77 passed** in 7 files; package typecheck -> exit 0; real built-MV3
+  resolver integration -> exit 0, **2 passed**. The browser proof consumes
+  canonical W08 service-worker/frame descriptors, validates canonical field
+  decisions, covers ordinary and sensitive/consequential policy, proves one
+  unrelated rendered option abstains, confirms W08 emits `REFERENCE_1` and
+  W09 downgrades it to review, and observes zero click/input/change/submit
+  events with byte-identical control state and unchanged URL.
+- Retained direct regressions: `pnpm --dir apps/extension test` -> exit 0,
+  **79 passed** in 3 files; the unchanged W08 scanner browser spec -> exit 0,
+  **19 passed**; the six retained W07 browser specs -> exit 0, **13 passed**;
+  canonical discovery lists **93 tests in 25 files** (the W08 baseline plus
+  exactly the two W09 resolver cases and one W09 spec file).
+- Repository-integrity corrections demonstrated by the first canonical
+  attempt: the fixture-consumer guard now proves the W09 form-engine fixture
+  link is development-only, and the v1.4 migration guard pins the exact W09
+  form-engine importer plus the complete reviewed `pnpm-lock.yaml` digest.
+  The strict Python inventory gained only the W09 traceability governance
+  node: **1,388 common/Windows tests** and **1,390 POSIX tests**.
+- Complete pre-freeze canonical rehearsal, in required order:
+  `python3 scripts/check_portability.py`,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`,
+  `pnpm generate:contracts --check`, `pnpm run doctor`, `pnpm verify`, and
+  `git diff --check` -> exit 0 throughout. Observed results: portability PASS;
+  **45** status groups; **193 requirements / 300 work packages**;
+  **183 generated files byte-identical**; doctor **24 PASS / 1 expected dirty
+  tree WARNING / 0 FAIL / 1 NOT_YET_APPLICABLE**; formatting, lint, typecheck,
+  and all active verification suites PASS; package tests **3,468 passed**;
+  contract replay **662 passed**; fixture focus **108 + 57 passed**; both builds
+  PASS; browser **93 passed**; Python **1,390 passed**; Rust **1 + 10 passed**;
+  visual remains honestly NOT_YET_APPLICABLE.
+- Mutations stopped exactly at M4; every production file was restored to its
+  pre-mutation SHA-256 before proceeding. M1 disabled negative-pattern
+  enforcement -> **4 failed / 14 passed** classifier tests. M2 selected the
+  sole rendered option without semantic evidence -> **3 failed / 8 passed**
+  option tests. M3 allowed a valid model proposal to replace deterministic
+  success -> the A1-A6 preservation test failed. M4 bypassed deny policy ->
+  **2 failed / 12 passed** safety-policy tests. Restored hashes:
+  `field-classifier.ts`
+  `64df3cd1e1eab3bfb61f18e4df7be88fc33a8d2ba049521fbe293e2615804bf9`,
+  `option-resolver.ts`
+  `b9548271cc9373b78652665e62b2203cf49fb76e9318ad061e3a74d4f7c9e06b`,
+  `ai-proposal.ts`
+  `66d58e8f8c4199f5fea9de264a887922f51bbb74a689bbf15c4e820a4a682583`,
+  and `safety-policy.ts`
+  `9bd0bbd4cad29615cc043d4d081073eee069eb075c16efe43b99f1d37e4b957d`;
+  the restored full focused suite is **77/77**.
+- Scope/lifecycle: W09 decides only. No DOM value assignment, click, control
+  driver, upload, navigation, submission, rerender verification, undo,
+  mutation observer, reconciliation engine, route generation, or performance
+  instrumentation was added. M02-W09 remains IN_PROGRESS; M02-W10 and W11
+  remain NOT_STARTED; no package is READY; all gates remain NOT_EVALUATED;
+  release remains NOT_READY. REQ-FORM-017 and REQ-FORM-023 are only
+  SCAFFOLD_ONLY / NOT_YET_APPLICABLE with M18 ownership preserved;
+  REQ-FORM-001/002 remain NOT_STARTED and unclaimed.
+- Frozen verification protocol: this entry is the last intentional
+  tracked-byte edit. The exact staged tree is fingerprinted and must receive
+  two complete canonical verification passes without intervening edits;
+  immutable command output and final commit metadata carry those results so
+  this evidence file is not backfilled after the freeze. Hosted three-OS
+  evidence is inspected only after the single forward package commit and
+  push, so it is not preclaimed here.
+- Owner-evidence exclusion: neither writer nor reviewer accessed, enumerated,
+  inspected, hashed, searched, or tested any excluded private owner-evidence,
+  historical W06 private-evidence, or Trash-evidence path. No live AI,
+  provider, credential, model endpoint, or network request exists in W09; no
+  Gate A execution or self-verification occurred.
+
 ### M02-W08 — Final independent verification and governance (2026-08-23)
 
 - Verdict: `FABLE_CLEAR_FINAL_M02_W08_CONTENT` on exact visibility-correction

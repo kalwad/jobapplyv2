@@ -480,6 +480,30 @@ REVIEWED_EXTENSION_IMPORTER = (
         version: 0.20.27(@types/node@24.13.3)(eslint@10.8.0(jiti@2.7.0))"""
     b"(jiti@2.7.0)(lightningcss@1.33.0)(rolldown@1.1.5)(rollup@4.62.4)\n"
 )
+# Reviewed M02-W09 delta: the deterministic form engine owns only stable
+# contracts at runtime. Canonical fixture records remain an explicit
+# development-only evaluation input, with no new external dependency.
+REVIEWED_FORM_ENGINE_IMPORTER = (
+    b"""  packages/form-engine:
+    dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      '@japp/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.13.3)"""
+    b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
+)
 # Reviewed M02-W04 delta: the evaluation-baselines importer with only the
 # workspace fixture link and catalog-pinned dev tooling (spec §8.4; the
 # baseline owner is built by M02-W04 and adds no external dependency).
@@ -555,7 +579,7 @@ REVIEWED_EVALUATION_RUNNER_IMPORTER = (
     b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
 REVIEWED_PNPM_LOCK_SHA256 = (
-    "06819996bc2e8b4b2478c4c4054a255c40b69ab49390cb28e9247a50826c4c87"
+    "c9d9f2fea650873b806a28058a9f1a8ca88d38fe439ceb3ba9fd7c83d778b565"
 )
 
 
@@ -605,8 +629,8 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert historical_pnpm == expected_pnpm
 
     # Current lockfile: every reviewed historical importer survives unchanged,
-    # the additive M02-W04/W05/W06 importers exist exactly once with their
-    # exact evaluation-only links, and the complete file matches the reviewed
+    # the additive M02-W04/W05/W06/W07/W09 importers exist exactly once with
+    # their exact reviewed links, and the complete file matches the reviewed
     # digest.
     current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
     assert current_pnpm.count(reviewed_importer) == 1
@@ -617,6 +641,8 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert current_pnpm.count(b"  apps/mock-ats-lab:") == 1
     assert current_pnpm.count(REVIEWED_EXTENSION_IMPORTER) == 1
     assert current_pnpm.count(b"  apps/extension:") == 1
+    assert current_pnpm.count(REVIEWED_FORM_ENGINE_IMPORTER) == 1
+    assert current_pnpm.count(b"  packages/form-engine:") == 1
     assert current_pnpm.count(REVIEWED_EVALUATION_BASELINES_IMPORTER) == 1
     assert current_pnpm.count(b"  packages/evaluation-baselines:") == 1
     assert current_pnpm.count(REVIEWED_EVALUATION_CORPUS_IMPORTER) == 1

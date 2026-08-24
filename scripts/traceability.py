@@ -116,9 +116,16 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # protocol, frame-agent, unit, and built-browser evidence paths plus explicit
 # M17/M18 remainder notes. No ownership, mapping, gate effect, dependency,
 # independent-verification, acceptance, or release claim changed. The writer
-# re-locked that truthful expanded projection below.
+# re-locked that truthful expanded projection. M02-W09 then recorded only the
+# deterministic-preservation and semantic-option feasibility portions of
+# REQ-FORM-017 and REQ-FORM-023 as SCAFFOLD_ONLY / NOT_YET_APPLICABLE with
+# exact resolver/proposal/policy, option, unit, and real built-MV3 browser
+# evidence paths plus explicit M18-W05/M18-W03 remainder notes. REQ-FORM-001
+# and REQ-FORM-002 remain NOT_STARTED and unclaimed; no ownership, mapping,
+# gate effect, dependency, independent-verification, acceptance, or release
+# claim changed. The writer re-locked that truthful projection below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "594657f83c0ddba1b99fc033dc5c2b44395d7a4602a8ad9c3639e6c9dc6cbde5"
+    "e4bad00c2a90bf02bb6b0f35172c85b04a26f17c855baa2ad52dbabbac606ef2"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

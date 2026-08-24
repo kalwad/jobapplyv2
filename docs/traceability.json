@@ -11,7 +11,7 @@
     "derived_dependency_review": "The complete v1.4 direct-package graph is reviewed from specification \u00a71/\u00a79, including explicit M00-W11, M01-W07, and M27 exceptions; reverse downstream edges are derived from that graph. Historical v1.2/v1.3 hashes remain immutable snapshots. The v1.4 hashes lock requirement honesty, ownership, gate effects, package dependencies, deliverables, automated verification, and manual evidence plans.",
     "v1_3_reviewed_in_work_package": "M00-W10",
     "v1_4_reviewed_in_work_package": "M00-W11",
-    "v1_4_requirements_mapping_sha256": "594657f83c0ddba1b99fc033dc5c2b44395d7a4602a8ad9c3639e6c9dc6cbde5",
+    "v1_4_requirements_mapping_sha256": "e4bad00c2a90bf02bb6b0f35172c85b04a26f17c855baa2ad52dbabbac606ef2",
     "v1_4_work_package_dependency_sha256": "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1",
     "v1_4_prior_requirement_inventory_sha256": "383e244a3cd0b03aa493fe14f9f24768128ca24da3f3346e14eecec2ae13e37e",
     "v1_4_intentionally_changed_packages": [
@@ -1874,12 +1874,24 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W09"
+        }
+      ],
+      "completed_code_paths": [
+        "packages/form-engine/src/ai-proposal.ts",
+        "packages/form-engine/src/decision-resolver.ts",
+        "packages/form-engine/src/safety-policy.ts"
+      ],
+      "completed_test_paths": [
+        "packages/form-engine/test/ai-proposal.test.ts",
+        "packages/form-engine/test/decision-resolver.test.ts"
+      ],
+      "notes": "M02-W09 implements the feasibility portion with an injected, bounded optional-proposal attempt seam that normalizes real timeout/throw outcomes and preserves every successful deterministic resolution unchanged. Valid model output after deterministic abstention is PROPOSE-only, cannot introduce sensitive or consequential concepts, and cannot weaken catalog or approved-record policy; no live provider or network path exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because the writer does not independently verify W09 and M18-W05 still owns production optional-classifier integration and completion; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -2106,12 +2118,25 @@
         "M38_RELEASE",
         "OVERALL_RELEASE"
       ],
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "SCAFFOLD_ONLY",
       "verification_state": "NOT_YET_APPLICABLE",
-      "current_evidence": [],
-      "completed_code_paths": [],
-      "completed_test_paths": [],
-      "notes": "Planned ownership only; no implementation, test result, compatibility claim, or acceptance evidence exists yet.",
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W09"
+        }
+      ],
+      "completed_code_paths": [
+        "packages/form-engine/src/ontology.ts",
+        "packages/form-engine/src/option-resolver.ts",
+        "packages/form-engine/src/decision-resolver.ts"
+      ],
+      "completed_test_paths": [
+        "packages/form-engine/test/option-resolver.test.ts",
+        "packages/form-engine/test/decision-resolver.test.ts",
+        "e2e/extension/extension-resolver.spec.ts"
+      ],
+      "notes": "M02-W09 implements the feasibility portion with reviewed semantic option values and aliases, exact inert-token matching, placeholder/disabled/ambiguous abstention, and a count-blind no-match branch: one unrelated rendered option and many unrelated options both abstain. The real built-MV3 descriptor-to-decision test proves the single-option case without fill, click, change, submit, or navigation. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because the writer does not independently verify W09 and M18-W03 still owns production option safety and completion; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -7750,7 +7775,7 @@
       "id": "M02-W09",
       "milestone": "M02",
       "title": "Implement deterministic ontology, resolver, and safety policy",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W08"

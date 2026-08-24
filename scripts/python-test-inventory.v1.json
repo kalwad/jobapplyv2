@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 1387,
-    "sha256": "72f8d4f65f625e569d7959c026c2280ea2ee275ed5e873304f9d8e6591d4cc8c",
+    "count": 1388,
+    "sha256": "27c5216fff99dbc159ca895555deaba5366c6ab3741ee73d2b10690af79b5481",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -1202,6 +1202,7 @@
       "scripts/tests/test_traceability.py::test_valid_owner_change_requires_explicit_review_hash_update",
       "scripts/tests/test_traceability.py::test_verified_m00_requirements_have_real_code_test_and_evidence_links",
       "scripts/tests/test_traceability.py::test_versioning_requirement_claim_stays_partial_after_m01_w01",
+      "scripts/tests/test_traceability.py::test_w09_form_requirements_are_partial_and_product_honest",
       "scripts/tests/test_traceability.py::test_workday_gate_covers_declared_m21_through_m23_expansion_boundary",
       "scripts/tests/test_traceability.py::test_wrong_cross_platform_gate_dependencies_fail",
       "scripts/tests/test_traceability.py::test_wrong_workday_gate_dependencies_fail",

@@ -166,6 +166,18 @@ def trace_repo(tmp_path: Path) -> Path:
         "apps/extension/src/field-scanner.ts",
         "apps/extension/test/m02-w08/scanner-protocol.test.ts",
         "e2e/extension/extension-scanner.spec.ts",
+        # M02-W09 REQ-FORM-017/023 feasibility anchors (deterministic
+        # decision/proposal policy, semantic option matching, and real built
+        # descriptor-to-decision browser proof).
+        "packages/form-engine/src/ai-proposal.ts",
+        "packages/form-engine/src/decision-resolver.ts",
+        "packages/form-engine/src/safety-policy.ts",
+        "packages/form-engine/src/ontology.ts",
+        "packages/form-engine/src/option-resolver.ts",
+        "packages/form-engine/test/ai-proposal.test.ts",
+        "packages/form-engine/test/decision-resolver.test.ts",
+        "packages/form-engine/test/option-resolver.test.ts",
+        "e2e/extension/extension-resolver.spec.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path
@@ -528,6 +540,31 @@ def test_platform_scaffold_claim_is_partial_and_product_honest() -> None:
     ]
     assert "M03-W09" in cast(str, record["notes"])
     assert "ownership scaffold only" in cast(str, record["notes"])
+
+
+def test_w09_form_requirements_are_partial_and_product_honest() -> None:
+    metadata = load_metadata(REPO_ROOT)
+    requirements = {
+        requirement_id: record_by_id(metadata, "requirements", requirement_id)
+        for requirement_id in ("REQ-FORM-017", "REQ-FORM-023")
+    }
+    for record in requirements.values():
+        assert record["implementation_state"] == "SCAFFOLD_ONLY"
+        assert record["verification_state"] == "NOT_YET_APPLICABLE"
+        assert record["current_evidence"] == [
+            {"path": "docs/TEST_EVIDENCE.md", "heading": "### M02-W09"}
+        ]
+        assert record["completed_code_paths"]
+        assert record["completed_test_paths"]
+        assert "writer does not independently verify W09" in cast(str, record["notes"])
+    assert "M18-W05" in cast(str, requirements["REQ-FORM-017"]["notes"])
+    assert "M18-W03" in cast(str, requirements["REQ-FORM-023"]["notes"])
+    for requirement_id in ("REQ-FORM-001", "REQ-FORM-002"):
+        record = record_by_id(metadata, "requirements", requirement_id)
+        assert record["implementation_state"] == "NOT_STARTED"
+        assert record["current_evidence"] == []
+        assert record["completed_code_paths"] == []
+        assert record["completed_test_paths"] == []
 
 
 def test_versioning_requirement_claim_stays_partial_after_m01_w01() -> None:

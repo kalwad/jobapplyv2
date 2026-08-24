@@ -149,18 +149,20 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
         }
       }
     }
-    // The exact reviewed consumers are the M02-W04 baseline owner and the
-    // M02-W05 runner's development-only integration proof. Both must remain
-    // private, explicitly NON_PRODUCTION evaluation packages; no product
-    // package may consume fixtures. The exact NON_PRODUCTION token is the
-    // pre-W05 invariant and must not be weakened to a generic word.
+    // The exact reviewed consumers are the M02-W04/M02-W05 non-production
+    // evaluation packages and M02-W09's dev-only feasibility tests. The W09
+    // product package must never place fixtures in its runtime dependencies.
+    // Every manifest must state the NON_PRODUCTION evaluation boundary; that
+    // exact token is the pre-W05 invariant and must not be weakened.
     expect(consumers).toEqual([
       "packages/evaluation-baselines",
       "packages/evaluation-runner",
+      "packages/form-engine",
     ]);
     const expected = new Map([
       ["evaluation-baselines", "@japp/evaluation-baselines"],
       ["evaluation-runner", "@japp/evaluation-runner"],
+      ["form-engine", "@japp/form-engine"],
     ]);
     for (const [directory, name] of expected) {
       const consumerManifest = JSON.parse(
@@ -168,13 +170,28 @@ describe("M02-W01 fail-closed discovery and ownership", () => {
           join(REPO_ROOT, "packages", directory, "package.json"),
           "utf8",
         ),
-      ) as { name?: string; private?: boolean; description?: string };
+      ) as {
+        name?: string;
+        private?: boolean;
+        description?: string;
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+      };
       expect(consumerManifest.name).toBe(name);
       expect(consumerManifest.private).toBe(true);
       expect(consumerManifest.description).toContain("NON_PRODUCTION");
       expect(consumerManifest.description?.toLowerCase()).toContain(
         "evaluation",
       );
+      if (directory === "form-engine") {
+        expect(consumerManifest.dependencies).not.toHaveProperty(
+          "@japp/test-fixtures",
+        );
+        expect(consumerManifest.devDependencies).toHaveProperty(
+          "@japp/test-fixtures",
+          "workspace:*",
+        );
+      }
     }
     expect(readFileSync(join(PACKAGE_ROOT, "README.md"), "utf8")).toContain(
       "test/evaluation data only",

@@ -2,13 +2,17 @@
   "name": "@japp/form-engine",
   "version": "0.0.1",
   "private": true,
-  "description": "Field ontology, resolver, and fill primitives (spec v1.2 §5.1): early field identity/scanner/resolver/drivers in M02, productionized in M18. Scaffold created in M00-W02.",
+  "description": "Field ontology, resolver, and fill primitives (spec §5.11): M02-W09 implements the deterministic feasibility ontology, classifier, option resolver, safety policy, decision resolver, and inert optional AI-proposal boundary over canonical M01 contracts, with @japp/test-fixtures used only as NON_PRODUCTION evaluation test data; W10 drivers and M18 production hardening arrive with their owning milestones. Scaffold created in M00-W02.",
   "type": "module",
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@japp/contracts": "workspace:*"
+  },
   "devDependencies": {
+    "@japp/test-fixtures": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
