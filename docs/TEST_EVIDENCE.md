@@ -33,6 +33,62 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W09 — Deterministic resolver verification and governance closeout (2026-08-24)
+
+- Revision: verified content commit
+  `987f9cd768e23cb572cd4cd2c2a4846a1216c54c` / tree
+  `0c3546e6a83a28b088b6f52d299a2c769f3ab412`; the governance tree is recorded
+  post-commit by the containing governance commit.
+- Environment: Darwin 27.0.0 arm64; Node 24.18.0; pnpm 11.17.0; Vitest
+  4.1.10; Playwright bundled Chromium; hosted GitHub Actions Ubuntu 24.04,
+  macOS 15, and Windows 2025; specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Verification protocol: same-session internal adversarial gauntlet
+  (writer/verifier role alternation with one bounded verifier subagent at a
+  time), explicitly authorized for this ordinary package and explicitly NOT
+  an independent critical-gate review; the genuinely independent Autofill
+  Feasibility Gate audit remains M02-W15.
+- Exact-SHA hosted content proof: push run `32747291323` at commit
+  `987f9cd` — Ubuntu 24.04 job `97495748427` SUCCESS, macOS 15 job
+  `97495748650` SUCCESS, Windows 2025 job `97495748758` SUCCESS. Complete
+  Windows raw log reconciled: doctor 25 pass / 0 warning / 0 fail /
+  1 not-yet-applicable; form engine **77/77** with the two corrected tests
+  at 5.295 s and 6.545 s (both above the former generic 5 s default and
+  well inside the explicit 15 s budgets, confirming the diagnosis);
+  extension 79; contracts 2440 unit plus 662 replay; fixture focus 108 + 57;
+  browser 93 passed; Python 1388 passed (Windows/common inventory); Rust
+  1 + 10; status 45 check groups; traceability ACTIVE PASS; visual
+  NOT_YET_APPLICABLE; `verification exit code: 0`; tracked-clean guard
+  passed; every failure-pattern line in the complete log was benign
+  (PowerShell preamble, pytest parameter IDs, Rust `0 failed` summaries).
+- Final internal verification at the exact hosted-green bytes (fresh
+  `git clone --no-local --no-hardlinks`, tree verified
+  `0c3546e6a83a28b088b6f52d299a2c769f3ab412`): permanent form-engine suite
+  plus the preserved 42-probe gauntlet matrix → **119/119**; both
+  timeout-portability regressions rerun individually → PASS; package
+  typecheck → exit 0; `extension-resolver` + `extension-scanner` browser
+  suites → 21 passed; six retained W07 extension suites → 13 passed. N1/N2
+  were not rerun: no substantive byte changed after their kills (the only
+  post-kill change was the evidence document itself).
+- Lifecycle simulation (fresh disposable `git clone --no-local
+  --no-hardlinks` at `987f9cd`): applied byte-identical governance edits —
+  M02-W09 IN_PROGRESS → VERIFIED anchored at tree
+  `0c3546e6a83a28b088b6f52d299a2c769f3ab412`, M02-W10 NOT_STARTED → READY,
+  exactly one READY, zero IN_PROGRESS, M00/M01 ACCEPTED, M02 IN_PROGRESS,
+  M02-W11..M02-W15 NOT_STARTED, REQ-FORM-017/023 `SCAFFOLD_ONLY` /
+  `NOT_YET_APPLICABLE` with retained M18-W05/M18-W03 ownership,
+  REQ-FORM-001/002 not promoted, all four critical gates NOT_EVALUATED,
+  release NOT_READY. `python3 scripts/validate_status.py` → PASS (45 check
+  groups); `pnpm traceability:check` → PASS (193 requirements / 300 work
+  packages, regenerated view in agreement); `pnpm verify` → exit 0 with
+  every ACTIVE suite PASS and visual NOT_YET_APPLICABLE.
+- Governance: this entry plus docs/PROJECT_STATUS.md, docs/traceability.json,
+  and the regenerated docs/REQUIREMENTS_TRACEABILITY.md transition M02-W09
+  to VERIFIED and M02-W10 to sole READY. No W09 implementation or test byte
+  changed during governance. No private owner holdout evidence was accessed
+  at any point; no live AI, provider, or network capability was added; no
+  W10/W11 implementation occurred; Gate A was not executed.
+
 ### M02-W09 — Windows resolver-test stabilization and internal gauntlet writer evidence (2026-08-24)
 
 - Revision: forward correction over W09 content commit
