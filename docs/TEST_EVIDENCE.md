@@ -33,6 +33,86 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W09 — Windows resolver-test stabilization and internal gauntlet writer evidence (2026-08-24)
+
+- Revision: forward correction over W09 content commit
+  `31b784f3a80dbc6eb0bbbdb995aaf6b0f48de2c5` / tree
+  `d3a776078b46ed7fa7a9c4d7c830ca4ac2374d84`; the corrected tree is recorded
+  post-commit by the containing forward commit.
+- Environment: Darwin 27.0.0 arm64; Node 24.18.0; pnpm 11.17.0; Vitest
+  4.1.10; Playwright bundled Chromium; specification JAPP-MASTER-001 v1.4
+  SHA-256 `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Hosted failure evidence being corrected: push run `32684742134` at commit
+  `31b784f3` — Ubuntu 24.04 SUCCESS, macOS 15 SUCCESS, Windows 2025 FAILED
+  on both attempts. Both Windows attempts failed only
+  `packages/form-engine/test/ai-proposal.test.ts` ("preserves the
+  deterministic resolution unchanged for every model outcome", ~5.081 s /
+  ~5.107 s) and `packages/form-engine/test/decision-resolver.test.ts`
+  ("emits structurally and semantically canonical decisions across outcome
+  families", ~5.021 s / ~5.196 s) against the generic Vitest 5.000 s default
+  (`@japp/form-engine` has no vitest config). Assertions did not fail;
+  Windows reported 75/77 form-engine tests with every other canonical suite
+  green.
+- Diagnosis (both complete test bodies and every directly relevant helper
+  inspected): no accidental sleep, no retry, no network or live-AI call, no
+  unbounded wait, no deadlock, and no resolver performance defect. The only
+  intended in-test waits are the 5 ms A1 injected-attempt budget and the
+  immediate A2 synchronous throw. Both failing tests are the first test in
+  their file and absorb the `@japp/contracts/generated` validator import,
+  fixture-corpus load, and WebCrypto digest cost, which exceeds the generic
+  5 s default only on slower hosted Windows runners. Classification:
+  TEST-HARNESS PORTABILITY (insufficient generic Vitest headroom), matching
+  the precedent recorded in `packages/contracts/vitest.config.ts`.
+- Correction (test-local, smallest possible): explicit `15_000` ms budgets on
+  exactly the two named tests plus constraint comments. No global Vitest
+  timeout change, no skip/todo/retry-until-pass, no Windows exclusion, no
+  assertion weakening, no A1–A6 or semantic-validation or decision-family
+  coverage reduction, and no `packages/form-engine/src/**` change.
+- Pre-correction local reproduction: both exact tests PASS locally
+  (file durations 822 ms and 889 ms), consistent with a Windows-runner
+  headroom failure rather than a logic failure.
+- Post-correction focused proof: both exact tests PASS twice each
+  (`pnpm exec vitest run <file> -t "<exact name>"` → exit 0; durations
+  1.02 s / 1.15 s then 1.18 s / 1.14 s); complete form engine
+  `pnpm exec vitest run` → exit 0, **77 passed** in 7 files; package
+  typecheck → exit 0; focused `pnpm exec eslint` and
+  `pnpm exec prettier --check` on both files → clean; `git diff --check` →
+  clean; final diff inspected (two comments and two per-test budgets only).
+- Internal adversarial gauntlet verification (same-session package-level
+  verifier in a disposable `git clone --no-local --no-hardlinks` at the
+  candidate bytes; explicitly NOT an independent critical-gate audit): finite
+  acceptance matrix over classification (A1–A8 including recruiter-email /
+  company-phone negative defense, section corroboration and other-party
+  weakening, tied-candidate abstention), confidence monotonicity and
+  no-fallback selection guards, sensitivity/policy behavior for ordinary,
+  consequential, sensitive, and demographic concepts against the canonical
+  five-value sensitivity enum, option semantics O1–O7 with count-blindness
+  proof, optional AI boundary AI-1–AI-8 with policy-weakening and
+  concealed-control refusals, canonical decision validation across all five
+  outcome families with both `validateFormFieldDecisionV1` and
+  `validateSemanticContractV1`, and the real built-MV3 browser integration.
+  Results: 42 fresh verifier probes passed; permanent suite 77/77; package
+  typecheck clean; `e2e/extension/extension-resolver.spec.ts` 2/2;
+  `extension-scanner.spec.ts` 19/19; six retained W07 extension specs 13/13.
+  Verdict: CONTENT CLEAR — zero PACKAGE_BLOCKER, zero DIRECT_REGRESSION;
+  non-blocking findings recorded as three SPECULATIVE_HARDENING (abstention
+  reason-code precision, reason-code cap headroom, disabled-twin option
+  conservatism), one FUTURE_OWNER (production ontology breadth, M18), one
+  DOCUMENTED_LIMITATION (confirmed salary record fills by the canonical
+  confirmation rule).
+- Fresh verifier mutations (bounded, exactly two, disposable clone, restored
+  to recorded pre-mutation SHA-256 equality afterward): N1 removed the
+  deterministic-success guard in `src/ai-proposal.ts` so a model proposal
+  could replace a successful deterministic decision → killed by the
+  permanent A1–A6 preservation test (1 failed / 8 passed). N2 made
+  `NO_SEMANTIC_MATCH` with exactly one enabled unrelated rendered option
+  resolve that option in `src/option-resolver.ts` → killed by four permanent
+  tests (both O3 cases, one O7 placeholder case, and the resolver-level
+  pause case; 4 failed / 24 passed across two files). Post-restore complete
+  form engine: 77/77.
+- Hosted three-OS evidence for the corrected bytes is inspected only after
+  the forward correction commit and push; it is not preclaimed here.
+
 ### M02-W09 — Deterministic resolver takeover implementation writer evidence (2026-08-23)
 
 - Revision: takeover writer pass from authoritative M02-W08 governance commit

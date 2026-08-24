@@ -31,6 +31,10 @@ async function resolved(
 }
 
 describe("B1 canonical FieldDecision validation", () => {
+  // First test in the file: it absorbs the contract-validator import and
+  // fixture digest cost across four complete resolution families, which
+  // pushes slower hosted Windows runners past the generic 5 s Vitest
+  // default. Nothing in the test intentionally waits.
   it("emits structurally and semantically canonical decisions across outcome families", async () => {
     const resolutions = [
       await resolved({
@@ -61,7 +65,7 @@ describe("B1 canonical FieldDecision validation", () => {
       );
       expect(semantic.valid).toBe(true);
     }
-  });
+  }, 15_000);
 });
 
 describe("ordinary deterministic flow", () => {

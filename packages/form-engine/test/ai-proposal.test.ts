@@ -66,6 +66,10 @@ const VALID_PROPOSAL = {
 };
 
 describe("A1–A6 deterministic preservation", () => {
+  // First test in the file: it absorbs the contract-validator import and
+  // fixture digest cost, which pushes slower hosted Windows runners past the
+  // generic 5 s Vitest default. The only intended in-test waits are the 5 ms
+  // A1 attempt budget and the immediate A2 throw.
   it("preserves the deterministic resolution unchanged for every model outcome", async () => {
     const { request, resolution } = await deterministicSuccess();
     const baseline = JSON.stringify(resolution.decision);
@@ -116,7 +120,7 @@ describe("A1–A6 deterministic preservation", () => {
       expect(JSON.stringify(merged.decision)).toBe(baseline);
       expect(merged.decision.value_source_type).toBe("USER_RECORD");
     }
-  });
+  }, 15_000);
 });
 
 describe("A7 proposal after deterministic abstention", () => {
