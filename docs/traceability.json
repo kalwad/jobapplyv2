@@ -7870,8 +7870,8 @@
       "id": "M02-W10",
       "milestone": "M02",
       "title": "Implement transactional control drivers",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 339281269554f5886a9d763e0d23f1de0deffa2c",
       "direct_package_prerequisites": [
         "M02-W09"
       ],
@@ -7911,14 +7911,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W10"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W11",
       "milestone": "M02",
       "title": "Implement dynamic state, reconciliation, and performance instrumentation",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W10"

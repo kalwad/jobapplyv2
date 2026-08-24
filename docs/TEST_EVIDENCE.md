@@ -33,12 +33,13 @@ Exact verification commands and summarized results
 
 ## Entries
 
-### M02-W10 — Transactional control-driver writer evidence (2026-08-24)
+### M02-W10 — Transactional control-driver verification and governance closeout (2026-08-24)
 
-- Revision: in-progress candidate over governance commit
-  `c02a624b226aca7ea8d2d5efde0f5b19cff56430` / starting tree
-  `134cdba4ab2e0d0cdbd7880587c07651c4b4eb85`; the frozen candidate tree and
-  containing content commit are recorded during closeout.
+- Revision: verified content commit
+  `c7d642ee9d056d729d9b1fb7b5d585980348c04a` / tree
+  `339281269554f5886a9d763e0d23f1de0deffa2c` / parent governance commit
+  `c02a624b226aca7ea8d2d5efde0f5b19cff56430`; the containing governance tree
+  is recorded post-commit.
 - Environment: Darwin 27.0.0 arm64; Node 24.18.0; pnpm 11.17.0; Vitest
   4.1.10; Playwright bundled Chromium; specification JAPP-MASTER-001 v1.4
   SHA-256
@@ -71,19 +72,23 @@ Exact verification commands and summarized results
   validation. Settle is bounded, safe retry is false, undo/recovery re-resolve
   and never select by DOM order, wire results validate as canonical
   `FormDriverResultV1`, and raw values/selectors do not cross the protocol.
-- Commands and observed results at this writer checkpoint:
+- Commands and observed results for the final content freeze:
   - `pnpm --filter @japp/extension test` → exit 0, **111/111** tests.
   - `pnpm exec playwright test e2e/extension/extension-drivers.spec.ts` →
     exit 0, **13/13** real built-MV3 transaction groups, including native,
     React, Vue, ARIA combobox, 480-row virtual list, repeater, upload,
     research Workday prompt, navigation non-activation, validation, settle
     timeout, stale/ambiguous frame/document authority, rollback, and undo.
-  - `pnpm verify` before the final three added adversarial assertions → exit 0;
-    every ACTIVE suite passed, Python **1390/1390**, Rust 1 + 10, status 45
-    check groups, traceability ACTIVE PASS, and visual honestly
-    NOT_YET_APPLICABLE. The final frozen bytes are verified twice later.
-- Same-package internal adversarial gauntlet verification (explicitly not the
-  independent M02-W15 gate audit): a fresh no-hardlink snapshot matched the
+  - The complete canonical sequence (`check_portability`, `validate_status`,
+    `traceability:check`, generated-contract check, doctor, `pnpm verify`,
+    `git diff --check`, tree/status proof) passed twice consecutively against
+    the identical staged tree `339281269554f5886a9d763e0d23f1de0deffa2c`.
+    Each pass reported every ACTIVE suite PASS, extension **111/111**, form
+    engine **77/77**, contracts **2440/2440** plus replay **662/662**, browser
+    **106/106**, POSIX Python **1390/1390**, Rust 1 + 10, status 45 check
+    groups, and visual honestly NOT_YET_APPLICABLE.
+- SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION (explicitly not the
+  independent M02-W15 Gate A audit): a fresh no-hardlink snapshot matched the
   authoritative candidate fingerprint
   `9eac33044f6e9c78abdb9129e63cac076b0971690a7420bcc77e9f817f5ffe27`,
   then passed extension typecheck, **111/111** extension unit tests, the
@@ -135,11 +140,52 @@ Exact verification commands and summarized results
   package row and fixture matrix exclude it despite the future architecture
   name; no production ATS compatibility, guided navigation, submit, live
   employer, live AI/network, acceptance, release, or Gate A claim is made.
-- Lifecycle posture: M02-W10 remains IN_PROGRESS, M02-W11 remains NOT_STARTED,
-  zero package rows are READY, M02 remains IN_PROGRESS, all critical gates
-  remain NOT_EVALUATED, and release remains NOT_READY pending content freeze,
-  hosted proof, final internal verification, lifecycle simulation, and
-  governance.
+- Final content freeze and commit: after the invalidated first freeze and its
+  traceability-only correction, two consecutive complete canonical passes
+  returned exit 0 against the identical staged tree
+  `339281269554f5886a9d763e0d23f1de0deffa2c`; `git diff --check` was clean and
+  no unstaged/untracked candidate byte existed. Content commit
+  `c7d642ee9d056d729d9b1fb7b5d585980348c04a` has exact parent
+  `c02a624b226aca7ea8d2d5efde0f5b19cff56430` and that exact tree, was pushed
+  normally to `origin/main`, and reconciled at ahead/behind 0/0 with a clean
+  worktree. Final verdict: **CONTENT CLEAR**.
+- Exact-SHA hosted content proof: push run `32772492093` at commit `c7d642e` —
+  macOS 15 job `97575835608` SUCCESS (18m25s), Ubuntu 24.04 job `97575835878`
+  SUCCESS (16m57s), and Windows 2025 job `97575835967` SUCCESS (28m04s).
+  Every job passed the environment doctor, canonical aggregate verifier, and
+  tracked-clean assertion. The complete 3,923-line / 827,560-byte Windows raw
+  log has SHA-256
+  `a13cf999dcec1c27fe2dfbdba88d281eb8b57dc4861c1df3d5758042b86291fc`;
+  complete-line reconciliation found all 13 W10 groups, extension **111/111**,
+  form engine **77/77**, contracts **2440/2440** plus replay **662/662**,
+  generated contracts 183 byte-identical, browser **106/106**, the exact
+  committed Windows/common Python inventory **1388/1388** (the POSIX inventory
+  adds two POSIX-only tests), Rust 1 + 10, status 45 check groups, traceability
+  ACTIVE PASS, every other ACTIVE suite PASS, visual NOT_YET_APPLICABLE,
+  `verification exit code: 0`, doctor 25 pass / 0 warning / 0 fail / 1
+  not-yet-applicable, and tracked-clean success; there was no GitHub error or
+  nonzero-process annotation.
+- Final internal verifier: a fresh `git clone --no-local --no-hardlinks` at the
+  exact hosted-green commit/tree used explicit Node 24.18.0, verified a distinct
+  tracked-file inode, passed extension typecheck, extension **111/111**, the
+  original finite W10 browser matrix **13/13**, and all retained extension
+  browser tests **47/47**, then remained tracked-clean at the exact content
+  SHA/tree. M1–M6 were not rerun because no substantive implementation byte
+  changed after their prior kills; the only later correction was traceability
+  evidence/fixture anchoring.
+- Lifecycle simulation: a second fresh `git clone --no-local --no-hardlinks`
+  at the hosted-green content SHA applied only the byte-identical intended
+  project-memory transition: M02-W10 `IN_PROGRESS` → `VERIFIED` at tree
+  `339281269554f5886a9d763e0d23f1de0deffa2c`, M02-W11 `NOT_STARTED` → sole
+  `READY`, zero `IN_PROGRESS`, M00/M01 ACCEPTED, M02 IN_PROGRESS, M02-W01–W10
+  VERIFIED, M02-W12–W15 NOT_STARTED, REQ-FORM-015/016 still `SCAFFOLD_ONLY` /
+  `NOT_YET_APPLICABLE` with M18-W04 production ownership, all four gates
+  NOT_EVALUATED, and release NOT_READY. Inside that simulation,
+  `python3 scripts/validate_status.py`, `pnpm traceability:check`, and the full
+  `pnpm verify` all passed; every ACTIVE suite passed and visual remained
+  NOT_YET_APPLICABLE. Governance changes only project memory; no implementation
+  or test byte changes, no Gate A execution, and no production compatibility or
+  release claim occur.
 
 ### M02-W09 — Deterministic resolver verification and governance closeout (2026-08-24)
 
