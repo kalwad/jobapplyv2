@@ -1,4 +1,4 @@
-// M02-W07 built-manifest verification: runs the real WXT build, then
+// M02-W07 through W10 built-manifest verification: runs the real WXT build, then
 // independently inspects the generated Chrome MV3 output. These checks fail
 // closed if the W07 scaffold ever gains product UI, privileged
 // capabilities, broad host matches, or submission-shaped code (spec §1.5,
@@ -25,6 +25,12 @@ const SHIPPED_CONTENT_PATH = join(
   BUILD_OUTPUT_DIR,
   "content-scripts",
   "feasibility.js",
+);
+const ACTIVATION_HELPER_PATH = join(
+  PACKAGE_ROOT,
+  "src",
+  "drivers",
+  "driver-dom.ts",
 );
 const BUILD_TIMEOUT_MS = 180_000;
 
@@ -64,10 +70,11 @@ const FORBIDDEN_TOP_LEVEL_KEYS = [
   "web_accessible_resources",
 ] as const;
 
-// Submission/authority-shaped and network-egress code tokens that must not
-// exist in the tracked runtime sources or the shipped bytes (no fill, no
-// click, no submit, no credential/CAPTCHA/MFA handling, and no network
-// channel of any kind in W07). The static egress tokens are the
+// Final-action/authority-shaped and network-egress code tokens that must not
+// exist in the tracked runtime sources or the shipped bytes. W10 adds one
+// reviewed control-activation primitive, separately pinned below; no final
+// form action, account-secret challenge handling, or network channel exists.
+// The static egress tokens are the
 // deterministic half of the network-isolation proof: the runtime request
 // observation in e2e/extension cannot see requests issued inside the
 // browser-launch window or non-HTTP channels, so shipped bytes must simply
@@ -75,7 +82,6 @@ const FORBIDDEN_TOP_LEVEL_KEYS = [
 const FORBIDDEN_CODE_TOKENS = [
   ".submit(",
   "requestSubmit",
-  ".click(",
   "AUTO_SUBMIT",
   "credential",
   "captcha",
@@ -192,9 +198,9 @@ describe("generated Chrome MV3 manifest", () => {
     }
   });
 
-  test("the manifest identifies itself as the neutral test-only W08 scanner", () => {
+  test("the manifest identifies itself as the neutral test-only W10 driver harness", () => {
     const manifest = readManifest();
-    expect(manifest.name).toBe("M02-W08 semantic scanner (test-only)");
+    expect(manifest.name).toBe("M02-W10 transactional drivers (test-only)");
     expect(manifest.version).toBe("0.0.1");
   });
 });
@@ -217,6 +223,24 @@ describe("no submission authority", () => {
         );
       }
     }
+  });
+
+  test("exactly one reviewed native control-activation site exists", () => {
+    const runtimeSources = [
+      ...listFilesRecursively(join(PACKAGE_ROOT, "entrypoints")),
+      ...listFilesRecursively(join(PACKAGE_ROOT, "src")),
+    ];
+    const sites = runtimeSources.flatMap((file) => {
+      const source = readFileSync(file, "utf-8");
+      return source.includes(".click(") ? [file] : [];
+    });
+    expect(sites).toEqual([ACTIVATION_HELPER_PATH]);
+    const helper = readFileSync(ACTIVATION_HELPER_PATH, "utf-8");
+    expect(helper.split(".click(").length - 1).toBe(1);
+    expect(helper).toContain("element.click();");
+
+    const shipped = readFileSync(SHIPPED_CONTENT_PATH, "utf-8");
+    expect(shipped.split(".click(").length - 1).toBe(1);
   });
 });
 

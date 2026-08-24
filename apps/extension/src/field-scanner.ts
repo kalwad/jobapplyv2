@@ -179,6 +179,10 @@ function resolveScanBoundary(
   };
 }
 
+export function normalizeScannerText(value: string | null | undefined): string {
+  return normalizeText(value);
+}
+
 function normalizeText(value: string | null | undefined): string {
   if (value === null || value === undefined) {
     return "";
@@ -349,6 +353,9 @@ function sectionContext(
 
 function controlKind(element: HTMLElement): FormFieldDescriptorV1ControlKind {
   if (element instanceof HTMLInputElement) {
+    if (element.getAttribute("role") === "combobox") {
+      return "COMBOBOX";
+    }
     switch (element.type.toLowerCase()) {
       case "checkbox":
         return "CHECKBOX";
@@ -485,7 +492,7 @@ function hasFixedAncestor(start: HTMLElement | null, view: Window): boolean {
   return false;
 }
 
-function isElementVisible(element: HTMLElement): boolean {
+export function isElementVisible(element: HTMLElement): boolean {
   if (
     element.hidden ||
     element.closest("[hidden],[aria-hidden='true'],[inert]") !== null
@@ -536,7 +543,7 @@ function nativeDisabled(element: HTMLElement): boolean {
   );
 }
 
-function isElementEnabled(element: HTMLElement): boolean {
+export function isElementEnabled(element: HTMLElement): boolean {
   const readOnly =
     (element instanceof HTMLInputElement ||
       element instanceof HTMLTextAreaElement) &&
@@ -780,7 +787,6 @@ async function buildDescriptor(
     section_path: address.section_path,
     accessible_name_fingerprint: address.accessible_name_fingerprint,
     attribute_fingerprint: address.attribute_fingerprint,
-    option_fingerprint: address.option_fingerprint,
   });
   const label = await untrustedText(labelText);
   const descriptionEvidence =
@@ -812,12 +818,17 @@ async function buildDescriptor(
   };
 }
 
-async function scanDescriptors(
+interface ScannedFieldPair {
+  readonly candidate: FieldCandidate;
+  readonly descriptor: FormFieldDescriptorV1;
+}
+
+async function scanCandidatePairs(
   document: Document,
   applicationRoot: HTMLElement,
   scanBoundary: HTMLElement,
   frameContext: FrameContext,
-): Promise<FormFieldDescriptorV1[]> {
+): Promise<ScannedFieldPair[]> {
   const context: ScanIdentityContext = {
     frameContext,
     routeSignature: await semanticDigest(
@@ -829,13 +840,29 @@ async function scanDescriptors(
     observedAt: new Date().toISOString(),
   };
   const candidates = collectCandidates(scanBoundary);
-  const descriptors: FormFieldDescriptorV1[] = [];
+  const pairs: ScannedFieldPair[] = [];
   for (const candidate of candidates) {
-    descriptors.push(
-      await buildDescriptor(candidate, applicationRoot, context),
-    );
+    pairs.push({
+      candidate,
+      descriptor: await buildDescriptor(candidate, applicationRoot, context),
+    });
   }
-  return descriptors;
+  return pairs;
+}
+
+async function scanDescriptors(
+  document: Document,
+  applicationRoot: HTMLElement,
+  scanBoundary: HTMLElement,
+  frameContext: FrameContext,
+): Promise<FormFieldDescriptorV1[]> {
+  const pairs = await scanCandidatePairs(
+    document,
+    applicationRoot,
+    scanBoundary,
+    frameContext,
+  );
+  return pairs.map((pair) => pair.descriptor);
 }
 
 export async function scanFrameDocument(
@@ -900,6 +927,11 @@ function addressMatches(
   observed: FormFieldAddressV1,
   current: FormFieldAddressV1,
 ): boolean {
+  // OPTION_DIGEST is explicitly OBSERVATION_ONLY. A windowed listbox changes
+  // its mounted option inventory during ordinary scrolling, so that evidence
+  // cannot be durable resolution authority. The control-specific W10 driver
+  // still requires the exact current intended option immediately before its
+  // action. Page-stable address signals remain mandatory here.
   return (
     observed.ats_family === current.ats_family &&
     (observed.route_signature === undefined ||
@@ -912,11 +944,86 @@ function addressMatches(
         current.accessible_name_fingerprint) &&
     (observed.attribute_fingerprint === undefined ||
       observed.attribute_fingerprint === current.attribute_fingerprint) &&
-    (observed.option_fingerprint === undefined ||
-      observed.option_fingerprint === current.option_fingerprint) &&
     sameList(observed.section_path, current.section_path) &&
     sameList(observed.repeater_path, current.repeater_path)
   );
+}
+
+/**
+ * A live driver target: the W08-matched candidate's real elements plus its
+ * freshly built canonical descriptor. Element references NEVER cross the
+ * extension protocol; this type exists only inside the frame agent so
+ * M02-W10 drivers can act on the exact control the accepted W08 semantics
+ * re-resolved immediately before the action.
+ */
+export interface ResolvedFieldTarget {
+  readonly anchor: HTMLElement;
+  readonly members: readonly HTMLElement[];
+  readonly groupElement?: HTMLElement;
+  readonly descriptor: FormFieldDescriptorV1;
+  readonly applicationRoot: HTMLElement;
+  /** field_id of every control in the current scan, for conditional diffs. */
+  readonly allFieldIds: readonly string[];
+}
+
+export type FieldTargetResolution =
+  | { readonly status: "RESOLVED"; readonly target: ResolvedFieldTarget }
+  | {
+      readonly status: "UNRESOLVED";
+      readonly reason: "STALE_DOCUMENT" | "STALE_APPLICATION_ROOT" | "NO_MATCH";
+    }
+  | { readonly status: "AMBIGUOUS"; readonly candidateCount: number };
+
+/**
+ * The single W08 current-document re-resolution: identical matching
+ * semantics for the wire re-resolution and for every W10 driver action.
+ * Zero, multiple, or stale matches never yield a target.
+ */
+export async function resolveFieldTarget(
+  document: Document,
+  frameContext: FrameContext,
+  address: FormFieldAddressV1,
+): Promise<FieldTargetResolution> {
+  if (
+    address.session_id !== frameContext.session_id ||
+    address.frame_id !== frameContext.frame_id ||
+    address.document_id !== frameContext.document_id
+  ) {
+    return { status: "UNRESOLVED", reason: "STALE_DOCUMENT" };
+  }
+  const root = detectApplicationRoot(document);
+  if (root.status !== "FOUND") {
+    return { status: "UNRESOLVED", reason: "STALE_APPLICATION_ROOT" };
+  }
+  const pairs = await scanCandidatePairs(
+    document,
+    root.root,
+    root.root,
+    frameContext,
+  );
+  const matches = pairs.filter((pair) =>
+    addressMatches(address, pair.descriptor.address),
+  );
+  if (matches.length === 0) {
+    return { status: "UNRESOLVED", reason: "NO_MATCH" };
+  }
+  if (matches.length > 1) {
+    return { status: "AMBIGUOUS", candidateCount: matches.length };
+  }
+  const match = requiredValue(matches[0]);
+  return {
+    status: "RESOLVED",
+    target: {
+      anchor: match.candidate.anchor,
+      members: match.candidate.members,
+      ...(match.candidate.groupElement === undefined
+        ? {}
+        : { groupElement: match.candidate.groupElement }),
+      descriptor: match.descriptor,
+      applicationRoot: root.root,
+      allFieldIds: pairs.map((pair) => pair.descriptor.field_id),
+    },
+  };
 }
 
 export async function reresolveFrameAddress(
@@ -924,45 +1031,17 @@ export async function reresolveFrameAddress(
   frameContext: FrameContext,
   request: ReresolveFrameRequest,
 ): Promise<FrameReresolutionResult> {
-  let resolution: FieldResolution;
-  if (
-    request.address.session_id !== frameContext.session_id ||
-    request.address.frame_id !== frameContext.frame_id ||
-    request.address.document_id !== frameContext.document_id
-  ) {
-    resolution = { status: "UNRESOLVED", reason: "STALE_DOCUMENT" };
-  } else {
-    const root = detectApplicationRoot(document);
-    if (root.status !== "FOUND") {
-      resolution = {
-        status: "UNRESOLVED",
-        reason: "STALE_APPLICATION_ROOT",
-      };
-    } else {
-      const current = await scanDescriptors(
-        document,
-        root.root,
-        root.root,
-        frameContext,
-      );
-      const matches = current.filter((descriptor) =>
-        addressMatches(request.address, descriptor.address),
-      );
-      if (matches.length === 1) {
-        resolution = {
-          status: "RESOLVED",
-          descriptor: requiredValue(matches[0]),
-        };
-      } else if (matches.length === 0) {
-        resolution = { status: "UNRESOLVED", reason: "NO_MATCH" };
-      } else {
-        resolution = {
-          status: "AMBIGUOUS",
-          candidate_count: matches.length,
-        };
-      }
-    }
-  }
+  const resolved = await resolveFieldTarget(
+    document,
+    frameContext,
+    request.address,
+  );
+  const resolution: FieldResolution =
+    resolved.status === "RESOLVED"
+      ? { status: "RESOLVED", descriptor: resolved.target.descriptor }
+      : resolved.status === "AMBIGUOUS"
+        ? { status: "AMBIGUOUS", candidate_count: resolved.candidateCount }
+        : { status: "UNRESOLVED", reason: resolved.reason };
   return {
     kind: FRAME_RERESOLUTION_RESULT_KIND,
     protocolVersion: SCANNER_PROTOCOL_VERSION,

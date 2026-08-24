@@ -123,9 +123,15 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # evidence paths plus explicit M18-W05/M18-W03 remainder notes. REQ-FORM-001
 # and REQ-FORM-002 remain NOT_STARTED and unclaimed; no ownership, mapping,
 # gate effect, dependency, independent-verification, acceptance, or release
-# claim changed. The writer re-locked that truthful projection below.
+# claim changed. M02-W10 then recorded only the transactional-driver and
+# verified-persistence feasibility portions of REQ-FORM-015 and REQ-FORM-016
+# as SCAFFOLD_ONLY / NOT_YET_APPLICABLE with exact extension-kernel, driver,
+# unit, and real built-MV3 evidence paths plus explicit retained M18-W04
+# production ownership. No ownership, mapping, gate effect, dependency,
+# independent-verification, acceptance, or release claim changed. The writer
+# re-locked that truthful projection below.
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "e4bad00c2a90bf02bb6b0f35172c85b04a26f17c855baa2ad52dbabbac606ef2"
+    "44871a56a79a57b655a24b4ab29a3af45228f11288acf39dcf516fa36c3291c6"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

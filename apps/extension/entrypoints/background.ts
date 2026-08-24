@@ -1,8 +1,7 @@
-// M02-W08 background service worker. It preserves the verified W07 probe and
-// adds only the closed feasibility authority owned by W08: frame registration,
-// bounded descriptor scans, typed per-frame aggregation, and re-resolution.
-// It has no fill, click, upload, navigation, submit, native-host, database, or
-// arbitrary-command authority.
+// M02-W08/W10 background service worker. It preserves the verified W07 probe,
+// routes canonical scans/re-resolution, and adds only typed field transaction,
+// undo, and read-only navigation-identification messages to the exact
+// registered frame. It exposes no arbitrary page command or navigation action.
 import { defineBackground } from "wxt/utils/define-background";
 import { browser, type Browser } from "wxt/browser";
 
@@ -35,6 +34,27 @@ import {
   type ReresolveTabResult,
   type ScanTabRequest,
 } from "../src/scanner-protocol.ts";
+import {
+  DRIVER_PROTOCOL_VERSION,
+  EXECUTE_FRAME_KIND,
+  EXECUTE_TAB_RESULT_KIND,
+  IDENTIFY_NAV_FRAME_KIND,
+  IDENTIFY_NAV_TAB_RESULT_KIND,
+  parseExecuteTabRequest,
+  parseFrameExecuteResult,
+  parseFrameNavResult,
+  parseFrameUndoResult,
+  parseIdentifyNavTabRequest,
+  parseUndoTabRequest,
+  type ExecuteTabRequest,
+  type ExecuteTabResult,
+  type IdentifyNavTabRequest,
+  type IdentifyNavTabResult,
+  UNDO_FRAME_KIND,
+  UNDO_TAB_RESULT_KIND,
+  type UndoTabRequest,
+  type UndoTabResult,
+} from "../src/driver-protocol.ts";
 import { semanticDigest, stableSemanticId } from "../src/semantic-identity.ts";
 
 interface RegisteredFrame {
@@ -243,6 +263,170 @@ export default defineBackground(() => {
     };
   }
 
+  function registrationForFrame(
+    tabId: number,
+    frameId: string,
+  ): RegisteredFrame | undefined {
+    return [...(framesByTab.get(tabId)?.values() ?? [])].find(
+      (candidate) => candidate.frameContext.frame_id === frameId,
+    );
+  }
+
+  async function executeTab(
+    request: ExecuteTabRequest,
+  ): Promise<ExecuteTabResult> {
+    const registration = registrationForFrame(
+      request.tabId,
+      request.transaction.address.frame_id,
+    );
+    if (registration === undefined) {
+      return {
+        kind: EXECUTE_TAB_RESULT_KIND,
+        protocolVersion: DRIVER_PROTOCOL_VERSION,
+        requestId: request.requestId,
+        outcome: { status: "FRAME_UNAVAILABLE" },
+      };
+    }
+    try {
+      const response: unknown = await browser.tabs.sendMessage(
+        request.tabId,
+        {
+          kind: EXECUTE_FRAME_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+          transaction: request.transaction,
+        },
+        { frameId: registration.chromeFrameId },
+      );
+      const parsed = parseFrameExecuteResult(response);
+      if (
+        parsed !== null &&
+        parsed.requestId === request.requestId &&
+        sameFrameContext(parsed.frame_context, registration.frameContext)
+      ) {
+        return {
+          kind: EXECUTE_TAB_RESULT_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+          outcome: {
+            status: "COMPLETED",
+            result: parsed.result,
+            undo_available: parsed.undo_available,
+            diagnostics: parsed.diagnostics,
+          },
+        };
+      }
+    } catch {
+      // A replaced or disappeared frame is unavailable; no alternate frame
+      // or target is selected.
+    }
+    return {
+      kind: EXECUTE_TAB_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: request.requestId,
+      outcome: { status: "FRAME_UNAVAILABLE" },
+    };
+  }
+
+  async function undoTab(request: UndoTabRequest): Promise<UndoTabResult> {
+    const registration = registrationForFrame(
+      request.tabId,
+      request.undo.address.frame_id,
+    );
+    if (registration === undefined) {
+      return {
+        kind: UNDO_TAB_RESULT_KIND,
+        protocolVersion: DRIVER_PROTOCOL_VERSION,
+        requestId: request.requestId,
+        outcome: { status: "FRAME_UNAVAILABLE" },
+      };
+    }
+    try {
+      const response: unknown = await browser.tabs.sendMessage(
+        request.tabId,
+        {
+          kind: UNDO_FRAME_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+          undo: request.undo,
+        },
+        { frameId: registration.chromeFrameId },
+      );
+      const parsed = parseFrameUndoResult(response);
+      if (
+        parsed !== null &&
+        parsed.requestId === request.requestId &&
+        sameFrameContext(parsed.frame_context, registration.frameContext)
+      ) {
+        return {
+          kind: UNDO_TAB_RESULT_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+          outcome: parsed.outcome,
+        };
+      }
+    } catch {
+      // No fallback target is permitted for restoration.
+    }
+    return {
+      kind: UNDO_TAB_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: request.requestId,
+      outcome: { status: "FRAME_UNAVAILABLE" },
+    };
+  }
+
+  async function identifyNavigation(
+    request: IdentifyNavTabRequest,
+  ): Promise<IdentifyNavTabResult> {
+    const registration = [
+      ...(framesByTab.get(request.tabId)?.values() ?? []),
+    ].find((candidate) => candidate.frameContext.is_top_frame);
+    if (registration === undefined) {
+      return {
+        kind: IDENTIFY_NAV_TAB_RESULT_KIND,
+        protocolVersion: DRIVER_PROTOCOL_VERSION,
+        requestId: request.requestId,
+        outcome: { status: "FRAME_UNAVAILABLE" },
+      };
+    }
+    try {
+      const response: unknown = await browser.tabs.sendMessage(
+        request.tabId,
+        {
+          kind: IDENTIFY_NAV_FRAME_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+        },
+        { frameId: registration.chromeFrameId },
+      );
+      const parsed = parseFrameNavResult(response);
+      if (
+        parsed !== null &&
+        parsed.requestId === request.requestId &&
+        sameFrameContext(parsed.frame_context, registration.frameContext)
+      ) {
+        return {
+          kind: IDENTIFY_NAV_TAB_RESULT_KIND,
+          protocolVersion: DRIVER_PROTOCOL_VERSION,
+          requestId: request.requestId,
+          outcome: {
+            status: "COMPLETED",
+            identification: parsed.identification,
+          },
+        };
+      }
+    } catch {
+      // Identification is scoped to the registered top frame only.
+    }
+    return {
+      kind: IDENTIFY_NAV_TAB_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: request.requestId,
+      outcome: { status: "FRAME_UNAVAILABLE" },
+    };
+  }
+
   const onMessage = browser.runtime.onMessage as unknown as MessageEvent;
   onMessage.addListener((message, sender, sendResponse) => {
     if (parseFeasibilityProbe(message) !== null) {
@@ -266,10 +450,25 @@ export default defineBackground(() => {
       return true;
     }
     const reresolveRequest = parseReresolveTabRequest(message);
-    if (reresolveRequest === null) {
-      return undefined;
+    if (reresolveRequest !== null) {
+      respondAsync(reresolveTab(reresolveRequest), sendResponse);
+      return true;
     }
-    respondAsync(reresolveTab(reresolveRequest), sendResponse);
-    return true;
+    const executeRequest = parseExecuteTabRequest(message);
+    if (executeRequest !== null) {
+      respondAsync(executeTab(executeRequest), sendResponse);
+      return true;
+    }
+    const undoRequest = parseUndoTabRequest(message);
+    if (undoRequest !== null) {
+      respondAsync(undoTab(undoRequest), sendResponse);
+      return true;
+    }
+    const navigationRequest = parseIdentifyNavTabRequest(message);
+    if (navigationRequest !== null) {
+      respondAsync(identifyNavigation(navigationRequest), sendResponse);
+      return true;
+    }
+    return undefined;
   });
 });

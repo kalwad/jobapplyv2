@@ -1,7 +1,8 @@
-// M02-W08 frame-local feasibility agent. Every permitted frame gets this same
-// content script and scans only its own `document`; it never reads parent,
-// child, contentWindow, or contentDocument DOM. The agent remains read-only:
-// it does not fill, click, upload, navigate, or submit.
+// M02-W08/W10 frame-local feasibility agent. Every permitted frame gets this
+// same content script and accesses only its own `document`; it never reads
+// parent, child, contentWindow, or contentDocument DOM. The W10 surface is a
+// closed field transaction/undo protocol plus read-only navigation-candidate
+// research; navigation execution is intentionally absent.
 import { defineContentScript } from "wxt/utils/define-content-script";
 import { browser, type Browser } from "wxt/browser";
 
@@ -18,6 +19,19 @@ import {
   reresolveFrameAddress,
   scanFrameDocument,
 } from "../src/field-scanner.ts";
+import {
+  DriverTransactionEngine,
+  identifyNavigationCandidate,
+} from "../src/driver-engine.ts";
+import {
+  DRIVER_PROTOCOL_VERSION,
+  FRAME_EXECUTE_RESULT_KIND,
+  FRAME_NAV_RESULT_KIND,
+  FRAME_UNDO_RESULT_KIND,
+  parseExecuteFrameRequest,
+  parseIdentifyNavFrameRequest,
+  parseUndoFrameRequest,
+} from "../src/driver-protocol.ts";
 import {
   buildFrameRegistration,
   type FrameContext,
@@ -36,6 +50,7 @@ interface AsyncMessageEvent {
 }
 
 let frameContext: FrameContext | null = null;
+const driverEngine = new DriverTransactionEngine();
 
 function delay(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -94,9 +109,52 @@ onMessage.addListener(async (message, sender) => {
     return scanFrameDocument(document, currentContext, scanRequest);
   }
   const reresolveRequest = parseReresolveFrameRequest(message);
-  return reresolveRequest === null
-    ? undefined
-    : reresolveFrameAddress(document, currentContext, reresolveRequest);
+  if (reresolveRequest !== null) {
+    return reresolveFrameAddress(document, currentContext, reresolveRequest);
+  }
+  const executeRequest = parseExecuteFrameRequest(message);
+  if (executeRequest !== null) {
+    const execution = await driverEngine.execute(
+      document,
+      currentContext,
+      executeRequest.transaction,
+    );
+    return {
+      kind: FRAME_EXECUTE_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: executeRequest.requestId,
+      frame_context: currentContext,
+      result: execution.result,
+      undo_available: execution.undoAvailable,
+      diagnostics: execution.diagnostics,
+    };
+  }
+  const undoRequest = parseUndoFrameRequest(message);
+  if (undoRequest !== null) {
+    const outcome = await driverEngine.undo(
+      document,
+      currentContext,
+      undoRequest.undo,
+    );
+    return {
+      kind: FRAME_UNDO_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: undoRequest.requestId,
+      frame_context: currentContext,
+      outcome,
+    };
+  }
+  const navigationRequest = parseIdentifyNavFrameRequest(message);
+  if (navigationRequest !== null) {
+    return {
+      kind: FRAME_NAV_RESULT_KIND,
+      protocolVersion: DRIVER_PROTOCOL_VERSION,
+      requestId: navigationRequest.requestId,
+      frame_context: currentContext,
+      identification: await identifyNavigationCandidate(document),
+    };
+  }
+  return undefined;
 });
 
 export default defineContentScript({

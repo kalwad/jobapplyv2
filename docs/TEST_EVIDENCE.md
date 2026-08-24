@@ -33,6 +33,114 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W10 — Transactional control-driver writer evidence (2026-08-24)
+
+- Revision: in-progress candidate over governance commit
+  `c02a624b226aca7ea8d2d5efde0f5b19cff56430` / starting tree
+  `134cdba4ab2e0d0cdbd7880587c07651c4b4eb85`; the frozen candidate tree and
+  containing content commit are recorded during closeout.
+- Environment: Darwin 27.0.0 arm64; Node 24.18.0; pnpm 11.17.0; Vitest
+  4.1.10; Playwright bundled Chromium; specification JAPP-MASTER-001 v1.4
+  SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Interrupted-work recovery: Codex took over Fable's dirty writer tree without
+  reset, restore, stash, clean, amend, rebase, or discarded byte. The initial
+  tracked modifications were `apps/extension/src/field-scanner.ts` and
+  `docs/PROJECT_STATUS.md`; the seven initial untracked modules were
+  `driver-evidence.ts`, `driver-protocol.ts`, `choice-drivers.ts`,
+  `driver-contract.ts`, `driver-dom.ts`, `text-like-drivers.ts`, and
+  `widget-drivers.ts`. External safety copies were captured at
+  `/tmp/jobapplyv2-m02-w10-fable-takeover.patch` (SHA-256
+  `2e742cc24120912d4e1223ee70090824f284935e92493fe83ec830d130f84346`)
+  and `/tmp/jobapplyv2-m02-w10-fable-untracked.tar` (SHA-256
+  `e5ba15e7138fae6d761b5d4f344f23d95ba6cd6c46ede3c74b39be62b396b47b`).
+- Recovered architecture: Fable's closed typed protocol, redacted evidence
+  model, shared W08 live-target resolver, single reviewed activation site,
+  native setter/event helpers, bounded settle/site-acceptance helpers, and
+  partially implemented control drivers were preserved. The interruption was
+  at the reversible clear/open ARIA-combobox precondition path; Codex completed
+  the transaction kernel, entrypoint routing, choice/widget/text/date drivers,
+  virtualized-list search, repeater, bounded synthetic upload, research-only
+  Workday prompt, read-only navigation identification, automatic recovery,
+  explicit undo, and unit/real-MV3 coverage.
+- Transaction boundary: every action requires an authoritative canonical W09
+  `FILL` + `PERMIT` decision for the exact field/address/correlation, the W08
+  current frame/document semantic target is re-resolved immediately before
+  action, exactly one control-specific driver must match, and VERIFIED requires
+  matching immediate and settled redacted observations plus ACCEPTED page
+  validation. Settle is bounded, safe retry is false, undo/recovery re-resolve
+  and never select by DOM order, wire results validate as canonical
+  `FormDriverResultV1`, and raw values/selectors do not cross the protocol.
+- Commands and observed results at this writer checkpoint:
+  - `pnpm --filter @japp/extension test` → exit 0, **111/111** tests.
+  - `pnpm exec playwright test e2e/extension/extension-drivers.spec.ts` →
+    exit 0, **13/13** real built-MV3 transaction groups, including native,
+    React, Vue, ARIA combobox, 480-row virtual list, repeater, upload,
+    research Workday prompt, navigation non-activation, validation, settle
+    timeout, stale/ambiguous frame/document authority, rollback, and undo.
+  - `pnpm verify` before the final three added adversarial assertions → exit 0;
+    every ACTIVE suite passed, Python **1390/1390**, Rust 1 + 10, status 45
+    check groups, traceability ACTIVE PASS, and visual honestly
+    NOT_YET_APPLICABLE. The final frozen bytes are verified twice later.
+- Same-package internal adversarial gauntlet verification (explicitly not the
+  independent M02-W15 gate audit): a fresh no-hardlink snapshot matched the
+  authoritative candidate fingerprint
+  `9eac33044f6e9c78abdb9129e63cac076b0971690a7420bcc77e9f817f5ffe27`,
+  then passed extension typecheck, **111/111** extension unit tests, the
+  **13/13** permanent W10 real-MV3 matrix, and all **47/47** retained extension
+  browser tests covering W07/W08/W09/W10.
+- The bounded 16 fresh probes covered: same-id/name/index semantic replacement
+  between precheck and action; React rollback; option disappearance during
+  action with recovery; duplicate semantic radios; consequential-checkbox
+  policy refusal; site rejection after a matching DOM value; undo after React
+  rerender; malformed requests; wrong frame; wrong document; page-world sender
+  forgery; exhausted virtualized search; upload type/size/digest mismatch;
+  ambiguous/unsafe navigation identification without activation; required
+  settle-signal timeout; and raw diagnostic/result leakage. No probe escaped
+  the finite package matrix.
+- Verifier correction round 1 found two `DIRECT_REGRESSION` test gaps and zero
+  implementation `PACKAGE_BLOCKER`s: the no-guess select began on the unrelated
+  option, and UNDO2 claimed but did not construct ambiguous semantic targets.
+  The writer added a preserved placeholder assertion and two address-identical
+  undo targets; focused corrections passed, then the fresh re-verifier reran
+  the original unit/browser matrix successfully. RichText remains one
+  `DOCUMENTED_LIMITATION`; production widget/ATS breadth and independent Gate
+  A remain future-owner work.
+- Exactly six mutations ran in separate no-hardlink disposable clones and were
+  killed by the intended assertions: M1 bypassed immediately-before-action W08
+  resolution (TX7 observed the forbidden changed value); M2 substituted the
+  immediate observation for settled persistence (FW3 failed); M3 forced site
+  acceptance (VAL1 became falsely VERIFIED); M4 guessed the first enabled
+  unrelated select option (the placeholder changed); M5 forced W09 authority
+  true (the denied consequential checkbox became VERIFIED); M6 selected the
+  first of ambiguous W08 matches (UNDO2 ceased reporting AMBIGUOUS). No seventh
+  mutation ran. After reversing each mutation, all six clones and authoritative
+  main reproduced fingerprint
+  `9eac33044f6e9c78abdb9129e63cac076b0971690a7420bcc77e9f817f5ffe27`.
+- The first canonical freeze attempt at staged tree
+  `4ec9700ec7191ac3d2716de3608e6fd0da4e25e6` was invalidated by the Python
+  traceability mutation fixtures (**1387/1390**, three failures). Diagnosis:
+  the mechanically similar JSON edit had projected the W10 evidence onto
+  `REQ-PROF-001/002` instead of `REQ-FORM-015/016`; current-tree validation
+  could resolve the staged paths, while isolated historical fixtures correctly
+  exposed the false profile claim and their missing copied anchors. The narrow
+  correction restored both profile requirements to `NOT_STARTED`, applied the
+  feasibility evidence only to the two direct W10 requirements, refreshed the
+  reviewed mapping hash/view, and added those new canonical paths to the
+  isolated traceability fixture. The full traceability test file then passed
+  **63/63**. No driver/runtime byte changed, so M1-M6 were not rerun.
+- Requirement posture: REQ-FORM-015 and REQ-FORM-016 gain only W10 feasibility
+  evidence and remain `SCAFFOLD_ONLY` / `NOT_YET_APPLICABLE`; M18-W04 retains
+  production completion. RichText is deliberately unsupported because the W10
+  package row and fixture matrix exclude it despite the future architecture
+  name; no production ATS compatibility, guided navigation, submit, live
+  employer, live AI/network, acceptance, release, or Gate A claim is made.
+- Lifecycle posture: M02-W10 remains IN_PROGRESS, M02-W11 remains NOT_STARTED,
+  zero package rows are READY, M02 remains IN_PROGRESS, all critical gates
+  remain NOT_EVALUATED, and release remains NOT_READY pending content freeze,
+  hosted proof, final internal verification, lifecycle simulation, and
+  governance.
+
 ### M02-W09 — Deterministic resolver verification and governance closeout (2026-08-24)
 
 - Revision: verified content commit

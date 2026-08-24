@@ -50,7 +50,7 @@ test("the manifest inside the running browser is genuine MV3 with the reviewed m
     return runtimeHost.chrome.runtime.getManifest();
   });
   expect(manifest.manifest_version).toBe(3);
-  expect(manifest.name).toBe("M02-W08 semantic scanner (test-only)");
+  expect(manifest.name).toBe("M02-W10 transactional drivers (test-only)");
   expect(manifest.background).toEqual({ service_worker: "background.js" });
   expect(manifest.content_scripts).toEqual([
     {

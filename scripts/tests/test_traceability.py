@@ -178,6 +178,23 @@ def trace_repo(tmp_path: Path) -> Path:
         "packages/form-engine/test/decision-resolver.test.ts",
         "packages/form-engine/test/option-resolver.test.ts",
         "e2e/extension/extension-resolver.spec.ts",
+        # M02-W10 REQ-FORM-015/016 feasibility anchors (closed transaction
+        # protocol/kernel, control-specific drivers, redacted evidence,
+        # focused unit tests, and real built-MV3 transaction proof).
+        "apps/extension/src/driver-engine.ts",
+        "apps/extension/src/driver-evidence.ts",
+        "apps/extension/src/driver-protocol.ts",
+        "apps/extension/src/drivers/choice-drivers.ts",
+        "apps/extension/src/drivers/driver-contract.ts",
+        "apps/extension/src/drivers/driver-dom.ts",
+        "apps/extension/src/drivers/file-upload-driver.ts",
+        "apps/extension/src/drivers/repeater-driver.ts",
+        "apps/extension/src/drivers/text-like-drivers.ts",
+        "apps/extension/src/drivers/widget-drivers.ts",
+        "apps/extension/test/m02-w10/driver-evidence.test.ts",
+        "apps/extension/test/m02-w10/driver-protocol.test.ts",
+        "apps/extension/test/m02-w10/driver-selection.test.ts",
+        "e2e/extension/extension-drivers.spec.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path
