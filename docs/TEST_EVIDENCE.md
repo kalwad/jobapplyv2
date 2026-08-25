@@ -33,6 +33,256 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W11 — Dynamic reconciliation engine writer evidence (2026-08-24)
+
+- Revision: writer working tree on governance commit
+  `3aa2dcbb126c370cdb273c995c8731277747756d` / tree
+  `06a489028071f81f6efbb1ad30269696320de897` / parent content commit
+  `c7d642ee9d056d729d9b1fb7b5d585980348c04a`; content commit recorded
+  post-commit by the containing commit.
+- Environment: macOS (Darwin 27.0.0 arm64), Node v24.18.0, pnpm 11.17.0,
+  Vitest 4.1.10, Playwright 1.62.0 bundled Chromium, WXT 0.20.27,
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Exact starting boundary: `git fetch origin`, `git branch --show-current`
+  (main), `git rev-parse HEAD` == `git rev-parse origin/main` ==
+  `3aa2dcbb126c370cdb273c995c8731277747756d`, tree
+  `06a489028071f81f6efbb1ad30269696320de897`, both porcelain forms clean,
+  ahead/behind 0/0, `git diff --check` clean, spec digest verified.
+- Requirement-ownership discovery (mechanical, from docs/traceability.json):
+  exactly two requirements list M02-W11 in `owning_packages` —
+  REQ-FORM-018 (with M18-W07) and REQ-FORM-024 (with M18-W05). No other
+  requirement is directly W11-owned; no W11 evidence was projected onto any
+  other requirement.
+- Architecture: `apps/extension/src/dynamic-engine.ts` adds one frame-local
+  `DynamicFrameEngine` beside the accepted W10 `DriverTransactionEngine`.
+  One bounded MutationObserver per frame observes the accepted W08
+  application root only (childList/subtree/characterData plus a closed
+  attribute filter). Callbacks enqueue records into a bounded queue
+  (cap 4096, overflow escalates once to a bounded root scan) and one 25 ms
+  debounced batch coalesces each burst; `dynamic-batch.ts` deduplicates
+  overlapping parent/child affected regions (cap 24 per batch, DOM-free and
+  unit-proven). Batches rescan only affected subtrees through the exported
+  W08 `scanCandidatePairs`; full-document scans are instrumented and remain
+  zero. Structural validity is a minimal lazy check (route seed comparison
+  plus root connectivity); SPA route change and application-root
+  replacement advance monotonic route/root generations and the per-document
+  page generation now served by `field-scanner.ts` (`currentDomGeneration`,
+  default 0, so all W07–W10 behavior is byte-preserved until W11 advances
+  it), which the unchanged W10 kernel already enforces through its
+  `generation_matched` precondition. Duplicate-action prevention is a
+  bounded ledger keyed by `deriveDuplicateAuthorityKey` (decision identity,
+  decision↔address binding digest, redacted intended-value digest, page
+  generation, document identity — never a selector, DOM index, or element
+  identity); `M02_W11_EXECUTE` routes every action through the same W10
+  kernel, suppresses satisfied or previously attempted keys, reports
+  `PAGE_CHANGED_VALUE_DETECTED` instead of auto-replaying, and attributes
+  action-origin mutations through an explicit action window (plain W10 wire
+  executes are recorded read-only and attributed too).
+  `dynamic-reconcile.ts` classifies every inventoried control
+  deterministically into the canonical generated
+  `reconciliation-inventory.v1` contract under its exact
+  `RECONCILIATION_READINESS` semantic rule (a required visible enabled item
+  is only ever VERIFIED_FILLED / REQUIRED_UNRESOLVED / BLOCKED_SENSITIVE;
+  `changed_value` iff PAGE_CHANGED_VALUE, so a changed required field
+  classifies as the canonical equivalent REQUIRED_UNRESOLVED with the
+  detection counter surfaced); page-changed detection re-resolves through
+  W08 and observes through the exact W10 driver family. Instrumentation is
+  truthful: callback/record/batch/scan-scope/action/suppression counters,
+  nodes considered, durations from `performance.now`, real Chromium heap
+  numbers from `performance.memory` with an explicit unavailable marker
+  otherwise, honest in-page CPU non-capability
+  (`NO_IN_PAGE_PROCESS_CPU_SOURCE`), and real process CPU/heap measured at
+  the harness boundary through Playwright CDP `Performance.getMetrics`
+  (TaskDuration/JSHeapUsedSize) in the permanent browser matrix.
+  `dynamic-protocol.ts` is the only new wire surface: closed typed
+  start/stop/execute/reconcile/read-state messages parsed fail-closed with
+  a mirror inventory validator whose byte-agreement with the canonical
+  generated validator plus semantic rule is unit-pinned; no selector,
+  script, DOM command, observer configuration, navigation, submission,
+  filesystem, native-host, database, or model operation is representable,
+  and snapshots carry only counters/enums/generations. The background
+  routes W11 tab requests to the exact registered frame (fail-closed,
+  FRAME_UNAVAILABLE otherwise). The manifest identity moved to
+  "M02-W11 dynamic reconciliation (test-only)" with both pins updated.
+- Permanent unit/contract matrix (`apps/extension/test/m02-w11/`, 58
+  tests): batching/coalescing/overflow/queue boundedness
+  (`dynamic-batch.test.ts`); exhaustive-evidence-space classifier
+  invariants, hidden/sensitive safety, page-changed detection, count
+  recompute, readiness floor, canonical ordering
+  (`dynamic-reconcile.test.ts`); fail-closed protocol parsing, truthful
+  snapshot capability (fabricated CPU inexpressible, unavailable memory
+  never zero-filled), mirror-vs-canonical inventory agreement corpus,
+  duplicate-authority-key semantics, telemetry redaction
+  (`dynamic-protocol.test.ts`).
+- Permanent real built-MV3 matrix
+  (`e2e/extension/extension-dynamic.spec.ts`, 10 scenarios):
+  DYN1–DYN3/REC1 conditional discovery/removal with complete required
+  inventory; REC2–REC4/NOACT1 mixed page with unsupported required,
+  blocked-sensitive (never upgraded by repeats), dynamically inserted
+  hidden honeypot (zero action, empty value); DUP1–DUP3 exactly one
+  measured action attempt across rerender storms and identical re-requests
+  with a page-world event meter, action-origin attribution, and a distinct
+  legitimate new decision; CHG1–CHG3 page-changed optional
+  (PAGE_CHANGED_VALUE) and required (canonical REQUIRED_UNRESOLVED)
+  values, no automatic refill, late validation rejection removing the
+  clean state, plus the canonical READY path; BATCH1–BATCH2/PERF1–PERF3
+  600-record storm coalescing to ≤4 batches with subtree-bounded node
+  visitation (delta ≤ 2500 vs a 400-node sibling section) and zero
+  full-document/root rescans; ROOT1/PERF4 500 outside-root mutations and
+  an idle window changing nothing, stop-with-queued-batch safe;
+  ROOT2/GEN2 root replacement advancing root/page generations with stale
+  addresses failing closed through W10 (zero DOM writes); GEN1 SPA route
+  change advancing route/page generations with unchanged document
+  identity; FRAME1–FRAME2 frame-local isolation and wrong-frame
+  rejection; PERF5/NOACT2 real CDP TaskDuration/JSHeapUsedSize
+  measurement, capability-honest in-page probes, wire-level redaction,
+  and unknown navigation/submit kinds unanswered. Every reconciliation
+  crossing the wire is validated in-test against the canonical generated
+  validator plus `validateSemanticContractV1`.
+- Focused commands and observed results:
+  - `pnpm --dir apps/extension run typecheck` → exit 0.
+  - `pnpm --dir apps/extension exec vitest run test/m02-w11 --no-file-parallelism --maxWorkers=1`
+    → exit 0, **58 passed** in 3 files.
+  - `pnpm --filter @japp/extension test` → exit 0, **169/169** (111
+    retained W07–W10 unit/contract tests plus 58 new W11 tests; the
+    built-manifest and substrate name pins were updated to the intended
+    W11 manifest identity in the same change).
+  - `pnpm exec playwright test e2e/extension/extension-dynamic.spec.ts --reporter=line`
+    → exit 0, **10/10**.
+  - `pnpm exec playwright test e2e/extension --reporter=line` → exit 0,
+    **57/57** (47 retained W07–W10 browser tests plus 10 new W11
+    scenarios).
+  - `pnpm exec eslint apps/extension e2e/extension/extension-dynamic.spec.ts`
+    → exit 0.
+  - `python3 scripts/check_portability.py --quiet` → exit 0, PASS.
+  - `python3 scripts/validate_status.py` → exit 0, **45 check groups**.
+  - `pnpm traceability:check` → exit 0, **193 requirements / 300 work
+    packages** after the REQ-FORM-018/REQ-FORM-024 SCAFFOLD_ONLY updates
+    and the standard reviewed v1.4 requirement-projection re-lock
+    (`70424088492737b18171ea26872c3dff40461411726162f863c9f693e0144802`);
+    the package-dependency projection hash is byte-unchanged.
+- Traceability honesty: only REQ-FORM-018 and REQ-FORM-024 changed state
+  (NOT_STARTED → SCAFFOLD_ONLY, verification NOT_YET_APPLICABLE), each with
+  exact code/test/evidence paths and explicit retained M18-W07/M18-W05
+  production ownership; every other requirement's implementation and
+  verification state is byte-unchanged.
+- Scope and safety: no navigation execution, no submission, no live
+  employer, no live AI/network path, no ATS support claim, no W12 variant
+  matrix, no M19/M20 Workday state machine, no Gate A execution, and no
+  access to any `$HOME/.jobapplyv2-eval` owner holdout evidence. Repeated
+  observation never upgrades W09 policy authority; W08 re-resolution and
+  W10 transaction authority are unchanged (the only W10-protocol edits are
+  two additive validator exports and read-only result recording).
+- Complete pre-verifier verification: `pnpm run doctor` → exit 0, **24
+  pass / 1 expected dirty-tree warning / 0 fail / 1 not-yet-applicable**;
+  `pnpm verify` → exit 0 with every ACTIVE suite PASS — extension
+  **169/169**, form engine **77/77**, contracts **2440/2440**, mock ATS lab
+  **32/32**, browser **116 passed** (106 retained plus 10 W11), POSIX
+  Python **1390/1390** (after extending the `trace_repo` fixture inventory
+  in `scripts/tests/test_traceability.py` with the eight W11
+  code/test anchors — a fixture-completeness addition, no assertion
+  weakened, no node ID changed, exact Python inventory byte-unchanged),
+  Rust **1 + 10**, generated contracts **183 byte-identical**, status
+  **45 check groups**, traceability **193 requirements / 300 work
+  packages**, visual honestly NOT_YET_APPLICABLE, verification exit 0.
+- Internal adversarial verifier (same-session gauntlet, explicitly not the
+  independent M02-W15 Gate A audit): a fresh verifier context received the
+  canonical W11 contract and an isolated byte-identical candidate snapshot
+  (rsync without `.git`, `pnpm install --frozen-lockfile --offline`;
+  SHA-256 agreement of every `apps/extension/src/*.ts` byte verified) and
+  ran the finite family matrix A–M (generation correctness, bounded root
+  observation, incremental subtree scans, batching, conditional
+  discovery/removal, duplicate suppression, required completeness,
+  page-changed value, sensitive/honeypot safety, instrumentation,
+  boundedness, real-MV3/protocol authority, scope exclusion) against the
+  candidate bytes plus the permanent suites: typecheck exit 0, extension
+  **169/169** (W11 subset **58/58**), form engine **77/77**, real-MV3
+  browser **57/57**. It then wrote and ran **10 bounded fresh probes**
+  (within the 16-probe cap) in a disposable spec inside the snapshot, all
+  PASS: P1 root replaced while a 50-record batch was queued (generations
+  advance exactly once, replay refused with zero DOM effect); P2 route
+  change with a pending batch; P3 conditional insert/remove ×3 cycles
+  (inventory oscillates 3→2, counters move exactly, zero full-document
+  scans); P4 decision digest replayed against another field's address and
+  a fabricated frame id (W10 refusal / FRAME_UNAVAILABLE, both inputs
+  empty); P5 blocked-sensitive control toggled hidden/visible ×5 with
+  replays (every replay PRIOR_ATTEMPT_EXISTS, never upgraded, zero radios
+  checked); P6 five 200-record bursts plus executes (queue drains to 0
+  each round, ledger 5 ≤ 128, registry 1 ≤ 128, inventory 2); P7 canary
+  redaction across all five W11 wire results; P8 malformed/oversized/
+  fabricated messages all unanswered and the page world has no runtime
+  channel at all; P9 query-only pushState (deterministically not a route
+  invalidation, replay → STALE_EVIDENCE/MISSING, no refill); P12 same
+  decision twice in one batch (second DUPLICATE_SUPPRESSED, page-world
+  input meter proves exactly one real fill). Verdict:
+  **CONTENT_CLEAR — zero PACKAGE_BLOCKER, zero DIRECT_REGRESSION, zero
+  writer correction rounds**. Non-blocking findings: (1)
+  DOCUMENTED_LIMITATION — the accepted W08/schema 512-descriptor bound
+  truncates >512-control pages without an overflow marker (recorded as
+  KI-0063, future owners M18-W02/M18-W05); (2) DOCUMENTED_LIMITATION —
+  route identity is origin+pathname, deliberately matching the accepted
+  W08 `route_signature`, so query/hash-routed steps are ordinary mutation
+  (probe P9 proves the behavior stays fail-safe); (3)
+  SPECULATIVE_HARDENING — `actions_executed` counts W10 dispatches
+  including policy refusals ("transactions_dispatched" would be a truer
+  name; semantics are pinned by the permanent suites and accompanied by
+  the full honest W10 result); (4) SPECULATIVE_HARDENING — after a root
+  is lost with no replacement the snapshot still reports OBSERVING with
+  the observer detached, and the ledger key reads the page generation
+  before execution while the stored entry reads it after — every
+  downstream consequence is fail-safe (generation sweep plus the W10
+  `generation_matched` refusal). Adversarial discovery stopped at
+  CONTENT_CLEAR per the bounded gauntlet protocol.
+- Bounded mutation gauntlet: exactly six mutations, each applied by a
+  reviewed single-purpose patch inside a fresh disposable snapshot of the
+  candidate (rsync without `.git`, `pnpm install --frozen-lockfile
+  --offline`), each run against the W11 unit subset plus the complete W11
+  real-MV3 spec, each KILLED, each snapshot deleted afterward, and the
+  authoritative tree proven byte-identical before and after via recorded
+  SHA-256 (`shasum -a 256 -c` OK on all four W11 sources). M1
+  root-wide scan per drained mutation record → killed **3 failed / 7
+  passed** (BATCH1/BATCH2/PERF1–PERF3 bounded-scope counters plus
+  DYN1/REC1 and REC2 inventory staleness). M2 duplicate-action ledger
+  bypass → killed **3 failed / 7 passed** (DUP1–DUP3 exact
+  one-action/meter proof, NOACT1 blocked-repeat, CHG resend). M3 omit
+  evidence-less REQUIRED_UNRESOLVED items from reconciliation → killed
+  **5 failed / 5 passed** (DYN2/REC1 complete-inventory counts, REC2,
+  ROOT2, GEN1, FRAME1 counts). M4 preserve VERIFIED_FILLED on a differing
+  current value → killed **unit 3 failed / 55 passed** (exhaustive-space
+  category coverage plus both named page-changed tests) and **e2e 1
+  failed / 9 passed** (CHG1–CHG3). M5 observe the whole document and
+  process outside-root regions as affected subtrees → killed **1 failed /
+  9 passed** (ROOT1/PERF4 frozen-counter equalities). M6 let a concealed
+  required control classify as REQUIRED_UNRESOLVED → killed **unit 2
+  failed / 56 passed** (concealed-never-unresolved invariants) and **e2e
+  1 failed / 9 passed** (REC2/REC3/REC4 honeypot accounting). No mutation
+  survived; no seventh mutation was run. Internal content-clear marker:
+  `FABLE_CLEAR_INTERNAL_M02_W11_CONTENT`.
+- Invalidated first freeze (recorded honestly): the first staged candidate
+  (index tree `4e28a266dfa9990c76d2386efbe8a45d470cf781`) failed canonical
+  pass 1 solely on the retained W10 browser scenario VIRT1/VIRT2
+  (`e2e/extension/extension-drivers.spec.ts`): `Test timeout of 30000ms
+  exceeded` at 30.2 s against a same-session green baseline of 25.1 s for
+  the identical bytes, with zero assertion failures (browser total
+  **1 failed / 115 passed**). Root cause: the accepted W10 windowed-listbox
+  driver's bounded 480-window scroll with real settle polls sits within
+  ~5 s of the Playwright 30 s default on the reference machine, so ordinary
+  load variance can cross the cap (TEST-HARNESS PORTABILITY, not a W11 or
+  W10 defect; W11 adds no per-scroll-step work — its only per-execute cost
+  is one post-settle digest). Narrow correction following the M02-W09
+  per-test-budget precedent: an explicit `test.setTimeout(60_000)` plus
+  constraint comment on exactly that scenario; no global timeout change, no
+  assertion or runtime byte changed, no skip/retry added. The freeze was
+  restarted from scratch on a new fingerprint.
+- Frozen verification deferral: the complete canonical sequence
+  (`python3 scripts/check_portability.py`, `python3 scripts/validate_status.py`,
+  `pnpm traceability:check`, `pnpm generate:contracts --check`,
+  `pnpm run doctor`, `pnpm verify`, `git diff --check`) is run twice
+  against the identical staged candidate and reported in the freeze
+  record below/at closeout. No canonical, hosted, or independent
+  verification result is preclaimed here.
+
 ### M02-W10 — Transactional control-driver verification and governance closeout (2026-08-24)
 
 - Revision: verified content commit

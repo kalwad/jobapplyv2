@@ -195,6 +195,18 @@ def trace_repo(tmp_path: Path) -> Path:
         "apps/extension/test/m02-w10/driver-protocol.test.ts",
         "apps/extension/test/m02-w10/driver-selection.test.ts",
         "e2e/extension/extension-drivers.spec.ts",
+        # M02-W11 REQ-FORM-018/024 feasibility anchors (bounded dynamic
+        # observation/batching, closed dynamic protocol, canonical
+        # reconciliation classifier, focused unit tests, and real built-MV3
+        # dynamic-state proof).
+        "apps/extension/src/dynamic-batch.ts",
+        "apps/extension/src/dynamic-engine.ts",
+        "apps/extension/src/dynamic-protocol.ts",
+        "apps/extension/src/dynamic-reconcile.ts",
+        "apps/extension/test/m02-w11/dynamic-batch.test.ts",
+        "apps/extension/test/m02-w11/dynamic-protocol.test.ts",
+        "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+        "e2e/extension/extension-dynamic.spec.ts",
     ):
         source = REPO_ROOT / relative_path
         destination = repo / relative_path

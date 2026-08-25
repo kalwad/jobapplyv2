@@ -75,6 +75,16 @@ const DEFAULT_DRIVERS: readonly ControlDriver[] = [
   workdayPromptResearchDriver,
 ];
 
+/**
+ * The accepted W10 driver family, exposed read-only so the M02-W11 dynamic
+ * engine observes current values through the exact same control-specific
+ * `observe` semantics that verified them. W11 never executes through this
+ * list directly — every action still crosses DriverTransactionEngine.
+ */
+export function defaultControlDrivers(): readonly ControlDriver[] {
+  return DEFAULT_DRIVERS;
+}
+
 interface Preconditions {
   readonly visible: boolean;
   readonly enabled: boolean;
@@ -201,6 +211,17 @@ function driverCandidates(
     target.anchor,
     intended,
   );
+}
+
+/**
+ * Canonical redacted semantic observation of a typed intended value. Also
+ * consumed by the M02-W11 duplicate-action ledger, whose authority key is
+ * derived from this exact evidence digest.
+ */
+export function intendedSemanticObservation(
+  intended: DriverIntendedValue,
+): SemanticObservation {
+  return intendedObservation(intended);
 }
 
 function intendedObservation(

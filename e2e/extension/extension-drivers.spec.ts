@@ -901,6 +901,12 @@ test("VIRT1/VIRT2: the 480-row windowed list finds one off-window exact target w
   extensionId,
   serviceWorker,
 }) => {
+  // The W10 windowed-listbox driver legitimately walks up to 480 bounded
+  // scroll windows with real settle polls, measured at ~25 s green on the
+  // reference machine — inside the Playwright 30 s default only by margin.
+  // Explicit bounded budget for exactly this scenario (M02-W09 KI-precedent
+  // pattern: per-test budget, no global change, no assertion change).
+  test.setTimeout(60_000);
   const harness = await openHarness(
     extensionContext,
     extensionId,

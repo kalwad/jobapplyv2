@@ -2978,6 +2978,40 @@ validator exception or weakening was introduced.
 
 ## Deferred risks and parked ideas
 
+### KI-0063 — Pages with more than 512 supported controls truncate the descriptor inventory without an overflow marker
+
+- Severity: LOW
+- State: DEFERRED
+- Discovered: 2026-08-24 during the M02-W11 same-package internal adversarial
+  gauntlet (verifier family G/K byte audit)
+- Affects: `apps/extension/src/field-scanner.ts` (`MAX_DESCRIPTORS_PER_FRAME`
+  slice), `apps/extension/src/scanner-protocol.ts` (`MAX_DESCRIPTORS_PER_FRAME
+  = 512`), `packages/contracts/schemas/form/reconciliation-inventory.v1.schema.json`
+  (`items` `maxItems: 512`), `apps/extension/src/dynamic-engine.ts`
+  (`MAX_INVENTORY_ITEMS`); future owners **M18-W02** (productionize scanner
+  and field re-resolution) and **M18-W05** (production decision engine)
+- Description: the accepted M02-W08 scanner caps every frame report at 512
+  descriptors and the canonical reconciliation-inventory contract carries the
+  same 512-item bound, so the M02-W11 dynamic inventory can never observe a
+  control the W08 scan never surfaced. On a synthetic page with more than 512
+  supported controls, a visible enabled required control beyond the cap would
+  be absent from the reconciliation inventory with no explicit overflow
+  marker, weakening the "no silent required field" guarantee at that extreme.
+  No M02 feasibility fixture approaches the bound (the largest is the 480-row
+  virtualized listbox, whose rows are options, not controls), so no current
+  contract or test is affected.
+- Reproduction: construct a fixture page whose application root contains 513
+  labelled required text inputs; the W08 frame report and every W11
+  reconciliation inventory contain exactly 512 items and the 513th control is
+  not represented.
+- Workaround: none needed for M02 feasibility; every fixture stays far below
+  the bound.
+- Resolution + evidence link: deferred to the production scanner/decision
+  engine, which must either raise/paginate the bound or add an explicit
+  truncation marker that fails readiness closed. Recorded from
+  docs/TEST_EVIDENCE.md § M02-W11 (internal verifier finding, classified
+  DOCUMENTED_LIMITATION; the W08 cap itself is accepted prior behavior).
+
 ### KI-0026 — Whether an accepted model profile may sit below the performance tier is undecided
 
 - Severity: MEDIUM

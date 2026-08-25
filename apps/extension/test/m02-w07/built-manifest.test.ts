@@ -198,9 +198,9 @@ describe("generated Chrome MV3 manifest", () => {
     }
   });
 
-  test("the manifest identifies itself as the neutral test-only W10 driver harness", () => {
+  test("the manifest identifies itself as the neutral test-only W11 dynamic harness", () => {
     const manifest = readManifest();
-    expect(manifest.name).toBe("M02-W10 transactional drivers (test-only)");
+    expect(manifest.name).toBe("M02-W11 dynamic reconciliation (test-only)");
     expect(manifest.version).toBe("0.0.1");
   });
 });

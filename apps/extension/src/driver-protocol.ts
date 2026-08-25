@@ -687,7 +687,12 @@ function isSettlePolicy(value: unknown): value is SettlePolicy {
   );
 }
 
-function isTransactionRequest(
+/**
+ * Strict closed validation of one wire DriverTransactionRequest. Exported
+ * for the M02-W11 dynamic protocol, whose bounded execute-decisions pass
+ * carries the exact same transaction records into the same W10 kernel.
+ */
+export function isCanonicalTransactionRequest(
   value: unknown,
 ): value is DriverTransactionRequest {
   const candidate = record(value);
@@ -961,7 +966,10 @@ export function isCanonicalDriverResult(
   );
 }
 
-function isDiagnostics(value: unknown): value is DriverDiagnostics {
+/** Strict closed validation of DriverDiagnostics (W11 reuses it). */
+export function isCanonicalDriverDiagnostics(
+  value: unknown,
+): value is DriverDiagnostics {
   const candidate = record(value);
   return (
     candidate !== null &&
@@ -1006,7 +1014,7 @@ export function parseExecuteTabRequest(
     candidate.protocolVersion === DRIVER_PROTOCOL_VERSION &&
     isRequestId(candidate.requestId) &&
     isSafeNonNegativeInteger(candidate.tabId) &&
-    isTransactionRequest(candidate.transaction)
+    isCanonicalTransactionRequest(candidate.transaction)
     ? (candidate as unknown as ExecuteTabRequest)
     : null;
 }
@@ -1025,7 +1033,7 @@ export function parseExecuteFrameRequest(
     candidate.kind === EXECUTE_FRAME_KIND &&
     candidate.protocolVersion === DRIVER_PROTOCOL_VERSION &&
     isRequestId(candidate.requestId) &&
-    isTransactionRequest(candidate.transaction)
+    isCanonicalTransactionRequest(candidate.transaction)
     ? (candidate as unknown as ExecuteFrameRequest)
     : null;
 }
@@ -1050,7 +1058,7 @@ export function parseFrameExecuteResult(
     isFrameContextValue(candidate.frame_context) &&
     isCanonicalDriverResult(candidate.result) &&
     typeof candidate.undo_available === "boolean" &&
-    isDiagnostics(candidate.diagnostics)
+    isCanonicalDriverDiagnostics(candidate.diagnostics)
     ? (candidate as unknown as FrameExecuteResult)
     : null;
 }
@@ -1089,7 +1097,7 @@ export function parseExecuteTabResult(value: unknown): ExecuteTabResult | null {
     ]) &&
     isCanonicalDriverResult(outcome.result) &&
     typeof outcome.undo_available === "boolean" &&
-    isDiagnostics(outcome.diagnostics)
+    isCanonicalDriverDiagnostics(outcome.diagnostics)
     ? (candidate as unknown as ExecuteTabResult)
     : null;
 }
@@ -1159,7 +1167,7 @@ function parseUndoOutcome(value: unknown): boolean {
     outcome.status === "COMPLETED" &&
     hasClosedKeys(outcome, ["status", "result", "diagnostics"]) &&
     isCanonicalDriverResult(outcome.result) &&
-    isDiagnostics(outcome.diagnostics)
+    isCanonicalDriverDiagnostics(outcome.diagnostics)
   );
 }
 

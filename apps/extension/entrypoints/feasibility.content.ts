@@ -1,8 +1,11 @@
-// M02-W08/W10 frame-local feasibility agent. Every permitted frame gets this
-// same content script and accesses only its own `document`; it never reads
-// parent, child, contentWindow, or contentDocument DOM. The W10 surface is a
-// closed field transaction/undo protocol plus read-only navigation-candidate
-// research; navigation execution is intentionally absent.
+// M02-W08/W10/W11 frame-local feasibility agent. Every permitted frame gets
+// this same content script and accesses only its own `document`; it never
+// reads parent, child, contentWindow, or contentDocument DOM. The W10
+// surface is a closed field transaction/undo protocol plus read-only
+// navigation-candidate research; the W11 surface adds bounded dynamic
+// observation, duplicate-suppressed decision execution over the same W10
+// kernel, canonical reconciliation, and read-only instrumentation.
+// Navigation execution is intentionally absent.
 import { defineContentScript } from "wxt/utils/define-content-script";
 import { browser, type Browser } from "wxt/browser";
 
@@ -23,6 +26,21 @@ import {
   DriverTransactionEngine,
   identifyNavigationCandidate,
 } from "../src/driver-engine.ts";
+import { DynamicFrameEngine } from "../src/dynamic-engine.ts";
+import {
+  DYNAMIC_FRAME_EXECUTE_RESULT_KIND,
+  DYNAMIC_FRAME_RECONCILE_RESULT_KIND,
+  DYNAMIC_FRAME_START_RESULT_KIND,
+  DYNAMIC_FRAME_STATE_RESULT_KIND,
+  DYNAMIC_FRAME_STOP_RESULT_KIND,
+  DYNAMIC_PROTOCOL_VERSION,
+  parseDynamicExecuteFrameRequest,
+  parseDynamicReconcileFrameRequest,
+  parseDynamicStartFrameRequest,
+  parseDynamicStateFrameRequest,
+  parseDynamicStopFrameRequest,
+} from "../src/dynamic-protocol.ts";
+import { fieldAddressDigest } from "../src/driver-evidence.ts";
 import {
   DRIVER_PROTOCOL_VERSION,
   FRAME_EXECUTE_RESULT_KIND,
@@ -51,6 +69,7 @@ interface AsyncMessageEvent {
 
 let frameContext: FrameContext | null = null;
 const driverEngine = new DriverTransactionEngine();
+const dynamicEngine = new DynamicFrameEngine(driverEngine);
 
 function delay(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -114,10 +133,23 @@ onMessage.addListener(async (message, sender) => {
   }
   const executeRequest = parseExecuteFrameRequest(message);
   if (executeRequest !== null) {
-    const execution = await driverEngine.execute(
-      document,
-      currentContext,
+    // The W10 wire path is unchanged; W11 only attributes the action window
+    // for mutation causality and records the result read-only so
+    // reconciliation accounts for plain-W10 transactions too.
+    dynamicEngine.beginAction();
+    let execution;
+    try {
+      execution = await driverEngine.execute(
+        document,
+        currentContext,
+        executeRequest.transaction,
+      );
+    } finally {
+      dynamicEngine.endAction();
+    }
+    await dynamicEngine.noteExternalExecution(
       executeRequest.transaction,
+      execution,
     );
     return {
       kind: FRAME_EXECUTE_RESULT_KIND,
@@ -131,17 +163,110 @@ onMessage.addListener(async (message, sender) => {
   }
   const undoRequest = parseUndoFrameRequest(message);
   if (undoRequest !== null) {
-    const outcome = await driverEngine.undo(
-      document,
-      currentContext,
-      undoRequest.undo,
-    );
+    dynamicEngine.beginAction();
+    let outcome;
+    try {
+      outcome = await driverEngine.undo(
+        document,
+        currentContext,
+        undoRequest.undo,
+      );
+    } finally {
+      dynamicEngine.endAction();
+    }
+    if (outcome.status === "COMPLETED") {
+      dynamicEngine.noteExternalUndo(
+        await fieldAddressDigest(undoRequest.undo.address),
+      );
+    }
     return {
       kind: FRAME_UNDO_RESULT_KIND,
       protocolVersion: DRIVER_PROTOCOL_VERSION,
       requestId: undoRequest.requestId,
       frame_context: currentContext,
       outcome,
+    };
+  }
+  const dynamicStart = parseDynamicStartFrameRequest(message);
+  if (dynamicStart !== null) {
+    if (dynamicStart.expected_document_id !== currentContext.document_id) {
+      return undefined;
+    }
+    return {
+      kind: DYNAMIC_FRAME_START_RESULT_KIND,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId: dynamicStart.requestId,
+      frame_context: currentContext,
+      outcome: await dynamicEngine.start(document, currentContext),
+    };
+  }
+  const dynamicStop = parseDynamicStopFrameRequest(message);
+  if (dynamicStop !== null) {
+    if (dynamicStop.expected_document_id !== currentContext.document_id) {
+      return undefined;
+    }
+    return {
+      kind: DYNAMIC_FRAME_STOP_RESULT_KIND,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId: dynamicStop.requestId,
+      frame_context: currentContext,
+      outcome: dynamicEngine.stop(document),
+    };
+  }
+  const dynamicExecute = parseDynamicExecuteFrameRequest(message);
+  if (dynamicExecute !== null) {
+    if (
+      dynamicExecute.expected_document_id !== currentContext.document_id ||
+      dynamicExecute.items.some(
+        (item) =>
+          item.address.session_id !== currentContext.session_id ||
+          item.address.frame_id !== currentContext.frame_id ||
+          item.address.document_id !== currentContext.document_id,
+      )
+    ) {
+      return undefined;
+    }
+    return {
+      kind: DYNAMIC_FRAME_EXECUTE_RESULT_KIND,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId: dynamicExecute.requestId,
+      frame_context: currentContext,
+      items: await dynamicEngine.executeDecisions(
+        document,
+        currentContext,
+        dynamicExecute.items,
+      ),
+      snapshot: dynamicEngine.snapshot(document),
+    };
+  }
+  const dynamicReconcile = parseDynamicReconcileFrameRequest(message);
+  if (dynamicReconcile !== null) {
+    if (dynamicReconcile.expected_document_id !== currentContext.document_id) {
+      return undefined;
+    }
+    return {
+      kind: DYNAMIC_FRAME_RECONCILE_RESULT_KIND,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId: dynamicReconcile.requestId,
+      frame_context: currentContext,
+      outcome: await dynamicEngine.reconcile(
+        document,
+        currentContext,
+        dynamicReconcile.correlation_id,
+      ),
+    };
+  }
+  const dynamicState = parseDynamicStateFrameRequest(message);
+  if (dynamicState !== null) {
+    if (dynamicState.expected_document_id !== currentContext.document_id) {
+      return undefined;
+    }
+    return {
+      kind: DYNAMIC_FRAME_STATE_RESULT_KIND,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId: dynamicState.requestId,
+      frame_context: currentContext,
+      snapshot: dynamicEngine.snapshot(document),
     };
   }
   const navigationRequest = parseIdentifyNavFrameRequest(message);

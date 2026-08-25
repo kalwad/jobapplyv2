@@ -39,9 +39,30 @@ const HEADING_SELECTOR = "h1,h2,h3,h4,h5,h6,[role='heading']";
 const NORMALIZED_TEXT_PATTERN =
   /^[A-Za-z0-9][A-Za-z0-9 .,:!?()'&+/@_-]{0,511}$/;
 const BOUNDED_TOKEN_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:@+/-]{0,127}$/;
-const OBSERVED_DOM_GENERATION = 0;
 
-interface FieldCandidate {
+/**
+ * M02-W11 page-generation registry. Every document starts at generation 0 —
+ * byte-identical W07–W10 behavior — and only the W11 dynamic engine
+ * advances it, exclusively on structural invalidation (SPA route change or
+ * application-root replacement), never on ordinary mutations. Descriptors
+ * and addresses built by any scan stamp the document's current generation,
+ * so the accepted W10 kernel's existing `generation_matched` precondition
+ * automatically refuses to let a pre-invalidation address authorize a
+ * post-invalidation action.
+ */
+const observedDomGenerations = new WeakMap<Document, number>();
+
+export function currentDomGeneration(document: Document): number {
+  return observedDomGenerations.get(document) ?? 0;
+}
+
+export function advanceDomGeneration(document: Document): number {
+  const next = currentDomGeneration(document) + 1;
+  observedDomGenerations.set(document, next);
+  return next;
+}
+
+export interface FieldCandidate {
   readonly anchor: HTMLElement;
   readonly members: HTMLElement[];
   readonly kind: FormFieldDescriptorV1ControlKind;
@@ -65,6 +86,7 @@ interface ScanIdentityContext {
   readonly routeSignature: string;
   readonly applicationRootFingerprint: string;
   readonly observedAt: string;
+  readonly observedDomGeneration: number;
 }
 
 function elementsWithin(root: Element, selector: string): HTMLElement[] {
@@ -777,7 +799,7 @@ async function buildDescriptor(
       ? {}
       : { option_fingerprint: optionFingerprint }),
     resolution_hints: resolutionHints,
-    observed_dom_generation: OBSERVED_DOM_GENERATION,
+    observed_dom_generation: context.observedDomGeneration,
   };
   const identitySeed = JSON.stringify({
     session_id: address.session_id,
@@ -814,16 +836,16 @@ async function buildDescriptor(
     options,
     validation_state: { state: "NOT_APPLICABLE", message_digests: [] },
     observed_at: context.observedAt,
-    observed_dom_generation: OBSERVED_DOM_GENERATION,
+    observed_dom_generation: context.observedDomGeneration,
   };
 }
 
-interface ScannedFieldPair {
+export interface ScannedFieldPair {
   readonly candidate: FieldCandidate;
   readonly descriptor: FormFieldDescriptorV1;
 }
 
-async function scanCandidatePairs(
+export async function scanCandidatePairs(
   document: Document,
   applicationRoot: HTMLElement,
   scanBoundary: HTMLElement,
@@ -838,6 +860,7 @@ async function scanCandidatePairs(
       applicationRootEvidence(applicationRoot),
     ),
     observedAt: new Date().toISOString(),
+    observedDomGeneration: currentDomGeneration(document),
   };
   const candidates = collectCandidates(scanBoundary);
   const pairs: ScannedFieldPair[] = [];

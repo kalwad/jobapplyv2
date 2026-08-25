@@ -1,7 +1,9 @@
-// M02-W08/W10 background service worker. It preserves the verified W07 probe,
-// routes canonical scans/re-resolution, and adds only typed field transaction,
-// undo, and read-only navigation-identification messages to the exact
-// registered frame. It exposes no arbitrary page command or navigation action.
+// M02-W08/W10/W11 background service worker. It preserves the verified W07
+// probe, routes canonical scans/re-resolution, typed field transaction,
+// undo, and read-only navigation-identification messages, and adds only the
+// closed W11 dynamic-observation/reconciliation/instrumentation messages to
+// the exact registered frame. It exposes no arbitrary page command or
+// navigation action.
 import { defineBackground } from "wxt/utils/define-background";
 import { browser, type Browser } from "wxt/browser";
 
@@ -55,6 +57,29 @@ import {
   type UndoTabRequest,
   type UndoTabResult,
 } from "../src/driver-protocol.ts";
+import {
+  DYNAMIC_EXECUTE_FRAME_KIND,
+  DYNAMIC_EXECUTE_TAB_RESULT_KIND,
+  DYNAMIC_PROTOCOL_VERSION,
+  DYNAMIC_RECONCILE_FRAME_KIND,
+  DYNAMIC_RECONCILE_TAB_RESULT_KIND,
+  DYNAMIC_START_FRAME_KIND,
+  DYNAMIC_START_TAB_RESULT_KIND,
+  DYNAMIC_STATE_FRAME_KIND,
+  DYNAMIC_STATE_TAB_RESULT_KIND,
+  DYNAMIC_STOP_FRAME_KIND,
+  DYNAMIC_STOP_TAB_RESULT_KIND,
+  parseDynamicExecuteTabRequest,
+  parseDynamicFrameExecuteResult,
+  parseDynamicFrameReconcileResult,
+  parseDynamicFrameStartResult,
+  parseDynamicFrameStateResult,
+  parseDynamicFrameStopResult,
+  parseDynamicReconcileTabRequest,
+  parseDynamicStartTabRequest,
+  parseDynamicStateTabRequest,
+  parseDynamicStopTabRequest,
+} from "../src/dynamic-protocol.ts";
 import { semanticDigest, stableSemanticId } from "../src/semantic-identity.ts";
 
 interface RegisteredFrame {
@@ -427,6 +452,59 @@ export default defineBackground(() => {
     };
   }
 
+  /**
+   * Route one W11 dynamic request to its exact registered frame. Identical
+   * closed shape to the W08/W10 routing: the frame is selected only by its
+   * registered frame_id, the frame result is parsed fail-closed, and any
+   * mismatch or disappearance is a typed FRAME_UNAVAILABLE — never a
+   * fallback frame.
+   */
+  async function dynamicFrameCall(
+    tabId: number,
+    frameId: string,
+    requestId: string,
+    tabResultKind: string,
+    buildFrameMessage: (registration: RegisteredFrame) => unknown,
+    parseFrame: (value: unknown) => {
+      readonly requestId: string;
+      readonly frame_context: FrameContext;
+    } | null,
+    outcomeOf: (frameResult: Record<string, unknown>) => unknown,
+  ): Promise<unknown> {
+    const registration = registrationForFrame(tabId, frameId);
+    if (registration !== undefined) {
+      try {
+        const response: unknown = await browser.tabs.sendMessage(
+          tabId,
+          buildFrameMessage(registration),
+          { frameId: registration.chromeFrameId },
+        );
+        const parsed = parseFrame(response);
+        if (
+          parsed !== null &&
+          parsed.requestId === requestId &&
+          sameFrameContext(parsed.frame_context, registration.frameContext)
+        ) {
+          return {
+            kind: tabResultKind,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId,
+            outcome: outcomeOf(parsed),
+          };
+        }
+      } catch {
+        // A replaced or disappeared frame is unavailable; no alternate
+        // frame is selected.
+      }
+    }
+    return {
+      kind: tabResultKind,
+      protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+      requestId,
+      outcome: { status: "FRAME_UNAVAILABLE" },
+    };
+  }
+
   const onMessage = browser.runtime.onMessage as unknown as MessageEvent;
   onMessage.addListener((message, sender, sendResponse) => {
     if (parseFeasibilityProbe(message) !== null) {
@@ -467,6 +545,121 @@ export default defineBackground(() => {
     const navigationRequest = parseIdentifyNavTabRequest(message);
     if (navigationRequest !== null) {
       respondAsync(identifyNavigation(navigationRequest), sendResponse);
+      return true;
+    }
+    const dynamicStart = parseDynamicStartTabRequest(message);
+    if (dynamicStart !== null) {
+      respondAsync(
+        dynamicFrameCall(
+          dynamicStart.tabId,
+          dynamicStart.frame_id,
+          dynamicStart.requestId,
+          DYNAMIC_START_TAB_RESULT_KIND,
+          (registration) => ({
+            kind: DYNAMIC_START_FRAME_KIND,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId: dynamicStart.requestId,
+            expected_document_id: registration.frameContext.document_id,
+          }),
+          parseDynamicFrameStartResult,
+          (frameResult) => frameResult.outcome,
+        ),
+        sendResponse,
+      );
+      return true;
+    }
+    const dynamicStop = parseDynamicStopTabRequest(message);
+    if (dynamicStop !== null) {
+      respondAsync(
+        dynamicFrameCall(
+          dynamicStop.tabId,
+          dynamicStop.frame_id,
+          dynamicStop.requestId,
+          DYNAMIC_STOP_TAB_RESULT_KIND,
+          (registration) => ({
+            kind: DYNAMIC_STOP_FRAME_KIND,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId: dynamicStop.requestId,
+            expected_document_id: registration.frameContext.document_id,
+          }),
+          parseDynamicFrameStopResult,
+          (frameResult) => frameResult.outcome,
+        ),
+        sendResponse,
+      );
+      return true;
+    }
+    const dynamicExecute = parseDynamicExecuteTabRequest(message);
+    if (dynamicExecute !== null) {
+      const first = dynamicExecute.items[0];
+      respondAsync(
+        dynamicFrameCall(
+          dynamicExecute.tabId,
+          first?.address.frame_id ?? "",
+          dynamicExecute.requestId,
+          DYNAMIC_EXECUTE_TAB_RESULT_KIND,
+          (registration) => ({
+            kind: DYNAMIC_EXECUTE_FRAME_KIND,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId: dynamicExecute.requestId,
+            expected_document_id: registration.frameContext.document_id,
+            items: dynamicExecute.items,
+          }),
+          parseDynamicFrameExecuteResult,
+          (frameResult) => ({
+            status: "COMPLETED",
+            items: frameResult.items,
+            snapshot: frameResult.snapshot,
+          }),
+        ),
+        sendResponse,
+      );
+      return true;
+    }
+    const dynamicReconcile = parseDynamicReconcileTabRequest(message);
+    if (dynamicReconcile !== null) {
+      respondAsync(
+        dynamicFrameCall(
+          dynamicReconcile.tabId,
+          dynamicReconcile.frame_id,
+          dynamicReconcile.requestId,
+          DYNAMIC_RECONCILE_TAB_RESULT_KIND,
+          (registration) => ({
+            kind: DYNAMIC_RECONCILE_FRAME_KIND,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId: dynamicReconcile.requestId,
+            expected_document_id: registration.frameContext.document_id,
+            correlation_id: dynamicReconcile.correlation_id,
+          }),
+          parseDynamicFrameReconcileResult,
+          (frameResult) => frameResult.outcome,
+        ),
+        sendResponse,
+      );
+      return true;
+    }
+    const dynamicState = parseDynamicStateTabRequest(message);
+    if (dynamicState !== null) {
+      respondAsync(
+        dynamicFrameCall(
+          dynamicState.tabId,
+          dynamicState.frame_id,
+          dynamicState.requestId,
+          DYNAMIC_STATE_TAB_RESULT_KIND,
+          (registration) => ({
+            kind: DYNAMIC_STATE_FRAME_KIND,
+            protocolVersion: DYNAMIC_PROTOCOL_VERSION,
+            requestId: dynamicState.requestId,
+            expected_document_id: registration.frameContext.document_id,
+          }),
+          parseDynamicFrameStateResult,
+          (frameResult) => ({
+            status: "COMPLETED",
+            snapshot: frameResult.snapshot,
+          }),
+        ),
+        sendResponse,
+      );
       return true;
     }
     return undefined;

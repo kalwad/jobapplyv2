@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W10 verified content commit c7d642ee9d056d729d9b1fb7b5d585980348c04a / tree 339281269554f5886a9d763e0d23f1de0deffa2c / parent c02a624b226aca7ea8d2d5efde0f5b19cff56430; governance closeout pending
-Last updated: 2026-08-24T16:48:37-04:00
+Repository revision: M02-W11 writer start on governance commit 3aa2dcbb126c370cdb273c995c8731277747756d / tree 06a489028071f81f6efbb1ad30269696320de897 / parent c7d642ee9d056d729d9b1fb7b5d585980348c04a
+Last updated: 2026-08-24T18:07:09-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W11
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W10 (implement transactional control drivers) is VERIFIED at exact content commit `c7d642ee9d056d729d9b1fb7b5d585980348c04a` / tree `339281269554f5886a9d763e0d23f1de0deffa2c`, with parent governance commit `c02a624b226aca7ea8d2d5efde0f5b19cff56430`. M02-W11 is the sole READY package, zero packages are IN_PROGRESS, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED.
-- W10 scope: the verified feasibility family covers native/framework text, native select, radio, checkbox, date, ARIA combobox, a bounded 480-row virtualized listbox, stable-label synthetic repeater, bounded synthetic file upload, and a research-only Workday prompt/navigation-identification path. Every transaction requires canonical W09 `FILL` + `PERMIT` authority, current W08 semantic re-resolution immediately before action and after settle, exact control-specific preconditions, bounded persistence and site-validation postconditions, redacted canonical diagnostics, automatic recovery, and explicit re-resolving undo. Navigation execution, submission, live employers, live AI/network paths, production ATS compatibility, and dynamic W11 reconciliation remain outside W10.
-- Verification chain: the recovered Fable dirty tree was preserved byte-for-byte with external patch/tar safety hashes recorded in docs/TEST_EVIDENCE.md, then completed by Codex without reset, restore, stash, clean, rebase, amend, or discarded writer work. The same-package internal adversarial gauntlet (explicitly not the independent M02-W15 Gate A audit) passed the permanent 111-unit / 13-W10 / 47-extension matrix, 16 bounded fresh probes, and exactly six killed mutations M1–M6 after one test-coverage correction round. A traceability-only freeze correction changed no driver/runtime byte. Two identical complete canonical passes froze tree `339281269554f5886a9d763e0d23f1de0deffa2c`, each with every ACTIVE suite PASS, 106 browser tests, POSIX Python 1390, Rust 1 + 10, status 45, and visual honestly NOT_YET_APPLICABLE.
-- Hosted and final proof: exact-SHA content run `32772492093` succeeded on macOS 15 job `97575835608`, Ubuntu 24.04 job `97575835878`, and Windows 2025 job `97575835967`. The complete 3,923-line Windows log (SHA-256 `a13cf999dcec1c27fe2dfbdba88d281eb8b57dc4861c1df3d5758042b86291fc`) reconciled all 13 W10 groups, extension 111, form engine 77, contracts 2440 plus replay 662, browser 106, the expected Windows/common Python inventory 1388, Rust 1 + 10, every ACTIVE suite PASS, visual NOT_YET_APPLICABLE, exit 0, and tracked-clean success. The fresh no-hardlink exact-SHA final verifier then passed extension typecheck, 111 units, 13 W10 groups, all 47 retained extension tests, and remained tracked-clean.
-- Requirement and limitation posture: REQ-FORM-015 and REQ-FORM-016 remain `SCAFFOLD_ONLY` / `NOT_YET_APPLICABLE`; W10 contributes feasibility evidence only and M18-W04 retains production completion. RichText remains an explicit documented limitation because it is absent from the W10 package/fixture matrix; production widget breadth belongs to M18. No new current contract failure required a KNOWN_ISSUES entry, and prior deferred issues retain their owners.
-- Preserved predecessor evidence: M02-W01 through M02-W09 remain VERIFIED at their recorded trees. The W06 sanitized owner-holdout commitment, model lock, prompt registry, generated contracts, public corpus truth, and all gate reports remain untouched; no excluded private owner evidence was accessed or represented.
+- State: M02-W11 (implement dynamic state, reconciliation, and performance instrumentation) is IN_PROGRESS. The writer pass began at governance commit `3aa2dcbb126c370cdb273c995c8731277747756d` / tree `06a489028071f81f6efbb1ad30269696320de897` with a clean worktree; no package is READY, M02 remains IN_PROGRESS, and M00 and M01 remain ACCEPTED. M02-W10 (implement transactional control drivers) remains VERIFIED, not ACCEPTED, at exact content commit `c7d642ee9d056d729d9b1fb7b5d585980348c04a` / tree `339281269554f5886a9d763e0d23f1de0deffa2c`, with parent governance commit `c02a624b226aca7ea8d2d5efde0f5b19cff56430`.
+- W11 scope: the canonical M02-W11 objective is the bounded dynamic feasibility engine — route/page generations, batched mutation handling scoped to the accepted W08 application root, affected-subtree scanning, conditional-field discovery and removal, duplicate-action prevention over the accepted W10 transaction boundary, complete required-field reconciliation through the canonical generated `reconciliation-inventory.v1` contract and its `RECONCILIATION_READINESS` semantic rule, page-changed-value detection against verified W10 evidence, and truthful CPU/memory/scan instrumentation. W11 coordinates and never replaces W08 field identity/re-resolution, W09 classification/policy/decision authority, or W10 driver execution; it adds no second fill path. Non-goals owned elsewhere: W12 ATS research variants, W13–W15 benchmark/holdout/gate execution, M18 production engine, M19/M20 production Workday state machine and guided navigation, M24 multipage orchestration. No navigation execution, no submission, no live employer, no live AI/network path, and no Gate A execution occur in this package.
+- W10 verification chain (retained summary): the same-package internal adversarial gauntlet passed the permanent 111-unit / 13-W10 / 47-extension matrix, 16 bounded fresh probes, and exactly six killed mutations M1–M6; two identical canonical passes froze tree `339281269554f5886a9d763e0d23f1de0deffa2c`; exact-SHA content run `32772492093` succeeded on macOS 15, Ubuntu 24.04, and Windows 2025 with the complete Windows log reconciled. REQ-FORM-015 and REQ-FORM-016 remain `SCAFFOLD_ONLY` / `NOT_YET_APPLICABLE` with M18-W04 retaining production completion. Full evidence sits in docs/TEST_EVIDENCE.md § M02-W10.
+- Preserved predecessor evidence: M02-W01 through M02-W10 remain VERIFIED at their recorded trees. The W06 sanitized owner-holdout commitment, model lock, prompt registry, generated contracts, public corpus truth, and all gate reports remain untouched; no excluded private owner evidence was accessed or represented.
 - Gate posture: M02-W12 through M02-W15 remain NOT_STARTED. AUTOFILL_FEASIBILITY, RESUME_PAGEFIT_FEASIBILITY, WORKDAY_GUIDED_PRE_SUBMIT, and CROSS_PLATFORM_CORE remain NOT_EVALUATED; release remains NOT_READY. No M02 acceptance or Gate A execution occurred; the genuinely independent Autofill Feasibility Gate audit remains M02-W15.
 
 ## Milestone table
@@ -37,7 +35,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, and M02-W11 READY |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, and M02-W11 IN_PROGRESS |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -107,7 +105,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W08` | VERIFIED | tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202 | docs/TEST_EVIDENCE.md § M02-W08 | Implement semantic field identity and per-frame scanner; final content independently verified after `FABLE_CLEAR_FINAL_M02_W08_CONTENT` (hosted content run 32588226547) |
 | `M02-W09` | VERIFIED | tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412 | docs/TEST_EVIDENCE.md § M02-W09 | Implement deterministic ontology, resolver, and safety policy; final content verified by the same-session internal adversarial gauntlet after `FABLE_CLEAR_INTERNAL_M02_W09_CONTENT` (hosted content run 32747291323) |
 | `M02-W10` | VERIFIED | tree 339281269554f5886a9d763e0d23f1de0deffa2c | docs/TEST_EVIDENCE.md § M02-W10 | Implement transactional control drivers; final content verified by the same-package internal adversarial gauntlet after `CONTENT CLEAR` (hosted content run 32772492093) |
-| `M02-W11` | READY | — | — | Implement dynamic state, reconciliation, and performance instrumentation |
+| `M02-W11` | IN_PROGRESS | — | — | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | NOT_STARTED | — | — | Build ATS research variant matrix |
 | `M02-W13` | NOT_STARTED | — | — | Build autofill benchmark and clean-room baseline harness |
 | `M02-W14` | NOT_STARTED | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
@@ -382,9 +380,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W11
-- Reason: M02-W10 is VERIFIED at exact content tree `339281269554f5886a9d763e0d23f1de0deffa2c`; its direct successor M02-W11 is therefore the sole READY package, with zero packages IN_PROGRESS.
-- Required reading for the next transition: docs/MASTER_IMPLEMENTATION_SPEC.md § M02-W11, apps/extension/README.md, docs/TEST_EVIDENCE.md § M02-W10, and the W08/W09/W10 implementation and permanent browser matrices.
+- ID: NONE
+- Reason: M02-W11 is IN_PROGRESS (single-IN_PROGRESS rule; READY cannot coexist with IN_PROGRESS). M02-W12 becomes READY only after M02-W11 completes its internal gauntlet verification and is marked VERIFIED.
+- Required reading for the next transition: docs/MASTER_IMPLEMENTATION_SPEC.md § M02-W11, apps/extension/README.md, and docs/TEST_EVIDENCE.md § M02-W11.
 
 ## Known release blockers
 
