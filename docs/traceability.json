@@ -7952,8 +7952,8 @@
       "id": "M02-W11",
       "milestone": "M02",
       "title": "Implement dynamic state, reconciliation, and performance instrumentation",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree b90668b5d8eb120533be26a94817e2081b8df261",
       "direct_package_prerequisites": [
         "M02-W10"
       ],
@@ -7994,14 +7994,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W11"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W12",
       "milestone": "M02",
       "title": "Build ATS research variant matrix",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W11"

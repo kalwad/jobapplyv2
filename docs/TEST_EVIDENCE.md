@@ -33,6 +33,91 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W11 — Dynamic reconciliation engine verification and governance closeout (2026-08-25)
+
+- Revision: verified content commit
+  `36f46845b16d13e339c11478bcd387b980a5e3c3` / tree
+  `b90668b5d8eb120533be26a94817e2081b8df261` / parent governance commit
+  `3aa2dcbb126c370cdb273c995c8731277747756d`; this governance commit is
+  recorded post-commit by the containing commit.
+- Environment: macOS (Darwin 27.0.0 arm64), Node v24.18.0, pnpm 11.17.0,
+  Vitest 4.1.10, Playwright 1.62.0 bundled Chromium, WXT 0.20.27,
+  specification JAPP-MASTER-001 v1.4 SHA-256
+  `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+- Content freeze: after the honestly recorded invalidated first freeze
+  (writer entry below), the corrected candidate was staged at index tree
+  `b90668b5d8eb120533be26a94817e2081b8df261` and the complete canonical
+  sequence ran twice in required order against those identical tracked
+  bytes with zero intervening edits — canonical pass 1 and canonical
+  pass 2 each: `python3 scripts/check_portability.py` PASS;
+  `python3 scripts/validate_status.py` **45 check groups**;
+  `pnpm traceability:check` **193 requirements / 300 work packages**;
+  `pnpm generate:contracts --check` **183 files byte-identical**;
+  `pnpm run doctor` **24 pass / 1 expected dirty-tree warning / 0 fail /
+  1 not-yet-applicable**; `pnpm verify` verification exit 0 with all
+  **17 ACTIVE suites PASS** (extension **169**, form engine **77**,
+  contracts **2440** plus replay **662**, mock ATS lab **32**, browser
+  **116**, POSIX Python **1390**, Rust **1 + 10**), visual honestly
+  NOT_YET_APPLICABLE; `git diff --check` clean; and the re-staged
+  `git write-tree` fingerprint byte-identical
+  (`b90668b5d8eb120533be26a94817e2081b8df261`) after each pass.
+- Content commit and hosted proof: exactly one content commit
+  `36f46845b16d13e339c11478bcd387b980a5e3c3` ("M02-W11: implement dynamic
+  reconciliation engine") on the required parent
+  `3aa2dcbb126c370cdb273c995c8731277747756d`, pushed normally with
+  HEAD == origin/main and ahead/behind 0/0. Exact-SHA push run
+  `32806146591` — Ubuntu 24.04 job `97676527602` SUCCESS (16m58s),
+  Windows 2025 job `97676527853` SUCCESS (29m03s), macOS 15 job
+  `97676527969` SUCCESS (18m08s). The complete 3,953-line /
+  835,630-byte Windows raw log has SHA-256
+  `77e7eadee3ecbb27520fadf6f2bde47b58aa0361d9d0464c2b467cb95830ea1e`;
+  complete-line reconciliation found all 10 W11 real-MV3 scenario groups
+  (the corrected VIRT1/VIRT2 scenario ran 7.9 s on Windows, comfortably
+  inside its explicit 60 s budget), extension **169/169**, form engine
+  **77/77**, contracts **2440/2440** plus replay **662/662**, mock ATS
+  lab **32/32**, browser **116 passed**, the expected Windows/common
+  Python inventory **1388/1388**, Rust **1 + 10**, every ACTIVE suite
+  PASS, visual NOT_YET_APPLICABLE, `verification exit code: 0`, the
+  tracked-clean assertion, and zero GitHub error or nonzero-process
+  annotations; the only failure-pattern lookalike ("Tests  49 passed
+  (50)") is a pytest parameter ID inside the negative
+  `test_vitest_proof_accepts_only_ordinary_pass_summaries` case and is
+  benign.
+- Final internal verifier: a fresh `git clone --no-local --no-hardlinks`
+  at the exact hosted-green content SHA (inode isolation confirmed by
+  direct stat comparison) passed extension typecheck (exit 0), extension
+  units **169/169**, form engine **77/77**, and the complete extension
+  browser suite **57/57** (10 W11 scenarios plus all retained
+  W07/W08/W09/W10 suites), and remained tracked-clean. M1–M6 were not
+  re-run because no implementation byte changed after their kills — the
+  only post-kill change was the single retained-test timeout budget.
+- Lifecycle simulation: a second fresh `git clone --no-local
+  --no-hardlinks` at the same SHA applied the exact governance
+  transition (M02-W11 IN_PROGRESS → VERIFIED at tree
+  `b90668b5d8eb120533be26a94817e2081b8df261`; M02-W12 NOT_STARTED →
+  READY; sole-READY/zero-IN_PROGRESS preserved; REQ-FORM-015/016 W10
+  partial and REQ-FORM-017/023 W09 partial states untouched; all four
+  critical gates NOT_EVALUATED; release NOT_READY) and passed
+  `python3 scripts/validate_status.py` (**45 check groups**),
+  `pnpm traceability:check` (**193 / 300**), and `pnpm verify`
+  (verification exit 0, all 17 ACTIVE suites PASS, browser **116**,
+  POSIX Python **1390**).
+- Governance: this closeout changes project-memory files only
+  (docs/PROJECT_STATUS.md, docs/TEST_EVIDENCE.md, docs/traceability.json,
+  regenerated docs/REQUIREMENTS_TRACEABILITY.md); no implementation or
+  permanent-test byte changed during governance. States governed:
+  M02-W11 VERIFIED, M02-W12 sole READY, zero IN_PROGRESS, M02
+  IN_PROGRESS, all four critical gates NOT_EVALUATED, release NOT_READY.
+  This package's verification is SAME-SESSION INTERNAL ADVERSARIAL
+  GAUNTLET VERIFICATION — writer and internal verifier alternating in
+  one session with a fresh-context verifier pass, bounded fresh probes,
+  and a bounded mutation gauntlet — and is explicitly NOT the genuinely
+  independent M02-W15 Autofill Feasibility Gate audit, which remains
+  NOT_STARTED. No compatibility or ATS support claim is made; no
+  navigation execution, submission, live employer, live AI/network path,
+  or Gate A execution occurred; no `$HOME/.jobapplyv2-eval` owner
+  holdout evidence was accessed.
+
 ### M02-W11 — Dynamic reconciliation engine writer evidence (2026-08-24)
 
 - Revision: writer working tree on governance commit
