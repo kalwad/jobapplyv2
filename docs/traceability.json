@@ -8006,8 +8006,8 @@
       "id": "M02-W12",
       "milestone": "M02",
       "title": "Build ATS research variant matrix",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 25f4128163ec73a91afd54a15c026b38d4187e5a",
       "direct_package_prerequisites": [
         "M02-W11"
       ],
@@ -8050,14 +8050,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W12"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W13",
       "milestone": "M02",
       "title": "Build autofill benchmark and clean-room baseline harness",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W12"

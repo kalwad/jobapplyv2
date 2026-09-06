@@ -33,6 +33,180 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W12 — ATS research matrix content proof and governance closeout (2026-09-06)
+
+**Completed prerequisite evidence for authoritative project-memory governance.** Content, both frozen canonical passes, exact-content three-OS CI, final internal verification and lifecycle simulation are green. The sole writer records the W12 VERIFIED / W13 sole READY transition below. Verification is **SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION**, not independent Gate A review. Owner-selected GPT-6 Astra Ultra remains unchanged; finite discovery is closed.
+
+Environment: macOS arm64; Node24.18.0, pnpm11.17.0, uv0.11.32, Python3.12.13, Rust1.97.1, Vitest4.1.10, Playwright1.62.0 bundled Chromium, WXT0.20.27. JAPP-MASTER-001 v1.4 SHA-256 remains `3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943`.
+
+Starting boundary: governance commit `2f4c54bb12faf1bb25b200663776bf3fd49442e0`, tree `1aa6d1e7ef171c99fcb67ee8e121886f89f26ef8`, parent `36f46845b16d13e339c11478bcd387b980a5e3c3`; fetched main equaled origin/main, clean ahead/behind 0/0. Bootstrap found M00/M01 ACCEPTED, M02 IN_PROGRESS, W01–W11 VERIFIED, W12 sole READY, zero IN_PROGRESS and W13–W15 NOT_STARTED. During writing, the state was W12 sole IN_PROGRESS, zero READY; all four gates remain NOT_EVALUATED and release NOT_READY.
+
+Mechanical `owning_packages` enumeration found **zero directly W12-owned requirements**. All **193 requirement objects** remain identical to the starting boundary, including ownership, text, evidence, dependencies and gate effects; W12 completion follows its package contract/M02 verification matrix. Governance is limited to project memory: PROJECT_STATUS, TEST_EVIDENCE, traceability JSON/generated Markdown, KNOWN_ISSUES only if required, and COMPATIBILITY_MATRIX only if canonical research conventions warrant it. No appropriate compatibility research section was found, so that file remains unchanged. No implementation/test/fixture changes are allowed during governance.
+
+The frozen public parent is preserved recursively: **103 source artifacts / 1,530,479 bytes / 683 stable identities / 24 schema identities**. W12 is a typed append-only expansion under `packages/ats-adapters/research/`, bound to W06; published same-version rewrites are rejected, the next version requires a full major increment, and changed expectations invalidate evidence. No global schema/version index/frozen expected output changed. W06 semantic digest `sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`, coverage digest `sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a`, source tree `2d52740dc164c51d7b3741b91045095bf92c8441` are preserved.
+
+| Inventory | Prior corpus | New W12 research / resulting count |
+|---|---:|---|
+| Development forms/variants | 32 | 200 new; 232 cumulative synthetic development variants |
+| Routes / surface tags / transition clauses | 16 / 37 / 67 | Parent preserved; not recounted as new credit |
+| Baseline cases / fixture records | 34 / 617 | Parent preserved; not recounted as new credit |
+| ATS-specific research variants | 0 | Workday 80; Greenhouse 40; Lever 40; Ashby 40 |
+| Prepared / sensitive-prohibited / honeypot controls | No scored W12 control inventory | 4,060 / 720 / 200 prepared, unscored |
+| Dynamic / validation / session / navigation-identification cases | Generic behavior retained | 200 each |
+| Repeater / upload-parser / page-generation / protected-unknown cases | Generic behavior retained | 60 / 80 / 50 / 50 |
+| Scored controls / public-manual runs / holdout runs | 0 / 0 / 0 | 0 / 0 / 0; owner inventory NOT_ACCESSED |
+
+The 617 prior fixture records comprise 12 profiles, 72 evidence, 12 resumes, 24 jobs, 72 expected requirements, 77 supported claims, 31 gaps, 69 policies, 36 bundles, 144 questions, 10 constraints and 58 answer scenarios. Matrix version **1.0.0**, semantic digest `sha256:e1f343f92e0666d61d2a6c904759cb4d52d7e2d1276f00fd36729af9b1978c73`, raw SHA-256 `db445837fb884a41b1bc21a8afd94af00654ff42362b920dfe01931de5e0e166`, binds source bytes, IDs, fixture paths/versions/fragments, expectations and structural signatures. All **200 structural signatures** remain distinct after removing prose/research metadata/class/lang/ARIA labels; historical authoring provenance remains NOT_REVIEWED rather than being rewritten by later review.
+
+Workday is the largest/broadest slice: **80 variants**, GROUPED/REORDERED/NESTED/SEPARATED layouts; en-US/en-GB/de-DE/fr-CA and US/GB/DE/CA address/date/country differences; **11 steps / 12 session classes**, including reordered, combined and omitted steps without assuming one universal sequence. Greenhouse, Lever and Ashby each contribute **40 structural variants / two locales** with real-MV3 generic-core regressions. Each canonical pass exercised Workday 80 (60 filled/20 paused) and each other family 40 (30 filled/10 paused); every family recorded zero navigation activations and zero scored controls.
+
+The adapter is immutable, DOM-free, `RESEARCH_ONLY / NOT_CERTIFIED`, `productionSupport=false`, with no selectors/action API/navigation authority. Family classification needs two distinct ROUTE/SHELL/STRUCTURE sources; step classification needs two distinct ROUTE/HEADING/PROGRESS/FIELD_CONCEPTS sources with unanimous results. Repeated single-source, contradictory, mixed-family, malformed and missing/unknown evidence pauses. Step eligibility grants no execution authority. W08 descriptors and W09-approved synthetic FIRST_NAME decisions enter unchanged W10 transactions/W11 reconciliation; no accepted W07–W11 generic-core source or parallel fill path changed. Missing ATS hints do not disable separately approved generic fills.
+
+Session evidence includes **50 each GUEST/AUTHENTICATED/RETURNING_CANDIDATE**, plus **50 protected/unknown** cases spanning SIGN_IN, CREATE_ACCOUNT, EMAIL_VERIFICATION, MFA, CAPTCHA_OR_BOT_CHALLENGE, SESSION_EXPIRED, DUPLICATE_APPLICATION, PRIVACY_OR_TERMS and UNKNOWN. All nine overlays dominate stale guest metadata and pause with zero action. Contradictory/cross-family/single-source cases reject deterministically.
+
+**Repeaters:** 60 variants, work experience/education/skills-languages, with actual matrix operations in 12 family/class combinations: edit, add, duplicate suppression, reorder/rerender, stable semantic item targeting, parser ambiguity refusal and required-field reconciliation. Accepted W10 controllers and stable item labels remain authoritative; no DOM-index identity. **Upload/parser:** 80 variants—40 add-row, 20 duplicate-existing-row, 20 rejection—exercise delayed/partial population and fresh scan/reconciliation; selection alone cannot turn rejection into VERIFIED, repeated requests suppress and ambiguous records refuse writes.
+
+**Validation/dynamics:** 100 clear/50 required-missing/50 server-rejected; 50 each delayed rerender, conditional insertion, page-generation change and long-session mutation burst. Actual errors, required controls, site-cleared values and stale generations exercise W10 postconditions and W11 reconciliation; EXECUTED dispatch is distinct from VERIFIED driver result. **Navigation identification only:** UNIQUE50/MISSING110/UNSAFE30/AMBIGUOUS10; `Next` matches, while `Save and continue`/`Review application` remain MISSING. Buttons are inert `type=button`; navigation activations and submissions are zero.
+
+Sanitization passed all **200 rendered fragments / 1,121,465 bytes**, with negative controls for emails, external URLs, handlers/scripts and credential/token patterns. Authoring remains synthetic because regex checks cannot identify every personal name. No real PII, authenticated capture, private HTML, credentials, live employer, public/manual evaluation, private-owner evidence access or existence test, holdout execution, Simplify comparison, scoring or production-support claim occurred. No new AI/provider capability or application-network authority was introduced. Telemetry checks found no raw HTML/email/token/secret indicators. Closed ontology/visibility/512-control (KI-0063) and navigation-name limitations retain later owners: W13 harness, W14 evaluation, W15 independent Gate A, M19–M23 production certification; W13 was not implemented.
+
+Generic regression: focused ATS65 + extension169 + form-engine77 = **311** units; with unchanged evaluation-runner290, **601** pass. Permanent extension browser coverage is **66** (57 retained W07–W11 + nine W12); the finite replay passes **69** with the original three browser probes. Tests use real WXT-built MV3, persistent bundled Chromium, service worker and content agents; sensitive/prohibited/honeypot controls remain unchanged and unknown/cross-ATS cases fail closed.
+
+Exactly one finite reviewer at a time used A–N and **16 fresh probes**, reused throughout all **four correction rounds**: P1 frozen core/corpus; P2 sanitization; P3 duplicate IDs; P4 digest/signatures; P5 Workday dimensions; P6 step ambiguity/single-source; P7 protected sessions; P8 actual repeaters; P9 absent action/navigation authority; P10 bounded workload; P11 cross-family isolation; P12 immutable research-only authority; P13 stale-guest/MFA collector; P14 unknown ATS plus approved generic fill; P15 delayed-parser duplicate after reorder; P16 telemetry/privacy. Original P1–P16 all PASS; no seventeenth probe/new category or discovery after CONTENT CLEAR.
+
+Rounds 1–2 resolved P8/P13 PACKAGE_BLOCKERs and PROJECT_STATUS DIRECT_REGRESSION (KI-0064–KI-0066), then canonical imported-`it.each` integrity DIRECT_REGRESSION KI-0067 using literal identical 12-session/11-step/four-family cases. Invalidated freeze `2da677733fa79e66d80360d7298994b6ae5c9af6` is retained: verify exit1/628.588s, Python1 failed/1389 passed, browser125 passed (`/tmp/w12-evidence/invalidated-freeze1/`). **CI correction1 / round3** split the same nine corruption validations into independent default-5s tests (ATS57→65) and bounded ATS file concurrency. **CI correction2 / round4** only bounded evaluation-runner file concurrency using `vitest run --no-file-parallelism --maxWorkers=1`; runner290, years0000–9999, independent reference, assertions and default5000ms deadlines are unchanged. No retries-to-green, skips or weakened tests; runtime/manifest/fixtures remain unchanged.
+
+Round4 CONTENT CLEAR report `/tmp/w12-internal-verifier-ci2-clear.md` targets candidate `56f93f87ef569854709114226be2a4f502719049`, tree `e1b14ca69d2a320b38c2b89ee313483d3c4f8eaf`, parent268d954; independent `.git`, no alternates, three packed objects/zero hardlinks and tracked bytes unchanged. Original16 PASS, units601 PASS (runner4.29s), real-MV3 69 PASS/3.4min, integrity PASS, status45 groups PASS; root integrity/traceability oracle107 PASS/85.33s. The Windows reconciliation addendum only records existing evidence; no new probe/test/candidate change. No finite PACKAGE_BLOCKER or DIRECT_REGRESSION remains. `measurement-boundaries.test.ts` SHA-256 stays `689c8b77585a779ef8704a56b4ea118bf9d4f686becbf0d41773df54fd727a98`.
+
+| Mutation family, replayed after each required correction | Required failure evidence |
+|---|---|
+| M1 one-signal step classifier | WD2/M1 rejects |
+| M2 unsafe-session upgrade | WD4–WD10/M2 reject |
+| M3 action authority | MATRIX10/M3 rejects |
+| M4 manifest validator bypass | Rehashed bad family/count/parent/expected negatives reject |
+| M5 duplicate-ledger bypass | Actual MV3 WD12 requires DUPLICATE_SUPPRESSED, rejects EXECUTED |
+| M6 wrong-family acceptance | MATRIX8/M6 rejects |
+
+All **six KILLED, exit1, original bytes restored, clones tracked-clean**; no seventh family. Current records `/tmp/w12-evidence/ci-correction2-mutations/mutations.json`. Restored SHA-256: adapter `9f112d44cf5e9afc90c8102f05183365cfee13f1fa25debbd3407439f36beaf6`; manifest implementation `8bed673a745bec71d86813ff17e2de84619caf3b89549a309740e79b2edd000a`; dynamic engine `3abd5b56d50ee64f1ad674ebc97e720f5eb970b107e721cc4525a1f6ed58b16b`. Dynamic-engine mutation existed only in disposable clones.
+
+The bounded long-session workload uses **256 genuine route/page cycles**, nine samples every32 cycles, conditional insertion/removal, 256 actions +256 duplicate attempts and registry-bound128 crossings. CPU is CDP Performance.TaskDuration; heap is CDP JSHeapUsedSize after explicit GC. In-page process CPU is unavailable (`NO_IN_PAGE_PROCESS_CPU_SOURCE`), not zero. These are synthetic research measurements, not a production soak/certification or scored benchmark.
+
+| Measurement | Round4 finite reviewer | Final canonical pass1 | Final canonical pass2 |
+|---|---:|---:|---:|
+| Workload duration (ms) | 37,034 | 36,832 | 37,548 |
+| CPU start→end (s) | 0.009925→2.138461 | 0.003734→2.020334 | 0.008649→2.062147 |
+| CPU delta (s) | 2.128536 | 2.016600 | 2.053498 |
+| After-GC heap start→end (bytes) | 2,594,684→3,716,368 | 2,594,684→3,716,356 | 2,594,684→3,716,376 |
+| Heap delta / peak (bytes) | 1,121,684 / 3,716,368 | 1,121,672 / 3,716,356 | 1,121,692 / 3,716,376 |
+| Total scan time (ms) | 249 | 243 | 242 |
+
+Both canonical endpoints: route/page/root generation256 and DOM observation257; callbacks256, records13,027, batches256, nodes12,301, descriptors1,027, discovered1,024/removed1,023; actions considered512/executed256/duplicates256, reconciliations256; inventory4/ledger1/registry128/queue0/peak51; full-document scans0/root rescans257 (initial1+route256), replacement/overflow0, records during action0/action-origin batches0. No duplicate action or unbounded retained-state growth was observed in this workload.
+
+**Final frozen content fingerprint:** `25f4128163ec73a91afd54a15c026b38d4187e5a`. Both canonical passes are completed GREEN with the same ending fingerprint. Pass1 `2026-09-06T17:23:38.754607-04:00`→`2026-09-06T17:33:39.879037-04:00`; pass2 `2026-09-06T17:33:39.879213-04:00`→`2026-09-06T17:43:39.776234-04:00`. Exact seven-command records `/tmp/w12-evidence/canonical-passes.json`:
+
+| Canonical command | Pass1 exit / seconds | Pass2 exit / seconds |
+|---|---:|---:|
+| `python3 scripts/check_portability.py` | 0 / 0.556 | 0 / 0.569 |
+| `python3 scripts/validate_status.py` | 0 / 0.081 | 0 / 0.103 |
+| `pnpm traceability:check` | 0 / 0.420 | 0 / 0.350 |
+| `pnpm generate:contracts --check` | 0 / 0.540 | 0 / 0.548 |
+| `pnpm run doctor` | 0 / 4.973 | 0 / 4.760 |
+| `pnpm verify` | 0 / 594.406 | 0 / 593.408 |
+| `git diff --check` | 0 / 0.006 | 0 / 0.006 |
+
+Both aggregates passed **all17 ACTIVE suites**: toolchain/format/lint/typecheck/unit-ts/contract-gen/fixture-corpus/evaluation-corpus/contract/build/e2e-browser/python/rust/portability/traceability/status/integrity; visual NOT_YET_APPLICABLE. Counts: ATS65, extension169, form77, contracts2440/replay662, mockATS32, runner290, baselines171, evaluation-corpus207, fixtures166, browser125, POSIX Python1390, Rust1+10. Full-line summaries: pass1 **3,140 lines/309,508 bytes**, SHA-256 `5d81064f08f0ed7c8fe950d1e936935dcfbe2dca05d3dc778715318b07c94120`; pass2 **3,140 lines/309,444 bytes**, SHA-256 `444daa879e8f5a08a036fe7ef29116aeb7d250b4b97c7377fb00e8b1f80708c1`. Sources `/tmp/w12-evidence/canonical-pass1-6.summary.json` and `canonical-pass2-6.summary.json`; all individual log hashes are in the seven-command record.
+
+Content chain: starting governance `2f4c54bb12faf1bb25b200663776bf3fd49442e0` → original content `475dcb69e5f31caa8ea941980396d2c250d6c2c5` (tree `7dfd4c037f7fc8da86229ff5c1ae6fd6ea0bb728`) → correction1 `268d954ef5bf6bb1ea3d0b630b47dab9178659e5` (tree `e33b5dff0383906a219c8871404a01dee103ed10`) → **final correction2 `925c7b27cda71802ad9215984c0306cfe3f92d86`**, tree **`25f4128163ec73a91afd54a15c026b38d4187e5a`**, parent **`268d954ef5bf6bb1ea3d0b630b47dab9178659e5`**. Final title “M02-W12: bound retained evaluation test concurrency”; `/tmp/w12-evidence/content-commit.json` records main==origin/main, empty status and ahead/behind0/0. Only evaluation-runner package.json plus KNOWN_ISSUES/TEST_EVIDENCE changed since268d954.
+
+| Preserved failed hosted history | macOS | Ubuntu | Windows |
+|---|---|---|---|
+| Run34056407698 / content475dcb6 | 101549006097 SUCCESS18m55s | 101549006289 FAILURE18m12s | 101549006261 SUCCESS26m22s |
+| Run34059370913 / content268d954 | 101557017873 SUCCESS21m04s | 101557017908 FAILURE16m35s | 101557017782 FAILURE27m52s |
+
+First Ubuntu run exceeded unchanged5000ms with the nine-validation W12 test5561ms and retained runner5142ms; later Ubuntu calendar6047ms and Windows paired-count5078ms likewise timed out, with other16 ACTIVE suites/browser125 passing. The two package-scoped test-portability corrections above preserve assertions/default deadlines. Full history is in existing TEST_EVIDENCE entries “ATS research variant matrix writer and finite internal gauntlet,” “Hosted test-portability correction 1,” and “Retained-suite test-portability correction 2”; original canonical/commit records are archived under `/tmp/w12-evidence/content-475dcb6/` and `/tmp/w12-evidence/content-268d954/`. Original Windows full log4109lines/876775bytes has SHA-256 `aaf1974ea30de65fc4847f3237f19350b3070e3a1f7114211a0c1c710528e849`; preceding failed Windows log3862lines/456621bytes has SHA-256 `27aff88362e9832793ea0864d893691914aadba4585fc2eaaf678cc2c65e7b51`. Neither historical result substitutes for final-content proof.
+
+#### Final content three-OS CI — completed GREEN
+
+Exact-head run **[34061964397](https://github.com/kalwad/jobapplyv2/actions/runs/34061964397)** completed **SUCCESS** at final content **`925c7b27cda71802ad9215984c0306cfe3f92d86`** / frozen tree **`25f4128163ec73a91afd54a15c026b38d4187e5a`**. `/tmp/w12-evidence/content-ci-proof.json` and `/tmp/w12-evidence/content-ci-final-final.json` agree on run/head identity and final conclusions. All three jobs passed the environment doctor, canonical aggregate verification and “Assert verification left no tracked changes” steps; existing proof records all job steps inspected.
+
+| Platform | Job ID | Result / duration | ACTIVE / ATS / browser / Python | Aggregate exit / tracked-clean |
+|---|---|---|---|---|
+| macOS15 | `101563955678` | SUCCESS / 0:18:25 | 17 PASS / 65 / 125 / 1,390 | 0 / SUCCESS |
+| Ubuntu24.04 | `101563955797` | SUCCESS / 0:19:50 | 17 PASS / 65 / 125 / 1,390 | 0 / SUCCESS |
+| Windows2025 | `101563955816` | SUCCESS / 0:33:55 | 17 PASS / 65 / 125 / 1,388 | 0 / SUCCESS |
+
+| Complete raw job log | Lines / bytes | SHA-256 |
+|---|---:|---|
+| `/tmp/w12-evidence/content-ci-final-macos.log` | 3,916 / 455,839 | `d73a04896c95911b20568462d3a005f4d7b7fc111160a5a3de82ff36a6649075` |
+| `/tmp/w12-evidence/content-ci-final-ubuntu.log` | 4,270 / 488,356 | `9e50adffe96a52520e47b01a4195250cb727eddad711d88551dad3a1e870fd27` |
+| `/tmp/w12-evidence/content-ci-final-windows.log` | 4,009 / 470,899 | `58ff21d8eaf94ec1585996588e19d5a716d4013c319a98f6417de307bb1e9bbf` |
+
+Each existing `content-ci-final-{macos,ubuntu,windows}.summary.json` and matching `.inspection.json` records **every line processed**, agreeing on byte/line counts and SHA-256; every inspection has **`errors: []`**. Windows proof is the complete **4,009-line / 470,899-byte** raw log, not a tail or failed-log excerpt. Its aggregate is exit0 with all17 ACTIVE suites PASS and the tracked-clean step SUCCESS. macOS/Ubuntu report POSIX Python1,390; Windows reports common/platform Python1,388. Visual remains honestly NOT_YET_APPLICABLE on every platform.
+
+Shared per-OS counts: ATS65, extension169, form-engine77, contracts2440/replay662, mockATS32, evaluation-runner290, baselines171, evaluation-corpus207, fixtures166, browser125, Rust1+10. All17 ACTIVE suites are toolchain, format, lint, typecheck, unit-ts, contract-gen, fixture-corpus, evaluation-corpus, contract, build, e2e-browser, python, rust, portability, traceability, status and integrity. Each platform exercised Workday80 (60 filled/20 paused), Greenhouse40 (30/10), Lever40 (30/10), Ashby40 (30/10); navigation activations0 and scored controls0.
+
+| Hosted bounded research metric | macOS | Ubuntu | Windows |
+|---|---:|---:|---:|
+| 256-cycle workload duration (ms) | 51,122 | 49,001 | 54,920 |
+| CDP TaskDuration start→end (s) | 0.005599→3.518720 | 0.010125→3.602843 | 0.008165→4.582369 |
+| CPU delta (s) | 3.513121 | 3.592718 | 4.574204 |
+| After-GC heap start→end (bytes) | 2,762,268→3,884,060 | 2,591,172→3,707,800 | 2,592,644→3,710,040 |
+| After-GC heap delta / peak (bytes) | 1,121,792 / 3,884,060 | 1,116,628 / 3,707,800 | 1,117,396 / 3,710,040 |
+| Scan time (ms) | 263 | 268 | 272 |
+
+All three hosted endpoints retain callbacks256/records13,027/batches256/nodes12,301/actions256/duplicate suppressions256/full-document scans0/root scans257/queue0/peak51/ledger1/registry128. In-page CPU remains unavailable (`NO_IN_PAGE_PROCESS_CPU_SOURCE`); CPU and heap above come from the explicit CDP sources. Hosted measurements remain bounded synthetic research and imply no production soak, live ATS, navigation or scored-benchmark claim. Prior failed runs remain historical and separately SHA-scoped. The exact-final-SHA internal reviewer completed CONTENT CLEAR; its full proof follows. Fresh lifecycle simulation completed GREEN as recorded below.
+
+#### Final exact-hosted-SHA internal verifier — completed CONTENT CLEAR
+
+Report `/tmp/w12-internal-verifier-hosted-final-clear.md` gives **CONTENT CLEAR** at exact three-OS-green SHA **`925c7b27cda71802ad9215984c0306cfe3f92d86`**, tree **`25f4128163ec73a91afd54a15c026b38d4187e5a`**, parent **`268d954ef5bf6bb1ea3d0b630b47dab9178659e5`**. Fresh clone `/private/tmp/jobapplyv2-w12-hosted-final925` was created with `git clone --no-local --no-hardlinks` and detached at that SHA: independent `.git`, no alternates, three packed-object files, zero hardlinked object files. SHA/tree/parent and tracked bytes remained unchanged; original verifier files were untracked only in this disposable clone. Main was not edited.
+
+The reviewer inspected final run34061964397/head925c7b2/job/step artifacts and confirmed all three successful doctor/aggregate/tracked-clean steps; complete Windows raw-log inspection remains the separately recorded coordinator evidence above. Of **771 tracked paths** compared against cleared round4 candidate `56f93f87ef569854709114226be2a4f502719049`, only `docs/KNOWN_ISSUES.md` and `docs/TEST_EVIDENCE.md` differ. All **710 runtime/test/fixture/tooling paths** in the focused comparison match byte-for-byte, including both package concurrency commands, every assertion, years0000–9999, fixtures and manifest.
+
+| Exact final-clone command | Completed result / existing evidence |
+|---|---|
+| `pnpm install --offline --frozen-lockfile` | PASS; reviewer tool output |
+| `pnpm verify --suite integrity` | ACTIVE PASS/exit0 before verifier files; `/tmp/w12-verifier-hosted-final-integrity.log` |
+| `pnpm --filter @japp/ats-adapters --filter @japp/extension --filter @japp/form-engine --filter @japp/evaluation-runner test` | 601 PASS: ATS65/extension169/form77/runner290; `/tmp/w12-verifier-hosted-final-units.log` |
+| `node verifier-probes.ts` | Original P1–P12 PASS; `/tmp/w12-verifier-hosted-final-static.log` |
+| `pnpm exec playwright test e2e/extension` | 69 PASS/3.5minutes: 66 permanent/retained + original P13–P15; `/tmp/w12-verifier-hosted-final-browser.log` |
+| Original Python P16 telemetry extraction/check | PASS; `/tmp/w12-verifier-hosted-final-performance.json` |
+| `python3 scripts/validate_status.py` | 45 groups PASS; `/tmp/w12-verifier-hosted-final-status.log` |
+| `git diff --exit-code`, `git diff --check` | PASS; tracked bytes unchanged |
+
+Original **P1–P16/A–N all PASS**; exactly16 fresh probes and four correction rounds remain the finite totals. Newly built WXT MV3/persistent bundled Chromium/service worker/content scripts exercised all200 variants (80/40/40/40), all12 actual ATS/repeater-class combinations, retained W07–W11 regressions and protected overlays. P13's collector was regenerated verbatim from the canonical browser function and returns PAUSE/SESSION_BOUNDARY. The unfiltered290 runner cases include both previously affected UTC-range and paired-count cases with original assertions/default deadlines, no raised timeout or skipped case. No unresolved PACKAGE_BLOCKER or DIRECT_REGRESSION remains; no seventeenth probe, new category or recursive reviewer was introduced.
+
+**M1–M6 applicability is unchanged:** the final reviewer inspected `/tmp/w12-evidence/ci-correction2-mutations/mutations.json`, confirmed all six recorded kills/exit1 at round4 candidate56f93f87, and independently matched each restoration digest to current source bytes. With implementation and tests byte-identical, owner§52 requires no additional mutation replay; no seventh family was run. Prepared inventory4060/720/200, scored0, cumulative232 development variants and semantic manifest `sha256:e1f343f92e0666d61d2a6c904759cb4d52d7e2d1276f00fd36729af9b1978c73` remain unchanged.
+
+Final P16: **256 iterations / 37,956ms / nine samples**; CDP Performance.TaskDuration **0.006655→2.067000s**, delta **2.060345s**; after-GC CDP JSHeapUsedSize **2,594,732→3,716,228bytes**, peak **3,716,228**, delta **1,121,496**. Endpoint callbacks256/records13,027/batches256/nodes12,301/scan246ms/actions256/duplicates256/full-document scans0/root scans257 (initial1+route256)/queue0/peak51/ledger1/registry128. In-page CPU remains unavailable (`NO_IN_PAGE_PROCESS_CPU_SOURCE`); no raw HTML/email/token/secret indicator. Navigation activations0; no private-owner/public-employer/Simplify/credential/navigation/submission execution or production-support/external-evaluation claim. These are bounded W12 research measurements.
+
+The final reviewer released the browser port and cleared the exact hosted-green content. This remains **SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION**, not independent M02-W15/Gate A. Discovery stays closed. The verifier itself left W12 IN_PROGRESS and W13 NOT_STARTED; the subsequent simulated and governed transition is recorded below. Gates remain NOT_EVALUATED and release NOT_READY.
+
+#### Exact-content lifecycle simulation — completed GREEN
+
+Fresh clone `/tmp/jobapplyv2-w12-lifecycle-final` was created with `git clone --no-local --no-hardlinks`, detached at final content `925c7b27cda71802ad9215984c0306cfe3f92d86` / tree `25f4128163ec73a91afd54a15c026b38d4187e5a`. It has independent objects, no alternates and three packed-object files with link count1. `/tmp/w12-evidence/lifecycle-final.json` records **GREEN**, W12 VERIFIED, W13 sole READY and zero IN_PROGRESS.
+
+| Simulation command | Exit / seconds |
+|---|---:|
+| Isolated clone / detach exact content | 0 / 0.283; 0 / 0.061 |
+| `pnpm install --offline --frozen-lockfile` | 0 / 1.024 |
+| Memory-only lifecycle transition | 0 / 0.037 |
+| `pnpm traceability:generate` | 0 / 0.510 |
+| `python3 scripts/validate_status.py` | 0 / 0.081; 45 groups PASS |
+| `pnpm traceability:check` | 0 / 0.367 |
+| `pnpm verify` | 0 / 645.762; all17 ACTIVE PASS |
+| `git diff --check` | 0 / 0.015 |
+
+The complete simulation aggregate log has **3,222 lines / 312,743 bytes**, SHA-256 `62795c9c909654be2c32f0b77a97507cdc5a585fd4c692d2e7b5bde36e560721`. `/tmp/w12-evidence/lifecycle-commands.json` and `lifecycle-verify.summary.json` record all command exits and full-line reconciliation: ATS65, extension169, form77, contracts2440/replay662, mockATS32, runner290, baselines171, evaluation-corpus207, fixtures166, browser125, POSIX Python1390, Rust1+10; visual NOT_YET_APPLICABLE. Matrix80/40/40/40, zero navigation/scoring and bounded256-cycle reconciliation remain green.
+
+Simulation changed only PROJECT_STATUS, traceability JSON and generated REQUIREMENTS_TRACEABILITY Markdown. All193 requirement objects, unrelated work-package objects and every dependency remained identical; implementation/test/fixture bytes were unchanged. It preserved M00/M01 ACCEPTED, M02 IN_PROGRESS, W01–W12 VERIFIED, W14/W15 NOT_STARTED, all four gates NOT_EVALUATED and release NOT_READY. No implementation/test correction was required.
+
+#### Authoritative project-memory transition
+
+The sole writer applies that successful transition to exactly **four** governance files: `docs/PROJECT_STATUS.md`, `docs/TEST_EVIDENCE.md`, `docs/traceability.json` and generated `docs/REQUIREMENTS_TRACEABILITY.md`. W12 is VERIFIED at content tree `25f4128163ec73a91afd54a15c026b38d4187e5a`; W13 is the sole READY package; zero work packages are IN_PROGRESS. All193 requirements, all unrelated package objects, dependency edges, gates and release posture are preserved. W13 implementation has not begun.
+
+This entry records the completed prerequisites and memory transition. Governance's seven canonical commands, immutable staged fingerprint, sole forward governance commit parented by final content925c7b2, exact-governance three-OS CI and final authoritative audit are recorded in the session's external evidence and final report, avoiding self-referential commit identifiers in committed bytes. Governance verification must preserve this four-file ceiling. This remains **SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION**; independent M02-W15/Gate A, scored evaluation, public employer work, private holdout access, Simplify comparison, automatic navigation/submission and production ATS certification were not performed.
+
+
 ### M02-W12 — Retained-suite test-portability correction 2 (2026-09-06)
 
 - Preceding run34059370913 final hosted history at268d954: macOS15 job101557017873 SUCCESS in21m04s; Ubuntu24.04 job101557017908 FAILURE in16m35s; Windows2025 job101557017782 FAILURE in27m52s. Every job and required step was inspected; both failing hosts passed doctor but failed aggregate and correctly skipped the tracked-clean step. macOS passed all17 ACTIVE, all package counts,125 browser/1390 Python, exit0 and tracked-clean. Its complete log3936 lines/458190bytes SHA-256 `52fabb6b2a3f101dd0f46c14a70868b052262c9cc095e3c2f26bf5a84a6e3638` had no error annotations.

@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W12 writer from governance commit 2f4c54bb12faf1bb25b200663776bf3fd49442e0
-Last updated: 2026-09-06T15:04:20-04:00
+Repository revision: M02-W12 governance on verified content 925c7b27cda71802ad9215984c0306cfe3f92d86
+Last updated: 2026-09-06T18:42:56-04:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: M02-W12
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,10 +23,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W12 (build ATS research variant matrix) is IN_PROGRESS from W11 governance commit `2f4c54bb12faf1bb25b200663776bf3fd49442e0`. M02-W01 through M02-W11 remain VERIFIED; M00/M01 remain ACCEPTED.
-- Scope: sanitized research-only Workday-first variants, generic W08–W11 execution, bounded same-package internal adversarial verification, exact-SHA hosted proof, then governance. W12 owns no direct requirement rows.
-- Current evidence: adapter and manifest tests, real built-MV3 matrix, frozen-source integrity, and the finite internal verifier. Correction round 1 closes actual matrix repeater-operation coverage, protected-overlay collection and this status prose; all16 original probes and M1–M6 mutations are clear. Exact writer evidence is in docs/TEST_EVIDENCE.md § M02-W12. Prior W11 proof remains in docs/TEST_EVIDENCE.md § M02-W11.
-- Gate posture: zero READY packages, sole IN_PROGRESS M02-W12; W13–W15 NOT_STARTED. All four gates NOT_EVALUATED; release NOT_READY. No Gate A, public employer, holdout, Simplify, navigation or submission execution.
+- State: M02-W12 is VERIFIED at content tree `25f4128163ec73a91afd54a15c026b38d4187e5a` after SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION. M02-W13 (build autofill benchmark and clean-room baseline harness) is the sole READY package; no package is IN_PROGRESS.
+- Evidence: docs/TEST_EVIDENCE.md § M02-W12 records the sanitized 200-variant research expansion (Workday80, Greenhouse40, Lever40, Ashby40), unchanged frozen W06 sources and W08–W11 core, finite16-probe review, four writer/verifier correction rounds (including two CI portability corrections), six killed mutations, canonical passes and exact content hosted proof. This is governance of the W12 lifecycle; it does not implement W13.
+- Gate posture: M00/M01 remain ACCEPTED; M02 remains IN_PROGRESS; W01–W12 VERIFIED, W14–W15 NOT_STARTED. All four gates NOT_EVALUATED, release NOT_READY. Research only, no production ATS support, Gate A, benchmark scoring, public employer, private holdout, Simplify, automatic navigation or submission execution.
 
 ## Milestone table
 
@@ -34,7 +33,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 IN_PROGRESS |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 VERIFIED at tree 25f4128163ec73a91afd54a15c026b38d4187e5a |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -105,8 +104,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W09` | VERIFIED | tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412 | docs/TEST_EVIDENCE.md § M02-W09 | Implement deterministic ontology, resolver, and safety policy; final content verified by the same-session internal adversarial gauntlet after `FABLE_CLEAR_INTERNAL_M02_W09_CONTENT` (hosted content run 32747291323) |
 | `M02-W10` | VERIFIED | tree 339281269554f5886a9d763e0d23f1de0deffa2c | docs/TEST_EVIDENCE.md § M02-W10 | Implement transactional control drivers; final content verified by the same-package internal adversarial gauntlet after `CONTENT CLEAR` (hosted content run 32772492093) |
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
-| `M02-W12` | IN_PROGRESS | — | — | Build ATS research variant matrix |
-| `M02-W13` | NOT_STARTED | — | — | Build autofill benchmark and clean-room baseline harness |
+| `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
+| `M02-W13` | READY | — | — | Build autofill benchmark and clean-room baseline harness |
 | `M02-W14` | NOT_STARTED | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
@@ -379,8 +378,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M02-W12 is IN_PROGRESS. M02-W13 remains NOT_STARTED until W12 content, hosted proof, final internal verification, and governance complete.
+- ID: M02-W13
+- Reason: M02-W12 is VERIFIED; its direct downstream package is eligible under the unchanged dependency graph. W13 implementation has not begun.
 
 ## Known release blockers
 
