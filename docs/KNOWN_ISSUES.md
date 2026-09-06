@@ -32,6 +32,52 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W12 finite internal verification corrections
+
+### KI-0067 — Imported test tables failed canonical test-integrity proof
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 canonical pass 1
+- Affects: M02-W12; packages/ats-adapters/test/research-adapter.test.ts
+- Description: three `it.each` tables imported runtime enums; the repository policy could not statically prove them safe/nonempty. All57 ATS tests and125 browser tests passed, but aggregate integrity and its real-repository Python oracle correctly failed. Classified DIRECT_REGRESSION in correction round2.
+- Reproduction: `pnpm verify --suite integrity` at invalidated content tree 2da677733fa79e66d80360d7298994b6ae5c9af6 reports three unprovable parameter tables.
+- Workaround: n/a.
+- Resolution + evidence link: explicit closed literal tables preserve all12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
+
+### KI-0066 — Writer status edit matched a gate-description sentence
+
+- Severity: LOW
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 internal verification
+- Affects: M02-W12; docs/PROJECT_STATUS.md
+- Description: a broad string replacement targeted a prose mention of `- State:` before the Active work section, leaving stale W11 active prose and damaging the section boundary. Classified DIRECT_REGRESSION.
+- Reproduction: inspect initial candidate d548c559d32a9f57fc98eeee94b0e04b7a81f401 Active work boundary and compare current package prose with its work-package table.
+- Workaround: n/a.
+- Resolution + evidence link: restored gate description and exact Active work heading, replaced current paragraph with truthful W12 state, retained historical W11 evidence link. Status validator45 groups and original verifier replay PASS; docs/TEST_EVIDENCE.md § M02-W12.
+
+### KI-0065 — Canonical research DOM collection omitted protected overlays
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 internal verification P13
+- Affects: M02-W12; e2e/extension/extension-research.spec.ts research evidence collector
+- Description: stale GUEST metadata could hide a later canonical `data-session-boundary=MFA` overlay from the collector. Pure classifier already failed closed when supplied the boundary; collection omitted it. Classified PACKAGE_BLOCKER.
+- Reproduction: in initial candidate d548c559d32a9f57fc98eeee94b0e04b7a81f401, append MFA boundary marker to guest research form; collected evidence incorrectly yields eligible posture.
+- Workaround: n/a.
+- Resolution + evidence link: collect all canonical session-boundary markers, which dominate safe metadata; permanent actual-DOM tests cover all nine protected/unknown overlays. Original P13 using the corrected collector verbatim returns PAUSE/SESSION_BOUNDARY; docs/TEST_EVIDENCE.md § M02-W12.
+
+### KI-0064 — Matrix repeaters lacked complete canonical operation coverage
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 internal verification P8
+- Affects: M02-W12; packages/ats-adapters/research/fixture-html.ts and matrix.ts
+- Description: initial actual matrix rows omitted the complete accepted W10 controller/ADD affordance and education/language repeaters; a separate generic example did not establish operations on the actual matrix. Classified PACKAGE_BLOCKER.
+- Reproduction: inspect materialized work-experience, education and skills/languages variants at initial candidate d548c559d32a9f57fc98eeee94b0e04b7a81f401; attempt accepted existing/new/reordered repeater operations.
+- Workaround: n/a.
+- Resolution + evidence link: actual synthetic matrix supplies canonical controller, stable semantic labels, item values and ADD affordance across all three classes. Permanent minimized unit regression plus real-MV312-family/class matrix proves existing/new/parser/reorder/rerender/ambiguous/duplicate behavior. Generic core unchanged; original P8 PASS; docs/TEST_EVIDENCE.md § M02-W12.
+
 ## M02-W07 final-verification correction
 
 KI-0058 through KI-0062 are FIXED by exact independently cleared W07 content

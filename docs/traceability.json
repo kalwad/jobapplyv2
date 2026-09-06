@@ -8006,7 +8006,7 @@
       "id": "M02-W12",
       "milestone": "M02",
       "title": "Build ATS research variant matrix",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W11"

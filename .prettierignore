@@ -26,6 +26,10 @@ packages/evaluation-baselines/data/legacy-observations.v1.json
 # checked by @japp/evaluation-corpus; generic formatting would change identity.
 packages/evaluation-corpus/artifacts/
 
+# M02-W12 research manifest is canonical sorted JSON checked byte-for-byte
+# by the ATS matrix tests, including source and fixture digest commitments.
+packages/ats-adapters/research/expansion.manifest.v1.json
+
 # Lockfiles and tool/build output
 pnpm-lock.yaml
 uv.lock
