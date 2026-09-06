@@ -9,7 +9,7 @@
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run",
+    "test": "vitest run --no-file-parallelism --maxWorkers=1",
     "runner:check": "node src/cli.ts --check"
   },
   "dependencies": {

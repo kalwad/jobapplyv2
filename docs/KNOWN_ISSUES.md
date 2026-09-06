@@ -34,6 +34,17 @@ broadening a work package (spec §1.5).
 
 ## M02-W12 finite internal verification corrections
 
+### KI-0069 — Retained exhaustive calendar test exceeded hosted deadline under file contention
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 hosted CI correction2
+- Affects: M02-W12 retained-suite portability; packages/evaluation-runner/package.json
+- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
+- Reproduction: Ubuntu job101557017908 of run34059370913 at268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
+- Workaround: n/a.
+- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
+
 ### KI-0068 — Batched matrix-integrity negatives exceeded one hosted test deadline
 
 - Severity: MEDIUM
