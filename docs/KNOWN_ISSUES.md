@@ -34,6 +34,17 @@ broadening a work package (spec §1.5).
 
 ## M02-W12 finite internal verification corrections
 
+### KI-0068 — Batched matrix-integrity negatives exceeded one hosted test deadline
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-06 during M02-W12 hosted CI round1
+- Affects: M02-W12; packages/ats-adapters/test/matrix.test.ts and package.json
+- Description: nine full matrix revalidations shared one default5000ms test; Ubuntu measured5561ms under concurrent workspace tests. A retained runner test also crossed5000ms during the same burst. Classified TEST_PORTABILITY; no semantic assertion failure observed.
+- Reproduction: Ubuntu job101549006289 of run34056407698 at475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
+- Workaround: n/a.
+- Resolution + evidence link: register all nine negative cases independently under unchanged per-test deadlines, and bound the ATS test package to one worker/no file parallelism. All65 ATS tests pass; no old test, fixture, manifest, core or global timeout change. Retained and hosted proof required in the forward correction; docs/TEST_EVIDENCE.md § M02-W12.
+
 ### KI-0067 — Imported test tables failed canonical test-integrity proof
 
 - Severity: MEDIUM

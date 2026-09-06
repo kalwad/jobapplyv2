@@ -292,35 +292,43 @@ describe("M02-W12 canonical synthetic research expansion", () => {
     }
   });
 
-  it("rejects rehashed count, parent, expected output, family and authority mutations", () => {
-    const original = readResearchManifest();
-    const mutations = [
-      { ...original, coverage: { ...original.coverage, scoredControls: 4060 } },
-      {
-        ...original,
-        coverage: { ...original.coverage, expansionVariants: 201 },
-      },
-      { ...original, parent: { ...original.parent, corpusVersion: "2.0.0" } },
-      { ...original, variants: original.variants.slice(1) },
-      {
-        ...original,
-        variants: original.variants.filter(
-          (variant) => variant.family !== "WORKDAY",
-        ),
-      },
-      {
-        ...original,
-        variants: original.variants.map((variant, index) =>
-          index === 0
-            ? { ...variant, expectedDigest: `sha256:${"0".repeat(64)}` }
-            : variant,
-        ),
-      },
-      { ...original, gateAuthority: "PASS" },
-      { ...original, productionSupport: true },
-      { ...original, additionalProperty: "NOT_IN_SCHEMA" },
-    ];
-    for (const mutation of mutations) {
+  // Each complete 200-variant validation retains the normal per-test deadline.
+  // Separate registrations avoid charging nine full validations to one deadline.
+  it.each([0, 1, 2, 3, 4, 5, 6, 7, 8] as const)(
+    "rejects rehashed count, parent, expected output, family and authority mutation %i",
+    (caseIndex) => {
+      const original = readResearchManifest();
+      const mutations = [
+        {
+          ...original,
+          coverage: { ...original.coverage, scoredControls: 4060 },
+        },
+        {
+          ...original,
+          coverage: { ...original.coverage, expansionVariants: 201 },
+        },
+        { ...original, parent: { ...original.parent, corpusVersion: "2.0.0" } },
+        { ...original, variants: original.variants.slice(1) },
+        {
+          ...original,
+          variants: original.variants.filter(
+            (variant) => variant.family !== "WORKDAY",
+          ),
+        },
+        {
+          ...original,
+          variants: original.variants.map((variant, index) =>
+            index === 0
+              ? { ...variant, expectedDigest: `sha256:${"0".repeat(64)}` }
+              : variant,
+          ),
+        },
+        { ...original, gateAuthority: "PASS" },
+        { ...original, productionSupport: true },
+        { ...original, additionalProperty: "NOT_IN_SCHEMA" },
+      ];
+      const mutation = mutations[caseIndex];
+      if (mutation === undefined) throw new Error("missing corruption case");
       const payload = Object.fromEntries(
         Object.entries(mutation).filter(([key]) => key !== "digest"),
       );
@@ -331,8 +339,8 @@ describe("M02-W12 canonical synthetic research expansion", () => {
       expect(() => validateResearchManifest(rehashed)).toThrow(
         "W12_EXPANSION_MANIFEST_DRIFT",
       );
-    }
-  });
+    },
+  );
 
   it("preserves the complete frozen W06 public source-byte inventory", () => {
     const path = resolve(REPOSITORY_ROOT, W06_PARENT.manifestPath);
