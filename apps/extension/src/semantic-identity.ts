@@ -6,10 +6,55 @@ import type {
 const CROCKFORD_BASE32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
 const STABLE_ID_PREFIX = /^[a-z][a-z0-9]{1,23}$/;
 
+// Pure exact-input memoization; current DOM evidence is still reread at every
+// resolution. The cache grants no field, selector, generation or action
+// authority. It lives only in the current extension execution realm.
+const MAX_HASH_CACHE_ENTRIES = 1024;
+const MAX_HASH_CACHE_BYTES = 512 * 1024;
+const MAX_HASH_CACHE_SEED_LENGTH = 4096;
+const hashCache = new Map<
+  string,
+  { bytes: number; promise: Promise<Uint8Array<ArrayBuffer>> }
+>();
+let hashCacheBytes = 0;
+
+function evictHash(value: string): void {
+  const entry = hashCache.get(value);
+  if (entry !== undefined) {
+    hashCacheBytes -= entry.bytes;
+    hashCache.delete(value);
+  }
+}
+
 async function sha256Bytes(value: string): Promise<Uint8Array<ArrayBuffer>> {
+  const cached = hashCache.get(value);
+  if (cached !== undefined) {
+    hashCache.delete(value);
+    hashCache.set(value, cached);
+    return cached.promise;
+  }
   const bytes = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest("SHA-256", bytes);
-  return new Uint8Array(digest);
+  const promise = crypto.subtle
+    .digest("SHA-256", bytes)
+    .then((digest) => new Uint8Array(digest))
+    .catch((error: unknown) => {
+      if (hashCache.get(value)?.promise === promise) evictHash(value);
+      throw error;
+    });
+  if (value.length <= MAX_HASH_CACHE_SEED_LENGTH) {
+    const retainedBytes = 2 * value.length + 32;
+    hashCache.set(value, { bytes: retainedBytes, promise });
+    hashCacheBytes += retainedBytes;
+    while (
+      hashCache.size > MAX_HASH_CACHE_ENTRIES ||
+      hashCacheBytes > MAX_HASH_CACHE_BYTES
+    ) {
+      const oldest = hashCache.keys().next().value;
+      if (oldest === undefined) break;
+      evictHash(oldest);
+    }
+  }
+  return promise;
 }
 
 function hexadecimal(bytes: Uint8Array<ArrayBuffer>): string {

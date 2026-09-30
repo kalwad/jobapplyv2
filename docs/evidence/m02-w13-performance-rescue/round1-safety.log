@@ -1,0 +1,80 @@
+[WebServer] (node:47308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:47325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:47349) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 377 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.19 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.05 kB
+Σ Total size: 150.77 kB                            
+✔ Finished in 423 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 318 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.05 kB
+Σ Total size: 111.57 kB                                        
+✔ Finished in 369 ms
+
+Running 46 tests using 1 worker
+
+(node:47376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/extension/extension-drivers.spec.ts:323:1 › TX1/TEXT1/TEXT2/UNDO1: native text transactions use a real W09 decision, persist, redact, and restore (1.7s)
+  ✓   2 [chromium] › e2e/extension/extension-drivers.spec.ts:381:1 › SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores (1.4s)
+  ✓   3 [chromium] › e2e/extension/extension-drivers.spec.ts:450:1 › TX2/TX3/TX4/TX5/TX6: missing, ambiguous, stale, inert, and non-FILL targets perform no action (576ms)
+  ✓   4 [chromium] › e2e/extension/extension-drivers.spec.ts:541:1 › FW1/FW2: real React and Vue state accept native-setter events and survive forced rerender (1.2s)
+  ✓   5 [chromium] › e2e/extension/extension-drivers.spec.ts:616:1 › FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify (1.0s)
+  ✓   6 [chromium] › e2e/extension/extension-drivers.spec.ts:694:1 › SEL2/SEL3/RAD2: missing, disabled, disappearing, and duplicate semantic options are never guessed (586ms)
+  ✓   7 [chromium] › e2e/extension/extension-drivers.spec.ts:755:1 › COMBO1/COMBO2/COMBO3: ARIA combobox commits exact options, reselects after stale query, and refuses missing/duplicate targets (789ms)
+  ✓   8 [chromium] › e2e/extension/extension-drivers.spec.ts:818:1 › TX7: immediately-before-action re-resolution blocks semantic replacement, and partial widget failure rolls back (2.8s)
+  ✓   9 [chromium] › e2e/extension/extension-drivers.spec.ts:899:1 › VIRT1/VIRT2: the 480-row windowed list finds one off-window exact target within a bound and refuses absence (19.2s)
+  ✓  10 [chromium] › e2e/extension/extension-drivers.spec.ts:947:1 › REP1/REP2/REP3: bounded repeater add/edit/remove uses stable labels and undo never uses an index (1.1s)
+  ✓  11 [chromium] › e2e/extension/extension-drivers.spec.ts:1057:1 › UPLOAD1-4: only exact bounded synthetic artifact bytes and metadata verify, and clear undo restores empty (805ms)
+  ✓  12 [chromium] › e2e/extension/extension-drivers.spec.ts:1136:1 › WD1/WD2/WD3: synthetic prompt transacts, while navigation is identification-only and ambiguity/unsafe state never acts (745ms)
+  ✓  13 [chromium] › e2e/extension/extension-drivers.spec.ts:1234:1 › UNDO2 and frame/document authority: restoration re-resolves, consumes stale attempts, and page world cannot forge controller authority (967ms)
+  ✓  14 [chromium] › e2e/extension/extension-dynamic.spec.ts:376:1 › DYN1/DYN2/DYN3/REC1: conditional fields are discovered by affected-subtree scans, reported REQUIRED_UNRESOLVED, and retired on removal (681ms)
+  ✓  15 [chromium] › e2e/extension/extension-dynamic.spec.ts:470:1 › REC2/REC3/REC4/NOACT1: a mixed page reports every required control explicitly and never upgrades blocked or concealed controls (735ms)
+  ✓  16 [chromium] › e2e/extension/extension-dynamic.spec.ts:634:1 › DUP1/DUP2/DUP3: framework rerenders and repeated requests cause exactly zero duplicate actions while new decisions stay legitimate (881ms)
+  ✓  17 [chromium] › e2e/extension/extension-dynamic.spec.ts:776:1 › CHG1/CHG2/CHG3: page-changed values and late validation rejection are detected without silent verified state or automatic refill (898ms)
+  ✓  18 [chromium] › e2e/extension/extension-dynamic.spec.ts:901:1 › BATCH1/BATCH2/PERF1/PERF2/PERF3: a mutation storm coalesces into bounded batches that scan only affected subtrees (640ms)
+  ✓  19 [chromium] › e2e/extension/extension-dynamic.spec.ts:989:1 › ROOT1/PERF4: outside-root mutations and idle periods change nothing, and stopping with a queued batch stays safe (2.1s)
+  ✓  20 [chromium] › e2e/extension/extension-dynamic.spec.ts:1064:1 › ROOT2/GEN2: replacing the application root invalidates old state and stale addresses cannot authorize a current action (763ms)
+  ✓  21 [chromium] › e2e/extension/extension-dynamic.spec.ts:1167:1 › GEN1: an SPA route change advances route and page generations while the browser document identity stays the same (769ms)
+  ✓  22 [chromium] › e2e/extension/extension-dynamic.spec.ts:1257:1 › FRAME1/FRAME2: dynamic observation stays frame-local and wrong-frame control messages are rejected (1.0s)
+  ✓  23 [chromium] › e2e/extension/extension-dynamic.spec.ts:1327:1 › PERF5/NOACT2: CPU/memory measurement is real at its declared boundaries and no navigation or submit surface exists (747ms)
+  ✓  24 [chromium] › e2e/extension/extension-resolver.spec.ts:323:1 › W09 turns real scanned native-lab descriptors into canonical safe decisions without any browser action (556ms)
+  ✓  25 [chromium] › e2e/extension/extension-resolver.spec.ts:439:1 › W09 abstains on single-option fields instead of selecting the only rendered option (562ms)
+  ✓  26 [chromium] › e2e/extension/extension-scanner.spec.ts:213:1 › W08 extracts canonical label, ARIA, section, option, visibility, enabled, and required evidence (559ms)
+  ✓  27 [chromium] › e2e/extension/extension-scanner.spec.ts:320:1 › C1: a unique native form is not widened to its semantic main ancestor (552ms)
+  ✓  28 [chromium] › e2e/extension/extension-scanner.spec.ts:345:1 › C2: unrelated controls surrounding a unique form stay outside its descriptor inventory (571ms)
+  ✓  29 [chromium] › e2e/extension/extension-scanner.spec.ts:373:1 › C3: a stronger explicit application root includes controls outside its native form (560ms)
+  ✓  30 [chromium] › e2e/extension/extension-scanner.spec.ts:400:1 › C4: a unique semantic main remains the fallback when no form qualifies (539ms)
+  ✓  31 [chromium] › e2e/extension/extension-scanner.spec.ts:422:1 › C5: two qualifying forms remain ambiguous instead of selecting either form (552ms)
+  ✓  32 [chromium] › e2e/extension/extension-scanner.spec.ts:446:1 › C6: a unique role=form root is not widened to its semantic main ancestor (532ms)
+  ✓  33 [chromium] › e2e/extension/extension-scanner.spec.ts:479:1 › V1: an ordinary in-flow field below the initial fold is visible before any scroll (552ms)
+  ✓  34 [chromium] › e2e/extension/extension-scanner.spec.ts:501:1 › V2: window scroll position never changes the descriptors of an unchanged document (567ms)
+  ✓  35 [chromium] › e2e/extension/extension-scanner.spec.ts:540:1 › V3: deliberately displaced off-canvas controls with nonzero boxes stay invisible (558ms)
+  ✓  36 [chromium] › e2e/extension/extension-scanner.spec.ts:613:1 › V4-V6: concealed and zero-box controls stay invisible below the fold and after scrolling (581ms)
+  ✓  37 [chromium] › e2e/extension/extension-scanner.spec.ts:648:1 › V7: controls anchored to a fixed container keep scroll-independent visibility (565ms)
+  ✓  38 [chromium] › e2e/extension/extension-scanner.spec.ts:700:1 › M3: targeted subtree scanning never escapes the requested application subtree (538ms)
+  ✓  39 [chromium] › e2e/extension/extension-scanner.spec.ts:730:1 › repeat scans are deterministic apart from the truthful observation time (557ms)
+  ✓  40 [chromium] › e2e/extension/extension-scanner.spec.ts:748:1 › M2: same-origin child agents remain frame-local and aggregation preserves frame identity (578ms)
+  ✓  41 [chromium] › e2e/extension/extension-scanner.spec.ts:785:1 › cross-origin permitted child agents report through the worker without parent traversal (637ms)
+  ✓  42 [chromium] › e2e/extension/extension-scanner.spec.ts:854:1 › legitimate semantic rerender re-resolves the unique current control (616ms)
+  ✓  43 [chromium] › e2e/extension/extension-scanner.spec.ts:889:1 › M4: stale semantic replacement is unresolved even when it reuses the old ID and index (642ms)
+  ✓  44 [chromium] › e2e/extension/extension-scanner.spec.ts:921:1 › M4: multiple current semantic matches return ambiguous and never pick the first (586ms)
+  ✓  45 [chromium] › e2e/extension/extension-semantic-index.spec.ts:38:1 › W13 index: warm identities invalidate external associations, sections and duplicate candidates (617ms)
+  ✓  46 [chromium] › e2e/extension/extension-semantic-index.spec.ts:141:1 › W13 index: semantic rerender and property-only state never inherit stale node authority (645ms)
+
+  46 passed (59.1s)

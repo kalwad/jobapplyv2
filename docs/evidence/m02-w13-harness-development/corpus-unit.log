@@ -1,0 +1,10 @@
+$ vitest run --no-file-parallelism --maxWorkers=1
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-corpus
+
+
+ Test Files  7 passed (7)
+      Tests  218 passed (218)
+   Start at  13:54:50
+   Duration  3.18s (transform 228ms, setup 0ms, import 570ms, tests 1.96s, environment 0ms)
+

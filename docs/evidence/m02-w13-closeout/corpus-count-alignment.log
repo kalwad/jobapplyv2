@@ -1,0 +1,36 @@
+$ uv run python scripts/verify.py --suite evaluation-corpus
+$ pnpm --filter @japp/evaluation-corpus corpus:check
+CORPUS_OK id=M02_AUTOFILL_DEVELOPMENT_V1 version=1.0.0 digest=sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8
+
+$ node src/cli.ts corpus-check
+$ pnpm --filter @japp/evaluation-corpus coverage:check
+COVERAGE_OK digest=sha256:c6795388ba2e11fc70dc51e471ffb59e510d6ffaa59c2f1dff196f555522344a raw_metrics=50
+
+$ node src/cli.ts coverage-check
+$ pnpm --filter @japp/evaluation-corpus privacy:check
+CORPUS_PRIVACY_OK
+
+$ node src/cli.ts privacy-check
+$ pnpm --filter @japp/evaluation-corpus log:check
+HOLDOUT_LOG_OK
+
+$ node src/cli.ts log-check
+$ pnpm --filter @japp/evaluation-corpus test -- --reporter=default
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-corpus
+
+
+ Test Files  7 passed (7)
+      Tests  218 passed (218)
+   Start at  14:29:59
+   Duration  2.92s (transform 204ms, setup 0ms, import 521ms, tests 1.80s, environment 0ms)
+
+
+$ vitest run --no-file-parallelism --maxWorkers=1 -- --reporter=default
+
+== verification summary ==
+suite          state                result             detail
+------------------------------------------------------------------------------
+evaluation-corpus ACTIVE               PASS               
+
+verification exit code: 0

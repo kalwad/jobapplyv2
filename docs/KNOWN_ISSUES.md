@@ -32,6 +32,87 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W13 finite evidence corrections
+
+### KI-0073 — Canonical replay metrics could contradict independently verified raw scores
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 internal verifier families C/E
+- Affects: M02-W13; packages/evaluation-runner/src/autofill-manifest.ts
+- Description: raw re-scoring and canonical replay were individually valid, but a coherent rewritten witness could publish different metrics while retaining the correct score digest. Classification: PACKAGE_BLOCKER.
+- Reproduction: retained `manifest rejects a coherent replay whose metrics contradict its committed raw score` changes correct_fills to zero then derives a coherent FAIL execution; before the fix the manifest accepted it. Raw failing log: docs/evidence/m02-w13-harness-development/manifest-drift-reproduction.log.
+- Workaround: n/a.
+- Resolution + evidence link: shared pure score-to-observation projection, normalized through accepted W05 validation, compares the complete witness observation including metrics/exact proportions, paired counts, artifact commitments, status, errors and participation. Full runner335/335 passes; affected MV31/1 and finite exact-snapshot re-review CLEAR. docs/TEST_EVIDENCE.md § M02-W13.
+
+### KI-0074 — Worksheet observation timestamps were paired with a different case
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 internal verifier family I
+- Affects: M02-W13; e2e/extension/extension-autofill-harness.spec.ts
+- Description: authored family order differed from canonical case-ID-sorted replay order; positional timestamp joining mislabeled each worksheet. Classification: DIRECT_REGRESSION.
+- Reproduction: permanent actual-MV3 worksheet assertion matches case_id independently; the original run failed with different observed_at instants. Raw log: docs/evidence/m02-w13-harness-development/worksheet-drift-reproduction.log.
+- Workaround: n/a.
+- Resolution + evidence link: join replay windows by canonical case_id before selecting ended_at; affected MV31/1 and finite exact-snapshot re-review CLEAR. docs/TEST_EVIDENCE.md § M02-W13.
+
+### KI-0075 — Scorer accepted inconsistent local artifact schema and family metadata
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 internal verifier families A/C/S16
+- Affects: M02-W13; packages/evaluation-runner/src/autofill.ts
+- Description: canonical schema validity alone allowed an unsupported oracle schema reference or unrelated benchmark family. Classification: PACKAGE_BLOCKER.
+- Reproduction: four permanent S16 metadata negatives substitute oracle/input v999, CONTRACT_COMPATIBILITY family, or a different input digest; all four originally scored successfully. Raw log: docs/evidence/m02-w13-harness-development/case-binding-reproduction.log.
+- Workaround: n/a.
+- Resolution + evidence link: require AUTOFILL_FEASIBILITY, exactly one supported local oracle artifact with its immutable digest, and one supported input artifact matching the oracle profile digest; adapter independently verifies the input preimage. Local refs do not change canonical schemas. Full runner335/335 passes; affected MV31/1 and finite exact-snapshot re-review CLEAR. docs/TEST_EVIDENCE.md § M02-W13.
+
+### KI-0076 — Corpus verification proof did not include the new interface tests
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 frozen canonical PASS1
+- Affects: M02-W13; scripts/verification-suites.json evaluation-corpus registration
+- Description: the focused corpus command runs218 passing tests, but its accepted exact-count guard still requires207 and discovery lists only W06. Classification: DIRECT_REGRESSION in verification metadata.
+- Reproduction: full `pnpm verify` at invalidated tree86e72fbb80683d3e90d1ab0be992339714410978 fails only evaluation-corpus proof, reporting218 rather than207. All other active suites pass, including134 browser,1390 Python and retained Rust checks. Raw log: docs/evidence/m02-w13-closeout/invalidated-pass1-verify.log.
+- Workaround: n/a.
+- Resolution + evidence link: retain all207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
+
+## M02-W13 bounded-stop findings
+
+### KI-0070 — Total current-root re-resolution exceeds the target Mac budget
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 finite family L development checks
+- Affects: M02-W13; M02 measurement viability; apps/extension/src/field-scanner.ts
+- Description: the actual W08/W09/W10/W11 path performs four fresh full-root identity resolutions per filled control. At128 controls, the final zero-settle lower-bound run still examined65792 candidates across512 re-resolutions, took3914.29ms wall time and2509ms scanner time, while W11 reported only5ms. The target Mac is Apple M5, Mac17,2,24GiB; main-page CDP task duration increased3.064421s. This is PACKAGE_BLOCKER; it is not a final p95 estimate or Gate A verdict.
+- Reproduction: run `pnpm exec playwright test e2e/extension/extension-benchmark.spec.ts --grep 'total scan'` with the real built MV3 extension. Inspect total scanner work and independent physical action counts for8/32/128 controls; do not use W11 scan time as total cost. Exact measured bytes, build hashes and raw log are in docs/evidence/m02-w13-blocked/manifest.json.
+- Workaround: none. Do not raise the1500ms budget, skip fresh safety resolutions, lower coverage or represent this development run as final gate evidence.
+- Resolution + evidence link: FIXED locally under the owner's 2026-09-30 authorization and ACCEPTED ADR-0005. Rescue round 1 replaces repeated semantic DOM matching with a bounded current identity index and fresh selected-target descriptors. The unchanged 128-control case retains all 128 verified fills and 512 live re-resolutions; 20-sample target-Mac p95 is 1,468.28 ms. Three candidate enumerations/one index build replace repeated root matching. Raw evidence: docs/evidence/m02-w13-performance-rescue; contract/workflow: docs/M02_W13_AUTOFILL_BENCHMARK.md. The original four-round stop and bytes remain preserved. This closes the local scaling defect only: W13 is IN_PROGRESS, W14 remains NOT_STARTED, and Gate A remains NOT_EVALUATED.
+
+### KI-0071 — Concurrent delayed repeater operations can duplicate a physical click
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-30 during M02-W13 family J development regression
+- Affects: M02-W13; apps/extension/src/dynamic-engine.ts in-flight action deduplication
+- Description: equivalent requests arriving before the first delayed repeater operation entered the ledger both clicked ADD. The minimized real-MV3 fixture independently measured two physical clicks.
+- Reproduction: the retained permanent `W13 J: overlapping delayed repeater operations perform one physical click` submits equivalent concurrent transactions against a30ms delayed synthetic repeater. Its original run measured2 instead of1.
+- Workaround: n/a.
+- Resolution + evidence link: atomic in-flight reservation by existing semantic action identity before the driver awaits, released in finally; duplicates receive local IN_FLIGHT_SUPPRESSED without fabricated canonical execution results. Independent meters now observe exactly1 click and1 input event in the two J regressions. All70 browser tests passed before the late K recovery fix; final affected suite34/34 passes. This closes the local defect only, not W13 verification. docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt; docs/evidence/m02-w13-blocked/browser-regressions.log.
+
+### KI-0072 — A temporary capacity refusal can leave a falsely complete empty inventory
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-09-30 during late M02-W13 family K review
+- Affects: M02-W13; apps/extension/src/dynamic-engine.ts root/subtree recovery
+- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
+- Reproduction: permanent `W13 K: observation beginning over capacity requires a complete recovery scan`; the original run failed expected512/received0. Its second phase also inserts and removes a transient513th control between reconciliation passes while the observer drains each batch.
+- Workaround: n/a.
+- Resolution + evidence link: latch every observed root/subtree capacity refusal, clear inventory, and reset only after a complete current root scan; carry refusal from actual candidate capture and recheck the bound after async scans and all inventory hashing immediately before canonical publication. Both recovery phases now prove total512, required_unresolved1 and NOT_READY; initial513 reports CAPACITY_EXCEEDED with no canonical inventory. The bound512 and canonical schemas are unchanged. Final affected browser suite34/34 passes; docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt.
+
 ## M02-W12 finite internal verification corrections
 
 ### KI-0069 — Retained exhaustive calendar test exceeded hosted deadline under file contention
@@ -3047,6 +3128,8 @@ validator exception or weakening was introduced.
 ## Deferred risks and parked ideas
 
 ### KI-0063 — Pages with more than 512 supported controls truncate the descriptor inventory without an overflow marker
+
+W13 follow-up,2026-09-30: reproduced and treated as PACKAGE_BLOCKER for measurement completeness. The uncommitted W13 draft adds explicit local CAPACITY_EXCEEDED refusal and no canonical inventory, including recovery proof in KI-0072. Production scaling/pagination remains deferred; this historical entry and its original W11 classification are preserved. The later owner-authorized rescue closes KI-0070 locally; W13 remains IN_PROGRESS pending full closeout.
 
 - Severity: LOW
 - State: DEFERRED

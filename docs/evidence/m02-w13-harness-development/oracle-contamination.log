@@ -1,0 +1,9 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-runner
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 28 skipped (29)
+   Start at  13:58:00
+   Duration  462ms (transform 156ms, setup 0ms, import 214ms, tests 156ms, environment 0ms)
+

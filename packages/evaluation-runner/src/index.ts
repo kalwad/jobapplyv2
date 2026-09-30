@@ -16,3 +16,6 @@ export * from "./statistics.ts";
 export * from "./thresholds.ts";
 export * from "./time.ts";
 export * from "./validate.ts";
+
+export * from "./autofill.ts";
+export * from "./autofill-manifest.ts";

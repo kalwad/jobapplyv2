@@ -1,0 +1,10 @@
+$ vitest run --no-file-parallelism --maxWorkers=1
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-runner
+
+
+ Test Files  15 passed (15)
+      Tests  329 passed (329)
+   Start at  13:54:50
+   Duration  4.88s (transform 312ms, setup 0ms, import 1.02s, tests 2.51s, environment 1ms)
+

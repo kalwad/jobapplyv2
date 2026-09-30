@@ -1,0 +1,9 @@
+
+ RUN  v4.1.10 /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-internal-verifier-z8uk2s92/candidate/packages/evaluation-corpus
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  14:14:02
+   Duration  502ms (transform 173ms, setup 0ms, import 237ms, tests 168ms, environment 0ms)
+

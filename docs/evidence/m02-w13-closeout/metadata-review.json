@@ -1,0 +1,16 @@
+{
+  "format_version": "W13_METADATA_REVIEW_1",
+  "verdict": "CLEAR",
+  "classification": "DIRECT_REGRESSION_FIXED_KI_0076",
+  "scope": "existing finite A/E verification-metadata delta only",
+  "changes": [
+    "exact corpus count207 to218",
+    "add eleven W13 interface tests to discovery",
+    "retain all207 W06 tests, all commands/activation/artifacts/no-skip policy"
+  ],
+  "implementation_and_test_source_change": false,
+  "mutations_retained": "M1-M6 killed; no rerun required for metadata-only alignment",
+  "focused_proof": "pnpm verify --suite evaluation-corpus exit0;218/218",
+  "invalidated_tree": "86e72fbb80683d3e90d1ab0be992339714410978",
+  "restart": "both full canonical passes after new freeze"
+}

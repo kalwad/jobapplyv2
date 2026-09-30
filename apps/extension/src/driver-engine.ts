@@ -374,6 +374,7 @@ export class DriverTransactionEngine {
       document,
       frameContext,
       transaction.address,
+      "preflight",
     );
     if (resolved.status !== "RESOLVED") {
       return {
@@ -544,6 +545,7 @@ export class DriverTransactionEngine {
       document,
       frameContext,
       transaction.address,
+      "preaction",
     );
     if (actionResolution.status !== "RESOLVED") {
       return {
@@ -741,6 +743,7 @@ export class DriverTransactionEngine {
       document,
       frameContext,
       transaction.address,
+      "settle",
     );
     if (settledResolution.status !== "RESOLVED") {
       const classified = resolutionClass(settledResolution);

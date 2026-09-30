@@ -1,0 +1,44 @@
+{
+  "resuming": "M02-W13 PERFORMANCE RESCUE",
+  "active_model": "GPT-6.1 Sol Ultra",
+  "additional_rounds_authorized": 4,
+  "additional_rounds_used": 1,
+  "rounds": [
+    {
+      "round": 1,
+      "bottleneck": "repeated semantic matching (65536 identities / 128 controls)",
+      "change": "complete bounded semantic index with independent whole-document invalidation and fresh live selected descriptors on all four resolutions",
+      "original_total_ms": 3914.29,
+      "original_scanner_rounded_ms": 2509,
+      "first_acceptance_total_ms": 1184.176125,
+      "target_p95_ms": 1468.2756669999999,
+      "target_samples": 20,
+      "threshold_ms": 1500,
+      "scanner_us_range": [
+        83826,
+        144279
+      ],
+      "structural": {
+        "root_scans": 2,
+        "candidate_enumerations": 3,
+        "candidates": 384,
+        "identity_pairs": 128,
+        "descriptors": 768,
+        "reresolutions": 512,
+        "physical_actions": 128
+      },
+      "safety": "46/46 retained and warm-index; 1/1 controlled awaited-mutation proof; J/K 5/5 round1 benchmark",
+      "scope": "LOWER_BOUND_ZERO_SETTLE_HARNESS_VALIDATION_NOT_GATE_A_FINAL",
+      "source_sha256": {
+        "apps/extension/src/field-scanner.ts": "b4c5a83de80161fb5b3b430f091ef7b4846174459367bf90e08cd462dd3f7cfb",
+        "apps/extension/src/scanner-protocol.ts": "bf6d944b34252d2effe165094ee61742d7df5a7e6f530a47e48b607338d41b49",
+        "apps/extension/src/dynamic-protocol.ts": "f9cdce4c170e96f0431bef221c8c97c14cc223edcf174eae5373304ce8465fc1",
+        "apps/extension/src/driver-engine.ts": "d279d4c5f2527a0a46c014e84e0e57035a0537826b20130efba1e84e9dd91796",
+        "apps/extension/src/dynamic-engine.ts": "898b195483fefe025508ccfbf486d248af95f80d3d4a3014d3c1c469335c6222",
+        "apps/extension/src/semantic-identity.ts": "ee1316130f99645183788d2020675ff4ce2c961c08188322e36a44fa1d4328ae",
+        "e2e/extension/extension-benchmark.spec.ts": "62218efcdc072705b96c17732a1fd3e56dd5e08576c78c8a743cd5e38ca44ee8",
+        "e2e/extension/extension-semantic-index.spec.ts": "f50285a28d9b46b4e863c9f85a1f79be24cb6b9b9119b2a5b36ee2c22ec0fc31"
+      }
+    }
+  ]
+}

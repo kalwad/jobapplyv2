@@ -1,0 +1,2 @@
+$ uv run python scripts/traceability.py check
+PASS: traceability validated 193 requirements and 300 work packages

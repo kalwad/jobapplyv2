@@ -1,0 +1,36 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-runner
+
+ ❯ test/m02-w13/manifest.test.ts (8 tests | 1 failed) 162ms
+   × manifest rejects a coherent replay whose metrics contradict its committed raw score 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w13/manifest.test.ts > manifest rejects a coherent replay whose metrics contradict its committed raw score
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ test/m02-w13/manifest.test.ts:107:5
+    105|       [f.f.oracle],
+    106|     ),
+    107|   ).toThrow("W13_MANIFEST_OBSERVATION_DRIFT");
+       |     ^
+    108| });
+    109| it.each(["score", "raw", "matrix", "case_inventory", "mode"])(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  14:08:17
+   Duration  460ms (transform 146ms, setup 0ms, import 205ms, tests 162ms, environment 0ms)
+
+undefined
+/Users/tanishkalwad/jobapplyv2/packages/evaluation-runner:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w13/manifest.test.ts

@@ -8062,7 +8062,7 @@
       "id": "M02-W13",
       "milestone": "M02",
       "title": "Build autofill benchmark and clean-room baseline harness",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W12"

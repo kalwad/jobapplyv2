@@ -1,0 +1,138 @@
+{
+  "format_version": "W13_SIX_MUTATIONS_1",
+  "source_snapshot_sha256": "25b8687667cced2ddb1e3a63a706b5dea2c924e4c45838c79623a9da4aeb4517",
+  "clone": "/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate",
+  "mutation_count": 6,
+  "mutations": [
+    {
+      "mutation": "M1",
+      "family": "ORACLE_CONTAMINATION",
+      "file": "packages/evaluation-runner/src/autofill.ts",
+      "original_sha256": "d1fee15cd693d1892aa662ff0b012cbf1b8badda77c8d8bf278f867f61e7876c",
+      "mutant_sha256": "b0181fc5ec1a77fcd71c36db54e10c88147aa6a8722a5598f72c756f33f13375",
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "exec",
+        "vitest",
+        "run",
+        "test/m02-w13/autofill.test.ts",
+        "-t",
+        "S15 wrong candidate observations"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "23ce2ac10dc5702146b5a41287563f103b2d0a937eadd49ae73e0b90d1a2e57b"
+    },
+    {
+      "mutation": "M2",
+      "family": "PRECISION_DENOMINATOR_CHEAT",
+      "file": "packages/evaluation-runner/src/autofill.ts",
+      "original_sha256": "d1fee15cd693d1892aa662ff0b012cbf1b8badda77c8d8bf278f867f61e7876c",
+      "mutant_sha256": "6543f99e6cc32800aaa68f5e63656a2422c1ab54dbcb62ad3e54c1a290cf0f94",
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "exec",
+        "vitest",
+        "run",
+        "test/m02-w13/autofill.test.ts",
+        "-t",
+        "S3 wrong attempt"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "7ea40f14d386d4fc7c433ebf3786064a50bba0cf3142d2739e396dbf7d958e62"
+    },
+    {
+      "mutation": "M3",
+      "family": "SILENT_REQUIRED_OMISSION",
+      "file": "packages/evaluation-runner/src/autofill.ts",
+      "original_sha256": "d1fee15cd693d1892aa662ff0b012cbf1b8badda77c8d8bf278f867f61e7876c",
+      "mutant_sha256": "f050d93b7d041e55c1d7e742007b063c43bb277cb436f26d2fe84f6b14361e45",
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "exec",
+        "vitest",
+        "run",
+        "test/m02-w13/autofill.test.ts",
+        "-t",
+        "S9 unresolved"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "7b89099b50367308d95e755b30698dd2622808a488602907c4df971c1494b4c0"
+    },
+    {
+      "mutation": "M4",
+      "family": "SENSITIVE_SAFETY_CHEAT",
+      "file": "packages/evaluation-runner/src/autofill.ts",
+      "original_sha256": "d1fee15cd693d1892aa662ff0b012cbf1b8badda77c8d8bf278f867f61e7876c",
+      "mutant_sha256": "59c9901b97eef280cad909a2f9f15f475d7b150ee584eacd8bfde0856fd64475",
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "exec",
+        "vitest",
+        "run",
+        "test/m02-w13/autofill.test.ts",
+        "-t",
+        "S6 S7 SENSITIVE"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "987def13b62ff5486cedf4aca960884e7c2821d875dd74d0496d32c5066f8001"
+    },
+    {
+      "mutation": "M5",
+      "family": "DUPLICATE_ACTION_BLINDNESS",
+      "file": "apps/extension/src/dynamic-engine.ts",
+      "original_sha256": "898b195483fefe025508ccfbf486d248af95f80d3d4a3014d3c1c469335c6222",
+      "mutant_sha256": "b315a0e2aedbf07cd2a8bc1c61f0d9c0c12c6d428c3d10d20fcfed1112d41aaf",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "e2e/extension/extension-benchmark.spec.ts",
+        "--grep",
+        "W13 J"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "c5a977276ebeb1a0d6a041471704029cb2bf18741d7ab135d6d56405966f1e60"
+    },
+    {
+      "mutation": "M6",
+      "family": "BASELINE_CONTAMINATION",
+      "file": "packages/evaluation-runner/src/autofill.ts",
+      "original_sha256": "d1fee15cd693d1892aa662ff0b012cbf1b8badda77c8d8bf278f867f61e7876c",
+      "mutant_sha256": "c9c4ba9ca33d94dee1e0213a5089645a194aa5fee5396adb25fd616a72ccb802",
+      "command": [
+        "pnpm",
+        "--filter",
+        "@japp/evaluation-runner",
+        "exec",
+        "vitest",
+        "run",
+        "test/m02-w13/autofill.test.ts",
+        "-t",
+        "M6 baseline"
+      ],
+      "exit_code": 1,
+      "verdict": "KILLED",
+      "restoration": "ALL_824_SOURCE_FILES_EXACT",
+      "log_sha256": "e4fef7531a77d53a527ad40783549eccfb76c4cfb5c2f7ac1956649a82e85166"
+    }
+  ]
+}

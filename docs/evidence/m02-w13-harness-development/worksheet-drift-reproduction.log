@@ -1,0 +1,67 @@
+[WebServer] (node:54998) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:55015) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:55032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 373 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.12 kB
+Σ Total size: 150.89 kB                            
+✔ Finished in 418 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 313 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.12 kB
+Σ Total size: 111.64 kB                                        
+✔ Finished in 363 ms
+
+Running 1 test using 1 worker
+
+(node:55056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › e2e/extension/extension-autofill-harness.spec.ts:105:1 › W13 A-I M-N: W12 four-family MV3 candidate, independent oracle, accepted runner and deterministic worksheet (8.7s)
+
+
+  1) [chromium] › e2e/extension/extension-autofill-harness.spec.ts:105:1 › W13 A-I M-N: W12 four-family MV3 candidate, independent oracle, accepted runner and deterministic worksheet 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "2026-09-30T18:08:31.029Z"
+    Received: "2026-09-30T18:08:25.413Z"
+
+      429 |   );
+      430 |   for (const sheet of worksheets) {
+    > 431 |     expect(sheet.observed_at).toBe(
+          |                               ^
+      432 |       requireValue(
+      433 |         execution.replay_witness.case_witnesses.find(
+      434 |           (witness) => witness.case_id === sheet.case_id,
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-autofill-harness.spec.ts:431:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-autofi-60011-and-deterministic-worksheet-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-autofi-60011-and-deterministic-worksheet-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-autofi-60011-and-deterministic-worksheet-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-autofi-60011-and-deterministic-worksheet-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e/extension/extension-autofill-harness.spec.ts:105:1 › W13 A-I M-N: W12 four-family MV3 candidate, independent oracle, accepted runner and deterministic worksheet 

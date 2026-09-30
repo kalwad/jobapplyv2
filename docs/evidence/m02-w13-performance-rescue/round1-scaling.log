@@ -1,0 +1,40 @@
+[WebServer] (node:46818) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:46835) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:46843) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 373 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.19 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.05 kB
+Σ Total size: 150.77 kB                            
+✔ Finished in 426 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 317 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.05 kB
+Σ Total size: 111.57 kB                                        
+✔ Finished in 363 ms
+
+Running 5 tests using 1 worker
+
+(node:46888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/extension/extension-benchmark.spec.ts:19:1 › W13 J: overlapping equivalent requests perform exactly one physical fill (1.4s)
+W13_SCALING {"labels":["DEVELOPMENT","HARNESS_VALIDATION","NOT_GATE_A_FINAL_EVIDENCE"],"rows":[{"control_count":8,"actions_attempted":8,"physical_actions_count":8,"total_wall_clock_ms":54.10766700000022,"scanner_work":{"scan_calls":34,"reresolution_calls":32,"candidates_examined":24,"descriptors_built":48,"nodes_examined":75,"label_elements_examined":56,"total_duration_ms":28,"root_scan_calls":2,"root_scan_duration_us":1701,"subtree_scan_calls":0,"subtree_scan_duration_us":0,"candidate_enumerations":3,"candidate_enumeration_duration_us":0,"descriptor_duration_us":3505,"identity_pairs_examined":8,"identity_matching_duration_us":101,"root_detection_calls":7,"root_detection_duration_us":301,"capacity_checks":14,"capacity_check_duration_us":0,"preflight_reresolutions":8,"preflight_reresolution_duration_us":1001,"preaction_reresolutions":8,"preaction_reresolution_duration_us":802,"settle_reresolutions":8,"settle_reresolution_duration_us":1500,"reconcile_reresolutions":8,"reconcile_reresolution_duration_us":701,"other_reresolutions":0,"other_reresolution_duration_us":0,"generations_observed":1,"index_rebuilds":1,"index_hits":31,"index_invalidations":0,"index_rebuild_duration_us":301,"semantic_match_checks":256},"w11_scan_duration_ms":0,"w11_root_scans":1,"w11_subtree_scans":0,"cpu_source":"CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE","task_duration_delta_s":0.017514000000000002,"heap_source":"CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE","heap_before_bytes":3571036,"heap_after_bytes":3985408,"settle_budget_ms":0,"evidence_scope":"LOWER_BOUND_NO_ASYNC_RERENDER_DELAY","browser_product":"Chrome/151.0.7922.34","browser_revision":"@782af9cb30a53f54487e5d2e44738645a8ec457c"},{"control_count":32,"actions_attempted":32,"physical_actions_count":32,"total_wall_clock_ms":285.09066699999994,"scanner_work":{"scan_calls":130,"reresolution_calls":128,"candidates_examined":96,"descriptors_built":192,"nodes_examined":291,"label_elements_examined":224,"total_duration_ms":99,"root_scan_calls":2,"root_scan_duration_us":3200,"subtree_scan_calls":0,"subtree_scan_duration_us":0,"candidate_enumerations":3,"candidate_enumeration_duration_us":201,"descriptor_duration_us":13119,"identity_pairs_examined":32,"identity_matching_duration_us":401,"root_detection_calls":7,"root_detection_duration_us":100,"capacity_checks":14,"capacity_check_duration_us":100,"preflight_reresolutions":32,"preflight_reresolution_duration_us":4607,"preaction_reresolutions":32,"preaction_reresolution_duration_us":4408,"settle_reresolutions":32,"settle_reresolution_duration_us":7511,"reconcile_reresolutions":32,"reconcile_reresolution_duration_us":1102,"other_reresolutions":0,"other_reresolution_duration_us":0,"generations_observed":1,"index_rebuilds":1,"index_hits":127,"index_invalidations":0,"index_rebuild_duration_us":600,"semantic_match_checks":4096},"w11_scan_duration_ms":1,"w11_root_scans":1,"w11_subtree_scans":0,"cpu_source":"CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE","task_duration_delta_s":0.076831,"heap_source":"CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE","heap_before_bytes":3351816,"heap_after_bytes":4302412,"settle_budget_ms":0,"evidence_scope":"LOWER_BOUND_NO_ASYNC_RERENDER_DELAY","browser_product":"Chrome/151.0.7922.34","browser_revision":"@782af9cb30a53f54487e5d2e44738645a8ec457c"},{"control_count":128,"actions_attempted":128,"physical_actions_count":128,"total_wall_clock_ms":1184.176125,"scanner_work":{"scan_calls":514,"reresolution_calls":512,"candidates_examined":384,"descriptors_built":768,"nodes_examined":1155,"label_elements_examined":896,"total_duration_ms":441,"root_scan_calls":2,"root_scan_duration_us":9002,"subtree_scan_calls":0,"subtree_scan_duration_us":0,"candidate_enumerations":3,"candidate_enumeration_duration_us":200,"descriptor_duration_us":57199,"identity_pairs_examined":128,"identity_matching_duration_us":1201,"root_detection_calls":10,"root_detection_duration_us":1000,"capacity_checks":17,"capacity_check_duration_us":600,"preflight_reresolutions":128,"preflight_reresolution_duration_us":26546,"preaction_reresolutions":128,"preaction_reresolution_duration_us":18936,"settle_reresolutions":128,"settle_reresolution_duration_us":48159,"reconcile_reresolutions":128,"reconcile_reresolution_duration_us":6212,"other_reresolutions":0,"other_reresolution_duration_us":0,"generations_observed":1,"index_rebuilds":1,"index_hits":511,"index_invalidations":0,"index_rebuild_duration_us":1801,"semantic_match_checks":65536},"w11_scan_duration_ms":5,"w11_root_scans":1,"w11_subtree_scans":0,"cpu_source":"CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE","task_duration_delta_s":0.542489,"heap_source":"CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE","heap_before_bytes":3758572,"heap_after_bytes":4707124,"settle_budget_ms":0,"evidence_scope":"LOWER_BOUND_NO_ASYNC_RERENDER_DELAY","browser_product":"Chrome/151.0.7922.34","browser_revision":"@782af9cb30a53f54487e5d2e44738645a8ec457c"}]}
+  ✓  2 [chromium] › e2e/extension/extension-benchmark.spec.ts:61:1 › W13 L: total scan and re-resolution scaling includes work outside W11 (2.4s)
+  ✓  3 [chromium] › e2e/extension/extension-benchmark.spec.ts:188:1 › W13 J: overlapping delayed repeater operations perform one physical click (751ms)
+  ✓  4 [chromium] › e2e/extension/extension-benchmark.spec.ts:241:1 › W13 K: required control beyond capacity cannot receive a complete readiness proof (574ms)
+  ✓  5 [chromium] › e2e/extension/extension-benchmark.spec.ts:272:1 › W13 K: observation beginning over capacity requires a complete recovery scan (845ms)
+
+  5 passed (9.6s)

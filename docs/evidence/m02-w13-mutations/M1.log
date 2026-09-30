@@ -1,0 +1,36 @@
+
+ RUN  v4.1.10 /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner
+
+ ❯ test/m02-w13/autofill.test.ts (33 tests | 1 failed | 32 skipped) 142ms
+   × S15 wrong candidate observations never become expected truth 141ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w13/autofill.test.ts > S15 wrong candidate observations never become expected truth
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ test/m02-w13/autofill.test.ts:316:38
+    314|   const before = sha256Canonical(f.oracle);
+    315|   const score = scored(f);
+    316|   expect(score.counts.correct_fills).toBe(0);
+       |                                      ^
+    317|   expect(score.counts.incorrect_fills).toBe(1);
+    318|   expect(score.oracle_digest).toBe(before);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 32 skipped (33)
+   Start at  14:15:18
+   Duration  405ms (transform 126ms, setup 0ms, import 169ms, tests 142ms, environment 0ms)
+
+undefined
+/private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w13/autofill.test.ts -t 'S15 wrong candidate observations'

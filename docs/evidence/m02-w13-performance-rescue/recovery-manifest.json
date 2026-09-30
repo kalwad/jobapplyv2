@@ -1,0 +1,71 @@
+{
+  "snapshot_kind": "PRESERVED_DIRTY_W13_RECOVERY_COPY",
+  "created_at": "2026-09-30T16:55:38.888902+00:00",
+  "base_commit": "f17b358b7e9a8d601769a099992510515d50278e",
+  "files": {
+    "apps/extension/src/dynamic-engine.ts": {
+      "sha256": "96429664b2cfeb0bbd94427dbc846c88da0942fc07c36a4f212aea9f4aef2174",
+      "bytes": 39237
+    },
+    "apps/extension/src/dynamic-protocol.ts": {
+      "sha256": "8df8d04f3e23405b296ec73426450b90cf2588f60fa47071e4a470a169e3ebd4",
+      "bytes": 40336
+    },
+    "apps/extension/src/field-scanner.ts": {
+      "sha256": "1d07ed3a7946969c41fde4e480bd911add6615d86f975de209104470231c4474",
+      "bytes": 41955
+    },
+    "apps/extension/src/scanner-protocol.ts": {
+      "sha256": "b83b12fa333ae9c670732be9618dd8b6844eaac4de5cc6916de40d9e57b2605b",
+      "bytes": 26275
+    },
+    "apps/extension/src/semantic-identity.ts": {
+      "sha256": "ee1316130f99645183788d2020675ff4ce2c961c08188322e36a44fa1d4328ae",
+      "bytes": 3116
+    },
+    "apps/extension/test/m02-w13/semantic-identity.test.ts": {
+      "sha256": "5328a75995c2f3fbad58de3ee0c42d75aba668cf6be0240f55fd1f533ffd538e",
+      "bytes": 1419
+    },
+    "docs/DECISIONS.md": {
+      "sha256": "083b478f5ca4781d91c838c30d8dc0d4c2cf3c56749b8df9246295efae41a68b",
+      "bytes": 35721
+    },
+    "docs/KNOWN_ISSUES.md": {
+      "sha256": "84fa8755cf80dda47e08396e49164998ef017864789d248a5692727d54d789b0",
+      "bytes": 212213
+    },
+    "docs/PROJECT_STATUS.md": {
+      "sha256": "8c4196f610f526c4b9b5d544e15249acce0215e99e26a5e81998c028aba94253",
+      "bytes": 38551
+    },
+    "docs/REQUIREMENTS_TRACEABILITY.md": {
+      "sha256": "587dec812eba4d4b51b0b6f27921e22a02961d8a0283440245f2e355e4ab1256",
+      "bytes": 340153
+    },
+    "docs/TEST_EVIDENCE.md": {
+      "sha256": "1b49dd322dfb8b80fc1542231f6dd1e17f115f961757c10ae56f666206a8acc3",
+      "bytes": 781158
+    },
+    "docs/evidence/m02-w13-blocked/browser-regressions.log": {
+      "sha256": "9bc64013a80c948603adeaf355d73ce763a278820307fbf6f3082774f6ad1743",
+      "bytes": 10084
+    },
+    "docs/evidence/m02-w13-blocked/manifest.json": {
+      "sha256": "f2c8a043094403895a3177c325d71da056815f179d2b95dc636162e24e86e7d0",
+      "bytes": 4693
+    },
+    "docs/evidence/m02-w13-blocked/scaling.json": {
+      "sha256": "46b1f2d2cb1bdb28211534e55d96c9eb2b25f27efe272d7dbd76e4e5f82eea9a",
+      "bytes": 3086
+    },
+    "docs/traceability.json": {
+      "sha256": "ae411b20634c5e848ade3711aba99e37e92051024bb9a96b038ca145a4633a29",
+      "bytes": 706952
+    },
+    "e2e/extension/extension-benchmark.spec.ts": {
+      "sha256": "a170390c893c76773a75c47cc7b62da22ed83dddbc513a5109f79fd43ee525b8",
+      "bytes": 11945
+    }
+  }
+}

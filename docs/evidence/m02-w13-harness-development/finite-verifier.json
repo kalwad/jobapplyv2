@@ -1,0 +1,63 @@
+{
+  "format_version": "W13_FINITE_INTERNAL_VERIFIER_1",
+  "authority": "INTERNAL_ONLY_NOT_GATE_A_INDEPENDENT_REVIEW",
+  "matrix": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N"
+  ],
+  "fresh_probes": 14,
+  "fresh_probe_limit": 16,
+  "reviewer": "reused /root/w13_contract_audit; root sole writer; no new reviewer or recursive tree",
+  "preliminary_snapshot_files": 824,
+  "preliminary_snapshot_manifest_sha256": "25b8687667cced2ddb1e3a63a706b5dea2c924e4c45838c79623a9da4aeb4517",
+  "verdict": "PRELIMINARY_CONTENT_CLEAR",
+  "findings": [
+    {
+      "id": "KI-0073",
+      "family": "C/E",
+      "classification": "PACKAGE_BLOCKER",
+      "state": "FIXED",
+      "proof": "complete normalized score-derived observation binds coherent replay; regression first failed then passes"
+    },
+    {
+      "id": "KI-0074",
+      "family": "I",
+      "classification": "DIRECT_REGRESSION",
+      "state": "FIXED",
+      "proof": "actual MV3 independently asserts case-ID worksheet timestamps"
+    },
+    {
+      "id": "KI-0075",
+      "family": "A/C/S16",
+      "classification": "PACKAGE_BLOCKER",
+      "state": "FIXED",
+      "proof": "four supported-schema/family/input binding negatives first failed then pass"
+    },
+    {
+      "family": "E",
+      "classification": "DOCUMENTED_LIMITATION",
+      "state": "DOCUMENTED",
+      "proof": "historical p95 checkpoint hashes retained; corrected development bundle is a separate exact source anchor"
+    }
+  ],
+  "checks": {
+    "runner": 335,
+    "holdout_standins": 11,
+    "real_mv3_retained_JKL_and_index": 9,
+    "status_groups": 45
+  },
+  "mutations": "exactly M1-M6 KILLED; all824 source files restored after each; M5 actual physical repeater count2 violates expected1",
+  "index_regression": "controlled mutation during awaited descriptor hashing invalidates prior global uniqueness, then fresh ambiguity; equivalent finite L proof, no seventh mutation"
+}

@@ -1,0 +1,127 @@
+{
+  "format_version": "W13_DEVELOPMENT_EVIDENCE_1",
+  "labels": [
+    "DEVELOPMENT",
+    "HARNESS_VALIDATION",
+    "NOT_GATE_A_FINAL_EVIDENCE"
+  ],
+  "published_ancestor": "f17b358b7e9a8d601769a099992510515d50278e",
+  "artifacts": {
+    "case-binding-reproduction.log": {
+      "bytes": 1927,
+      "sha256": "18d2072d1abf2f5edee23b03f91a7c586dc1a92ef3314897809bf5cef07d3966"
+    },
+    "contract-integrity.log": {
+      "bytes": 108,
+      "sha256": "0fa734fa4cc7fa4edb1ec4496774cec113b3c9c222d05cedaded478e7371660d"
+    },
+    "corpus-typecheck.log": {
+      "bytes": 23,
+      "sha256": "29c5ee0f6b0b20dbb259b99d01276198c3d28190090706394608d4deda6d2c0b"
+    },
+    "corpus-unit.log": {
+      "bytes": 296,
+      "sha256": "c5c618ddf6b911a8ed57b7defdf9a42c3e32245267072a686518e4d6654430a0"
+    },
+    "corrected-verifier-browser.log": {
+      "bytes": 15954,
+      "sha256": "c20edd95cbb708caaa988e9f8b670e01c81e31013c63c4662a62bd92a1f82420"
+    },
+    "corrected-verifier-holdout.log": {
+      "bytes": 320,
+      "sha256": "fd60fd1b039161c22f2e88b6562eb35aaf93b2623cac9f30da1d5cff59df0a2a"
+    },
+    "corrected-verifier-runner.log": {
+      "bytes": 374,
+      "sha256": "bd0fad45d7133dcb06bacc6ee70b82ea242d66e9ce08e1f57f2bda9f935ecd9e"
+    },
+    "development-run-pre-review.json": {
+      "bytes": 764562,
+      "sha256": "80b3923cf351e9d52e7edd21ef40f0e1aaaab2678468339e9b27c8c0bdc2dc06"
+    },
+    "development-run.json": {
+      "bytes": 764565,
+      "sha256": "f94a3a5d875c2bdaebc1985923715fa3bf044050324b094e37f05c1bd6f50d5c"
+    },
+    "e2e-typecheck.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence-fix-e2e-types.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence-fix-lint.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence-fix-mv3.log": {
+      "bytes": 9351,
+      "sha256": "c04cb545ab7468b7e6168fb27b16888f06737e1f33b5f0b85644c5319cffa2df"
+    },
+    "evidence-fix-runner-types.log": {
+      "bytes": 23,
+      "sha256": "29c5ee0f6b0b20dbb259b99d01276198c3d28190090706394608d4deda6d2c0b"
+    },
+    "evidence-fix-runner.log": {
+      "bytes": 298,
+      "sha256": "ff89ad122426998050b5876d2c941763fdf884a6e37922f84d5878348e15ac43"
+    },
+    "evidence-fix-status.log": {
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    "extension-unit.log": {
+      "bytes": 286,
+      "sha256": "6307eec8e9c7fbd31c4de38aa62f78adb4bcf9ef96cc8f790eb2da0494555b46"
+    },
+    "finite-verifier.json": {
+      "bytes": 1986,
+      "sha256": "a6cecbd14e37211ffa701d524f01cfd1151b7e4d5ced65588827e4aa2f7405d6"
+    },
+    "lint.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest-drift-reproduction.log": {
+      "bytes": 1194,
+      "sha256": "e7a352b778e15411049766dd4aea5856fb7f61756e849d29fb75ac97f4fd4f15"
+    },
+    "oracle-contamination.log": {
+      "bytes": 256,
+      "sha256": "2bf6525f4544d6109fb35b11aeb989a7f469a78d90e2518311fe92eb095ea677"
+    },
+    "portability.log": {
+      "bytes": 144,
+      "sha256": "0719a826bcbb1fa198edabe34de03ec95ae52f9bd5bdc77dd092332cefc8ead9"
+    },
+    "real-mv3.log": {
+      "bytes": 9351,
+      "sha256": "140e639487c6fa38c02717e55d8809618e017a6ae0229ecd2f7cbcdd77b5ffed"
+    },
+    "retained-full-mv3.log": {
+      "bytes": 48628,
+      "sha256": "9b14c994cc977619565e6f61a414be4079fdf9843ba865cfd8b4f588fc19a792"
+    },
+    "runner-typecheck.log": {
+      "bytes": 23,
+      "sha256": "29c5ee0f6b0b20dbb259b99d01276198c3d28190090706394608d4deda6d2c0b"
+    },
+    "runner-unit.log": {
+      "bytes": 298,
+      "sha256": "6b9574b2aa5e0c5ae7d2380c2c1b6e58e78c625e964346c6bc01e5e7368e627b"
+    },
+    "status.log": {
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    "traceability.log": {
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    "worksheet-drift-reproduction.log": {
+      "bytes": 4383,
+      "sha256": "12678b06830f166ab1969724618acfac8bb316901d23b952f5738a9d4bd55fd5"
+    }
+  }
+}

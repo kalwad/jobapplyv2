@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W12 governance on verified content 925c7b27cda71802ad9215984c0306cfe3f92d86
-Last updated: 2026-09-06T18:42:56-04:00
+Repository revision: M02-W13 performance rescue and harness implementation based on f17b358b7e9a8d601769a099992510515d50278e
+Last updated: 2026-09-30T18:32:59+00:00
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W13
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,9 +23,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W12 is VERIFIED at content tree `25f4128163ec73a91afd54a15c026b38d4187e5a` after SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION. M02-W13 (build autofill benchmark and clean-room baseline harness) is the sole READY package; no package is IN_PROGRESS.
-- Evidence: docs/TEST_EVIDENCE.md § M02-W12 records the sanitized 200-variant research expansion (Workday80, Greenhouse40, Lever40, Ashby40), unchanged frozen W06 sources and W08–W11 core, finite16-probe review, four writer/verifier correction rounds (including two CI portability corrections), six killed mutations, canonical passes and exact content hosted proof. This is governance of the W12 lifecycle; it does not implement W13.
-- Gate posture: M00/M01 remain ACCEPTED; M02 remains IN_PROGRESS; W01–W12 VERIFIED, W14–W15 NOT_STARTED. All four gates NOT_EVALUATED, release NOT_READY. Research only, no production ATS support, Gate A, benchmark scoring, public employer, private holdout, Simplify, automatic navigation or submission execution.
+- State: M02-W13 is IN_PROGRESS. GPT-6.1 Sol Ultra remains owner-selected. The current dirty worktree was preserved in a hashed local recovery snapshot before continuation. Zero packages are READY.
+- Evidence: rescue round 1 of four additionally authorized rounds clears the exact target-Mac 128-control lower-bound case: 20-sample p95 1,468.28 ms, all 128 fills verified, 512 live resolutions, three candidate enumerations and one semantic-index build. The four-family W12 development harness uses the accepted W05 runner and reports partial completion honestly. Internal finite verification and all six mutations are CLEAR; the exact corpus registration is aligned. Refreeze, both canonical passes, exact-SHA hosted proof and final verifier/lifecycle/governance remain pending.
+- Gate posture: M00/M01 ACCEPTED, M02 IN_PROGRESS, W01–W12 VERIFIED, W14/W15 NOT_STARTED. All gates NOT_EVALUATED and release NOT_READY. ADR-0005 records owner approval. No actual owner holdout, Simplify, employer evaluation, automatic navigation, submission or production ATS-support claim.
 
 ## Milestone table
 
@@ -105,7 +105,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W10` | VERIFIED | tree 339281269554f5886a9d763e0d23f1de0deffa2c | docs/TEST_EVIDENCE.md § M02-W10 | Implement transactional control drivers; final content verified by the same-package internal adversarial gauntlet after `CONTENT CLEAR` (hosted content run 32772492093) |
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
-| `M02-W13` | READY | — | — | Build autofill benchmark and clean-room baseline harness |
+| `M02-W13` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt | Performance rescue passed locally; complete W13 verification and hosted proof pending |
 | `M02-W14` | NOT_STARTED | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
@@ -378,8 +378,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W13
-- Reason: M02-W12 is VERIFIED; its direct downstream package is eligible under the unchanged dependency graph. W13 implementation has not begun.
+- ID: NONE
+- Reason: M02-W13 is IN_PROGRESS under bounded performance rescue; M02-W14 requires W13 VERIFIED.
 
 ## Known release blockers
 

@@ -6,7 +6,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./owner-holdout": "./src/owner-holdout.ts"
+    "./owner-holdout": "./src/owner-holdout.ts",
+    "./autofill-holdout": "./src/autofill-holdout.ts"
   },
   "scripts": {
     "corpus:write": "node src/cli.ts corpus-write",

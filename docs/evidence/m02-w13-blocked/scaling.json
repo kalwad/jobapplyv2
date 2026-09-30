@@ -1,0 +1,90 @@
+{
+  "labels": [
+    "DEVELOPMENT",
+    "HARNESS_VALIDATION",
+    "NOT_GATE_A_FINAL_EVIDENCE"
+  ],
+  "rows": [
+    {
+      "control_count": 8,
+      "actions_attempted": 8,
+      "physical_actions_count": 8,
+      "total_wall_clock_ms": 73.34341700000027,
+      "scanner_work": {
+        "scan_calls": 34,
+        "reresolution_calls": 32,
+        "candidates_examined": 272,
+        "descriptors_built": 48,
+        "nodes_examined": 850,
+        "label_elements_examined": 304,
+        "total_duration_ms": 35
+      },
+      "w11_scan_duration_ms": 1,
+      "w11_root_scans": 1,
+      "w11_subtree_scans": 0,
+      "cpu_source": "CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE",
+      "task_duration_delta_s": 0.027491,
+      "heap_source": "CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE",
+      "heap_before_bytes": 3570212,
+      "heap_after_bytes": 3864688,
+      "settle_budget_ms": 0,
+      "evidence_scope": "LOWER_BOUND_NO_ASYNC_RERENDER_DELAY",
+      "browser_product": "Chrome/151.0.7922.34",
+      "browser_revision": "@782af9cb30a53f54487e5d2e44738645a8ec457c"
+    },
+    {
+      "control_count": 32,
+      "actions_attempted": 32,
+      "physical_actions_count": 32,
+      "total_wall_clock_ms": 731.8562080000002,
+      "scanner_work": {
+        "scan_calls": 130,
+        "reresolution_calls": 128,
+        "candidates_examined": 4160,
+        "descriptors_built": 192,
+        "nodes_examined": 12610,
+        "label_elements_examined": 4288,
+        "total_duration_ms": 193
+      },
+      "w11_scan_duration_ms": 1,
+      "w11_root_scans": 1,
+      "w11_subtree_scans": 0,
+      "cpu_source": "CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE",
+      "task_duration_delta_s": 0.21302000000000001,
+      "heap_source": "CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE",
+      "heap_before_bytes": 3343552,
+      "heap_after_bytes": 4907508,
+      "settle_budget_ms": 0,
+      "evidence_scope": "LOWER_BOUND_NO_ASYNC_RERENDER_DELAY",
+      "browser_product": "Chrome/151.0.7922.34",
+      "browser_revision": "@782af9cb30a53f54487e5d2e44738645a8ec457c"
+    },
+    {
+      "control_count": 128,
+      "actions_attempted": 128,
+      "physical_actions_count": 128,
+      "total_wall_clock_ms": 3914.291375,
+      "scanner_work": {
+        "scan_calls": 514,
+        "reresolution_calls": 512,
+        "candidates_examined": 65792,
+        "descriptors_built": 768,
+        "nodes_examined": 197890,
+        "label_elements_examined": 66304,
+        "total_duration_ms": 2509
+      },
+      "w11_scan_duration_ms": 5,
+      "w11_root_scans": 1,
+      "w11_subtree_scans": 0,
+      "cpu_source": "CHROMIUM_CDP_PERFORMANCE_TASK_DURATION_MAIN_PAGE",
+      "task_duration_delta_s": 3.064421,
+      "heap_source": "CHROMIUM_CDP_PERFORMANCE_JS_HEAP_USED_SIZE_MAIN_PAGE",
+      "heap_before_bytes": 3747112,
+      "heap_after_bytes": 7615316,
+      "settle_budget_ms": 0,
+      "evidence_scope": "LOWER_BOUND_NO_ASYNC_RERENDER_DELAY",
+      "browser_product": "Chrome/151.0.7922.34",
+      "browser_revision": "@782af9cb30a53f54487e5d2e44738645a8ec457c"
+    }
+  ]
+}

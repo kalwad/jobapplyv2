@@ -1,0 +1,35 @@
+[WebServer] (node:49389) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:49406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:49439) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 362 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.22 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.12 kB
+Σ Total size: 150.88 kB                            
+✔ Finished in 407 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 316 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.12 kB
+Σ Total size: 111.64 kB                                        
+✔ Finished in 363 ms
+
+Running 1 test using 1 worker
+
+(node:49473) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/extension/extension-semantic-index.spec.ts:243:1 › W13 index: mutation during awaited descriptor hashing refuses obsolete global uniqueness (1.0s)
+
+  1 passed (4.5s)

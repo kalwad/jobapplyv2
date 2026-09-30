@@ -1,0 +1,42 @@
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/evaluation-runner
+
+ ❯ test/m02-w13/autofill.test.ts (33 tests | 4 failed | 29 skipped) 142ms
+     × S16 canonical case rejects unsupported oracle_schema metadata 141ms
+     × S16 canonical case rejects unsupported input_schema metadata 0ms
+     × S16 canonical case rejects unsupported family metadata 0ms
+     × S16 canonical case rejects unsupported input_digest metadata 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > S16 canonical case rejects unsupported oracle_schema metadata
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > S16 canonical case rejects unsupported input_schema metadata
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > S16 canonical case rejects unsupported family metadata
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > S16 canonical case rejects unsupported input_digest metadata
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ test/m02-w13/autofill.test.ts:203:31
+    201|       if (mutation === "family")
+    202|         f.benchmarkCase.benchmark_family = "CONTRACT_COMPATIBILITY";
+    203|       expect(() => scored(f)).toThrow("W13_CASE_ORACLE_BINDING");
+       |                               ^
+    204|     },
+    205|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 29 skipped (33)
+   Start at  14:09:07
+   Duration  396ms (transform 121ms, setup 0ms, import 161ms, tests 142ms, environment 0ms)
+
+undefined
+/Users/tanishkalwad/jobapplyv2/packages/evaluation-runner:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w13/autofill.test.ts -t 'S16 canonical'

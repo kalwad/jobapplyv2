@@ -1,0 +1,77 @@
+[WebServer] (node:56357) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:56375) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:56382) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 357 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.02 kB
+Σ Total size: 150.79 kB                            
+✔ Finished in 451 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G✔ Built extension in 309 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.02 kB
+Σ Total size: 111.54 kB                                        
+✔ Finished in 404 ms
+
+Running 2 tests using 1 worker
+
+(node:56393) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/extension/extension-benchmark.spec.ts:19:1 › W13 J: overlapping equivalent requests perform exactly one physical fill (1.4s)
+  ✘  2 [chromium] › e2e/extension/extension-benchmark.spec.ts:206:1 › W13 J: overlapping delayed repeater operations perform one physical click (866ms)
+
+
+  1) [chromium] › e2e/extension/extension-benchmark.spec.ts:206:1 › W13 J: overlapping delayed repeater operations perform one physical click 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1"
+    Received: "2"
+
+      254 |   expect(
+      255 |     await harness.page.locator("html").getAttribute("data-physical-clicks"),
+    > 256 |   ).toBe("1");
+          |     ^
+      257 | });
+      258 |
+      259 | test("W13 K: required control beyond capacity cannot receive a complete readiness proof", async ({
+        at /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/e2e/extension/extension-benchmark.spec.ts:256:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-benchm-282c9--perform-one-physical-click-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e/extension/extension-benchmark.spec.ts:206:1 › W13 J: overlapping delayed repeater operations perform one physical click 
+  1 passed (6.0s)

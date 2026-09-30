@@ -1,0 +1,36 @@
+
+ RUN  v4.1.10 /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner
+
+ ❯ test/m02-w13/autofill.test.ts (33 tests | 1 failed | 32 skipped) 142ms
+     × S9 unresolved requires explicit reporting evidence 142ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > S9 unresolved requires explicit reporting evidence
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ test/m02-w13/autofill.test.ts:132:48
+    130|       reason: "REQUIRED_UNRESOLVED",
+    131|     });
+    132|     expect(scored(f).counts.required_reported).toBe(1);
+       |                                                ^
+    133|     required(f.candidate.fields[0], "first fixture item").report_diges…
+    134|     expect(scored(f).counts.required_silent).toBe(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 32 skipped (33)
+   Start at  14:15:20
+   Duration  393ms (transform 122ms, setup 0ms, import 164ms, tests 142ms, environment 0ms)
+
+undefined
+/private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w13/autofill.test.ts -t 'S9 unresolved'

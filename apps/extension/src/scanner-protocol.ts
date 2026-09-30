@@ -22,8 +22,57 @@ export const RERESOLVE_TAB_RESULT_KIND = "M02_W08_RERESOLVE_RESULT";
 
 export const CONTENT_FRAME_SCAN_FOUND = "FOUND";
 
+export const SCANNER_WORK_KEYS = [
+  "scan_calls",
+  "reresolution_calls",
+  "candidates_examined",
+  "descriptors_built",
+  "nodes_examined",
+  "label_elements_examined",
+  "total_duration_ms",
+  "total_duration_us",
+  "root_scan_calls",
+  "root_scan_duration_us",
+  "subtree_scan_calls",
+  "subtree_scan_duration_us",
+  "candidate_enumerations",
+  "candidate_enumeration_duration_us",
+  "descriptor_duration_us",
+  "descriptor_builds_started",
+  "identity_pairs_examined",
+  "identity_matching_duration_us",
+  "root_detection_calls",
+  "root_detection_duration_us",
+  "capacity_checks",
+  "capacity_check_duration_us",
+  "preflight_reresolutions",
+  "preflight_reresolution_duration_us",
+  "preaction_reresolutions",
+  "preaction_reresolution_duration_us",
+  "settle_reresolutions",
+  "settle_reresolution_duration_us",
+  "reconcile_reresolutions",
+  "reconcile_reresolution_duration_us",
+  "other_reresolutions",
+  "other_reresolution_duration_us",
+  "generations_observed",
+  "index_rebuilds",
+  "index_hits",
+  "index_invalidations",
+  "index_rebuild_duration_us",
+  "semantic_match_checks",
+] as const;
+
+export type ScannerWorkMetrics = Readonly<
+  Record<(typeof SCANNER_WORK_KEYS)[number], number>
+>;
+
 export type ScanRootStatus =
-  typeof CONTENT_FRAME_SCAN_FOUND | "UNRESOLVED" | "AMBIGUOUS" | "UNAVAILABLE";
+  | typeof CONTENT_FRAME_SCAN_FOUND
+  | "UNRESOLVED"
+  | "AMBIGUOUS"
+  | "UNAVAILABLE"
+  | "CAPACITY_EXCEEDED";
 
 export interface FrameContext {
   readonly session_id: string;
@@ -649,9 +698,13 @@ export function parseFrameScanReport(value: unknown): FrameScanReport | null {
     candidate.protocolVersion !== SCANNER_PROTOCOL_VERSION ||
     !isRequestId(candidate.requestId) ||
     !isFrameContext(candidate.frame_context) ||
-    !["FOUND", "UNRESOLVED", "AMBIGUOUS", "UNAVAILABLE"].includes(
-      String(candidate.root_status),
-    ) ||
+    ![
+      "FOUND",
+      "UNRESOLVED",
+      "AMBIGUOUS",
+      "UNAVAILABLE",
+      "CAPACITY_EXCEEDED",
+    ].includes(String(candidate.root_status)) ||
     !isSafeNonNegativeInteger(candidate.root_candidate_count) ||
     !["APPLICATION_ROOT", "SUBTREE"].includes(
       String(candidate.scan_boundary),
@@ -671,7 +724,8 @@ export function parseFrameScanReport(value: unknown): FrameScanReport | null {
     (candidate.descriptors.length === 0 &&
       ((rootStatus === "UNRESOLVED" && count === 0) ||
         (rootStatus === "AMBIGUOUS" && count > 1) ||
-        (rootStatus === "UNAVAILABLE" && count === 0)));
+        (rootStatus === "UNAVAILABLE" && count === 0) ||
+        (rootStatus === "CAPACITY_EXCEEDED" && count === 1)));
   return coherent ? (candidate as unknown as FrameScanReport) : null;
 }
 

@@ -1,0 +1,106 @@
+{
+  "artifact_kind": "W13_DEVELOPMENT_BLOCKER_AUDIT",
+  "artifact_version": "1.0.0",
+  "run_identity": "W13_DEVELOPMENT_BLOCKER_2026-09-30_FINAL_AFFECTED_MV3",
+  "recorded_at": "2026-09-30T14:15:39.644199+00:00",
+  "labels": [
+    "DEVELOPMENT",
+    "HARNESS_VALIDATION",
+    "NOT_GATE_A_FINAL_EVIDENCE"
+  ],
+  "active_model_start": "GPT-6.1 Sol Ultra",
+  "active_model_finish": "GPT-6.1 Sol Ultra",
+  "base_commit": "f17b358b7e9a8d601769a099992510515d50278e",
+  "base_tree": "ec8fa5a51147e73df44bb480d759b10e2cb0cb3e",
+  "base_parent": "925c7b27cda71802ad9215984c0306cfe3f92d86",
+  "canonical_spec_sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943",
+  "candidate_state": "UNCOMMITTED_DRAFT_NOT_CONTENT_CLEAR",
+  "candidate_changed_source_sha256": {
+    "apps/extension/src/dynamic-engine.ts": "96429664b2cfeb0bbd94427dbc846c88da0942fc07c36a4f212aea9f4aef2174",
+    "apps/extension/src/dynamic-protocol.ts": "8df8d04f3e23405b296ec73426450b90cf2588f60fa47071e4a470a169e3ebd4",
+    "apps/extension/src/field-scanner.ts": "1d07ed3a7946969c41fde4e480bd911add6615d86f975de209104470231c4474",
+    "apps/extension/src/scanner-protocol.ts": "b83b12fa333ae9c670732be9618dd8b6844eaac4de5cc6916de40d9e57b2605b",
+    "apps/extension/src/semantic-identity.ts": "ee1316130f99645183788d2020675ff4ce2c961c08188322e36a44fa1d4328ae",
+    "apps/extension/test/m02-w13/semantic-identity.test.ts": "5328a75995c2f3fbad58de3ee0c42d75aba668cf6be0240f55fd1f533ffd538e",
+    "e2e/extension/extension-benchmark.spec.ts": "a170390c893c76773a75c47cc7b62da22ed83dddbc513a5109f79fd43ee525b8"
+  },
+  "candidate_changed_source_fingerprint_sha256": "b6627bacb2fc5d9f52bbf1cf8e708c95fa4de95e8f17746dff2699a97d005f4d",
+  "built_mv3_file_sha256": {
+    "manifest.json": "674ac328b7f4554db378f62e5477ab33d778ad5ade142133ee747e36f79862b4",
+    "background.js": "2d0dd21650136288105c50a3d49b710585216cc29a83e3eafbb683641dc07323",
+    "content-scripts/feasibility.js": "6d376857ac64dae7c3659a8278550a30f064b6a110e7754663effe16704ca082"
+  },
+  "command": "pnpm exec playwright test e2e/extension/extension-benchmark.spec.ts e2e/extension/extension-dynamic.spec.ts e2e/extension/extension-scanner.spec.ts",
+  "exit_code": 0,
+  "browser_tests_passed": 34,
+  "w13_browser_tests_passed": 5,
+  "affected_retained_browser_tests_passed": 29,
+  "previous_retained_full_mv3_suite": {
+    "passed": 70,
+    "retained": 66,
+    "w13": 4,
+    "relation": "BEFORE_LATE_CAPACITY_RECOVERY_FIX"
+  },
+  "hardware": {
+    "cpu": "Apple M5",
+    "model": "Mac17,2",
+    "memory_bytes": 25769803776,
+    "os": "macOS-27.0-arm64-arm-64bit-Mach-O"
+  },
+  "cpu_heap_limits": "Main-page CDP task duration and JS heap; not all-process CPU/RSS. Memory is before/after, not peak. Wall time includes controller and W09 preparation. W08 scanner duration alone already exceeds1500ms at128.",
+  "performance_correction_rounds": 4,
+  "blocker": "PACKAGE_BLOCKER: total current-root scan/re-resolution remains above target Mac1500ms lower bound after four local corrections; final p95 and Gate A were not evaluated.",
+  "privacy": {
+    "data": "AUTHORED_SYNTHETIC_ONLY",
+    "actual_owner_holdout_accessed": false,
+    "simplify_executed": false,
+    "live_employer_submissions": 0,
+    "automatic_navigation_actions": 0,
+    "durable_raw_field_values": false
+  },
+  "unimplemented": [
+    "full_W13_benchmark_scorer",
+    "oracle_candidate_separation_proof",
+    "scoring_denominators",
+    "stand_in_holdout_interface_proof",
+    "clean_room_baseline_interface",
+    "Simplify_manual_worksheet"
+  ],
+  "not_reached": [
+    "complete_A_to_N_internal_verifier",
+    "M1_to_M6_mutation_gauntlet",
+    "content_freeze",
+    "canonical_PASS_1",
+    "canonical_PASS_2",
+    "content_commit_push_CI",
+    "final_exact_SHA_verifier",
+    "lifecycle_simulation",
+    "verified_governance_commit_CI"
+  ],
+  "gate_A": "NOT_EVALUATED",
+  "W14": "NOT_STARTED",
+  "W15": "NOT_STARTED",
+  "next_READY": "NONE",
+  "artifacts_sha256": {
+    "browser-regressions.log": "9bc64013a80c948603adeaf355d73ce763a278820307fbf6f3082774f6ad1743",
+    "scaling.json": "46b1f2d2cb1bdb28211534e55d96c9eb2b25f27efe272d7dbd76e4e5f82eea9a"
+  },
+  "finite_source_review": {
+    "reviewer": "w13_contract_audit",
+    "scope": [
+      "K capture/refusal/publication guards",
+      "L total scan work"
+    ],
+    "K": "IDENTIFIED_GUARDS_ADDRESSED",
+    "L": "PACKAGE_BLOCKER",
+    "full_A_to_N_clear": false,
+    "isolated_final_verifier_reached": false
+  },
+  "supplementary_checks": {
+    "extension_unit_tests": 171,
+    "changed_source_lint": "PASS",
+    "extension_typecheck": "PASS",
+    "changed_source_format": "PASS",
+    "full_aggregate_verification": "NOT_RUN"
+  }
+}

@@ -1,0 +1,36 @@
+
+ RUN  v4.1.10 /private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner
+
+ ❯ test/m02-w13/autofill.test.ts (33 tests | 1 failed | 32 skipped) 145ms
+     × M6 baseline has same inputs/scorer but cannot become product authority 144ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/m02-w13/autofill.test.ts > W13 permanent S1-S16 scoring contracts > M6 baseline has same inputs/scorer but cannot become product authority
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ test/m02-w13/autofill.test.ts:266:29
+    264|       "baseline_legacy_behavior_observation_v1";
+    265|     f.candidate.implementation.version = "1.0.2";
+    266|     expect(() => scored(f)).toThrow("W13_IMPLEMENTATION");
+       |                             ^
+    267|     const isolated = isolateBaseline(
+    268|       f.benchmarkCase,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 32 skipped (33)
+   Start at  14:15:28
+   Duration  401ms (transform 124ms, setup 0ms, import 168ms, tests 145ms, environment 0ms)
+
+undefined
+/private/var/folders/6k/q53qj_p91_1d2vzdls1cb9r40000gn/T/jobapply-w13-six-mutations-ttd_3r_f/candidate/packages/evaluation-runner:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/m02-w13/autofill.test.ts -t 'M6 baseline'

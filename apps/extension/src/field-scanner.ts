@@ -1,3 +1,7 @@
+import {
+  SCANNER_WORK_KEYS,
+  type ScannerWorkMetrics,
+} from "./scanner-protocol.ts";
 import type {
   FormFieldAddressV1,
   FormFieldDescriptorV1,
@@ -69,6 +73,47 @@ export interface FieldCandidate {
   readonly groupElement?: HTMLElement;
 }
 
+type MutableScannerWork = { -readonly [K in keyof ScannerWorkMetrics]: number };
+const scannerWork = new WeakMap<Document, MutableScannerWork>();
+const lastMeasuredGeneration = new WeakMap<Document, number>();
+
+export function scannerWorkMetrics(document: Document) {
+  let metrics = scannerWork.get(document);
+  if (metrics === undefined) {
+    metrics = Object.fromEntries(
+      SCANNER_WORK_KEYS.map((key) => [key, 0]),
+    ) as MutableScannerWork;
+    scannerWork.set(document, metrics);
+  }
+  return {
+    ...metrics,
+    total_duration_ms: Math.ceil(metrics.total_duration_us / 1000),
+  };
+}
+
+function measuredUs(started: number): number {
+  return Math.max(0, Math.ceil((performance.now() - started) * 1000));
+}
+
+export type ResolutionPurpose =
+  "preflight" | "preaction" | "settle" | "reconcile" | "other";
+
+function noteGeneration(document: Document): void {
+  const generation = currentDomGeneration(document);
+  if (lastMeasuredGeneration.get(document) !== generation) {
+    lastMeasuredGeneration.set(document, generation);
+    workCounters(document).generations_observed += 1;
+  }
+}
+
+function workCounters(document: Document) {
+  scannerWorkMetrics(document);
+  const metrics = scannerWork.get(document);
+  if (metrics === undefined)
+    throw new Error("scanner instrumentation unavailable");
+  return metrics;
+}
+
 type ApplicationRootResult =
   | { readonly status: "FOUND"; readonly root: HTMLElement }
   | { readonly status: "UNRESOLVED" }
@@ -87,6 +132,7 @@ interface ScanIdentityContext {
   readonly applicationRootFingerprint: string;
   readonly observedAt: string;
   readonly observedDomGeneration: number;
+  readonly headingCandidates: readonly HTMLElement[];
 }
 
 function elementsWithin(root: Element, selector: string): HTMLElement[] {
@@ -100,6 +146,21 @@ function elementsWithin(root: Element, selector: string): HTMLElement[] {
 
 function hasSupportedControl(root: Element): boolean {
   return elementsWithin(root, CONTROL_SELECTOR).length > 0;
+}
+
+/** Conservative raw-control bound, including grouped controls. A refusal is
+ * explicit; no truncated descriptor list may stand for complete coverage. */
+export function scanCapacityExceeded(root: HTMLElement): boolean {
+  const started = performance.now();
+  const work = workCounters(root.ownerDocument);
+  work.capacity_checks += 1;
+  try {
+    return (
+      elementsWithin(root, CONTROL_SELECTOR).length > MAX_DESCRIPTORS_PER_FRAME
+    );
+  } finally {
+    work.capacity_check_duration_us += measuredUs(started);
+  }
 }
 
 function uniqueElements(elements: readonly HTMLElement[]): HTMLElement[] {
@@ -122,6 +183,17 @@ function requiredValue<T>(value: T | undefined): T {
 export function detectApplicationRoot(
   document: Document,
 ): ApplicationRootResult {
+  const started = performance.now();
+  const work = workCounters(document);
+  work.root_detection_calls += 1;
+  try {
+    return detectRootEvidence(document);
+  } finally {
+    work.root_detection_duration_us += measuredUs(started);
+  }
+}
+
+function detectRootEvidence(document: Document): ApplicationRootResult {
   const explicit = uniqueElements(
     elementsWithin(
       document.documentElement,
@@ -205,7 +277,7 @@ export function normalizeScannerText(value: string | null | undefined): string {
   return normalizeText(value);
 }
 
-function normalizeText(value: string | null | undefined): string {
+export function normalizeText(value: string | null | undefined): string {
   if (value === null || value === undefined) {
     return "";
   }
@@ -257,7 +329,9 @@ function nativeLabels(element: HTMLElement): string[] {
   )) {
     return [];
   }
-  return [...(element.labels ?? [])]
+  const labels = [...(element.labels ?? [])];
+  workCounters(element.ownerDocument).label_elements_examined += labels.length;
+  return labels
     .map((label) => normalizeText(label.textContent))
     .filter((value) => value !== "");
 }
@@ -266,7 +340,32 @@ function firstNonempty(...values: readonly string[]): string {
   return values.find((value) => value !== "") ?? "";
 }
 
-function accessibleLabel(candidate: FieldCandidate): string {
+function nativeLabelSnapshot(
+  document: Document,
+): ReadonlyMap<HTMLElement, readonly string[]> {
+  const labels = new Map<HTMLElement, string[]>();
+  for (const label of document.querySelectorAll<HTMLLabelElement>("label")) {
+    workCounters(document).label_elements_examined += 1;
+    const control = label.control;
+    if (!(
+      control instanceof HTMLInputElement ||
+      control instanceof HTMLSelectElement ||
+      control instanceof HTMLTextAreaElement
+    ))
+      continue;
+    const text = normalizeText(label.textContent);
+    if (text === "") continue;
+    const current = labels.get(control) ?? [];
+    current.push(text);
+    labels.set(control, current);
+  }
+  return labels;
+}
+
+function accessibleLabel(
+  candidate: FieldCandidate,
+  labelSnapshot?: ReadonlyMap<HTMLElement, readonly string[]>,
+): string {
   const anchor = candidate.groupElement ?? candidate.anchor;
   const labelledBy = referencedText(anchor, "aria-labelledby");
   if (labelledBy !== "") {
@@ -282,7 +381,11 @@ function accessibleLabel(candidate: FieldCandidate): string {
       return legend;
     }
   }
-  const labels = nativeLabels(candidate.anchor);
+  const labels =
+    labelSnapshot !== undefined &&
+    candidate.anchor.getRootNode() === candidate.anchor.ownerDocument
+      ? (labelSnapshot.get(candidate.anchor) ?? [])
+      : nativeLabels(candidate.anchor);
   if (labels.length > 0) {
     return labels.join(" ");
   }
@@ -327,10 +430,11 @@ function sectionToken(value: string): string | null {
 function sectionContext(
   candidate: FieldCandidate,
   applicationRoot: HTMLElement,
+  headingCandidates: readonly HTMLElement[],
 ): string[] {
   const context: string[] = [];
   const anchor = candidate.groupElement ?? candidate.anchor;
-  const headings = elementsWithin(applicationRoot, HEADING_SELECTOR).filter(
+  const headings = headingCandidates.filter(
     (heading) =>
       heading !== anchor &&
       (heading.compareDocumentPosition(anchor) &
@@ -417,11 +521,25 @@ function controlKind(element: HTMLElement): FormFieldDescriptorV1ControlKind {
   }
 }
 
-function collectCandidates(boundary: HTMLElement): FieldCandidate[] {
-  const elements = elementsWithin(boundary, CONTROL_SELECTOR).slice(
-    0,
-    MAX_DESCRIPTORS_PER_FRAME,
-  );
+type CapturedCandidates =
+  | { readonly status: "COMPLETE"; readonly candidates: FieldCandidate[] }
+  | { readonly status: "CAPACITY_EXCEEDED" };
+
+function collectCandidates(boundary: HTMLElement): CapturedCandidates {
+  const started = performance.now();
+  const work = workCounters(boundary.ownerDocument);
+  work.candidate_enumerations += 1;
+  try {
+    return captureCandidateEvidence(boundary);
+  } finally {
+    work.candidate_enumeration_duration_us += measuredUs(started);
+  }
+}
+
+function captureCandidateEvidence(boundary: HTMLElement): CapturedCandidates {
+  const elements = elementsWithin(boundary, CONTROL_SELECTOR);
+  if (elements.length > MAX_DESCRIPTORS_PER_FRAME)
+    return { status: "CAPACITY_EXCEEDED" };
   const candidates: FieldCandidate[] = [];
   const claimedRadioMembers = new Set<HTMLElement>();
 
@@ -486,7 +604,7 @@ function collectCandidates(boundary: HTMLElement): FieldCandidate[] {
       kind: controlKind(element),
     });
   }
-  return candidates;
+  return { status: "COMPLETE", candidates };
 }
 
 /**
@@ -730,9 +848,28 @@ async function buildDescriptor(
   applicationRoot: HTMLElement,
   context: ScanIdentityContext,
 ): Promise<FormFieldDescriptorV1> {
+  const started = performance.now();
+  workCounters(applicationRoot.ownerDocument).descriptor_builds_started += 1;
+  try {
+    return await buildDescriptorEvidence(candidate, applicationRoot, context);
+  } finally {
+    workCounters(applicationRoot.ownerDocument).descriptor_duration_us +=
+      measuredUs(started);
+  }
+}
+
+async function buildDescriptorEvidence(
+  candidate: FieldCandidate,
+  applicationRoot: HTMLElement,
+  context: ScanIdentityContext,
+): Promise<FormFieldDescriptorV1> {
   const labelText = accessibleLabel(candidate);
   const description = descriptionText(candidate);
-  const sections = sectionContext(candidate, applicationRoot);
+  const sections = sectionContext(
+    candidate,
+    applicationRoot,
+    context.headingCandidates,
+  );
   const options = await optionEvidence(candidate);
   const accessibleNameFingerprint =
     labelText === ""
@@ -801,20 +938,12 @@ async function buildDescriptor(
     resolution_hints: resolutionHints,
     observed_dom_generation: context.observedDomGeneration,
   };
-  const identitySeed = JSON.stringify({
-    session_id: address.session_id,
-    frame_id: address.frame_id,
-    route_signature: address.route_signature,
-    application_root_fingerprint: address.application_root_fingerprint,
-    section_path: address.section_path,
-    accessible_name_fingerprint: address.accessible_name_fingerprint,
-    attribute_fingerprint: address.attribute_fingerprint,
-  });
+  const fieldId = await fieldIdentityId(address);
   const label = await untrustedText(labelText);
   const descriptionEvidence =
     description === "" ? undefined : await untrustedText(description);
   return {
-    field_id: await stableSemanticId("field", identitySeed),
+    field_id: fieldId,
     address,
     control_kind: candidate.kind,
     visible:
@@ -826,7 +955,6 @@ async function buildDescriptor(
         ? candidate.members.some(isElementEnabled)
         : isElementEnabled(candidate.anchor),
     required: isRequired(candidate),
-    // M02-W09 owns sensitivity classification. W08 records no ontology claim.
     sensitive_candidate: false,
     label,
     ...(descriptionEvidence === undefined
@@ -840,6 +968,293 @@ async function buildDescriptor(
   };
 }
 
+type MatchingAddress = Pick<
+  FormFieldAddressV1,
+  | "session_id"
+  | "frame_id"
+  | "ats_family"
+  | "route_signature"
+  | "application_root_fingerprint"
+  | "section_path"
+  | "repeater_path"
+  | "accessible_name_fingerprint"
+  | "attribute_fingerprint"
+>;
+
+async function fieldIdentityId(address: MatchingAddress): Promise<string> {
+  const identitySeed = JSON.stringify({
+    session_id: address.session_id,
+    frame_id: address.frame_id,
+    route_signature: address.route_signature,
+    application_root_fingerprint: address.application_root_fingerprint,
+    section_path: address.section_path,
+    accessible_name_fingerprint: address.accessible_name_fingerprint,
+    attribute_fingerprint: address.attribute_fingerprint,
+  });
+  return stableSemanticId("field", identitySeed);
+}
+
+async function matchingAddress(
+  candidate: FieldCandidate,
+  root: HTMLElement,
+  context: ScanIdentityContext,
+  labelSnapshot: ReadonlyMap<HTMLElement, readonly string[]>,
+): Promise<MatchingAddress> {
+  const label = accessibleLabel(candidate, labelSnapshot);
+  return {
+    session_id: context.frameContext.session_id,
+    frame_id: context.frameContext.frame_id,
+    ats_family: "UNKNOWN",
+    route_signature: context.routeSignature,
+    application_root_fingerprint: context.applicationRootFingerprint,
+    section_path: sectionContext(candidate, root, context.headingCandidates),
+    repeater_path: [],
+    ...(label === ""
+      ? {}
+      : {
+          accessible_name_fingerprint: await semanticDigest(
+            `accessible-name-v1\0${label}`,
+          ),
+        }),
+    attribute_fingerprint: await semanticDigest(attributeEvidence(candidate)),
+  };
+}
+
+// This dependency set comes from collectCandidates, native .labels,
+// referencedText, sectionContext, applicationRootEvidence and attributeEvidence.
+// Topology/text changes anywhere can alter labels, headings or competing roots.
+// State-only attributes are read in each fresh target descriptor/driver check.
+const IDENTITY_ATTRIBUTES = new Set([
+  "role",
+  "type",
+  "name",
+  "id",
+  "form",
+  "for",
+  "autocomplete",
+  "placeholder",
+  "aria-multiline",
+  "multiple",
+  "aria-label",
+  "aria-labelledby",
+  "data-japp-application-root",
+]);
+interface CurrentIdentityEntry {
+  readonly candidate: FieldCandidate;
+  readonly identity: MatchingAddress;
+  readonly fieldId: string;
+}
+interface CurrentSemanticIndex {
+  readonly root: HTMLElement;
+  readonly binding: string;
+  readonly revision: number;
+  readonly context: ScanIdentityContext;
+  readonly entries: readonly CurrentIdentityEntry[];
+  readonly allFieldIds: readonly string[];
+}
+interface SemanticIndexState {
+  revision: number;
+  index: CurrentSemanticIndex | null;
+  observer: MutationObserver;
+  building: {
+    binding: string;
+    revision: number;
+    promise: Promise<CurrentSemanticIndex | null>;
+  } | null;
+}
+const semanticIndexStates = new WeakMap<Document, SemanticIndexState>();
+
+function semanticRecords(
+  state: SemanticIndexState,
+  document: Document,
+  records: readonly MutationRecord[],
+): void {
+  if (
+    !records.some(
+      (record) =>
+        record.type !== "attributes" ||
+        record.attributeName === null ||
+        IDENTITY_ATTRIBUTES.has(record.attributeName),
+    )
+  )
+    return;
+  state.revision += 1;
+  state.index = null;
+  workCounters(document).index_invalidations += 1;
+}
+
+function semanticState(document: Document): SemanticIndexState {
+  const current = semanticIndexStates.get(document);
+  if (current !== undefined) return current;
+  const observer = new MutationObserver((records) => {
+    semanticRecords(state, document, records);
+  });
+  const state: SemanticIndexState = {
+    revision: 0,
+    index: null,
+    observer,
+    building: null,
+  };
+  // Install before the first authoritative capture, independent of W11's queue.
+  observer.observe(document, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true,
+  });
+  semanticIndexStates.set(document, state);
+  return state;
+}
+
+function drainSemanticRecords(
+  state: SemanticIndexState,
+  document: Document,
+): void {
+  semanticRecords(state, document, state.observer.takeRecords());
+}
+
+function semanticBinding(
+  document: Document,
+  frameContext: FrameContext,
+): string {
+  return JSON.stringify([
+    frameContext.session_id,
+    frameContext.frame_id,
+    frameContext.document_id,
+    document.location.origin,
+    document.location.pathname,
+    currentDomGeneration(document),
+  ]);
+}
+
+function currentIndexBinding(
+  index: CurrentSemanticIndex,
+  state: SemanticIndexState,
+  document: Document,
+  frameContext: FrameContext,
+): boolean {
+  drainSemanticRecords(state, document);
+  return (
+    index.revision === state.revision &&
+    index.binding === semanticBinding(document, frameContext) &&
+    index.root.isConnected &&
+    index.root.ownerDocument === document &&
+    index.root.getRootNode() === document
+  );
+}
+
+async function buildCurrentIndex(
+  document: Document,
+  frameContext: FrameContext,
+  state: SemanticIndexState,
+  binding: string,
+  revision: number,
+): Promise<CurrentSemanticIndex | null> {
+  const started = performance.now();
+  const work = workCounters(document);
+  work.index_rebuilds += 1;
+  try {
+    const detected = detectApplicationRoot(document);
+    if (detected.status !== "FOUND" || scanCapacityExceeded(detected.root))
+      return null;
+    const root = detected.root;
+    const context: ScanIdentityContext = {
+      frameContext,
+      routeSignature: await semanticDigest(
+        `route-v1\0${document.location.origin}${document.location.pathname}`,
+      ),
+      applicationRootFingerprint: await semanticDigest(
+        applicationRootEvidence(root),
+      ),
+      observedAt: new Date().toISOString(),
+      observedDomGeneration: currentDomGeneration(document),
+      headingCandidates: elementsWithin(root, HEADING_SELECTOR),
+    };
+    const captured = collectCandidates(root);
+    if (captured.status === "CAPACITY_EXCEEDED" || scanCapacityExceeded(root))
+      return null;
+    const labels = nativeLabelSnapshot(document);
+    work.nodes_examined += 1 + root.querySelectorAll("*").length;
+    work.candidates_examined += captured.candidates.length;
+    work.identity_pairs_examined += captured.candidates.length;
+    const matchingStarted = performance.now();
+    const entries: CurrentIdentityEntry[] = [];
+    for (const candidate of captured.candidates) {
+      const identity = await matchingAddress(candidate, root, context, labels);
+      entries.push({
+        candidate,
+        identity,
+        fieldId: await fieldIdentityId(identity),
+      });
+    }
+    work.identity_matching_duration_us += measuredUs(matchingStarted);
+    const index: CurrentSemanticIndex = {
+      root,
+      binding,
+      revision,
+      context,
+      entries,
+      allFieldIds: entries.map((entry) => entry.fieldId),
+    };
+    if (!currentIndexBinding(index, state, document, frameContext)) return null;
+    return index;
+  } finally {
+    work.index_rebuild_duration_us += measuredUs(started);
+  }
+}
+
+async function currentSemanticIndex(
+  document: Document,
+  frameContext: FrameContext,
+  state: SemanticIndexState,
+): Promise<CurrentSemanticIndex | null> {
+  drainSemanticRecords(state, document);
+  const current = state.index;
+  if (
+    current !== null &&
+    currentIndexBinding(current, state, document, frameContext)
+  ) {
+    workCounters(document).index_hits += 1;
+    return current;
+  }
+  state.index = null;
+  const binding = semanticBinding(document, frameContext);
+  const revision = state.revision;
+  const pending = state.building;
+  if (
+    pending !== null &&
+    pending.binding === binding &&
+    pending.revision === revision
+  )
+    return pending.promise;
+  const building = {
+    binding,
+    revision,
+    promise: buildCurrentIndex(
+      document,
+      frameContext,
+      state,
+      binding,
+      revision,
+    ),
+  };
+  state.building = building;
+  try {
+    const index = await building.promise;
+    // A superseded concurrent builder may never overwrite newer evidence.
+    if (
+      state.building !== building ||
+      index === null ||
+      !currentIndexBinding(index, state, document, frameContext)
+    )
+      return null;
+    state.index = index;
+    return index;
+  } finally {
+    if (state.building === building) state.building = null;
+  }
+}
+
 export interface ScannedFieldPair {
   readonly candidate: FieldCandidate;
   readonly descriptor: FormFieldDescriptorV1;
@@ -850,7 +1265,19 @@ export async function scanCandidatePairs(
   applicationRoot: HTMLElement,
   scanBoundary: HTMLElement,
   frameContext: FrameContext,
-): Promise<ScannedFieldPair[]> {
+): Promise<
+  | { readonly status: "COMPLETE"; readonly pairs: ScannedFieldPair[] }
+  | { readonly status: "CAPACITY_EXCEEDED" }
+> {
+  if (scanCapacityExceeded(applicationRoot))
+    return { status: "CAPACITY_EXCEEDED" };
+  const started = performance.now();
+  const work = workCounters(document);
+  noteGeneration(document);
+  const scanPurpose = scanBoundary === applicationRoot ? "root" : "subtree";
+  work[scanPurpose === "root" ? "root_scan_calls" : "subtree_scan_calls"] += 1;
+  work.scan_calls += 1;
+  work.nodes_examined += 1 + scanBoundary.querySelectorAll("*").length;
   const context: ScanIdentityContext = {
     frameContext,
     routeSignature: await semanticDigest(
@@ -861,16 +1288,35 @@ export async function scanCandidatePairs(
     ),
     observedAt: new Date().toISOString(),
     observedDomGeneration: currentDomGeneration(document),
+    headingCandidates: elementsWithin(applicationRoot, HEADING_SELECTOR),
   };
-  const candidates = collectCandidates(scanBoundary);
+  // Preserve refusal from the actual synchronous candidate capture even if
+  // a transient oversized root shrinks during later asynchronous hashing.
+  const captured = collectCandidates(scanBoundary);
+  if (
+    captured.status === "CAPACITY_EXCEEDED" ||
+    scanCapacityExceeded(applicationRoot)
+  ) {
+    work.total_duration_us += measuredUs(started);
+    return { status: "CAPACITY_EXCEEDED" };
+  }
+  const candidates = captured.candidates;
+  work.candidates_examined += candidates.length;
   const pairs: ScannedFieldPair[] = [];
   for (const candidate of candidates) {
     pairs.push({
       candidate,
       descriptor: await buildDescriptor(candidate, applicationRoot, context),
     });
+    work.descriptors_built += 1;
   }
-  return pairs;
+  work.total_duration_us += measuredUs(started);
+  work[
+    scanPurpose === "root"
+      ? "root_scan_duration_us"
+      : "subtree_scan_duration_us"
+  ] += measuredUs(started);
+  return { status: "COMPLETE", pairs };
 }
 
 async function scanDescriptors(
@@ -878,14 +1324,25 @@ async function scanDescriptors(
   applicationRoot: HTMLElement,
   scanBoundary: HTMLElement,
   frameContext: FrameContext,
-): Promise<FormFieldDescriptorV1[]> {
-  const pairs = await scanCandidatePairs(
+): Promise<
+  | {
+      readonly status: "COMPLETE";
+      readonly descriptors: FormFieldDescriptorV1[];
+    }
+  | { readonly status: "CAPACITY_EXCEEDED" }
+> {
+  const result = await scanCandidatePairs(
     document,
     applicationRoot,
     scanBoundary,
     frameContext,
   );
-  return pairs.map((pair) => pair.descriptor);
+  return result.status === "CAPACITY_EXCEEDED"
+    ? result
+    : {
+        status: "COMPLETE",
+        descriptors: result.pairs.map((pair) => pair.descriptor),
+      };
 }
 
 export async function scanFrameDocument(
@@ -922,20 +1379,36 @@ export async function scanFrameDocument(
       descriptors: [],
     };
   }
+  if (scanCapacityExceeded(boundary.applicationRoot)) {
+    return {
+      kind: FRAME_SCAN_RESULT_KIND,
+      protocolVersion: SCANNER_PROTOCOL_VERSION,
+      requestId: request.requestId,
+      frame_context: frameContext,
+      root_status: "CAPACITY_EXCEEDED",
+      root_candidate_count: 1,
+      scan_boundary: request.scope.kind,
+      descriptors: [],
+    };
+  }
+  const scan = await scanDescriptors(
+    document,
+    boundary.applicationRoot,
+    boundary.scanBoundary,
+    frameContext,
+  );
+  const exceeded =
+    scan.status === "CAPACITY_EXCEEDED" ||
+    scanCapacityExceeded(boundary.applicationRoot);
   return {
     kind: FRAME_SCAN_RESULT_KIND,
     protocolVersion: SCANNER_PROTOCOL_VERSION,
     requestId: request.requestId,
     frame_context: frameContext,
-    root_status: CONTENT_FRAME_SCAN_FOUND,
+    root_status: exceeded ? "CAPACITY_EXCEEDED" : CONTENT_FRAME_SCAN_FOUND,
     root_candidate_count: 1,
     scan_boundary: request.scope.kind,
-    descriptors: await scanDescriptors(
-      document,
-      boundary.applicationRoot,
-      boundary.scanBoundary,
-      frameContext,
-    ),
+    descriptors: exceeded ? [] : scan.descriptors,
   };
 }
 
@@ -948,7 +1421,7 @@ function sameList(
 
 function addressMatches(
   observed: FormFieldAddressV1,
-  current: FormFieldAddressV1,
+  current: MatchingAddress,
 ): boolean {
   // OPTION_DIGEST is explicitly OBSERVATION_ONLY. A windowed listbox changes
   // its mounted option inventory during ordinary scrolling, so that evidence
@@ -1006,7 +1479,12 @@ export async function resolveFieldTarget(
   document: Document,
   frameContext: FrameContext,
   address: FormFieldAddressV1,
+  purpose: ResolutionPurpose = "other",
 ): Promise<FieldTargetResolution> {
+  noteGeneration(document);
+  const purposeWork = workCounters(document);
+  purposeWork.reresolution_calls += 1;
+  purposeWork[`${purpose}_reresolutions`] += 1;
   if (
     address.session_id !== frameContext.session_id ||
     address.frame_id !== frameContext.frame_id ||
@@ -1014,39 +1492,61 @@ export async function resolveFieldTarget(
   ) {
     return { status: "UNRESOLVED", reason: "STALE_DOCUMENT" };
   }
-  const root = detectApplicationRoot(document);
-  if (root.status !== "FOUND") {
-    return { status: "UNRESOLVED", reason: "STALE_APPLICATION_ROOT" };
+  const started = performance.now();
+  const work = workCounters(document);
+  work.scan_calls += 1;
+  try {
+    const state = semanticState(document);
+    const index = await currentSemanticIndex(document, frameContext, state);
+    if (
+      index === null ||
+      !currentIndexBinding(index, state, document, frameContext)
+    ) {
+      return { status: "UNRESOLVED", reason: "STALE_APPLICATION_ROOT" };
+    }
+    const matches = index.entries.filter((entry) => {
+      work.semantic_match_checks += 1;
+      return addressMatches(address, entry.identity);
+    });
+    if (matches.length === 0)
+      return { status: "UNRESOLVED", reason: "NO_MATCH" };
+    if (matches.length > 1)
+      return { status: "AMBIGUOUS", candidateCount: matches.length };
+    const match = requiredValue(matches[0]);
+    // Cached nodes are candidate hints only. Fresh current semantic/state
+    // evidence and observer coverage are mandatory on EVERY resolution.
+    const descriptor = await buildDescriptor(match.candidate, index.root, {
+      ...index.context,
+      observedAt: new Date().toISOString(),
+      observedDomGeneration: currentDomGeneration(document),
+      headingCandidates: elementsWithin(index.root, HEADING_SELECTOR),
+    });
+    work.descriptors_built += 1;
+    if (
+      !currentIndexBinding(index, state, document, frameContext) ||
+      !match.candidate.anchor.isConnected ||
+      !index.root.contains(match.candidate.anchor) ||
+      !addressMatches(address, descriptor.address)
+    ) {
+      return { status: "UNRESOLVED", reason: "NO_MATCH" };
+    }
+    return {
+      status: "RESOLVED",
+      target: {
+        anchor: match.candidate.anchor,
+        members: match.candidate.members,
+        ...(match.candidate.groupElement === undefined
+          ? {}
+          : { groupElement: match.candidate.groupElement }),
+        descriptor,
+        applicationRoot: index.root,
+        allFieldIds: [...index.allFieldIds],
+      },
+    };
+  } finally {
+    work.total_duration_us += measuredUs(started);
+    work[`${purpose}_reresolution_duration_us`] += measuredUs(started);
   }
-  const pairs = await scanCandidatePairs(
-    document,
-    root.root,
-    root.root,
-    frameContext,
-  );
-  const matches = pairs.filter((pair) =>
-    addressMatches(address, pair.descriptor.address),
-  );
-  if (matches.length === 0) {
-    return { status: "UNRESOLVED", reason: "NO_MATCH" };
-  }
-  if (matches.length > 1) {
-    return { status: "AMBIGUOUS", candidateCount: matches.length };
-  }
-  const match = requiredValue(matches[0]);
-  return {
-    status: "RESOLVED",
-    target: {
-      anchor: match.candidate.anchor,
-      members: match.candidate.members,
-      ...(match.candidate.groupElement === undefined
-        ? {}
-        : { groupElement: match.candidate.groupElement }),
-      descriptor: match.descriptor,
-      applicationRoot: root.root,
-      allFieldIds: pairs.map((pair) => pair.descriptor.field_id),
-    },
-  };
 }
 
 export async function reresolveFrameAddress(

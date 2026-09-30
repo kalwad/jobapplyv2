@@ -1,3 +1,4 @@
+import { SCANNER_WORK_KEYS } from "./scanner-protocol.ts";
 // M02-W11 dynamic-state/reconciliation protocol (spec §5.11 M02-W11;
 // REQ-FORM-018/REQ-FORM-024 feasibility portions).
 //
@@ -194,6 +195,7 @@ export type DynamicInstrumentationSnapshot = {
   readonly generations: DynamicGenerations;
   readonly memory: MemoryProbe;
   readonly cpu: CpuProbe;
+  readonly scanner_work?: import("./scanner-protocol.ts").ScannerWorkMetrics;
 } & Readonly<Record<SnapshotCounterKey, number>>;
 
 function isGenerations(value: unknown): value is DynamicGenerations {
@@ -249,13 +251,17 @@ export function isCanonicalInstrumentationSnapshot(
   const candidate = record(value);
   if (
     candidate === null ||
-    !hasClosedKeys(candidate, [
-      "observation_state",
-      "generations",
-      "memory",
-      "cpu",
-      ...SNAPSHOT_COUNTER_KEYS,
-    ]) ||
+    !hasClosedKeys(
+      candidate,
+      [
+        "observation_state",
+        "generations",
+        "memory",
+        "cpu",
+        ...SNAPSHOT_COUNTER_KEYS,
+      ],
+      ["scanner_work"],
+    ) ||
     !["IDLE", "OBSERVING"].includes(String(candidate.observation_state)) ||
     !isGenerations(candidate.generations) ||
     !isMemoryProbe(candidate.memory) ||
@@ -263,6 +269,16 @@ export function isCanonicalInstrumentationSnapshot(
     !SNAPSHOT_COUNTER_KEYS.every((key) => isCount(candidate[key]))
   ) {
     return false;
+  }
+  if (candidate.scanner_work !== undefined) {
+    const work = record(candidate.scanner_work);
+    const keys = SCANNER_WORK_KEYS;
+    if (
+      work === null ||
+      !hasClosedKeys(work, keys) ||
+      !keys.every((key) => isCount(work[key]))
+    )
+      return false;
   }
   // Every bounded root rescan carries exactly one recorded reason.
   const reasons =
@@ -573,6 +589,7 @@ export type DynamicExecuteItemOutcome =
       readonly prior_outcome: FormDriverResultV1["outcome"];
     }
   | { readonly status: "PAGE_CHANGED_VALUE_DETECTED" }
+  | { readonly status: "IN_FLIGHT_SUPPRESSED" | "CAPACITY_EXCEEDED" }
   | {
       readonly status: "STALE_EVIDENCE";
       readonly resolution: "AMBIGUOUS" | "MISSING" | "STALE";
@@ -625,6 +642,10 @@ export type DynamicReconcileOutcome =
   | {
       readonly status: "RECONCILED";
       readonly inventory: FormReconciliationInventoryV1;
+      readonly snapshot: DynamicInstrumentationSnapshot;
+    }
+  | {
+      readonly status: "CAPACITY_EXCEEDED";
       readonly snapshot: DynamicInstrumentationSnapshot;
     }
   | {
@@ -1039,6 +1060,8 @@ function isExecuteItemOutcome(
         ].includes(String(outcome.prior_outcome))
       );
     case "PAGE_CHANGED_VALUE_DETECTED":
+    case "IN_FLIGHT_SUPPRESSED":
+    case "CAPACITY_EXCEEDED":
       return hasClosedKeys(outcome, ["status"]);
     case "STALE_EVIDENCE":
       return (
@@ -1059,6 +1082,12 @@ function isReconcileOutcome(value: unknown): value is DynamicReconcileOutcome {
     return (
       hasClosedKeys(outcome, ["status", "inventory", "snapshot"]) &&
       isCanonicalReconciliationInventory(outcome.inventory) &&
+      isCanonicalInstrumentationSnapshot(outcome.snapshot)
+    );
+  }
+  if (outcome.status === "CAPACITY_EXCEEDED") {
+    return (
+      hasClosedKeys(outcome, ["status", "snapshot"]) &&
       isCanonicalInstrumentationSnapshot(outcome.snapshot)
     );
   }

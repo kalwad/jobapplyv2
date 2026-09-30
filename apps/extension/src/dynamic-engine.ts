@@ -71,6 +71,8 @@ import {
   detectApplicationRoot,
   resolveFieldTarget,
   scanCandidatePairs,
+  scanCapacityExceeded,
+  scannerWorkMetrics,
   type ScannedFieldPair,
 } from "./field-scanner.ts";
 import type { FrameContext } from "./scanner-protocol.ts";
@@ -275,6 +277,7 @@ export class DynamicFrameEngine {
   readonly #inventory = new Map<string, InventoryEntry>();
   readonly #registry = new Map<string, RegistryEntry>();
   readonly #ledger = new Map<string, LedgerEntry>();
+  readonly #inFlight = new Set<string>();
   readonly #counters = freshCounters();
   #observer: MutationObserver | null = null;
   #observedRoot: HTMLElement | null = null;
@@ -288,6 +291,7 @@ export class DynamicFrameEngine {
   #actionDepth = 0;
   #processing: Promise<void> = Promise.resolve();
   #observedDocument: Document | null = null;
+  #capacityExceeded = false;
 
   constructor(driverEngine: DriverTransactionEngine) {
     this.#driverEngine = driverEngine;
@@ -355,6 +359,11 @@ export class DynamicFrameEngine {
   // -------------------------------------------------------------------
   // Observation lifecycle
   // -------------------------------------------------------------------
+
+  #hasCapacityRefusal(): boolean {
+    // Re-read after awaits; another observed batch may have set the latch.
+    return this.#capacityExceeded;
+  }
 
   async start(
     document: Document,
@@ -558,7 +567,22 @@ export class DynamicFrameEngine {
         break;
     }
     this.#counters.nodes_considered += 1 + root.querySelectorAll("*").length;
-    const pairs = await scanCandidatePairs(document, root, root, frameContext);
+    if (scanCapacityExceeded(root)) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      this.#counters.total_scan_duration_ms += boundedMs(started);
+      this.#domObservationGeneration += 1;
+      return;
+    }
+    const scan = await scanCandidatePairs(document, root, root, frameContext);
+    if (scan.status === "CAPACITY_EXCEEDED") {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      this.#counters.total_scan_duration_ms += boundedMs(started);
+      this.#domObservationGeneration += 1;
+      return;
+    }
+    const pairs = scan.pairs;
     this.#counters.descriptors_produced += pairs.length;
     const previousIds = new Set(this.#inventory.keys());
     const seed = reason === "OBSERVATION_START";
@@ -585,6 +609,9 @@ export class DynamicFrameEngine {
         }
       }
     }
+    // Only a complete current root scan can clear a prior capacity refusal.
+    this.#capacityExceeded = scanCapacityExceeded(root);
+    if (this.#capacityExceeded) this.#inventory.clear();
     this.#counters.total_scan_duration_ms += boundedMs(started);
     this.#domObservationGeneration += 1;
   }
@@ -613,6 +640,11 @@ export class DynamicFrameEngine {
     if (root === null) {
       return;
     }
+    if (this.#capacityExceeded || scanCapacityExceeded(root)) {
+      await this.#rootScan(document, frameContext, root, "OVERFLOW");
+      this.#counters.last_batch_duration_ms = boundedMs(started);
+      return;
+    }
     const regionCandidates: Element[] = [];
     for (const mutationRecord of records) {
       const target = mutationRecord.target;
@@ -638,12 +670,19 @@ export class DynamicFrameEngine {
         this.#counters.affected_subtree_scans += 1;
         this.#counters.nodes_considered +=
           1 + region.querySelectorAll("*").length;
-        const pairs = await scanCandidatePairs(
+        const scan = await scanCandidatePairs(
           document,
           root,
           region instanceof HTMLElement ? region : root,
           frameContext,
         );
+        if (scan.status === "CAPACITY_EXCEEDED" || scanCapacityExceeded(root)) {
+          this.#capacityExceeded = true;
+          this.#inventory.clear();
+          this.#counters.last_batch_duration_ms = boundedMs(started);
+          return;
+        }
+        const pairs = scan.pairs;
         this.#counters.descriptors_produced += pairs.length;
         this.#mergeRegion(region, pairs, await this.#digestsFor(pairs));
         relevant = true;
@@ -728,6 +767,16 @@ export class DynamicFrameEngine {
     items: readonly DriverTransactionRequest[],
   ): Promise<readonly DynamicExecuteItemOutcome[]> {
     this.#observedDocument = document;
+    const currentRoot = detectApplicationRoot(document);
+    if (
+      currentRoot.status === "FOUND" &&
+      scanCapacityExceeded(currentRoot.root)
+    ) {
+      this.#capacityExceeded = true;
+      return items
+        .slice(0, MAX_EXECUTE_ITEMS)
+        .map(() => ({ status: "CAPACITY_EXCEEDED" as const }));
+    }
     if (this.#state === "OBSERVING") {
       await this.#flushPendingBatch(document, frameContext);
       await this.#revalidateStructure(document, frameContext);
@@ -759,6 +808,33 @@ export class DynamicFrameEngine {
   }
 
   async #executeOne(
+    document: Document,
+    frameContext: FrameContext,
+    transaction: DriverTransactionRequest,
+  ): Promise<DynamicExecuteItemOutcome> {
+    const intended = await evidenceFromObservation(
+      intendedSemanticObservation(transaction.intended),
+    );
+    const overlapKey = await deriveDuplicateAuthorityKey(
+      "EQUIVALENT_IN_FLIGHT_ACTION",
+      transaction.decision.field_address_digest,
+      intended.semantic_digest,
+      currentDomGeneration(document),
+      frameContext.document_id,
+    );
+    if (this.#inFlight.has(overlapKey)) {
+      this.#counters.actions_suppressed_duplicate += 1;
+      return { status: "IN_FLIGHT_SUPPRESSED" };
+    }
+    this.#inFlight.add(overlapKey);
+    try {
+      return await this.#executeReserved(document, frameContext, transaction);
+    } finally {
+      this.#inFlight.delete(overlapKey);
+    }
+  }
+
+  async #executeReserved(
     document: Document,
     frameContext: FrameContext,
     transaction: DriverTransactionRequest,
@@ -838,6 +914,7 @@ export class DynamicFrameEngine {
       document,
       frameContext,
       transaction.address,
+      "reconcile",
     );
     if (resolved.status === "AMBIGUOUS") {
       return { status: "AMBIGUOUS" };
@@ -886,6 +963,23 @@ export class DynamicFrameEngine {
     const started = performance.now();
     this.#observedDocument = document;
     this.#counters.reconciliation_passes += 1;
+    const capacityRoot = detectApplicationRoot(document);
+    if (
+      capacityRoot.status === "FOUND" &&
+      scanCapacityExceeded(capacityRoot.root)
+    ) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return { status: "CAPACITY_EXCEEDED", snapshot: this.snapshot(document) };
+    }
+    if (this.#capacityExceeded && capacityRoot.status === "FOUND") {
+      await this.#rootScan(
+        document,
+        frameContext,
+        capacityRoot.root,
+        "OVERFLOW",
+      );
+    }
     if (this.#state === "OBSERVING") {
       await this.#flushPendingBatch(document, frameContext);
       const structure = await this.#revalidateStructure(document, frameContext);
@@ -931,6 +1025,15 @@ export class DynamicFrameEngine {
     }
     evidenceList.sort(canonicalEvidenceOrder);
     const pageGeneration = currentDomGeneration(document);
+    const settledRoot = detectApplicationRoot(document);
+    if (
+      this.#capacityExceeded ||
+      (settledRoot.status === "FOUND" && scanCapacityExceeded(settledRoot.root))
+    ) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return { status: "CAPACITY_EXCEEDED", snapshot: this.snapshot(document) };
+    }
     const items: FormReconciliationInventoryV1InventoryItem[] = [];
     for (const evidence of evidenceList.slice(0, MAX_INVENTORY_ITEMS)) {
       const classified = classifyField(evidence);
@@ -994,6 +1097,18 @@ export class DynamicFrameEngine {
       throw new Error(
         "dynamic invariant: constructed inventory is not canonical",
       );
+    }
+    // Item IDs/evidence digests await hashing after the earlier capacity
+    // check; incomplete coverage must never be published as canonical READY.
+    const publicationRoot = detectApplicationRoot(document);
+    if (
+      this.#hasCapacityRefusal() ||
+      (publicationRoot.status === "FOUND" &&
+        scanCapacityExceeded(publicationRoot.root))
+    ) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return { status: "CAPACITY_EXCEEDED", snapshot: this.snapshot(document) };
     }
     this.#counters.last_reconciliation_duration_ms = boundedMs(started);
     return {
@@ -1072,6 +1187,7 @@ export class DynamicFrameEngine {
       },
       memory: memoryProbe(),
       cpu: { available: false, reason: "NO_IN_PAGE_PROCESS_CPU_SOURCE" },
+      scanner_work: scannerWorkMetrics(document),
       ...this.#counters,
       inventory_size: this.#inventory.size,
       ledger_size: this.#ledger.size,
