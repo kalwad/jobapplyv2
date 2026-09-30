@@ -8062,8 +8062,8 @@
       "id": "M02-W13",
       "milestone": "M02",
       "title": "Build autofill benchmark and clean-room baseline harness",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree a953274ef14a7534c39201a09738c26b8f085332",
       "direct_package_prerequisites": [
         "M02-W12"
       ],
@@ -8107,14 +8107,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M02-W13"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M02-W14",
       "milestone": "M02",
       "title": "Execute synthetic, holdout, public no-submit, and side-by-side evaluation",
-      "current_state": "NOT_STARTED",
+      "current_state": "READY",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W13"

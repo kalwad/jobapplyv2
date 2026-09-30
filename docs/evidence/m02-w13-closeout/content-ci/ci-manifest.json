@@ -1,0 +1,434 @@
+{
+  "run_id": 36761883727,
+  "url": "https://github.com/kalwad/jobapplyv2/actions/runs/36761883727",
+  "exact_sha": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "result": "success",
+  "jobs": [
+    {
+      "job_id": 110046242664,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "result": "success",
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/36761883727/job/110046242664",
+      "raw_log_bytes": 527707,
+      "raw_log_lines": 4427,
+      "raw_log_sha256": "bfdb719b9f67afbbcf944088e9718df69b81799e6672df5d2be1281a562c266b",
+      "raw_log_path": "/tmp/jobapply-w13-content-ci/ubuntu-24.04.log",
+      "steps": [
+        {
+          "name": "Set up job",
+          "result": "success"
+        },
+        {
+          "name": "Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned pnpm via Corepack",
+          "result": "success"
+        },
+        {
+          "name": "Show activated pnpm version",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml, Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml, Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Resolve pnpm store path",
+          "result": "success"
+        },
+        {
+          "name": "Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Install JS dependencies (frozen lockfile)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Linux, with system deps)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (macOS)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Sync Python workspace (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch Rust dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch test-only contract harness dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Environment doctor (same command as local `pnpm run doctor`)",
+          "result": "success"
+        },
+        {
+          "name": "Canonical aggregate verification (same command as local `pnpm verify`)",
+          "result": "success"
+        },
+        {
+          "name": "Assert verification left no tracked changes",
+          "result": "success"
+        },
+        {
+          "name": "Upload Playwright failure artifacts (traces/screenshots/videos only)",
+          "result": "skipped"
+        },
+        {
+          "name": "Post Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Post Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Post Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Complete job",
+          "result": "success"
+        }
+      ],
+      "full_log_processed_without_line_omissions": true,
+      "normalized_log_path": "/tmp/jobapply-w13-content-ci/ubuntu-24.04-complete-normalized.log"
+    },
+    {
+      "job_id": 110046242929,
+      "name": "doctor + verify (macos-15)",
+      "result": "success",
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/36761883727/job/110046242929",
+      "raw_log_bytes": 508699,
+      "raw_log_lines": 4211,
+      "raw_log_sha256": "57c71f1c8d540251624e8c6cec27dc4a1d88413bc8ee61279e5e31ce1de2bbd6",
+      "raw_log_path": "/tmp/jobapply-w13-content-ci/macos-15.log",
+      "steps": [
+        {
+          "name": "Set up job",
+          "result": "success"
+        },
+        {
+          "name": "Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned pnpm via Corepack",
+          "result": "success"
+        },
+        {
+          "name": "Show activated pnpm version",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml, Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml, Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Resolve pnpm store path",
+          "result": "success"
+        },
+        {
+          "name": "Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Install JS dependencies (frozen lockfile)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Linux, with system deps)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (macOS)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Windows)",
+          "result": "skipped"
+        },
+        {
+          "name": "Sync Python workspace (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch Rust dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch test-only contract harness dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Environment doctor (same command as local `pnpm run doctor`)",
+          "result": "success"
+        },
+        {
+          "name": "Canonical aggregate verification (same command as local `pnpm verify`)",
+          "result": "success"
+        },
+        {
+          "name": "Assert verification left no tracked changes",
+          "result": "success"
+        },
+        {
+          "name": "Upload Playwright failure artifacts (traces/screenshots/videos only)",
+          "result": "skipped"
+        },
+        {
+          "name": "Post Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Post Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Post Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Complete job",
+          "result": "success"
+        }
+      ],
+      "full_log_processed_without_line_omissions": true,
+      "normalized_log_path": "/tmp/jobapply-w13-content-ci/macos-15-complete-normalized.log"
+    },
+    {
+      "job_id": 110046242947,
+      "name": "doctor + verify (windows-2025)",
+      "result": "success",
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/36761883727/job/110046242947",
+      "raw_log_bytes": 516721,
+      "raw_log_lines": 4230,
+      "raw_log_sha256": "3257eb49e6de105c36cdaa43c8e208c09cc950d899dd7def15dc77e7a8f28570",
+      "raw_log_path": "/tmp/jobapply-w13-content-ci/windows-2025.log",
+      "steps": [
+        {
+          "name": "Set up job",
+          "result": "success"
+        },
+        {
+          "name": "Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Activate pinned pnpm via Corepack",
+          "result": "success"
+        },
+        {
+          "name": "Show activated pnpm version",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned uv (PyPI wheel, exact version from pyproject.toml, Windows)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Rust toolchain (rust-toolchain.toml, Windows)",
+          "result": "success"
+        },
+        {
+          "name": "Resolve pnpm store path",
+          "result": "success"
+        },
+        {
+          "name": "Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Install JS dependencies (frozen lockfile)",
+          "result": "success"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Linux, with system deps)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (macOS)",
+          "result": "skipped"
+        },
+        {
+          "name": "Install pinned Playwright Chromium (Windows)",
+          "result": "success"
+        },
+        {
+          "name": "Sync Python workspace (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch Rust dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Fetch test-only contract harness dependencies (locked)",
+          "result": "success"
+        },
+        {
+          "name": "Environment doctor (same command as local `pnpm run doctor`)",
+          "result": "success"
+        },
+        {
+          "name": "Canonical aggregate verification (same command as local `pnpm verify`)",
+          "result": "success"
+        },
+        {
+          "name": "Assert verification left no tracked changes",
+          "result": "success"
+        },
+        {
+          "name": "Upload Playwright failure artifacts (traces/screenshots/videos only)",
+          "result": "skipped"
+        },
+        {
+          "name": "Post Cache pinned Playwright browsers",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache cargo registry and git",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache uv downloads and builds",
+          "result": "success"
+        },
+        {
+          "name": "Post Cache pnpm store",
+          "result": "success"
+        },
+        {
+          "name": "Post Activate pinned Node (.nvmrc)",
+          "result": "success"
+        },
+        {
+          "name": "Post Check out exact revision",
+          "result": "success"
+        },
+        {
+          "name": "Complete job",
+          "result": "success"
+        }
+      ],
+      "full_log_processed_without_line_omissions": true,
+      "normalized_log_path": "/tmp/jobapply-w13-content-ci/windows-2025-complete-normalized.log"
+    }
+  ]
+}

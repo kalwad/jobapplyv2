@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W13 performance rescue and harness implementation based on f17b358b7e9a8d601769a099992510515d50278e
-Last updated: 2026-09-30T18:32:59+00:00
+Repository revision: M02-W13 content 4745149f4b5da7190b5b0c68753f8ec07bed572d, lifecycle closeout
+Last updated: 2026-10-01T19:58:19Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: M02-W13
+Current work package: NONE
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,9 +23,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W13 is IN_PROGRESS. GPT-6.1 Sol Ultra remains owner-selected. The current dirty worktree was preserved in a hashed local recovery snapshot before continuation. Zero packages are READY.
-- Evidence: rescue round 1 of four additionally authorized rounds clears the exact target-Mac 128-control lower-bound case: 20-sample p95 1,468.28 ms, all 128 fills verified, 512 live resolutions, three candidate enumerations and one semantic-index build. The four-family W12 development harness uses the accepted W05 runner and reports partial completion honestly. Internal finite verification and all six mutations are CLEAR; the exact corpus registration is aligned. Refreeze, both canonical passes, exact-SHA hosted proof and final verifier/lifecycle/governance remain pending.
-- Gate posture: M00/M01 ACCEPTED, M02 IN_PROGRESS, W01–W12 VERIFIED, W14/W15 NOT_STARTED. All gates NOT_EVALUATED and release NOT_READY. ADR-0005 records owner approval. No actual owner holdout, Simplify, employer evaluation, automatic navigation, submission or production ATS-support claim.
+- State: M02-W13 VERIFIED at the content tree recorded below; M02-W14 is the sole READY package. Zero work packages are IN_PROGRESS. M02 remains IN_PROGRESS.
+- Evidence: W13 internal content verification, six killed mutations, frozen canonical passes and exact-content proof are recorded in docs/TEST_EVIDENCE.md. Lifecycle changes do not execute W14.
+- Gate posture: M00/M01 ACCEPTED; M02-W01 through W13 VERIFIED; W14 READY; W15 NOT_STARTED. All critical gates NOT_EVALUATED; release NOT_READY. Owner model remains GPT-6.1 Sol Ultra. No actual owner holdout or Simplify execution, employer navigation/submission, or production ATS claim.
 
 ## Milestone table
 
@@ -33,7 +33,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 VERIFIED at tree 25f4128163ec73a91afd54a15c026b38d4187e5a |
+| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 VERIFIED at tree 25f4128163ec73a91afd54a15c026b38d4187e5a; M02-W13 VERIFIED at tree a953274ef14a7534c39201a09738c26b8f085332 |
 | M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
@@ -105,8 +105,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W10` | VERIFIED | tree 339281269554f5886a9d763e0d23f1de0deffa2c | docs/TEST_EVIDENCE.md § M02-W10 | Implement transactional control drivers; final content verified by the same-package internal adversarial gauntlet after `CONTENT CLEAR` (hosted content run 32772492093) |
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
-| `M02-W13` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt | Performance rescue passed locally; complete W13 verification and hosted proof pending |
-| `M02-W14` | NOT_STARTED | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
+| `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
+| `M02-W14` | READY | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
@@ -378,8 +378,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: NONE
-- Reason: M02-W13 is IN_PROGRESS under bounded performance rescue; M02-W14 requires W13 VERIFIED.
+- ID: M02-W14
+- Reason: M02-W13 VERIFIED; its direct and milestone prerequisites are satisfied. W14 evaluation has not begun.
 
 ## Known release blockers
 

@@ -32,6 +32,12 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W13 final closeout and retained limits (2026-10-01)
+
+KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
+
+DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must predeclare its supported cohort and derive ordinary attempted precision from immutable field class, attempted flag and primary score; it must not directly map generic PRECISION to that Gate A dimension. The target timing is a zero-settle development lower bound, while the four-family harness separately exercises75ms settlement/20ms rerender. Full-settlement/frozen partitions and actual authorized holdout/public/Simplify/legacy comparison are FUTURE_OWNER W14; independent Gate A decision is W15. The bounded1024-entry/512KiB pure SHA memo retains memory without target authority; historical raw timing source hashes remain historical. None is final Gate A evidence; all gates NOT_EVALUATED, release NOT_READY.
+
 ## M02-W13 finite evidence corrections
 
 ### KI-0073 — Canonical replay metrics could contradict independently verified raw scores

@@ -1,0 +1,1785 @@
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:36: trailing whitespace.
++@japp/extension:typecheck: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:96: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:98: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:99: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:101: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:102: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:104: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:105: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:107: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:108: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:110: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:111: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:113: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:114: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:116: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:117: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:119: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:120: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:122: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:123: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:125: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:127: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:132: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:134: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:139: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:141: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:146: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:153: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:158: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:166: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:171: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:180: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:182: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:184: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:185: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:186: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:188: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:189: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:191: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:193: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:198: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:208: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:213: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:224: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:229: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:244: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:249: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:261: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:266: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:273: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:278: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:285: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:290: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:295: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:305: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:310: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:360: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:365: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:369: trailing whitespace.
++  Time:    1m4.652s 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:499: trailing whitespace.
++@japp/extension:build: 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:547: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:548: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:550: trailing whitespace.
++@japp/extension:build: Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:556: trailing whitespace.
++  Time:    992ms 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:565: trailing whitespace.
++  ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:566: trailing whitespace.
++  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:568: trailing whitespace.
++Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:574: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:575: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:577: trailing whitespace.
++Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3212: trailing whitespace.
++toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3213: trailing whitespace.
++format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3214: trailing whitespace.
++lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3215: trailing whitespace.
++typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3216: trailing whitespace.
++unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3217: trailing whitespace.
++contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3218: trailing whitespace.
++fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3219: trailing whitespace.
++evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3220: trailing whitespace.
++contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3221: trailing whitespace.
++build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3222: trailing whitespace.
++e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3224: trailing whitespace.
++python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3225: trailing whitespace.
++rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3226: trailing whitespace.
++portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3227: trailing whitespace.
++traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3228: trailing whitespace.
++status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass1/6.log:3229: trailing whitespace.
++integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:45: trailing whitespace.
++@japp/extension:typecheck: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:96: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:98: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:99: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:101: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:102: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:104: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:105: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:107: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:108: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:110: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:111: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:113: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:114: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:116: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:117: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:119: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:120: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:122: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:123: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:125: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:127: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:132: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:134: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:139: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:142: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:147: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:157: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:162: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:165: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:167: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:168: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:170: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:171: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:173: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:175: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:180: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:182: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:187: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:196: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:198: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:209: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:214: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:224: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:229: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:248: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:253: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:255: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:260: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:275: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:280: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:288: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:293: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:296: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:306: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:311: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:363: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:368: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:372: trailing whitespace.
++  Time:    1m5.7s 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:502: trailing whitespace.
++@japp/extension:build: 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:550: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:551: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:553: trailing whitespace.
++@japp/extension:build: Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:559: trailing whitespace.
++  Time:    992ms 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:568: trailing whitespace.
++  ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:569: trailing whitespace.
++  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:571: trailing whitespace.
++Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:577: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:578: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:580: trailing whitespace.
++Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3215: trailing whitespace.
++toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3216: trailing whitespace.
++format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3217: trailing whitespace.
++lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3218: trailing whitespace.
++typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3219: trailing whitespace.
++unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3220: trailing whitespace.
++contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3221: trailing whitespace.
++fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3222: trailing whitespace.
++evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3223: trailing whitespace.
++contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3224: trailing whitespace.
++build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3225: trailing whitespace.
++e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3227: trailing whitespace.
++python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3228: trailing whitespace.
++rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3229: trailing whitespace.
++portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3230: trailing whitespace.
++traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3231: trailing whitespace.
++status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/canonical-pass2/6.log:3232: trailing whitespace.
++integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:237: trailing whitespace.
++2026-09-30T18:54:50.6360160Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:239: trailing whitespace.
++2026-09-30T18:54:50.8826830Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:339: trailing whitespace.
++2026-09-30T18:55:05.0903880Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:349: trailing whitespace.
++2026-09-30T18:55:05.1075460Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:622: trailing whitespace.
++2026-09-30T18:57:31.2291410Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:626: trailing whitespace.
++2026-09-30T18:57:31.2330630Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:678: trailing whitespace.
++2026-09-30T18:57:31.2510390Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:687: trailing whitespace.
++2026-09-30T18:57:31.2531270Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:690: trailing whitespace.
++2026-09-30T18:57:31.2542700Z   Time:    1m4.903s 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:691: trailing whitespace.
++2026-09-30T18:57:31.2554210Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:692: trailing whitespace.
++2026-09-30T18:57:31.2554220Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:693: trailing whitespace.
++2026-09-30T18:57:31.2554260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:703: trailing whitespace.
++2026-09-30T19:02:13.7212140Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:707: trailing whitespace.
++2026-09-30T19:02:13.7261770Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:711: trailing whitespace.
++2026-09-30T19:02:13.7270050Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:713: trailing whitespace.
++2026-09-30T19:02:13.7271920Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:715: trailing whitespace.
++2026-09-30T19:02:13.7273440Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:720: trailing whitespace.
++2026-09-30T19:02:13.7283750Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:725: trailing whitespace.
++2026-09-30T19:02:13.7289930Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:727: trailing whitespace.
++2026-09-30T19:02:13.7290730Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:729: trailing whitespace.
++2026-09-30T19:02:13.7291530Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:734: trailing whitespace.
++2026-09-30T19:02:13.7296570Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:739: trailing whitespace.
++2026-09-30T19:02:13.7302170Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:741: trailing whitespace.
++2026-09-30T19:02:13.7304260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:743: trailing whitespace.
++2026-09-30T19:02:13.7305630Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:748: trailing whitespace.
++2026-09-30T19:02:13.7310510Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:753: trailing whitespace.
++2026-09-30T19:02:13.7314370Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:755: trailing whitespace.
++2026-09-30T19:02:13.7315000Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:757: trailing whitespace.
++2026-09-30T19:02:13.7315890Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:762: trailing whitespace.
++2026-09-30T19:02:13.7318580Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:767: trailing whitespace.
++2026-09-30T19:02:13.7322340Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:769: trailing whitespace.
++2026-09-30T19:02:13.7323170Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:774: trailing whitespace.
++2026-09-30T19:02:13.7325780Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:779: trailing whitespace.
++2026-09-30T19:02:13.7332430Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:784: trailing whitespace.
++2026-09-30T19:02:13.7337960Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:786: trailing whitespace.
++2026-09-30T19:02:13.7340000Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:788: trailing whitespace.
++2026-09-30T19:02:13.7342620Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:793: trailing whitespace.
++2026-09-30T19:02:13.7346290Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:798: trailing whitespace.
++2026-09-30T19:02:13.7351210Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:800: trailing whitespace.
++2026-09-30T19:02:13.7353110Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:818: trailing whitespace.
++2026-09-30T19:02:13.7367200Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:823: trailing whitespace.
++2026-09-30T19:02:13.7368920Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:828: trailing whitespace.
++2026-09-30T19:02:13.7371420Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:830: trailing whitespace.
++2026-09-30T19:02:13.7372160Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:850: trailing whitespace.
++2026-09-30T19:02:13.7384420Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:855: trailing whitespace.
++2026-09-30T19:02:13.7385960Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:860: trailing whitespace.
++2026-09-30T19:02:13.7387970Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:862: trailing whitespace.
++2026-09-30T19:02:13.7388550Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:877: trailing whitespace.
++2026-09-30T19:02:13.7397260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:882: trailing whitespace.
++2026-09-30T19:02:13.7399250Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:887: trailing whitespace.
++2026-09-30T19:02:13.7401260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:889: trailing whitespace.
++2026-09-30T19:02:13.7401960Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:905: trailing whitespace.
++2026-09-30T19:02:13.7411800Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:910: trailing whitespace.
++2026-09-30T19:02:13.7414070Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:915: trailing whitespace.
++2026-09-30T19:02:13.7416210Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:917: trailing whitespace.
++2026-09-30T19:02:13.7416910Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:936: trailing whitespace.
++2026-09-30T19:02:13.7445430Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:941: trailing whitespace.
++2026-09-30T19:02:13.7503630Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:946: trailing whitespace.
++2026-09-30T19:02:13.7506650Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:948: trailing whitespace.
++2026-09-30T19:02:13.7507230Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:978: trailing whitespace.
++2026-09-30T19:02:13.7532970Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:983: trailing whitespace.
++2026-09-30T19:02:13.7535950Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:988: trailing whitespace.
++2026-09-30T19:02:13.7540940Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:990: trailing whitespace.
++2026-09-30T19:02:13.7542260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1016: trailing whitespace.
++2026-09-30T19:02:13.7579480Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1021: trailing whitespace.
++2026-09-30T19:02:13.7584940Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1026: trailing whitespace.
++2026-09-30T19:02:13.7587880Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1031: trailing whitespace.
++2026-09-30T19:02:13.7591040Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1033: trailing whitespace.
++2026-09-30T19:02:13.7592900Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1156: trailing whitespace.
++2026-09-30T19:02:13.7728200Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1161: trailing whitespace.
++2026-09-30T19:02:13.7730190Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1163: trailing whitespace.
++2026-09-30T19:02:13.7730560Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1169: trailing whitespace.
++2026-09-30T19:02:15.2174420Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1173: trailing whitespace.
++2026-09-30T19:02:16.2987360Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1177: trailing whitespace.
++2026-09-30T19:02:17.6863410Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1181: trailing whitespace.
++2026-09-30T19:02:19.0538040Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1185: trailing whitespace.
++2026-09-30T19:02:21.9573020Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1189: trailing whitespace.
++2026-09-30T19:02:23.2300660Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1192: trailing whitespace.
++2026-09-30T19:02:33.2114920Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1194: trailing whitespace.
++2026-09-30T19:02:33.2120900Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1201: trailing whitespace.
++2026-09-30T19:02:33.2132410Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1212: trailing whitespace.
++2026-09-30T19:02:33.2142490Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1218: trailing whitespace.
++2026-09-30T19:02:36.3668340Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1220: trailing whitespace.
++2026-09-30T19:02:36.3715570Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1225: trailing whitespace.
++2026-09-30T19:02:36.3722490Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1232: trailing whitespace.
++2026-09-30T19:02:37.6094550Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1236: trailing whitespace.
++2026-09-30T19:02:38.7863090Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1240: trailing whitespace.
++2026-09-30T19:02:39.7882290Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1244: trailing whitespace.
++2026-09-30T19:02:40.7202040Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1247: trailing whitespace.
++2026-09-30T19:02:49.7944120Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1249: trailing whitespace.
++2026-09-30T19:02:49.7945690Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1262: trailing whitespace.
++2026-09-30T19:02:49.7957760Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1267: trailing whitespace.
++2026-09-30T19:02:49.7959260Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1268: trailing whitespace.
++2026-09-30T19:02:49.7959270Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1271: trailing whitespace.
++2026-09-30T19:04:16.6289770Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1273: trailing whitespace.
++2026-09-30T19:04:16.6293970Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1331: trailing whitespace.
++2026-09-30T19:04:16.6348330Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1337: trailing whitespace.
++2026-09-30T19:04:19.5097450Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1341: trailing whitespace.
++2026-09-30T19:04:19.5102520Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1394: trailing whitespace.
++2026-09-30T19:04:19.5148980Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1399: trailing whitespace.
++2026-09-30T19:04:19.5151230Z   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1400: trailing whitespace.
++2026-09-30T19:04:19.5151630Z   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1402: trailing whitespace.
++2026-09-30T19:04:19.5152860Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1406: trailing whitespace.
++2026-09-30T19:04:19.5153970Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1411: trailing whitespace.
++2026-09-30T19:10:02.1166180Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1415: trailing whitespace.
++2026-09-30T19:10:02.1177750Z   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1416: trailing whitespace.
++2026-09-30T19:10:02.1178560Z   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1418: trailing whitespace.
++2026-09-30T19:10:02.1180280Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1420: trailing whitespace.
++2026-09-30T19:10:02.1181260Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1424: trailing whitespace.
++2026-09-30T19:10:02.1183630Z   ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1425: trailing whitespace.
++2026-09-30T19:10:02.1184510Z   ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1427: trailing whitespace.
++2026-09-30T19:10:02.1185730Z Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1429: trailing whitespace.
++2026-09-30T19:10:02.1186210Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1431: trailing whitespace.
++2026-09-30T19:10:02.1187770Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1574: trailing whitespace.
++2026-09-30T19:10:02.1791320Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:1576: trailing whitespace.
++2026-09-30T19:10:02.1791570Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3110: trailing whitespace.
++2026-09-30T19:10:05.9842720Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3130: trailing whitespace.
++2026-09-30T19:17:43.9482980Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3168: trailing whitespace.
++2026-09-30T19:17:43.9603900Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3172: trailing whitespace.
++2026-09-30T19:17:45.1930510Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3176: trailing whitespace.
++2026-09-30T19:17:46.1815760Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3179: trailing whitespace.
++2026-09-30T19:17:46.1819590Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3181: trailing whitespace.
++2026-09-30T19:17:46.1822000Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3182: trailing whitespace.
++2026-09-30T19:17:46.1822100Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3187: trailing whitespace.
++2026-09-30T19:17:46.4636720Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3192: trailing whitespace.
++2026-09-30T19:18:03.5010960Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3271: trailing whitespace.
++2026-09-30T19:18:11.3695220Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3283: trailing whitespace.
++2026-09-30T19:18:11.3744570Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3285: trailing whitespace.
++2026-09-30T19:18:11.3745290Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3286: trailing whitespace.
++2026-09-30T19:18:11.3745300Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:3291: trailing whitespace.
++2026-09-30T19:18:11.7452850Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4138: trailing whitespace.
++2026-09-30T19:18:18.5912770Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4142: trailing whitespace.
++2026-09-30T19:18:18.5919870Z toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4143: trailing whitespace.
++2026-09-30T19:18:18.5920920Z format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4144: trailing whitespace.
++2026-09-30T19:18:18.5922100Z lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4145: trailing whitespace.
++2026-09-30T19:18:18.5923020Z typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4146: trailing whitespace.
++2026-09-30T19:18:18.5923880Z unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4147: trailing whitespace.
++2026-09-30T19:18:18.5924250Z contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4148: trailing whitespace.
++2026-09-30T19:18:18.5924660Z fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4149: trailing whitespace.
++2026-09-30T19:18:18.5925150Z evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4150: trailing whitespace.
++2026-09-30T19:18:18.5925560Z contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4151: trailing whitespace.
++2026-09-30T19:18:18.5925940Z build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4152: trailing whitespace.
++2026-09-30T19:18:18.5926320Z e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4154: trailing whitespace.
++2026-09-30T19:18:18.5929650Z python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4155: trailing whitespace.
++2026-09-30T19:18:18.5930000Z rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4156: trailing whitespace.
++2026-09-30T19:18:18.5930350Z portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4157: trailing whitespace.
++2026-09-30T19:18:18.5930700Z traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4158: trailing whitespace.
++2026-09-30T19:18:18.5931100Z status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4159: trailing whitespace.
++2026-09-30T19:18:18.5931500Z integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4160: trailing whitespace.
++2026-09-30T19:18:18.5931670Z 
+docs/evidence/m02-w13-closeout/content-ci/macos-15.log:4162: trailing whitespace.
++2026-09-30T19:18:18.5936350Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:233: trailing whitespace.
++2026-09-30T18:54:41.9582645Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:235: trailing whitespace.
++2026-09-30T18:54:41.9665128Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:329: trailing whitespace.
++2026-09-30T18:54:56.7155523Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:339: trailing whitespace.
++2026-09-30T18:54:56.7160363Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:470: trailing whitespace.
++2026-09-30T18:55:07.4893483Z (Reading database ... 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:566: trailing whitespace.
++2026-09-30T18:55:11.7945233Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:568: trailing whitespace.
++2026-09-30T18:55:11.7946499Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:571: trailing whitespace.
++2026-09-30T18:55:11.9690347Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:575: trailing whitespace.
++2026-09-30T18:55:11.9694022Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:577: trailing whitespace.
++2026-09-30T18:55:11.9695180Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:579: trailing whitespace.
++2026-09-30T18:55:11.9696128Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:846: trailing whitespace.
++2026-09-30T18:56:51.7285070Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:850: trailing whitespace.
++2026-09-30T18:56:51.7290499Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:902: trailing whitespace.
++2026-09-30T18:56:51.7311388Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:911: trailing whitespace.
++2026-09-30T18:56:51.7313941Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:914: trailing whitespace.
++2026-09-30T18:56:51.7315089Z   Time:    33.432s 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:915: trailing whitespace.
++2026-09-30T18:56:51.7315212Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:916: trailing whitespace.
++2026-09-30T18:56:51.7315218Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:917: trailing whitespace.
++2026-09-30T18:56:51.7315230Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:927: trailing whitespace.
++2026-09-30T19:00:51.0069437Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:931: trailing whitespace.
++2026-09-30T19:00:51.0076013Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:935: trailing whitespace.
++2026-09-30T19:00:51.0078107Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:937: trailing whitespace.
++2026-09-30T19:00:51.0079483Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:939: trailing whitespace.
++2026-09-30T19:00:51.0080154Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:944: trailing whitespace.
++2026-09-30T19:00:51.0082692Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:949: trailing whitespace.
++2026-09-30T19:00:51.0087212Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:951: trailing whitespace.
++2026-09-30T19:00:51.0088044Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:953: trailing whitespace.
++2026-09-30T19:00:51.0088727Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:958: trailing whitespace.
++2026-09-30T19:00:51.0091036Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:963: trailing whitespace.
++2026-09-30T19:00:51.0093639Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:965: trailing whitespace.
++2026-09-30T19:00:51.0094631Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:967: trailing whitespace.
++2026-09-30T19:00:51.0095150Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:972: trailing whitespace.
++2026-09-30T19:00:51.0096907Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:977: trailing whitespace.
++2026-09-30T19:00:51.0098788Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:979: trailing whitespace.
++2026-09-30T19:00:51.0099503Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:981: trailing whitespace.
++2026-09-30T19:00:51.0100168Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:986: trailing whitespace.
++2026-09-30T19:00:51.0102447Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:991: trailing whitespace.
++2026-09-30T19:00:51.0105358Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:993: trailing whitespace.
++2026-09-30T19:00:51.0106202Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:998: trailing whitespace.
++2026-09-30T19:00:51.0108788Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1003: trailing whitespace.
++2026-09-30T19:00:51.0111091Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1008: trailing whitespace.
++2026-09-30T19:00:51.0113813Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1010: trailing whitespace.
++2026-09-30T19:00:51.0116501Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1012: trailing whitespace.
++2026-09-30T19:00:51.0117410Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1017: trailing whitespace.
++2026-09-30T19:00:51.0118928Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1022: trailing whitespace.
++2026-09-30T19:00:51.0120792Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1024: trailing whitespace.
++2026-09-30T19:00:51.0121489Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1041: trailing whitespace.
++2026-09-30T19:00:51.0131413Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1046: trailing whitespace.
++2026-09-30T19:00:51.0132729Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1051: trailing whitespace.
++2026-09-30T19:00:51.0134245Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1053: trailing whitespace.
++2026-09-30T19:00:51.0134825Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1069: trailing whitespace.
++2026-09-30T19:00:51.0144770Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1074: trailing whitespace.
++2026-09-30T19:00:51.0146951Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1079: trailing whitespace.
++2026-09-30T19:00:51.0148856Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1081: trailing whitespace.
++2026-09-30T19:00:51.0149324Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1096: trailing whitespace.
++2026-09-30T19:00:51.0156213Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1101: trailing whitespace.
++2026-09-30T19:00:51.0157553Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1106: trailing whitespace.
++2026-09-30T19:00:51.0159154Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1108: trailing whitespace.
++2026-09-30T19:00:51.0159731Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1124: trailing whitespace.
++2026-09-30T19:00:51.0168798Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1129: trailing whitespace.
++2026-09-30T19:00:51.0170112Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1134: trailing whitespace.
++2026-09-30T19:00:51.0171833Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1136: trailing whitespace.
++2026-09-30T19:00:51.0172419Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1155: trailing whitespace.
++2026-09-30T19:00:51.0185331Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1160: trailing whitespace.
++2026-09-30T19:00:51.0187099Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1165: trailing whitespace.
++2026-09-30T19:00:51.0189069Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1167: trailing whitespace.
++2026-09-30T19:00:51.0189726Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1197: trailing whitespace.
++2026-09-30T19:00:51.0207211Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1202: trailing whitespace.
++2026-09-30T19:00:51.0208776Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1207: trailing whitespace.
++2026-09-30T19:00:51.0210676Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1209: trailing whitespace.
++2026-09-30T19:00:51.0211232Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1232: trailing whitespace.
++2026-09-30T19:00:51.0226977Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1236: trailing whitespace.
++2026-09-30T19:00:51.0228322Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1241: trailing whitespace.
++2026-09-30T19:00:51.0229619Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1246: trailing whitespace.
++2026-09-30T19:00:51.0231634Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1248: trailing whitespace.
++2026-09-30T19:00:51.0232374Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1367: trailing whitespace.
++2026-09-30T19:00:51.0297094Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1372: trailing whitespace.
++2026-09-30T19:00:51.0298621Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1374: trailing whitespace.
++2026-09-30T19:00:51.0299074Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1380: trailing whitespace.
++2026-09-30T19:00:52.1861987Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1384: trailing whitespace.
++2026-09-30T19:00:53.4206477Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1388: trailing whitespace.
++2026-09-30T19:00:54.5571907Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1392: trailing whitespace.
++2026-09-30T19:00:55.8456603Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1396: trailing whitespace.
++2026-09-30T19:00:58.2362040Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1400: trailing whitespace.
++2026-09-30T19:00:59.3372354Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1403: trailing whitespace.
++2026-09-30T19:01:09.1275315Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1405: trailing whitespace.
++2026-09-30T19:01:09.1276277Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1415: trailing whitespace.
++2026-09-30T19:01:09.1286713Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1428: trailing whitespace.
++2026-09-30T19:01:09.1295796Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1434: trailing whitespace.
++2026-09-30T19:01:12.5108542Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1436: trailing whitespace.
++2026-09-30T19:01:12.5110186Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1445: trailing whitespace.
++2026-09-30T19:01:12.5118439Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1452: trailing whitespace.
++2026-09-30T19:01:13.3487294Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1456: trailing whitespace.
++2026-09-30T19:01:14.2086542Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1460: trailing whitespace.
++2026-09-30T19:01:14.9009418Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1464: trailing whitespace.
++2026-09-30T19:01:15.6066525Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1467: trailing whitespace.
++2026-09-30T19:01:23.3500037Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1469: trailing whitespace.
++2026-09-30T19:01:23.3501669Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1482: trailing whitespace.
++2026-09-30T19:01:23.3514873Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1487: trailing whitespace.
++2026-09-30T19:01:23.3517220Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1488: trailing whitespace.
++2026-09-30T19:01:23.3517233Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1491: trailing whitespace.
++2026-09-30T19:02:52.5701936Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1493: trailing whitespace.
++2026-09-30T19:02:52.5703571Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1550: trailing whitespace.
++2026-09-30T19:02:52.5736845Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1556: trailing whitespace.
++2026-09-30T19:02:55.7642404Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1560: trailing whitespace.
++2026-09-30T19:02:55.7647161Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1613: trailing whitespace.
++2026-09-30T19:02:55.7689294Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1618: trailing whitespace.
++2026-09-30T19:02:55.7690905Z   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1619: trailing whitespace.
++2026-09-30T19:02:55.7691409Z   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1621: trailing whitespace.
++2026-09-30T19:02:55.7692332Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1625: trailing whitespace.
++2026-09-30T19:02:55.7693567Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1630: trailing whitespace.
++2026-09-30T19:07:09.4979043Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1634: trailing whitespace.
++2026-09-30T19:07:09.4983621Z   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1635: trailing whitespace.
++2026-09-30T19:07:09.4986431Z   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1637: trailing whitespace.
++2026-09-30T19:07:09.4988073Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1639: trailing whitespace.
++2026-09-30T19:07:09.4989046Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1643: trailing whitespace.
++2026-09-30T19:07:09.4991353Z   ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1644: trailing whitespace.
++2026-09-30T19:07:09.4992408Z   ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1646: trailing whitespace.
++2026-09-30T19:07:09.4994714Z Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1648: trailing whitespace.
++2026-09-30T19:07:09.4995602Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1650: trailing whitespace.
++2026-09-30T19:07:09.4996145Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1793: trailing whitespace.
++2026-09-30T19:07:09.5616592Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:1795: trailing whitespace.
++2026-09-30T19:07:09.5616816Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3329: trailing whitespace.
++2026-09-30T19:07:12.9874579Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3349: trailing whitespace.
++2026-09-30T19:13:51.0216075Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3387: trailing whitespace.
++2026-09-30T19:13:51.0235586Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3391: trailing whitespace.
++2026-09-30T19:13:51.2046969Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3395: trailing whitespace.
++2026-09-30T19:13:51.3975542Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3398: trailing whitespace.
++2026-09-30T19:13:51.3977530Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3400: trailing whitespace.
++2026-09-30T19:13:51.3978224Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3401: trailing whitespace.
++2026-09-30T19:13:51.3978230Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3406: trailing whitespace.
++2026-09-30T19:13:51.5083886Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3411: trailing whitespace.
++2026-09-30T19:14:03.2957186Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3490: trailing whitespace.
++2026-09-30T19:14:08.2758690Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3502: trailing whitespace.
++2026-09-30T19:14:08.2768290Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3504: trailing whitespace.
++2026-09-30T19:14:08.2768991Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3505: trailing whitespace.
++2026-09-30T19:14:08.2768998Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:3510: trailing whitespace.
++2026-09-30T19:14:08.3575747Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4357: trailing whitespace.
++2026-09-30T19:14:15.0251532Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4361: trailing whitespace.
++2026-09-30T19:14:15.0256668Z toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4362: trailing whitespace.
++2026-09-30T19:14:15.0257762Z format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4363: trailing whitespace.
++2026-09-30T19:14:15.0258331Z lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4364: trailing whitespace.
++2026-09-30T19:14:15.0258909Z typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4365: trailing whitespace.
++2026-09-30T19:14:15.0259639Z unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4366: trailing whitespace.
++2026-09-30T19:14:15.0260261Z contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4367: trailing whitespace.
++2026-09-30T19:14:15.0260843Z fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4368: trailing whitespace.
++2026-09-30T19:14:15.0261487Z evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4369: trailing whitespace.
++2026-09-30T19:14:15.0262094Z contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4370: trailing whitespace.
++2026-09-30T19:14:15.0262655Z build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4371: trailing whitespace.
++2026-09-30T19:14:15.0263212Z e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4373: trailing whitespace.
++2026-09-30T19:14:15.0265322Z python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4374: trailing whitespace.
++2026-09-30T19:14:15.0265905Z rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4375: trailing whitespace.
++2026-09-30T19:14:15.0266454Z portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4376: trailing whitespace.
++2026-09-30T19:14:15.0267041Z traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4377: trailing whitespace.
++2026-09-30T19:14:15.0267676Z status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4378: trailing whitespace.
++2026-09-30T19:14:15.0268245Z integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4379: trailing whitespace.
++2026-09-30T19:14:15.0268544Z 
+docs/evidence/m02-w13-closeout/content-ci/ubuntu-24.04.log:4381: trailing whitespace.
++2026-09-30T19:14:15.0276359Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:174: trailing whitespace.
++174: done! 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:222: trailing whitespace.
++222: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:224: trailing whitespace.
++224: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:262: trailing whitespace.
++262: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:276: trailing whitespace.
++276: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:291: trailing whitespace.
++291: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:320: trailing whitespace.
++320: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:330: trailing whitespace.
++330: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:617: trailing whitespace.
++617: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:621: trailing whitespace.
++621: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:669: trailing whitespace.
++669: [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:682: trailing whitespace.
++682: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:685: trailing whitespace.
++685: Time:    31.594s 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:686: trailing whitespace.
++686: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:687: trailing whitespace.
++687: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:688: trailing whitespace.
++688: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:698: trailing whitespace.
++698: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:702: trailing whitespace.
++702: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:706: trailing whitespace.
++706: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:708: trailing whitespace.
++708: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:710: trailing whitespace.
++710: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:715: trailing whitespace.
++715: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:720: trailing whitespace.
++720: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:722: trailing whitespace.
++722: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:724: trailing whitespace.
++724: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:729: trailing whitespace.
++729: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:734: trailing whitespace.
++734: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:736: trailing whitespace.
++736: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:738: trailing whitespace.
++738: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:743: trailing whitespace.
++743: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:748: trailing whitespace.
++748: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:750: trailing whitespace.
++750: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:755: trailing whitespace.
++755: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:760: trailing whitespace.
++760: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:765: trailing whitespace.
++765: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:767: trailing whitespace.
++767: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:769: trailing whitespace.
++769: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:774: trailing whitespace.
++774: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:779: trailing whitespace.
++779: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:781: trailing whitespace.
++781: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:797: trailing whitespace.
++797: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:802: trailing whitespace.
++802: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:807: trailing whitespace.
++807: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:809: trailing whitespace.
++809: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:811: trailing whitespace.
++811: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:816: trailing whitespace.
++816: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:821: trailing whitespace.
++821: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:823: trailing whitespace.
++823: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:839: trailing whitespace.
++839: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:844: trailing whitespace.
++844: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:849: trailing whitespace.
++849: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:851: trailing whitespace.
++851: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:876: trailing whitespace.
++876: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:881: trailing whitespace.
++881: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:886: trailing whitespace.
++886: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:888: trailing whitespace.
++888: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:903: trailing whitespace.
++903: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:908: trailing whitespace.
++908: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:913: trailing whitespace.
++913: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:915: trailing whitespace.
++915: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:937: trailing whitespace.
++937: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:942: trailing whitespace.
++942: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:947: trailing whitespace.
++947: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:949: trailing whitespace.
++949: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:979: trailing whitespace.
++979: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:984: trailing whitespace.
++984: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:989: trailing whitespace.
++989: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:991: trailing whitespace.
++991: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1013: trailing whitespace.
++1013: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1019: trailing whitespace.
++1019: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1024: trailing whitespace.
++1024: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1029: trailing whitespace.
++1029: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1031: trailing whitespace.
++1031: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1161: trailing whitespace.
++1161: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1166: trailing whitespace.
++1166: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1168: trailing whitespace.
++1168: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1174: trailing whitespace.
++1174: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1178: trailing whitespace.
++1178: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1182: trailing whitespace.
++1182: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1186: trailing whitespace.
++1186: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1190: trailing whitespace.
++1190: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1194: trailing whitespace.
++1194: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1197: trailing whitespace.
++1197: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1199: trailing whitespace.
++1199: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1202: trailing whitespace.
++1202: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1222: trailing whitespace.
++1222: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1228: trailing whitespace.
++1228: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1230: trailing whitespace.
++1230: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1238: trailing whitespace.
++1238: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1245: trailing whitespace.
++1245: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1249: trailing whitespace.
++1249: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1253: trailing whitespace.
++1253: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1257: trailing whitespace.
++1257: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1260: trailing whitespace.
++1260: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1262: trailing whitespace.
++1262: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1276: trailing whitespace.
++1276: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1281: trailing whitespace.
++1281: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1282: trailing whitespace.
++1282: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1285: trailing whitespace.
++1285: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1287: trailing whitespace.
++1287: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1352: trailing whitespace.
++1352: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1358: trailing whitespace.
++1358: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1362: trailing whitespace.
++1362: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1415: trailing whitespace.
++1415: [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1420: trailing whitespace.
++1420: ├─ dist\chrome-mv3\manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1421: trailing whitespace.
++1421: ├─ dist\chrome-mv3\background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1423: trailing whitespace.
++1423: Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1427: trailing whitespace.
++1427: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1432: trailing whitespace.
++1432: [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1436: trailing whitespace.
++1436: ├─ dist\chrome-mv3\manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1437: trailing whitespace.
++1437: ├─ dist\chrome-mv3\background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1439: trailing whitespace.
++1439: Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1441: trailing whitespace.
++1441: [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1445: trailing whitespace.
++1445: ├─ dist\invalid-ack\chrome-mv3\manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1446: trailing whitespace.
++1446: ├─ dist\invalid-ack\chrome-mv3\background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1448: trailing whitespace.
++1448: Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1450: trailing whitespace.
++1450: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1452: trailing whitespace.
++1452: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1595: trailing whitespace.
++1595: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:1597: trailing whitespace.
++1597: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3129: trailing whitespace.
++3129: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3149: trailing whitespace.
++3149: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3187: trailing whitespace.
++3187: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3191: trailing whitespace.
++3191: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3195: trailing whitespace.
++3195: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3198: trailing whitespace.
++3198: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3200: trailing whitespace.
++3200: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3201: trailing whitespace.
++3201: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3206: trailing whitespace.
++3206: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3211: trailing whitespace.
++3211: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3290: trailing whitespace.
++3290: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3302: trailing whitespace.
++3302: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3304: trailing whitespace.
++3304: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3305: trailing whitespace.
++3305: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:3310: trailing whitespace.
++3310: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4157: trailing whitespace.
++4157: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4161: trailing whitespace.
++4161: toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4162: trailing whitespace.
++4162: format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4163: trailing whitespace.
++4163: lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4164: trailing whitespace.
++4164: typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4165: trailing whitespace.
++4165: unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4166: trailing whitespace.
++4166: contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4167: trailing whitespace.
++4167: fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4168: trailing whitespace.
++4168: evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4169: trailing whitespace.
++4169: contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4170: trailing whitespace.
++4170: build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4171: trailing whitespace.
++4171: e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4173: trailing whitespace.
++4173: python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4174: trailing whitespace.
++4174: rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4175: trailing whitespace.
++4175: portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4176: trailing whitespace.
++4176: traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4177: trailing whitespace.
++4177: status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4178: trailing whitespace.
++4178: integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4179: trailing whitespace.
++4179: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025-complete-normalized.log:4181: trailing whitespace.
++4181: 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:174: trailing whitespace.
++2026-09-30T18:55:22.6830239Z done! 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:222: trailing whitespace.
++2026-09-30T18:55:31.5876134Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:224: trailing whitespace.
++2026-09-30T18:55:32.3128724Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:320: trailing whitespace.
++2026-09-30T18:55:46.5117028Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:330: trailing whitespace.
++2026-09-30T18:55:46.5119739Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:617: trailing whitespace.
++2026-09-30T18:57:51.9250820Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:621: trailing whitespace.
++2026-09-30T18:57:51.9254364Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:669: trailing whitespace.
++2026-09-30T18:57:51.9272105Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:682: trailing whitespace.
++2026-09-30T18:57:51.9275103Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:685: trailing whitespace.
++2026-09-30T18:57:51.9275755Z   Time:    31.594s 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:686: trailing whitespace.
++2026-09-30T18:57:51.9275878Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:687: trailing whitespace.
++2026-09-30T18:57:51.9275883Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:688: trailing whitespace.
++2026-09-30T18:57:51.9275887Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:698: trailing whitespace.
++2026-09-30T19:03:26.7582546Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:702: trailing whitespace.
++2026-09-30T19:03:26.7586546Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:706: trailing whitespace.
++2026-09-30T19:03:26.7588362Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:708: trailing whitespace.
++2026-09-30T19:03:26.7588916Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:710: trailing whitespace.
++2026-09-30T19:03:26.7590693Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:715: trailing whitespace.
++2026-09-30T19:03:26.7592769Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:720: trailing whitespace.
++2026-09-30T19:03:26.7595218Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:722: trailing whitespace.
++2026-09-30T19:03:26.7596151Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:724: trailing whitespace.
++2026-09-30T19:03:26.7596725Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:729: trailing whitespace.
++2026-09-30T19:03:26.7598693Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:734: trailing whitespace.
++2026-09-30T19:03:26.7600971Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:736: trailing whitespace.
++2026-09-30T19:03:26.7601577Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:738: trailing whitespace.
++2026-09-30T19:03:26.7602150Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:743: trailing whitespace.
++2026-09-30T19:03:26.7604111Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:748: trailing whitespace.
++2026-09-30T19:03:26.7606518Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:750: trailing whitespace.
++2026-09-30T19:03:26.7607102Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:755: trailing whitespace.
++2026-09-30T19:03:26.7609348Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:760: trailing whitespace.
++2026-09-30T19:03:26.7611313Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:765: trailing whitespace.
++2026-09-30T19:03:26.7613436Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:767: trailing whitespace.
++2026-09-30T19:03:26.7614015Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:769: trailing whitespace.
++2026-09-30T19:03:26.7614889Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:774: trailing whitespace.
++2026-09-30T19:03:26.7616910Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:779: trailing whitespace.
++2026-09-30T19:03:26.7619639Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:781: trailing whitespace.
++2026-09-30T19:03:26.7620281Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:797: trailing whitespace.
++2026-09-30T19:03:26.7634050Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:802: trailing whitespace.
++2026-09-30T19:03:26.7635357Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:807: trailing whitespace.
++2026-09-30T19:03:26.7636948Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:809: trailing whitespace.
++2026-09-30T19:03:26.7637332Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:811: trailing whitespace.
++2026-09-30T19:03:26.7637692Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:816: trailing whitespace.
++2026-09-30T19:03:26.7638939Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:821: trailing whitespace.
++2026-09-30T19:03:26.7640498Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:823: trailing whitespace.
++2026-09-30T19:03:26.7640960Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:839: trailing whitespace.
++2026-09-30T19:03:26.7648689Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:844: trailing whitespace.
++2026-09-30T19:03:26.7649973Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:849: trailing whitespace.
++2026-09-30T19:03:26.7651601Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:851: trailing whitespace.
++2026-09-30T19:03:26.7651996Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:876: trailing whitespace.
++2026-09-30T19:03:26.7683068Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:881: trailing whitespace.
++2026-09-30T19:03:26.7685741Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:886: trailing whitespace.
++2026-09-30T19:03:26.7688063Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:888: trailing whitespace.
++2026-09-30T19:03:26.7688625Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:903: trailing whitespace.
++2026-09-30T19:03:26.7698066Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:908: trailing whitespace.
++2026-09-30T19:03:26.7700041Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:913: trailing whitespace.
++2026-09-30T19:03:26.7701679Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:915: trailing whitespace.
++2026-09-30T19:03:26.7702096Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:937: trailing whitespace.
++2026-09-30T19:03:26.7713375Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:942: trailing whitespace.
++2026-09-30T19:03:26.7714564Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:947: trailing whitespace.
++2026-09-30T19:03:26.7716298Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:949: trailing whitespace.
++2026-09-30T19:03:26.7716713Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:979: trailing whitespace.
++2026-09-30T19:03:26.7729844Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:984: trailing whitespace.
++2026-09-30T19:03:26.7731418Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:989: trailing whitespace.
++2026-09-30T19:03:26.7732962Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:991: trailing whitespace.
++2026-09-30T19:03:26.7733358Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1013: trailing whitespace.
++2026-09-30T19:03:26.7745067Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1019: trailing whitespace.
++2026-09-30T19:03:26.7747257Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1024: trailing whitespace.
++2026-09-30T19:03:26.7748535Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1029: trailing whitespace.
++2026-09-30T19:03:26.7750628Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1031: trailing whitespace.
++2026-09-30T19:03:26.7751419Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1161: trailing whitespace.
++2026-09-30T19:03:26.7819779Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1166: trailing whitespace.
++2026-09-30T19:03:26.7821797Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1168: trailing whitespace.
++2026-09-30T19:03:26.7822380Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1174: trailing whitespace.
++2026-09-30T19:03:28.0070990Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1178: trailing whitespace.
++2026-09-30T19:03:29.1661948Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1182: trailing whitespace.
++2026-09-30T19:03:30.2252924Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1186: trailing whitespace.
++2026-09-30T19:03:31.4228449Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1190: trailing whitespace.
++2026-09-30T19:03:33.5064041Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1194: trailing whitespace.
++2026-09-30T19:03:34.5361919Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1197: trailing whitespace.
++2026-09-30T19:03:44.9293542Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1199: trailing whitespace.
++2026-09-30T19:03:44.9294849Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1202: trailing whitespace.
++2026-09-30T19:03:44.9298784Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1222: trailing whitespace.
++2026-09-30T19:03:44.9312635Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1228: trailing whitespace.
++2026-09-30T19:03:48.0613647Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1230: trailing whitespace.
++2026-09-30T19:03:48.0614475Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1238: trailing whitespace.
++2026-09-30T19:03:48.0618285Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1245: trailing whitespace.
++2026-09-30T19:03:49.0284690Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1249: trailing whitespace.
++2026-09-30T19:03:50.0117414Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1253: trailing whitespace.
++2026-09-30T19:03:50.6614089Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1257: trailing whitespace.
++2026-09-30T19:03:51.4263987Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1260: trailing whitespace.
++2026-09-30T19:03:59.7036180Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1262: trailing whitespace.
++2026-09-30T19:03:59.7037061Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1276: trailing whitespace.
++2026-09-30T19:03:59.7043185Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1281: trailing whitespace.
++2026-09-30T19:03:59.7044234Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1282: trailing whitespace.
++2026-09-30T19:03:59.7044239Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1285: trailing whitespace.
++2026-09-30T19:05:19.1174315Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1287: trailing whitespace.
++2026-09-30T19:05:19.1175520Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1352: trailing whitespace.
++2026-09-30T19:05:19.1207412Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1358: trailing whitespace.
++2026-09-30T19:05:22.3994382Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1362: trailing whitespace.
++2026-09-30T19:05:22.3997666Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1415: trailing whitespace.
++2026-09-30T19:05:22.4020017Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1420: trailing whitespace.
++2026-09-30T19:05:22.4021916Z   ├─ dist\chrome-mv3\manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1421: trailing whitespace.
++2026-09-30T19:05:22.4022364Z   ├─ dist\chrome-mv3\background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1423: trailing whitespace.
++2026-09-30T19:05:22.4023643Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1427: trailing whitespace.
++2026-09-30T19:05:22.4024880Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1432: trailing whitespace.
++2026-09-30T19:14:40.0612781Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1436: trailing whitespace.
++2026-09-30T19:14:40.0616474Z   ├─ dist\chrome-mv3\manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1437: trailing whitespace.
++2026-09-30T19:14:40.0617082Z   ├─ dist\chrome-mv3\background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1439: trailing whitespace.
++2026-09-30T19:14:40.0618392Z Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1441: trailing whitespace.
++2026-09-30T19:14:40.0619199Z [log] 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1445: trailing whitespace.
++2026-09-30T19:14:40.0620798Z   ├─ dist\invalid-ack\chrome-mv3\manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1446: trailing whitespace.
++2026-09-30T19:14:40.0621322Z   ├─ dist\invalid-ack\chrome-mv3\background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1448: trailing whitespace.
++2026-09-30T19:14:40.0622632Z Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1450: trailing whitespace.
++2026-09-30T19:14:40.0623158Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1452: trailing whitespace.
++2026-09-30T19:14:40.0623477Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1595: trailing whitespace.
++2026-09-30T19:14:40.1054567Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:1597: trailing whitespace.
++2026-09-30T19:14:40.1054923Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3129: trailing whitespace.
++2026-09-30T19:14:43.8503435Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3149: trailing whitespace.
++2026-09-30T19:27:56.2930868Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3187: trailing whitespace.
++2026-09-30T19:27:56.2958905Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3191: trailing whitespace.
++2026-09-30T19:27:56.7677622Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3195: trailing whitespace.
++2026-09-30T19:27:57.4653095Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3198: trailing whitespace.
++2026-09-30T19:27:57.4655342Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3200: trailing whitespace.
++2026-09-30T19:27:57.4656472Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3201: trailing whitespace.
++2026-09-30T19:27:57.4656540Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3206: trailing whitespace.
++2026-09-30T19:27:57.8776785Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3211: trailing whitespace.
++2026-09-30T19:28:16.6452108Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3290: trailing whitespace.
++2026-09-30T19:28:24.0660526Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3302: trailing whitespace.
++2026-09-30T19:28:24.0669951Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3304: trailing whitespace.
++2026-09-30T19:28:24.0670904Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3305: trailing whitespace.
++2026-09-30T19:28:24.0670912Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:3310: trailing whitespace.
++2026-09-30T19:28:24.2486689Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4157: trailing whitespace.
++2026-09-30T19:28:31.9671780Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4161: trailing whitespace.
++2026-09-30T19:28:31.9674151Z toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4162: trailing whitespace.
++2026-09-30T19:28:31.9674613Z format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4163: trailing whitespace.
++2026-09-30T19:28:31.9675085Z lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4164: trailing whitespace.
++2026-09-30T19:28:31.9675560Z typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4165: trailing whitespace.
++2026-09-30T19:28:31.9676026Z unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4166: trailing whitespace.
++2026-09-30T19:28:31.9676479Z contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4167: trailing whitespace.
++2026-09-30T19:28:31.9676937Z fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4168: trailing whitespace.
++2026-09-30T19:28:31.9677430Z evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4169: trailing whitespace.
++2026-09-30T19:28:31.9678145Z contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4170: trailing whitespace.
++2026-09-30T19:28:31.9678589Z build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4171: trailing whitespace.
++2026-09-30T19:28:31.9679025Z e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4173: trailing whitespace.
++2026-09-30T19:28:31.9681569Z python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4174: trailing whitespace.
++2026-09-30T19:28:31.9682020Z rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4175: trailing whitespace.
++2026-09-30T19:28:31.9682483Z portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4176: trailing whitespace.
++2026-09-30T19:28:31.9682934Z traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4177: trailing whitespace.
++2026-09-30T19:28:31.9683387Z status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4178: trailing whitespace.
++2026-09-30T19:28:31.9683809Z integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4179: trailing whitespace.
++2026-09-30T19:28:31.9684066Z 
+docs/evidence/m02-w13-closeout/content-ci/windows-2025.log:4181: trailing whitespace.
++2026-09-30T19:28:31.9689322Z 
+docs/evidence/m02-w13-closeout/final-proof/1.log:10: new blank line at EOF.
+docs/evidence/m02-w13-closeout/final-proof/2.log:10: new blank line at EOF.
+docs/evidence/m02-w13-closeout/final-proof/3.log:13: trailing whitespace.
++  ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/final-proof/3.log:14: trailing whitespace.
++  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/final-proof/3.log:16: trailing whitespace.
++Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/final-proof/3.log:23: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/final-proof/3.log:24: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/final-proof/3.log:26: trailing whitespace.
++Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/final-proof/4.log:10: new blank line at EOF.
+docs/evidence/m02-w13-closeout/final-proof/5.log:13: trailing whitespace.
++  ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/final-proof/5.log:14: trailing whitespace.
++  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/final-proof/5.log:16: trailing whitespace.
++Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/final-proof/5.log:23: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/final-proof/5.log:24: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/final-proof/5.log:26: trailing whitespace.
++Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/governance-precommit/4.log:846: trailing whitespace.
++integrity      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:48: trailing whitespace.
++@japp/extension:typecheck: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:63: trailing whitespace.
++  Time:    6.114s 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:96: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:98: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:99: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:101: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:102: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:104: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:105: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:107: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:108: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:110: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:111: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:113: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:114: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:116: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:117: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:118: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:120: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:122: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:123: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:125: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:127: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:132: trailing whitespace.
++@japp/security:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:135: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:140: trailing whitespace.
++@japp/ui:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:142: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:147: trailing whitespace.
++@japp/resume-schema:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:150: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:155: trailing whitespace.
++@japp/domain:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:166: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:171: trailing whitespace.
++@japp/mock-ats-lab:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:173: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:175: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:176: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:178: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:180: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:182: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:183: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:185: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:189: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:194: trailing whitespace.
++@japp/platform:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:208: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:213: trailing whitespace.
++@japp/ats-adapters:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:224: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:229: trailing whitespace.
++@japp/form-engine:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:245: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:250: trailing whitespace.
++@japp/extension:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:253: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:258: trailing whitespace.
++@japp/evaluation-baselines:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:270: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:275: trailing whitespace.
++@japp/evaluation-corpus:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:286: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:291: trailing whitespace.
++@japp/evaluation-runner:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:300: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:304: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:309: trailing whitespace.
++@japp/test-fixtures:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:360: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:365: trailing whitespace.
++@japp/contracts:test: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:369: trailing whitespace.
++  Time:    1m17.458s 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:499: trailing whitespace.
++@japp/extension:build: 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:547: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:548: trailing whitespace.
++@japp/extension:build:   ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:550: trailing whitespace.
++@japp/extension:build: Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:556: trailing whitespace.
++  Time:    1.025s 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:565: trailing whitespace.
++  ├─ dist/chrome-mv3/manifest.json                   532 B    
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:566: trailing whitespace.
++  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:568: trailing whitespace.
++Σ Total size: 150.89 kB                            
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:574: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:575: trailing whitespace.
++  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:577: trailing whitespace.
++Σ Total size: 111.64 kB                                        
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3292: trailing whitespace.
++toolchain      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3293: trailing whitespace.
++format         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3294: trailing whitespace.
++lint           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3295: trailing whitespace.
++typecheck      ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3296: trailing whitespace.
++unit-ts        ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3297: trailing whitespace.
++contract-gen   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3298: trailing whitespace.
++fixture-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3299: trailing whitespace.
++evaluation-corpus ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3300: trailing whitespace.
++contract       ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3301: trailing whitespace.
++build          ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3302: trailing whitespace.
++e2e-browser    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3304: trailing whitespace.
++python         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3305: trailing whitespace.
++rust           ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3306: trailing whitespace.
++portability    ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3307: trailing whitespace.
++traceability   ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3308: trailing whitespace.
++status         ACTIVE               PASS               
+docs/evidence/m02-w13-closeout/lifecycle-proof/5.log:3309: trailing whitespace.
++integrity      ACTIVE               PASS               
