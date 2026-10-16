@@ -10,10 +10,12 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { afterEach, describe, expect, test } from "vitest";
+import { createHash } from "node:crypto";
 
 import {
   SEMANTIC_RULES_V1,
-  validateSemanticContractV1,
+  SEMANTIC_RULES_V2,
+  validateSemanticContractV2,
 } from "../../generated/typescript/index.ts";
 import {
   DEFAULT_CATALOG_ROOT,
@@ -22,10 +24,10 @@ import {
 import {
   loadSemanticRules,
   SemanticRuleCatalogError,
-} from "../../generator/semantic-rules.ts";
+} from "../../generator/semantic-rules-v2.ts";
 import { createContractValidator, loadSchemaCatalog } from "../../src/index.ts";
 
-const SEMANTIC_CATALOG = join(DEFAULT_CATALOG_ROOT, "semantic-rules.v1.json");
+const SEMANTIC_CATALOG = join(DEFAULT_CATALOG_ROOT, "semantic-rules.v2.json");
 const CONTRACTS_ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const SCHEMAS_ROOT = join(CONTRACTS_ROOT, "schemas");
 const CORPUS_VALUES = join(
@@ -73,7 +75,7 @@ function mutatedCatalog(
   const root = mkdtempSync(join(tmpdir(), "japp-semantic-catalog-"));
   temporaryRoots.push(root);
   cpSync(DEFAULT_CATALOG_ROOT, root, { recursive: true });
-  const path = join(root, "semantic-rules.v1.json");
+  const path = join(root, "semantic-rules.v2.json");
   const document = JSON.parse(readFileSync(path, "utf8")) as Record<
     string,
     unknown
@@ -116,13 +118,13 @@ describe("generated finite semantic rules", () => {
     expect(loaded.version).toBe("1.2.0");
     expect(loaded.version).toBe(document.catalog_version);
     expect(loaded.entries).toEqual(document.entries);
-    expect(SEMANTIC_RULES_V1).toEqual(document.entries);
-    expect(SEMANTIC_RULES_V1).toHaveLength(114);
-    expect(SEMANTIC_RULES_V1.map((entry) => entry.rule_id)).toEqual(
-      [...SEMANTIC_RULES_V1.map((entry) => entry.rule_id)].sort(),
+    expect(SEMANTIC_RULES_V2).toEqual(document.entries);
+    expect(SEMANTIC_RULES_V2).toHaveLength(114);
+    expect(SEMANTIC_RULES_V2.map((entry) => entry.rule_id)).toEqual(
+      [...SEMANTIC_RULES_V2.map((entry) => entry.rule_id)].sort(),
     );
-    expect(Object.isFrozen(SEMANTIC_RULES_V1)).toBe(true);
-    expect(SEMANTIC_RULES_V1.every((entry) => Object.isFrozen(entry))).toBe(
+    expect(Object.isFrozen(SEMANTIC_RULES_V2)).toBe(true);
+    expect(SEMANTIC_RULES_V2.every((entry) => Object.isFrozen(entry))).toBe(
       true,
     );
   });
@@ -135,13 +137,13 @@ describe("generated finite semantic rules", () => {
       repeater_path: [],
     };
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:form:field-address:v1",
         valid,
       ),
     ).toEqual({ valid: true, issues: [] });
 
-    const invalid = validateSemanticContractV1(
+    const invalid = validateSemanticContractV2(
       "urn:japp:schema:form:field-address:v1",
       {
         ...valid,
@@ -157,7 +159,7 @@ describe("generated finite semantic rules", () => {
       });
     }
     expect(
-      validateSemanticContractV1("urn:japp:schema:fixture:test-record:v1", {}),
+      validateSemanticContractV2("urn:japp:schema:fixture:test-record:v1", {}),
     ).toEqual({ valid: true, issues: [] });
   });
 
@@ -245,7 +247,7 @@ describe("generated finite semantic rules", () => {
       },
     ];
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:benchmark:holdout-manifest:v1",
         holdout,
       ).valid,
@@ -257,7 +259,7 @@ describe("generated finite semantic rules", () => {
         ),
     );
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:benchmark:holdout-manifest:v1",
         holdout,
       ).valid,
@@ -266,7 +268,7 @@ describe("generated finite semantic rules", () => {
     const unsupportedFail = corpusValue("w06.benchmark-result");
     unsupportedFail.overall_outcome = "FAIL";
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:benchmark:result:v1",
         unsupportedFail,
       ).valid,
@@ -281,7 +283,7 @@ describe("generated finite semantic rules", () => {
       },
     ];
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:benchmark:result:v1",
         unsupportedFail,
       ).valid,
@@ -294,7 +296,7 @@ describe("generated finite semantic rules", () => {
     rendererFailure.layout_result = "RENDER_FAILED";
     rendererFailure.error_reason_codes = ["RENDERING_FAILURE"];
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:rendering:layout-measurement:v1",
         rendererFailure,
       ).valid,
@@ -303,10 +305,36 @@ describe("generated finite semantic rules", () => {
     rendererFailure.layout_result = "ACCEPTED";
     rendererFailure.error_reason_codes = [];
     expect(
-      validateSemanticContractV1(
+      validateSemanticContractV2(
         "urn:japp:schema:rendering:layout-measurement:v1",
         rendererFailure,
       ).valid,
     ).toBe(false);
   });
+});
+
+test("preserves exact frozen V1 emitter, catalog and runtime preimages while extending V2", () => {
+  const retained = {
+    "packages/contracts/generator/semantic-rules.ts":
+      "d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02",
+    "packages/contracts/catalog/semantic-rules.v1.json":
+      "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3",
+    "packages/contracts/generated/typescript/semantic/rules.v1.ts":
+      "449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f",
+    "packages/contracts/generated/python/src/japp_contracts/semantic/rules_v1.py":
+      "832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549",
+  } as const;
+  for (const [path, expected] of Object.entries(retained)) {
+    const bytes = readFileSync(join(CONTRACTS_ROOT, "../..", path));
+    expect(createHash("sha256").update(bytes).digest("hex"), path).toBe(
+      expected,
+    );
+  }
+  const loaded = loadSemanticRules({
+    catalogRoot: DEFAULT_CATALOG_ROOT,
+    ...dependencies(),
+  });
+  expect(SEMANTIC_RULES_V1).toEqual(loaded.inheritedV1.entries);
+  expect(SEMANTIC_RULES_V1).toHaveLength(110);
+  expect(SEMANTIC_RULES_V2).toHaveLength(114);
 });

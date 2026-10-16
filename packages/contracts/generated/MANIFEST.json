@@ -35,12 +35,18 @@
     },
     {
       "path": "packages/contracts/catalog/semantic-rules.v1.json",
+      "sha256": "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3",
+      "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
+      "version": "1.1.0"
+    },
+    {
+      "path": "packages/contracts/catalog/semantic-rules.v2.json",
       "sha256": "b574b603e4bf1c26b990c97512935179c4f4a0886774f8163e3b87dce801a5c9",
       "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v2",
       "version": "1.2.0"
     }
   ],
-  "formatVersion": "1.6.0",
+  "formatVersion": "1.7.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -533,11 +539,11 @@
   "outputs": [
     {
       "path": "README.md",
-      "sha256": "dd6207b6628e9462cd8035abfc0c47df66bb9381b8b38deec8376ef979976e12"
+      "sha256": "d11f4ff484a356699e062068523378e731ee6246f3e51d59d59cc5a14cd760e2"
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "406cfe6bca4be278eb3862fafeedd4dea672d990e969888e5fdc6417f015050f"
+      "sha256": "7f5d7f250e002d4700e1c4cdffef0a293105248a34ef2c23d8c3c87fa736f55c"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -901,7 +907,11 @@
     },
     {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "ef379cc1fe98786e4f3a9125e4a3676dcaabff93585ba0073c67bfcfbeae15f2"
+      "sha256": "832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549"
+    },
+    {
+      "path": "python/src/japp_contracts/semantic/rules_v2.py",
+      "sha256": "8a2a35a6274f9996840306e8e2cdc7ae58527626e0719f00bececa7c5a90dff8"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -1065,7 +1075,7 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "0c6723c823246b470162001a14e194cdb7be6a2d9271aad3b259a11b99b007e9"
+      "sha256": "e314b43b10fd07da2ed4371be126032fc8dc664bc784be65029a6e65d079153e"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -1249,7 +1259,11 @@
     },
     {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "8dc2401b5e46c31587a51d9c4db1d69ff5f1e81b7776dddde4814668a248f9f5"
+      "sha256": "449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f"
+    },
+    {
+      "path": "typescript/semantic/rules.v2.ts",
+      "sha256": "96c7f7fdddd2041a9c57c8edb877c092e0db747a967ffbe261e68c3087496134"
     },
     {
       "path": "typescript/session/application-session.v1.ts",

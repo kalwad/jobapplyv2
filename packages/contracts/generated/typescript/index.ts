@@ -94,3 +94,4 @@ export * from "./validators.ts";
 export * from "./error/catalog-data.v1.ts";
 export * from "./security/policy-data.v1.ts";
 export * from "./semantic/rules.v1.ts";
+export * from "./semantic/rules.v2.ts";

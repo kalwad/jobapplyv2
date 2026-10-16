@@ -11,8 +11,13 @@ import {
   dynReconcile,
   nextId,
   scanFrames,
+  runtimeMessage,
   type Harness,
 } from "./research-harness.ts";
+import {
+  buildReresolveTabRequest,
+  parseReresolveTabResult,
+} from "../../../apps/extension/src/scanner-protocol.ts";
 
 export interface MountedContactFact {
   readonly concept: FeasibilityConcept;
@@ -49,7 +54,37 @@ export async function executeMountedContact(
     const outcomes = [];
     const localRefusals = [];
     if (frame.root_status === "FOUND") {
-      for (const descriptor of frame.descriptors) {
+      for (const initialDescriptor of frame.descriptors) {
+        // Earlier fills can change another field's validation description.
+        // Refresh only this accepted W08 target through its current index;
+        // neither an initial batch descriptor nor an observation ordinal is
+        // fresh W09 authority. Missing/duplicate/changed documents refuse.
+        const refreshed = parseReresolveTabResult(
+          await runtimeMessage(
+            harness.controller,
+            buildReresolveTabRequest(
+              nextId("w14-mounted-current"),
+              harness.tabId,
+              initialDescriptor.address,
+            ),
+          ),
+        );
+        const descriptor =
+          refreshed?.resolution.status === "RESOLVED"
+            ? refreshed.resolution.descriptor
+            : undefined;
+        if (
+          descriptor?.field_id !== initialDescriptor.field_id ||
+          descriptor.address.session_id !== frame.frame_context.session_id ||
+          descriptor.address.frame_id !== frame.frame_context.frame_id ||
+          descriptor.address.document_id !== frame.frame_context.document_id
+        ) {
+          localRefusals.push({
+            field_id: initialDescriptor.field_id,
+            reason: "W08_CURRENT_TARGET_NOT_UNIQUE",
+          });
+          continue;
+        }
         const resolved = await resolveFieldDecision({
           descriptor,
           records,
@@ -58,7 +93,7 @@ export async function executeMountedContact(
             nextId("w14-mounted-decision"),
           ),
         });
-        decisions.push({ field_id: descriptor.field_id, resolved });
+        decisions.push({ field_id: descriptor.field_id, descriptor, resolved });
         if (resolved.status !== "RESOLVED") {
           localRefusals.push({
             field_id: descriptor.field_id,

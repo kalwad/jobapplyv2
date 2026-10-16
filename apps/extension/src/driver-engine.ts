@@ -49,6 +49,12 @@ import {
   type ResolvedFieldTarget,
 } from "./field-scanner.ts";
 import type { FrameContext } from "./scanner-protocol.ts";
+import {
+  captureValidationDescription,
+  validationDescriptionCleared,
+  validationDescriptionMatches,
+  type ValidationDescriptionSnapshot,
+} from "./validation-description.ts";
 import { semanticDigest, stableSemanticId } from "./semantic-identity.ts";
 import {
   checkboxDriver,
@@ -114,6 +120,7 @@ interface UndoRecord {
   readonly intendedObservation: SemanticObservation;
   consumed: boolean;
   effectiveUndoAddress?: FormFieldAddressV1;
+  effectiveUndoDescription?: ValidationDescriptionSnapshot;
   readonly optionMeaningApproval?: OptionMeaningApproval;
   readonly priorOptionMeaningApproval?: OptionMeaningApproval;
 }
@@ -139,8 +146,9 @@ interface ResultInput {
 
 export interface ValidationDescriptionClearingEvidence {
   readonly source: "READ_SITE_ACCEPTANCE_V1";
-  readonly rejectedDescriptionMessageDigest: string;
+  readonly rejectedMessageDigests: readonly string[];
   readonly settledAddress: FormFieldAddressV1;
+  readonly settledDescription: ValidationDescriptionSnapshot;
 }
 export interface DriverExecution {
   readonly descriptionClearing?: ValidationDescriptionClearingEvidence;
@@ -222,10 +230,13 @@ function driverContext(
   approvedAddress: FormFieldAddressV1,
   approvedOption?: OptionMeaningApproval,
   restorationOptionApproval?: OptionMeaningApproval,
+  approvedDescription?: ValidationDescriptionSnapshot,
 ): DriverContext {
   let current = target;
   const allowed = (candidate: ResolvedFieldTarget) =>
     descriptionApprovalMatches(approvedAddress, candidate.descriptor.address) &&
+    (approvedDescription === undefined ||
+      validationDescriptionMatches(approvedDescription, candidate.anchor)) &&
     (approvedOption === undefined ||
       optionMeaningApprovalMatches(approvedOption, candidate.descriptor) ||
       ((candidate.descriptor.control_kind === "COMBOBOX" ||
@@ -807,6 +818,7 @@ export class DriverTransactionEngine {
         : { ok: false as const };
     const originalDescription =
       freshTarget.descriptor.description?.normalized_text;
+    const beforeDescription = captureValidationDescription(freshTarget.anchor);
     const beforeValidation =
       originalDescription === undefined
         ? null
@@ -816,18 +828,24 @@ export class DriverTransactionEngine {
               ...freshTarget.members,
             ],
           );
-    const rejectedDescriptionMessageDigest =
-      originalDescription === undefined
-        ? null
-        : await semanticDigest(
-            `driver-validation-message-v1\0${originalDescription}`,
-          );
-    const descriptionWasRejected =
-      beforeValidation?.acceptance === "REJECTED" &&
-      rejectedDescriptionMessageDigest !== null &&
-      beforeValidation.messageDigests.includes(
-        rejectedDescriptionMessageDigest,
-      );
+    const rejectedMessages = new Set<string>();
+    const rejectedMessageDigests: string[] = [];
+    if (
+      beforeDescription !== null &&
+      beforeDescription.normalizedText === originalDescription &&
+      beforeValidation?.acceptance === "REJECTED"
+    ) {
+      for (const component of beforeDescription.components) {
+        if (!component.error || component.text === "") continue;
+        const digest = await semanticDigest(
+          `driver-validation-message-v1\0${component.text}`,
+        );
+        if (beforeValidation.messageDigests.includes(digest)) {
+          rejectedMessages.add(component.text);
+          rejectedMessageDigests.push(digest);
+        }
+      }
+    }
     let freshTargetCurrent = targetIsCurrent(document, freshTarget);
     if (freshCheck.ok && !freshTargetCurrent) {
       // Ordinary option-window traversal invalidates the index while retaining
@@ -873,6 +891,8 @@ export class DriverTransactionEngine {
         transaction.address,
         freshTarget.descriptor.address,
       ) ||
+      (beforeDescription !== null &&
+        !validationDescriptionMatches(beforeDescription, freshTarget.anchor)) ||
       (approvedOption !== undefined &&
         !optionMeaningApprovalMatches(approvedOption, freshTarget.descriptor) &&
         (isStaticChoice ||
@@ -1141,17 +1161,28 @@ export class DriverTransactionEngine {
       target.allFieldIds,
       settledTarget.allFieldIds,
     );
+    const settledDescription = captureValidationDescription(
+      settledTarget.anchor,
+    );
     const descriptionClearing:
       ValidationDescriptionClearingEvidence | undefined =
-      descriptionWasRejected &&
-      settledTarget.descriptor.description === undefined &&
+      beforeDescription !== null &&
+      settledDescription !== null &&
+      settledDescription.normalizedText ===
+        (settledTarget.descriptor.description?.normalized_text ?? "") &&
+      validationDescriptionCleared(
+        beforeDescription,
+        settledDescription,
+        rejectedMessages,
+      ) &&
       acceptance.acceptance === "ACCEPTED" &&
       observationsEquivalent(immediate, intended) &&
       observationsEquivalent(settled, intended)
         ? {
             source: "READ_SITE_ACCEPTANCE_V1",
-            rejectedDescriptionMessageDigest,
+            rejectedMessageDigests,
             settledAddress: settledTarget.descriptor.address,
+            settledDescription,
           }
         : undefined;
     const settledOptionApproval =
@@ -1186,8 +1217,10 @@ export class DriverTransactionEngine {
       this.#undoRecords.delete(transaction.transaction_id);
     if (descriptionClearing !== undefined) {
       const undo = this.#undoRecords.get(transaction.transaction_id);
-      if (undo !== undefined)
+      if (undo !== undefined) {
         undo.effectiveUndoAddress = descriptionClearing.settledAddress;
+        undo.effectiveUndoDescription = descriptionClearing.settledDescription;
+      }
     }
     const result = await buildResult({
       transaction,
@@ -1212,6 +1245,11 @@ export class DriverTransactionEngine {
     if (
       settledAuthorityCurrent &&
       (!settledPropertiesCurrent() ||
+        (descriptionClearing !== undefined &&
+          !validationDescriptionMatches(
+            descriptionClearing.settledDescription,
+            settledTarget.anchor,
+          )) ||
         !targetIsCurrent(document, settledTarget, publicationEvidenceRevision))
     ) {
       this.#undoRecords.delete(transaction.transaction_id);
@@ -1316,6 +1354,7 @@ export class DriverTransactionEngine {
             record.effectiveUndoAddress ?? transaction.address,
             record.optionMeaningApproval,
             record.priorOptionMeaningApproval,
+            record.effectiveUndoDescription,
           );
     const current =
       currentContext === null || driver === undefined
@@ -1328,10 +1367,16 @@ export class DriverTransactionEngine {
         resolved.target,
         transaction.address,
       ),
-      policy_permitted: descriptionApprovalMatches(
-        record.effectiveUndoAddress ?? transaction.address,
-        resolved.target.descriptor.address,
-      ),
+      policy_permitted:
+        descriptionApprovalMatches(
+          record.effectiveUndoAddress ?? transaction.address,
+          resolved.target.descriptor.address,
+        ) &&
+        (record.effectiveUndoDescription === undefined ||
+          validationDescriptionMatches(
+            record.effectiveUndoDescription,
+            resolved.target.anchor,
+          )),
     };
     if (
       driver === undefined ||
@@ -1412,6 +1457,11 @@ export class DriverTransactionEngine {
         record.effectiveUndoAddress ?? transaction.address,
         resolved.target.descriptor.address,
       ) ||
+      (record.effectiveUndoDescription !== undefined &&
+        !validationDescriptionMatches(
+          record.effectiveUndoDescription,
+          resolved.target.anchor,
+        )) ||
       !targetIsCurrent(document, resolved.target) ||
       !targetVisible(resolved.target) ||
       !targetEnabled(resolved.target)
@@ -1453,6 +1503,7 @@ export class DriverTransactionEngine {
       record.effectiveUndoAddress ?? transaction.address,
       record.optionMeaningApproval,
       record.priorOptionMeaningApproval,
+      record.effectiveUndoDescription,
     );
     try {
       await actionDriver.applyUndo(actionContext, record.payload);
@@ -1530,6 +1581,7 @@ export class DriverTransactionEngine {
       record.effectiveUndoAddress ?? transaction.address,
       record.optionMeaningApproval,
       record.priorOptionMeaningApproval,
+      record.effectiveUndoDescription,
     );
     const settledPropertiesCurrent = captureDriverObservationWitness(
       actionDriver,

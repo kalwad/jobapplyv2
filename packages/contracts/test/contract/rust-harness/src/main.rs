@@ -1229,7 +1229,7 @@ fn load_semantic_rules(
     catalog: &Catalog,
     security: &SecurityData,
 ) -> AdapterResult<SemanticRules> {
-    let path = repo.join("packages/contracts/catalog/semantic-rules.v1.json");
+    let path = repo.join("packages/contracts/catalog/semantic-rules.v2.json");
     let bytes = fs::read(path).map_err(|_| AdapterError)?;
     let value = raw_category(&bytes).map_err(|_| AdapterError)?;
     if schema_valid(catalog, SEMANTIC_RULE_CATALOG_REF, &value) != Ok(true) {
@@ -1237,6 +1237,33 @@ fn load_semantic_rules(
     }
     let document: SemanticRuleDocument = serde_json::from_value(value).map_err(|_| AdapterError)?;
     if document.catalog_version != "1.2.0" {
+        return Err(AdapterError);
+    }
+    let inherited_bytes = fs::read(repo.join("packages/contracts/catalog/semantic-rules.v1.json"))
+        .map_err(|_| AdapterError)?;
+    let inherited_value = raw_category(&inherited_bytes).map_err(|_| AdapterError)?;
+    if schema_valid(
+        catalog,
+        "urn:japp:schema:semantic:rule-catalog:v1",
+        &inherited_value,
+    ) != Ok(true)
+    {
+        return Err(AdapterError);
+    }
+    let inherited: SemanticRuleDocument =
+        serde_json::from_value(inherited_value).map_err(|_| AdapterError)?;
+    if inherited.catalog_version != "1.1.0"
+        || inherited.entries.len() != 110
+        || inherited.entries.iter().any(|old| {
+            !document.entries.iter().any(|current| {
+                old.rule_id == current.rule_id
+                    && old.rule_version == current.rule_version
+                    && old.schema_ref == current.schema_ref
+                    && old.rule_kind == current.rule_kind
+                    && old.failure_error_code == current.failure_error_code
+            })
+        })
+    {
         return Err(AdapterError);
     }
 

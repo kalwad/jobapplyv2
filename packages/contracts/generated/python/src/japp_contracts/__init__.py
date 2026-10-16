@@ -456,6 +456,13 @@ from japp_contracts.semantic.rules_v1 import (
     SemanticValidationOutcomeV1,
     validate_semantic_contract_v1,
 )
+from japp_contracts.semantic.rules_v2 import (
+    SEMANTIC_RULES_V2,
+    SemanticRuleEntryV2,
+    SemanticValidationIssueV2,
+    SemanticValidationOutcomeV2,
+    validate_semantic_contract_v2,
+)
 from japp_contracts.session.application_session_v1 import (
     SessionApplicationSessionV1,
     SessionApplicationSessionV1RevalidationState,
@@ -760,6 +767,7 @@ __all__ = [
     "ResumePlanV1RequirementEntry",
     "ResumePlanV1TerminologyDecision",
     "SEMANTIC_RULES_V1",
+    "SEMANTIC_RULES_V2",
     "SecurityAuthorizationPolicyV1",
     "SecurityAuthorizationPolicyV1AuthorizationAllowRow",
     "SecurityAuthorizationRequestV1",
@@ -782,8 +790,11 @@ __all__ = [
     "SemanticRuleCatalogV2RuleEntry",
     "SemanticRuleCatalogV2RuleKind",
     "SemanticRuleEntryV1",
+    "SemanticRuleEntryV2",
     "SemanticValidationIssueV1",
+    "SemanticValidationIssueV2",
     "SemanticValidationOutcomeV1",
+    "SemanticValidationOutcomeV2",
     "SessionApplicationSessionV1",
     "SessionApplicationSessionV1RevalidationState",
     "SessionApplicationSessionV1RuntimeMetadata",
@@ -833,5 +844,6 @@ __all__ = [
     "require_error_catalog_entry_v1",
     "validate_calendar_date",
     "validate_semantic_contract_v1",
+    "validate_semantic_contract_v2",
     "validate_utc_timestamp",
 ]

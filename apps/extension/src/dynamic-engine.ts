@@ -57,6 +57,7 @@ import {
   classifyField,
   computeInventoryCounts,
   computeReadiness,
+  reconciliationItemIdentity,
   type CurrentValueComparison,
   type ReconcileFieldEvidence,
 } from "./dynamic-reconcile.ts";
@@ -79,6 +80,7 @@ import type { DriverTransactionRequest } from "./driver-protocol.ts";
 import { readSiteAcceptance } from "./drivers/driver-dom.ts";
 import { optionMeaningApprovalMatches } from "./drivers/choice-drivers.ts";
 import type { OptionMeaningApproval } from "./drivers/driver-contract.ts";
+import { validationDescriptionMatches } from "./validation-description.ts";
 import {
   advanceDomGeneration,
   currentDomGeneration,
@@ -312,7 +314,9 @@ export class DynamicFrameEngine {
   readonly #driverEngine: DriverTransactionEngine;
   readonly #drivers = defaultControlDrivers();
   readonly #queue = new BoundedRecordQueue<MutationRecord>();
-  readonly #inventory = new Map<string, InventoryEntry>();
+  // Element references identify current physical observations only. They never
+  // enter a FieldAddress, transaction, resolver, or duplicate-action key.
+  readonly #inventory = new Map<HTMLElement, InventoryEntry>();
   readonly #registry = new Map<string, RegistryEntry>();
   readonly #ledger = new Map<string, LedgerEntry>();
   readonly #inFlight = new Set<string>();
@@ -331,7 +335,6 @@ export class DynamicFrameEngine {
   #processing: Promise<void> = Promise.resolve();
   #observedDocument: Document | null = null;
   #capacityExceeded = false;
-  #ambiguousInventoryCount = 0;
   #proofUnstable = false;
 
   constructor(driverEngine: DriverTransactionEngine) {
@@ -674,41 +677,20 @@ export class DynamicFrameEngine {
       return;
     }
     const pairs = scan.pairs;
-    const identities = new Map<string, number>();
-    for (const pair of pairs)
-      identities.set(
-        pair.descriptor.field_id,
-        (identities.get(pair.descriptor.field_id) ?? 0) + 1,
-      );
-    this.#ambiguousInventoryCount =
-      Math.max(0, ...identities.values()) > 1
-        ? Math.max(...identities.values())
-        : 0;
     this.#counters.descriptors_produced += pairs.length;
-    const previousIds = new Set(this.#inventory.keys());
-    const seed = reason === "OBSERVATION_START";
-    this.#inventory.clear();
+    const entries: InventoryEntry[] = [];
     for (const pair of pairs) {
-      if (this.#inventory.size >= MAX_INVENTORY_ITEMS) {
-        break;
-      }
-      const fieldId = pair.descriptor.field_id;
-      if (!seed && !previousIds.has(fieldId)) {
-        this.#counters.conditional_fields_discovered += 1;
-      }
-      this.#inventory.set(fieldId, {
-        fieldId,
+      entries.push({
+        fieldId: pair.descriptor.field_id,
         addressDigest: await fieldAddressDigest(pair.descriptor.address),
         descriptor: pair.descriptor,
         anchor: pair.candidate.anchor,
       });
     }
-    if (!seed) {
-      for (const previousId of previousIds) {
-        if (!this.#inventory.has(previousId)) {
-          this.#counters.conditional_fields_removed += 1;
-        }
-      }
+    if (!this.#replaceInventory(entries, reason !== "OBSERVATION_START")) {
+      this.#counters.total_scan_duration_ms += boundedMs(started);
+      this.#domObservationGeneration += 1;
+      return;
     }
     // Only a complete current root scan can clear a prior capacity refusal.
     this.#capacityExceeded = scanCapacityExceeded(root);
@@ -795,6 +777,10 @@ export class DynamicFrameEngine {
         const pairs = scan.pairs;
         this.#counters.descriptors_produced += pairs.length;
         this.#mergeRegion(region, pairs, await this.#digestsFor(pairs));
+        if (this.#hasCapacityRefusal()) {
+          this.#counters.last_batch_duration_ms = boundedMs(started);
+          return;
+        }
         relevant = true;
       }
       this.#pruneDisconnectedInventory(root);
@@ -813,79 +799,93 @@ export class DynamicFrameEngine {
 
   async #digestsFor(
     pairs: readonly ScannedFieldPair[],
-  ): Promise<ReadonlyMap<string, string>> {
-    const digests = new Map<string, string>();
+  ): Promise<ReadonlyMap<HTMLElement, string>> {
+    const digests = new Map<HTMLElement, string>();
     for (const pair of pairs) {
       digests.set(
-        pair.descriptor.field_id,
+        pair.candidate.anchor,
         await fieldAddressDigest(pair.descriptor.address),
       );
     }
     return digests;
   }
 
+  /** Count semantic observations without collapsing physical collisions. */
+  #inventoryMultiplicities(
+    entries: Iterable<InventoryEntry>,
+  ): Map<string, number> {
+    const counts = new Map<string, number>();
+    for (const entry of entries)
+      counts.set(entry.fieldId, (counts.get(entry.fieldId) ?? 0) + 1);
+    return counts;
+  }
+
+  /** Atomic bounded replacement; conditional counts survive equivalent rerenders. */
+  #replaceInventory(
+    entries: readonly InventoryEntry[],
+    trackConditionals: boolean,
+  ): boolean {
+    if (entries.length > MAX_INVENTORY_ITEMS) {
+      this.#capacityExceeded = true;
+      this.#inventory.clear();
+      return false;
+    }
+    const previous = this.#inventoryMultiplicities(this.#inventory.values());
+    const current = this.#inventoryMultiplicities(entries);
+    if (trackConditionals) {
+      for (const [fieldId, count] of current)
+        this.#counters.conditional_fields_discovered += Math.max(
+          0,
+          count - (previous.get(fieldId) ?? 0),
+        );
+      for (const [fieldId, count] of previous)
+        this.#counters.conditional_fields_removed += Math.max(
+          0,
+          count - (current.get(fieldId) ?? 0),
+        );
+    }
+    this.#inventory.clear();
+    for (const entry of entries) this.#inventory.set(entry.anchor, entry);
+    return true;
+  }
+
   #mergeRegion(
     region: Element,
     pairs: readonly ScannedFieldPair[],
-    digests: ReadonlyMap<string, string>,
+    digests: ReadonlyMap<HTMLElement, string>,
   ): void {
-    const currentIds = new Set(pairs.map((pair) => pair.descriptor.field_id));
-    if (currentIds.size !== pairs.length)
-      this.#ambiguousInventoryCount = Math.max(
-        2,
-        this.#ambiguousInventoryCount,
-      );
-    for (const [fieldId, entry] of [...this.#inventory]) {
-      const inRegion = composedContains(region, entry.anchor);
-      if (inRegion && !currentIds.has(fieldId)) {
-        this.#inventory.delete(fieldId);
-        this.#counters.conditional_fields_removed += 1;
-      }
+    const root = this.#observedRoot;
+    const merged = new Map<HTMLElement, InventoryEntry>();
+    for (const entry of this.#inventory.values()) {
+      if (
+        entry.anchor.isConnected &&
+        root !== null &&
+        composedContains(root, entry.anchor) &&
+        !composedContains(region, entry.anchor)
+      )
+        merged.set(entry.anchor, entry);
     }
     for (const pair of pairs) {
-      const fieldId = pair.descriptor.field_id;
-      const existing = this.#inventory.get(fieldId);
-      if (existing !== undefined) {
-        if (
-          existing.anchor !== pair.candidate.anchor &&
-          existing.anchor.isConnected &&
-          !composedContains(region, existing.anchor)
-        )
-          this.#ambiguousInventoryCount = Math.max(
-            2,
-            this.#ambiguousInventoryCount,
-          );
-        const addressDigest = digests.get(fieldId);
-        if (addressDigest === undefined) continue;
-        existing.addressDigest = addressDigest;
-        existing.descriptor = pair.descriptor;
-        existing.anchor = pair.candidate.anchor;
-        continue;
-      }
-      if (this.#inventory.size >= MAX_INVENTORY_ITEMS) {
-        continue;
-      }
-      const addressDigest = digests.get(fieldId);
-      if (addressDigest === undefined) {
-        continue;
-      }
-      this.#inventory.set(fieldId, {
-        fieldId,
+      const addressDigest = digests.get(pair.candidate.anchor);
+      if (addressDigest === undefined) continue;
+      merged.set(pair.candidate.anchor, {
+        fieldId: pair.descriptor.field_id,
         addressDigest,
         descriptor: pair.descriptor,
         anchor: pair.candidate.anchor,
       });
-      this.#counters.conditional_fields_discovered += 1;
     }
+    this.#replaceInventory([...merged.values()], true);
   }
 
   #pruneDisconnectedInventory(root: HTMLElement): void {
-    for (const [fieldId, entry] of [...this.#inventory]) {
-      if (!entry.anchor.isConnected || !composedContains(root, entry.anchor)) {
-        this.#inventory.delete(fieldId);
-        this.#counters.conditional_fields_removed += 1;
-      }
-    }
+    this.#replaceInventory(
+      [...this.#inventory.values()].filter(
+        (entry) =>
+          entry.anchor.isConnected && composedContains(root, entry.anchor),
+      ),
+      true,
+    );
   }
 
   // -------------------------------------------------------------------
@@ -1043,7 +1043,7 @@ export class DynamicFrameEngine {
     document: Document,
     frameContext: FrameContext,
     transaction: DriverTransactionRequest,
-    clearedDescriptionAddress?: FormFieldAddressV1,
+    clearedDescription?: ValidationDescriptionClearingEvidence,
     approvedOption?: OptionMeaningApproval,
   ): Promise<CurrentObservation> {
     const resolved = await resolveFieldTarget(
@@ -1068,11 +1068,14 @@ export class DynamicFrameEngine {
         transaction.address,
         target.descriptor.address,
       ) ||
-      (clearedDescriptionAddress !== undefined &&
-        target.descriptor.description === undefined &&
+      (clearedDescription !== undefined &&
         descriptionApprovalMatches(
-          clearedDescriptionAddress,
+          clearedDescription.settledAddress,
           target.descriptor.address,
+        ) &&
+        validationDescriptionMatches(
+          clearedDescription.settledDescription,
+          target.anchor,
         ));
     if (
       !descriptionCurrent ||
@@ -1111,7 +1114,7 @@ export class DynamicFrameEngine {
     const evidence = await evidenceFromObservation(observation);
     if (
       !propertyWitness() ||
-      (approvedOption !== undefined &&
+      ((approvedOption !== undefined || clearedDescription !== undefined) &&
         !targetIsCurrent(document, target, observationRevision))
     )
       return { status: "UNRESOLVED", resolution: "STALE" };
@@ -1203,20 +1206,6 @@ export class DynamicFrameEngine {
           snapshot: this.snapshot(document),
         };
     }
-    if (this.#ambiguousInventoryCount > 0 && this.#observedRoot !== null) {
-      await this.#rootScan(
-        document,
-        frameContext,
-        this.#observedRoot,
-        "OVERFLOW",
-      );
-      if (this.#ambiguousInventoryCount > 0)
-        return {
-          status: "ROOT_AMBIGUOUS",
-          candidate_count: this.#ambiguousInventoryCount,
-          snapshot: this.snapshot(document),
-        };
-    }
     const proofEvidenceRevision = currentDomEvidenceRevision(document);
     const proofRoot = this.#observedRoot;
     const proofTree =
@@ -1224,6 +1213,9 @@ export class DynamicFrameEngine {
     const proofGeneration = currentDomGeneration(document);
     const evidenceList: ReconcileFieldEvidence[] = [];
     const propertyWitnesses: (() => boolean)[] = [];
+    const multiplicities = this.#inventoryMultiplicities(
+      this.#inventory.values(),
+    );
     for (const entry of this.#inventory.values()) {
       evidenceList.push(
         await this.#evidenceFor(
@@ -1232,6 +1224,7 @@ export class DynamicFrameEngine {
           entry,
           proofGeneration,
           propertyWitnesses,
+          (multiplicities.get(entry.fieldId) ?? 0) > 1,
         ),
       );
     }
@@ -1265,7 +1258,17 @@ export class DynamicFrameEngine {
       return { status: "CAPACITY_EXCEEDED", snapshot: this.snapshot(document) };
     }
     const items: FormReconciliationInventoryV1InventoryItem[] = [];
+    const itemOccurrences = new Map<string, number>();
     for (const evidence of evidenceList.slice(0, MAX_INVENTORY_ITEMS)) {
+      const itemSeed = [
+        "w11-item-v1",
+        frameContext.document_id,
+        String(pageGeneration),
+        evidence.fieldAddressDigest,
+        evidence.fieldId,
+      ].join("\0");
+      const occurrence = itemOccurrences.get(itemSeed) ?? 0;
+      itemOccurrences.set(itemSeed, occurrence + 1);
       const classified = classifyField(evidence);
       if (classified.pageChangedDetected) {
         this.#counters.page_changed_detected += 1;
@@ -1273,13 +1276,7 @@ export class DynamicFrameEngine {
       items.push({
         item_id: await stableSemanticId(
           "item",
-          [
-            "w11-item-v1",
-            frameContext.document_id,
-            String(pageGeneration),
-            evidence.fieldAddressDigest,
-            evidence.fieldId,
-          ].join("\0"),
+          reconciliationItemIdentity(itemSeed, occurrence),
         ),
         field_id: evidence.fieldId,
         field_address_digest: evidence.fieldAddressDigest,
@@ -1377,6 +1374,7 @@ export class DynamicFrameEngine {
     entry: InventoryEntry,
     pageGeneration: number,
     propertyWitnesses: (() => boolean)[],
+    identityAmbiguous = false,
   ): Promise<ReconcileFieldEvidence> {
     const descriptor = entry.descriptor;
     const base = {
@@ -1385,7 +1383,12 @@ export class DynamicFrameEngine {
       required: descriptor.required,
       visible: descriptor.visible,
       enabled: descriptor.enabled,
+      ...(identityAmbiguous ? { identityAmbiguous: true } : {}),
     };
+    // A duplicate semantic field has multiple current physical observations.
+    // Preserve every member as uncertainty; no recorded VERIFIED transaction
+    // can select a member or grant it fill credit.
+    if (identityAmbiguous) return { ...base, validationRejected: false };
     let registryEntry = this.#registry.get(entry.addressDigest);
     if (registryEntry === undefined) {
       // Only option observations may drift for an otherwise identical
@@ -1401,11 +1404,14 @@ export class DynamicFrameEngine {
           return false;
         return (
           verificationAddressBinding(record.transaction.address) === binding ||
-          (descriptor.description === undefined &&
-            record.descriptionClearing !== undefined &&
+          (record.descriptionClearing !== undefined &&
             verificationAddressBinding(
               record.descriptionClearing.settledAddress,
-            ) === binding)
+            ) === binding &&
+            validationDescriptionMatches(
+              record.descriptionClearing.settledDescription,
+              entry.anchor,
+            ))
         );
       });
       if (matching.length === 1) registryEntry = matching[0];
@@ -1421,7 +1427,7 @@ export class DynamicFrameEngine {
         document,
         frameContext,
         registryEntry.transaction,
-        registryEntry.descriptionClearing?.settledAddress,
+        registryEntry.descriptionClearing,
         registryEntry.optionMeaningApproval,
       );
       if (observation.status === "OBSERVED") {

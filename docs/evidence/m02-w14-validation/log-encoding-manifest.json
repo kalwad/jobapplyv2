@@ -3,6 +3,16 @@
   "note": "Exact raw stdout is gzip preserved; display .log removes ANSI/C0 only to meet repository tracked-text policy. Outcomes and values are unchanged.",
   "records": [
     {
+      "display_path": "docs/evidence/m02-w14-a744ff2-aggregate/aggregate.log",
+      "display_sha256": "422bdfae64cf6bd783484eef330b324777e4e5101e3ccb545830efb20f27f6d5",
+      "raw_gzip_path": "docs/evidence/m02-w14-a744ff2-aggregate/aggregate.log.gz",
+      "raw_stdout_sha256": "38a1c12addf6500ec392bcd1a17e5779e8d0f5b3f6aead340c4bca05368c5f00",
+      "raw_stdout_bytes": 545955,
+      "removed_control_bytes": [
+        27
+      ]
+    },
+    {
       "display_path": "docs/evidence/m02-w14-batched/command.log",
       "display_sha256": "72a099656200371fc3c6758f31aead2cab753131b7b25935f72a59b73deeddbf",
       "raw_gzip_path": "docs/evidence/m02-w14-batched/command.log.gz",
@@ -38,6 +48,16 @@
       "raw_gzip_path": "docs/evidence/m02-w14-development/command.log.gz",
       "raw_stdout_sha256": "3c56b38b8cc6336408a2f08f592ed41a1eb66e58a818e2cd11dd649f50a606de",
       "raw_stdout_bytes": 3058,
+      "removed_control_bytes": [
+        27
+      ]
+    },
+    {
+      "display_path": "docs/evidence/m02-w14-integrated-preflight/native128-target20.log",
+      "display_sha256": "d71878899548e20caa783c0164414d7b5e4f0cd6b69833d612f34728e908a073",
+      "raw_gzip_path": "docs/evidence/m02-w14-integrated-preflight/native128-target20.log.gz",
+      "raw_stdout_sha256": "68ca6fa15df6330ae4e1c9fa2f4f7e3ad0b3bc2335b993f3db6ad123c2cf1a68",
+      "raw_stdout_bytes": 44106,
       "removed_control_bytes": [
         27
       ]

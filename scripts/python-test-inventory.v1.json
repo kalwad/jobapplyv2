@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 1451,
-    "sha256": "e7949fd236aec961b5fb6d738e4ae32c6922a949ec15a9e731efc1abcf5c773b",
+    "count": 1452,
+    "sha256": "d577b6ab2ad552586dd680176a7ffc4dd75a293bff5c2a5032647339ba068575",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -306,6 +306,7 @@
       "scripts/tests/test_generated_semantic_rules.py::test_generated_python_semantic_bindings_match_canonical_data",
       "scripts/tests/test_generated_semantic_rules.py::test_generated_python_semantics_enforce_audited_evidence_invariants",
       "scripts/tests/test_generated_semantic_rules.py::test_generated_python_semantics_return_the_first_canonical_error",
+      "scripts/tests/test_generated_semantic_rules.py::test_generated_python_v2_semantics_extend_frozen_v1_without_rebinding",
       "scripts/tests/test_integrity.py::test_committed_python_inventory_is_canonical_and_cross_platform_exact",
       "scripts/tests/test_integrity.py::test_echo_only_script_rejected",
       "scripts/tests/test_integrity.py::test_focus_regex_matches_markers_but_not_lookalikes",

@@ -521,9 +521,57 @@ test("P8 regression: actual matrix work, education and language repeaters create
             ),
           ),
       ).toBe(false);
+      const collisionInventory = reconciled(
+        await dynReconcile(harness, frameId),
+      ).inventory;
+      expect(collisionInventory.readiness).toBe("NOT_READY");
+      const collisionMembers = collisionInventory.items.filter((item) =>
+        collisionInventory.items.some(
+          (other) => other !== item && other.field_id === item.field_id,
+        ),
+      );
+      expect(collisionMembers).toHaveLength(2);
+      expect(new Set(collisionMembers.map((item) => item.item_id)).size).toBe(
+        2,
+      );
+      for (const member of collisionMembers) {
+        expect(member.required && member.visible && member.enabled).toBe(true);
+        expect(member.category).toBe("REQUIRED_UNRESOLVED");
+        expect(member.mandatory_uncertain).toBe(true);
+      }
+      expect(collisionInventory.items).toHaveLength(
+        foundTopFrame(await scanFrames(harness)).descriptors.length,
+      );
+      // Removing only the parser's duplicate retires exactly one observation;
+      // it does not change the surviving semantic field or create write authority.
+      await harness.page
+        .locator("#experience-repeater [data-japp-repeater-items]")
+        .evaluate((container, label) => {
+          const duplicates = [
+            ...container.querySelectorAll<HTMLElement>(
+              "[data-japp-item-label]",
+            ),
+          ].filter(
+            (item) => item.getAttribute("data-japp-item-label") === label,
+          );
+          if (duplicates.length !== 2 || !duplicates[1])
+            throw new Error("two collision members expected");
+          duplicates[1].remove();
+        }, newLabel);
+      const afterRemoval = reconciled(
+        await dynReconcile(harness, frameId),
+      ).inventory;
+      expect(afterRemoval.items).toHaveLength(
+        collisionInventory.items.length - 1,
+      );
       expect(
-        reconciled(await dynReconcile(harness, frameId)).inventory.readiness,
-      ).toBe("NOT_READY");
+        afterRemoval.items.filter(
+          (item) => item.field_id === collisionMembers[0]?.field_id,
+        ),
+      ).toHaveLength(1);
+      expect(
+        afterRemoval.items.every((item) => !item.mandatory_uncertain),
+      ).toBe(true);
       expect((await dynState(harness, frameId)).full_document_scans).toBe(0);
       await expect(harness.page.locator("html")).toHaveAttribute(
         "data-research-navigation-activations",

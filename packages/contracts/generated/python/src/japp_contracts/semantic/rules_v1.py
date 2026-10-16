@@ -159,24 +159,10 @@ SEMANTIC_RULES_V1: Final[tuple[SemanticRuleEntryV1, ...]] = (
         failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
     ),
     SemanticRuleEntryV1(
-        rule_id="GATE_DECISION_INERT_TEXT_V2",
-        rule_version="1.0.0",
-        schema_ref="urn:japp:schema:gate:decision:v2",
-        rule_kind="INERT_TEXT_SAFETY",
-        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
-    ),
-    SemanticRuleEntryV1(
         rule_id="GATE_DECISION_INTEGRITY",
         rule_version="1.0.0",
         schema_ref="urn:japp:schema:gate:decision:v1",
         rule_kind="GATE_DECISION_INTEGRITY",
-        failure_error_code="GATE_THRESHOLD_FAILED",
-    ),
-    SemanticRuleEntryV1(
-        rule_id="GATE_DECISION_INTEGRITY_V2",
-        rule_version="1.0.0",
-        schema_ref="urn:japp:schema:gate:decision:v2",
-        rule_kind="GATE_DECISION_INTEGRITY_V2",
         failure_error_code="GATE_THRESHOLD_FAILED",
     ),
     SemanticRuleEntryV1(
@@ -187,23 +173,9 @@ SEMANTIC_RULES_V1: Final[tuple[SemanticRuleEntryV1, ...]] = (
         failure_error_code="GATE_EVIDENCE_MISSING",
     ),
     SemanticRuleEntryV1(
-        rule_id="GATE_EVIDENCE_COMPLETENESS_V2",
-        rule_version="1.0.0",
-        schema_ref="urn:japp:schema:gate:evidence-bundle:v2",
-        rule_kind="GATE_EVIDENCE_COMPLETENESS_V2",
-        failure_error_code="GATE_EVIDENCE_MISSING",
-    ),
-    SemanticRuleEntryV1(
         rule_id="GATE_EVIDENCE_INERT_TEXT",
         rule_version="1.0.0",
         schema_ref="urn:japp:schema:gate:evidence-bundle:v1",
-        rule_kind="INERT_TEXT_SAFETY",
-        failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
-    ),
-    SemanticRuleEntryV1(
-        rule_id="GATE_EVIDENCE_INERT_TEXT_V2",
-        rule_version="1.0.0",
-        schema_ref="urn:japp:schema:gate:evidence-bundle:v2",
         rule_kind="INERT_TEXT_SAFETY",
         failure_error_code="TRANSPORT_MALFORMED_MESSAGE",
     ),
@@ -1572,109 +1544,6 @@ def _gate_decision_integrity(value: object) -> bool:
                 "thresholds_passed",
                 "corpus_valid",
                 "holdout_valid",
-            ),
-        )
-        and _text(value, "independent_review_state") == "COMPLETE"
-        and _text(value, "owner_decision_state") in {"COMPLETE", "NOT_REQUIRED"}
-        and not _items(value, "error_codes")
-    )
-
-
-def _gate_holdout_assessment_v2(value: object, inventory: object) -> bool:
-    assessment = _object_member(value, "holdout_assessment")
-    if assessment is None:
-        return False
-    state = _text(assessment, "state")
-    executed = _flag(assessment, "execution_performed")
-    valid = _flag(inventory, "holdout_valid")
-    result = _text(assessment, "execution_result_ref")
-    waiver = _object_member(assessment, "owner_waiver")
-    if state == "EXECUTED":
-        return (
-            executed is True and result is not None and waiver is None
-            and (_member(value, "completeness_inventory") is None
-                 or isinstance(_member(value, "holdout_manifest_digest"), str))
-        )
-    if executed is not False or valid is not False or result is not None:
-        return False
-    if state == "NOT_EXECUTED":
-        return waiver is None
-    return (
-        state == "WAIVED_BY_OWNER_ADR_0006" and waiver is not None
-        and _text(waiver, "adr_ref") == "ADR-0006"
-        and _text(waiver, "owner_decision_ref") == "OD-035"
-        and _text(waiver, "source_document_ref") == "docs/DECISIONS.md"
-        and _text(waiver, "source_record_digest") is not None
-    )
-
-
-def _gate_holdout_satisfied_v2(value: object, inventory: object) -> bool:
-    assessment = _object_member(value, "holdout_assessment")
-    return (
-        _text(assessment, "state") == "WAIVED_BY_OWNER_ADR_0006"
-        or (_text(assessment, "state") == "EXECUTED"
-            and _flag(inventory, "holdout_valid") is True)
-    )
-
-
-def _gate_evidence_completeness_v2(value: object) -> bool:
-    inventory = _object_member(value, "completeness_inventory")
-    results = _items(value, "benchmark_result_refs")
-    if (
-        inventory is None
-        or not _gate_holdout_assessment_v2(value, inventory)
-        or not _unique_strings(results)
-        or not _unique_strings(_items(value, "raw_artifact_report_digests"))
-        or not _unique_strings(_items(value, "manual_inspection_evidence_refs"))
-        or _number(inventory, "present_benchmark_count") != len(results)
-    ):
-        return False
-    if _text(value, "bundle_state") != "COMPLETE":
-        return True
-    return (
-        _gate_holdout_satisfied_v2(value, inventory)
-        and _number(inventory, "required_benchmark_count") == len(results)
-        and _all_flags(
-            inventory,
-            (
-                "corpus_valid",
-                "raw_artifacts_complete",
-                "manual_inspection_complete",
-                "independent_review_complete",
-                "owner_decision_complete",
-            ),
-        )
-        and (
-            _text(inventory, "owner_decision_requirement") == "REQUIRED"
-        )
-        is isinstance(_member(value, "owner_decision_ref"), str)
-    )
-
-
-def _gate_decision_integrity_v2(value: object) -> bool:
-    summary = _object_member(value, "threshold_evidence_summary")
-    if (
-        summary is None
-        or not _gate_holdout_assessment_v2(value, summary)
-        or not _unique_strings(_items(value, "reason_codes"))
-        or not _unique_strings(_items(value, "error_codes"))
-    ):
-        return False
-    if _text(value, "decision") == "REDESIGN_REQUIRED" and not isinstance(
-        _member(value, "redesign_adr_ref"), str
-    ):
-        return False
-    if _text(value, "decision") != "PASS":
-        return True
-    return (
-        _gate_holdout_satisfied_v2(value, summary)
-        and _all_flags(
-            summary,
-            (
-                "evidence_complete",
-                "required_benchmark_results_complete",
-                "thresholds_passed",
-                "corpus_valid",
             ),
         )
         and _text(value, "independent_review_state") == "COMPLETE"
@@ -4898,9 +4767,7 @@ RULE_EVALUATORS: Final[dict[str, RuleEvaluator]] = {
     "FIELD_DECISION_AUTHORITY": _field_decision_authority,
     "FIELD_DESCRIPTOR_OBSERVATION": _field_descriptor_observation,
     "GATE_DECISION_INTEGRITY": _gate_decision_integrity,
-    "GATE_DECISION_INTEGRITY_V2": _gate_decision_integrity_v2,
     "GATE_EVIDENCE_COMPLETENESS": _gate_evidence_completeness,
-    "GATE_EVIDENCE_COMPLETENESS_V2": _gate_evidence_completeness_v2,
     "GUIDED_RUN_SAFETY": _guided_run_safety,
     "HOLDOUT_MANIFEST_INTEGRITY": _holdout_manifest_integrity,
     "INERT_TEXT_SAFETY": _inert_text_safe,

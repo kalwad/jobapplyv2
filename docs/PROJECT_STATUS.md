@@ -2,7 +2,7 @@
 
 Spec version: 1.4
 Repository revision: M02-W14 working tree based on 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483
-Last updated: 2026-10-16T18:15:48Z
+Last updated: 2026-10-16T18:34:38Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -396,6 +396,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - KI-0081 (HIGH, IN_PROGRESS) — native select, radio and ARIA option labels can retain stale fill and VERIFIED/READY authority despite fresh policy refusal; selected semantic binding and affected regressions are pending.
 - KI-0082 (HIGH, IN_PROGRESS) — public report accounting omits final-only controls; unmatched snapshot topology must be explicit and precision-ineligible.
 - KI-0083 (HIGH, IN_PROGRESS) — property-only value drift during final metadata awaits can publish stale VERIFIED without a DOM mutation record; synchronous observation freshness is pending.
+- KI-0084 (HIGH, IN_PROGRESS) — additive gate semantics changed a frozen W06 evaluator preimage; versioned source preservation is pending integration.
+- KI-0085 (HIGH, IN_PROGRESS) — duplicate field identities are reported as root ambiguity; every physical collision member needs unresolved inventory evidence.
+- KI-0086 (HIGH, IN_PROGRESS) — confirmation evidence becomes stale after primary-email validation; fresh approval and exact composite clearing are pending.
 
 ## Status conventions and update rules
 

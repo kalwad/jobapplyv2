@@ -1,0 +1,69 @@
+{
+  "format_version": "W13_RUN_MANIFEST_1",
+  "labels": [
+    "DEVELOPMENT",
+    "HARNESS_VALIDATION",
+    "NOT_GATE_A_FINAL_EVIDENCE"
+  ],
+  "authority": "NONE",
+  "scorer_version": "1.0.0",
+  "candidate": {
+    "kind": "IMPLEMENTATION",
+    "identity": "japp-mv3",
+    "version": "1.0.0",
+    "source_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9"
+  },
+  "repository": {
+    "commit": "a744ff2287f0714740121009df8ef06e8559823b",
+    "tree": "be16ae56e76cd222ecfe58b902bc7b2789989de7",
+    "runner_source_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9"
+  },
+  "source_state": "CLEAN",
+  "source_inventory_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9",
+  "matrix": {
+    "version": "1.0.0",
+    "digest": "sha256:c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878"
+  },
+  "corpus": {
+    "id": "M02_AUTOFILL_DEVELOPMENT_V1",
+    "version": "1.0.0",
+    "digest": "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8"
+  },
+  "case_inventory_digest": "sha256:5a81c4f94d830af38d09b73fb62bd9e28aedd00501dd2e57436e0d441df8b42f",
+  "extension_build_digest": "sha256:cf36249aba48945a5ac68e5d134ad14dd7a106850391d6c8ef422088f6c7560d",
+  "runtime": {
+    "environment_state": "KNOWN",
+    "runtime_family": "NODE",
+    "runtime_version": "24.18.0",
+    "platform_profile": "DEVELOPMENT",
+    "toolchain_digest": "sha256:01031f02051aacd219ea5e0eb928f4fe15b3b0b961c8974c7faa91f98821bf77",
+    "operating_system": "DARWIN",
+    "architecture": "ARM64",
+    "browser": {
+      "family": "CHROMIUM",
+      "version": "151.0.7922.34"
+    }
+  },
+  "hardware": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu_model": "Apple M5",
+    "logical_cpus": 10,
+    "memory_bytes": 25769803776
+  },
+  "configuration": {
+    "settle_budget_ms": 75,
+    "rerender_delay_ms": 20,
+    "ai_enabled": false,
+    "navigation_enabled": false,
+    "submission_enabled": false
+  },
+  "started_at": "2026-10-16T18:21:49.164Z",
+  "ended_at": "2026-10-16T18:24:39.454Z",
+  "case_count": 200,
+  "field_count": 4020,
+  "raw_result_digest": "sha256:25afbc52a352d58115319e5df23ea227c68155d3732dd8d05496cd1405ad5bed",
+  "field_score_digest": "sha256:cf6d800208405c27f657f034f35567bd87699add3a40d226eb9c2d2b79055a52",
+  "aggregate_digest": "sha256:111c55590a6b976c3b7f098a42b343b2832be73f9f37c402c5b2195bd53e67a1",
+  "execution_digest": "sha256:cb956e7faebac0a08b2824991b31d3fadc3ef3e6300c46e10596c3669168dde9"
+}

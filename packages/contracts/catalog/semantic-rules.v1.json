@@ -1,5 +1,5 @@
 {
-  "catalog_version": "1.2.0",
+  "catalog_version": "1.1.0",
   "entries": [
     {
       "rule_id": "APPLICATION_SESSION_CONSISTENCY",
@@ -135,24 +135,10 @@
       "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
     },
     {
-      "rule_id": "GATE_DECISION_INERT_TEXT_V2",
-      "rule_version": "1.0.0",
-      "schema_ref": "urn:japp:schema:gate:decision:v2",
-      "rule_kind": "INERT_TEXT_SAFETY",
-      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
-    },
-    {
       "rule_id": "GATE_DECISION_INTEGRITY",
       "rule_version": "1.0.0",
       "schema_ref": "urn:japp:schema:gate:decision:v1",
       "rule_kind": "GATE_DECISION_INTEGRITY",
-      "failure_error_code": "GATE_THRESHOLD_FAILED"
-    },
-    {
-      "rule_id": "GATE_DECISION_INTEGRITY_V2",
-      "rule_version": "1.0.0",
-      "schema_ref": "urn:japp:schema:gate:decision:v2",
-      "rule_kind": "GATE_DECISION_INTEGRITY_V2",
       "failure_error_code": "GATE_THRESHOLD_FAILED"
     },
     {
@@ -163,23 +149,9 @@
       "failure_error_code": "GATE_EVIDENCE_MISSING"
     },
     {
-      "rule_id": "GATE_EVIDENCE_COMPLETENESS_V2",
-      "rule_version": "1.0.0",
-      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v2",
-      "rule_kind": "GATE_EVIDENCE_COMPLETENESS_V2",
-      "failure_error_code": "GATE_EVIDENCE_MISSING"
-    },
-    {
       "rule_id": "GATE_EVIDENCE_INERT_TEXT",
       "rule_version": "1.0.0",
       "schema_ref": "urn:japp:schema:gate:evidence-bundle:v1",
-      "rule_kind": "INERT_TEXT_SAFETY",
-      "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
-    },
-    {
-      "rule_id": "GATE_EVIDENCE_INERT_TEXT_V2",
-      "rule_version": "1.0.0",
-      "schema_ref": "urn:japp:schema:gate:evidence-bundle:v2",
       "rule_kind": "INERT_TEXT_SAFETY",
       "failure_error_code": "TRANSPORT_MALFORMED_MESSAGE"
     },

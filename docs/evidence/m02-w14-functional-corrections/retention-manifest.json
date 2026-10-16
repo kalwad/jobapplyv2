@@ -1,0 +1,217 @@
+{
+  "archive_sha256": "be18d2c914fc720c58a72021397a957a05112d3d3b110f728557f236626ff435",
+  "archive_bytes": 3438688,
+  "regular_members": 42,
+  "files": [
+    {
+      "path": "functional-proof/FINAL-preimages/apps/extension/src/driver-engine.ts",
+      "bytes": 57896,
+      "sha256": "1556e24e4bede3f0f19d630b9b3300e5b476f800d2f407f8d331eaff8bdaa053"
+    },
+    {
+      "path": "functional-proof/FINAL-preimages/apps/extension/src/dynamic-engine.ts",
+      "bytes": 49485,
+      "sha256": "57c88b3ea41235b66c6c1908bf9663a6300a94a0d84f028d88ae8de71e81c059"
+    },
+    {
+      "path": "functional-proof/FINAL-preimages/apps/extension/src/dynamic-reconcile.ts",
+      "bytes": 10341,
+      "sha256": "82b70e018d11f9d05cd09c1528ffa991cd744dc5798aabd34f96122200cf2117"
+    },
+    {
+      "path": "functional-proof/FINAL-preimages/apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+      "bytes": 13202,
+      "sha256": "a8ffab12818859169ad9f6c34c503c908a7a006aeea8bedc9b5fba59ad3ee59d"
+    },
+    {
+      "path": "functional-proof/FINAL-preimages/e2e/extension/extension-research.spec.ts",
+      "bytes": 34172,
+      "sha256": "d71ab67a405caacafe92f75a71ad25a89f4287f41ba7bb0c830d85b36671d0cb"
+    },
+    {
+      "path": "functional-proof/FINAL-preimages/e2e/extension/support/autofill-mounted.ts",
+      "bytes": 4619,
+      "sha256": "8c003e2edb3a4daefc5af5639af2d5380b8251debd03e2f51821775f627b922f"
+    },
+    {
+      "path": "functional-proof/FUNCTIONAL-DELTA.patch",
+      "bytes": 51215,
+      "sha256": "ea5f36a5b0c0fd5ab27ff5ee04f76b3ba5a30020517729b2beddac457d4e354b"
+    },
+    {
+      "path": "functional-proof/FUNCTIONAL-REVIEW.md",
+      "bytes": 4681,
+      "sha256": "028cb6b650e7a8cf387720dcc182ce273ab616fea3bf66947ef02020b237e8a3"
+    },
+    {
+      "path": "functional-proof/FUNCTIONAL-source-manifest.json",
+      "bytes": 4137,
+      "sha256": "e94615095f0fec2282f0460851a004bfd0acded1115c2a40257eb72fd7508487"
+    },
+    {
+      "path": "functional-proof/after-source/apps/extension/src/driver-engine.ts",
+      "bytes": 59956,
+      "sha256": "f0620c2f4b05162f92365ba09fb6523eea76a89dc93ce6e1683f3b41694035b6"
+    },
+    {
+      "path": "functional-proof/after-source/apps/extension/src/dynamic-engine.ts",
+      "bytes": 50133,
+      "sha256": "92bd0ea7ece96eee82c879e274cf2c7a2e8b5f048d0a0f603c169c1ed283d125"
+    },
+    {
+      "path": "functional-proof/after-source/apps/extension/src/dynamic-reconcile.ts",
+      "bytes": 11441,
+      "sha256": "c48c91fab05a873bdcf3f99970224fbe7a52382bb93853f3b395bf83e5a6850d"
+    },
+    {
+      "path": "functional-proof/after-source/apps/extension/src/validation-description.ts",
+      "bytes": 4572,
+      "sha256": "7ac16f6413dd73676ccf62a4d994b06b37700ca949ca73876842c46854b02d64"
+    },
+    {
+      "path": "functional-proof/after-source/apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+      "bytes": 18145,
+      "sha256": "70a42e7d1c721db76eeb996f1d8765c42cf52e9db7e2c4126df682932f535bfb"
+    },
+    {
+      "path": "functional-proof/after-source/e2e/extension/extension-research.spec.ts",
+      "bytes": 36147,
+      "sha256": "3c20e9bd3b7daeaf6ec9bc475a3d41443df37ac054be6d277a74b2c112146e73"
+    },
+    {
+      "path": "functional-proof/after-source/e2e/extension/extension-w14-composite-clear.spec.ts",
+      "bytes": 9868,
+      "sha256": "6bf047670e50b585314c6e13465ebc8befba82c8c8107dea2ee2329e0f399861"
+    },
+    {
+      "path": "functional-proof/after-source/e2e/extension/support/autofill-mounted.ts",
+      "bytes": 6039,
+      "sha256": "b67f55fd2fccc38c3c7f1d1a69f739afc31055e11f78718a1791f22f973a42dc"
+    },
+    {
+      "path": "functional-proof/before-manifest.json",
+      "bytes": 990,
+      "sha256": "ffc3cb71133f67b7f22b84b646086fc0d7cd92b759f9e1f2002c6e52c94d0e3d"
+    },
+    {
+      "path": "functional-proof/bundle-inventory.json",
+      "bytes": 6723,
+      "sha256": "78a858bf93116e54402c69b76bbdda13c267adc8976b2c650d76f1db830cab86"
+    },
+    {
+      "path": "functional-proof/collision-after-summary.json",
+      "bytes": 17462,
+      "sha256": "5e9bb9b2867500116092f258c39dd317e812f2bfc987345f898b5e6013e28f43"
+    },
+    {
+      "path": "functional-proof/collision-manifest.json",
+      "bytes": 5011,
+      "sha256": "f09e35816fca536fbbfc03cef74df639b182521067ef7f63d953021425ff5ef8"
+    },
+    {
+      "path": "functional-proof/collision-units.log",
+      "bytes": 242,
+      "sha256": "f148da80faea4ac04618bab64e4227a28c03b5d8e7434fb2fbe0eabcee77a046"
+    },
+    {
+      "path": "functional-proof/combined-after-results.json",
+      "bytes": 17932,
+      "sha256": "1ef81b7f64d33aef71918b506277739b88aff0d33540d8c220f9f15025ba75f0"
+    },
+    {
+      "path": "functional-proof/combined-after.log",
+      "bytes": 6079,
+      "sha256": "32c81bee6aad3533d601f5cdb1c65d5e46c8757e8545b0f5005c661a9e60492f"
+    },
+    {
+      "path": "functional-proof/combined-e2e-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "functional-proof/combined-extension-typecheck.log",
+      "bytes": 108,
+      "sha256": "2bcd3950202336ece243b764a82380eb6d14e403e86d57fbfc34734fee47d316"
+    },
+    {
+      "path": "functional-proof/combined-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "functional-proof/combined-native-responses.json.gz",
+      "bytes": 606847,
+      "sha256": "d70ca4a6a1c925a8e9e7d27e680f77322c6584c26f826170dd1e7b19a60f027d"
+    },
+    {
+      "path": "functional-proof/composite-after-results.json",
+      "bytes": 15651,
+      "sha256": "bde8e5a48ed31fb9a73b396847d0eb46e1bf7e6b079d53e7dfec18c683199a99"
+    },
+    {
+      "path": "functional-proof/composite-after.log",
+      "bytes": 5597,
+      "sha256": "f2f69d043f3743235d6e4809ff8e2a3351b2a3ce9b8c03dc7222702b70c600ae"
+    },
+    {
+      "path": "functional-proof/extension-units.log",
+      "bytes": 299,
+      "sha256": "95025c4dcb2362cd481168f9523176608d5cd7514b83a2d3fa9f00882de93462"
+    },
+    {
+      "path": "functional-proof/representative-traces/composite-document-undo.zip",
+      "bytes": 163825,
+      "sha256": "a42ab6422fdc82fa9afc8162cb2a2c0fc44379fec3a7c323124d4c6b23fad189"
+    },
+    {
+      "path": "functional-proof/representative-traces/composite-later-reference-negative.zip",
+      "bytes": 174934,
+      "sha256": "eccf3139dccad3ad8886599827c03d6406a42426d08bd617a758512d77f94c25"
+    },
+    {
+      "path": "functional-proof/representative-traces/composite-shadow-ownership-negative.zip",
+      "bytes": 170407,
+      "sha256": "bea929d67d1f8aa04f57d27f802327e9ec4f4f5ebe3a9135871f2ec52b22cf30"
+    },
+    {
+      "path": "functional-proof/representative-traces/p8-collision-after.zip",
+      "bytes": 1969746,
+      "sha256": "cd978614768a0c7df4e88ec63e5b88c6a159cc3015b45d62d95248afe70b9771"
+    },
+    {
+      "path": "functional-proof/representative-traces/setup-no-git.zip",
+      "bytes": 10619,
+      "sha256": "189c5300205fce59d9e993fe4c1c4ca8b35768af8dc69336e3f143f4c0186916"
+    },
+    {
+      "path": "functional-proof/representative-traces/setup-no-head.zip",
+      "bytes": 10909,
+      "sha256": "d6eaceb73f1a8077facc3c299dcf012bfe9c2bb320d3b1be02118bf4c55ed05b"
+    },
+    {
+      "path": "functional-proof/w06-after-mounted-run.json.gz",
+      "bytes": 314576,
+      "sha256": "0ca23f966276d2aaf59ba9fd004ede0d3a69db7dadd5b63775e19218b11ef32c"
+    },
+    {
+      "path": "functional-proof/w06-after-results.json",
+      "bytes": 423353,
+      "sha256": "f06cf94185b1b897cff6ec2b4112035bfeb7cff77565ffde6361ba2c14ed0cf7"
+    },
+    {
+      "path": "functional-proof/w06-after-summary.json",
+      "bytes": 5891,
+      "sha256": "7fc90fc2955ed2dd85bab7245f689eb7ce654e8e939e67f4bc245e239f1ba5f5"
+    },
+    {
+      "path": "functional-proof/w06-after.log",
+      "bytes": 1920,
+      "sha256": "abe2c21f4e8428d24f31fab3ec65347bb395869f1e235d957ed57cf727a66b37"
+    },
+    {
+      "path": "functional-proof/w06-before-mounted-run.json.gz",
+      "bytes": 293550,
+      "sha256": "44c5cbfd7b4cc626905219b54d280fdf57406056020c5e711e640f4bb29def8c"
+    }
+  ]
+}

@@ -115,6 +115,39 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
 - Resolution + evidence link: pending bounded synchronous raw-property witnesses captured with the settled/read observation and checked after the final awaited publication work. Existing semantic re-resolution, site validation and no-recovery-write rules remain required.
 
+### KI-0084 — Additive gate semantics changed a frozen evaluator preimage
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 integrated aggregate at a744ff2
+- Affects: M02-W14; contract generation, W06 source preservation and compatibility
+- Description: the v2 waiver integration added 7920 bytes to the semantic evaluator source frozen in the W06 manifest. The other 102 source artifacts and all expected answers remain exact, but corpus validation correctly refuses the changed evaluator preimage. Original Python V1 catalog checks also require the original 1.1/110 layer.
+- Reproduction: the full aggregate at a744ff2 fails the ATS source-byte assertion (331227 versus 323307 bytes) and corpus:check with CORPUS_DRIFT. The frozen generator digest is d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02.
+- Workaround: preserve frozen manifests and tests; never rebaseline expected source bytes to the changed implementation.
+- Resolution + evidence link: an outside versioned V1/V2 emitter/catalog correction preserves all 103 original artifacts, original 511 and new 79 corpus cases and both baselines. Root integration and complete validation remain pending. Actual aggregate evidence: docs/evidence/m02-w14-a744ff2-aggregate.
+
+### KI-0085 — Field identity collisions are misreported as root ambiguity
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 integrated browser regression
+- Affects: M02-W14; W11 reconciliation inventory and unresolved required reporting
+- Description: an intentional duplicate control shares a durable field ID with its peer while the application root remains uniquely FOUND. The action correctly refuses, but reconciliation reports ROOT_AMBIGUOUS instead of retaining both physical controls as unresolved observation evidence.
+- Reproduction: the existing research ambiguity case at a744ff2 expects RECONCILED and receives ROOT_AMBIGUOUS; the trace retains root_status FOUND and two required controls with field_45D1MFTFZHA73GSAHCKK2E99QQ. No prohibited write occurs.
+- Workaround: never remove the collision refusal while allowing the field-ID map to overwrite one control.
+- Resolution + evidence link: pending observation-only collision entries with distinct item IDs and canonical RECONCILED/NOT_READY, without granting either a durable target identity or action authority. Trace is retained under docs/evidence/m02-w14-a744ff2-aggregate/failures.
+
+### KI-0086 — Mounted confirmation approval becomes stale after cross-field validation
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 mounted W06 regression
+- Affects: M02-W14; fresh W08/W09 approval and composite validation clearing in W10/W11/undo
+- Description: filling primary email in MAL-VAL-001 changes the confirmation control's description. The mounted helper reuses its initial descriptor, so the ownership guard correctly refuses the stale approval and verifies 42 of the expected 43 contact fields. A fresh approval must also prove that only the observed validation error clears while stable help remains unchanged.
+- Reproduction: the a744ff2 W06 attachment records val-email-confirm empty with zero physical actions, its description/address digest changed by Confirm the email address, and the unchanged 43-field assertion fails on 42.
+- Workaround: do not relax description authority or lower the expected count. Do not treat arbitrary description shrinkage as validation clearing.
+- Resolution + evidence link: pending bounded current-target W08 evidence before each W09 decision, exact component-level error clearing and propagation of settled proof through W11/undo. Actual source/build-unchanged evidence is retained under docs/evidence/m02-w14-a744ff2-aggregate.
+
 ## M02-W13 final closeout and retained limits (2026-10-01)
 
 KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
