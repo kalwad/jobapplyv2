@@ -1,0 +1,82 @@
+{
+  "archive_sha256": "7b25aed2f140a93c72a48e3682454d6ff658a771022a650acfcea809eadd6fc2",
+  "archive_bytes": 104112,
+  "regular_members": 16,
+  "files": [
+    {
+      "path": "b8b-windows-cancelled.log",
+      "bytes": 507283,
+      "sha256": "9d6cc0a942e62cf541f11604ed8c4e54415c04868e73c991bba75af6eb789401"
+    },
+    {
+      "path": "c67-python.log",
+      "bytes": 184531,
+      "sha256": "f20663fcb928f47cda8043a868aed7f83832946ff8f5064d57f97fba4072670f"
+    },
+    {
+      "path": "c67-retention-audit.json",
+      "bytes": 2275,
+      "sha256": "c051e6a4d681bc2892985ed365cc4f81029adc6c4e91bfb25c1f190d8b20b414"
+    },
+    {
+      "path": "direct-rustc-after.ts",
+      "bytes": 8845,
+      "sha256": "27f8d2e1578bdcb2b236f0684cd083518252163480b366508ca8cd16053ecc00"
+    },
+    {
+      "path": "direct-rustc-before.ts",
+      "bytes": 8182,
+      "sha256": "0882a67a8f528cba1bdb71d4865af037c107bf2d151fc6b457d03223d941f91d"
+    },
+    {
+      "path": "direct-rustc-boundaries.log",
+      "bytes": 114,
+      "sha256": "95088961aaa0f3f3860b820f66b8bf68ef41112f32e8fe6b07e4ba8a0a921457"
+    },
+    {
+      "path": "direct-rustc-contracts.log",
+      "bytes": 776,
+      "sha256": "93a5434875f59d02b28ffb8d0986a221e8a642edf440706d9f136cef6ff3cb39"
+    },
+    {
+      "path": "direct-rustc-focused.log",
+      "bytes": 234,
+      "sha256": "fea7244b4a94cd2ed492a99215475afc1b56267d5c9808b2e2fe14f5b697ed0e"
+    },
+    {
+      "path": "direct-rustc-ledger-tests.log",
+      "bytes": 261,
+      "sha256": "b26c58a0618bc810bbbe9b2c29c96373a05f2c33cdf83eae9cf0e1be7e369933"
+    },
+    {
+      "path": "direct-rustc-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "direct-rustc-runtime-binding.log",
+      "bytes": 113,
+      "sha256": "fbd3c46376097a9a94e626f5208ea4b9acd139eec096b18a5e08b39fad77a282"
+    },
+    {
+      "path": "direct-rustc-source.patch",
+      "bytes": 11548,
+      "sha256": "217ef93a38cfc4d51e31524babd3b449fcf0e137f018b5f6a020f961b058c808"
+    },
+    {
+      "path": "direct-rustc-status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "direct-rustc-traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "direct-rustc-types.log",
+      "bytes": 3066,
+      "sha256": "d744fae7588ae8a05c8814903ed27c0a95c2e06b138c3a7ca4980a7202e85f76"
+    }
+  ]
+}

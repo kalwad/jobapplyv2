@@ -67,6 +67,25 @@ These outcomes close local defects and preserve useful refusal evidence, but sup
 
 Final ledger consolidation at the working tree based on 8ae96f0: `env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run pytest scripts/tests/test_validate_status.py -q > /tmp/japp-w14-public-final-20261016/final-status-tests.log 2>&1` → exit 0, **201 passed in 48.22 s**. Historical fixtures explicitly remove later W14 findings; the current W14 boundary preserves every finding, including KI-0089. `python3 scripts/validate_status.py` passes all 45 groups; `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm traceability:check` passes 193 requirements/300 packages. Ruff lint/format on the changed fixture and `git diff --check` pass. These results, exact fixture-source patch and hashes are separately retained beside the immutable 35-member public archive in `ledger-retention.json`; no original archive is overwritten. No Python test node is added or removed.
 
+#### Windows compiler-probe correction — 2026-10-16
+
+After c67ea2c was pushed, the earlier b8b1423 Windows job became CANCELLED under workflow concurrency. Its now-available raw log reveals an individual contract failure: 2,523/2,524 passed; the negative Rust probe took 30 seconds and mandatory cleanup raised EPERM. Linux/macOS completed successfully, but the cancelled three-OS run is not an aggregate PASS. The installed/default compiler is correctly 1.97.1, so no version mismatch is inferred. The proxy/compiler process lifetime is the working diagnosis, pending native reproduction.
+
+The test now resolves `rustup which rustc` from the repository and invokes that absolute binary directly from the temporary fixture. This uses the repository selection described by the [official rustup override documentation](https://rust-lang.github.io/rustup/overrides.html), and removes the proxy from the bounded compilation child. A valid source must compile successfully with that exact executable/output directory before invalid source is tested. The existing ADAPTER_EXIT_NONZERO expectation, 30-second negative bound, 45-second case bound and mandatory bounded cleanup are preserved. No product/runtime source or acceptance metric changes.
+
+Observed commands at the correction working tree based on c67ea2c:
+
+- `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm --filter @japp/contracts exec vitest run test/contract/infrastructure.test.ts` → exit 0, 8/8.
+- `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm --filter @japp/contracts test` → exit 0, 2,524/2,524 across 21 files, 73.54 seconds.
+- `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm typecheck` → exit 0, typecheck PASS.
+- `env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run pytest scripts/tests/test_validate_status.py -q` → exit 0, 201/201 in 48.14 seconds. After shortening one synthetic diagnostic to satisfy Ruff's line-length check, the exact two historical/current W14 boundary tests rerun with `-k 'historical_boundary_removes_only_later_w14_findings or w14_boundary_preserves_current_campaign_findings'` → exit 0, 2 passed/199 deselected.
+- ESLint/Prettier on infrastructure.test.ts, Ruff lint/format on the changed fixture, `python3 scripts/validate_status.py` (45 groups), traceability (193 requirements/300 packages) and `git diff --check` → exit 0.
+- Read-only `assertRuntimeInventory` against the executed paired source binding → PASS, all 355 files and digest `sha256:7671a04ad0c5f542a0526be208f61b5fafa6ae72e0f4d31acf71d6133f091557` unchanged. The actual comparison lock is not refreshed.
+
+Before this correction, complete `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm verify --suite python` on clean c67ea2c passed all 1,454 tests in 298.53 seconds, plus lint/format/mypy and the exact inventory guard. All ten then-retained W14 proof archives independently pass archive SHA, member SHA/size, safe regular-member path, duplicate-name and embedded-inventory checks. These are source-scoped results; no native Windows success is inferred.
+
+Raw cancelled Windows log, full c67 Python stdout, before/after compiler fixture, exact source patch and local correction logs are preserved in `docs/evidence/m02-w14-windows-compiler/proof.tar.gz`: SHA-256 `7b25aed2f140a93c72a48e3682454d6ff658a771022a650acfcea809eadd6fc2`, 16 regular members. KI-0090 remains IN_PROGRESS until native Windows confirmation. KI-0089 remains OPEN; no package/gate/milestone is promoted.
+
 #### Earlier W14 checkpoints (historical)
 
 - Revision: uncommitted W14 work based on commit `4d6a3e57af8d6224ac1cc7efeabcdacfbc306483` / ancestor tree `e3cc8c19a4340188c6b3d416a34848a9040587cd`. Every historical campaign records `DIRTY_SOURCE` and its own inventory below; these ancestor coordinates are not the candidate's frozen content revision. Later changes cannot inherit an earlier campaign's timing or validation.

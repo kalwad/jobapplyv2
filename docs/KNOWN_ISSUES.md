@@ -181,6 +181,17 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Workaround: none accepted. Preserve CAPTCHA, authentication, legal-consent, dialog and transport boundaries. The owner-controlled holdout is already waived by ADR-0006 and is not part of this blocker. The pending request identifies the normal signed-in synthetic Simplify session without requesting credentials.
 - Resolution + evidence link: OPEN. Suitable normal-user public evaluation conditions, an authenticated synthetic Simplify session and independent review capacity are required before the remaining evidence can be executed. See docs/gates/AUTOFILL_FEASIBILITY_GATE.md and docs/TEST_EVIDENCE.md § M02-W14. No downstream readiness or final PASS is granted.
 
+### KI-0090 — Windows negative compiler probe times out behind a Rust proxy
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 from the cancelled b8b1423 Windows CI job log
+- Affects: M02-W14; three-OS repository verification; contract infrastructure tests
+- Description: the noncompiling Rust fixture invokes the rustup proxy from a temporary working directory. The Windows job records a 30-second probe and EPERM during mandatory directory cleanup; 2,523 of 2,524 contract tests passed. The run was subsequently cancelled by the newer push, so this is an observed individual test failure, not a completed aggregate result. The installed/default toolchain is already the correct 1.97.1; a version mismatch is not established. A proxy/compiler lifetime issue is the working diagnosis.
+- Reproduction: job 117159565827 in run 38955928003, infrastructure.test.ts negative Rust compiler case. Raw cancelled-job stdout is retained under docs/evidence/m02-w14-windows-compiler. Linux/macOS passed that checkpoint and do not prove this Windows case.
+- Workaround: no skipped assertion, longer timeout, swallowed cleanup error or speculative green result. Retain the original failure.
+- Resolution + evidence link: correction resolves the pinned compiler with bounded rustup which rustc inside the repository and invokes the returned absolute compiler directly. The same executable and temporary output directory must first compile valid source; invalid source must still produce ADAPTER_EXIT_NONZERO. The original 30-second negative bound, 45-second case bound and mandatory bounded cleanup remain unchanged. All eight focused and all 2,524 contract cases pass locally, along with typecheck/static checks, 201 ledger cases and the two unchanged boundary probes. Native Windows CI confirmation remains pending. See docs/TEST_EVIDENCE.md § M02-W14.
+
 ## M02-W14 local defect closeout — 2026-10-16
 
 KI-0077 through KI-0087 are FIXED at the code scopes recorded above and frozen checkpoint b8b1423: all19 active suites pass,3859 TypeScript units,228 default browser tests,61 then-required controlled tests and1454 Python tests. Source/build/declarations and Git status remain unchanged. The later observation correction adds a mandatory62nd controlled proof and preserves all originals. This closes local defects only; public scored coverage, normal-user Simplify comparison and independent W15/Gate A acceptance remain incomplete. No later package is started.
