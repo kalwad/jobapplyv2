@@ -18,6 +18,8 @@ import {
 import { CONTACT_SCOPE } from "../../../apps/extension/test/m02-w14/public-contact/protocol.ts";
 import {
   CONTACT_DIST,
+  READONLY_HTTP_DRAIN,
+  waitReadOnlyNetworkDrain,
   readOracle,
   launchContact,
   freezePlan,
@@ -95,6 +97,7 @@ const build = fileInventory(CONTACT_DIST);
 const sources = sourceInventory();
 const binding = {
   mode: CONTACT_SCOPE,
+  readonly_http_drain: READONLY_HTTP_DRAIN,
   git: gitState(),
   oracle_map_digest: oracle.bytes_digest,
   independent_source_sha256: oracle.map.independent_source_sha256,
@@ -202,6 +205,10 @@ for (const source of PUBLIC_SOURCES) {
       partial.http_status = response?.status() ?? null;
       // Await the harness HTTP/WebSocket closure before freezing. This is not
       // evidence that every pre-existing transport or remote validator is closed.
+      partial.readonly_http_drain = await waitReadOnlyNetworkDrain(
+        session,
+        page,
+      );
       const closure = await closeNetworkForObservation({
         close: () => session.closeNetwork(),
         snapshot: () => ({ closed: session.closed, closure: session.closure }),
@@ -366,6 +373,7 @@ for (const source of PUBLIC_SOURCES) {
         source,
         browser_metadata: browserMetadata,
         readonly_readiness: readiness,
+        readonly_http_drain: partial.readonly_http_drain,
         http_status: response?.status() ?? null,
         freeze_state: frozen.state,
         prepared,

@@ -84,6 +84,14 @@ export interface IndependentPageOracle {
 export interface PhysicalControl {
   index: number;
   match: LiteralMatch;
+  label_observation?: {
+    primary_source: string;
+    native_labels: string[];
+    aria_label: string | null;
+    aria_labelledby: string;
+    wrapping_label: string | null;
+    placeholder: string | null;
+  };
   value_digest: string;
   empty: boolean;
   readonly: boolean;
@@ -204,6 +212,43 @@ export interface ContactSession {
   readonly pendingHttpRequests: number;
   closeNetwork(): Promise<void>;
   cleanup(): Promise<void>;
+}
+/** Read-only startup settling; this observation never grants action authority.
+ * At most100 waits of at most50ms are requested. The strict closeNetwork fence
+ * is still required afterwards and can refuse a newly started request. */
+export const READONLY_HTTP_DRAIN = Object.freeze({
+  budget_ms: 5000,
+  poll_ms: 50,
+  max_polls: 100,
+  scope: "READ_ONLY_BEFORE_STRICT_NETWORK_CLOSURE",
+} as const);
+export async function waitReadOnlyNetworkDrain(
+  session: Pick<ContactSession, "pendingHttpRequests">,
+  page: Pick<Page, "waitForTimeout">,
+) {
+  const started = performance.now();
+  const initial = session.pendingHttpRequests;
+  let polls = 0;
+  while (
+    session.pendingHttpRequests > 0 &&
+    polls < READONLY_HTTP_DRAIN.max_polls
+  ) {
+    const remaining =
+      READONLY_HTTP_DRAIN.budget_ms - (performance.now() - started);
+    if (remaining <= 0) break;
+    await page.waitForTimeout(Math.min(READONLY_HTTP_DRAIN.poll_ms, remaining));
+    polls++;
+  }
+  const pending = session.pendingHttpRequests;
+  return {
+    state:
+      pending === 0 ? ("QUIESCENT" as const) : ("PENDING_AT_BUDGET" as const),
+    ...READONLY_HTTP_DRAIN,
+    initial_pending_http_requests: initial,
+    final_pending_http_requests: pending,
+    polls,
+    observed_wait_ms: performance.now() - started,
+  };
 }
 export function readOracle() {
   const bytes = readFileSync(ORACLE_PATH);
@@ -525,20 +570,25 @@ export async function measureControls(page: Page): Promise<PhysicalControl[]> {
             })(),
           )
           .join(" ");
-        const label =
-          [
-            element.getAttribute("aria-label"),
-            labelled,
-            native === null
-              ? ""
-              : [...(native.labels ?? [])]
-                  .map((node) => node.textContent.trim())
-                  .join(" "),
-            element.closest("label")?.textContent.trim(),
-            element.getAttribute("placeholder"),
-          ].find(
-            (value) => value !== null && value !== undefined && value !== "",
-          ) ?? "";
+        const nativeLabels =
+          native === null
+            ? []
+            : [...(native.labels ?? [])].map((node) => node.textContent.trim());
+        const ariaLabel = element.getAttribute("aria-label");
+        const wrappingLabel =
+          element.closest("label")?.textContent.trim() ?? null;
+        const placeholder = element.getAttribute("placeholder");
+        // The independent saved-snapshot oracle captures associated label text,
+        // including required markers. Keep its literal channel; accessible
+        // alternatives remain separate observations, never rewritten truth.
+        const primary = [
+          { source: "NATIVE_LABEL", text: nativeLabels.join(" ") },
+          { source: "ARIA_LABEL", text: ariaLabel },
+          { source: "ARIA_LABELLEDBY", text: labelled },
+          { source: "WRAPPING_LABEL", text: wrappingLabel },
+          { source: "PLACEHOLDER", text: placeholder },
+        ].find((item) => item.text !== null && item.text !== "");
+        const label = primary?.text ?? "";
         const style = getComputedStyle(element);
         const box = element.getBoundingClientRect();
         const visible =
@@ -551,6 +601,14 @@ export async function measureControls(page: Page): Promise<PhysicalControl[]> {
         const value = native?.value ?? "";
         return {
           index,
+          label_observation: {
+            primary_source: primary?.source ?? "NONE",
+            native_labels: nativeLabels,
+            aria_label: ariaLabel,
+            aria_labelledby: labelled,
+            wrapping_label: wrappingLabel,
+            placeholder,
+          },
           match: {
             label,
             tag: element.tagName,

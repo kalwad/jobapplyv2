@@ -15,6 +15,8 @@ import {
 import { buildTransaction, fillDecision } from "../support/research-harness.ts";
 import {
   launchContact,
+  waitReadOnlyNetworkDrain,
+  measureControls,
   freezePlan,
   prepareContact,
   executeContact,
@@ -124,6 +126,78 @@ async function deniedWire(session: ContactSession, message: unknown) {
     return undefined;
   }
 }
+
+test("literal visible labels retain required markers without overriding fresh ownership policy", async () => {
+  for (const ariaLabel of ["First name", "Employer first name"]) {
+    const session = await launchContact();
+    const directory = mkdtempSync(join(tmpdir(), "w14-contact-label-proof-"));
+    try {
+      const html = HTML.replace(
+        'for="first">First name</label>',
+        'for="first">First name*</label>',
+      ).replace(
+        '<input id="first"',
+        `<input aria-label="${ariaLabel}" id="first"`,
+      );
+      const page = await fixture(session, html);
+      const literalOracle = {
+        ...expected,
+        positive: expected.positive.map((item) =>
+          item.concept === "FIRST_NAME"
+            ? { ...item, match: { ...item.match, label: "First name*" } }
+            : item,
+        ),
+      };
+      const measured = await measureControls(page);
+      const first = measured.filter(
+        (item) => item.match.label === "First name*",
+      );
+      expect(first).toHaveLength(1);
+      expect(first[0]?.label_observation?.primary_source).toBe("NATIVE_LABEL");
+      expect(first[0]?.label_observation?.aria_label).toBe(ariaLabel);
+      await session.closeNetwork();
+      const frozen = await freezePlan(
+        session,
+        page,
+        literalOracle,
+        "label-channels",
+        join(directory, "before.json"),
+      );
+      expect(frozen.state).toBe("FROZEN");
+      if (frozen.state !== "FROZEN")
+        throw new Error("literal channel not frozen");
+      const grant = (await prepareContact(
+        session,
+        frozen.observation.tabId,
+        frozen.plan,
+        "label-channels",
+      )) as { state: string; plan_id: string };
+      expect(grant.state).toBe("PREPARED");
+      const frame = requireObserved(frozen.observation.scan?.frames[0]);
+      const field = requireObserved(frame.descriptors[0]);
+      const result = (await executeContact(
+        session,
+        frozen.observation.tabId,
+        grant.plan_id,
+        field,
+        "label-first",
+      )) as { state: string; result?: { outcome: string } };
+      if (ariaLabel === "First name") {
+        expect(result.state).toBe("EXECUTED");
+        expect(result.result?.outcome).toBe("VERIFIED");
+        await expect(page.locator("#first")).toHaveValue("Synthetic");
+      } else {
+        expect(["ABSTAINED", "BLOCKED"]).toContain(result.state);
+        await expect(page.locator("#first")).toHaveValue("");
+      }
+      await expect(page.locator("#email")).toHaveValue("");
+      await expect(page.locator("#referee")).toHaveValue("");
+    } finally {
+      await session.cleanup();
+      rmSync(directory, { recursive: true, force: true });
+    }
+  }
+});
 
 test("fixed synthetic contact policy, real transaction, reconciliation, negative semantics and duplicate rejection", async () => {
   const session = await launchContact();
@@ -873,6 +947,11 @@ test("outstanding initial HTTP causes explicit refusal before contact writes", a
       void fetch("https://pending.invalid/stream").catch(() => undefined);
     });
     await seen;
+    const heldDrain = await waitReadOnlyNetworkDrain(session, page);
+    expect(heldDrain.state).toBe("PENDING_AT_BUDGET");
+    expect(heldDrain.final_pending_http_requests).toBeGreaterThan(0);
+    expect(heldDrain.polls).toBeLessThanOrEqual(100);
+    expect(session.closed).toBe(false);
     let refused = false;
     try {
       await session.closeNetwork();
@@ -931,6 +1010,27 @@ test("outstanding initial HTTP causes explicit refusal before contact writes", a
         snapshot: () => ({ closed: false, closure: session.closure }),
       }),
     ).rejects.toThrow("W14_NETWORK_CLOSURE_NOT_CONFIRMED");
+    await expect(page.locator("#first")).toHaveValue("");
+    await expect(page.locator("#email")).toHaveValue("");
+    // Natural completion may settle startup traffic. It still grants no write
+    // authority: the same strict closure fence must succeed independently.
+    const pendingRoute = requireObserved(heldRoutes.get("pending"));
+    heldRoutes.delete("pending");
+    const completion = page.waitForTimeout(100).then(async () => {
+      await pendingRoute.fulfill({ status: 200, body: "finished" });
+      release?.();
+    });
+    const settledDrain = await waitReadOnlyNetworkDrain(session, page);
+    await completion;
+    expect(settledDrain.state).toBe("QUIESCENT");
+    expect(settledDrain.final_pending_http_requests).toBe(0);
+    expect(session.closed).toBe(false);
+    expect(
+      await closeNetworkForObservation({
+        close: () => session.closeNetwork(),
+        snapshot: () => ({ closed: session.closed, closure: session.closure }),
+      }),
+    ).toEqual({ state: "CLOSED" });
     await expect(page.locator("#first")).toHaveValue("");
     await expect(page.locator("#email")).toHaveValue("");
   } finally {

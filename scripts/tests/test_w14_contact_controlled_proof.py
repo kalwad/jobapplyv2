@@ -33,15 +33,15 @@ def _suite() -> verify.Suite:
 
 
 def _proof() -> verify.Proof:
-    return verify.Proof(kind="w14_public_controlled_exact", min_count=61)
+    return verify.Proof(kind="w14_public_controlled_exact", min_count=62)
 
 
 def _report(*, executed: bool) -> dict[str, Any]:
     return {
         "errors": [],
         "stats": {
-            "expected": 61 if executed else 0,
-            "skipped": 0 if executed else 61,
+            "expected": 62 if executed else 0,
+            "skipped": 0 if executed else 62,
             "unexpected": 0,
             "flaky": 0,
         },
@@ -66,7 +66,7 @@ def _report(*, executed: bool) -> dict[str, Any]:
                             }
                         ],
                     }
-                    for index in range(61)
+                    for index in range(62)
                 ]
             }
         ],
@@ -75,9 +75,9 @@ def _report(*, executed: bool) -> dict[str, Any]:
 
 def _output(report: dict[str, Any] | None = None, *, executed: bool = True) -> str:
     prefix = (
-        "Tests 2 passed (2)\n61 passed (1s)\n"
+        "Tests 2 passed (2)\n62 passed (1s)\n"
         if executed
-        else "Listing tests:\nTotal: 61 tests in 1 file\n"
+        else "Listing tests:\nTotal: 62 tests in 1 file\n"
     )
     return prefix + json.dumps(
         _report(executed=executed) if report is None else report, indent=2
@@ -252,14 +252,14 @@ def test_w14_contact_proof_rejects_nonordinary_terminal_channels(
 
     monkeypatch.setattr(verify, "run_command", unexpected)
     for prefix in (
-        "60 passed (1s)",
-        "62 passed (1s)",
-        "61 passed (1s)\n1 skipped",
-        "61 passed (1s)\n1 flaky",
-        "61 passed (1s)\n1 failed",
-        "61 passed (1s)\n1 interrupted",
-        "61 passed (1s)\n1 did not run",
-        "61 passed (1s)\n61 passed (1s)",
+        "61 passed (1s)",
+        "63 passed (1s)",
+        "62 passed (1s)\n1 skipped",
+        "62 passed (1s)\n1 flaky",
+        "62 passed (1s)\n1 failed",
+        "62 passed (1s)\n1 interrupted",
+        "62 passed (1s)\n1 did not run",
+        "62 passed (1s)\n62 passed (1s)",
     ):
         assert (
             verify.check_proof(
@@ -271,7 +271,7 @@ def test_w14_contact_proof_rejects_nonordinary_terminal_channels(
             is not None
         )
     assert (
-        verify.check_proof(_ctx(), _suite(), _proof(), "61 passed (1s)\nno JSON")
+        verify.check_proof(_ctx(), _suite(), _proof(), "62 passed (1s)\nno JSON")
         is not None
     )
 
@@ -315,9 +315,9 @@ def test_w14_contact_rejects_changed_discovery_and_test_identities(
     results = (
         (1, _output(executed=False)),
         (0, "no listing"),
-        (0, _output(executed=False).replace("Total: 61", "Total: 60")),
-        (0, _output(executed=False).replace("Total: 61", "Total: 62")),
-        (0, "Total: 61 tests in 1 file\n" + _output(executed=False)),
+        (0, _output(executed=False).replace("Total: 62", "Total: 61")),
+        (0, _output(executed=False).replace("Total: 62", "Total: 63")),
+        (0, "Total: 62 tests in 1 file\n" + _output(executed=False)),
         (0, _output(changed, executed=False)),
     )
     for result in results:
