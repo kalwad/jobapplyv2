@@ -8,12 +8,12 @@ if (process.env.JAPP_W14_PAIRED_OPTIONS_EVALUATION !== "1")
 const output = process.env.JAPP_W14_PAIRED_OPTIONS_OUTPUT;
 if (output === undefined || !isAbsolute(output))
   throw new Error("W14_PAIRED_OPTIONS_ABSOLUTE_OUTPUT_REQUIRED");
-const here = fileURLToPath(new URL(".", import.meta.url));
-const outputRelative = relative(here, output);
+const sourceRoot = fileURLToPath(new URL("../../..", import.meta.url));
+const outputRelative = relative(sourceRoot, output);
 if (
   outputRelative === "" ||
   (!outputRelative.startsWith("..") && !isAbsolute(outputRelative)) ||
-  existsSync(output)
+  (existsSync(output) && process.env.TEST_WORKER_INDEX === undefined)
 )
   throw new Error("W14_PAIRED_OPTIONS_FRESH_OUTSIDE_OUTPUT_REQUIRED");
 export default defineConfig({

@@ -304,7 +304,7 @@
       ]
     }
   ],
-  "predeclaration_digest": "sha256:833e2ca61e25198e06d9ae9b891698a6a27dd56afae1fd181260db6759fbeff4",
+  "predeclaration_digest": "sha256:fe70d48e3df9f04f92c519c9d8b97686dcfd50f9e3a6624f30fca5ccba758349",
   "inputs_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
   "oracles_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
   "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",

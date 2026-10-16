@@ -1,5 +1,7 @@
 # Paired explicit-option pre-execution source revision
 
+Revision6 preserves the failed revision5 setup attempt: the coordinator created its fresh output directory, then the Playwright worker reread the configuration and refused that same owned directory before any case body/browser session. One setup failed and three cases did not run; neither paired actor produced an observation. The coordinator still requires a fresh absolute directory outside the whole source root. The pinned Playwright worker may reread its coordinator-created directory using the documented `TEST_WORKER_INDEX`; actual parent commands strip that variable. Revision5 metadata, checklist and configuration are byte-preserved under `preexecution-history/revision-5/`. All three data digests, observer and355 bound runtime files are unchanged. Use the separately reviewed revision6 lock for BOTH fresh actors.
+
 Revision5 supersedes revision4 before either actual paired run. The final versioned semantic modules, composite validation-description helper, collision inventory and pure SHA correction are bound by a fresh complete runtime inventory. Revision4 metadata and its checklist are byte-preserved under `preexecution-history/revision-4/`; revision3 history remains byte-identical. The original three data digests and symmetric native observer remain unchanged. The revision3-to4 authoring commands below are historical preparation instructions; they intentionally refuse the current lock. Revision5 was prepared outside the source tree using the same production `captureRuntimeInventory` and exact previous-lock/file checks, with its proposal and before/after hashes retained in `docs/evidence/m02-w14-paired-revision5/`. Actual commands below require the separately reviewed revision5 digest. No old run is inherited.
 
 This new four-case campaign still has zero actual candidate or legacy runs at authoring. Its input, oracle and legacy-projection bytes remain frozen. The original exact-four observations and expectations are unchanged; old results cannot serve as observations for these new paired inputs.
@@ -43,7 +45,7 @@ These commands are a runbook, not executed evidence. Use pinned Node 24.18.0/pnp
 ```sh
 cd /Users/tanishkalwad/jobapplyv2
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_5_SHA256_DIGEST'
+export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_6_SHA256_DIGEST'
 export JAPP_W14_PAIRED_OPTIONS_EVALUATION=1
 JAPP_PAIRED_RUN_DIRECTORY="$(mktemp -d /tmp/japp-w14-paired-run.XXXXXX)"
 ```
@@ -58,13 +60,13 @@ Freshly build the default extension and preserve the build log/output hashes as 
 
 ```sh
 env -u JAPP_W14_PUBLIC_INSPECTION -u JAPP_W14_PUBLIC_CONTACT_EVALUATION -u JAPP_W14_PUBLIC_CONTACT_RUN pnpm --filter @japp/extension build > "$JAPP_PAIRED_RUN_DIRECTORY/default-build.log" 2>&1
-JAPP_W14_PAIRED_OPTIONS_OUTPUT="$JAPP_PAIRED_RUN_DIRECTORY/discovery" /opt/homebrew/opt/node@24/bin/node node_modules/@playwright/test/cli.js test --config e2e/extension/legacy-paired-options/playwright.config.ts --list --reporter=json > "$JAPP_PAIRED_RUN_DIRECTORY/discovery.json"
+JAPP_W14_PAIRED_OPTIONS_OUTPUT="$JAPP_PAIRED_RUN_DIRECTORY/discovery" env -u TEST_WORKER_INDEX /opt/homebrew/opt/node@24/bin/node node_modules/@playwright/test/cli.js test --config e2e/extension/legacy-paired-options/playwright.config.ts --list --reporter=json > "$JAPP_PAIRED_RUN_DIRECTORY/discovery.json"
 ```
 
 Require exactly four declared `paired explicit approved options:` identities, zero retries and no excluded tests. Actual candidate 4:
 
 ```sh
-JAPP_W14_PAIRED_OPTIONS_OUTPUT="$JAPP_PAIRED_RUN_DIRECTORY/candidate" PLAYWRIGHT_JSON_OUTPUT_NAME="$JAPP_PAIRED_RUN_DIRECTORY/candidate-report.json" /opt/homebrew/opt/node@24/bin/node node_modules/@playwright/test/cli.js test --config e2e/extension/legacy-paired-options/playwright.config.ts --reporter=list,json > "$JAPP_PAIRED_RUN_DIRECTORY/candidate.log" 2>&1
+JAPP_W14_PAIRED_OPTIONS_OUTPUT="$JAPP_PAIRED_RUN_DIRECTORY/candidate" PLAYWRIGHT_JSON_OUTPUT_NAME="$JAPP_PAIRED_RUN_DIRECTORY/candidate-report.json" env -u TEST_WORKER_INDEX /opt/homebrew/opt/node@24/bin/node node_modules/@playwright/test/cli.js test --config e2e/extension/legacy-paired-options/playwright.config.ts --reporter=list,json > "$JAPP_PAIRED_RUN_DIRECTORY/candidate.log" 2>&1
 ```
 
 Inspect assertion results and all four `paired-options-candidate.json` rows. Preserve partial/error artifacts; measurement/safety failure cannot be promoted to an accepted run. The test records raw observations before its assertions and makes no improvement assertion. Actual legacy 4, using the unchanged shared component and fresh owned loopback 18886 server:
