@@ -8,7 +8,7 @@ Gate report for the blocking Autofill Feasibility Gate (spec §2.3; owner M02). 
 - Owning milestone: M02 (M02-W07 through M02-W15)
 - Blocks: M03 readiness; M17/M18/M19 retain Gate A PASS qualifiers.
 - State: IN_PROGRESS
-- Evaluated revision: pending frozen W14/W15 evidence; current source is uncommitted and source-inventory scoped.
+- Evaluated revision: pending final frozen W14/W15 acceptance; individual measurements bind committed runtime 15c7e33 and comparison lock `47b6fe33`.
 - Gate authority / independent decision: none yet.
 
 ## Blocking thresholds
@@ -77,3 +77,13 @@ Owner decision: pending. Gate A remains IN_PROGRESS; M02-W14 remains IN_PROGRESS
 | Historical M00-W05 | Template | NOT_EVALUATED | Gate report created |
 | 2026-10-16 | Four source-inventory-scoped uncommitted W14 campaigns | IN_PROGRESS | Initial accuracy/refusal limits; corrected/batched/untraced timing above target; focused correction pending |
 | 2026-10-16 | OD-035 / ADR-0006 | Owner holdout WAIVED_BY_OWNER | Continuous eligible execution authorized; no fabricated execution/PASS |
+
+## Later integrated checkpoint and actual comparison — 2026-10-16
+
+The committed runtime 15c7e33 contact campaign scores 200/200 with the same1485/1485 precision/persistence,1275/1275 required recall,770/770 reporting and90/90 preservation, zero measured safety events and full-settlement p95 857.1561660000007ms. Separate unchanged target 20 native128 p95 is1333.9919169999994ms. Individual source/build/declarations are unchanged. The surrounding aggregate is NOT a pass:223 browser passes/five contradictory shadow-status assertions,1452 Python passes/two failures, and neutrality failures caused by root edits. Stronger collision assertions pass 35/35; the healthy doctor artifact fixture passes 50/50. Fresh frozen aggregate is pending. Earlier failures remain retained.
+
+Actual public attempt records all 30 original URLs with 18 network-closure and12 form/oracle refusals,0 action requests and no scored public accuracy. An initial one-page incomplete attempt is separately retained. The pending-request guard remains strict; a read-only diagnostic still has pending requests after 1s. No oracle or URL is replaced to obtain passing coverage.
+
+Original four-case peer remains32/40 versus 28/40 exact,32/40 versus 32/40 with phone equivalence. Separately declared revision6 paired actors actually complete4+4 under lock sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb:40/40 versus 28/40 exact,40/40 versus 32/40 phone equivalent. Eight state/country controls explain the difference beyond formatting. Both actors use the same11 installed native-observer surfaces; measured unexpected native/nonordinary and navigation/submission witnesses are0. Source stability, normal context cleanup and owned direct-child exits are verified; descendant processes are UNOBSERVED. Revision5's worker-config setup failure is retained and did not produce an observation; its metadata/config are byte-preserved before revision6. This is one shared legacy component on four related synthetic examples, with no broad product/statistical/timing or two-product claim.
+
+Evidence: docs/TEST_EVIDENCE.md § M02-W14; docs/evidence/m02-w14-integrated-checkpoint, m02-w14-public-actual and m02-w14-comparisons-actual. Simplify remains0 actual cases, public scored coverage remains incomplete, W15 independent decision remains pending, holdout remains WAIVED_BY_OWNER and Gate A remains IN_PROGRESS. M03 is not eligible.

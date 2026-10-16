@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W14 working tree based on 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483
-Last updated: 2026-10-16T18:34:38Z
+Repository revision: M02-W14 working tree based on b942eb1 (runtime corrections committed at 15c7e33)
+Last updated: 2026-10-16T19:31:00Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -24,14 +24,14 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Active work
 
 - State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. W15 NOT_STARTED; no package is READY.
-- Observed progress: four historical full 200-recipe W12 development campaigns are retained with distinct source/build/raw-bundle hashes. Initial run scores 140/200 and refuses 60; corrected, batched and untraced runs score 200/200 with precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770 and preservation 90/90 on the declared contact cohort.
-- Performance: fifth, canonical foreground campaign passes the unchanged <=1500 ms target at p95 864.5065410000025 ms with all 200 recipes/4020 logical controls scored and source/build/declarations unchanged. Four earlier campaign outcomes remain historical; their unknown/background tab posture is not treated as a causal diagnosis. Whole Gate A coverage and comparisons remain pending.
-- External evidence: actual isolated shared legacy component capture on four grouped/en-US synthetic fixtures is supplemental, not full-product comparison. Thirty public sources were structurally inspected; public fills/scored controls are zero. Actual Simplify comparison remains pending a normal owner-prepared authenticated synthetic session; installed extension state is unknown.
-- Current corrections: integrated open-shadow ownership/transaction guards passed a 96-test retained regression and 29 focused outside-root/ownership/index probes in disposable source copies. Fresh independent native-observed repros then found stale selected-option semantics and late execute/undo/reconcile verification. Their expanded correction is integrated at exact tested bytes (72 focused MV3 cases and 180 units); all twelve original independent probes pass against 213 matching runtime inputs. Full integrated regression remains pending. Independent native-write observation passed four real-MV3 probes.
-- Exact legacy peer: the disposable-source four-case run retains 32/40 formatting-equivalent values for both systems; the candidate's 32/40 versus 28/40 strict exact count differs only in phone formatting and establishes no decisive accuracy win. A separately declared same-input option-metadata comparison is being prepared.
-- Final validation: mandatory 61-case controlled contact proof (49 intercepted-browser cases plus 12 pure cases), full repository verification and final source-bound 200-case/performance campaigns remain pending. The earlier passing foreground measurement is historical relative to later driver changes.
+- Current numeric evidence: committed runtime 15c7e33 scores 200/200 recipes/4020 logical controls with precision1485/1485, required ordinary recall1275/1275, reporting770/770, persistence1485/1485 and preservation90/90. Full-settlement p95 857.1561660000007ms; separate target 20 native128 p95 1333.9919169999994ms. All measured physical safety counters are0; individual source/build/declarations are unchanged. Historical misses remain retained.
+- Corrections: exact V1 restoration preserves all 103 W06 artifacts while explicit V2 retains reviewed114-rule semantics. Root3859 units pass. Current W06 passes 32 cases/43 controls; all 35 affected shadow/P8 cases and61 controlled contact proofs pass. Ownership, option semantics, property freshness and native observation corrections remain integrated. Final frozen aggregate is pending.
+- Aggregate qualification: the prior aggregate had17/19 active suites pass, five contradictory new shadow-status assertions, one missing-artifact Windows simulation and neutrality failures caused by concurrent root edits. Those failures are preserved. Stronger shadow assertions pass 35/35 and the corrected healthy doctor fixture passes 50/50. The next aggregate must hold all tracked files unchanged throughout execution.
+- Actual public evidence: all 30 declared pages recorded with source/build/oracle integrity intact:18 network-closure refusals and12 form/oracle refusals. No autofill action was issued and no public accuracy credit is claimed. A read-only Lever diagnostic still had pending requests after 1s; the guard remains strict. The initial one-page incomplete attempt is retained separately.
+- Actual legacy evidence: integrated original four-case peer remains32/40 versus 28/40 exact,32/40 versus 32/40 with disclosed phone equivalence. The separately frozen revision6 candidate 4/legacy4 pair measures40/40 versus 28/40 exact,40/40 versus 32/40 with phone equivalence. Both actors use the same native observer and source lock `47b6fe33`; direct-child cleanup is verified, browser descendants UNOBSERVED. Four related synthetic examples establish no broad product, statistical or timing superiority.
+- Remaining evidence: actual normal-user Simplify comparison is0 cases; an authenticated synthetic comparison session has not been made available. Public scored coverage, final independent W15 audit and Gate A decision remain incomplete. The previous independent correction probes remain distinct from final gate acceptance.
 - Owner instruction (2026-10-16, OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER. A waiver is not executed/passing holdout or an accuracy, safety, platform or comparison result.
-- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. Final W14 verification/freeze and independent W15 decision remain pending; M03 remains NOT_STARTED. No employer submission or production ATS support claim.
+- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. M03 remains NOT_STARTED. No employer submission or production ATS support claim.
 
 ## Milestone table
 
@@ -112,7 +112,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
-| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Canonical foreground 200-case contact campaign passes numeric/safety checks; mounted corpus, public fills/comparisons and final validation pending; owner holdout waived by ADR-0006 |
+| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Current200-case and mounted corpus pass; paired legacy comparison recorded; public/Simplify coverage and frozen validation pending; owner holdout waived by ADR-0006 |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
@@ -399,6 +399,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - KI-0084 (HIGH, IN_PROGRESS) — additive gate semantics changed a frozen W06 evaluator preimage; versioned source preservation is pending integration.
 - KI-0085 (HIGH, IN_PROGRESS) — duplicate field identities are reported as root ambiguity; every physical collision member needs unresolved inventory evidence.
 - KI-0086 (HIGH, IN_PROGRESS) — confirmation evidence becomes stale after primary-email validation; fresh approval and exact composite clearing are pending.
+- KI-0087 (HIGH, IN_PROGRESS) — healthy doctor fixture omitted active W14 artifacts;50 focused tests pass and frozen validation is pending.
 
 ## Status conventions and update rules
 

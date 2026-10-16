@@ -30,7 +30,7 @@ ATS/browser/OS support and measured pass rates
 
 ## M02-W14 research observations (non-support claims, 2026-10-16)
 
-W14 remains IN_PROGRESS and Gate A IN_PROGRESS. These source-scoped synthetic and structural observations do not populate production adapter/browser/OS support rows. Source inventories identify uncommitted candidates; no frozen accepted W14 revision exists.
+W14 remains IN_PROGRESS and Gate A IN_PROGRESS. These source-scoped synthetic and structural observations do not populate production adapter/browser/OS support rows. Historical inventories include uncommitted candidates; later observations bind committed runtime 15c7e33, original peer `f7f9dc1` and paired source lock `47b6fe33`. No accepted W14 revision exists.
 
 | Evidence scope | Environment / variants | Observed result | Limit / evidence |
 |---|---|---|---|
@@ -38,6 +38,10 @@ W14 remains IN_PROGRESS and Gate A IN_PROGRESS. These source-scoped synthetic an
 | Public read-only structural inventory | Current primary sources: Workday 10, Greenhouse 8, Lever 8, Ashby 4; anonymous Chromium 151.0.7922.34 | 30 inspected sources; 10 Workday method-choice boundaries and 20 blank public forms | 0 extension-fill evaluations, 0 scored controls, 0 comparisons. docs/evidence/m02-w14-external/public-current-matrix.json |
 | Isolated actual legacy components | JobApply c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd; shared CareerPulse component bytes; Chromium 151.0.7922.34; four grouped/en-US fixtures | Per case 8 event witnesses/8 rerenders, 7 exact ordinary matches; phone formatting differs, country/region empty; 0 observed navigation/submission | COMPONENT_DETERMINISTIC_NO_AI; one shared-component execution, not two full-product comparisons; no production code reuse. docs/evidence/m02-w14-external/capture-summary.json |
 | Simplify readiness only | Official product/demo/help and normal Chrome sign-in route | Actual comparison cases/autofill runs 0 | Authenticated synthetic comparison pending; installed extension/session state unknown. docs/evidence/m02-w14-external/simplify-readiness.json |
+| Committed contact/runtime checkpoint |15c7e33; same target Mac/Chromium and200 W12 contact recipes |200/200, same exact numeric/safety pairs; full-settlement p95 857.1561660000007ms; separate native128 target 20 p95 1333.9919169999994ms | Individual source/build immutable; integrated aggregate had unrelated assertion/fixture and neutrality failures, not PASS. docs/evidence/m02-w14-integrated-checkpoint |
+| Actual public contact attempt |30 original declared anonymous URLs; network-closed action requirement |18 transport refusals plus12 form/oracle refusals;0 action requests,0 scored rows; accuracy null | Complete refusal matrix, not a support or zero-risk claim. docs/evidence/m02-w14-public-actual |
+| Integrated exact original peer |f7f9dc1, four unchanged grouped/en-US inputs |32/40 candidate versus 28/40 legacy exact;32/40 versus 32/40 phone equivalent | Formatting difference alone gives no decisive accuracy win. docs/evidence/m02-w14-comparisons-actual |
+| Actual paired approved-option comparison |source lock `47b6fe33`; candidate 4/legacy4, identical ten facts/approved token metadata, same11-surface native observer |40/40 versus 28/40 exact;40/40 versus 32/40 phone equivalent; eight state/country differences | One shared component/four related synthetic fixtures; no broad/statistical/timing or Simplify/Gate A claim. docs/evidence/m02-w14-comparisons-actual/paired-comparison.json |
 
 The contact campaign does not exercise upload/repeater/date/checkbox/radio/custom-combobox drivers, iframe/shadow DOM, page transitions, parser effects or long-session soak. Presence of those features in W12 recipes is not measured support. ADR-0006 marks owner holdout WAIVED_BY_OWNER and changes no product compatibility promise.
 

@@ -77,6 +77,7 @@ CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
     "KI-0084",
     "KI-0085",
     "KI-0086",
+    "KI-0087",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -2619,6 +2620,7 @@ def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) ->
             "- KI-0084 (HIGH, IN_PROGRESS) — synthetic later source finding",
             "- KI-0085 (HIGH, IN_PROGRESS) — synthetic later collision finding",
             "- KI-0086 (HIGH, IN_PROGRESS) — synthetic later freshness finding",
+            "- KI-0087 (HIGH, IN_PROGRESS) — synthetic later fixture finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
@@ -2652,6 +2654,7 @@ def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> No
             "- KI-0084 (HIGH, IN_PROGRESS) — synthetic current source finding",
             "- KI-0085 (HIGH, IN_PROGRESS) — synthetic current collision finding",
             "- KI-0086 (HIGH, IN_PROGRESS) — synthetic current freshness finding",
+            "- KI-0087 (HIGH, IN_PROGRESS) — synthetic current fixture finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")

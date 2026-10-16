@@ -45,7 +45,7 @@ These entries supersede the older W13 sections' then-current readiness/gate post
 - Description: the corrected 200-case campaign reports p95 1799.8664160000044 ms; the subsequent sequential batched campaign reports 2087.8410830000066 ms and fails its explicit <=1500 ms assertion. Earlier 1338.2853750000068 ms belongs to a different source with 60 refused cases and deficient precision/recall, so it cannot establish a passing corrected candidate. Timings cover one execution per different W12 page with 75 ms settlement and 20 ms rerender, excluding setup/reporting; repeated 128-control proof remains separate.
 - Reproduction: run the exact batched command in docs/TEST_EVIDENCE.md § M02-W14, retaining source/build/configuration commitments and all physical counters. The fourth trace-disabled run completed and also failed at 2009.8366249999963 ms; no passing current timing is assumed.
 - Workaround: none accepted. Do not round down, omit settlement, reuse earlier source timings or drop difficult cases.
-- Resolution + evidence link: pending. Four original assessments/raw compressed bundles remain under docs/evidence/m02-w14-development, m02-w14-corrected, m02-w14-batched and m02-w14-untraced. Batched stdout records expected <=1500 / received 2087.8410830000066. Its failure trace was inspected but cleaned by the following run; no retained trace is claimed.
+- Resolution + evidence link: Historical full-settlement misses remain retained. The a744ff2 contact cohort passes p95 874.831582999992ms, but its separate native128 target 20 fails1535.096375000001ms. The pure SHA byte-preserving optimization is now integrated; root target 20 passes 1432.5265840000002ms with unchanged waits/thresholds and exact128/512/768 action-resolution-descriptor counts. Frozen combined-source validation is pending; no final gate result is inherited from an earlier source. See docs/evidence/m02-w14-a744ff2-aggregate and m02-w14-integrated-preflight.
 
 ### KI-0078 — Localized address evidence needs exact recognition and other-party guards
 
@@ -69,7 +69,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: an approved First name control can retain its durable address when its referenced description changes from Your contact to Employer. Fresh W09 classification rejects the new ownership context, but executing the earlier approval can still write the applicant value. The defect is reproduced in both the document and an open shadow root.
 - Reproduction: the two description-only ownership mutation probes retain the old W09 approval, change only the referenced description text, establish that the new W09 decision does not permit filling, then execute the old approval and measure physical events and the final value. Both before-fix executions wrote the value. Raw failure records are being retained with the shadow implementation evidence.
 - Workaround: do not integrate or claim the shadow candidate safe while this stale approval remains executable.
-- Resolution + evidence link: integrated guards bind ownership before execution and publication; 96 retained and 29 focused proofs are archived under docs/evidence/m02-w14-shadow-guards. A fresh independent native-observed undo probe then reproduced VERIFIED after an undo input handler changed Your contact to Employer. Undo still needs the settled ownership and final publication fences already present on execute. Final affected regression and performance remain pending.
+- Resolution + evidence link: Bounded ownership, settled undo and final publication guards are integrated. The retained96 and29 probes, expanded72 MV3 cases and twelve unchanged native-observed independent probes pass against their cited source inventories. The integrated aggregate retained223 browser passes and five shadow-status assertion mismatches; their corrected stronger assertions pass 35/35, and fresh frozen validation is pending. Earlier stale-approval and undo failures remain preserved under docs/evidence/m02-w14-shadow-guards, m02-w14-selected-semantics and m02-w14-independent-review.
 
 ### KI-0080 — Event-only action meter cannot exclude eventless writes and restoration
 
@@ -80,7 +80,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: the inherited W13 page meter observes input/change events rather than native setter calls. An eventless write followed by an eventless restore can leave both the event list and final value unchanged. The preservation scorer correctly evaluates its supplied audit, but that meter alone cannot substantiate exhaustive zero-write claims. No eventless production violation has been observed.
 - Reproduction: inspect the event listeners in e2e/extension/support/autofill-benchmark.ts and the zero-action/unchanged-value preservation predicate. An independent real-MV3 setter-to-restore regression is being added before claiming that this observation gap is closed.
 - Workaround: treat historical action counts as event witnesses; do not infer absence of unobserved native property writes from the absence of events.
-- Resolution + evidence link: pending. The additive W14 observer will witness supported native setters and activation in the actual extension realm, separately from site events and controlled rerenders. W13 historical metrics remain unchanged.
+- Resolution + evidence link: The independent W14 native observer is integrated and records supported setters/activations in the actual extension realm, separately from site events/rerenders. Four real-MV3 observation probes and a744ff2 full200-case1485 raw/audited actions pass with zero orphans and all declared installed surfaces. Retained references, other realms and uninstalled surfaces remain explicit limits; W13 historical event metrics remain unchanged. Frozen combined-source validation is pending. See docs/evidence/m02-w14-a744ff2-aggregate.
 
 ### KI-0081 — Changed selected-option semantics retain stale authority
 
@@ -91,7 +91,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: an approved Country option can retain its raw value while its label changes to a placeholder or Canada. Fresh W09 policy refuses the changed semantics, but the earlier transaction can still select it and publish VERIFIED/READY; an earlier verified selection can also remain READY after relabelling. The existing unrelated-option preservation fallback discards the whole option fingerprint without retaining the selected option's semantic binding.
 - Reproduction: the independent native-six campaign uses both literal US and opaque 17 values. Before-write relabelling produces one native SELECT_VALUE write and VERIFIED despite fresh NO_SEMANTIC_MATCH; after-verification relabelling preserves READY. The unchanged selected option with an appended Mexico option remains a required positive regression. Original setup failures and corrected native proofs are retained separately under /tmp/japp-w14-independent-probes pending archival.
 - Workaround: no Gate A claim or current-source freeze while stale option authority remains. Do not fix this by rejecting all unrelated option-window changes.
-- Resolution + evidence link: a three-file native-select/undo candidate passes the same seven immutable independent probes. Adjacent actual radio and ARIA opaque-option probes then reproduce the same stale-semantic gap, so broader selected value/label/disabled binding is pending. Temporary popup/query/scroll windows and the unchanged virtualized-list positive must remain supported. All before/after observations are retained separately; no final integration or safety claim follows from the narrower candidate.
+- Resolution + evidence link: Selected value/label/disabled binding is integrated across native selects, radios and ARIA widgets, with bounded original option snapshots and synchronous publication witnesses. All72 focused MV3 cases and twelve unchanged independent probes pass; unrelated Mexico append and virtualized-list positives remain supported, stale semantics perform zero writes. Before/after failures and exact source commitments are archived under docs/evidence/m02-w14-selected-semantics and m02-w14-independent-review. Combined-source focused checks pass; frozen aggregate is pending.
 
 ### KI-0082 — Public report snapshot accounting omits inserted controls
 
@@ -102,7 +102,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: changes are currently computed by iterating only the before snapshot. A final-only control disappears from identity/change coverage, permitting apparently complete value metrics despite unmatched final topology. This is a reproducible report defect; no saved live public row or production sensitive fill is claimed.
 - Reproduction: replay the exact accounting logic with an initially empty First name control and final First name=Synthetic plus a newly inserted Social Security Number=Synthetic. It reports precision 1, unexpected nonpositive changes 0 and unmeasurable controls 0 while the snapshot lengths are 1 and 2.
 - Workaround: treat unmatched/new/missing/duplicate snapshot identities as unmeasurable. A new control's unknown initial value cannot establish that the extension wrote it.
-- Resolution + evidence link: pending union accounting and explicit topology/precision-ineligible state, with retained matched measurements separately scoped and complete aggregate metrics null when coverage is incomplete.
+- Resolution + evidence link: Union accounting and explicit topology/precision eligibility are integrated. Final-only, missing, duplicate and unmatched controls remain unmeasurable, complete precision is null, and matched-subset metrics stay separately scoped. All61 a744ff2 controlled proofs pass, including the six new pure union regressions; no actual public contact run is inferred. Frozen controlled verification is pending.
 
 ### KI-0083 — Native property drift escapes final verification publication
 
@@ -113,7 +113,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: MutationObserver evidence revisions do not observe ordinary value-property assignments. A site can change input.value while the final result metadata hash is awaited, leaving the semantic index current while the result publishes an earlier VERIFIED value.
 - Reproduction: actual native-observed EXECUTE and UNDO probes pause the final idempotency hash, assign Changed by site without dispatching events, confirm MutationObserver.takeRecords().length is zero, then release. Both report VERIFIED despite the changed current value. Extension native mutations remain one for execute and two total for execute plus undo; the site assignment is outside that extension-realm witness scope.
 - Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
-- Resolution + evidence link: pending bounded synchronous raw-property witnesses captured with the settled/read observation and checked after the final awaited publication work. Existing semantic re-resolution, site validation and no-recovery-write rules remain required.
+- Resolution + evidence link: Bounded synchronous native-property witnesses are integrated on execute, undo and W11 after the last awaited metadata operation. The original actual eventless EXECUTE/UNDO races and new W11 property race now refuse stale verification while preserving unchanged positives. All twelve original independent probes pass at the recorded source binding. Combined-source aggregate is running; see docs/evidence/m02-w14-independent-review.
 
 ### KI-0084 — Additive gate semantics changed a frozen evaluator preimage
 
@@ -124,7 +124,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: the v2 waiver integration added 7920 bytes to the semantic evaluator source frozen in the W06 manifest. The other 102 source artifacts and all expected answers remain exact, but corpus validation correctly refuses the changed evaluator preimage. Original Python V1 catalog checks also require the original 1.1/110 layer.
 - Reproduction: the full aggregate at a744ff2 fails the ATS source-byte assertion (331227 versus 323307 bytes) and corpus:check with CORPUS_DRIFT. The frozen generator digest is d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02.
 - Workaround: preserve frozen manifests and tests; never rebaseline expected source bytes to the changed implementation.
-- Resolution + evidence link: an outside versioned V1/V2 emitter/catalog correction preserves all 103 original artifacts, original 511 and new 79 corpus cases and both baselines. Root integration and complete validation remain pending. Actual aggregate evidence: docs/evidence/m02-w14-a744ff2-aggregate.
+- Resolution + evidence link: The exact reviewed24-file versioned repair is integrated. All103 frozen W06 artifacts are restored byte-for-byte, original V1 semantics remain1.1/110, and explicit V2 modules retain reviewed1.2/114 semantics with strict inherited provenance. All81 schemas, original511/new79 cases and both baselines remain unchanged. Outside sealed2524 contracts/173 generated Python/10 Rust pass; root3859-unit and frozen-corpus stages pass. Remaining combined aggregate is running. See docs/evidence/m02-w14-versioned-semantics.
 
 ### KI-0085 — Field identity collisions are misreported as root ambiguity
 
@@ -135,7 +135,7 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: an intentional duplicate control shares a durable field ID with its peer while the application root remains uniquely FOUND. The action correctly refuses, but reconciliation reports ROOT_AMBIGUOUS instead of retaining both physical controls as unresolved observation evidence.
 - Reproduction: the existing research ambiguity case at a744ff2 expects RECONCILED and receives ROOT_AMBIGUOUS; the trace retains root_status FOUND and two required controls with field_45D1MFTFZHA73GSAHCKK2E99QQ. No prohibited write occurs.
 - Workaround: never remove the collision refusal while allowing the field-ID map to overwrite one control.
-- Resolution + evidence link: pending observation-only collision entries with distinct item IDs and canonical RECONCILED/NOT_READY, without granting either a durable target identity or action authority. Trace is retained under docs/evidence/m02-w14-a744ff2-aggregate/failures.
+- Resolution + evidence link: Observation-only physical collision entries are integrated, with distinct report item IDs, required unresolved uncertainty and canonical RECONCILED/NOT_READY. No DOM occurrence/report ID grants action authority. The strengthened original P8 actual regression and classifier units pass, retaining every collision member and recovery after removal of one duplicate. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
 
 ### KI-0086 — Mounted confirmation approval becomes stale after cross-field validation
 
@@ -146,11 +146,22 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Description: filling primary email in MAL-VAL-001 changes the confirmation control's description. The mounted helper reuses its initial descriptor, so the ownership guard correctly refuses the stale approval and verifies 42 of the expected 43 contact fields. A fresh approval must also prove that only the observed validation error clears while stable help remains unchanged.
 - Reproduction: the a744ff2 W06 attachment records val-email-confirm empty with zero physical actions, its description/address digest changed by Confirm the email address, and the unchanged 43-field assertion fails on 42.
 - Workaround: do not relax description authority or lower the expected count. Do not treat arbitrary description shrinkage as validation clearing.
-- Resolution + evidence link: pending bounded current-target W08 evidence before each W09 decision, exact component-level error clearing and propagation of settled proof through W11/undo. Actual source/build-unchanged evidence is retained under docs/evidence/m02-w14-a744ff2-aggregate.
+- Resolution + evidence link: The existing bounded W08 re-resolution endpoint supplies fresh same-frame/document/field evidence before each W09 decision. Exact component-level clearing permits only observed rejected error text to become empty, retaining stable help/ownership/references through W11 and undo. Outside actual W06 passes 32 cases and43/43 controls with unchanged source/build; P8 and six composite cases pass. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+
+### KI-0087 — Healthy doctor fixture omits active W14 public artifacts
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 integrated Python validation
+- Affects: M02-W14; scripts/tests/test_doctor.py healthy Windows simulation
+- Description: the healthy fixture copies the current M02-W14 status and suite registry but omits the two new required public suites' discovery artifacts. The doctor correctly reports REQUIRED_MISSING, contradicting the fixture's healthy premise.
+- Reproduction: integrated Python collects1454 and reports1452 passes/two failures. The Windows simulation reports missing public-inspection/public-contact paths. The other neutrality failure came from root edits during validation and is retained separately.
+- Workaround: preserve the required-suite checks and all original assertions; never mark the suites not applicable to make a healthy fixture pass.
+- Resolution + evidence link: copy the four actual committed discovery artifacts into the simulated repo. All50 doctor tests pass, including the unchanged healthy-Windows and tracked-file neutrality assertions; Ruff lint/format pass. Full frozen validation remains pending. Exact logs are retained under docs/evidence/m02-w14-integrated-checkpoint.
 
 ## M02-W13 final closeout and retained limits (2026-10-01)
 
-KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
+KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target 20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
 
 DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must predeclare its supported cohort and derive ordinary attempted precision from immutable field class, attempted flag and primary score; it must not directly map generic PRECISION to that Gate A dimension. The target timing is a zero-settle development lower bound, while the four-family harness separately exercises75ms settlement/20ms rerender. Full-settlement/frozen partitions and actual authorized holdout/public/Simplify/legacy comparison are FUTURE_OWNER W14; independent Gate A decision is W15. The bounded1024-entry/512KiB pure SHA memo retains memory without target authority; historical raw timing source hashes remain historical. None is final Gate A evidence; all gates NOT_EVALUATED, release NOT_READY.
 
@@ -198,7 +209,7 @@ DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must p
 - Description: the focused corpus command runs218 passing tests, but its accepted exact-count guard still requires207 and discovery lists only W06. Classification: DIRECT_REGRESSION in verification metadata.
 - Reproduction: full `pnpm verify` at invalidated tree86e72fbb80683d3e90d1ab0be992339714410978 fails only evaluation-corpus proof, reporting218 rather than207. All other active suites pass, including134 browser,1390 Python and retained Rust checks. Raw log: docs/evidence/m02-w13-closeout/invalidated-pass1-verify.log.
 - Workaround: n/a.
-- Resolution + evidence link: retain all207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
+- Resolution + evidence link: retain all 207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes 218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
 
 ## M02-W13 bounded-stop findings
 
@@ -230,7 +241,7 @@ DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must p
 - State: FIXED
 - Discovered: 2026-09-30 during late M02-W13 family K review
 - Affects: M02-W13; apps/extension/src/dynamic-engine.ts root/subtree recovery
-- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
+- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at 513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
 - Reproduction: permanent `W13 K: observation beginning over capacity requires a complete recovery scan`; the original run failed expected512/received0. Its second phase also inserts and removes a transient513th control between reconciliation passes while the observer drains each batch.
 - Workaround: n/a.
 - Resolution + evidence link: latch every observed root/subtree capacity refusal, clear inventory, and reset only after a complete current root scan; carry refusal from actual candidate capture and recheck the bound after async scans and all inventory hashing immediately before canonical publication. Both recovery phases now prove total512, required_unresolved1 and NOT_READY; initial513 reports CAPACITY_EXCEEDED with no canonical inventory. The bound512 and canonical schemas are unchanged. Final affected browser suite34/34 passes; docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt.
@@ -243,10 +254,10 @@ DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must p
 - State: FIXED
 - Discovered: 2026-09-06 during M02-W12 hosted CI correction2
 - Affects: M02-W12 retained-suite portability; packages/evaluation-runner/package.json
-- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
-- Reproduction: Ubuntu job101557017908 of run34059370913 at268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
+- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at 5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
+- Reproduction: Ubuntu job101557017908 of run34059370913 at 268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
 - Workaround: n/a.
-- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all 10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0068 — Batched matrix-integrity negatives exceeded one hosted test deadline
 
@@ -255,7 +266,7 @@ DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must p
 - Discovered: 2026-09-06 during M02-W12 hosted CI round1
 - Affects: M02-W12; packages/ats-adapters/test/matrix.test.ts and package.json
 - Description: nine full matrix revalidations shared one default5000ms test; Ubuntu measured5561ms under concurrent workspace tests. A retained runner test also crossed5000ms during the same burst. Classified TEST_PORTABILITY; no semantic assertion failure observed.
-- Reproduction: Ubuntu job101549006289 of run34056407698 at475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
+- Reproduction: Ubuntu job101549006289 of run34056407698 at 475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
 - Workaround: n/a.
 - Resolution + evidence link: register all nine negative cases independently under unchanged per-test deadlines, and bound the ATS test package to one worker/no file parallelism. All65 ATS tests pass; no old test, fixture, manifest, core or global timeout change. Retained and hosted proof required in the forward correction; docs/TEST_EVIDENCE.md § M02-W12.
 
@@ -268,7 +279,7 @@ DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must p
 - Description: three `it.each` tables imported runtime enums; the repository policy could not statically prove them safe/nonempty. All57 ATS tests and125 browser tests passed, but aggregate integrity and its real-repository Python oracle correctly failed. Classified DIRECT_REGRESSION in correction round2.
 - Reproduction: `pnpm verify --suite integrity` at invalidated content tree 2da677733fa79e66d80360d7298994b6ae5c9af6 reports three unprovable parameter tables.
 - Workaround: n/a.
-- Resolution + evidence link: explicit closed literal tables preserve all12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: explicit closed literal tables preserve all 12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0066 — Writer status edit matched a gate-description sentence
 

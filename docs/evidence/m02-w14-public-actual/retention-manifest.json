@@ -1,0 +1,134 @@
+{
+  "format": "W14_EXACT_RAW_ARCHIVE_1",
+  "archive_sha256": "f5510561929290794fb98c1a3b9863cc987b0d97c44c6247119febb531a5359c",
+  "archive_bytes": 189448,
+  "regular_members": 26,
+  "raw_log_encoding": "Exact original bytes retained inside archive; no display-normalization claim.",
+  "files": [
+    {
+      "path": "build.log",
+      "bytes": 454,
+      "sha256": "6d52fd832281ab83562414cd2ca4c4f1469828ea87dd279fd52d76ed904d0d7f"
+    },
+    {
+      "path": "campaign/action-results.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "campaign/assessment.json",
+      "bytes": 9407,
+      "sha256": "dd4eef4f70a9a0d9431650b4ac295eabe5fd794452ec2f4367da8cbbf7804386"
+    },
+    {
+      "path": "campaign/campaign-binding.json",
+      "bytes": 701,
+      "sha256": "30683aa6caf394f5ac562f4afc3798ccad1edd10ab63b019d7e35b04868af96e"
+    },
+    {
+      "path": "campaign/end-binding.json",
+      "bytes": 547,
+      "sha256": "a86551db6ca8dc0cf1ad9de0b7a2cb677abafcee32967a04ef86f26663f7c0a7"
+    },
+    {
+      "path": "campaign/finalization.json",
+      "bytes": 693,
+      "sha256": "5ef44755acde039d5a14ece954938e9ff3cce83e3ae56d9ba1fb8919b72ac66d"
+    },
+    {
+      "path": "campaign/page-results.jsonl",
+      "bytes": 1269,
+      "sha256": "10b63f877d1b4f9e78664976e49a72b9de7c6deba6148655cc52df8d4a7b8508"
+    },
+    {
+      "path": "campaign/public-contact.json.gz",
+      "bytes": 48466,
+      "sha256": "3f8348db8dfabea73ccd264213057576c1233e96f022ff8e4790f799512f6c54"
+    },
+    {
+      "path": "campaign/rows.jsonl",
+      "bytes": 1269,
+      "sha256": "10b63f877d1b4f9e78664976e49a72b9de7c6deba6148655cc52df8d4a7b8508"
+    },
+    {
+      "path": "campaign-after-refusal/action-results.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "campaign-after-refusal/assessment.json",
+      "bytes": 9415,
+      "sha256": "d261f96ad89f272e13f6b1d5325f522b386ca73c72f71175ad038e7640a4e2b3"
+    },
+    {
+      "path": "campaign-after-refusal/campaign-binding.json",
+      "bytes": 701,
+      "sha256": "8c01a573b7da992f34342d5f7b710921b8afc74cf0b719d60674062e43eb1796"
+    },
+    {
+      "path": "campaign-after-refusal/end-binding.json",
+      "bytes": 547,
+      "sha256": "2ceef3b03d13b534607c6f955779360b5f7932744c78794bfe64b470d378cfe2"
+    },
+    {
+      "path": "campaign-after-refusal/finalization.json",
+      "bytes": 664,
+      "sha256": "0f4a2f86b342cd514153a6e65708b9fd0c75540bfc973b8ed9d3ee6c577a0f7a"
+    },
+    {
+      "path": "campaign-after-refusal/page-results.jsonl",
+      "bytes": 429420,
+      "sha256": "f6403f1e27208f42ce22cce6fc6a7c3dc133ec121b713481732c23b8ab448ff9"
+    },
+    {
+      "path": "campaign-after-refusal/public-contact.json.gz",
+      "bytes": 71170,
+      "sha256": "e52ff336edf8cec0c6aebbcd1b04838aa0b80e0a14e5de6312116e758a942023"
+    },
+    {
+      "path": "campaign-after-refusal/rows.jsonl",
+      "bytes": 429420,
+      "sha256": "f6403f1e27208f42ce22cce6fc6a7c3dc133ec121b713481732c23b8ab448ff9"
+    },
+    {
+      "path": "readonly-drain-diagnostic.json",
+      "bytes": 995,
+      "sha256": "704fa4040b87b3f9aff03f76a854f2be93b1ba47a901ac4926f8926fd2fc9cb7"
+    },
+    {
+      "path": "refusal-controlled.log",
+      "bytes": 125719,
+      "sha256": "edbf0efde920ac732df5d26a43286e8518ce24e3b10fdc80a8cec99d57d62a24"
+    },
+    {
+      "path": "refusal-format-check.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "refusal-format.log",
+      "bytes": 176,
+      "sha256": "8ade033260cc772d3d53aa0298f747da1931c6b57b257f50698bc05c163c2f6d"
+    },
+    {
+      "path": "refusal-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refusal-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "run-after-refusal.log",
+      "bytes": 167,
+      "sha256": "1ed1421b0b3393f6903be461d0e0c1ce96104c18ee47c1b824b1498c5f4de45e"
+    },
+    {
+      "path": "run.log",
+      "bytes": 475,
+      "sha256": "ceac71f19feff846a3d39e06c8b898e50605b7b7e1bb35067857fecbaf25acf4"
+    }
+  ]
+}
