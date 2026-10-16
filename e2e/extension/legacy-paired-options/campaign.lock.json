@@ -1,11 +1,11 @@
 {
   "format_version": "W14_PAIRED_OPTIONS_CAMPAIGN_LOCK_1",
   "authority": "NONE",
-  "status": "FROZEN_BEFORE_EITHER_NEW_RUN_REVISION_6_WORKER_OUTPUT_FRESHNESS",
+  "status": "FROZEN_BEFORE_EITHER_NEW_RUN_REVISION_7_CURRENT_NATIVE_VALIDITY_KERNEL",
   "files": [
     {
       "path": "PREEXECUTION.md",
-      "sha256": "sha256:04a8c314b2a78c72bfecf3818423dd68c1e2ca45b634ffdc6552c56194fd4896"
+      "sha256": "sha256:603a97d26d246b2a460be9de46b9936fe74bd955948a172e7d20c5251ffc02be"
     },
     {
       "path": "campaign.mjs",
@@ -57,11 +57,11 @@
     },
     {
       "path": "playwright.config.ts",
-      "sha256": "sha256:b66ec0ff78c3fd73c95e96870bbf80215b4c6ddf591043863c58e4c6fa47c2cd"
+      "sha256": "sha256:f15b9221d5f6e9f475bc20991c62cdadc501b2f286b7b965dc243e00706ac142"
     },
     {
       "path": "predeclaration.json",
-      "sha256": "sha256:fe70d48e3df9f04f92c519c9d8b97686dcfd50f9e3a6624f30fca5ccba758349"
+      "sha256": "sha256:3ae2ac9e1cb21d269589c33f3bc515188a87447197dd2e8b75cb5f8e61e19a33"
     },
     {
       "path": "preexecution-history/revision-3/campaign.lock.json",
@@ -122,6 +122,30 @@
     {
       "path": "preexecution-history/revision-5/source-bindings.json",
       "sha256": "sha256:4a8eb3712bde2f2fc7e64e60426ca36e508da7e62bd46f63b7d53ea1ff6a279c"
+    },
+    {
+      "path": "preexecution-history/revision-6/PREEXECUTION.md",
+      "sha256": "sha256:04a8c314b2a78c72bfecf3818423dd68c1e2ca45b634ffdc6552c56194fd4896"
+    },
+    {
+      "path": "preexecution-history/revision-6/campaign.lock.json",
+      "sha256": "sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb"
+    },
+    {
+      "path": "preexecution-history/revision-6/campaign.lock.sha256",
+      "sha256": "sha256:fdfa2fb1f64a2625f05255cac6a54777dfb51007413d0a7f9057506e2e601ebf"
+    },
+    {
+      "path": "preexecution-history/revision-6/playwright.config.ts",
+      "sha256": "sha256:b66ec0ff78c3fd73c95e96870bbf80215b4c6ddf591043863c58e4c6fa47c2cd"
+    },
+    {
+      "path": "preexecution-history/revision-6/predeclaration.json",
+      "sha256": "sha256:fe70d48e3df9f04f92c519c9d8b97686dcfd50f9e3a6624f30fca5ccba758349"
+    },
+    {
+      "path": "preexecution-history/revision-6/source-bindings.json",
+      "sha256": "sha256:34930423d1a3bcf37165c3894718328f337dee45a0563cb73ea6ed1d0ef7db10"
     },
     {
       "path": "preimages/LICENSE",
@@ -189,7 +213,7 @@
     },
     {
       "path": "source-bindings.json",
-      "sha256": "sha256:34930423d1a3bcf37165c3894718328f337dee45a0563cb73ea6ed1d0ef7db10"
+      "sha256": "sha256:256f21c84fd51b7d0d1287aad57133386935dbdb6d8eb5a0f5e1eacee7f85279"
     }
   ]
 }

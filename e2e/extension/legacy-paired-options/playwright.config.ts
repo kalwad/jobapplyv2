@@ -1,6 +1,6 @@
 /** Explicit synthetic comparison only. No implicit build or public page access. */
 import { defineConfig, devices } from "@playwright/test";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { isAbsolute, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 if (process.env.JAPP_W14_PAIRED_OPTIONS_EVALUATION !== "1")
@@ -9,6 +9,21 @@ const output = process.env.JAPP_W14_PAIRED_OPTIONS_OUTPUT;
 if (output === undefined || !isAbsolute(output))
   throw new Error("W14_PAIRED_OPTIONS_ABSOLUTE_OUTPUT_REQUIRED");
 const sourceRoot = fileURLToPath(new URL("../../..", import.meta.url));
+const declaration = JSON.parse(
+  readFileSync(
+    fileURLToPath(new URL("./predeclaration.json", import.meta.url)),
+    "utf8",
+  ),
+) as {
+  preexecution_source_revision: number;
+  preexecution_previous_campaign_lock_digest: string;
+};
+if (
+  declaration.preexecution_source_revision !== 7 ||
+  declaration.preexecution_previous_campaign_lock_digest !==
+    "sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb"
+)
+  throw new Error("W14_PAIRED_OPTIONS_DECLARATION_REVISION_REQUIRED");
 const outputRelative = relative(sourceRoot, output);
 if (
   outputRelative === "" ||

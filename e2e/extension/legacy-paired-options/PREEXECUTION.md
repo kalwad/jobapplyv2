@@ -1,4 +1,14 @@
-# Paired explicit-option pre-execution source revision
+# Paired explicit-option pre-execution source revision 7
+
+Revision 7 is a PRE-EXECUTION declaration for fresh candidate 4 and legacy 4 runs after the current two-file native-validity kernel correction. Runtime binding is 355 files / `sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c`. The actual revision 6 observations under `sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb` remain historical in `docs/evidence/m02-w14-comparisons-actual`; no outcome, pass or timing is rebound. No revision 7 actor has run at authoring.
+
+Before refreshing metadata, the exact revision 6 lock, sidecar, predeclaration, source bindings, Playwright configuration and checklist were preserved under `preexecution-history/revision-6/`. Prior histories and all input/oracle/projection/vendor/observer bytes remain unchanged. Candidate runtime changes are confined to `apps/extension/src/driver-engine.ts` and `apps/extension/src/drivers/driver-dom.ts`. Source/control assertions, native-observer surfaces and both actor implementations are unchanged.
+
+The configuration now requires source revision 7 and the exact revision 6 predecessor lock. The existing coordinator fresh absolute outside-root output guard and `TEST_WORKER_INDEX` worker reread condition are byte-preserved. Actual parent commands continue to strip `TEST_WORKER_INDEX`. Independent read-only review of this proposal and the kernel change is pending; apply only after that review, commit the exact source and lock, then freshly build and run both actors. The lock sidecar alone grants no authority to accept a changed lock.
+
+The revision 3 authoring tool is historical and deliberately refuses later locks. This revision 7 proposal was prepared outside the repository; its source preimages, changed-file manifest and patch are retained separately. The following revision 6/5/4 preparation record is historical. The actual-run section below applies only after the reviewed revision 7 patch is committed and CPU coordination is released.
+
+## Historical preparation record (preserved verbatim in revision 6 history)
 
 Revision6 preserves the failed revision5 setup attempt: the coordinator created its fresh output directory, then the Playwright worker reread the configuration and refused that same owned directory before any case body/browser session. One setup failed and three cases did not run; neither paired actor produced an observation. The coordinator still requires a fresh absolute directory outside the whole source root. The pinned Playwright worker may reread its coordinator-created directory using the documented `TEST_WORKER_INDEX`; actual parent commands strip that variable. Revision5 metadata, checklist and configuration are byte-preserved under `preexecution-history/revision-5/`. All three data digests, observer and355 bound runtime files are unchanged. Use the separately reviewed revision6 lock for BOTH fresh actors.
 
@@ -45,7 +55,7 @@ These commands are a runbook, not executed evidence. Use pinned Node 24.18.0/pnp
 ```sh
 cd /Users/tanishkalwad/jobapplyv2
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_6_SHA256_DIGEST'
+export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_7_SHA256_DIGEST'
 export JAPP_W14_PAIRED_OPTIONS_EVALUATION=1
 JAPP_PAIRED_RUN_DIRECTORY="$(mktemp -d /tmp/japp-w14-paired-run.XXXXXX)"
 ```

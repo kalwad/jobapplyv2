@@ -304,7 +304,7 @@
       ]
     }
   ],
-  "predeclaration_digest": "sha256:fe70d48e3df9f04f92c519c9d8b97686dcfd50f9e3a6624f30fca5ccba758349",
+  "predeclaration_digest": "sha256:3ae2ac9e1cb21d269589c33f3bc515188a87447197dd2e8b75cb5f8e61e19a33",
   "inputs_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
   "oracles_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
   "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
@@ -461,7 +461,7 @@
     },
     {
       "path": "apps/extension/src/driver-engine.ts",
-      "sha256": "sha256:f0620c2f4b05162f92365ba09fb6523eea76a89dc93ce6e1683f3b41694035b6"
+      "sha256": "sha256:749b00ac70478f94d8e78779e39f973475ba8d6ee003cb9a68ad1e3b623f2382"
     },
     {
       "path": "apps/extension/src/driver-evidence.ts",
@@ -481,7 +481,7 @@
     },
     {
       "path": "apps/extension/src/drivers/driver-dom.ts",
-      "sha256": "sha256:1c3b436c0be62413ee190bf658c9d5240a2daea242a75802fdfb53269fab8d4b"
+      "sha256": "sha256:8256c4ec3893d3f3e9671715c3f5f5b736f59f6600cdbaeb9d520d2068d695bc"
     },
     {
       "path": "apps/extension/src/drivers/file-upload-driver.ts",
@@ -1942,10 +1942,7 @@
       "BLUR",
       "EVENT_DISPATCH"
     ],
-    "actors": [
-      "CANDIDATE_DEFAULT_MV3",
-      "UNMODIFIED_LEGACY_MV3"
-    ],
+    "actors": ["CANDIDATE_DEFAULT_MV3", "UNMODIFIED_LEGACY_MV3"],
     "integrity": "Install exact unique runtime-id realm; snapshot integrity/sequence/surfaces before first synthetic write and after settle; refuse unavailable or failed integrity.",
     "limits": [
       "Installed prototype surfaces in one actual extension realm only.",
@@ -1990,11 +1987,7 @@
       "dist",
       "node_modules"
     ],
-    "excluded_file_suffixes": [
-      ".pyc",
-      ".pyo",
-      ".tsbuildinfo"
-    ],
+    "excluded_file_suffixes": [".pyc", ".pyo", ".tsbuildinfo"],
     "required_runtime_paths": [
       "apps/extension/entrypoints/background.ts",
       "apps/extension/entrypoints/feasibility.content.ts",
@@ -2014,5 +2007,5 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:7671a04ad0c5f542a0526be208f61b5fafa6ae72e0f4d31acf71d6133f091557"
+  "candidate_runtime_inventory_digest": "sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c"
 }

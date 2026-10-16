@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W14 working tree based on c67ea2c; frozen local checkpoint b8b1423 passed all 19 active suites
-Last updated: 2026-10-16T20:27:00Z
+Repository revision: M02-W14 native-validity correction working tree based on d99c592; frozen d99c checkpoint passed all 19 active suites
+Last updated: 2026-10-16T20:58:00Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -24,15 +24,15 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Active work
 
 - State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. W15 NOT_STARTED; no package is READY. Per-W stopping remains superseded by ADR-0006.
-- Frozen code validation: b8b1423 passes all 19 active suites with a clean unchanged tree: 3859 TypeScript units, 228 default browser tests, 61 then-required controlled contact proofs and 1454 Python tests. Visual is honestly NOT_YET_APPLICABLE. Native128 target 20 p95 1480.3922500000008ms meets the unchanged 1500ms limit; the 200-case full-settlement p95 is 865.8358330000192ms.
-- Numeric scope: 200/200 contact recipes/4020 logical controls, precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770, persistence 1485/1485, preservation 90/90 and measured physical safety 0. Source/build/declarations are unchanged. Older measurements and failures remain historical; no full-product or unexercised-feature claim.
-- Local corrections: KI-0077 through KI-0087 are FIXED by the frozen aggregate. KI-0088's observation correction is FIXED with 62 mandatory controlled proofs, 19 verifier guards, static checks and unchanged 1454-node Python inventory. All 61 prior controlled tests remain. Production driver/bundle and the 355-file legacy runtime binding are unchanged by the public observation changes. Current revision verification is linked through PR #1 checks.
-- Platform correction: KI-0090 is IN_PROGRESS after the cancelled b8b1423 Windows log exposed a negative compiler-probe timeout/cleanup failure (2523/2524 contracts passed). Bounded direct pinned-compiler launch adds a valid-compilation positive and preserves invalid-source rejection/cleanup. Focused local 8/8, complete contracts 2524/2524, typecheck/static and 201 ledger cases pass; native Windows confirmation is pending. Complete Python verification on clean c67ea2c passes 1454 tests.
-- Actual public evidence: the latest immutable 30-source run on 8ae96f0 records 17 network-closure refusals, 7 form/protected-surface refusals and 6 interference rows. Action requests 0, scored rows 0 and accuracy/site acceptance null. Visible labels now match their original oracle; candidate CAPTCHA/dialog and transport boundaries still refuse. Initial incomplete and earlier 30-refusal runs are preserved separately. No map/URL/threshold is changed to hide these outcomes.
-- Actual legacy evidence: original four-case peer 32/40 versus 28/40 exact, 32/40 versus 32/40 with phone equivalence. Separate revision 6 candidate 4/legacy 4 pair 40/40 versus 28/40 exact, 40/40 versus 32/40 with phone equivalence. Same native observer/source lock 47b6fe33; verified owned normal context/direct-child cleanup, descendants UNOBSERVED. Four related synthetic fixtures and one shared component establish no broad/statistical/timing or two-product superiority.
-- Remaining external evidence: actual normal-user Simplify comparison 0 cases; a suitable signed-in synthetic session has not been supplied. Public scored coverage remains incomplete because protected/interfered pages are ineligible. Final independent W15 review and Gate A decision remain incomplete. Owner-controlled holdout remains waived and is not a blocker.
-- Owner instruction (2026-10-16, OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER. A waiver is not executed/passing holdout or an accuracy, safety, platform or comparison result.
-- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. M03 remains NOT_STARTED. No employer submission or production ATS support claim.
+- Frozen standard validation: clean d99c592 passes all 19 active suites: 3859 TypeScript units, 228 default browser tests, 62 controlled contact proofs and 1454 Python tests. Visual remains NOT_YET_APPLICABLE. Git/source/build/declarations are unchanged. Native128 target 20 p95 is 1446.918709000005 ms; contact200 full-settlement p95 is 873.0006670000148 ms. Earlier source-scoped results and failures remain retained.
+- Numeric scope: 200/200 contact recipes and 4020 logical controls; precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770, persistence 1485/1485, preservation 90/90 and measured physical safety zero. All 67 frozen transition clauses reconcile to exact passed names in their separate fixture/research scopes. No unexercised-driver or production support claim.
+- Local correction: KI-0091 remains IN_PROGRESS. Fresh independent probes expose a late native setCustomValidity publication gap beyond the standard suite. The exact two-file synchronous validity fence and six permanent cases are integrated. Independent six unchanged probes, six clean integration cases and 29 adjacent regressions pass; root six/type/lint/format and 201 ledger checks pass. Full affected regression remains pending.
+- Comparison preparation: revision7 preserves executed revision6 metadata/results and separately binds the corrected 355-file runtime c3757409 under lock e5b9a8dd. Independent review passes all 24 source/lock/history checks. New actual candidate4/legacy4 runs have not started. Old four-case results remain historical under their original locks.
+- Platform correction: KI-0090 remains IN_PROGRESS pending native Windows confirmation. Ubuntu d99c CI has passed; macOS/Windows are still running. Local direct-compiler positive/negative checks pass without longer timeouts or weaker cleanup.
+- Actual public evidence: the latest clean8ae96f0 30-source run records 17 network-closure refusals, 7 form/protected-surface refusals and 6 interference rows; action requests/scored rows zero, accuracy/site acceptance null. Literal labels match their original oracle; challenge/dialog and transport boundaries still refuse. Prior attempts remain retained. A fresh corrected-runtime run is pending.
+- Remaining gate evidence: actual normal-user Simplify comparison is zero cases; the suitable signed-in synthetic session request remains pending. Public scored coverage and formal independent W15/Gate A decision remain incomplete. Supplemental review resumed and supplied KI-0091; earlier quota errors are historical.
+- Owner instruction (OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER and is not a blocker. A waiver supplies no executed holdout, accuracy, safety, platform or comparison result.
+- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED, release NOT_READY; M03 remains NOT_STARTED. No employer submission or production ATS support claim.
 
 ## Milestone table
 
@@ -392,6 +392,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 - KI-0089 (HIGH, OPEN) — Gate A public scored coverage, actual Simplify comparison and final independent review/decision remain incomplete.
 - KI-0090 (HIGH, IN_PROGRESS) — Windows compiler-probe correction needs native CI confirmation.
+- KI-0091 (HIGH, IN_PROGRESS) — Native-validity publication correction needs complete affected regression.
 
 ## Status conventions and update rules
 

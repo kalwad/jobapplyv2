@@ -95,13 +95,37 @@ export async function optionValueDigest(value: string): Promise<string> {
 }
 
 /** Synchronous final-publication witness for native properties MutationObserver
- * cannot observe. Only the resolved anchor/members are inspected; no tree walk,
- * hashes, events or page writes occur. File objects are immutable browser values. */
+ * cannot observe. Value sources and the driver's actual native acceptance
+ * sources are captured before observation awaits. The final check reads only
+ * those properties; no tree walk, hashes, events or page writes occur. */
 export function captureNativePropertyWitness(
   elements: readonly HTMLElement[],
+  acceptanceElements: readonly HTMLElement[] = [],
 ): () => boolean {
   if (elements.length > 129) return () => false;
   const checks: (() => boolean)[] = [];
+  const nativeAcceptance = [
+    ...new Set([...elements, ...acceptanceElements]),
+  ].filter(
+    (element): element is ValueHost =>
+      element instanceof HTMLInputElement ||
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLSelectElement,
+  );
+  if (nativeAcceptance.length > 129) return () => false;
+  for (const element of nativeAcceptance) {
+    const willValidate = element.willValidate;
+    const message = element.validationMessage;
+    // ValidityState is live. Snapshot exactly the scalar acceptance inputs
+    // readSiteAcceptance reads, never the ValidityState object's identity.
+    const valid = element.validity.valid;
+    checks.push(
+      () =>
+        element.willValidate === willValidate &&
+        element.validationMessage === message &&
+        element.validity.valid === valid,
+    );
+  }
   for (const element of new Set(elements)) {
     if (element instanceof HTMLInputElement) {
       if (element.type === "file") {

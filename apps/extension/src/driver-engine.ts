@@ -306,10 +306,10 @@ export function captureDriverObservationWitness(
   driver: ControlDriver,
   context: DriverContext,
 ): () => boolean {
-  const nativeCurrent = captureNativePropertyWitness([
-    context.target.anchor,
-    ...context.target.members,
-  ]);
+  const nativeCurrent = captureNativePropertyWitness(
+    [context.target.anchor, ...context.target.members],
+    driver.acceptanceElements?.(context) ?? [],
+  );
   const extraCurrent = driver.captureObservationWitness?.(context);
   return () => nativeCurrent() && (extraCurrent?.() ?? true);
 }

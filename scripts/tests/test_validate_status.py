@@ -81,6 +81,7 @@ CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
     "KI-0088",
     "KI-0089",
     "KI-0090",
+    "KI-0091",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -2627,6 +2628,7 @@ def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) ->
             "- KI-0088 (HIGH, IN_PROGRESS) — synthetic later observation finding",
             "- KI-0089 (HIGH, IN_PROGRESS) — synthetic later external evidence gap",
             "- KI-0090 (HIGH, IN_PROGRESS) — synthetic later Windows compiler finding",
+            "- KI-0091 (HIGH, IN_PROGRESS) — synthetic later native validity finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
@@ -2664,6 +2666,7 @@ def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> No
             "- KI-0088 (HIGH, IN_PROGRESS) — synthetic current observation finding",
             "- KI-0089 (HIGH, IN_PROGRESS) — synthetic current external evidence gap",
             "- KI-0090 (HIGH, IN_PROGRESS) — synthetic current Windows compiler issue",
+            "- KI-0091 (HIGH, IN_PROGRESS) — synthetic current native validity issue",
         ],
     )
     reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")
