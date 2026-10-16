@@ -1,4 +1,37 @@
 /** Pure lifecycle/evidence fences. All browser and filesystem effects are ports. */
+import type { NetworkClosure } from "./contact-harness.ts";
+
+/** A known pre-action refusal is an observation, not permission to write.
+ * Every other error retains its identity for the campaign's stop fence. */
+export async function closeNetworkForObservation(ports: {
+  close(): Promise<void>;
+  snapshot(): { closed: boolean; closure: NetworkClosure };
+}): Promise<{ state: "CLOSED" | "REFUSED_PENDING_HTTP" }> {
+  try {
+    await ports.close();
+  } catch (error) {
+    const { closed, closure } = ports.snapshot();
+    if (
+      error instanceof Error &&
+      error.message === "W14_PENDING_HTTP_REFUSES_NETWORK_CLOSURE" &&
+      !closed &&
+      closure.state === "REFUSED_PENDING_HTTP" &&
+      Number.isSafeInteger(closure.pending_http_requests) &&
+      closure.pending_http_requests > 0
+    )
+      return { state: "REFUSED_PENDING_HTTP" };
+    throw error;
+  }
+  const { closed, closure } = ports.snapshot();
+  if (
+    !closed ||
+    closure.state !== "CLOSED" ||
+    closure.pending_http_requests !== 0
+  )
+    throw new Error("W14_NETWORK_CLOSURE_NOT_CONFIRMED");
+  return { state: "CLOSED" };
+}
+
 export type RunnerEvidenceRow = Record<string, unknown>;
 export type RunnerFailureStage =
   "LAUNCH" | "OBSERVATION" | "CLEANUP" | "ERROR_SNAPSHOT" | "ROW_JOURNAL";

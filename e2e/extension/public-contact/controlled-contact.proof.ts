@@ -883,6 +883,54 @@ test("outstanding initial HTTP causes explicit refusal before contact writes", a
     expect(session.closed).toBe(false);
     expect(session.closure.state).toBe("REFUSED_PENDING_HTTP");
     expect(session.closure.pending_http_requests).toBeGreaterThan(0);
+    const { closeNetworkForObservation } = await import("./runner-evidence.ts");
+    expect(
+      await closeNetworkForObservation({
+        close: () => session.closeNetwork(),
+        snapshot: () => ({ closed: session.closed, closure: session.closure }),
+      }),
+    ).toEqual({ state: "REFUSED_PENDING_HTTP" });
+    // A matching stale state cannot turn another operational failure into a
+    // normal refusal. Preserve the original error and stop the campaign.
+    const unexpected = new Error("unexpected closure failure");
+    await expect(
+      closeNetworkForObservation({
+        close: () => Promise.reject(unexpected),
+        snapshot: () => ({ closed: false, closure: session.closure }),
+      }),
+    ).rejects.toBe(unexpected);
+    const claimedPending = new Error(
+      "W14_PENDING_HTTP_REFUSES_NETWORK_CLOSURE",
+    );
+    for (const pending of [0, -1, 0.5])
+      await expect(
+        closeNetworkForObservation({
+          close: () => Promise.reject(claimedPending),
+          snapshot: () => ({
+            closed: false,
+            closure: { ...session.closure, pending_http_requests: pending },
+          }),
+        }),
+      ).rejects.toBe(claimedPending);
+    for (const snapshot of [
+      { closed: true, closure: session.closure },
+      {
+        closed: false,
+        closure: { ...session.closure, state: "OPEN" as const },
+      },
+    ])
+      await expect(
+        closeNetworkForObservation({
+          close: () => Promise.reject(claimedPending),
+          snapshot: () => snapshot,
+        }),
+      ).rejects.toBe(claimedPending);
+    await expect(
+      closeNetworkForObservation({
+        close: () => Promise.resolve(),
+        snapshot: () => ({ closed: false, closure: session.closure }),
+      }),
+    ).rejects.toThrow("W14_NETWORK_CLOSURE_NOT_CONFIRMED");
     await expect(page.locator("#first")).toHaveValue("");
     await expect(page.locator("#email")).toHaveValue("");
   } finally {

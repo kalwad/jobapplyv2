@@ -32,6 +32,7 @@ import {
 import {
   actionObservationSnapshot,
   captureRunnerPage,
+  closeNetworkForObservation,
   finalizeRunnerEvidence,
   type RunnerFinalization,
 } from "./runner-evidence.ts";
@@ -201,7 +202,26 @@ for (const source of PUBLIC_SOURCES) {
       partial.http_status = response?.status() ?? null;
       // Await the harness HTTP/WebSocket closure before freezing. This is not
       // evidence that every pre-existing transport or remote validator is closed.
-      await session.closeNetwork();
+      const closure = await closeNetworkForObservation({
+        close: () => session.closeNetwork(),
+        snapshot: () => ({ closed: session.closed, closure: session.closure }),
+      });
+      if (closure.state === "REFUSED_PENDING_HTTP")
+        return {
+          source,
+          ...partial,
+          prepared: null,
+          executions: [],
+          reconciliation: null,
+          ...actionObservationSnapshot(events, null, false, actualNavigation),
+          network_observations: session.network,
+          failed_request_metadata: requestsFailed,
+          network_closed: session.closed,
+          network_closure: session.closure,
+          natural_site_acceptance: null,
+          site_acceptance_measurement: "UNMEASURED_NETWORK_CLOSED",
+          evaluation_state: "REFUSED_NETWORK_CLOSURE",
+        };
       actionPhase = true;
       beforeEvents = { ...events };
       const frozen = await freezePlan(
