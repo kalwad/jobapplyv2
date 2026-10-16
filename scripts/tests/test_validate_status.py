@@ -82,6 +82,8 @@ CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
     "KI-0089",
     "KI-0090",
     "KI-0091",
+    "KI-0092",
+    "KI-0093",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -2629,6 +2631,8 @@ def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) ->
             "- KI-0089 (HIGH, IN_PROGRESS) — synthetic later external evidence gap",
             "- KI-0090 (HIGH, IN_PROGRESS) — synthetic later Windows compiler finding",
             "- KI-0091 (HIGH, IN_PROGRESS) — synthetic later native validity finding",
+            "- KI-0092 (HIGH, IN_PROGRESS) — synthetic later reporting finding",
+            "- KI-0093 (HIGH, IN_PROGRESS) — synthetic later encoding finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
@@ -2667,6 +2671,8 @@ def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> No
             "- KI-0089 (HIGH, IN_PROGRESS) — synthetic current external evidence gap",
             "- KI-0090 (HIGH, IN_PROGRESS) — synthetic current Windows compiler issue",
             "- KI-0091 (HIGH, IN_PROGRESS) — synthetic current native validity issue",
+            "- KI-0092 (HIGH, IN_PROGRESS) — synthetic current reporting issue",
+            "- KI-0093 (HIGH, IN_PROGRESS) — synthetic current encoding issue",
         ],
     )
     reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")
@@ -2734,13 +2740,14 @@ def test_gate_v2_waiver_binds_accepted_owner_record_all_gates(
 def test_gate_v2_waiver_refuses_unaccepted_adr(repo_copy: Path, state: str) -> None:
     bundle, decision = _typed_waiver_pair(repo_copy)
     path = repo_copy / "docs/DECISIONS.md"
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     heading = validate_status.OWNER_HOLDOUT_WAIVER_HEADING
     prefix, section = text.split(heading, 1)
     path.write_text(
         prefix
         + heading
-        + section.replace("- Status: ACCEPTED", f"- Status: {state}", 1)
+        + section.replace("- Status: ACCEPTED", f"- Status: {state}", 1),
+        encoding="utf-8",
     )
     assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
 
@@ -2762,12 +2769,13 @@ def test_gate_v2_waiver_refuses_fabricated_record_digest(repo_copy: Path) -> Non
 def test_gate_v2_waiver_refuses_changed_own_record_preimage(repo_copy: Path) -> None:
     bundle, decision = _typed_waiver_pair(repo_copy)
     path = repo_copy / "docs/DECISIONS.md"
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     heading = validate_status.OWNER_HOLDOUT_WAIVER_HEADING
     path.write_text(
         text.replace(
             heading + "\n", heading + "\n\n- Additional accepted-record context.\n", 1
-        )
+        ),
+        encoding="utf-8",
     )
     assert validate_status._owner_holdout_waived(repo_copy)
     assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
@@ -2777,14 +2785,15 @@ def test_gate_v2_waiver_ignores_unrelated_later_adr(repo_copy: Path) -> None:
     bundle, decision = _typed_waiver_pair(repo_copy)
     before = validate_status._owner_holdout_waiver_digest(repo_copy)
     path = repo_copy / "docs/DECISIONS.md"
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     path.write_text(
         text.replace(
             "## ADR template",
             "### ADR-9999 — Unrelated synthetic later decision\n\n"
             "- Status: PROPOSED\n\n## ADR template",
             1,
-        )
+        ),
+        encoding="utf-8",
     )
     assert validate_status._owner_holdout_waiver_digest(repo_copy) == before
     assert _typed_waiver_authority_problems(repo_copy, bundle, decision) == []
@@ -2804,7 +2813,9 @@ def test_gate_v2_waiver_refuses_invalid_owner_decision_row(
         if change == "duplicate"
         else row.replace("| ACCEPTED |", "| PROPOSED |")
     )
-    path.write_text(path.read_text().replace(row, replacement, 1))
+    path.write_text(
+        path.read_text(encoding="utf-8").replace(row, replacement, 1), encoding="utf-8"
+    )
     assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
 
 

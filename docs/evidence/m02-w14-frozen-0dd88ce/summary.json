@@ -1,0 +1,112 @@
+{
+  "head": "0dd88ce23771f7da88d7ef103fea35e459b70392",
+  "tree": "5502c462d6e61a90fe5b9deb72a31ebe0e9f16b9",
+  "exit_code": 0,
+  "active_suites": [
+    "toolchain",
+    "format",
+    "lint",
+    "typecheck",
+    "unit-ts",
+    "contract-gen",
+    "fixture-corpus",
+    "evaluation-corpus",
+    "contract",
+    "build",
+    "e2e-browser",
+    "w14-public-controlled",
+    "w14-public-contact-controlled",
+    "python",
+    "rust",
+    "portability",
+    "traceability",
+    "status",
+    "integrity"
+  ],
+  "unit_ts_passed": 3859,
+  "default_browser_passed": 234,
+  "controlled_contact_passed": 62,
+  "python_passed": 1454,
+  "python_seconds": 285.82,
+  "native128_target": {
+    "samples": 20,
+    "p95_ms": 1489.9990840000028,
+    "threshold_ms": 1500,
+    "settle_budget_ms": 0,
+    "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+  },
+  "w14_metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 871.8325829999521,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "w14_physical_safety": {
+    "sensitive_fills": 0,
+    "honeypot_fills": 0,
+    "catastrophic_option_errors": 0,
+    "duplicate_actions": 0,
+    "navigation_activations": 0,
+    "submission_activations": 0,
+    "paused_boundary_actions": 0
+  },
+  "w14_immutability": {
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "declarations_unchanged": true,
+    "end_source_digest": "sha256:7e68c4c57815291d67b37414496a50d433b7fd5dcad900ef60ccf892eada5cc2",
+    "end_build_digest": "sha256:79bbf698e2af0b3f270bbdec2814df450bcc2a8ff04809bf259b23242a9fc991"
+  },
+  "frozen_completion": {
+    "exit_code": 0,
+    "head_unchanged": true,
+    "status_before": "",
+    "status_after": "",
+    "tracked_inventory_unchanged": true,
+    "ended_at": "2026-10-16T21:19:27Z"
+  },
+  "visual": "NOT_YET_APPLICABLE_NOT_A_PASS",
+  "limits": "Source-scoped corrected-runtime full local verification. Canonical safety PASS does not supply every Gate A dimension. Original W13 scorer retains 90 incorrect abstentions; supplemental preservation90 does not erase these or count as fills. No public/Simplify or owner approval is inferred."
+}

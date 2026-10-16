@@ -1,0 +1,69 @@
+{
+  "format_version": "W14_KI0092_REPORTING_CORRECTION_PROPOSAL_1",
+  "authority": "NONE",
+  "status": "PROPOSED_OUTSIDE_ROOT_NOT_APPLIED_NOT_TESTED",
+  "base_commit": "0dd88ce23771f7da88d7ef103fea35e459b70392",
+  "patch_sha256": "sha256:483b8c23227505fbe55d56a4a7c8cfbaa21f4eea75fcacd310d3dfd47d4a7dbe",
+  "changed_files": [
+    {
+      "path": "docs/TEST_EVIDENCE.md",
+      "before_sha256": "sha256:2311802e63f6ab45ea01f5b2f36c39a5b9bcad04e28ab796a900f7d59fbd44e7",
+      "after_sha256": "sha256:ccd8e4bb32a8b2a3978ab4ddaf4164a7e61d49ea8636b828ccf1dda769cae035",
+      "before_bytes": 869793,
+      "after_bytes": 870061
+    },
+    {
+      "path": "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "before_sha256": "sha256:27fee39f7fe06727a2402f4cb84b670cbf3fc7f535c229002c15774b42e65490",
+      "after_sha256": "sha256:9a3e69e8249d5b82227cfad2f8687c9142a80371edc2210770e538d97ad7a99f",
+      "before_bytes": 18690,
+      "after_bytes": 18968
+    },
+    {
+      "path": "docs/KNOWN_ISSUES.md",
+      "before_sha256": "sha256:f23276c4bc6f9ff740703c22b67796fa7ab9a0982bd070cc8915babfff1e17f2",
+      "after_sha256": "sha256:6e90020650e23a842fed95dfb0aca04f21f6ce5407d06ea41354f6b299b3c958",
+      "before_bytes": 248010,
+      "after_bytes": 250890
+    },
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "before_sha256": "sha256:fc97db8dd783b734e5bfae6cc6e1da520848a9f9a13c02961a1b74a1c96c27a7",
+      "after_sha256": "sha256:f04266f10774f11a2a77ffb23d14821702f8a957312a39bb201e51f354c866d2",
+      "before_bytes": 106364,
+      "after_bytes": 106545
+    }
+  ],
+  "revision6_original_evidence_unchanged": [
+    {
+      "path": "docs/evidence/m02-w14-comparisons-actual/paired-comparison.json",
+      "sha256": "sha256:a1162c802c512ec741e7c500f68ed6bcfc8e971eef870afdaec6271cc1e424c8",
+      "bytes": 623678
+    },
+    {
+      "path": "docs/evidence/m02-w14-comparisons-actual/proof.tar.gz",
+      "sha256": "sha256:017c88bd23b00158870d1cb23c5369b8ee32fc3d86f18ce737fef5f87ae79e5d",
+      "bytes": 1399137
+    },
+    {
+      "path": "docs/evidence/m02-w14-comparisons-actual/retention-manifest.json",
+      "sha256": "sha256:409e2e412b9060fcc9cac0b63f08b5ed1d67f8154cc91d9bfe3f792606b57edf",
+      "bytes": 6556
+    }
+  ],
+  "revision7_audited_proof": {
+    "eventual_path": "docs/evidence/m02-w14-revision7-actual/proof.tar.gz",
+    "sha256": "sha256:1f4e05a9f86d94832cbfde33b1d7b38d73255f42efd00337954e2ccfaf3a2018",
+    "regular_members": 25
+  },
+  "test_function_names_unchanged": true,
+  "python_ast_syntax_valid": true,
+  "existing_assertions_unchanged": true,
+  "synthetic_list_additions": 3,
+  "tests_run": 0,
+  "builds_run": 0,
+  "browsers_started": 0,
+  "root_writes": 0,
+  "package_and_gate_state_changes": false,
+  "functional_changes": false
+}

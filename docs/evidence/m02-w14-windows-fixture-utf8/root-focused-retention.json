@@ -1,0 +1,73 @@
+{
+  "archive_sha256": "7eb1b8efcbe101dc8ada8d63933205998a497c33dfb1f3fbdf8689782dfdfb22",
+  "archive_bytes": 5775,
+  "regular_members": 13,
+  "scope": "Exact final root focused stdout and preceding reporting integration; source/code assertions unchanged. Corrected native Windows pending.",
+  "files": [
+    {
+      "path": "utf8-root/archives-after-archive.json",
+      "bytes": 4251,
+      "sha256": "0030c18db30de4cd32abc9d3fc47e7434265388e4e46d868e4597d641e2f6ebe"
+    },
+    {
+      "path": "utf8-root/final-archive-audit.json",
+      "bytes": 4251,
+      "sha256": "0030c18db30de4cd32abc9d3fc47e7434265388e4e46d868e4597d641e2f6ebe"
+    },
+    {
+      "path": "utf8-root/final-prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "utf8-root/final-ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "path": "utf8-root/final-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "utf8-root/final-status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "utf8-root/final-traceability.log",
+      "bytes": 68,
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779"
+    },
+    {
+      "path": "utf8-root/final-types.log",
+      "bytes": 42,
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+    },
+    {
+      "path": "utf8-root/ledger201-after-archive.log",
+      "bytes": 272,
+      "sha256": "e04602ec524d572de9537310c2bfe0d09bbcf651acb2a62cb5b8a5ca70d28066"
+    },
+    {
+      "path": "utf8-root/ledger201.log",
+      "bytes": 16148,
+      "sha256": "4cd22a87439417f2e43aac219a14ea855e9e56404702ec8290f583e3e0aa9d22"
+    },
+    {
+      "path": "utf8-root/prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "utf8-root/status-after-archive.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "reporting-root/ledger201.log",
+      "bytes": 272,
+      "sha256": "4ffea74d02a08a8087c28452491a37e3ab88f17198262400d1e105eade119723"
+    }
+  ]
+}
