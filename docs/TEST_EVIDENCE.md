@@ -35,6 +35,40 @@ Exact verification commands and summarized results
 
 ### M02-W14 — Visible development campaigns and supplemental comparison preparation (2026-10-16)
 
+#### Latest frozen validation and public observation correction — 2026-10-16
+
+This checkpoint supersedes the earlier pending local validation statements below without changing any historical failure. M02-W14 and Gate A remain IN_PROGRESS. KI-0077 through KI-0088 are FIXED; KI-0089 records the remaining external evidence gap. M02-W15 is NOT_STARTED and M03 is ineligible. Owner holdout remains WAIVED_BY_OWNER under ADR-0006.
+
+The complete frozen command was executed at clean commit `b8b1423bb009afe655d0951a74bb39666ead8715`, without edits throughout the run:
+
+```sh
+env PATH=/opt/homebrew/opt/node@24/bin:$PATH JAPP_W13_PERFORMANCE_SAMPLES=20 JAPP_W14_REQUIRE_TARGET_PERFORMANCE=1 JAPP_W14_ARTIFACT_DIRECTORY=/tmp/japp-w14-frozen-final-20261016/w14 pnpm verify > /tmp/japp-w14-frozen-final-20261016/aggregate.log 2>&1
+```
+
+Exit 0: all 19 active suites PASS; visual honestly NOT_YET_APPLICABLE. Observed totals are 3,859 TypeScript units, 228 default browser tests, 61 then-required controlled contact proofs and 1,454 Python tests. Rust, frozen corpus, contract generation, portability, traceability, status and integrity pass. Before/after Git status is clean. The 200-case contact cohort retains 4,020 logical/4,060 native controls, precision 1,485/1,485, required ordinary recall 1,275/1,275, required reporting 770/770, persistence 1,485/1,485 and preservation 90/90, with zero measured physical safety events. Full-settlement p95 is **865.8358330000192 ms** with the same 75 ms settle/20 ms rerender. The separate native128 target 20 p95 is **1480.3922500000008 ms**, below the unchanged 1,500 ms threshold; it remains a zero-settle development lower bound. Source/build/declarations remain unchanged: source `9b9d53d41d36475297a761dbc455501de9d5860c55cf22e6659bd216642dc4cc`, default build `d431e1d15a86d82e1dd54cfe04f9d03b79eb00501e3d2793f894d42836bceed8`.
+
+The byte-preserved full log, summary and raw campaign are retained in `docs/evidence/m02-w14-frozen-b8b1423/proof.tar.gz`: SHA-256 `1c6f71f5e809c8a05129c17c93d59611bceabd3de2875b4ce5a9a028bca966c2`, 14 regular members. Earlier failed aggregates and their artifacts remain separately retained. Hosted run [38955928003](https://github.com/kalwad/jobapplyv2/actions/runs/38955928003) binds exactly b8b1423; Ubuntu and macOS completed successfully, Windows was still running at the recorded checkpoint. Hosted CI validates repository/toolchain behavior, not packaged product certification.
+
+Actual public diagnosis found that the frozen native labels `First Name*`, `Last Name*`, `Email*`, `Phone*` had not drifted. The observer preferred different ARIA labels and falsely rejected the row. Commit `8ae96f0966f101fff55f178b15ce12c7dbb533b9` observes literal native associated labels first and retains the alternative channels separately, without stripping markers or modifying the oracle. Its new controlled proof also verifies that conflicting employer ownership refuses. A fixed read-only 5,000 ms / 50 ms / maximum 100-poll acquisition window observes natural HTTP completion before the same strict closure guard. Held requests and closure races still refuse; this observation grants no action authority. Product drivers, default bundle and all 355 inputs in the actual revision6 legacy runtime binding remain unchanged.
+
+Focused verification at the 8ae96f0 correction scope passed: both label/held-request browser probes, all **62** mandatory controlled contact proofs (all original 61 retained), 19 Python verifier guards, ESLint, root TypeScript, Prettier and Ruff. The canonical Python preflight retains exactly 1,454 node IDs and digest `155570431ee494bad264af6849d3474d9a95ad1091a49e06c56d2b5dfc92db94`. The registry/verification minimum increases from 61 to 62; no acceptance threshold is reduced. Exact retained command logs identify the tests, source scope and outcomes; a fresh current-revision hosted aggregate is tracked through [PR #1](https://github.com/kalwad/jobapplyv2/pull/1).
+
+After a fresh explicit public-contact build, this exact invocation completed on clean 8ae96f0:
+
+```sh
+env PATH=/opt/homebrew/opt/node@24/bin:$PATH JAPP_W14_PUBLIC_CONTACT_EVALUATION=1 JAPP_W14_PUBLIC_CONTACT_RUN=1 JAPP_W14_PUBLIC_CONTACT_ARTIFACT_DIRECTORY=/tmp/japp-w14-public-final-20261016/campaign-after-acquisition-fix node e2e/extension/public-contact/run-contact.ts > /tmp/japp-w14-public-final-20261016/run-after-acquisition-fix.log 2>&1
+```
+
+Exit 0, all 30 declared rows recorded: **17 REFUSED_NETWORK_CLOSURE, 7 REFUSED, 6 NETWORK_OR_NAVIGATION_INTERFERENCE**. Campaign complete, campaign_error/integrity_error null, zero evidence-write failures; the action journal is empty, executions/scored rows are zero, public accuracy/site acceptance are null. The visible Greenhouse labels now match, while challenge/dialog policy or strict transport conditions still refuse eligible preparations. Initial Lever interference is retained and cannot be omitted to grant action authority. Workday method-choice/consent and other source boundaries remain untouched. No URL/oracle is replaced to improve coverage. All owned contexts closed normally.
+
+The correction logs, value-free label diagnostic, read-only natural-drain diagnostic and actual 30-row campaign are retained in `docs/evidence/m02-w14-public-observation-correction/proof.tar.gz`: SHA-256 `ab26ba7132dcdbce367341c12dc62e1cb8e16e012b6e8cdf5393318e8eb8fb4b`, 35 regular members. The longer read-only drain diagnostic is distinct from the fixed 5-second acquisition configuration used by the actual campaign. Archive logs preserve original terminal bytes. Retention manifests inventory every member.
+
+These outcomes close local defects and preserve useful refusal evidence, but supply no public accuracy score. The actual paired legacy evidence below remains source-bound (40/40 versus 28/40 exact, 40/40 versus 32/40 phone equivalent, four related examples/one shared component). Simplify remains zero actual cases; a normal signed-in synthetic session is pending, without requesting credentials. Independent final review agents hit the account usage limit and supplied no final verdict. None of these gaps is an owner-holdout blocker or grounds for a fabricated gate decision.
+
+Final ledger consolidation at the working tree based on 8ae96f0: `env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run pytest scripts/tests/test_validate_status.py -q > /tmp/japp-w14-public-final-20261016/final-status-tests.log 2>&1` → exit 0, **201 passed in 48.22 s**. Historical fixtures explicitly remove later W14 findings; the current W14 boundary preserves every finding, including KI-0089. `python3 scripts/validate_status.py` passes all 45 groups; `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm traceability:check` passes 193 requirements/300 packages. Ruff lint/format on the changed fixture and `git diff --check` pass. These results, exact fixture-source patch and hashes are separately retained beside the immutable 35-member public archive in `ledger-retention.json`; no original archive is overwritten. No Python test node is added or removed.
+
+#### Earlier W14 checkpoints (historical)
+
 - Revision: uncommitted W14 work based on commit `4d6a3e57af8d6224ac1cc7efeabcdacfbc306483` / ancestor tree `e3cc8c19a4340188c6b3d416a34848a9040587cd`. Every historical campaign records `DIRTY_SOURCE` and its own inventory below; these ancestor coordinates are not the candidate's frozen content revision. Later changes cannot inherit an earlier campaign's timing or validation.
 - Prerequisites: M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED. W14 remains IN_PROGRESS; W15 NOT_STARTED; Gate A IN_PROGRESS; other gates NOT_EVALUATED; release NOT_READY; no READY package.
 - Owner amendment: OD-035 / ADR-0006 authorizes continuous eligible execution and waives owner-controlled holdout only. Holdout state is WAIVED_BY_OWNER, not executed or passed. Numerical thresholds, physical safety, actual comparisons, independent review and scoped platform proof remain required.

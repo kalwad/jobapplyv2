@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W14 working tree based on b942eb1 (runtime corrections committed at 15c7e33)
-Last updated: 2026-10-16T19:31:00Z
+Repository revision: M02-W14 working tree based on 8ae96f0; frozen checkpoint b8b1423 passed all 19 active suites
+Last updated: 2026-10-16T20:13:00Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -23,13 +23,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. W15 NOT_STARTED; no package is READY.
-- Current numeric evidence: committed runtime 15c7e33 scores 200/200 recipes/4020 logical controls with precision1485/1485, required ordinary recall1275/1275, reporting770/770, persistence1485/1485 and preservation90/90. Full-settlement p95 857.1561660000007ms; separate target 20 native128 p95 1333.9919169999994ms. All measured physical safety counters are0; individual source/build/declarations are unchanged. Historical misses remain retained.
-- Corrections: exact V1 restoration preserves all 103 W06 artifacts while explicit V2 retains reviewed114-rule semantics. Root3859 units pass. Current W06 passes 32 cases/43 controls; all 35 affected shadow/P8 cases and61 controlled contact proofs pass. Ownership, option semantics, property freshness and native observation corrections remain integrated. Final frozen aggregate is pending.
-- Aggregate qualification: the prior aggregate had17/19 active suites pass, five contradictory new shadow-status assertions, one missing-artifact Windows simulation and neutrality failures caused by concurrent root edits. Those failures are preserved. Stronger shadow assertions pass 35/35 and the corrected healthy doctor fixture passes 50/50. The next aggregate must hold all tracked files unchanged throughout execution.
-- Actual public evidence: all 30 declared pages recorded with source/build/oracle integrity intact:18 network-closure refusals and12 form/oracle refusals. No autofill action was issued and no public accuracy credit is claimed. A read-only Lever diagnostic still had pending requests after 1s; the guard remains strict. The initial one-page incomplete attempt is retained separately.
-- Actual legacy evidence: integrated original four-case peer remains32/40 versus 28/40 exact,32/40 versus 32/40 with disclosed phone equivalence. The separately frozen revision6 candidate 4/legacy4 pair measures40/40 versus 28/40 exact,40/40 versus 32/40 with phone equivalence. Both actors use the same native observer and source lock `47b6fe33`; direct-child cleanup is verified, browser descendants UNOBSERVED. Four related synthetic examples establish no broad product, statistical or timing superiority.
-- Remaining evidence: actual normal-user Simplify comparison is0 cases; an authenticated synthetic comparison session has not been made available. Public scored coverage, final independent W15 audit and Gate A decision remain incomplete. The previous independent correction probes remain distinct from final gate acceptance.
+- State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. W15 NOT_STARTED; no package is READY. Per-W stopping remains superseded by ADR-0006.
+- Frozen code validation: b8b1423 passes all 19 active suites with a clean unchanged tree: 3859 TypeScript units, 228 default browser tests, 61 then-required controlled contact proofs and 1454 Python tests. Visual is honestly NOT_YET_APPLICABLE. Native128 target 20 p95 1480.3922500000008ms meets the unchanged 1500ms limit; the 200-case full-settlement p95 is 865.8358330000192ms.
+- Numeric scope: 200/200 contact recipes/4020 logical controls, precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770, persistence 1485/1485, preservation 90/90 and measured physical safety 0. Source/build/declarations are unchanged. Older measurements and failures remain historical; no full-product or unexercised-feature claim.
+- Local corrections: KI-0077 through KI-0087 are FIXED by the frozen aggregate. KI-0088's observation correction is FIXED with 62 mandatory controlled proofs, 19 verifier guards, static checks and unchanged 1454-node Python inventory. All 61 prior controlled tests remain. Production driver/bundle and the 355-file legacy runtime binding are unchanged by the public observation changes. Current revision verification is linked through PR #1 checks.
+- Actual public evidence: the latest immutable 30-source run on 8ae96f0 records 17 network-closure refusals, 7 form/protected-surface refusals and 6 interference rows. Action requests 0, scored rows 0 and accuracy/site acceptance null. Visible labels now match their original oracle; candidate CAPTCHA/dialog and transport boundaries still refuse. Initial incomplete and earlier 30-refusal runs are preserved separately. No map/URL/threshold is changed to hide these outcomes.
+- Actual legacy evidence: original four-case peer 32/40 versus 28/40 exact, 32/40 versus 32/40 with phone equivalence. Separate revision 6 candidate 4/legacy 4 pair 40/40 versus 28/40 exact, 40/40 versus 32/40 with phone equivalence. Same native observer/source lock 47b6fe33; verified owned normal context/direct-child cleanup, descendants UNOBSERVED. Four related synthetic fixtures and one shared component establish no broad/statistical/timing or two-product superiority.
+- Remaining external evidence: actual normal-user Simplify comparison 0 cases; a suitable signed-in synthetic session has not been supplied. Public scored coverage remains incomplete because protected/interfered pages are ineligible. Final independent W15 review and Gate A decision remain incomplete. Owner-controlled holdout remains waived and is not a blocker.
 - Owner instruction (2026-10-16, OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER. A waiver is not executed/passing holdout or an accuracy, safety, platform or comparison result.
 - Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. M03 remains NOT_STARTED. No employer submission or production ATS support claim.
 
@@ -112,7 +112,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
-| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Current200-case and mounted corpus pass; paired legacy comparison recorded; public/Simplify coverage and frozen validation pending; owner holdout waived by ADR-0006 |
+| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Frozen aggregate and paired legacy comparison recorded; public/Simplify coverage and independent Gate A decision pending; holdout waived by ADR-0006 |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
@@ -389,17 +389,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Known release blockers
 
-- KI-0077 (HIGH, IN_PROGRESS) — historical timing misses retained; canonical foreground contact timing passes, complete affected Gate A regression remains in progress.
-- KI-0078 (HIGH, IN_PROGRESS) — localized address recognition and other-party guards have focused regression proof; final W14 canonical verification remains pending.
-- KI-0079 (HIGH, IN_PROGRESS) — document and open-shadow description changes can retain a stale ownership approval; correction and full affected regression are pending.
-- KI-0080 (HIGH, IN_PROGRESS) — the inherited event-only meter cannot exclude eventless writes followed by restoration; independent native-write observation is being added for W14.
-- KI-0081 (HIGH, IN_PROGRESS) — native select, radio and ARIA option labels can retain stale fill and VERIFIED/READY authority despite fresh policy refusal; selected semantic binding and affected regressions are pending.
-- KI-0082 (HIGH, IN_PROGRESS) — public report accounting omits final-only controls; unmatched snapshot topology must be explicit and precision-ineligible.
-- KI-0083 (HIGH, IN_PROGRESS) — property-only value drift during final metadata awaits can publish stale VERIFIED without a DOM mutation record; synchronous observation freshness is pending.
-- KI-0084 (HIGH, IN_PROGRESS) — additive gate semantics changed a frozen W06 evaluator preimage; versioned source preservation is pending integration.
-- KI-0085 (HIGH, IN_PROGRESS) — duplicate field identities are reported as root ambiguity; every physical collision member needs unresolved inventory evidence.
-- KI-0086 (HIGH, IN_PROGRESS) — confirmation evidence becomes stale after primary-email validation; fresh approval and exact composite clearing are pending.
-- KI-0087 (HIGH, IN_PROGRESS) — healthy doctor fixture omitted active W14 artifacts;50 focused tests pass and frozen validation is pending.
+- KI-0089 (HIGH, OPEN) — Gate A public scored coverage, actual Simplify comparison and final independent review/decision remain incomplete.
 
 ## Status conventions and update rules
 

@@ -39,125 +39,151 @@ These entries supersede the older W13 sections' then-current readiness/gate post
 ### KI-0077 — Corrected full-settlement campaign exceeds the target timing threshold
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14
 - Affects: M02-W14; generic scan/fill Gate A performance; real-MV3 full-settlement evaluation
 - Description: the corrected 200-case campaign reports p95 1799.8664160000044 ms; the subsequent sequential batched campaign reports 2087.8410830000066 ms and fails its explicit <=1500 ms assertion. Earlier 1338.2853750000068 ms belongs to a different source with 60 refused cases and deficient precision/recall, so it cannot establish a passing corrected candidate. Timings cover one execution per different W12 page with 75 ms settlement and 20 ms rerender, excluding setup/reporting; repeated 128-control proof remains separate.
 - Reproduction: run the exact batched command in docs/TEST_EVIDENCE.md § M02-W14, retaining source/build/configuration commitments and all physical counters. The fourth trace-disabled run completed and also failed at 2009.8366249999963 ms; no passing current timing is assumed.
 - Workaround: none accepted. Do not round down, omit settlement, reuse earlier source timings or drop difficult cases.
-- Resolution + evidence link: Historical full-settlement misses remain retained. The a744ff2 contact cohort passes p95 874.831582999992ms, but its separate native128 target 20 fails1535.096375000001ms. The pure SHA byte-preserving optimization is now integrated; root target 20 passes 1432.5265840000002ms with unchanged waits/thresholds and exact128/512/768 action-resolution-descriptor counts. Frozen combined-source validation is pending; no final gate result is inherited from an earlier source. See docs/evidence/m02-w14-a744ff2-aggregate and m02-w14-integrated-preflight.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Historical full-settlement misses remain retained. The a744ff2 contact cohort passes p95 874.831582999992ms, but its separate native128 target 20 fails1535.096375000001ms. The pure SHA byte-preserving optimization is now integrated; root target 20 passes 1432.5265840000002ms with unchanged waits/thresholds and exact128/512/768 action-resolution-descriptor counts. Frozen combined-source validation is pending; no final gate result is inherited from an earlier source. See docs/evidence/m02-w14-a744ff2-aggregate and m02-w14-integrated-preflight.
 
 ### KI-0078 — Localized address evidence needs exact recognition and other-party guards
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 full visible matrix evaluation
 - Affects: M02-W14; packages/form-engine evidence normalization, ontology and field classifier
 - Description: frozen W12 address labels including Street/Strasse/Adresse/Postleitzahl/Code postal were not all recognized; adding aliases also required subtype and employer/recruiter-context negatives so applicant address facts could not populate other-party fields.
 - Reproduction: retained locale before log reports 9 failures/2 passes; the later section-negative checkpoint reports 2 failures/14 passes. Permanent tests cover sharp-S normalization, unrelated spelling, subtype/substring rejection and other-party label/section conflicts.
 - Workaround: unresolved/abstained results must remain visible; never change frozen expected answers to match candidate behavior.
-- Resolution + evidence link: local corrections are present; the inspected final form-engine log reports 93/93 tests across 8 files. Corrected/batched campaigns record ordinary precision 1485/1485 and required ordinary recall 1275/1275 on the declared contact cohort. Final W14 frozen/canonical verification remains pending, so this draft does not mark the issue FIXED. See docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-validation.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: local corrections are present; the inspected final form-engine log reports 93/93 tests across 8 files. Corrected/batched campaigns record ordinary precision 1485/1485 and required ordinary recall 1275/1275 on the declared contact cohort. Final W14 frozen/canonical verification remains pending, so this draft does not mark the issue FIXED. See docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-validation.
 
 Current scope limits: the preservation model is supplemental and does not rewrite W13 canonical abstention metrics. Rendered upload/repeater/radio controls do not count as exercised drivers. Thirty public sources are structurally inspected, but public fill cases/scored controls are zero. Actual shared legacy component capture is not full-product comparison; frozen registry statuses remain historical. Simplify requires the normal owner-prepared authenticated synthetic comparison route; installed extension/session state is unknown after the browser-policy rejection. Independent W15 decision is pending.
 
 ### KI-0079 — Changed ownership description can retain a stale fill approval
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 independent adversarial review
 - Affects: M02-W14; scanner description evidence, W09 approval binding, W10 action preflight and W11 reconciliation
 - Description: an approved First name control can retain its durable address when its referenced description changes from Your contact to Employer. Fresh W09 classification rejects the new ownership context, but executing the earlier approval can still write the applicant value. The defect is reproduced in both the document and an open shadow root.
 - Reproduction: the two description-only ownership mutation probes retain the old W09 approval, change only the referenced description text, establish that the new W09 decision does not permit filling, then execute the old approval and measure physical events and the final value. Both before-fix executions wrote the value. Raw failure records are being retained with the shadow implementation evidence.
 - Workaround: do not integrate or claim the shadow candidate safe while this stale approval remains executable.
-- Resolution + evidence link: Bounded ownership, settled undo and final publication guards are integrated. The retained96 and29 probes, expanded72 MV3 cases and twelve unchanged native-observed independent probes pass against their cited source inventories. The integrated aggregate retained223 browser passes and five shadow-status assertion mismatches; their corrected stronger assertions pass 35/35, and fresh frozen validation is pending. Earlier stale-approval and undo failures remain preserved under docs/evidence/m02-w14-shadow-guards, m02-w14-selected-semantics and m02-w14-independent-review.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded ownership, settled undo and final publication guards are integrated. The retained96 and29 probes, expanded72 MV3 cases and twelve unchanged native-observed independent probes pass against their cited source inventories. The integrated aggregate retained223 browser passes and five shadow-status assertion mismatches; their corrected stronger assertions pass 35/35, and fresh frozen validation is pending. Earlier stale-approval and undo failures remain preserved under docs/evidence/m02-w14-shadow-guards, m02-w14-selected-semantics and m02-w14-independent-review.
 
 ### KI-0080 — Event-only action meter cannot exclude eventless writes and restoration
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 independent scoring review
 - Affects: M02-W14; physical-action observation and supplemental initial-value preservation evidence
 - Description: the inherited W13 page meter observes input/change events rather than native setter calls. An eventless write followed by an eventless restore can leave both the event list and final value unchanged. The preservation scorer correctly evaluates its supplied audit, but that meter alone cannot substantiate exhaustive zero-write claims. No eventless production violation has been observed.
 - Reproduction: inspect the event listeners in e2e/extension/support/autofill-benchmark.ts and the zero-action/unchanged-value preservation predicate. An independent real-MV3 setter-to-restore regression is being added before claiming that this observation gap is closed.
 - Workaround: treat historical action counts as event witnesses; do not infer absence of unobserved native property writes from the absence of events.
-- Resolution + evidence link: The independent W14 native observer is integrated and records supported setters/activations in the actual extension realm, separately from site events/rerenders. Four real-MV3 observation probes and a744ff2 full200-case1485 raw/audited actions pass with zero orphans and all declared installed surfaces. Retained references, other realms and uninstalled surfaces remain explicit limits; W13 historical event metrics remain unchanged. Frozen combined-source validation is pending. See docs/evidence/m02-w14-a744ff2-aggregate.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The independent W14 native observer is integrated and records supported setters/activations in the actual extension realm, separately from site events/rerenders. Four real-MV3 observation probes and a744ff2 full200-case1485 raw/audited actions pass with zero orphans and all declared installed surfaces. Retained references, other realms and uninstalled surfaces remain explicit limits; W13 historical event metrics remain unchanged. Frozen combined-source validation is pending. See docs/evidence/m02-w14-a744ff2-aggregate.
 
 ### KI-0081 — Changed selected-option semantics retain stale authority
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
 - Affects: M02-W14; native-select, radio and ARIA option approval, settlement and W11 retained verification
 - Description: an approved Country option can retain its raw value while its label changes to a placeholder or Canada. Fresh W09 policy refuses the changed semantics, but the earlier transaction can still select it and publish VERIFIED/READY; an earlier verified selection can also remain READY after relabelling. The existing unrelated-option preservation fallback discards the whole option fingerprint without retaining the selected option's semantic binding.
 - Reproduction: the independent native-six campaign uses both literal US and opaque 17 values. Before-write relabelling produces one native SELECT_VALUE write and VERIFIED despite fresh NO_SEMANTIC_MATCH; after-verification relabelling preserves READY. The unchanged selected option with an appended Mexico option remains a required positive regression. Original setup failures and corrected native proofs are retained separately under /tmp/japp-w14-independent-probes pending archival.
 - Workaround: no Gate A claim or current-source freeze while stale option authority remains. Do not fix this by rejecting all unrelated option-window changes.
-- Resolution + evidence link: Selected value/label/disabled binding is integrated across native selects, radios and ARIA widgets, with bounded original option snapshots and synchronous publication witnesses. All72 focused MV3 cases and twelve unchanged independent probes pass; unrelated Mexico append and virtualized-list positives remain supported, stale semantics perform zero writes. Before/after failures and exact source commitments are archived under docs/evidence/m02-w14-selected-semantics and m02-w14-independent-review. Combined-source focused checks pass; frozen aggregate is pending.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Selected value/label/disabled binding is integrated across native selects, radios and ARIA widgets, with bounded original option snapshots and synchronous publication witnesses. All72 focused MV3 cases and twelve unchanged independent probes pass; unrelated Mexico append and virtualized-list positives remain supported, stale semantics perform zero writes. Before/after failures and exact source commitments are archived under docs/evidence/m02-w14-selected-semantics and m02-w14-independent-review. Combined-source focused checks pass; frozen aggregate is pending.
 
 ### KI-0082 — Public report snapshot accounting omits inserted controls
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 fresh independent scoring review
 - Affects: M02-W14; network-closed public DOM evaluation report and precision eligibility
 - Description: changes are currently computed by iterating only the before snapshot. A final-only control disappears from identity/change coverage, permitting apparently complete value metrics despite unmatched final topology. This is a reproducible report defect; no saved live public row or production sensitive fill is claimed.
 - Reproduction: replay the exact accounting logic with an initially empty First name control and final First name=Synthetic plus a newly inserted Social Security Number=Synthetic. It reports precision 1, unexpected nonpositive changes 0 and unmeasurable controls 0 while the snapshot lengths are 1 and 2.
 - Workaround: treat unmatched/new/missing/duplicate snapshot identities as unmeasurable. A new control's unknown initial value cannot establish that the extension wrote it.
-- Resolution + evidence link: Union accounting and explicit topology/precision eligibility are integrated. Final-only, missing, duplicate and unmatched controls remain unmeasurable, complete precision is null, and matched-subset metrics stay separately scoped. All61 a744ff2 controlled proofs pass, including the six new pure union regressions; no actual public contact run is inferred. Frozen controlled verification is pending.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Union accounting and explicit topology/precision eligibility are integrated. Final-only, missing, duplicate and unmatched controls remain unmeasurable, complete precision is null, and matched-subset metrics stay separately scoped. All61 a744ff2 controlled proofs pass, including the six new pure union regressions; no actual public contact run is inferred. Frozen controlled verification is pending.
 
 ### KI-0083 — Native property drift escapes final verification publication
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
 - Affects: M02-W14; execute/undo final verification and W11 current-value observation
 - Description: MutationObserver evidence revisions do not observe ordinary value-property assignments. A site can change input.value while the final result metadata hash is awaited, leaving the semantic index current while the result publishes an earlier VERIFIED value.
 - Reproduction: actual native-observed EXECUTE and UNDO probes pause the final idempotency hash, assign Changed by site without dispatching events, confirm MutationObserver.takeRecords().length is zero, then release. Both report VERIFIED despite the changed current value. Extension native mutations remain one for execute and two total for execute plus undo; the site assignment is outside that extension-realm witness scope.
 - Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
-- Resolution + evidence link: Bounded synchronous native-property witnesses are integrated on execute, undo and W11 after the last awaited metadata operation. The original actual eventless EXECUTE/UNDO races and new W11 property race now refuse stale verification while preserving unchanged positives. All twelve original independent probes pass at the recorded source binding. Combined-source aggregate is running; see docs/evidence/m02-w14-independent-review.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded synchronous native-property witnesses are integrated on execute, undo and W11 after the last awaited metadata operation. The original actual eventless EXECUTE/UNDO races and new W11 property race now refuse stale verification while preserving unchanged positives. All twelve original independent probes pass at the recorded source binding. Combined-source aggregate is running; see docs/evidence/m02-w14-independent-review.
 
 ### KI-0084 — Additive gate semantics changed a frozen evaluator preimage
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 integrated aggregate at a744ff2
 - Affects: M02-W14; contract generation, W06 source preservation and compatibility
 - Description: the v2 waiver integration added 7920 bytes to the semantic evaluator source frozen in the W06 manifest. The other 102 source artifacts and all expected answers remain exact, but corpus validation correctly refuses the changed evaluator preimage. Original Python V1 catalog checks also require the original 1.1/110 layer.
 - Reproduction: the full aggregate at a744ff2 fails the ATS source-byte assertion (331227 versus 323307 bytes) and corpus:check with CORPUS_DRIFT. The frozen generator digest is d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02.
 - Workaround: preserve frozen manifests and tests; never rebaseline expected source bytes to the changed implementation.
-- Resolution + evidence link: The exact reviewed24-file versioned repair is integrated. All103 frozen W06 artifacts are restored byte-for-byte, original V1 semantics remain1.1/110, and explicit V2 modules retain reviewed1.2/114 semantics with strict inherited provenance. All81 schemas, original511/new79 cases and both baselines remain unchanged. Outside sealed2524 contracts/173 generated Python/10 Rust pass; root3859-unit and frozen-corpus stages pass. Remaining combined aggregate is running. See docs/evidence/m02-w14-versioned-semantics.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The exact reviewed24-file versioned repair is integrated. All103 frozen W06 artifacts are restored byte-for-byte, original V1 semantics remain1.1/110, and explicit V2 modules retain reviewed1.2/114 semantics with strict inherited provenance. All81 schemas, original511/new79 cases and both baselines remain unchanged. Outside sealed2524 contracts/173 generated Python/10 Rust pass; root3859-unit and frozen-corpus stages pass. Remaining combined aggregate is running. See docs/evidence/m02-w14-versioned-semantics.
 
 ### KI-0085 — Field identity collisions are misreported as root ambiguity
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 integrated browser regression
 - Affects: M02-W14; W11 reconciliation inventory and unresolved required reporting
 - Description: an intentional duplicate control shares a durable field ID with its peer while the application root remains uniquely FOUND. The action correctly refuses, but reconciliation reports ROOT_AMBIGUOUS instead of retaining both physical controls as unresolved observation evidence.
 - Reproduction: the existing research ambiguity case at a744ff2 expects RECONCILED and receives ROOT_AMBIGUOUS; the trace retains root_status FOUND and two required controls with field_45D1MFTFZHA73GSAHCKK2E99QQ. No prohibited write occurs.
 - Workaround: never remove the collision refusal while allowing the field-ID map to overwrite one control.
-- Resolution + evidence link: Observation-only physical collision entries are integrated, with distinct report item IDs, required unresolved uncertainty and canonical RECONCILED/NOT_READY. No DOM occurrence/report ID grants action authority. The strengthened original P8 actual regression and classifier units pass, retaining every collision member and recovery after removal of one duplicate. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Observation-only physical collision entries are integrated, with distinct report item IDs, required unresolved uncertainty and canonical RECONCILED/NOT_READY. No DOM occurrence/report ID grants action authority. The strengthened original P8 actual regression and classifier units pass, retaining every collision member and recovery after removal of one duplicate. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
 
 ### KI-0086 — Mounted confirmation approval becomes stale after cross-field validation
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 mounted W06 regression
 - Affects: M02-W14; fresh W08/W09 approval and composite validation clearing in W10/W11/undo
 - Description: filling primary email in MAL-VAL-001 changes the confirmation control's description. The mounted helper reuses its initial descriptor, so the ownership guard correctly refuses the stale approval and verifies 42 of the expected 43 contact fields. A fresh approval must also prove that only the observed validation error clears while stable help remains unchanged.
 - Reproduction: the a744ff2 W06 attachment records val-email-confirm empty with zero physical actions, its description/address digest changed by Confirm the email address, and the unchanged 43-field assertion fails on 42.
 - Workaround: do not relax description authority or lower the expected count. Do not treat arbitrary description shrinkage as validation clearing.
-- Resolution + evidence link: The existing bounded W08 re-resolution endpoint supplies fresh same-frame/document/field evidence before each W09 decision. Exact component-level clearing permits only observed rejected error text to become empty, retaining stable help/ownership/references through W11 and undo. Outside actual W06 passes 32 cases and43/43 controls with unchanged source/build; P8 and six composite cases pass. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The existing bounded W08 re-resolution endpoint supplies fresh same-frame/document/field evidence before each W09 decision. Exact component-level clearing permits only observed rejected error text to become empty, retaining stable help/ownership/references through W11 and undo. Outside actual W06 passes 32 cases and43/43 controls with unchanged source/build; P8 and six composite cases pass. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
 
 ### KI-0087 — Healthy doctor fixture omits active W14 public artifacts
 
 - Severity: HIGH
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-16 during M02-W14 integrated Python validation
 - Affects: M02-W14; scripts/tests/test_doctor.py healthy Windows simulation
 - Description: the healthy fixture copies the current M02-W14 status and suite registry but omits the two new required public suites' discovery artifacts. The doctor correctly reports REQUIRED_MISSING, contradicting the fixture's healthy premise.
 - Reproduction: integrated Python collects1454 and reports1452 passes/two failures. The Windows simulation reports missing public-inspection/public-contact paths. The other neutrality failure came from root edits during validation and is retained separately.
 - Workaround: preserve the required-suite checks and all original assertions; never mark the suites not applicable to make a healthy fixture pass.
-- Resolution + evidence link: copy the four actual committed discovery artifacts into the simulated repo. All50 doctor tests pass, including the unchanged healthy-Windows and tracked-file neutrality assertions; Ruff lint/format pass. Full frozen validation remains pending. Exact logs are retained under docs/evidence/m02-w14-integrated-checkpoint.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: copy the four actual committed discovery artifacts into the simulated repo. All50 doctor tests pass, including the unchanged healthy-Windows and tracked-file neutrality assertions; Ruff lint/format pass. Full frozen validation remains pending. Exact logs are retained under docs/evidence/m02-w14-integrated-checkpoint.
+
+### KI-0088 — Public observation chooses a different label channel from the frozen capture
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 actual public evaluation
+- Affects: M02-W14; independent literal-control observation and startup readiness
+- Description: Greenhouse's visible First Name*/Last Name*/Email*/Phone* labels still match the frozen oracle, but the observer prefers ARIA labels without the required marker and falsely reports oracle drift. Closure also may be attempted during ordinary startup traffic.
+- Reproduction: retained read-only label-channel diagnostic reads no values and confirms the associated labels exactly, separately from ARIA. A read-only Lever diagnostic naturally drains pending requests to0 around2s and the unchanged closure guard succeeds.
+- Workaround: never strip markers, change the oracle, bypass protected boundaries or weaken transport closure to obtain a score.
+- Resolution + evidence link: associated literal label text is observed first and every alternative channel is retained separately. A bounded read-only5000ms/50ms/max100-poll startup observation precedes the same strict closure check; it grants no action authority. A new controlled regression verifies the literal required marker while conflicting employer ownership still refuses. The held-request test retains refusal/no-write assertions and verifies natural completion separately. All62 mandatory controlled proofs (all61 retained plus one new case),19 verifier guards, static checks and unchanged1454-node Python preflight pass. The actual30-source rerun has17 transport refusals,7 form/protected refusals and6 interference rows,0 action requests and no scored public accuracy. Evidence: docs/evidence/m02-w14-public-observation-correction.
+
+### KI-0089 — Gate A has incomplete externally executed evidence
+
+- Severity: HIGH
+- State: OPEN
+- Discovered: 2026-10-16 during M02-W14 final evidence reconciliation
+- Affects: M02-W14; M02-W15; M02 acceptance and Autofill Feasibility Gate
+- Description: the latest declared public campaign records all 30 pages but scores none: 17 strict network-closure refusals, 7 form/protected-surface refusals and 6 interference outcomes. The normal-user Simplify comparison has zero cases. Final independent W15 review and the source-bound gate decision have not occurred. Passing local tests cannot supply these missing observations.
+- Reproduction: inspect the actual 8ae96f0 campaign binding, action journal and assessment in docs/evidence/m02-w14-public-observation-correction, the Simplify readiness record, and the Gate A review/decision sections. All owned evaluation browsers were closed normally. Review agents returned the account usage-limit error; that is not a review verdict.
+- Workaround: none accepted. Preserve CAPTCHA, authentication, legal-consent, dialog and transport boundaries. The owner-controlled holdout is already waived by ADR-0006 and is not part of this blocker. The pending request identifies the normal signed-in synthetic Simplify session without requesting credentials.
+- Resolution + evidence link: OPEN. Suitable normal-user public evaluation conditions, an authenticated synthetic Simplify session and independent review capacity are required before the remaining evidence can be executed. See docs/gates/AUTOFILL_FEASIBILITY_GATE.md and docs/TEST_EVIDENCE.md § M02-W14. No downstream readiness or final PASS is granted.
+
+## M02-W14 local defect closeout — 2026-10-16
+
+KI-0077 through KI-0087 are FIXED at the code scopes recorded above and frozen checkpoint b8b1423: all19 active suites pass,3859 TypeScript units,228 default browser tests,61 then-required controlled tests and1454 Python tests. Source/build/declarations and Git status remain unchanged. The later observation correction adds a mandatory62nd controlled proof and preserves all originals. This closes local defects only; public scored coverage, normal-user Simplify comparison and independent W15/Gate A acceptance remain incomplete. No later package is started.
 
 ## M02-W13 final closeout and retained limits (2026-10-01)
 
