@@ -304,7 +304,7 @@
       ]
     }
   ],
-  "predeclaration_digest": "sha256:3ae2ac9e1cb21d269589c33f3bc515188a87447197dd2e8b75cb5f8e61e19a33",
+  "predeclaration_digest": "sha256:97a881648edded66502dd4af6cecba1a591ed1a7abdf898ef3f241b30f47692a",
   "inputs_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
   "oracles_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
   "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
@@ -461,7 +461,7 @@
     },
     {
       "path": "apps/extension/src/driver-engine.ts",
-      "sha256": "sha256:749b00ac70478f94d8e78779e39f973475ba8d6ee003cb9a68ad1e3b623f2382"
+      "sha256": "sha256:9fc5287957ad148aad2cc449244427c9a2d731470dd267088396b534ed340ed4"
     },
     {
       "path": "apps/extension/src/driver-evidence.ts",
@@ -497,7 +497,7 @@
     },
     {
       "path": "apps/extension/src/drivers/text-like-drivers.ts",
-      "sha256": "sha256:d39682b692f372d91279a130b73b614afdde6bb1ef0da62f06fb6a7e63e5c316"
+      "sha256": "sha256:91756f25933420b515a974021cd7c4cf6c06795656b7eec10763cadbe1a1d923"
     },
     {
       "path": "apps/extension/src/drivers/widget-drivers.ts",
@@ -2007,5 +2007,5 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c"
+  "candidate_runtime_inventory_digest": "sha256:8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc"
 }

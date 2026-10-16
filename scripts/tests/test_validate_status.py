@@ -20,7 +20,7 @@ import re
 import shutil
 import subprocess
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from pathlib import Path
 
 import pytest
@@ -84,6 +84,8 @@ CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
     "KI-0091",
     "KI-0092",
     "KI-0093",
+    "KI-0094",
+    "KI-0095",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -109,31 +111,34 @@ def run_validator(repo: Path) -> subprocess.CompletedProcess[str]:
 
 
 @pytest.fixture
-def repo_copy(tmp_path: Path) -> Path:
+def repo_copy(tmp_path: Path) -> Iterator[Path]:
     """Full temporary copy of the project-memory surface of the real repo."""
     repo = tmp_path / "repo"
     repo.mkdir()
-    shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
-    shutil.copytree(REPO_ROOT / "docs", repo / "docs")
-    platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
-    platform_schemas.mkdir(parents=True)
-    for name in ("evidence-record", "certification-input"):
+    try:
+        shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
+        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
+        platform_schemas.mkdir(parents=True)
+        for name in ("evidence-record", "certification-input"):
+            shutil.copy2(
+                REPO_ROOT
+                / "packages"
+                / "contracts"
+                / "schemas"
+                / "platform"
+                / f"{name}.v2.schema.json",
+                platform_schemas / f"{name}.v2.schema.json",
+            )
+        holdout_status = repo / "benchmarks" / "holdout-manifests"
+        holdout_status.mkdir(parents=True)
         shutil.copy2(
-            REPO_ROOT
-            / "packages"
-            / "contracts"
-            / "schemas"
-            / "platform"
-            / f"{name}.v2.schema.json",
-            platform_schemas / f"{name}.v2.schema.json",
+            REPO_ROOT / holdout_status.relative_to(repo) / "status.v1.json",
+            holdout_status / "status.v1.json",
         )
-    holdout_status = repo / "benchmarks" / "holdout-manifests"
-    holdout_status.mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT / holdout_status.relative_to(repo) / "status.v1.json",
-        holdout_status / "status.v1.json",
-    )
-    return repo
+        yield repo
+    finally:
+        shutil.rmtree(repo)
 
 
 def status_path(repo: Path) -> Path:
@@ -2633,6 +2638,8 @@ def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) ->
             "- KI-0091 (HIGH, IN_PROGRESS) — synthetic later native validity finding",
             "- KI-0092 (HIGH, IN_PROGRESS) — synthetic later reporting finding",
             "- KI-0093 (HIGH, IN_PROGRESS) — synthetic later encoding finding",
+            "- KI-0094 (HIGH, IN_PROGRESS) — synthetic later focus-value finding",
+            "- KI-0095 (HIGH, IN_PROGRESS) — synthetic later fixture-capacity finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
@@ -2673,6 +2680,8 @@ def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> No
             "- KI-0091 (HIGH, IN_PROGRESS) — synthetic current native validity issue",
             "- KI-0092 (HIGH, IN_PROGRESS) — synthetic current reporting issue",
             "- KI-0093 (HIGH, IN_PROGRESS) — synthetic current encoding issue",
+            "- KI-0094 (HIGH, IN_PROGRESS) — synthetic current focus-value issue",
+            "- KI-0095 (HIGH, IN_PROGRESS) — synthetic current fixture-capacity issue",
         ],
     )
     reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")

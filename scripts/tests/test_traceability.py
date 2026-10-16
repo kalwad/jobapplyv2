@@ -12,6 +12,7 @@ import hashlib
 import json
 import re
 import shutil
+from collections.abc import Iterator
 from pathlib import Path
 from typing import cast
 
@@ -23,196 +24,199 @@ FAKE_TREE = "tree " + "0" * 40
 
 
 @pytest.fixture
-def trace_repo(tmp_path: Path) -> Path:
+def trace_repo(tmp_path: Path) -> Iterator[Path]:
     repo = tmp_path / "repo"
     repo.mkdir()
-    shutil.copytree(REPO_ROOT / "docs", repo / "docs")
-    (repo / "scripts" / "tests").mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT / "scripts" / "validate_status.py",
-        repo / "scripts" / "validate_status.py",
-    )
-    shutil.copy2(
-        REPO_ROOT / "scripts" / "traceability.py",
-        repo / "scripts" / "traceability.py",
-    )
-    shutil.copy2(
-        REPO_ROOT / "scripts" / "tests" / "test_validate_status.py",
-        repo / "scripts" / "tests" / "test_validate_status.py",
-    )
-    shutil.copy2(
-        REPO_ROOT / "scripts" / "tests" / "test_traceability.py",
-        repo / "scripts" / "tests" / "test_traceability.py",
-    )
-    for relative_path in (
-        ".gitattributes",
-        ".github/workflows/ci.yml",
-        "scripts/check_portability.py",
-        "scripts/doctor.py",
-        "scripts/portability.py",
-        "scripts/verify.py",
-        "scripts/tests/test_ci_workflow.py",
-        "scripts/tests/test_doctor.py",
-        "scripts/tests/test_portability.py",
-        "scripts/tests/test_v14_migration.py",
-        # M01-W01/M01-W02 REQ-PLAT-005 completed-path anchors (schema
-        # versioning + generated-model version propagation); the fixture
-        # repo must contain every referenced file.
-        "packages/contracts/README.md",
-        "packages/contracts/generated/MANIFEST.json",
-        "packages/contracts/generator/generate.ts",
-        "packages/contracts/schemas/common/envelope.v1.schema.json",
-        "packages/contracts/schemas/common/schema-version.v1.schema.json",
-        "packages/contracts/src/conventions.ts",
-        "packages/contracts/src/envelope.ts",
-        "packages/contracts/src/versioning.ts",
-        "packages/contracts/test/schema/conventions.test.ts",
-        "packages/contracts/test/schema/envelope.test.ts",
-        "packages/contracts/test/generated/generator.test.ts",
-        "scripts/generate-contracts.ts",
-        "scripts/tests/test_generated_contracts.py",
-        # M01-W06 REQ-GATE-006 completed-path anchors (benchmark/holdout/gate
-        # record contracts and finite semantic validation); isolated
-        # traceability fixtures must contain every canonical referenced path.
-        "packages/contracts/catalog/semantic-rules.v1.json",
-        "packages/contracts/schemas/benchmark/case.v1.schema.json",
-        "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
-        "packages/contracts/schemas/benchmark/result.v1.schema.json",
-        "packages/contracts/schemas/gate/decision.v1.schema.json",
-        "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
-        "packages/contracts/test/contract/corpus/cases.v1.json",
-        "packages/contracts/test/contract/semantic-adapters.test.ts",
-        "packages/contracts/test/generated/semantic-rules.test.ts",
-        "scripts/tests/test_generated_semantic_rules.py",
-        # M02-W05 REQ-GATE-006 completed-path anchors (deterministic runner,
-        # provenance, aggregation, reports, and synthetic-only proof), plus
-        # the proleptic-UTC correction's shared derivation/timestamp authority
-        # and its permanent replay/regression/measurement regression tests.
-        "packages/evaluation-runner/src/model.ts",
-        "packages/evaluation-runner/src/runner.ts",
-        "packages/evaluation-runner/src/derive.ts",
-        "packages/evaluation-runner/src/time.ts",
-        "packages/evaluation-runner/src/aggregate.ts",
-        "packages/evaluation-runner/src/report.ts",
-        "packages/evaluation-runner/test/m02-w05/runner.test.ts",
-        "packages/evaluation-runner/test/m02-w05/aggregation-statistics.test.ts",
-        "packages/evaluation-runner/test/m02-w05/reports.test.ts",
-        "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
-        "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
-        "packages/evaluation-runner/test/m02-w05/mutations.test.ts",
-        "packages/evaluation-runner/test/m02-w05/replay-source.test.ts",
-        "packages/evaluation-runner/test/m02-w05/regression-source.test.ts",
-        "packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts",
-        # M02-W06 REQ-GATE-002/006/010 completed-path anchors (frozen public
-        # corpus, owner-external holdout boundary, exact identity propagation,
-        # immutable correction/version history, and append-only log proof).
-        "packages/evaluation-corpus/src/corpus.ts",
-        "packages/evaluation-corpus/src/owner-holdout.ts",
-        "packages/evaluation-corpus/src/log.ts",
-        "packages/evaluation-corpus/schemas/owner-mapping.v1.schema.json",
-        "packages/evaluation-corpus/schemas/owner-mapping.v2.schema.json",
-        "packages/evaluation-corpus/policies/holdout-boundary.v1.json",
-        "packages/evaluation-corpus/policies/holdout-boundary.v2.json",
-        "packages/evaluation-corpus/policies/change-policy.v1.json",
-        "packages/evaluation-corpus/artifacts/development/corpus-versions.v1.json",
-        "packages/evaluation-corpus/test/m02-w06/corpus-freeze.test.ts",
-        "packages/evaluation-corpus/test/m02-w06/holdout-boundary.test.ts",
-        "packages/evaluation-corpus/test/m02-w06/artifact-preimage-correction.test.ts",
-        "packages/evaluation-corpus/test/m02-w06/version-log-runner.test.ts",
-        "packages/evaluation-corpus/test/m02-w06/mutation-campaign.test.ts",
-        "benchmarks/holdout-manifests/status.v1.json",
-        # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
-        # capability and platform-service contracts).
-        "packages/contracts/generator/semantic-rules.ts",
-        "packages/contracts/schemas/platform/capability-report.v1.schema.json",
-        "packages/contracts/schemas/platform/path-request.v1.schema.json",
-        "packages/contracts/schemas/platform/process-plan.v1.schema.json",
-        "packages/contracts/schemas/platform/secret-store-request.v1.schema.json",
-        "packages/contracts/schemas/platform/vocabulary.v1.schema.json",
-        "packages/contracts/test/contract/breaking.test.ts",
-        "packages/contracts/test/schema/w07-platform.test.ts",
-        "scripts/tests/test_generated_platform_contracts.py",
-        # M02-W04 REQ-GATE-007/REQ-GATE-008 completed-path anchors (isolated
-        # legacy-baseline observation contract and truthful records).
-        "packages/evaluation-baselines/src/legacy-observation.ts",
-        "packages/evaluation-baselines/data/legacy-observations.v1.json",
-        "packages/evaluation-baselines/test/m02-w04/legacy-observation.test.ts",
-        "packages/evaluation-baselines/test/m02-w04/mutations.test.ts",
-        # M02-W07 REQ-FORM-020 completed-path anchors (real MV3 feasibility
-        # substrate: WXT config, entrypoints, closed probe protocol, and the
-        # real-extension Playwright harness with its fail-closed tests).
-        "apps/extension/wxt.config.ts",
-        "apps/extension/entrypoints/background.ts",
-        "apps/extension/entrypoints/feasibility.content.ts",
-        "apps/extension/src/feasibility-protocol.ts",
-        "apps/extension/test/m02-w07/feasibility-protocol.test.ts",
-        "apps/extension/test/m02-w07/built-manifest.test.ts",
-        "apps/extension/test/m02-w07/fixtures/invalid-ack/wxt.config.ts",
-        "apps/extension/test/m02-w07/fixtures/invalid-ack/entrypoints/background.ts",
-        "apps/extension/test/m02-w07/fixtures/invalid-ack/entrypoints/feasibility.content.ts",
-        "e2e/extension/support/global-setup.ts",
-        "e2e/extension/support/extension-test.ts",
-        "e2e/extension/extension-ack-causality.spec.ts",
-        "e2e/extension/extension-observable-surface.spec.ts",
-        "e2e/extension/extension-protocol-closure.spec.ts",
-        "e2e/extension/extension-substrate.spec.ts",
-        "e2e/extension/extension-probe.spec.ts",
-        "e2e/extension/extension-inert.spec.ts",
-        # M02-W08 REQ-FORM-013/014/019 feasibility anchors (canonical field
-        # identity/descriptor, closed scanner protocol, bounded frame-local
-        # scanner, and real built-extension browser proof).
-        "apps/extension/src/semantic-identity.ts",
-        "apps/extension/src/scanner-protocol.ts",
-        "apps/extension/src/field-scanner.ts",
-        "apps/extension/test/m02-w08/scanner-protocol.test.ts",
-        "e2e/extension/extension-scanner.spec.ts",
-        # M02-W09 REQ-FORM-017/023 feasibility anchors (deterministic
-        # decision/proposal policy, semantic option matching, and real built
-        # descriptor-to-decision browser proof).
-        "packages/form-engine/src/ai-proposal.ts",
-        "packages/form-engine/src/decision-resolver.ts",
-        "packages/form-engine/src/safety-policy.ts",
-        "packages/form-engine/src/ontology.ts",
-        "packages/form-engine/src/option-resolver.ts",
-        "packages/form-engine/test/ai-proposal.test.ts",
-        "packages/form-engine/test/decision-resolver.test.ts",
-        "packages/form-engine/test/option-resolver.test.ts",
-        "e2e/extension/extension-resolver.spec.ts",
-        # M02-W10 REQ-FORM-015/016 feasibility anchors (closed transaction
-        # protocol/kernel, control-specific drivers, redacted evidence,
-        # focused unit tests, and real built-MV3 transaction proof).
-        "apps/extension/src/driver-engine.ts",
-        "apps/extension/src/driver-evidence.ts",
-        "apps/extension/src/driver-protocol.ts",
-        "apps/extension/src/drivers/choice-drivers.ts",
-        "apps/extension/src/drivers/driver-contract.ts",
-        "apps/extension/src/drivers/driver-dom.ts",
-        "apps/extension/src/drivers/file-upload-driver.ts",
-        "apps/extension/src/drivers/repeater-driver.ts",
-        "apps/extension/src/drivers/text-like-drivers.ts",
-        "apps/extension/src/drivers/widget-drivers.ts",
-        "apps/extension/test/m02-w10/driver-evidence.test.ts",
-        "apps/extension/test/m02-w10/driver-protocol.test.ts",
-        "apps/extension/test/m02-w10/driver-selection.test.ts",
-        "e2e/extension/extension-drivers.spec.ts",
-        # M02-W11 REQ-FORM-018/024 feasibility anchors (bounded dynamic
-        # observation/batching, closed dynamic protocol, canonical
-        # reconciliation classifier, focused unit tests, and real built-MV3
-        # dynamic-state proof).
-        "apps/extension/src/dynamic-batch.ts",
-        "apps/extension/src/dynamic-engine.ts",
-        "apps/extension/src/dynamic-protocol.ts",
-        "apps/extension/src/dynamic-reconcile.ts",
-        "apps/extension/test/m02-w11/dynamic-batch.test.ts",
-        "apps/extension/test/m02-w11/dynamic-protocol.test.ts",
-        "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
-        "e2e/extension/extension-dynamic.spec.ts",
-    ):
-        source = REPO_ROOT / relative_path
-        destination = repo / relative_path
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
-    return repo
+    try:
+        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        (repo / "scripts" / "tests").mkdir(parents=True)
+        shutil.copy2(
+            REPO_ROOT / "scripts" / "validate_status.py",
+            repo / "scripts" / "validate_status.py",
+        )
+        shutil.copy2(
+            REPO_ROOT / "scripts" / "traceability.py",
+            repo / "scripts" / "traceability.py",
+        )
+        shutil.copy2(
+            REPO_ROOT / "scripts" / "tests" / "test_validate_status.py",
+            repo / "scripts" / "tests" / "test_validate_status.py",
+        )
+        shutil.copy2(
+            REPO_ROOT / "scripts" / "tests" / "test_traceability.py",
+            repo / "scripts" / "tests" / "test_traceability.py",
+        )
+        for relative_path in (
+            ".gitattributes",
+            ".github/workflows/ci.yml",
+            "scripts/check_portability.py",
+            "scripts/doctor.py",
+            "scripts/portability.py",
+            "scripts/verify.py",
+            "scripts/tests/test_ci_workflow.py",
+            "scripts/tests/test_doctor.py",
+            "scripts/tests/test_portability.py",
+            "scripts/tests/test_v14_migration.py",
+            # M01-W01/M01-W02 REQ-PLAT-005 completed-path anchors (schema
+            # versioning + generated-model version propagation); the fixture
+            # repo must contain every referenced file.
+            "packages/contracts/README.md",
+            "packages/contracts/generated/MANIFEST.json",
+            "packages/contracts/generator/generate.ts",
+            "packages/contracts/schemas/common/envelope.v1.schema.json",
+            "packages/contracts/schemas/common/schema-version.v1.schema.json",
+            "packages/contracts/src/conventions.ts",
+            "packages/contracts/src/envelope.ts",
+            "packages/contracts/src/versioning.ts",
+            "packages/contracts/test/schema/conventions.test.ts",
+            "packages/contracts/test/schema/envelope.test.ts",
+            "packages/contracts/test/generated/generator.test.ts",
+            "scripts/generate-contracts.ts",
+            "scripts/tests/test_generated_contracts.py",
+            # M01-W06 REQ-GATE-006 completed-path anchors (benchmark/holdout/gate
+            # record contracts and finite semantic validation); isolated
+            # traceability fixtures must contain every canonical referenced path.
+            "packages/contracts/catalog/semantic-rules.v1.json",
+            "packages/contracts/schemas/benchmark/case.v1.schema.json",
+            "packages/contracts/schemas/benchmark/holdout-manifest.v1.schema.json",
+            "packages/contracts/schemas/benchmark/result.v1.schema.json",
+            "packages/contracts/schemas/gate/decision.v1.schema.json",
+            "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
+            "packages/contracts/test/contract/corpus/cases.v1.json",
+            "packages/contracts/test/contract/semantic-adapters.test.ts",
+            "packages/contracts/test/generated/semantic-rules.test.ts",
+            "scripts/tests/test_generated_semantic_rules.py",
+            # M02-W05 REQ-GATE-006 completed-path anchors (deterministic runner,
+            # provenance, aggregation, reports, and synthetic-only proof), plus
+            # the proleptic-UTC correction's shared derivation/timestamp authority
+            # and its permanent replay/regression/measurement regression tests.
+            "packages/evaluation-runner/src/model.ts",
+            "packages/evaluation-runner/src/runner.ts",
+            "packages/evaluation-runner/src/derive.ts",
+            "packages/evaluation-runner/src/time.ts",
+            "packages/evaluation-runner/src/aggregate.ts",
+            "packages/evaluation-runner/src/report.ts",
+            "packages/evaluation-runner/test/m02-w05/runner.test.ts",
+            "packages/evaluation-runner/test/m02-w05/aggregation-statistics.test.ts",
+            "packages/evaluation-runner/test/m02-w05/reports.test.ts",
+            "packages/evaluation-runner/test/m02-w05/validation-boundaries.test.ts",
+            "packages/evaluation-runner/test/m02-w05/w04-integration.test.ts",
+            "packages/evaluation-runner/test/m02-w05/mutations.test.ts",
+            "packages/evaluation-runner/test/m02-w05/replay-source.test.ts",
+            "packages/evaluation-runner/test/m02-w05/regression-source.test.ts",
+            "packages/evaluation-runner/test/m02-w05/measurement-boundaries.test.ts",
+            # M02-W06 REQ-GATE-002/006/010 completed-path anchors (frozen public
+            # corpus, owner-external holdout boundary, exact identity propagation,
+            # immutable correction/version history, and append-only log proof).
+            "packages/evaluation-corpus/src/corpus.ts",
+            "packages/evaluation-corpus/src/owner-holdout.ts",
+            "packages/evaluation-corpus/src/log.ts",
+            "packages/evaluation-corpus/schemas/owner-mapping.v1.schema.json",
+            "packages/evaluation-corpus/schemas/owner-mapping.v2.schema.json",
+            "packages/evaluation-corpus/policies/holdout-boundary.v1.json",
+            "packages/evaluation-corpus/policies/holdout-boundary.v2.json",
+            "packages/evaluation-corpus/policies/change-policy.v1.json",
+            "packages/evaluation-corpus/artifacts/development/corpus-versions.v1.json",
+            "packages/evaluation-corpus/test/m02-w06/corpus-freeze.test.ts",
+            "packages/evaluation-corpus/test/m02-w06/holdout-boundary.test.ts",
+            "packages/evaluation-corpus/test/m02-w06/artifact-preimage-correction.test.ts",
+            "packages/evaluation-corpus/test/m02-w06/version-log-runner.test.ts",
+            "packages/evaluation-corpus/test/m02-w06/mutation-campaign.test.ts",
+            "benchmarks/holdout-manifests/status.v1.json",
+            # M01-W07 REQ-PLAT-012 completed-path anchors (typed cross-platform
+            # capability and platform-service contracts).
+            "packages/contracts/generator/semantic-rules.ts",
+            "packages/contracts/schemas/platform/capability-report.v1.schema.json",
+            "packages/contracts/schemas/platform/path-request.v1.schema.json",
+            "packages/contracts/schemas/platform/process-plan.v1.schema.json",
+            "packages/contracts/schemas/platform/secret-store-request.v1.schema.json",
+            "packages/contracts/schemas/platform/vocabulary.v1.schema.json",
+            "packages/contracts/test/contract/breaking.test.ts",
+            "packages/contracts/test/schema/w07-platform.test.ts",
+            "scripts/tests/test_generated_platform_contracts.py",
+            # M02-W04 REQ-GATE-007/REQ-GATE-008 completed-path anchors (isolated
+            # legacy-baseline observation contract and truthful records).
+            "packages/evaluation-baselines/src/legacy-observation.ts",
+            "packages/evaluation-baselines/data/legacy-observations.v1.json",
+            "packages/evaluation-baselines/test/m02-w04/legacy-observation.test.ts",
+            "packages/evaluation-baselines/test/m02-w04/mutations.test.ts",
+            # M02-W07 REQ-FORM-020 completed-path anchors (real MV3 feasibility
+            # substrate: WXT config, entrypoints, closed probe protocol, and the
+            # real-extension Playwright harness with its fail-closed tests).
+            "apps/extension/wxt.config.ts",
+            "apps/extension/entrypoints/background.ts",
+            "apps/extension/entrypoints/feasibility.content.ts",
+            "apps/extension/src/feasibility-protocol.ts",
+            "apps/extension/test/m02-w07/feasibility-protocol.test.ts",
+            "apps/extension/test/m02-w07/built-manifest.test.ts",
+            "apps/extension/test/m02-w07/fixtures/invalid-ack/wxt.config.ts",
+            "apps/extension/test/m02-w07/fixtures/invalid-ack/entrypoints/background.ts",
+            "apps/extension/test/m02-w07/fixtures/invalid-ack/entrypoints/feasibility.content.ts",
+            "e2e/extension/support/global-setup.ts",
+            "e2e/extension/support/extension-test.ts",
+            "e2e/extension/extension-ack-causality.spec.ts",
+            "e2e/extension/extension-observable-surface.spec.ts",
+            "e2e/extension/extension-protocol-closure.spec.ts",
+            "e2e/extension/extension-substrate.spec.ts",
+            "e2e/extension/extension-probe.spec.ts",
+            "e2e/extension/extension-inert.spec.ts",
+            # M02-W08 REQ-FORM-013/014/019 feasibility anchors (canonical field
+            # identity/descriptor, closed scanner protocol, bounded frame-local
+            # scanner, and real built-extension browser proof).
+            "apps/extension/src/semantic-identity.ts",
+            "apps/extension/src/scanner-protocol.ts",
+            "apps/extension/src/field-scanner.ts",
+            "apps/extension/test/m02-w08/scanner-protocol.test.ts",
+            "e2e/extension/extension-scanner.spec.ts",
+            # M02-W09 REQ-FORM-017/023 feasibility anchors (deterministic
+            # decision/proposal policy, semantic option matching, and real built
+            # descriptor-to-decision browser proof).
+            "packages/form-engine/src/ai-proposal.ts",
+            "packages/form-engine/src/decision-resolver.ts",
+            "packages/form-engine/src/safety-policy.ts",
+            "packages/form-engine/src/ontology.ts",
+            "packages/form-engine/src/option-resolver.ts",
+            "packages/form-engine/test/ai-proposal.test.ts",
+            "packages/form-engine/test/decision-resolver.test.ts",
+            "packages/form-engine/test/option-resolver.test.ts",
+            "e2e/extension/extension-resolver.spec.ts",
+            # M02-W10 REQ-FORM-015/016 feasibility anchors (closed transaction
+            # protocol/kernel, control-specific drivers, redacted evidence,
+            # focused unit tests, and real built-MV3 transaction proof).
+            "apps/extension/src/driver-engine.ts",
+            "apps/extension/src/driver-evidence.ts",
+            "apps/extension/src/driver-protocol.ts",
+            "apps/extension/src/drivers/choice-drivers.ts",
+            "apps/extension/src/drivers/driver-contract.ts",
+            "apps/extension/src/drivers/driver-dom.ts",
+            "apps/extension/src/drivers/file-upload-driver.ts",
+            "apps/extension/src/drivers/repeater-driver.ts",
+            "apps/extension/src/drivers/text-like-drivers.ts",
+            "apps/extension/src/drivers/widget-drivers.ts",
+            "apps/extension/test/m02-w10/driver-evidence.test.ts",
+            "apps/extension/test/m02-w10/driver-protocol.test.ts",
+            "apps/extension/test/m02-w10/driver-selection.test.ts",
+            "e2e/extension/extension-drivers.spec.ts",
+            # M02-W11 REQ-FORM-018/024 feasibility anchors (bounded dynamic
+            # observation/batching, closed dynamic protocol, canonical
+            # reconciliation classifier, focused unit tests, and real built-MV3
+            # dynamic-state proof).
+            "apps/extension/src/dynamic-batch.ts",
+            "apps/extension/src/dynamic-engine.ts",
+            "apps/extension/src/dynamic-protocol.ts",
+            "apps/extension/src/dynamic-reconcile.ts",
+            "apps/extension/test/m02-w11/dynamic-batch.test.ts",
+            "apps/extension/test/m02-w11/dynamic-protocol.test.ts",
+            "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+            "e2e/extension/extension-dynamic.spec.ts",
+        ):
+            source = REPO_ROOT / relative_path
+            destination = repo / relative_path
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+        yield repo
+    finally:
+        shutil.rmtree(repo)
 
 
 def load_metadata(repo: Path) -> dict[str, object]:

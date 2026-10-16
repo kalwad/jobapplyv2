@@ -75,7 +75,11 @@ import {
 } from "./drivers/driver-dom.ts";
 import { fileUploadDriver } from "./drivers/file-upload-driver.ts";
 import { repeaterDriver } from "./drivers/repeater-driver.ts";
-import { dateDriver, textDriver } from "./drivers/text-like-drivers.ts";
+import {
+  dateDriver,
+  NativeValueChangedDuringFocusError,
+  textDriver,
+} from "./drivers/text-like-drivers.ts";
 import {
   ariaComboboxDriver,
   scrollListboxDriver,
@@ -936,7 +940,15 @@ export class DriverTransactionEngine {
         markSynchronousMutationContext(freshContext);
         await driver.execute(freshContext);
       }
-    } catch {
+    } catch (error) {
+      if (
+        (driver === textDriver || driver === dateDriver) &&
+        error instanceof NativeValueChangedDuringFocusError
+      ) {
+        // These trusted drivers refuse before their only native value write.
+        // A page-owned focus edit grants neither recovery nor undo authority.
+        actionPerformed = false;
+      }
       let recovery: FormDriverResultV1["recovery"] | undefined;
       let recoveryRestored = false;
       if (actionPerformed && captured.restorable) {

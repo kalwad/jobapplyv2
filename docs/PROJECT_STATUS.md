@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W14 corrected native-validity checkpoint0dd88ce; all19 active suites PASS
-Last updated: 2026-10-16T21:31:31Z
+Repository revision: M02-W14 reviewed focus-value and fixture-lifecycle integration; fresh frozen validation pending
+Last updated: 2026-10-16T22:38:47Z
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -26,9 +26,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED. W15 NOT_STARTED; no package is READY.31/300 packages remain VERIFIED. Per-W stopping is superseded by ADR-0006.
 - Frozen corrected validation: clean0dd88ce passes all19 active suites:3859 TypeScript units,234 default browser tests including all6 new native-validity cases,62 controlled contact proofs and1454 Python tests. Visual remains NOT_YET_APPLICABLE. Git/all tracked sources and campaign source/build/declarations are unchanged. Native128 target20 p95 is1489.9990840000028ms; contact200 full-settlement p95 is871.8325829999521ms. All prior failures and pre-correction checkpoints remain retained.
 - Measured contact scope:200/200 recipes,4020logical/4060native controls, precision/persistence1485/1485, required ordinary recall1275/1275, reporting770/770, separate preservation90/90;1485raw=audited=native actions,0orphans/all7 measured physical safety counters0. Original W13 scorer retains90incorrect abstentions. All67 frozen transition clauses map separately to47 passed fixture tests. No unexercised-driver or production support claim.
-- Local defect closeout: KI-0091 FIXED after unchanged independent RED/GREEN probes,29 adjacent cases and complete affected root regression. KI-0092 FIXED corrects the historical revision6 both-zero reporting error: raw legacy already contains4unexpected country-code activations. Original observations/archives/expectations remain exact; focused governance integration checks follow the full frozen checkpoint.
+- Local defect closeout: KI-0091 FIXED after unchanged independent RED/GREEN probes,29 adjacent cases and complete affected root regression. KI-0092 FIXED corrects the historical revision6 both-zero reporting error: raw legacy already contains4unexpected country-code activations. Original observations/archives/expectations remain exact; focused governance integration checks follow the full frozen checkpoint. KI-0094 is IN_PROGRESS: four actual focus-value lost updates are reproduced; the reviewed two-file correction passes unchanged GREEN8 plus23 adjacent cases. Permanent8 cases and reviewed revision8 declaration are integrated; complete root regression/comparison remain pending.
 - Actual comparison: reviewed revision7 locke5b9a8dd/runtime355-c3757409 completes candidate4/legacy4:40/40vs28/40exact;40/40vs32/40phone equivalent. Candidate unexpected installed native calls0/legacy4; both final nonordinary/nav/submit0. One shared component/four related fixtures grants no broad, statistical, timing, two-product or Simplify claim. Normal contexts/owned direct children close; descendants remain UNOBSERVED.
-- Platform correction: KI-0090 FIXED with native Windows infrastructure8 passes twice and all2524contracts PASS. Prior d99c tree CI Ubuntu/macOS pass; Windows aggregate FAILS only five waiver-fixture encoding tests (KI-0093 IN_PROGRESS),1447Python passes. Tested mergecb58e4a has the exactd99c tree; no result is attributed to corrected0dd. The independently reviewed eight-call explicitUTF8 fixture correction is integrated; root201status cases and static checks pass; updated native validation is pending; no full three-OS PASS is claimed.
+- Platform correction: KI-0090 remains FIXED with repeated native compiler8/contracts2524 passes. Latest918 CI is FAILURE: Ubuntu/macOS pass all19; Windows exhausts fixture storage (KI-0095 IN_PROGRESS), has18 setup errors and an additional unresolved contact-environment F without a stack. Its five prior UTF8 failures map to passing progress symbols, but no final native Python/201-cohort pass exists; KI-0093 remains IN_PROGRESS. Exact tested merge3781e31a has the918 treebd9eb473; tracked-clean is SKIPPED on Windows. Original raw logs and independent32-check archive audit are retained.
 - Actual public evidence: latest clean0dd88ce run records30/30original sources:17network-closure refusals,7form/protected refusals,6interference;0dispatches/executions/scored rows, natural accuracy/site acceptance null. Independent24-check source/build/oracle/journal audit passes within that scope. Partial/unknown event and OS-descendant coverage remain explicit.
 - Remaining evidence: actual normal-user Simplify cases0; suitable signed-in synthetic session request pending. Public scored coverage and formal independent W15/owner Gate A decision remain incomplete (KI-0089). Supplemental review has completed; earlier quota errors are historical. Read-only full dependency audit finds no eligible downstream package or early W15 status workaround.
 - Owner instruction (OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER and is not a blocker. A waiver supplies no executed accuracy, safety, platform or comparison result.
@@ -391,7 +391,9 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Known release blockers
 
 - KI-0089 (HIGH, OPEN) — Gate A public scored coverage, actual Simplify comparison and final independent review/decision remain incomplete.
-- KI-0093 (HIGH, IN_PROGRESS) — Windows waiver fixtures need explicit UTF-8 and native corrected validation.
+- KI-0093 (HIGH, IN_PROGRESS) — Explicit UTF-8 correction is integrated; complete corrected native Windows validation remains pending.
+- KI-0094 (HIGH, IN_PROGRESS) — Focus-value correction needs complete root regression and renewed source-bound comparison.
+- KI-0095 (HIGH, IN_PROGRESS) — Reviewed yield/finally cleanup is integrated; full local/native validation remains pending, and the additional contact-environment failure is unresolved.
 
 ## Status conventions and update rules
 

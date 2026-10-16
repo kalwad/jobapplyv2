@@ -19,9 +19,9 @@ const declaration = JSON.parse(
   preexecution_previous_campaign_lock_digest: string;
 };
 if (
-  declaration.preexecution_source_revision !== 7 ||
+  declaration.preexecution_source_revision !== 8 ||
   declaration.preexecution_previous_campaign_lock_digest !==
-    "sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb"
+    "sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042"
 )
   throw new Error("W14_PAIRED_OPTIONS_DECLARATION_REVISION_REQUIRED");
 const outputRelative = relative(sourceRoot, output);

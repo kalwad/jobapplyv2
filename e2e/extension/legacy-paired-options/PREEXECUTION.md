@@ -1,4 +1,12 @@
-# Paired explicit-option pre-execution source revision 7
+# Paired explicit-option pre-execution source revision 8
+
+Revision8 declares fresh candidate4 and legacy4 executions after the reviewed text/date focus-value correction. Runtime binding is355files / `sha256:8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc`. Actual revision7 results under `sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042` remain historical in `docs/evidence/m02-w14-revision7-actual`; no outcome or timing is inherited. No revision8 actor has run at authoring.
+
+The exact six revision7 declaration/configuration/checklist files were preserved before refreshing metadata under `preexecution-history/revision-7/`. Candidate runtime changes are confined to `apps/extension/src/driver-engine.ts` and `apps/extension/src/drivers/text-like-drivers.ts`. Frozen inputs/oracles/projections, vendor sources, native observer, actor implementations, source/control assertions and prior history bytes remain exact.
+
+The configuration now requires revision8 and the exact revision7 predecessor lock. Coordinator/worker fresh absolute outside-output checks remain unchanged. Parent commands strip TEST_WORKER_INDEX. Separate exact-byte independent review of this source/declaration is required before integration and new actor execution. The lock sidecar alone grants no review authority. The original revision3 authoring tool is historical and deliberately refuses later locks.
+
+## Historical revision7 preparation record
 
 Revision 7 is a PRE-EXECUTION declaration for fresh candidate 4 and legacy 4 runs after the current two-file native-validity kernel correction. Runtime binding is 355 files / `sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c`. The actual revision 6 observations under `sha256:47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb` remain historical in `docs/evidence/m02-w14-comparisons-actual`; no outcome, pass or timing is rebound. No revision 7 actor has run at authoring.
 
@@ -55,7 +63,7 @@ These commands are a runbook, not executed evidence. Use pinned Node 24.18.0/pnp
 ```sh
 cd /Users/tanishkalwad/jobapplyv2
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_7_SHA256_DIGEST'
+export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_8_SHA256_DIGEST'
 export JAPP_W14_PAIRED_OPTIONS_EVALUATION=1
 JAPP_PAIRED_RUN_DIRECTORY="$(mktemp -d /tmp/japp-w14-paired-run.XXXXXX)"
 ```

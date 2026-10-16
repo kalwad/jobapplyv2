@@ -1,0 +1,119 @@
+{
+  "archive_path": "docs/evidence/m02-w14-fixture-lifecycle-yield/proof.tar.gz",
+  "archive_sha256": "99523db9cd272a483b147097d6b955b4015b19574ed64b6abc05cce3580b3a2b",
+  "archive_bytes": 90240,
+  "regular_members": 22,
+  "files": [
+    {
+      "path": "independent-review/findings.json",
+      "bytes": 13873,
+      "sha256": "68235c419d8753ffd3d610c61791c304f12243ecc66b53b03c746a35bf43f8aa"
+    },
+    {
+      "path": "independent-review/report.md",
+      "bytes": 4864,
+      "sha256": "e0f688b861fa3d0d9d5bd4417bb597b975b858db634fb969a699e5a4a642dce5"
+    },
+    {
+      "path": "initial-root-finalizer-ruff-failure.log",
+      "bytes": 1235,
+      "sha256": "9b4237b7e227ee71429caed507dfde61ebc68968298e22402d676433f531173e"
+    },
+    {
+      "path": "initial-root-live-blocker-failure.log",
+      "bytes": 3617,
+      "sha256": "bc32f6c33c8e5ade1afab718b5f819eda58a80c383e84fd01c5baa284f84912b"
+    },
+    {
+      "path": "packaging-correction.json",
+      "bytes": 353,
+      "sha256": "477426f176d5566d326f87bc782a552742388c02d5dd2fcb638b755d15b38850"
+    },
+    {
+      "path": "proposal/README.md",
+      "bytes": 3326,
+      "sha256": "bacaef50d8a3cd9f561cc3d3601533d8570785cbb8332996b29663dd1e745094"
+    },
+    {
+      "path": "proposal/fixture-lifecycle-yield.patch",
+      "bytes": 33947,
+      "sha256": "9426e72a384533f86459a49db48e45aa2b89ddf821f2a86851995d1dcba2fcc4"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_doctor.py",
+      "bytes": 26337,
+      "sha256": "a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_traceability.py",
+      "bytes": 48459,
+      "sha256": "f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94"
+    },
+    {
+      "path": "proposal/preimages/scripts/tests/test_validate_status.py",
+      "bytes": 107367,
+      "sha256": "55be5df1b203d2852ae8f77914db84211aa719a5d778937b72bd052e1a1da529"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_doctor.py",
+      "bytes": 26719,
+      "sha256": "49b6ac739cb8c85a4dfaa02ef332bbc7acf39381b4c5cad5c6abfecebb155280"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_traceability.py",
+      "bytes": 49217,
+      "sha256": "1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f"
+    },
+    {
+      "path": "proposal/proposed/scripts/tests/test_validate_status.py",
+      "bytes": 107434,
+      "sha256": "31c2f4a1f0ac3e557427de0441d8465b8bf88c09f1093cf0a19da439105d736a"
+    },
+    {
+      "path": "proposal/source-manifest.json",
+      "bytes": 4833,
+      "sha256": "7f54e6f5c756d2eb10319c7359660ab2972ae081c6e7ab1e85ee9065c9331fbf"
+    },
+    {
+      "path": "proposal/static/historical-outside-cwd-test_doctor-lint.log",
+      "bytes": 36029,
+      "sha256": "bfe539970d719764458318410afc9e10fab397d2c713972fe2e9620e7797fc4c"
+    },
+    {
+      "path": "proposal/static/test_doctor-format-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proposal/static/test_doctor-lint.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "proposal/static/test_traceability-format-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proposal/static/test_traceability-lint.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "proposal/static/test_validate_status-format-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proposal/static/test_validate_status-lint.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "proposal/static-checks.json",
+      "bytes": 6028,
+      "sha256": "fc309e98984582468b3b29933571fade8f01eb3aa383361a32e26b22de3f50b9"
+    }
+  ],
+  "scope": "Corrected three-fixture yield/finally source proposal, final peer48 review and exact failed/corrected static records; no pytest/native pass claimed."
+}

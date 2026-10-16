@@ -15,6 +15,7 @@ import json
 import shutil
 import subprocess
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 import doctor
@@ -106,88 +107,96 @@ def result_by_id(
 
 
 @pytest.fixture
-def doctor_repo(tmp_path: Path) -> Path:
+def doctor_repo(tmp_path: Path) -> Iterator[Path]:
     """Fixture repo with everything the doctor's file checks read."""
     repo = tmp_path / "repo"
     (repo / "scripts").mkdir(parents=True)
-    shutil.copytree(REPO_ROOT / "docs", repo / "docs")
-    for rel in (
-        "CLAUDE.md",
-        "package.json",
-        "pyproject.toml",
-        "rust-toolchain.toml",
-        ".nvmrc",
-        ".python-version",
-        "pnpm-lock.yaml",
-        "uv.lock",
-    ):
-        shutil.copy2(REPO_ROOT / rel, repo / rel)
-    (repo / "services" / "native-host").mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT / "services" / "native-host" / "Cargo.lock",
-        repo / "services" / "native-host" / "Cargo.lock",
-    )
-    contract_harness = (
-        repo / "packages" / "contracts" / "test" / "contract" / "rust-harness"
-    )
-    contract_harness.mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT
-        / "packages"
-        / "contracts"
-        / "test"
-        / "contract"
-        / "rust-harness"
-        / "Cargo.lock",
-        contract_harness / "Cargo.lock",
-    )
-    contract_test = contract_harness.parent / "fixture.test.ts"
-    contract_test.write_text("export {};\n", encoding="utf-8")
-    fixture_test = (
-        repo / "packages" / "test-fixtures" / "test" / "m02-w01" / "fixture.test.ts"
-    )
-    fixture_test.parent.mkdir(parents=True)
-    fixture_test.write_text("export {};\n", encoding="utf-8")
-    evaluation_corpus_test = (
-        repo / "packages" / "evaluation-corpus" / "test" / "m02-w06" / "fixture.test.ts"
-    )
-    evaluation_corpus_test.parent.mkdir(parents=True)
-    evaluation_corpus_test.write_text("export {};\n", encoding="utf-8")
-    # The build suite discovers apps/extension/wxt.config.ts; a healthy
-    # fixture repo must carry it now that M02-W07 activated the suite.
-    extension_config = repo / "apps" / "extension" / "wxt.config.ts"
-    extension_config.parent.mkdir(parents=True)
-    extension_config.write_text("export {};\n", encoding="utf-8")
-    # W14's two required public suites discover these real artifact paths.
-    # Keep the healthy platform simulation aligned with the active registry;
-    # the doctor discovers files here, without executing a public campaign.
-    for rel in (
-        "apps/extension/test/m02-w14/public-inspection/scope.test.ts",
-        "e2e/extension/public-research/controlled-scope.proof.ts",
-        "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
-        "e2e/extension/public-contact/controlled-contact.proof.ts",
-    ):
-        target = repo / rel
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(REPO_ROOT / rel, target)
-    for rel in (
-        "validate_status.py",
-        "traceability.py",
-        "verify.py",
-        "verification-suites.json",
-        # The contract-gen suite discovers scripts/generate-contracts.*;
-        # a healthy fixture repo must carry it now that M01-W02 activated
-        # the suite (KI-0014/KI-0015/KI-0017 premise class).
-        "generate-contracts.ts",
-    ):
-        shutil.copy2(REPO_ROOT / "scripts" / rel, repo / "scripts" / rel)
-    playwright_manifest = repo / "node_modules" / "@playwright" / "test"
-    playwright_manifest.mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT / "node_modules" / "@playwright" / "test" / "package.json",
-        playwright_manifest / "package.json",
-    )
-    return repo
+    try:
+        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        for rel in (
+            "CLAUDE.md",
+            "package.json",
+            "pyproject.toml",
+            "rust-toolchain.toml",
+            ".nvmrc",
+            ".python-version",
+            "pnpm-lock.yaml",
+            "uv.lock",
+        ):
+            shutil.copy2(REPO_ROOT / rel, repo / rel)
+        (repo / "services" / "native-host").mkdir(parents=True)
+        shutil.copy2(
+            REPO_ROOT / "services" / "native-host" / "Cargo.lock",
+            repo / "services" / "native-host" / "Cargo.lock",
+        )
+        contract_harness = (
+            repo / "packages" / "contracts" / "test" / "contract" / "rust-harness"
+        )
+        contract_harness.mkdir(parents=True)
+        shutil.copy2(
+            REPO_ROOT
+            / "packages"
+            / "contracts"
+            / "test"
+            / "contract"
+            / "rust-harness"
+            / "Cargo.lock",
+            contract_harness / "Cargo.lock",
+        )
+        contract_test = contract_harness.parent / "fixture.test.ts"
+        contract_test.write_text("export {};\n", encoding="utf-8")
+        fixture_test = (
+            repo / "packages" / "test-fixtures" / "test" / "m02-w01" / "fixture.test.ts"
+        )
+        fixture_test.parent.mkdir(parents=True)
+        fixture_test.write_text("export {};\n", encoding="utf-8")
+        evaluation_corpus_test = (
+            repo
+            / "packages"
+            / "evaluation-corpus"
+            / "test"
+            / "m02-w06"
+            / "fixture.test.ts"
+        )
+        evaluation_corpus_test.parent.mkdir(parents=True)
+        evaluation_corpus_test.write_text("export {};\n", encoding="utf-8")
+        # The build suite discovers apps/extension/wxt.config.ts; a healthy
+        # fixture repo must carry it now that M02-W07 activated the suite.
+        extension_config = repo / "apps" / "extension" / "wxt.config.ts"
+        extension_config.parent.mkdir(parents=True)
+        extension_config.write_text("export {};\n", encoding="utf-8")
+        # W14's two required public suites discover these real artifact paths.
+        # Keep the healthy platform simulation aligned with the active registry;
+        # the doctor discovers files here, without executing a public campaign.
+        for rel in (
+            "apps/extension/test/m02-w14/public-inspection/scope.test.ts",
+            "e2e/extension/public-research/controlled-scope.proof.ts",
+            "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
+            "e2e/extension/public-contact/controlled-contact.proof.ts",
+        ):
+            target = repo / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(REPO_ROOT / rel, target)
+        for rel in (
+            "validate_status.py",
+            "traceability.py",
+            "verify.py",
+            "verification-suites.json",
+            # The contract-gen suite discovers scripts/generate-contracts.*;
+            # a healthy fixture repo must carry it now that M01-W02 activated
+            # the suite (KI-0014/KI-0015/KI-0017 premise class).
+            "generate-contracts.ts",
+        ):
+            shutil.copy2(REPO_ROOT / "scripts" / rel, repo / "scripts" / rel)
+        playwright_manifest = repo / "node_modules" / "@playwright" / "test"
+        playwright_manifest.mkdir(parents=True)
+        shutil.copy2(
+            REPO_ROOT / "node_modules" / "@playwright" / "test" / "package.json",
+            playwright_manifest / "package.json",
+        )
+        yield repo
+    finally:
+        shutil.rmtree(repo)
 
 
 def toolchain_results(

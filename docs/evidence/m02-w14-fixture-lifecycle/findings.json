@@ -1,0 +1,227 @@
+{
+  "format_version": "W14_FIXTURE_LIFECYCLE_SOURCE_REVIEW_1",
+  "authority": "NONE",
+  "result": "CLEAR_SOURCE_ONLY_PENDING_AFFECTED_AND_NATIVE_VALIDATION",
+  "patch_sha256": "186b6a45f9e7ca3636244bcb89c38363a005f74b1022574280dbfd338dcdfde8",
+  "checks": {
+    "scripts/tests/test_validate_status.py_preimage_exact_root_and918": true,
+    "scripts/tests/test_validate_status.py_result_exact_manifest": true,
+    "scripts/tests/test_validate_status.py_sole_typed_request_arg": true,
+    "scripts/tests/test_validate_status.py_exact_strict_owned_repo_finalizer": true,
+    "scripts/tests/test_validate_status.py_after_owned_mkdir_before_first_copy": true,
+    "scripts/tests/test_validate_status.py_single_immutable_repo_binding": true,
+    "scripts/tests/test_validate_status.py_fixture_default_function_scope_preserved": true,
+    "scripts/tests/test_validate_status.py_assertions_exact": true,
+    "scripts/tests/test_validate_status.py_all_function_test_names_decorators_exact": true,
+    "scripts/tests/test_validate_status.py_historical_direct_case_count_exact": true,
+    "scripts/tests/test_validate_status.py_entire_AST_restored_after_only_arg_and_finalizer_removed": true,
+    "scripts/tests/test_doctor.py_preimage_exact_root_and918": true,
+    "scripts/tests/test_doctor.py_result_exact_manifest": true,
+    "scripts/tests/test_doctor.py_sole_typed_request_arg": true,
+    "scripts/tests/test_doctor.py_exact_strict_owned_repo_finalizer": true,
+    "scripts/tests/test_doctor.py_after_owned_mkdir_before_first_copy": true,
+    "scripts/tests/test_doctor.py_single_immutable_repo_binding": true,
+    "scripts/tests/test_doctor.py_fixture_default_function_scope_preserved": true,
+    "scripts/tests/test_doctor.py_assertions_exact": true,
+    "scripts/tests/test_doctor.py_all_function_test_names_decorators_exact": true,
+    "scripts/tests/test_doctor.py_historical_direct_case_count_exact": true,
+    "scripts/tests/test_doctor.py_entire_AST_restored_after_only_arg_and_finalizer_removed": true,
+    "scripts/tests/test_traceability.py_preimage_exact_root_and918": true,
+    "scripts/tests/test_traceability.py_result_exact_manifest": true,
+    "scripts/tests/test_traceability.py_sole_typed_request_arg": true,
+    "scripts/tests/test_traceability.py_exact_strict_owned_repo_finalizer": true,
+    "scripts/tests/test_traceability.py_after_owned_mkdir_before_first_copy": true,
+    "scripts/tests/test_traceability.py_single_immutable_repo_binding": true,
+    "scripts/tests/test_traceability.py_fixture_default_function_scope_preserved": true,
+    "scripts/tests/test_traceability.py_assertions_exact": true,
+    "scripts/tests/test_traceability.py_all_function_test_names_decorators_exact": true,
+    "scripts/tests/test_traceability.py_historical_direct_case_count_exact": true,
+    "scripts/tests/test_traceability.py_entire_AST_restored_after_only_arg_and_finalizer_removed": true,
+    "patch_exact_all3_before_after_diff": true,
+    "concrete_Windows_log_exact": true,
+    "pinned_pytest_setup_finally_schedules_finish": true,
+    "pinned_pytest_teardown_reraises": true,
+    "pinned312_rmtree_strict_by_default": true,
+    "pinned312_link_refusal_and_child_nonfollowing": true
+  },
+  "files": [
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "fixture": "repo_copy",
+      "assertion_count": 315,
+      "test_functions": 128,
+      "direct_fixture_functions": 123,
+      "direct_native_collected_cases": 196,
+      "finalizer_body_index": 3,
+      "first_copy_body_index": 4,
+      "checks": {
+        "preimage_exact_root_and918": true,
+        "result_exact_manifest": true,
+        "sole_typed_request_arg": true,
+        "exact_strict_owned_repo_finalizer": true,
+        "after_owned_mkdir_before_first_copy": true,
+        "single_immutable_repo_binding": true,
+        "fixture_default_function_scope_preserved": true,
+        "assertions_exact": true,
+        "all_function_test_names_decorators_exact": true,
+        "historical_direct_case_count_exact": true,
+        "entire_AST_restored_after_only_arg_and_finalizer_removed": true
+      }
+    },
+    {
+      "path": "scripts/tests/test_doctor.py",
+      "fixture": "doctor_repo",
+      "assertion_count": 96,
+      "test_functions": 38,
+      "direct_fixture_functions": 7,
+      "direct_native_collected_cases": 11,
+      "finalizer_body_index": 3,
+      "first_copy_body_index": 4,
+      "checks": {
+        "preimage_exact_root_and918": true,
+        "result_exact_manifest": true,
+        "sole_typed_request_arg": true,
+        "exact_strict_owned_repo_finalizer": true,
+        "after_owned_mkdir_before_first_copy": true,
+        "single_immutable_repo_binding": true,
+        "fixture_default_function_scope_preserved": true,
+        "assertions_exact": true,
+        "all_function_test_names_decorators_exact": true,
+        "historical_direct_case_count_exact": true,
+        "entire_AST_restored_after_only_arg_and_finalizer_removed": true
+      }
+    },
+    {
+      "path": "scripts/tests/test_traceability.py",
+      "fixture": "trace_repo",
+      "assertion_count": 158,
+      "test_functions": 52,
+      "direct_fixture_functions": 37,
+      "direct_native_collected_cases": 48,
+      "finalizer_body_index": 2,
+      "first_copy_body_index": 3,
+      "checks": {
+        "preimage_exact_root_and918": true,
+        "result_exact_manifest": true,
+        "sole_typed_request_arg": true,
+        "exact_strict_owned_repo_finalizer": true,
+        "after_owned_mkdir_before_first_copy": true,
+        "single_immutable_repo_binding": true,
+        "fixture_default_function_scope_preserved": true,
+        "assertions_exact": true,
+        "all_function_test_names_decorators_exact": true,
+        "historical_direct_case_count_exact": true,
+        "entire_AST_restored_after_only_arg_and_finalizer_removed": true
+      }
+    }
+  ],
+  "source_manifest": {
+    "format_version": "W14_FUNCTION_FIXTURE_LIFECYCLE_CAPACITY_PROPOSAL_1",
+    "authority": "NONE",
+    "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW_AND_FRESH_NATIVE_PYTHON_NOT_APPLIED_NOT_TESTED",
+    "base_commit": "918dedb3fc379e1fc19cf6ef54bbefa1110b35d3",
+    "files": [
+      {
+        "path": "scripts/tests/test_validate_status.py",
+        "fixture": "repo_copy",
+        "preimage_sha256": "sha256:b2785ca1e61e25acd0f3fd63a09f184fc3e8436a0beff664f9ed3be66e1ac033",
+        "preimage_bytes": 106901,
+        "result_sha256": "sha256:dacde24e1cbf3103760dfcc86520ec0300b788bf84e3c7bd0249f99839856116",
+        "result_bytes": 106987,
+        "historical_direct_fixture_case_count": 196,
+        "fixture_scope": "FUNCTION_DEFAULT_UNCHANGED",
+        "changes": [
+          "typed pytest.FixtureRequest parameter",
+          "strict local repo rmtree finalizer registered after directory creation and before first copy"
+        ],
+        "copy_setup_and_return_body_ast_unchanged": true,
+        "all_other_module_statements_ast_unchanged": true
+      },
+      {
+        "path": "scripts/tests/test_doctor.py",
+        "fixture": "doctor_repo",
+        "preimage_sha256": "sha256:25bfe7e85d9786a7bceafe196830497c2cc0694869c523fbc3e883efb74dccd4",
+        "preimage_bytes": 26251,
+        "result_sha256": "sha256:a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd",
+        "result_bytes": 26337,
+        "historical_direct_fixture_case_count": 11,
+        "fixture_scope": "FUNCTION_DEFAULT_UNCHANGED",
+        "changes": [
+          "typed pytest.FixtureRequest parameter",
+          "strict local repo rmtree finalizer registered after directory creation and before first copy"
+        ],
+        "copy_setup_and_return_body_ast_unchanged": true,
+        "all_other_module_statements_ast_unchanged": true
+      },
+      {
+        "path": "scripts/tests/test_traceability.py",
+        "fixture": "trace_repo",
+        "preimage_sha256": "sha256:305ad934b36542b4c927735ff4f20c188857a8a89c56bc1b3345a33005fbfde1",
+        "preimage_bytes": 48373,
+        "result_sha256": "sha256:f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94",
+        "result_bytes": 48459,
+        "historical_direct_fixture_case_count": 48,
+        "fixture_scope": "FUNCTION_DEFAULT_UNCHANGED",
+        "changes": [
+          "typed pytest.FixtureRequest parameter",
+          "strict local repo rmtree finalizer registered after directory creation and before first copy"
+        ],
+        "copy_setup_and_return_body_ast_unchanged": true,
+        "all_other_module_statements_ast_unchanged": true
+      }
+    ],
+    "patch_sha256": "sha256:186b6a45f9e7ca3636244bcb89c38363a005f74b1022574280dbfd338dcdfde8",
+    "patch_bytes": 1867,
+    "paths_changed": 3,
+    "production_paths_changed": 0,
+    "test_cases_added_removed_or_changed": 0,
+    "tests_run": 0,
+    "builds_run": 0,
+    "browsers_started": 0,
+    "root_writes": 0,
+    "actual_failure_evidence": {
+      "raw_path": "/tmp/japp-w14-918-ci/windows-117206260868.raw.log",
+      "raw_sha256": "sha256:e866fd0df169e7ce4227f336a3b5bb6e7123c0bed94ad3d221ad61ba76ecc3ec",
+      "raw_bytes": 962594,
+      "setup_error_test": "test_gate_v2_waiver_refuses_invalid_owner_decision_row[missing]",
+      "copy_location": "scripts/tests/test_validate_status.py:117",
+      "runner_diagnostic": "There is not enough space on the disk.",
+      "scope": "Native Windows CI at clean918; archive retention pending."
+    },
+    "capacity_design": {
+      "full_docs_copy_and_all_other_inputs_preserved": true,
+      "default_function_scope_and_unique_tmp_path_isolation_preserved": true,
+      "finalizer_registered_before_any_copy": true,
+      "setup_copy_failures_run_registered_finalizer": true,
+      "cleanup_target": "Each fixture closes only its local tmp_path / repo subtree.",
+      "strict_cleanup": "shutil.rmtree(repo) defaults ignore_errors=False; errors propagate through pytest teardown.",
+      "no_archive_exclusions_symlink_inputs_hardlinks_or_shared_inputs": true,
+      "no_global_timeout_budget_or_threshold_change": true,
+      "retention_bound": "At most each active fixture instance retains its own full copy; completed instances remove the subtree instead of accumulating to pytest session cleanup. Parallelism can increase simultaneous active instances."
+    },
+    "limitations": [
+      "Fresh affected local Python and native full Python execution remain required.",
+      "No latency, peak disk measurement, recovered capacity size, Windows fix success, or CI full-pass claim.",
+      "The public-contact environment-guard failure has an incomplete stack after disk-full and remains causally unresolved; its source/assertions are unchanged.",
+      "Not Gate A, W15, public/Simplify or production-threshold evidence."
+    ]
+  },
+  "framework_source_inspection": [
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/.venv/lib/python3.12/site-packages/_pytest/fixtures.py",
+      "sha256": "f5d4d3f848d97411e456d50400d3aaecc19a9b0c90def9151e395ee8952042b7"
+    },
+    {
+      "path": "/Users/tanishkalwad/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/shutil.py",
+      "sha256": "f9f0102a9ed087271f914d74b07866464d3e716afe9ee10760a5eb90f7db0f33"
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "No tests, builds, browser, fixture/cleanup execution or root/worktree writes. Static inspection only.",
+    "Pytest cleanup runs after normal/setup-error finalization, not if the OS kills the process/runner before teardown.",
+    "Owned local fixture subtree cleanup is strict; existing failure fixtures/root symlink refusal remain relevant and teardown errors must stay visible.",
+    "No proven byte/capacity/timing improvement or native full aggregate success is inferred.",
+    "Separate contact environment-guard progress F remains causally unresolved and source/assertions unchanged."
+  ]
+}

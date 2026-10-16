@@ -34,6 +34,9 @@ import type {
   PreconditionOutcome,
 } from "./driver-contract.ts";
 
+// This engine-local marker is thrown only before writeText's native setter.
+export class NativeValueChangedDuringFocusError extends Error {}
+
 const TEXT_INPUT_TYPES = new Set([
   "text",
   "email",
@@ -83,9 +86,15 @@ function writeText(
   // Real focus, framework-observable value change, real blur: the minimal
   // faithful interaction envelope, including site-side blur rewrites.
   return mutateCurrent(context, host, (current) => {
+    const valueBeforeFocus = host.value;
     host.focus();
-    // Focus invokes page handlers synchronously. Recheck after that boundary
-    // before the setter; an attached duplicate/removed/hidden control refuses.
+    // Focus invokes page handlers synchronously. Preserve a newer page value
+    // before the setter; this refusal has made no extension value write.
+    if (host.value !== valueBeforeFocus)
+      throw new NativeValueChangedDuringFocusError(
+        "native value changed during focus",
+      );
+    // An attached duplicate/removed/hidden control still refuses.
     if (
       !targetIsCurrent(context.document, current) ||
       !isElementVisible(host) ||
