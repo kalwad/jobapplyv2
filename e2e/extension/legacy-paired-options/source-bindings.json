@@ -304,7 +304,7 @@
       ]
     }
   ],
-  "predeclaration_digest": "sha256:dca9eae531958d39dc75130ed6a95d31e4af0c133f1519752391568285ca1d9c",
+  "predeclaration_digest": "sha256:833e2ca61e25198e06d9ae9b891698a6a27dd56afae1fd181260db6759fbeff4",
   "inputs_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
   "oracles_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
   "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
@@ -461,7 +461,7 @@
     },
     {
       "path": "apps/extension/src/driver-engine.ts",
-      "sha256": "sha256:1556e24e4bede3f0f19d630b9b3300e5b476f800d2f407f8d331eaff8bdaa053"
+      "sha256": "sha256:f0620c2f4b05162f92365ba09fb6523eea76a89dc93ce6e1683f3b41694035b6"
     },
     {
       "path": "apps/extension/src/driver-evidence.ts",
@@ -509,7 +509,7 @@
     },
     {
       "path": "apps/extension/src/dynamic-engine.ts",
-      "sha256": "sha256:57c88b3ea41235b66c6c1908bf9663a6300a94a0d84f028d88ae8de71e81c059"
+      "sha256": "sha256:92bd0ea7ece96eee82c879e274cf2c7a2e8b5f048d0a0f603c169c1ed283d125"
     },
     {
       "path": "apps/extension/src/dynamic-protocol.ts",
@@ -517,7 +517,7 @@
     },
     {
       "path": "apps/extension/src/dynamic-reconcile.ts",
-      "sha256": "sha256:82b70e018d11f9d05cd09c1528ffa991cd744dc5798aabd34f96122200cf2117"
+      "sha256": "sha256:c48c91fab05a873bdcf3f99970224fbe7a52382bb93853f3b395bf83e5a6850d"
     },
     {
       "path": "apps/extension/src/feasibility-protocol.ts",
@@ -541,7 +541,11 @@
     },
     {
       "path": "apps/extension/src/semantic-identity.ts",
-      "sha256": "sha256:ee1316130f99645183788d2020675ff4ce2c961c08188322e36a44fa1d4328ae"
+      "sha256": "sha256:4a03fbbcb86743b13e10bbb3d31e05e861c8fe14e68e0e2cb8129d89ef3b34bc"
+    },
+    {
+      "path": "apps/extension/src/validation-description.ts",
+      "sha256": "sha256:7ac16f6413dd73676ccf62a4d994b06b37700ca949ca73876842c46854b02d64"
     },
     {
       "path": "apps/extension/tsconfig.json",
@@ -561,7 +565,7 @@
     },
     {
       "path": "e2e/extension/support/autofill-mounted.ts",
-      "sha256": "sha256:8c003e2edb3a4daefc5af5639af2d5380b8251debd03e2f51821775f627b922f"
+      "sha256": "sha256:b67f55fd2fccc38c3c7f1d1a69f739afc31055e11f78718a1791f22f973a42dc"
     },
     {
       "path": "e2e/extension/support/autofill-w14-native-witness.ts",
@@ -597,15 +601,15 @@
     },
     {
       "path": "packages/contracts/generated/MANIFEST.json",
-      "sha256": "sha256:99719449cca4c42cff14b25e96aaa6e4291a44d743ff52ee19f660bfc1339201"
+      "sha256": "sha256:679f6dae87f92a4448f58e2b8aa3014f0642d360cb83babe2ac282d3d7dc5e37"
     },
     {
       "path": "packages/contracts/generated/README.md",
-      "sha256": "sha256:dd6207b6628e9462cd8035abfc0c47df66bb9381b8b38deec8376ef979976e12"
+      "sha256": "sha256:d11f4ff484a356699e062068523378e731ee6246f3e51d59d59cc5a14cd760e2"
     },
     {
       "path": "packages/contracts/generated/python/src/japp_contracts/__init__.py",
-      "sha256": "sha256:406cfe6bca4be278eb3862fafeedd4dea672d990e969888e5fdc6417f015050f"
+      "sha256": "sha256:7f5d7f250e002d4700e1c4cdffef0a293105248a34ef2c23d8c3c87fa736f55c"
     },
     {
       "path": "packages/contracts/generated/python/src/japp_contracts/_runtime.py",
@@ -969,7 +973,11 @@
     },
     {
       "path": "packages/contracts/generated/python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "sha256:ef379cc1fe98786e4f3a9125e4a3676dcaabff93585ba0073c67bfcfbeae15f2"
+      "sha256": "sha256:832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549"
+    },
+    {
+      "path": "packages/contracts/generated/python/src/japp_contracts/semantic/rules_v2.py",
+      "sha256": "sha256:8a2a35a6274f9996840306e8e2cdc7ae58527626e0719f00bececa7c5a90dff8"
     },
     {
       "path": "packages/contracts/generated/python/src/japp_contracts/session/__init__.py",
@@ -1133,7 +1141,7 @@
     },
     {
       "path": "packages/contracts/generated/typescript/index.ts",
-      "sha256": "sha256:0c6723c823246b470162001a14e194cdb7be6a2d9271aad3b259a11b99b007e9"
+      "sha256": "sha256:e314b43b10fd07da2ed4371be126032fc8dc664bc784be65029a6e65d079153e"
     },
     {
       "path": "packages/contracts/generated/typescript/platform/browser-discovery-request.v1.ts",
@@ -1317,7 +1325,11 @@
     },
     {
       "path": "packages/contracts/generated/typescript/semantic/rules.v1.ts",
-      "sha256": "sha256:8dc2401b5e46c31587a51d9c4db1d69ff5f1e81b7776dddde4814668a248f9f5"
+      "sha256": "sha256:449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f"
+    },
+    {
+      "path": "packages/contracts/generated/typescript/semantic/rules.v2.ts",
+      "sha256": "sha256:96c7f7fdddd2041a9c57c8edb877c092e0db747a967ffbe261e68c3087496134"
     },
     {
       "path": "packages/contracts/generated/typescript/session/application-session.v1.ts",
@@ -2002,5 +2014,5 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:1ac47982914c5e7786e5aa395f3b5d296930fa238018974719c916e49adbffe2"
+  "candidate_runtime_inventory_digest": "sha256:7671a04ad0c5f542a0526be208f61b5fafa6ae72e0f4d31acf71d6133f091557"
 }

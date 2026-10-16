@@ -427,8 +427,8 @@
     ],
     "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES"
   },
-  "preexecution_source_revision": 4,
-  "preexecution_source_revision_reason": "COMPLETE_DECLARED_RUNTIME_INVENTORY_AFTER_FINAL_DRIVER_KERNEL_REVIEW",
+  "preexecution_source_revision": 5,
+  "preexecution_source_revision_reason": "FINAL_VERSIONED_SEMANTICS_FUNCTIONAL_AND_PURE_SHA_CORRECTIONS",
   "source_lock_revised_at": "2026-10-16T17:36:40.250599+00:00",
   "owned_launcher": {
     "browser_runner_deadline_ms": 180000,
@@ -441,11 +441,11 @@
   },
   "offline_join_truth": "RECOMPUTED_FROM_UNIQUE_FINAL_NATIVE_VALUES_VS_FROZEN_EXPECTATIONS_SUPPLIED_FLAGS_ARE_CLAIMS_ONLY",
   "runtime_python_required": "3.12.13",
-  "preexecution_previous_campaign_lock_digest": "sha256:561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d",
-  "preexecution_runtime_review_record": "Parent reviewed final expanded driver delta sha256:8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df and final72 source manifest sha256:4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb before either new paired system execution; outside candidate runtime is byte-exact to current root.",
+  "preexecution_previous_campaign_lock_digest": "sha256:307fc4cd296f35aeb9c0a534c5e5f36d573c46753e736391bf34ac52986e3ec0",
+  "preexecution_runtime_review_record": "ROOT_REVIEWED_cc2d5d81_ea5f36a5_37c591ec_EXACT_PATCH_AND_AFTER_HASHES_TARGET20_1432.526584",
   "preexecution_no_paired_system_run_declared": true,
-  "preexecution_rebind_prepared_at": "2026-10-16T18:12:52.855Z",
-  "preexecution_runtime_inventory_correction": "The old 316-path inventory was incomplete for newer runtime helpers and included 98 irrelevant Python bytecode cache files. This pre-execution source revision binds every file in declared source/generated directories, including open-dom, mutation-guard and option-meaning, while excluding only declared dependency/build/cache outputs. No system run under the old inventory is claimed.",
+  "preexecution_rebind_prepared_at": "2026-10-16T19:02:56.111251+00:00",
+  "preexecution_runtime_inventory_correction": "Revision4 was complete when authored but is superseded before either actual paired run by the final V1/V2 generated modules, composite-description helper, collision inventory and pure SHA changes. Original inputs/oracles/projections and symmetric observer are byte-identical.",
   "candidate_runtime_inventory_policy": {
     "format_version": "W14_PAIRED_CANDIDATE_RUNTIME_INVENTORY_1",
     "directories": [
@@ -506,6 +506,6 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:1ac47982914c5e7786e5aa395f3b5d296930fa238018974719c916e49adbffe2",
-  "candidate_runtime_inventory_count": 352
+  "candidate_runtime_inventory_digest": "sha256:7671a04ad0c5f542a0526be208f61b5fafa6ae72e0f4d31acf71d6133f091557",
+  "candidate_runtime_inventory_count": 355
 }

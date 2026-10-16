@@ -1,5 +1,7 @@
 # Paired explicit-option pre-execution source revision
 
+Revision5 supersedes revision4 before either actual paired run. The final versioned semantic modules, composite validation-description helper, collision inventory and pure SHA correction are bound by a fresh complete runtime inventory. Revision4 metadata and its checklist are byte-preserved under `preexecution-history/revision-4/`; revision3 history remains byte-identical. The original three data digests and symmetric native observer remain unchanged. The revision3-to4 authoring commands below are historical preparation instructions; they intentionally refuse the current lock. Revision5 was prepared outside the source tree using the same production `captureRuntimeInventory` and exact previous-lock/file checks, with its proposal and before/after hashes retained in `docs/evidence/m02-w14-paired-revision5/`. Actual commands below require the separately reviewed revision5 digest. No old run is inherited.
+
 This new four-case campaign still has zero actual candidate or legacy runs at authoring. Its input, oracle and legacy-projection bytes remain frozen. The original exact-four observations and expectations are unchanged; old results cannot serve as observations for these new paired inputs.
 
 The previous revision 3 source inventory had 316 paths, including 98 generated Python bytecode cache files, and missed later runtime helpers. It is not complete runtime evidence and must not be used for execution. This PREEXECUTION correction replaces that list with a closed directory policy: every current file under extension entrypoints/src, e2e support, form-engine/src, evaluation-runner/src, and contracts src/schemas/generated is bound, plus explicit build/toolchain/package/lock configuration files. New files and deletions invalidate the inventory as well as byte changes. `open-dom.ts`, `drivers/mutation-guard.ts`, `option-meaning.ts`, generated contract entrypoints and the independent native observer are mandatory. Declared dependency/build/cache outputs, including Python bytecode, are excluded. Installed dependency bytes are not claimed to be independently hashed: package/toolchain/lock commitments and separate fresh-build output provenance remain required.
@@ -41,7 +43,7 @@ These commands are a runbook, not executed evidence. Use pinned Node 24.18.0/pnp
 ```sh
 cd /Users/tanishkalwad/jobapplyv2
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_4_SHA256_DIGEST'
+export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_5_SHA256_DIGEST'
 export JAPP_W14_PAIRED_OPTIONS_EVALUATION=1
 JAPP_PAIRED_RUN_DIRECTORY="$(mktemp -d /tmp/japp-w14-paired-run.XXXXXX)"
 ```

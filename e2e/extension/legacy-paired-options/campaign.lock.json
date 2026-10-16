@@ -1,11 +1,11 @@
 {
   "format_version": "W14_PAIRED_OPTIONS_CAMPAIGN_LOCK_1",
   "authority": "NONE",
-  "status": "FROZEN_BEFORE_EITHER_NEW_RUN_REVISION_4_COMPLETE_RUNTIME_INVENTORY",
+  "status": "FROZEN_BEFORE_EITHER_NEW_RUN_REVISION_5_FINAL_CORRECTIONS",
   "files": [
     {
       "path": "PREEXECUTION.md",
-      "sha256": "sha256:f341ac0893c532725e73ea9da2048be1d9fc34f49868318fdf77cf7ba1769511"
+      "sha256": "sha256:28e26f667bf579dac9ad15eefa1eeecbe3a42b2921e62996130301b73825eebe"
     },
     {
       "path": "campaign.mjs",
@@ -61,7 +61,7 @@
     },
     {
       "path": "predeclaration.json",
-      "sha256": "sha256:dca9eae531958d39dc75130ed6a95d31e4af0c133f1519752391568285ca1d9c"
+      "sha256": "sha256:833e2ca61e25198e06d9ae9b891698a6a27dd56afae1fd181260db6759fbeff4"
     },
     {
       "path": "preexecution-history/revision-3/campaign.lock.json",
@@ -78,6 +78,26 @@
     {
       "path": "preexecution-history/revision-3/source-bindings.json",
       "sha256": "sha256:5382a00f1f6ed2a04660917c9969600fe26f3e30fc49f66c392b81c67149e828"
+    },
+    {
+      "path": "preexecution-history/revision-4/PREEXECUTION.md",
+      "sha256": "sha256:f341ac0893c532725e73ea9da2048be1d9fc34f49868318fdf77cf7ba1769511"
+    },
+    {
+      "path": "preexecution-history/revision-4/campaign.lock.json",
+      "sha256": "sha256:307fc4cd296f35aeb9c0a534c5e5f36d573c46753e736391bf34ac52986e3ec0"
+    },
+    {
+      "path": "preexecution-history/revision-4/campaign.lock.sha256",
+      "sha256": "sha256:2718d92ee7876553062cfc81e5db5729097e4ed264940cc480524e1bd7a5d3c0"
+    },
+    {
+      "path": "preexecution-history/revision-4/predeclaration.json",
+      "sha256": "sha256:dca9eae531958d39dc75130ed6a95d31e4af0c133f1519752391568285ca1d9c"
+    },
+    {
+      "path": "preexecution-history/revision-4/source-bindings.json",
+      "sha256": "sha256:874caa7e8bd89c05e512488c1d0140eb5697ac6853fda54ad7624d84f2d3ace2"
     },
     {
       "path": "preimages/LICENSE",
@@ -145,7 +165,7 @@
     },
     {
       "path": "source-bindings.json",
-      "sha256": "sha256:874caa7e8bd89c05e512488c1d0140eb5697ac6853fda54ad7624d84f2d3ace2"
+      "sha256": "sha256:4a8eb3712bde2f2fc7e64e60426ca36e508da7e62bd46f63b7d53ea1ff6a279c"
     }
   ]
 }

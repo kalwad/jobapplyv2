@@ -430,9 +430,26 @@ for (const scenario of [
         scenario === "focus-duplicate" ||
         scenario === "during-action-duplicate"
       ) {
-        expect(
-          (await dynReconcile(harness, top.frame_context.frame_id)).status,
-        ).toBe("ROOT_AMBIGUOUS");
+        const inventory = reconciled(
+          await dynReconcile(harness, top.frame_context.frame_id),
+        ).inventory;
+        // Field collisions do not make the unique application root ambiguous.
+        // Both physical observations must survive without fill/readiness credit.
+        expect(inventory.items).toHaveLength(2);
+        expect(new Set(inventory.items.map((item) => item.item_id)).size).toBe(
+          2,
+        );
+        expect(new Set(inventory.items.map((item) => item.field_id)).size).toBe(
+          1,
+        );
+        for (const item of inventory.items) {
+          expect(item.required && item.visible && item.enabled).toBe(true);
+          expect(item.category).toBe("REQUIRED_UNRESOLVED");
+          expect(item.mandatory_uncertain).toBe(true);
+        }
+        expect(inventory.counts.required_unresolved).toBe(2);
+        expect(inventory.counts.verified_filled).toBe(0);
+        expect(inventory.readiness).toBe("NOT_READY");
       }
       if (
         scenario === "rerender" ||
@@ -822,10 +839,20 @@ test("W14 open shadow: duplicate identities introduced together in one observed 
       root.innerHTML =
         '<input aria-label="First name" name="given" required><input aria-label="First name" name="given" required>';
     });
-    const result = await dynReconcile(harness, top.frame_context.frame_id);
-    expect(result.status).toBe("ROOT_AMBIGUOUS");
-    if (result.status === "ROOT_AMBIGUOUS")
-      expect(result.candidate_count).toBe(2);
+    const inventory = reconciled(
+      await dynReconcile(harness, top.frame_context.frame_id),
+    ).inventory;
+    expect(inventory.items).toHaveLength(2);
+    expect(new Set(inventory.items.map((item) => item.item_id)).size).toBe(2);
+    expect(new Set(inventory.items.map((item) => item.field_id)).size).toBe(1);
+    for (const item of inventory.items) {
+      expect(item.required && item.visible && item.enabled).toBe(true);
+      expect(item.category).toBe("REQUIRED_UNRESOLVED");
+      expect(item.mandatory_uncertain).toBe(true);
+    }
+    expect(inventory.counts.required_unresolved).toBe(2);
+    expect(inventory.counts.verified_filled).toBe(0);
+    expect(inventory.readiness).toBe("NOT_READY");
   } finally {
     await harness.page.close();
     await harness.controller.close();
