@@ -158,6 +158,18 @@ def doctor_repo(tmp_path: Path) -> Path:
     extension_config = repo / "apps" / "extension" / "wxt.config.ts"
     extension_config.parent.mkdir(parents=True)
     extension_config.write_text("export {};\n", encoding="utf-8")
+    # W14's two required public suites discover these real artifact paths.
+    # Keep the healthy platform simulation aligned with the active registry;
+    # the doctor discovers files here, without executing a public campaign.
+    for rel in (
+        "apps/extension/test/m02-w14/public-inspection/scope.test.ts",
+        "e2e/extension/public-research/controlled-scope.proof.ts",
+        "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
+        "e2e/extension/public-contact/controlled-contact.proof.ts",
+    ):
+        target = repo / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(REPO_ROOT / rel, target)
     for rel in (
         "validate_status.py",
         "traceability.py",
