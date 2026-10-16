@@ -1,0 +1,151 @@
+{
+  "format_version": "W14_PAIRED_OPTIONS_CAMPAIGN_LOCK_1",
+  "authority": "NONE",
+  "status": "FROZEN_BEFORE_EITHER_NEW_RUN_REVISION_4_COMPLETE_RUNTIME_INVENTORY",
+  "files": [
+    {
+      "path": "PREEXECUTION.md",
+      "sha256": "sha256:f341ac0893c532725e73ea9da2048be1d9fc34f49868318fdf77cf7ba1769511"
+    },
+    {
+      "path": "campaign.mjs",
+      "sha256": "sha256:ed5b62376b716515fcae91c182239487b8d9c41e06f5d410bfaf465bc33bbbc4"
+    },
+    {
+      "path": "candidate-kernel.ts",
+      "sha256": "sha256:9b500ac28683c1abcc4f5f434506826a80ff0df0af9a0403f4f48b1b09d749ef"
+    },
+    {
+      "path": "compare-paired.mjs",
+      "sha256": "sha256:f48305b617aba5bb5c215fa7b32c009dad4edd64d8b24dd562a8af6f328b04c2"
+    },
+    {
+      "path": "compare-paired.structural.test.mjs",
+      "sha256": "sha256:a85c1235717855102631498ecf3420b3080c64a8b3d6eff83ab654bf36082087"
+    },
+    {
+      "path": "legacy-browser.mjs",
+      "sha256": "sha256:c15e3c17df1bef7d4a25ad678fbe8155b934eca9b52f00a17bc702b19f3a5fd6"
+    },
+    {
+      "path": "legacy-projections.json",
+      "sha256": "sha256:7c7cd5d546aee296ddaa50455b95b4baf7c32e2984ba1df53ddacf5c445531ed"
+    },
+    {
+      "path": "legacy-server.py",
+      "sha256": "sha256:0918e7802344d140ca8a665d8effec822aab46ca22deda13746bf9051f1c91fa"
+    },
+    {
+      "path": "owned-child-lifecycle.mjs",
+      "sha256": "sha256:f60d3bdac60c76c0274a7e75a9d5cde93f6b057c71217ee435a4f999aa2baadb"
+    },
+    {
+      "path": "owned-child-lifecycle.test.mjs",
+      "sha256": "sha256:f5ae4c3fdeccc6cb703592d458f836639f0a7b584d5eba670f2c653fef7cc3e9"
+    },
+    {
+      "path": "paired-inputs.json",
+      "sha256": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812"
+    },
+    {
+      "path": "paired-options.proof.ts",
+      "sha256": "sha256:d533603dd125883751fe85feba572c1edbcf16458727e5bc2d6bfe7edfc95c6a"
+    },
+    {
+      "path": "paired-oracles.json",
+      "sha256": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "sha256:f781e2bba410fb7ef674bbd40afa8dd1cbe761c59ddf8331fabf2df3dae7285c"
+    },
+    {
+      "path": "predeclaration.json",
+      "sha256": "sha256:dca9eae531958d39dc75130ed6a95d31e4af0c133f1519752391568285ca1d9c"
+    },
+    {
+      "path": "preexecution-history/revision-3/campaign.lock.json",
+      "sha256": "sha256:561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d"
+    },
+    {
+      "path": "preexecution-history/revision-3/campaign.lock.sha256",
+      "sha256": "sha256:690b339063603336eb0ac40b1d35302fcb0001a2668ee033d80d5b1b58da8673"
+    },
+    {
+      "path": "preexecution-history/revision-3/predeclaration.json",
+      "sha256": "sha256:845d5fa593c99e3496fcce9ba48196074cff996cac730a53b9fb4db252e7f13f"
+    },
+    {
+      "path": "preexecution-history/revision-3/source-bindings.json",
+      "sha256": "sha256:5382a00f1f6ed2a04660917c9969600fe26f3e30fc49f66c392b81c67149e828"
+    },
+    {
+      "path": "preimages/LICENSE",
+      "sha256": "sha256:fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6"
+    },
+    {
+      "path": "preimages/evaluation-browser.mjs.txt",
+      "sha256": "sha256:ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572"
+    },
+    {
+      "path": "preimages/evaluation-inputs.json",
+      "sha256": "sha256:aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf"
+    },
+    {
+      "path": "preimages/evaluation-profile.json",
+      "sha256": "sha256:be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45"
+    },
+    {
+      "path": "preimages/evaluation-runtime.freeze.txt",
+      "sha256": "sha256:f3d6d82db6f5d94efa3f28cba4b15229b719947a7981c426b9571c6d308060d8"
+    },
+    {
+      "path": "preimages/evaluation-server.py.txt",
+      "sha256": "sha256:19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81"
+    },
+    {
+      "path": "preimages/legacy-meter-function.txt",
+      "sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239"
+    },
+    {
+      "path": "preimages/original-source-bindings.json",
+      "sha256": "sha256:663685f32767af360848bdcbf17dee5a6c6acbaa3e3e6d5a27409d8ea2a880e2"
+    },
+    {
+      "path": "preimages/upstream-components.json",
+      "sha256": "sha256:0ca000a5e381c344e640d221c5877302d87a906c219a033783ea49016ef942b5"
+    },
+    {
+      "path": "preimages/upstream-identity.json",
+      "sha256": "sha256:9c72560b40fe1fdd233cb67950db1f3f427c37bf12dfd40476518e67e15c5d35"
+    },
+    {
+      "path": "preimages/upstream-tag.json",
+      "sha256": "sha256:d78c8cc4c6db267597961086f21cd9717dc33a81a2fc858dff01d724acda946b"
+    },
+    {
+      "path": "preimages/w13-declarations.json",
+      "sha256": "sha256:f6906cbfb65853f6a12ee16d2a31981d1f3b36a5aa5e4653c6551cba460f32f1"
+    },
+    {
+      "path": "prepare-preexecution-rebind.mjs",
+      "sha256": "sha256:ff11c3d17fe45f5a0c91b6249017577b33cd8bc5a2d966359c6f569ac9d56a45"
+    },
+    {
+      "path": "run-legacy.mjs",
+      "sha256": "sha256:c9197e50aca4e211d972ee1646a27b9f032d1ca9b6dfc438b055bd9405c2febb"
+    },
+    {
+      "path": "runtime-inventory.test.mjs",
+      "sha256": "sha256:bd8eb171125720cbcb3bd5f5ea896acef5c648b4503e72a5531725227c812a71"
+    },
+    {
+      "path": "runtime-inventory.ts",
+      "sha256": "sha256:598b8cb335378864c51a50867a6d0fd545a3103ddfd786db8416b5b73a05f567"
+    },
+    {
+      "path": "source-bindings.json",
+      "sha256": "sha256:874caa7e8bd89c05e512488c1d0140eb5697ac6853fda54ad7624d84f2d3ace2"
+    }
+  ]
+}

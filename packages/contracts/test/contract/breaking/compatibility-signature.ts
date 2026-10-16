@@ -438,30 +438,38 @@ export function buildCompatibilitySignature(
     validator,
     errorCatalog,
   });
-  const corpus = loadCorpus(
-    join(repoRoot, "packages/contracts/test/contract/corpus"),
-  );
+  // Separate bounded inventories preserve the historical 511-case preimage
+  // and the unchanged 512-request protocol bound in every actual adapter run.
+  const corpora = [
+    loadCorpus(join(repoRoot, "packages/contracts/test/contract/corpus")),
+    loadCorpus(
+      join(repoRoot, "packages/contracts/test/contract/gate-waiver-corpus"),
+    ),
+  ];
+  const corpus = { cases: corpora.flatMap((source) => source.cases) };
+  if (
+    new Set(corpus.cases.map((entry) => entry.id)).size !== corpus.cases.length
+  ) {
+    throw new Error("compatibility corpus case identifiers overlap");
+  }
   const historicalInventory = loadHistoricalWitnessInventory(
     join(repoRoot, HISTORICAL_WITNESS_REPOSITORY_PATH),
   );
   const requests = {
     python: new Map(
-      adapterBatchFor(corpus, "python").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "python").requests)
+        .map((request) => [request.case_id, request]),
     ),
     rust: new Map(
-      adapterBatchFor(corpus, "rust").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "rust").requests)
+        .map((request) => [request.case_id, request]),
     ),
     typescript: new Map(
-      adapterBatchFor(corpus, "typescript").requests.map((request) => [
-        request.case_id,
-        request,
-      ]),
+      corpora
+        .flatMap((source) => adapterBatchFor(source, "typescript").requests)
+        .map((request) => [request.case_id, request]),
     ),
   };
   const supportedCases: SupportedCaseSignature[] = [];

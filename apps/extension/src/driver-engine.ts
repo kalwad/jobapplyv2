@@ -1,3 +1,7 @@
+import {
+  approvedOptionMeaningSnapshot,
+  selectOptionMeaning,
+} from "./option-meaning.ts";
 // M02-W10 frame-local transaction kernel. It composes control-specific
 // drivers around canonical W09 authority and W08 current-document semantic
 // resolution. No Element reference, selector, or raw value crosses the wire.
@@ -38,6 +42,9 @@ import {
   isElementEnabled,
   isElementVisible,
   resolveFieldTarget,
+  descriptionApprovalMatches,
+  recordedDomEvidenceRevision,
+  targetIsCurrent,
   type FieldTargetResolution,
   type ResolvedFieldTarget,
 } from "./field-scanner.ts";
@@ -46,13 +53,20 @@ import { semanticDigest, stableSemanticId } from "./semantic-identity.ts";
 import {
   checkboxDriver,
   nativeSelectDriver,
+  optionMeaningApproval,
+  optionMeaningApprovalMatches,
   radioGroupDriver,
 } from "./drivers/choice-drivers.ts";
 import type {
   ControlDriver,
   DriverContext,
+  OptionMeaningApproval,
 } from "./drivers/driver-contract.ts";
-import { readSiteAcceptance, settleWindow } from "./drivers/driver-dom.ts";
+import {
+  captureNativePropertyWitness,
+  readSiteAcceptance,
+  settleWindow,
+} from "./drivers/driver-dom.ts";
 import { fileUploadDriver } from "./drivers/file-upload-driver.ts";
 import { repeaterDriver } from "./drivers/repeater-driver.ts";
 import { dateDriver, textDriver } from "./drivers/text-like-drivers.ts";
@@ -99,6 +113,9 @@ interface UndoRecord {
   readonly priorObservation: SemanticObservation;
   readonly intendedObservation: SemanticObservation;
   consumed: boolean;
+  effectiveUndoAddress?: FormFieldAddressV1;
+  readonly optionMeaningApproval?: OptionMeaningApproval;
+  readonly priorOptionMeaningApproval?: OptionMeaningApproval;
 }
 
 interface ResultInput {
@@ -120,7 +137,14 @@ interface ResultInput {
   readonly recovery?: FormDriverResultV1["recovery"];
 }
 
+export interface ValidationDescriptionClearingEvidence {
+  readonly source: "READ_SITE_ACCEPTANCE_V1";
+  readonly rejectedDescriptionMessageDigest: string;
+  readonly settledAddress: FormFieldAddressV1;
+}
 export interface DriverExecution {
+  readonly descriptionClearing?: ValidationDescriptionClearingEvidence;
+  readonly optionMeaningApproval?: OptionMeaningApproval;
   readonly result: FormDriverResultV1;
   readonly undoAvailable: boolean;
   readonly diagnostics: DriverDiagnostics;
@@ -181,12 +205,113 @@ function generationMatches(
   );
 }
 
+// An engine-private proof for exactly the current synchronous turn. Drivers
+// cannot mint it. Any await expires it; focus still performs its own fresh
+// check before the native setter. No wall-clock/time-based freshness is used.
+const synchronousMutationContexts = new WeakSet<DriverContext>();
+function markSynchronousMutationContext(context: DriverContext): void {
+  synchronousMutationContexts.add(context);
+  queueMicrotask(() => synchronousMutationContexts.delete(context));
+}
+
 function driverContext(
   document: Document,
   target: ResolvedFieldTarget,
   intended: DriverIntendedValue,
+  frameContext: FrameContext,
+  approvedAddress: FormFieldAddressV1,
+  approvedOption?: OptionMeaningApproval,
+  restorationOptionApproval?: OptionMeaningApproval,
 ): DriverContext {
-  return { document, target, intended };
+  let current = target;
+  const allowed = (candidate: ResolvedFieldTarget) =>
+    descriptionApprovalMatches(approvedAddress, candidate.descriptor.address) &&
+    (approvedOption === undefined ||
+      optionMeaningApprovalMatches(approvedOption, candidate.descriptor) ||
+      ((candidate.descriptor.control_kind === "COMBOBOX" ||
+        (candidate.descriptor.control_kind === "SELECT" &&
+          !(candidate.anchor instanceof HTMLSelectElement))) &&
+        !candidate.descriptor.options.some(
+          (option) => option.value_digest === approvedOption.valueDigest,
+        ))) &&
+    (restorationOptionApproval === undefined ||
+      optionMeaningApprovalMatches(
+        restorationOptionApproval,
+        candidate.descriptor,
+      ) ||
+      ((candidate.descriptor.control_kind === "COMBOBOX" ||
+        (candidate.descriptor.control_kind === "SELECT" &&
+          !(candidate.anchor instanceof HTMLSelectElement))) &&
+        !candidate.descriptor.options.some(
+          (option) =>
+            option.value_digest === restorationOptionApproval.valueDigest,
+        ))) &&
+    generationMatches(candidate, approvedAddress) &&
+    targetIsCurrent(document, candidate) &&
+    targetVisible(candidate) &&
+    targetEnabled(candidate);
+  const context: DriverContext = {
+    document,
+    target,
+    intended,
+    ...(approvedOption === undefined ? {} : { approvedOption }),
+    ...(restorationOptionApproval === undefined
+      ? {}
+      : { restorationOptionApproval }),
+    mutate: async (action) => {
+      if (synchronousMutationContexts.delete(context)) {
+        action(current);
+        return;
+      }
+      if (allowed(current)) {
+        action(current);
+        return;
+      }
+      {
+        const resolved = await resolveFieldTarget(
+          document,
+          frameContext,
+          approvedAddress,
+          "preaction",
+        );
+        if (
+          resolved.status !== "RESOLVED" ||
+          resolved.target.anchor !== target.anchor ||
+          resolved.target.applicationRoot !== target.applicationRoot ||
+          !allowed(resolved.target)
+        )
+          throw new Error("driver mutation authority changed");
+        current = resolved.target;
+      }
+      // The callback is synchronous; no await separates this last authority
+      // check from the native mutation. Drivers repeat focus checks inside it.
+      action(current);
+    },
+  };
+  return context;
+}
+
+export function captureDriverObservationWitness(
+  driver: ControlDriver,
+  context: DriverContext,
+): () => boolean {
+  const nativeCurrent = captureNativePropertyWitness([
+    context.target.anchor,
+    ...context.target.members,
+  ]);
+  const extraCurrent = driver.captureObservationWitness?.(context);
+  return () => nativeCurrent() && (extraCurrent?.() ?? true);
+}
+
+async function checkedPreconditions(
+  driver: ControlDriver,
+  context: DriverContext,
+): Promise<Awaited<ReturnType<ControlDriver["checkPreconditions"]>>> {
+  try {
+    return await driver.checkPreconditions(context);
+  } catch {
+    return { ok: false };
+  }
 }
 
 export function matchingControlDrivers(
@@ -195,8 +320,15 @@ export function matchingControlDrivers(
   anchor: HTMLElement,
   intended: DriverIntendedValue,
 ): ControlDriver[] {
-  return drivers.filter((driver) =>
-    driver.detect(descriptor, anchor, intended),
+  // Open shadow support is intentionally native text/textarea only. Other
+  // controls remain visible in reconciliation but grant no action authority.
+  const shadow =
+    typeof ShadowRoot !== "undefined" &&
+    anchor.getRootNode() instanceof ShadowRoot;
+  return drivers.filter(
+    (driver) =>
+      (!shadow || driver.driverKey === "TEXT_INPUT_V1") &&
+      driver.detect(descriptor, anchor, intended),
   );
 }
 
@@ -309,7 +441,13 @@ async function buildResult(input: ResultInput): Promise<FormDriverResultV1> {
     persistence_verified: synthesis.persistence_verified,
     safe_retry_allowed: synthesis.safe_retry_allowed,
     outcome: synthesis.outcome,
-    reason_codes: synthesis.reason_codes,
+    // Preserve independently observed rejection even when stale ownership
+    // additionally prevents a complete verification/undo authority claim.
+    reason_codes:
+      input.siteAcceptance === "REJECTED" &&
+      !synthesis.reason_codes.includes("SITE_REJECTED")
+        ? [...synthesis.reason_codes, "SITE_REJECTED" as const].slice(0, 8)
+        : synthesis.reason_codes,
     correlation_id: transaction.correlation_id,
     causation_id: transaction.decision.decision_id,
     ...(input.recovery === undefined ? {} : { recovery: input.recovery }),
@@ -406,13 +544,49 @@ export class DriverTransactionEngine {
       target,
       transaction.intended,
     );
+    // Native select meanings can change while opaque raw values remain the
+    // same. The first approval must bind the entire W09 option observation;
+    // subsequent checks retain the intended option's exact semantic evidence.
+    const isStaticChoice =
+      target.anchor instanceof HTMLSelectElement ||
+      target.descriptor.control_kind === "RADIO_GROUP";
+    const originalOptionSnapshot = approvedOptionMeaningSnapshot(
+      transaction.address.option_fingerprint,
+    );
+    const currentOptionSnapshotMatches =
+      transaction.address.option_fingerprint ===
+      target.descriptor.address.option_fingerprint;
+    const intendedOptionDigest =
+      transaction.intended.kind === "OPTION"
+        ? transaction.intended.value_digest
+        : undefined;
+    const selectedOptionMeaning =
+      transaction.intended.kind !== "OPTION"
+        ? undefined
+        : originalOptionSnapshot === null
+          ? currentOptionSnapshotMatches
+            ? optionMeaningApproval(target.descriptor, transaction.intended)
+            : undefined
+          : selectOptionMeaning(
+              originalOptionSnapshot,
+              intendedOptionDigest ?? "",
+            );
+    const approvedOption = selectedOptionMeaning ?? undefined;
     const addressDigest = await fieldAddressDigest(transaction.address);
     const policyPermitted =
+      (transaction.intended.kind !== "OPTION" ||
+        (selectedOptionMeaning !== null &&
+          (originalOptionSnapshot !== null || currentOptionSnapshotMatches) &&
+          (!isStaticChoice || approvedOption !== undefined))) &&
       decisionAuthorizesExecution(transaction.decision) &&
       transaction.decision.policy_decision === "PERMIT" &&
       transaction.decision.field_address_digest === addressDigest &&
       transaction.decision.field_id === target.descriptor.field_id &&
-      transaction.decision.correlation_id === transaction.correlation_id;
+      transaction.decision.correlation_id === transaction.correlation_id &&
+      descriptionApprovalMatches(
+        transaction.address,
+        target.descriptor.address,
+      );
     const preconditions: Preconditions = {
       visible: target.descriptor.visible && targetVisible(target),
       enabled: target.descriptor.enabled && targetEnabled(target),
@@ -484,6 +658,9 @@ export class DriverTransactionEngine {
       document,
       target,
       transaction.intended,
+      frameContext,
+      transaction.address,
+      approvedOption,
     );
     if (
       !preconditions.visible ||
@@ -513,14 +690,35 @@ export class DriverTransactionEngine {
       };
     }
 
-    const initialCheck = await driver.checkPreconditions(initialContext);
+    const initialCheck = await checkedPreconditions(driver, initialContext);
     if (!initialCheck.ok) {
+      // A guarded query probe may synchronously change semantic ownership.
+      // Report its fresh resolution failure rather than a stale UNIQUE result;
+      // no restoration is authorized under the changed identity.
+      const failedResolution = targetIsCurrent(document, target)
+        ? null
+        : await resolveFieldTarget(
+            document,
+            frameContext,
+            transaction.address,
+            "preaction",
+          );
+      const failureClass =
+        failedResolution === null
+          ? "UNIQUE"
+          : failedResolution.status === "RESOLVED" &&
+              !descriptionApprovalMatches(
+                transaction.address,
+                failedResolution.target.descriptor.address,
+              )
+            ? "STALE"
+            : resolutionClass(failedResolution);
       return {
         result: await buildResult({
           transaction,
           operation: "EXECUTE",
           driverKey: driver.driverKey,
-          resolution: "UNIQUE",
+          resolution: failureClass,
           preconditions,
           intended,
           immediate: UNOBSERVED,
@@ -529,7 +727,14 @@ export class DriverTransactionEngine {
           validationMessageDigests: [],
           conditionalFieldIds: [],
           settledGeneration: target.descriptor.observed_dom_generation,
-          phase: { phase: "PRECONDITIONS_FAILED" },
+          phase:
+            failureClass === "UNIQUE"
+              ? { phase: "PRECONDITIONS_FAILED" }
+              : {
+                  phase: "RESOLUTION_FAILED",
+                  resolution: failureClass,
+                  documentChanged: true,
+                },
           attemptedAt,
           durationMs: boundedDuration(started),
         }),
@@ -538,6 +743,14 @@ export class DriverTransactionEngine {
       };
     }
     const captured = await driver.captureUndo(initialContext);
+    const priorOptionMeaningApproval =
+      approvedOption === undefined ||
+      captured.priorObservation.presence === "EMPTY"
+        ? undefined
+        : optionMeaningApproval(target.descriptor, {
+            kind: "OPTION",
+            value_digest: captured.priorObservation.parts[0] ?? "",
+          });
 
     // Load-bearing immediately-before-action re-resolution. The action uses
     // only this fresh target and repeats driver-specific preconditions.
@@ -570,16 +783,19 @@ export class DriverTransactionEngine {
         diagnostics: diagnostics(1),
       };
     }
-    const freshTarget = actionResolution.target;
+    let freshTarget = actionResolution.target;
     const freshCandidates = driverCandidates(
       this.#drivers,
       freshTarget,
       transaction.intended,
     );
-    const freshContext = driverContext(
+    let freshContext = driverContext(
       document,
       freshTarget,
       transaction.intended,
+      frameContext,
+      transaction.address,
+      approvedOption,
     );
     const freshCheck =
       freshCandidates.length === 1 &&
@@ -587,9 +803,86 @@ export class DriverTransactionEngine {
       targetVisible(freshTarget) &&
       targetEnabled(freshTarget) &&
       generationMatches(freshTarget, transaction.address)
-        ? await driver.checkPreconditions(freshContext)
+        ? await checkedPreconditions(driver, freshContext)
         : { ok: false as const };
-    if (!freshCheck.ok) {
+    const originalDescription =
+      freshTarget.descriptor.description?.normalized_text;
+    const beforeValidation =
+      originalDescription === undefined
+        ? null
+        : await readSiteAcceptance(
+            driver.acceptanceElements?.(freshContext) ?? [
+              freshTarget.anchor,
+              ...freshTarget.members,
+            ],
+          );
+    const rejectedDescriptionMessageDigest =
+      originalDescription === undefined
+        ? null
+        : await semanticDigest(
+            `driver-validation-message-v1\0${originalDescription}`,
+          );
+    const descriptionWasRejected =
+      beforeValidation?.acceptance === "REJECTED" &&
+      rejectedDescriptionMessageDigest !== null &&
+      beforeValidation.messageDigests.includes(
+        rejectedDescriptionMessageDigest,
+      );
+    let freshTargetCurrent = targetIsCurrent(document, freshTarget);
+    if (freshCheck.ok && !freshTargetCurrent) {
+      // Ordinary option-window traversal invalidates the index while retaining
+      // control identity. Rebind after the last precondition await, still
+      // requiring the same original node/root and original ownership approval.
+      const refreshed = await resolveFieldTarget(
+        document,
+        frameContext,
+        transaction.address,
+        "preaction",
+      );
+      if (
+        refreshed.status === "RESOLVED" &&
+        refreshed.target.anchor === freshTarget.anchor &&
+        refreshed.target.applicationRoot === freshTarget.applicationRoot &&
+        descriptionApprovalMatches(
+          transaction.address,
+          refreshed.target.descriptor.address,
+        ) &&
+        driverCandidates(this.#drivers, refreshed.target, transaction.intended)
+          .length === 1 &&
+        driverCandidates(
+          this.#drivers,
+          refreshed.target,
+          transaction.intended,
+        )[0]?.driverKey === driver.driverKey
+      ) {
+        freshTarget = refreshed.target;
+        freshTargetCurrent = targetIsCurrent(document, freshTarget);
+        freshContext = driverContext(
+          document,
+          freshTarget,
+          transaction.intended,
+          frameContext,
+          transaction.address,
+          approvedOption,
+        );
+      }
+    }
+    if (
+      !freshCheck.ok ||
+      !descriptionApprovalMatches(
+        transaction.address,
+        freshTarget.descriptor.address,
+      ) ||
+      (approvedOption !== undefined &&
+        !optionMeaningApprovalMatches(approvedOption, freshTarget.descriptor) &&
+        (isStaticChoice ||
+          freshTarget.descriptor.options.some(
+            (option) => option.value_digest === approvedOption.valueDigest,
+          ))) ||
+      !freshTargetCurrent ||
+      !targetVisible(freshTarget) ||
+      !targetEnabled(freshTarget)
+    ) {
       return {
         result: await buildResult({
           transaction,
@@ -620,6 +913,7 @@ export class DriverTransactionEngine {
         // partially and then throw, in which case bounded recovery is still
         // mandatory.
         actionPerformed = true;
+        markSynchronousMutationContext(freshContext);
         await driver.execute(freshContext);
       }
     } catch {
@@ -640,12 +934,20 @@ export class DriverTransactionEngine {
           );
           if (
             recoveryCandidates.length === 1 &&
-            recoveryCandidates[0]?.driverKey === driver.driverKey
+            recoveryCandidates[0]?.driverKey === driver.driverKey &&
+            descriptionApprovalMatches(
+              transaction.address,
+              recoveryResolution.target.descriptor.address,
+            )
           ) {
             const recoveryContext = driverContext(
               document,
               recoveryResolution.target,
               transaction.intended,
+              frameContext,
+              transaction.address,
+              approvedOption,
+              priorOptionMeaningApproval,
             );
             try {
               await driver.applyUndo(recoveryContext, captured.payload);
@@ -710,6 +1012,12 @@ export class DriverTransactionEngine {
         payload: captured.payload,
         priorObservation: captured.priorObservation,
         intendedObservation: intended,
+        ...(approvedOption === undefined
+          ? {}
+          : { optionMeaningApproval: approvedOption }),
+        ...(priorOptionMeaningApproval === undefined
+          ? {}
+          : { priorOptionMeaningApproval }),
         consumed: false,
       });
     }
@@ -773,6 +1081,7 @@ export class DriverTransactionEngine {
       };
     }
     const settledTarget = settledResolution.target;
+    const publicationEvidenceRevision = recordedDomEvidenceRevision(document);
     const settledCandidates = driverCandidates(
       this.#drivers,
       settledTarget,
@@ -813,6 +1122,13 @@ export class DriverTransactionEngine {
       document,
       settledTarget,
       transaction.intended,
+      frameContext,
+      transaction.address,
+      approvedOption,
+    );
+    const settledPropertiesCurrent = captureDriverObservationWitness(
+      driver,
+      settledContext,
     );
     const settled = await driver.observe(settledContext);
     const acceptance = await readSiteAcceptance(
@@ -825,33 +1141,110 @@ export class DriverTransactionEngine {
       target.allFieldIds,
       settledTarget.allFieldIds,
     );
-    const phase: TransactionPhase = {
-      phase: "COMPLETE",
-      immediateMatches: observationsEquivalent(immediate, intended),
-      settledMatches: observationsEquivalent(settled, intended),
+    const descriptionClearing:
+      ValidationDescriptionClearingEvidence | undefined =
+      descriptionWasRejected &&
+      settledTarget.descriptor.description === undefined &&
+      acceptance.acceptance === "ACCEPTED" &&
+      observationsEquivalent(immediate, intended) &&
+      observationsEquivalent(settled, intended)
+        ? {
+            source: "READ_SITE_ACCEPTANCE_V1",
+            rejectedDescriptionMessageDigest,
+            settledAddress: settledTarget.descriptor.address,
+          }
+        : undefined;
+    const settledOptionApproval =
+      approvedOption ??
+      optionMeaningApproval(settledTarget.descriptor, transaction.intended);
+    const settledAuthorityCurrent =
+      (descriptionApprovalMatches(
+        transaction.address,
+        settledTarget.descriptor.address,
+      ) ||
+        descriptionClearing !== undefined) &&
+      (transaction.intended.kind !== "OPTION" ||
+        (settledOptionApproval !== undefined &&
+          optionMeaningApprovalMatches(
+            settledOptionApproval,
+            settledTarget.descriptor,
+          )));
+    // A page-owned input/blur handler may change ownership after the single
+    // authorized action. Preserve the observations but do not verify or grant
+    // undo under that changed context, even when the visible value persists.
+    const phase: TransactionPhase = settledAuthorityCurrent
+      ? {
+          phase: "COMPLETE",
+          immediateMatches: observationsEquivalent(immediate, intended),
+          settledMatches: observationsEquivalent(settled, intended),
+          siteAcceptance: acceptance.acceptance,
+          validationMessageCount: acceptance.messageDigests.length,
+          conditionalFieldsDiscovered: conditionalFieldIds.length > 0,
+        }
+      : { phase: "SETTLED_TARGET_LOST", resolution: "STALE" };
+    if (!settledAuthorityCurrent)
+      this.#undoRecords.delete(transaction.transaction_id);
+    if (descriptionClearing !== undefined) {
+      const undo = this.#undoRecords.get(transaction.transaction_id);
+      if (undo !== undefined)
+        undo.effectiveUndoAddress = descriptionClearing.settledAddress;
+    }
+    const result = await buildResult({
+      transaction,
+      operation: "EXECUTE",
+      driverKey: driver.driverKey,
+      resolution: settledAuthorityCurrent ? "UNIQUE" : "STALE",
+      preconditions,
+      intended,
+      immediate,
+      settled,
       siteAcceptance: acceptance.acceptance,
-      validationMessageCount: acceptance.messageDigests.length,
-      conditionalFieldsDiscovered: conditionalFieldIds.length > 0,
-    };
+      validationMessageDigests: acceptance.messageDigests,
+      conditionalFieldIds,
+      settledGeneration: settledTarget.descriptor.observed_dom_generation,
+      phase,
+      attemptedAt,
+      durationMs: boundedDuration(started),
+    });
+    // Result IDs/evidence hashing await after the settlement observation.
+    // A fresh synchronous index/root/ownership witness is required after the
+    // last hash before a direct VERIFIED result or undo capability publishes.
+    if (
+      settledAuthorityCurrent &&
+      (!settledPropertiesCurrent() ||
+        !targetIsCurrent(document, settledTarget, publicationEvidenceRevision))
+    ) {
+      this.#undoRecords.delete(transaction.transaction_id);
+      return {
+        result: await buildResult({
+          transaction,
+          operation: "EXECUTE",
+          driverKey: driver.driverKey,
+          resolution: "STALE",
+          preconditions,
+          intended,
+          immediate,
+          settled,
+          siteAcceptance: acceptance.acceptance,
+          validationMessageDigests: acceptance.messageDigests,
+          conditionalFieldIds,
+          settledGeneration: settledTarget.descriptor.observed_dom_generation,
+          phase: { phase: "SETTLED_TARGET_LOST", resolution: "STALE" },
+          attemptedAt,
+          durationMs: boundedDuration(started),
+        }),
+        undoAvailable: false,
+        diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
+      };
+    }
     return {
-      result: await buildResult({
-        transaction,
-        operation: "EXECUTE",
-        driverKey: driver.driverKey,
-        resolution: "UNIQUE",
-        preconditions,
-        intended,
-        immediate,
-        settled,
-        siteAcceptance: acceptance.acceptance,
-        validationMessageDigests: acceptance.messageDigests,
-        conditionalFieldIds,
-        settledGeneration: settledTarget.descriptor.observed_dom_generation,
-        phase,
-        attemptedAt,
-        durationMs: boundedDuration(started),
-      }),
-      undoAvailable: actionPerformed && captured.restorable,
+      ...(descriptionClearing === undefined ? {} : { descriptionClearing }),
+      ...(settledOptionApproval === undefined
+        ? {}
+        : { optionMeaningApproval: settledOptionApproval }),
+      result,
+      undoAvailable:
+        settledAuthorityCurrent && actionPerformed && captured.restorable,
       diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
     };
   }
@@ -915,7 +1308,15 @@ export class DriverTransactionEngine {
     const currentContext =
       driver === undefined
         ? null
-        : driverContext(document, resolved.target, transaction.intended);
+        : driverContext(
+            document,
+            resolved.target,
+            transaction.intended,
+            frameContext,
+            record.effectiveUndoAddress ?? transaction.address,
+            record.optionMeaningApproval,
+            record.priorOptionMeaningApproval,
+          );
     const current =
       currentContext === null || driver === undefined
         ? UNOBSERVED
@@ -927,7 +1328,10 @@ export class DriverTransactionEngine {
         resolved.target,
         transaction.address,
       ),
-      policy_permitted: true,
+      policy_permitted: descriptionApprovalMatches(
+        record.effectiveUndoAddress ?? transaction.address,
+        resolved.target.descriptor.address,
+      ),
     };
     if (
       driver === undefined ||
@@ -935,6 +1339,7 @@ export class DriverTransactionEngine {
       !preconditions.visible ||
       !preconditions.enabled ||
       !preconditions.generation_matched ||
+      !preconditions.policy_permitted ||
       !observationsEquivalent(current, record.intendedObservation)
     ) {
       return {
@@ -1000,7 +1405,17 @@ export class DriverTransactionEngine {
     const actionDriver = actionCandidates.find(
       (candidate) => candidate.driverKey === record.driverKey,
     );
-    if (actionCandidates.length !== 1 || actionDriver === undefined) {
+    if (
+      actionCandidates.length !== 1 ||
+      actionDriver === undefined ||
+      !descriptionApprovalMatches(
+        record.effectiveUndoAddress ?? transaction.address,
+        resolved.target.descriptor.address,
+      ) ||
+      !targetIsCurrent(document, resolved.target) ||
+      !targetVisible(resolved.target) ||
+      !targetEnabled(resolved.target)
+    ) {
       return {
         status: "COMPLETED",
         result: await buildResult({
@@ -1034,6 +1449,10 @@ export class DriverTransactionEngine {
       document,
       resolved.target,
       transaction.intended,
+      frameContext,
+      record.effectiveUndoAddress ?? transaction.address,
+      record.optionMeaningApproval,
+      record.priorOptionMeaningApproval,
     );
     try {
       await actionDriver.applyUndo(actionContext, record.payload);
@@ -1102,10 +1521,19 @@ export class DriverTransactionEngine {
         diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
       };
     }
+    const publicationEvidenceRevision = recordedDomEvidenceRevision(document);
     const settledContext = driverContext(
       document,
       settledResolution.target,
       transaction.intended,
+      frameContext,
+      record.effectiveUndoAddress ?? transaction.address,
+      record.optionMeaningApproval,
+      record.priorOptionMeaningApproval,
+    );
+    const settledPropertiesCurrent = captureDriverObservationWitness(
+      actionDriver,
+      settledContext,
     );
     const settled = await actionDriver.observe(settledContext);
     const acceptance = await readSiteAcceptance(
@@ -1114,37 +1542,92 @@ export class DriverTransactionEngine {
         ...settledResolution.target.members,
       ],
     );
-    const phase: TransactionPhase = {
-      phase: "COMPLETE",
-      immediateMatches: observationsEquivalent(
-        immediate,
-        record.priorObservation,
-      ),
-      settledMatches: observationsEquivalent(settled, record.priorObservation),
+    const settledAuthorityCurrent =
+      descriptionApprovalMatches(
+        record.effectiveUndoAddress ?? transaction.address,
+        settledResolution.target.descriptor.address,
+      ) &&
+      (record.optionMeaningApproval === undefined ||
+        optionMeaningApprovalMatches(
+          record.optionMeaningApproval,
+          settledResolution.target.descriptor,
+        )) &&
+      (record.priorOptionMeaningApproval === undefined ||
+        optionMeaningApprovalMatches(
+          record.priorOptionMeaningApproval,
+          settledResolution.target.descriptor,
+        ));
+    const phase: TransactionPhase = settledAuthorityCurrent
+      ? {
+          phase: "COMPLETE",
+          immediateMatches: observationsEquivalent(
+            immediate,
+            record.priorObservation,
+          ),
+          settledMatches: observationsEquivalent(
+            settled,
+            record.priorObservation,
+          ),
+          siteAcceptance: acceptance.acceptance,
+          validationMessageCount: acceptance.messageDigests.length,
+          conditionalFieldsDiscovered: false,
+        }
+      : { phase: "SETTLED_TARGET_LOST", resolution: "STALE" };
+    const result = await buildResult({
+      transaction,
+      operation: "UNDO",
+      driverKey: record.driverKey,
+      resolution: settledAuthorityCurrent ? "UNIQUE" : "STALE",
+      preconditions,
+      intended: record.priorObservation,
+      immediate,
+      settled,
       siteAcceptance: acceptance.acceptance,
-      validationMessageCount: acceptance.messageDigests.length,
-      conditionalFieldsDiscovered: false,
-    };
+      validationMessageDigests: acceptance.messageDigests,
+      conditionalFieldIds: [],
+      settledGeneration:
+        settledResolution.target.descriptor.observed_dom_generation,
+      phase,
+      attemptedAt,
+      durationMs: boundedDuration(started),
+    });
+    // Undo has the same publication authority boundary as execute: neither
+    // its own input handler nor a metadata-hash await may publish stale proof.
+    if (
+      settledAuthorityCurrent &&
+      (!settledPropertiesCurrent() ||
+        !targetIsCurrent(
+          document,
+          settledResolution.target,
+          publicationEvidenceRevision,
+        ))
+    ) {
+      return {
+        status: "COMPLETED",
+        result: await buildResult({
+          transaction,
+          operation: "UNDO",
+          driverKey: record.driverKey,
+          resolution: "STALE",
+          preconditions,
+          intended: record.priorObservation,
+          immediate,
+          settled,
+          siteAcceptance: acceptance.acceptance,
+          validationMessageDigests: acceptance.messageDigests,
+          conditionalFieldIds: [],
+          settledGeneration:
+            settledResolution.target.descriptor.observed_dom_generation,
+          phase: { phase: "SETTLED_TARGET_LOST", resolution: "STALE" },
+          attemptedAt,
+          durationMs: boundedDuration(started),
+        }),
+        diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
+      };
+    }
     return {
       status: "COMPLETED",
-      result: await buildResult({
-        transaction,
-        operation: "UNDO",
-        driverKey: record.driverKey,
-        resolution: "UNIQUE",
-        preconditions,
-        intended: record.priorObservation,
-        immediate,
-        settled,
-        siteAcceptance: acceptance.acceptance,
-        validationMessageDigests: acceptance.messageDigests,
-        conditionalFieldIds: [],
-        settledGeneration:
-          settledResolution.target.descriptor.observed_dom_generation,
-        phase,
-        attemptedAt,
-        durationMs: boundedDuration(started),
-      }),
+      result,
       diagnostics: diagnostics(1, settle.polls, settle.signalObserved),
     };
   }

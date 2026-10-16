@@ -1,0 +1,2196 @@
+{
+  "format_version": "W14_FEATURE_EVIDENCE_SOURCE_MAPPING_1",
+  "authority": "NONE",
+  "current_validation": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+  "features": [
+    {
+      "feature": "Native inputs",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 6,
+          "test_name": "empty required native fields block the local save with errors",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 34,
+          "test_name": "a complete valid native form is accepted with persisted values",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 323,
+          "test_name": "TX1/TEXT1/TEXT2/UNDO1: native text transactions use a real W09 decision, persist, redact, and restore",
+          "proof_scope": "REAL_W08_SCANNED_DESCRIPTOR_AND_W09_APPROVED_RECORD_FIRST_NAME_ONLY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 381,
+          "test_name": "SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "TX1 first-name transaction uses real W09; its additional summary/undo and other typed drivers use test constructed decisions. Mounted32 is separate approved contact coverage."
+      ]
+    },
+    {
+      "feature": "React controlled inputs",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to React state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 28,
+          "test_name": "a direct stale DOM write never becomes accepted React state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 49,
+          "test_name": "the page's own blur rewrite is observable and the delayed rerender keeps state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 541,
+          "test_name": "FW1/FW2: real React and Vue state accept native-setter events and survive forced rerender",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 634,
+          "test_name": "DUP1/DUP2/DUP3: framework rerenders and repeated requests cause exactly zero duplicate actions while new decisions stay legitimate",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "W03 directly fills real React state; W10 uses typed driver decisions. Mounted32 reads actual state mirrors with W09 contact records but does not exercise every frozen rerender/rewriting transition."
+      ]
+    },
+    {
+      "feature": "Vue controlled inputs",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to Vue state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 24,
+          "test_name": "a direct stale DOM write never becomes accepted Vue state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 45,
+          "test_name": "the page's own uppercase rewrite is observable as you type",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 541,
+          "test_name": "FW1/FW2: real React and Vue state accept native-setter events and survive forced rerender",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Actual Vue runtime/state is mounted; employee-ID rewrite is non-contact and remains outside mounted32 supported cohort."
+      ]
+    },
+    {
+      "feature": "Custom combobox and listbox",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 6,
+          "test_name": "the combobox filters, tracks the active option, and commits by keyboard",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 65,
+          "test_name": "the required-selection check reports and clears deterministically",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 81,
+          "test_name": "the listbox selects by keyboard with aria-selected identity",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 755,
+          "test_name": "COMBO1/COMBO2/COMBO3: ARIA combobox commits exact options, reselects after stale query, and refuses missing/duplicate targets",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 818,
+          "test_name": "TX7: immediately-before-action re-resolution blocks semantic replacement, and partial widget failure rolls back",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Exact option driver/rollback mechanics are not full W09 end-to-end support for office/location questions."
+      ]
+    },
+    {
+      "feature": "Virtualized listbox",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 7,
+          "test_name": "only a bounded window of the 480 options is mounted",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 18,
+          "test_name": "scrolling re-windows the mounted subset with stable option identity",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 32,
+          "test_name": "an offscreen option is selectable by scrolling and clicking",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 65,
+          "test_name": "the committed selection survives a rerender of the listbox",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 899,
+          "test_name": "VIRT1/VIRT2: the 480-row windowed list finds one off-window exact target within a bound and refuses absence",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "480-option bounded-window driver proof; no contact cohort selection or production ATS claim."
+      ]
+    },
+    {
+      "feature": "Dates and composite phone/date widgets",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 6,
+          "test_name": "the date widget normalizes single digits and commits a valid ISO date",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 22,
+          "test_name": "an impossible calendar day is rejected and clears the committed value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 49,
+          "test_name": "the phone widget strips separators on blur and commits the exact E.164 form",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 62,
+          "test_name": "wrong national length and non-digit input are rejected deterministically",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 381,
+          "test_name": "SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 616,
+          "test_name": "FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Native DATE kernel is covered; W03 composite commits/normalization are direct fixture actions. A W09 approved-record composite date/phone autofill path is not established by these sources."
+      ]
+    },
+    {
+      "feature": "Radios",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 34,
+          "test_name": "a complete valid native form is accepted with persisted values",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 381,
+          "test_name": "SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 694,
+          "test_name": "SEL2/SEL3/RAD2: missing, disabled, disappearing, and duplicate semantic options are never guessed",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Radio option mechanics are distinct from W14 logical radio observation/preservation; presence in 200 contact recipes is not radio-driver execution."
+      ]
+    },
+    {
+      "feature": "Checkboxes",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 34,
+          "test_name": "a complete valid native form is accepted with persisted values",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to React state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to Vue state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 381,
+          "test_name": "SEL1/RAD1/CHK1/DATE1: exact native choice and date drivers verify and checkbox undo restores",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Includes canonical consequential refusal/undo mechanics; no unapproved consent/terms authority is granted."
+      ]
+    },
+    {
+      "feature": "Repeaters",
+      "fixture_refs": [],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 947,
+          "test_name": "REP1/REP2/REP3: bounded repeater add/edit/remove uses stable labels and undo never uses an index",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 359,
+          "test_name": "P8 regression: actual matrix work, education and language repeaters create, reorder, rerender and reject ambiguity through W10/W11",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "W03 v1 has no repeaters. W12 P8 exercises work/education/language add/reorder/rerender/ambiguity with test constructed FIRST_NAME decisions; not full W09 career-record binding."
+      ]
+    },
+    {
+      "feature": "Uploads",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 11,
+          "test_name": "an accepted synthetic file shows exact deterministic metadata",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 28,
+          "test_name": "a rejected type clears the selection with an explicit reason",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 45,
+          "test_name": "an oversize file is rejected by the deterministic size rule",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 58,
+          "test_name": "clearing the selection returns to the NO_FILE state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 1057,
+          "test_name": "UPLOAD1-4: only exact bounded synthetic artifact bytes and metadata verify, and clear undo restores empty",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 735,
+          "test_name": "WD15: actual synthetic upload rejected by site never becomes VERIFIED",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Exact bounded synthetic bytes/metadata and rejection proof; file-artifact W09 ontology binding and candidate contact200 uploads remain unclaimed."
+      ]
+    },
+    {
+      "feature": "Iframes",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/frames.spec.ts",
+          "line": 5,
+          "test_name": "the embedded frame carries its own identity and validation state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/frames.spec.ts",
+          "line": 30,
+          "test_name": "frame state stays isolated from the host document",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-scanner.spec.ts",
+          "line": 748,
+          "test_name": "M2: same-origin child agents remain frame-local and aggregation preserves frame identity",
+          "proof_scope": "REAL_MV3_FRAME_LOCAL_SCANNER_AND_WORKER_AGGREGATION",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 1257,
+          "test_name": "FRAME1/FRAME2: dynamic observation stays frame-local and wrong-frame control messages are rejected",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Mounted32 includes actual child document; its required reference and confirmation fields are unsupported/abstained, not omitted."
+      ]
+    },
+    {
+      "feature": "Supported open shadow DOM",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/shadow.spec.ts",
+          "line": 5,
+          "test_name": "the open shadow control validates and accepts values on a stable host",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/shadow.spec.ts",
+          "line": 34,
+          "test_name": "the shadow control is labeled accessibly inside the shadow root",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "W03 fixture exists; the actual before mounted32 and exactshadow regression expose required-field omission. Safe shadow_support patch and new tests are outside-tree; current root verification pending. No closed-shadow claim."
+      ]
+    },
+    {
+      "feature": "Conditional questions",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 6,
+          "test_name": "checking the referral toggle inserts a required field and unchecking removes it",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 28,
+          "test_name": "the country choice drives the region field's required state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 376,
+          "test_name": "DYN1/DYN2/DYN3/REC1: conditional fields are discovered by affected-subtree scans, reported REQUIRED_UNRESOLVED, and retired on removal",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Mutation discovery/removal/reporting proof is real MV3; direct fixture toggle and test constructed decisions do not imply autonomous navigation."
+      ]
+    },
+    {
+      "feature": "Validation messages",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 6,
+          "test_name": "empty required native fields block the local save with errors",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 22,
+          "test_name": "native email type mismatch is reported and clears when corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 6,
+          "test_name": "the custom username rule reports while typing and clears when fixed",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 18,
+          "test_name": "cross-field email confirmation must match exactly and clears on match",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 61,
+          "test_name": "continue stays blocked until every validation problem is resolved",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 616,
+          "test_name": "FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 776,
+          "test_name": "CHG1/CHG2/CHG3: page-changed values and late validation rejection are detected without silent verified state or automatic refill",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 624,
+          "test_name": "WD12\u2013WD17/M5: delayed parser, duplicate prevention, validation, rerender and stale generation",
+          "proof_scope": "MIXED_REAL_W09_CONTACT_AND_TEST_CONSTRUCTED_PARSER_REPEATER",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Current W14 four validation runtime tests are additional source proof; complete fresh result must be attached by root."
+      ]
+    },
+    {
+      "feature": "Delayed state updates",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 51,
+          "test_name": "additional questions mount after the fixed deterministic delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 31,
+          "test_name": "the delayed local check accepts the exact synthetic code shape",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 44,
+          "test_name": "the delayed local check rejects a wrong code and editing resets it",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 49,
+          "test_name": "the page's own blur rewrite is observable and the delayed rerender keeps state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 776,
+          "test_name": "CHG1/CHG2/CHG3: page-changed values and late validation rejection are detected without silent verified state or automatic refill",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 624,
+          "test_name": "WD12\u2013WD17/M5: delayed parser, duplicate prevention, validation, rerender and stale generation",
+          "proof_scope": "MIXED_REAL_W09_CONTACT_AND_TEST_CONSTRUCTED_PARSER_REPEATER",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Original400/500ms fixture delays differ from contact200 artificial20ms rerender."
+      ]
+    },
+    {
+      "feature": "Rerenders and persistence",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to React state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 28,
+          "test_name": "a direct stale DOM write never becomes accepted React state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 49,
+          "test_name": "the page's own blur rewrite is observable and the delayed rerender keeps state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to Vue state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 24,
+          "test_name": "a direct stale DOM write never becomes accepted Vue state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 65,
+          "test_name": "the committed selection survives a rerender of the listbox",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 541,
+          "test_name": "FW1/FW2: real React and Vue state accept native-setter events and survive forced rerender",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 634,
+          "test_name": "DUP1/DUP2/DUP3: framework rerenders and repeated requests cause exactly zero duplicate actions while new decisions stay legitimate",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 1064,
+          "test_name": "ROOT2/GEN2: replacing the application root invalidates old state and stale addresses cannot authorize a current action",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Mounted framework state and synthetic contact200 controlled replacement are different witnesses; do not merge timing or pretend each exercised all transitions."
+      ]
+    },
+    {
+      "feature": "Page-state and route transitions",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 33,
+          "test_name": "empty required fields block step-1 navigation until corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 54,
+          "test_name": "Back preserves edits and forward navigation keeps every persisted value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/captcha.spec.ts",
+          "line": 6,
+          "test_name": "valid step 3 pauses on the CAPTCHA gate until the manual test-only action",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 1167,
+          "test_name": "GEN1: an SPA route change advances route and page generations while the browser document identity stays the same",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 537,
+          "test_name": "WD1\u2013WD10/XATS: observed contradictory, single-signal, login, CAPTCHA and unknown surfaces pause without action",
+          "proof_scope": "REAL_MV3_RESEARCH_CLASSIFICATION_AND_PAUSE_NO_ACTION",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 1136,
+          "test_name": "WD1/WD2/WD3: synthetic prompt transacts, while navigation is identification-only and ambiguity/unsafe state never acts",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "W03 local fixture navigation/manual CAPTCHA/mock submit is direct Playwright. MV3 W10 navigation is identification-only; no product login/challenge/final-submit authority."
+      ]
+    },
+    {
+      "feature": "Workday parser/repeater/long-session challenges",
+      "fixture_refs": [],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 624,
+          "test_name": "WD12\u2013WD17/M5: delayed parser, duplicate prevention, validation, rerender and stale generation",
+          "proof_scope": "MIXED_REAL_W09_CONTACT_AND_TEST_CONSTRUCTED_PARSER_REPEATER",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 779,
+          "test_name": "WD21\u2013WD23: 256 route cycles bound observation, queues, ledgers, scans and measured heap",
+          "proof_scope": "REAL_W09_FIRST_NAME_CONTACT_WITH_REAL_MV3_ROUTE_SOAK",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-research.spec.ts",
+          "line": 359,
+          "test_name": "P8 regression: actual matrix work, education and language repeaters create, reorder, rerender and reject ambiguity through W10/W11",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "Research-only variants/step classifications; no production tenant certification or broader contact200 feature coverage."
+      ]
+    },
+    {
+      "feature": "Sensitive/prohibited/honeypot and uncertainty safety",
+      "fixture_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 59,
+          "test_name": "sensitive fixtures render realistically without fixture metadata",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 85,
+          "test_name": "the honeypot is present, hidden, blank, and rejects when populated",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/injection.spec.ts",
+          "line": 7,
+          "test_name": "the help-block injection text is visible, textual, and unexecuted",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/injection.spec.ts",
+          "line": 27,
+          "test_name": "the job-description injection text is inert and adds no elements",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "core_refs": [
+        {
+          "file": "e2e/extension/extension-resolver.spec.ts",
+          "line": 323,
+          "test_name": "W09 turns real scanned native-lab descriptors into canonical safe decisions without any browser action",
+          "proof_scope": "REAL_W08_W09_APPROVED_FROZEN_FIELD_POLICIES_NO_BROWSER_ACTION",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-resolver.spec.ts",
+          "line": 439,
+          "test_name": "W09 abstains on single-option fields instead of selecting the only rendered option",
+          "proof_scope": "REAL_W08_W09_SINGLE_OPTION_ABSTENTION_NO_BROWSER_ACTION",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-dynamic.spec.ts",
+          "line": 470,
+          "test_name": "REC2/REC3/REC4/NOACT1: a mixed page reports every required control explicitly and never upgrades blocked or concealed controls",
+          "proof_scope": "REAL_MV3_DYNAMIC_KERNEL_WITH_TEST_CONSTRUCTED_CANONICAL_DECISIONS",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/extension/extension-drivers.spec.ts",
+          "line": 450,
+          "test_name": "TX2/TX3/TX4/TX5/TX6: missing, ambiguous, stale, inert, and non-FILL targets perform no action",
+          "proof_scope": "REAL_MV3_DRIVER_WITH_TEST_CONSTRUCTED_CANONICAL_DECISION_NOT_FULL_W09_POLICY",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "limits": [
+        "W03 honeypot intentionally populated to test fixture rejection is not candidate behavior. Candidate physical meters must separately prove zero forbidden writes."
+      ]
+    }
+  ],
+  "w03_transition_clauses": [
+    {
+      "fixture_id": "MAL-CBX-001",
+      "clause_ordinal": 1,
+      "transition": "CLOSED \u2192 FILTERED_OPEN (typing filters options)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 6,
+          "test_name": "the combobox filters, tracks the active option, and commits by keyboard",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-CBX-001",
+      "clause_ordinal": 2,
+      "transition": "FILTERED_OPEN \u2192 COMMITTED (keyboard or click selection)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 6,
+          "test_name": "the combobox filters, tracks the active option, and commits by keyboard",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-CBX-001",
+      "clause_ordinal": 3,
+      "transition": "FILTERED_OPEN \u2192 EMPTY_STATE (no match message, no options)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 52,
+          "test_name": "a query with no match shows the empty state and commits nothing",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-CBX-001",
+      "clause_ordinal": 4,
+      "transition": "UNCOMMITTED \u2192 REQUIRED_ERROR (check without selection)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 65,
+          "test_name": "the required-selection check reports and clears deterministically",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-CBX-002",
+      "clause_ordinal": 1,
+      "transition": "IDLE \u2192 ACTIVE_OPTION (arrow-key navigation)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 81,
+          "test_name": "the listbox selects by keyboard with aria-selected identity",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-CBX-002",
+      "clause_ordinal": 2,
+      "transition": "ACTIVE_OPTION \u2192 SELECTED (Enter/Space or click commits aria-selected)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/combobox.spec.ts",
+          "line": 81,
+          "test_name": "the listbox selects by keyboard with aria-selected identity",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-001",
+      "clause_ordinal": 1,
+      "transition": "RAW_PARTS \u2192 NORMALIZED (single digits gain leading zeros on blur)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 6,
+          "test_name": "the date widget normalizes single digits and commits a valid ISO date",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-001",
+      "clause_ordinal": 2,
+      "transition": "NORMALIZED \u2192 COMMITTED_ISO (valid calendar day commits YYYY-MM-DD)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 6,
+          "test_name": "the date widget normalizes single digits and commits a valid ISO date",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-001",
+      "clause_ordinal": 3,
+      "transition": "RAW_PARTS \u2192 INVALID_DATE (impossible calendar day rejected)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 22,
+          "test_name": "an impossible calendar day is rejected and clears the committed value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-002",
+      "clause_ordinal": 1,
+      "transition": "RAW_NUMBER \u2192 NORMALIZED (separators stripped on blur)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 49,
+          "test_name": "the phone widget strips separators on blur and commits the exact E.164 form",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-002",
+      "clause_ordinal": 2,
+      "transition": "NORMALIZED \u2192 COMMITTED_E164 (exact national length commits +CC\u2026)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 49,
+          "test_name": "the phone widget strips separators on blur and commits the exact E.164 form",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DTP-002",
+      "clause_ordinal": 3,
+      "transition": "RAW_NUMBER \u2192 INVALID_PHONE_LENGTH (wrong length rejected)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/datephone.spec.ts",
+          "line": 62,
+          "test_name": "wrong national length and non-digit input are rejected deterministically",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-001",
+      "clause_ordinal": 1,
+      "transition": "ABSENT \u2192 REFERRAL_FIELD_INSERTED (checkbox inserts required field)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 6,
+          "test_name": "checking the referral toggle inserts a required field and unchecking removes it",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-001",
+      "clause_ordinal": 2,
+      "transition": "REFERRAL_FIELD_INSERTED \u2192 REFERRAL_FIELD_REMOVED (uncheck removes it)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 6,
+          "test_name": "checking the referral toggle inserts a required field and unchecking removes it",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-001",
+      "clause_ordinal": 3,
+      "transition": "REGION_OPTIONAL \u2192 REGION_NOW_REQUIRED (country drives required state)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 28,
+          "test_name": "the country choice drives the region field's required state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-002",
+      "clause_ordinal": 1,
+      "transition": "IDLE \u2192 ADDITIONAL_QUESTIONS_LOADING (load action)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 51,
+          "test_name": "additional questions mount after the fixed deterministic delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-002",
+      "clause_ordinal": 2,
+      "transition": "ADDITIONAL_QUESTIONS_LOADING \u2192 ADDITIONAL_QUESTIONS_LOADED (fixed 400 ms delay)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 51,
+          "test_name": "additional questions mount after the fixed deterministic delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-003",
+      "clause_ordinal": 1,
+      "transition": "GENERATION_1 \u2192 NODE_REPLACED_GENERATION_2 (new node, value not carried)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 68,
+          "test_name": "replacement creates a new node while the stable control keeps identity and value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-DYN-003",
+      "clause_ordinal": 2,
+      "transition": "STABLE_CONTROL_UNCHANGED (same node identity and value throughout)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/dynamic.spec.ts",
+          "line": 68,
+          "test_name": "replacement creates a new node while the stable control keeps identity and value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-001",
+      "clause_ordinal": 1,
+      "transition": "STEP_1 \u2192 STEP_2 \u2192 STEP_3 (valid Next transitions)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-001",
+      "clause_ordinal": 2,
+      "transition": "STEP_N \u2192 STEP_N-1 (Back preserves edits)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 54,
+          "test_name": "Back preserves edits and forward navigation keeps every persisted value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-001",
+      "clause_ordinal": 3,
+      "transition": "FIELDS_PERSISTED (values survive page navigation)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 54,
+          "test_name": "Back preserves edits and forward navigation keeps every persisted value",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-002",
+      "clause_ordinal": 1,
+      "transition": "STEP_1 \u2192 NAVIGATION_BLOCKED_BY_VALIDATION (empty required fields)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 33,
+          "test_name": "empty required fields block step-1 navigation until corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-002",
+      "clause_ordinal": 2,
+      "transition": "ERRORS_VISIBLE \u2192 STEP_2 (corrected fields unblock Next)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 33,
+          "test_name": "empty required fields block step-1 navigation until corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-003",
+      "clause_ordinal": 1,
+      "transition": "STEP_3_VALID \u2192 PAUSED_FOR_CAPTCHA (progression blocked with reason)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/captcha.spec.ts",
+          "line": 6,
+          "test_name": "valid step 3 pauses on the CAPTCHA gate until the manual test-only action",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-003",
+      "clause_ordinal": 2,
+      "transition": "PAUSED_FOR_CAPTCHA \u2192 REVIEW (test-only manual resolution action)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/captcha.spec.ts",
+          "line": 6,
+          "test_name": "valid step 3 pauses on the CAPTCHA gate until the manual test-only action",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-004",
+      "clause_ordinal": 1,
+      "transition": "REVIEW_RENDERS_ALL_PERSISTED_ANSWERS (read-only confirmation)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-005",
+      "clause_ordinal": 1,
+      "transition": "REVIEW \u2192 PROCESSING_LOCAL_SUBMISSION (mock submit)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-005",
+      "clause_ordinal": 2,
+      "transition": "PROCESSING_LOCAL_SUBMISSION \u2192 RCPT-MOCK-0001 (fixed 600 ms delay)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 72,
+          "test_name": "review shows every persisted answer and the local receipt arrives after the fixed delay",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-006",
+      "clause_ordinal": 1,
+      "transition": "SECOND_SUBMIT_SAME_KEY \u2192 DUPLICATE_APPLICATION warning (no new receipt)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 94,
+          "test_name": "submitting the same synthetic application twice warns instead of issuing a second receipt",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-007",
+      "clause_ordinal": 1,
+      "transition": "ANY_STATE \u2192 INITIAL (reset clears flow and receipts deterministically)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/multipage.spec.ts",
+          "line": 118,
+          "test_name": "reset returns the flow and receipts to the exact initial state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FLW-008",
+      "clause_ordinal": 1,
+      "transition": "INJECTION_TEXT_RENDERED_INERT (visible as text, no execution, no markup)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/injection.spec.ts",
+          "line": 27,
+          "test_name": "the job-description injection text is inert and adds no elements",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FRM-001",
+      "clause_ordinal": 1,
+      "transition": "FRAME_EMPTY_REQUIRED \u2192 FRAME_VALIDATION_FAILED (frame-local error)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/frames.spec.ts",
+          "line": 5,
+          "test_name": "the embedded frame carries its own identity and validation state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-FRM-001",
+      "clause_ordinal": 2,
+      "transition": "FRAME_FILLED \u2192 FRAME_SECTION_SAVED (frame-local acceptance)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/frames.spec.ts",
+          "line": 5,
+          "test_name": "the embedded frame carries its own identity and validation state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-IDX-001",
+      "clause_ordinal": 1,
+      "transition": "INDEX_LISTS_EVERY_CATALOG_CASE (one entry per case ID)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/catalog.spec.ts",
+          "line": 10,
+          "test_name": "index page lists every catalog case with its route",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-001",
+      "clause_ordinal": 1,
+      "transition": "EMPTY_REQUIRED \u2192 VALIDATION_FAILED (native validity surfaced)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 6,
+          "test_name": "empty required native fields block the local save with errors",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-001",
+      "clause_ordinal": 2,
+      "transition": "COMPLETE_VALID \u2192 SAVED_LOCALLY (accepted by the fixture)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 34,
+          "test_name": "a complete valid native form is accepted with persisted values",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-002",
+      "clause_ordinal": 1,
+      "transition": "TYPE_MISMATCH \u2192 FIELD_ERROR (native email/number semantics)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 22,
+          "test_name": "native email type mismatch is reported and clears when corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-002",
+      "clause_ordinal": 2,
+      "transition": "CORRECTED \u2192 ERROR_CLEARED",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 22,
+          "test_name": "native email type mismatch is reported and clears when corrected",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-003",
+      "clause_ordinal": 1,
+      "transition": "SENSITIVE_FIELDS_RENDERED_REALISTICALLY (no fixture metadata leaked)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 59,
+          "test_name": "sensitive fixtures render realistically without fixture metadata",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-004",
+      "clause_ordinal": 1,
+      "transition": "HONEYPOT_HIDDEN_AND_BLANK (ordinary completion leaves it empty)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 85,
+          "test_name": "the honeypot is present, hidden, blank, and rejects when populated",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-004",
+      "clause_ordinal": 2,
+      "transition": "HONEYPOT_POPULATED \u2192 REJECTED_HONEYPOT (local submission rejected)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/native.spec.ts",
+          "line": 85,
+          "test_name": "the honeypot is present, hidden, blank, and rejects when populated",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-NAT-005",
+      "clause_ordinal": 1,
+      "transition": "INJECTION_HELP_TEXT_RENDERED_INERT (text only, sentinel untouched)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/injection.spec.ts",
+          "line": 7,
+          "test_name": "the help-block injection text is visible, textual, and unexecuted",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-001",
+      "clause_ordinal": 1,
+      "transition": "TYPED_VALUE \u2192 STATE_COMMITTED (React synthetic events)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to React state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-001",
+      "clause_ordinal": 2,
+      "transition": "FORCE_RERENDER \u2192 VALUE_PERSISTS (state-driven DOM)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to React state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-002",
+      "clause_ordinal": 1,
+      "transition": "DIRECT_DOM_WRITE \u2192 STATE_UNCHANGED (mirror keeps committed value)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 28,
+          "test_name": "a direct stale DOM write never becomes accepted React state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-002",
+      "clause_ordinal": 2,
+      "transition": "RERENDER \u2192 STALE_WRITE_DISCARDED (DOM reverts to state)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 28,
+          "test_name": "a direct stale DOM write never becomes accepted React state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-003",
+      "clause_ordinal": 1,
+      "transition": "BLUR \u2192 SITE_REWRITE_OBSERVED (email lowercased by the page)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 49,
+          "test_name": "the page's own blur rewrite is observable and the delayed rerender keeps state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-REA-003",
+      "clause_ordinal": 2,
+      "transition": "DELAYED_RERENDER \u2192 RERENDER_PENDING \u2192 IDLE (fixed 500 ms delay)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/react-controlled.spec.ts",
+          "line": 49,
+          "test_name": "the page's own blur rewrite is observable and the delayed rerender keeps state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-SHD-001",
+      "clause_ordinal": 1,
+      "transition": "SHADOW_EMPTY_REQUIRED \u2192 SHADOW_VALIDATION_FAILED",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/shadow.spec.ts",
+          "line": 5,
+          "test_name": "the open shadow control validates and accepts values on a stable host",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-SHD-001",
+      "clause_ordinal": 2,
+      "transition": "SHADOW_FILLED \u2192 SHADOW_SAVED:<value> (open shadow root state)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/shadow.spec.ts",
+          "line": 5,
+          "test_name": "the open shadow control validates and accepts values on a stable host",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-UPL-001",
+      "clause_ordinal": 1,
+      "transition": "NO_FILE \u2192 ACCEPTED_LOCALLY (allowed type/size shows exact metadata)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 11,
+          "test_name": "an accepted synthetic file shows exact deterministic metadata",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-UPL-001",
+      "clause_ordinal": 2,
+      "transition": "WRONG_TYPE \u2192 REJECTED_TYPE (selection cleared)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 28,
+          "test_name": "a rejected type clears the selection with an explicit reason",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-UPL-001",
+      "clause_ordinal": 3,
+      "transition": "CLEARED \u2192 NO_FILE (empty selection state)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/upload.spec.ts",
+          "line": 58,
+          "test_name": "clearing the selection returns to the NO_FILE state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VAL-001",
+      "clause_ordinal": 1,
+      "transition": "INVALID_FIELD \u2192 FIELD_ERROR \u2192 ERROR_CLEARED (custom rule)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 6,
+          "test_name": "the custom username rule reports while typing and clears when fixed",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VAL-001",
+      "clause_ordinal": 2,
+      "transition": "MISMATCHED_EMAILS \u2192 CROSS_FIELD_ERROR \u2192 CLEARED_ON_MATCH",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 18,
+          "test_name": "cross-field email confirmation must match exactly and clears on match",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VAL-001",
+      "clause_ordinal": 3,
+      "transition": "INVITE \u2192 CHECKING \u2192 INVITE_ACCEPTED|INVITE_REJECTED (fixed 500 ms delay)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 31,
+          "test_name": "the delayed local check accepts the exact synthetic code shape",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 44,
+          "test_name": "the delayed local check rejects a wrong code and editing resets it",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VAL-001",
+      "clause_ordinal": 4,
+      "transition": "ANY_ERROR \u2192 CONTINUE_BLOCKED; ALL_VALID \u2192 CONTINUE_ALLOWED",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/validation.spec.ts",
+          "line": 61,
+          "test_name": "continue stays blocked until every validation problem is resolved",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VIR-001",
+      "clause_ordinal": 1,
+      "transition": "WINDOW_MOUNTED_SUBSET (mounted nodes \u226a total options)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 7,
+          "test_name": "only a bounded window of the 480 options is mounted",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VIR-001",
+      "clause_ordinal": 2,
+      "transition": "SCROLL \u2192 WINDOW_REWINDOWED (different subset mounted)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 18,
+          "test_name": "scrolling re-windows the mounted subset with stable option identity",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VIR-001",
+      "clause_ordinal": 3,
+      "transition": "OFFSCREEN_OPTION \u2192 SELECTED (ordinary scroll/keyboard interaction)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 32,
+          "test_name": "an offscreen option is selectable by scrolling and clicking",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        },
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 48,
+          "test_name": "keyboard navigation reaches far options and commits with Enter",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VIR-001",
+      "clause_ordinal": 4,
+      "transition": "RERENDER \u2192 SELECTION_PERSISTS",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/virtualized.spec.ts",
+          "line": 65,
+          "test_name": "the committed selection survives a rerender of the listbox",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VUE-001",
+      "clause_ordinal": 1,
+      "transition": "TYPED_VALUE \u2192 STATE_COMMITTED (Vue reactivity)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to Vue state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VUE-001",
+      "clause_ordinal": 2,
+      "transition": "FORCE_RERENDER \u2192 VALUE_PERSISTS (state-driven patch)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 7,
+          "test_name": "typed values commit to Vue state and survive a forced rerender",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VUE-002",
+      "clause_ordinal": 1,
+      "transition": "DIRECT_DOM_WRITE \u2192 STATE_UNCHANGED (mirror keeps committed value)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 24,
+          "test_name": "a direct stale DOM write never becomes accepted Vue state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VUE-002",
+      "clause_ordinal": 2,
+      "transition": "RERENDER \u2192 STALE_WRITE_DISCARDED (patch restores state value)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 24,
+          "test_name": "a direct stale DOM write never becomes accepted Vue state",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    },
+    {
+      "fixture_id": "MAL-VUE-003",
+      "clause_ordinal": 1,
+      "transition": "INPUT \u2192 SITE_REWRITE_OBSERVED (employee ID uppercased by the page)",
+      "fixture_source_refs": [
+        {
+          "file": "e2e/mock-ats-lab/vue-controlled.spec.ts",
+          "line": 45,
+          "test_name": "the page's own uppercase rewrite is observable as you type",
+          "proof_scope": "FIXTURE_BEHAVIOR_PLAYWRIGHT_DIRECT",
+          "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY"
+        }
+      ],
+      "current_result": "DISCOVERY_ONLY_PENDING_ROOT_FULL_VERIFY",
+      "mounted32_transition_result": "NOT_EXERCISED_BY_CONTACT_ONLY_CAMPAIGN",
+      "limitations": [
+        "Direct Playwright fixture interactions prove fixture behavior only; no MV3 autonomous navigation/submit/challenge capability."
+      ]
+    }
+  ],
+  "fixture_clause_mapping_count": 67,
+  "fixture_clause_source_gaps": [],
+  "semantic_limitations": [
+    "All67 clauses have identified retained fixture test source; none is marked current PASS by discovery.",
+    "W09 real approved records, synthetic canonical driver decisions, direct Playwright fixture behavior and mounted framework state are distinct evidence classes.",
+    "Contact200/32 expected-control counts must not absorb these additional proof cases without a declared scorer and input model."
+  ],
+  "source_file_sha256": {
+    "e2e/mock-ats-lab/combobox.spec.ts": "406deb52cd18abe2f0124441357f4ffd1808dc720628eb6ca167b2094a05aee1",
+    "e2e/mock-ats-lab/datephone.spec.ts": "7bb7b5abb2833a8d8954fedd2ee3ea5eb0bceb56fcc674f7d6dff0b705db8ff2",
+    "e2e/mock-ats-lab/dynamic.spec.ts": "9b9e0eecc94e90fdbaf8820fd16da051202da3a05566662412ed8d5a24c451aa",
+    "e2e/mock-ats-lab/multipage.spec.ts": "f63f08cfede92dc7269ece807df1a2036677e1a5b4ccb47c9b4030bcfd9883c6",
+    "e2e/mock-ats-lab/captcha.spec.ts": "965a9d858892d961b08c40f87a5506ffa06cf5ee16129b5617f8c9b2b5996454",
+    "e2e/mock-ats-lab/frames.spec.ts": "e2913dd103fad9e11bab73a32dacfc10be495941b1289470766da9bfaea3e309",
+    "e2e/mock-ats-lab/catalog.spec.ts": "d1cb25425492a5a416403070d341d8ee7b312e4b03fb4aa028100c4bc60b6286",
+    "e2e/mock-ats-lab/native.spec.ts": "e241e2b87bd10140388ed1461a4205bfee7186ae7f3533328396d08734e48e1f",
+    "e2e/mock-ats-lab/injection.spec.ts": "4469706e0968a91080c2ea4e34ef4f8cb40a9695ddb18a488da7d38402df836f",
+    "e2e/mock-ats-lab/react-controlled.spec.ts": "4ab5d62883c9a01e01897e101e80be1ea852155b7bebb226c25ef05448ade1cd",
+    "e2e/mock-ats-lab/vue-controlled.spec.ts": "3a58271e668e52cea1c24318a126ac06f654cd34842669a9f40b4ecbba2d0463",
+    "e2e/mock-ats-lab/shadow.spec.ts": "22cc4c2579382a1f07e9941768462d25117bcb50ad2f419a16664c4fa03bf17d",
+    "e2e/mock-ats-lab/upload.spec.ts": "2bcb535710ff1969b80d26919caf29fa3df43cd84cb12aca06d1565a95b2cf28",
+    "e2e/mock-ats-lab/validation.spec.ts": "f3f2098ad24a52f2d47a0682de9573eba8ce48023ad37ec7d68dad8ff1fd7d99",
+    "e2e/mock-ats-lab/virtualized.spec.ts": "e54e7cb17282c3c18bb7c034b11b4a6caf36e0f9de121f2c21855218d86eb9d9",
+    "e2e/extension/extension-drivers.spec.ts": "c6a71fe420b23fe239a8bb0b5beedccf9dade926532718767500e1734252b22b",
+    "e2e/extension/extension-scanner.spec.ts": "f5ffcca6851dbd6cae7e158a892e2f92c38dbb91d39c8e655728bf0f2f08a26c",
+    "e2e/extension/extension-dynamic.spec.ts": "09214f7075b3d39761d3e4eb4649b3c4f19c7f97ea38fa7f3f576390b83d655e",
+    "e2e/extension/extension-resolver.spec.ts": "f64430cb58fed9a117f0f2c270d534865fea457092ead74ccd14e015941b435a",
+    "e2e/extension/extension-research.spec.ts": "d71ab67a405caacafe92f75a71ad25a89f4287f41ba7bb0c830d85b36671d0cb"
+  }
+}

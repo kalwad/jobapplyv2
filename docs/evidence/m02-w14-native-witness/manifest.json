@@ -1,0 +1,67 @@
+[
+  {
+    "path": "lint.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "native4.log",
+    "sha256": "c97150281b35fbb36bab03106b6297cb1259e6031aef23ef9a132354e41a3568",
+    "bytes": 2493
+  },
+  {
+    "path": "proof.json",
+    "sha256": "4bcbdd64e815cfbe3b7d23fa345588e974d06e0ea270c6f03a5e253d93f86d92",
+    "bytes": 1035
+  },
+  {
+    "path": "source-inventory.json",
+    "sha256": "77b688501bf6b55e274163b05bf3b2c5b8ab9829c3801a949390cc97e16e222f",
+    "bytes": 3378
+  },
+  {
+    "path": "traces/extension-extension-w14-na-738a3-s-the-independent-collector-chromium.zip",
+    "sha256": "8d4dacb64305858481245eea5d32ece6cc7393df3e9acf8d148ca50b9ffab32c",
+    "bytes": 165590
+  },
+  {
+    "path": "traces/extension-extension-w14-na-74a16-aim-zero-write-preservation-chromium.zip",
+    "sha256": "3978fca1c6136eba25cf6c5a15c9cef03ffb8e6d0b20c83c549820e6f31f2e52",
+    "bytes": 188330
+  },
+  {
+    "path": "traces/extension-extension-w14-na-8240f-ide-a-different-event-value-chromium.zip",
+    "sha256": "18c0fce8645dc745f0bf8e8dad76b3368670c974be1218eca42a77ec6e46956c",
+    "bytes": 192042
+  },
+  {
+    "path": "traces/extension-extension-w14-na-ecf84-ts-and-controlled-rerenders-chromium.zip",
+    "sha256": "fbda8207b47168b9bd274491c395c14ece2c13cac9e543c04bb9f6287cef3dee",
+    "bytes": 190832
+  },
+  {
+    "path": "types.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "w14-native-event-value-disagreement.json",
+    "sha256": "6f80eecd0d72116b7b09f14272e12ee7a1982628046078fe28ab1f566c5acdfe",
+    "bytes": 14503
+  },
+  {
+    "path": "w14-native-eventless-write-restore.json",
+    "sha256": "c6097844c5d5b5670d1d79f087932a445b11d034d1f29335c826e1a0269a25ec",
+    "bytes": 15366
+  },
+  {
+    "path": "w14-native-installed-surface-coverage.json",
+    "sha256": "2bf522ec628045712f9745760fedf3518da1f99a69a13e7f2b28387737eb7176",
+    "bytes": 3454
+  },
+  {
+    "path": "w14-native-real-driver.json",
+    "sha256": "c5182e437981a4c30ee4a2541f1437ae0b29b0ad5306e71465ca6e89f08f17a0",
+    "bytes": 14381
+  }
+]

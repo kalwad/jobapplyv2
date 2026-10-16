@@ -35,12 +35,12 @@
     },
     {
       "path": "packages/contracts/catalog/semantic-rules.v1.json",
-      "sha256": "31722639c611cc94bfd9cc31a6e631433c6b145d2b2d8c9d5446aac31d3db1c3",
-      "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v1",
-      "version": "1.1.0"
+      "sha256": "b574b603e4bf1c26b990c97512935179c4f4a0886774f8163e3b87dce801a5c9",
+      "validatedAgainst": "urn:japp:schema:semantic:rule-catalog:v2",
+      "version": "1.2.0"
     }
   ],
-  "formatVersion": "1.5.0",
+  "formatVersion": "1.6.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -206,10 +206,22 @@
       "sha256": "3f9698a5247bd923d4bb33ff241a971c11d23bf595f0d28befda68bebeaff354"
     },
     {
+      "id": "urn:japp:schema:gate:decision:v2",
+      "path": "packages/contracts/schemas/gate/decision.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "7535d64e924be9eab1e13fb1def1c3b181fdc41db4cb4d01b6916b94bbe2d225"
+    },
+    {
       "id": "urn:japp:schema:gate:evidence-bundle:v1",
       "path": "packages/contracts/schemas/gate/evidence-bundle.v1.schema.json",
       "schemaVersion": "1.0.0",
       "sha256": "be9d0679e830fdf17236d6791f8e1b6bc9e0a3fabd4e77c4e7884683355f40fd"
+    },
+    {
+      "id": "urn:japp:schema:gate:evidence-bundle:v2",
+      "path": "packages/contracts/schemas/gate/evidence-bundle.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "ca7bae93b9763b9a838a7df2e3527ea8bdef34a6e559af0af5e8b6021406ea64"
     },
     {
       "id": "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -470,6 +482,12 @@
       "sha256": "5ef91d096359d9be82755431e30d442664f54c4f7e87d0d923dd2d8fbc5aa92c"
     },
     {
+      "id": "urn:japp:schema:semantic:rule-catalog:v2",
+      "path": "packages/contracts/schemas/semantic/rule-catalog.v2.schema.json",
+      "schemaVersion": "2.0.0",
+      "sha256": "f16d26c5ec95f49b7fe6ed00492f2af1e33874a1e169e0709691fae4d0b4a744"
+    },
+    {
       "id": "urn:japp:schema:session:application-session:v1",
       "path": "packages/contracts/schemas/session/application-session.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -519,7 +537,7 @@
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "3f632e92cfa7ba3085980e4800a3a5fb4d9a788c84b449cc857039574c6fe4f3"
+      "sha256": "406cfe6bca4be278eb3862fafeedd4dea672d990e969888e5fdc6417f015050f"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -666,8 +684,16 @@
       "sha256": "18e7cfaba7aed6cac77808349e446fc826008278bb4268606d08b4a7d6fe31fb"
     },
     {
+      "path": "python/src/japp_contracts/gate/decision_v2.py",
+      "sha256": "639180648c44fa0b5bbcb4b038d1b71ebd59661be74fc98607f388f3c59fe04e"
+    },
+    {
       "path": "python/src/japp_contracts/gate/evidence_bundle_v1.py",
       "sha256": "1d973367d76ee436e5dfe8647339656216db0fd526aa2b9255007997fe208077"
+    },
+    {
+      "path": "python/src/japp_contracts/gate/evidence_bundle_v2.py",
+      "sha256": "e0ad6df55c1aa0174095bf02ee62da85a51ce39b542dd7d4c4fe92add4232cd1"
     },
     {
       "path": "python/src/japp_contracts/platform/__init__.py",
@@ -870,8 +896,12 @@
       "sha256": "e32b819ed05cb1d54de41d89fb01bea10a15426612530c9093922b6f7e352630"
     },
     {
+      "path": "python/src/japp_contracts/semantic/rule_catalog_v2.py",
+      "sha256": "01d0b20cf705627d2e0a8032384b670f49a6481d662bca9a8ba1cd463be139cf"
+    },
+    {
       "path": "python/src/japp_contracts/semantic/rules_v1.py",
-      "sha256": "832cf9bc405416a345f0fb62c7eff821bba4e041894a3d876ccf58d85883b549"
+      "sha256": "ef379cc1fe98786e4f3a9125e4a3676dcaabff93585ba0073c67bfcfbeae15f2"
     },
     {
       "path": "python/src/japp_contracts/session/__init__.py",
@@ -1022,12 +1052,20 @@
       "sha256": "04f622fe930a94300237d8e6964788740edec4e6188b6f17ab99eb5cdd14a428"
     },
     {
+      "path": "typescript/gate/decision.v2.ts",
+      "sha256": "1b06444b33d568e079f9acb0b65594660f307c73129b652ed9ed2cc7b6510ef6"
+    },
+    {
       "path": "typescript/gate/evidence-bundle.v1.ts",
       "sha256": "495f04036427d35774d402465104b4aca152f28f6174e66d1208a7979f588ac7"
     },
     {
+      "path": "typescript/gate/evidence-bundle.v2.ts",
+      "sha256": "ee705acde527b05b4a748bebe78efd15c3b9bdadbcc0e190d5f0cabe405c7d76"
+    },
+    {
       "path": "typescript/index.ts",
-      "sha256": "8a2009f7b7999b24f68942a1be637a63d9d3aa23ff20f4a39b2bdd9c47f606d6"
+      "sha256": "0c6723c823246b470162001a14e194cdb7be6a2d9271aad3b259a11b99b007e9"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -1206,8 +1244,12 @@
       "sha256": "7ed54d5051948eb9c9d4654646fe5c0b22fcd6268c3d4d4921647114df8b9a53"
     },
     {
+      "path": "typescript/semantic/rule-catalog.v2.ts",
+      "sha256": "86fbaa855d29d85e0e1bbb62515966334c0f57b2404830a7ece0f4e93d178551"
+    },
+    {
       "path": "typescript/semantic/rules.v1.ts",
-      "sha256": "449d3a34473791fc3b880fd76685f59e46fc7f2d8b75ed4572a4cee04b89848f"
+      "sha256": "8dc2401b5e46c31587a51d9c4db1d69ff5f1e81b7776dddde4814668a248f9f5"
     },
     {
       "path": "typescript/session/application-session.v1.ts",
@@ -1227,7 +1269,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "477fc8a11c9b8224391e468919e96bcfc9c2a8eb183e3ebdcbd95629b8aab97d"
+      "sha256": "2f54c53c8f65f392b3ba7b5e26ad81808829cb9881984b05ef5031633f9f485f"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -2293,6 +2335,66 @@
         "module": "typescript/gate/decision.v1.ts"
       }
     },
+    "urn:japp:schema:gate:decision:v2": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2"
+      },
+      "typescript": {
+        "export": "GateDecisionV2",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/gateDecision": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2GateDecision"
+      },
+      "typescript": {
+        "export": "GateDecisionV2GateDecision",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/independentReviewState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2IndependentReviewState"
+      },
+      "typescript": {
+        "export": "GateDecisionV2IndependentReviewState",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2OwnerDecisionState"
+      },
+      "typescript": {
+        "export": "GateDecisionV2OwnerDecisionState",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/reasonCode": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2ReasonCode"
+      },
+      "typescript": {
+        "export": "GateDecisionV2ReasonCode",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary": {
+      "python": {
+        "module": "japp_contracts.gate.decision_v2",
+        "symbol": "GateDecisionV2ThresholdEvidenceSummary"
+      },
+      "typescript": {
+        "export": "GateDecisionV2ThresholdEvidenceSummary",
+        "module": "typescript/gate/decision.v2.ts"
+      }
+    },
     "urn:japp:schema:gate:evidence-bundle:v1": {
       "python": {
         "module": "japp_contracts.gate.evidence_bundle_v1",
@@ -2321,6 +2423,56 @@
       "typescript": {
         "export": "GateEvidenceBundleV1GateId",
         "module": "typescript/gate/evidence-bundle.v1.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2CompletenessInventory"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2CompletenessInventory",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2GateId"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2GateId",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2HoldoutAssessment"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2HoldoutAssessment",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
+      }
+    },
+    "urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver": {
+      "python": {
+        "module": "japp_contracts.gate.evidence_bundle_v2",
+        "symbol": "GateEvidenceBundleV2OwnerHoldoutWaiver"
+      },
+      "typescript": {
+        "export": "GateEvidenceBundleV2OwnerHoldoutWaiver",
+        "module": "typescript/gate/evidence-bundle.v2.ts"
       }
     },
     "urn:japp:schema:platform:browser-discovery-request:v1": {
@@ -3611,6 +3763,36 @@
       "typescript": {
         "export": "SemanticRuleCatalogV1RuleKind",
         "module": "typescript/semantic/rule-catalog.v1.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2RuleEntry"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2RuleEntry",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind": {
+      "python": {
+        "module": "japp_contracts.semantic.rule_catalog_v2",
+        "symbol": "SemanticRuleCatalogV2RuleKind"
+      },
+      "typescript": {
+        "export": "SemanticRuleCatalogV2RuleKind",
+        "module": "typescript/semantic/rule-catalog.v2.ts"
       }
     },
     "urn:japp:schema:session:application-session:v1": {

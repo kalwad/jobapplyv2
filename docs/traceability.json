@@ -2237,7 +2237,7 @@
         "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
         "e2e/extension/extension-dynamic.spec.ts"
       ],
-      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state — no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
+      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state \u2014 no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
       "mapping_review_state": "REVIEWED_V1_2"
     },
     {
@@ -8119,7 +8119,7 @@
       "id": "M02-W14",
       "milestone": "M02",
       "title": "Execute synthetic, holdout, public no-submit, and side-by-side evaluation",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W13"
@@ -21148,7 +21148,7 @@
   "critical_gates": [
     {
       "id": "AUTOFILL_FEASIBILITY",
-      "current_state": "NOT_EVALUATED",
+      "current_state": "IN_PROGRESS",
       "report_path": "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
       "blocked_milestones": [
         "M03",

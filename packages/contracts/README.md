@@ -617,3 +617,46 @@ no gate.
 - **M04** — the real migration framework that consumes the
   `UPGRADE_REQUIRED_NEWER_MINOR` / major-version signals.
 - Product/domain payload schemas arrive with their owning milestones.
+
+### Gate v2 owner-holdout nonexecution
+
+`gate/evidence-bundle.v2` and `gate/decision.v2` add an explicit
+`holdout_assessment`. The v1 roots, generated v1 model files, original 511-case
+corpus and compatibility baselines retain their exact bytes and meaning. The
+finite catalog validates against the additive `semantic/rule-catalog.v2` root;
+the historical v1 rule-catalog schema also remains unchanged.
+
+`EXECUTED` requires a real execution result reference (and a manifest digest in
+the evidence bundle). `NOT_EXECUTED` cannot support `COMPLETE` or `PASS`.
+`WAIVED_BY_OWNER_ADR_0006` requires `execution_performed: false`,
+`holdout_valid: false`, no execution result reference, and an owner-waiver
+record naming exactly `ADR-0006`, `OD-035` and `docs/DECISIONS.md`. The optional
+bundle manifest digest can preserve a historical manifest commitment; it does
+not assert execution. All other completeness, threshold, independent-review
+and owner-decision rules remain as strict as v1.
+
+A well-shaped typed waiver is a declaration, not proof that its owner accepted
+it. A gate publisher must explicitly use the v2 schema URN and version 2.0.0,
+validate both artifacts structurally and semantically through the generated
+TypeScript/Python validators, then call
+`scripts.validate_status.gate_holdout_authority_v2_problems` with the actual
+repository, paired bundle/decision and current ledger/report text. That
+source-aware check requires matching gate/candidate/bundle identities, the
+exact accepted current ADR and OD record, their bound digest, and the exact
+`WAIVED_BY_OWNER_ADR_0006` result in both records. It cannot establish numerical
+results, independent review or owner gate approval. Those checks remain the
+responsibility of the gate acceptance consumer. No publisher may downcast a
+waiver to v1 or convert it into `holdout_valid: true`.
+
+The owner-record digest is SHA-256 over the UTF-8 preimage
+`japp-owner-holdout-waiver-v1` + NUL + exact OD-035 table row + LF + exact
+ADR-0006 heading/body with one terminal LF. Blank lines separating the next
+record are excluded. It binds the accepted record rather than the mutable
+whole document, so unrelated later ADRs do not invalidate it. The source-aware
+validator refuses absent, proposed, rejected, duplicated or changed authority.
+
+The separate `test/contract/gate-waiver-corpus` inventory uses the same strict
+four-file corpus loader and real TypeScript/Python/test-only Rust adapters. It
+preserves the existing 512-case request bound and the original corpus preimage;
+its executable witnesses join the compatibility signature additively. The
+compatibility baseline is checked without being regenerated.

@@ -1,3 +1,4 @@
+import { hasAmbiguousLocalReference, localIdReference } from "../open-dom.ts";
 // M02-W10 bounded driver DOM helpers.
 //
 // Everything a driver may physically do to the page funnels through this
@@ -93,6 +94,55 @@ export async function optionValueDigest(value: string): Promise<string> {
   return semanticDigest(`option-value-v1\0${value}`);
 }
 
+/** Synchronous final-publication witness for native properties MutationObserver
+ * cannot observe. Only the resolved anchor/members are inspected; no tree walk,
+ * hashes, events or page writes occur. File objects are immutable browser values. */
+export function captureNativePropertyWitness(
+  elements: readonly HTMLElement[],
+): () => boolean {
+  if (elements.length > 129) return () => false;
+  const checks: (() => boolean)[] = [];
+  for (const element of new Set(elements)) {
+    if (element instanceof HTMLInputElement) {
+      if (element.type === "file") {
+        const files = element.files;
+        if (files !== null && files.length > 1) return () => false;
+        const file = files?.item(0) ?? null;
+        const count = files?.length ?? 0;
+        checks.push(
+          () =>
+            (element.files?.length ?? 0) === count &&
+            (element.files?.item(0) ?? null) === file,
+        );
+      } else {
+        const value = element.value;
+        const checked = element.checked;
+        checks.push(
+          () => element.value === value && element.checked === checked,
+        );
+      }
+    } else if (element instanceof HTMLTextAreaElement) {
+      const value = element.value;
+      checks.push(() => element.value === value);
+    } else if (element instanceof HTMLSelectElement) {
+      const value = element.value;
+      const index = element.selectedIndex;
+      const selected = element.selectedOptions[0];
+      const label = selected?.label;
+      const text = selected?.textContent;
+      checks.push(
+        () =>
+          element.value === value &&
+          element.selectedIndex === index &&
+          element.selectedOptions[0] === selected &&
+          selected?.label === label &&
+          selected?.textContent === text,
+      );
+    }
+  }
+  return () => checks.every((check) => check());
+}
+
 export interface SettleOutcome {
   readonly polls: number;
   readonly signalObserved: boolean;
@@ -157,13 +207,13 @@ function normalizeMessage(value: string): string {
   return value.normalize("NFKC").replaceAll(/\s+/g, " ").trim();
 }
 
-function describedErrorNodes(element: HTMLElement): HTMLElement[] {
+function describedErrorNodes(element: HTMLElement): Element[] {
   const ids = (element.getAttribute("aria-describedby") ?? "")
     .split(/\s+/)
     .filter((value) => value !== "");
-  const nodes: HTMLElement[] = [];
+  const nodes: Element[] = [];
   for (const id of ids) {
-    const node = element.ownerDocument.getElementById(id);
+    const node = localIdReference(element, id);
     if (node?.classList.contains("error") === true) {
       nodes.push(node);
     }
@@ -198,8 +248,11 @@ export async function readSiteAcceptance(
 ): Promise<SiteAcceptanceReading> {
   let sawAcceptEvidence = false;
   let rejected = false;
+  let validationUnreadable = false;
   const messages: string[] = [];
   for (const element of elements) {
+    if (hasAmbiguousLocalReference(element, "aria-describedby"))
+      validationUnreadable = true;
     if (supportsConstraintValidation(element)) {
       if (element.validity.valid) {
         sawAcceptEvidence = true;
@@ -283,9 +336,11 @@ export async function readSiteAcceptance(
   return {
     acceptance: rejected
       ? "REJECTED"
-      : sawAcceptEvidence
-        ? "ACCEPTED"
-        : "UNKNOWN",
+      : validationUnreadable
+        ? "UNKNOWN"
+        : sawAcceptEvidence
+          ? "ACCEPTED"
+          : "UNKNOWN",
     messageDigests,
   };
 }

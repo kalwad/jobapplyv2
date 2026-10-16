@@ -61,6 +61,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-032 | The experimental provider ships enabled only after an independent terms/security/privacy/compatibility/account-risk review; an accepted `DISABLED_BY_POLICY` outcome satisfies the experimental package without weakening core scope. | ACCEPTED | Spec v1.4 §0(34) |
 | OD-033 | External AI output remains untrusted candidate data under the same schemas, evidence, verifier, sensitive-field, review, and no-submit boundaries as local output. | ACCEPTED | Spec v1.4 §0(35) |
 | OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
+| OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
 
 ## Architecture decision records
 
@@ -70,6 +71,8 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | ADR-0002 | Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport | ACCEPTED | 2026-07-26 | Entire specification (v1.2 → v1.3); platform governance; Gate D; M00 readiness |
 | ADR-0003 | Adopt JAPP-MASTER-001 v1.4 familiarity and provider rebaseline through external exact-byte transport | ACCEPTED | 2026-07-27 | Entire specification (v1.3 → v1.4); familiarity/provider governance; M00/M01/M27/M28 readiness |
 | ADR-0004 | Make corrected platform v2 roots mandatory for every new producer | ACCEPTED | 2026-07-29 | M01-W07 compatibility boundary; M02 fixture producers; future Gate D guidance |
+| ADR-0005 | Renew the bounded W13 performance correction budget | ACCEPTED | 2026-09-30 | M02-W13 measurement viability and retained Gate A thresholds |
+| ADR-0006 | Continuous execution and owner-controlled holdout waiver | ACCEPTED | 2026-10-16 | Operational owner-holdout/process clauses; all four gates; no numerical threshold or compatibility change |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -398,6 +401,23 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Rollback plan: retain the current draft and proof fingerprint as the restart baseline; forward changes must be reviewable and attributable. No reset/discard of this work is authorized by this proposal.
 - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M02-W13 measurement viability; existing W08–W11 local scanner/dynamic interfaces; spec§1.4/§1.5 and Gate A§2.3. W13 directly owns zero canonical requirement rows. No canonical evolution or gate-state change is proposed.
 - Owner approval: explicit2026-09-30 resume execution package (attachment06627663-bd1f-45a4-a6e5-4d6931c58008) authorizes four additional performance-rescue rounds and the remaining original W13 closeout. Owner-selected model is GPT-6.1 Sol Ultra. No canonical/schema/trust-boundary evolution, W14 execution, threshold weakening or safety-check removal is authorized. W13 is IN_PROGRESS; W14/W15 NOT_STARTED; zero READY.
+
+### ADR-0006 — Continuous execution and owner-controlled holdout waiver
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-10-16 / 2026-10-16
+- Owner approval: direct instructions in this chat: "ignore instructions relating to stopping after each W is reached and validated"; "you do not need owner controlled holdout"; "i want you to keep working till this entire project is finished". The owner identified the working GitHub repository as jobapplyv2.
+- Decision: execute successive eligible packages without per-W stopping. Remove owner-controlled hidden holdout as a completion prerequisite across this project. Use accessible GitHub sources where they provide actual inputs or legacy comparison components. Preserve original manifests and historical evidence; never relabel a waiver as execution or PASS.
+- Observed constraint: M02-W14 was READY after W13 verification. Original v1.4 required owner-external hidden inputs and per-package boundaries; those process requirements conflict with the owner's new instructions.
+- Alternatives considered: retain the original holdout prerequisite, which contradicts the owner; silently mark it passed, which would fabricate evidence; record this explicit accepted owner override and continue, selected.
+- Tradeoffs: hidden-set generalization assurance is reduced. Visible synthetic regressions, physical safety counters, accuracy, performance, independent review and scoped compatibility still require their actual evidence. This decision does not assert that they passed.
+- Security/privacy impact: no permission to expose private data, automate credentials, bypass challenges or submit unapproved applications. Synthetic loopback evaluation remains appropriate.
+- Data-migration impact: none. Existing corpus/holdout manifests, completed package anchors and baseline history remain immutable.
+- Benchmark and gate impact: owner-controlled holdout is WAIVED_BY_OWNER. Numerical accuracy/performance/safety thresholds and native platform proof are unchanged. Missing comparison results remain explicitly missing.
+- Test impact: preserve all existing behavioral regressions. Any future gate validator amendment must accept only the explicit waiver with this accepted decision and must reject fabricated execution evidence; no blanket test skip is authorized.
+- Contract precedence: this is the owner's subsequent explicit override under specification §0's opening rule. Preserve the exact originally approved v1.4 bytes and hash as historical adoption evidence; read its owner-holdout and package-stop clauses subject to this accepted amendment. Other requirements remain in force.
+- Rollback plan: only a subsequent owner decision can restore mandatory hidden holdout; retain the manifests so such evaluation remains possible.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: operational holdout/process clauses in §0/§1/§2.3/§5.13/§8/§9/§12 and their four gates; no canonical schema, product scope, compatibility promise or completed result changes.
 
 ## ADR template
 

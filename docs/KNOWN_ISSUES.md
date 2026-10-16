@@ -32,6 +32,89 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M02-W14 current development findings (2026-10-16)
+
+These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is IN_PROGRESS, Gate A IN_PROGRESS, W15 NOT_STARTED and release NOT_READY. ADR-0006 waives owner-controlled holdout only; public/Simplify/scoped legacy comparisons and independent review are not passed by that waiver. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.
+
+### KI-0077 — Corrected full-settlement campaign exceeds the target timing threshold
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14
+- Affects: M02-W14; generic scan/fill Gate A performance; real-MV3 full-settlement evaluation
+- Description: the corrected 200-case campaign reports p95 1799.8664160000044 ms; the subsequent sequential batched campaign reports 2087.8410830000066 ms and fails its explicit <=1500 ms assertion. Earlier 1338.2853750000068 ms belongs to a different source with 60 refused cases and deficient precision/recall, so it cannot establish a passing corrected candidate. Timings cover one execution per different W12 page with 75 ms settlement and 20 ms rerender, excluding setup/reporting; repeated 128-control proof remains separate.
+- Reproduction: run the exact batched command in docs/TEST_EVIDENCE.md § M02-W14, retaining source/build/configuration commitments and all physical counters. The fourth trace-disabled run completed and also failed at 2009.8366249999963 ms; no passing current timing is assumed.
+- Workaround: none accepted. Do not round down, omit settlement, reuse earlier source timings or drop difficult cases.
+- Resolution + evidence link: pending. Four original assessments/raw compressed bundles remain under docs/evidence/m02-w14-development, m02-w14-corrected, m02-w14-batched and m02-w14-untraced. Batched stdout records expected <=1500 / received 2087.8410830000066. Its failure trace was inspected but cleaned by the following run; no retained trace is claimed.
+
+### KI-0078 — Localized address evidence needs exact recognition and other-party guards
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 full visible matrix evaluation
+- Affects: M02-W14; packages/form-engine evidence normalization, ontology and field classifier
+- Description: frozen W12 address labels including Street/Strasse/Adresse/Postleitzahl/Code postal were not all recognized; adding aliases also required subtype and employer/recruiter-context negatives so applicant address facts could not populate other-party fields.
+- Reproduction: retained locale before log reports 9 failures/2 passes; the later section-negative checkpoint reports 2 failures/14 passes. Permanent tests cover sharp-S normalization, unrelated spelling, subtype/substring rejection and other-party label/section conflicts.
+- Workaround: unresolved/abstained results must remain visible; never change frozen expected answers to match candidate behavior.
+- Resolution + evidence link: local corrections are present; the inspected final form-engine log reports 93/93 tests across 8 files. Corrected/batched campaigns record ordinary precision 1485/1485 and required ordinary recall 1275/1275 on the declared contact cohort. Final W14 frozen/canonical verification remains pending, so this draft does not mark the issue FIXED. See docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-validation.
+
+Current scope limits: the preservation model is supplemental and does not rewrite W13 canonical abstention metrics. Rendered upload/repeater/radio controls do not count as exercised drivers. Thirty public sources are structurally inspected, but public fill cases/scored controls are zero. Actual shared legacy component capture is not full-product comparison; frozen registry statuses remain historical. Simplify requires the normal owner-prepared authenticated synthetic comparison route; installed extension/session state is unknown after the browser-policy rejection. Independent W15 decision is pending.
+
+### KI-0079 — Changed ownership description can retain a stale fill approval
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 independent adversarial review
+- Affects: M02-W14; scanner description evidence, W09 approval binding, W10 action preflight and W11 reconciliation
+- Description: an approved First name control can retain its durable address when its referenced description changes from Your contact to Employer. Fresh W09 classification rejects the new ownership context, but executing the earlier approval can still write the applicant value. The defect is reproduced in both the document and an open shadow root.
+- Reproduction: the two description-only ownership mutation probes retain the old W09 approval, change only the referenced description text, establish that the new W09 decision does not permit filling, then execute the old approval and measure physical events and the final value. Both before-fix executions wrote the value. Raw failure records are being retained with the shadow implementation evidence.
+- Workaround: do not integrate or claim the shadow candidate safe while this stale approval remains executable.
+- Resolution + evidence link: integrated guards bind ownership before execution and publication; 96 retained and 29 focused proofs are archived under docs/evidence/m02-w14-shadow-guards. A fresh independent native-observed undo probe then reproduced VERIFIED after an undo input handler changed Your contact to Employer. Undo still needs the settled ownership and final publication fences already present on execute. Final affected regression and performance remain pending.
+
+### KI-0080 — Event-only action meter cannot exclude eventless writes and restoration
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 independent scoring review
+- Affects: M02-W14; physical-action observation and supplemental initial-value preservation evidence
+- Description: the inherited W13 page meter observes input/change events rather than native setter calls. An eventless write followed by an eventless restore can leave both the event list and final value unchanged. The preservation scorer correctly evaluates its supplied audit, but that meter alone cannot substantiate exhaustive zero-write claims. No eventless production violation has been observed.
+- Reproduction: inspect the event listeners in e2e/extension/support/autofill-benchmark.ts and the zero-action/unchanged-value preservation predicate. An independent real-MV3 setter-to-restore regression is being added before claiming that this observation gap is closed.
+- Workaround: treat historical action counts as event witnesses; do not infer absence of unobserved native property writes from the absence of events.
+- Resolution + evidence link: pending. The additive W14 observer will witness supported native setters and activation in the actual extension realm, separately from site events and controlled rerenders. W13 historical metrics remain unchanged.
+
+### KI-0081 — Changed selected-option semantics retain stale authority
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; native-select, radio and ARIA option approval, settlement and W11 retained verification
+- Description: an approved Country option can retain its raw value while its label changes to a placeholder or Canada. Fresh W09 policy refuses the changed semantics, but the earlier transaction can still select it and publish VERIFIED/READY; an earlier verified selection can also remain READY after relabelling. The existing unrelated-option preservation fallback discards the whole option fingerprint without retaining the selected option's semantic binding.
+- Reproduction: the independent native-six campaign uses both literal US and opaque 17 values. Before-write relabelling produces one native SELECT_VALUE write and VERIFIED despite fresh NO_SEMANTIC_MATCH; after-verification relabelling preserves READY. The unchanged selected option with an appended Mexico option remains a required positive regression. Original setup failures and corrected native proofs are retained separately under /tmp/japp-w14-independent-probes pending archival.
+- Workaround: no Gate A claim or current-source freeze while stale option authority remains. Do not fix this by rejecting all unrelated option-window changes.
+- Resolution + evidence link: a three-file native-select/undo candidate passes the same seven immutable independent probes. Adjacent actual radio and ARIA opaque-option probes then reproduce the same stale-semantic gap, so broader selected value/label/disabled binding is pending. Temporary popup/query/scroll windows and the unchanged virtualized-list positive must remain supported. All before/after observations are retained separately; no final integration or safety claim follows from the narrower candidate.
+
+### KI-0082 — Public report snapshot accounting omits inserted controls
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 fresh independent scoring review
+- Affects: M02-W14; network-closed public DOM evaluation report and precision eligibility
+- Description: changes are currently computed by iterating only the before snapshot. A final-only control disappears from identity/change coverage, permitting apparently complete value metrics despite unmatched final topology. This is a reproducible report defect; no saved live public row or production sensitive fill is claimed.
+- Reproduction: replay the exact accounting logic with an initially empty First name control and final First name=Synthetic plus a newly inserted Social Security Number=Synthetic. It reports precision 1, unexpected nonpositive changes 0 and unmeasurable controls 0 while the snapshot lengths are 1 and 2.
+- Workaround: treat unmatched/new/missing/duplicate snapshot identities as unmeasurable. A new control's unknown initial value cannot establish that the extension wrote it.
+- Resolution + evidence link: pending union accounting and explicit topology/precision-ineligible state, with retained matched measurements separately scoped and complete aggregate metrics null when coverage is incomplete.
+
+### KI-0083 — Native property drift escapes final verification publication
+
+- Severity: HIGH
+- State: IN_PROGRESS
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; execute/undo final verification and W11 current-value observation
+- Description: MutationObserver evidence revisions do not observe ordinary value-property assignments. A site can change input.value while the final result metadata hash is awaited, leaving the semantic index current while the result publishes an earlier VERIFIED value.
+- Reproduction: actual native-observed EXECUTE and UNDO probes pause the final idempotency hash, assign Changed by site without dispatching events, confirm MutationObserver.takeRecords().length is zero, then release. Both report VERIFIED despite the changed current value. Extension native mutations remain one for execute and two total for execute plus undo; the site assignment is outside that extension-realm witness scope.
+- Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
+- Resolution + evidence link: pending bounded synchronous raw-property witnesses captured with the settled/read observation and checked after the final awaited publication work. Existing semantic re-resolution, site validation and no-recovery-write rules remain required.
+
 ## M02-W13 final closeout and retained limits (2026-10-01)
 
 KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.

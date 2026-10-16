@@ -1,0 +1,25 @@
+Observed baseline verification summary — 2026-10-16
+This is a summary of inspected tool output, not a saved complete stdout transcript.
+Workspace: /Users/tanishkalwad/jobapplyv2
+Commands:
+  pnpm run doctor --json
+  pnpm verify
+Doctor: PASS; 25 PASS, 0 WARNING, 0 FAIL, 1 NOT_YET_APPLICABLE.
+Canonical verify: exit 1.
+PASS suites: toolchain, format, lint, typecheck, unit-ts, contract-gen, fixture-corpus, evaluation-corpus, contract, build, e2e-browser, rust, portability, traceability, status, integrity.
+Visual: NOT_YET_APPLICABLE (owner M10-W06).
+Browser run: 134 tests; test-results/.last-run.json status passed, failedTests [].
+Python: 1390 collected; 8 current failures in scripts/tests/test_validate_status.py.
+Failure names:
+  test_m02_w06_verification_lifecycle_accepts_future_governance_state
+  test_m00_may_remain_accepted_while_m01_blockers_are_live
+  test_fixed_ledger_and_none_sentinel_allow_later_readiness
+  test_m01_w07_becomes_ready_after_valid_m00_acceptance
+  test_valid_m00_closeout_makes_only_m01_w07_ready
+  test_report_state_must_agree_even_while_not_evaluated
+  test_gate_cannot_start_before_its_evaluation_package
+  test_milestone_acceptance_allows_verified_package_rows
+Observed cause: test repo_copy copied concurrent live Gate A IN_PROGRESS; historical package-reset fixtures did not reset gate state consistently. Positive historical tests rejected AUTOFILL_FEASIBILITY IN_PROGRESS before M02-W14 started; two report-edit tests inherited a state other than their deliberate NOT_EVALUATED edit premise.
+Status-neutrality: FAIL, expected because parent-authorized concurrent W14 implementation changed source and project-memory files during verification.
+No source changes were made by the validation agent.
+Full tool transcript reference: completed exec session 39545 (not persisted to a log file).

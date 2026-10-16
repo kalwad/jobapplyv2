@@ -162,6 +162,8 @@ def test_real_registry_loads_and_states_match_project_state(
         "contract",
         "build",
         "e2e-browser",
+        "w14-public-controlled",
+        "w14-public-contact-controlled",
         "python",
         "rust",
         "portability",

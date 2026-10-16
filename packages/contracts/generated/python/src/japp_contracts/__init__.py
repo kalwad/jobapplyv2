@@ -181,10 +181,25 @@ from japp_contracts.gate.decision_v1 import (
     GateDecisionV1ReasonCode,
     GateDecisionV1ThresholdEvidenceSummary,
 )
+from japp_contracts.gate.decision_v2 import (
+    GateDecisionV2,
+    GateDecisionV2GateDecision,
+    GateDecisionV2IndependentReviewState,
+    GateDecisionV2OwnerDecisionState,
+    GateDecisionV2ReasonCode,
+    GateDecisionV2ThresholdEvidenceSummary,
+)
 from japp_contracts.gate.evidence_bundle_v1 import (
     GateEvidenceBundleV1,
     GateEvidenceBundleV1CompletenessInventory,
     GateEvidenceBundleV1GateId,
+)
+from japp_contracts.gate.evidence_bundle_v2 import (
+    GateEvidenceBundleV2,
+    GateEvidenceBundleV2CompletenessInventory,
+    GateEvidenceBundleV2GateId,
+    GateEvidenceBundleV2HoldoutAssessment,
+    GateEvidenceBundleV2OwnerHoldoutWaiver,
 )
 from japp_contracts.platform.browser_discovery_request_v1 import (
     PlatformBrowserDiscoveryRequestV1,
@@ -429,6 +444,11 @@ from japp_contracts.semantic.rule_catalog_v1 import (
     SemanticRuleCatalogV1RuleEntry,
     SemanticRuleCatalogV1RuleKind,
 )
+from japp_contracts.semantic.rule_catalog_v2 import (
+    SemanticRuleCatalogV2,
+    SemanticRuleCatalogV2RuleEntry,
+    SemanticRuleCatalogV2RuleKind,
+)
 from japp_contracts.semantic.rules_v1 import (
     SEMANTIC_RULES_V1,
     SemanticRuleEntryV1,
@@ -610,9 +630,20 @@ __all__ = [
     "GateDecisionV1OwnerDecisionState",
     "GateDecisionV1ReasonCode",
     "GateDecisionV1ThresholdEvidenceSummary",
+    "GateDecisionV2",
+    "GateDecisionV2GateDecision",
+    "GateDecisionV2IndependentReviewState",
+    "GateDecisionV2OwnerDecisionState",
+    "GateDecisionV2ReasonCode",
+    "GateDecisionV2ThresholdEvidenceSummary",
     "GateEvidenceBundleV1",
     "GateEvidenceBundleV1CompletenessInventory",
     "GateEvidenceBundleV1GateId",
+    "GateEvidenceBundleV2",
+    "GateEvidenceBundleV2CompletenessInventory",
+    "GateEvidenceBundleV2GateId",
+    "GateEvidenceBundleV2HoldoutAssessment",
+    "GateEvidenceBundleV2OwnerHoldoutWaiver",
     "JsonValue",
     "PRINCIPAL_CATALOG_V1",
     "PRINCIPAL_IDS_V1",
@@ -747,6 +778,9 @@ __all__ = [
     "SemanticRuleCatalogV1",
     "SemanticRuleCatalogV1RuleEntry",
     "SemanticRuleCatalogV1RuleKind",
+    "SemanticRuleCatalogV2",
+    "SemanticRuleCatalogV2RuleEntry",
+    "SemanticRuleCatalogV2RuleKind",
     "SemanticRuleEntryV1",
     "SemanticValidationIssueV1",
     "SemanticValidationOutcomeV1",

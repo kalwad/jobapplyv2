@@ -26,7 +26,20 @@ ATS/browser/OS support and measured pass rates
   target, architecture, browser family/channel and version, artifact digest
   and signature state, reviewed support tier, reviewer, evaluated revision,
   evidence references, and last-tested date). Defining that shape adds no row
-  and grants no support claim; every table below remains empty.
+  and grants no support claim; the production support tables below remain empty.
+
+## M02-W14 research observations (non-support claims, 2026-10-16)
+
+W14 remains IN_PROGRESS and Gate A IN_PROGRESS. These source-scoped synthetic and structural observations do not populate production adapter/browser/OS support rows. Source inventories identify uncommitted candidates; no frozen accepted W14 revision exists.
+
+| Evidence scope | Environment / variants | Observed result | Limit / evidence |
+|---|---|---|---|
+| Corrected synthetic contact cohort | Apple M5/24 GiB, Chromium 151.0.7922.34; W12 Workday 80, Greenhouse/Lever/Ashby 40 each; four authored locales | 200/200 scored, 4060 native / 4020 logical controls; ordinary precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770, persistence 1485/1485; 90/90 initial values preserved | Specific contact profile only; corrected/batched/untraced p95 1799.8664160000044 / 2087.8410830000066 / 2009.8366249999963 ms; both target assertions FAIL. docs/TEST_EVIDENCE.md § M02-W14 |
+| Public read-only structural inventory | Current primary sources: Workday 10, Greenhouse 8, Lever 8, Ashby 4; anonymous Chromium 151.0.7922.34 | 30 inspected sources; 10 Workday method-choice boundaries and 20 blank public forms | 0 extension-fill evaluations, 0 scored controls, 0 comparisons. docs/evidence/m02-w14-external/public-current-matrix.json |
+| Isolated actual legacy components | JobApply c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd; shared CareerPulse component bytes; Chromium 151.0.7922.34; four grouped/en-US fixtures | Per case 8 event witnesses/8 rerenders, 7 exact ordinary matches; phone formatting differs, country/region empty; 0 observed navigation/submission | COMPONENT_DETERMINISTIC_NO_AI; one shared-component execution, not two full-product comparisons; no production code reuse. docs/evidence/m02-w14-external/capture-summary.json |
+| Simplify readiness only | Official product/demo/help and normal Chrome sign-in route | Actual comparison cases/autofill runs 0 | Authenticated synthetic comparison pending; installed extension/session state unknown. docs/evidence/m02-w14-external/simplify-readiness.json |
+
+The contact campaign does not exercise upload/repeater/date/checkbox/radio/custom-combobox drivers, iframe/shadow DOM, page transitions, parser effects or long-session soak. Presence of those features in W12 recipes is not measured support. ADR-0006 marks owner holdout WAIVED_BY_OWNER and changes no product compatibility promise.
 
 ## Workday tenant patterns (first production ATS — spec §5.11.9.13)
 

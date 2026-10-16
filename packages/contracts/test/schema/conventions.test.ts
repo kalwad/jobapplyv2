@@ -70,7 +70,9 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:form:field-descriptor:v1",
       "urn:japp:schema:form:reconciliation-inventory:v1",
       "urn:japp:schema:gate:decision:v1",
+      "urn:japp:schema:gate:decision:v2",
       "urn:japp:schema:gate:evidence-bundle:v1",
+      "urn:japp:schema:gate:evidence-bundle:v2",
       // M01-W07 cross-platform capability and platform-service documents
       // joined the canonical catalog.
       "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -117,6 +119,7 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:security:capability-taxonomy:v1",
       "urn:japp:schema:security:command-taxonomy:v1",
       "urn:japp:schema:semantic:rule-catalog:v1",
+      "urn:japp:schema:semantic:rule-catalog:v2",
       "urn:japp:schema:session:application-session:v1",
       "urn:japp:schema:session:guided-run-mode:v1",
       "urn:japp:schema:session:navigation-record:v1",

@@ -1,0 +1,10 @@
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 358 ms
+  ├─ dist/w14-public-inspection/chrome-mv3/manifest.json                  3.33 kB  
+  ├─ dist/w14-public-inspection/chrome-mv3/background.js                  24.01 kB 
+  └─ dist/w14-public-inspection/chrome-mv3/content-scripts/inspection.js  105.37 kB
+Σ Total size: 132.71 kB                                                 
+✔ Finished in 456 ms

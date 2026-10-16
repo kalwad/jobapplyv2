@@ -1,0 +1,22 @@
+{
+  "manifest_format_version": "1.0.0",
+  "report_format_version": "1.0.0",
+  "execution_id": "evalrun_64WY2BVC336D6P5WSAG0ECS670",
+  "artifacts": [
+    {
+      "format": "JSON",
+      "digest": "sha256:0abcddd710faee5564566b8f4a71fa94426fb9e61257844590cde405844a4107",
+      "byte_count": 1997585
+    },
+    {
+      "format": "MARKDOWN",
+      "digest": "sha256:2ce22b37429f43b778e1578a3238dadef5dec99de99166d77fd4c774da4df5dc",
+      "byte_count": 181702
+    },
+    {
+      "format": "HTML",
+      "digest": "sha256:e0471b928d86796ad07d340a29e61b8687a03c32dfd5dea335ef455d09fbda82",
+      "byte_count": 297600
+    }
+  ]
+}

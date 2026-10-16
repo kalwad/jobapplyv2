@@ -1,0 +1,94 @@
+{
+  "files": [
+    {
+      "path": "gate-v2-waiver.patch",
+      "bytes": 234687,
+      "sha256": "bbd2c9e0a1e2218caecbd7b7b80b52d58fcf3c046bb628ea4103da9a294a95e7"
+    },
+    {
+      "path": "source-inventory.json",
+      "bytes": 9256,
+      "sha256": "11d9bcd6c9a3c5ae606efdcf1c6a4fb8d440f2e177217221d7d3e39f58c001b1"
+    },
+    {
+      "path": "historical-preimages.json",
+      "bytes": 46108,
+      "sha256": "46f5a3d7ad58e38bcc07bbbf9cca7b9250f7ec93d7e2bf0e0e27094362c4bcae"
+    },
+    {
+      "path": "PROOF.md",
+      "bytes": 3859,
+      "sha256": "4d710f426f03d719ce9a1aa4198ab65858c9ad1e8edf93b8d2e4bc6c1d398c29"
+    },
+    {
+      "path": "contracts-full-final.log",
+      "bytes": 782,
+      "sha256": "3e7889157ba4696399c43673de01a11bc489870d9a76c6159cfca17508cf6d5d"
+    },
+    {
+      "path": "gate-v2-adapters-final.log",
+      "bytes": 397,
+      "sha256": "ce0cdd401c145c346561e1b35eb03a71c9b428ff9a99f442a21396f7472b0ac6"
+    },
+    {
+      "path": "rust-tests.log",
+      "bytes": 1193,
+      "sha256": "753fae8a2bd6df4e8976dcb44bcbe78e94eac35f843d47688becd1e862340d00"
+    },
+    {
+      "path": "full-status-tests-final.log",
+      "bytes": 261,
+      "sha256": "21d521bbc119273cebb983c380a780bfc0993c651ebf99397a0bd8d4b6e67d0c"
+    },
+    {
+      "path": "authority-tests-final.log",
+      "bytes": 115,
+      "sha256": "29fc5f2334c7db0a57f37fa835096b165d72a5e77ef05facfcefca637735a673"
+    },
+    {
+      "path": "types-final.log",
+      "bytes": 23,
+      "sha256": "29c5ee0f6b0b20dbb259b99d01276198c3d28190090706394608d4deda6d2c0b"
+    },
+    {
+      "path": "lint-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "mypy-final.log",
+      "bytes": 43,
+      "sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+    },
+    {
+      "path": "ruff-final.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "format-check-final.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "path": "rust-format-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "generation-check-final.log",
+      "bytes": 63,
+      "sha256": "1c15616222a20440072d2ca9a23f87344e25a642d30b08e3a308289845b2ed60"
+    },
+    {
+      "path": "compatibility.log",
+      "bytes": 9429,
+      "sha256": "d6b84753f50c58accbd8b6ce1f860d389fe6798d643a7dcc2d4925e38a9512b8"
+    },
+    {
+      "path": "new-python-nodeids.txt",
+      "bytes": 3089,
+      "sha256": "d6dd5c6d4278d1938a470b063ade78e87110b791b6140a78c3d0cf823654112f"
+    }
+  ]
+}

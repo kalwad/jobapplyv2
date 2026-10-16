@@ -3,7 +3,7 @@
  * Regenerate with: pnpm generate:contracts
  *
  * Source of truth: packages/contracts/catalog/semantic-rules.v1.json
- * Validated against: urn:japp:schema:semantic:rule-catalog:v1
+ * Validated against: urn:japp:schema:semantic:rule-catalog:v2
  *
  * Structural validation must succeed before these finite semantic rules run.
  * Catalog content is inert data: no expression, path, operator, or code is
@@ -23,7 +23,9 @@ export type SemanticRuleKindV1 =
   | "FIELD_DECISION_AUTHORITY"
   | "FIELD_DESCRIPTOR_OBSERVATION"
   | "GATE_DECISION_INTEGRITY"
+  | "GATE_DECISION_INTEGRITY_V2"
   | "GATE_EVIDENCE_COMPLETENESS"
+  | "GATE_EVIDENCE_COMPLETENESS_V2"
   | "GUIDED_RUN_SAFETY"
   | "HOLDOUT_MANIFEST_INTEGRITY"
   | "INERT_TEXT_SAFETY"
@@ -68,7 +70,7 @@ export type SemanticRuleKindV1 =
   | "WORKDAY_STEP_BOUNDARY"
   | "WORKDAY_TENANT_IDENTITY";
 
-export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INTEGRITY" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_INERT_TEXT" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT" | "PLATFORM_BROWSER_DISCOVERY_SAFETY" | "PLATFORM_BROWSER_RECORD_INERT_TEXT" | "PLATFORM_BROWSER_RECORD_INERT_TEXT_V2" | "PLATFORM_BROWSER_RECORD_SCOPE" | "PLATFORM_BROWSER_RECORD_SCOPE_V2" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT_V2" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT_V2" | "PLATFORM_CERTIFICATION_INPUT_SCOPE" | "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2" | "PLATFORM_DIAGNOSTIC_INERT_TEXT" | "PLATFORM_DIAGNOSTIC_INERT_TEXT_V2" | "PLATFORM_DIAGNOSTIC_INTEGRITY" | "PLATFORM_DIAGNOSTIC_INTEGRITY_V2" | "PLATFORM_EVIDENCE_INERT_TEXT" | "PLATFORM_EVIDENCE_INERT_TEXT_V2" | "PLATFORM_EVIDENCE_INTEGRITY" | "PLATFORM_EVIDENCE_INTEGRITY_V2" | "PLATFORM_INSTALLER_STATE_EVIDENCE" | "PLATFORM_INSTALLER_STATE_EVIDENCE_V2" | "PLATFORM_INSTALLER_STATE_INERT_TEXT" | "PLATFORM_INSTALLER_STATE_INERT_TEXT_V2" | "PLATFORM_MODEL_PROFILE_EVIDENCE" | "PLATFORM_MODEL_PROFILE_EVIDENCE_V2" | "PLATFORM_MODEL_PROFILE_INERT_TEXT" | "PLATFORM_MODEL_PROFILE_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_BINDING" | "PLATFORM_NATIVE_REGISTRATION_BINDING_V2" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT_V2" | "PLATFORM_PATH_REQUEST_INERT_TEXT" | "PLATFORM_PATH_REQUEST_SAFETY" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT_V2" | "PLATFORM_PATH_RESOLUTION_SAFETY" | "PLATFORM_PATH_RESOLUTION_SAFETY_V2" | "PLATFORM_PROCESS_PLAN_INERT_TEXT" | "PLATFORM_PROCESS_PLAN_INERT_TEXT_V2" | "PLATFORM_PROCESS_PLAN_SAFETY" | "PLATFORM_PROCESS_PLAN_SAFETY_V2" | "PLATFORM_PROCESS_STATUS_INERT_TEXT" | "PLATFORM_PROCESS_STATUS_INERT_TEXT_V2" | "PLATFORM_PROCESS_STATUS_INTEGRITY" | "PLATFORM_PROCESS_STATUS_INTEGRITY_V2" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT_V2" | "PLATFORM_SECRET_REQUEST_AUTHORITY" | "PLATFORM_SECRET_REQUEST_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT_V2" | "PLATFORM_SECRET_RESULT_INTEGRITY" | "PLATFORM_SECRET_RESULT_INTEGRITY_V2" | "PLATFORM_TARGET_IDENTITY_INERT_TEXT" | "PLATFORM_TARGET_SUPPORT_CLAIM" | "PLATFORM_UPDATE_STATE_EVIDENCE" | "PLATFORM_UPDATE_STATE_EVIDENCE_V2" | "PLATFORM_UPDATE_STATE_INERT_TEXT" | "PLATFORM_UPDATE_STATE_INERT_TEXT_V2" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
+export type SemanticRuleIdV1 = "APPLICATION_SESSION_CONSISTENCY" | "APPLICATION_SESSION_INERT_TEXT" | "ATOMIC_CLAIM_INERT_TEXT" | "ATOMIC_CLAIM_INTEGRITY" | "ATS_VARIANT_INERT_TEXT" | "ATS_VARIANT_SCOPE" | "BENCHMARK_CASE_INERT_TEXT" | "BENCHMARK_CASE_INTEGRITY" | "BENCHMARK_RESULT_INERT_TEXT" | "BENCHMARK_RESULT_INTEGRITY" | "DRIVER_RESULT_INERT_TEXT" | "DRIVER_VERIFIED_EVIDENCE" | "FIELD_ADDRESS_IDENTITY" | "FIELD_ADDRESS_INERT_TEXT" | "FIELD_DECISION_AUTHORITY" | "FIELD_DECISION_INERT_TEXT" | "FIELD_DESCRIPTOR_INERT_TEXT" | "FIELD_DESCRIPTOR_OBSERVATION" | "GATE_DECISION_INERT_TEXT" | "GATE_DECISION_INERT_TEXT_V2" | "GATE_DECISION_INTEGRITY" | "GATE_DECISION_INTEGRITY_V2" | "GATE_EVIDENCE_COMPLETENESS" | "GATE_EVIDENCE_COMPLETENESS_V2" | "GATE_EVIDENCE_INERT_TEXT" | "GATE_EVIDENCE_INERT_TEXT_V2" | "GUIDED_RUN_INERT_TEXT" | "GUIDED_RUN_SAFETY" | "HOLDOUT_MANIFEST_INERT_TEXT" | "HOLDOUT_MANIFEST_INTEGRITY" | "LAYOUT_MEASUREMENT_INERT_TEXT" | "LAYOUT_MEASUREMENT_INTEGRITY" | "NAVIGATION_INERT_TEXT" | "NAVIGATION_SAFETY" | "PAGE_READINESS_INERT_TEXT" | "PAGE_READINESS_INTEGRITY" | "PLATFORM_BROWSER_DISCOVERY_INERT_TEXT" | "PLATFORM_BROWSER_DISCOVERY_SAFETY" | "PLATFORM_BROWSER_RECORD_INERT_TEXT" | "PLATFORM_BROWSER_RECORD_INERT_TEXT_V2" | "PLATFORM_BROWSER_RECORD_SCOPE" | "PLATFORM_BROWSER_RECORD_SCOPE_V2" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT" | "PLATFORM_CAPABILITY_REPORT_INERT_TEXT_V2" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY" | "PLATFORM_CAPABILITY_REPORT_INTEGRITY_V2" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT" | "PLATFORM_CERTIFICATION_INPUT_INERT_TEXT_V2" | "PLATFORM_CERTIFICATION_INPUT_SCOPE" | "PLATFORM_CERTIFICATION_INPUT_SCOPE_V2" | "PLATFORM_DIAGNOSTIC_INERT_TEXT" | "PLATFORM_DIAGNOSTIC_INERT_TEXT_V2" | "PLATFORM_DIAGNOSTIC_INTEGRITY" | "PLATFORM_DIAGNOSTIC_INTEGRITY_V2" | "PLATFORM_EVIDENCE_INERT_TEXT" | "PLATFORM_EVIDENCE_INERT_TEXT_V2" | "PLATFORM_EVIDENCE_INTEGRITY" | "PLATFORM_EVIDENCE_INTEGRITY_V2" | "PLATFORM_INSTALLER_STATE_EVIDENCE" | "PLATFORM_INSTALLER_STATE_EVIDENCE_V2" | "PLATFORM_INSTALLER_STATE_INERT_TEXT" | "PLATFORM_INSTALLER_STATE_INERT_TEXT_V2" | "PLATFORM_MODEL_PROFILE_EVIDENCE" | "PLATFORM_MODEL_PROFILE_EVIDENCE_V2" | "PLATFORM_MODEL_PROFILE_INERT_TEXT" | "PLATFORM_MODEL_PROFILE_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_BINDING" | "PLATFORM_NATIVE_REGISTRATION_BINDING_V2" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT" | "PLATFORM_NATIVE_REGISTRATION_RESULT_INERT_TEXT_V2" | "PLATFORM_NATIVE_REGISTRATION_RESULT_V2" | "PLATFORM_PATH_REQUEST_INERT_TEXT" | "PLATFORM_PATH_REQUEST_SAFETY" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT" | "PLATFORM_PATH_RESOLUTION_INERT_TEXT_V2" | "PLATFORM_PATH_RESOLUTION_SAFETY" | "PLATFORM_PATH_RESOLUTION_SAFETY_V2" | "PLATFORM_PROCESS_PLAN_INERT_TEXT" | "PLATFORM_PROCESS_PLAN_INERT_TEXT_V2" | "PLATFORM_PROCESS_PLAN_SAFETY" | "PLATFORM_PROCESS_PLAN_SAFETY_V2" | "PLATFORM_PROCESS_STATUS_INERT_TEXT" | "PLATFORM_PROCESS_STATUS_INERT_TEXT_V2" | "PLATFORM_PROCESS_STATUS_INTEGRITY" | "PLATFORM_PROCESS_STATUS_INTEGRITY_V2" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK" | "PLATFORM_RUNTIME_CAPABILITY_FALLBACK_V2" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT" | "PLATFORM_RUNTIME_CAPABILITY_INERT_TEXT_V2" | "PLATFORM_SECRET_REQUEST_AUTHORITY" | "PLATFORM_SECRET_REQUEST_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT" | "PLATFORM_SECRET_RESULT_INERT_TEXT_V2" | "PLATFORM_SECRET_RESULT_INTEGRITY" | "PLATFORM_SECRET_RESULT_INTEGRITY_V2" | "PLATFORM_TARGET_IDENTITY_INERT_TEXT" | "PLATFORM_TARGET_SUPPORT_CLAIM" | "PLATFORM_UPDATE_STATE_EVIDENCE" | "PLATFORM_UPDATE_STATE_EVIDENCE_V2" | "PLATFORM_UPDATE_STATE_INERT_TEXT" | "PLATFORM_UPDATE_STATE_INERT_TEXT_V2" | "RECONCILIATION_INERT_TEXT" | "RECONCILIATION_READINESS" | "RESUME_PLAN_EVIDENCE" | "RESUME_PLAN_INERT_TEXT" | "WORKDAY_CERTIFICATION_INERT_TEXT" | "WORKDAY_CERTIFICATION_SCOPE" | "WORKDAY_STEP_BOUNDARY" | "WORKDAY_STEP_INERT_TEXT" | "WORKDAY_TENANT_IDENTITY" | "WORKDAY_TENANT_INERT_TEXT";
 
 export interface SemanticRuleEntryV1 {
   readonly rule_id: SemanticRuleIdV1;
@@ -214,10 +216,24 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
   Object.freeze({
+    rule_id: "GATE_DECISION_INERT_TEXT_V2",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:gate:decision:v2",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
     rule_id: "GATE_DECISION_INTEGRITY",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:gate:decision:v1",
     rule_kind: "GATE_DECISION_INTEGRITY",
+    failure_error_code: "GATE_THRESHOLD_FAILED",
+  }),
+  Object.freeze({
+    rule_id: "GATE_DECISION_INTEGRITY_V2",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:gate:decision:v2",
+    rule_kind: "GATE_DECISION_INTEGRITY_V2",
     failure_error_code: "GATE_THRESHOLD_FAILED",
   }),
   Object.freeze({
@@ -228,9 +244,23 @@ export const SEMANTIC_RULES_V1: readonly SemanticRuleEntryV1[] = Object.freeze([
     failure_error_code: "GATE_EVIDENCE_MISSING",
   }),
   Object.freeze({
+    rule_id: "GATE_EVIDENCE_COMPLETENESS_V2",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:gate:evidence-bundle:v2",
+    rule_kind: "GATE_EVIDENCE_COMPLETENESS_V2",
+    failure_error_code: "GATE_EVIDENCE_MISSING",
+  }),
+  Object.freeze({
     rule_id: "GATE_EVIDENCE_INERT_TEXT",
     rule_version: "1.0.0",
     schema_ref: "urn:japp:schema:gate:evidence-bundle:v1",
+    rule_kind: "INERT_TEXT_SAFETY",
+    failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
+  }),
+  Object.freeze({
+    rule_id: "GATE_EVIDENCE_INERT_TEXT_V2",
+    rule_version: "1.0.0",
+    schema_ref: "urn:japp:schema:gate:evidence-bundle:v2",
     rule_kind: "INERT_TEXT_SAFETY",
     failure_error_code: "TRANSPORT_MALFORMED_MESSAGE",
   }),
@@ -1685,6 +1715,100 @@ function gateDecisionIntegrity(value: unknown): boolean {
       "thresholds_passed",
       "corpus_valid",
       "holdout_valid",
+    ]) &&
+    text(value, "independent_review_state") === "COMPLETE" &&
+    ["COMPLETE", "NOT_REQUIRED"].includes(
+      text(value, "owner_decision_state") ?? "",
+    ) &&
+    items(value, "error_codes").length === 0
+  );
+}
+
+function gateHoldoutAssessmentV2(value: unknown, inventory: unknown): boolean {
+  const assessment = objectMember(value, "holdout_assessment");
+  if (assessment === null) return false;
+  const state = text(assessment, "state");
+  const executed = flag(assessment, "execution_performed");
+  const valid = flag(inventory, "holdout_valid");
+  const result = text(assessment, "execution_result_ref");
+  const waiver = objectMember(assessment, "owner_waiver");
+  if (state === "EXECUTED") {
+    return executed === true && result !== null && waiver === null &&
+      (member(value, "completeness_inventory") === undefined ||
+        typeof member(value, "holdout_manifest_digest") === "string");
+  }
+  if (executed !== false || valid !== false || result !== null) return false;
+  if (state === "NOT_EXECUTED") return waiver === null;
+  return state === "WAIVED_BY_OWNER_ADR_0006" && waiver !== null &&
+    text(waiver, "adr_ref") === "ADR-0006" &&
+    text(waiver, "owner_decision_ref") === "OD-035" &&
+    text(waiver, "source_document_ref") === "docs/DECISIONS.md" &&
+    text(waiver, "source_record_digest") !== null;
+}
+
+function gateHoldoutSatisfiedV2(value: unknown, inventory: unknown): boolean {
+  const assessment = objectMember(value, "holdout_assessment");
+  return text(assessment, "state") === "WAIVED_BY_OWNER_ADR_0006" ||
+    (text(assessment, "state") === "EXECUTED" && flag(inventory, "holdout_valid") === true);
+}
+
+function gateEvidenceCompletenessV2(value: unknown): boolean {
+  const inventory = objectMember(value, "completeness_inventory");
+  const results = items(value, "benchmark_result_refs");
+  if (
+    inventory === null ||
+    !gateHoldoutAssessmentV2(value, inventory) ||
+    !uniqueStrings(results) ||
+    !uniqueStrings(items(value, "raw_artifact_report_digests")) ||
+    !uniqueStrings(items(value, "manual_inspection_evidence_refs")) ||
+    numberValue(inventory, "present_benchmark_count") !== results.length
+  ) {
+    return false;
+  }
+  if (text(value, "bundle_state") !== "COMPLETE") {
+    return true;
+  }
+  return (
+    gateHoldoutSatisfiedV2(value, inventory) &&
+    numberValue(inventory, "required_benchmark_count") === results.length &&
+    allFlags(inventory, [
+      "corpus_valid",
+      "raw_artifacts_complete",
+      "manual_inspection_complete",
+      "independent_review_complete",
+      "owner_decision_complete",
+    ]) &&
+    (text(inventory, "owner_decision_requirement") === "REQUIRED") ===
+      (typeof member(value, "owner_decision_ref") === "string")
+  );
+}
+
+function gateDecisionIntegrityV2(value: unknown): boolean {
+  const summary = objectMember(value, "threshold_evidence_summary");
+  if (
+    summary === null ||
+    !gateHoldoutAssessmentV2(value, summary) ||
+    !uniqueStrings(items(value, "reason_codes")) ||
+    !uniqueStrings(items(value, "error_codes"))
+  ) {
+    return false;
+  }
+  if (
+    text(value, "decision") === "REDESIGN_REQUIRED" &&
+    typeof member(value, "redesign_adr_ref") !== "string"
+  ) {
+    return false;
+  }
+  if (text(value, "decision") !== "PASS") {
+    return true;
+  }
+  return (
+    gateHoldoutSatisfiedV2(value, summary) &&
+    allFlags(summary, [
+      "evidence_complete",
+      "required_benchmark_results_complete",
+      "thresholds_passed",
+      "corpus_valid",
     ]) &&
     text(value, "independent_review_state") === "COMPLETE" &&
     ["COMPLETE", "NOT_REQUIRED"].includes(
@@ -5262,7 +5386,9 @@ const RULE_EVALUATORS: Readonly<Record<SemanticRuleKindV1, RuleEvaluator>> =
     FIELD_DECISION_AUTHORITY: fieldDecisionAuthority,
     FIELD_DESCRIPTOR_OBSERVATION: fieldDescriptorObservation,
     GATE_DECISION_INTEGRITY: gateDecisionIntegrity,
+    GATE_DECISION_INTEGRITY_V2: gateDecisionIntegrityV2,
     GATE_EVIDENCE_COMPLETENESS: gateEvidenceCompleteness,
+    GATE_EVIDENCE_COMPLETENESS_V2: gateEvidenceCompletenessV2,
     GUIDED_RUN_SAFETY: guidedRunSafety,
     HOLDOUT_MANIFEST_INTEGRITY: holdoutManifestIntegrity,
     INERT_TEXT_SAFETY: inertTextSafe,

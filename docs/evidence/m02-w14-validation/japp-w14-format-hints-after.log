@@ -1,0 +1,10 @@
+$ vitest run
+
+ RUN  v4.1.10 /Users/tanishkalwad/jobapplyv2/packages/form-engine
+
+
+ Test Files  9 passed (9)
+      Tests  106 passed (106)
+   Start at  12:11:40
+   Duration  1.17s (transform 954ms, setup 0ms, import 1.72s, tests 1.90s, environment 0ms)
+

@@ -1,0 +1,179 @@
+{
+  "format_version": "W14_FROZEN_LEGACY_COMPARISON_ASSESSMENT_1",
+  "scope": "FOUR_FROZEN_W13_GROUPED_EN_US_COMPONENT_CASES",
+  "gate_pass": false,
+  "decisive_accuracy_improvement_established": false,
+  "actual_candidate_cases": 4,
+  "shared_legacy_component_runs": 1,
+  "independent_legacy_product_runs": null,
+  "baseline_provenance_names": [
+    "CareerPulse",
+    "legacy JobApply"
+  ],
+  "candidate_exact_values": 32,
+  "legacy_exact_values": 28,
+  "ordinary_declared_values": 40,
+  "candidate_formatting_equivalent_values": 32,
+  "legacy_formatting_equivalent_values": 32,
+  "cases": [
+    {
+      "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "exact_value_counts": {
+        "candidate": 8,
+        "legacy": 7,
+        "ordinary": 10
+      },
+      "candidate_required_exact": 7,
+      "legacy_required_exact": 6,
+      "required_controls": 9,
+      "candidate_phone_digits_equivalent": true,
+      "legacy_phone_digits_equivalent": true,
+      "required_unresolved": [
+        {
+          "key": "state",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        },
+        {
+          "key": "country",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        }
+      ],
+      "native_mutations": 8,
+      "native_interactions": 32,
+      "unexpected_native_mutations": 0,
+      "event_witnesses": 8,
+      "authored_rerenders": 8,
+      "navigation_witnesses": 0,
+      "submission_witnesses": 0,
+      "unexpected_nonordinary_final_changes": 0,
+      "source_build_stable": true,
+      "candidate_browser": "151.0.7922.34",
+      "legacy_browser": "151.0.7922.34"
+    },
+    {
+      "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "exact_value_counts": {
+        "candidate": 8,
+        "legacy": 7,
+        "ordinary": 10
+      },
+      "candidate_required_exact": 7,
+      "legacy_required_exact": 6,
+      "required_controls": 9,
+      "candidate_phone_digits_equivalent": true,
+      "legacy_phone_digits_equivalent": true,
+      "required_unresolved": [
+        {
+          "key": "state",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        },
+        {
+          "key": "country",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        }
+      ],
+      "native_mutations": 8,
+      "native_interactions": 32,
+      "unexpected_native_mutations": 0,
+      "event_witnesses": 8,
+      "authored_rerenders": 8,
+      "navigation_witnesses": 0,
+      "submission_witnesses": 0,
+      "unexpected_nonordinary_final_changes": 0,
+      "source_build_stable": true,
+      "candidate_browser": "151.0.7922.34",
+      "legacy_browser": "151.0.7922.34"
+    },
+    {
+      "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "exact_value_counts": {
+        "candidate": 8,
+        "legacy": 7,
+        "ordinary": 10
+      },
+      "candidate_required_exact": 7,
+      "legacy_required_exact": 6,
+      "required_controls": 9,
+      "candidate_phone_digits_equivalent": true,
+      "legacy_phone_digits_equivalent": true,
+      "required_unresolved": [
+        {
+          "key": "state",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        },
+        {
+          "key": "country",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        }
+      ],
+      "native_mutations": 8,
+      "native_interactions": 32,
+      "unexpected_native_mutations": 0,
+      "event_witnesses": 8,
+      "authored_rerenders": 8,
+      "navigation_witnesses": 0,
+      "submission_witnesses": 0,
+      "unexpected_nonordinary_final_changes": 0,
+      "source_build_stable": true,
+      "candidate_browser": "151.0.7922.34",
+      "legacy_browser": "151.0.7922.34"
+    },
+    {
+      "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "exact_value_counts": {
+        "candidate": 8,
+        "legacy": 7,
+        "ordinary": 10
+      },
+      "candidate_required_exact": 7,
+      "legacy_required_exact": 6,
+      "required_controls": 9,
+      "candidate_phone_digits_equivalent": true,
+      "legacy_phone_digits_equivalent": true,
+      "required_unresolved": [
+        {
+          "key": "state",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        },
+        {
+          "key": "country",
+          "decision": "PAUSE_FOR_CONFIRMATION",
+          "category": "REQUIRED_UNRESOLVED"
+        }
+      ],
+      "native_mutations": 8,
+      "native_interactions": 32,
+      "unexpected_native_mutations": 0,
+      "event_witnesses": 8,
+      "authored_rerenders": 8,
+      "navigation_witnesses": 0,
+      "submission_witnesses": 0,
+      "unexpected_nonordinary_final_changes": 0,
+      "source_build_stable": true,
+      "candidate_browser": "151.0.7922.34",
+      "legacy_browser": "151.0.7922.34"
+    }
+  ],
+  "limitations": [
+    "The exact32/40 versus28/40 difference is only four phone formatting differences; equivalent digits retained by both. No decisive accuracy win is established.",
+    "Country/state remain empty in both. Candidate explicitly reports all eight required unresolved fields. Frozen profiles have no option tokens and were not enriched.",
+    "One actual shared-byte legacy extension/router capture represents two repository provenance identities, not two independent product runs.",
+    "The unchanged legacy router runs in a synthetic in-memory wrapper without AI, scheduler, scraper, real database, accounts or live ATS.",
+    "Candidate native observer covers installed surfaces in the actual extension realm; legacy transient/eventless writes remain unobserved. Other-realm, retained-reference and uninstalled API limits remain in raw audits.",
+    "Origins differ18885 versus4761. Runtime wrappers and Node versions differ; timing is descriptive and no timing-win claim is made.",
+    "This is a narrow controlled synthetic comparison. It is not natural public site acceptance, broad ATS certification, full-product comparison, or Gate A completion."
+  ],
+  "raw_bundle_sha256": "6898aac89ce4649a54b0aa5211fe2cedf41207c23520a295404ba7de951abfcb",
+  "raw_bundle_bytes": 251710
+}

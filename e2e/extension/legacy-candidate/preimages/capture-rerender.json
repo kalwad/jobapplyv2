@@ -1,0 +1,1664 @@
+{
+  "format_version": "LEGACY_COMPONENT_CAPTURE_1",
+  "mode": "COMPONENT_DETERMINISTIC_NO_AI",
+  "authority": "NONE",
+  "repository_url": "https://github.com/kalwad/JobApply",
+  "commit": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+  "tree": "7a1a830ddb2519c7e23043fb9e46c364cbada3cf",
+  "tracked_diff": "",
+  "browser_version": "151.0.7922.34",
+  "node": "v26.0.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "started_at": "2026-10-16T15:25:01.970Z",
+  "ended_at": "2026-10-16T15:25:30.099Z",
+  "license": "MIT",
+  "extension_version": "0.1.0",
+  "worker": {
+    "url": "chrome-extension://oomkddngbalfgbopmgbonaicieedbphc/background.js",
+    "extension_id": "oomkddngbalfgbopmgbonaicieedbphc"
+  },
+  "source_inventory": [
+    {
+      "path": "LICENSE",
+      "digest": "sha256:fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6"
+    },
+    {
+      "path": "app/routers/autofill.py",
+      "digest": "sha256:a8649bcd0bc705aa3cb6eab13fdb89143b5637beee9f448dc64164e223b5ad23"
+    },
+    {
+      "path": "extension/.gitignore",
+      "digest": "sha256:4d56952b0fb13bf8f9b6c13a6d4c34a075bac3af447636a1df4335d7576e2f97"
+    },
+    {
+      "path": "extension/ats-adapters.js",
+      "digest": "sha256:70a2d3afc42dfa452d80633a2fdbf6043bd3d436d39590e5453746807518eb8f"
+    },
+    {
+      "path": "extension/background.js",
+      "digest": "sha256:fe2ae87e4d7bfd96e4fd7adaeb7b692dbe14b5d32b397c1d9d76184dccb85584"
+    },
+    {
+      "path": "extension/content.js",
+      "digest": "sha256:36b3f320e22557b399f9f739415886838397d14e7b4f3427c7d7a4e0618c2d81"
+    },
+    {
+      "path": "extension/icon128.png",
+      "digest": "sha256:78f5db1d4ea4b9492f1adfc36f16a54cef410e937bcf5e0f5cf5df8359a72ad4"
+    },
+    {
+      "path": "extension/icon16.png",
+      "digest": "sha256:6cc8f9db20f523e317f86f6319a95cf67012d4bea55b17ee21505fa124000e85"
+    },
+    {
+      "path": "extension/icon32.png",
+      "digest": "sha256:8c74fe8e497d4bedcab029eaa23deda5f31162133748420baa7cc87ccf82a11c"
+    },
+    {
+      "path": "extension/icon48.png",
+      "digest": "sha256:b67f7a83ac700e5a97b2d6193dec5ef0f8107cf6c7563e6814af0e8c93742492"
+    },
+    {
+      "path": "extension/manifest.json",
+      "digest": "sha256:46b7f13a3b23dacf0873a4849c8f26765d61882f61bce2355918940faa593541"
+    },
+    {
+      "path": "extension/normalize.js",
+      "digest": "sha256:bd67efbc1faf54fd2d6be3c289ebe866038eef21ccd9f385985e9f1055334d1b"
+    },
+    {
+      "path": "extension/package.json",
+      "digest": "sha256:a66dd601b9f87a496e08c9f6e2ec2ffcf8f88260391dac9b943469b3e5954807"
+    },
+    {
+      "path": "extension/pnpm-lock.yaml",
+      "digest": "sha256:31f680062b4f04c3f99cb321f1a03e32434a4521a0e253bd5926a21022f91ed2"
+    },
+    {
+      "path": "extension/popup.css",
+      "digest": "sha256:7533e796f69f4037fb7c439b15efa385d93c39f32c3e29dd17fc66be55d18031"
+    },
+    {
+      "path": "extension/popup.html",
+      "digest": "sha256:25b9ae5bc156c3d92357ef7b3e626e3db4b4379bd4be45eecc605000ed2b2fe1"
+    },
+    {
+      "path": "extension/popup.js",
+      "digest": "sha256:6853971ae1bea51d862fb0330814091d972cab078102fce5b2655eedd52869ed"
+    },
+    {
+      "path": "extension/styles.css",
+      "digest": "sha256:94071af377c452dccc16b5a12a03a1b042c3c57bf436e12fcf5c9d14edc25e10"
+    },
+    {
+      "path": "extension/tests/ats-adapters.test.js",
+      "digest": "sha256:37ff188fc4d9707064fa98a2fce8fb2f133ca6bf666df64f1fc72e85d14480c3"
+    },
+    {
+      "path": "extension/tests/background.test.js",
+      "digest": "sha256:30090979b4dcdec4bf73a5ce141d778734bedb0aaec504d5a317d2baee8a10af"
+    },
+    {
+      "path": "extension/tests/content.test.js",
+      "digest": "sha256:c1e045c233e4a744bc4ca51acc487142117b00020995fbdfc00ec59f12f5cc67"
+    },
+    {
+      "path": "extension/tests/helpers.js",
+      "digest": "sha256:ea725f145fbb5c0352f21ccb10983e9960963dc982d88b1cd19c520697ee94fd"
+    },
+    {
+      "path": "extension/tests/job-board-overlay.test.js",
+      "digest": "sha256:1b046f7fc4d45a6f1c00a2735bc2016f46b9fcaf944b17e7506816b993b54992"
+    },
+    {
+      "path": "extension/tests/normalize.test.js",
+      "digest": "sha256:fa8fb34934e1c34dcd0cb6e0169e21622145103acb21b0e4f44d349dc7dbb4ef"
+    },
+    {
+      "path": "extension/tests/popup.test.js",
+      "digest": "sha256:31d984abda50fedf39cf27f07a741c2f81e8bf17dbfb371570a5ce0312012e53"
+    },
+    {
+      "path": "extension/tests/queue-fill.test.js",
+      "digest": "sha256:b2ec9f4187f3b59e7d1da4b10a4af63e21107c289e1586b1f873d93b2d479894"
+    },
+    {
+      "path": "extension/tests/setup.js",
+      "digest": "sha256:15254156e506bf94f347fd132f232b95a897b643ef1eba1a6082448c7e058a02"
+    },
+    {
+      "path": "extension/vitest.config.js",
+      "digest": "sha256:2a2a02e0cb5da795165df4a93530d076447556804bfe111e1a4ce32d1daac1f4"
+    },
+    {
+      "path": "uv.lock",
+      "digest": "sha256:304b86568aa5151d3eb392f0f03295594da267f669dd45799e6616bb37d5bc4a"
+    }
+  ],
+  "backend_profile_digest": "sha256:be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45",
+  "wrapper_digest": "sha256:19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81",
+  "browser_harness_digest": "sha256:ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572",
+  "scope": "Unmodified unpacked legacy MV3 extension and unmodified actual legacy autofill router in an evaluation-only FastAPI wrapper; synthetic in-memory profile; ai_client absent; no legacy scheduler, scraper, real database, accounts, live ATS or network AI.",
+  "controlled_rerender_delay_ms": 20,
+  "limitations": [
+    "Not full legacy-product Gate A comparison.",
+    "Authored 20ms replacement preserves the DOM own value; this is a controlled rerender, not a production framework claim.",
+    "Timing is descriptive, not Gate A performance evidence.",
+    "Physical meter records input/change event witnesses; property writes without events are not exhaustively observed.",
+    "Input digest here uses exact JSON serialization; canonical W13 case/input artifact commitments remain separately available."
+  ],
+  "observedRequests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:18885/fixture/0"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/jobs/lookup?url=http%3A%2F%2F127.0.0.1%3A18885%2Ffixture%2F0"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/custom-qa"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:18885/fixture/1"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/jobs/lookup?url=http%3A%2F%2F127.0.0.1%3A18885%2Ffixture%2F1"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/custom-qa"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:18885/fixture/2"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/jobs/lookup?url=http%3A%2F%2F127.0.0.1%3A18885%2Ffixture%2F2"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/custom-qa"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:18885/fixture/3"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/jobs/lookup?url=http%3A%2F%2F127.0.0.1%3A18885%2Ffixture%2F3"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    },
+    {
+      "method": "GET",
+      "url": "http://localhost:18885/api/custom-qa"
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:18885/api/autofill/analyze"
+    }
+  ],
+  "refusedRequests": [],
+  "results": [
+    {
+      "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:f1690e3e2812cc2a57caa00034d0540416f52a17f1ad417aebb4920addc2d04d",
+      "fixture_html_digest": "sha256:947e1889e76f9fa974e55f41d7456eafda315b3f026a54b426be027644335521",
+      "profile_input": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ],
+      "initial": [
+        {
+          "key": "first-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "last-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "email",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "phone",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "website",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "city",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "street-address",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "postal-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true
+        }
+      ],
+      "response": {
+        "ok": true,
+        "state": "done"
+      },
+      "elapsed_ms": 5925.386624999999,
+      "physical": {
+        "events": [
+          {
+            "key": "first-name",
+            "type": "input",
+            "value": "Synthetic",
+            "at_ms": 871.2000000178814
+          },
+          {
+            "key": "last-name",
+            "type": "input",
+            "value": "Applicant",
+            "at_ms": 1325.9000000059605
+          },
+          {
+            "key": "email",
+            "type": "input",
+            "value": "synthetic@example.invalid",
+            "at_ms": 1779.5999999940395
+          },
+          {
+            "key": "phone",
+            "type": "input",
+            "value": "(202) 555-0100",
+            "at_ms": 2235.0999999940395
+          },
+          {
+            "key": "website",
+            "type": "input",
+            "value": "https://example.invalid/profile",
+            "at_ms": 2689.5999999940395
+          },
+          {
+            "key": "city",
+            "type": "input",
+            "value": "Synthetic City",
+            "at_ms": 3144.0999999940395
+          },
+          {
+            "key": "street-address",
+            "type": "input",
+            "value": "100 Synthetic Avenue",
+            "at_ms": 3598.5
+          },
+          {
+            "key": "postal-code",
+            "type": "input",
+            "value": "48104",
+            "at_ms": 4053.800000011921
+          }
+        ],
+        "navigation": [],
+        "submissions": 0,
+        "rerenders": 8
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "overlay": "\n      \n        CareerPulse\n        \n          –\n          ✕\n        \n      \n      \n      \n        ✓\n        9 filled\n        ▼\n      \n    \n    ",
+      "consoleEntries": [
+        {
+          "type": "log",
+          "text": "[CareerPulse] Extracted fields: [Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object]"
+        },
+        {
+          "type": "log",
+          "text": "[CareerPulse] Analyze response: [\n  {\n    \"selector\": \"#first-name\",\n    \"value\": \"Synthetic\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"First name\"\n  },\n  {\n    \"selector\": \"#last-name\",\n    \"value\": \"Applicant\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Last name\"\n  },\n  {\n    \"selector\": \"#email\",\n    \"value\": \"synthetic@example.invalid\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Email address\"\n  },\n  {\n    \"selector\": \"#phone\",\n    \"value\": \"2025550100\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone number\"\n  },\n  {\n    \"selector\": \"#website\",\n    \"value\": \"https://example.invalid/profile\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Personal website\"\n  },\n  {\n    \"selector\": \"#city\",\n    \"value\": \"Synthetic City\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"City\"\n  },\n  {\n    \"selector\": \"#street-address\",\n    \"value\": \"100 Synthetic Avenue\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Street address\"\n  },\n  {\n    \"selector\": \"#postal-code\",\n    \"value\": \"48104\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"ZIP code\"\n  },\n  {\n    \"selector\": \"#country-code\",\n    \"value\": \"United States (+1)\",\n    \"action\": \"select_dropdown_safe\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone country code\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:0d09096eb8ec8095c86b0495a1bdf03ebc5b773e6fff09fc0cf15635c892b1d3",
+      "fixture_html_digest": "sha256:0525c26dc41139bb71e4720bee51bb311d7441744defefad9992564a7c2298ff",
+      "profile_input": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ],
+      "initial": [
+        {
+          "key": "first-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "last-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "email",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "phone",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "website",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "city",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "street-address",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "postal-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true
+        }
+      ],
+      "response": {
+        "ok": true,
+        "state": "done"
+      },
+      "elapsed_ms": 5917.236667000001,
+      "physical": {
+        "events": [
+          {
+            "key": "first-name",
+            "type": "input",
+            "value": "Synthetic",
+            "at_ms": 865.6999999880791
+          },
+          {
+            "key": "last-name",
+            "type": "input",
+            "value": "Applicant",
+            "at_ms": 1319.4000000059605
+          },
+          {
+            "key": "email",
+            "type": "input",
+            "value": "synthetic@example.invalid",
+            "at_ms": 1774.0999999940395
+          },
+          {
+            "key": "phone",
+            "type": "input",
+            "value": "(202) 555-0100",
+            "at_ms": 2227.5
+          },
+          {
+            "key": "website",
+            "type": "input",
+            "value": "https://example.invalid/profile",
+            "at_ms": 2681.800000011921
+          },
+          {
+            "key": "city",
+            "type": "input",
+            "value": "Synthetic City",
+            "at_ms": 3135.800000011921
+          },
+          {
+            "key": "street-address",
+            "type": "input",
+            "value": "100 Synthetic Avenue",
+            "at_ms": 3589.9000000059605
+          },
+          {
+            "key": "postal-code",
+            "type": "input",
+            "value": "48104",
+            "at_ms": 4044.9000000059605
+          }
+        ],
+        "navigation": [],
+        "submissions": 0,
+        "rerenders": 8
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "overlay": "\n      \n        CareerPulse\n        \n          –\n          ✕\n        \n      \n      \n      \n        ✓\n        9 filled\n        ▼\n      \n    \n    ",
+      "consoleEntries": [
+        {
+          "type": "log",
+          "text": "[CareerPulse] Extracted fields: [Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object]"
+        },
+        {
+          "type": "log",
+          "text": "[CareerPulse] Analyze response: [\n  {\n    \"selector\": \"#first-name\",\n    \"value\": \"Synthetic\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"First name\"\n  },\n  {\n    \"selector\": \"#last-name\",\n    \"value\": \"Applicant\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Last name\"\n  },\n  {\n    \"selector\": \"#email\",\n    \"value\": \"synthetic@example.invalid\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Email address\"\n  },\n  {\n    \"selector\": \"#phone\",\n    \"value\": \"2025550100\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone number\"\n  },\n  {\n    \"selector\": \"#website\",\n    \"value\": \"https://example.invalid/profile\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Personal website\"\n  },\n  {\n    \"selector\": \"#city\",\n    \"value\": \"Synthetic City\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"City\"\n  },\n  {\n    \"selector\": \"#street-address\",\n    \"value\": \"100 Synthetic Avenue\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Street address\"\n  },\n  {\n    \"selector\": \"#postal-code\",\n    \"value\": \"48104\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"ZIP code\"\n  },\n  {\n    \"selector\": \"#country-code\",\n    \"value\": \"United States (+1)\",\n    \"action\": \"select_dropdown_safe\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone country code\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:aec4c666d6a6ed88579a89513e576eb6cf1f4b0d279be1d1b2b4fc7bff2f6680",
+      "fixture_html_digest": "sha256:3cbda61754b6c3e590cecda8b936f90cd4dec4b49c56360d463c1c25aa257522",
+      "profile_input": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ],
+      "initial": [
+        {
+          "key": "first-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "last-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "email",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "phone",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "website",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "city",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "street-address",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "postal-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true
+        }
+      ],
+      "response": {
+        "ok": true,
+        "state": "done"
+      },
+      "elapsed_ms": 5918.775,
+      "physical": {
+        "events": [
+          {
+            "key": "first-name",
+            "type": "input",
+            "value": "Synthetic",
+            "at_ms": 863.3000000119209
+          },
+          {
+            "key": "last-name",
+            "type": "input",
+            "value": "Applicant",
+            "at_ms": 1317.199999988079
+          },
+          {
+            "key": "email",
+            "type": "input",
+            "value": "synthetic@example.invalid",
+            "at_ms": 1772.300000011921
+          },
+          {
+            "key": "phone",
+            "type": "input",
+            "value": "(202) 555-0100",
+            "at_ms": 2225.800000011921
+          },
+          {
+            "key": "website",
+            "type": "input",
+            "value": "https://example.invalid/profile",
+            "at_ms": 2680.300000011921
+          },
+          {
+            "key": "city",
+            "type": "input",
+            "value": "Synthetic City",
+            "at_ms": 3135.699999988079
+          },
+          {
+            "key": "street-address",
+            "type": "input",
+            "value": "100 Synthetic Avenue",
+            "at_ms": 3590.300000011921
+          },
+          {
+            "key": "postal-code",
+            "type": "input",
+            "value": "48104",
+            "at_ms": 4045
+          }
+        ],
+        "navigation": [],
+        "submissions": 0,
+        "rerenders": 8
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "overlay": "\n      \n        CareerPulse\n        \n          –\n          ✕\n        \n      \n      \n      \n        ✓\n        9 filled\n        ▼\n      \n    \n    ",
+      "consoleEntries": [
+        {
+          "type": "log",
+          "text": "[CareerPulse] Extracted fields: [Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object]"
+        },
+        {
+          "type": "log",
+          "text": "[CareerPulse] Analyze response: [\n  {\n    \"selector\": \"#first-name\",\n    \"value\": \"Synthetic\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"First name\"\n  },\n  {\n    \"selector\": \"#last-name\",\n    \"value\": \"Applicant\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Last name\"\n  },\n  {\n    \"selector\": \"#email\",\n    \"value\": \"synthetic@example.invalid\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Email address\"\n  },\n  {\n    \"selector\": \"#phone\",\n    \"value\": \"2025550100\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone number\"\n  },\n  {\n    \"selector\": \"#website\",\n    \"value\": \"https://example.invalid/profile\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Personal website\"\n  },\n  {\n    \"selector\": \"#city\",\n    \"value\": \"Synthetic City\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"City\"\n  },\n  {\n    \"selector\": \"#street-address\",\n    \"value\": \"100 Synthetic Avenue\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Street address\"\n  },\n  {\n    \"selector\": \"#postal-code\",\n    \"value\": \"48104\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"ZIP code\"\n  },\n  {\n    \"selector\": \"#country-code\",\n    \"value\": \"United States (+1)\",\n    \"action\": \"select_dropdown_safe\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone country code\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "input_digest": "sha256:34a8f74e1af2b3bd071d03c395fb0a3c9d1a3487abe9b4e167aa8e525c1763bf",
+      "fixture_html_digest": "sha256:4ca1939c8531c3130c7d4ecd0c101474eefde6700324285b0dd035ef0e5a19f0",
+      "profile_input": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ],
+      "initial": [
+        {
+          "key": "first-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "last-name",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "email",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "phone",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "website",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "city",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "street-address",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "postal-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true
+        }
+      ],
+      "response": {
+        "ok": true,
+        "state": "done"
+      },
+      "elapsed_ms": 5917.874208000001,
+      "physical": {
+        "events": [
+          {
+            "key": "first-name",
+            "type": "input",
+            "value": "Synthetic",
+            "at_ms": 862.6000000238419
+          },
+          {
+            "key": "last-name",
+            "type": "input",
+            "value": "Applicant",
+            "at_ms": 1316.800000011921
+          },
+          {
+            "key": "email",
+            "type": "input",
+            "value": "synthetic@example.invalid",
+            "at_ms": 1771
+          },
+          {
+            "key": "phone",
+            "type": "input",
+            "value": "(202) 555-0100",
+            "at_ms": 2226
+          },
+          {
+            "key": "website",
+            "type": "input",
+            "value": "https://example.invalid/profile",
+            "at_ms": 2681.300000011921
+          },
+          {
+            "key": "city",
+            "type": "input",
+            "value": "Synthetic City",
+            "at_ms": 3136.100000023842
+          },
+          {
+            "key": "street-address",
+            "type": "input",
+            "value": "100 Synthetic Avenue",
+            "at_ms": 3590.4000000059605
+          },
+          {
+            "key": "postal-code",
+            "type": "input",
+            "value": "48104",
+            "at_ms": 4044.5
+          }
+        ],
+        "navigation": [],
+        "submissions": 0,
+        "rerenders": 8
+      },
+      "fields": [
+        {
+          "key": "first-name",
+          "value": "Synthetic",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "last-name",
+          "value": "Applicant",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "email",
+          "value": "synthetic@example.invalid",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "phone",
+          "value": "(202) 555-0100",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "website",
+          "value": "https://example.invalid/profile",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "optional-note",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "city",
+          "value": "Synthetic City",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "street-address",
+          "value": "100 Synthetic Avenue",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "state",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "postal-code",
+          "value": "48104",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "resume",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "country-code",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "contact-method",
+          "value": "",
+          "checked": null,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "availability-date",
+          "value": "",
+          "checked": false,
+          "valid": false,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "sensitive-disclosure",
+          "value": "",
+          "checked": null,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "honeypot",
+          "value": "",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        },
+        {
+          "key": "privacy-consent",
+          "value": "on",
+          "checked": false,
+          "valid": true,
+          "aria_invalid": "false"
+        }
+      ],
+      "overlay": "\n      \n        CareerPulse\n        \n          –\n          ✕\n        \n      \n      \n      \n        ✓\n        9 filled\n        ▼\n      \n    \n    ",
+      "consoleEntries": [
+        {
+          "type": "log",
+          "text": "[CareerPulse] Extracted fields: [Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object]"
+        },
+        {
+          "type": "log",
+          "text": "[CareerPulse] Analyze response: [\n  {\n    \"selector\": \"#first-name\",\n    \"value\": \"Synthetic\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"First name\"\n  },\n  {\n    \"selector\": \"#last-name\",\n    \"value\": \"Applicant\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Last name\"\n  },\n  {\n    \"selector\": \"#email\",\n    \"value\": \"synthetic@example.invalid\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Email address\"\n  },\n  {\n    \"selector\": \"#phone\",\n    \"value\": \"2025550100\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone number\"\n  },\n  {\n    \"selector\": \"#website\",\n    \"value\": \"https://example.invalid/profile\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Personal website\"\n  },\n  {\n    \"selector\": \"#city\",\n    \"value\": \"Synthetic City\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"City\"\n  },\n  {\n    \"selector\": \"#street-address\",\n    \"value\": \"100 Synthetic Avenue\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"Street address\"\n  },\n  {\n    \"selector\": \"#postal-code\",\n    \"value\": \"48104\",\n    \"action\": \"fill_text\",\n    \"confidence\": 1,\n    \"field_label\": \"ZIP code\"\n  },\n  {\n    \"selector\": \"#country-code\",\n    \"value\": \"United States (+1)\",\n    \"action\": \"select_dropdown_safe\",\n    \"confidence\": 1,\n    \"field_label\": \"Phone country code\"\n  }\n]"
+        }
+      ]
+    }
+  ]
+}

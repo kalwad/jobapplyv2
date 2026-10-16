@@ -61,6 +61,7 @@ import json
 import re
 import sys
 import unicodedata
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
@@ -245,6 +246,31 @@ APPROVED_EVIDENCE_FILES = {
 }
 APPROVED_EVIDENCE_PREFIXES = ("docs/gates/evidence/",)
 PASS_HOLDOUT_TOKENS = {"pass", "passed", "valid", "met", "meets"}
+OWNER_HOLDOUT_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0006"
+OWNER_HOLDOUT_WAIVER_HEADING = (
+    "### ADR-0006 — Continuous execution and owner-controlled holdout waiver"
+)
+OWNER_HOLDOUT_WAIVER_APPROVAL = (
+    '- Owner approval: direct instructions in this chat: "ignore instructions '
+    'relating to stopping after each W is reached and validated"; "you do not '
+    'need owner controlled holdout"; "i want you to keep working till this '
+    'entire project is finished". The owner identified the working GitHub '
+    "repository as jobapplyv2."
+)
+OWNER_HOLDOUT_WAIVER_DECISION = (
+    "- Decision: execute successive eligible packages without per-W stopping. "
+    "Remove owner-controlled hidden holdout as a completion prerequisite across "
+    "this project. Use accessible GitHub sources where they provide actual "
+    "inputs or legacy comparison components. Preserve original manifests and "
+    "historical evidence; never relabel a waiver as execution or PASS."
+)
+OWNER_HOLDOUT_WAIVER_OWNER_ROW = (
+    "| OD-035 | Continue all work packages without stopping after each W; "
+    "owner-controlled holdout is waived. Preserve measured results and report "
+    "every remaining validation limitation. | ACCEPTED | Owner messages "
+    "2026-10-16; ADR-0006 |"
+)
+OWNER_HOLDOUT_WAIVER_PREIMAGE_DOMAIN = b"japp-owner-holdout-waiver-v1\0"
 UI_SURFACE_IDS = (
     "DESKTOP_SHELL",
     "HOME_DASHBOARD",
@@ -1867,6 +1893,157 @@ def _last_gate_state(text: str) -> str | None:
     return values[-1] if values else None
 
 
+def _owner_holdout_waiver_preimage(repo: Path) -> bytes | None:
+    """Bind one exact accepted ADR and OD record, independent of other ADRs.
+
+    The versioned preimage is the domain, exact OD-035 row plus LF, and exact
+    ADR-0006 heading/body with one terminal LF. Separator blank lines are not
+    record content. No whole-document hash or caller assertion grants authority.
+    """
+    path = repo / "docs/DECISIONS.md"
+    try:
+        if path.is_symlink() or not path.is_file():
+            return None
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    headings = re.findall(r"^### ADR-0006\b[^\n]*$", text, flags=re.MULTILINE)
+    owner_rows = re.findall(r"^\| OD-035 \|.*$", text, flags=re.MULTILINE)
+    if headings != [OWNER_HOLDOUT_WAIVER_HEADING] or owner_rows != [
+        OWNER_HOLDOUT_WAIVER_OWNER_ROW
+    ]:
+        return None
+    _, separator, section = text.partition(OWNER_HOLDOUT_WAIVER_HEADING + "\n")
+    if not separator:
+        return None
+    section = re.split(r"^##(?:#)? ", section, maxsplit=1, flags=re.MULTILINE)[0]
+    statuses = re.findall(r"^- Status: .*$", section, flags=re.MULTILINE)
+    approvals = re.findall(r"^- Owner approval: .*$", section, flags=re.MULTILINE)
+    decisions = re.findall(r"^- Decision: .*$", section, flags=re.MULTILINE)
+    if not (
+        statuses == ["- Status: ACCEPTED"]
+        and approvals == [OWNER_HOLDOUT_WAIVER_APPROVAL]
+        and decisions == [OWNER_HOLDOUT_WAIVER_DECISION]
+    ):
+        return None
+    record = (
+        OWNER_HOLDOUT_WAIVER_OWNER_ROW
+        + "\n"
+        + OWNER_HOLDOUT_WAIVER_HEADING
+        + "\n"
+        + section.rstrip("\n")
+        + "\n"
+    )
+    return OWNER_HOLDOUT_WAIVER_PREIMAGE_DOMAIN + record.encode("utf-8")
+
+
+def _owner_holdout_waiver_digest(repo: Path) -> str | None:
+    preimage = _owner_holdout_waiver_preimage(repo)
+    return (
+        None if preimage is None else "sha256:" + hashlib.sha256(preimage).hexdigest()
+    )
+
+
+def _owner_holdout_waived(repo: Path) -> bool:
+    """Recognize the accepted owner grant, never a passing hidden execution."""
+    return _owner_holdout_waiver_preimage(repo) is not None
+
+
+def gate_holdout_authority_v2_problems(
+    repo: Path,
+    bundle: Mapping[str, object],
+    decision: Mapping[str, object],
+    ledger_text: str,
+    report_text: str,
+) -> list[str]:
+    """Source-aware holdout authority check AFTER canonical v2 validation.
+
+    This supplements structural/semantic contract validation and checks paired
+    artifact identity. It never evaluates numerical evidence, reviewer identity
+    or owner gate approval, and cannot itself establish gate PASS. Callers must
+    preserve those independent checks. An executed holdout uses its ordinary
+    evidence path; a waiver must bind the actual current accepted owner record.
+    """
+    bundle_assessment = bundle.get("holdout_assessment")
+    decision_assessment = decision.get("holdout_assessment")
+    if not isinstance(bundle_assessment, dict) or not isinstance(
+        decision_assessment, dict
+    ):
+        return ["canonical v2 holdout assessment is missing"]
+    if bundle_assessment != decision_assessment:
+        return ["gate v2 holdout assessments disagree"]
+    for key in (
+        "gate_id",
+        "candidate_commit",
+        "candidate_tree",
+        "evidence_bundle_digest",
+    ):
+        if not isinstance(bundle.get(key), str) or bundle.get(key) != decision.get(key):
+            return ["gate v2 candidate or evidence identity disagrees"]
+    if bundle_assessment.get("state") != OWNER_HOLDOUT_WAIVER_RESULT:
+        return []
+    inventory = bundle.get("completeness_inventory")
+    summary = decision.get("threshold_evidence_summary")
+    waiver = bundle_assessment.get("owner_waiver")
+    expected_digest = _owner_holdout_waiver_digest(repo)
+    if (
+        bundle_assessment.get("execution_performed") is not False
+        or "execution_result_ref" in bundle_assessment
+        or not isinstance(inventory, dict)
+        or inventory.get("holdout_valid") is not False
+        or not isinstance(summary, dict)
+        or summary.get("holdout_valid") is not False
+        or not isinstance(waiver, dict)
+        or set(waiver)
+        != {
+            "adr_ref",
+            "owner_decision_ref",
+            "source_document_ref",
+            "source_record_digest",
+        }
+        or waiver.get("adr_ref") != "ADR-0006"
+        or waiver.get("owner_decision_ref") != "OD-035"
+        or waiver.get("source_document_ref") != "docs/DECISIONS.md"
+        or expected_digest is None
+        or waiver.get("source_record_digest") != expected_digest
+    ):
+        return [
+            "gate v2 waiver lacks exact accepted owner authority or claims execution"
+        ]
+    paired_waiver = all(
+        _last_gate_field(text, ("Holdout result",)) == OWNER_HOLDOUT_WAIVER_RESULT
+        for text in (ledger_text, report_text)
+    )
+    return (
+        _gate_holdout_problems(repo, ledger_text, report_text)
+        if paired_waiver
+        else ["gate v2 waiver requires the exact paired nonexecution token"]
+    )
+
+
+def _gate_holdout_problems(repo: Path, ledger_text: str, report_text: str) -> list[str]:
+    """A waiver is an explicit paired record, never a passing execution."""
+    records = (
+        ("gate report", _last_gate_field(report_text, ("Holdout result",))),
+        ("critical-gate ledger", _last_gate_field(ledger_text, ("Holdout result",))),
+    )
+    waiver_recorded = all(value == OWNER_HOLDOUT_WAIVER_RESULT for _, value in records)
+    waiver_allowed = waiver_recorded and _owner_holdout_waived(repo)
+    problems: list[str] = []
+    for label, value in records:
+        token = value.split()[0].casefold() if value else ""
+        execution_passed = (
+            token in PASS_HOLDOUT_TOKENS
+            and "waived_by_owner" not in (value or "").casefold()
+        )
+        if execution_passed or waiver_allowed:
+            continue
+        problems.append(
+            f"{label} holdout result is not a passing result or authorized waiver"
+        )
+    return problems
+
+
 def _gate_record_agreement_problems(
     label: str,
     text: str,
@@ -1882,7 +2059,6 @@ def _gate_record_agreement_problems(
     )
     recorded_reviewer = _last_gate_field(text, ("Independent reviewer",))
     owner_decision = _last_gate_field(text, ("Owner decision",))
-    holdout = _last_gate_field(text, ("Holdout result",))
     if state != "PASS":
         problems.append(f"{label} state is {state!r}, not PASS")
     if recorded_revision != revision:
@@ -1902,9 +2078,6 @@ def _gate_record_agreement_problems(
         )
     if owner_decision is None or owner_decision.split()[0].upper() != "PASS":
         problems.append(f"{label} owner decision is not PASS")
-    holdout_token = holdout.split()[0].casefold() if holdout else ""
-    if holdout_token not in PASS_HOLDOUT_TOKENS:
-        problems.append(f"{label} holdout result is not a passing result")
     return problems
 
 
@@ -1930,6 +2103,7 @@ def _check_gate_pass_evidence(
     )
     ledger_text = _gate_section_text(repo / "docs/CRITICAL_GATES.md", gate)
     if TREE_REVISION_RE.fullmatch(revision) and EVIDENCE_HASH_RE.fullmatch(corpus_hash):
+        problems.extend(_gate_holdout_problems(repo, ledger_text, report_text))
         problems.extend(
             _gate_record_agreement_problems(
                 "gate report", report_text, revision, corpus_hash, reviewer

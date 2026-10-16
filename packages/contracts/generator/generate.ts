@@ -76,8 +76,10 @@ import {
  * 1.5.0 (M01-W07 corrective): deprecated v1 platform evaluators preserve the
  * published accepted-set union while distinct v2 rule kinds carry the reviewed
  * strict semantics and the generator emits the corresponding v2 roots.
+ * 1.6.0 (M02-W14): additive gate-v2 nonexecution/owner-waiver semantics and
+ * a versioned finite rule-catalog v2; all earlier schema preimages are retained.
  */
-export const GENERATOR_FORMAT_VERSION = "1.5.0";
+export const GENERATOR_FORMAT_VERSION = "1.6.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {

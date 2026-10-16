@@ -1,0 +1,12 @@
+packages/contracts/generator/semantic-rules.ts 53ms (unchanged)
+packages/contracts/generator/generate.ts 11ms (unchanged)
+packages/contracts/schemas/gate/evidence-bundle.v2.schema.json 6ms
+packages/contracts/schemas/gate/decision.v2.schema.json 1ms
+packages/contracts/schemas/semantic/rule-catalog.v2.schema.json 1ms
+packages/contracts/catalog/semantic-rules.v1.json 4ms (unchanged)
+packages/contracts/test/contract/gate-waiver-v2.test.ts 4ms
+packages/contracts/test/contract/support/orchestrator.ts 6ms (unchanged)
+packages/contracts/test/contract/breaking/compatibility-signature.ts 28ms
+packages/contracts/test/contract/breaking.test.ts 44ms (unchanged)
+packages/contracts/test/generated/semantic-rules.test.ts 7ms (unchanged)
+packages/contracts/test/schema/conventions.test.ts 9ms (unchanged)

@@ -1,0 +1,10 @@
+
+ RUN  v4.1.10 /private/tmp/japp-gate-v2-draft/tree/packages/contracts
+
+contract-adapters protocol=1 typescript=79 python=79 rust=79 historical-typescript=229 historical-python=229 historical-rust=229 rust-build=locked-offline
+
+ Test Files  1 passed (1)
+      Tests  81 passed (81)
+   Start at  13:41:27
+   Duration  4.47s (transform 115ms, setup 0ms, import 166ms, tests 4.21s, environment 0ms)
+

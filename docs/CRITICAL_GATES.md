@@ -13,8 +13,8 @@ reports live in `docs/gates/`.
 - Allowed gate states: `NOT_EVALUATED | IN_PROGRESS | PASS |
   REDESIGN_REQUIRED | BLOCKED` (spec §1.4.7).
 - A gate may claim `PASS` only with a full `tree <40-hex>` evaluated
-  revision, complete SHA-256 corpus/holdout hash, independent reviewer,
-  passing holdout result, and owner decision `PASS` recorded consistently in
+  revision, complete SHA-256 corpus hash (and holdout hash when executed), independent reviewer,
+  passing holdout result or the explicit accepted ADR-0006 owner waiver, and owner decision `PASS` recorded consistently in
   the status table, this ledger, and the gate report (spec §12);
   `python3 scripts/validate_status.py` enforces this. The report-table path and
   report state must agree even before evaluation.
@@ -22,8 +22,8 @@ reports live in `docs/gates/`.
   gate produces reproducible regression cases and an ADR before iteration,
   and thresholds remain in force (spec §2.3 gate decision rules).
 - The implementation agent may not be the sole approver of any gate
-  (spec §1.5, REQ-GATE-011); independent review plus owner-controlled
-  holdout evidence are mandatory.
+  (spec §1.5, REQ-GATE-011); independent review remains mandatory. Owner-controlled hidden holdout is
+  WAIVED_BY_OWNER under OD-035 / ADR-0006; it is neither executed nor passed.
 - Any change to gate-relevant components triggers the complete affected
   gate regression (spec §1.5; REQ-WD-023 for Workday).
 - Gate B must evaluate the provider-neutral M05-W03 path. M05-W17 reruns every
@@ -60,23 +60,27 @@ reports live in `docs/gates/`.
 
 | Gate | State | Owning milestones | Blocks | Report |
 |---|---|---|---|---|
-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+| AUTOFILL_FEASIBILITY | IN_PROGRESS | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M05 | M06 readiness | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M19–M20 | M21 readiness and later production ATS expansion (and M22/M23 qualifiers) | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
 | CROSS_PLATFORM_CORE | NOT_EVALUATED | M03–M05, M10, M17, M27 | M28 readiness (requires M27 ACCEPTED) | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
 
 ## AUTOFILL_FEASIBILITY
 
-- State: NOT_EVALUATED
+- State: IN_PROGRESS
 - Evaluated revision: —
 - Corpus/holdout hash: —
 - Independent reviewer: —
 - Owner decision: pending
 - Report: docs/gates/AUTOFILL_FEASIBILITY_GATE.md
-- Known limitations: none recorded (not yet evaluated).
-- Next permitted action: build the M02 measurement system and feasibility
-  engine (M02-W01 … M02-W14), then run the independent gate audit
-  (M02-W15). M03 must not become READY before this gate is PASS.
+- Known limitations: W14 partial development evidence only. Four historical
+  campaigns retain timing/accuracy limits; the fifth canonical foreground contact run passes p95 at 864.5065410000025 ms. Whole-parent coverage and comparisons remain pending. Public sources are
+  structurally inspected with zero fill evaluations; actual legacy evidence
+  is component-scoped; actual Simplify comparison and independent review are
+  pending. Owner holdout is WAIVED_BY_OWNER under ADR-0006.
+- Next permitted action: continue focused M02-W14 correction and validation,
+  preserving historical raw/source commitments, then run independent M02-W15
+  on the exact final evidence. M03 must not become READY before Gate A PASS.
 
 ### Metric table (spec §2.3 Gate A — measured results recorded at evaluation)
 
@@ -98,7 +102,7 @@ reports live in `docs/gates/`.
 | Comparison versus CareerPulse/legacy JobApply | decisive measured improvement with no inherited unsafe fallback | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
-- Holdout result: pending.
+- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
 - Independent review: pending.
 
 ## CROSS_PLATFORM_CORE
@@ -149,7 +153,7 @@ reports live in `docs/gates/`.
 | Unsupported platform claim without dated evidence | 0 | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
-- Holdout result: pending.
+- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
 - Independent review: pending.
 
 ## RESUME_PAGEFIT_FEASIBILITY
@@ -186,7 +190,7 @@ reports live in `docs/gates/`.
 | Simplify comparison | at least parity on overall usefulness, with superior or equal factuality and transparency; final release still requires a meaningful win | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
-- Holdout result: pending.
+- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
 - Independent review: pending.
 
 ## WORKDAY_GUIDED_PRE_SUBMIT
@@ -229,5 +233,5 @@ reports live in `docs/gates/`.
 | Live employer submissions performed by gate automation | 0 | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
-- Holdout result: pending.
+- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
 - Independent review: pending.

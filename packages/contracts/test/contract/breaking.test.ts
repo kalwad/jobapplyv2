@@ -213,6 +213,7 @@ function copyCompatibilityInputs(root: string): void {
     "packages/contracts/schemas",
     "packages/contracts/catalog",
     "packages/contracts/test/contract/corpus",
+    "packages/contracts/test/contract/gate-waiver-corpus",
     "packages/contracts/test/contract/semantic-witnesses",
   ]) {
     const source = join(REPOSITORY_ROOT, relative);
@@ -342,11 +343,43 @@ describe("M01-W05 compatibility baseline", () => {
     const beforeMtime = statSync(BASELINE_PATH).mtimeMs;
     const first = buildCompatibilitySignature();
     const second = buildCompatibilitySignature();
-    expect(first).toEqual(loadBaseline().signature);
+    const baseline = loadBaseline().signature;
+    // Additive later majors coexist with the immutable M01 baseline. Preserve
+    // every historical schema, rule, wire case and executable witness exactly.
+    const retainedById = <T extends { readonly id: string }>(
+      current: readonly T[],
+      previous: readonly T[],
+    ): readonly T[] => {
+      const ids = new Set(previous.map((entry) => entry.id));
+      return current.filter((entry) => ids.has(entry.id));
+    };
+    const ruleIds = new Set(
+      baseline.semantic_rules.map((entry) => entry.rule_id),
+    );
+    expect({
+      ...first,
+      documents: retainedById(first.documents, baseline.documents),
+      semantic_rules: first.semantic_rules.filter((entry) =>
+        ruleIds.has(entry.rule_id),
+      ),
+      semantic_rule_catalog: baseline.semantic_rule_catalog,
+      semantic_witnesses: retainedById(
+        first.semantic_witnesses,
+        baseline.semantic_witnesses,
+      ),
+      supported_valid_cases: retainedById(
+        first.supported_valid_cases,
+        baseline.supported_valid_cases,
+      ),
+    }).toEqual(baseline);
     expect(second).toEqual(first);
-    expect(
-      compareCompatibilitySignatures(loadBaseline().signature, first),
-    ).toEqual({ compatible: true, findings: [], additive_changes: [] });
+    const report = compareCompatibilitySignatures(baseline, first);
+    expect(report.compatible).toBe(true);
+    expect(report.findings).toEqual([]);
+    expect(report.additive_changes).toContainEqual({
+      code: "SCHEMA_ADDED",
+      subject: "urn:japp:schema:gate:decision:v2",
+    });
     expect(readFileSync(BASELINE_PATH)).toEqual(before);
     expect(statSync(BASELINE_PATH).mtimeMs).toBe(beforeMtime);
   }, 30_000);
@@ -805,7 +838,15 @@ describe("M01-W06 semantic compatibility signature", () => {
       const serialized = serializeBaseline(built);
       writeFileSync(path, serialized, "utf8");
       expect(loadBaseline(path)).toEqual(built);
-      expect(readFileSync(BASELINE_PATH, "utf8")).toBe(serialized);
+      expect(
+        compareCompatibilitySignatures(
+          loadBaseline().signature,
+          built.signature,
+        ).compatible,
+      ).toBe(true);
+      expect(readFileSync(BASELINE_PATH, "utf8")).toBe(
+        serializeBaseline(loadBaseline()),
+      );
       expect(readFileSync(BASELINE_PATH)).toEqual(before);
     } finally {
       rmSync(root, { recursive: true, force: true });
@@ -943,7 +984,11 @@ describe("M01-W07 executable semantic compatibility witnesses", () => {
         witness.id.startsWith("x-w07.historical-positive."),
       ),
     ).toHaveLength(229);
-    expect(signature.semantic_witnesses).toHaveLength(572);
+    expect(
+      signature.semantic_witnesses.filter(
+        (entry) => !entry.id.startsWith("gate-v2."),
+      ),
+    ).toHaveLength(572);
   });
 
   test("locks the last-published recovered-rollback v1 canary", () => {
@@ -1169,7 +1214,7 @@ describe("M01-W07 executable semantic compatibility witnesses", () => {
     candidate.semantic_witnesses.sort((left, right) =>
       left.id.localeCompare(right.id),
     );
-    candidate.semantic_rule_catalog.catalog_version = "1.2.0";
+    candidate.semantic_rule_catalog.catalog_version = "1.3.0";
     candidate.semantic_rule_catalog.canonical_sha256 = "f".repeat(64);
     const report = compareCompatibilitySignatures(
       currentSignature(),

@@ -1,0 +1,114 @@
+[
+  {
+    "case_id": "benchmarkcase_17AXF7N6VDCJXSV8WAEDCHRW1G",
+    "input_digest": "sha256:bb904ced47f62b40be48fd63d6b3cfd6ea798bf6082a0c6f50d35f933f2f072a",
+    "profile": {
+      "full_name": "Synthetic Applicant",
+      "email": "synthetic@example.invalid",
+      "phone": "2025550100",
+      "website_url": "https://example.invalid/profile",
+      "address_street1": "100 Synthetic Avenue",
+      "address_city": "Synthetic City",
+      "address_state": "Michigan",
+      "address_zip": "48104",
+      "address_country_name": "United States"
+    },
+    "unsupported_metadata": [
+      {
+        "concept": "ADDRESS_REGION",
+        "valueToken": "Michigan",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      },
+      {
+        "concept": "ADDRESS_COUNTRY",
+        "valueToken": "United States",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      }
+    ],
+    "added_default_facts": []
+  },
+  {
+    "case_id": "benchmarkcase_4N6PQ8ZBMFFCM97D0HB0P49AJM",
+    "input_digest": "sha256:9da16d922d2a40dc4931120cb981ec185a7d8bcc66983c4a3d5326b3717362ea",
+    "profile": {
+      "full_name": "Synthetic Applicant",
+      "email": "synthetic@example.invalid",
+      "phone": "2025550100",
+      "website_url": "https://example.invalid/profile",
+      "address_street1": "100 Synthetic Avenue",
+      "address_city": "Synthetic City",
+      "address_state": "Michigan",
+      "address_zip": "48104",
+      "address_country_name": "United States"
+    },
+    "unsupported_metadata": [
+      {
+        "concept": "ADDRESS_REGION",
+        "valueToken": "Michigan",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      },
+      {
+        "concept": "ADDRESS_COUNTRY",
+        "valueToken": "United States",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      }
+    ],
+    "added_default_facts": []
+  },
+  {
+    "case_id": "benchmarkcase_14W801B90ZX8QZMQKTE65FKZD6",
+    "input_digest": "sha256:49e8db5721812285db5b7180ab472c3dbe0b7dc9fd2f6a5227d7641037b679fd",
+    "profile": {
+      "full_name": "Synthetic Applicant",
+      "email": "synthetic@example.invalid",
+      "phone": "2025550100",
+      "website_url": "https://example.invalid/profile",
+      "address_street1": "100 Synthetic Avenue",
+      "address_city": "Synthetic City",
+      "address_state": "Michigan",
+      "address_zip": "48104",
+      "address_country_name": "United States"
+    },
+    "unsupported_metadata": [
+      {
+        "concept": "ADDRESS_REGION",
+        "valueToken": "Michigan",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      },
+      {
+        "concept": "ADDRESS_COUNTRY",
+        "valueToken": "United States",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      }
+    ],
+    "added_default_facts": []
+  },
+  {
+    "case_id": "benchmarkcase_5PEWA5521D0Q0JZ6PMKNW96NNJ",
+    "input_digest": "sha256:3132b64faba9b9b97db27748d45c8c762354183771606c3c4fbca875f103f827",
+    "profile": {
+      "full_name": "Synthetic Applicant",
+      "email": "synthetic@example.invalid",
+      "phone": "2025550100",
+      "website_url": "https://example.invalid/profile",
+      "address_street1": "100 Synthetic Avenue",
+      "address_city": "Synthetic City",
+      "address_state": "Michigan",
+      "address_zip": "48104",
+      "address_country_name": "United States"
+    },
+    "unsupported_metadata": [
+      {
+        "concept": "ADDRESS_REGION",
+        "valueToken": "Michigan",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      },
+      {
+        "concept": "ADDRESS_COUNTRY",
+        "valueToken": "United States",
+        "handling": "OMITTED_BY_LEGACY_PROFILE_ADAPTER_UNSUPPORTED_METADATA"
+      }
+    ],
+    "added_default_facts": []
+  }
+]

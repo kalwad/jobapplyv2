@@ -1,0 +1,42 @@
+{
+  "format_version": "W14_EXTERNAL_EVIDENCE_1",
+  "authority": "NONE",
+  "files": [
+    {
+      "path": "capture-rerender.json",
+      "bytes": 49928,
+      "sha256": "6ea6ec758d1a0976d9841bafdbf3943bc3a24ab20850262e59d995d936069385"
+    },
+    {
+      "path": "capture-summary.json",
+      "bytes": 10098,
+      "sha256": "02fd904f1c4af21dac949c259a9b544f5e2253a9ff94e2cfba85fc52db271691"
+    },
+    {
+      "path": "public-current-matrix.json",
+      "bytes": 35768,
+      "sha256": "9a9c933add2266977b9fe4f59996531719f27fbdefc44f423c09a410c6dec214"
+    },
+    {
+      "path": "public-structural-bundle.zip",
+      "bytes": 99776,
+      "sha256": "4e35bb994a1b3ef5d60ec09a50572091e04590f1824e68c3f7a4b542cffb9be5"
+    },
+    {
+      "path": "simplify-readiness.json",
+      "bytes": 5369,
+      "sha256": "f5adb2e5d48406b185424c74e149161e211cc10962e2eab9f89c537e80dde138"
+    },
+    {
+      "path": "workday-native-ui-blocked.json",
+      "bytes": 11992,
+      "sha256": "c3f314d469ea0b3d5d0c860ff0e02a813d2b867056dcc7d37c1b6f3d76f4bb53"
+    }
+  ],
+  "limitations": [
+    "Legacy capture is COMPONENT_DETERMINISTIC_NO_AI, not the complete legacy product.",
+    "Public inspection is structural only: no fills, scoring, competitor execution or submissions.",
+    "Owner holdout is waived, not executed or passed.",
+    "Native Workday method-choice continuation could not establish a fresh anonymous Chrome window because the Mac was locked; zero choices were clicked."
+  ]
+}

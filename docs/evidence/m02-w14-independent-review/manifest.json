@@ -1,0 +1,36 @@
+{
+  "format_version": "W14_INDEPENDENT_PRELIMINARY_BEFORE_PROOF_1",
+  "scope": "SEPARATE_WORKTREE_BEFORE_AND_NARROW_CANDIDATE_AFTER_PROOFS_ADJACENT_DEFECTS_REMAIN_NOT_FINAL_W15_GATE_DECISION",
+  "files": [
+    {
+      "path": "aria-proof.tar.gz",
+      "bytes": 212454,
+      "sha256": "a48cfccb105e23ec370c20a0a14857c5f280fdd2c8f888d730db680b552a1b9d"
+    },
+    {
+      "path": "before-proof.tar.gz",
+      "bytes": 858133,
+      "sha256": "af6a8d5b3a70cc6309e2eae450109318139b8937a0caf3998931c40de2c7f3b0"
+    },
+    {
+      "path": "before-source-inventory.json",
+      "bytes": 143260,
+      "sha256": "167a54f6f469866ee78daee213e7aa1074d64501ce167d8f5356a97aebda1f1c"
+    },
+    {
+      "path": "candidate-proof.tar.gz",
+      "bytes": 870576,
+      "sha256": "c30aa325b76de54c76a49b45ed64ebbc3917703845818a4c448cc06734a5cdc6"
+    },
+    {
+      "path": "candidate-replay-and-adjacent-findings.md",
+      "bytes": 4282,
+      "sha256": "b54257460a5e0c02f2dcf64200215d5505c2468359fb8043864a30318d65cf35"
+    },
+    {
+      "path": "preliminary-review.md",
+      "bytes": 7395,
+      "sha256": "1b663ef16991079acdcadc8fcb109d9afc54c513eb60c22932666ed87a3a1a68"
+    }
+  ]
+}

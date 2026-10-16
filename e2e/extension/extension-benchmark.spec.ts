@@ -187,13 +187,8 @@ test("W13 L: total scan and re-resolution scaling includes work outside W11", as
     .map((row) => row.total_wall_clock_ms)
     .sort((a, b) => a - b);
   const p95 = samples[Math.ceil(0.95 * samples.length) - 1];
-  if (sampleCount === 20) {
-    expect(process.platform).toBe("darwin");
-    expect(p95).toBeLessThanOrEqual(1500);
-  }
-  console.log(
-    `W13_TARGET_P95 ${JSON.stringify({ samples: samples.length, p95_ms: p95, threshold_ms: 1500, settle_budget_ms: 0, scope: "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION" })}`,
-  );
+  // Retain all raw observations even when the target assertion fails. This
+  // reporting occurs after every timed sample; it cannot change the budget.
   console.log(
     `W13_SCALING ${JSON.stringify({ labels: ["DEVELOPMENT", "HARNESS_VALIDATION", "NOT_GATE_A_FINAL_EVIDENCE"], rows })}`,
   );
@@ -201,6 +196,13 @@ test("W13 L: total scan and re-resolution scaling includes work outside W11", as
     body: JSON.stringify(rows, null, 2),
     contentType: "application/json",
   });
+  if (sampleCount === 20) {
+    expect(process.platform).toBe("darwin");
+    expect(p95).toBeLessThanOrEqual(1500);
+  }
+  console.log(
+    `W13_TARGET_P95 ${JSON.stringify({ samples: samples.length, p95_ms: p95, threshold_ms: 1500, settle_budget_ms: 0, scope: "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION" })}`,
+  );
 });
 
 test("W13 J: overlapping delayed repeater operations perform one physical click", async ({

@@ -1,0 +1,44 @@
+[WebServer] (node:52012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:52029) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:52046) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 387 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 150.92 kB                            
+✔ Finished in 435 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 329 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 111.67 kB                                        
+✔ Finished in 378 ms
+
+Running 1 test using 1 worker
+
+(node:52074) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+W14_PROGRESS 25/200
+W14_PROGRESS 50/200
+W14_PROGRESS 75/200
+W14_PROGRESS 100/200
+W14_PROGRESS 125/200
+W14_PROGRESS 150/200
+W14_PROGRESS 175/200
+W14_PROGRESS 200/200
+W14_DEVELOPMENT {"recorded_cases":200,"metrics":{"executed_cases":200,"scored_cases":200,"refused_cases":0,"measurement_error_cases":0,"scored_logical_controls":4020,"preservation":{"expected":90,"correct":90,"violations":0,"empty_abstention_violations":0},"ordinary_attempted_precision":{"numerator":1485,"denominator":1485,"rate":1},"required_ordinary_recall":{"numerator":1275,"denominator":1275,"rate":1},"required_reporting":{"numerator":770,"denominator":770,"rate":1},"observed_persistence":{"numerator":1485,"denominator":1485,"rate":1},"counts":{"required_silent":0,"sensitive_fills":0,"honeypot_fills":0,"catastrophic_option_errors":0,"duplicate_actions":0},"full_settle_scan_fill_timing":{"sample_count":200,"p95_ms":1799.8664160000044,"scope":"ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER","includes_fixture_setup":false,"includes_browser_setup":false,"includes_reporting":false}},"safety":{"sensitive_fills":0,"honeypot_fills":0,"catastrophic_option_errors":0,"duplicate_actions":0,"navigation_activations":0,"submission_activations":0,"paused_boundary_actions":0},"bundle_digest":"sha256:7796a5d32c14ac690c1b1bbf39923aea66ca00a9f85f63a834d9eba3129f175c"}
+  ✓  1 [chromium] › e2e/extension/extension-w14-evaluation.spec.ts:184:1 › W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence (4.1m)
+
+  1 passed (4.1m)

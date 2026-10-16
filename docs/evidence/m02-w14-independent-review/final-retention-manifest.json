@@ -1,0 +1,21 @@
+{
+  "format": "W14_INDEPENDENT_FINAL_CORRECTION_PROOF_1",
+  "runtime_input_files": 213,
+  "immutable_external_cases": 12,
+  "result": "12/12 PASS",
+  "archive_regular_files": 44,
+  "safe_relative_regular_or_directory_members_only": true,
+  "files": [
+    {
+      "path": "final-proof.tar.gz",
+      "sha256": "aedc2abeadb23d9d24819eb9475c4e15b070b9ddf3e0d44692c375f7a8f101e7",
+      "bytes": 323548
+    },
+    {
+      "path": "final-review.md",
+      "sha256": "222e8a1a77983956961112c87290d1080a6287264ab3567c1bc8ca17f6bd8ab9",
+      "bytes": 7089
+    }
+  ],
+  "authority": "PRELIMINARY_W14_NOT_W15_GATE_APPROVAL"
+}

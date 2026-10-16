@@ -1,0 +1,198 @@
+[
+  {
+    "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+    "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+    "input": {
+      "html": "<main lang=\"en-US\" data-japp-application-root data-research-family=\"WORKDAY\" data-research-session=\"GUEST\" data-research-layout=\"GROUPED\" data-research-step=\"MY_INFORMATION\">\n<header><p>PUBLIC SYNTHETIC · RESEARCH ONLY · NOT CERTIFIED</p><h1>MY INFORMATION</h1><ol aria-label=\"Application progress\"><li aria-current=\"step\">MY INFORMATION</li></ol></header>\n<p role=\"status\">Session mode: GUEST</p>\n<form novalidate aria-label=\"Synthetic application\"><div class=\"tenant-shell\"><aside aria-label=\"Application summary\"><p>Synthetic tenant application</p></aside><article><div role=\"group\" aria-label=\"Application stage\"><fieldset><legend>CONTACT</legend><div class=\"research-field\"><label for=\"first-name\">First name</label><input type=\"text\" id=\"first-name\" name=\"first-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"last-name\">Last name</label><input type=\"text\" id=\"last-name\" name=\"last-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"email\">Email address</label><input type=\"email\" id=\"email\" name=\"email\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"phone\">Phone number</label><input type=\"tel\" id=\"phone\" name=\"phone\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"website\">Personal website</label><input type=\"url\" id=\"website\" name=\"website\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"optional-note\">Additional information</label><textarea id=\"optional-note\" name=\"optional-note\" aria-invalid=\"false\" maxlength=\"500\"></textarea></div></fieldset>\n<fieldset><legend>ADDRESS</legend><div class=\"research-field\"><label for=\"country\">Country</label><select id=\"country\" name=\"country\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"United States\">United States</option><option value=\"Other country\">Other country</option></select></div>\n<div class=\"research-field\"><label for=\"city\">City</label><input type=\"text\" id=\"city\" name=\"city\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"street-address\">Street address</label><input type=\"text\" id=\"street-address\" name=\"street-address\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"state\">State</label><select id=\"state\" name=\"state\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Michigan\">Michigan</option><option value=\"California\">California</option><option value=\"New York\">New York</option></select></div>\n<div class=\"research-field\"><label for=\"postal-code\">ZIP code</label><input type=\"text\" id=\"postal-code\" name=\"postal-code\" required aria-invalid=\"false\" pattern=\"[0-9]{5}\"></div></fieldset>\n<fieldset><legend>STEP</legend><div class=\"research-field\"><label for=\"resume\">Upload résumé</label><input type=\"file\" id=\"resume\" name=\"resume\" required aria-invalid=\"false\" accept=\".pdf,.docx\"></div>\n<div class=\"research-field\"><label for=\"country-code\">Phone country code</label><input type=\"text\" id=\"country-code\" name=\"country-code\" required aria-invalid=\"false\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"list\" aria-controls=\"country-code-options\"><ul id=\"country-code-options\" role=\"listbox\" hidden><li id=\"country-code-option-1\" role=\"option\" aria-selected=\"false\">+1</li><li id=\"country-code-option-2\" role=\"option\" aria-selected=\"false\">+44</li><li id=\"country-code-option-3\" role=\"option\" aria-selected=\"false\">+49</li></ul></div>\n<div class=\"research-field\"><label for=\"contact-method\">Preferred contact method</label><select id=\"contact-method\" name=\"contact-method\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Email\">Email</option><option value=\"Phone\">Phone</option></select></div>\n<div class=\"research-field\"><label for=\"availability-date\">Available start date</label><input type=\"date\" id=\"availability-date\" name=\"availability-date\" required aria-invalid=\"false\"></div></fieldset>\n<fieldset><legend>SAFETY</legend><div class=\"research-field\"><label for=\"sensitive-disclosure\">Disability status</label><select id=\"sensitive-disclosure\" name=\"sensitive-disclosure\" aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Prefer not to answer\">Prefer not to answer</option><option value=\"Yes\">Yes</option><option value=\"No\">No</option></select></div>\n<div class=\"research-field\" hidden aria-hidden=\"true\"><label for=\"honeypot\">Leave this field empty</label><input type=\"text\" id=\"honeypot\" name=\"honeypot\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"privacy-consent\">Privacy notice acknowledgment</label><input type=\"checkbox\" id=\"privacy-consent\" name=\"privacy-consent\" aria-invalid=\"false\"></div></fieldset></div></article></div><div id=\"dynamic-slot\"></div><div id=\"parser-status\" role=\"status\"></div><nav aria-label=\"Application navigation\"><button id=\"next\" type=\"button\">Next</button></nav></form>\n</main>\n",
+      "profile": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+    "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+    "input": {
+      "html": "<main lang=\"en-US\" data-japp-application-root data-research-family=\"GREENHOUSE\" data-research-session=\"GUEST\" data-research-layout=\"GROUPED\" data-research-step=\"MY_INFORMATION\">\n<header><p>PUBLIC SYNTHETIC · RESEARCH ONLY · NOT CERTIFIED</p><h1>MY INFORMATION</h1><ol aria-label=\"Application progress\"><li aria-current=\"step\">MY INFORMATION</li></ol></header>\n<p role=\"status\">Session mode: GUEST</p>\n<form novalidate aria-label=\"Synthetic application\"><section class=\"job-board\"><header><h2>Apply for this synthetic position</h2></header><div class=\"application-columns\"><article><fieldset><legend>CONTACT</legend><div class=\"research-field\"><label for=\"first-name\">First name</label><input type=\"text\" id=\"first-name\" name=\"first-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"last-name\">Last name</label><input type=\"text\" id=\"last-name\" name=\"last-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"email\">Email address</label><input type=\"email\" id=\"email\" name=\"email\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"phone\">Phone number</label><input type=\"tel\" id=\"phone\" name=\"phone\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"website\">Personal website</label><input type=\"url\" id=\"website\" name=\"website\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"optional-note\">Additional information</label><textarea id=\"optional-note\" name=\"optional-note\" aria-invalid=\"false\" maxlength=\"500\"></textarea></div></fieldset>\n<fieldset><legend>ADDRESS</legend><div class=\"research-field\"><label for=\"country\">Country</label><select id=\"country\" name=\"country\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"United States\">United States</option><option value=\"Other country\">Other country</option></select></div>\n<div class=\"research-field\"><label for=\"city\">City</label><input type=\"text\" id=\"city\" name=\"city\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"street-address\">Street address</label><input type=\"text\" id=\"street-address\" name=\"street-address\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"state\">State</label><select id=\"state\" name=\"state\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Michigan\">Michigan</option><option value=\"California\">California</option><option value=\"New York\">New York</option></select></div>\n<div class=\"research-field\"><label for=\"postal-code\">ZIP code</label><input type=\"text\" id=\"postal-code\" name=\"postal-code\" required aria-invalid=\"false\" pattern=\"[0-9]{5}\"></div></fieldset>\n<fieldset><legend>STEP</legend><div class=\"research-field\"><label for=\"resume\">Upload résumé</label><input type=\"file\" id=\"resume\" name=\"resume\" required aria-invalid=\"false\" accept=\".pdf,.docx\"></div>\n<div class=\"research-field\"><label for=\"country-code\">Phone country code</label><input type=\"text\" id=\"country-code\" name=\"country-code\" required aria-invalid=\"false\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"list\" aria-controls=\"country-code-options\"><ul id=\"country-code-options\" role=\"listbox\" hidden><li id=\"country-code-option-1\" role=\"option\" aria-selected=\"false\">+1</li><li id=\"country-code-option-2\" role=\"option\" aria-selected=\"false\">+44</li><li id=\"country-code-option-3\" role=\"option\" aria-selected=\"false\">+49</li></ul></div>\n<div class=\"research-field\"><label for=\"contact-method\">Preferred contact method</label><select id=\"contact-method\" name=\"contact-method\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Email\">Email</option><option value=\"Phone\">Phone</option></select></div>\n<div class=\"research-field\"><label for=\"availability-date\">Available start date</label><input type=\"date\" id=\"availability-date\" name=\"availability-date\" required aria-invalid=\"false\"></div></fieldset>\n<fieldset><legend>SAFETY</legend><div class=\"research-field\"><label for=\"sensitive-disclosure\">Disability status</label><select id=\"sensitive-disclosure\" name=\"sensitive-disclosure\" aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Prefer not to answer\">Prefer not to answer</option><option value=\"Yes\">Yes</option><option value=\"No\">No</option></select></div>\n<div class=\"research-field\" hidden aria-hidden=\"true\"><label for=\"honeypot\">Leave this field empty</label><input type=\"text\" id=\"honeypot\" name=\"honeypot\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"privacy-consent\">Privacy notice acknowledgment</label><input type=\"checkbox\" id=\"privacy-consent\" name=\"privacy-consent\" aria-invalid=\"false\"></div></fieldset></article></div></section><div id=\"dynamic-slot\"></div><div id=\"parser-status\" role=\"status\"></div><nav aria-label=\"Application navigation\"><button id=\"next\" type=\"button\">Next</button></nav></form>\n</main>\n",
+      "profile": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+    "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+    "input": {
+      "html": "<main lang=\"en-US\" data-japp-application-root data-research-family=\"LEVER\" data-research-session=\"GUEST\" data-research-layout=\"GROUPED\" data-research-step=\"MY_INFORMATION\">\n<header><p>PUBLIC SYNTHETIC · RESEARCH ONLY · NOT CERTIFIED</p><h1>MY INFORMATION</h1><ol aria-label=\"Application progress\"><li aria-current=\"step\">MY INFORMATION</li></ol></header>\n<p role=\"status\">Session mode: GUEST</p>\n<form novalidate aria-label=\"Synthetic application\"><article class=\"posting-application\"><div class=\"application-content\"><section aria-label=\"Candidate application\"><fieldset><legend>CONTACT</legend><div class=\"research-field\"><label for=\"first-name\">First name</label><input type=\"text\" id=\"first-name\" name=\"first-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"last-name\">Last name</label><input type=\"text\" id=\"last-name\" name=\"last-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"email\">Email address</label><input type=\"email\" id=\"email\" name=\"email\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"phone\">Phone number</label><input type=\"tel\" id=\"phone\" name=\"phone\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"website\">Personal website</label><input type=\"url\" id=\"website\" name=\"website\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"optional-note\">Additional information</label><textarea id=\"optional-note\" name=\"optional-note\" aria-invalid=\"false\" maxlength=\"500\"></textarea></div></fieldset>\n<fieldset><legend>ADDRESS</legend><div class=\"research-field\"><label for=\"country\">Country</label><select id=\"country\" name=\"country\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"United States\">United States</option><option value=\"Other country\">Other country</option></select></div>\n<div class=\"research-field\"><label for=\"city\">City</label><input type=\"text\" id=\"city\" name=\"city\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"street-address\">Street address</label><input type=\"text\" id=\"street-address\" name=\"street-address\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"state\">State</label><select id=\"state\" name=\"state\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Michigan\">Michigan</option><option value=\"California\">California</option><option value=\"New York\">New York</option></select></div>\n<div class=\"research-field\"><label for=\"postal-code\">ZIP code</label><input type=\"text\" id=\"postal-code\" name=\"postal-code\" required aria-invalid=\"false\" pattern=\"[0-9]{5}\"></div></fieldset>\n<fieldset><legend>STEP</legend><div class=\"research-field\"><label for=\"resume\">Upload résumé</label><input type=\"file\" id=\"resume\" name=\"resume\" required aria-invalid=\"false\" accept=\".pdf,.docx\"></div>\n<div class=\"research-field\"><label for=\"country-code\">Phone country code</label><input type=\"text\" id=\"country-code\" name=\"country-code\" required aria-invalid=\"false\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"list\" aria-controls=\"country-code-options\"><ul id=\"country-code-options\" role=\"listbox\" hidden><li id=\"country-code-option-1\" role=\"option\" aria-selected=\"false\">+1</li><li id=\"country-code-option-2\" role=\"option\" aria-selected=\"false\">+44</li><li id=\"country-code-option-3\" role=\"option\" aria-selected=\"false\">+49</li></ul></div>\n<div class=\"research-field\"><label for=\"contact-method\">Preferred contact method</label><select id=\"contact-method\" name=\"contact-method\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Email\">Email</option><option value=\"Phone\">Phone</option></select></div>\n<div class=\"research-field\"><label for=\"availability-date\">Available start date</label><input type=\"date\" id=\"availability-date\" name=\"availability-date\" required aria-invalid=\"false\"></div></fieldset>\n<fieldset><legend>SAFETY</legend><div class=\"research-field\"><label for=\"sensitive-disclosure\">Disability status</label><select id=\"sensitive-disclosure\" name=\"sensitive-disclosure\" aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Prefer not to answer\">Prefer not to answer</option><option value=\"Yes\">Yes</option><option value=\"No\">No</option></select></div>\n<div class=\"research-field\" hidden aria-hidden=\"true\"><label for=\"honeypot\">Leave this field empty</label><input type=\"text\" id=\"honeypot\" name=\"honeypot\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"privacy-consent\">Privacy notice acknowledgment</label><input type=\"checkbox\" id=\"privacy-consent\" name=\"privacy-consent\" aria-invalid=\"false\"></div></fieldset></section></div><footer>Local synthetic position</footer></article><div id=\"dynamic-slot\"></div><div id=\"parser-status\" role=\"status\"></div><nav aria-label=\"Application navigation\"><button id=\"next\" type=\"button\">Next</button></nav></form>\n</main>\n",
+      "profile": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+    "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+    "input": {
+      "html": "<main lang=\"en-US\" data-japp-application-root data-research-family=\"ASHBY\" data-research-session=\"GUEST\" data-research-layout=\"GROUPED\" data-research-step=\"MY_INFORMATION\">\n<header><p>PUBLIC SYNTHETIC · RESEARCH ONLY · NOT CERTIFIED</p><h1>MY INFORMATION</h1><ol aria-label=\"Application progress\"><li aria-current=\"step\">MY INFORMATION</li></ol></header>\n<p role=\"status\">Session mode: GUEST</p>\n<form novalidate aria-label=\"Synthetic application\"><div class=\"job-application\"><section role=\"region\" aria-label=\"Candidate details\"><div class=\"form-panels\"><div><fieldset><legend>CONTACT</legend><div class=\"research-field\"><label for=\"first-name\">First name</label><input type=\"text\" id=\"first-name\" name=\"first-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"last-name\">Last name</label><input type=\"text\" id=\"last-name\" name=\"last-name\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"email\">Email address</label><input type=\"email\" id=\"email\" name=\"email\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"phone\">Phone number</label><input type=\"tel\" id=\"phone\" name=\"phone\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"website\">Personal website</label><input type=\"url\" id=\"website\" name=\"website\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"optional-note\">Additional information</label><textarea id=\"optional-note\" name=\"optional-note\" aria-invalid=\"false\" maxlength=\"500\"></textarea></div></fieldset>\n<fieldset><legend>ADDRESS</legend><div class=\"research-field\"><label for=\"country\">Country</label><select id=\"country\" name=\"country\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"United States\">United States</option><option value=\"Other country\">Other country</option></select></div>\n<div class=\"research-field\"><label for=\"city\">City</label><input type=\"text\" id=\"city\" name=\"city\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"street-address\">Street address</label><input type=\"text\" id=\"street-address\" name=\"street-address\" required aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"state\">State</label><select id=\"state\" name=\"state\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Michigan\">Michigan</option><option value=\"California\">California</option><option value=\"New York\">New York</option></select></div>\n<div class=\"research-field\"><label for=\"postal-code\">ZIP code</label><input type=\"text\" id=\"postal-code\" name=\"postal-code\" required aria-invalid=\"false\" pattern=\"[0-9]{5}\"></div></fieldset>\n<fieldset><legend>STEP</legend><div class=\"research-field\"><label for=\"resume\">Upload résumé</label><input type=\"file\" id=\"resume\" name=\"resume\" required aria-invalid=\"false\" accept=\".pdf,.docx\"></div>\n<div class=\"research-field\"><label for=\"country-code\">Phone country code</label><input type=\"text\" id=\"country-code\" name=\"country-code\" required aria-invalid=\"false\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"list\" aria-controls=\"country-code-options\"><ul id=\"country-code-options\" role=\"listbox\" hidden><li id=\"country-code-option-1\" role=\"option\" aria-selected=\"false\">+1</li><li id=\"country-code-option-2\" role=\"option\" aria-selected=\"false\">+44</li><li id=\"country-code-option-3\" role=\"option\" aria-selected=\"false\">+49</li></ul></div>\n<div class=\"research-field\"><label for=\"contact-method\">Preferred contact method</label><select id=\"contact-method\" name=\"contact-method\" required aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Email\">Email</option><option value=\"Phone\">Phone</option></select></div>\n<div class=\"research-field\"><label for=\"availability-date\">Available start date</label><input type=\"date\" id=\"availability-date\" name=\"availability-date\" required aria-invalid=\"false\"></div></fieldset>\n<fieldset><legend>SAFETY</legend><div class=\"research-field\"><label for=\"sensitive-disclosure\">Disability status</label><select id=\"sensitive-disclosure\" name=\"sensitive-disclosure\" aria-invalid=\"false\"><option value=\"\">Choose an option</option><option value=\"Prefer not to answer\">Prefer not to answer</option><option value=\"Yes\">Yes</option><option value=\"No\">No</option></select></div>\n<div class=\"research-field\" hidden aria-hidden=\"true\"><label for=\"honeypot\">Leave this field empty</label><input type=\"text\" id=\"honeypot\" name=\"honeypot\" aria-invalid=\"false\"></div>\n<div class=\"research-field\"><label for=\"privacy-consent\">Privacy notice acknowledgment</label><input type=\"checkbox\" id=\"privacy-consent\" name=\"privacy-consent\" aria-invalid=\"false\"></div></fieldset></div></div></section></div><div id=\"dynamic-slot\"></div><div id=\"parser-status\" role=\"status\"></div><nav aria-label=\"Application navigation\"><button id=\"next\" type=\"button\">Next</button></nav></form>\n</main>\n",
+      "profile": [
+        {
+          "concept": "FIRST_NAME",
+          "value": "Synthetic"
+        },
+        {
+          "concept": "LAST_NAME",
+          "value": "Applicant"
+        },
+        {
+          "concept": "EMAIL_ADDRESS",
+          "value": "synthetic@example.invalid"
+        },
+        {
+          "concept": "PHONE_NUMBER",
+          "value": "2025550100"
+        },
+        {
+          "concept": "WEBSITE_URL",
+          "value": "https://example.invalid/profile"
+        },
+        {
+          "concept": "ADDRESS_LINE_1",
+          "value": "100 Synthetic Avenue"
+        },
+        {
+          "concept": "ADDRESS_CITY",
+          "value": "Synthetic City"
+        },
+        {
+          "concept": "ADDRESS_REGION",
+          "value": "Michigan"
+        },
+        {
+          "concept": "ADDRESS_POSTAL_CODE",
+          "value": "48104"
+        },
+        {
+          "concept": "ADDRESS_COUNTRY",
+          "value": "United States"
+        }
+      ]
+    }
+  }
+]

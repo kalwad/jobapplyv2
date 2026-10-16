@@ -309,6 +309,139 @@
       "explanation": "Runs every discovered Playwright test: the browser-infrastructure smoke test plus the M02-W03 mock ATS lab suites under e2e/mock-ats-lab/, which exercise the deterministic fixture app that playwright.config.ts builds and serves on 127.0.0.1:4761 for each run (strict port, never attaching to an existing process). Discovery is proven with `playwright test --list` as one of the suite's proofs (evaluated with the run itself; an empty discovered set fails the suite); forbidOnly in playwright.config.ts rejects focused tests; no external sites are contacted and a shared lab fixture fails any test that issues a non-loopback request. Future product e2e specs are added under e2e/ without changing this command contract."
     },
     {
+      "id": "w14-public-controlled",
+      "name": "W14 inspect-only public scope: pure and controlled proofs",
+      "owner": "M02-W14",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W14"]
+      },
+      "commands": [
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w14/public-inspection/scope.test.ts"
+        ],
+        ["pnpm", "--filter", "@japp/extension", "build"],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-inspection/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "e2e/extension/public-research/playwright.config.ts"
+        ]
+      ],
+      "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 4
+        },
+        {
+          "kind": "w14_public_controlled_exact",
+          "min": 2
+        }
+      ],
+      "discovery_globs": [
+        "apps/extension/test/m02-w14/public-inspection/scope.test.ts",
+        "e2e/extension/public-research/controlled-scope.proof.ts"
+      ],
+      "artifacts": [
+        "apps/extension/dist/w14-public-inspection/ (inspect-only controlled proof build, git-ignored)"
+      ],
+      "explanation": "ACTIVE when M02-W14 begins. Runs exactly four pure scope/source-inventory tests, rebuilds both the default loopback and explicit inspect-only MV3 extension, then runs and lists exactly two controlled permission-boundary proofs. Browser requests are intercepted with synthetic HTML; the actual public inspector is never a registry command. A closed argv-specific opt-in enables only this build and these controlled proofs, with no ambient public-mode inheritance, shell expansion, skipped/flaky outcomes, expected failures, or default-build permission expansion."
+    },
+    {
+      "id": "w14-public-contact-controlled",
+      "name": "W14 network-closed contact: protocol and controlled proofs",
+      "owner": "M02-W14",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W14"]
+      },
+      "commands": [
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w14/public-contact/protocol.test.ts"
+        ],
+        ["pnpm", "--filter", "@japp/extension", "build"],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-inspection/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-contact/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "e2e/extension/public-contact/playwright.config.ts",
+          "--reporter=list,json"
+        ]
+      ],
+      "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 2
+        },
+        {
+          "kind": "w14_public_controlled_exact",
+          "min": 61
+        }
+      ],
+      "discovery_globs": [
+        "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
+        "e2e/extension/public-contact/controlled-contact.proof.ts"
+      ],
+      "artifacts": [
+        "apps/extension/dist/w14-public-contact/ (network-closed controlled proof build, git-ignored)"
+      ],
+      "explanation": "ACTIVE when M02-W14 begins. Runs exactly two pure contact-protocol tests, freshly rebuilds default loopback, inspect-only and explicit network-closed contact MV3 bundles, then runs and lists exactly 61 controlled proofs (55 retained controlled proofs and six new pure snapshot-accounting regressions) with matching test identities. Every browser request is intercepted synthetic HTML; the real public contact runner is never a registry command. Both public suites validate their closed inventories before any child starts. Ambient inspection/contact/run flags are stripped; only exact build/proof/list argv receive narrow opt-ins, and CONTACT_RUN is never granted. Built-in list plus JSON reporting requires ordinary passed expectedStatus/results, one attempt, no skipped/flaky/expected-failed tests, exact discovery and unchanged inventories. Retains the separate inspection four-pure/two-browser suite unchanged."
+    },
+    {
       "id": "visual",
       "name": "Visual regression tests",
       "owner": "M10-W06",

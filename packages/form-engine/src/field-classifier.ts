@@ -39,6 +39,11 @@ const ALIAS_PHRASE_SCORE = 0.7;
 const DESCRIPTION_ONLY_SCORE = 0.4;
 const CORROBORATION_BONUS = 0.05;
 const SECTION_CONFLICT_PENALTY = 0.3;
+// A closed formatting annotation carries no alternate person, fact or answer.
+// W08 removes semicolons from its inert wire text. Keep the complete label for
+// all negative/section checks; only positive exact-label comparison uses this.
+const ADMINISTRATIVE_FORMAT_SUFFIX =
+  /\s*\((?:required|optional) the site (?:lowercases|uppercases|trims) it on (?:blur|change)\)\s*$/i;
 
 export type ClassificationEvidenceCode =
   | "EXACT_LABEL_MATCH"
@@ -99,15 +104,20 @@ function descriptionEvidence(descriptor: FormFieldDescriptorV1): string {
 function bestAliasMatch(
   rule: ConceptRule,
   text: string,
+  allowAdministrativeHint = false,
 ): "EXACT" | "PHRASE" | "NONE" {
   if (text === "") {
     return "NONE";
   }
   let best: "EXACT" | "PHRASE" | "NONE" = "NONE";
+  const exactLabel = allowAdministrativeHint
+    ? text.replace(ADMINISTRATIVE_FORMAT_SUFFIX, "")
+    : text;
   for (const alias of rule.aliases) {
-    if (equalsPhrase(text, alias)) {
+    if (equalsPhrase(exactLabel, alias)) {
       return "EXACT";
     }
+    if (rule.exactLabelOnlyAliases?.includes(alias)) continue;
     if (containsPhrase(text, alias)) {
       best = "PHRASE";
     }
@@ -171,7 +181,7 @@ function scoreConcept(
   }
 
   let score = 0;
-  const labelMatch = bestAliasMatch(rule, label);
+  const labelMatch = bestAliasMatch(rule, label, true);
   const descriptionMatch = bestAliasMatch(rule, description);
   if (labelMatch === "EXACT") {
     score += EXACT_LABEL_SCORE;

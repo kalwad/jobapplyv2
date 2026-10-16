@@ -46,3 +46,14 @@ packages/contracts/test/contract/rust-harness/Cargo.lock
 test-results/
 playwright-report/
 blob-report/
+
+# M02-W14 isolated legacy comparison preimages and source commitments are
+# frozen, hash-checked before browser actions; generic formatting changes bytes.
+e2e/extension/legacy-candidate/preimages/
+e2e/extension/legacy-candidate/source-bindings.json
+
+# M02-W14 paired comparison declarations/data/preimages are byte-frozen and
+# hash-checked before either new run; executable source remains formatted.
+e2e/extension/legacy-paired-options/*.json
+e2e/extension/legacy-paired-options/preimages/
+e2e/extension/legacy-paired-options/preexecution-history/**

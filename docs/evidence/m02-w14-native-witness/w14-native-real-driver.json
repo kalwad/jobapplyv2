@@ -1,0 +1,420 @@
+{
+  "native_witness": {
+    "format_version": "W14_NATIVE_WITNESS_1",
+    "source": "CDP_EXTENSION_ISOLATED_REALM_NATIVE_1",
+    "realm": "ACTUAL_EXTENSION_CONTENT_SCRIPT",
+    "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES",
+    "surfaces": [
+      "INPUT_VALUE",
+      "TEXTAREA_VALUE",
+      "SELECT_VALUE",
+      "INPUT_CHECKED",
+      "INPUT_FILES",
+      "SELECT_INDEX",
+      "SCROLL_TOP",
+      "ACTIVATION",
+      "FOCUS",
+      "BLUR",
+      "EVENT_DISPATCH"
+    ],
+    "native_mutation_count": 1,
+    "interaction_count": 4,
+    "witnesses": [
+      {
+        "sequence": 1,
+        "surface": "FOCUS",
+        "key": "first",
+        "tag": "INPUT",
+        "type": "text",
+        "succeeded": true,
+        "value_digest": null
+      },
+      {
+        "sequence": 2,
+        "surface": "INPUT_VALUE",
+        "key": "first",
+        "tag": "INPUT",
+        "type": "text",
+        "succeeded": true,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8"
+      },
+      {
+        "sequence": 3,
+        "surface": "EVENT_DISPATCH",
+        "key": "first",
+        "tag": "INPUT",
+        "type": "text",
+        "succeeded": true,
+        "value_digest": null
+      },
+      {
+        "sequence": 4,
+        "surface": "EVENT_DISPATCH",
+        "key": "first",
+        "tag": "INPUT",
+        "type": "text",
+        "succeeded": true,
+        "value_digest": null
+      },
+      {
+        "sequence": 5,
+        "surface": "BLUR",
+        "key": "first",
+        "tag": "INPUT",
+        "type": "text",
+        "succeeded": true,
+        "value_digest": null
+      }
+    ],
+    "witnesses_digest": "sha256:df1792f1f4c181f7b24af41de6147cfe6b94cdb055d988b39ca3ebf8c7b90e73",
+    "limitations": [
+      "Test-only prototype wrappers in the single actual extension realm; main-world page mutations are separate site behavior.",
+      "Counts attempted calls to installed native surfaces; browser-internal effects of an activation are represented by that activation.",
+      "No claim covers retained pre-install native references, other realms, uninstalled mutation APIs, closed shadow roots, or live employer forms."
+    ]
+  },
+  "visibility": {
+    "before": {
+      "state": "visible",
+      "hidden": false
+    },
+    "after": {
+      "state": "visible",
+      "hidden": false
+    }
+  },
+  "declared_initial": [
+    {
+      "key": "first",
+      "native_keys": [
+        "first"
+      ],
+      "label": "First name",
+      "valid": false,
+      "required": true,
+      "disabled": false,
+      "kind": "text",
+      "attribute_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+      "value_digest": null
+    }
+  ],
+  "initial": [
+    {
+      "key": "first",
+      "native_keys": [
+        "first"
+      ],
+      "label": "First name",
+      "valid": false,
+      "required": true,
+      "disabled": false,
+      "kind": "text",
+      "attribute_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+      "value_digest": null
+    }
+  ],
+  "final": [
+    {
+      "key": "first",
+      "native_keys": [
+        "first"
+      ],
+      "label": "First name",
+      "valid": true,
+      "required": true,
+      "disabled": false,
+      "kind": "text",
+      "attribute_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+      "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8"
+    }
+  ],
+  "measurement_issues": [],
+  "observed": {
+    "scan_fill_duration_ms": 99.1025840000002,
+    "phase_timings_ms": {
+      "initial_scan": 4.331834000000072,
+      "planning_and_unbatched_execution": 89.9072500000002,
+      "batched_execution": 0.0002500000000509317,
+      "final_reconciliation": 4.86324999999988
+    },
+    "fields": [
+      {
+        "key": "first",
+        "status": "FILLED",
+        "observed_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "persistence": "PERSISTED",
+        "site_acceptance": "ACCEPTED",
+        "reason": "VERIFIED",
+        "report_digest": "sha256:3ac94eb478c55a898c9c6c30697dd99073fb20b34265019284b32c4b05199d22"
+      }
+    ],
+    "scanner_fields": [
+      {
+        "field_id": "field_3Z90B95594Z08SB7CVDRZWS92J",
+        "attribute_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+        "label": "First name",
+        "required": true,
+        "visible": true,
+        "kind": "TEXT"
+      }
+    ],
+    "meter": {
+      "actions": [
+        {
+          "id": "physical-1",
+          "key": "first",
+          "kind": "FILL",
+          "value": "Synthetic"
+        }
+      ],
+      "navigation": 0,
+      "submission": 0,
+      "rerenders": 1
+    },
+    "reconciliation": {
+      "status": "RECONCILED",
+      "inventory": {
+        "inventory_id": "inv_4ZSVQ9SKQKFK1E3CMRNPHKBPSH",
+        "session_id": "session_59X5MEJ7GXNHDVA2K3G7AZRNB9",
+        "page_id": "page_5JVS8773BF1KME00HZRYDDATBQ",
+        "document_id": "document_5S7ZWREVXR3661JP0BAYYA65TF",
+        "page_generation": 0,
+        "proof_generation": 0,
+        "items": [
+          {
+            "item_id": "item_7XCSWBVFTXZ4FJR29C12HR5HJZ",
+            "field_id": "field_3Z90B95594Z08SB7CVDRZWS92J",
+            "field_address_digest": "sha256:f02a59f98500079b00b250b3fd7b232ca3952587554ca2a2c69ee44dc1d68b25",
+            "required": true,
+            "visible": true,
+            "enabled": true,
+            "category": "VERIFIED_FILLED",
+            "document_state": "CURRENT",
+            "changed_value": false,
+            "confirmation_state": "NOT_APPLICABLE",
+            "mandatory_uncertain": false
+          }
+        ],
+        "counts": {
+          "total": 1,
+          "verified_filled": 1,
+          "needs_review": 0,
+          "blocked_sensitive": 0,
+          "unsupported_or_skipped": 0,
+          "required_unresolved": 0,
+          "page_changed_value": 0,
+          "stale_document": 0,
+          "unconfirmed_consequential": 0,
+          "mandatory_uncertain": 0
+        },
+        "readiness": "READY",
+        "evidence_digest": "sha256:6007e8ba1a01ef2d0f80e413605ebb4dce7a166f7a849789c3d37b9b542fa5eb",
+        "correlation_id": "cor_0E3W5J7R2YEDRQMP3BPTZZTBJT"
+      },
+      "snapshot": {
+        "observation_state": "IDLE",
+        "generations": {
+          "route_generation": 0,
+          "page_generation": 0,
+          "dom_observation_generation": 1,
+          "root_generation": 0
+        },
+        "memory": {
+          "available": true,
+          "used_js_heap_bytes": 4278655,
+          "total_js_heap_bytes": 6594095
+        },
+        "cpu": {
+          "available": false,
+          "reason": "NO_IN_PAGE_PROCESS_CPU_SOURCE"
+        },
+        "scanner_work": {
+          "scan_calls": 6,
+          "reresolution_calls": 4,
+          "candidates_examined": 4,
+          "descriptors_built": 6,
+          "nodes_examined": 12,
+          "label_elements_examined": 8,
+          "total_duration_ms": 3,
+          "total_duration_us": 2503,
+          "root_scan_calls": 2,
+          "root_scan_duration_us": 1100,
+          "subtree_scan_calls": 0,
+          "subtree_scan_duration_us": 0,
+          "candidate_enumerations": 4,
+          "candidate_enumeration_duration_us": 0,
+          "descriptor_duration_us": 901,
+          "descriptor_builds_started": 6,
+          "identity_pairs_examined": 2,
+          "identity_matching_duration_us": 0,
+          "root_detection_calls": 8,
+          "root_detection_duration_us": 202,
+          "capacity_checks": 16,
+          "capacity_check_duration_us": 101,
+          "preflight_reresolutions": 1,
+          "preflight_reresolution_duration_us": 700,
+          "preaction_reresolutions": 1,
+          "preaction_reresolution_duration_us": 201,
+          "settle_reresolutions": 1,
+          "settle_reresolution_duration_us": 401,
+          "reconcile_reresolutions": 1,
+          "reconcile_reresolution_duration_us": 101,
+          "other_reresolutions": 0,
+          "other_reresolution_duration_us": 0,
+          "generations_observed": 1,
+          "index_rebuilds": 2,
+          "index_hits": 2,
+          "index_invalidations": 1,
+          "index_rebuild_duration_us": 300,
+          "semantic_match_checks": 4,
+          "topology_full_captures": 9,
+          "topology_subtree_captures": 49,
+          "topology_nodes_visited": 239,
+          "topology_host_checks": 30,
+          "topology_roots_discovered": 0,
+          "topology_capacity_refusals": 0,
+          "topology_duration_us": 300
+        },
+        "mutation_callbacks": 0,
+        "mutation_records": 0,
+        "records_during_action": 0,
+        "batches_processed": 0,
+        "batches_action_origin": 0,
+        "affected_subtree_scans": 0,
+        "root_rescans": 1,
+        "root_rescans_route_changed": 0,
+        "root_rescans_root_replaced": 0,
+        "root_rescans_overflow": 0,
+        "root_rescans_observation_start": 1,
+        "full_document_scans": 0,
+        "nodes_considered": 3,
+        "descriptors_produced": 1,
+        "conditional_fields_discovered": 0,
+        "conditional_fields_removed": 0,
+        "actions_considered": 1,
+        "actions_executed": 1,
+        "actions_suppressed_duplicate": 0,
+        "page_changed_detected": 0,
+        "reconciliation_passes": 1,
+        "last_batch_duration_ms": 0,
+        "last_reconciliation_duration_ms": 1,
+        "total_scan_duration_ms": 0,
+        "inventory_size": 1,
+        "ledger_size": 1,
+        "registry_size": 1,
+        "queue_length": 0,
+        "max_queue_length": 0
+      }
+    },
+    "decisions": [
+      {
+        "decision_id": "decision_0WHQBEXWS6XG38RE3PSCDAY0GW",
+        "field_id": "field_3Z90B95594Z08SB7CVDRZWS92J",
+        "field_address_digest": "sha256:f02a59f98500079b00b250b3fd7b232ca3952587554ca2a2c69ee44dc1d68b25",
+        "field_concept": "FIRST_NAME",
+        "classification_confidence": 0.9,
+        "value_source_type": "USER_RECORD",
+        "value_source_ref": "record_6M51Q61KE3TF47NEEFV3AP2SZR",
+        "value_confidence": 1,
+        "sensitivity_class": "PERSONAL",
+        "policy_decision": "PERMIT",
+        "final_decision": "FILL",
+        "confirmation_state": "NOT_REQUIRED",
+        "reason_codes": [
+          "DETERMINISTIC_EVIDENCE",
+          "REVIEWED_SOURCE"
+        ],
+        "provenance": {
+          "source_kind": "PAGE_CAPTURE",
+          "source_id": "field_3Z90B95594Z08SB7CVDRZWS92J",
+          "observed_at": "2026-10-16T17:09:36.633Z",
+          "source_digest": "sha256:ff040baf9fa3d3357d5eab9650a9d13a50d76d8ccf80268bda6d1b1b8229a6ca"
+        },
+        "correlation_id": "cor_33C7RHF55M2952M8E36EH78Q5B",
+        "causation_id": "field_3Z90B95594Z08SB7CVDRZWS92J"
+      }
+    ],
+    "results": [
+      {
+        "result_id": "result_148MM6MFZGRP9QWCP7MF7GDM97",
+        "driver_id": "driver_410MKZ0V4FEDS9H24VQNBTETAQ",
+        "session_id": "session_59X5MEJ7GXNHDVA2K3G7AZRNB9",
+        "field_address": {
+          "address_schema_version": "FIELD_ADDRESS_V1",
+          "session_id": "session_59X5MEJ7GXNHDVA2K3G7AZRNB9",
+          "frame_id": "frame_3HXNM9WDGFS7GW6QNXNV8HXEAK",
+          "document_id": "document_5S7ZWREVXR3661JP0BAYYA65TF",
+          "ats_family": "UNKNOWN",
+          "route_signature": "sha256:b55a1a80602140a319dca0ff9351bed0f87efd8bf1c4b61954fb7b8ad7cf89f6",
+          "application_root_fingerprint": "sha256:6e55b8bcd9a1c19e58f85573d55aff4d6e072257810b26228113328de4ea4352",
+          "section_path": [],
+          "repeater_path": [],
+          "accessible_name_fingerprint": "sha256:0960f9ea4ab85ab8b068932a18b814dfd8e22c6c5570bd0b86375e32f563fd75",
+          "attribute_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+          "resolution_hints": [
+            {
+              "kind": "CONTROL_KIND",
+              "value_fingerprint": "sha256:af39e4c3e8b06bf28bf23591b56eafe9c5df64f52208cea0d519f41bed5215f3",
+              "stability_class": "PAGE_STABLE"
+            },
+            {
+              "kind": "ATTRIBUTE_DIGEST",
+              "value_fingerprint": "sha256:5d78e358227d869f2b29a1cb08595594add72fc472c8d378b3b20cb7f90f5715",
+              "stability_class": "PAGE_STABLE"
+            },
+            {
+              "kind": "ATTRIBUTE_DIGEST",
+              "value_fingerprint": "sha256:d681b4de23b7bc8bb1f7e1b275c68f92009853b09d49fe4c48c0e7b510af823c",
+              "stability_class": "OBSERVATION_ONLY"
+            },
+            {
+              "kind": "ACCESSIBLE_NAME_DIGEST",
+              "value_fingerprint": "sha256:0960f9ea4ab85ab8b068932a18b814dfd8e22c6c5570bd0b86375e32f563fd75",
+              "stability_class": "PAGE_STABLE"
+            }
+          ],
+          "observed_dom_generation": 0
+        },
+        "resolution_result": "UNIQUE",
+        "preconditions": {
+          "visible": true,
+          "enabled": true,
+          "generation_matched": true,
+          "policy_permitted": true
+        },
+        "action_attempt": {
+          "attempt_id": "attempt_56B2V8246EBFY5DRWMF5KVDP91",
+          "attempted_at": "2026-10-16T17:09:36.642Z",
+          "action_count": 1,
+          "duration_ms": 80,
+          "idempotency_key": "idem_7XVKQEZHJ1DYHG4D31N225DXXG"
+        },
+        "intended_value": {
+          "semantic_digest": "sha256:e74a0f5610e551feac074d8c3728849e2c06826d3117a504fab7c57bf1a221a2",
+          "presence": "PRESENT_REDACTED"
+        },
+        "observed_value_immediate": {
+          "semantic_digest": "sha256:e74a0f5610e551feac074d8c3728849e2c06826d3117a504fab7c57bf1a221a2",
+          "presence": "PRESENT_REDACTED"
+        },
+        "observed_value_settled": {
+          "semantic_digest": "sha256:e74a0f5610e551feac074d8c3728849e2c06826d3117a504fab7c57bf1a221a2",
+          "presence": "PRESENT_REDACTED"
+        },
+        "site_acceptance": "ACCEPTED",
+        "validation_message_digests": [],
+        "conditional_field_ids": [],
+        "starting_dom_generation": 0,
+        "settled_dom_generation": 0,
+        "persistence_verified": true,
+        "safe_retry_allowed": false,
+        "outcome": "VERIFIED",
+        "reason_codes": [
+          "VERIFIED_PERSISTENCE"
+        ],
+        "correlation_id": "cor_33C7RHF55M2952M8E36EH78Q5B",
+        "causation_id": "decision_0WHQBEXWS6XG38RE3PSCDAY0GW"
+      }
+    ]
+  }
+}

@@ -26,15 +26,15 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 
 ## Deterministic next work
 
-- Current package: `NONE`
-- Next READY package: `M02-W14`
+- Current package: `M02-W14`
+- Next READY package: `NONE`
 - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every reviewed direct package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
 
 ## Critical-gate effects
 
 | Gate | State | Blocked milestones | Blocked packages | Report |
 |---|---|---|---:|---|
-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+| AUTOFILL_FEASIBILITY | IN_PROGRESS | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M06 | 6 | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M21, M22, M23 | 16 | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
 | CROSS_PLATFORM_CORE | NOT_EVALUATED | M28 | 6 | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
@@ -284,7 +284,7 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
 | M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation | VERIFIED | M02-W10 | M00, M01 | — | — | Implement dynamic state, reconciliation, and performance instrumentation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M02-W12 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W11) | REVIEWED_V1_2 |
 | M02-W12 | Build ATS research variant matrix | VERIFIED | M02-W11 | M00, M01 | — | — | Build ATS research variant matrix | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope | M02-W13 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W12) | REVIEWED_V1_2 |
 | M02-W13 | Build autofill benchmark and clean-room baseline harness | VERIFIED | M02-W12 | M00, M01 | — | — | Build autofill benchmark and clean-room baseline harness | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W14 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W13) | REVIEWED_V1_2 |
-| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | READY | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
+| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | IN_PROGRESS | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
 | M02-W15 | Independent Autofill Feasibility Gate audit and decision | NOT_STARTED | M02-W14 | M00, M01 | — | — | Independent Autofill Feasibility Gate audit and decision | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | — | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
 
 ### M03 — Desktop shell, local orchestrator lifecycle, and authenticated health path

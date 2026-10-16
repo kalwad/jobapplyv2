@@ -1,0 +1,10 @@
+{
+  "scope": "All available shadow-support failure/stdout logs, compact critical before traces/safe JSON, final focused29, exact preimages/final source/version mapping. All96 passing trace directories remain outside this compact archive.",
+  "known_retention_limits": [
+    "Original first10 failure: stdout retained; first traces were cleaned. Exact-original-source later mounted+silentlate2 rerun traces retained separately.",
+    "Initial outside-unit setup missing immutable public matrix had no separate persisted failure log; corrected176 source tests retained.",
+    "Failing target20 runs used traceoff and old reporting order, so earlier failures only retained final p95/assertion stderr; latest passing predecessor20 raw22rows retained."
+  ],
+  "root_required": "Final exact-source combined aggregate/performance still required; predecessor1473.75 pass is explicitly not final-source timing.",
+  "no_external_personal_profile_data": "Test values are synthetic; raw artifacts contain local paths/loopback URLs/browser extension IDs and synthetic fact/label evidence."
+}
