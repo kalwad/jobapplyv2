@@ -86,6 +86,7 @@ CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
     "KI-0093",
     "KI-0094",
     "KI-0095",
+    "KI-0096",
 )
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
@@ -2640,6 +2641,7 @@ def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) ->
             "- KI-0093 (HIGH, IN_PROGRESS) — synthetic later encoding finding",
             "- KI-0094 (HIGH, IN_PROGRESS) — synthetic later focus-value finding",
             "- KI-0095 (HIGH, IN_PROGRESS) — synthetic later fixture-capacity finding",
+            "- KI-0096 (HIGH, IN_PROGRESS) — synthetic later metadata timing finding",
         ],
     )
     reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
@@ -2682,6 +2684,7 @@ def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> No
             "- KI-0093 (HIGH, IN_PROGRESS) — synthetic current encoding issue",
             "- KI-0094 (HIGH, IN_PROGRESS) — synthetic current focus-value issue",
             "- KI-0095 (HIGH, IN_PROGRESS) — synthetic current fixture-capacity issue",
+            "- KI-0096 (HIGH, IN_PROGRESS) — synthetic current metadata timing issue",
         ],
     )
     reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")

@@ -421,8 +421,8 @@
     ],
     "coverage": "COMPLETE_INSTALLED_NATIVE_SURFACES"
   },
-  "preexecution_source_revision": 8,
-  "preexecution_source_revision_reason": "CURRENT_TEXT_DATE_FOCUS_VALUE_PRESERVATION_AFTER_ACTUAL_REVISION_7_CAMPAIGN",
+  "preexecution_source_revision": 9,
+  "preexecution_source_revision_reason": "CURRENT_RESULT_METADATA_HASH_JOIN_OPTIMIZATION_AFTER_UNEXECUTED_REVISION_8",
   "source_lock_revised_at": "2026-10-16T17:36:40.250599+00:00",
   "owned_launcher": {
     "browser_runner_deadline_ms": 180000,
@@ -435,11 +435,11 @@
   },
   "offline_join_truth": "RECOMPUTED_FROM_UNIQUE_FINAL_NATIVE_VALUES_VS_FROZEN_EXPECTATIONS_SUPPLIED_FLAGS_ARE_CLAIMS_ONLY",
   "runtime_python_required": "3.12.13",
-  "preexecution_previous_campaign_lock_digest": "sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042",
+  "preexecution_previous_campaign_lock_digest": "sha256:0f22812dc44aa46fda51b78ef666738a924e00e0deaaaff977bc33d82729ab3a",
   "preexecution_runtime_review_record": "SEPARATE_EXACT_SOURCE_AND_DECLARATION_REVIEW_REQUIRED_BEFORE_EXECUTION",
   "preexecution_no_paired_system_run_declared": true,
-  "preexecution_rebind_prepared_at": "2026-10-16T22:23:14.956485Z",
-  "preexecution_runtime_inventory_correction": "Revision7 actual candidate4/legacy4 results remain historical under locke5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042. Revision8 binds the two-file text/date focus-value guard and narrowly scoped pre-write recovery correction. Both actors must execute afresh. No old outcome is rebound; inputs, oracles, projections, vendor sources, observer and actor/control assertions remain exact.",
+  "preexecution_rebind_prepared_at": "2026-10-16T23:13:28.982469Z",
+  "preexecution_runtime_inventory_correction": "Revision8 was reviewed but never executed: candidate0/legacy0 under lock0f22812dc44aa46fda51b78ef666738a924e00e0deaaaff977bc33d82729ab3a. Revision9 binds the single-file bounded concurrent immutable result-metadata hash computation, preserving rejection order and existing publication witnesses. Actual revision7 candidate4/legacy4 observations remain historical under locke5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042. Both actors must execute afresh; no old outcome or timing is inherited. Inputs, oracles, projections, vendor sources, observer, actor code and control assertions remain exact.",
   "candidate_runtime_inventory_policy": {
     "format_version": "W14_PAIRED_CANDIDATE_RUNTIME_INVENTORY_1",
     "directories": [
@@ -496,7 +496,7 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc",
+  "candidate_runtime_inventory_digest": "sha256:3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502",
   "candidate_runtime_inventory_count": 355,
   "preexecution_prior_setup_attempt": {
     "revision": 5,
@@ -512,6 +512,13 @@
     "candidate_cases_executed": 4,
     "legacy_cases_executed": 4,
     "evidence_directory": "docs/evidence/m02-w14-revision7-actual",
-    "relationship": "HISTORICAL_ACTUAL_RESULTS_NOT_REBOUND_OR_INHERITED_BY_REVISION_8"
+    "relationship": "HISTORICAL_ACTUAL_RESULTS_NOT_REBOUND_OR_INHERITED_BY_REVISION_9"
+  },
+  "preexecution_prior_unexecuted_campaign": {
+    "source_revision": 8,
+    "campaign_lock_digest": "sha256:0f22812dc44aa46fda51b78ef666738a924e00e0deaaaff977bc33d82729ab3a",
+    "candidate_cases_executed": 0,
+    "legacy_cases_executed": 0,
+    "relationship": "SUPERSEDED_WITHOUT_ANY_ACTOR_EXECUTION_OR_INHERITED_OUTCOME"
   }
 }

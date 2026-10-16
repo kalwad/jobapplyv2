@@ -416,38 +416,65 @@ function currentConditionalFields(
     .slice(0, 64);
 }
 
+function unwrapResultHash<T>(outcome: PromiseSettledResult<T>): T {
+  if (outcome.status === "rejected") {
+    const reason: unknown = outcome.reason;
+    // Preserve the original rejection identity, including non-Error reasons.
+    throw reason;
+  }
+  return outcome.value;
+}
+
 async function buildResult(input: ResultInput): Promise<FormDriverResultV1> {
   const synthesis = synthesizeOutcome(input.phase);
   const transaction = input.transaction;
-  const result: FormDriverResultV1 = {
-    result_id: await stableSemanticId(
+  // These seven immutable metadata computations have no live-page authority
+  // and no dependencies on one another. Publication witnesses remain after
+  // this bounded join in both execute and undo.
+  const hashes = await Promise.allSettled([
+    stableSemanticId(
       "result",
       `w10-result-v1\0${transaction.transaction_id}\0${input.operation}\0${synthesis.outcome}`,
     ),
-    driver_id: await stableSemanticId(
-      "driver",
-      `w10-driver-v1\0${input.driverKey}`,
+    stableSemanticId("driver", `w10-driver-v1\0${input.driverKey}`),
+    stableSemanticId(
+      "attempt",
+      `w10-attempt-v1\0${transaction.transaction_id}\0${input.operation}`,
     ),
+    stableSemanticId(
+      "idem",
+      `w10-idempotency-v1\0${transaction.transaction_id}\0${input.operation}`,
+    ),
+    evidenceFromObservation(input.intended),
+    evidenceFromObservation(input.immediate),
+    evidenceFromObservation(input.settled),
+  ] as const);
+  // Unwrap in the original evaluation order so simultaneous failures retain
+  // the first old rejection reason rather than the fastest completion.
+  const resultId = unwrapResultHash(hashes[0]);
+  const driverId = unwrapResultHash(hashes[1]);
+  const attemptId = unwrapResultHash(hashes[2]);
+  const idempotencyKey = unwrapResultHash(hashes[3]);
+  const intendedValue = unwrapResultHash(hashes[4]);
+  const immediateValue = unwrapResultHash(hashes[5]);
+  const settledValue = unwrapResultHash(hashes[6]);
+  const result: FormDriverResultV1 = {
+    result_id: resultId,
+    driver_id: driverId,
     session_id: transaction.address.session_id,
     field_address: transaction.address,
     resolution_result: input.resolution,
     preconditions: input.preconditions,
     action_attempt: {
-      attempt_id: await stableSemanticId(
-        "attempt",
-        `w10-attempt-v1\0${transaction.transaction_id}\0${input.operation}`,
-      ),
+      attempt_id: attemptId,
       attempted_at: input.attemptedAt,
       action_count: 1,
       duration_ms: input.durationMs,
-      idempotency_key: await stableSemanticId(
-        "idem",
-        `w10-idempotency-v1\0${transaction.transaction_id}\0${input.operation}`,
-      ),
+      idempotency_key: idempotencyKey,
     },
-    intended_value: await evidenceFromObservation(input.intended),
-    observed_value_immediate: await evidenceFromObservation(input.immediate),
-    observed_value_settled: await evidenceFromObservation(input.settled),
+    intended_value: intendedValue,
+    observed_value_immediate: immediateValue,
+    observed_value_settled: settledValue,
     site_acceptance: input.siteAcceptance,
     validation_message_digests: input.validationMessageDigests.slice(0, 8),
     conditional_field_ids: input.conditionalFieldIds.slice(0, 64),

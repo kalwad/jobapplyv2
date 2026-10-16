@@ -304,7 +304,7 @@
       ]
     }
   ],
-  "predeclaration_digest": "sha256:97a881648edded66502dd4af6cecba1a591ed1a7abdf898ef3f241b30f47692a",
+  "predeclaration_digest": "sha256:de735ff4d46c47993fa2afa8249b7b1553cdbea2e84f0e8f2d50b72db7ab3a09",
   "inputs_digest": "sha256:2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812",
   "oracles_digest": "sha256:96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626",
   "meter_function_sha256": "sha256:fbb9567d2f62c9e9cfdd1c1d7eee8142d2b2391902e3d92d7626823b5753b239",
@@ -461,7 +461,7 @@
     },
     {
       "path": "apps/extension/src/driver-engine.ts",
-      "sha256": "sha256:9fc5287957ad148aad2cc449244427c9a2d731470dd267088396b534ed340ed4"
+      "sha256": "sha256:22071b77f7610b315dc58f51275d3703f895c92f5f6c919f2efbbd275a312557"
     },
     {
       "path": "apps/extension/src/driver-evidence.ts",
@@ -2007,5 +2007,5 @@
     "max_total_bytes": 134217728,
     "non_source_limits": "Installed third-party dependencies are bound by toolchain/package/lock files; actual extension bundle bytes require separate fresh-build provenance and start/end build inventories."
   },
-  "candidate_runtime_inventory_digest": "sha256:8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc"
+  "candidate_runtime_inventory_digest": "sha256:3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502"
 }

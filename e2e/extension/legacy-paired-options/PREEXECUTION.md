@@ -1,4 +1,12 @@
-# Paired explicit-option pre-execution source revision 8
+# Paired explicit-option pre-execution source revision 9
+
+Revision 9 declares fresh candidate 4 and legacy 4 executions after the reviewed bounded result-metadata hash optimization. The current runtime is 355 files / `sha256:3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502` (3,371,960 bytes). Only `apps/extension/src/driver-engine.ts` changes from revision 8. No revision 9 actor has run at authoring.
+
+Revision 8 was reviewed but never executed: candidate 0 / legacy 0 under `sha256:0f22812dc44aa46fda51b78ef666738a924e00e0deaaaff977bc33d82729ab3a`. Its coordinator was never released because the matching frozen fc48930 full run failed its native128 target performance assertion. Its exact six metadata/configuration/checklist files are preserved under `preexecution-history/revision-8/`. That failed full run remains historical and is not converted into a pass by the separately scoped isolated target result. Actual revision 7 candidate 4 / legacy 4 observations remain historical under `sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042` in `docs/evidence/m02-w14-revision7-actual`; no old outcome, pass or timing is inherited.
+
+Frozen inputs/oracles/projections, all 31 vendor sources, native observer, actor implementations, source/control assertions and previous history bytes remain exact. Configuration requires revision 9 and the exact revision 8 predecessor lock. Coordinator/worker fresh absolute outside-output checks are unchanged; parent commands strip `TEST_WORKER_INDEX`. Separate exact-byte independent source/declaration review, clean committed source and fresh build provenance are required before both new actors execute. No formal W15 or Gate A authority is granted.
+
+## Historical revision 8 preparation record
 
 Revision8 declares fresh candidate4 and legacy4 executions after the reviewed text/date focus-value correction. Runtime binding is355files / `sha256:8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc`. Actual revision7 results under `sha256:e5b9a8dd4163a6f3c9e61782ef808692ebf65da0997fdfdb486d77e671b50042` remain historical in `docs/evidence/m02-w14-revision7-actual`; no outcome or timing is inherited. No revision8 actor has run at authoring.
 
@@ -63,7 +71,7 @@ These commands are a runbook, not executed evidence. Use pinned Node 24.18.0/pnp
 ```sh
 cd /Users/tanishkalwad/jobapplyv2
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
-export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_8_SHA256_DIGEST'
+export JAPP_W14_PAIRED_EXPECTED_LOCK='PARENT_REVIEWED_REVISION_9_SHA256_DIGEST'
 export JAPP_W14_PAIRED_OPTIONS_EVALUATION=1
 JAPP_PAIRED_RUN_DIRECTORY="$(mktemp -d /tmp/japp-w14-paired-run.XXXXXX)"
 ```
