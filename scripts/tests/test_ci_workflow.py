@@ -1,4 +1,4 @@
-"""Static validation of the GitHub Actions CI definition (M00-W06, M00-W09).
+"""Validation of the GitHub Actions CI definition (M00-W06, M00-W09).
 
 Parses .github/workflows/*.yml with a duplicate-key-rejecting loader and
 asserts the security, determinism, and no-divergence properties the package
@@ -23,6 +23,7 @@ import check_portability
 import validate_status
 import verify
 import yaml
+from _bounded_process import run_bounded_process
 from conftest import REPO_ROOT
 
 WORKFLOWS_DIR = REPO_ROOT / ".github" / "workflows"
@@ -429,13 +430,115 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
     assert "retention-days" in upload["with"]
 
 
-def test_artifact_path_matches_playwright_output_config() -> None:
+def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
     config = (REPO_ROOT / "playwright.config.ts").read_text(encoding="utf-8")
     # Playwright's default outputDir is test-results/; the config must not
     # redirect it somewhere the CI artifact step does not upload.
     assert "outputDir" not in config
     assert 'trace: "retain-on-failure"' in config
     assert 'screenshot: "only-on-failure"' in config
+
+    # Exercise the installed, pinned runner's real output cleanup without
+    # launching a browser, building, or touching the repository's artifacts.
+    # Wrappers keep the real configs' relative locations/outputDir settings;
+    # only browser suite discovery and setup are replaced by two tiny tests.
+    fixture_root = tmp_path / "playwright-retention"
+    fixture_root.mkdir()
+    (fixture_root / "package.json").write_text(
+        '{"name":"playwright-retention","private":true,"type":"module"}',
+        encoding="utf-8",
+    )
+    test_dir = fixture_root / "synthetic"
+    test_dir.mkdir()
+    playwright_test = (
+        REPO_ROOT / "node_modules" / "@playwright" / "test" / "index.mjs"
+    ).as_uri()
+    (test_dir / "seed.spec.mjs").write_text(
+        f"import {{ test, expect }} from {json.dumps(playwright_test)};\n"
+        'import { writeFileSync } from "node:fs";\n'
+        'test("synthetic default failure", async ({}, testInfo) => {\n'
+        '  writeFileSync(testInfo.outputPath("default-evidence.marker"), '
+        '"original default failure artifact");\n'
+        '  expect("intentional negative fixture").toBe("failure");\n'
+        "});\n",
+        encoding="utf-8",
+    )
+    (test_dir / "controlled.spec.mjs").write_text(
+        f"import {{ test }} from {json.dumps(playwright_test)};\n"
+        'test("synthetic controlled pass", () => {});\n',
+        encoding="utf-8",
+    )
+
+    config_paths = (
+        "playwright.config.ts",
+        "e2e/extension/public-research/playwright.config.ts",
+        "e2e/extension/public-contact/playwright.config.ts",
+    )
+    output_dirs: list[Path] = []
+    failure_artifacts: dict[Path, bytes] = {}
+    artifact_root = fixture_root / "test-results"
+    for index, config_path in enumerate(config_paths):
+        wrapper = fixture_root / config_path
+        wrapper.parent.mkdir(parents=True, exist_ok=True)
+        source = (REPO_ROOT / config_path).as_uri()
+        test_match = "seed.spec.mjs" if index == 0 else "controlled.spec.mjs"
+        wrapper.write_text(
+            f"import original from {json.dumps(source)};\n"
+            "export default { ...original, "
+            f"testDir: {json.dumps(str(test_dir))}, "
+            f"testMatch: {json.dumps(test_match)}, "
+            "globalSetup: undefined, webServer: undefined, "
+            'reporter: [["json"]] };\n',
+            encoding="utf-8",
+        )
+        result = run_bounded_process(
+            [
+                "node",
+                str(REPO_ROOT / "node_modules" / "@playwright" / "test" / "cli.js"),
+                "test",
+                "--config",
+                str(wrapper),
+            ],
+            cwd=fixture_root,
+            timeout_seconds=30,
+            label="Playwright failure-artifact retention",
+        )
+        assert result.returncode == (1 if index == 0 else 0), (
+            result.stdout + result.stderr
+        )
+        report = json.loads(result.stdout)
+        assert report["stats"]["unexpected"] == (1 if index == 0 else 0)
+        assert report["stats"]["expected"] == (0 if index == 0 else 1)
+        assert report["stats"]["skipped"] == 0
+        assert report["stats"]["flaky"] == 0
+        resolved = {
+            Path(project["outputDir"]) for project in report["config"]["projects"]
+        }
+        assert len(resolved) == 1
+        output_dirs.append(resolved.pop())
+        if index == 0:
+            markers = list(artifact_root.rglob("default-evidence.marker"))
+            assert len(markers) == 1
+            marker = markers[0]
+            assert (
+                marker.read_text(encoding="utf-8")
+                == "original default failure artifact"
+            )
+            trace = marker.with_name("trace.zip")
+            failure_artifacts = {marker: marker.read_bytes(), trace: trace.read_bytes()}
+        for artifact, contents in failure_artifacts.items():
+            assert artifact.is_file(), (
+                f"{config_path} deleted the default failure artifact {artifact.name}"
+            )
+            assert artifact.read_bytes() == contents
+
+    assert output_dirs[0] == artifact_root
+    assert len(set(output_dirs)) == len(config_paths)
+    for controlled_dir in output_dirs[1:]:
+        assert controlled_dir.is_relative_to(artifact_root)
+        assert controlled_dir != artifact_root
+    assert not output_dirs[1].is_relative_to(output_dirs[2])
+    assert not output_dirs[2].is_relative_to(output_dirs[1])
 
 
 def test_cache_keys_carry_platform_tool_and_lockfile_identity() -> None:

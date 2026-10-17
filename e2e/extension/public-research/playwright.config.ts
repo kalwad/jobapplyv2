@@ -3,6 +3,8 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: ".",
   testMatch: "controlled-scope.proof.ts",
+  // Each invocation cleans its outputDir; retain the default suite's failures.
+  outputDir: "../../../test-results/public-research",
   fullyParallel: false,
   forbidOnly: true,
   retries: 0,

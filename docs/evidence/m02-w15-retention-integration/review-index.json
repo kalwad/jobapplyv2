@@ -1,0 +1,95 @@
+{
+  "format": "M02_W15_DOCUMENTARY_REVIEW_PACK_1",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "gate_state": "IN_PROGRESS",
+  "candidate": {
+    "base_commit": "507a7687b004937fbf0dc48e5e80a35d30fe9b6e",
+    "patch_sha256": "177181da420e4852f5ac18ccb00758f03f06e8ea78db01e8221c601127f99793",
+    "scope": "Root integration/focused proof; final full candidate pending"
+  },
+  "result_references": [],
+  "scope_notes": [
+    "Exact3file source-clear retention correction; sourceafterimages and7policy/corpus/inventory files match committedbindings.",
+    "Root actual41CItests plus Ruff/format/mypy/TS lint/format/diff PASS; initialnonexistenttestpath failure retained as exact toolresponse-derived observation, not rawredirectedlog.",
+    "Author originalRED/patchedGREEN are realpinned Playwright no-browser fixture runs preservingactualtracebytes;65karchive includes72regularmembers/honestNode26explorationhistory.",
+    "No original507afailureartifact recovery or currentfull/gatePASS."
+  ],
+  "files": [
+    {
+      "member": "author/proof.tar.gz",
+      "bytes": 65563,
+      "sha256": "9876e918573a2c5d13a3f84e61c11ecdaa181c455679a5fd34acbb1354c13a82"
+    },
+    {
+      "member": "author/identity.json",
+      "bytes": 1300,
+      "sha256": "cfd329c9dc37bf38f394e3b4e2f5ddbc3ddd2895f41a88d6f4e116348de8fa6e"
+    },
+    {
+      "member": "root-checks/commands.json",
+      "bytes": 3376,
+      "sha256": "ce2126d74e428da259ccd99de7432ca4c7441d58712938d089211c9d219f83c1"
+    },
+    {
+      "member": "root-checks/diff.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "root-checks/eslint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "root-checks/initial-selection-failure.derived.json",
+      "bytes": 458,
+      "sha256": "5e5061ba7322e972ad6e248fc699cc96709b68cdf720dd219870f95a8eb297ef"
+    },
+    {
+      "member": "root-checks/mypy.log",
+      "bytes": 42,
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e"
+    },
+    {
+      "member": "root-checks/prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "member": "root-checks/pytest.log",
+      "bytes": 99,
+      "sha256": "35fbe52b52180bc44e1bad5caa8c95920f95777c312e2b5eb607266d2819f807"
+    },
+    {
+      "member": "root-checks/ruff-format.log",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "member": "root-checks/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "member": "root-checks/run.py",
+      "bytes": 1593,
+      "sha256": "50c2b5ce588c2f41f59739de2789d550501a816a23f876a84b11d9f4fff143b8"
+    },
+    {
+      "member": "integrated-source/e2e/extension/public-contact/playwright.config.ts",
+      "bytes": 564,
+      "sha256": "49ba994caa17728465f1c83ee5e5ad7af8407a77202d23e28a4d67e46fd2db71"
+    },
+    {
+      "member": "integrated-source/e2e/extension/public-research/playwright.config.ts",
+      "bytes": 569,
+      "sha256": "ae2a301b9028cf5ef238101b1cbfa282ab9559e69f079ab28dbf3e0e1ddbe4dd"
+    },
+    {
+      "member": "integrated-source/scripts/tests/test_ci_workflow.py",
+      "bytes": 32083,
+      "sha256": "39bcb0dbb93db3135bec0cf6eba6f0225df7799fa6f2647224ee7ba3ab10882a"
+    }
+  ]
+}
