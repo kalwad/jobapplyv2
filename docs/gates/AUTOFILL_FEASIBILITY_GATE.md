@@ -8,12 +8,21 @@ Gate report for the blocking Autofill Feasibility Gate (spec §2.3; owner M02). 
 - Owning milestone: M02 (M02-W07 through M02-W15)
 - Blocks: M03 readiness; M17/M18/M19 retain Gate A PASS qualifiers.
 - State: IN_PROGRESS
-- Evaluated revision: clean730 local full and actualR9 pass; nativefc three-OS CI separately passes. These close scoped corrective issues only. Final W14/W15/owner Gate A acceptance and next final-head native CI remain pending; older source observations remain historical.
+- Evaluated revision: retained clean730 local full/actualR9 and exact1d native three-OS CI are separate completed scopes. The accepted 2026-10-17 evidence waiver supplies no new execution or final W14/W15/owner Gate A verdict; remaining review is pending.
 - Gate authority / independent decision: none yet.
 
 ## Blocking thresholds
 
-The complete numerical and zero-tolerance table in spec §2.3 remains in force. OD-035 / ADR-0006 waives owner-controlled hidden holdout and per-package stopping only. Visible corpus, physical safety, accuracy, full-settlement performance, actual public/Simplify/legacy comparison and independent-review obligations remain individually reportable. No threshold is weakened to obtain PASS.
+The numerical and zero-tolerance requirements outside the expressly waived comparison/public-form categories remain in force. OD-035 / ADR-0006 waives owner-controlled holdout/per-W stopping; OD-036 / ADR-0007 waives only direct Simplify comparison and executed public-form evidence. Visible controlled corpus, physical safety, absolute accuracy/performance, other baselines and independent/source-bound owner review remain required. No unexecuted observation becomes PASS.
+
+## Accepted owner evidence waiver — 2026-10-17
+
+Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
+Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
+
+Accepted OD-036 / ADR-0007 removes only direct Simplify comparison and executed public-form evidence prerequisites project-wide. These assessments are not executed or passed observations and provide no public ATS support or competitor parity/superiority claim. Other components of mixed requirements, controlled/absolute thresholds, actual usability/accessibility/visual approval, other baselines, native proof and independent/source-bound owner gate decisions remain required. Original specification, frozen corpus and historical records stay unchanged. This record changes no package/gate state.
+
+Current public scored cases and direct Simplify cases remain0. Their historical attempts/readiness records below remain exact. KI-0089 is OPEN for final eligible independent W15/source-bound owner decision; remaining W14 audit/closeout must clear first. Continuous execution authorizes progressing eligible validated work and does not grant a fabricated unknown future verdict.
 
 ## Historical development evaluation runs
 
@@ -43,7 +52,7 @@ The fourth trace-disabled full campaign completed all 200 cases with the same ac
 
 W12 matrix SHA-256 is `c160e7e006a3801443db43a0aa7926540d1949229cf5ffe11ae4649f6d01a878`; separate W06 development corpus SHA-256 is `93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8`. Original frozen inputs/registry remain unchanged. The 32-form W06 parent is not wholly executed by this contact campaign. Upload/repeater/date/checkbox/radio/custom-combobox operations, iframe/shadow DOM, page transitions, parser effects and long soak have no exercised-feature claim from these runs. W13 canonical abstention semantics remain unchanged; initial-value preservation is supplemental and does not credit automated fills or erase safety/reporting errors.
 
-## Supplemental comparison and public preparation
+## Historical supplemental comparison and public preparation
 
 - Supplemental actual legacy execution: `docs/evidence/m02-w14-external/capture-rerender.json` (SHA-256 `6ea6ec758d1a0976d9841bafdbf3943bc3a24ab20850262e59d995d936069385`) and `capture-summary.json` (SHA-256 `02fd904f1c4af21dac949c259a9b544f5e2253a9ff94e2cfba85fc52db271691`). Unchanged JobApply commit `c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd` extension and autofill-router components ran in an isolated synthetic wrapper with AI disabled, mode `COMPONENT_DETERMINISTIC_NO_AI`, authority NONE. Four grouped/en-US W13 same-input preimages each yielded eight input/change witnesses and eight controlled rerenders, seven exact ordinary final-value matches, a differently formatted phone, and empty country/region; zero observed navigation or submission. Phone expectations were not changed. UI claimed nine fills; eight event witnesses were observed. This is descriptive component evidence, not canonical Gate A rescoring or a full legacy product run; event meters do not exhaustively prove absence of eventless writes.
 - JobApply's pinned attribution identifies `tcpsyn/CareerPulse` commit `629aa992f3e3c3d05575686f350a7173e8b5e108`. Their extension/app Git trees and MIT license blob match exactly. The one actual shared-component execution is not two independent full-product comparisons. Historical frozen registry statuses (`CareerPulse UNAVAILABLE`, `legacy NOT_ATTEMPTED`) remain untouched and are not a claim about this newer supplemental capture.
@@ -147,7 +156,7 @@ KI-0096 is HIGH/IN_PROGRESS. The reviewed one-file correction joins the same sev
 Public scored cases and actual normal-user Simplify cases remain0.31packages remain VERIFIED; W14/Gate A IN_PROGRESS, W15/M03 NOT_STARTED, release NOT_READY and accepted holdout waiver remain unchanged. Focused target PASS is not a complete aggregate, native-platform, comparison or W15/Gate A approval.
 
 
-## Current scoped corrective closeout — 2026-10-16
+## Historical scoped corrective closeout — 2026-10-16
 
 Clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d passes all19 active suites:3859 units/242 default browsers/62 controlled contact plus2 separate public-inspection cases/1454 Python in305.66s. Independent79-check audit reconciles all1504 tracked files to immutable Git blobs, including source/runtime/lock endpoints and retained contact producer build bindings. Native128 target20 nearest-rank p95(rank19)1447.4198340000003ms is below unchanged1500ms at the existing zero-settle/no-async-rerender lower-bound scope. Separate contact200 full-settlement p95873.2555000000284ms retains the exact1485/1485 precision/persistence,1275/1275 required recall,770/770 reporting,90/90 preservation and all7 measured safety counters0. Canonical W13 still reports90 incorrect abstentions. Full proof: docs/evidence/m02-w14-frozen-730c641/proof.tar.gz, SHA-256 0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58,6867546bytes/88 safe regular members; independent full-data audit79/79 and separate archive peer review24/24.
 

@@ -28,6 +28,10 @@ ATS/browser/OS support and measured pass rates
   evidence references, and last-tested date). Defining that shape adds no row
   and grants no support claim; the production support tables below remain empty.
 
+## Owner evidence waiver — 2026-10-17
+
+Direct Simplify comparison and executed public-form evidence prerequisites are WAIVED_BY_OWNER_ADR_0007 under accepted OD-036 / ADR-0007. Actual direct Simplify/public scored cases remain0. Historical rows below retain their observations and source bindings; their older pending-prerequisite language is historical. A waiver grants no public ATS support, compatibility, parity or superiority. Production support rows still require their nonwaived measured fixture/controlled evidence, versions, scoped compatibility record and applicable gate decision. Product capabilities, controlled/native verification and other baselines remain required.
+
 ## M02-W14 research observations (non-support claims, 2026-10-16)
 
 W14 remains IN_PROGRESS and Gate A IN_PROGRESS. These source-scoped synthetic and structural observations do not populate production adapter/browser/OS support rows. Historical inventories include uncommitted candidates; later observations bind committed runtime 15c7e33, original peer `f7f9dc1` and paired source lock `47b6fe33`. No accepted W14 revision exists.

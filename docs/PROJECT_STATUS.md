@@ -1,8 +1,8 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W14 scoped corrective closeout; clean730 full/R9 pass and nativefc CI pass; next final-head CI pending
-Last updated: 2026-10-16T23:43:00Z
+Repository revision: M02-W14; accepted ADR-0007 external-evidence waiver; historical exact1d native CI passes; remaining W14/W15 review pending
+Last updated: 2026-10-17
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
 Current work package: M02-W14
@@ -28,10 +28,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - Current clean730 contact scope:200/200 recipes,4020 logical/4060 native controls, precision/persistence1485/1485, required ordinary recall1275/1275, reporting770/770, preservation90/90;1485 raw=audited=native actions,0 orphans/all7 measured physical safety counters0; separate full-settlement p95873.2555000000284ms. W13 still retains90 incorrect abstentions. Contact producer source/build/declaration bindings are unchanged and audited; unexercised controls and public forms remain outside this cohort.
 - Scoped corrections: KI-0091/KI-0092 remain FIXED at their recorded scopes. KI-0093/KI-0095 are now FIXED at the corrected fixture/nativefc CI scope. KI-0094/KI-0096 are now FIXED at the reviewed correction plus complete clean730 local regression and independently reconciled actualR9 scope. Original failures, focused proofs and source anchors remain retained. Thresholds, waits, canonical scoring and all live authority/recovery checks remain unchanged.
 - Latest actual comparison: revision9 completes once after clean730 full PASS, with candidate4/legacy4 under lock72a68/runtime355-3b6c; all7 source/tool/build checks remain stable. Independent200-check audit recomputes40/40vs28/40 exact and separate40/40vs32/40 ASCII phone-digits equivalence. Candidate unexpected installed native calls0/legacy4 country-code ACTIVATIONs; both final nonordinary/nav/submission0. One shared component/four related fixtures grants no broad, statistical, performance, two-product or Simplify claim. Normal contexts/profiles/owned direct children close; OS descendants remain UNOBSERVED. The first199/200 audit used an incorrect loopback-alias assumption; both attempts/correction remain retained and no product rerun occurs. Revision8 was NEVER INVOKED; revision7 is historical.
-- Latest native platform evidence: fc48930 CI run38979349323 SUCCESS on Ubuntu/macOS/Windows; tested merge34477f17c8b97e2caf04fb4d716d352d7e7a8a32/treecb787f46afec1281c87074a82fd31e23b37c865a equalsfc. Each passes all19 active suites,242 browser cases,201 status IDs,11 contact-proof IDs,2524 contracts, infrastructure8 twice and tracked-clean. Python: Ubuntu1454/316.09s, macOS1454/539.73s, Windows1452/673.22s, with only the declared FIFO/Unix-socket cohort difference. These are earlierfc native results, not later730/final-head CI. CI uses one zero-settle timing sample per platform; macOS1814.681916999998ms is not a target20 pass. Earlier918 failures remain historical and the stackless contact F cause remains UNPROVEN despite fresh success.
+- Latest native platform evidence: exact1d490d1230b443c31fd4a9d8732064552affe149 CI run38984225730/attempt1 SUCCESS on Ubuntu/macOS/Windows; tested merged8de57146b6ef183cf6229701e5089c904175ce9/treeac98b18d71fffc6cc0ff7fc07ccd32ccda8133d9 equals1d. All19 suites pass; Python Ubuntu1454/456.26s, macOS1454/407.38s, Windows1452/726.21s with only declared FIFO/socket capability differences. Each includes status201/contact11/contracts2524/compiler8 twice/browser242/controlled62 plus2 inspection cases and tracked-clean. Native proof is docs/evidence/m02-w14-1d490d-ci; independent archive27 review is clear. CI sample1/settle0, including macOS1662.458292ms, is not local target20 evidence. This historical exact1d result does not certify later waiver source changes; old stackless contact F remains UNPROVEN.
 - Historical actual public evidence: clean0dd88ce run records30/30original sources:17network-closure refusals,7form/protected refusals,6interference;0dispatches/executions/scored rows, natural accuracy/site acceptance null. Independent24-check source/build/oracle/journal audit passes within that scope. Partial/unknown event and OS-descendant coverage remain explicit.
-- Remaining evidence: actual normal-user Simplify cases0; suitable signed-in synthetic session request pending. Public scored coverage and formal independent W15/owner Gate A decision remain incomplete (KI-0089). Supplemental review has completed; earlier quota errors are historical. Read-only full dependency audit finds no eligible downstream package or early W15 status workaround.
-- Owner instruction (OD-035 / ADR-0006): continue successive eligible packages without per-W stops; owner-controlled holdout is WAIVED_BY_OWNER and is not a blocker. A waiver supplies no executed accuracy, safety, platform or comparison result.
+- Remaining evidence: direct Simplify comparison and executed public-form evidence are WAIVED_BY_OWNER_ADR_0007 under accepted OD-036; actual cases remain0 and no public support or competitor parity/superiority is inferred. KI-0089 remains OPEN for final eligible independent W15/source-bound owner Gate A decision. Remaining W14 audit/closeout must clear first; the waiver itself promotes no package or gate. Other numerical/safety/performance/controlled/native/legacy/usability/accessibility/visual requirements remain binding.
+- Owner instructions: OD-035 / ADR-0006 waives owner-controlled holdout and per-W stopping; OD-036 / ADR-0007 waives only direct Simplify comparison and executed public-form evidence project-wide. Continue successive eligible validated packages. Neither record supplies executed results, a final independent verdict or an unknown future owner gate PASS.
 - Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED, release NOT_READY; M03 NOT_STARTED. No employer submission or production ATS support claim.
 
 ## Milestone table
@@ -113,7 +113,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
-| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Clean730 full and actualR9 pass; nativefc CI closes fixture scope; public/Simplify/formalW15 incomplete, holdout waived |
+| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Clean730 full/actualR9 and exact1d native CI pass; direct Simplify/public-form evidence waived; remaining W14 audit/formalW15 decision pending |
 | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
@@ -390,7 +390,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Known release blockers
 
-- KI-0089 (HIGH, OPEN) — Gate A public scored coverage, actual Simplify comparison and final independent review/decision remain incomplete.
+- KI-0089 (HIGH, OPEN) — Direct Simplify/public-form portions are waived by ADR-0007; final eligible independent review and source-bound Gate A owner decision remain incomplete.
 
 ## Status conventions and update rules
 

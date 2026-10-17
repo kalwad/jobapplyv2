@@ -34,7 +34,7 @@ broadening a work package (spec §1.5).
 
 ## M02-W14 current development findings (2026-10-16)
 
-These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is IN_PROGRESS, Gate A IN_PROGRESS, W15 NOT_STARTED and release NOT_READY. ADR-0006 waives owner-controlled holdout only; public/Simplify/scoped legacy comparisons and independent review are not passed by that waiver. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.
+These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is IN_PROGRESS, Gate A IN_PROGRESS, W15 NOT_STARTED and release NOT_READY. ADR-0006 waives owner-controlled holdout; accepted ADR-0007 additionally waives direct Simplify comparison and executed public-form evidence. Neither waiver supplies execution or PASS. Scoped legacy baselines, all nonwaived measurement and independent review remain required. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.
 
 ### KI-0077 — Corrected full-settlement campaign exceeds the target timing threshold
 
@@ -170,12 +170,18 @@ Current scope limits: the preservation model is supplemental and does not rewrit
 - Workaround: never strip markers, change the oracle, bypass protected boundaries or weaken transport closure to obtain a score.
 - Resolution + evidence link: associated literal label text is observed first and every alternative channel is retained separately. A bounded read-only5000ms/50ms/max100-poll startup observation precedes the same strict closure check; it grants no action authority. A new controlled regression verifies the literal required marker while conflicting employer ownership still refuses. The held-request test retains refusal/no-write assertions and verifies natural completion separately. All62 mandatory controlled proofs (all61 retained plus one new case),19 verifier guards, static checks and unchanged1454-node Python preflight pass. The actual30-source rerun has17 transport refusals,7 form/protected refusals and6 interference rows,0 action requests and no scored public accuracy. Evidence: docs/evidence/m02-w14-public-observation-correction.
 
-### KI-0089 — Gate A has incomplete externally executed evidence
+### KI-0089 — Gate A final independent review and decision remain incomplete
 
 - Severity: HIGH
 - State: OPEN
 - Discovered: 2026-10-16 during M02-W14 final evidence reconciliation
 - Affects: M02-W14; M02-W15; M02 acceptance and Autofill Feasibility Gate
+- Description: accepted OD-036 / ADR-0007 waives the direct Simplify comparison and executed public-form evidence portions of this finding. Actual public scored cases and direct Simplify cases remain0, not PASS. Final eligible independent W15 review and the concrete source-bound owner Gate A decision remain incomplete; remaining W14 audit/closeout must clear before that final review.
+- Reproduction: inspect current W14/W15/package/gate states and the pending independent-review/owner-decision sections. Historical public attempts, Simplify readiness, original missing-observation finding and all supplemental review records remain retained below. No downstream readiness follows from this waiver.
+- Workaround: only the two external evidence prerequisites are WAIVED_BY_OWNER_ADR_0007; owner holdout remains waived by ADR-0006. Preserve all numerical, safety, controlled/native, other-baseline, usability/accessibility/visual and review obligations, along with CAPTCHA/authentication/consent/transport/no-submit boundaries.
+- Resolution + evidence link: OPEN for the nonwaived independent review and source-bound gate decision. Complete the remaining applicable W14 audit/closeout, then execute eligible M02-W15 against exact evidence and record its actual verdict; the continuous-work instruction supplies no fabricated verdict. See accepted ADR-0007, docs/CRITICAL_GATES.md and docs/gates/AUTOFILL_FEASIBILITY_GATE.md.
+- Historical finding before the 2026-10-17 waiver:
+
 - Description: the latest declared public campaign records all 30 pages but scores none: 17 strict network-closure refusals, 7 form/protected-surface refusals and 6 interference outcomes. The normal-user Simplify comparison has zero cases. Final independent W15 review and the source-bound gate decision have not occurred. Passing local tests cannot supply these missing observations.
 - Reproduction: inspect the latest actual clean0dd88ce campaign binding, action journal and assessment in docs/evidence/m02-w14-public-0dd88ce; the earlier8ae96f0 records remain unchanged in docs/evidence/m02-w14-public-observation-correction, the Simplify readiness record, and the Gate A review/decision sections. All owned evaluation browsers were closed normally. Review agents initially returned the account usage-limit error; capacity subsequently resumed and fresh supplemental reports are retained. Neither condition constitutes the formal W15 verdict.
 - Workaround: none accepted. Preserve CAPTCHA, authentication, legal-consent, dialog and transport boundaries. The owner-controlled holdout is already waived by ADR-0006 and is not part of this blocker. The pending request identifies the normal signed-in synthetic Simplify session without requesting credentials.

@@ -2900,3 +2900,362 @@ def test_gate_v2_waiver_cannot_relabel_both_records_as_execution_pass(
         ledger="Holdout result: PASS",
         report="Holdout result: PASS",
     )
+
+
+# ADR-0007 changes only two explicitly named evidence-source prerequisites.
+EVIDENCE_SCOPE_AUTHORITY_FIXTURE = {
+    "heading": (
+        "### ADR-0007 — Direct Simplify comparison and executed public-form "
+        "evidence waiver"
+    ),
+    "owner_row": (
+        "| OD-036 | Waive direct Simplify comparison and executed "
+        "public-form evidence throughout the project; preserve all other "
+        "completion, safety, measurement and review requirements. Continue "
+        "until the project is finished and validated. | ACCEPTED | Owner "
+        "message 2026-10-17; ADR-0007 |"
+    ),
+    "approval": (
+        "- Owner approval: direct instruction in this chat on 2026-10-17: "
+        '"Waive the Simplify comparison and public-form evidence '
+        "requirements too. Keep going through all remaining milestones "
+        'until the entire project is finished and validated."'
+    ),
+    "decision": (
+        "- Decision: remove direct Simplify comparison and executed "
+        "public-form evidence as completion prerequisites throughout this "
+        "project. Record the affected requirements as WAIVED_BY_OWNER under "
+        "OD-036 / ADR-0007; preserve actual historical outcomes and never "
+        "relabel nonexecution as PASS. Continue successive eligible "
+        "packages under ADR-0006 without per-W stopping. Numerical "
+        "accuracy, safety and performance thresholds, controlled-corpus "
+        "execution, native-platform proof, independent review, other "
+        "comparison baselines, product capabilities, actual usability, "
+        "accessibility, visual approval and all other non-comparison "
+        "requirements remain binding. This decision grants no public ATS "
+        "support, superiority claim or final gate verdict."
+    ),
+    "scope": (
+        "- Waiver scope: DIRECT_SIMPLIFY_COMPARISON and "
+        "EXECUTED_PUBLIC_FORM_EVIDENCE only, project-wide. Only the "
+        "directly comparative Simplify component of a mixed requirement is "
+        "waived; public-form evidence means execution-based validation on "
+        "third-party public application forms, including public "
+        "no-submit/dry-run requirements. Other components remain required. "
+        "Public UI-reference observation, actual Simplify-experienced-user "
+        "task studies, accessibility, visual approval and "
+        "originality/non-affiliation requirements are not waived."
+    ),
+}
+
+EVIDENCE_SCOPE_LABELS = {
+    "DIRECT_SIMPLIFY_COMPARISON": "Simplify comparison result",
+    "EXECUTED_PUBLIC_FORM_EVIDENCE": "Public-form evidence result",
+}
+EVIDENCE_SCOPE_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0007"
+
+
+def write_owner_evidence_scope_waiver(repo: Path, *, status: str = "ACCEPTED") -> None:
+    path = repo / "docs/DECISIONS.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = path.read_text(encoding="utf-8") if path.is_file() else "# Decisions\n"
+    text = re.sub(r"^\| OD-036 \|.*\n?", "", text, flags=re.MULTILINE)
+    text = re.sub(
+        r"^### ADR-0007\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    record = (
+        EVIDENCE_SCOPE_AUTHORITY_FIXTURE["owner_row"]
+        + "\n\n"
+        + EVIDENCE_SCOPE_AUTHORITY_FIXTURE["heading"]
+        + f"\n\n- Status: {status}\n"
+        + "\n".join(
+            EVIDENCE_SCOPE_AUTHORITY_FIXTURE[key]
+            for key in ("approval", "decision", "scope")
+        )
+        + "\n"
+    )
+    path.write_text(text.rstrip("\n") + "\n\n" + record, encoding="utf-8")
+
+
+def evidence_scope_records(
+    *scopes: str, token: str = EVIDENCE_SCOPE_WAIVER_RESULT
+) -> str:
+    selected = scopes or tuple(EVIDENCE_SCOPE_LABELS)
+    return "\n".join(f"- {EVIDENCE_SCOPE_LABELS[scope]}: {token}" for scope in selected)
+
+
+def install_gate_evidence_scope_records(repo: Path, gate: str, value: str) -> None:
+    pattern = r"^(?:- )?(?:Simplify comparison|Public-form evidence) result:.*\n?"
+    ledger = repo / "docs/CRITICAL_GATES.md"
+    sections = ledger.read_text(encoding="utf-8").split("\n## ")
+    for index, section in enumerate(sections):
+        if section.splitlines()[0] == gate:
+            updated_section = re.sub(pattern, "", section, flags=re.MULTILINE)
+            sections[index] = updated_section.rstrip("\n") + "\n" + value + "\n"
+            break
+    else:
+        pytest.fail(f"missing gate fixture section: {gate}")
+    ledger.write_text("\n## ".join(sections), encoding="utf-8")
+    report = repo / f"docs/gates/{gate}_GATE.md"
+    text = re.sub(pattern, "", report.read_text(encoding="utf-8"), flags=re.MULTILINE)
+    report.write_text(text.rstrip("\n") + "\n" + value + "\n", encoding="utf-8")
+
+
+def test_owner_evidence_waiver_claims_require_recorded_authority(
+    repo_copy: Path,
+) -> None:
+    path = repo_copy / "docs/DECISIONS.md"
+    text = re.sub(
+        r"^### ADR-0007\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        path.read_text(encoding="utf-8"),
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    text = re.sub(r"^\| OD-036 \|.*\n?", "", text, flags=re.MULTILINE)
+    path.write_text(text, encoding="utf-8")
+    install_gate_evidence_scope_records(
+        repo_copy, "AUTOFILL_FEASIBILITY", evidence_scope_records()
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert (
+        "evidence-source waiver lacks exact accepted owner authority" in result.stdout
+    )
+
+
+def test_owner_evidence_waiver_cannot_substitute_native_metrics(tmp_path: Path) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    text = (
+        "### Metric table\n"
+        "| Dimension | Threshold | Measured |\n"
+        "|---|---|---|\n"
+        f"| Native startup | 1000ms | {EVIDENCE_SCOPE_WAIVER_RESULT} |\n"
+        "- Zero-tolerance failures observed: 0\n"
+    )
+    assert validate_status._gate_d_metric_problems(text)
+
+
+def test_owner_evidence_waiver_accepts_closed_paired_scopes(tmp_path: Path) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    for scope in EVIDENCE_SCOPE_LABELS:
+        assert validate_status._owner_evidence_scope_waived(tmp_path, scope)
+    records = evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON")
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records, gate="RESUME_PAGEFIT_FEASIBILITY"
+    )
+    records = evidence_scope_records()
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+    for gate in ("AUTOFILL_FEASIBILITY", "WORKDAY_GUIDED_PRE_SUBMIT"):
+        incomplete = evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON")
+        assert validate_status._gate_evidence_scope_waiver_problems(
+            tmp_path, incomplete, incomplete, gate=gate
+        )
+    for scope in ("NATIVE_PLATFORM_PROOF", "INDEPENDENT_REVIEW", "SAFETY", "ALL"):
+        assert not validate_status._owner_evidence_scope_waived(tmp_path, scope)
+
+
+@pytest.mark.parametrize("status", ["PROPOSED", "REJECTED", "SUPERSEDED"])
+def test_owner_evidence_waiver_refuses_unaccepted_record(
+    tmp_path: Path, status: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path, status=status)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "part", ["owner_row", "heading", "approval", "decision", "scope", "status"]
+)
+def test_owner_evidence_waiver_refuses_missing_or_changed_authority(
+    tmp_path: Path, part: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    old = (
+        "- Status: ACCEPTED"
+        if part == "status"
+        else EVIDENCE_SCOPE_AUTHORITY_FIXTURE[part]
+    )
+    edit(path, old, "- removed or changed authority", count=1)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "part", ["owner_row", "heading", "approval", "decision", "scope"]
+)
+def test_owner_evidence_waiver_refuses_ambiguous_authority(
+    tmp_path: Path, part: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(EVIDENCE_SCOPE_AUTHORITY_FIXTURE[part] + "\n")
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "token",
+    [
+        "WAIVED_BY_OWNER",
+        "WAIVED_BY_OWNER_ADR_0006",
+        "WAIVED_BY_OWNER_ADR_0008",
+        "waived_by_owner_adr_0007",
+        "PASS WAIVED_BY_OWNER_ADR_0007",
+        "WAIVED_BY_OWNER_ADR_0007 executed",
+        "PENDING",
+        "UNAVAILABLE",
+    ],
+)
+def test_owner_evidence_waiver_refuses_forged_or_unpaired_tokens(
+    tmp_path: Path, token: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, evidence_scope_records(), evidence_scope_records(token=token)
+    )
+
+
+def test_owner_evidence_waiver_refuses_missing_duplicate_and_expanded_fields(
+    tmp_path: Path,
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    records = evidence_scope_records()
+    for bad in (
+        "",
+        evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+        records + "\n" + evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+        records + f"\n- Native platform proof result: {EVIDENCE_SCOPE_WAIVER_RESULT}",
+    ):
+        assert validate_status._gate_evidence_scope_waiver_problems(
+            tmp_path, records, bad
+        )
+
+
+def test_owner_evidence_waiver_absence_never_claims_authority(tmp_path: Path) -> None:
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, "ordinary evidence pending", "ordinary evidence pending"
+    )
+    assert not validate_status._owner_evidence_scope_waived(
+        tmp_path, "DIRECT_SIMPLIFY_COMPARISON"
+    )
+
+
+@pytest.mark.parametrize("source_state", ["missing", "directory", "invalid_utf8"])
+def test_owner_evidence_waiver_refuses_unreadable_source(
+    tmp_path: Path, source_state: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    path.unlink()
+    if source_state == "directory":
+        path.mkdir()
+    elif source_state == "invalid_utf8":
+        path.write_bytes(b"\xff")
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize("link_component", ["docs", "DECISIONS.md"])
+def test_owner_evidence_waiver_refuses_symlink_metadata(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, link_component: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    original = Path.is_symlink
+
+    def reported_link(path: Path) -> bool:
+        return path.name == link_component or original(path)
+
+    monkeypatch.setattr(Path, "is_symlink", reported_link)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+def test_owner_evidence_waiver_record_digest_is_local_and_holdout_unchanged(
+    repo_copy: Path,
+) -> None:
+    before_holdout = validate_status._owner_holdout_waiver_digest(repo_copy)
+    assert before_holdout
+    write_owner_evidence_scope_waiver(repo_copy)
+    before = validate_status._owner_evidence_scope_waiver_digest(repo_copy)
+    assert before
+    path = repo_copy / "docs/DECISIONS.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write("\n### ADR-9999 — Unrelated future record\n- Status: PROPOSED\n")
+    assert validate_status._owner_evidence_scope_waiver_digest(repo_copy) == before
+    assert validate_status._owner_holdout_waiver_digest(repo_copy) == before_holdout
+    edit(path, EVIDENCE_SCOPE_AUTHORITY_FIXTURE["scope"], "- Waiver scope: ALL")
+    assert validate_status._owner_evidence_scope_waiver_digest(repo_copy) is None
+
+
+def test_owner_evidence_waiver_does_not_promote_current_gate(repo_copy: Path) -> None:
+    write_owner_evidence_scope_waiver(repo_copy)
+    install_gate_evidence_scope_records(
+        repo_copy, "AUTOFILL_FEASIBILITY", evidence_scope_records()
+    )
+    before = status_path(repo_copy).read_bytes()
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert status_path(repo_copy).read_bytes() == before
+
+
+@pytest.mark.parametrize("missing", ["reviewer", "owner", "native", "safety"])
+def test_owner_evidence_waiver_preserves_other_gate_prerequisites(
+    repo_copy: Path, missing: str
+) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    write_owner_evidence_scope_waiver(repo_copy)
+    for gate in ("AUTOFILL_FEASIBILITY", "WORKDAY_GUIDED_PRE_SUBMIT"):
+        install_gate_evidence_scope_records(repo_copy, gate, evidence_scope_records())
+    install_gate_evidence_scope_records(
+        repo_copy,
+        "RESUME_PAGEFIT_FEASIBILITY",
+        evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+    )
+    baseline = run_validator(repo_copy)
+    assert baseline.returncode == 0, baseline.stdout + baseline.stderr
+    report = repo_copy / "docs/gates/CROSS_PLATFORM_CORE_GATE.md"
+    if missing == "reviewer":
+        edit(
+            report,
+            f"- Independent reviewer: {FAKE_REVIEWER}",
+            "- Independent reviewer: pending",
+        )
+    elif missing == "owner":
+        edit(
+            report,
+            "- Owner decision: PASS (synthetic fixture)",
+            "- Owner decision: REJECTED",
+        )
+    elif missing == "native":
+        _set_markdown_table_cell(
+            repo_copy / "docs/platform/MODEL_RUNTIME_PROFILES.md",
+            "windows-x64",
+            1,
+            "`NOT_YET_IMPLEMENTED`",
+        )
+    else:
+        ledger = repo_copy / "docs/CRITICAL_GATES.md"
+        edit(
+            ledger,
+            "- Zero-tolerance failures observed: 0",
+            "- Zero-tolerance failures observed: 1",
+        )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1, result.stdout + result.stderr

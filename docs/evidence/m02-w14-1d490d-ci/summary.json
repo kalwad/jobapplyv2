@@ -1,0 +1,487 @@
+{
+  "repository": "kalwad/jobapplyv2",
+  "pull_request": 1,
+  "run_id": 38984225730,
+  "run_url": "https://github.com/kalwad/jobapplyv2/actions/runs/38984225730",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "head": "1d490d1230b443c31fd4a9d8732064552affe149",
+  "tested_merge": "d8de57146b6ef183cf6229701e5089c904175ce9",
+  "tested_tree": "ac98b18d71fffc6cc0ff7fc07ccd32ccda8133d9",
+  "merge_parents": [
+    "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+    "1d490d1230b443c31fd4a9d8732064552affe149"
+  ],
+  "head_tree_equals_tested_merge_tree": true,
+  "created_at": "2026-10-16T23:59:27Z",
+  "updated_at": "2026-10-17T00:35:54Z",
+  "platforms": [
+    {
+      "platform": "ubuntu",
+      "job_id": 117251833953,
+      "job_name": "doctor + verify (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:59:31Z",
+      "completed_at": "2026-10-17T00:26:48Z",
+      "raw_log": {
+        "path": "ubuntu-117251833953.raw.log",
+        "bytes": 1089108,
+        "sha256": "185d5d73d5b1a4c512d8981e24ebf84eeb3eec00c3f789e7f9b8d13a1525e296"
+      },
+      "tested_merge": "d8de57146b6ef183cf6229701e5089c904175ce9",
+      "python": {
+        "count": 1454,
+        "duration": "456.26s (0:07:36)",
+        "summary_line": 7391,
+        "outcome": "PASS, complete final all-pass summary",
+        "exact_declared_capability_inventory_match": true,
+        "collected_nodeids_sha256": "155570431ee494bad264af6849d3474d9a95ad1091a49e06c56d2b5dfc92db94",
+        "declared_common_count": 1452,
+        "declared_common_sha256": "d577b6ab2ad552586dd680176a7ffc4dd75a293bff5c2a5032647339ba068575",
+        "posix_only_nodeids": [
+          "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[fifo]",
+          "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[socket]"
+        ]
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1785,
+          "text": "242 passed (9.6m)"
+        },
+        {
+          "line": 2116,
+          "text": "2 passed (2.8s)"
+        },
+        {
+          "line": 2243,
+          "text": "62 passed (45.0s)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 1184,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1787ms"
+        },
+        {
+          "line": 1381,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1807ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 1201,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1303.3863659999988,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    {
+      "platform": "macos",
+      "job_id": 117251833960,
+      "job_name": "doctor + verify (macos-15)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:59:35Z",
+      "completed_at": "2026-10-17T00:27:37Z",
+      "raw_log": {
+        "path": "macos-117251833960.raw.log",
+        "bytes": 1070471,
+        "sha256": "8ccfb03321cc7a876bf969dfd7846ec0fb302350ba70f10ee60ac1c7494f13f4"
+      },
+      "tested_merge": "d8de57146b6ef183cf6229701e5089c904175ce9",
+      "python": {
+        "count": 1454,
+        "duration": "407.38s (0:06:47)",
+        "summary_line": 7171,
+        "outcome": "PASS, complete final all-pass summary",
+        "exact_declared_capability_inventory_match": true,
+        "collected_nodeids_sha256": "155570431ee494bad264af6849d3474d9a95ad1091a49e06c56d2b5dfc92db94",
+        "declared_common_count": 1452,
+        "declared_common_sha256": "d577b6ab2ad552586dd680176a7ffc4dd75a293bff5c2a5032647339ba068575",
+        "posix_only_nodeids": [
+          "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[fifo]",
+          "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[socket]"
+        ]
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1566,
+          "text": "242 passed (12.1m)"
+        },
+        {
+          "line": 1897,
+          "text": "2 passed (4.1s)"
+        },
+        {
+          "line": 2023,
+          "text": "62 passed (1.2m)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 982,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1837ms"
+        },
+        {
+          "line": 1162,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1577ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 999,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1662.4582919999993,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    {
+      "platform": "windows",
+      "job_id": 117251833793,
+      "job_name": "doctor + verify (windows-2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:59:30Z",
+      "completed_at": "2026-10-17T00:35:53Z",
+      "raw_log": {
+        "path": "windows-117251833793.raw.log",
+        "bytes": 1081920,
+        "sha256": "1e3ecdf3fe16a0212d0688396bbcefd2b54df2fe1984ca9640a315fe0b8d03b0"
+      },
+      "tested_merge": "d8de57146b6ef183cf6229701e5089c904175ce9",
+      "python": {
+        "count": 1452,
+        "duration": "726.21s (0:12:06)",
+        "summary_line": 7201,
+        "outcome": "PASS, complete final all-pass summary",
+        "exact_declared_capability_inventory_match": true,
+        "collected_nodeids_sha256": "d577b6ab2ad552586dd680176a7ffc4dd75a293bff5c2a5032647339ba068575",
+        "declared_common_count": 1452,
+        "declared_common_sha256": "d577b6ab2ad552586dd680176a7ffc4dd75a293bff5c2a5032647339ba068575",
+        "posix_only_nodeids": []
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1597,
+          "text": "242 passed (13.5m)"
+        },
+        {
+          "line": 1928,
+          "text": "2 passed (5.5s)"
+        },
+        {
+          "line": 2055,
+          "text": "62 passed (2.0m)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 1011,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1417ms"
+        },
+        {
+          "line": 1193,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1487ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 1028,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1057.3932999999997,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    }
+  ],
+  "artifact_count": 0,
+  "scope": [
+    "Exact 1d490d source and matching PR merge tree only.",
+    "Native Windows full pytest summary confirms all 1452 tests, status 201 and contact 11, including the previously stackless contact-environment case.",
+    "Native Windows direct-compiler infrastructure 8 passes twice; full contracts 2524 passes.",
+    "CI native128 measurement uses one sample on each platform; it does not satisfy or replace the separate 20-sample target campaign.",
+    "The exact benchmark source applies its 1500ms target assertion only for sampleCount===20 on darwin; macOS single-sample CI measured 1662.4582919999993ms and still passed its default functional scope.",
+    "No causal explanation is asserted for the prior stackless contact-environment failure.",
+    "No later local optimization is covered by this CI run."
+  ]
+}

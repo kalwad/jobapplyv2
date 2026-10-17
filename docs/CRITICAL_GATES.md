@@ -24,6 +24,12 @@ reports live in `docs/gates/`.
 - The implementation agent may not be the sole approver of any gate
   (spec §1.5, REQ-GATE-011); independent review remains mandatory. Owner-controlled hidden holdout is
   WAIVED_BY_OWNER under OD-035 / ADR-0006; it is neither executed nor passed.
+- Direct Simplify comparison and executed public-form evidence requirements are
+  WAIVED_BY_OWNER_ADR_0007 under accepted OD-036 / ADR-0007 project-wide.
+  These are nonexecution assessments, not passing observed results. Mixed
+  requirements retain all other components; controlled/absolute thresholds,
+  native evidence, other baselines, actual usability/accessibility/visual
+  approval and source-bound independent/owner gate decisions remain required.
 - Any change to gate-relevant components triggers the complete affected
   gate regression (spec §1.5; REQ-WD-023 for Workday).
 - Gate B must evaluate the provider-neutral M05-W03 path. M05-W17 reruns every
@@ -73,14 +79,16 @@ reports live in `docs/gates/`.
 - Independent reviewer: —
 - Owner decision: pending
 - Report: docs/gates/AUTOFILL_FEASIBILITY_GATE.md
-- Known limitations: W14 partial development evidence only. Four historical
-  campaigns retain timing/accuracy limits; the fifth canonical foreground contact run passes p95 at 864.5065410000025 ms. Whole-parent coverage and comparisons remain pending. Public sources are
-  structurally inspected with zero fill evaluations; actual legacy evidence
-  is component-scoped; actual Simplify comparison and independent review are
-  pending. Owner holdout is WAIVED_BY_OWNER under ADR-0006.
-- Next permitted action: continue focused M02-W14 correction and validation,
-  preserving historical raw/source commitments, then run independent M02-W15
-  on the exact final evidence. M03 must not become READY before Gate A PASS.
+- Known limitations: controlled clean730 full and actualR9 evidence and exact1d
+  native CI are separately retained; the remaining W14 audit and formal W15
+  decision are not inferred from those proofs. Actual scored public-form and
+  direct Simplify cases remain0, with only those prerequisites waived below.
+  Other feature/measurement scopes remain limited to their actual evidence.
+- Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
+- Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
+- Next permitted action: finish remaining applicable M02-W14 audit/closeout,
+  then run independent eligible M02-W15 on exact final evidence. M03 stays
+  NOT_STARTED until actual Gate A PASS and M02 acceptance.
 
 ### Metric table (spec §2.3 Gate A — measured results recorded at evaluation)
 
@@ -98,7 +106,7 @@ reports live in `docs/gates/`.
 | Generic scan/fill p95, excluding AI | <= 1.5 s per page | — |
 | Live employer submissions performed by gate automation | 0 | — |
 | Workday challenge-set architecture failures hidden or waived | 0 | — |
-| Greenhouse/Lever/Workday research comparison versus Simplify | non-inferior precision on the declared narrow set, within the declared recall margin, and safer or equal on uncertainty | — |
+| Greenhouse/Lever/Workday research comparison versus Simplify | non-inferior precision on the declared narrow set, within the declared recall margin, and safer or equal on uncertainty | WAIVED_BY_OWNER_ADR_0007 (not executed or passed) |
 | Comparison versus CareerPulse/legacy JobApply | decisive measured improvement with no inherited unsafe fallback | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
@@ -187,10 +195,11 @@ reports live in `docs/gates/`.
 | Correct two-page recommendation when floors would be violated | 100% of defined guardrail cases | — |
 | Severe swap, sustained memory pressure, or system instability on M5/24 GB | 0 accepted benchmark runs | — |
 | Blind preference versus one-shot and keyword-stuffing baselines | statistically meaningful win on the defined set | — |
-| Simplify comparison | at least parity on overall usefulness, with superior or equal factuality and transparency; final release still requires a meaningful win | — |
+| Simplify comparison | at least parity on overall usefulness, with superior or equal factuality and transparency; final release still requires a meaningful win | WAIVED_BY_OWNER_ADR_0007 (not executed or passed) |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
 - Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
+- Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
 - Independent review: pending.
 
 ## WORKDAY_GUIDED_PRE_SUBMIT
@@ -229,9 +238,11 @@ reports live in `docs/gates/`.
 | Login, account creation, MFA, email verification, CAPTCHA, and legal-consent boundaries bypassed | 0 | — |
 | Ordinary Workday page fill/verify p95, excluding uploads and AI | <= 3.0 s | — |
 | Long-session observer or memory leak | 0 confirmed monotonic leak in the defined soak | — |
-| Manual corrections versus Simplify on the same certified matrix | non-inferior overall, with fewer or equal unsafe/wrong fills and better unresolved-field reporting | — |
+| Manual corrections versus Simplify on the same certified matrix | non-inferior overall, with fewer or equal unsafe/wrong fills and better unresolved-field reporting | WAIVED_BY_OWNER_ADR_0007 (not executed or passed) |
 | Live employer submissions performed by gate automation | 0 | — |
 
 - Zero-tolerance failures observed: — (none recorded; gate not evaluated).
 - Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
+- Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
+- Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
 - Independent review: pending.

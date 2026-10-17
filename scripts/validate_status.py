@@ -271,6 +271,62 @@ OWNER_HOLDOUT_WAIVER_OWNER_ROW = (
     "2026-10-16; ADR-0006 |"
 )
 OWNER_HOLDOUT_WAIVER_PREIMAGE_DOMAIN = b"japp-owner-holdout-waiver-v1\0"
+OWNER_EVIDENCE_SCOPE_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0007"
+OWNER_EVIDENCE_SCOPE_WAIVER_HEADING = (
+    "### ADR-0007 — Direct Simplify comparison and executed public-form evidence waiver"
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW = (
+    "| OD-036 | Waive direct Simplify comparison and executed "
+    "public-form evidence throughout the project; preserve all other "
+    "completion, safety, measurement and review requirements. Continue "
+    "until the project is finished and validated. | ACCEPTED | Owner "
+    "message 2026-10-17; ADR-0007 |"
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_APPROVAL = (
+    "- Owner approval: direct instruction in this chat on 2026-10-17: "
+    '"Waive the Simplify comparison and public-form evidence '
+    "requirements too. Keep going through all remaining milestones "
+    'until the entire project is finished and validated."'
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_DECISION = (
+    "- Decision: remove direct Simplify comparison and executed "
+    "public-form evidence as completion prerequisites throughout this "
+    "project. Record the affected requirements as WAIVED_BY_OWNER under "
+    "OD-036 / ADR-0007; preserve actual historical outcomes and never "
+    "relabel nonexecution as PASS. Continue successive eligible "
+    "packages under ADR-0006 without per-W stopping. Numerical "
+    "accuracy, safety and performance thresholds, controlled-corpus "
+    "execution, native-platform proof, independent review, other "
+    "comparison baselines, product capabilities, actual usability, "
+    "accessibility, visual approval and all other non-comparison "
+    "requirements remain binding. This decision grants no public ATS "
+    "support, superiority claim or final gate verdict."
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_SCOPE = (
+    "- Waiver scope: DIRECT_SIMPLIFY_COMPARISON and "
+    "EXECUTED_PUBLIC_FORM_EVIDENCE only, project-wide. Only the "
+    "directly comparative Simplify component of a mixed requirement is "
+    "waived; public-form evidence means execution-based validation on "
+    "third-party public application forms, including public "
+    "no-submit/dry-run requirements. Other components remain required. "
+    "Public UI-reference observation, actual Simplify-experienced-user "
+    "task studies, accessibility, visual approval and "
+    "originality/non-affiliation requirements are not waived."
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_PREIMAGE_DOMAIN = (
+    b"japp-owner-external-evidence-waiver-v1\0"
+)
+OWNER_EVIDENCE_SCOPE_LABELS = {
+    "DIRECT_SIMPLIFY_COMPARISON": "Simplify comparison result",
+    "EXECUTED_PUBLIC_FORM_EVIDENCE": "Public-form evidence result",
+}
+OWNER_EVIDENCE_GATE_SCOPES = {
+    "AUTOFILL_FEASIBILITY": tuple(OWNER_EVIDENCE_SCOPE_LABELS),
+    "RESUME_PAGEFIT_FEASIBILITY": ("DIRECT_SIMPLIFY_COMPARISON",),
+    "WORKDAY_GUIDED_PRE_SUBMIT": tuple(OWNER_EVIDENCE_SCOPE_LABELS),
+    "CROSS_PLATFORM_CORE": (),
+}
+
 UI_SURFACE_IDS = (
     "DESKTOP_SHELL",
     "HOME_DASHBOARD",
@@ -1845,6 +1901,7 @@ def _gate_d_metric_problems(ledger_text: str) -> list[str]:
         for value in measured
         if _is_evidence_placeholder(value)
         or value.casefold().startswith(("pending", "not evaluated"))
+        or "waived_by_owner" in value.casefold()
     ]
     if not measured:
         problems.append("critical-gate ledger has no Gate D measured rows")
@@ -2021,6 +2078,132 @@ def gate_holdout_authority_v2_problems(
     )
 
 
+def _owner_evidence_scope_waiver_preimage(repo: Path) -> bytes | None:
+    """Bind only the exact accepted OD-036/ADR-0007 grant, not caller claims."""
+    path = repo / "docs/DECISIONS.md"
+    try:
+        if path.is_symlink() or path.parent.is_symlink() or not path.is_file():
+            return None
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    headings = re.findall(r"^### ADR-0007\b[^\n]*$", text, flags=re.MULTILINE)
+    owner_rows = re.findall(r"^\| OD-036 \|.*$", text, flags=re.MULTILINE)
+    if headings != [OWNER_EVIDENCE_SCOPE_WAIVER_HEADING] or owner_rows != [
+        OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW
+    ]:
+        return None
+    _, separator, section = text.partition(OWNER_EVIDENCE_SCOPE_WAIVER_HEADING + "\n")
+    if not separator:
+        return None
+    section = re.split(r"^##(?:#)? ", section, maxsplit=1, flags=re.MULTILINE)[0]
+    expected = {
+        "Status": "- Status: ACCEPTED",
+        "Owner approval": OWNER_EVIDENCE_SCOPE_WAIVER_APPROVAL,
+        "Decision": OWNER_EVIDENCE_SCOPE_WAIVER_DECISION,
+        "Waiver scope": OWNER_EVIDENCE_SCOPE_WAIVER_SCOPE,
+    }
+    if any(
+        re.findall(rf"^- {re.escape(label)}: .*$", section, flags=re.MULTILINE)
+        != [value]
+        for label, value in expected.items()
+    ):
+        return None
+    record = (
+        OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW
+        + "\n"
+        + OWNER_EVIDENCE_SCOPE_WAIVER_HEADING
+        + "\n"
+        + section.rstrip("\n")
+        + "\n"
+    )
+    return OWNER_EVIDENCE_SCOPE_WAIVER_PREIMAGE_DOMAIN + record.encode("utf-8")
+
+
+def _owner_evidence_scope_waiver_digest(repo: Path) -> str | None:
+    preimage = _owner_evidence_scope_waiver_preimage(repo)
+    return (
+        None if preimage is None else "sha256:" + hashlib.sha256(preimage).hexdigest()
+    )
+
+
+def _owner_evidence_scope_waived(repo: Path, scope: str) -> bool:
+    return scope in OWNER_EVIDENCE_SCOPE_LABELS and (
+        _owner_evidence_scope_waiver_preimage(repo) is not None
+    )
+
+
+def _evidence_scope_field_records(text: str, label: str) -> list[tuple[str, str]]:
+    return re.findall(
+        rf"^\s*(?:[-*]\s*)?({re.escape(label)}):\s*(.*?)\s*$",
+        text,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
+
+
+def _gate_evidence_scope_waiver_problems(
+    repo: Path,
+    ledger_text: str,
+    report_text: str,
+    *,
+    gate: str = "AUTOFILL_FEASIBILITY",
+) -> list[str]:
+    """Check explicit narrative nonexecution claims; never mint a gate verdict.
+
+    Ordinary source absence is not a waiver. Once a scope is claimed waived,
+    every applicable label must be paired exactly in ledger and report and
+    bound to the current accepted owner record. All numerical, corpus, native,
+    review, owner-decision and ordinary execution checks remain separate.
+    """
+    parsed = {
+        scope: [
+            _evidence_scope_field_records(text, label)
+            for text in (ledger_text, report_text)
+        ]
+        for scope, label in OWNER_EVIDENCE_SCOPE_LABELS.items()
+    }
+    claimed = any(
+        "waiv" in value.casefold()
+        for records in parsed.values()
+        for matches in records
+        for _, value in matches
+    )
+    foreign_claim = any(
+        "waived_by_owner_adr_0007" in value.casefold()
+        and label not in OWNER_EVIDENCE_SCOPE_LABELS.values()
+        for text in (ledger_text, report_text)
+        for label, value in re.findall(
+            r"^\s*(?:[-*]\s*)?([^:\n]+ result):\s*(.*?)\s*$",
+            text,
+            flags=re.MULTILINE | re.IGNORECASE,
+        )
+    )
+    if foreign_claim:
+        return ["evidence-source waiver claims an unapproved result scope"]
+    if not claimed:
+        return []
+    required = OWNER_EVIDENCE_GATE_SCOPES.get(gate)
+    if not required or any(
+        "waiv" in value.casefold()
+        for scope, records in parsed.items()
+        if scope not in required
+        for matches in records
+        for _, value in matches
+    ):
+        return ["evidence-source waiver claims an inapplicable gate scope"]
+    if _owner_evidence_scope_waiver_preimage(repo) is None:
+        return ["evidence-source waiver lacks exact accepted owner authority"]
+    for scope in required:
+        expected = [
+            (OWNER_EVIDENCE_SCOPE_LABELS[scope], OWNER_EVIDENCE_SCOPE_WAIVER_RESULT)
+        ]
+        if any(matches != expected for matches in parsed[scope]):
+            return [
+                "evidence-source waiver requires exact paired applicable scope fields"
+            ]
+    return []
+
+
 def _gate_holdout_problems(repo: Path, ledger_text: str, report_text: str) -> list[str]:
     """A waiver is an explicit paired record, never a passing execution."""
     records = (
@@ -2129,6 +2312,24 @@ def _check_gate_pass_evidence(
         report.fail(f"{gate} is PASS but {problem} (PASS prerequisites, spec §12)")
 
 
+def _read_gate_report_and_check_scope_waivers(
+    repo: Path, gate: str, report: Report
+) -> tuple[str, int]:
+    report_path = repo / GATE_REPORTS[gate]
+    report_text = (
+        report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
+    )
+    problems = _gate_evidence_scope_waiver_problems(
+        repo,
+        _gate_section_text(repo / "docs/CRITICAL_GATES.md", gate),
+        report_text,
+        gate=gate,
+    )
+    for problem in problems:
+        report.fail(f"{gate} {problem}")
+    return report_text, len(problems)
+
+
 def check_gates(  # noqa: PLR0912 - gate states are intentionally fail-closed
     repo: Path, status: Status, report: Report
 ) -> dict[str, str]:
@@ -2161,10 +2362,10 @@ def check_gates(  # noqa: PLR0912 - gate states are intentionally fail-closed
                 f"{expected_report!r}"
             )
             gate_errors += 1
-        report_path = repo / expected_report
-        report_text = (
-            report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
+        report_text, waiver_errors = _read_gate_report_and_check_scope_waivers(
+            repo, gate, report
         )
+        gate_errors += waiver_errors
         report_state = _last_gate_state(report_text)
         if report_state != state:
             report.fail(
