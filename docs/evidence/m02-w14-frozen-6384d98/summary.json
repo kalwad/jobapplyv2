@@ -1,0 +1,131 @@
+{
+  "scope": "SUPPLEMENTAL_W14_EXACT6384_LOCAL_CLONE_RAW_DATA_REVIEW_NOT_FORMAL_W15",
+  "authority": "NONE",
+  "status": "CLEAR",
+  "full_check_count": 87,
+  "mounted_check_count": 336,
+  "first_attempts_exit0": true,
+  "product_reruns": 0,
+  "root_writes": 0,
+  "source": {
+    "commit": "6384d98156ae198cd93d7b35d1bb28b501ed475e",
+    "tree": "d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4",
+    "tracked_files": 1560,
+    "tracked_bytes": 191853406,
+    "runtime_files": 355,
+    "runtime_bytes": 3371960,
+    "runtime_digest": "sha256:3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502"
+  },
+  "aggregate_exit_code": 0,
+  "active_suites_passed": 19,
+  "visual": "NOT_YET_APPLICABLE",
+  "typescript_units": 3859,
+  "default_browser": 242,
+  "controlled_contact": 62,
+  "controlled_inspection": 2,
+  "python": {
+    "passed": 1492,
+    "seconds": 315.95,
+    "common": 1490,
+    "posix_only": 2,
+    "skipped": 0,
+    "subcohort_counts": {
+      "test_validate_status.py": 239,
+      "test_w14_contact_controlled_proof.py": 11,
+      "test_w14_public_controlled_proof.py": 8
+    }
+  },
+  "timing": {
+    "algorithm": "nearest rank sorted[ceil(n*0.95)-1]",
+    "native128_zero_settle20_p95_ms": 1350.3221250000006,
+    "contact200_different_pages_settle75_rerender20_p95_ms": 860.658666000003,
+    "scopes_distinct": true
+  },
+  "contact200": {
+    "records": 200,
+    "logical_fields": 4020,
+    "native_controls": 4060,
+    "precision": [
+      1485,
+      1485
+    ],
+    "required_ordinary_recall": [
+      1275,
+      1275
+    ],
+    "required_reporting": [
+      770,
+      770
+    ],
+    "persistence": [
+      1485,
+      1485
+    ],
+    "preservation": [
+      90,
+      90
+    ],
+    "historical_W13_incorrect_abstentions_preserved": 90,
+    "sensitive_oracle_controls": 680,
+    "honeypot_oracle_controls": 200,
+    "physical_safety": {
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "paused_boundary_actions": 0
+    },
+    "raw_and_audited_and_native_actions": 1485,
+    "native_interactions": 5490,
+    "canonical_PASS_scope": "Declared zero-tolerance safety metrics; separate recomputed rates/timing/preservation are not silently included."
+  },
+  "mounted32": {
+    "catalog_rows": 32,
+    "distinct_routes": 16,
+    "positive_rows": 18,
+    "unsupported_only_rows": 14,
+    "correct_contact_occurrences": 43,
+    "expected_contact_occurrences": 43,
+    "observed_fields": 144,
+    "unsupported_fields": 101,
+    "scenario_transitions_exercised": 0,
+    "scenario_transitions_accounted": 67,
+    "five_event_value_safety_counters": {
+      "unsupported_writes": 0,
+      "unsupported_value_changes": 0,
+      "duplicate_primary_events": 0,
+      "button_clicks": 0,
+      "submissions": 0
+    },
+    "native_setter_instrumentation": false,
+    "end_build_inventory_serialized": false,
+    "standalone_shadow_captures_claimed": 1,
+    "standalone_shadow_post_final_snapshot_serialized": false
+  },
+  "doctor": {
+    "original_wrapper_command": [
+      "pnpm",
+      "doctor"
+    ],
+    "original_command_identity": "pnpm11 builtin doctor",
+    "separate_actual_repository_command": [
+      "pnpm",
+      "run",
+      "doctor"
+    ],
+    "separate_exit_code": 0,
+    "separate_summary": {
+      "pass": 27,
+      "warning": 0,
+      "fail": 0,
+      "not_yet_applicable": 1
+    },
+    "strict_doctor_before_aggregate_order_claimed": false
+  },
+  "historical_evidence": "730 local, R9 comparison and1d nativeCI remain separate older evaluation anchors; current6384local is not nativeWindows6384 proof.",
+  "waivers": "ADR6 owner holdout/per-W stops; ADR7 directSimplify/executedpublicforms only, never executionPASS.",
+  "gate_decision": "NOT_DECIDED",
+  "formal_W15_review_performed": false
+}

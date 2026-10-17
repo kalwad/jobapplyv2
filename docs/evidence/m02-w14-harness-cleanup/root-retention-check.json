@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "archive_sha256": "a885cd4d29f950fbf067d60f4a8fc7b48753c308891f6938b5c284e82db891b9",
+  "safe_regular_unique_members": 50,
+  "exact_original_source_files": 49,
+  "generated_self_excluded_indexes": 1,
+  "archive_bytes_changed": false,
+  "first_checker_failure_preserved": "root-checker-initial-observation.json",
+  "gate_authority": "NONE"
+}

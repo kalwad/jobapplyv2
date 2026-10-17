@@ -209,6 +209,21 @@ def trace_repo(tmp_path: Path) -> Iterator[Path]:
             "apps/extension/test/m02-w11/dynamic-protocol.test.ts",
             "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
             "e2e/extension/extension-dynamic.spec.ts",
+            # M02-W14 scoped no-submit and actual isolated legacy evidence
+            # anchors. Copy the real files so drift/readiness tests reach their
+            # intended invariant without a missing-file premise failure.
+            "e2e/extension/support/autofill-w14-native-witness.ts",
+            "e2e/extension/public-contact/contact-harness.ts",
+            "e2e/extension/extension-w14-evaluation.spec.ts",
+            "e2e/extension/extension-w14-w06.spec.ts",
+            "e2e/extension/public-contact/controlled-contact.proof.ts",
+            "e2e/extension/legacy-paired-options/campaign.mjs",
+            "e2e/extension/legacy-paired-options/compare-paired.mjs",
+            "e2e/extension/legacy-paired-options/paired-options.proof.ts",
+            "e2e/extension/legacy-paired-options/compare-paired.structural.test.mjs",
+            "e2e/extension/legacy-paired-options/runtime-inventory.test.mjs",
+            "e2e/extension/legacy-paired-options/run-legacy.mjs",
+            "e2e/extension/legacy-paired-options/owned-child-lifecycle.test.mjs",
         ):
             source = REPO_ROOT / relative_path
             destination = repo / relative_path

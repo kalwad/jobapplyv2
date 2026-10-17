@@ -1,0 +1,323 @@
+{
+  "format": "W14_HARNESS_CLEANUP_ARCHIVE_OUTER_MANIFEST_1",
+  "archive": "proof.tar.gz",
+  "archive_sha256": "a885cd4d29f950fbf067d60f4a8fc7b48753c308891f6938b5c284e82db891b9",
+  "archive_bytes": 125765,
+  "regular_member_count": 50,
+  "payload_bytes": 873544,
+  "original_regular_sources": 49,
+  "embedded_index": {
+    "path": "retention-index.json",
+    "bytes": 13992,
+    "sha256": "87e97f40d6ba601151d912628f160f7452091c8920515d8f3f04cbbf65c2db3a"
+  },
+  "members": [
+    {
+      "path": "builder.py",
+      "bytes": 6245,
+      "sha256": "fe686643be36da21ea531ea89b015a1236da5ffe711ee3c1958314ca37189e17",
+      "original_source": "/tmp/japp-retain-w14-harness-cleanup-20261017.py"
+    },
+    {
+      "path": "independent-review/REPORT.md",
+      "bytes": 10836,
+      "sha256": "c0a291749f979a677f45841644b3aaa6080ccb382431779f86ae4669b32656ca",
+      "original_source": "/tmp/japp-w14-source-closure-review/REPORT.md"
+    },
+    {
+      "path": "independent-review/all-changed-source-coverage.tsv",
+      "bytes": 60663,
+      "sha256": "aa3e6afc4d36c7bb0c0bdc3728a94086356b8188f5e316c963b7c19ee31c8b0c",
+      "original_source": "/tmp/japp-w14-source-closure-review/all-changed-source-coverage.tsv"
+    },
+    {
+      "path": "independent-review/cleanup-final-proposal-review/REPORT.md",
+      "bytes": 4095,
+      "sha256": "c7789af7b01fd1034496e7add81d547ceec7f19f3961ee6ca5211b4da7c403a8",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-final-proposal-review/REPORT.md"
+    },
+    {
+      "path": "independent-review/cleanup-final-proposal-review/review.json",
+      "bytes": 4442,
+      "sha256": "bb2411314b4a5ec307ad3484f15e3012397c4932ad91d50df972776be5f428e6",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-final-proposal-review/review.json"
+    },
+    {
+      "path": "independent-review/cleanup-final-proposal-review/seal.json",
+      "bytes": 374,
+      "sha256": "04bbd5f349a30b00e476eb366ebb08bee56751470396344ecd5c98787ad4dba1",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-final-proposal-review/seal.json"
+    },
+    {
+      "path": "independent-review/cleanup-proposal-review/REPORT.md",
+      "bytes": 4006,
+      "sha256": "37569c52ec6f23e537257b94d0bb62d5cb3b3c9296addaee259fee9d30545297",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-proposal-review/REPORT.md"
+    },
+    {
+      "path": "independent-review/cleanup-proposal-review/review.json",
+      "bytes": 2177,
+      "sha256": "940616b76baceb1adc544793a8dbb49a6feb9180fad1f7704de83b5b42fab61f",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-proposal-review/review.json"
+    },
+    {
+      "path": "independent-review/cleanup-proposal-review/seal.json",
+      "bytes": 477,
+      "sha256": "79bbd1a1f4e5f5f036aae000440ecebf7eba4a0bba6f0d3fdc478f00ad9ad874",
+      "original_source": "/tmp/japp-w14-source-closure-review/cleanup-proposal-review/seal.json"
+    },
+    {
+      "path": "independent-review/contracts-governance/REPORT.md",
+      "bytes": 11702,
+      "sha256": "97f34206f8e4e39977fda1a66a825727698935a6b4debfc8326d09f4864e78ca",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/REPORT.md"
+    },
+    {
+      "path": "independent-review/contracts-governance/changed-file-coverage.json",
+      "bytes": 18985,
+      "sha256": "9979f693fddfd47e499cf34548876a711cc19b7f2bf50535b1986ef79caa316f",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/changed-file-coverage.json"
+    },
+    {
+      "path": "independent-review/contracts-governance/changed-file-coverage.tsv",
+      "bytes": 11824,
+      "sha256": "4b107276253740378144ec30b6a086fca4f30befd3a45b3a0c8b052cbe087c0a",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/changed-file-coverage.tsv"
+    },
+    {
+      "path": "independent-review/contracts-governance/evidence-path-inventory.json",
+      "bytes": 242158,
+      "sha256": "d1b61be5361d4e6b6ce79392377f909d0b025f29df857ffee8638866f8942a13",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/evidence-path-inventory.json"
+    },
+    {
+      "path": "independent-review/contracts-governance/evidence-path-inventory.tsv",
+      "bytes": 154695,
+      "sha256": "3466839eb127376e377f257c1feb0aec220ce4c5438d2649ca082a2a784b0724",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/evidence-path-inventory.tsv"
+    },
+    {
+      "path": "independent-review/contracts-governance/summary.json",
+      "bytes": 3105,
+      "sha256": "854a822d3d406f1ced5eefb64bf9536395aa9e662df7ff15e986516e3e1c0f82",
+      "original_source": "/tmp/japp-w14-source-closure-review/contracts-governance/summary.json"
+    },
+    {
+      "path": "independent-review/findings.json",
+      "bytes": 4068,
+      "sha256": "c90642b5c0c478b8d5f6d5db3235a7b0763ab66acbcc0df5fe1635624b702390",
+      "original_source": "/tmp/japp-w14-source-closure-review/findings.json"
+    },
+    {
+      "path": "independent-review/runtime-browser-corpus-coverage.json",
+      "bytes": 62353,
+      "sha256": "a7f75f13b24fabfb89c6261c9987a0c4377d9025dd4eb52e2588561d7bad6ad3",
+      "original_source": "/tmp/japp-w14-source-closure-review/runtime-browser-corpus-coverage.json"
+    },
+    {
+      "path": "independent-review/runtime-browser-corpus-coverage.tsv",
+      "bytes": 43579,
+      "sha256": "959cf447231c77cc42af37899411522f4aca122ae3bbfb4996bdd11305217131",
+      "original_source": "/tmp/japp-w14-source-closure-review/runtime-browser-corpus-coverage.tsv"
+    },
+    {
+      "path": "independent-review/runtime-browser-corpus-source-synopsis.json",
+      "bytes": 63668,
+      "sha256": "ff1cc6a0dfdf7bb5a9dbd326bb743af0475983112c67388548255d857a7ff49f",
+      "original_source": "/tmp/japp-w14-source-closure-review/runtime-browser-corpus-source-synopsis.json"
+    },
+    {
+      "path": "independent-review/seal.json",
+      "bytes": 1238,
+      "sha256": "c77a01b7dca781248bbec1cf7d06111a9c0b4e1f0770390d7c0226ae54f07137",
+      "original_source": "/tmp/japp-w14-source-closure-review/seal.json"
+    },
+    {
+      "path": "independent-review/summary.json",
+      "bytes": 663,
+      "sha256": "90510ed6670aa4797c0f51727e19b8431936183ed3a6c6dd219a4ba0b597b0e1",
+      "original_source": "/tmp/japp-w14-source-closure-review/summary.json"
+    },
+    {
+      "path": "proposal/README.md",
+      "bytes": 3440,
+      "sha256": "9e13667a1c9210da555864e12a5dcc5cac30e2f5ea574c0a1e025a5a186f06fe",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/README.md"
+    },
+    {
+      "path": "proposal/after/apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts",
+      "bytes": 9185,
+      "sha256": "31b2e3413ce96504de333d307d05b3ad75f3a88b9ba0e0cdd83ac562e3ab0586",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/after/apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts"
+    },
+    {
+      "path": "proposal/after/e2e/extension/public-contact/contact-harness.ts",
+      "bytes": 28687,
+      "sha256": "581856c96dc5afb84a1b1f5561cfb642439fb3373255b44d6b1371e4fce4c3ff",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/after/e2e/extension/public-contact/contact-harness.ts"
+    },
+    {
+      "path": "proposal/after/e2e/extension/public-research/inspection-harness.ts",
+      "bytes": 7382,
+      "sha256": "87c26a4895dca733dc90085f49e7830f36e4f30a2601ef51daecac9cfaf40336",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/after/e2e/extension/public-research/inspection-harness.ts"
+    },
+    {
+      "path": "proposal/before/e2e/extension/public-contact/contact-harness.ts",
+      "bytes": 28330,
+      "sha256": "977defc2c50ba5c981dd76a596e1f64fb7a1daa34441e4f88f6625ac0f3f2539",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/before/e2e/extension/public-contact/contact-harness.ts"
+    },
+    {
+      "path": "proposal/before/e2e/extension/public-research/inspection-harness.ts",
+      "bytes": 6711,
+      "sha256": "9e189415632c5613b8d6f7320255ebfa93334ffd08b382fcb43a6975085d95ae",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/before/e2e/extension/public-research/inspection-harness.ts"
+    },
+    {
+      "path": "proposal/final-focused-proof.json",
+      "bytes": 5204,
+      "sha256": "11dd77fa091be1873e929fd94f5cbaa24ba88583f7e8b6215845a23c823a7a13",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/final-focused-proof.json"
+    },
+    {
+      "path": "proposal/harness-cleanup.patch",
+      "bytes": 19151,
+      "sha256": "98d6e14cd31514623bf5d93550ecd73dc65a0347fb81f3baf12d134319e2dcb8",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/harness-cleanup.patch"
+    },
+    {
+      "path": "proposal/history/proposal001-harness-cleanup.patch",
+      "bytes": 18528,
+      "sha256": "2876a17934e4980a97d344ca314cc9872da4dca10718145579fa28137d5dc717",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/history/proposal001-harness-cleanup.patch"
+    },
+    {
+      "path": "proposal/history/proposal001-proposal-manifest.json",
+      "bytes": 1277,
+      "sha256": "e4b9eff3d1319dc179cdf0123ec108b6c761610a894fd4417c7d806e5d6d8cdb",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/history/proposal001-proposal-manifest.json"
+    },
+    {
+      "path": "proposal/logs/format-final-three.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/format-final-three.log"
+    },
+    {
+      "path": "proposal/logs/format-final-write.log",
+      "bytes": 215,
+      "sha256": "53bd39f19615151fcbca0a55fda7d64b3ac65999e43bf8a3ab2deb9fe492aeac",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/format-final-write.log"
+    },
+    {
+      "path": "proposal/logs/format-initial.log",
+      "bytes": 178,
+      "sha256": "d889901343d29285f199f6548578992540e3c8cc13a40204f22a7d516e722473",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/format-initial.log"
+    },
+    {
+      "path": "proposal/logs/format-write.log",
+      "bytes": 69,
+      "sha256": "8bdae64e1b623085b854d6b8de1411a4663f0fb7be87c94fe17243b2b7d43b3b",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/format-write.log"
+    },
+    {
+      "path": "proposal/logs/green-final18.log",
+      "bytes": 255,
+      "sha256": "08964ce2b67a7ace269b7e3e68d6cfb03bb500907e9475e758ed7b4e323f3499",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/green-final18.log"
+    },
+    {
+      "path": "proposal/logs/green-focused18-direct.log",
+      "bytes": 255,
+      "sha256": "c90793a4a6ddae1201af01f5912dc35243ff6361e27bc6e33eaeb8e5bb9a6db4",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/green-focused18-direct.log"
+    },
+    {
+      "path": "proposal/logs/lint-final-three.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/lint-final-three.log"
+    },
+    {
+      "path": "proposal/logs/lint-three.log",
+      "bytes": 1735,
+      "sha256": "d245cc696f6417a4c1b1e351e3c4d73ee3fe4876a35a05c920e5f115fc597aa3",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/lint-three.log"
+    },
+    {
+      "path": "proposal/logs/pinned-node-version.log",
+      "bytes": 9,
+      "sha256": "8f9258d5e9da5443c42966a661aee09292b49d1c64e718dcc5f72976500bac48",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/pinned-node-version.log"
+    },
+    {
+      "path": "proposal/logs/red-final18.log",
+      "bytes": 7448,
+      "sha256": "dc7199dfb1fd57b3aa187f353c9c249a2cb99df4d859cdf33bc53c45d3792ba6",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/red-final18.log"
+    },
+    {
+      "path": "proposal/logs/red-focused18-direct.log",
+      "bytes": 7406,
+      "sha256": "335bc501b664b3bad693fa315d2a89da023753066f0b74d1a432088a1dab1fa5",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/red-focused18-direct.log"
+    },
+    {
+      "path": "proposal/logs/red-focused18.log",
+      "bytes": 1356,
+      "sha256": "033f9a44b89086b8644ff021139c8a1426ac7c2f291f6680df79852e6a4b25ee",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/red-focused18.log"
+    },
+    {
+      "path": "proposal/logs/test-policy-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/test-policy-final.log"
+    },
+    {
+      "path": "proposal/logs/typecheck-extension.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/typecheck-extension.log"
+    },
+    {
+      "path": "proposal/logs/typecheck-final-extension.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/typecheck-final-extension.log"
+    },
+    {
+      "path": "proposal/logs/typecheck-final-root-sparse.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/typecheck-final-root-sparse.log"
+    },
+    {
+      "path": "proposal/logs/typecheck-root-sparse.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/logs/typecheck-root-sparse.log"
+    },
+    {
+      "path": "proposal/proposal-manifest.json",
+      "bytes": 1312,
+      "sha256": "c5d815cf626ec06b523a56f8e67786d94b84450073fbd4a8de39ae603db510d6",
+      "original_source": "/tmp/japp-w14-harness-cleanup-draft/proposal-manifest.json"
+    },
+    {
+      "path": "retention-index.json",
+      "bytes": 13992,
+      "sha256": "87e97f40d6ba601151d912628f160f7452091c8920515d8f3f04cbbf65c2db3a",
+      "original_source": "generated:self-excluded-index"
+    }
+  ],
+  "roundtrip_and_original_byte_closure": "PASS",
+  "gzip_members": 1,
+  "safe_paths_regular_only_no_collision_no_hidden_tar_tail": "PASS",
+  "root_writes": 0,
+  "product_commands_or_browser_operations": 0,
+  "authority": "NONE",
+  "scope": "Exact narrow cleanup proposal, focused fake-context RED/GREEN/static proof, original and final source review; no full-unit/controlled/aggregate/Gate/W15 authority."
+}

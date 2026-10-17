@@ -1,0 +1,26 @@
+{
+  "status": "CLEAR_CORRECTED_CLOSURE_AND_ACTUAL_FOCUSED_CHECKS",
+  "prior_sealed_review_preserved": true,
+  "initial_bookkeeping_review_missed_invariants": 2,
+  "actual_focused_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "pytest": {
+    "passed": 302,
+    "seconds": 86.77,
+    "bytes": 431,
+    "sha256": "d19ee75ea9f13b5500d7a71cc0bfd4e421389600621cd43a298c2d5d8a88225c"
+  },
+  "bookkeeping_patch_sha256": "f3a87695d0199004ec8f460cd7a41102fd9def353d53f0eb7aca32ae902df68d",
+  "fixture_patch_sha256": "70238ada088459cfd7c8c60b2c2ab80a6388590b1f5d78a9b6ec0badbcc93ed9",
+  "actual_ten_path_patch_sha256": "b8f1f18ea0ec7d6ea5f888777769d56ee28f608fd168faea4f6c1b374ee7aea8",
+  "retention_execution_released_by_root": true,
+  "reviewer_product_reruns_root_writes": 0,
+  "formal_W15_Gate_A_owner_authority": "NONE"
+}

@@ -79,16 +79,23 @@ reports live in `docs/gates/`.
 - Independent reviewer: —
 - Owner decision: pending
 - Report: docs/gates/AUTOFILL_FEASIBILITY_GATE.md
-- Known limitations: controlled clean730 full and actualR9 evidence and exact1d
-  native CI are separately retained; the remaining W14 audit and formal W15
-  decision are not inferred from those proofs. Actual scored public-form and
-  direct Simplify cases remain0, with only those prerequisites waived below.
-  Other feature/measurement scopes remain limited to their actual evidence.
+- Known limitations: W14 evaluation package is VERIFIED at frozen content
+  tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 after actual clean-clone full verification
+  and scoped package evidence review. Formal independent W15/source-bound
+  owner Gate A decision remains pending; no final gate verdict is inferred.
+  Contact, native128, mounted32, feature fixtures, legacy and native CI scopes
+  remain individually limited to their retained observations.
+- Pending M02 corrective finding: KI-0097 MEDIUM/OPEN, source-confirmed opt-in
+  harness acquisition/rejected-close cleanup only; no recorded leak or
+  numerical contradiction. W15 may start, but a reviewed integrated repair,
+  clean final-candidate verification and key reproductions precede its final
+  decision. Sealed R9 remains unchanged; initial-writer cleanup is a future
+  corrected-campaign precondition.
 - Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
 - Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
-- Next permitted action: finish remaining applicable M02-W14 audit/closeout,
-  then run independent eligible M02-W15 on exact final evidence. M03 stays
-  NOT_STARTED until actual Gate A PASS and M02 acceptance.
+- Next permitted action: execute READY M02-W15 in a separate eligible review
+  session against exact final evidence; M03 remains NOT_STARTED until genuine
+  Gate A PASS and M02 acceptance.
 
 ### Metric table (spec §2.3 Gate A — measured results recorded at evaluation)
 

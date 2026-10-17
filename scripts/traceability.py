@@ -136,8 +136,14 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # plus explicit retained M18-W07/M18-W05 production ownership. No ownership,
 # mapping, gate effect, dependency, independent-verification, acceptance, or
 # release claim changed. The writer re-locked that truthful projection below.
+# M02-W14 records only scoped feasibility no-submit and actual isolated legacy
+# evidence for REQ-FORM-025/REQ-GATE-004/007/008. Future owning-package portions
+# remain SCAFFOLD_ONLY/NOT_YET_APPLICABLE. Ownership, requirement text, gate
+# effects, dependency graphs and historical v1.2/v1.3 hashes stay unchanged.
+# Prior reviewed v1.4 honesty projection:
+# 70424088492737b18171ea26872c3dff40461411726162f863c9f693e0144802
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "70424088492737b18171ea26872c3dff40461411726162f863c9f693e0144802"
+    "15ea76b48b519df4673bc351dc8a8d8e3a850129d82efffd7fdd0a3964116640"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"
