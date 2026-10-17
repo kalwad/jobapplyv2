@@ -1,0 +1,132 @@
+{
+  "head": "959e879a318f689b33da19bb3f08452396aca847",
+  "records": [
+    {
+      "name": "status",
+      "argv": [
+        "uv",
+        "run",
+        "python",
+        "scripts/validate_status.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:26:47.394544+00:00",
+      "ended_at": "2026-10-17T23:26:47.550115+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.155492,
+      "log_bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "name": "traceability",
+      "argv": [
+        "pnpm",
+        "traceability:check"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:26:47.555898+00:00",
+      "ended_at": "2026-10-17T23:26:47.979909+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.42401479200000003,
+      "log_bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "name": "extension-unit",
+      "argv": [
+        "pnpm",
+        "--filter",
+        "@japp/extension",
+        "test"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:26:47.985205+00:00",
+      "ended_at": "2026-10-17T23:26:52.148350+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 4.163156125,
+      "log_bytes": 286,
+      "sha256": "7d40822735744a568b8a7fb096a6dcb9fb98984e79c4c1072a74ee0d5c2dec13"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:26:52.154157+00:00",
+      "ended_at": "2026-10-17T23:26:58.233545+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 6.079401042,
+      "log_bytes": 3067,
+      "sha256": "1a53c024f64c204cd385b474c97fecf836e248ff24fec737dbcfe5fa0e016552"
+    },
+    {
+      "name": "lint",
+      "argv": [
+        "pnpm",
+        "exec",
+        "eslint",
+        "e2e/extension/public-contact/contact-harness.ts",
+        "e2e/extension/public-research/inspection-harness.ts",
+        "apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:26:58.238684+00:00",
+      "ended_at": "2026-10-17T23:27:00.417490+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.1788153329999993,
+      "log_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "format",
+      "argv": [
+        "pnpm",
+        "exec",
+        "prettier",
+        "--check",
+        "e2e/extension/public-contact/contact-harness.ts",
+        "e2e/extension/public-research/inspection-harness.ts",
+        "apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:27:00.425253+00:00",
+      "ended_at": "2026-10-17T23:27:00.912328+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.487073208,
+      "log_bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "name": "test-policy",
+      "argv": [
+        "node",
+        "scripts/check-ts-test-policy.mjs",
+        "apps/extension/test/m02-w14/evaluation-resource-cleanup.test.ts"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:27:00.918279+00:00",
+      "ended_at": "2026-10-17T23:27:01.171544+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.25326858399999885,
+      "log_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "started_at": "2026-10-17T23:27:01.177186+00:00",
+      "ended_at": "2026-10-17T23:27:01.199904+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.022721667000000778,
+      "log_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

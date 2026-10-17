@@ -8,7 +8,7 @@ Gate report for the blocking Autofill Feasibility Gate (spec §2.3; owner M02). 
 - Owning milestone: M02 (M02-W07 through M02-W15)
 - Blocks: M03 readiness; M17/M18/M19 retain Gate A PASS qualifiers.
 - State: IN_PROGRESS
-- Evaluated revision: W14 package content tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 is validated by actual clean-clone verification at commit6384d98156ae198cd93d7b35d1bb28b501ed475e. Formal Gate A evaluated revision/verdict remains for READY M02-W15. Historical source scopes remain separate.
+- Evaluated revision: W14 package content tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 is validated by actual clean-clone verification at commit6384d98156ae198cd93d7b35d1bb28b501ed475e. Formal Gate A evaluated revision/verdict remains for IN_PROGRESS M02-W15. Historical source scopes remain separate.
 - Gate authority / independent decision: none yet.
 
 ## Blocking thresholds
@@ -73,11 +73,11 @@ Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006, owner instructions 
 
 ## Independent review
 
-Independent reviewer: pending. M02-W15 is READY after verified W14 package closeout. Implementation authorship, read-only assistance and supplemental capture do not constitute independent final Gate A approval.
+Independent reviewer: pending. M02-W15 is IN_PROGRESS after verified W14 package closeout. Implementation authorship, read-only assistance and supplemental capture do not constitute independent final Gate A approval.
 
 ## Decision
 
-Owner decision: pending. Gate A remains IN_PROGRESS; M02-W14 is VERIFIED, M02-W15 READY, M02 unaccepted and M03 NOT_STARTED. Allowed final decisions remain PASS | REDESIGN_REQUIRED | BLOCKED, tied to exact evidence/frozen revision. Numerical/comparison/safety obligations cannot be satisfied by prose.
+Owner decision: pending. Gate A remains IN_PROGRESS; M02-W14 is VERIFIED, M02-W15 IN_PROGRESS, M02 unaccepted and M03 NOT_STARTED. Allowed final decisions remain PASS | REDESIGN_REQUIRED | BLOCKED, tied to exact evidence/frozen revision. Numerical/comparison/safety obligations cannot be satisfied by prose.
 
 ## History
 
@@ -179,3 +179,7 @@ M02-W15 is READY for the genuine independent architecture/safety/performance/evi
 Independent source closure covers all230 changed non-evidence paths and confirms one MEDIUM evaluation-harness cleanup family, KI-0097/SRC-CLEANUP-01. Contact profile/context launch and route awaits can reject outside cleanup; contact/inspection rejected context.close can skip profile removal. No recorded leak, numerical contradiction, unauthorized public write, shipped-runtime defect or fundamental architecture failure is asserted. The final separate three-file correction98d6e14cd31514623bf5d93550ecd73dc65a0347fb81f3baf12d134319e2dcb8 is independently source-clear. Focused author tests record13 original failures/5 passes and18 candidate passes; sparse outside static checks pass. Exact source/proof/reviews are retained in docs/evidence/m02-w14-harness-cleanup/proof.tar.gz (SHA256a885cd4d29f950fbf067d60f4a8fc7b48753c308891f6938b5c284e82db891b9). Root integration, full repository/actual controlled-browser/final clean-candidate/key-case checks remain pending. This does not supply an integrated fix or behavioral PASS for the unmodified6384 source.
 
 W14 verification remains scoped to actually tested6384 after its real full proof/audit; W15 is the next planned eligible package. Before any final Gate A decision, integrate the separately reviewed correction and run a clean final candidate/full verification with key independent reproductions. Sealed R9 initial evidence-write cleanup remains an explicit future corrected-campaign precondition; original65 locked files and historical outcomes stay unchanged. This MEDIUM finding does not create a HIGH readiness blocker or waive any safety, numeric, independent-review or source-binding requirement.
+
+## M02-W15 started — 2026-10-17
+
+W14 is VERIFIED at actually tested6384/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4; closeout959e879 passes actual302 status/traceability tests and focused static checks. W15 is IN_PROGRESS with M00/M01 ACCEPTED. A fresh separate reviewer is auditing evidence/source/architecture; the reviewed contact/inspection cleanup will be integrated and a clean final candidate/full verification plus permanent key positive/negative reproductions will precede the verdict. Owner decision remains pending, Gate A remains IN_PROGRESS, M02 unaccepted and M03 NOT_STARTED. Earlier READY wording is the preserved W14 transition record.

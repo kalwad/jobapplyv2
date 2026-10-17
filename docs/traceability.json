@@ -8215,7 +8215,7 @@
       "id": "M02-W15",
       "milestone": "M02",
       "title": "Independent Autofill Feasibility Gate audit and decision",
-      "current_state": "READY",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M02-W14"

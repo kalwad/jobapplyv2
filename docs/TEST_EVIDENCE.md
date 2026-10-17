@@ -33,6 +33,15 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W15 — Independent Autofill Feasibility Gate audit and decision (2026-10-17)
+
+W15 starts after W14 is VERIFIED at tested6384 content tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 and M00/M01 are ACCEPTED. The owner authorized continuous eligible work under ADR-0006 and waived only direct Simplify comparison/executed public-form evidence under ADR-0007; nonexecution stays explicit. The current work is the separate independent source/evidence/architecture audit, integration of the reviewed evaluation-harness cleanup, final clean-candidate affected regression, key positive/negative reproduction and a content-addressed gate bundle. Gate A remains IN_PROGRESS and no independent or owner PASS is supplied by starting W15. M03 remains NOT_STARTED pending the actual gate decision and M02 acceptance.
+
+The independently reviewed cleanup patch98d6e14cd31514623bf5d93550ecd73dc65a0347fb81f3baf12d134319e2dcb8 covers contact/inspection acquisition and rejected-close cleanup, with18 meaningful fake-context regressions. Original13FAIL/5PASS and candidate18PASS author evidence remain retained in docs/evidence/m02-w14-harness-cleanup. Root integration checks and the final clean-clone aggregate will be recorded only after execution. The shipped355-file runtime and all65 sealed R9 actor payloads remain unchanged. Sealed R9 initial-writer and the inherited extension-test.ts rejected-close cleanup paths remain disclosed test-only scope; no observed leak or whole-family FIXED claim is inferred.
+
+Root integrated the exact98d6 three-file patch with all preimage/afterimage hashes matching. Actual eight-command wrapper `/usr/bin/python3 /tmp/japp-m02-w15-cleanup-root-checks-20261017.py` completes23:26:47.394544Z–23:27:01.199904Z, all exit0: status45, traceability193/300, complete extension unit213/213 (including18 new resource cases), complete repository typecheck14/14 workspace tasks (13 cached, extension fresh), root e2e TSC and strict Python mypy28 source files, changed-path ESLint/Prettier/test policy and diff check. Exact command argv/timestamps/raw logs and integrated sources are retained in docs/evidence/m02-w15-cleanup-integration/proof.tar.gz SHA256a0efe039e983a915d86ccf44b8baffb2e2ef8b2228a5ca5935580a6f53df30bb, 38529bytes/17safe regular members. Initial start traceability rejection for claiming current_evidence on an incomplete package is explicitly retained as a derived tool-response observation; W15 current_evidence remains empty until verified, with no validator weakening. Read-only actual runtime inventory is still355 files/3371960bytes/digest3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502, and all40 then-retained W14 archives pass exhaustive archive checks. No clean final-candidate aggregate, actual controlled browser result, formal independent verdict or owner Gate A decision is claimed by these focused checks.
+
+
 ### M02-W14 — Visible development campaigns and supplemental comparison preparation (2026-10-16)
 
 #### W14 verified package closeout and W15 readiness — 2026-10-17

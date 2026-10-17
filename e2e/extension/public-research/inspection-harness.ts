@@ -40,6 +40,32 @@ export interface InspectionSession {
   cleanup(): Promise<void>;
 }
 
+/** Release only this harness's resources, attempting removal even if close fails. */
+export async function cleanupOwnedBrowser(
+  context: Pick<BrowserContext, "close"> | undefined,
+  profile: string,
+): Promise<void> {
+  const errors: unknown[] = [];
+  try {
+    await context?.close();
+  } catch (error) {
+    errors.push(error);
+  } finally {
+    try {
+      rmSync(profile, {
+        recursive: true,
+        force: true,
+        maxRetries: 10,
+        retryDelay: 100,
+      });
+    } catch (error) {
+      errors.push(error);
+    }
+  }
+  if (errors.length > 0)
+    throw new AggregateError(errors, "W14_OWNED_BROWSER_CLEANUP_FAILED");
+}
+
 export async function runtimeMessage(
   controller: Page,
   message: unknown,
@@ -99,25 +125,16 @@ export async function launchInspection(
       throw new Error("W14_UNEXPECTED_MANIFEST_CAPABILITY");
   }
   const profile = mkdtempSync(join(tmpdir(), "japp-w14-public-inspection-"));
-  let context: BrowserContext;
+  let ownedContext: BrowserContext | undefined;
   try {
-    context = await chromium.launchPersistentContext(profile, {
+    const context = await chromium.launchPersistentContext(profile, {
       channel: "chromium",
       args: [
         `--disable-extensions-except=${buildDirectory}`,
         `--load-extension=${buildDirectory}`,
       ],
     });
-  } catch (error) {
-    rmSync(profile, {
-      recursive: true,
-      force: true,
-      maxRetries: 10,
-      retryDelay: 100,
-    });
-    throw error;
-  }
-  try {
+    ownedContext = context;
     const worker =
       context
         .serviceWorkers()
@@ -148,23 +165,22 @@ export async function launchInspection(
       worker,
       controller,
       async cleanup() {
-        await context.close();
-        rmSync(profile, {
-          recursive: true,
-          force: true,
-          maxRetries: 10,
-          retryDelay: 100,
-        });
+        await cleanupOwnedBrowser(context, profile);
       },
     };
   } catch (error) {
-    await context.close();
-    rmSync(profile, {
-      recursive: true,
-      force: true,
-      maxRetries: 10,
-      retryDelay: 100,
-    });
+    let cleanupFailure: { error: unknown } | undefined;
+    try {
+      await cleanupOwnedBrowser(ownedContext, profile);
+    } catch (cleanupError) {
+      cleanupFailure = { error: cleanupError };
+    }
+    if (cleanupFailure !== undefined)
+      throw new AggregateError(
+        [error, cleanupFailure.error],
+        "W14_BROWSER_ACQUISITION_AND_CLEANUP_FAILED",
+        { cause: error },
+      );
     throw error;
   }
 }

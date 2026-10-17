@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: W14 VERIFIED at tested6384 content; W15 READY for independent Gate A audit
+Repository revision: M02-W15 IN_PROGRESS after verified W14 closeout959e879
 Last updated: 2026-10-17
 Current phase: A — Contract, measurement, and early autofill proof
 Current milestone: M02
-Current work package: NONE
+Current work package: M02-W15
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,7 +23,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W14 VERIFIED at tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4; M00/M01 remain ACCEPTED and M02-W01 through W14 VERIFIED. M02-W15 READY is the sole next package.32/300 packages are VERIFIED. Per-W stopping remains superseded by ADR-0006; this transition supplies no Gate A verdict.
+- State: M02-W14 VERIFIED at tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4; M00/M01 remain ACCEPTED and M02-W01 through W14 VERIFIED. M02-W15 IN_PROGRESS is the sole active package.32/300 packages are VERIFIED. Per-W stopping remains superseded by ADR-0006; this transition supplies no Gate A verdict.
 - Current frozen6384 clean-clone verification: All19 ACTIVE suites PASS;3859 TypeScript units,242 default-browser cases,62 controlled contact plus2 inspection cases,1492 Python PASS315.95s/common1490+2POSIX/no skips. Exact1560 tracked files/191853406bytes match both clean snapshots and immutable6384Git; runtime355/3b6c remains exact. Independent raw audits87/87 full and336/336 mounted pass on their first invocations. Native12820 zero-settle p951350.3221250000006ms and distinct contact200 full-settlement p95860.658666000003ms pass unchanged1500ms limits. Contact precision/persistence1485/1485, required recall1275/1275, required reporting770/770, preservation90/90; all7 measured physical safety counters0 and raw=audited=native1485/0orphans. Canonical90incorrect abstentions remain. Mounted32 has18positive/14unsupported-only,43/43 contacts,144observed/101unsupported,58required reported and5 DOM event/value safety counters0; no native-setter or67-transition execution claim. Visual is genuinely NOT_YET_APPLICABLE. The original wrapper pnpmdoctor was builtin; separate actual pnpm run doctor PASS27/0/0/1NYA is retained, without a strict serial-order claim.. Actual source-bound raw scope and full proof: docs/evidence/m02-w14-frozen-6384d98/proof.tar.gz, SHA-256 2e0acbdf36e4f3edfac178dd501d90bcae2d82b6dcb796348808f0ddcb5df30c; completed independent full-run data audit: docs/evidence/m02-w14-frozen-6384d98/full-data-review.md, SHA-256 e9aec29acb9bbbcd711e6b1c13a71a1182c3ca3f278a9dd625b8db8f1e961af3. Contact/mounted/native128 observations retain the distinct instrumentation and settlement scopes recorded by that fresh proof.
 - Current frozen6384 native CI: Exact6384 native CI run39077040378 remains in_progress as observed 2026-10-17T23:15:00.635561+00:00; no completed or independently audited native6384 PASS is claimed. Historical exact1d native proof remains separately scoped.. Historical exact1d native success does not certify this new source.
 - Historical clean730 local aggregate: clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d passes all19 active suites,3859 units/242 default browsers/62 controlled contact plus2 separate public-inspection cases/1454 Python in305.66s. Native128 target20 nearest-rank p95(rank19)1447.4198340000003ms is below unchanged1500ms in the existing zero-settle lower-bound harness. Independent79-check audit reconciles unchanged head/status/all1504 tracked files to immutable Git blobs. The earlier fc native128 failure remains historical; this is not formal Gate A approval.
@@ -32,7 +32,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - Latest actual comparison: revision9 completes once after clean730 full PASS, with candidate4/legacy4 under lock72a68/runtime355-3b6c; all7 source/tool/build checks remain stable. Independent200-check audit recomputes40/40vs28/40 exact and separate40/40vs32/40 ASCII phone-digits equivalence. Candidate unexpected installed native calls0/legacy4 country-code ACTIVATIONs; both final nonordinary/nav/submission0. One shared component/four related fixtures grants no broad, statistical, performance, two-product or Simplify claim. Normal contexts/profiles/owned direct children close; OS descendants remain UNOBSERVED. The first199/200 audit used an incorrect loopback-alias assumption; both attempts/correction remain retained and no product rerun occurs. Revision8 was NEVER INVOKED; revision7 is historical.
 - Latest native platform evidence: exact1d490d1230b443c31fd4a9d8732064552affe149 CI run38984225730/attempt1 SUCCESS on Ubuntu/macOS/Windows; tested merged8de57146b6ef183cf6229701e5089c904175ce9/treeac98b18d71fffc6cc0ff7fc07ccd32ccda8133d9 equals1d. All19 suites pass; Python Ubuntu1454/456.26s, macOS1454/407.38s, Windows1452/726.21s with only declared FIFO/socket capability differences. Each includes status201/contact11/contracts2524/compiler8 twice/browser242/controlled62 plus2 inspection cases and tracked-clean. Native proof is docs/evidence/m02-w14-1d490d-ci; independent archive27 review is clear. CI sample1/settle0, including macOS1662.458292ms, is not local target20 evidence. This historical exact1d result does not certify later waiver source changes; old stackless contact F remains UNPROVEN.
 - Historical actual public evidence: clean0dd88ce run records30/30original sources:17network-closure refusals,7form/protected refusals,6interference;0dispatches/executions/scored rows, natural accuracy/site acceptance null. Independent24-check source/build/oracle/journal audit passes within that scope. Partial/unknown event and OS-descendant coverage remain explicit.
-- Pending M02 correction: independent230-path source review records KI-0097 MEDIUM/OPEN for opt-in evaluation-harness acquisition and rejected-close cleanup. A peer-cleared source-only correction is separate; no actual leak, current fix or behavioral PASS is inferred. W15 will integrate the reviewed correction and verify a clean final candidate/key cases before its decision. Sealed R9 initial-writer cleanup remains a future corrected-campaign precondition with original locks untouched.
+- Pending M02 correction: independent230-path source review records KI-0097 MEDIUM/OPEN for opt-in evaluation-harness acquisition and rejected-close cleanup. The exact peer-cleared contact/inspection correction is integrated and passes213 complete extension units plus complete repository typecheck/static checks. No actual historical leak or final full-candidate PASS is inferred. W15 is verifying a clean final candidate/key cases before its decision. Sealed R9 initial-writer cleanup remains a future corrected-campaign precondition with original locks untouched.
 - Next work: direct Simplify comparison and executed public-form evidence remain WAIVED_BY_OWNER_ADR_0007, with actual cases0. KI-0089 is resolved only at its waived external-requirement scope. W14 package evidence, candidate index, retained synthetic inspection and actual clean-clone full verification are complete at their declared scopes. The genuine independent W15/source-bound owner Gate A decision is the next planned work, not a current implementation defect. Absolute numerical/safety/performance/controlled/native/legacy/usability/accessibility/visual obligations remain binding.
 - Owner instructions: OD-035 / ADR-0006 waives owner-controlled holdout and per-W stopping; OD-036 / ADR-0007 waives only direct Simplify comparison and executed public-form evidence project-wide. Continue successive eligible validated packages. Neither record supplies executed results, a final independent verdict or an unknown future owner gate PASS.
 - Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED, release NOT_READY; M03 NOT_STARTED. No employer submission or production ATS support claim.
@@ -117,7 +117,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
 | `M02-W14` | VERIFIED | tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 | docs/TEST_EVIDENCE.md § M02-W14 | Frozen6384 clean-clone full verification and reviewed candidate package evidence complete; ADR6/7 waived observations stay unexecuted; formal Gate A decision belongs W15 |
-| `M02-W15` | READY | — | — | Independent Autofill Feasibility Gate audit and source-bound owner decision; requires VERIFIED W14; no verdict yet |
+| `M02-W15` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W15 | Independent audit, reviewed harness correction and final candidate verification; W14 VERIFIED, M00/M01 ACCEPTED; no verdict yet |
 | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
 | `M03-W03` | NOT_STARTED | — | — | Implement sidecar lifecycle |
@@ -388,8 +388,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Next READY package
 
-- ID: M02-W15
-- Reason: M02-W14 is VERIFIED and M00/M01 are ACCEPTED. Execute the separate independent Gate A audit and source-bound decision; continuous execution remains authorized.
+- ID: NONE
+- Reason: M02-W15 is IN_PROGRESS after verified W14 and ACCEPTED M00/M01. Continue independent audit, final candidate validation and source-bound decision; continuous execution remains authorized.
 
 ## Known release blockers
 

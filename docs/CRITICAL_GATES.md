@@ -87,13 +87,14 @@ reports live in `docs/gates/`.
   remain individually limited to their retained observations.
 - Pending M02 corrective finding: KI-0097 MEDIUM/OPEN, source-confirmed opt-in
   harness acquisition/rejected-close cleanup only; no recorded leak or
-  numerical contradiction. W15 may start, but a reviewed integrated repair,
-  clean final-candidate verification and key reproductions precede its final
+  numerical contradiction. W15 is IN_PROGRESS; the reviewed contact/inspection
+  repair is integrated with complete extension units/typecheck/static PASS.
+  Clean final-candidate verification and key reproductions precede its final
   decision. Sealed R9 remains unchanged; initial-writer cleanup is a future
   corrected-campaign precondition.
 - Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
 - Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
-- Next permitted action: execute READY M02-W15 in a separate eligible review
+- Next permitted action: execute IN_PROGRESS M02-W15 in a separate eligible review
   session against exact final evidence; M03 remains NOT_STARTED until genuine
   Gate A PASS and M02 acceptance.
 

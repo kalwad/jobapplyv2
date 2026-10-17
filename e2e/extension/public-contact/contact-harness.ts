@@ -6,7 +6,7 @@ import {
   type Worker,
   type Request,
 } from "@playwright/test";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { join, isAbsolute } from "node:path";
 import { gunzipSync } from "node:zlib";
 import { tmpdir } from "node:os";
@@ -45,6 +45,7 @@ import {
 } from "../../../apps/extension/src/dynamic-protocol.ts";
 import { stableSemanticId } from "../../../apps/extension/src/semantic-identity.ts";
 import {
+  cleanupOwnedBrowser,
   runtimeMessage,
   tabIdForPage,
 } from "../public-research/inspection-harness.ts";
@@ -308,70 +309,72 @@ export async function launchContact(
   )
     throw new Error("W14_PUBLIC_CONTACT_MANIFEST_SCOPE_MISMATCH");
   const profile = mkdtempSync(join(tmpdir(), "japp-w14-public-contact-"));
-  const context = await chromium.launchPersistentContext(profile, {
-    channel: "chromium",
-    serviceWorkers: "block",
-    args: [
-      `--disable-extensions-except=${buildDirectory}`,
-      `--load-extension=${buildDirectory}`,
-      "--disable-quic",
-      "--disable-blink-features=WebTransport",
-      "--force-webrtc-ip-handling-policy=disable_non_proxied_udp",
-    ],
-  });
-  const network: NetworkObservation[] = [];
-  let closed = false;
-  let httpGateClosed = false;
-  let closure: NetworkClosure = {
-    state: "OPEN",
-    pending_http_requests: 0,
-    worker_webtransport: "UNVERIFIED",
-  };
-  const pending = new Set<Request>();
-  context.on("request", (request) => {
-    if (/^https?:/.test(request.url())) pending.add(request);
-  });
-  const finished = (request: Request) => {
-    pending.delete(request);
-  };
-  context.on("requestfinished", finished);
-  context.on("requestfailed", finished);
-  const bindingName = `__jappW14Network_${randomUUID().replaceAll("-", "")}`;
-  const guardName = `__jappW14Guard_${randomUUID().replaceAll("-", "")}`;
-  const observe = (
-    kind: NetworkObservation["kind"],
-    url: string,
-    method: string,
-    resource: string,
-  ) => {
-    const parsed = new URL(url);
-    network.push({
-      kind,
-      method,
-      resource_type: resource,
-      origin: parsed.origin,
-      path_digest: sha256Canonical(`${parsed.pathname}${parsed.search}`),
-    });
-  };
-  await context.route("**/*", async (route) => {
-    const request = route.request();
-    if (httpGateClosed && /^https?:/.test(request.url())) {
-      observe(
-        "HTTP_BLOCKED",
-        request.url(),
-        request.method(),
-        request.resourceType(),
-      );
-      await route.abort("blockedbyclient");
-    } else await route.continue();
-  });
-  // No site WebSocket is connected, even during initial inspection. Public
-  // effects from one input handler cannot escape through an existing socket.
-  await context.routeWebSocket(/.*/, (socket) => {
-    observe("WEBSOCKET_BLOCKED", socket.url(), "WEBSOCKET", "websocket");
-    void socket.close();
-  });
+  let ownedContext: BrowserContext | undefined;
   try {
+    const context = await chromium.launchPersistentContext(profile, {
+      channel: "chromium",
+      serviceWorkers: "block",
+      args: [
+        `--disable-extensions-except=${buildDirectory}`,
+        `--load-extension=${buildDirectory}`,
+        "--disable-quic",
+        "--disable-blink-features=WebTransport",
+        "--force-webrtc-ip-handling-policy=disable_non_proxied_udp",
+      ],
+    });
+    ownedContext = context;
+    const network: NetworkObservation[] = [];
+    let closed = false;
+    let httpGateClosed = false;
+    let closure: NetworkClosure = {
+      state: "OPEN",
+      pending_http_requests: 0,
+      worker_webtransport: "UNVERIFIED",
+    };
+    const pending = new Set<Request>();
+    context.on("request", (request) => {
+      if (/^https?:/.test(request.url())) pending.add(request);
+    });
+    const finished = (request: Request) => {
+      pending.delete(request);
+    };
+    context.on("requestfinished", finished);
+    context.on("requestfailed", finished);
+    const bindingName = `__jappW14Network_${randomUUID().replaceAll("-", "")}`;
+    const guardName = `__jappW14Guard_${randomUUID().replaceAll("-", "")}`;
+    const observe = (
+      kind: NetworkObservation["kind"],
+      url: string,
+      method: string,
+      resource: string,
+    ) => {
+      const parsed = new URL(url);
+      network.push({
+        kind,
+        method,
+        resource_type: resource,
+        origin: parsed.origin,
+        path_digest: sha256Canonical(`${parsed.pathname}${parsed.search}`),
+      });
+    };
+    await context.route("**/*", async (route) => {
+      const request = route.request();
+      if (httpGateClosed && /^https?:/.test(request.url())) {
+        observe(
+          "HTTP_BLOCKED",
+          request.url(),
+          request.method(),
+          request.resourceType(),
+        );
+        await route.abort("blockedbyclient");
+      } else await route.continue();
+    });
+    // No site WebSocket is connected, even during initial inspection. Public
+    // effects from one input handler cannot escape through an existing socket.
+    await context.routeWebSocket(/.*/, (socket) => {
+      observe("WEBSOCKET_BLOCKED", socket.url(), "WEBSOCKET", "websocket");
+      void socket.close();
+    });
     await context.exposeBinding(bindingName, ({ frame }, name: unknown) => {
       if (
         typeof name === "string" &&
@@ -491,23 +494,22 @@ export async function launchContact(
         closure = { ...closure, state: "CLOSED", pending_http_requests: 0 };
       },
       async cleanup() {
-        await context.close();
-        rmSync(profile, {
-          recursive: true,
-          force: true,
-          maxRetries: 10,
-          retryDelay: 100,
-        });
+        await cleanupOwnedBrowser(context, profile);
       },
     };
   } catch (error) {
-    await context.close();
-    rmSync(profile, {
-      recursive: true,
-      force: true,
-      maxRetries: 10,
-      retryDelay: 100,
-    });
+    let cleanupFailure: { error: unknown } | undefined;
+    try {
+      await cleanupOwnedBrowser(ownedContext, profile);
+    } catch (cleanupError) {
+      cleanupFailure = { error: cleanupError };
+    }
+    if (cleanupFailure !== undefined)
+      throw new AggregateError(
+        [error, cleanupFailure.error],
+        "W14_BROWSER_ACQUISITION_AND_CLEANUP_FAILED",
+        { cause: error },
+      );
     throw error;
   }
 }
