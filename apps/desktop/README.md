@@ -1,11 +1,7 @@
-# apps/desktop
+# Desktop app
 
-Desktop application (Tauri 2 + React + TypeScript + Vite,
-docs/MASTER_IMPLEMENTATION_SPEC.md §5.2). It owns the user-visible profile,
-resume, job, tracker, settings, queue, model, and diagnostics UI, and it
-starts, monitors, and stops the local orchestrator and native host (§5.3).
+Tauri2 and React shell with original shared UI primitives from `@japp/ui`. Run `pnpm --filter @japp/desktop tauri dev --no-watch` for the native development app, or `pnpm --filter @japp/desktop dev` for its browser frontend. Browser mode safely reports unavailable native version IPC. The native window grants only app/runtime version reads and rejects external navigation/new windows.
 
-This is a workspace slot created by the M00-W02 scaffold. The Tauri shell is
-created in M03-W01; adding UI earlier would be a fake feature (spec §1.5).
-No build/test scripts exist here yet by design — tasks appear when the shell
-does.
+`build` creates frontend assets only. `tauri build` is reserved for the native packaging packages; the W01 bundle is not yet certified for any platform. Local service lifecycle/authenticated health are implemented by subsequent M03 packages, so the current shell shows those capabilities as unavailable.
+
+The isolated `test/renderer` build injects synthetic metadata/error states into shipping components for browser checks. It is served by `e2e-server` on strict127.0.0.1:4762 and is absent from the packaged frontend. Development frontend uses strict127.0.0.1:1420 with HMR disabled. Production CSP is restrictive; only development CSS permits inline styling required by Vite. Public task-reference provenance is in `docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md`; no competitor code/assets are included.

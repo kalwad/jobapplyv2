@@ -125,6 +125,7 @@ LOCKFILES = (
     "uv.lock",
     "services/native-host/Cargo.lock",
     "packages/contracts/test/contract/rust-harness/Cargo.lock",
+    "apps/desktop/src-tauri/Cargo.lock",
 )
 
 REQUIRED_SCRIPT_FILES = (

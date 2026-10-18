@@ -209,7 +209,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock', 'packages/contracts/test/contract/rust-harness/Cargo.lock') }}
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock', 'packages/contracts/test/contract/rust-harness/Cargo.lock', 'apps/desktop/src-tauri/Cargo.lock') }}
 
       - name: Cache pinned Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -219,6 +219,10 @@ jobs:
             ~/.cache/ms-playwright
             ~/AppData/Local/ms-playwright
           key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Tauri Linux build prerequisites
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev
 
       - name: Install JS dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -243,6 +247,9 @@ jobs:
 
       - name: Fetch test-only contract harness dependencies (locked)
         run: cargo fetch --locked --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml
+
+      - name: Fetch desktop shell dependencies (locked)
+        run: cargo fetch --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
 
       - name: Environment doctor (same command as local `pnpm run doctor`)
         # `run` is required: pnpm has an unrelated built-in `pnpm doctor`

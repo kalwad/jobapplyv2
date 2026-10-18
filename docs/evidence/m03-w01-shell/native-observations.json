@@ -1,0 +1,53 @@
+{
+  "scope": "Actual native macOS CUA observation, not simulated browser IPC or platform certification",
+  "observer": "implementation agent /root",
+  "recorded_at_utc": "2026-10-18T18:11:50.052315+00:00",
+  "build_command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm --filter @japp/desktop tauri build --debug --bundles app --config {\"bundle\":{\"active\":true}}",
+  "build_override": "Only bundle.active for an inspectable shell-only .app; no sidecar/lifecycle/certified package claim",
+  "build_log": "/tmp/japp-m03-w01-native-app-build3.log",
+  "native_source_at_observation": "Final tauri::is_dev() protocol-mode fix; current source rebuilt successfully before final CUA launch.",
+  "observed_initial_url": "tauri://localhost",
+  "observed_route_url": "tauri://localhost#diagnostics",
+  "observed_app_version": "0.0.1",
+  "observed_tauri_version": "2.12.4",
+  "keyboard_observations": [
+    "Home link click focused Home heading; native Tab focused Open Diagnostics link.",
+    "Native Return activated Diagnostics and focused its heading.",
+    "Eight reverse native Tabs reached Skip to main content.",
+    "Native Return on skip link focused main container."
+  ],
+  "visual_observations": [
+    "Packaged WebView rendered original shared shell, readable native version rows and explicit unavailable capabilities.",
+    "Native screenshot and accessibility state were actually inspected through CUA; screenshot remains in tool conversation, not a separately retained PNG."
+  ],
+  "startup_failure_history": [
+    "Initial .app showed about:blank; CUA Inspector read location.href as about:blank.",
+    "Pinned Tauri manager/webview.rs472-477 constructs tauri://localhost and omits index.html, giving empty path.",
+    "New exact local root regression failed once, then all five policy tests passed after allowing the empty local path; external/about:blank cases stayed denied."
+  ],
+  "independent_mode_finding": "SHELL-001 CLOSED by independent source/test review. Final rebuilt GUI reinspection completed with actual versions, native keyboard, ungranted name-read rejection, denied development-origin navigation and denied new window.",
+  "final_current_native_source_sha256": "be139144477cc7db83246a9b718a8cb9c3f11e38ca35a1fe5cfa067251853133",
+  "approval": "NOT_APPROVED",
+  "certification": "NOT_EVALUATED",
+  "native_boundary_observations": [
+    {
+      "expression": "window.__TAURI_INTERNALS__.invoke('plugin:app|name').then(() => console.log('UNEXPECTED_ALLOWED'), () => console.log('DENIED_UNGRANTED_APP_NAME_READ'))",
+      "observed": "DENIED_UNGRANTED_APP_NAME_READ"
+    },
+    {
+      "expression": "location.href = 'http://127.0.0.1:1420/'",
+      "followup": "location.href",
+      "observed": "tauri://localhost#diagnostics"
+    },
+    {
+      "expression": "window.open('https://example.com/') === null",
+      "observed": "true"
+    }
+  ],
+  "inspected_binary": {
+    "path": "/Users/tanishkalwad/jobapplyv2/apps/desktop/src-tauri/target/debug/bundle/macos/Desktop App.app/Contents/MacOS/japp-desktop",
+    "bytes": 30861200,
+    "sha256": "028205ff3860d79ee7c4877c81de8a432b250f47ebe9eef24fd953b03b788145"
+  },
+  "cleanup": "Owned native test app quit through CUA after final inspection."
+}

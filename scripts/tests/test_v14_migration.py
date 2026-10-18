@@ -578,8 +578,13 @@ REVIEWED_EVALUATION_RUNNER_IMPORTER = (
         version: 4.1.10(@types/node@24.13.3)"""
     b"(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0))\n"
 )
-REVIEWED_PNPM_LOCK_SHA256 = (
+HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256 = (
     "c9d9f2fea650873b806a28058a9f1a8ca88d38fe439ceb3ba9fd7c83d778b565"
+)
+# M03-W01: independently reviewed additive desktop/UI/hooks graph. All591 old
+# package and596 snapshot records are unchanged; original historical proof stays.
+REVIEWED_PNPM_LOCK_SHA256 = (
+    "9f9f4ec15c2fc55ffe4e32f8ab52f8193aa9e5bd1624a2e9bcf4c1db35e1e019"
 )
 
 
@@ -632,6 +637,14 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     # the additive M02-W04/W05/W06/W07/W09 importers exist exactly once with
     # their exact reviewed links, and the complete file matches the reviewed
     # digest.
+    frozen_pre_desktop = subprocess.run(
+        ["git", "show", "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(frozen_pre_desktop) == HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256
+
     current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
     assert current_pnpm.count(reviewed_importer) == 1
     assert current_pnpm.count(reviewed_prettier) == historical_pnpm.count(

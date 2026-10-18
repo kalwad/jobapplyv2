@@ -61,6 +61,7 @@ import json
 import re
 import sys
 import unicodedata
+import zlib
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
@@ -339,6 +340,18 @@ UI_SURFACE_IDS = (
     "EXTENSION_AUTOFILL",
     "EXTENSION_REVIEW_UNRESOLVED",
 )
+UI_SURFACE_OWNERS = {
+    "DESKTOP_SHELL": ("M03-W01", "M03-W11"),
+    "HOME_DASHBOARD": ("M03-W11", "M33-W07"),
+    "JOBS": ("M33-W07",),
+    "TRACKER": ("M25-W08",),
+    "DOCUMENTS_RESUMES": ("M09-W07", "M12-W07"),
+    "PROFILE": ("M08-W07",),
+    "SETTINGS": ("M05-W17", "M27-W13", "M27-W14"),
+    "EXTENSION_DEFAULT": ("M17-W01", "M17-W11"),
+    "EXTENSION_AUTOFILL": ("M17-W11",),
+    "EXTENSION_REVIEW_UNRESOLVED": ("M17-W05", "M17-W11", "M34-W07"),
+}
 ANTI_BLOAT_RULE_IDS = tuple(f"AB-{number:02d}" for number in range(1, 13))
 FAMILIARITY_ROW_CELLS = 8
 VISUAL_BASELINE_ROW_CELLS = 13
@@ -819,12 +832,121 @@ def _id_table_rows(path: Path, valid_ids: tuple[str, ...]) -> dict[str, list[str
     return rows
 
 
+def _ui_evidence_file(repo: Path, reference: str) -> tuple[Path | None, str | None]:
+    """Resolve only nonempty regular UI evidence within the repository."""
+    relative = reference.strip().strip("`")
+    parts = PurePosixPath(relative).parts
+    if (
+        not parts
+        or ".." in parts
+        or "\\" in relative
+        or PurePosixPath(relative).is_absolute()
+        or URL_SCHEME_RE.match(relative)
+        or not relative.startswith(("docs/ui/", "docs/evidence/"))
+    ):
+        return None, "requires a repository-relative UI evidence path"
+    candidate = repo
+    for part in parts:
+        candidate /= part
+        if candidate.is_symlink():
+            return None, "UI evidence must not use symlinks"
+    if not candidate.is_file():
+        return None, "UI evidence file is missing or not regular"
+    if candidate.stat().st_size == 0:
+        return None, "UI evidence file is empty"
+    return candidate, None
+
+
+def _ui_png_dimensions(payload: bytes) -> tuple[int, int] | None:  # noqa: PLR0911
+    """Check PNG chunk structure/CRCs without interpreting captured pixels."""
+    if payload[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    signature_length = 8
+    header_length = 13
+    offset = signature_length
+    dimensions = None
+    data_seen = False
+    while offset + 12 <= len(payload):
+        length = int.from_bytes(payload[offset : offset + 4], "big")
+        kind = payload[offset + 4 : offset + 8]
+        end = offset + 12 + length
+        if end > len(payload):
+            return None
+        chunk = payload[offset + 8 : end - 4]
+        if zlib.crc32(kind + chunk) != int.from_bytes(payload[end - 4 : end], "big"):
+            return None
+        if offset == signature_length and (kind != b"IHDR" or length != header_length):
+            return None
+        if kind == b"IHDR":
+            if dimensions is not None:
+                return None
+            dimensions = (
+                int.from_bytes(chunk[:4], "big"),
+                int.from_bytes(chunk[4:8], "big"),
+            )
+            if min(dimensions) <= 0:
+                return None
+        elif kind == b"IDAT":
+            data_seen = True
+        elif kind == b"IEND":
+            return (
+                dimensions
+                if length == 0 and end == len(payload) and data_seen
+                else None
+            )
+        offset = end
+    return None
+
+
+def _ui_capture_errors(repo: Path, cells: list[str]) -> list[str]:
+    errors = []
+    artifact, error = _ui_evidence_file(repo, cells[3])
+    if error or artifact is None:
+        errors.append(error or "capture artifact is unavailable")
+    else:
+        payload = artifact.read_bytes()
+        if cells[4].strip("`") != "sha256:" + hashlib.sha256(payload).hexdigest():
+            errors.append("capture SHA-256 does not match the actual artifact")
+        dimensions = _ui_png_dimensions(payload)
+        viewport = re.fullmatch(
+            r"([1-9]\d*)\s*[x\u00d7]\s*([1-9]\d*)", cells[5].strip("`")
+        )
+        if dimensions is None or artifact.suffix.casefold() != ".png":
+            errors.append("capture must be an actual regular PNG")
+        elif viewport is None or tuple(map(int, viewport.groups())) != dimensions:
+            errors.append("capture viewport differs from PNG dimensions")
+    if not re.fullmatch(r"[1-9]\d*(?:\.\d+)?%", cells[6].strip("`")):
+        errors.append("capture zoom must record its actual percentage")
+    if any(_is_evidence_placeholder(cells[index]) for index in (7, 8)):
+        errors.append("capture theme and token version must be recorded")
+    if cells[9] != "—" or cells[10] != "`NOT_APPROVED`" or cells[11] != "—":
+        errors.append(
+            "CAPTURED has no approval date, owner approval or approved exception"
+        )
+    if not re.search(
+        r"(?:tree |commit )[0-9a-f]{40}\b|source sha256:[0-9a-f]{64}\b", cells[12]
+    ):
+        errors.append("capture change history needs a source revision binding")
+    return errors
+
+
 def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
-    repo: Path, spec: Spec, report: Report
+    repo: Path, spec: Spec, report: Report, status: Status | None = None
 ) -> None:
-    """Fail closed on fabricated UI/provider state during M00-W11."""
+    """Preserve migration boundaries while admitting evidenced UI progress."""
     errors = 0
     package_ids = set(spec.package_ids())
+    actual_status = (
+        status if status is not None else parse_status(repo / "docs/PROJECT_STATUS.md")
+    )
+    package_states = {cells[0]: cells[1] for cells in actual_status.package_rows}
+    surface_started = {
+        surface: package_states.get("M00-W11") in DONE
+        and any(
+            package_states.get(owner) in (STARTED | {"BLOCKED"}) for owner in owners
+        )
+        for surface, owners in UI_SURFACE_OWNERS.items()
+    }
 
     familiarity = repo / "docs/UI_FAMILIARITY.md"
     familiarity_rows = _id_table_rows(familiarity, UI_SURFACE_IDS)
@@ -837,21 +959,61 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
             errors += 1
             continue
         owners = PKG_ID_RE.findall(cells[2])
-        if not owners or any(owner not in package_ids for owner in owners):
+        if tuple(owners) != UI_SURFACE_OWNERS[surface_id] or any(
+            owner not in package_ids for owner in owners
+        ):
             report.fail(f"UI familiarity surface {surface_id} has invalid owners")
             errors += 1
-        if cells[3] != "`NOT_YET_APPLICABLE`":
-            report.fail(
-                f"UI familiarity surface {surface_id} must remain "
-                "NOT_YET_APPLICABLE during M00-W11"
-            )
-            errors += 1
-        if cells[4:7] != ["—", "—", "—"] or cells[7] != "`NOT_APPROVED`":
-            report.fail(
-                f"UI familiarity surface {surface_id} invents reference, "
-                "comparison, or owner-approval evidence"
-            )
-            errors += 1
+        if not surface_started[surface_id] or cells[3] in (
+            "`NOT_YET_APPLICABLE`",
+            "`NOT_STARTED`",
+        ):
+            allowed = {"`NOT_YET_APPLICABLE`"}
+            if surface_started[surface_id]:
+                allowed.add("`NOT_STARTED`")
+            if cells[3] not in allowed:
+                report.fail(
+                    f"UI familiarity surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE during M00-W11 or before its owners start"
+                )
+                errors += 1
+            if cells[4:7] != ["—", "—", "—"] or cells[7] != "`NOT_APPROVED`":
+                report.fail(
+                    f"UI familiarity surface {surface_id} invents reference, "
+                    "comparison, or owner-approval evidence"
+                )
+                errors += 1
+        else:
+            if cells[3] not in ("`IN_PROGRESS`", "`EVIDENCE_READY`"):
+                report.fail(
+                    f"UI familiarity surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE or use an unapproved evidence state"
+                )
+                errors += 1
+            if _is_evidence_placeholder(cells[4]):
+                report.fail(
+                    f"UI familiarity surface {surface_id} needs reference provenance"
+                )
+                errors += 1
+            _, observation_error = _ui_evidence_file(repo, cells[5])
+            if observation_error:
+                report.fail(f"UI familiarity surface {surface_id}: {observation_error}")
+                errors += 1
+            if cells[3] == "`EVIDENCE_READY`" or (
+                cells[6] != "—" and not cells[6].startswith("Pending ")
+            ):
+                _, comparison_error = _ui_evidence_file(repo, cells[6])
+                if comparison_error:
+                    report.fail(
+                        f"UI familiarity surface {surface_id}: "
+                        f"comparison {comparison_error}"
+                    )
+                    errors += 1
+            if cells[7] != "`NOT_APPROVED`":
+                report.fail(
+                    f"UI familiarity surface {surface_id} falsely claims approval"
+                )
+                errors += 1
 
     baseline = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
     baseline_rows = _id_table_rows(baseline, UI_SURFACE_IDS)
@@ -864,23 +1026,34 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
             errors += 1
             continue
         owners = PKG_ID_RE.findall(cells[1])
-        if not owners or any(owner not in package_ids for owner in owners):
+        if tuple(owners) != UI_SURFACE_OWNERS[surface_id] or any(
+            owner not in package_ids for owner in owners
+        ):
             report.fail(f"visual baseline surface {surface_id} has invalid owners")
             errors += 1
-        if cells[2] != "`NOT_YET_APPLICABLE`":
-            report.fail(
-                f"visual baseline surface {surface_id} must remain "
-                "NOT_YET_APPLICABLE during M00-W11"
-            )
-            errors += 1
-        if any(cells[index] != "—" for index in range(3, 10)):
-            report.fail(
-                f"visual baseline surface {surface_id} invents capture metadata"
-            )
-            errors += 1
-        if cells[10] != "`NOT_APPROVED`":
-            report.fail(f"visual baseline surface {surface_id} falsely claims approval")
-            errors += 1
+        if surface_started[surface_id] and cells[2] == "`CAPTURED`":
+            capture_errors = _ui_capture_errors(repo, cells)
+            for error in capture_errors:
+                report.fail(f"visual baseline surface {surface_id}: {error}")
+            errors += len(capture_errors)
+        else:
+            if cells[2] != "`NOT_YET_APPLICABLE`":
+                report.fail(
+                    f"visual baseline surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE during M00-W11 or until an evidenced "
+                    "started-owner capture"
+                )
+                errors += 1
+            if any(cells[index] != "—" for index in range(3, 10)):
+                report.fail(
+                    f"visual baseline surface {surface_id} invents capture metadata"
+                )
+                errors += 1
+            if cells[10] != "`NOT_APPROVED`":
+                report.fail(
+                    f"visual baseline surface {surface_id} falsely claims approval"
+                )
+                errors += 1
 
     anti_bloat = repo / "docs/ui/ANTI_BLOAT_CHECKLIST.md"
     rule_rows = _id_table_rows(anti_bloat, ANTI_BLOAT_RULE_IDS)
@@ -948,7 +1121,7 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
     if errors == 0:
         report.ok(
             "v1.4 UI/provider governance ledgers have exact owners and honest "
-            "NOT_YET_APPLICABLE/NOT_EVALUATED states"
+            "stage-aware unapproved UI evidence and NOT_EVALUATED states"
         )
 
 
@@ -3068,7 +3241,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
         return report
     check_spec_inventory(spec, report)
     check_spec_contract(spec_path, spec, report)
-    check_v14_governance_memory(repo, spec, report)
+    check_v14_governance_memory(repo, spec, report, status)
     check_status_shell(status, report)
     gate_states = check_gates(repo, status, report)
     check_gate_d_schema_guidance(repo, report)

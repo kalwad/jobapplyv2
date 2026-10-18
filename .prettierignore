@@ -69,3 +69,9 @@ e2e/extension/legacy-paired-options-r10/paired-oracles.json
 e2e/extension/legacy-paired-options-r10/legacy-projections.json
 e2e/extension/legacy-paired-options-r10/r10-readiness.json
 e2e/extension/legacy-paired-options-r10/preimages/
+
+# M03 desktop native and isolated renderer build output
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+apps/desktop/dist-renderer/
+apps/desktop/src-tauri/Cargo.lock

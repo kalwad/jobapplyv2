@@ -29,15 +29,23 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
-  webServer: {
-    // Deterministic build + preview of apps/mock-ats-lab on 127.0.0.1:4761.
-    // --strictPort (in the package script) refuses to drift to another
-    // port, and reuseExistingServer: false refuses to attach to any
-    // already-running process on it.
-    command: "pnpm --filter @japp/mock-ats-lab e2e-server",
-    url: "http://127.0.0.1:4761/",
-    reuseExistingServer: false,
-    timeout: 180_000,
-  },
+  webServer: [
+    {
+      // Deterministic build + preview of apps/mock-ats-lab on 127.0.0.1:4761.
+      // --strictPort (in the package script) refuses to drift to another
+      // port, and reuseExistingServer: false refuses to attach to any
+      // already-running process on it.
+      command: "pnpm --filter @japp/mock-ats-lab e2e-server",
+      url: "http://127.0.0.1:4761/",
+      reuseExistingServer: false,
+      timeout: 180_000,
+    },
+    {
+      command: "pnpm --filter @japp/desktop e2e-server",
+      url: "http://127.0.0.1:4762/",
+      reuseExistingServer: false,
+      timeout: 180_000,
+    },
+  ],
   projects: [{ name: "chromium" }],
 });

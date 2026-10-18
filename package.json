@@ -39,6 +39,7 @@
     "prettier": "3.9.6",
     "turbo": "2.10.7",
     "typescript": "catalog:",
-    "typescript-eslint": "8.65.0"
+    "typescript-eslint": "8.65.0",
+    "eslint-plugin-react-hooks": "7.1.1"
   }
 }

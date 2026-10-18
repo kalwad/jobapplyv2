@@ -234,6 +234,7 @@ def clear_in_progress(repo: Path) -> None:
         pattern.sub(r"\g<1>NOT_STARTED\g<2>", text),
         encoding="utf-8",
     )
+    rewind_unstarted_ui_surfaces(repo)
 
 
 def set_pkg_state(repo: Path, pid: str, state: str) -> None:
@@ -242,6 +243,8 @@ def set_pkg_state(repo: Path, pid: str, state: str) -> None:
     pattern = re.compile(rf"^(\| `{pid}` \| )[A-Z_]+( \|)", flags=re.MULTILINE)
     assert pattern.search(text), f"no work-package row for {pid}"
     path.write_text(pattern.sub(rf"\g<1>{state}\g<2>", text), encoding="utf-8")
+    if state in {"NOT_STARTED", "READY"}:
+        rewind_unstarted_ui_surfaces(repo)
 
 
 def set_pkg_revision(repo: Path, pid: str, revision: str) -> None:
@@ -507,9 +510,15 @@ def set_fixture_gate_state(repo: Path, gate: str, state: str) -> None:
     set_ledger_gate_state(repo, gate, state)
     report = repo / "docs" / "gates" / f"{gate}_GATE.md"
     text = report.read_text(encoding="utf-8")
-    pattern = re.compile(r"^(- State: )[A-Z_]+", flags=re.MULTILINE)
-    assert pattern.search(text), f"no gate report state for {gate}"
-    report.write_text(pattern.sub(rf"\g<1>{state}", text, count=1), encoding="utf-8")
+    assert re.search(r"^(- State: )[A-Z_]+", text, flags=re.MULTILINE), (
+        f"no gate report state for {gate}"
+    )
+    # The report is append-only and the last state is authoritative. Keep the
+    # copied actual history, then declare this fixture's synthetic boundary.
+    report.write_text(
+        text + f"\n## Synthetic fixture boundary\n\n- State: {state}\n",
+        encoding="utf-8",
+    )
 
 
 def set_ledger_gate_pass_evidence(
@@ -718,6 +727,38 @@ def accept_full_ai_profiles(repo: Path) -> None:
         )
 
 
+def rewind_unstarted_ui_surfaces(repo: Path) -> None:
+    """Rewind UI rows with their owners, retaining the complete copied history."""
+    parsed = validate_status.parse_status(status_path(repo))
+    states = {row[0]: row[1] for row in parsed.package_rows}
+    migration_complete = states.get("M00-W11") in validate_status.DONE
+    for surface, owners in validate_status.UI_SURFACE_OWNERS.items():
+        if migration_complete and any(
+            states.get(owner) in (validate_status.STARTED | {"BLOCKED"})
+            for owner in owners
+        ):
+            continue
+        familiarity = repo / "docs/UI_FAMILIARITY.md"
+        for index, value in (
+            (3, "`NOT_YET_APPLICABLE`"),
+            (4, "—"),
+            (5, "—"),
+            (6, "—"),
+            (7, "`NOT_APPROVED`"),
+        ):
+            _set_markdown_table_cell(familiarity, surface, index, value)
+        baseline = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
+        for index in range(2, 12):
+            value = (
+                "`NOT_YET_APPLICABLE`"
+                if index == 2
+                else "`NOT_APPROVED`"
+                if index == 10
+                else "—"
+            )
+            _set_markdown_table_cell(baseline, surface, index, value)
+
+
 def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) -> None:
     """Force every package and milestone past the boundary to NOT_STARTED.
 
@@ -754,12 +795,28 @@ def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) ->
         flags=re.MULTILINE,
     )
     path.write_text(text, encoding="utf-8")
+    rewind_unstarted_ui_surfaces(repo)
+    parsed = validate_status.parse_status(path)
+    # Rewinding packages inside an accepted milestone also rewinds its
+    # acceptance. Later readiness/acceptance mutations still run unchanged.
+    boundary_state = dict(parsed.milestone_rows).get(after_milestone)
+    boundary_packages = [
+        row for row in parsed.package_rows if row[0].startswith(after_milestone + "-")
+    ]
+    if boundary_state in validate_status.DONE and any(
+        row[1] not in validate_status.DONE for row in boundary_packages
+    ):
+        set_ms_state(repo, after_milestone, "IN_PROGRESS")
+        set_ms_revision(repo, after_milestone, "—")
     # A historical boundary before W14 also predates Gate A evaluation.
     # Reset the fixture's ledger/report with its package rows; the live
     # repository and the validator's premature-gate rejection stay unchanged.
     if after_package < "M02-W14":
         set_fixture_gate_state(repo, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
         resolve_w14_findings_before_historical_boundary(repo)
+    elif after_package < "M02-W15":
+        # W14 campaign findings remain live; W15 acceptance has not occurred.
+        set_fixture_gate_state(repo, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
 
 
 def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
@@ -1523,6 +1580,20 @@ def test_v14_governance_ledger_false_completion_rejected(
     because the validator's own ``ok:`` lines mention v1.4 and the provider
     boundary; the expected message is therefore pinned per case.
     """
+    # These mutations target the migration scaffold, not a later evidenced capture.
+    if relative == "docs/UI_FAMILIARITY.md":
+        for index, value in (
+            (3, "`NOT_YET_APPLICABLE`"),
+            (4, "—"),
+            (5, "—"),
+            (6, "—"),
+            (7, "`NOT_APPROVED`"),
+        ):
+            _set_markdown_table_cell(
+                repo_copy / relative, "DESKTOP_SHELL", index, value
+            )
+    elif relative == "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md":
+        _reset_migration_baseline(repo_copy)
     edit(repo_copy / relative, old, new, count=1)
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -1564,6 +1635,20 @@ def test_missing_or_duplicate_familiarity_surface_rejected(
     assert "UI familiarity surface DESKTOP_SHELL" in result.stdout
 
 
+def _reset_migration_baseline(repo: Path) -> None:
+    """Keep historical negative fixtures explicit after honest W01 captures land."""
+    path = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
+    for index in range(2, 11):
+        value = (
+            "`NOT_YET_APPLICABLE`"
+            if index == 2
+            else "`NOT_APPROVED`"
+            if index == 10
+            else "—"
+        )
+        _set_markdown_table_cell(path, "DESKTOP_SHELL", index, value)
+
+
 @pytest.mark.parametrize(
     ("cell_index", "value", "message"),
     [
@@ -1574,6 +1659,7 @@ def test_missing_or_duplicate_familiarity_surface_rejected(
 def test_unapproved_visual_baseline_cannot_claim_artifact_or_decision(
     repo_copy: Path, cell_index: int, value: str, message: str
 ) -> None:
+    _reset_migration_baseline(repo_copy)
     _set_markdown_table_cell(
         repo_copy / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
         "DESKTOP_SHELL",
@@ -2166,6 +2252,8 @@ def test_ledger_invalid_state_value_rejected(repo_copy: Path) -> None:
 
 def test_m03_blocked_without_autofill_gate(repo_copy: Path) -> None:
     promote_milestones(repo_copy, ["M00", "M01", "M02"])
+    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
+    set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M03", "READY")
     set_pkg_state(repo_copy, "M03-W01", "READY")
     set_next_ready(repo_copy, "`M03-W01`")

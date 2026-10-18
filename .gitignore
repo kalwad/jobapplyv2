@@ -39,3 +39,8 @@ blob-report/
 # docs/MASTER_IMPLEMENTATION_SPEC.md (spec §1.1). Ignored to prevent a
 # divergent second copy from being committed.
 MASTER_IMPLEMENTATION_SPEC(1).md
+
+# M03 desktop native and isolated renderer build output
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+apps/desktop/dist-renderer/
