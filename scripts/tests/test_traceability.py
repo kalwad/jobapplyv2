@@ -237,6 +237,20 @@ def trace_repo(tmp_path: Path) -> Iterator[Path]:
             "apps/desktop/test/native-metadata.test.ts",
             "e2e/desktop/shell.spec.ts",
             "e2e/visual/desktop-shell.spec.ts",
+            # M03-W02 actual authenticated-server half of REQ-PLAT-003.
+            "services/orchestrator/src/orchestrator/app.py",
+            "services/orchestrator/src/orchestrator/boundary.py",
+            "services/orchestrator/src/orchestrator/config.py",
+            "services/orchestrator/src/orchestrator/runner.py",
+            "services/orchestrator/src/orchestrator/bootstrap.py",
+            "services/orchestrator/src/orchestrator/responses.py",
+            "packages/contracts/schemas/service/health.v1.schema.json",
+            "packages/contracts/schemas/service/ready.v1.schema.json",
+            "packages/contracts/schemas/service/version.v1.schema.json",
+            "services/orchestrator/tests/test_service_api.py",
+            "services/orchestrator/tests/test_service_config.py",
+            "services/orchestrator/tests/test_service_cli.py",
+            "services/orchestrator/tests/test_service_startup.py",
         ):
             source = REPO_ROOT / relative_path
             destination = repo / relative_path

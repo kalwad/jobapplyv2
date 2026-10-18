@@ -415,6 +415,15 @@ import type {
   SemanticRuleCatalogV2RuleKind,
 } from "./semantic/rule-catalog.v2.ts";
 import type {
+  ServiceHealthV1,
+} from "./service/health.v1.ts";
+import type {
+  ServiceReadyV1,
+} from "./service/ready.v1.ts";
+import type {
+  ServiceVersionV1,
+} from "./service/version.v1.ts";
+import type {
   SessionApplicationSessionV1,
   SessionApplicationSessionV1RevalidationState,
   SessionApplicationSessionV1RuntimeMetadata,
@@ -732,6 +741,9 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:semantic:rule-catalog:v2": SemanticRuleCatalogV2;
   readonly "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry": SemanticRuleCatalogV2RuleEntry;
   readonly "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind": SemanticRuleCatalogV2RuleKind;
+  readonly "urn:japp:schema:service:health:v1": ServiceHealthV1;
+  readonly "urn:japp:schema:service:ready:v1": ServiceReadyV1;
+  readonly "urn:japp:schema:service:version:v1": ServiceVersionV1;
   readonly "urn:japp:schema:session:application-session:v1": SessionApplicationSessionV1;
   readonly "urn:japp:schema:session:application-session:v1#/$defs/revalidationState": SessionApplicationSessionV1RevalidationState;
   readonly "urn:japp:schema:session:application-session:v1#/$defs/runtimeMetadata": SessionApplicationSessionV1RuntimeMetadata;
@@ -1022,6 +1034,9 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:semantic:rule-catalog:v2",
   "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry",
   "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind",
+  "urn:japp:schema:service:health:v1",
+  "urn:japp:schema:service:ready:v1",
+  "urn:japp:schema:service:version:v1",
   "urn:japp:schema:session:application-session:v1",
   "urn:japp:schema:session:application-session:v1#/$defs/revalidationState",
   "urn:japp:schema:session:application-session:v1#/$defs/runtimeMetadata",
@@ -3859,6 +3874,39 @@ export function validateSemanticRuleCatalogV2RuleKind(
   data: unknown,
 ): ContractValidationOutcome<SemanticRuleCatalogV2RuleKind> {
   return validateContractInstance("urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:health:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceHealthV1 type only after validation succeeds.
+ */
+export function validateServiceHealthV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceHealthV1> {
+  return validateContractInstance("urn:japp:schema:service:health:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:ready:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceReadyV1 type only after validation succeeds.
+ */
+export function validateServiceReadyV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceReadyV1> {
+  return validateContractInstance("urn:japp:schema:service:ready:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:version:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceVersionV1 type only after validation succeeds.
+ */
+export function validateServiceVersionV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceVersionV1> {
+  return validateContractInstance("urn:japp:schema:service:version:v1", data);
 }
 
 /**

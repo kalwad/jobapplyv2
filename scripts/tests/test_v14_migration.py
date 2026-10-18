@@ -586,6 +586,14 @@ HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256 = (
 REVIEWED_PNPM_LOCK_SHA256 = (
     "9f9f4ec15c2fc55ffe4e32f8ab52f8193aa9e5bd1624a2e9bcf4c1db35e1e019"
 )
+HISTORICAL_PRE_SERVICE_UV_LOCK_SHA256 = (
+    "4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"
+)
+# M03-W02 preserves every original package/version pin and adds the reviewed
+# authenticated service/workspace graph; retain the immutable prior lock proof.
+REVIEWED_SERVICE_UV_LOCK_SHA256 = (
+    "dcd1aa125c5700002c2dbb8b9b307acd954cc1a6a0ee4525cfbc5e457ffb5163"
+)
 
 
 def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
@@ -664,8 +672,15 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert current_pnpm.count(b"  packages/evaluation-runner:") == 1
     assert _sha256(current_pnpm) == REVIEWED_PNPM_LOCK_SHA256
 
+    historical_uv = subprocess.run(
+        ["git", "show", "6a08f61e3b677ec21e134aea104c568c2e7b57c2:uv.lock"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(historical_uv) == HISTORICAL_PRE_SERVICE_UV_LOCK_SHA256
     unchanged = {
-        "uv.lock": ("4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"),
+        "uv.lock": REVIEWED_SERVICE_UV_LOCK_SHA256,
         "services/native-host/Cargo.lock": (
             "7e8a6629c3f66af2b10347e3025c217538ab0bbb0736c76a1f203b11bba0a722"
         ),

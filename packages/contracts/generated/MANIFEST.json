@@ -494,6 +494,24 @@
       "sha256": "f16d26c5ec95f49b7fe6ed00492f2af1e33874a1e169e0709691fae4d0b4a744"
     },
     {
+      "id": "urn:japp:schema:service:health:v1",
+      "path": "packages/contracts/schemas/service/health.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "e8f1647d3d2b778b1758e2b3e837ac61097e43b5e4d4245eb6aaf8ffec4de780"
+    },
+    {
+      "id": "urn:japp:schema:service:ready:v1",
+      "path": "packages/contracts/schemas/service/ready.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "3742214104b957d82531b9029c7fa18362fb1f2205d9afc3cf03e7acc6a3f196"
+    },
+    {
+      "id": "urn:japp:schema:service:version:v1",
+      "path": "packages/contracts/schemas/service/version.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "a7941d35f2b58674f587a9ae32bda782eab482e3648660ed1b3980f89d4bd942"
+    },
+    {
       "id": "urn:japp:schema:session:application-session:v1",
       "path": "packages/contracts/schemas/session/application-session.v1.schema.json",
       "schemaVersion": "1.0.0",
@@ -543,7 +561,7 @@
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "7f5d7f250e002d4700e1c4cdffef0a293105248a34ef2c23d8c3c87fa736f55c"
+      "sha256": "1964ba74529fb927f145f1460c817db886eaaedbb77cc9f30e73d43ac8b86cfc"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -914,6 +932,22 @@
       "sha256": "8a2a35a6274f9996840306e8e2cdc7ae58527626e0719f00bececa7c5a90dff8"
     },
     {
+      "path": "python/src/japp_contracts/service/__init__.py",
+      "sha256": "d0e08c318737cb157b731a2d1e5cda3fa2c2a7c6c95d3c8ccc81556f421fc726"
+    },
+    {
+      "path": "python/src/japp_contracts/service/health_v1.py",
+      "sha256": "6f2e1613d65ff633e858846b4c36213a3b28a47a0ad983afb09180e82269eb10"
+    },
+    {
+      "path": "python/src/japp_contracts/service/ready_v1.py",
+      "sha256": "493fb9e599a5cdb72a772b6862b82fdc19a6cad6f8a1fc99cb5c8e4acf2b76a6"
+    },
+    {
+      "path": "python/src/japp_contracts/service/version_v1.py",
+      "sha256": "5ccb9046dd2432b27af72893de17413e954136d2855790634370b617fd6fcd82"
+    },
+    {
       "path": "python/src/japp_contracts/session/__init__.py",
       "sha256": "dff81e01afb9f20d1b9b287a75a9085f88ceae4775ce2a66ef3b59181a9213e9"
     },
@@ -1075,7 +1109,7 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "e314b43b10fd07da2ed4371be126032fc8dc664bc784be65029a6e65d079153e"
+      "sha256": "4be0fdd0195fa5304787e7d9125fc867de99dcd78bdf11fa6880c2288ef23d12"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -1266,6 +1300,18 @@
       "sha256": "96c7f7fdddd2041a9c57c8edb877c092e0db747a967ffbe261e68c3087496134"
     },
     {
+      "path": "typescript/service/health.v1.ts",
+      "sha256": "f9f24d89e9ee78bbdc9a5b86a7918afa84cdb7d6287e683f31044b0364fe51f3"
+    },
+    {
+      "path": "typescript/service/ready.v1.ts",
+      "sha256": "46af67ee53e45769fcbf505e5ac484371e9401cc5ea4bfd96bd4eb85654982b5"
+    },
+    {
+      "path": "typescript/service/version.v1.ts",
+      "sha256": "101eeff59e61d9abbe6595c83dc12c74ddcee8c8a552437f239ae56611f2d278"
+    },
+    {
       "path": "typescript/session/application-session.v1.ts",
       "sha256": "480ea5cec7145b752a709a5c6b0b1783eca73bb1ef64cf7951d57440ad97850f"
     },
@@ -1283,7 +1329,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "2f54c53c8f65f392b3ba7b5e26ad81808829cb9881984b05ef5031633f9f485f"
+      "sha256": "651a6f192eb30ccbadae594c989df4a89ec94992ea2b54598f68ef66253874de"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -3807,6 +3853,36 @@
       "typescript": {
         "export": "SemanticRuleCatalogV2RuleKind",
         "module": "typescript/semantic/rule-catalog.v2.ts"
+      }
+    },
+    "urn:japp:schema:service:health:v1": {
+      "python": {
+        "module": "japp_contracts.service.health_v1",
+        "symbol": "ServiceHealthV1"
+      },
+      "typescript": {
+        "export": "ServiceHealthV1",
+        "module": "typescript/service/health.v1.ts"
+      }
+    },
+    "urn:japp:schema:service:ready:v1": {
+      "python": {
+        "module": "japp_contracts.service.ready_v1",
+        "symbol": "ServiceReadyV1"
+      },
+      "typescript": {
+        "export": "ServiceReadyV1",
+        "module": "typescript/service/ready.v1.ts"
+      }
+    },
+    "urn:japp:schema:service:version:v1": {
+      "python": {
+        "module": "japp_contracts.service.version_v1",
+        "symbol": "ServiceVersionV1"
+      },
+      "typescript": {
+        "export": "ServiceVersionV1",
+        "module": "typescript/service/version.v1.ts"
       }
     },
     "urn:japp:schema:session:application-session:v1": {

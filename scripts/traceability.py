@@ -146,8 +146,11 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # other owner obligations remain SCAFFOLD_ONLY, not completed requirements.
 # Previous reviewed projection:
 # 15ea76b48b519df4673bc351dc8a8d8e3a850129d82efffd7fdd0a3964116640
+# M03-W02 server-half honesty projection only; W04/native remainder stays open.
+# Previous reviewed projection:
+# 9e8e8aa8d03917cc3e97a6894df774460e4febc538c1a9cb0db47998c9617625
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "9e8e8aa8d03917cc3e97a6894df774460e4febc538c1a9cb0db47998c9617625"
+    "6c8ab47e1a9482b91de720bb6909a91fd657b3fbb23306e42182aa50f421d2c9"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"

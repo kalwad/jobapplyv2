@@ -463,6 +463,15 @@ from japp_contracts.semantic.rules_v2 import (
     SemanticValidationOutcomeV2,
     validate_semantic_contract_v2,
 )
+from japp_contracts.service.health_v1 import (
+    ServiceHealthV1,
+)
+from japp_contracts.service.ready_v1 import (
+    ServiceReadyV1,
+)
+from japp_contracts.service.version_v1 import (
+    ServiceVersionV1,
+)
 from japp_contracts.session.application_session_v1 import (
     SessionApplicationSessionV1,
     SessionApplicationSessionV1RevalidationState,
@@ -795,6 +804,9 @@ __all__ = [
     "SemanticValidationIssueV2",
     "SemanticValidationOutcomeV1",
     "SemanticValidationOutcomeV2",
+    "ServiceHealthV1",
+    "ServiceReadyV1",
+    "ServiceVersionV1",
     "SessionApplicationSessionV1",
     "SessionApplicationSessionV1RevalidationState",
     "SessionApplicationSessionV1RuntimeMetadata",
