@@ -6,6 +6,9 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  // R10 structural Node tests require their separately bound Node runner.
+  // Keep these Node-only modules outside default browser discovery.
+  testIgnore: ["**/extension/legacy-paired-options-r10/*.test.mjs"],
   // M02-W07: build the real @japp/extension MV3 output before any test
   // runs, so the canonical `playwright test` command always exercises the
   // freshly built extension. Playwright skips global setup for `--list`,

@@ -3686,3 +3686,13 @@ W13 follow-up,2026-09-30: reproduced and treated as PACKAGE_BLOCKER for measurem
 - Workaround: n/a (not currently exploitable; layered checks cover today's
   tree).
 - Resolution + evidence link: pending a later hardening package.
+
+### KI-0099 — Node-only R10 tests enter default Playwright discovery
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-18UTC, actual strict clean3c79bd0/tree8c8c095 full validation.
+- Affects: default browser test discovery before any browser cases execute; test harness only.
+- Description: Playwright default matching imports .test.mjs. The new R10 legacy cleanup Node test imports experimental SourceTextModule and requires a separately bound Node runner, so default discovery throws before W13/default browser execution. This is a test-location/discovery regression; current p95 is null and no new runtime performance conclusion follows.
+- Correction: reviewed patch820a340c6a29bdc4819461a3d0d0c1013219065c5a81d53159b4b7602bbaa3c2 adds only a narrow testIgnore for four R10 Node-only modules. All54specfiles/5customproofs/9customconfigs,36R10graph and originalR9 bytes remain unchanged. Proper Node runner executes42PASS/0fail/cancelled/skipped/todo; browser --list discovers all246cases, without execution. Root type/lint/format/diff pass.
+- Resolution + evidence link: IN_PROGRESS pending a fresh frozen full validation. docs/evidence/m02-w15-discovery-correction/proof.tar.gz SHA256ef870ded9945f3c8653d85879c571dbe1f3e6a2435ecd00ad6270c952039693b. The failed3c79 run, full source/tool/build endpoints and independent review remain retained. No browser test is removed, rewritten or marked skipped to obtain a pass.
