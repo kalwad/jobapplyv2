@@ -45,6 +45,19 @@ broadening a work package (spec §1.5).
 - Workaround: none used; the failed complete run is preserved and does not verify W02.
 - Resolution + evidence link: use the stable historical M00-W01 VERIFIED row with exact occurrence/change assertions for the runner mutation; establish a coherent copied W01 boundary and require baseline validator PASS before the unchanged invalid-enum mutation. All original test identities and assertions remain. Affected tests and the complete integrity module pass; fresh complete validation remains required. See docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service/failed-verification-28ba-manifest.json.
 
+## M03-W02 corrected dependency privacy default (2026-10-18)
+
+### KI-0102 — Framework telemetry defaults could observe sensitive synthetic input
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-18 during outside M03-W02 dependency/API review
+- Affects: M03-W02; local service privacy boundary
+- Description: FastAPI0.146.0 core telemetry defaults could acquire ambient providers and observe exception/validation input. The insecure proposal was never accepted or used with real user data.
+- Reproduction: retained configuration RED observes an enabled switch before any sensitive capture assertion; later hostile-provider factory regression exercises actual construction, requests, validation and exception paths.
+- Workaround: none used; no provider/SDK/exporter success is inferred.
+- Resolution + evidence link: all five switches (tracing, metrics, logs, operation_spans, auto_configure) explicitly false; focused/socket/wheel/clean full tests and independent review PASS; docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service.
+
 ## M03-W01 corrected native boundary (2026-10-18)
 
 ### KI-0101 — Debug-packaged shell accepted the development origin

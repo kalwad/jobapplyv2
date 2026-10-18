@@ -33,6 +33,20 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M03-W02 — Verified authenticated service; M03-W03 continuation (2026-10-18)
+
+- Revision: tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d, commit aa7e4e3bb92faf21e23f6bfe01f05d4dbf8c5044. Strict pnpm run doctor28PASS and pnpm verify all20 ACTIVE PASS with both exits0 and exact clean source/HEAD/tree/tracked bytes unchanged. Commands/timings/raw results and independent source-bound full-data PASS are retained in docs/evidence/m03-w02-service/clean-verification-summary.json and clean-verification-proof.tar.gz SHA256931a922d4030921730e3dd38377cff161da6fb5c46a4d4680b4b932986801b5c/887356bytes/34safe regular files, exhaustive adjacent manifest.
+- Actual full counts:3937TS/15packages,256default browser,2controlled inspection+62contact,3visual and1627Python (1625common+same2POSIX). This ordinary default verification supplies no new accepted Gate A target20 campaign, production ATS, packaged platform/native client or final visual certification. Previous accepted95f5 evidence remains separate and immutable.
+- Independent source22/22, focused/wheel18/18 and full-data reviews pass; every reviewed old lock pin/schema/test identity remains preserved. Real service APIs authenticate before routing, bind literal loopback only, use canonical payload/errors, disable all five ambient telemetry switches, and start/stop through bounded private pipes. Root canonical wheels also pass actual empty-cwd/environment import/ACK/authready/EOF proof. No database/model readiness is invented.
+- Decision: /root records W02 VERIFIED under OD-037 / ADR-0008 only after the actual required results/reviews above. REQ-PLAT-003 remains SCAFFOLD_ONLY/NOT_YET_APPLICABLE with W04/native remainder explicit. W03 starts immediately; M03 and release remain unfinished. No routine owner approval prompt.
+
+### M03-W03 — Native sidecar lifecycle start (2026-10-18)
+
+- State: IN_PROGRESS after verified W01/W02 and accepted M00/M01/M02/Gate A PASS. No W03 or platform PASS is supplied by this start.
+- Scope: actual Tauri builder/run lifecycle, trusted compile-bound service runtime, random loopback port and fresh private token/instance/generation, private readiness ACK before authority, finite cancellation/normal/forced cleanup, nonblocking native command-side authority inspection and safe diagnostics. Preserve all navigation/CSP/ACL and shared UI foundations.
+- Acceptance: meaningful unit/negative/ownership tests, actual exact-root standalone and Tauri app actors with retained source/executed binaries/observers, independent review and clean full verification. Outside proposal/discovery evidence retains its failures and narrower artifact/timing scope; final exact-root proof is required. W04 authenticated client, W05 restart and W06–W10 platform packaging/certification remain their owning work.
+
+
 ### M03-W02 — Full-run fixture failure retained and corrected (2026-10-18)
 
 - Evaluated source: commit28ba25f9b26e8327226b3570e5fcbe0e5917bd5a/tree9b42993d1f41a6edd7bb113c4836d6dbfb4ddb8c, macOS arm64 with pinned Node24.18.0/pnpm11.17.0/Python3.12.13/uv0.11.32/Rust1.97.1. Actual strict `pnpm run doctor` exits0 (28PASS); `pnpm verify` exits1 after1094.902038s, all20ACTIVE executed/19PASS. Exact1627Python collection executes1626PASS/1FAIL366.12s; TS3937, default browser256, controlled inspection2/contact62, visual3 and remaining suites PASS. HEAD/tree/status/all1762 tracked bytes stay unchanged. This is a failed full run; W02 remains IN_PROGRESS and34/300 VERIFIED.

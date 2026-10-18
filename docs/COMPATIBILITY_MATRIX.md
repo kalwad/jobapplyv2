@@ -28,6 +28,10 @@ ATS/browser/OS support and measured pass rates
   evidence references, and last-tested date). Defining that shape adds no row
   and grants no support claim; the production support tables below remain empty.
 
+## Local service skeleton observation — 2026-10-18
+
+M03-W02 is VERIFIED at tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d; M03 remains IN_PROGRESS. Actual macOS arm64/Python3.12.13 executes authenticated versioned loopback health/readiness/version, canonical errors, private bootstrap/ACK, startup/collision/EOF negatives and an empty-environment/cwd canonical wheel-only lifecycle. Source-bound strict doctor28/full20-suite verification and independent reviews are retained in docs/evidence/m03-w02-service and docs/TEST_EVIDENCE.md § M03-W02. Windows/Linux runtime and packaged Tauri lifecycle, W04 native client, final cross-platform certification and production ATS support are not supplied by this scoped service observation. Accepted Gate A evidence remains separately evaluated95f5.
+
 ## Initial desktop shell observation — 2026-10-18
 
 M03-W01 is VERIFIED at tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9; M03 remains IN_PROGRESS. Target macOS arm64 actual local .app inspection rendered the original shell, real app0.0.1/Tauri2.12.4, native keyboard/skip behavior and bounded IPC/navigation denial checks. Bundled Chromium151.0.7922.34 exercised seven routes and captures at1120/320px plus200% text resize. Exact evidence: docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell. This is initial shell evidence, not authenticated service lifecycle, Windows/Ubuntu GUI validation, production ATS support or final frozen design certification. Gate A/M02 are accepted under the separate delegated decision chain recorded above their original historical packets.

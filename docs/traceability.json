@@ -8376,8 +8376,8 @@
       "id": "M03-W02",
       "milestone": "M03",
       "title": "Create FastAPI service skeleton",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d",
       "direct_package_prerequisites": [
         "M03-W01"
       ],
@@ -8419,14 +8419,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M03-W02"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W03",
       "milestone": "M03",
       "title": "Implement sidecar lifecycle",
-      "current_state": "NOT_STARTED",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M03-W02"
