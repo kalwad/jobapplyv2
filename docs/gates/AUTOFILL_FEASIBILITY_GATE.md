@@ -8,8 +8,8 @@ Gate report for the blocking Autofill Feasibility Gate (spec §2.3; owner M02). 
 - Owning milestone: M02 (M02-W07 through M02-W15)
 - Blocks: M03 readiness; M17/M18/M19 retain Gate A PASS qualifiers.
 - State: IN_PROGRESS
-- Evaluated revision: W14 package content tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 is validated by actual clean-clone verification at commit6384d98156ae198cd93d7b35d1bb28b501ed475e. Formal Gate A evaluated revision/verdict remains for IN_PROGRESS M02-W15. Historical source scopes remain separate.
-- Gate authority / independent decision: none yet.
+- Evaluated revision: current frozen95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123/treeb85166b035fbf90a1b8c85d54f52461ccc422dd6; actual independent technical recommendation PASS at exact predecisionpack5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa, owner decision pending. Earlier source scopes remain historical.
+- Gate authority / independent decision: actual independent technical recommendation PASS, verdict SHAb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf; authoritative state remains IN_PROGRESS until owner approval.
 
 ## Blocking thresholds
 
@@ -23,6 +23,18 @@ Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
 Accepted OD-036 / ADR-0007 removes only direct Simplify comparison and executed public-form evidence prerequisites project-wide. These assessments are not executed or passed observations and provide no public ATS support or competitor parity/superiority claim. Other components of mixed requirements, controlled/absolute thresholds, actual usability/accessibility/visual approval, other baselines, native proof and independent/source-bound owner gate decisions remain required. Original specification, frozen corpus and historical records stay unchanged. This record changes no package/gate state.
 
 Current public scored cases and direct Simplify cases remain0. Their historical attempts/readiness records below remain exact. KI-0089 is FIXED only at its waived external-prerequisite scope. W14 is VERIFIED; M02-W15 is IN_PROGRESS for final correction, validation and independent/source-bound owner decision. Continuous execution authorizes progressing eligible validated work and does not grant a fabricated unknown future verdict.
+
+## Current frozen95f5 independent review — 2026-10-18UTC
+
+Actual independent technical recommendation is PASS at source95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123/treeb85166b035fbf90a1b8c85d54f52461ccc422dd6, predecisionpackSHA5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa/10325434bytes169members and verdictSHAb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf. Authoritative Gate A and W15 remainIN_PROGRESS; ownerdecisionPENDING. Currentproof, originalreport andcompletehistory are docs/evidence/m02-w15-review-95f5.
+
+Strict actualdoctor thenfull19ACTIVE PASS/source1658/runtime355neutral closesfull99/99; independentoriginalkey14/14PASS. Native12820p95846.236875ms/separatecanonical847.323333ms andcontact200fullsettlement871.417084ms satisfy unchanged1500ms within theirdistinctscopes. Contactprecision/persistence1485/1485, requiredrecall1275/1275, unresolvedreporting770/770, sevenphysicalcounters0/noorphans; original90incorrectabstentions remain. Mounted334+2checks/43contacts/58required=30filled+28reportedunresolved;67transitions unexercised bycontactscope. Memory256cycles37.241s isboundedresearch, notproductionsoak.
+
+Currentnative39084518359/attempt1 actualSUCCESS all3hosts/45rawchecks atmergece538/treeb851equal95: all19/doctor27/3905TS/246default/2+62/Python1492POSIX1490Windows/no testskips/trackedclean. CI1sampleMac2423.20975ms>logged1500 remainsdescriptive, nottarget20acceptance. RootphysicalM5targetprofiles areseparate.
+
+Current4candidate+4legacy actors completedonce. OriginalR10pipelineFAIL fromCLI/tmp alias remainsfailed/all7endpointsneutral; separatelyreviewedidenticalpurejoinandpostflight204+5PASS gives40/40vs28/40exact andseparatedigits40/40vs32/40. Candidate0/legacy4unexpectednativeACTIVATION, normalownedcleanup/OSdescendantsunobserved. KI0100OPENrecords futureharnessreuse; actualcurrentcomparison iscomplete.
+
+Independentactualpack30/30 preservesall103originalpublicassets/all200originalresults/acceptedADR6-7/nonexecution/historicalseparation; source273/evidence613pathsclassified. CurrentretainedsyntheticPNG actuallyinspected/sourceandcasebound; laterproductUI/usability/a11y/ownervisual requirements remainbinding. Earlierfailedruns/lost507aoriginaltrace/rejectedproposals/readererrors stayunchanged below andinarchives; no causalorretrospectivePASSclaim.
 
 ## Current W15 final-candidate failure — 2026-10-17
 
@@ -91,7 +103,7 @@ Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006, owner instructions 
 
 ## Independent review
 
-Independent reviewer: pending. M02-W15 is IN_PROGRESS after verified W14 package closeout. Implementation authorship, read-only assistance and supplemental capture do not constitute independent final Gate A approval.
+Independent reviewer: /root/gate_a_final_audit. Actual technical recommendation PASS for exact95f5/treeb851/predecisionpack5085/index2c2e, verdictSHAb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf. Original report, sealedreview andallrawproofs: docs/evidence/m02-w15-review-95f5. This is not owner approval or authoritative GatePASS.
 
 ## Decision
 

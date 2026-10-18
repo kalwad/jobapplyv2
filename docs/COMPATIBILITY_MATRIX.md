@@ -28,6 +28,20 @@ ATS/browser/OS support and measured pass rates
   evidence references, and last-tested date). Defining that shape adds no row
   and grants no support claim; the production support tables below remain empty.
 
+## Current M02-W15 research review — 2026-10-18UTC
+
+Exact95f5/treeb851 has an actual independent PASS technical recommendation; owner Gate A decision is pending. This adds no production ATS/browser/OS support row. Complete source-bound proof and limits: docs/evidence/m02-w15-review-95f5.
+
+| Research scope | Observed result | Limit |
+|---|---|---|
+| Corrected target-M5 controlled extension | Local19ACTIVE/3905TS/246default/2+62/1492Python; native12820p95846.236875ms andseparatecanonical847.323333ms | Foregroundmethod declared outsideoriginaltimedwork; zero-settle lowerbound distinct fromfullsettlement |
+| Contact200 supported cohort |1485/1485precision/persistence,1275/1275requiredrecall,770/770reporting, sevenphysicalcounters0; p95871.417084ms | Contact-only/90originalincorrectabstentions preserved; otherdriver/transitionproofs separate |
+| Current one-component legacy comparison |40/40vs28/40exact;separatedigits40vs32;candidate0/legacy4unexpectedACTIVATION | Fourrelatedsyntheticcases; originalpipelineFAIL/separatepurejoinPASS; no broad/statistical/public/performance superiority |
+| Current native repository CI |39084518359all3hostsSUCCESS, source1658treeequal; all19/3905TS/246default/2+62/Python1492POSIX1490Windows | OneCI128sampleUb1341.18689/Mac2423.20975/Win1140.7524ms; Macabove1500 retained/no target20 orpackagedplatformcertification |
+| Current mounted32 |43/43contacts;58required enabled=30filled+28explicitunresolved;5event/value counters0 | Unsupported-only14rows;67transitions unexercised bycontactcomponent; no native-setter extrapolation |
+
+Waived hiddenholdout/directSimplify/public execution remainunexecuted. FutureproductUI/accessibility/usability/visual andnativepackaging requirements remainbinding.
+
 ## W14 evaluation package handoff — 2026-10-17
 
 W14 package is VERIFIED at frozen6384 content/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 after actual clean-clone full verification and scoped evidence review. Current candidate index/manual synthetic checklist are retained in docs/evidence/m02-w14-candidate-handoff. The verified package supplies no new production support row: synthetic contact, mounted unsupported controls, fixture transition behavior, native repository CI and legacy comparison retain their exact scopes. Gate A remains IN_PROGRESS, with W15 IN_PROGRESS for the independent verdict. The owner-waived public-form and direct Simplify categories remain unexecuted, not passed.

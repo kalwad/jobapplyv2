@@ -74,57 +74,45 @@ reports live in `docs/gates/`.
 ## AUTOFILL_FEASIBILITY
 
 - State: IN_PROGRESS
-- Evaluated revision: —
-- Corpus/holdout hash: —
-- Independent reviewer: —
+- Evaluated revision: tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 / commit 95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123
+- Corpus/holdout hash: sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8
+- Independent reviewer: /root/gate_a_final_audit
 - Owner decision: pending
 - Report: docs/gates/AUTOFILL_FEASIBILITY_GATE.md
-- Known limitations: W14 evaluation package is VERIFIED at frozen content
-  tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 after actual clean-clone full verification
-  and scoped package evidence review. Formal independent W15/source-bound
-  owner Gate A decision remains pending; no final gate verdict is inferred.
-  Contact, native128, mounted32, feature fixtures, legacy and native CI scopes
-  remain individually limited to their retained observations.
-- Current final-candidate result: exact507a/tree235bc696fb37e887b5efa817039276a775a18e2e fails mandatory native128 target20 p951662.986499999999ms against unchanged1500ms.18 ACTIVE suites PASS/1FAIL; independent full audit81/87 honestly exposes6 failure checks. KI-0096 HIGH/IN_PROGRESS blocks a passing final verdict. Failed full, original artifact loss and source-bound independent report are retained in docs/evidence/m02-w15-failed-507a; earlier6384 W14 verification remains historical. KI-0098 MEDIUM/IN_PROGRESS tracks shared Playwright output cleanup; source-reviewed correction and focus viewport tests require integration/validation.
-- Latest corrected246 canonicaltarget20: original120000ms whole-testtimeout/exit1, no aggregate/p95;18native128 iterations complete allcounts,19th firstbatch interruptedbydeadline,20thnotstarted. Allsource/runtime3554f5a/endpoints unchanged andnativefailuretrace retained. Closedraw/independent source/trace: docs/evidence/m02-w15-canonical-246-timeout. Cause remainsUNPROVEN; foregrounddiagnostic issource-only preparation, no currentperformance/full/gatePASS.
-- Foreground measurement correction: independently reviewed patch17e9e2800095838469e1752944df4e5bb2ec3b6c86a4a87c364748cfa06a1474 is integrated as benchmarkc1864e71bd22d8c8df596bdec77bc39bce6b11b69171893cb0d9cd3cb1df48e2. It declares the actual target Chrome tab active and visible before original timing and checks both after each synchronously retained completed row. Original timed span6b066, assertions, row values,20samples,1500ms,120000ms and zero settlement remain exact; complete355/3372811/runtime4f5a is unchanged. Root e2e TypeScript/lint/format/status45/trace193-300/diff PASS. Actual separate V3 diagnostic completes22rows/20native128, p95842.6034590000017ms; all original/before/after DOM visibility/focus values stay visible/true, while only active-tab IDs transition to target. This proves no timer/root cause and supplies no canonical acceptance. Optional command-line metadata remains UNAVAILABLE once with0actualargv; normal successful retention produces only.last-run.json, no trace. Canonical246 timeout,507a failure and V2 zero-sample query failure remain preserved. Exact source/raw/derived corrections/root checks and nested58member independent source/raw review: docs/evidence/m02-w15-foreground-method/proof.tar.gz, SHA2561255fdcc4bd31191098f9a486a98c52782de98bf0f264fb4bbf82ad0925195b1,664265bytes/103outerregularmembers, exhaustivecomparisonPASS. Fresh frozen full/current nativeCI/R10/key14 and source-bound owner decision remain pending; W15/GateA stay IN_PROGRESS.
-- Corrective source is integrated: TEXT/TEXTAREA987/c46 actual RED4/GREEN28 and inherited fixture7346 complete root241units/type/lint/format PASS; retention177 root41CI tests PASS. NewR10source36files/34lock/runtime355-4f5a is frozen and independently source-clear, release/fullNULL/0actors. Source/raw/rejectedproposal histories: docs/evidence/m02-w15-corrections-integration. Corrected target20/full/native/currentbaseline/keyreview remain pending; no current PASS or ownerdecision.
-- Latest full at clean3c79bd0/tree8c8c095 closes FAIL:18 ACTIVE suites PASS/1default-browser discovery FAIL, with no W13 samples/p95 or current200 execution. New R10 Node-only modules were imported by Playwright without their required VM runner. Exact three-line820a config correction is integrated and independently source-clear; properNode42PASS and boundeddiscovery246cases/all54specfilesPASS, with all browser tests and frozen graphs preserved. Fresh canonical20/full/nativeCI remain pending. Closed raw/source/tool/build proof, correction checks and independent review: docs/evidence/m02-w15-discovery-correction/proof.tar.gz, SHA256ef870ded9945f3c8653d85879c571dbe1f3e6a2435ecd00ad6270c952039693b (481161bytes/185members). Gate A remains IN_PROGRESS; no owner decision.
-- Pending M02 corrective finding: KI-0097 MEDIUM/OPEN, source-confirmed opt-in
-  harness acquisition/rejected-close cleanup only; no recorded leak or
-  numerical contradiction. W15 is IN_PROGRESS; the reviewed contact/inspection
-  repair is integrated with complete extension units/typecheck/static PASS.
-  Clean final-candidate verification and key reproductions precede its final
-  decision. Sealed R9 remains unchanged; initial-writer cleanup is a future
-  corrected-campaign precondition.
+- Independent technical recommendation: PASS, exactsource95f5/predecisionpack5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa/verdictb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf; owner approval is still required.
+- Evidence bundle: docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz
+- Evidence index: docs/evidence/m02-w15-review-95f5/candidate-index.json
+- Current validation: strict localdoctor+19ACTIVE/source1658/runtime355neutral/full99/key14 PASS; current3hostCI19ACTIVE and45rawchecks PASS. Native128target20p95846.236875ms/separatecanonical847.323333ms, separatecontact200fullsettlement871.417084ms.
+- Current baseline: once-completed4+4actors/separatepurejoin40/40vs28/40exact/204rawchecks; candidate0/legacy4unexpectedACTIVATION. OriginalpipelineCLIaliasFAIL remainsFAIL, no actor replay. KI0100MEDIUMOPEN is futurecoordinatorreuse, currentcomparison complete.
+- Known limitations: earlyresearchscope only; supportedcontact denominator, separatedrivers/Workday/dynamic/frames, 90originalincorrectabstentions, mounted67transitions unexercised bycontact campaign. Onelegacycomponent/fourrelatedcases, installednativeobserver scope/normalownedcleanup/OSdescendantsunobserved. MacCI1sample2423.20975ms>logged1500 isdescriptive and suppliesno target20 acceptance. No productionATS, packageddesktop, humanusability/a11y/ownervisual approval. FutureUI obligations remainbinding andNYAinM02.
+- Historical failures:507a1662.9865ms/lostoriginaltrace, phase1644.64975ms,246whole-testtimeout/nullp95,V2queryzerosamples,3c79discovery andnativeextra timeouts, rejecteddate/textarea proposals andreadererrors remainunchanged inretainedhistory. No timer/load/cause explanation inferred.
+- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
+- Final holdout assessment in review index: WAIVED_BY_OWNER_ADR_0006, executionfalse/currentvaliditynotestablished; original manifest retained.
 - Simplify comparison result: WAIVED_BY_OWNER_ADR_0007
 - Public-form evidence result: WAIVED_BY_OWNER_ADR_0007
-- Next permitted action: execute IN_PROGRESS M02-W15 in a separate eligible review
-  session against exact final evidence; M03 remains NOT_STARTED until genuine
-  Gate A PASS and M02 acceptance.
+- Next permitted action: actual source/pack/index/verdict-bound owner Gate A decision; only afterward GatePASS/M02ACCEPTED/M03READY. Ordinary per-W stops remain superseded.
 
-### Metric table (spec §2.3 Gate A — measured results recorded at evaluation)
+### Metric table (spec §2.3 Gate A — measured current95f5 scopes)
 
 | Dimension | Blocking early result | Measured |
 |---|---:|---|
-| Ordinary attempted-fill precision on supported variants | >= 99.5% | — |
-| Required ordinary-field recall on declared supported variants | >= 97% | — |
-| Sensitive/prohibited false fills | 0 | — |
-| Catastrophically wrong option selections | 0 | — |
-| Honeypot fills | 0 | — |
-| Visible required fields silently omitted | 0 | — |
-| Unresolved required fields explicitly reported | 100% | — |
-| Intended values retained after controlled rerender | >= 99.5% | — |
-| Duplicate actions caused by rescans | 0 | — |
-| Generic scan/fill p95, excluding AI | <= 1.5 s per page | — |
-| Live employer submissions performed by gate automation | 0 | — |
-| Workday challenge-set architecture failures hidden or waived | 0 | — |
+| Ordinary attempted-fill precision on supported variants | >= 99.5% | 1485/1485 supported contact fills |
+| Required ordinary-field recall on declared supported variants | >= 97% | 1275/1275 supported contact fields |
+| Sensitive/prohibited false fills | 0 | 0 within measured contact/native scope |
+| Catastrophically wrong option selections | 0 | 0 within measured contact/native scope |
+| Honeypot fills | 0 | 0 within measured contact/native scope |
+| Visible required fields silently omitted | 0 | 0; unsupported required controls explicitly reported |
+| Unresolved required fields explicitly reported | 100% | 770/770 contact cohort; mounted28/28unresolved |
+| Intended values retained after controlled rerender | >= 99.5% | 1485/1485 |
+| Duplicate actions caused by rescans | 0 | 0 in measured contact cohort; separate dynamic proofs retained |
+| Generic scan/fill p95, excluding AI | <= 1.5 s per page | Target20native128846.236875ms; separatefullsettlementcontact200871.417084ms |
+| Live employer submissions performed by gate automation | 0 | 0; synthetic/isolated execution only |
+| Workday challenge-set architecture failures hidden or waived | 0 | 0; independent bounded architecture review PASS |
 | Greenhouse/Lever/Workday research comparison versus Simplify | non-inferior precision on the declared narrow set, within the declared recall margin, and safer or equal on uncertainty | WAIVED_BY_OWNER_ADR_0007 (not executed or passed) |
-| Comparison versus CareerPulse/legacy JobApply | decisive measured improvement with no inherited unsafe fallback | — |
+| Comparison versus CareerPulse/legacy JobApply | decisive measured improvement with no inherited unsafe fallback | 40/40vs28/40exact, candidate0vslegacy4unexpectedACTIVATION; one sharedcomponent/fourrelatedcases |
 
-- Zero-tolerance failures observed: — (none recorded; gate not evaluated).
-- Holdout result: WAIVED_BY_OWNER (OD-035 / accepted ADR-0006; not executed or passed).
-- Independent review: pending.
+- Zero-tolerance failures observed: 0 within the declared current measured scopes; no unexercised-feature extrapolation.
+- Independent review: actual PASS technical recommendation and source-bound report retained; owner decision pending.
 
 ## CROSS_PLATFORM_CORE
 
