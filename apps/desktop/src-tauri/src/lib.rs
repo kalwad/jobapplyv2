@@ -1,4 +1,8 @@
-use tauri::webview::NewWindowResponse;
+#[cfg(test)]
+#[path = "../build_support.rs"]
+mod runtime_build_tests;
+mod service;
+use tauri::{Manager, webview::NewWindowResponse};
 
 fn shell_navigation_allowed(url: &tauri::Url, development: bool) -> bool {
     if !url.username().is_empty()
@@ -20,7 +24,7 @@ fn native_navigation_allowed(url: &tauri::Url) -> bool {
 }
 
 pub fn run() {
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
         .setup(|app| {
             let config =
                 app.config().app.windows.first().ok_or_else(|| {
@@ -30,10 +34,33 @@ pub fn run() {
                 .on_navigation(native_navigation_allowed)
                 .on_new_window(|_, _| NewWindowResponse::Deny)
                 .build()?;
+            let runtime = service::configured_runtime(app.handle())
+                .unwrap_or_else(|_| service::ConfiguredRuntime::unavailable());
+            let service = service::ManagedService::new(runtime)
+                .map_err(|_| std::io::Error::other("Local service configuration failed"))?;
+            app.manage(service.clone());
+            let _ = service.start_background(app.handle());
             Ok(())
         })
-        .run(tauri::generate_context!())
+        .build(tauri::generate_context!())
         .expect("Desktop app could not start");
+    app.run(|app, event| match event {
+        tauri::RunEvent::ExitRequested { api, .. } => app
+            .state::<service::ManagedService>()
+            .on_exit_requested(app, &api),
+        tauri::RunEvent::WindowEvent {
+            label,
+            event: tauri::WindowEvent::CloseRequested { api, .. },
+            ..
+        } if label == "main" => {
+            let service = app.state::<service::ManagedService>();
+            if !service.allow_exit() {
+                api.prevent_close();
+                service.request_shutdown(app);
+            }
+        }
+        _ => {}
+    });
 }
 
 #[cfg(test)]

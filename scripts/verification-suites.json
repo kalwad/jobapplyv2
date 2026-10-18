@@ -41,6 +41,7 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -107,6 +108,7 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ]
@@ -501,6 +503,7 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -517,6 +520,7 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -531,6 +535,7 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
