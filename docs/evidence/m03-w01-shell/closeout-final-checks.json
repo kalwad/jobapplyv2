@@ -1,0 +1,26 @@
+{
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/validate_status.py"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "exit_code": 0,
+      "output": "  ok: CLAUDE.md: present with required structure\n  ok: docs/MASTER_IMPLEMENTATION_SPEC.md: present with required structure\n  ok: docs/PROJECT_STATUS.md: present with required structure\n  ok: docs/DECISIONS.md: present with required structure\n  ok: docs/TEST_EVIDENCE.md: present with required structure\n  ok: docs/KNOWN_ISSUES.md: present with required structure\n  ok: docs/COMPATIBILITY_MATRIX.md: present with required structure\n  ok: docs/UI_FAMILIARITY.md: present with required structure\n  ok: docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md: present with required structure\n  ok: docs/ui/ANTI_BLOAT_CHECKLIST.md: present with required structure\n  ok: docs/EXPERIMENTAL_AI_PROVIDERS.md: present with required structure\n  ok: docs/PLATFORM_SUPPORT.md: present with required structure\n  ok: docs/REQUIREMENTS_TRACEABILITY.md: present with required structure\n  ok: docs/traceability.json: present with required structure\n  ok: docs/CRITICAL_GATES.md: present with required structure\n  ok: docs/gates/AUTOFILL_FEASIBILITY_GATE.md: present with required structure\n  ok: docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md: present with required structure\n  ok: docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md: present with required structure\n  ok: docs/gates/CROSS_PLATFORM_CORE_GATE.md: present with required structure\n  ok: docs/gates/HOLDOUT_EXECUTION_LOG.md: present with required structure\n  ok: docs/platform/CERTIFIED_MATRIX.md: present with required structure\n  ok: docs/platform/MODEL_RUNTIME_PROFILES.md: present with required structure\n  ok: docs/platform/NATIVE_MESSAGING_MATRIX.md: present with required structure\n  ok: docs/platform/PACKAGING_UPDATE_MATRIX.md: present with required structure\n  ok: spec parsed: 39 milestones, 300 work packages, 193 requirements; \u00a712 gate rules derivable\n  ok: canonical v1.4 hash, M00-W01\u2026W11 table, owner-controlled agent policy, provider boundary, and explicit M27 terminal order verified\n  ok: v1.4 UI/provider governance ledgers have exact owners and honest stage-aware unapproved UI evidence and NOT_EVALUATED states\n  ok: PROJECT_STATUS header fields and sections present; release gate is NOT_READY\n  ok: critical-gates table valid (4 gates, valid states, reports present, ledger complete and agreeing)\n  ok: future Gate D guidance resolves exactly to nondeprecated evidence-record:v2 and certification-input:v2\n  ok: milestone table complete (39 rows, valid enums)\n  ok: work-package table complete (300 rows, exactly one state each)\n  ok: IN_PROGRESS count ok (1)\n  ok: READY count/coexistence ok (0)\n  ok: 'Current work package' matches the IN_PROGRESS package\n  ok: next READY package: NONE (no READY rows)\n  ok: Current milestone matches M03\n  ok: KNOWN_ISSUES and PROJECT_STATUS live blockers agree with milestone acceptance and readiness\n  ok: dependency order respected (milestone deps, ACCEPTED prerequisites, critical gates, and reviewed explicit package graph)\n  ok: v1.4 readiness contract valid (M00-W11 is the only migration work, M01-W07 waits for exact verification plus M00 acceptance, pre-closeout gates remain unevaluated, and M06 remains independent of Gate D)\n  ok: M28/Gate-D final-revision binding is not yet applicable\n  ok: milestone states consistent with package states\n  ok: verified/accepted packages carry tree revisions and linked TEST_EVIDENCE entries\n  ok: M00-W01\u2026W10 and M01-W01\u2026W06 states, trees, content commits, and evidence anchors are preserved\n  ok: exactly one regular canonical specification exists under docs/ (case/Unicode/content variants checked)\nPASS: all checks passed (45 check groups)\n",
+      "output_sha256": "e87bd7abf40d7a5723306c8911bd6891b148ee482832e81b73e89bce03413dd5"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "traceability:check"
+      ],
+      "cwd": "/Users/tanishkalwad/jobapplyv2",
+      "exit_code": 0,
+      "output": "PASS: traceability validated 193 requirements and 300 work packages\n",
+      "output_sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779"
+    }
+  ],
+  "git_diff_check_exit_code": 0,
+  "scope": "actual post-evidence metadata checks, separate from frozen dbdf full and current focused run"
+}

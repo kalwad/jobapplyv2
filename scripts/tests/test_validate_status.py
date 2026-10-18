@@ -1045,6 +1045,7 @@ def test_future_gate_d_schema_guidance_rejects_deprecated_or_missing_major(
 
 
 def test_gate_pass_unblocks_m03(repo_copy: Path) -> None:
+    reset_downstream(repo_copy, after_package="M03-W01", after_milestone="M03")
     promote_milestones(repo_copy, ["M00", "M01", "M02"])
     set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M03", "READY")
@@ -1249,6 +1250,7 @@ def test_fixed_ledger_and_none_sentinel_allow_later_readiness(
 
 
 def test_invalid_package_state_rejected(repo_copy: Path) -> None:
+    set_pkg_state(repo_copy, "M03-W02", "NOT_STARTED")
     edit(status_path(repo_copy), "| `M03-W02` | NOT_STARTED |", "| `M03-W02` | DONE |")
     result = run_validator(repo_copy)
     assert result.returncode == 1

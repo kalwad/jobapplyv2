@@ -32,6 +32,19 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M03-W01 corrected native boundary (2026-10-18)
+
+### KI-0101 — Debug-packaged shell accepted the development origin
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W01 independent review (SHELL-001)
+- Affects: M03-W01; native shell navigation policy
+- Description: cfg!(debug_assertions) treated a debug-packaged custom-protocol app as development and permitted http://127.0.0.1:1420.
+- Reproduction: actual custom-protocol test calling the shipping callback failed before the fix; original RED is retained.
+- Workaround: none used.
+- Resolution + evidence link: shipping callback uses tauri::is_dev(); six tests in each protocol mode pass, independent review closed SHELL-001 and the final rebuilt GUI actually denied development-origin navigation. Clean source-bound full20-suite validation passes; docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell.
+
 ## M02-W14 current development findings (2026-10-16)
 
 These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is VERIFIED, Gate A IN_PROGRESS, W15 READY and release NOT_READY. ADR-0006 waives owner-controlled holdout; accepted ADR-0007 additionally waives direct Simplify comparison and executed public-form evidence. Neither waiver supplies execution or PASS. Scoped legacy baselines, all nonwaived measurement and independent review remain required. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.

@@ -28,6 +28,10 @@ ATS/browser/OS support and measured pass rates
   evidence references, and last-tested date). Defining that shape adds no row
   and grants no support claim; the production support tables below remain empty.
 
+## Initial desktop shell observation — 2026-10-18
+
+M03-W01 is VERIFIED at tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9; M03 remains IN_PROGRESS. Target macOS arm64 actual local .app inspection rendered the original shell, real app0.0.1/Tauri2.12.4, native keyboard/skip behavior and bounded IPC/navigation denial checks. Bundled Chromium151.0.7922.34 exercised seven routes and captures at1120/320px plus200% text resize. Exact evidence: docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell. This is initial shell evidence, not authenticated service lifecycle, Windows/Ubuntu GUI validation, production ATS support or final frozen design certification. Gate A/M02 are accepted under the separate delegated decision chain recorded above their original historical packets.
+
 ## Current M02-W15 research review — 2026-10-18UTC
 
 Exact95f5/treeb851 has an actual independent PASS technical recommendation; owner Gate A decision is pending. This adds no production ATS/browser/OS support row. Complete source-bound proof and limits: docs/evidence/m02-w15-review-95f5.

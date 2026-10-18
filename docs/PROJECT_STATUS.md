@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02 ACCEPTED at frozen95f5; Gate A PASS under OD-037 / ADR-0008; M03-W01 IN_PROGRESS
+Repository revision: M03-W01 VERIFIED at dbdf3c7; M03-W02 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
 Last updated: 2026-10-18
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
-Current work package: M03-W01
+Current work package: M03-W02
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,11 +23,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M03-W01 is the sole IN_PROGRESS package; 33/300 packages VERIFIED. M00, M01 and M02 are ACCEPTED.
-- Completed prerequisite: Gate A PASS at evaluated95f5/treeb851, original predecision pack5085/index2c2e and independent verdictb86. OD-037 / ADR-0008 supplies explicit delegated acceptance authority, not a manual owner approval click. Full hashes and preserved scopes: docs/evidence/m02-w15-delegated-acceptance/final-decision.json.
-- Objective: implement the real Tauri/React desktop navigation shell, shared token/component foundation, error/loading states, keyboard support and actual version diagnostics. Service lifecycle and authenticated health are the following packages.
-- Validation: tests first, focused checks, actual browser/native UI inspection and repository verification. Keep original accessible components continuous through M03-W11. No native packaging or future feature success is inferred.
-- Execution: continue all eligible work without routine approval prompts under OD-035–037. Required independent reviews, actual measured evidence, safety limits and the accepted ADR-0006/0007 waiver scopes remain binding.
+- State: M03-W02 is the sole IN_PROGRESS package; 34/300 packages VERIFIED. M00/M01/M02 remain ACCEPTED; Gate A remains PASS.
+- Completed prerequisite: M03-W01 VERIFIED at tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9 after strict doctor28/complete20-suite clean source-neutral validation and separate source/image/governance review. Initial baseline is CAPTURED/NOT_APPROVED; broader M03-W11 design/surface acceptance remains required.
+- Objective: real FastAPI service skeleton with authenticated versioned health/readiness/version endpoints, canonical structured errors, owned lifespan and loopback-only binding. Random-port sidecar lifecycle, desktop client and restart remain the following packages.
+- Execution: continue all eligible work without routine approval prompts under OD-035–037. Actual validation/review, numerical and safety requirements and precise ADR-0006/0007 waivers remain binding. Release remains NOT_READY.
 
 ## Milestone table
 
@@ -110,8 +109,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
 | `M02-W14` | VERIFIED | tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 | docs/TEST_EVIDENCE.md § M02-W14 | Frozen6384 clean-clone full verification and reviewed candidate package evidence complete; ADR6/7 waived observations stay unexecuted; formal Gate A decision belongs W15 |
 | `M02-W15` | VERIFIED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | docs/TEST_EVIDENCE.md § M02-W15 | Independent source-bound PASS and delegated Gate A acceptance; immutable evidence chain retained |
-| `M03-W01` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M03-W01 | Tauri desktop shell and shared UI foundation; accepted M00/M01/M02 and Gate A PASS dependencies |
-| `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
+| `M03-W01` | VERIFIED | tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9 | docs/TEST_EVIDENCE.md § M03-W01 | Tauri desktop shell and shared UI foundation; accepted M00/M01/M02 and Gate A PASS dependencies |
+| `M03-W02` | IN_PROGRESS | — | — | Create FastAPI service skeleton |
 | `M03-W03` | NOT_STARTED | — | — | Implement sidecar lifecycle |
 | `M03-W04` | NOT_STARTED | — | — | Implement authenticated API client |
 | `M03-W05` | NOT_STARTED | — | — | Add crash/restart behavior |
@@ -381,7 +380,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Next READY package
 
 - ID: NONE
-- Reason: M03-W01 is IN_PROGRESS after M02 acceptance and Gate A PASS. Continue its implementation and validation; routine approval prompts are delegated under OD-037 / ADR-0008.
+- Reason: M03-W02 is IN_PROGRESS after verified M03-W01. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
 
 ## Known release blockers
 

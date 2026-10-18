@@ -8304,8 +8304,8 @@
       "id": "M03-W01",
       "milestone": "M03",
       "title": "Create Tauri desktop shell and initial design foundation",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9",
       "direct_package_prerequisites": [],
       "milestone_prerequisites": [
         "M00",
@@ -8344,14 +8344,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M03-W01"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W02",
       "milestone": "M03",
       "title": "Create FastAPI service skeleton",
-      "current_state": "NOT_STARTED",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M03-W01"
