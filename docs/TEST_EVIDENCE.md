@@ -33,6 +33,23 @@ Exact verification commands and summarized results
 
 ## Entries
 
+### M02-W15 — Delegated Gate A acceptance and M02 closeout (2026-10-18)
+
+- Work package: M02-W15 VERIFIED at evaluated95f5 commit/treeb851; complete hashes and decision chain are in docs/evidence/m02-w15-delegated-acceptance/final-decision.json. The already completed strict19-suite local verification, original independent key14 replay, target20 benchmarks, scoped comparison and independent whole Gate A PASS remain the acceptance evidence. No behavior or threshold changed in closeout.
+- Owner authority: direct response to the concrete reviewed Gate A question delegates routine project acceptance under OD-037 / ADR-0008. Actual delegated decision-maker is implementation agent /root; no manual owner PASS click or observation is claimed. Original predecision pack/index/verdict PENDING fields remain exact immutable history.
+- Documentary native verification: automatic run39087938620 tests0f91158 via merge4b345ab5/tree85dd2cd9; all3hosts SUCCESS,19ACTIVE/doctor27/3905TS/246default/2inspection+62contact, Python1492POSIX/1490Windows with exact two capability identities absent. Raw sealed archive SHA256fe17912146e6e547b05f5c1e12ca72f598ff4682d56e6ce3746382cf6b1e521f,2702950bytes490members; independent456comparisons. Separate one-sample native128 Mac2345.934875ms above1500 remains descriptive, not target20 proof. Evaluated95f5 results are separate.
+- Independent closeout metadata review: CLEAR56/56, exact findings e8097ad2cd491b7e89489c6a17c03ea75200758dd29c3b84c359ec49a853aa7e retained with its reader and report under docs/evidence/m02-w15-delegated-acceptance/metadata-review. Original canonical/ADR6/7/sevensealedfiles and six final-chain references match; actual delegation wording, coherent Gate/M02/M03 state, preserved mappings checked. The agent hit its account usage limit after saving and reporting this completed bounded review; no unfinished native-review work is credited.
+- Closeout metadata commands: `/Users/tanishkalwad/jobapplyv2/.venv/bin/python scripts/validate_status.py` PASS45; `env PATH=/opt/homebrew/opt/node@24/bin:$PATH pnpm traceability:generate` and `pnpm traceability:check` PASS193/300; `git diff --check` exit0. Initial status check rejected duplicate narrative waiver labels and the old holdout token at PASS; corrected only documentary labels to a single paired ADR0007 scope and exact ADR0006 result, with no validator/test change.
+- Files changed: process authority/decision chain, current gate/status/traceability/compatibility records and M03 start record; no schemas, migrations, product tests or runtime changes. Historical evidence remains preserved. Waivers remain nonexecution. Release remains NOT_READY.
+
+### M03-W01 — Desktop shell and shared UI foundation start (2026-10-18)
+
+- Work package: M03-W01 IN_PROGRESS. Dependencies M00/M01/M02 ACCEPTED and AUTOFILL_FEASIBILITY PASS are recorded; this start claims no implementation or test result.
+- Objective: real Tauri2/React desktop shell with seven navigation destinations, initial shared tokens/components, error/loading/empty states, keyboard foundation and actual app/runtime version diagnostics. Use approved public-reference patterns with original expression. M03-W11 must refine this foundation rather than replace it.
+- Acceptance work: meaningful tests first, relevant static/native checks, actual browser/native inspection, accessible compact layout, captured baseline and original-asset provenance, then clean verification. Local service/authentication belongs to W02 onward; no fake integration success or inert controls.
+- Known limits: native package certification and service lifecycle are not established by starting W01. Routine acceptance proceeds under ADR-0008 only after required actual validation/review.
+
+
 ### M02-W15 — Frozen95f5 validation and independent PASS recommendation (2026-10-18UTC)
 
 - Revision: tree b85166b035fbf90a1b8c85d54f52461ccc422dd6, commit 95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123. Documentary closeout adds no runtime/test/fixture/threshold change.

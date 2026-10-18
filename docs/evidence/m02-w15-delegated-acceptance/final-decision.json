@@ -1,0 +1,84 @@
+{
+  "format_version": 1,
+  "record_type": "DELEGATED_GATE_ACCEPTANCE",
+  "gate_id": "AUTOFILL_FEASIBILITY",
+  "result": "PASS",
+  "evaluated_commit": "95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123",
+  "evaluated_tree": "b85166b035fbf90a1b8c85d54f52461ccc422dd6",
+  "corpus_sha256": "93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8",
+  "independent_recommendation": "PASS",
+  "independent_reviewer": "/root/gate_a_final_audit",
+  "evidence_chain": [
+    {
+      "repository_path": "docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "bytes": 10325434,
+      "sha256": "5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa"
+    },
+    {
+      "repository_path": "docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "bytes": 95701,
+      "sha256": "2c2e3d3b191aeabc798be522934361bb4c28cad91216827a3606802ed760651d"
+    },
+    {
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "bytes": 5520,
+      "sha256": "b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf"
+    },
+    {
+      "repository_path": "docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "bytes": 55310,
+      "sha256": "7c18b1123063908036094b7986628d21ddc0fdd3e0d7b520a76747747ab7a218"
+    }
+  ],
+  "delegation_authority": {
+    "repository_path": "docs/evidence/m02-w15-delegated-acceptance/delegation-authority.json",
+    "bytes": 1528,
+    "sha256": "146d8ccd32a7f197ff346b017514fbf00fa50d5e6e12b2a9654d68a34297680e"
+  },
+  "decision_maker": "implementation agent /root under OD-037 / ADR-0008",
+  "manual_owner_approval_click": false,
+  "owner_decision_method": "DELEGATED_OWNER_AUTHORITY",
+  "milestone_acceptance": "M02 ACCEPTED",
+  "downstream_readiness": "M03 eligible",
+  "waiver_assessments": {
+    "holdout": {
+      "result": "WAIVED_BY_OWNER_ADR_0006",
+      "execution_performed": false,
+      "validity_established": false,
+      "execution_result_reference": null,
+      "authority": {
+        "adr_id": "ADR-0006",
+        "owner_decision_id": "OD-035",
+        "source_file": "docs/DECISIONS.md",
+        "source_record_digest": "sha256:a76132ab96294a6e1b69c985ffd7f420ff6df96e3a121a579a734814c276647a"
+      }
+    },
+    "direct_simplify_and_executed_public_forms": {
+      "result": "WAIVED_BY_OWNER_ADR_0007",
+      "execution_performed": false,
+      "actual_cases": 0,
+      "authority": {
+        "adr_id": "ADR-0007",
+        "owner_decision_id": "OD-036",
+        "source_file": "docs/DECISIONS.md",
+        "source_record_digest": "sha256:fc1529b286c358c36557e810e105d63a4cca6366b3fad913dee38dba4395df02"
+      }
+    }
+  },
+  "limits": "All scope limitations and historical failures in the original verdict remain binding. Original pending predecision records are immutable history. No product, test or threshold changes in this closeout.",
+  "documentary_ci": {
+    "run": 39087938620,
+    "head": "0f91158f68fa4fac4c5786b97b8d539d103d53ed",
+    "all_three_hosts": "SUCCESS",
+    "independent_comparisons": 456,
+    "archive": {
+      "repository_path": "docs/evidence/m02-w15-delegated-acceptance/documentary-ci-proof.tar.gz",
+      "bytes": 2702950,
+      "sha256": "fe17912146e6e547b05f5c1e12ca72f598ff4682d56e6ce3746382cf6b1e521f"
+    },
+    "single_sample_mac_ms": 2345.9348750000026,
+    "timing_scope": "Descriptive one-sample CI; does not satisfy separate target20 gate. Evaluated95f5 target20 proof is distinct."
+  },
+  "recorded_at_utc": "2026-10-18T17:49:49.732979+00:00",
+  "typed_GateEvidenceBundleV2_publication_claimed": false
+}

@@ -13,6 +13,8 @@ active until the owner explicitly changes it. The repository never
 automatically routes between Claude, Codex, or reasoning modes. Independent
 critical audits still use a separate clean session or worktree (spec §0(26–27)).
 
+Operational owner overrides: accepted ADR-0006/0007 waive hidden owner holdout, per-W stopping, direct Simplify comparison and executed public-form evidence. Accepted OD-037 / ADR-0008 delegates routine project acceptance after actual required validation and independent review; record delegated decisions truthfully and continue without routine approval prompts. These process overrides preserve unwaived evidence, thresholds, independence, safety and external-action boundaries. See `docs/DECISIONS.md`.
+
 ## Mandatory session bootstrap (spec §1.2)
 
 At the beginning of every new prompt or resumed session, the implementation agent must:

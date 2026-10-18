@@ -7,9 +7,9 @@ Gate report for the blocking Autofill Feasibility Gate (spec §2.3; owner M02). 
 - Gate: AUTOFILL_FEASIBILITY
 - Owning milestone: M02 (M02-W07 through M02-W15)
 - Blocks: M03 readiness; M17/M18/M19 retain Gate A PASS qualifiers.
-- State: IN_PROGRESS
-- Evaluated revision: current frozen95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123/treeb85166b035fbf90a1b8c85d54f52461ccc422dd6; actual independent technical recommendation PASS at exact predecisionpack5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa, owner decision pending. Earlier source scopes remain historical.
-- Gate authority / independent decision: actual independent technical recommendation PASS, verdict SHAb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf; authoritative state remains IN_PROGRESS until owner approval.
+- State: PASS
+- Evaluated revision: current frozen95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123/treeb85166b035fbf90a1b8c85d54f52461ccc422dd6; actual independent technical recommendation PASS at exact predecisionpack5085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa, delegated PASS recorded under OD-037 / ADR-0008. Earlier source scopes remain historical.
+- Gate authority / independent decision: actual independent technical recommendation PASS, verdict SHAb86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf; authoritative state is PASS under delegated acceptance. Final chain: docs/evidence/m02-w15-delegated-acceptance/final-decision.json.
 
 ## Blocking thresholds
 
@@ -213,3 +213,15 @@ W14 verification remains scoped to actually tested6384 after its real full proof
 ## M02-W15 started — 2026-10-17
 
 W14 is VERIFIED at actually tested6384/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4; closeout959e879 passes actual302 status/traceability tests and focused static checks. W15 is IN_PROGRESS with M00/M01 ACCEPTED. A fresh separate reviewer is auditing evidence/source/architecture; the reviewed contact/inspection cleanup will be integrated and a clean final candidate/full verification plus permanent key positive/negative reproductions will precede the verdict. Owner decision remains pending, Gate A remains IN_PROGRESS, M02 unaccepted and M03 NOT_STARTED. Earlier READY wording is the preserved W14 transition record.
+
+
+## Delegated final acceptance — 2026-10-18
+
+- State: PASS
+- Evaluated revision: tree b85166b035fbf90a1b8c85d54f52461ccc422dd6
+- Corpus/holdout hash: sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8
+- Independent reviewer: /root/gate_a_final_audit
+- Owner decision: PASS (delegated acceptance under OD-037 / ADR-0008; decision-maker /root; not a manual owner approval click)
+- Holdout result: WAIVED_BY_OWNER_ADR_0006
+
+Actual independent verdictb86 recommends PASS for95f5 with immutable pack5085/index2c2e. The owner's subsequent response delegates routine acceptance; the implementation agent records this source-bound PASS under OD-037 / ADR-0008. Exact authority, original evidence identities and current decision: docs/evidence/m02-w15-delegated-acceptance/final-decision.json. Original predecision records remain unchanged and legitimately say PENDING. All historical failures, research-only limits, single-sample CI timing limits and KI-0100 remain disclosed. M02-W15 is VERIFIED, M02 ACCEPTED, M03-W01 IN_PROGRESS. No future package or baseline is accepted in advance.

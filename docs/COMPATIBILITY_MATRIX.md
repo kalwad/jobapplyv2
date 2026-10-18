@@ -155,3 +155,8 @@ and decisions in `docs/UI_FAMILIARITY.md`,
 | Familiarity-first product surfaces | NOT_YET_IMPLEMENTED | — | — |
 | Owner-approved visual baselines | NOT_APPROVED | — | — |
 | Experimental ChatGPT-account provider | NOT_SUPPORTED / DISABLED_BY_DEFAULT / NOT_IMPLEMENTED / NOT_EVALUATED | — | — |
+
+
+## M02 delegated acceptance — 2026-10-18
+
+Gate A PASS and M02 ACCEPTED under OD-037 / ADR-0008 at evaluated95f5/treeb851. All measured research scopes and limitations above remain exact; no production ATS or desktop certification row is added. Separate0f91158 documentary native CI passes all3hosts with complete retained proof in docs/evidence/m02-w15-delegated-acceptance. M03-W01 now begins; no shell or packaged support is claimed in advance.

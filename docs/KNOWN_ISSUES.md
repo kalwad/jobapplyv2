@@ -3713,3 +3713,8 @@ W13 follow-up,2026-09-30: reproduced and treated as PACKAGE_BLOCKER for measurem
 - Reproduction: actual Node24 pure resolver probe gives unequal original entry paths and equal physical entry; current candidate4/legacy4 raw artifacts remain unchanged. No product actor was repeated.
 - Workaround: invoke the identical frozen comparator through its physical source path with the same lock/release/inputs and fresh separate output. This actual pure join passes, yields40/40vs28/40exact, and closes independent204raw+5postflight checks.
 - Resolution + evidence link: OPEN as a future coordinator reuse precondition: normalize that CLI entry path in any newly reviewed coordinator before another campaign. Current Gate A comparison evidence is independently complete through the separately reviewed join. Do not mutate sealed R9/R10 history or relabel the original pipelinePASS. docs/evidence/m02-w15-review-95f5 preserves the complete failure, separate join and independent scope decision.
+
+
+## M02 delegated acceptance — 2026-10-18
+
+Gate A PASS and M02 ACCEPTED under OD-037 / ADR-0008 after actual independent validation. Earlier pending-approval prose is historical. KI-0100 remains MEDIUM/OPEN for future harness reuse; original comparison evidence remains complete.

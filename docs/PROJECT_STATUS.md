@@ -1,18 +1,18 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W15 IN_PROGRESS; frozen95f5 validation complete, independent PASS recommendation, owner decision pending
-Last updated: 2026-10-17
-Current phase: A — Contract, measurement, and early autofill proof
-Current milestone: M02
-Current work package: M02-W15
+Repository revision: M02 ACCEPTED at frozen95f5; Gate A PASS under OD-037 / ADR-0008; M03-W01 IN_PROGRESS
+Last updated: 2026-10-18
+Current phase: B — Local platform and desktop foundation
+Current milestone: M03
+Current work package: M03-W01
 Overall release gate: NOT_READY
 
 ## Critical gates
 
 | Gate | State | Evaluated revision | Corpus/holdout hash | Independent reviewer | Report |
 |---|---|---|---|---|---|
-| AUTOFILL_FEASIBILITY | IN_PROGRESS | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8 | /root/gate_a_final_audit | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+| AUTOFILL_FEASIBILITY | PASS | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8 | /root/gate_a_final_audit | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
 | CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
@@ -23,17 +23,11 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W15 remains the sole IN_PROGRESS package; 32/300 packages VERIFIED. M00/M01 ACCEPTED, M02-W01 through W14 VERIFIED, M02 unaccepted and M03 NOT_STARTED.
-- Objective: record the actual source/pack/verdict-bound owner Gate A decision after the completed independent review. Continuous eligible execution under ADR-0006 remains authorized; ordinary per-W stops are superseded.
-- Dependencies verified: M00/M01 ACCEPTED and W14 VERIFIED at tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4.
-- Current evaluated source: 95f5b09f43d9bef06d6158ea0bb8b9e0e3aa9123, tree b85166b035fbf90a1b8c85d54f52461ccc422dd6; clean locked local doctor then all19ACTIVE PASS, 3905TS/246default/2inspection/62contact/1492Python, source1658/runtime355-4f5a neutral. Independent full99/99 and fresh key14/14 PASS.
-- Metrics: target-Mac native12820 p95846.236875ms; separate canonical847.323333ms; Contact200 full-settlement871.417084ms. Original limits/assertions/scoring remain. Precision/persistence1485/1485, required recall1275/1275, unresolved reporting770/770, all7physical counters0; original90incorrect abstentions remain.
-- Current native CI: run39084518359/attempt1 SUCCESS on all3hosts at testedmergece538/treeb851 equal to95f5. All19/doctor/trackedclean/3905TS/246default/2+62; Python1492POSIX/1490Windows. CI native128 uses1descriptive sample/host; Mac2423.20975ms above1500 remains explicit, no target20 acceptance.
-- Current legacy comparison: once-completed4candidate+4legacy actors, separately reviewed purejoin40/40vs28/40exact, digits40/40vs32/40; independent204/204. Original R10 pipeline FAIL remains FAIL (CLI/tmp alias); no actor replay. Candidate0/legacy4unexpected native activations; OS descendants unobserved.
-- Review: independent recommendation PASS, verdict SHA256b86bca4619fe541e6a82b0ef01175c35de3ebcbd344798efc33f340929b729cf; authoritative Gate A still IN_PROGRESS and owner decision PENDING. Actual predecisionpack SHA2565085d94111a2dab8aba4f879f9ffb197287bd436d8df5193aef8aaafc505f5aa, 10325434bytes169members; full source/data/manual/native/103frozenassets/all200original results and history are retained in docs/evidence/m02-w15-review-95f5.
-- Known scope: KI-0096/0097/0098/0099 FIXED at corrected frozen95f5 scopes. KI-0100 MEDIUM/OPEN is future offline-harness reuse; measured current comparison is complete. Earlier failures/missing original507a trace/unproven causes remain disclosed.
-- Waivers: owner holdout WAIVED_BY_OWNER under accepted ADR-0006; direct Simplify/public execution WAIVED_BY_OWNER_ADR_0007 with0actualcases. All other completion/controlled/safety/native/legacy/review/actual owner requirements remain. M02 has no product UI; future visual/usability/accessibility obligations remain binding.
-- Next permitted work: actual owner Gate A decision, then M02 acceptance/M03 readiness if approved. No Gate PASS or owner approval is inferred from the independent recommendation.
+- State: M03-W01 is the sole IN_PROGRESS package; 33/300 packages VERIFIED. M00, M01 and M02 are ACCEPTED.
+- Completed prerequisite: Gate A PASS at evaluated95f5/treeb851, original predecision pack5085/index2c2e and independent verdictb86. OD-037 / ADR-0008 supplies explicit delegated acceptance authority, not a manual owner approval click. Full hashes and preserved scopes: docs/evidence/m02-w15-delegated-acceptance/final-decision.json.
+- Objective: implement the real Tauri/React desktop navigation shell, shared token/component foundation, error/loading states, keyboard support and actual version diagnostics. Service lifecycle and authenticated health are the following packages.
+- Validation: tests first, focused checks, actual browser/native UI inspection and repository verification. Keep original accessible components continuous through M03-W11. No native packaging or future feature success is inferred.
+- Execution: continue all eligible work without routine approval prompts under OD-035–037. Required independent reviews, actual measured evidence, safety limits and the accepted ADR-0006/0007 waiver scopes remain binding.
 
 ## Milestone table
 
@@ -41,8 +35,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 VERIFIED at tree 25f4128163ec73a91afd54a15c026b38d4187e5a; M02-W13 VERIFIED at tree a953274ef14a7534c39201a09738c26b8f085332 |
-| M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
+| M02 | ACCEPTED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | Gate A PASS after actual complete frozen95f5 validation, independent source-bound PASS and delegated acceptance OD-037 / ADR-0008; all fifteen packages VERIFIED |
+| M03 | IN_PROGRESS | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
 | M06 | NOT_STARTED | — | Phase C. Canonical career evidence graph (deps: M01, M04, M05; requires RESUME_PAGEFIT_FEASIBILITY = PASS, M05 ACCEPTED) |
@@ -115,8 +109,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
 | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
 | `M02-W14` | VERIFIED | tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 | docs/TEST_EVIDENCE.md § M02-W14 | Frozen6384 clean-clone full verification and reviewed candidate package evidence complete; ADR6/7 waived observations stay unexecuted; formal Gate A decision belongs W15 |
-| `M02-W15` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W15 | Frozen95f5 validation complete and independent PASS recommendation retained; source/pack/verdict-bound owner decision pending |
-| `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
+| `M02-W15` | VERIFIED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | docs/TEST_EVIDENCE.md § M02-W15 | Independent source-bound PASS and delegated Gate A acceptance; immutable evidence chain retained |
+| `M03-W01` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M03-W01 | Tauri desktop shell and shared UI foundation; accepted M00/M01/M02 and Gate A PASS dependencies |
 | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
 | `M03-W03` | NOT_STARTED | — | — | Implement sidecar lifecycle |
 | `M03-W04` | NOT_STARTED | — | — | Implement authenticated API client |
@@ -387,7 +381,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Next READY package
 
 - ID: NONE
-- Reason: M02-W15 is IN_PROGRESS after verified W14 and ACCEPTED M00/M01. Frozen95f5 validation and independent PASS recommendation are complete; record the source/pack/verdict-bound owner decision. Continuous eligible execution remains authorized.
+- Reason: M03-W01 is IN_PROGRESS after M02 acceptance and Gate A PASS. Continue its implementation and validation; routine approval prompts are delegated under OD-037 / ADR-0008.
 
 ## Known release blockers
 

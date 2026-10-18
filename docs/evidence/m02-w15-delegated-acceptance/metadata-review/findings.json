@@ -1,0 +1,325 @@
+{
+  "scope": "READ_ONLY_METADATA_GOVERNANCE_NO_ACTORS_NO_TEST_RUNS",
+  "reviewer": "/root/delegated_acceptance_audit",
+  "base_commit": "0f91158f68fa4fac4c5786b97b8d539d103d53ed",
+  "result": "CLEAR",
+  "checks": [
+    {
+      "name": "changed tracked paths are only intended governance documents and live traceability",
+      "pass": true,
+      "detail": [
+        "CLAUDE.md",
+        "docs/COMPATIBILITY_MATRIX.md",
+        "docs/CRITICAL_GATES.md",
+        "docs/DECISIONS.md",
+        "docs/KNOWN_ISSUES.md",
+        "docs/PROJECT_STATUS.md",
+        "docs/REQUIREMENTS_TRACEABILITY.md",
+        "docs/TEST_EVIDENCE.md",
+        "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+        "docs/traceability.json"
+      ]
+    },
+    {
+      "name": "new paths are only delegated evidence",
+      "pass": true,
+      "detail": [
+        "docs/evidence/m02-w15-delegated-acceptance/delegation-authority.json",
+        "docs/evidence/m02-w15-delegated-acceptance/documentary-ci-manifest.json",
+        "docs/evidence/m02-w15-delegated-acceptance/documentary-ci-proof.tar.gz",
+        "docs/evidence/m02-w15-delegated-acceptance/final-decision.json"
+      ]
+    },
+    {
+      "name": "canonical master bytes preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ADR0006 and OD035 exact record preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ADR0006 authority digest preserved",
+      "pass": true,
+      "detail": "a76132ab96294a6e1b69c985ffd7f420ff6df96e3a121a579a734814c276647a"
+    },
+    {
+      "name": "ADR0007 and OD036 exact record preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ADR0007 authority digest preserved",
+      "pass": true,
+      "detail": "fc1529b286c358c36557e810e105d63a4cca6366b3fad913dee38dba4395df02"
+    },
+    {
+      "name": "authority cites actual user reply exactly",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "authority preserves concrete source-bound question context",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "authority records delegation not a literal owner PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "actual decision is delegated PASS with named maker and no manual click",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "actual decision exact evaluated source and actual independent reviewer",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-delegated-acceptance/delegation-authority.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "decision reference exact bytes/digest docs/evidence/m02-w15-delegated-acceptance/documentary-ci-proof.tar.gz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/predecision-proof.tar.gz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/candidate-index.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/independent-verdict.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/independent-proof.tar.gz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/predecision-retention-manifest.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/source-retention-manifest.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original predecision/review bytes preserved docs/evidence/m02-w15-review-95f5/independent-archive-verification.json",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original independent recommendation was PASS with no blockers",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "original independent predecision PENDING/IP flags remain historical",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "waived observations stay unexecuted",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "documentary CI manifest binds actual archive",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "documentary CI retained archive safe regular count",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "300 package rows and 33 actual verified rows",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "only M03W01 in progress and no READY",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "prior 32 verified anchors preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "M02W15 exact verified source anchor",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "M02 accepted and M03 active with honest release state",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ledger authoritative final PASS/source/corpus/reviewer fields",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ledger owner decision explicitly delegated",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ledger final holdout exact waiver token",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ledger single exact Simplify comparison result",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "ledger single exact Public-form evidence result",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "report authoritative final PASS/source/corpus/reviewer fields",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "report owner decision explicitly delegated",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "report final holdout exact waiver token",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "report single exact Simplify comparison result",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "report single exact Public-form evidence result",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "only intended live trace package fields changed",
+      "pass": true,
+      "detail": [
+        [
+          "M02-W15",
+          "current_state"
+        ],
+        [
+          "M02-W15",
+          "verified_revision"
+        ],
+        [
+          "M02-W15",
+          "current_evidence"
+        ],
+        [
+          "M03-W01",
+          "current_state"
+        ]
+      ]
+    },
+    {
+      "name": "M02 evidence own heading and M03 no completed evidence",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "only intended live gate field changed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "all other traceability metadata and hash projections preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "new ADR accepted accurately quotes owner and requires later actual review",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "new ADR forbids fabricated owner observations and preserves actual evidence",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "new ADR preserves external action and safety boundaries",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "registry new OD row remains contiguous with owner table",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "registry new ADR row remains contiguous with ADR table",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "current report identity no stale pending authority",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "known issues and support scopes remain honest",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "actual_check_count": 56,
+  "passed": 56,
+  "errors": [],
+  "retained_reader_history": "An initial read-only print probe assumed outer CI manifest members was a list; it is an integer490. TypeError produced no mutations/actors and this reader uses the actual schema."
+}

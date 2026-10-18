@@ -63,6 +63,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
 | OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
 | OD-036 | Waive direct Simplify comparison and executed public-form evidence throughout the project; preserve all other completion, safety, measurement and review requirements. Continue until the project is finished and validated. | ACCEPTED | Owner message 2026-10-17; ADR-0007 |
+| OD-037 | Delegate routine project acceptance and continuous milestone progression after actual required validation and independent review; stop asking routine approval questions. | ACCEPTED | Direct owner reply 2026-10-18; ADR-0008 |
 
 ## Architecture decision records
 
@@ -75,6 +76,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | ADR-0005 | Renew the bounded W13 performance correction budget | ACCEPTED | 2026-09-30 | M02-W13 measurement viability and retained Gate A thresholds |
 | ADR-0006 | Continuous execution and owner-controlled holdout waiver | ACCEPTED | 2026-10-16 | Operational owner-holdout/process clauses; all four gates; no numerical threshold or compatibility change |
 | ADR-0007 | Direct Simplify comparison and executed public-form evidence waiver | ACCEPTED | 2026-10-17 | Only direct Simplify/public-form evidence prerequisites project-wide; all other requirements and concrete gate decisions preserved |
+| ADR-0008 | Delegated project acceptance without routine approval prompts | ACCEPTED | 2026-10-18 | Owner-only operational acceptance clauses; evidence and independent reviews preserved |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -438,6 +440,23 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Contract precedence: this subsequent owner override amends the originally approved v1.4 requirements without rewriting their exact bytes or reviewed traceability mappings. Mixed work packages retain every nonwaived deliverable. Continue eligible validated work; do not promote W14, start W15, accept M02 or pass Gate A before their remaining applicable evidence and review are complete.
 - Rollback plan: only a later explicit owner decision can restore the waived prerequisites. Preserve original manifests, readiness records and actual attempts so renewed execution remains possible.
 - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: direct Simplify/public-form evidence portions of §2.2/§2.3/§5/§8/§9/§12, REQ-RES-016, REQ-WD-021, REQ-GATE-002/004/016 and mixed comparison work in M02/M05/M19–M20/M28/M38; the project-wide waiver does not remove any product capability or the non-comparison portions of familiarity/usability/visual requirements. No canonical schema or measured compatibility/support claim changes.
+
+### ADR-0008 — Delegated project acceptance without routine approval prompts
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-10-18 / 2026-10-18
+- Owner authority: OD-037; direct reply to the already concrete Gate A question for95f5/source treeb851, evidence pack5085, index2c2e and independent verdictb86. Exact question and reply: docs/evidence/m02-w15-delegated-acceptance/delegation-authority.json.
+- Owner instruction (verbatim): "can you please not keep asking me these questions? Id really like it if you just kept moving through this project without stopping to ask me."
+- Observed constraint: after all required unwaived M02 validation and a separate independent PASS recommendation, a routine manual acceptance prompt interrupted the continuous execution requested in OD-035/036.
+- Decision: the owner delegates routine project acceptance, including source-bound critical-gate decisions and revision-bound UI baseline acceptance, to the implementation agent after the required actual validation and independent review. Proceed through eligible packages and milestones without routine approval questions. A delegated record identifies its actual decision-maker and authority; it must never claim that the owner clicked PASS, inspected an image, performed a study, or supplied an unobserved result.
+- Preconditions: retain all unwaived numerical, safety, performance, native, accessibility, usability, visual, corpus, compatibility and independent-review requirements. A gate may advance only after its actual independent recommendation is PASS with no unresolved blocking findings, at the evaluated source and evidence hashes. UI acceptance requires actual capture and independent accessibility/visual review against the approved criteria; no future baseline is approved by this ADR.
+- Boundaries: this process delegation does not authorize invented personal facts or credentials, live applications/submissions, external communication, cloud data egress, publishing, PR merging, or destructive actions. Missing evidence or unavailable external resources remain honestly recorded and may block completion. Ask only for indispensable missing input or consequential decisions outside the authorized project work.
+- Alternatives: continue routine prompts (contrary to the latest instruction); infer a literal owner PASS (false attribution); bypass independent or measured evidence (rejected). Delegated, explicitly attributed acceptance preserves objective gates while removing routine prompts.
+- Migration: treat this as an explicit operational overlay to owner-only process/acceptance clauses in CLAUDE.md and the canonical specification, as ADR-0006/0007 already do. Preserve the canonical v1.4 bytes/hash and all reviewed mappings. Record each actual acceptance separately with its source, evidence, reviewer, delegated decision-maker and authority. Existing predecision PENDING records remain immutable history.
+- Immediate application: delegated Gate A PASS for evaluated95f5/treeb851 with immutable pack5085/index2c2e/verdictb86; record M02-W15 VERIFIED and M02 ACCEPTED, then begin M03-W01. Complete hashes are in docs/evidence/m02-w15-delegated-acceptance/final-decision.json.
+- Security/privacy/benchmark impact: no trust-boundary, product behavior, scoring, threshold, model, corpus, or external-execution change. Independent reviews and actual evidence remain mandatory. No hidden holdout or waived Simplify/public run is retroactively executed or passed.
+- Rollback: the owner may revoke the delegation. Future acceptance then follows the updated instruction; prior delegated records retain their exact authority and evidence history.
+
 
 ## ADR template
 
