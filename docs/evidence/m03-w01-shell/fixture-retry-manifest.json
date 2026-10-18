@@ -1,0 +1,31 @@
+{
+  "bytes": 16863,
+  "sha256": "8cb5a25f75f93ebf38523be5eb864571be42cc090c7aae8c59b599973b7f94a3",
+  "inputs": [
+    {
+      "member": "assertion-preservation.json",
+      "bytes": 498,
+      "sha256": "71ff10ad51c7e11f57531f263a294e4a87c5a4e8490c7cd715992ce011650e54"
+    },
+    {
+      "member": "focused-green.log",
+      "bytes": 181,
+      "sha256": "6034ebe774e0d17399a1a3646d6d2dd42f7d3d425f1ab0eecd5cec2f55d84ce8"
+    },
+    {
+      "member": "format.log",
+      "bytes": 907,
+      "sha256": "655066fdbe76923bfe7645f35004bf6df3da952c07e90fc48273273187fe4bc0"
+    },
+    {
+      "member": "test_doctor.py.before",
+      "bytes": 26719,
+      "sha256": "49b6ac739cb8c85a4dfaa02ef332bbc7acf39381b4c5cad5c6abfecebb155280"
+    },
+    {
+      "member": "test_traceability.py.before",
+      "bytes": 50286,
+      "sha256": "8389cb7fd459cac1767bfb83edf91de1b4dd58d408cf5138a0b3d3fe18dcd80f"
+    }
+  ]
+}

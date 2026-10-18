@@ -173,6 +173,8 @@ def doctor_repo(tmp_path: Path) -> Iterator[Path]:
             "e2e/extension/public-research/controlled-scope.proof.ts",
             "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
             "e2e/extension/public-contact/controlled-contact.proof.ts",
+            "apps/desktop/src-tauri/Cargo.lock",
+            "e2e/visual/desktop-shell.spec.ts",
         ):
             target = repo / rel
             target.parent.mkdir(parents=True, exist_ok=True)

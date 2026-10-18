@@ -19,6 +19,7 @@ from typing import cast
 import pytest
 import traceability
 from conftest import REPO_ROOT
+from test_validate_status import set_fixture_gate_state
 
 FAKE_TREE = "tree " + "0" * 40
 
@@ -224,6 +225,18 @@ def trace_repo(tmp_path: Path) -> Iterator[Path]:
             "e2e/extension/legacy-paired-options/runtime-inventory.test.mjs",
             "e2e/extension/legacy-paired-options/run-legacy.mjs",
             "e2e/extension/legacy-paired-options/owned-child-lifecycle.test.mjs",
+            # M03-W01 actual initial UX002/003 foundation references.
+            "packages/ui/src/tokens.css",
+            "packages/ui/src/navigation.tsx",
+            "packages/ui/src/status.tsx",
+            "packages/ui/src/error-boundary.tsx",
+            "apps/desktop/src/shell.tsx",
+            "apps/desktop/src/diagnostics.tsx",
+            "packages/ui/test/foundation.test.ts",
+            "apps/desktop/test/navigation.test.ts",
+            "apps/desktop/test/native-metadata.test.ts",
+            "e2e/desktop/shell.spec.ts",
+            "e2e/visual/desktop-shell.spec.ts",
         ):
             source = REPO_ROOT / relative_path
             destination = repo / relative_path
@@ -994,6 +1007,8 @@ def test_critical_gate_readiness_rules_remain_enforced(
     trace_repo: Path, package_id: str, gate: str
 ) -> None:
     metadata = load_metadata(trace_repo)
+    set_fixture_gate_state(trace_repo, gate, "NOT_EVALUATED")
+    record_by_id(metadata, "critical_gates", gate)["current_state"] = "NOT_EVALUATED"
     set_package_status(trace_repo, package_id, "READY")
     set_metadata_package(metadata, package_id, "READY")
     save_metadata(trace_repo, metadata)

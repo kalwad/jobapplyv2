@@ -30,7 +30,7 @@ The global checklist remains unfinalized until M03-W11.
 | AB-06 | One contextual Diagnostics action on Home; the global destination remains available. |
 | AB-07 | Plain text capability states; no badge/chip system. |
 | AB-08 | Shared navigation, skip link, status primitives, error boundary and tokens are imported from packages/ui. |
-| AB-09 | Unavailable destinations explain the current build and provide a working Home action. |
+| AB-09 | Unavailable destinations explain the current build and provide the working global Home link. |
 | AB-10 | Brand-neutral workspace label orients the user; the generic briefcase identifies the workspace. Build and submission notices prevent false capability assumptions; each control has an actual shell action. |
 | AB-11 | Initial compact baseline CAPTURED; revision-specific acceptance/freeze is deferred to M03-W11. No owner-approved final baseline is claimed. |
 | AB-12 | Token contrast tests, browser/native keyboard and skip-link checks, reduced-motion and 200% text reflow pass. Browser captures include 320px and 1120px widths. Actual screen-reader software and cross-platform visual certification have not run. |

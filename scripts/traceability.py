@@ -142,8 +142,12 @@ FINAL_V1_3_PACKAGE_DEPENDENCY_SHA256 = (
 # effects, dependency graphs and historical v1.2/v1.3 hashes stay unchanged.
 # Prior reviewed v1.4 honesty projection:
 # 70424088492737b18171ea26872c3dff40461411726162f863c9f693e0144802
+# M03-W01 initial UX002/003 foundation honesty projection; broader W11 and
+# other owner obligations remain SCAFFOLD_ONLY, not completed requirements.
+# Previous reviewed projection:
+# 15ea76b48b519df4673bc351dc8a8d8e3a850129d82efffd7fdd0a3964116640
 FINAL_V1_4_REQUIREMENT_MAPPING_SHA256 = (
-    "15ea76b48b519df4673bc351dc8a8d8e3a850129d82efffd7fdd0a3964116640"
+    "9e8e8aa8d03917cc3e97a6894df774460e4febc538c1a9cb0db47998c9617625"
 )
 FINAL_V1_4_PACKAGE_DEPENDENCY_SHA256 = (
     "ea991a047062a72281a8f5bf77942d2a2dc0a1cf153c2a849bc040d4972c48c1"
@@ -182,6 +186,8 @@ V1_3_SCAFFOLD_REQUIREMENT_IDS = frozenset({"REQ-PLAT-012", "REQ-PLAT-025"})
 V1_4_SCAFFOLD_REQUIREMENT_IDS = frozenset(
     {
         "REQ-UX-001",
+        "REQ-UX-002",
+        "REQ-UX-003",
         "REQ-UX-014",
         "REQ-UX-018",
         "REQ-AI-005",
