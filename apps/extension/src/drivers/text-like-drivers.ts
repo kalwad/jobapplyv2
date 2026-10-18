@@ -82,12 +82,14 @@ function writeText(
   host: HTMLInputElement | HTMLTextAreaElement,
   value: string,
   context: DriverContext,
+  preserveViewport = false,
 ): Promise<void> {
   // Real focus, framework-observable value change, real blur: the minimal
   // faithful interaction envelope, including site-side blur rewrites.
   return mutateCurrent(context, host, (current) => {
     const valueBeforeFocus = host.value;
-    host.focus();
+    if (preserveViewport) host.focus({ preventScroll: true });
+    else host.focus();
     // Focus invokes page handlers synchronously. Preserve a newer page value
     // before the setter; this refusal has made no extension value write.
     if (host.value !== valueBeforeFocus)
@@ -136,7 +138,12 @@ export const textDriver: ControlDriver = {
     });
   },
   execute(context: DriverContext): Promise<void> {
-    return writeText(requireTextHost(context), intendedText(context), context);
+    return writeText(
+      requireTextHost(context),
+      intendedText(context),
+      context,
+      true,
+    );
   },
   observe(context: DriverContext): Promise<SemanticObservation> {
     return Promise.resolve(textObservation(requireTextHost(context).value));
@@ -145,7 +152,7 @@ export const textDriver: ControlDriver = {
     if (typeof payload !== "string") {
       throw new Error("text driver invariant: undo payload is not a string");
     }
-    return writeText(requireTextHost(context), payload, context);
+    return writeText(requireTextHost(context), payload, context, true);
   },
 };
 

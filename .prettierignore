@@ -57,3 +57,15 @@ e2e/extension/legacy-candidate/source-bindings.json
 e2e/extension/legacy-paired-options/*.json
 e2e/extension/legacy-paired-options/preimages/
 e2e/extension/legacy-paired-options/preexecution-history/**
+
+# M02-W15 R10 comparison source commitments and original immutable preimages.
+# The exact seven JSON files are serialized by the source-freeze builder and
+# hashed in the R10 lock/manifest; executable source remains linted/formatted.
+e2e/extension/legacy-paired-options-r10/campaign.lock.json
+e2e/extension/legacy-paired-options-r10/source-bindings.json
+e2e/extension/legacy-paired-options-r10/predeclaration.json
+e2e/extension/legacy-paired-options-r10/paired-inputs.json
+e2e/extension/legacy-paired-options-r10/paired-oracles.json
+e2e/extension/legacy-paired-options-r10/legacy-projections.json
+e2e/extension/legacy-paired-options-r10/r10-readiness.json
+e2e/extension/legacy-paired-options-r10/preimages/

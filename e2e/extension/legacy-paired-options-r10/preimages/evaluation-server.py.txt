@@ -1,0 +1,51 @@
+import importlib.util
+import json
+from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+
+ROOT = Path(__file__).parent
+spec = importlib.util.spec_from_file_location("isolated_legacy_autofill", ROOT / "app/routers/autofill.py")
+legacy = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(legacy)
+inputs = json.loads((ROOT / "evaluation-inputs.json").read_text())
+profile = json.loads((ROOT / "evaluation-profile.json").read_text())
+
+class SyntheticProfile:
+    async def get_full_profile(self):
+        return profile
+
+    async def get_custom_qa(self):
+        return []
+
+app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.state.db = SyntheticProfile()
+app.state.ai_client = None
+app.include_router(legacy.router)
+
+@app.get("/api/profile/full")
+async def full_profile():
+    return profile
+
+@app.get("/api/custom-qa")
+async def custom_qa():
+    return []
+
+@app.get("/api/jobs/lookup")
+async def lookup():
+    return {"id": None}
+
+@app.get("/api/health")
+async def health():
+    return {"mode": "COMPONENT_DETERMINISTIC_NO_AI"}
+
+@app.get("/fixture/{index}", response_class=HTMLResponse)
+async def fixture(index: int):
+    return "<!doctype html><html><head><meta charset=utf-8></head><body>" + inputs[index]["input"]["html"] + "</body></html>"
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=18885, log_level="warning")

@@ -86,6 +86,7 @@ reports live in `docs/gates/`.
   Contact, native128, mounted32, feature fixtures, legacy and native CI scopes
   remain individually limited to their retained observations.
 - Current final-candidate result: exact507a/tree235bc696fb37e887b5efa817039276a775a18e2e fails mandatory native128 target20 p951662.986499999999ms against unchanged1500ms.18 ACTIVE suites PASS/1FAIL; independent full audit81/87 honestly exposes6 failure checks. KI-0096 HIGH/IN_PROGRESS blocks a passing final verdict. Failed full, original artifact loss and source-bound independent report are retained in docs/evidence/m02-w15-failed-507a; earlier6384 W14 verification remains historical. KI-0098 MEDIUM/IN_PROGRESS tracks shared Playwright output cleanup; source-reviewed correction and focus viewport tests require integration/validation.
+- Corrective source is integrated: TEXT/TEXTAREA987/c46 actual RED4/GREEN28 and inherited fixture7346 complete root241units/type/lint/format PASS; retention177 root41CI tests PASS. NewR10source36files/34lock/runtime355-4f5a is frozen and independently source-clear, release/fullNULL/0actors. Source/raw/rejectedproposal histories: docs/evidence/m02-w15-corrections-integration. Corrected target20/full/native/currentbaseline/keyreview remain pending; no current PASS or ownerdecision.
 - Pending M02 corrective finding: KI-0097 MEDIUM/OPEN, source-confirmed opt-in
   harness acquisition/rejected-close cleanup only; no recorded leak or
   numerical contradiction. W15 is IN_PROGRESS; the reviewed contact/inspection

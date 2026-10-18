@@ -109,7 +109,23 @@ async function provideExtensionContext(
       retryDelay: 100,
     });
   };
-  let context: BrowserContext;
+  let context: BrowserContext | undefined;
+  const cleanup = async (): Promise<void> => {
+    const errors: unknown[] = [];
+    try {
+      await context?.close();
+    } catch (error) {
+      errors.push(error);
+    } finally {
+      try {
+        removeProfile();
+      } catch (error) {
+        errors.push(error);
+      }
+    }
+    if (errors.length > 0)
+      throw new AggregateError(errors, "EXTENSION_CONTEXT_CLEANUP_FAILED");
+  };
   try {
     context = await chromium.launchPersistentContext(userDataDir, {
       channel: "chromium",
@@ -118,26 +134,33 @@ async function provideExtensionContext(
         `--load-extension=${extensionDist}`,
       ],
     });
-  } catch (error) {
-    removeProfile();
-    throw error;
-  }
-  const offenders: string[] = [];
-  context.on("request", (request) => {
-    if (!isLocalRequest(request.url())) {
-      offenders.push(`${request.method()} ${request.url()}`);
-    }
-  });
-  try {
+    const offenders: string[] = [];
+    context.on("request", (request) => {
+      if (!isLocalRequest(request.url())) {
+        offenders.push(`${request.method()} ${request.url()}`);
+      }
+    });
     await use(context);
     expect(
       offenders,
       "the extension context must never issue an observed non-loopback request",
     ).toEqual([]);
-  } finally {
-    await context.close();
-    removeProfile();
+  } catch (error) {
+    let cleanupFailure: { error: unknown } | undefined;
+    try {
+      await cleanup();
+    } catch (cleanupError) {
+      cleanupFailure = { error: cleanupError };
+    }
+    if (cleanupFailure !== undefined)
+      throw new AggregateError(
+        [error, cleanupFailure.error],
+        "EXTENSION_CONTEXT_USE_AND_CLEANUP_FAILED",
+        { cause: error },
+      );
+    throw error;
   }
+  await cleanup();
 }
 
 export const test = base.extend<ExtensionFixtures>({
