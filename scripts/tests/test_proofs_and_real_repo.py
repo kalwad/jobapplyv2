@@ -147,11 +147,15 @@ def test_rust_registry_covers_all_crates_and_desktop_assets() -> None:
                 for command in rust.commands
                 if command[:2] == ("cargo", operation) and manifest in command
             ]
-            expected_count = 2 if manifest == desktop and operation == "test" else 1
+            expected_count = 3 if manifest == desktop and operation == "test" else 1
             assert len(commands) == expected_count
             if manifest == desktop and operation == "test":
                 base = ("cargo", "test", "--locked", "--manifest-path", desktop)
-                assert set(commands) == {base, (*base, "--all-features")}
+                assert set(commands) == {
+                    base,
+                    (*base, "--all-features"),
+                    (*base, "--features", "tauri/custom-protocol"),
+                }
             for command in commands:
                 if manifest in (harness, desktop):
                     assert "--locked" in command

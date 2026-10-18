@@ -73,7 +73,7 @@ mod tests {
         let loopback = Url::parse("http://127.0.0.1:1420/").unwrap();
         assert_eq!(
             super::native_navigation_allowed(&loopback),
-            !cfg!(feature = "custom-protocol"),
+            tauri::is_dev(),
             "packaged debug builds must deny the development origin"
         );
         assert!(super::native_navigation_allowed(

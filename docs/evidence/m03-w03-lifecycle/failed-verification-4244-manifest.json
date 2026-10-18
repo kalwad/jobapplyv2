@@ -1,0 +1,50 @@
+{
+  "archive_sha256": "f7f8f7b80d848da41ef2b3a49e4d5e3fc46ce2772e2f0e7778df903994af3cb3",
+  "archive_bytes": 274300,
+  "members": [
+    {
+      "member": "after.json",
+      "bytes": 388280,
+      "sha256": "10ad59951919536589a04d40d988943240c5b01e3bba528df1a4573f23fa83c1"
+    },
+    {
+      "member": "before.json",
+      "bytes": 388280,
+      "sha256": "10ad59951919536589a04d40d988943240c5b01e3bba528df1a4573f23fa83c1"
+    },
+    {
+      "member": "closure.json",
+      "bytes": 154,
+      "sha256": "64426b70e7c5e5c907a00d0c7a845d5e872dce6765ff41eba50769c16370b7a3"
+    },
+    {
+      "member": "commands.json",
+      "bytes": 823,
+      "sha256": "46ac95ca6c8c90d02dd10fc12346bd8255525bf20e13948962154136f2b4ba8e"
+    },
+    {
+      "member": "doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "environment.json",
+      "bytes": 1437,
+      "sha256": "3c61965424c242cdd1778e69b1aabb0d0af15ee8134a48674c656c232e321353"
+    },
+    {
+      "member": "executed-wrapper.py",
+      "bytes": 3345,
+      "sha256": "05fbd5fd881bd608a4217911acab95c2db51847543edfc85e6fb1d22737dc880"
+    },
+    {
+      "member": "verify.log",
+      "bytes": 640739,
+      "sha256": "3ff8c8713353427abbc8d5b269c18a3c1d7fb1c06249bfc1bba7b4443456de34"
+    }
+  ],
+  "source_commit": "4244afb30c3af23f2fc69e76a9e3234d289a774a",
+  "source_tree": "139f8bed281dab485f0dfdc2cda9ebb888ed9d60",
+  "verdict": "FAIL_SOURCE_NEUTRAL_18PASS_2FAIL",
+  "cause": "One hardcoded POSIX PATH literal in new build script; Python real-repository policy regression and portability suite both reject it. 1631PythonPASS/1FAIL. Separate app discovery also found runtime-mode defect; no W03 acceptance."
+}

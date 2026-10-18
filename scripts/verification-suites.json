@@ -659,6 +659,15 @@
         ],
         [
           "cargo",
+          "test",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--features",
+          "tauri/custom-protocol"
+        ],
+        [
+          "cargo",
           "build",
           "--locked",
           "--manifest-path",
@@ -677,7 +686,7 @@
         "apps/desktop/src-tauri/src/**/*.rs"
       ],
       "artifacts": [],
-      "explanation": "Explicit --manifest-path keeps execution independent of the caller working directory; rust-toolchain.toml pins 1.97.1. The retained native-host scaffold is built independently and the private M01-W05 compatibility harness remains --locked --offline. M03-W01 adds the real desktop shell: its Cargo.lock is mandatory, and fmt, Clippy with denied warnings, tests and build run on every verification host. The explicit @japp/desktop frontend-only build precedes native compilation because Tauri generate_context! embeds the packaged assets; it never invokes the Tauri build or this verifier recursively. Linux requires the same Tauri system libraries locally and in CI; CI success is not packaged target certification."
+      "explanation": "Explicit --manifest-path keeps execution independent of the caller working directory; rust-toolchain.toml pins 1.97.1. The retained native-host scaffold is built independently and the private M01-W05 compatibility harness remains --locked --offline. M03-W01 adds the real desktop shell: its Cargo.lock is mandatory, and fmt, Clippy with denied warnings, tests and build run on every verification host. The explicit @japp/desktop frontend-only build precedes native compilation because Tauri generate_context! embeds the packaged assets; it never invokes the Tauri build or this verifier recursively. Linux requires the same Tauri system libraries locally and in CI; CI success is not packaged target certification. The desktop tests also run with the exact CLI dependency-only tauri/custom-protocol feature so packaged runtime discovery cannot regress to a development path when the crate feature alias is absent (W03-RUNTIME-MODE-001)."
     },
     {
       "id": "portability",

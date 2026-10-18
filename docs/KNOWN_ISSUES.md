@@ -32,6 +32,41 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M03-W03 validation findings (2026-10-18)
+
+### KI-0106 — Windows post-exit refusal observation used a 0.2-second budget
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-18 during hosted validation of M03-W02
+- Affects: M03-W02 / M03-W03; service lifecycle test observation
+- Description: Windows CI completed READY, authenticated canonical responses, parent EOF and service exit0, then timed out in the single post-exit socket probe. The observed failure was at the refusal check, not startup or shutdown.
+- Reproduction: GitHub Actions run39158999648, Windows verify log, test_service_cli.py line167; actual1624PASS/1FAIL. Raw official logs are retained separately.
+- Workaround: none used; this CI run remains failed.
+- Resolution + evidence link: proposed Windows-only3s refusal observation keeps the same required ConnectionRefusedError, single attempt, timeout failure,3s HTTP and8s exit bounds. Eight modeled tests exercise refusal, timeout, other errors and accepted-connection cleanup. Independent review and actual new Windows CI remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+### KI-0105 — Runtime builder contained a platform-specific PATH literal
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-18 during M03-W03 clean full validation
+- Affects: M03-W03; runtime builder portability policy
+- Description: the unchanged PORT-SRC-001 checker rejects the builder's literal system PATH. Both failing suites in the complete run report this same defect.
+- Reproduction: commit4244afb full validation exits1 with18/20 suites PASS and1631PythonPASS/1FAIL; portability also fails. Failed results remain retained.
+- Workaround: none used; policy and allowlist remain unchanged.
+- Resolution + evidence link: use validated absolute system defaults from os.defpath/os.pathsep while rejecting empty, relative and current-directory entries before any build command. Fifteen builder tests, unchanged policy check, strict statics, exact1642 inventory and a fresh six-stage real runtime build pass. Independent source/integration review clears the correction; fresh complete validation remains required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+### KI-0104 — Packaged runtime selection used an application feature alias
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-18 during M03-W03 actual packaged app observation
+- Affects: M03-W03; compile-bound runtime selection
+- Description: the CLI enables tauri/custom-protocol directly; the application's custom-protocol alias can remain false. The packaged debug app therefore selected the development-stage executable despite having a bound bundled runtime.
+- Reproduction: actual4244afb app launch reports the service executable under root runtime-payload instead of bundled Resources/runtime. The observer baseline fails; this is not a passing Close case. Root GUI Quit cleans the exact observed app/service/group/listener.
+- Workaround: none used; the failed actor remains preserved.
+- Resolution + evidence link: choose mode through SDK tauri::is_dev(), preserving manifest/hash/absolute-path/no-fallback guards. Two new shipping-selector tests reproduce the direct-dependency feature mode;77 tests in each of three mandatory modes and strict Clippy/fmt pass. Windows-native fixture paths preserve production guards. Independent review clears source integration; fresh actual bundled lifecycle and full validation remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
 ## M03-W02 corrected verification fixtures (2026-10-18)
 
 ### KI-0103 — Status mutation fixtures inherited obsolete progress

@@ -130,6 +130,47 @@ def clean_exit_output(process: subprocess.Popen[bytes], expected: int) -> None:
     assert b"Traceback" not in diagnostic
 
 
+def post_exit_probe_timeout() -> float:
+    # Winsock refusal notification is asynchronous. This is an observation
+    # budget after verified process exit, not a startup/shutdown deadline.
+    return 3.0 if sys.platform == "win32" else 0.2
+
+
+@contextmanager
+def post_exit_probe_diagnostics(
+    process: subprocess.Popen[bytes], port: int
+) -> Iterator[None]:
+    started = time.monotonic()
+    try:
+        yield
+    except (OSError, pytest.fail.Exception) as failure:
+        failure.add_note(
+            json.dumps(
+                {
+                    "phase": "POST_EXIT_REFUSAL_OBSERVATION",
+                    "owned_child_pid": process.pid,
+                    "child_exit_code": process.returncode,
+                    "acknowledged_port": port,
+                    "parent_pipe_closed": process.stdin is not None
+                    and process.stdin.closed,
+                    "observation_budget_seconds": post_exit_probe_timeout(),
+                    "elapsed_seconds": max(0, round(time.monotonic() - started, 3)),
+                    "error_kind": (
+                        "TIMEOUT"
+                        if isinstance(failure, TimeoutError)
+                        else "OS_ERROR"
+                        if isinstance(failure, OSError)
+                        else "REFUSAL_NOT_OBSERVED"
+                    ),
+                    "errno": failure.errno if isinstance(failure, OSError) else None,
+                    "winerror": getattr(failure, "winerror", None),
+                },
+                separators=(",", ":"),
+            )
+        )
+        raise
+
+
 def test_actual_service_owns_acknowledged_port_and_stops_on_parent_eof(
     tmp_path: Path,
 ) -> None:
@@ -163,8 +204,14 @@ def test_actual_service_owns_acknowledged_port_and_stops_on_parent_eof(
         assert process.stdin is not None
         process.stdin.close()
         clean_exit_output(process, 0)
-        with pytest.raises(ConnectionRefusedError):
-            socket.create_connection(("127.0.0.1", port), timeout=0.2)
+        with (
+            post_exit_probe_diagnostics(process, port),
+            pytest.raises(ConnectionRefusedError),
+            socket.create_connection(
+                ("127.0.0.1", port), timeout=post_exit_probe_timeout()
+            ),
+        ):
+            pass
 
 
 def test_bind_collision_exits_72_without_ack_or_disturbing_owner(

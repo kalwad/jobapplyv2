@@ -88,6 +88,18 @@ def prepare_destination(path: Path) -> None:
         raise ValueError("Refusing to replace an existing runtime payload")
 
 
+def system_default_path(work_dir: Path) -> str:
+    entries = os.defpath.split(os.pathsep)
+    working_directories = {Path.cwd().resolve(), work_dir.resolve()}
+    for entry in entries:
+        path = Path(entry)
+        if not entry or not path.is_absolute() or path.resolve() in working_directories:
+            raise ValueError(
+                "System default PATH must contain absolute non-CWD directories only"
+            )
+    return os.defpath
+
+
 def write_manifest(root: Path, target: str, sources: dict[str, str]) -> PayloadManifest:
     entries: list[PayloadFile] = []
     total = 0
@@ -171,7 +183,7 @@ def main() -> None:  # noqa: PLR0912, PLR0915 - ordered six-stage native build c
         copied[name] = destination
     sources = {name + "_sha256": sha256(path) for name, path in copied.items()}
     env = {
-        "PATH": "/usr/bin:/bin",
+        "PATH": system_default_path(args.work_dir),
         "PYTHONNOUSERSITE": "1",
         "PYTHONHASHSEED": "0",
         "UV_CACHE_DIR": str(args.work_dir / "uv-cache"),
