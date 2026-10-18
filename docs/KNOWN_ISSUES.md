@@ -32,6 +32,19 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## M03-W02 corrected verification fixtures (2026-10-18)
+
+### KI-0103 — Status mutation fixtures inherited obsolete progress
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W02 full verification
+- Affects: M03-W02; Python verification and copied status fixtures
+- Description: one runner test replaced W02 NOT_STARTED after W02 became IN_PROGRESS, leaving the supposedly invalid status unchanged. A related negative test inherited an inconsistent current-package header before its invalid-enum mutation.
+- Reproduction: frozen28ba full verification is source-neutral but FAIL with1626Python PASS/1FAIL; two added premise checks independently reproduce the obsolete literal and invalid baseline.
+- Workaround: none used; the failed complete run is preserved and does not verify W02.
+- Resolution + evidence link: use the stable historical M00-W01 VERIFIED row with exact occurrence/change assertions for the runner mutation; establish a coherent copied W01 boundary and require baseline validator PASS before the unchanged invalid-enum mutation. All original test identities and assertions remain. Affected tests and the complete integrity module pass; fresh complete validation remains required. See docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service/failed-verification-28ba-manifest.json.
+
 ## M03-W01 corrected native boundary (2026-10-18)
 
 ### KI-0101 — Debug-packaged shell accepted the development origin

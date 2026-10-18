@@ -1,0 +1,142 @@
+{
+  "sha256": "5f3f9821cd1b4f12805b3e66e17593e4c9a5a7346c7b9e9a5874c69f75d766dc",
+  "bytes": 833605,
+  "members": [
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/after.json",
+      "bytes": 383154,
+      "sha256": "b76feb2718ecd003c587a71638c36cef398abb7e135f44c1f1cc78a5e12239b1"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/before.json",
+      "bytes": 383154,
+      "sha256": "b76feb2718ecd003c587a71638c36cef398abb7e135f44c1f1cc78a5e12239b1"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/closure.json",
+      "bytes": 154,
+      "sha256": "27d7c40725149ada8c1b9c53d42c7044c5811770517176e4d6336736f847f7c4"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/commands.json",
+      "bytes": 823,
+      "sha256": "16a76c5a0036738f4e86b5ec5a2d828dd97c646a2ad84d9ee5fef2a27c51a292"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/environment.json",
+      "bytes": 1437,
+      "sha256": "660170d82d4cae2d2870e66b32003405abc3aa8de1c0aee735baa8b48d16a90a"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/executed-wrapper.py",
+      "bytes": 3345,
+      "sha256": "3c20eaf97f4c66126dc29770b47a9bcaea3843d5d0b68cc51e8a210b7fc65fa2"
+    },
+    {
+      "member": "japp-m03-w02-clean-verification-20261018/verify.log",
+      "bytes": 624879,
+      "sha256": "0064065b9fa9d2f59a090ab8427874568143394e73fddb2b28d0985416ddb411"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/REVIEW.md",
+      "bytes": 1209,
+      "sha256": "f0a10d6285ebc6d2c8c87d3942c41cbe018d20e97da87dedbeb0d0ea1ab62c84"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/audit.py",
+      "bytes": 8451,
+      "sha256": "1baf12c43804526b5b724eaa31bb664508d66a1531d1d3823e90e063494b3cec"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/findings.json",
+      "bytes": 9448,
+      "sha256": "42cb05b024ccb29d6d61835df1ca8f92a64dc4d3a7b40a8e8344378cf9933761"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/after.json",
+      "bytes": 383154,
+      "sha256": "b76feb2718ecd003c587a71638c36cef398abb7e135f44c1f1cc78a5e12239b1"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/before.json",
+      "bytes": 383154,
+      "sha256": "b76feb2718ecd003c587a71638c36cef398abb7e135f44c1f1cc78a5e12239b1"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/closure.json",
+      "bytes": 154,
+      "sha256": "27d7c40725149ada8c1b9c53d42c7044c5811770517176e4d6336736f847f7c4"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/commands.json",
+      "bytes": 823,
+      "sha256": "16a76c5a0036738f4e86b5ec5a2d828dd97c646a2ad84d9ee5fef2a27c51a292"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/doctor.log",
+      "bytes": 3222,
+      "sha256": "0b114d3112efd5f0bc52af6b57282085bda1a3c0272edf6774b3952cdbca8cc8"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/environment.json",
+      "bytes": 1437,
+      "sha256": "660170d82d4cae2d2870e66b32003405abc3aa8de1c0aee735baa8b48d16a90a"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/executed-wrapper.py",
+      "bytes": 3345,
+      "sha256": "3c20eaf97f4c66126dc29770b47a9bcaea3843d5d0b68cc51e8a210b7fc65fa2"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/result-inputs/verify.log",
+      "bytes": 624879,
+      "sha256": "0064065b9fa9d2f59a090ab8427874568143394e73fddb2b28d0985416ddb411"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/docs/MASTER_IMPLEMENTATION_SPEC.md",
+      "bytes": 367893,
+      "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/docs/PROJECT_STATUS.md",
+      "bytes": 38209,
+      "sha256": "092a60f95ea4d3badcf05d5fe6025a8f8aa5787b5c8a21dc378c72c76f149cf3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/docs/traceability.json",
+      "bytes": 713574,
+      "sha256": "77474886bbcb10e06be5ef321b565d8f68c8d76db8559e750b2023564e06e7d6"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/scripts/python-test-inventory.v1.json",
+      "bytes": 212326,
+      "sha256": "ba638168907a0f86ebe39a140241b5bd42cea218aac527d5fc9a2aa413849b70"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/scripts/tests/test_integrity.py",
+      "bytes": 98535,
+      "sha256": "5f86829976fcb43a9de4bf2bef097e66bee932d2a3ee128c49281f5faf9366ad"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/scripts/validate_status.py",
+      "bytes": 127352,
+      "sha256": "9907f5fd9a59809feb7bb90266315685edcafd6f0c4546b725b3dc4d44620fb3"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/scripts/verification-suites.json",
+      "bytes": 30475,
+      "sha256": "1e1f7857ed37adbdf66c6f05462a030229784a6a291d62874f6d767fbbf45e0d"
+    },
+    {
+      "member": "japp-m03-w02-independent-security-dependency-review-20261018/full-data-review-failed-28ba/source-inputs/scripts/verify.py",
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    }
+  ],
+  "verdict": "FAIL; source-neutral; 19ACTIVE PASS; Python1626PASS1FAIL; stale inherited NOT_STARTED mutation premise"
+}
