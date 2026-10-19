@@ -3,6 +3,19 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## M03-W06 scoped current validation (2026-10-19UTC)
+
+Current660f9f1/treebe68 local doctor28 and all20 suites pass, with exactPython1801,
+TypeScript4006/native232 in each3 modes/browser262+2+62+3 and different49-check
+review. Source1961 and runtime40 remain unchanged. Separately, the immutable
+e0a501b cfg(test)-only headless derivative executes one packaged-service case:
+authenticated health/ready/version and same-owner EngineREADY→UNAVAILABLE pass;
+232 cases are filtered. Different47-check review preserves its historicalsource
+and deliberate own-worker-groupTERM scope. Exact evidence is in
+docs/evidence/m03-w06-current-local-full and docs/evidence/m03-w06-mac-headless-service.
+No GUI/LaunchServices, currentforeignpackage, certifiedplatform or M03 acceptance
+is added; W06 staysIN_PROGRESS and releaseNOT_READY. Hosted39207973986 is pending.
+
 ## M03-W05 scoped recovery and actual2a327 hosted result (2026-10-19UTC)
 
 W05 is VERIFIED at185909b/tree3c2ba3a after current clean local doctor28/all20,
@@ -146,9 +159,9 @@ with M03/M17 measured evidence per the population rule above.
 ## Operating systems (desktop app)
 
 The first-release policy targets macOS 14+ arm64, Windows 11 x64, and Ubuntu
-24.04 LTS x64. No desktop product or packaged platform evidence exists, so
-all three are `NOT_YET_IMPLEMENTED`; this is a target matrix, not a support
-claim. M00 hosted checks (macOS 15 arm64, Windows Server 2025 x64 since
+24.04 LTS x64. The initial macOS shell and scoped development-package observations above exist.
+Final packaged platform certification is pending; the three rows below retain
+their unverified target states and grant no certified support claim. M00 hosted checks (macOS 15 arm64, Windows Server 2025 x64 since
 M00-W09, Ubuntu 24.04 x64) prove repository/toolchain bootstrap only; a
 passing `windows-2025` job is not packaged Windows 11 desktop support.
 Product certification and Gate D remain later work; see
