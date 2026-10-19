@@ -21,13 +21,6 @@ pub enum SupervisorError {
     StartupTimeout,
     ChildExited,
     CleanupFailed,
-    #[cfg_attr(
-        all(not(unix), not(test)),
-        expect(
-            dead_code,
-            reason = "non-Unix cleanup producer is unavailable until M03-W07"
-        )
-    )]
     CleanupPending,
     AlreadyRunning,
     InvalidPolicy,
@@ -71,6 +64,15 @@ pub trait OwnedProcess: Send {
         Err(SupervisorError::ContainmentUnavailable)
     }
     fn write_bootstrap(&mut self, bootstrap: &Bootstrap<'_>) -> Result<(), SupervisorError>;
+    fn write_bootstrap_with_permit(
+        &mut self,
+        bootstrap: &Bootstrap<'_>,
+        permit: &SpawnPermit<'_>,
+    ) -> Result<(), SupervisorError> {
+        permit.check()?;
+        self.write_bootstrap(bootstrap)?;
+        permit.check()
+    }
     fn read_ready(&mut self) -> Result<Option<ReadyFrame>, SupervisorError>;
     fn poll_exit(&mut self) -> Result<Option<i32>, SupervisorError>;
     fn close_lease(&mut self);
@@ -82,6 +84,13 @@ pub struct SpawnPermit<'a> {
     deadline: Duration,
 }
 impl SpawnPermit<'_> {
+    #[cfg(any(windows, test, feature = "windows-source-check"))]
+    pub(crate) fn pause(&self, duration: Duration) -> Result<(), SupervisorError> {
+        self.check()?;
+        self.clock
+            .pause(duration.min(self.deadline.saturating_sub(self.clock.now())));
+        self.check()
+    }
     pub fn check(&self) -> Result<(), SupervisorError> {
         if self.cancellation.load(Ordering::Acquire) {
             Err(SupervisorError::Cancelled)
@@ -322,7 +331,14 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
                 .child
                 .as_mut()
                 .expect("owned child assigned above")
-                .write_bootstrap(&bootstrap)
+                .write_bootstrap_with_permit(
+                    &bootstrap,
+                    &SpawnPermit {
+                        cancellation: &self.cancellation,
+                        clock: &self.clock,
+                        deadline,
+                    },
+                )
             {
                 return self.fail(error);
             }
@@ -1194,5 +1210,203 @@ mod tests {
         assert!(s.identity().is_none());
         assert!(s.secret.is_none());
         assert_eq!(r.lock().unwrap().closes, 1);
+    }
+    #[test]
+    fn composed_supervisor_dispatches_bootstrap_through_actual_permit_extension() {
+        use std::sync::atomic::AtomicUsize;
+        struct RouteChild {
+            inner: Box<dyn OwnedProcess>,
+            calls: Arc<[AtomicUsize; 2]>,
+        }
+        impl OwnedProcess for RouteChild {
+            fn observe_alive(&self) -> Result<bool, SupervisorError> {
+                self.inner.observe_alive()
+            }
+            fn write_bootstrap(&mut self, _: &Bootstrap<'_>) -> Result<(), SupervisorError> {
+                self.calls[0].fetch_add(1, Ordering::AcqRel);
+                Err(SupervisorError::BootstrapFailed)
+            }
+            fn write_bootstrap_with_permit(
+                &mut self,
+                bootstrap: &Bootstrap<'_>,
+                permit: &SpawnPermit<'_>,
+            ) -> Result<(), SupervisorError> {
+                permit.check()?;
+                self.calls[1].fetch_add(1, Ordering::AcqRel);
+                self.inner.write_bootstrap_with_permit(bootstrap, permit)
+            }
+            fn read_ready(&mut self) -> Result<Option<ReadyFrame>, SupervisorError> {
+                self.inner.read_ready()
+            }
+            fn poll_exit(&mut self) -> Result<Option<i32>, SupervisorError> {
+                self.inner.poll_exit()
+            }
+            fn close_lease(&mut self) {
+                self.inner.close_lease()
+            }
+            fn terminate_owned(&mut self) -> Result<(), SupervisorError> {
+                self.inner.terminate_owned()
+            }
+        }
+        struct RouteAdapter {
+            inner: FakeAdapter,
+            calls: Arc<[AtomicUsize; 2]>,
+        }
+        impl RuntimeAdapter for RouteAdapter {
+            fn check_runtime(&self) -> Result<(), SupervisorError> {
+                self.inner.check_runtime()
+            }
+            fn choose_port(&self) -> Result<u16, SupervisorError> {
+                self.inner.choose_port()
+            }
+            fn create_identity(
+                &self,
+                generation: u32,
+                port: u16,
+            ) -> Result<(ServiceIdentity, String), SupervisorError> {
+                self.inner.create_identity(generation, port)
+            }
+            fn spawn(
+                &self,
+                permit: &SpawnPermit<'_>,
+            ) -> Result<Box<dyn OwnedProcess>, SupervisorError> {
+                Ok(Box::new(RouteChild {
+                    inner: self.inner.spawn(permit)?,
+                    calls: Arc::clone(&self.calls),
+                }))
+            }
+        }
+        let (old, record) = harness(vec![Outcome::Ready]);
+        let calls = Arc::new([AtomicUsize::new(0), AtomicUsize::new(0)]);
+        let mut owner = Supervisor::new(
+            RouteAdapter {
+                inner: old.adapter,
+                calls: Arc::clone(&calls),
+            },
+            old.clock,
+            old.policy,
+        )
+        .unwrap();
+        assert!(
+            owner.start().is_ok(),
+            "actual Supervisor must use the permit-carrying extension consumed by Windows private I/O"
+        );
+        assert_eq!(calls[0].load(Ordering::Acquire), 0);
+        assert_eq!(calls[1].load(Ordering::Acquire), 1);
+        assert!(
+            owner
+                .client_session()
+                .unwrap()
+                .valid
+                .load(Ordering::Acquire)
+        );
+        assert_eq!(record.lock().unwrap().spawn, 1);
+        owner.shutdown().unwrap();
+        assert_eq!(record.lock().unwrap().closes, 1);
+    }
+}
+
+#[cfg(test)]
+mod bootstrap_permit_tests {
+    use super::*;
+    use std::sync::atomic::{AtomicU64, AtomicUsize};
+    struct Tick(AtomicU64);
+    impl Clock for Tick {
+        fn now(&self) -> Duration {
+            Duration::from_millis(self.0.load(Ordering::Acquire))
+        }
+        fn pause(&self, d: Duration) {
+            self.0.fetch_add(d.as_millis() as u64, Ordering::AcqRel);
+        }
+    }
+    struct Probe<'a> {
+        calls: &'a AtomicUsize,
+        tick: &'a Tick,
+    }
+    impl OwnedProcess for Probe<'_> {
+        fn write_bootstrap(&mut self, _: &Bootstrap<'_>) -> Result<(), SupervisorError> {
+            self.calls.fetch_add(1, Ordering::AcqRel);
+            self.tick.0.store(20, Ordering::Release);
+            Ok(())
+        }
+        fn read_ready(&mut self) -> Result<Option<ReadyFrame>, SupervisorError> {
+            unreachable!()
+        }
+        fn poll_exit(&mut self) -> Result<Option<i32>, SupervisorError> {
+            unreachable!()
+        }
+        fn close_lease(&mut self) {}
+        fn terminate_owned(&mut self) -> Result<(), SupervisorError> {
+            Ok(())
+        }
+    }
+    #[test]
+    fn bootstrap_extension_refuses_cancel_before_touching_transport() {
+        let cancel = AtomicBool::new(true);
+        let clock = Tick(AtomicU64::new(0));
+        let calls = AtomicUsize::new(0);
+        let mut child = Probe {
+            calls: &calls,
+            tick: &clock,
+        };
+        let identity = ServiceIdentity {
+            instance_id: "svc_00000000000000000000000000".into(),
+            generation: 1,
+            bind_port: 1234,
+        };
+        let token = "a".repeat(64);
+        let b = Bootstrap::new(&identity, &token).unwrap();
+        let p = SpawnPermit {
+            cancellation: &cancel,
+            clock: &clock,
+            deadline: Duration::from_millis(10),
+        };
+        assert_eq!(
+            child.write_bootstrap_with_permit(&b, &p),
+            Err(SupervisorError::Cancelled)
+        );
+        assert_eq!(calls.load(Ordering::Acquire), 0);
+    }
+    #[test]
+    fn bootstrap_extension_refuses_transport_completion_after_deadline() {
+        let cancel = AtomicBool::new(false);
+        let clock = Tick(AtomicU64::new(0));
+        let calls = AtomicUsize::new(0);
+        let mut child = Probe {
+            calls: &calls,
+            tick: &clock,
+        };
+        let identity = ServiceIdentity {
+            instance_id: "svc_00000000000000000000000000".into(),
+            generation: 1,
+            bind_port: 1234,
+        };
+        let token = "a".repeat(64);
+        let b = Bootstrap::new(&identity, &token).unwrap();
+        let p = SpawnPermit {
+            cancellation: &cancel,
+            clock: &clock,
+            deadline: Duration::from_millis(10),
+        };
+        assert_eq!(
+            child.write_bootstrap_with_permit(&b, &p),
+            Err(SupervisorError::StartupTimeout)
+        );
+        assert_eq!(calls.load(Ordering::Acquire), 1);
+    }
+    #[test]
+    fn permit_pause_is_clipped_to_remaining_startup_budget() {
+        let cancel = AtomicBool::new(false);
+        let clock = Tick(AtomicU64::new(9));
+        let p = SpawnPermit {
+            cancellation: &cancel,
+            clock: &clock,
+            deadline: Duration::from_millis(10),
+        };
+        assert_eq!(
+            p.pause(Duration::from_secs(1)),
+            Err(SupervisorError::StartupTimeout)
+        );
+        assert_eq!(clock.now(), Duration::from_millis(10));
     }
 }

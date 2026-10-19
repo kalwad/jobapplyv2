@@ -1,11 +1,13 @@
 use super::{ConfiguredRuntime, SupervisorError};
 use std::path::{Path, PathBuf};
+#[cfg(not(target_os = "linux"))]
 use tauri::Manager;
 struct BoundRuntime {
     build_executable: &'static str,
     resource_relative: &'static str,
     executable_sha256: [u8; 32],
     manifest_sha256: [u8; 32],
+    target: &'static str,
 }
 include!(concat!(env!("OUT_DIR"), "/runtime_descriptor.rs"));
 fn path_for_mode(
@@ -37,11 +39,31 @@ pub(crate) fn configured_runtime(
     let Some(descriptor) = COMPILED_RUNTIME.as_ref() else {
         return Ok(ConfiguredRuntime::unavailable());
     };
-    // The digest binds build evidence; full runtime tree enforcement belongs to W06.
-    let _bound_manifest = descriptor.manifest_sha256;
+    #[cfg(target_os = "linux")]
+    let resource = if !tauri::is_dev() {
+        std::env::current_exe().ok().and_then(|executable| {
+            super::linux_resources::resource_root(&executable, &app.package_info().name).ok()
+        })
+    } else {
+        None
+    };
+    #[cfg(not(target_os = "linux"))]
     let resource = app.path().resource_dir().ok();
     let path = path_for_current_mode(descriptor, resource.as_deref())?;
-    ConfiguredRuntime::approved(path, descriptor.executable_sha256)
+    let root = path
+        .parent()
+        .and_then(Path::parent)
+        .ok_or(SupervisorError::InvalidRuntime)?
+        .to_path_buf();
+    ConfiguredRuntime::approved_tree(
+        path,
+        descriptor.executable_sha256,
+        super::runtime_integrity::RuntimeTree::new(
+            root,
+            descriptor.target,
+            descriptor.manifest_sha256,
+        ),
+    )
 }
 #[cfg(test)]
 mod tests {
@@ -74,6 +96,7 @@ mod tests {
             resource_relative: RESOURCE_RELATIVE,
             executable_sha256: [1; 32],
             manifest_sha256: [2; 32],
+            target: "aarch64-apple-darwin",
         }
     }
     #[test]

@@ -3,11 +3,7 @@ mod protocol;
 mod supervisor;
 
 pub use platform::{ConfiguredRuntime, MonotonicClock};
-#[cfg(any(unix, test))]
-pub use protocol::Bootstrap;
-#[cfg(unix)]
-pub use protocol::ReadyFrame;
-pub use protocol::ServiceIdentity;
+pub use protocol::{Bootstrap, ReadyFrame, ServiceIdentity};
 pub use supervisor::*;
 
 mod tauri_lifecycle;
@@ -22,3 +18,11 @@ pub(crate) use runtime_descriptor::configured_runtime;
 mod authority_hub;
 
 mod restart;
+
+#[cfg(any(target_os = "linux", test))]
+mod linux_resources;
+mod runtime_integrity;
+#[cfg(any(windows, feature = "windows-source-check"))]
+mod windows_native;
+#[cfg(any(windows, test, feature = "windows-source-check"))]
+mod windows_policy;

@@ -10,11 +10,12 @@ fn main() {
         descriptor.unwrap_or_else(|_| panic!("Native runtime payload failed validation"));
     let source = if let Some(d) = descriptor {
         format!(
-            "const COMPILED_RUNTIME: Option<BoundRuntime> = Some(BoundRuntime {{build_executable: {:?},resource_relative: {:?},executable_sha256: {:?},manifest_sha256: {:?} }});",
+            "const COMPILED_RUNTIME: Option<BoundRuntime> = Some(BoundRuntime {{build_executable: {:?},resource_relative: {:?},executable_sha256: {:?},manifest_sha256: {:?},target: {:?} }});",
             d.build_executable.to_str().expect("build path UTF8"),
             d.resource_relative,
             d.executable_sha256,
-            d.manifest_sha256
+            d.manifest_sha256,
+            target
         )
     } else {
         "const COMPILED_RUNTIME: Option<BoundRuntime> = None;".into()
@@ -31,8 +32,7 @@ fn main() {
             .app_manifest(tauri_build::AppManifest::new().commands(ipc_policy::SERVICE_COMMANDS)),
     )
     .expect("Desktop command policy could not be built");
-    // Tauri's resource helper applies its Windows manifest to application bins.
-    // The lib unit-test harness also retains Common Controls v6 imports.
+    // Cover executable artifacts including the lib unit-test harness.
     if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("windows")
         && std::env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc")
     {

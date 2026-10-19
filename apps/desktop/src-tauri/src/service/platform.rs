@@ -17,12 +17,14 @@ use std::{
 pub struct ConfiguredRuntime {
     executable: Option<PathBuf>,
     sha256: Option<[u8; 32]>,
+    tree: Option<super::runtime_integrity::RuntimeTree>,
 }
 impl ConfiguredRuntime {
     pub fn unavailable() -> Self {
         Self {
             executable: None,
             sha256: None,
+            tree: None,
         }
     }
     pub fn approved(executable: PathBuf, sha256: [u8; 32]) -> Result<Self, SupervisorError> {
@@ -32,7 +34,20 @@ impl ConfiguredRuntime {
         Ok(Self {
             executable: Some(executable),
             sha256: Some(sha256),
+            tree: None,
         })
+    }
+    pub(super) fn approved_tree(
+        executable: PathBuf,
+        sha256: [u8; 32],
+        tree: super::runtime_integrity::RuntimeTree,
+    ) -> Result<Self, SupervisorError> {
+        if !tree.contains_entrypoint(&executable) {
+            return Err(SupervisorError::InvalidRuntime);
+        }
+        let mut runtime = Self::approved(executable, sha256)?;
+        runtime.tree = Some(tree);
+        Ok(runtime)
     }
     fn path(&self) -> Result<&Path, SupervisorError> {
         self.executable
@@ -47,6 +62,9 @@ impl ConfiguredRuntime {
     ) -> Result<(), SupervisorError> {
         if let Some(permit) = permit {
             permit.check()?;
+        }
+        if let Some(tree) = &self.tree {
+            tree.verify(|| permit.map_or(Ok(()), SpawnPermit::check))?;
         }
         let path = self.path()?;
         let metadata = path
@@ -146,7 +164,23 @@ impl RuntimeAdapter for ConfiguredRuntime {
         {
             native::spawn(self.path()?, permit)
         }
-        #[cfg(not(any(target_os = "macos", target_os = "linux")))]
+        #[cfg(all(windows, target_arch = "x86_64"))]
+        {
+            let tree = self.tree.as_ref().ok_or(SupervisorError::InvalidRuntime)?;
+            let locks = super::windows_native::lock_tree(tree.root(), permit)?;
+            self.check_runtime_with_permit(Some(permit))?;
+            super::windows_native::spawn(
+                self.path()?,
+                self.sha256.ok_or(SupervisorError::InvalidRuntime)?,
+                permit,
+                locks,
+            )
+        }
+        #[cfg(not(any(
+            target_os = "macos",
+            target_os = "linux",
+            all(windows, target_arch = "x86_64")
+        )))]
         {
             Err(SupervisorError::ContainmentUnavailable)
         }

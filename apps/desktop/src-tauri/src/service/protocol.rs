@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
-#[cfg(any(unix, test))]
 use std::io::{Read, Write};
 
-#[cfg(any(unix, test))]
 pub const MAX_FRAME_BYTES: usize = 4096;
 
 #[derive(Debug)]
@@ -50,7 +48,6 @@ impl<'a> Bootstrap<'a> {
         })
     }
 
-    #[cfg(any(unix, test))]
     pub fn write_to(&self, target: &mut dyn Write) -> Result<(), ProtocolError> {
         let bytes = serde_json::to_vec(self).map_err(|_| ProtocolError)?;
         if bytes.len() > MAX_FRAME_BYTES {
@@ -77,7 +74,6 @@ pub struct ReadyFrame {
 }
 
 impl ReadyFrame {
-    #[cfg(any(unix, test))]
     pub fn read_from(source: &mut dyn Read) -> Result<Self, ProtocolError> {
         let mut header = [0_u8; 4];
         source.read_exact(&mut header).map_err(|_| ProtocolError)?;
