@@ -2,7 +2,7 @@
 
 Spec version: 1.4
 Repository revision: M03-W02 VERIFIED at aa7e4e3; M03-W03 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
-Last updated: 2026-10-18
+Last updated: 2026-10-19
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
 Current work package: M03-W03
@@ -27,6 +27,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 - Completed prerequisite: authenticated service skeleton M03-W02 VERIFIED at tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d after actual strict doctor28/all20 ACTIVE PASS, exact1627 Python inventory and independent source/focused/wheel/full-data review. W01 accessible shell remains VERIFIED; initial baseline remains CAPTURED/NOT_APPROVED.
 - Objective: real Tauri-owned random loopback port, fresh ephemeral credential/instance/generation, trusted native service executable, private readiness ACK, nonblocking diagnostics authority and bounded normal/forced lifecycle cleanup. Authenticated desktop API and restart are following packages.
 - Execution: continue all eligible work without routine approval prompts under OD-035–037. Required measured evidence, independent reviews, numerical/safety limits and precise ADR-0006/0007 waivers remain binding. No native cross-platform certification is implied.
+- Observed candidate cac56a0/tree7d7afc0: clean strict doctor28 and all20 ACTIVE suites pass, including exact1650 Python tests and77 native tests in each of three required modes. Separate independent full-data review passes. Five actual macOS native lifecycle cases pass: Close, Quit, owned forced-parent exit, contained writer cleanup, and visible escaped-writer cleanup failure followed by owned release and Quit retry. Independent native review is81/81 CLEAR. The retained source and executed bytes remain bound to cac56, not the subsequent correction.
+- Current validation gap: hosted run39164520190 has macOS/Ubuntu PASS and Windows1648 Python PASS, but Windows strict Clippy fails on unused imports/helpers and an unconstructed cleanup variant. The narrow four-file compiler-scope correction has53/53 independent checks CLEAR and preserves all77 test IDs/bodies/assertions. It is adopted for fresh root/full/native/hosted validation; no Windows GREEN or W03 completion is claimed yet. Evidence and explicit limits are in docs/evidence/m03-w03-lifecycle and docs/TEST_EVIDENCE.md.
 
 ## Milestone table
 

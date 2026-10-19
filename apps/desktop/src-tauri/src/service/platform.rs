@@ -1,7 +1,8 @@
-use super::{
-    Bootstrap, Clock, OwnedProcess, ReadyFrame, RuntimeAdapter, ServiceIdentity, SpawnPermit,
-    SupervisorError,
-};
+#[cfg(any(unix, test))]
+use super::Bootstrap;
+#[cfg(unix)]
+use super::ReadyFrame;
+use super::{Clock, OwnedProcess, RuntimeAdapter, ServiceIdentity, SpawnPermit, SupervisorError};
 use sha2::{Digest, Sha256};
 use std::{
     fs::File,

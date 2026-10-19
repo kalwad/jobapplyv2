@@ -28,6 +28,10 @@ ATS/browser/OS support and measured pass rates
   evidence references, and last-tested date). Defining that shape adds no row
   and grants no support claim; the production support tables below remain empty.
 
+## Native lifecycle observation — 2026-10-19UTC
+
+At cac56a0/tree7d7afc0, five actual macOS arm64 debug-app cases pass: native Close, native Quit, owned forced-parent exit, contained writer cleanup, and visible escaped-writer cleanup failure followed by an owned release and native Quit retry. Complete actor identity/socket evidence, six native screenshots, exact executed/source bytes and independent81-check review are retained in docs/evidence/m03-w03-lifecycle. The forced case measures231.700166ms including parent wait; normal operator intervals are not bounded shutdown measurements. Hosted run39164520190 passes macOS/Ubuntu and1648 Windows Python tests but fails Windows strict Rust warnings. The subsequent compiler-scope correction still needs fresh validation. W03 remains IN_PROGRESS; this observation adds no certified platform, production ATS or approved visual-baseline support row.
+
 ## Local service skeleton observation — 2026-10-18
 
 M03-W02 is VERIFIED at tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d; M03 remains IN_PROGRESS. Actual macOS arm64/Python3.12.13 executes authenticated versioned loopback health/readiness/version, canonical errors, private bootstrap/ACK, startup/collision/EOF negatives and an empty-environment/cwd canonical wheel-only lifecycle. Source-bound strict doctor28/full20-suite verification and independent reviews are retained in docs/evidence/m03-w02-service and docs/TEST_EVIDENCE.md § M03-W02. Windows/Linux runtime and packaged Tauri lifecycle, W04 native client, final cross-platform certification and production ATS support are not supplied by this scoped service observation. Accepted Gate A evidence remains separately evaluated95f5.

@@ -34,6 +34,17 @@ broadening a work package (spec §1.5).
 
 ## M03-W03 validation findings (2026-10-18)
 
+### KI-0107 — Windows deny-warnings compilation exposes unused backend scaffolding
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC while inspecting terminal hosted run39164520190
+- Affects: M03-W03; strict Windows desktop Rust compilation
+- Description: actual Windows1648 Python tests pass, but strict Clippy rejects currently unused Bootstrap/ReadyFrame imports, bounded stream helpers and the common CleanupPending variant without a Windows production constructor. macOS and Ubuntu complete successfully.
+- Reproduction: official logs.zip SHA256bf47756e7f9027a6ad7e77278c53cc5f1221261b6d8fcdcded194035e18c4a07, full Windows Rust output. Actual PR merge checkout ab2d8a5 has the exact cac56/tree7d7afc0 source content.
+- Workaround: none used; the Windows job remains failed.
+- Resolution + evidence link: independently reviewed four-file compiler-scope patch b7d49f4b preserves every runtime method body, common typed contract, strict warning policy and all77 tests/assertions. Ten isolated Mac commands and53 independent source checks pass. Fresh root/full/native and actual Windows confirmation remain required. W07 integration must restore actual Windows stream consumers and remove the variant-only expectation. See docs/TEST_EVIDENCE.md and docs/evidence/m03-w03-lifecycle/windows-clippy-manifest.json.
+
 ### KI-0106 — Windows post-exit refusal observation used a 0.2-second budget
 
 - Severity: MEDIUM

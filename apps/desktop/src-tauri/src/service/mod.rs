@@ -3,7 +3,11 @@ mod protocol;
 mod supervisor;
 
 pub use platform::{ConfiguredRuntime, MonotonicClock};
-pub use protocol::{Bootstrap, ReadyFrame, ServiceIdentity};
+#[cfg(any(unix, test))]
+pub use protocol::Bootstrap;
+#[cfg(unix)]
+pub use protocol::ReadyFrame;
+pub use protocol::ServiceIdentity;
 pub use supervisor::*;
 
 mod tauri_lifecycle;

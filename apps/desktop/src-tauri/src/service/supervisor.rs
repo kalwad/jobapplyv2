@@ -20,6 +20,13 @@ pub enum SupervisorError {
     StartupTimeout,
     ChildExited,
     CleanupFailed,
+    #[cfg_attr(
+        all(not(unix), not(test)),
+        expect(
+            dead_code,
+            reason = "non-Unix cleanup producer is unavailable until M03-W07"
+        )
+    )]
     CleanupPending,
     AlreadyRunning,
     InvalidPolicy,
