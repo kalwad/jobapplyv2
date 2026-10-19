@@ -59,6 +59,9 @@ describe("committed schema source conventions", () => {
       "urn:japp:schema:common:schema-version:v1",
       "urn:japp:schema:common:stable-id:v1",
       "urn:japp:schema:common:timestamp-utc:v1",
+      "urn:japp:schema:desktop:service-cancellation:v1",
+      "urn:japp:schema:desktop:service-diagnostics:v1",
+      "urn:japp:schema:desktop:service-request:v1",
       // M01-W03 error-taxonomy documents joined the canonical catalog.
       "urn:japp:schema:error:catalog:v1",
       "urn:japp:schema:error:record:v1",

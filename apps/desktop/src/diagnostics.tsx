@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ErrorState, LoadingState } from "@japp/ui";
+import { ServiceDiagnosticsPanel } from "./service-diagnostics-panel.tsx";
+import type { DiagnosticsRequestFactory } from "./service-diagnostics.ts";
 import {
   NativeMetadataError,
   readShellMetadata,
@@ -14,10 +16,12 @@ type MetadataState =
 
 export interface DiagnosticsProps {
   readonly loadMetadata?: MetadataLoader;
+  readonly createServiceRequest?: DiagnosticsRequestFactory;
 }
 
 export function Diagnostics({
   loadMetadata = readShellMetadata,
+  createServiceRequest,
 }: DiagnosticsProps) {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<MetadataState>({ kind: "loading" });
@@ -88,6 +92,11 @@ export function Diagnostics({
           </dl>
         ) : null}
       </section>
+      <ServiceDiagnosticsPanel
+        {...(createServiceRequest === undefined
+          ? {}
+          : { createRequest: createServiceRequest })}
+      />
       <section
         className="desktop-panel"
         aria-labelledby="local-capabilities-heading"
@@ -96,10 +105,6 @@ export function Diagnostics({
           <h2 id="local-capabilities-heading">Local capabilities</h2>
         </div>
         <dl className="desktop-details">
-          <div>
-            <dt>Local service</dt>
-            <dd>Unavailable in this build</dd>
-          </div>
           <div>
             <dt>AI provider</dt>
             <dd>Unavailable in this build</dd>

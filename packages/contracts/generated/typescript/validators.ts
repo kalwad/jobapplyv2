@@ -106,6 +106,15 @@ import type {
   CommonTimestampUtcV1UtcTimestamp,
 } from "./common/timestamp-utc.v1.ts";
 import type {
+  DesktopServiceCancellationV1,
+} from "./desktop/service-cancellation.v1.ts";
+import type {
+  DesktopServiceDiagnosticsV1,
+} from "./desktop/service-diagnostics.v1.ts";
+import type {
+  DesktopServiceRequestV1,
+} from "./desktop/service-request.v1.ts";
+import type {
   ErrorCatalogV1,
   ErrorCatalogV1CatalogEntry,
 } from "./error/catalog.v1.ts";
@@ -546,6 +555,9 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix": CommonStableIdV1IdPrefix;
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/stableId": CommonStableIdV1StableId;
   readonly "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp": CommonTimestampUtcV1UtcTimestamp;
+  readonly "urn:japp:schema:desktop:service-cancellation:v1": DesktopServiceCancellationV1;
+  readonly "urn:japp:schema:desktop:service-diagnostics:v1": DesktopServiceDiagnosticsV1;
+  readonly "urn:japp:schema:desktop:service-request:v1": DesktopServiceRequestV1;
   readonly "urn:japp:schema:error:catalog:v1": ErrorCatalogV1;
   readonly "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry": ErrorCatalogV1CatalogEntry;
   readonly "urn:japp:schema:error:record:v1": ErrorRecordV1;
@@ -839,6 +851,9 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix",
   "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
   "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+  "urn:japp:schema:desktop:service-cancellation:v1",
+  "urn:japp:schema:desktop:service-diagnostics:v1",
+  "urn:japp:schema:desktop:service-request:v1",
   "urn:japp:schema:error:catalog:v1",
   "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry",
   "urn:japp:schema:error:record:v1",
@@ -1729,6 +1744,39 @@ export function validateCommonTimestampUtcV1UtcTimestamp(
   data: unknown,
 ): ContractValidationOutcome<CommonTimestampUtcV1UtcTimestamp> {
   return validateContractInstance("urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:desktop:service-cancellation:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceCancellationV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceCancellationV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceCancellationV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-cancellation:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:desktop:service-diagnostics:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceDiagnosticsV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceDiagnosticsV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceDiagnosticsV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-diagnostics:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:desktop:service-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceRequestV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceRequestV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceRequestV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-request:v1", data);
 }
 
 /**

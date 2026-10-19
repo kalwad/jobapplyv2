@@ -1,4 +1,5 @@
 mod build_support;
+mod ipc_policy;
 fn main() {
     let base = std::path::PathBuf::from(
         std::env::var_os("CARGO_MANIFEST_DIR").expect("Cargo manifest directory"),
@@ -25,5 +26,9 @@ fn main() {
     )
     .expect("write compile-bound descriptor");
     println!("cargo:rerun-if-changed=runtime-payload");
-    tauri_build::build();
+    tauri_build::try_build(
+        tauri_build::Attributes::new()
+            .app_manifest(tauri_build::AppManifest::new().commands(ipc_policy::SERVICE_COMMANDS)),
+    )
+    .expect("Desktop command policy could not be built");
 }

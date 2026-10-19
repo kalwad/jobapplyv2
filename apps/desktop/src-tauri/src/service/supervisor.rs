@@ -1,5 +1,6 @@
 use super::authority_hub::AuthorityHub;
 use super::protocol::{Bootstrap, ReadyFrame, ServiceIdentity};
+use crate::api_client::client::Session;
 use std::{
     sync::{
         Arc,
@@ -108,10 +109,22 @@ pub trait RuntimeAdapter {
     fn spawn(&self, permit: &SpawnPermit<'_>) -> Result<Box<dyn OwnedProcess>, SupervisorError>;
 }
 
-struct SessionAuthority(Arc<AtomicBool>);
+/// Native-only snapshot; no Debug/Serialize or renderer exposure.
+#[derive(Clone)]
+pub struct NativeSession {
+    pub session: Arc<Session>,
+    pub valid: Arc<AtomicBool>,
+    pub authority_epoch: u64,
+}
+struct SessionAuthority {
+    valid: Arc<AtomicBool>,
+    session: Arc<Session>,
+    epoch: u64,
+}
 impl Drop for SessionAuthority {
     fn drop(&mut self) {
-        self.0.store(false, Ordering::Release);
+        self.valid.store(false, Ordering::Release);
+        self.session.revoke();
     }
 }
 
@@ -198,10 +211,28 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
         let valid = self
             .session_authority
             .as_ref()
-            .map(|authority| &authority.0)
+            .map(|authority| &authority.valid)
             .filter(|valid| valid.load(Ordering::Acquire))
             .ok_or(SupervisorError::RuntimeUnavailable)?;
         Ok(callback(identity, secret, Arc::clone(valid)))
+    }
+    pub(crate) fn client_session(&mut self) -> Result<NativeSession, SupervisorError> {
+        // This shares the exact W03 native liveness/ACK check; it never constructs credentials.
+        self.with_running_session(|_, _, _| ())?;
+        let authority = self
+            .session_authority
+            .as_ref()
+            .ok_or(SupervisorError::RuntimeUnavailable)?;
+        if !authority.valid.load(Ordering::Acquire)
+            || authority.epoch != self.authority_hub.current_epoch()
+        {
+            return Err(SupervisorError::RuntimeUnavailable);
+        }
+        Ok(NativeSession {
+            session: Arc::clone(&authority.session),
+            valid: Arc::clone(&authority.valid),
+            authority_epoch: authority.epoch,
+        })
     }
     pub(super) fn invalidate_poisoned_authority(&mut self) {
         self.record_failure(SupervisorError::CleanupFailed);
@@ -333,9 +364,40 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
                         if !valid.load(Ordering::Acquire) {
                             return self.fail(SupervisorError::Cancelled);
                         }
+                        let epoch = self.authority_hub.current_epoch();
+                        // Exactly one Session/watch is minted by the serialized native owner,
+                        // after its private ACK and actual owned-child liveness validation.
+                        let Some(secret) = self.secret.as_deref() else {
+                            valid.store(false, Ordering::Release);
+                            return self.fail(SupervisorError::ProtocolRejected);
+                        };
+                        let session = match Session::with_generation_validity(
+                            secret,
+                            &identity.instance_id,
+                            identity.generation,
+                            identity.bind_port,
+                            Arc::clone(&valid),
+                        ) {
+                            Ok(session) => Arc::new(session),
+                            Err(_) => {
+                                valid.store(false, Ordering::Release);
+                                return self.fail(SupervisorError::ProtocolRejected);
+                            }
+                        };
+                        if !valid.load(Ordering::Acquire)
+                            || epoch != self.authority_hub.current_epoch()
+                        {
+                            valid.store(false, Ordering::Release);
+                            session.revoke();
+                            return self.fail(SupervisorError::Cancelled);
+                        }
                         self.state = ServiceState::Running;
                         self.identity = Some(identity.clone());
-                        self.session_authority = Some(SessionAuthority(valid));
+                        self.session_authority = Some(SessionAuthority {
+                            valid,
+                            session,
+                            epoch,
+                        });
                         return Ok(identity);
                     }
                     Ok(None) => {}
@@ -612,6 +674,55 @@ mod tests {
             self.record.lock().unwrap().terminations += 1;
             Ok(())
         }
+    }
+    #[test]
+    fn bridge_owned_session_reuses_exact_owner_arc_flag_and_epoch() {
+        let (mut supervisor, _) = harness(vec![Outcome::Ready]);
+        supervisor.start().unwrap();
+        let first = supervisor.client_session().unwrap();
+        let second = supervisor.client_session().unwrap();
+        assert!(Arc::ptr_eq(&first.session, &second.session));
+        assert!(Arc::ptr_eq(&first.valid, &second.valid));
+        let flag = supervisor
+            .with_running_session(|_, _, valid| valid)
+            .unwrap();
+        assert!(Arc::ptr_eq(&first.valid, &flag));
+        assert!(first.authority_epoch > 0);
+        assert_eq!(first.authority_epoch, second.authority_epoch);
+        assert_eq!(
+            first.authority_epoch,
+            supervisor.authority_handle().current_epoch()
+        );
+    }
+    #[test]
+    fn bridge_replacement_withdraws_old_session_before_new_epoch() {
+        let (mut supervisor, _) = harness(vec![Outcome::Ready, Outcome::Ready]);
+        supervisor.start().unwrap();
+        let first = supervisor.client_session().unwrap();
+        supervisor.shutdown().unwrap();
+        assert!(!first.valid.load(Ordering::Acquire));
+        supervisor.start().unwrap();
+        let second = supervisor.client_session().unwrap();
+        assert!(!Arc::ptr_eq(&first.session, &second.session));
+        assert!(!first.valid.load(Ordering::Acquire));
+        assert!(second.valid.load(Ordering::Acquire));
+        assert!(second.authority_epoch > first.authority_epoch);
+    }
+    #[test]
+    fn bridge_quit_closes_cached_session_before_native_owner_cleanup() {
+        let (mut supervisor, record) = harness(vec![Outcome::Ready]);
+        supervisor.start().unwrap();
+        let first = supervisor.client_session().unwrap();
+        let hub = supervisor.authority_handle();
+        hub.close();
+        assert!(!first.valid.load(Ordering::Acquire));
+        assert!(hub.current_epoch() > first.authority_epoch);
+        assert!(matches!(
+            supervisor.client_session(),
+            Err(SupervisorError::Cancelled)
+        ));
+        assert_eq!(record.lock().unwrap().closes, 0);
+        assert_eq!(record.lock().unwrap().terminations, 0);
     }
     struct FakeAdapter {
         outcomes: Mutex<VecDeque<Outcome>>,

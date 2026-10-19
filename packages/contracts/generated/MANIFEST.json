@@ -46,7 +46,7 @@
       "version": "1.2.0"
     }
   ],
-  "formatVersion": "1.7.0",
+  "formatVersion": "1.8.0",
   "generator": "scripts/generate-contracts.ts",
   "inputs": [
     {
@@ -150,6 +150,24 @@
       "path": "packages/contracts/schemas/common/timestamp-utc.v1.schema.json",
       "schemaVersion": "1.0.0",
       "sha256": "a8a37fd4cb55ea0b48b73ed9dc031ed14955bb9345dbdefccc3b63ff46bd68ac"
+    },
+    {
+      "id": "urn:japp:schema:desktop:service-cancellation:v1",
+      "path": "packages/contracts/schemas/desktop/service-cancellation.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "c499ea48030a96e94405ab6f1058dced247ae031044329c29fa1daa06efccc9e"
+    },
+    {
+      "id": "urn:japp:schema:desktop:service-diagnostics:v1",
+      "path": "packages/contracts/schemas/desktop/service-diagnostics.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "d67f58e5590f25d5133575e084a3b8d28d5eefe574e9cf9de0d22bb45a9dd78e"
+    },
+    {
+      "id": "urn:japp:schema:desktop:service-request:v1",
+      "path": "packages/contracts/schemas/desktop/service-request.v1.schema.json",
+      "schemaVersion": "1.0.0",
+      "sha256": "df20006831c604cc39db3489bcf4499e744408e4db86f8d1254db6a4d7279e4b"
     },
     {
       "id": "urn:japp:schema:error:catalog:v1",
@@ -561,7 +579,7 @@
     },
     {
       "path": "python/src/japp_contracts/__init__.py",
-      "sha256": "1964ba74529fb927f145f1460c817db886eaaedbb77cc9f30e73d43ac8b86cfc"
+      "sha256": "2ba3bd8c50d033f2bc50b9ecdff5794ca178ef4928216fae612cc9929149acdc"
     },
     {
       "path": "python/src/japp_contracts/_runtime.py",
@@ -646,6 +664,22 @@
     {
       "path": "python/src/japp_contracts/common/timestamp_utc_v1.py",
       "sha256": "ec7ed257181d676d862750c713db9af833fda9c6585dd16ff34e6ffa1ab8dbdc"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/__init__.py",
+      "sha256": "587e921e9db1434fafe28add23ace9bd978a6556a147cae8be64cc8b2565cb42"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_cancellation_v1.py",
+      "sha256": "5f4d446c112baf2e2c87645cbd35a4c4756dc40cac39aacfe3de6ee2ac6423f5"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_diagnostics_v1.py",
+      "sha256": "9d1e44895fbe27ed6c1c34e432796b3bc39d2242a61c93c268f217c281906891"
+    },
+    {
+      "path": "python/src/japp_contracts/desktop/service_request_v1.py",
+      "sha256": "5938876217e1bc06641bf916c06d8eb1f55ca1819ad4961884a37bbbd7c1bd3e"
     },
     {
       "path": "python/src/japp_contracts/error/__init__.py",
@@ -1052,6 +1086,18 @@
       "sha256": "02397bfa04942688b2d7ad8716cecddd69fbc9a7b8be022ec417ec44429a35d4"
     },
     {
+      "path": "typescript/desktop/service-cancellation.v1.ts",
+      "sha256": "e0598e6d1559189a499aa79ced794d496e3a9508516fa5b6a3eca6e8720361aa"
+    },
+    {
+      "path": "typescript/desktop/service-diagnostics.v1.ts",
+      "sha256": "a6ddbaa158087fef1f6d8274d26c96d3705304749c39a2d55c0d9010aeab0e15"
+    },
+    {
+      "path": "typescript/desktop/service-request.v1.ts",
+      "sha256": "5088eadce34071aa53723853d0447111c083eef89daed280f6e57006723cec2a"
+    },
+    {
       "path": "typescript/error/catalog-data.v1.ts",
       "sha256": "c45f42664bedbc9bc987cb2cc45dd844070a3bca07161f4053b97bacc5ab9c12"
     },
@@ -1109,7 +1155,7 @@
     },
     {
       "path": "typescript/index.ts",
-      "sha256": "4be0fdd0195fa5304787e7d9125fc867de99dcd78bdf11fa6880c2288ef23d12"
+      "sha256": "69e1b9942d61d1436895f59bcc6c3ed34bc2eafba0f1349bccc8fda0151e6462"
     },
     {
       "path": "typescript/platform/browser-discovery-request.v1.ts",
@@ -1329,7 +1375,7 @@
     },
     {
       "path": "typescript/validators.ts",
-      "sha256": "651a6f192eb30ccbadae594c989df4a89ec94992ea2b54598f68ef66253874de"
+      "sha256": "a7edd97645d722f4c9e28197a500d298ff1bd9e4044ec0199379e7fcf1143082"
     },
     {
       "path": "typescript/workday/certification-record.v1.ts",
@@ -1903,6 +1949,36 @@
       "typescript": {
         "export": "CommonTimestampUtcV1UtcTimestamp",
         "module": "typescript/common/timestamp-utc.v1.ts"
+      }
+    },
+    "urn:japp:schema:desktop:service-cancellation:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_cancellation_v1",
+        "symbol": "DesktopServiceCancellationV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceCancellationV1",
+        "module": "typescript/desktop/service-cancellation.v1.ts"
+      }
+    },
+    "urn:japp:schema:desktop:service-diagnostics:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_diagnostics_v1",
+        "symbol": "DesktopServiceDiagnosticsV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceDiagnosticsV1",
+        "module": "typescript/desktop/service-diagnostics.v1.ts"
+      }
+    },
+    "urn:japp:schema:desktop:service-request:v1": {
+      "python": {
+        "module": "japp_contracts.desktop.service_request_v1",
+        "symbol": "DesktopServiceRequestV1"
+      },
+      "typescript": {
+        "export": "DesktopServiceRequestV1",
+        "module": "typescript/desktop/service-request.v1.ts"
       }
     },
     "urn:japp:schema:error:catalog:v1": {

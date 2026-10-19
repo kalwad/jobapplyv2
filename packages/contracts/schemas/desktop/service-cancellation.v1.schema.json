@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:desktop:service-cancellation:v1",
+  "title": "Finite service cancellation receipt",
+  "description": "Native acknowledges a cancellation request, including a cancellation arriving before read registration. It never claims a completed cancellation merely because a command was delivered.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "outcome"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^req_[0-9A-HJKMNP-TV-Z]{26}$",
+      "minLength": 30,
+      "maxLength": 30
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["CANCELLATION_REQUESTED", "ALREADY_FINISHED"]
+    }
+  }
+}

@@ -87,7 +87,9 @@ import {
  * 1.7.0 (M02-W14 freeze repair): preserve frozen v1 emitter/catalog/runtime
  * bytes and emit current semantics through an explicit inherited v2 catalog.
  */
-export const GENERATOR_FORMAT_VERSION = "1.7.0";
+// 1.8.0 (M03-W04): finite string const plus provably disjoint closed object
+// oneOf declarations. Existing model/runtime emission remains byte-identical.
+export const GENERATOR_FORMAT_VERSION = "1.8.0";
 
 /** Generator configuration embedded in the provenance manifest. */
 export const GENERATOR_CONFIG = {

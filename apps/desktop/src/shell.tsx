@@ -14,6 +14,7 @@ import {
 } from "./navigation.ts";
 import type { DestinationId } from "./navigation.ts";
 import type { MetadataLoader } from "./native-metadata.ts";
+import type { DiagnosticsRequestFactory } from "./service-diagnostics.ts";
 
 const MAIN_ID = "desktop-main";
 
@@ -116,7 +117,7 @@ function Home() {
         </div>
         <div>
           <dt>Local service</dt>
-          <dd>Unavailable in this build</dd>
+          <dd>Check Diagnostics</dd>
         </div>
         <div>
           <dt>AI provider</dt>
@@ -129,9 +130,13 @@ function Home() {
 
 export interface DesktopShellProps {
   readonly loadMetadata?: MetadataLoader;
+  readonly createServiceRequest?: DiagnosticsRequestFactory;
 }
 
-export function DesktopShell({ loadMetadata }: DesktopShellProps) {
+export function DesktopShell({
+  loadMetadata,
+  createServiceRequest,
+}: DesktopShellProps) {
   const destinationId = useSyncExternalStore(
     subscribeToDestination,
     readDestination,
@@ -182,6 +187,9 @@ export function DesktopShell({ loadMetadata }: DesktopShellProps) {
           ) : destinationId === "diagnostics" ? (
             <Diagnostics
               {...(loadMetadata === undefined ? {} : { loadMetadata })}
+              {...(createServiceRequest === undefined
+                ? {}
+                : { createServiceRequest })}
             />
           ) : (
             <section

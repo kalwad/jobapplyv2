@@ -72,17 +72,20 @@ pub struct ManagedService {
     supervisor: Arc<Mutex<NativeSupervisor>>,
     cancellation: Arc<AtomicBool>,
     gate: Arc<ShutdownGate>,
+    authority: Arc<super::authority_hub::AuthorityHub>,
     diagnostic: Arc<AtomicU8>,
 }
 impl ManagedService {
     pub fn new(runtime: ConfiguredRuntime) -> Result<Self, SupervisorError> {
         let supervisor = Supervisor::new(runtime, MonotonicClock::default(), Policy::default())?;
         let cancellation = supervisor.cancellation_handle();
-        let gate = Arc::new(ShutdownGate::with_authority(supervisor.authority_handle()));
+        let authority = supervisor.authority_handle();
+        let gate = Arc::new(ShutdownGate::with_authority(Arc::clone(&authority)));
         Ok(Self {
             supervisor: Arc::new(Mutex::new(supervisor)),
             cancellation,
             gate,
+            authority,
             diagnostic: Arc::new(AtomicU8::new(LifecycleDiagnostic::Unavailable as u8)),
         })
     }
@@ -203,14 +206,13 @@ impl ManagedService {
             }
         }
     }
-    // W04 consumes this native seam. Construct a snapshot only, then release the mutex.
-    #[allow(dead_code)]
-    pub(crate) fn with_running_session<R>(
+    // One production command boundary: no waiting owner lock or cleanup.
+    fn try_owner<R>(
         &self,
-        callback: impl FnOnce(&super::ServiceIdentity, &str, Arc<AtomicBool>) -> R,
+        callback: impl FnOnce(&mut NativeSupervisor) -> R,
     ) -> Result<R, SupervisorError> {
         match self.supervisor.try_lock() {
-            Ok(mut supervisor) => supervisor.with_running_session(callback),
+            Ok(mut supervisor) => Ok(callback(&mut supervisor)),
             Err(std::sync::TryLockError::WouldBlock) => Err(SupervisorError::RuntimeUnavailable),
             Err(std::sync::TryLockError::Poisoned(poisoned)) => {
                 poisoned.into_inner().invalidate_poisoned_authority();
@@ -222,6 +224,19 @@ impl ManagedService {
                 Err(SupervisorError::CleanupFailed)
             }
         }
+    }
+    #[cfg(test)]
+    pub(crate) fn with_running_session<R>(
+        &self,
+        callback: impl FnOnce(&super::ServiceIdentity, &str, Arc<AtomicBool>) -> R,
+    ) -> Result<R, SupervisorError> {
+        self.try_owner(|supervisor| supervisor.with_running_session(callback))?
+    }
+    pub(crate) fn client_session(&self) -> Result<super::NativeSession, SupervisorError> {
+        self.try_owner(|supervisor| supervisor.client_session())?
+    }
+    pub(crate) fn authority_epoch(&self) -> u64 {
+        self.authority.current_epoch()
     }
     pub fn allow_exit(&self) -> bool {
         self.gate.completed()
@@ -405,5 +420,29 @@ mod contention_tests {
     #[test]
     fn busy_stopping_owner_never_blocks_command_snapshot() {
         prove_prompt_busy_return(LifecycleDiagnostic::Stopping);
+    }
+}
+
+#[cfg(test)]
+mod bridge_tests {
+    use super::*;
+    #[test]
+    fn bridge_actual_client_snapshot_and_epoch_do_not_wait_for_busy_native_owner() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        let expected = managed.authority_epoch();
+        let lock = managed.supervisor.lock().unwrap();
+        let (send, receive) = std::sync::mpsc::channel();
+        let command = managed.clone();
+        let reader = std::thread::spawn(move || {
+            let result = matches!(
+                command.client_session(),
+                Err(SupervisorError::RuntimeUnavailable)
+            );
+            send.send((result, command.authority_epoch())).unwrap();
+        });
+        let early = receive.recv_timeout(std::time::Duration::from_millis(100));
+        drop(lock);
+        reader.join().unwrap();
+        assert_eq!(early.unwrap(), (true, expected));
     }
 }

@@ -583,8 +583,11 @@ HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256 = (
 )
 # M03-W01: independently reviewed additive desktop/UI/hooks graph. All591 old
 # package and596 snapshot records are unchanged; original historical proof stays.
-REVIEWED_PNPM_LOCK_SHA256 = (
+HISTORICAL_PRE_AUTH_CLIENT_PNPM_LOCK_SHA256 = (
     "9f9f4ec15c2fc55ffe4e32f8ab52f8193aa9e5bd1624a2e9bcf4c1db35e1e019"
+)
+REVIEWED_PNPM_LOCK_SHA256 = (
+    "9f43b4c71bdd795037e92faa83bdff1343281e243871b58a70141d4d27eb35b7"
 )
 HISTORICAL_PRE_SERVICE_UV_LOCK_SHA256 = (
     "4acf551f60c94aa647903125823cd6b04be6fcb6e0ff03978ec7a2793ffcba9c"
@@ -654,6 +657,24 @@ def test_dependency_lockfiles_preserve_history_except_m02_importer() -> None:
     assert _sha256(frozen_pre_desktop) == HISTORICAL_PRE_DESKTOP_PNPM_LOCK_SHA256
 
     current_pnpm = (REPO_ROOT / "pnpm-lock.yaml").read_bytes()
+    # W04 adds only the desktop's existing internal contracts workspace link.
+    # Keep the complete verified W03 lock as an immutable historical preimage.
+    pre_auth_client = subprocess.run(
+        ["git", "show", "d28cfc70feda604c508bc18c778992a0ca559e5a:pnpm-lock.yaml"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert _sha256(pre_auth_client) == HISTORICAL_PRE_AUTH_CLIENT_PNPM_LOCK_SHA256
+    desktop_anchor = b"  apps/desktop:\n    dependencies:\n"
+    assert pre_auth_client.count(desktop_anchor) == 1
+    contracts_link = b"""      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+"""
+    assert current_pnpm == pre_auth_client.replace(
+        desktop_anchor, desktop_anchor + contracts_link
+    )
     assert current_pnpm.count(reviewed_importer) == 1
     assert current_pnpm.count(reviewed_prettier) == historical_pnpm.count(
         reviewed_prettier

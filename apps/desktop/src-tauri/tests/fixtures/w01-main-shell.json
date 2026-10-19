@@ -1,0 +1,8 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-shell",
+  "description": "Read app and Tauri versions from the local main window.",
+  "local": true,
+  "windows": ["main"],
+  "permissions": ["core:app:allow-version", "core:app:allow-tauri-version"]
+}

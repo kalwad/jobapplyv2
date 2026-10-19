@@ -9,6 +9,11 @@ from japp_contracts.common.correlation_v1 import CommonCorrelationV1CorrelationI
 from pydantic import TypeAdapter, ValidationError
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
+from orchestrator.proof_auth import (
+    proof_headers_present,
+    send_signed_response,
+    verify_health_proof,
+)
 from orchestrator.responses import failure_response, identifier
 
 if TYPE_CHECKING:
@@ -54,6 +59,7 @@ class AuthenticatedBoundary:
 
     def __init__(self, app: ASGIApp, configuration: ServiceConfiguration) -> None:
         self.app = app
+        self.configuration = configuration
         self.expected = (
             b"Bearer " + configuration.session_token.get_secret_value().encode("ascii")
         )
@@ -66,8 +72,16 @@ class AuthenticatedBoundary:
         correlation, valid_correlation = request_correlation(headers)
         scope.setdefault("state", {})["correlation_id"] = correlation
         credentials = [value for name, value in headers if name == b"authorization"]
-        if len(credentials) != 1 or not hmac.compare_digest(
+        bearer = len(credentials) == 1 and hmac.compare_digest(
             credentials[0], self.expected
+        )
+        proof = (
+            verify_health_proof(scope, headers, self.configuration, correlation)
+            if valid_correlation and not bearer
+            else None
+        )
+        if (bearer and proof_headers_present(headers)) or (
+            not bearer and proof is None
         ):
             await failure_response("TRANSPORT_UNAUTHENTICATED", 401, correlation)(
                 scope, receive, send
@@ -83,6 +97,17 @@ class AuthenticatedBoundary:
                 scope, receive, send
             )
             return
+        if proof is not None:
+            first = await receive()
+            if (
+                first["type"] != "http.request"
+                or first.get("body", b"")
+                or first.get("more_body", False)
+            ):
+                await failure_response("TRANSPORT_UNAUTHENTICATED", 401, correlation)(
+                    scope, receive, send
+                )
+                return
         response_started = False
 
         async def tracked_send(message: Message) -> None:
@@ -92,7 +117,17 @@ class AuthenticatedBoundary:
             await send(message)
 
         try:
-            await self.app(scope, receive, tracked_send)
+            if proof is None:
+                await self.app(scope, receive, tracked_send)
+            else:
+                await send_signed_response(
+                    self.app,
+                    scope,
+                    receive,
+                    tracked_send,
+                    proof,
+                    self.configuration.session_token.get_secret_value(),
+                )
         except Exception:
             # Framework debug/traceback output must never reach transport logs.
             # W02 routes return complete JSON responses; no streaming endpoints.

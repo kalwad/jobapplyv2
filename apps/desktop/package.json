@@ -16,7 +16,8 @@
     "@japp/ui": "workspace:*",
     "@tauri-apps/api": "2.12.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "@japp/contracts": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",

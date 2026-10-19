@@ -56,6 +56,9 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@japp/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@japp/ui':
         specifier: workspace:*
         version: link:../../packages/ui

@@ -1,3 +1,5 @@
+mod api_client;
+mod diagnostics;
 #[cfg(test)]
 #[path = "../build_support.rs"]
 mod runtime_build_tests;
@@ -25,6 +27,10 @@ fn native_navigation_allowed(url: &tauri::Url) -> bool {
 
 pub fn run() {
     let app = tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![
+            diagnostics::commands::read_service_diagnostics,
+            diagnostics::commands::cancel_service_request
+        ])
         .setup(|app| {
             let config =
                 app.config().app.windows.first().ok_or_else(|| {
@@ -39,6 +45,9 @@ pub fn run() {
             let service = service::ManagedService::new(runtime)
                 .map_err(|_| std::io::Error::other("Local service configuration failed"))?;
             app.manage(service.clone());
+            let diagnostics = diagnostics::create_engine(service.clone())
+                .map_err(|_| std::io::Error::other("Native diagnostics configuration failed"))?;
+            app.manage(diagnostics::commands::DiagnosticsState(diagnostics));
             let _ = service.start_background(app.handle());
             Ok(())
         })
@@ -153,7 +162,7 @@ mod tests {
         let config: serde_json::Value =
             serde_json::from_str(include_str!("../tauri.conf.json")).unwrap();
         let capability: serde_json::Value =
-            serde_json::from_str(include_str!("../capabilities/main-shell.json")).unwrap();
+            serde_json::from_str(include_str!("../tests/fixtures/w01-main-shell.json")).unwrap();
         assert_eq!(config["app"]["withGlobalTauri"], false);
         assert_eq!(config["app"]["windows"].as_array().unwrap().len(), 1);
         assert_eq!(config["app"]["windows"][0]["create"], false);

@@ -83,6 +83,9 @@ export interface NodeSignature {
   extension_point: boolean | null;
   property_names: NodeSignature | null;
   max_properties: number | null;
+  /** Present only for the new disjoint union kind; inherited node bytes stay exact. */
+  union_discriminator?: string;
+  union_branches?: NodeSignature[];
 }
 
 export interface DocumentSignature {
@@ -316,6 +319,12 @@ function nodeSignature(node: IrType): NodeSignature {
       };
     case "nullable":
       return { ...result, inner: nodeSignature(node.inner) };
+    case "discriminatedUnion":
+      return {
+        ...result,
+        union_discriminator: node.discriminator,
+        union_branches: node.branches.map(nodeSignature),
+      };
     case "object":
       return {
         ...result,
@@ -344,6 +353,11 @@ function nodeSignature(node: IrType): NodeSignature {
       return exhaustive;
     }
   }
+}
+
+/** Pure test-only signature projection for new IR boundary regression cases. */
+export function signatureForIrType(node: IrType): NodeSignature {
+  return nodeSignature(node);
 }
 
 function renderVersion(version: {
@@ -766,6 +780,16 @@ function compareNode(
         structuralAddition = true;
         finding(additive, "ENUM_TOKEN_ADDED", `${subject}/${token}`);
       }
+    }
+  } else if (baseline.kind === "discriminatedUnion") {
+    // Any change to a previously published union is conservatively breaking.
+    // Do not infer that moving tags/fields between branches preserves oneOf.
+    if (
+      baseline.union_discriminator !== current.union_discriminator ||
+      canonicalJson(baseline.union_branches) !==
+        canonicalJson(current.union_branches)
+    ) {
+      finding(findings, "CONSTRAINT_CHANGED", subject);
     }
   } else if (baseline.kind === "object") {
     if (

@@ -105,6 +105,15 @@ from japp_contracts.common.stable_id_v1 import (
 from japp_contracts.common.timestamp_utc_v1 import (
     CommonTimestampUtcV1UtcTimestamp,
 )
+from japp_contracts.desktop.service_cancellation_v1 import (
+    DesktopServiceCancellationV1,
+)
+from japp_contracts.desktop.service_diagnostics_v1 import (
+    DesktopServiceDiagnosticsV1,
+)
+from japp_contracts.desktop.service_request_v1 import (
+    DesktopServiceRequestV1,
+)
 from japp_contracts.error.catalog_data_v1 import (
     ERROR_CATALOG_V1,
     ERROR_CODES_V1,
@@ -595,6 +604,9 @@ __all__ = [
     "CommonStableIdV1StableId",
     "CommonTimestampUtcV1UtcTimestamp",
     "ContractModel",
+    "DesktopServiceCancellationV1",
+    "DesktopServiceDiagnosticsV1",
+    "DesktopServiceRequestV1",
     "ERROR_CATALOG_V1",
     "ERROR_CODES_V1",
     "ErrorCatalogV1",

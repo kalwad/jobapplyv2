@@ -10,6 +10,7 @@
   "include": [
     "playwright.config.ts",
     "e2e/**/*.ts",
-    "scripts/generate-contracts.ts"
+    "scripts/generate-contracts.ts",
+    "apps/desktop/test/renderer/service-fixture.d.ts"
   ]
 }

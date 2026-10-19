@@ -176,16 +176,22 @@ describe("generated surface completeness", () => {
           expected.add(`${entry.id}#/$defs/${name}`);
         }
       }
-      if (entry.document.type !== undefined) {
+      if (
+        entry.document.type !== undefined ||
+        Array.isArray(entry.document.oneOf)
+      ) {
         expected.add(entry.id);
       }
     }
+    expect(expected.has("urn:japp:schema:desktop:service-diagnostics:v1")).toBe(
+      true,
+    );
     expect(new Set(CONTRACT_SCHEMA_REFS)).toEqual(expected);
   });
 
   test("the wrapper runtime is the canonical catalog validator", () => {
     const runtime = contractRuntime();
-    expect(runtime.catalog.entries.length).toBe(84);
+    expect(runtime.catalog.entries.length).toBe(87);
     // The canonical validator rejects references that leave the catalog.
     expect(() =>
       runtime.validator.validateInstance("https://example.invalid/x", {}),
