@@ -334,7 +334,17 @@ def test_visual_registration_preserves_both_activation_owners(
     assert visual.activation == verify.Activation(
         kind="packages_started", packages=("M03-W01", "M10-W06")
     )
-    assert visual.commands == (("pnpm", "exec", "playwright", "test", "e2e/visual"),)
+    assert visual.commands == (
+        (
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "e2e/visual",
+            "--output",
+            "test-results/visual",
+        ),
+    )
     assert visual.proofs == (
         verify.Proof(kind="playwright_list_min", min_count=1),
         verify.Proof(kind="playwright_min_passed", min_count=1),

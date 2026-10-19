@@ -432,9 +432,7 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
 
 def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
     config = (REPO_ROOT / "playwright.config.ts").read_text(encoding="utf-8")
-    # Playwright's default outputDir is test-results/; the config must not
-    # redirect it somewhere the CI artifact step does not upload.
-    assert "outputDir" not in config
+    # Every suite owns a sibling child of the CI-uploaded artifact root.
     assert 'trace: "retain-on-failure"' in config
     assert 'screenshot: "only-on-failure"' in config
 
@@ -469,15 +467,22 @@ def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    config_paths = (
-        "playwright.config.ts",
-        "e2e/extension/public-research/playwright.config.ts",
-        "e2e/extension/public-contact/playwright.config.ts",
+    registry = json.loads(
+        (REPO_ROOT / "scripts/verification-suites.json").read_text(encoding="utf-8")
+    )
+    visual = next(suite for suite in registry["suites"] if suite["id"] == "visual")
+    visual_command = visual["commands"][0]
+    assert visual_command[:5] == ["pnpm", "exec", "playwright", "test", "e2e/visual"]
+    invocations: tuple[tuple[str, list[str]], ...] = (
+        ("playwright.config.ts", []),
+        ("e2e/extension/public-research/playwright.config.ts", []),
+        ("e2e/extension/public-contact/playwright.config.ts", []),
+        ("playwright.config.ts", visual_command[5:]),
     )
     output_dirs: list[Path] = []
     failure_artifacts: dict[Path, bytes] = {}
     artifact_root = fixture_root / "test-results"
-    for index, config_path in enumerate(config_paths):
+    for index, (config_path, output_args) in enumerate(invocations):
         wrapper = fixture_root / config_path
         wrapper.parent.mkdir(parents=True, exist_ok=True)
         source = (REPO_ROOT / config_path).as_uri()
@@ -498,6 +503,7 @@ def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
                 "test",
                 "--config",
                 str(wrapper),
+                *output_args,
             ],
             cwd=fixture_root,
             timeout_seconds=30,
@@ -532,13 +538,20 @@ def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
             )
             assert artifact.read_bytes() == contents
 
-    assert output_dirs[0] == artifact_root
-    assert len(set(output_dirs)) == len(config_paths)
-    for controlled_dir in output_dirs[1:]:
-        assert controlled_dir.is_relative_to(artifact_root)
-        assert controlled_dir != artifact_root
-    assert not output_dirs[1].is_relative_to(output_dirs[2])
-    assert not output_dirs[2].is_relative_to(output_dirs[1])
+    assert 'outputDir: "./test-results/browser"' in config
+    assert output_dirs == [
+        artifact_root / "browser",
+        artifact_root / "public-research",
+        artifact_root / "public-contact",
+        artifact_root / "visual",
+    ]
+    assert len(set(output_dirs)) == len(invocations)
+    for output_dir in output_dirs:
+        assert output_dir.is_relative_to(artifact_root)
+        assert output_dir != artifact_root
+        for other in output_dirs:
+            if output_dir != other:
+                assert not output_dir.is_relative_to(other)
 
 
 def test_cache_keys_carry_platform_tool_and_lockfile_identity() -> None:

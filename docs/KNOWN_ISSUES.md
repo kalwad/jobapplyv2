@@ -37,13 +37,15 @@ broadening a work package (spec §1.5).
 ### KI-0108 — Windows owned browser-context and profile cleanup fails; failure artifact unavailable
 
 - Severity: MEDIUM
-- State: OPEN
+- State: IN_PROGRESS
 - Discovered: 2026-10-19UTC in required hosted run39188122249, Windows job117854768223
 - Affects: M03 verification infrastructure / REQ-PLAT-013; e2e/extension/support/extension-test.ts
 - Description: the observed-boundary research case reports1.7s and fails during fixture teardown, which reports EXTENSION_CONTEXT_CLEANUP_FAILED: browserContext.close returns Target page, context or browser has been closed, and recursive owned-profile removal returns EPERM despite the existing10 retries/100ms delay. The default browser suite reports255PASS/1FAIL;19 other suites pass, including all required native modes. No timeout or flaky classification is inferred.
 - Reproduction: exact6d3 source, actual PR merge0d3/tree34, official complete logs.zip SHA25617c2114afd39c71c15686e3a966f7f001775e2216cefdf2f35caba7782e1aa7d; Windows research spec:585. The upload step reports no files and the official artifact API returns total_count0; printed trace/error-context paths do not supply retained artifact bytes.
 - Workaround: none used; Windows aggregate remains FAIL and its separate tracked-change stepSKIPPED. W03 package-scoped verification is separately justified by its actual required behavior/source evidence, while this repository regression and global CI requirements remain open.
 - Resolution + evidence link: repair owned lifecycle/profile cleanup and preserve failure outputs across later suites, retaining every original assertion, strict failure policy and bounded budgets. Revalidate before closing. See docs/evidence/m03-w03-closeout/ci-6d3-terminal.tar.gz and terminal-ci-independent-review.
+
+- Implemented correction (2026-10-19UTC): captured owned-Browser retirement and awaited async profile removal retain all Context.close errors and original budgets; sibling output roots preserve actual failed trace bytes. Actual10-case RED/44GREEN,355 Python checks, one local WD replay and real retained failure trace pass separate review465e8e22. Root strict typecheck initially fails on one local test annotation; the exact annotation fix and complete PASS are retained. Canonical full and actual native Windows validation remain pending; no prior failed job is relabeled. See docs/evidence/m03-w04-browser-cleanup.
 
 ## M03-W03 validation findings (2026-10-18)
 

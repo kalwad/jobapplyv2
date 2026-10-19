@@ -1,5 +1,6 @@
 import type { BrowserContext } from "@playwright/test";
-import { existsSync, rmSync } from "node:fs";
+import { existsSync } from "node:fs";
+import { rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
@@ -28,9 +29,14 @@ vi.mock("node:fs", async (importOriginal) => {
   return {
     ...actual,
     existsSync: vi.fn(actual.existsSync),
-    rmSync: vi.fn(actual.rmSync),
   };
 });
+vi.mock("node:fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("node:fs/promises")>();
+  return { ...actual, rm: vi.fn(actual.rm) };
+});
+const actualAsyncFs =
+  await vi.importActual<typeof import("node:fs/promises")>("node:fs/promises");
 const actualFs = await vi.importActual<typeof import("node:fs")>("node:fs");
 type Kind = "extensionContext" | "invalidAckExtensionContext";
 type Use = (context: BrowserContext) => Promise<void>;
@@ -52,7 +58,22 @@ function prepare(
   original = new Error("synthetic setup failure"),
   requests: string[] = [],
 ) {
+  let connected = true;
+  let onDisconnected: (() => void) | undefined;
+  const browser = {
+    on: (_event: string, listener: () => void) => {
+      onDisconnected = listener;
+    },
+    off: vi.fn(),
+    isConnected: () => connected,
+    close: vi.fn(() => {
+      connected = false;
+      onDisconnected?.();
+      return Promise.resolve();
+    }),
+  };
   const context = {
+    browser: () => browser,
     on: vi.fn(
       (
         _event: string,
@@ -73,9 +94,9 @@ function prepare(
   return context;
 }
 function rejectRemoval(error: Error) {
-  vi.mocked(rmSync).mockImplementation((path, options) => {
+  vi.mocked(rm).mockImplementation(async (path, options) => {
     if (path === profile) throw error;
-    actualFs.rmSync(path, options);
+    await actualAsyncFs.rm(path, options);
   });
 }
 async function rejection(promise: Promise<unknown>): Promise<unknown> {
@@ -95,7 +116,7 @@ function expectRemoved() {
   expect(profile).not.toBe("");
   expect(actualFs.existsSync(profile)).toBe(false);
   expect(actualFs.existsSync(unowned)).toBe(true);
-  expect(rmSync).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
+  expect(rm).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
 }
 beforeEach(() => {
   profile = "";
@@ -110,7 +131,7 @@ beforeEach(() => {
           (directory) => path === join(directory, "manifest.json"),
         ) || actualFs.existsSync(path),
     );
-  vi.mocked(rmSync).mockReset().mockImplementation(actualFs.rmSync);
+  vi.mocked(rm).mockReset().mockImplementation(actualAsyncFs.rm);
   launchBrowser.mockReset();
 });
 afterEach(() => {
@@ -136,7 +157,7 @@ describe.each(["extensionContext", "invalidAckExtensionContext"] as const)(
         expect(actualFs.existsSync(profile)).toBe(true);
         expect(profile).toContain(prefix);
         expect(context.close).not.toHaveBeenCalled();
-        expect(rmSync).not.toHaveBeenCalled();
+        expect(rm).not.toHaveBeenCalled();
         return Promise.resolve();
       });
       expect(launchBrowser).toHaveBeenCalledExactlyOnceWith(profile, {
@@ -159,7 +180,7 @@ describe.each(["extensionContext", "invalidAckExtensionContext"] as const)(
         "built extension missing",
       );
       expect(launchBrowser).not.toHaveBeenCalled();
-      expect(rmSync).not.toHaveBeenCalled();
+      expect(rm).not.toHaveBeenCalled();
       expect(profile).toBe("");
       expect(actualFs.existsSync(unowned)).toBe(true);
     });
@@ -216,7 +237,7 @@ describe.each(["extensionContext", "invalidAckExtensionContext"] as const)(
               : [closeError, removeError],
         );
         expect(context.close).toHaveBeenCalledTimes(1);
-        expect(rmSync).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
+        expect(rm).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
         expect(actualFs.existsSync(profile)).toBe(stage !== "close");
         expect(actualFs.existsSync(unowned)).toBe(true);
       },
@@ -244,7 +265,7 @@ describe.each(["extensionContext", "invalidAckExtensionContext"] as const)(
           stage === "launch" ? [removeError] : [closeError, removeError],
         );
         expect(context.close).toHaveBeenCalledTimes(stage === "launch" ? 0 : 1);
-        expect(rmSync).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
+        expect(rm).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
         expect(actualFs.existsSync(unowned)).toBe(true);
       },
     );
@@ -268,7 +289,7 @@ describe.each(["extensionContext", "invalidAckExtensionContext"] as const)(
         closeError,
         removeError,
       ]);
-      expect(rmSync).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
+      expect(rm).toHaveBeenCalledExactlyOnceWith(profile, removalOptions);
       expect(actualFs.existsSync(unowned)).toBe(true);
     });
   },

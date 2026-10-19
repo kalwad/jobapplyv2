@@ -6,6 +6,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  // Sibling suites must not erase earlier failure traces during output cleanup.
+  outputDir: "./test-results/browser",
   // R10 structural Node tests require their separately bound Node runner.
   // Keep these Node-only modules outside default browser discovery.
   testIgnore: ["**/extension/legacy-paired-options-r10/*.test.mjs"],
