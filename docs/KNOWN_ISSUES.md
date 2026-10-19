@@ -32,6 +32,19 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current package-test collection correction (2026-10-19UTC)
+
+### KI-0110 — macOS package fixture violates static collection policy
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 clean e0a501b full verification
+- Affects: M03-W06 / REQ-PLAT-013; scripts/tests/test_macos_package.py and mandatory Python/integrity preflight
+- Description: a synthetic-mode fixture passes its current module namespace into monkeypatch.setattr. The unchanged fail-closed collection-policy visitor rejects this unmodeled namespace escape. The full reports18PASS/2FAIL before pytest collection/execution; affected tests passing alone did not establish canonical preflight validity.
+- Reproduction: clean e0a501b/treebbf94 pnpm verify exits1; static-policy reproduction also exits1 with dynamic pytest collection hook registration is forbidden. Original failure evidence remains unchanged.
+- Workaround: none; no verifier bypass, skip, allowlist or weakened policy is used.
+- Resolution + evidence link: explicit fixture-helper keyword avoids module-namespace mutation while preserving owned-file checks, all19 test names/args/decorators and36 assertions. Actual six-command check passes, including affected30 and mandatory1801Python/no skips plus integrity; source1951/runtime40 remain unchanged with owned groups reaped/GONE. Different source8 and actual-data12 reviews CLEAR. See docs/evidence/m03-w06-collection-correction and docs/TEST_EVIDENCE.md. A new clean all20 and W06 GUI/package acceptance remain pending separately.
+
 ## Current Windows native validation finding (2026-10-19UTC)
 
 ### KI-0109 — Desktop unit-test executable fails before startup on Windows

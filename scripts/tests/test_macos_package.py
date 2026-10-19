@@ -37,11 +37,7 @@ def manifest_path(path: PurePath, root: PurePath) -> str:
     return path.relative_to(root).as_posix()
 
 
-def fixture_native_mode(path: Path) -> int:
-    return path.stat().st_mode
-
-
-def fixture_main_mode(path: Path) -> int:
+def fixture_main_mode(path: Path, *, native_execute_bits: bool = True) -> int:
     value = path.stat()
     if (
         value.st_dev,
@@ -52,7 +48,10 @@ def fixture_main_mode(path: Path) -> int:
         raise ValueError("Unowned or changed synthetic Darwin main")
     if not stat.S_ISREG(value.st_mode) or path.is_symlink():
         raise ValueError("Unowned or changed synthetic Darwin main")
-    return (fixture_native_mode(path) & ~0o777) | 0o700
+    native_mode = value.st_mode
+    if not native_execute_bits:
+        native_mode &= ~0o111
+    return (native_mode & ~0o777) | 0o700
 
 
 @pytest.fixture(autouse=True)
@@ -387,9 +386,9 @@ def test_fixture_darwin_mode_does_not_require_native_execute_bits(
 ) -> None:
     app, stage, expected = fixture(tmp_path)
     monkeypatch.setattr(
-        sys.modules[__name__],
-        "fixture_native_mode",
-        lambda path: path.stat().st_mode & ~0o111,
+        INSPECTOR,
+        "main_executable_mode",
+        lambda path: fixture_main_mode(path, native_execute_bits=False),
     )
     result = INSPECTOR.inspect_package(app, stage, expected)
     assert result["status"] == "STATIC_BYTES_PASS_SIGNATURE_AND_LIFECYCLE_PENDING"
