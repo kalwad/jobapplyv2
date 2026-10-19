@@ -1,0 +1,30 @@
+{
+  "README.md": {
+    "bytes": 1312,
+    "sha256": "e1e8dcad0c7cc74b171715da58f897d8d8c77521a7dd42ce1c7cfaa4c7095370"
+  },
+  "clean-full-and-review.tar.gz": {
+    "bytes": 685911,
+    "sha256": "310049825bbd8b3624e2ae5eb44b93abcfce8a26948ed4a5db96d2310fb7d661"
+  },
+  "decision.json": {
+    "bytes": 839,
+    "sha256": "e9f5b69cea41d181dd00af075710dcadffc1ac97599c6be06f0b2fc785973141"
+  },
+  "full-retention-manifest.json": {
+    "bytes": 7989,
+    "sha256": "7c2d10d8eb278750cb35c0d737b68fe3c8c171d6ed694b4325c8959eb8736dad"
+  },
+  "record-checks.tar.gz": {
+    "bytes": 402656,
+    "sha256": "4dac8c1cd2f3f03718bbfb0c4cb4718862ca0721c245dace7e936474ad127128"
+  },
+  "record-independent-review.tar.gz": {
+    "bytes": 20917,
+    "sha256": "f7b2404b885659d94f2e3a5a102d77fc3c807f25e780eb416a800cd2cb2c9fae"
+  },
+  "requirement-projection-review.tar.gz": {
+    "bytes": 4726,
+    "sha256": "9c82b0e68f2703f91a0eec6f8ce691d2172e8f8412a9f2ebce9e2817286e586a"
+  }
+}

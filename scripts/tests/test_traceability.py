@@ -251,6 +251,15 @@ def trace_repo(tmp_path: Path) -> Iterator[Path]:
             "services/orchestrator/tests/test_service_config.py",
             "services/orchestrator/tests/test_service_cli.py",
             "services/orchestrator/tests/test_service_startup.py",
+            # M03-W04 authenticated-client evidence anchors.
+            "apps/desktop/src-tauri/src/api_client/client.rs",
+            "apps/desktop/src-tauri/src/api_client/canonical.rs",
+            "apps/desktop/src-tauri/src/diagnostics/owner.rs",
+            "apps/desktop/src-tauri/src/diagnostics/engine.rs",
+            "apps/desktop/src-tauri/src/api_client/tests/client.rs",
+            "apps/desktop/src-tauri/src/api_client/tests/canonical.rs",
+            "services/orchestrator/tests/test_health_proof.py",
+            "e2e/desktop/service-diagnostics.spec.ts",
         ):
             source = REPO_ROOT / relative_path
             destination = repo / relative_path
