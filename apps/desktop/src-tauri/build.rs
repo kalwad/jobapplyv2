@@ -31,4 +31,14 @@ fn main() {
             .app_manifest(tauri_build::AppManifest::new().commands(ipc_policy::SERVICE_COMMANDS)),
     )
     .expect("Desktop command policy could not be built");
+    // Tauri's resource helper applies its Windows manifest to application bins.
+    // The lib unit-test harness also retains Common Controls v6 imports.
+    if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("windows")
+        && std::env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc")
+    {
+        let manifest = base.join("windows-common-controls.manifest");
+        println!("cargo:rerun-if-changed={}", manifest.display());
+        println!("cargo:rustc-link-arg=/MANIFEST:EMBED");
+        println!("cargo:rustc-link-arg=/MANIFESTINPUT:{}", manifest.display());
+    }
 }

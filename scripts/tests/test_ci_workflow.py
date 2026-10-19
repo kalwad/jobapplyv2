@@ -421,6 +421,7 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
         step
         for step in ci_steps()
         if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+        and step.get("with", {}).get("path", "").rstrip("/") == "test-results"
     ]
     assert len(uploads) == 1
     upload = uploads[0]
@@ -428,6 +429,45 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
     assert upload["with"]["path"].rstrip("/") == "test-results"
     assert upload["with"]["if-no-files-found"] == "ignore"
     assert "retention-days" in upload["with"]
+
+
+def test_only_additional_artifact_is_bounded_windows_native_failure_evidence() -> None:
+    uploads = [
+        step
+        for step in ci_steps()
+        if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+    ]
+    assert len(uploads) == 2
+    native = step_named("Retain Windows native loader failure evidence")
+    condition = (
+        "${{ failure() && runner.os == 'Windows' && "
+        "steps.canonical_verify.outcome == 'failure' }}"
+    )
+    assert native["if"] == condition
+    assert native["timeout-minutes"] == 2
+    assert native["uses"] == (
+        "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+    )
+    assert native["with"] == {
+        "name": "windows-native-loader-${{ github.sha }}",
+        "path": "${{ runner.temp }}/windows-native-loader-diagnostics/",
+        "if-no-files-found": "warn",
+        "retention-days": 7,
+    }
+    inspection = step_named(
+        "Inspect retained Windows native images after canonical failure"
+    )
+    assert inspection["if"] == condition
+    assert inspection["timeout-minutes"] == 3
+    assert inspection["shell"] == "pwsh"
+    assert "./scripts/windows-native-loader-diagnostics.ps1" in inspection["run"]
+    canonical = step_named(
+        "Canonical aggregate verification (same command as local `pnpm verify`)"
+    )
+    assert canonical["id"] == "canonical_verify"
+    assert canonical["run"] == "pnpm verify"
+    steps = ci_steps()
+    assert steps.index(canonical) < steps.index(inspection) < steps.index(native)
 
 
 def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
@@ -727,6 +767,7 @@ def test_artifact_upload_name_is_per_matrix_platform() -> None:
         step
         for step in ci_steps()
         if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+        and step.get("with", {}).get("path", "").rstrip("/") == "test-results"
     ]
     assert len(uploads) == 1
     assert "${{ matrix.os }}" in str(uploads[0]["with"]["name"]), (

@@ -27,8 +27,8 @@
 #
 # Security posture: read-only token, no secrets, official actions only,
 # every action pinned to an immutable commit SHA (annotated with its
-# release tag), no live-site tests, artifacts uploaded only on failure and
-# only Playwright's failure-scoped traces from test-results/.
+# release tag), no live-site tests, failure-only Playwright outputs plus a
+# bounded Windows native-loader diagnostic artifact after canonical failure.
 name: ci
 
 on:
@@ -261,11 +261,31 @@ jobs:
         run: pnpm run doctor
 
       - name: Canonical aggregate verification (same command as local `pnpm verify`)
+        id: canonical_verify
         env:
           TMPDIR: ${{ runner.temp }}
           TEMP: ${{ runner.temp }}
           TMP: ${{ runner.temp }}
         run: pnpm verify
+
+      - name: Inspect retained Windows native images after canonical failure
+        if: ${{ failure() && runner.os == 'Windows' && steps.canonical_verify.outcome == 'failure' }}
+        timeout-minutes: 3
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          ./scripts/windows-native-loader-diagnostics.ps1 -OutputDirectory (Join-Path $env:RUNNER_TEMP 'windows-native-loader-diagnostics')
+
+      - name: Retain Windows native loader failure evidence
+        if: ${{ failure() && runner.os == 'Windows' && steps.canonical_verify.outcome == 'failure' }}
+        timeout-minutes: 2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: windows-native-loader-${{ github.sha }}
+          path: ${{ runner.temp }}/windows-native-loader-diagnostics/
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Assert verification left no tracked changes
         shell: pwsh

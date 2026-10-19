@@ -12,7 +12,7 @@ REQ-PLAT-025). Two rule families:
   never apply Bash-only steps to Windows, keep frozen/locked installs and
   exact toolchain probes, isolate (and never cache) RUSTUP_HOME, restrict
   caches to an allowlisted dependency set, and upload only failure-scoped
-  Playwright artifacts.
+  Playwright artifacts and the exact Windows-only native-loader exception.
 - ``PORT-SRC-*``: shared runtime scripts and canonical commands must stay
   platform-neutral — no hard-coded /tmp, /bin/, /usr/ system paths, no
   ``shell=True``/``bash -c`` wrappers, no manual ``+ "/" +`` separator
@@ -1024,6 +1024,30 @@ def _check_artifacts(
     for where, step in steps:
         if not str(step.get("uses", "")).startswith("actions/upload-artifact@"):
             continue
+        path = str(step.get("with", {}).get("path", "")).strip().rstrip("/")
+        native_condition = (
+            "${{ failure() && runner.os == 'Windows' && "
+            "steps.canonical_verify.outcome == 'failure' }}"
+        )
+        native_upload = {
+            "name": "windows-native-loader-${{ github.sha }}",
+            "path": "${{ runner.temp }}/windows-native-loader-diagnostics/",
+            "if-no-files-found": "warn",
+            "retention-days": 7,
+        }
+        if (
+            step.get("name") == "Retain Windows native loader failure evidence"
+            and step.get("uses")
+            == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+            and step.get("if") == native_condition
+            and step.get("with") == native_upload
+            and any(
+                candidate.get("id") == "canonical_verify"
+                and candidate.get("run") == "pnpm verify"
+                for _location, candidate in steps
+            )
+        ):
+            continue
         if str(step.get("if", "")).strip() != "failure()":
             violations.append(
                 Violation(
@@ -1032,7 +1056,6 @@ def _check_artifacts(
                     "artifact upload must be failure-scoped (if: failure())",
                 )
             )
-        path = str(step.get("with", {}).get("path", "")).strip().rstrip("/")
         if path != "test-results":
             violations.append(
                 Violation(
