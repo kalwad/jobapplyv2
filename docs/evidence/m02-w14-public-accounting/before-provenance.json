@@ -1,0 +1,108 @@
+{
+  "format_version": "W14_PUBLIC_CONTACT_EXACT_SOURCE_REPLAY_1",
+  "source_path": "/Users/tanishkalwad/.codex/worktrees/w14-independent-review/jobapplyv2/e2e/extension/public-contact/run-contact.ts",
+  "source_sha256": "sha256:c82dc058824cc1eaf1d92ea83f8ad581003a81390ee7147d73414c2850bd0390",
+  "snapshot_path": "/tmp/japp-w14-independent-source-snapshot.json",
+  "source_snapshot_sha256": "c82dc058824cc1eaf1d92ea83f8ad581003a81390ee7147d73414c2850bd0390",
+  "node_version": "v26.0.0",
+  "snippets": [
+    {
+      "name": "positiveScores and changes",
+      "start_marker": "      const positiveScores = expected.positive.map",
+      "end_marker_exclusive": "      const interference =",
+      "start_line": 302,
+      "end_line": 357,
+      "sha256": "sha256:c606c57deb55e528722178e2d20fe4cf2b95895a05efb82ccfb33ed775903955"
+    },
+    {
+      "name": "domMetrics",
+      "start_marker": "function domMetrics(",
+      "end_marker_exclusive": "const summary =",
+      "start_line": 453,
+      "end_line": 509,
+      "sha256": "sha256:3ac24f5a90a58af369d1912899805390c9da67c95855075ad5ae4c293798f774"
+    }
+  ],
+  "transformations": [
+    {
+      "snippet": "domMetrics",
+      "from": "function domMetrics(items: MeasuredRow[])",
+      "to": "function domMetrics(items)",
+      "reason": "Remove TypeScript parameter annotation only; original function body is unchanged."
+    }
+  ],
+  "helper_scope": "JSON-stringifiable string/plain-record inputs; no browser or runner import, side effects, source edits, or gate claims.",
+  "inputs": {
+    "before": [
+      {
+        "index": 0,
+        "match": {
+          "label": "First Name",
+          "tag": "INPUT",
+          "type": "text",
+          "role": null,
+          "visible": true,
+          "required": true,
+          "disabled": false,
+          "autocomplete": null
+        },
+        "value_digest": "sha256:12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+        "empty": true,
+        "checked": null
+      }
+    ],
+    "final": [
+      {
+        "index": 0,
+        "match": {
+          "label": "First Name",
+          "tag": "INPUT",
+          "type": "text",
+          "role": null,
+          "visible": true,
+          "required": true,
+          "disabled": false,
+          "autocomplete": null
+        },
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "empty": false,
+        "checked": null
+      },
+      {
+        "index": 1,
+        "match": {
+          "label": "Social Security Number",
+          "tag": "INPUT",
+          "type": "text",
+          "role": null,
+          "visible": true,
+          "required": false,
+          "disabled": false,
+          "autocomplete": null
+        },
+        "empty": false,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "checked": null
+      }
+    ],
+    "expected": {
+      "positive": [
+        {
+          "match": {
+            "label": "First Name",
+            "tag": "INPUT",
+            "type": "text",
+            "role": null,
+            "visible": true,
+            "required": true,
+            "disabled": false,
+            "autocomplete": null
+          },
+          "value": "Synthetic",
+          "concept": "FIRST_NAME",
+          "source": "CONTROLLED"
+        }
+      ]
+    }
+  }
+}

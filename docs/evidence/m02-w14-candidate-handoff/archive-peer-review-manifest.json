@@ -1,0 +1,24 @@
+{
+  "review_scope": "ROOT_RETENTION_PACKAGING_ONLY",
+  "verdict": "CLEAR",
+  "checks_passed": 32,
+  "checks_failed": 0,
+  "reviewed_archive_sha256": "f9a2837336150dcb4d5b8d1781c05e3e4d108ea951c9af178f0f5176a548045f",
+  "files": [
+    {
+      "path": "audit-retention.py",
+      "bytes": 10366,
+      "sha256": "c6d14065d1e608ce67c4f566ccafe3ae2b2094c02532743619af41faf5b50c56"
+    },
+    {
+      "path": "findings.json",
+      "bytes": 14935,
+      "sha256": "2c0c22da676798a464d1ab5af8dc26b164c4c9c8c584ef5528280c803d02a535"
+    },
+    {
+      "path": "report.md",
+      "bytes": 2734,
+      "sha256": "0bae69b24dbd8af4e7ad2b6d123d687aa89291f7abf24566082a918da5d5b03f"
+    }
+  ]
+}

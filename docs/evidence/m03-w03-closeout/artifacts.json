@@ -1,0 +1,58 @@
+{
+  "full-v5.tar.gz": {
+    "source": "/tmp/japp-m03-w03-full-v5-retained-20261019/full-v5-selected.tar.gz",
+    "sha256": "fdbd9686ad5e10b9796fab21cf11d6f7bedcc73ec95fc5b72e32df2f976bc414",
+    "bytes": 277133,
+    "safe_regular_members": 10,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "full-v5-independent-review.tar.gz": {
+    "source": "/tmp/japp-m03-w03-full-v5-review-retained-20261019/full-v5-independent-review.tar.gz",
+    "sha256": "25c1bfa99a9e497442f215e9e721fb2527a3ff856822ad400d41a2f64bb1a6ed",
+    "bytes": 149285,
+    "safe_regular_members": 7,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "full-v4.tar.gz": {
+    "source": "/tmp/japp-m03-w03-full-v4-retained-20261019/full-v4-selected.tar.gz",
+    "sha256": "6d7960b4630a2146de81c92b572be63e53b096899d371f8b99a2cd37e24780d9",
+    "bytes": 1182654,
+    "safe_regular_members": 80,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "app-v4-applicability.tar.gz": {
+    "source": "/tmp/japp-m03-w03-v4-build-applicability-retained-20261019/v4-build-applicability-selected.tar.gz",
+    "sha256": "f523b8a3df305251dcece483376033a22d3c12c4bafa7607e9c03a4e354c5179",
+    "bytes": 3246654,
+    "safe_regular_members": 380,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "ci-tooling.tar.gz": {
+    "source": "/tmp/japp-m03-w03-ci-retry-tooling-retained-20261019/ci-retry-tooling-selected.tar.gz",
+    "sha256": "7c87d8c4d9b106a4e7d19408e1244f74daa7a4266b69d87c2c10993211e9da2c",
+    "bytes": 3951506,
+    "safe_regular_members": 202,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "ci-tooling-independent-review.tar.gz": {
+    "source": "/tmp/japp-m03-w03-independent-ci-tooling-retention-review-20261019-retained/proof.tar.gz",
+    "sha256": "08f6f62b7afe935bd5475d2609cd74d0d80991d6bb96ef252b757367bb6a1287",
+    "bytes": 1098755,
+    "safe_regular_members": 43,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "ci-d28-cancelled.tar.gz": {
+    "source": "/tmp/japp-m03-w03-hosted-ci-d28cfc7-20261019-retained/proof.tar.gz",
+    "sha256": "8eedbf201c78cbf9d7befe9c408466987e9c47a91cf40798083104b25f12b3f4",
+    "bytes": 5224184,
+    "safe_regular_members": 335,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  },
+  "ci-6d3-terminal.tar.gz": {
+    "source": "/tmp/japp-m03-w03-hosted-ci-6d3a6b8-20261019-retained/proof.tar.gz",
+    "sha256": "637cb8795b5b158794410b20b5d31e27d88deea9941edbac8ae4203aded5cdff",
+    "bytes": 5781496,
+    "safe_regular_members": 479,
+    "scope": "Original selected artifact and its stated limits preserved; historical identities not transferred to current source automatically."
+  }
+}

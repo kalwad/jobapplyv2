@@ -29,7 +29,7 @@ const MAX_DEPTH: usize = 64;
 const MAX_SAFE_INTEGER: u64 = 9_007_199_254_740_991;
 const AUTHORIZATION_REQUEST_REF: &str = "urn:japp:schema:security:authorization-request:v1";
 const ENVELOPED_RECORD_REF: &str = "urn:japp:schema:common:envelope:v1#/$defs/envelopedRecord";
-const SEMANTIC_RULE_CATALOG_REF: &str = "urn:japp:schema:semantic:rule-catalog:v1";
+const SEMANTIC_RULE_CATALOG_REF: &str = "urn:japp:schema:semantic:rule-catalog:v2";
 
 #[derive(Debug, PartialEq, Eq)]
 struct AdapterError;
@@ -719,7 +719,9 @@ enum SemanticRuleKind {
     FieldDecisionAuthority,
     FieldDescriptorObservation,
     GateDecisionIntegrity,
+    GateDecisionIntegrityV2,
     GateEvidenceCompleteness,
+    GateEvidenceCompletenessV2,
     GuidedRunSafety,
     HoldoutManifestIntegrity,
     InertTextSafety,
@@ -766,7 +768,7 @@ enum SemanticRuleKind {
 }
 
 impl SemanticRuleKind {
-    const TOKENS: [&'static str; 54] = [
+    const TOKENS: [&'static str; 56] = [
         "APPLICATION_SESSION_CONSISTENCY",
         "ATOMIC_CLAIM_INTEGRITY",
         "ATS_VARIANT_SCOPE",
@@ -777,7 +779,9 @@ impl SemanticRuleKind {
         "FIELD_DECISION_AUTHORITY",
         "FIELD_DESCRIPTOR_OBSERVATION",
         "GATE_DECISION_INTEGRITY",
+        "GATE_DECISION_INTEGRITY_V2",
         "GATE_EVIDENCE_COMPLETENESS",
+        "GATE_EVIDENCE_COMPLETENESS_V2",
         "GUIDED_RUN_SAFETY",
         "HOLDOUT_MANIFEST_INTEGRITY",
         "INERT_TEXT_SAFETY",
@@ -835,7 +839,9 @@ impl SemanticRuleKind {
             Self::FieldDecisionAuthority => "FIELD_DECISION_AUTHORITY",
             Self::FieldDescriptorObservation => "FIELD_DESCRIPTOR_OBSERVATION",
             Self::GateDecisionIntegrity => "GATE_DECISION_INTEGRITY",
+            Self::GateDecisionIntegrityV2 => "GATE_DECISION_INTEGRITY_V2",
             Self::GateEvidenceCompleteness => "GATE_EVIDENCE_COMPLETENESS",
+            Self::GateEvidenceCompletenessV2 => "GATE_EVIDENCE_COMPLETENESS_V2",
             Self::GuidedRunSafety => "GUIDED_RUN_SAFETY",
             Self::HoldoutManifestIntegrity => "HOLDOUT_MANIFEST_INTEGRITY",
             Self::InertTextSafety => "INERT_TEXT_SAFETY",
@@ -905,7 +911,7 @@ struct SemanticRules {
     entries: Vec<SemanticRuleEntry>,
 }
 
-const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 55] = [
+const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 57] = [
     (
         "urn:japp:schema:ats:variant-identity:v1",
         SemanticRuleKind::AtsVariantScope,
@@ -949,6 +955,14 @@ const EXPECTED_PRIMARY_RULE_BINDINGS: [(&str, SemanticRuleKind); 55] = [
     (
         "urn:japp:schema:gate:evidence-bundle:v1",
         SemanticRuleKind::GateEvidenceCompleteness,
+    ),
+    (
+        "urn:japp:schema:gate:decision:v2",
+        SemanticRuleKind::GateDecisionIntegrityV2,
+    ),
+    (
+        "urn:japp:schema:gate:evidence-bundle:v2",
+        SemanticRuleKind::GateEvidenceCompletenessV2,
     ),
     (
         "urn:japp:schema:platform:browser-discovery-request:v1",
@@ -1215,14 +1229,41 @@ fn load_semantic_rules(
     catalog: &Catalog,
     security: &SecurityData,
 ) -> AdapterResult<SemanticRules> {
-    let path = repo.join("packages/contracts/catalog/semantic-rules.v1.json");
+    let path = repo.join("packages/contracts/catalog/semantic-rules.v2.json");
     let bytes = fs::read(path).map_err(|_| AdapterError)?;
     let value = raw_category(&bytes).map_err(|_| AdapterError)?;
     if schema_valid(catalog, SEMANTIC_RULE_CATALOG_REF, &value) != Ok(true) {
         return Err(AdapterError);
     }
     let document: SemanticRuleDocument = serde_json::from_value(value).map_err(|_| AdapterError)?;
-    if document.catalog_version != "1.1.0" {
+    if document.catalog_version != "1.2.0" {
+        return Err(AdapterError);
+    }
+    let inherited_bytes = fs::read(repo.join("packages/contracts/catalog/semantic-rules.v1.json"))
+        .map_err(|_| AdapterError)?;
+    let inherited_value = raw_category(&inherited_bytes).map_err(|_| AdapterError)?;
+    if schema_valid(
+        catalog,
+        "urn:japp:schema:semantic:rule-catalog:v1",
+        &inherited_value,
+    ) != Ok(true)
+    {
+        return Err(AdapterError);
+    }
+    let inherited: SemanticRuleDocument =
+        serde_json::from_value(inherited_value).map_err(|_| AdapterError)?;
+    if inherited.catalog_version != "1.1.0"
+        || inherited.entries.len() != 110
+        || inherited.entries.iter().any(|old| {
+            !document.entries.iter().any(|current| {
+                old.rule_id == current.rule_id
+                    && old.rule_version == current.rule_version
+                    && old.schema_ref == current.schema_ref
+                    && old.rule_kind == current.rule_kind
+                    && old.failure_error_code == current.failure_error_code
+            })
+        })
+    {
         return Err(AdapterError);
     }
 
@@ -1676,6 +1717,53 @@ wire_record! {
     GateDecision {
         decision_record_id: String,
         gate_id: String,
+        candidate_commit: String,
+        candidate_tree: String,
+        evidence_bundle_digest: String,
+        decision: String,
+        threshold_evidence_summary: Value,
+        independent_review_state: String,
+        owner_decision_state: String,
+        decided_at: String,
+        reason_codes: Vec<String>,
+        error_codes: Vec<String>,
+    }
+    optional {
+        redesign_adr_ref: String,
+    }
+}
+
+wire_record! {
+    GateEvidenceBundleV2 {
+        evidence_bundle_id: String,
+        gate_id: String,
+        holdout_assessment: Value,
+        candidate_commit: String,
+        candidate_tree: String,
+        corpus_manifest_digest: String,
+        runtime_metadata: Value,
+        benchmark_result_refs: Vec<String>,
+        raw_artifact_report_digests: Vec<String>,
+        manual_inspection_evidence_refs: Vec<String>,
+        independent_review_ref: String,
+        reviewer_identity_ref: String,
+        completeness_inventory: Value,
+        known_limitations: Vec<String>,
+        bundle_state: String,
+        evidence_bundle_digest: String,
+        provenance: Provenance,
+    }
+    optional {
+        owner_decision_ref: String,
+        holdout_manifest_digest: String,
+    }
+}
+
+wire_record! {
+    GateDecisionV2 {
+        decision_record_id: String,
+        gate_id: String,
+        holdout_assessment: Value,
         candidate_commit: String,
         candidate_tree: String,
         evidence_bundle_digest: String,
@@ -2304,6 +2392,10 @@ fn typed_round_trip(schema_ref: &str, value: Value) -> AdapterResult<Value> {
         }
         "urn:japp:schema:gate:evidence-bundle:v1" => serde_round_trip::<GateEvidenceBundle>(value),
         "urn:japp:schema:gate:decision:v1" => serde_round_trip::<GateDecision>(value),
+        "urn:japp:schema:gate:decision:v2" => serde_round_trip::<GateDecisionV2>(value),
+        "urn:japp:schema:gate:evidence-bundle:v2" => {
+            serde_round_trip::<GateEvidenceBundleV2>(value)
+        }
         "urn:japp:schema:resume:plan:v1" => serde_round_trip::<ResumePlan>(value),
         "urn:japp:schema:resume:atomic-claim:v1" => serde_round_trip::<AtomicClaim>(value),
         "urn:japp:schema:rendering:layout-measurement:v1" => {
@@ -3153,6 +3245,108 @@ fn gate_decision_integrity(value: &Value) -> bool {
                 "holdout_valid",
             ],
         ) && text(value, "independent_review_state") == Some("COMPLETE")
+            && token_in(
+                text(value, "owner_decision_state"),
+                &["COMPLETE", "NOT_REQUIRED"],
+            )
+            && items(value, "error_codes").is_empty())
+}
+
+fn gate_holdout_assessment_v2(value: &Value, inventory: &Value) -> bool {
+    let Some(assessment) = object_member(value, "holdout_assessment") else {
+        return false;
+    };
+    let state = text(assessment, "state");
+    let executed = flag(assessment, "execution_performed");
+    let valid = flag(inventory, "holdout_valid");
+    let result = text(assessment, "execution_result_ref");
+    let waiver = object_member(assessment, "owner_waiver");
+    if state == Some("EXECUTED") {
+        return executed == Some(true)
+            && result.is_some()
+            && waiver.is_none()
+            && (object_member(value, "completeness_inventory").is_none()
+                || text(value, "holdout_manifest_digest").is_some());
+    }
+    if executed != Some(false) || valid != Some(false) || result.is_some() {
+        return false;
+    }
+    if state == Some("NOT_EXECUTED") {
+        return waiver.is_none();
+    }
+    let Some(waiver) = waiver else {
+        return false;
+    };
+    state == Some("WAIVED_BY_OWNER_ADR_0006")
+        && text(waiver, "adr_ref") == Some("ADR-0006")
+        && text(waiver, "owner_decision_ref") == Some("OD-035")
+        && text(waiver, "source_document_ref") == Some("docs/DECISIONS.md")
+        && text(waiver, "source_record_digest").is_some()
+}
+
+fn gate_holdout_satisfied_v2(value: &Value, inventory: &Value) -> bool {
+    let assessment = object_member(value, "holdout_assessment");
+    assessment.is_some_and(|assessment| {
+        text(assessment, "state") == Some("WAIVED_BY_OWNER_ADR_0006")
+            || (text(assessment, "state") == Some("EXECUTED")
+                && flag(inventory, "holdout_valid") == Some(true))
+    })
+}
+
+fn gate_evidence_completeness_v2(value: &Value) -> bool {
+    let Some(inventory) = object_member(value, "completeness_inventory") else {
+        return false;
+    };
+    let results = items(value, "benchmark_result_refs");
+    if !gate_holdout_assessment_v2(value, inventory)
+        || !unique_strings(results)
+        || !unique_strings(items(value, "raw_artifact_report_digests"))
+        || !unique_strings(items(value, "manual_inspection_evidence_refs"))
+        || number_value(inventory, "present_benchmark_count") != Some(results.len() as f64)
+    {
+        return false;
+    }
+    text(value, "bundle_state") != Some("COMPLETE")
+        || (gate_holdout_satisfied_v2(value, inventory)
+            && number_value(inventory, "required_benchmark_count") == Some(results.len() as f64)
+            && all_flags(
+                inventory,
+                &[
+                    "corpus_valid",
+                    "raw_artifacts_complete",
+                    "manual_inspection_complete",
+                    "independent_review_complete",
+                    "owner_decision_complete",
+                ],
+            )
+            && ((text(inventory, "owner_decision_requirement") == Some("REQUIRED"))
+                == text(value, "owner_decision_ref").is_some()))
+}
+
+fn gate_decision_integrity_v2(value: &Value) -> bool {
+    let Some(summary) = object_member(value, "threshold_evidence_summary") else {
+        return false;
+    };
+    if !gate_holdout_assessment_v2(value, summary)
+        || !unique_strings(items(value, "reason_codes"))
+        || !unique_strings(items(value, "error_codes"))
+        || (text(value, "decision") == Some("REDESIGN_REQUIRED")
+            && text(value, "redesign_adr_ref").is_none())
+    {
+        return false;
+    }
+    text(value, "decision") != Some("PASS")
+        || (gate_holdout_satisfied_v2(value, summary)
+            && all_flags(
+                summary,
+                &[
+                    "evidence_complete",
+                    "required_benchmark_results_complete",
+                    "thresholds_passed",
+                    "corpus_valid",
+                ],
+            )
+            && text(value, "independent_review_state") == Some("COMPLETE")
             && token_in(
                 text(value, "owner_decision_state"),
                 &["COMPLETE", "NOT_REQUIRED"],
@@ -4543,7 +4737,9 @@ fn evaluate_semantic_rule(kind: SemanticRuleKind, value: &Value) -> bool {
         SemanticRuleKind::FieldDecisionAuthority => field_decision_authority(value),
         SemanticRuleKind::FieldDescriptorObservation => field_descriptor_observation(value),
         SemanticRuleKind::GateDecisionIntegrity => gate_decision_integrity(value),
+        SemanticRuleKind::GateDecisionIntegrityV2 => gate_decision_integrity_v2(value),
         SemanticRuleKind::GateEvidenceCompleteness => gate_evidence_completeness(value),
+        SemanticRuleKind::GateEvidenceCompletenessV2 => gate_evidence_completeness_v2(value),
         SemanticRuleKind::GuidedRunSafety => guided_run_safety(value),
         SemanticRuleKind::HoldoutManifestIntegrity => holdout_manifest_integrity(value),
         SemanticRuleKind::InertTextSafety => inert_text_safe(value, 0),
@@ -5341,7 +5537,7 @@ mod tests {
         let catalog = load_catalog(&repo).expect("schema catalog loads");
         let security = load_security_data(&repo).expect("security data loads");
         let rules = load_semantic_rules(&repo, &catalog, &security).expect("semantic rules load");
-        assert_eq!(rules.entries.len(), 110);
+        assert_eq!(rules.entries.len(), 114);
         assert_eq!(
             rules
                 .entries

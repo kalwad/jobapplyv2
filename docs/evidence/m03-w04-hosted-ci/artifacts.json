@@ -1,0 +1,22 @@
+{
+  "README.md": {
+    "bytes": 1376,
+    "sha256": "d31a7ecf5932be4509a9a9823aac44f0f69c8cc9fefb1dfa3e1fc3b62889377a"
+  },
+  "collector-retention-manifest.json": {
+    "bytes": 833,
+    "sha256": "b3da7086d4f8dbdf6d732ff9e3f1e19d4ec68e5c57c3ee33c1e1ffa48867305c"
+  },
+  "independent-review.tar.gz": {
+    "bytes": 32263,
+    "sha256": "1bdd80c1329888f2eade4ee8d0042bd857672951d91b755f0a81c7e538d1b2d1"
+  },
+  "review-retention-manifest.json": {
+    "bytes": 578,
+    "sha256": "af00cee16393f4707823d80bff4081d53b0fee7f191fc3e1cfae17fc25e574fa"
+  },
+  "terminal-ci.tar.gz": {
+    "bytes": 7960344,
+    "sha256": "f4b880dd5306c3f1bb8f4a3616c170a6dfce10db37d93b96173ddf6c00fa9d8e"
+  }
+}

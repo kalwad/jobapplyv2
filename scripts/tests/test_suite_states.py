@@ -144,7 +144,7 @@ def test_real_registry_loads_and_states_match_project_state(
         for suite in registry.suites
     }
     assert derived["contract"] is verify.SuiteState.ACTIVE
-    assert derived["visual"] is verify.SuiteState.NOT_YET_APPLICABLE
+    assert derived["visual"] is verify.SuiteState.ACTIVE
     active = {sid for sid, st in derived.items() if st is verify.SuiteState.ACTIVE}
     # contract-gen activated when M01-W02 began and its generator landed at
     # scripts/generate-contracts.*; build activated when M02-W07 began and
@@ -162,6 +162,9 @@ def test_real_registry_loads_and_states_match_project_state(
         "contract",
         "build",
         "e2e-browser",
+        "w14-public-controlled",
+        "w14-public-contact-controlled",
+        "visual",
         "python",
         "rust",
         "portability",
@@ -228,9 +231,16 @@ def test_started_fixture_corpus_with_empty_discovery_is_required_missing(
 
 
 def test_nya_visual_is_reported_honestly_not_as_pass(
-    real_ctx: verify.Context,
+    real_ctx: verify.Context, tmp_path: Path
 ) -> None:
-    outcomes, exit_code = verify.run_verification(real_ctx, ["visual"])
+    fake_status = tmp_path / "status.md"
+    states = verify.parse_package_states(real_ctx.status_path)
+    states.update({"M03-W01": "READY", "M10-W06": "NOT_STARTED"})
+    write_status(fake_status, states)
+    ctx = verify.Context(
+        repo=REPO_ROOT, registry_path=real_ctx.registry_path, status_path=fake_status
+    )
+    outcomes, exit_code = verify.run_verification(ctx, ["visual"])
     assert exit_code == 0
     (outcome,) = outcomes
     assert outcome.verdict is verify.Verdict.NOT_YET_APPLICABLE
@@ -270,18 +280,76 @@ def test_activated_but_empty_contract_suite_fails(
 
 
 def test_activated_but_empty_visual_suite_fails(
-    real_ctx: verify.Context, tmp_path: Path
+    real_ctx: verify.Context, fixture_repo: verify.Context, tmp_path: Path
 ) -> None:
     fake_status = tmp_path / "status.md"
     states = verify.parse_package_states(real_ctx.status_path)
-    states["M10-W06"] = "IN_PROGRESS"
+    states.update({"M03-W01": "NOT_STARTED", "M10-W06": "IN_PROGRESS"})
     write_status(fake_status, states)
+    # An empty isolated root must still fail after real visual specs land.
     ctx = verify.Context(
-        repo=REPO_ROOT, registry_path=real_ctx.registry_path, status_path=fake_status
+        repo=fixture_repo.repo,
+        registry_path=real_ctx.registry_path,
+        status_path=fake_status,
     )
     outcomes, exit_code = verify.run_verification(ctx, ["visual"])
     assert exit_code == 1
     assert outcomes[0].verdict is verify.Verdict.REQUIRED_MISSING
+
+
+def test_desktop_visual_activation_requires_real_nonempty_specs(
+    real_ctx: verify.Context, fixture_repo: verify.Context, tmp_path: Path
+) -> None:
+    fake_status = tmp_path / "status.md"
+    states = verify.parse_package_states(real_ctx.status_path)
+    states.update({"M03-W01": "IN_PROGRESS", "M10-W06": "NOT_STARTED"})
+    write_status(fake_status, states)
+    ctx = verify.Context(
+        repo=fixture_repo.repo,
+        registry_path=real_ctx.registry_path,
+        status_path=fake_status,
+    )
+    outcomes, exit_code = verify.run_verification(ctx, ["visual"])
+    assert exit_code == 1
+    assert outcomes[0].verdict is verify.Verdict.REQUIRED_MISSING
+    visual = fixture_repo.repo / "e2e/visual/desktop-shell.spec.ts"
+    visual.parent.mkdir(parents=True)
+    visual.write_text("// discovery fixture only; no actors run\n", encoding="utf-8")
+    suite = next(
+        suite
+        for suite in verify.load_registry(ctx.registry_path).suites
+        if suite.suite_id == "visual"
+    )
+    assert verify.derive_state(ctx, suite, states) is verify.SuiteState.ACTIVE
+
+
+def test_visual_registration_preserves_both_activation_owners(
+    real_ctx: verify.Context,
+) -> None:
+    visual = next(
+        suite
+        for suite in verify.load_registry(real_ctx.registry_path).suites
+        if suite.suite_id == "visual"
+    )
+    assert visual.activation == verify.Activation(
+        kind="packages_started", packages=("M03-W01", "M10-W06")
+    )
+    assert visual.commands == (
+        (
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "e2e/visual",
+            "--output",
+            "test-results/visual",
+        ),
+    )
+    assert visual.proofs == (
+        verify.Proof(kind="playwright_list_min", min_count=1),
+        verify.Proof(kind="playwright_min_passed", min_count=1),
+    )
+    assert visual.discovery_globs == ("e2e/visual/**/*.spec.ts",)
 
 
 def test_required_missing_when_activation_package_started_and_no_tests(

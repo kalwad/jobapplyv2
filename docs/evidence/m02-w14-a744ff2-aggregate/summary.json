@@ -1,0 +1,100 @@
+{
+  "format": "W14_A744FF2_FULL_AGGREGATE_1",
+  "commit": "a744ff2287f0714740121009df8ef06e8559823b",
+  "exit_code": 1,
+  "active_suites": 19,
+  "passed_suites": 15,
+  "failed_suites": [
+    "unit-ts",
+    "evaluation-corpus",
+    "e2e-browser",
+    "python"
+  ],
+  "default_browser": {
+    "passed": 219,
+    "failed": 3,
+    "total": 222
+  },
+  "contact_controlled": {
+    "passed": 61,
+    "browser": 49,
+    "pure": 12
+  },
+  "w13_native128_p95_ms": 1535.096375000001,
+  "w13_samples": 20,
+  "w14": {
+    "cases": 200,
+    "metrics": {
+      "executed_cases": 200,
+      "scored_cases": 200,
+      "refused_cases": 0,
+      "measurement_error_cases": 0,
+      "scored_logical_controls": 4020,
+      "preservation": {
+        "expected": 90,
+        "correct": 90,
+        "violations": 0,
+        "empty_abstention_violations": 0
+      },
+      "ordinary_attempted_precision": {
+        "numerator": 1485,
+        "denominator": 1485,
+        "rate": 1
+      },
+      "required_ordinary_recall": {
+        "numerator": 1275,
+        "denominator": 1275,
+        "rate": 1
+      },
+      "required_reporting": {
+        "numerator": 770,
+        "denominator": 770,
+        "rate": 1
+      },
+      "observed_persistence": {
+        "numerator": 1485,
+        "denominator": 1485,
+        "rate": 1
+      },
+      "counts": {
+        "required_silent": 0,
+        "sensitive_fills": 0,
+        "honeypot_fills": 0,
+        "catastrophic_option_errors": 0,
+        "duplicate_actions": 0
+      },
+      "full_settle_scan_fill_timing": {
+        "sample_count": 200,
+        "p95_ms": 874.831582999992,
+        "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+        "includes_fixture_setup": false,
+        "includes_browser_setup": false,
+        "includes_reporting": false
+      }
+    },
+    "immutability": {
+      "source_unchanged": true,
+      "build_unchanged": true,
+      "declarations_unchanged": true,
+      "end_source_digest": "sha256:baf578df3a8be8932abca691482bbb80bae1d5f442035599649cde6255dbb6a9",
+      "end_build_digest": "sha256:cf36249aba48945a5ac68e5d134ad14dd7a106850391d6c8ef422088f6c7560d"
+    },
+    "physical_safety": {
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "paused_boundary_actions": 0
+    },
+    "bundle_digest": "sha256:75a75b276f67d37b45dc1c4530642bf74f3d036a28ddee78132a8482bed2550b"
+  },
+  "known_failures": [
+    "frozen W06 generator source preimage",
+    "native128 p95 above1500",
+    "field collision mislabeled root ambiguity",
+    "stale mounted confirm-email approval and composite validation clearing",
+    "two long Python fixture strings"
+  ]
+}

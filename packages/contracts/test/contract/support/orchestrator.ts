@@ -248,8 +248,8 @@ export function runSemanticMatrixAdapters(
   }
 }
 
-export function runRealAdapters(): RealAdapterRun {
-  const corpus = loadCorpus();
+export function runRealAdapters(corpusRoot?: string): RealAdapterRun {
+  const corpus = loadCorpus(corpusRoot);
   const historicalInventory = loadHistoricalWitnessInventory();
   buildRustHarness();
   const temporaryRoot = mkdtempSync(join(tmpdir(), "japp-contract-v1-"));

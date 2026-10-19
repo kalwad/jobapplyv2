@@ -1,0 +1,33 @@
+[WebServer] (node:65119) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:65121) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 379 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  114.75 kB
+Σ Total size: 155.52 kB                            
+✔ Finished in 478 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 336 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  114.75 kB
+Σ Total size: 116.27 kB                                        
+✔ Finished in 435 ms
+
+Running 2 tests using 1 worker
+
+(node:65142) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/extension/extension-w14-shadow-gap.spec.ts:19:1 › W14 W06 MAL-SHD-001: open-shadow other-party required field is reported and never filled (1.2s)
+  ✓  2 [chromium] › e2e/extension/extension-w14-w06.spec.ts:116:1 › W14 W06: account for all 32 original cases with mounted real-MV3 contact execution (17.4s)
+
+  2 passed (21.6s)

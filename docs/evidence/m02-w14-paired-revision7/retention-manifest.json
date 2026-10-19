@@ -1,0 +1,37 @@
+{
+  "archive_sha256": "207290a85dcd1c28fa88dc23abc07861d73dcea049bd9bf9831b183c0893e335",
+  "archive_bytes": 45778,
+  "regular_members": 7,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2964,
+      "sha256": "457a1add8f0295c90e9d7863b86534af065c4229387492f668fb4aceb35c2272"
+    },
+    {
+      "path": "history-review.md",
+      "bytes": 3167,
+      "sha256": "8d89829c05a402186a04e62692f779b698eae2e5f2221f83570da2e68449270e"
+    },
+    {
+      "path": "independent-checks.json",
+      "bytes": 3484,
+      "sha256": "60158734e62af9a510132d6f301645899a4787d34cd3328161fd1b1ad0145b4e"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 5891,
+      "sha256": "558d475429e6907fdab2f32959695d54f77611669c3d75cc542d053c0cf57be8"
+    },
+    {
+      "path": "revision7-proposal.patch",
+      "bytes": 149651,
+      "sha256": "5ba19e736829b844300009e426ffba5a40be183e4e20a8d25505f95154bdec6c"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 6936,
+      "sha256": "5befeb4ad1e9105cc3d7427b97cc975f74ff98f4709dcb341d0a111974e5fca4"
+    }
+  ]
+}

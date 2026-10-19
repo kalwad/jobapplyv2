@@ -32,7 +32,7 @@ reference observations, screenshots, hashes, results, or approvals.
 
 | Surface ID | Surface | Owning work package(s) | Matrix state | Reference provenance | Observation record | Comparison evidence | Owner decision |
 |---|---|---|---|---|---|---|---|
-| `DESKTOP_SHELL` | Desktop shell and global navigation | `M03-W01`, `M03-W11` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
+| `DESKTOP_SHELL` | Desktop shell and global navigation | `M03-W01`, `M03-W11` | `IN_PROGRESS` | Public primary help documentation | docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md | Pending actual shell capture/review; no comparative task study | `NOT_APPROVED` |
 | `HOME_DASHBOARD` | Home/dashboard | `M03-W11`, `M33-W07` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
 | `JOBS` | Job search, matches, and saved jobs | `M33-W07` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
 | `TRACKER` | Application tracker | `M25-W08` | `NOT_YET_APPLICABLE` | — | — | — | `NOT_APPROVED` |
@@ -78,3 +78,8 @@ compatibility that does not exist.
 - Screenshots or fixtures: none
 - Familiarity study results: none
 - Owner-approved surfaces: none
+
+
+## M03-W01 implementation state — 2026-10-18
+
+The desktop shell is now IN_PROGRESS with repository-owned components/tokens and a recorded public task-reference log. The M00-W11 scaffold statements above remain historical. Other product surfaces/studies remain unimplemented and unapproved. OD-037 / ADR-0008 delegates actual later acceptance; it supplies no invented owner observation or future result.

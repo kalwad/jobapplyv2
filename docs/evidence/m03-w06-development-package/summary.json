@@ -1,0 +1,92 @@
+{
+  "actual_forced_case": {
+    "GUI": "UNOBSERVED",
+    "LaunchServices": "UNOBSERVED",
+    "authenticated_positive_HTTP": "UNOBSERVED",
+    "count": 1,
+    "declared_bound_seconds": 12,
+    "exclusive_bind": "EADDRINUSE",
+    "included_parent_wait_ms": 4.563584,
+    "negative_401_requests": 6,
+    "outer_worker_observer_exit": [
+      0,
+      0,
+      0
+    ],
+    "owned_parent_exit": -9,
+    "port_rebound_and_released": true,
+    "raw_private_ACK": "UNOBSERVED",
+    "registered_cleanup_ms": 219.148709,
+    "source_app_runtime_bytes_modes_unchanged": true,
+    "unseen_descendants": "UNOBSERVED"
+  },
+  "failure_history": {
+    "actual_v3": "One actual native case; initial preflight did not execute an app/observer",
+    "first_outer_preflight": "Raw failure retained; zero app/observer handles, worker reaped; HOME omission exposed globally ignored .claude path",
+    "initial_copy2_SIP": "Original script/partial nonbinary files/authored note; raw CLI error remains conversational, no reconstructed raw stderr",
+    "root_reversal_and_missing_pin_refusals": "Conversational only; no fabricated local raw evidence"
+  },
+  "focused_checks": {
+    "default_test_parallelism": true,
+    "desktop_rust_passed_per_mode": [
+      232,
+      232,
+      232
+    ],
+    "modes": [
+      "default",
+      "all-features",
+      "tauri/custom-protocol"
+    ],
+    "previous_common_ids_preserved": 1687,
+    "python_affected_passed": 112,
+    "whole_current20": "NOT_ESTABLISHED_BY_THIS_PACKET",
+    "collected_unique_posix_ids": 1801,
+    "accepted_common_ids": 1799,
+    "declared_posix_delta": 2
+  },
+  "fresh_build_static": {
+    "LC_RPATH": 0,
+    "apple_root_dependency_loads": 25,
+    "dylib_self_ids_not_loads": 2,
+    "inner_hash_locked_runtime_stages_zero_exit": 6,
+    "macho_members_arm64": 4,
+    "offline_claim": false,
+    "outer_commands_zero_exit": 31,
+    "runtime_bytes_modes_equal_pre_post_signing": true,
+    "runtime_files": 40,
+    "scope": "Actual hash-locked commands and authorized pinned installs; static declarations are not dynamic loader resolution or distribution signing.",
+    "signed_app_files": 43,
+    "static_codesign_deep_strict_exit": 0
+  },
+  "review_reports": {
+    "actual_forced": "685dcbe98648c4439383f82401a533f720f4d672a73c9e70fde0d0a967cae2eb",
+    "build": "97cbe32995d773068cd401893b618feee8f21f20e15b5cc2edf7cb9572a0f40b",
+    "focus": "de5ad9fffc53928991d9382151376713dbb31524720bc5954c72e0e08fef7cad"
+  },
+  "scope": "W06 IN_PROGRESS evidence only; no milestone verification/approval",
+  "source": {
+    "candidate_status": "Exactly recorded dirty32, not a clean checkpoint",
+    "focus_to_build_change": "Inventory update only; both original maps retained",
+    "head": "c4f7d9ca6df70f3d7f8a8f8d10806453e69687e6",
+    "logical_files": 1946,
+    "tree": "b7b7bbcf7d508309bd6c3e511bb924a0ad2338d3"
+  },
+  "unproven": [
+    "GUI/Ready/service+API/Checked-at UI",
+    "LS launch/Close/Quit",
+    "restart-budget native UI",
+    "Unicode native launch",
+    "allocator random-port collision",
+    "raw ACK capture",
+    "complete descendants",
+    "DeveloperID/notarization/Gatekeeper",
+    "foreign-host acceptance",
+    "W06 verification",
+    "M03/Gate acceptance"
+  ],
+  "producer_summary_erratum": {
+    "original_sha256": "c79490e7d35b3254aa81bfd12768e6cf5d7d13e2a3ba4ef0d913afc9d032c6d0",
+    "correction": "Original producer summary labeled totalPOSIX1801 as common. Actual common1799 plus declared2POSIX=1801. Original summary remains immutable inside proof archive; raw collection/inventory and independent data reviews are unchanged. This corrected derived copy changes no result or acceptance."
+  }
+}

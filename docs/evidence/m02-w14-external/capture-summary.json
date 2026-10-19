@@ -1,0 +1,260 @@
+{
+  "format_version": "LEGACY_SUPPLEMENTAL_COMPONENT_CAPTURE_1",
+  "authority": "NONE",
+  "mode": "COMPONENT_DETERMINISTIC_NO_AI",
+  "legacy_jobapply": {
+    "repository": "https://github.com/kalwad/JobApply",
+    "commit": "c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd",
+    "tree": "7a1a830ddb2519c7e23043fb9e46c364cbada3cf"
+  },
+  "careerpulse_upstream": {
+    "commit": "629aa992f3e3c3d05575686f350a7173e8b5e108",
+    "committer_date": "2026-04-15T00:33:34Z",
+    "repository_url": "https://github.com/tcpsyn/CareerPulse",
+    "tree": "4e134dae19fc3661dd71bb0ff0476ed32be35e29"
+  },
+  "equivalence": {
+    "upstream_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "jobapply_extension_git_tree": "1fa9e0aab2d5134d6eab5a189342d20afa9f57a3",
+    "upstream_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "jobapply_app_git_tree": "8eb2a24cce4eddb9ee58027d67f00737485026f1",
+    "license_blob": "9f4d2c46a0df879c11efa36dce0bca7b1284a512",
+    "provenance": "JobApply pinned ATTRIBUTION.md names upstream CareerPulse repository and baseline/careerpulse-upstream tag. GH API tag resolves to the pinned upstream commit; Git tree object IDs prove component bytes identical. One actual component execution is shared-byte evidence, not two independent product runs."
+  },
+  "tracked_source_modified": false,
+  "license": "MIT",
+  "browser": "151.0.7922.34",
+  "python": "3.12.13",
+  "runtime_versions": "evaluation-runtime.freeze.txt",
+  "profile_conversion": "Only the ten W13 explicit synthetic facts; first/last combine as full_name; remaining fields map to legacy profile field names; no additional explicit values. Actual legacy defaults remain part of legacy behavior.",
+  "measured_rows": [
+    {
+      "case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+      "fixture_id": "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION",
+      "canonical_w13_input_digest": "sha256:f1690e3e2812cc2a57caa00034d0540416f52a17f1ad417aebb4920addc2d04d",
+      "canonical_w13_case_digest": "sha256:50e5ef6ad8c56b81410b18d9e436682d3b14d21a6a603057726873c5bd9aa05f",
+      "html_digest": "sha256:947e1889e76f9fa974e55f41d7456eafda315b3f026a54b426be027644335521",
+      "profile_facts_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_declared_controls": 10,
+      "required_ordinary_declared_controls": 9,
+      "exact_final_value_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "exact_final_value_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "ordinary_empty": [
+        "country",
+        "state"
+      ],
+      "physical_input_change_witness_count": 8,
+      "controlled_rerender_count": 8,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "flow_status": {
+        "ok": true,
+        "state": "done"
+      },
+      "claimed_ui_count": 9,
+      "timing_ms_descriptive_only": 5925.386624999999
+    },
+    {
+      "case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+      "fixture_id": "W12-GREENHOUSE-GROUPED-en-US-MY_INFORMATION",
+      "canonical_w13_input_digest": "sha256:0d09096eb8ec8095c86b0495a1bdf03ebc5b773e6fff09fc0cf15635c892b1d3",
+      "canonical_w13_case_digest": "sha256:d7799f24e1988b31b2a08677bbe4ec3f08ce38730aa7d428477240752d640741",
+      "html_digest": "sha256:0525c26dc41139bb71e4720bee51bb311d7441744defefad9992564a7c2298ff",
+      "profile_facts_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_declared_controls": 10,
+      "required_ordinary_declared_controls": 9,
+      "exact_final_value_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "exact_final_value_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "ordinary_empty": [
+        "country",
+        "state"
+      ],
+      "physical_input_change_witness_count": 8,
+      "controlled_rerender_count": 8,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "flow_status": {
+        "ok": true,
+        "state": "done"
+      },
+      "claimed_ui_count": 9,
+      "timing_ms_descriptive_only": 5917.236667000001
+    },
+    {
+      "case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+      "fixture_id": "W12-LEVER-GROUPED-en-US-MY_INFORMATION",
+      "canonical_w13_input_digest": "sha256:aec4c666d6a6ed88579a89513e576eb6cf1f4b0d279be1d1b2b4fc7bff2f6680",
+      "canonical_w13_case_digest": "sha256:9f4e54bb65edea144e2d6617b276b36ee30f815d2f477b84979f86e649179c75",
+      "html_digest": "sha256:3cbda61754b6c3e590cecda8b936f90cd4dec4b49c56360d463c1c25aa257522",
+      "profile_facts_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_declared_controls": 10,
+      "required_ordinary_declared_controls": 9,
+      "exact_final_value_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "exact_final_value_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "ordinary_empty": [
+        "country",
+        "state"
+      ],
+      "physical_input_change_witness_count": 8,
+      "controlled_rerender_count": 8,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "flow_status": {
+        "ok": true,
+        "state": "done"
+      },
+      "claimed_ui_count": 9,
+      "timing_ms_descriptive_only": 5918.775
+    },
+    {
+      "case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+      "fixture_id": "W12-ASHBY-GROUPED-en-US-MY_INFORMATION",
+      "canonical_w13_input_digest": "sha256:34a8f74e1af2b3bd071d03c395fb0a3c9d1a3487abe9b4e167aa8e525c1763bf",
+      "canonical_w13_case_digest": "sha256:90be584059b064ab88a7688a05e45ef1da9cdf6bd1919c1295d08d0d2b7e4b3a",
+      "html_digest": "sha256:4ca1939c8531c3130c7d4ecd0c101474eefde6700324285b0dd035ef0e5a19f0",
+      "profile_facts_digest": "sha256:1df7d7861ea8f05c6b4de3112381e7fc204f820623bee8a0e14a34f968d5bff8",
+      "ordinary_declared_controls": 10,
+      "required_ordinary_declared_controls": 9,
+      "exact_final_value_matches": [
+        "first-name",
+        "last-name",
+        "email",
+        "website",
+        "city",
+        "street-address",
+        "postal-code"
+      ],
+      "exact_final_value_mismatches": [
+        {
+          "key": "phone",
+          "value": "(202) 555-0100"
+        }
+      ],
+      "ordinary_empty": [
+        "country",
+        "state"
+      ],
+      "physical_input_change_witness_count": 8,
+      "controlled_rerender_count": 8,
+      "navigation_activations": 0,
+      "submission_activations": 0,
+      "flow_status": {
+        "ok": true,
+        "state": "done"
+      },
+      "claimed_ui_count": 9,
+      "timing_ms_descriptive_only": 5917.874208000001
+    }
+  ],
+  "network": {
+    "observed_request_count": 20,
+    "all_observed_requests_loopback_or_browser_internal": true,
+    "refused_request_count": 0
+  },
+  "files": [
+    {
+      "path": "capture-rerender.json",
+      "digest": "sha256:6ea6ec758d1a0976d9841bafdbf3943bc3a24ab20850262e59d995d936069385"
+    },
+    {
+      "path": "capture.json",
+      "digest": "sha256:dabcce6f9f25adb91903e663f3f42353167f79f7168a549e2332a61dbd875c9c"
+    },
+    {
+      "path": "capture-initial-profile-extra-fact.json",
+      "digest": "sha256:1c512adc729c4a048939e70b316a73e1b74bbc27941aa16b36ae770b16b2ce80"
+    },
+    {
+      "path": "initial-run-limitation.json",
+      "digest": "sha256:62429458d33384a52a49f39c7ac3a80292cd849eb434d065fc63aa958a56abae"
+    },
+    {
+      "path": "evaluation-server.py",
+      "digest": "sha256:19351b8961f9b41e04eb8a16a45161ead70faf35f26cce6a6d3010a1eaa77f81"
+    },
+    {
+      "path": "evaluation-browser.mjs",
+      "digest": "sha256:ec39443ac8742faf650ab6aa92d7c791a37061f9cbb400a157cfa7547eb51572"
+    },
+    {
+      "path": "evaluation-browser.pre-rerender.mjs",
+      "digest": "sha256:4ba0053ef41ad6b5a2830630410be173a78f3995dda32d6e566dedfa5eef2e38"
+    },
+    {
+      "path": "evaluation-inputs.json",
+      "digest": "sha256:aadd86c855f39a55302345bae1d5397343be08157edf82a46ee7f95b16bce2cf"
+    },
+    {
+      "path": "evaluation-profile.json",
+      "digest": "sha256:be75e89455f72d9e688e865199f039d76350c25846703b4f4567a2a9d1366b45"
+    },
+    {
+      "path": "evaluation-runtime.freeze.txt",
+      "digest": "sha256:f3d6d82db6f5d94efa3f28cba4b15229b719947a7981c426b9571c6d308060d8"
+    },
+    {
+      "path": "upstream-identity.json",
+      "digest": "sha256:9c72560b40fe1fdd233cb67950db1f3f427c37bf12dfd40476518e67e15c5d35"
+    },
+    {
+      "path": "upstream-tag.json",
+      "digest": "sha256:d78c8cc4c6db267597961086f21cd9717dc33a81a2fc858dff01d724acda946b"
+    },
+    {
+      "path": "upstream-components.json",
+      "digest": "sha256:0ca000a5e381c344e640d221c5877302d87a906c219a033783ea49016ef942b5"
+    },
+    {
+      "path": "LICENSE",
+      "digest": "sha256:fed2427e2fbff544d7bceda916d48039fa1a823308fa56921b0d6aacc5769cd6"
+    }
+  ],
+  "limitations": [
+    "No full legacy application database, scheduler, scraper, external AI, credentials or live ATS execution.",
+    "The actual unchanged legacy autofill router is mounted in a synthetic in-memory FastAPI wrapper.",
+    "Only four public development cases are executed; no broad production or Gate A comparison claim.",
+    "Exact final-value counts are descriptive; they do not assert canonical W13 scorer success, calibrated option semantics, complete unresolved reporting or Gate A PASS.",
+    "Phone formatting remains an immutable-oracle mismatch; no expected value was changed.",
+    "Physical event meter is not exhaustive proof against eventless property writes.",
+    "Current repository was only read; no legacy code imported or copied into production."
+  ]
+}

@@ -106,6 +106,15 @@ import type {
   CommonTimestampUtcV1UtcTimestamp,
 } from "./common/timestamp-utc.v1.ts";
 import type {
+  DesktopServiceCancellationV1,
+} from "./desktop/service-cancellation.v1.ts";
+import type {
+  DesktopServiceDiagnosticsV1,
+} from "./desktop/service-diagnostics.v1.ts";
+import type {
+  DesktopServiceRequestV1,
+} from "./desktop/service-request.v1.ts";
+import type {
   ErrorCatalogV1,
   ErrorCatalogV1CatalogEntry,
 } from "./error/catalog.v1.ts";
@@ -175,10 +184,25 @@ import type {
   GateDecisionV1ThresholdEvidenceSummary,
 } from "./gate/decision.v1.ts";
 import type {
+  GateDecisionV2,
+  GateDecisionV2GateDecision,
+  GateDecisionV2IndependentReviewState,
+  GateDecisionV2OwnerDecisionState,
+  GateDecisionV2ReasonCode,
+  GateDecisionV2ThresholdEvidenceSummary,
+} from "./gate/decision.v2.ts";
+import type {
   GateEvidenceBundleV1,
   GateEvidenceBundleV1CompletenessInventory,
   GateEvidenceBundleV1GateId,
 } from "./gate/evidence-bundle.v1.ts";
+import type {
+  GateEvidenceBundleV2,
+  GateEvidenceBundleV2CompletenessInventory,
+  GateEvidenceBundleV2GateId,
+  GateEvidenceBundleV2HoldoutAssessment,
+  GateEvidenceBundleV2OwnerHoldoutWaiver,
+} from "./gate/evidence-bundle.v2.ts";
 import type {
   PlatformBrowserDiscoveryRequestV1,
 } from "./platform/browser-discovery-request.v1.ts";
@@ -395,6 +419,20 @@ import type {
   SemanticRuleCatalogV1RuleKind,
 } from "./semantic/rule-catalog.v1.ts";
 import type {
+  SemanticRuleCatalogV2,
+  SemanticRuleCatalogV2RuleEntry,
+  SemanticRuleCatalogV2RuleKind,
+} from "./semantic/rule-catalog.v2.ts";
+import type {
+  ServiceHealthV1,
+} from "./service/health.v1.ts";
+import type {
+  ServiceReadyV1,
+} from "./service/ready.v1.ts";
+import type {
+  ServiceVersionV1,
+} from "./service/version.v1.ts";
+import type {
   SessionApplicationSessionV1,
   SessionApplicationSessionV1RevalidationState,
   SessionApplicationSessionV1RuntimeMetadata,
@@ -517,6 +555,9 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix": CommonStableIdV1IdPrefix;
   readonly "urn:japp:schema:common:stable-id:v1#/$defs/stableId": CommonStableIdV1StableId;
   readonly "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp": CommonTimestampUtcV1UtcTimestamp;
+  readonly "urn:japp:schema:desktop:service-cancellation:v1": DesktopServiceCancellationV1;
+  readonly "urn:japp:schema:desktop:service-diagnostics:v1": DesktopServiceDiagnosticsV1;
+  readonly "urn:japp:schema:desktop:service-request:v1": DesktopServiceRequestV1;
   readonly "urn:japp:schema:error:catalog:v1": ErrorCatalogV1;
   readonly "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry": ErrorCatalogV1CatalogEntry;
   readonly "urn:japp:schema:error:record:v1": ErrorRecordV1;
@@ -566,9 +607,20 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:gate:decision:v1#/$defs/ownerDecisionState": GateDecisionV1OwnerDecisionState;
   readonly "urn:japp:schema:gate:decision:v1#/$defs/reasonCode": GateDecisionV1ReasonCode;
   readonly "urn:japp:schema:gate:decision:v1#/$defs/thresholdEvidenceSummary": GateDecisionV1ThresholdEvidenceSummary;
+  readonly "urn:japp:schema:gate:decision:v2": GateDecisionV2;
+  readonly "urn:japp:schema:gate:decision:v2#/$defs/gateDecision": GateDecisionV2GateDecision;
+  readonly "urn:japp:schema:gate:decision:v2#/$defs/independentReviewState": GateDecisionV2IndependentReviewState;
+  readonly "urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState": GateDecisionV2OwnerDecisionState;
+  readonly "urn:japp:schema:gate:decision:v2#/$defs/reasonCode": GateDecisionV2ReasonCode;
+  readonly "urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary": GateDecisionV2ThresholdEvidenceSummary;
   readonly "urn:japp:schema:gate:evidence-bundle:v1": GateEvidenceBundleV1;
   readonly "urn:japp:schema:gate:evidence-bundle:v1#/$defs/completenessInventory": GateEvidenceBundleV1CompletenessInventory;
   readonly "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId": GateEvidenceBundleV1GateId;
+  readonly "urn:japp:schema:gate:evidence-bundle:v2": GateEvidenceBundleV2;
+  readonly "urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory": GateEvidenceBundleV2CompletenessInventory;
+  readonly "urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId": GateEvidenceBundleV2GateId;
+  readonly "urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment": GateEvidenceBundleV2HoldoutAssessment;
+  readonly "urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver": GateEvidenceBundleV2OwnerHoldoutWaiver;
   readonly "urn:japp:schema:platform:browser-discovery-request:v1": PlatformBrowserDiscoveryRequestV1;
   readonly "urn:japp:schema:platform:browser-record:v1": PlatformBrowserRecordV1;
   readonly "urn:japp:schema:platform:browser-record:v2": PlatformBrowserRecordV2;
@@ -698,6 +750,12 @@ export interface GeneratedTypeByRef {
   readonly "urn:japp:schema:semantic:rule-catalog:v1": SemanticRuleCatalogV1;
   readonly "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleEntry": SemanticRuleCatalogV1RuleEntry;
   readonly "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleKind": SemanticRuleCatalogV1RuleKind;
+  readonly "urn:japp:schema:semantic:rule-catalog:v2": SemanticRuleCatalogV2;
+  readonly "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry": SemanticRuleCatalogV2RuleEntry;
+  readonly "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind": SemanticRuleCatalogV2RuleKind;
+  readonly "urn:japp:schema:service:health:v1": ServiceHealthV1;
+  readonly "urn:japp:schema:service:ready:v1": ServiceReadyV1;
+  readonly "urn:japp:schema:service:version:v1": ServiceVersionV1;
   readonly "urn:japp:schema:session:application-session:v1": SessionApplicationSessionV1;
   readonly "urn:japp:schema:session:application-session:v1#/$defs/revalidationState": SessionApplicationSessionV1RevalidationState;
   readonly "urn:japp:schema:session:application-session:v1#/$defs/runtimeMetadata": SessionApplicationSessionV1RuntimeMetadata;
@@ -793,6 +851,9 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:common:stable-id:v1#/$defs/idPrefix",
   "urn:japp:schema:common:stable-id:v1#/$defs/stableId",
   "urn:japp:schema:common:timestamp-utc:v1#/$defs/utcTimestamp",
+  "urn:japp:schema:desktop:service-cancellation:v1",
+  "urn:japp:schema:desktop:service-diagnostics:v1",
+  "urn:japp:schema:desktop:service-request:v1",
   "urn:japp:schema:error:catalog:v1",
   "urn:japp:schema:error:catalog:v1#/$defs/catalogEntry",
   "urn:japp:schema:error:record:v1",
@@ -842,9 +903,20 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:gate:decision:v1#/$defs/ownerDecisionState",
   "urn:japp:schema:gate:decision:v1#/$defs/reasonCode",
   "urn:japp:schema:gate:decision:v1#/$defs/thresholdEvidenceSummary",
+  "urn:japp:schema:gate:decision:v2",
+  "urn:japp:schema:gate:decision:v2#/$defs/gateDecision",
+  "urn:japp:schema:gate:decision:v2#/$defs/independentReviewState",
+  "urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState",
+  "urn:japp:schema:gate:decision:v2#/$defs/reasonCode",
+  "urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary",
   "urn:japp:schema:gate:evidence-bundle:v1",
   "urn:japp:schema:gate:evidence-bundle:v1#/$defs/completenessInventory",
   "urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId",
+  "urn:japp:schema:gate:evidence-bundle:v2",
+  "urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory",
+  "urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId",
+  "urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment",
+  "urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver",
   "urn:japp:schema:platform:browser-discovery-request:v1",
   "urn:japp:schema:platform:browser-record:v1",
   "urn:japp:schema:platform:browser-record:v2",
@@ -974,6 +1046,12 @@ export const CONTRACT_SCHEMA_REFS: readonly (keyof GeneratedTypeByRef)[] = [
   "urn:japp:schema:semantic:rule-catalog:v1",
   "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleEntry",
   "urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleKind",
+  "urn:japp:schema:semantic:rule-catalog:v2",
+  "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry",
+  "urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind",
+  "urn:japp:schema:service:health:v1",
+  "urn:japp:schema:service:ready:v1",
+  "urn:japp:schema:service:version:v1",
   "urn:japp:schema:session:application-session:v1",
   "urn:japp:schema:session:application-session:v1#/$defs/revalidationState",
   "urn:japp:schema:session:application-session:v1#/$defs/runtimeMetadata",
@@ -1669,6 +1747,39 @@ export function validateCommonTimestampUtcV1UtcTimestamp(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:desktop:service-cancellation:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceCancellationV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceCancellationV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceCancellationV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-cancellation:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:desktop:service-diagnostics:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceDiagnosticsV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceDiagnosticsV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceDiagnosticsV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-diagnostics:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:desktop:service-request:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated DesktopServiceRequestV1 type only after validation succeeds.
+ */
+export function validateDesktopServiceRequestV1(
+  data: unknown,
+): ContractValidationOutcome<DesktopServiceRequestV1> {
+  return validateContractInstance("urn:japp:schema:desktop:service-request:v1", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:error:catalog:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated ErrorCatalogV1 type only after validation succeeds.
@@ -2208,6 +2319,72 @@ export function validateGateDecisionV1ThresholdEvidenceSummary(
 }
 
 /**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2 type only after validation succeeds.
+ */
+export function validateGateDecisionV2(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2#/$defs/gateDecision
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2GateDecision type only after validation succeeds.
+ */
+export function validateGateDecisionV2GateDecision(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2GateDecision> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2#/$defs/gateDecision", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2#/$defs/independentReviewState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2IndependentReviewState type only after validation succeeds.
+ */
+export function validateGateDecisionV2IndependentReviewState(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2IndependentReviewState> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2#/$defs/independentReviewState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2OwnerDecisionState type only after validation succeeds.
+ */
+export function validateGateDecisionV2OwnerDecisionState(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2OwnerDecisionState> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2#/$defs/ownerDecisionState", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2#/$defs/reasonCode
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2ReasonCode type only after validation succeeds.
+ */
+export function validateGateDecisionV2ReasonCode(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2ReasonCode> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2#/$defs/reasonCode", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateDecisionV2ThresholdEvidenceSummary type only after validation succeeds.
+ */
+export function validateGateDecisionV2ThresholdEvidenceSummary(
+  data: unknown,
+): ContractValidationOutcome<GateDecisionV2ThresholdEvidenceSummary> {
+  return validateContractInstance("urn:japp:schema:gate:decision:v2#/$defs/thresholdEvidenceSummary", data);
+}
+
+/**
  * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v1
  * through the strict canonical Ajv catalog, narrowing to the
  * generated GateEvidenceBundleV1 type only after validation succeeds.
@@ -2238,6 +2415,61 @@ export function validateGateEvidenceBundleV1GateId(
   data: unknown,
 ): ContractValidationOutcome<GateEvidenceBundleV1GateId> {
   return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v1#/$defs/gateId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateEvidenceBundleV2 type only after validation succeeds.
+ */
+export function validateGateEvidenceBundleV2(
+  data: unknown,
+): ContractValidationOutcome<GateEvidenceBundleV2> {
+  return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v2", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateEvidenceBundleV2CompletenessInventory type only after validation succeeds.
+ */
+export function validateGateEvidenceBundleV2CompletenessInventory(
+  data: unknown,
+): ContractValidationOutcome<GateEvidenceBundleV2CompletenessInventory> {
+  return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v2#/$defs/completenessInventory", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateEvidenceBundleV2GateId type only after validation succeeds.
+ */
+export function validateGateEvidenceBundleV2GateId(
+  data: unknown,
+): ContractValidationOutcome<GateEvidenceBundleV2GateId> {
+  return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v2#/$defs/gateId", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateEvidenceBundleV2HoldoutAssessment type only after validation succeeds.
+ */
+export function validateGateEvidenceBundleV2HoldoutAssessment(
+  data: unknown,
+): ContractValidationOutcome<GateEvidenceBundleV2HoldoutAssessment> {
+  return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v2#/$defs/holdoutAssessment", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated GateEvidenceBundleV2OwnerHoldoutWaiver type only after validation succeeds.
+ */
+export function validateGateEvidenceBundleV2OwnerHoldoutWaiver(
+  data: unknown,
+): ContractValidationOutcome<GateEvidenceBundleV2OwnerHoldoutWaiver> {
+  return validateContractInstance("urn:japp:schema:gate:evidence-bundle:v2#/$defs/ownerHoldoutWaiver", data);
 }
 
 /**
@@ -3657,6 +3889,72 @@ export function validateSemanticRuleCatalogV1RuleKind(
   data: unknown,
 ): ContractValidationOutcome<SemanticRuleCatalogV1RuleKind> {
   return validateContractInstance("urn:japp:schema:semantic:rule-catalog:v1#/$defs/ruleKind", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:semantic:rule-catalog:v2
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SemanticRuleCatalogV2 type only after validation succeeds.
+ */
+export function validateSemanticRuleCatalogV2(
+  data: unknown,
+): ContractValidationOutcome<SemanticRuleCatalogV2> {
+  return validateContractInstance("urn:japp:schema:semantic:rule-catalog:v2", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SemanticRuleCatalogV2RuleEntry type only after validation succeeds.
+ */
+export function validateSemanticRuleCatalogV2RuleEntry(
+  data: unknown,
+): ContractValidationOutcome<SemanticRuleCatalogV2RuleEntry> {
+  return validateContractInstance("urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleEntry", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated SemanticRuleCatalogV2RuleKind type only after validation succeeds.
+ */
+export function validateSemanticRuleCatalogV2RuleKind(
+  data: unknown,
+): ContractValidationOutcome<SemanticRuleCatalogV2RuleKind> {
+  return validateContractInstance("urn:japp:schema:semantic:rule-catalog:v2#/$defs/ruleKind", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:health:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceHealthV1 type only after validation succeeds.
+ */
+export function validateServiceHealthV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceHealthV1> {
+  return validateContractInstance("urn:japp:schema:service:health:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:ready:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceReadyV1 type only after validation succeeds.
+ */
+export function validateServiceReadyV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceReadyV1> {
+  return validateContractInstance("urn:japp:schema:service:ready:v1", data);
+}
+
+/**
+ * Validate unknown input against urn:japp:schema:service:version:v1
+ * through the strict canonical Ajv catalog, narrowing to the
+ * generated ServiceVersionV1 type only after validation succeeds.
+ */
+export function validateServiceVersionV1(
+  data: unknown,
+): ContractValidationOutcome<ServiceVersionV1> {
+  return validateContractInstance("urn:japp:schema:service:version:v1", data);
 }
 
 /**

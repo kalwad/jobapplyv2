@@ -1,0 +1,209 @@
+{
+  "archives": [
+    {
+      "archive": "docs/evidence/m02-w14-918-ci/proof.tar.gz",
+      "regular_members": 80,
+      "sha256": "c41d0e42f1bf5ba0f1b37dcdd402cf1c130b64ce3970dd3254eb4a311dd4e956",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-build-result-concurrency/proof.tar.gz",
+      "regular_members": 95,
+      "sha256": "2620c4c3706a78f4895c5dc9e67450f0924b45d2f5d5ab5bd6fe94d5e09628ef",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-comparisons-actual/proof.tar.gz",
+      "regular_members": 33,
+      "sha256": "017c88bd23b00158870d1cb23c5369b8ee32fc3d86f18ce737fef5f87ae79e5d",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-d99-ci/proof.tar.gz",
+      "regular_members": 80,
+      "sha256": "7fceae5ae0ee5b0c4bff5a90f45f5bc33f473accd53cedc1914baa5104fec6e1",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-fc48930-ci/proof.tar.gz",
+      "regular_members": 85,
+      "sha256": "5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-fixture-lifecycle/proof.tar.gz",
+      "regular_members": 18,
+      "sha256": "05a84f35fd7f8bf814b6ce55a2e67e713e2e86b7a00abd07147fe37dfb70c50f",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-fixture-lifecycle-yield/proof.tar.gz",
+      "regular_members": 22,
+      "sha256": "99523db9cd272a483b147097d6b955b4015b19574ed64b6abc05cce3580b3a2b",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-focus-value-green/proof.tar.gz",
+      "regular_members": 456,
+      "sha256": "cd8fd90b9a4d2dcb7e196404e5ff791fd23b0e2325b2f5d069523c1916c2e447",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-focus-value-red/proof.tar.gz",
+      "regular_members": 459,
+      "sha256": "aebfb3fba84ce7c689bcb69234310cdccc87f4390ee116933631adeedaeef829",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-frozen-0dd88ce/proof.tar.gz",
+      "regular_members": 25,
+      "sha256": "6b9ab884d4c6990da2af98229f0bf7f78837a16bbeac63b82bb9832c8b6d5edb",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-frozen-730c641/proof.tar.gz",
+      "regular_members": 88,
+      "sha256": "0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-frozen-b8b1423/proof.tar.gz",
+      "regular_members": 14,
+      "sha256": "1c6f71f5e809c8a05129c17c93d59611bceabd3de2875b4ce5a9a028bca966c2",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-frozen-d99c592/proof.tar.gz",
+      "regular_members": 19,
+      "sha256": "8289cac18f81478022e6b5f4fc8afbacd952fdb9bde2ce792dcbb7fb4f05f832",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-frozen-fc48930/proof.tar.gz",
+      "regular_members": 48,
+      "sha256": "28e1132c7762c3327f0943bad8973625e74e8a14ff556d9ad0c12efacc564a0a",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-functional-corrections/proof.tar.gz",
+      "regular_members": 42,
+      "sha256": "be18d2c914fc720c58a72021397a957a05112d3d3b110f728557f236626ff435",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-integrated-checkpoint/proof.tar.gz",
+      "regular_members": 46,
+      "sha256": "dcc0bb606d6254d5b3ec25886ffff4be809253090483bc503d3c06e47aa6dc61",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-native-validity/proof.tar.gz",
+      "regular_members": 115,
+      "sha256": "c10dec4ebfe565dde09425a73a38c647f9e8e51105e15163ae96eb4cb602596f",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-paired-revision5/proof.tar.gz",
+      "regular_members": 5,
+      "sha256": "75472c6829be2abce20600cf4f3470f6a6b8f1e1e104c2bdcf752d4556270b9f",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-paired-revision6/proof.tar.gz",
+      "regular_members": 5,
+      "sha256": "2331c32fdab2cba0c2f14084bf9e818ae2db00810e5717ffc3b6f3b559767ad6",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-paired-revision7/proof.tar.gz",
+      "regular_members": 7,
+      "sha256": "207290a85dcd1c28fa88dc23abc07861d73dcea049bd9bf9831b183c0893e335",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-paired-revision8/proof.tar.gz",
+      "regular_members": 75,
+      "sha256": "438d4c1755746dc19d0f8b0fde46c2b003576dc87fc4e4267616ebbc14155172",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-paired-revision9/proof.tar.gz",
+      "regular_members": 87,
+      "sha256": "a46bbb17864f625138a44a49270776e13c519103e6deb5f7f8949c04c75b7d8c",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-public-0dd88ce/proof.tar.gz",
+      "regular_members": 22,
+      "sha256": "05e01c8c5bd808393c15ae512557fce23b765f074060b30d6f2676f16abe5948",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-public-actual/proof.tar.gz",
+      "regular_members": 26,
+      "sha256": "f5510561929290794fb98c1a3b9863cc987b0d97c44c6247119febb531a5359c",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-public-observation-correction/proof.tar.gz",
+      "regular_members": 35,
+      "sha256": "ab26ba7132dcdbce367341c12dc62e1cb8e16e012b6e8cdf5393318e8eb8fb4b",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-python-918dedb/proof.tar.gz",
+      "regular_members": 7,
+      "sha256": "87daa8d094c38e8ac94328df48549e63c1cceab362863bbbdfa87b4dd6ba5fe2",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-reporting-correction/proof.tar.gz",
+      "regular_members": 12,
+      "sha256": "78e64a3362f8b996c5441123fbf59c499f19be42f979f147f79bfe36361156f7",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-revision7-actual/proof.tar.gz",
+      "regular_members": 25,
+      "sha256": "1f4e05a9f86d94832cbfde33b1d7b38d73255f42efd00337954e2ccfaf3a2018",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-revision8-coordinator/proof.tar.gz",
+      "regular_members": 14,
+      "sha256": "9be801fefecb570931ad717d978cc5c058a2090db7045fae335f723c097fc3ff",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-revision9-actual/proof.tar.gz",
+      "regular_members": 102,
+      "sha256": "72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-sha-optimization/proof.tar.gz",
+      "regular_members": 10,
+      "sha256": "c8580dbf16d1565ff60082b26b525bbb93638892a603b2f01f7bc7e0a95647f4",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-versioned-semantics/proof.tar.gz",
+      "regular_members": 48,
+      "sha256": "9d8d5b8f968850390ff2de020d2b2995403e270aaf8639df0ea9746e8ba57154",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-windows-compiler/proof.tar.gz",
+      "regular_members": 16,
+      "sha256": "7b25aed2f140a93c72a48e3682454d6ff658a771022a650acfcea809eadd6fc2",
+      "result": "PASS"
+    },
+    {
+      "archive": "docs/evidence/m02-w14-windows-fixture-utf8/proof.tar.gz",
+      "regular_members": 16,
+      "sha256": "bd73138b0d19921a0083cf8977faf3c3c8f69208d39177d8a377e940c29bf82d",
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,26 @@
+{
+  "count": 19,
+  "matches_committed_inventory": true,
+  "common_count": 1451,
+  "nodeids": [
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_registration_is_exact_and_mandatory",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_opt_in_has_only_three_exact_command_shapes",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_controlled_proof_accepts_exact_ordinary_passes",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_controlled_proof_rejects_nonordinary_summaries",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_controlled_proof_rejects_missing_or_changed_discovery",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_controlled_proof_rejects_command_or_count_drift",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_public_controlled_proof_refuses_expected_failures",
+    "scripts/tests/test_w14_public_controlled_proof.py::test_w14_controlled_proof_files_receive_static_no_skip_policy",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_registration_has_its_own_exact_mandatory_inventory",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_only_exact_build_run_and_list_receive_contact_opt_in",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_child_environment_is_narrow_and_parent_flags_do_not_mutate",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_proof_accepts_matching_ordinary_execution_and_listing",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_protocol_rejects_other_counts_and_nonpasses",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_proof_rejects_nonordinary_terminal_channels",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_json_rejects_expected_failures_retries_and_drift",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_rejects_changed_discovery_and_test_identities",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_closed_inventories_reject_drift_before_any_subprocess",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_raw_inventory_is_valid_before_vitest_reporter_normalization",
+    "scripts/tests/test_w14_contact_controlled_proof.py::test_w14_contact_missing_source_and_direct_expected_failure_refuse"
+  ]
+}

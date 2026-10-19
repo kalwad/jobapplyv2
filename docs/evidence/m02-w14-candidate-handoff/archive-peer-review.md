@@ -1,0 +1,13 @@
+# Independent candidate-handoff retention packaging review
+
+CLEAR:32/32 read-only packaging checks pass for `proof.tar.gz`, SHA-256 `f9a2837336150dcb4d5b8d1781c05e3e4d108ea951c9af178f0f5176a548045f`,5653702bytes,33 safe unique sorted regular members/8880372 unpacked bytes. No blocking packaging finding was found.
+
+The exhaustive outer index matches every member's length and SHA-256. The embedded index covers exactly32 payload members, excluding only itself. All12 original mounted-directory files and18 original candidate-directory files, including the sealed17-file proposal plus its manifest, match byte-for-byte with no omitted or extra source file. The embedded wrapper and retention builder exactly match their original external files. The candidate proposal seal remains `a656f972bda125ee25c111c542c71895458cdd56705b90cf004f39dbf846ace5`.
+
+The archive preserves all200 canonical result objects and corresponding IDs/case/raw-report digests without truncation, plus raw mounted32 evidence, source/build endpoints, the original checker-normalization failure and corrected checker, and its173-check audit plus separate two-check validity/mirror supplement. The contained counts and root summary agree:32cases=18contact-scored+14unsupported-only;144observed controls/43correct contact;58required controls reported; measured unsupported-write/value-change, duplicate, button-click and submission counters0. These are preserved historical evidence, not newly executed product tests.
+
+The single original trace ZIP passes CRC and path/member safety checks across295 unique entries. Its captured request inventory has173 loopback requests and32 extension-origin requests; all205 are GET, and no URL contains credentials. This bounded trace inventory does not establish arbitrary action absence or a comprehensive privacy audit.
+
+The packaging report correctly keeps historical730 and current1d source anchors separate, and claims no W15 decision, owner approval, Gate A PASS or production support. The retained candidate index keeps ADR0007's later source digest null. The manual checklist remains a retained-image inspection.32case accounting is not32fill successes, and the67clauses remain separate fixture behavior proof.
+
+This reviewer authored the original candidate-index proposal. This review independently evaluates root's retention packaging only; it does not rebrand that authored content as a new independent product audit. No project commands, root edits, product actors, builds, browser sessions or network requests occurred during this review. Embedded code was read, never executed. Root may retain this report/findings beside the exact unchanged archive and append the peer verdict to outer report/summary metadata.

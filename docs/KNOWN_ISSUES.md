@@ -32,6 +32,481 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current hosted Windows failures (2026-10-19UTC)
+
+### KI-0114 — Windows builder mock supplies a non-absolute system directory
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native package tests / REQ-PLAT-013; scripts/tests/test_windows_builder.py
+- Description: mocked GetWindowsDirectoryW returns /trusted/windows. On native Windows this lacks a drive and Path(...).is_absolute() refuses before the synthetic six-stage proof. Actual Python1798PASS/1FAIL652.50s; no real native builder or application failure is inferred from this fixture.
+- Reproduction: exact660f/be68 testedmergef1a558ee; official Windows log8267–8429 and API/source bindings are retained.
+- Workaround: none used; original canonical Windows failure stays failed.
+- Resolution + evidence link: reviewed test-only tmp_path-derived absolute directory replaces three fake API/count/expected-env sites, preserving every stage, CLI argument and assertion. Actual local fixture3PASS and canonical715focus/1860collection remain separately bound. Fresh native Windows validation is pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0115 — Tauri ACL tests send a nonlocal origin on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native diagnostics transport tests / REQ-PLAT-013; src/diagnostics/tests/tauri.rs
+- Description: six test requests hardcode tauri://localhost. Pinned Tauri2.12.4 uses http://tauri.localhost on Windows/Android; its actual local-only ACL rejects the hardcoded URL. Two default-library assertions fail: allowed-command unwrap gets ACL refusal and malformed-message assertion sees Null. Actual218PASS/2FAILof220; no production permission broadening is warranted.
+- Reproduction: exact660f/be68 testedmergef1a558ee Windows default cargo test, official log9070–9085. Later all-features/SDK/finalbuild are unexecuted.
+- Workaround: none; no ACL/CSP/command change or ignored assertion is used.
+- Resolution + evidence link: test-only local_app_origin matches the exact pinned framework's official test example; six argument adapters preserve all four tests/assertions and secondary-window/remote denial. Actual localMac Rust15commands/232cases each3/finalbuildPASS; fresh Windows validation remains pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0111 — Windows executable link duplicates RT_MANIFEST
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 native build/test infrastructure / REQ-PLAT-013; Windows desktop bin-test link
+- Description: Tauri's resource.lib embeds its default manifest while the candidate also passes general /MANIFEST:EMBED and /MANIFESTINPUT. CVTRES rejects duplicate name1/language0x0409; LINK returns LNK1123 before a successful new executable launch.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955, default desktop cargo test exit101; official raw link command and diagnostic are retained.
+- Workaround: none used; originalc4f linkFAIL remains unchanged. The later660f canonical Rust suite still fails on two test-origin assertions, separately tracked by KI-0115.
+- Resolution + evidence link: FIXED for the duplicate-manifest link defect by exact660f Windows evidence: default test executables link and library220 cases actually execute; two retained PE files and mt-extracted manifests contain CommonControls6. No duplicate CVT1100/LNK1123 occurs. Static diagnostic itself claims no causal loader verdict, and later native modes/finalbuild remain unexecuted; this does not close historicalKI-0109 or certify the normal app. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
+
+### KI-0112 — Windows typecheck exits without a captured compiler diagnostic
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 canonical typecheck validation / REQ-PLAT-013
+- Description: pnpm exec turbo run typecheck exits1; complete captured aggregate output contains package-group discovery and telemetry but no compiler diagnostic or task footer. The source cause is UNOBSERVED.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955 typecheck block; no guessed TypeScript error, timeout or flaky classification is used.
+- Workaround: none used; originalc4f typecheckFAIL is preserved with causeUNOBSERVED, without guessed TypeScript error, timeout or flaky classification.
+- Resolution + evidence link: bounded15fixed-path existing Turbo logs now actually retain446B in successful660f Windows diagnostic; current canonical typecheckPASS. Current successful logs do not establish the olderc4f failure cause, so this historical investigation remains IN_PROGRESS. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
+
+### KI-0113 — Windows failure diagnostic joins multiple Git executable paths
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849 step26
+- Affects: M03 Windows native failure diagnostics / REQ-PLAT-013
+- Description: Get-Command returns multiple ApplicationInfo records; array-to-text coercion makes Get-Item receive one joined invalid path. Diagnostic fails before checkout/image/tool inspection.
+- Reproduction: retained step26 log and DIAGNOSTIC_INCOMPLETE/source null/images empty/tools empty artifact from exactc4f run.
+- Workaround: none; the original incompletec4f artifact/zero-image/zero-tool result remains preserved.
+- Resolution + evidence link: FIXED for joined Git-path resolution by actual660f Windows step26SUCCESS: one first-Application image resolves, checkout/tree145source records bind,14static commands exit0,4tools and2PE/CommonControls6manifests are retained, and artifact upload succeeds. The five historical PowerShell source fixtures remain unexecuted; real native resolver execution supplies the direct outcome. This is static diagnostic success, not a causal loader or full Rust/app verdict. See docs/evidence/m03-w06-shared-native-packaging.
+
+## Current package-test collection correction (2026-10-19UTC)
+
+### KI-0110 — macOS package fixture violates static collection policy
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC during M03-W06 clean e0a501b full verification
+- Affects: M03-W06 / REQ-PLAT-013; scripts/tests/test_macos_package.py and mandatory Python/integrity preflight
+- Description: a synthetic-mode fixture passes its current module namespace into monkeypatch.setattr. The unchanged fail-closed collection-policy visitor rejects this unmodeled namespace escape. The full reports18PASS/2FAIL before pytest collection/execution; affected tests passing alone did not establish canonical preflight validity.
+- Reproduction: clean e0a501b/treebbf94 pnpm verify exits1; static-policy reproduction also exits1 with dynamic pytest collection hook registration is forbidden. Original failure evidence remains unchanged.
+- Workaround: none; no verifier bypass, skip, allowlist or weakened policy is used.
+- Resolution + evidence link: explicit fixture-helper keyword avoids module-namespace mutation while preserving owned-file checks, all19 test names/args/decorators and36 assertions. Actual six-command check passes, including affected30 and mandatory1801Python/no skips plus integrity; source1951/runtime40 remain unchanged with owned groups reaped/GONE. Different source8 and actual-data12 reviews CLEAR. See docs/evidence/m03-w06-collection-correction and docs/TEST_EVIDENCE.md. A new clean all20 and W06 GUI/package acceptance remain pending separately.
+
+## Current Windows native validation finding (2026-10-19UTC)
+
+### KI-0109 — Desktop unit-test executable fails before startup on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39194489970,Windows job117874182536
+- Affects: M03 native test/build infrastructure / REQ-PLAT-013; Windows desktop library test executable
+- Description: default cargo test links then exits0xc0000139 STATUS_ENTRYPOINT_NOT_FOUND before any library test summary. Windows aggregate is19PASS/RustFAIL; later all-features/SDK test modes and final desktop build are unexecuted. Three strict Clippy commands cover three workspaces, only one desktop. No failed-PE import, actual missing DLL/export or production-app failure is observed.
+- Reproduction: immutable2a327/tree4ce9, actual PRmerge bdeb5ddae0ade030b5d0be2aa95dd3a8288fc03b; `cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml` launches japp_desktop-d259cde1f90c873d.exe and returns3221225785. Official logs ZIP72304ac2157ecb71b9a2192dab7ce9e228786d1b06a70867861ccb26f21d0e42 and exact raw lines are retained. The downloadable artifact has10visualPNGs, no native PE/DLL/trace.
+- Workaround: none used; canonical failure remains failed, Windows step26SKIPPED. Mac/local results grant no Windows startup PASS.
+- Resolution + evidence link: target-scoped Common Controls v6 manifest candidate and bounded failure-only diagnostics are now integrated with separate source reviews and actual Mac affected checks (544Python/183native each3). Actual Windows PE/resource/unchanged native tests are next; cause/fix and normal-app resource merging remain unvalidated. Canonical failure handling is unchanged. See docs/evidence/m03-w06-windows-loader-correction, docs/evidence/m03-w04-hosted-ci and docs/TEST_EVIDENCE.md; current work continues in W06.
+
+## Current browser validation regression (2026-10-19UTC)
+
+### KI-0108 — Windows owned browser-context and profile cleanup fails; failure artifact unavailable
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC in required hosted run39188122249, Windows job117854768223
+- Affects: M03 verification infrastructure / REQ-PLAT-013; e2e/extension/support/extension-test.ts
+- Description: the observed-boundary research case reports1.7s and fails during fixture teardown, which reports EXTENSION_CONTEXT_CLEANUP_FAILED: browserContext.close returns Target page, context or browser has been closed, and recursive owned-profile removal returns EPERM despite the existing10 retries/100ms delay. The default browser suite reports255PASS/1FAIL;19 other suites pass, including all required native modes. No timeout or flaky classification is inferred.
+- Reproduction: exact6d3 source, actual PR merge0d3/tree34, official complete logs.zip SHA25617c2114afd39c71c15686e3a966f7f001775e2216cefdf2f35caba7782e1aa7d; Windows research spec:585. The upload step reports no files and the official artifact API returns total_count0; printed trace/error-context paths do not supply retained artifact bytes.
+- Workaround: none used; Windows aggregate remains FAIL and its separate tracked-change stepSKIPPED. W03 package-scoped verification is separately justified by its actual required behavior/source evidence, while this repository regression and global CI requirements remain open.
+- Resolution + evidence link: repair owned lifecycle/profile cleanup and preserve failure outputs across later suites, retaining every original assertion, strict failure policy and bounded budgets. Revalidate before closing. See docs/evidence/m03-w03-closeout/ci-6d3-terminal.tar.gz and terminal-ci-independent-review.
+
+- Implemented correction (2026-10-19UTC): captured owned-Browser retirement and awaited async profile removal retain all Context.close errors and original budgets; sibling output roots preserve actual failed trace bytes. Actual10-case RED/44GREEN,355 Python checks, one local WD replay and real retained failure trace pass separate review465e8e22. Root strict typecheck initially fails on one local test annotation; the exact annotation fix and complete PASS are retained. Canonical full and actual native Windows validation remain pending; no prior failed job is relabeled. See docs/evidence/m03-w04-browser-cleanup.
+
+- Closure (2026-10-19UTC): actual source-bound run39194489970 browser262+2+62+3 passes on Windows, Ubuntu and macOS; current local W05 all20 also passes, with preserved source/counterproof and separate CI documentary74/74 review. This closes the cleanup/failure-artifact correction scope, while the new Windows Rust loader failure is KI-0109. Old255PASS/1FAIL and missing trace remain unchanged. See docs/evidence/m03-w04-hosted-ci and docs/evidence/m03-w05-closeout.
+
+## M03-W03 validation findings (2026-10-18)
+
+### KI-0107 — Windows deny-warnings compilation exposes unused backend scaffolding
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-19UTC while inspecting terminal hosted run39164520190
+- Affects: M03-W03; strict Windows desktop Rust compilation
+- Description: actual Windows1648 Python tests pass, but strict Clippy rejects currently unused Bootstrap/ReadyFrame imports, bounded stream helpers and the common CleanupPending variant without a Windows production constructor. macOS and Ubuntu complete successfully.
+- Reproduction: official logs.zip SHA256bf47756e7f9027a6ad7e77278c53cc5f1221261b6d8fcdcded194035e18c4a07, full Windows Rust output. Actual PR merge checkout ab2d8a5 has the exact cac56/tree7d7afc0 source content.
+- Workaround: none used; the Windows job remains failed.
+- Resolution + evidence link: independently reviewed four-file compiler-scope patch b7d49f4b preserves every runtime method body, common typed contract, strict warning policy and all77 tests/assertions. Ten isolated Mac commands and53 independent source checks pass. Fresh root/full/native and actual Windows confirmation remain required. W07 integration must restore actual Windows stream consumers and remove the variant-only expectation. See docs/TEST_EVIDENCE.md and docs/evidence/m03-w03-lifecycle/windows-clippy-manifest.json.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0106 — Windows post-exit refusal observation used a 0.2-second budget
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during hosted validation of M03-W02
+- Affects: M03-W02 / M03-W03; service lifecycle test observation
+- Description: Windows CI completed READY, authenticated canonical responses, parent EOF and service exit0, then timed out in the single post-exit socket probe. The observed failure was at the refusal check, not startup or shutdown.
+- Reproduction: GitHub Actions run39158999648, Windows verify log, test_service_cli.py line167; actual1624PASS/1FAIL. Raw official logs are retained separately.
+- Workaround: none used; this CI run remains failed.
+- Resolution + evidence link: proposed Windows-only3s refusal observation keeps the same required ConnectionRefusedError, single attempt, timeout failure,3s HTTP and8s exit bounds. Eight modeled tests exercise refusal, timeout, other errors and accepted-connection cleanup. Independent review and actual new Windows CI remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0105 — Runtime builder contained a platform-specific PATH literal
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W03 clean full validation
+- Affects: M03-W03; runtime builder portability policy
+- Description: the unchanged PORT-SRC-001 checker rejects the builder's literal system PATH. Both failing suites in the complete run report this same defect.
+- Reproduction: commit4244afb full validation exits1 with18/20 suites PASS and1631PythonPASS/1FAIL; portability also fails. Failed results remain retained.
+- Workaround: none used; policy and allowlist remain unchanged.
+- Resolution + evidence link: use validated absolute system defaults from os.defpath/os.pathsep while rejecting empty, relative and current-directory entries before any build command. Fifteen builder tests, unchanged policy check, strict statics, exact1642 inventory and a fresh six-stage real runtime build pass. Independent source/integration review clears the correction; fresh complete validation remains required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+### KI-0104 — Packaged runtime selection used an application feature alias
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W03 actual packaged app observation
+- Affects: M03-W03; compile-bound runtime selection
+- Description: the CLI enables tauri/custom-protocol directly; the application's custom-protocol alias can remain false. The packaged debug app therefore selected the development-stage executable despite having a bound bundled runtime.
+- Reproduction: actual4244afb app launch reports the service executable under root runtime-payload instead of bundled Resources/runtime. The observer baseline fails; this is not a passing Close case. Root GUI Quit cleans the exact observed app/service/group/listener.
+- Workaround: none used; the failed actor remains preserved.
+- Resolution + evidence link: choose mode through SDK tauri::is_dev(), preserving manifest/hash/absolute-path/no-fallback guards. Two new shipping-selector tests reproduce the direct-dependency feature mode;77 tests in each of three mandatory modes and strict Clippy/fmt pass. Windows-native fixture paths preserve production guards. Independent review clears source integration; fresh actual bundled lifecycle and full validation remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
+## M03-W02 corrected verification fixtures (2026-10-18)
+
+### KI-0103 — Status mutation fixtures inherited obsolete progress
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W02 full verification
+- Affects: M03-W02; Python verification and copied status fixtures
+- Description: one runner test replaced W02 NOT_STARTED after W02 became IN_PROGRESS, leaving the supposedly invalid status unchanged. A related negative test inherited an inconsistent current-package header before its invalid-enum mutation.
+- Reproduction: frozen28ba full verification is source-neutral but FAIL with1626Python PASS/1FAIL; two added premise checks independently reproduce the obsolete literal and invalid baseline.
+- Workaround: none used; the failed complete run is preserved and does not verify W02.
+- Resolution + evidence link: use the stable historical M00-W01 VERIFIED row with exact occurrence/change assertions for the runner mutation; establish a coherent copied W01 boundary and require baseline validator PASS before the unchanged invalid-enum mutation. All original test identities and assertions remain. Affected tests and the complete integrity module pass; fresh complete validation remains required. See docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service/failed-verification-28ba-manifest.json.
+
+## M03-W02 corrected dependency privacy default (2026-10-18)
+
+### KI-0102 — Framework telemetry defaults could observe sensitive synthetic input
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-18 during outside M03-W02 dependency/API review
+- Affects: M03-W02; local service privacy boundary
+- Description: FastAPI0.146.0 core telemetry defaults could acquire ambient providers and observe exception/validation input. The insecure proposal was never accepted or used with real user data.
+- Reproduction: retained configuration RED observes an enabled switch before any sensitive capture assertion; later hostile-provider factory regression exercises actual construction, requests, validation and exception paths.
+- Workaround: none used; no provider/SDK/exporter success is inferred.
+- Resolution + evidence link: all five switches (tracing, metrics, logs, operation_spans, auto_configure) explicitly false; focused/socket/wheel/clean full tests and independent review PASS; docs/TEST_EVIDENCE.md § M03-W02 and docs/evidence/m03-w02-service.
+
+## M03-W01 corrected native boundary (2026-10-18)
+
+### KI-0101 — Debug-packaged shell accepted the development origin
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18 during M03-W01 independent review (SHELL-001)
+- Affects: M03-W01; native shell navigation policy
+- Description: cfg!(debug_assertions) treated a debug-packaged custom-protocol app as development and permitted http://127.0.0.1:1420.
+- Reproduction: actual custom-protocol test calling the shipping callback failed before the fix; original RED is retained.
+- Workaround: none used.
+- Resolution + evidence link: shipping callback uses tauri::is_dev(); six tests in each protocol mode pass, independent review closed SHELL-001 and the final rebuilt GUI actually denied development-origin navigation. Clean source-bound full20-suite validation passes; docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell.
+
+## M02-W14 current development findings (2026-10-16)
+
+These entries supersede the older W13 sections' then-current readiness/gate posture without rewriting historical evidence. W14 is VERIFIED, Gate A IN_PROGRESS, W15 READY and release NOT_READY. ADR-0006 waives owner-controlled holdout; accepted ADR-0007 additionally waives direct Simplify comparison and executed public-form evidence. Neither waiver supplies execution or PASS. Scoped legacy baselines, all nonwaived measurement and independent review remain required. Spec §5.9 permits an isolated relevant legacy behavior baseline on the same fixtures; a full legacy scheduler/database deployment is not an added requirement.
+
+### KI-0077 — Corrected full-settlement campaign exceeds the target timing threshold
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14
+- Affects: M02-W14; generic scan/fill Gate A performance; real-MV3 full-settlement evaluation
+- Description: the corrected 200-case campaign reports p95 1799.8664160000044 ms; the subsequent sequential batched campaign reports 2087.8410830000066 ms and fails its explicit <=1500 ms assertion. Earlier 1338.2853750000068 ms belongs to a different source with 60 refused cases and deficient precision/recall, so it cannot establish a passing corrected candidate. Timings cover one execution per different W12 page with 75 ms settlement and 20 ms rerender, excluding setup/reporting; repeated 128-control proof remains separate.
+- Reproduction: run the exact batched command in docs/TEST_EVIDENCE.md § M02-W14, retaining source/build/configuration commitments and all physical counters. The fourth trace-disabled run completed and also failed at 2009.8366249999963 ms; no passing current timing is assumed.
+- Workaround: none accepted. Do not round down, omit settlement, reuse earlier source timings or drop difficult cases.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Historical full-settlement misses remain retained. The a744ff2 contact cohort passes p95 874.831582999992ms, but its separate native128 target 20 fails1535.096375000001ms. The pure SHA byte-preserving optimization is now integrated; root target 20 passes 1432.5265840000002ms with unchanged waits/thresholds and exact128/512/768 action-resolution-descriptor counts. Frozen combined-source validation is pending; no final gate result is inherited from an earlier source. See docs/evidence/m02-w14-a744ff2-aggregate and m02-w14-integrated-preflight.
+
+### KI-0078 — Localized address evidence needs exact recognition and other-party guards
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 full visible matrix evaluation
+- Affects: M02-W14; packages/form-engine evidence normalization, ontology and field classifier
+- Description: frozen W12 address labels including Street/Strasse/Adresse/Postleitzahl/Code postal were not all recognized; adding aliases also required subtype and employer/recruiter-context negatives so applicant address facts could not populate other-party fields.
+- Reproduction: retained locale before log reports 9 failures/2 passes; the later section-negative checkpoint reports 2 failures/14 passes. Permanent tests cover sharp-S normalization, unrelated spelling, subtype/substring rejection and other-party label/section conflicts.
+- Workaround: unresolved/abstained results must remain visible; never change frozen expected answers to match candidate behavior.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: local corrections are present; the inspected final form-engine log reports 93/93 tests across 8 files. Corrected/batched campaigns record ordinary precision 1485/1485 and required ordinary recall 1275/1275 on the declared contact cohort. Final W14 frozen/canonical verification remains pending, so this draft does not mark the issue FIXED. See docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-validation.
+
+Current scope limits: the preservation model is supplemental and does not rewrite W13 canonical abstention metrics. Rendered upload/repeater/radio controls do not count as exercised drivers. Thirty public sources are structurally inspected, but public fill cases/scored controls are zero. Actual shared legacy component capture is not full-product comparison; frozen registry statuses remain historical. Simplify requires the normal owner-prepared authenticated synthetic comparison route; installed extension/session state is unknown after the browser-policy rejection. Independent W15 decision is pending.
+
+### KI-0079 — Changed ownership description can retain a stale fill approval
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 independent adversarial review
+- Affects: M02-W14; scanner description evidence, W09 approval binding, W10 action preflight and W11 reconciliation
+- Description: an approved First name control can retain its durable address when its referenced description changes from Your contact to Employer. Fresh W09 classification rejects the new ownership context, but executing the earlier approval can still write the applicant value. The defect is reproduced in both the document and an open shadow root.
+- Reproduction: the two description-only ownership mutation probes retain the old W09 approval, change only the referenced description text, establish that the new W09 decision does not permit filling, then execute the old approval and measure physical events and the final value. Both before-fix executions wrote the value. Raw failure records are being retained with the shadow implementation evidence.
+- Workaround: do not integrate or claim the shadow candidate safe while this stale approval remains executable.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded ownership, settled undo and final publication guards are integrated. The retained96 and29 probes, expanded72 MV3 cases and twelve unchanged native-observed independent probes pass against their cited source inventories. The integrated aggregate retained223 browser passes and five shadow-status assertion mismatches; their corrected stronger assertions pass 35/35, and fresh frozen validation is pending. Earlier stale-approval and undo failures remain preserved under docs/evidence/m02-w14-shadow-guards, m02-w14-selected-semantics and m02-w14-independent-review.
+
+### KI-0080 — Event-only action meter cannot exclude eventless writes and restoration
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 independent scoring review
+- Affects: M02-W14; physical-action observation and supplemental initial-value preservation evidence
+- Description: the inherited W13 page meter observes input/change events rather than native setter calls. An eventless write followed by an eventless restore can leave both the event list and final value unchanged. The preservation scorer correctly evaluates its supplied audit, but that meter alone cannot substantiate exhaustive zero-write claims. No eventless production violation has been observed.
+- Reproduction: inspect the event listeners in e2e/extension/support/autofill-benchmark.ts and the zero-action/unchanged-value preservation predicate. An independent real-MV3 setter-to-restore regression is being added before claiming that this observation gap is closed.
+- Workaround: treat historical action counts as event witnesses; do not infer absence of unobserved native property writes from the absence of events.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The independent W14 native observer is integrated and records supported setters/activations in the actual extension realm, separately from site events/rerenders. Four real-MV3 observation probes and a744ff2 full200-case1485 raw/audited actions pass with zero orphans and all declared installed surfaces. Retained references, other realms and uninstalled surfaces remain explicit limits; W13 historical event metrics remain unchanged. Frozen combined-source validation is pending. See docs/evidence/m02-w14-a744ff2-aggregate.
+
+### KI-0081 — Changed selected-option semantics retain stale authority
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; native-select, radio and ARIA option approval, settlement and W11 retained verification
+- Description: an approved Country option can retain its raw value while its label changes to a placeholder or Canada. Fresh W09 policy refuses the changed semantics, but the earlier transaction can still select it and publish VERIFIED/READY; an earlier verified selection can also remain READY after relabelling. The existing unrelated-option preservation fallback discards the whole option fingerprint without retaining the selected option's semantic binding.
+- Reproduction: the independent native-six campaign uses both literal US and opaque 17 values. Before-write relabelling produces one native SELECT_VALUE write and VERIFIED despite fresh NO_SEMANTIC_MATCH; after-verification relabelling preserves READY. The unchanged selected option with an appended Mexico option remains a required positive regression. Original setup failures and corrected native proofs are retained separately under /tmp/japp-w14-independent-probes pending archival.
+- Workaround: no Gate A claim or current-source freeze while stale option authority remains. Do not fix this by rejecting all unrelated option-window changes.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Selected value/label/disabled binding is integrated across native selects, radios and ARIA widgets, with bounded original option snapshots and synchronous publication witnesses. All72 focused MV3 cases and twelve unchanged independent probes pass; unrelated Mexico append and virtualized-list positives remain supported, stale semantics perform zero writes. Before/after failures and exact source commitments are archived under docs/evidence/m02-w14-selected-semantics and m02-w14-independent-review. Combined-source focused checks pass; frozen aggregate is pending.
+
+### KI-0082 — Public report snapshot accounting omits inserted controls
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent scoring review
+- Affects: M02-W14; network-closed public DOM evaluation report and precision eligibility
+- Description: changes are currently computed by iterating only the before snapshot. A final-only control disappears from identity/change coverage, permitting apparently complete value metrics despite unmatched final topology. This is a reproducible report defect; no saved live public row or production sensitive fill is claimed.
+- Reproduction: replay the exact accounting logic with an initially empty First name control and final First name=Synthetic plus a newly inserted Social Security Number=Synthetic. It reports precision 1, unexpected nonpositive changes 0 and unmeasurable controls 0 while the snapshot lengths are 1 and 2.
+- Workaround: treat unmatched/new/missing/duplicate snapshot identities as unmeasurable. A new control's unknown initial value cannot establish that the extension wrote it.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Union accounting and explicit topology/precision eligibility are integrated. Final-only, missing, duplicate and unmatched controls remain unmeasurable, complete precision is null, and matched-subset metrics stay separately scoped. All61 a744ff2 controlled proofs pass, including the six new pure union regressions; no actual public contact run is inferred. Frozen controlled verification is pending.
+
+### KI-0083 — Native property drift escapes final verification publication
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 fresh independent worktree review
+- Affects: M02-W14; execute/undo final verification and W11 current-value observation
+- Description: MutationObserver evidence revisions do not observe ordinary value-property assignments. A site can change input.value while the final result metadata hash is awaited, leaving the semantic index current while the result publishes an earlier VERIFIED value.
+- Reproduction: actual native-observed EXECUTE and UNDO probes pause the final idempotency hash, assign Changed by site without dispatching events, confirm MutationObserver.takeRecords().length is zero, then release. Both report VERIFIED despite the changed current value. Extension native mutations remain one for execute and two total for execute plus undo; the site assignment is outside that extension-realm witness scope.
+- Workaround: no final source verification claim from an index/DOM-revision fence alone. Do not add another asynchronous hash followed by the same unchecked gap.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Bounded synchronous native-property witnesses are integrated on execute, undo and W11 after the last awaited metadata operation. The original actual eventless EXECUTE/UNDO races and new W11 property race now refuse stale verification while preserving unchanged positives. All twelve original independent probes pass at the recorded source binding. Combined-source aggregate is running; see docs/evidence/m02-w14-independent-review.
+
+### KI-0084 — Additive gate semantics changed a frozen evaluator preimage
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated aggregate at a744ff2
+- Affects: M02-W14; contract generation, W06 source preservation and compatibility
+- Description: the v2 waiver integration added 7920 bytes to the semantic evaluator source frozen in the W06 manifest. The other 102 source artifacts and all expected answers remain exact, but corpus validation correctly refuses the changed evaluator preimage. Original Python V1 catalog checks also require the original 1.1/110 layer.
+- Reproduction: the full aggregate at a744ff2 fails the ATS source-byte assertion (331227 versus 323307 bytes) and corpus:check with CORPUS_DRIFT. The frozen generator digest is d69b85650c220435e06a69186f099e89aa857834354394e47f86966fa821bc02.
+- Workaround: preserve frozen manifests and tests; never rebaseline expected source bytes to the changed implementation.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The exact reviewed24-file versioned repair is integrated. All103 frozen W06 artifacts are restored byte-for-byte, original V1 semantics remain1.1/110, and explicit V2 modules retain reviewed1.2/114 semantics with strict inherited provenance. All81 schemas, original511/new79 cases and both baselines remain unchanged. Outside sealed2524 contracts/173 generated Python/10 Rust pass; root3859-unit and frozen-corpus stages pass. Remaining combined aggregate is running. See docs/evidence/m02-w14-versioned-semantics.
+
+### KI-0085 — Field identity collisions are misreported as root ambiguity
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated browser regression
+- Affects: M02-W14; W11 reconciliation inventory and unresolved required reporting
+- Description: an intentional duplicate control shares a durable field ID with its peer while the application root remains uniquely FOUND. The action correctly refuses, but reconciliation reports ROOT_AMBIGUOUS instead of retaining both physical controls as unresolved observation evidence.
+- Reproduction: the existing research ambiguity case at a744ff2 expects RECONCILED and receives ROOT_AMBIGUOUS; the trace retains root_status FOUND and two required controls with field_45D1MFTFZHA73GSAHCKK2E99QQ. No prohibited write occurs.
+- Workaround: never remove the collision refusal while allowing the field-ID map to overwrite one control.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: Observation-only physical collision entries are integrated, with distinct report item IDs, required unresolved uncertainty and canonical RECONCILED/NOT_READY. No DOM occurrence/report ID grants action authority. The strengthened original P8 actual regression and classifier units pass, retaining every collision member and recovery after removal of one duplicate. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+
+### KI-0086 — Mounted confirmation approval becomes stale after cross-field validation
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 mounted W06 regression
+- Affects: M02-W14; fresh W08/W09 approval and composite validation clearing in W10/W11/undo
+- Description: filling primary email in MAL-VAL-001 changes the confirmation control's description. The mounted helper reuses its initial descriptor, so the ownership guard correctly refuses the stale approval and verifies 42 of the expected 43 contact fields. A fresh approval must also prove that only the observed validation error clears while stable help remains unchanged.
+- Reproduction: the a744ff2 W06 attachment records val-email-confirm empty with zero physical actions, its description/address digest changed by Confirm the email address, and the unchanged 43-field assertion fails on 42.
+- Workaround: do not relax description authority or lower the expected count. Do not treat arbitrary description shrinkage as validation clearing.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: The existing bounded W08 re-resolution endpoint supplies fresh same-frame/document/field evidence before each W09 decision. Exact component-level clearing permits only observed rejected error text to become empty, retaining stable help/ownership/references through W11 and undo. Outside actual W06 passes 32 cases and43/43 controls with unchanged source/build; P8 and six composite cases pass. All35 affected shadow/P8 cases pass after replacing only contradictory new field/root-status expectations with two unresolved items, unique report IDs, zero verified credit and NOT_READY. Original no-write assertions and P8 are unchanged; frozen aggregate is pending. See docs/evidence/m02-w14-functional-corrections.
+
+### KI-0087 — Healthy doctor fixture omits active W14 public artifacts
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 integrated Python validation
+- Affects: M02-W14; scripts/tests/test_doctor.py healthy Windows simulation
+- Description: the healthy fixture copies the current M02-W14 status and suite registry but omits the two new required public suites' discovery artifacts. The doctor correctly reports REQUIRED_MISSING, contradicting the fixture's healthy premise.
+- Reproduction: integrated Python collects1454 and reports1452 passes/two failures. The Windows simulation reports missing public-inspection/public-contact paths. The other neutrality failure came from root edits during validation and is retained separately.
+- Workaround: preserve the required-suite checks and all original assertions; never mark the suites not applicable to make a healthy fixture pass.
+- Resolution + evidence link: FIXED by the frozen b8b1423 aggregate (all 19 active suites PASS); see the local defect closeout below and docs/evidence/m02-w14-frozen-b8b1423. The following earlier checkpoints remain historical: copy the four actual committed discovery artifacts into the simulated repo. All50 doctor tests pass, including the unchanged healthy-Windows and tracked-file neutrality assertions; Ruff lint/format pass. Full frozen validation remains pending. Exact logs are retained under docs/evidence/m02-w14-integrated-checkpoint.
+
+### KI-0088 — Public observation chooses a different label channel from the frozen capture
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 actual public evaluation
+- Affects: M02-W14; independent literal-control observation and startup readiness
+- Description: Greenhouse's visible First Name*/Last Name*/Email*/Phone* labels still match the frozen oracle, but the observer prefers ARIA labels without the required marker and falsely reports oracle drift. Closure also may be attempted during ordinary startup traffic.
+- Reproduction: retained read-only label-channel diagnostic reads no values and confirms the associated labels exactly, separately from ARIA. A read-only Lever diagnostic naturally drains pending requests to0 around2s and the unchanged closure guard succeeds.
+- Workaround: never strip markers, change the oracle, bypass protected boundaries or weaken transport closure to obtain a score.
+- Resolution + evidence link: associated literal label text is observed first and every alternative channel is retained separately. A bounded read-only5000ms/50ms/max100-poll startup observation precedes the same strict closure check; it grants no action authority. A new controlled regression verifies the literal required marker while conflicting employer ownership still refuses. The held-request test retains refusal/no-write assertions and verifies natural completion separately. All62 mandatory controlled proofs (all61 retained plus one new case),19 verifier guards, static checks and unchanged1454-node Python preflight pass. The actual30-source rerun has17 transport refusals,7 form/protected refusals and6 interference rows,0 action requests and no scored public accuracy. Evidence: docs/evidence/m02-w14-public-observation-correction.
+
+### KI-0089 — External public-form and direct Simplify evidence prerequisites waived by owner
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 final evidence reconciliation
+- Affects: M02-W14; M02-W15; M02 acceptance and Autofill Feasibility Gate
+- Description: accepted OD-036 / ADR-0007 removes only the direct Simplify comparison and executed public-form evidence prerequisites behind this finding. Actual cases remain0 and their assessment is WAIVED_BY_OWNER_ADR_0007, never PASS. W14 now has reviewed scoped package evidence and successful clean-clone full verification at commit6384d98156ae198cd93d7b35d1bb28b501ed475e/treed2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4. Formal eligible W15/source-bound owner Gate A decision remains required as the next planned package and is not claimed complete.
+- Reproduction: inspect the exact accepted ADR/source-aware machine authority, paired ledger/report waiver fields, retained W14 candidate index/manual synthetic checklist and the clean-clone closeout proof. Historical attempts, zero counts, old limitations and findings remain retained below.
+- Workaround: the owner-authorized waiver is the resolution for only those two external prerequisites. It removes no controlled/absolute numeric, physical-safety, other-baseline, native, usability/accessibility/visual, independent-review or owner-decision requirement.
+- Resolution + evidence link: FIXED at the waived external scope and completed W14 package closeout, documented in docs/TEST_EVIDENCE.md § M02-W14 and docs/evidence/m02-w14-candidate-handoff. Formal W15 audit is READY and Gate A remains IN_PROGRESS; no owner gate verdict or M02 acceptance is inferred. The earlier pending-W15 work is retained as package work rather than a circular HIGH blocker preventing its own readiness.
+- Historical finding before the 2026-10-17 waiver:
+
+- Description: the latest declared public campaign records all 30 pages but scores none: 17 strict network-closure refusals, 7 form/protected-surface refusals and 6 interference outcomes. The normal-user Simplify comparison has zero cases. Final independent W15 review and the source-bound gate decision have not occurred. Passing local tests cannot supply these missing observations.
+- Reproduction: inspect the latest actual clean0dd88ce campaign binding, action journal and assessment in docs/evidence/m02-w14-public-0dd88ce; the earlier8ae96f0 records remain unchanged in docs/evidence/m02-w14-public-observation-correction, the Simplify readiness record, and the Gate A review/decision sections. All owned evaluation browsers were closed normally. Review agents initially returned the account usage-limit error; capacity subsequently resumed and fresh supplemental reports are retained. Neither condition constitutes the formal W15 verdict.
+- Workaround: none accepted. Preserve CAPTCHA, authentication, legal-consent, dialog and transport boundaries. The owner-controlled holdout is already waived by ADR-0006 and is not part of this blocker. The pending request identifies the normal signed-in synthetic Simplify session without requesting credentials.
+- Resolution + evidence link: OPEN. Suitable normal-user public evaluation conditions, an authenticated synthetic Simplify session and final independent W15 review/decision are required. Supplemental reviewers confirmed KI-0091; its complete corrected root regression and new source-bound legacy comparison now pass. They separately validate the latest public evidence but grant no formal W15/Gate A decision. See docs/gates/AUTOFILL_FEASIBILITY_GATE.md and docs/TEST_EVIDENCE.md § M02-W14. No downstream readiness or final PASS is granted.
+
+### KI-0090 — Windows negative compiler probe times out behind a Rust proxy
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from the cancelled b8b1423 Windows CI job log
+- Affects: M02-W14; three-OS repository verification; contract infrastructure tests
+- Description: the noncompiling Rust fixture invokes the rustup proxy from a temporary working directory. The Windows job records a 30-second probe and EPERM during mandatory directory cleanup; 2,523 of 2,524 contract tests passed. The run was subsequently cancelled by the newer push, so this is an observed individual test failure, not a completed aggregate result. The installed/default toolchain is already the correct 1.97.1; a version mismatch is not established. A proxy/compiler lifetime issue is the working diagnosis.
+- Reproduction: job 117159565827 in run 38955928003, infrastructure.test.ts negative Rust compiler case. Raw cancelled-job stdout is retained under docs/evidence/m02-w14-windows-compiler. Linux/macOS passed that checkpoint and do not prove this Windows case.
+- Workaround: no skipped assertion, longer timeout, swallowed cleanup error or speculative green result. Retain the original failure.
+- Resolution + evidence link: correction resolves the pinned compiler with bounded rustup which rustc inside the repository and invokes the returned absolute compiler directly. The same executable and temporary output directory must first compile valid source; invalid source must still produce ADAPTER_EXIT_NONZERO. The original 30-second negative bound, 45-second case bound and mandatory bounded cleanup remain unchanged. All eight focused and all 2,524 contract cases pass locally, along with typecheck/static checks, 201 ledger cases and the two unchanged boundary probes. Native Windows job117181432489 now passes both exact infrastructure8 runs (2419ms/2609ms) and all2524 contracts on tested PR mergecb58e4a85d51fe47cf4c77dd232cb867af9f652c, whose tree616f54ca25ac97db7de6ac6eea204a140610364c equalsd99c592. This confirms the direct-compiler correction locally and natively. The surrounding Windows aggregate fails only five unrelated waiver-fixture encoding tests (KI-0093), so no complete three-OS PASS is claimed. Terminal logs and source/tree records are retained under docs/evidence/m02-w14-d99-ci. See docs/TEST_EVIDENCE.md § M02-W14.
+
+### KI-0091 — Late native validity changes can publish stale accepted verification
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during fresh author-independent W14 safety review
+- Affects: M02-W14; execute/undo publication and W11 retained verification
+- Description: native setCustomValidity can reject a field without changing its value or generating a DOM mutation. Acceptance is read before asynchronous result/evidence hashing; the final native-property fence originally captures values/checked/files/options but omits the native validity inputs. EXECUTE/UNDO can publish VERIFIED/ACCEPTED and W11 READY despite current rejection. This is a newly confirmed gap beyond KI-0083's corrected value-property race.
+- Reproduction: at exact d99c592, six actual-MV3 probes preserve three unchanged positives and fail all three late-rejection safety negatives. Values stay unchanged; MutationObserver records are zero. EXECUTE incorrectly grants undo; W11 initially reports READY while a fresh reconcile reports NOT_READY. A second identical red run binds all 355 runtime sources, probe, build, HEAD/status, tools/env before and after with exact equality. Original failures and sealed bindings are retained unchanged under docs/evidence/m02-w14-native-validity.
+- Workaround: no acceptance credit from unchanged values or DOM revisions alone; no test/threshold weakening and no new await after the final fence.
+- Resolution + evidence link: the exact two-file patch snapshots primitive willValidate, validity.valid and validationMessage, including native driver acceptanceElements, and compares synchronously alongside all prior value/option/DOM fences. The unchanged six probes pass independently; 29 adjacent existing regressions pass. The integration copy only removes four lint findings without changing assertions/seeds. The exact patch and lint-clean permanent six-case copy are integrated in root; the complete clean0dd88ce root regression now passes all19 active suites,3859 units,234 default browser tests including the six permanent cases,62 controlled proofs and1454 Python tests. The independently reviewed revision7 candidate4/legacy4 execution also completes with unchanged corrected-runtime binding. Full proof: docs/evidence/m02-w14-frozen-0dd88ce/proof.tar.gz (SHA-256 6b9ab884d4c6990da2af98229f0bf7f78837a16bbeac63b82bb9832c8b6d5edb). This closes the local publication defect, not the external Gate A evidence gap. The original raw probe/expectations and all derivation hunks remain retained. Evidence archive SHA-256 c10dec4ebfe565dde09425a73a38c647f9e8e51105e15163ae96eb4cb602596f (115 safe regular members). See docs/TEST_EVIDENCE.md § M02-W14; source patch SHA-256 56382908665d5fd4c8543df701b67498b3f222bafc768164a15607755b0d21e8.
+
+### KI-0092 — Revision6 comparison prose omitted recorded legacy native activations
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during independent read-only audit of actual M02-W14 revision7 comparison evidence
+- Affects: M02-W14 comparison reporting in TEST_EVIDENCE.md and AUTOFILL_FEASIBILITY_GATE.md; no functional defect or actor-code change
+- Description: historical prose incorrectly reported zero unexpected native mutations for both actors. The revision6 legacy raw observations and worksheet already record four succeeded country-code ACTIVATION witnesses, one per case at sequence53; candidate unexpected native mutations are0. Nonordinary final-value changes and navigation/submission event witnesses are0 for both. The four complete legacy native witness arrays are identical between revision6 and revision7, so this is a reporting error rather than newly observed behavioral nondeterminism.
+- Reproduction: inspect legacy_unexpected_native_mutations in all four cases of docs/evidence/m02-w14-comparisons-actual/paired-comparison.json (SHA-256 a1162c802c512ec741e7c500f68ed6bcfc8e971eef870afdaec6271cc1e424c8) and unexpected_native_mutations in legacy-r6/paired-options-legacy.json inside its proof.tar.gz (raw member SHA-256 1ac239a7b8c9c94344066b944d4e08b32d0120048eed9db440f29f19259d0e74). Both bind revision6 lock47b6fe33c9e68d8aed9815f2cd35887e289a0e93fbf27045a059e467d35fe6fb and retain one succeeded ACTIVATION on nonordinary country-code per row. Independent read-only raw-field/witness recomputation at revision7 confirms candidate0/legacy4 unexpected native mutations,40/40 versus28/40 exact values and40/40 versus32/40 phone equivalent; it starts no browser, build or actor.
+- Workaround: distinguish attempted installed native calls from final value changes and use the retained raw arrays; never erase or relabel a nonzero observation to match prose.
+- Resolution + evidence link: FIXED by correcting both false historical sentences and explicitly disclosing the prose error. Original revision6 archive and worksheet bytes remain unchanged; no runtime behavior, control assertion, test case, package state, gate state or threshold changes. The existing synthetic historical/current issue lists now include KI-0092 so historical isolation removes the later finding and the current boundary preserves it. Independent revision7 audit/report.md and audit/summary.json are retained in docs/evidence/m02-w14-revision7-actual/proof.tar.gz (SHA-256 1f4e05a9f86d94832cbfde33b1d7b38d73255f42efd00337954e2ccfaf3a2018;25 safe regular members), with retention-manifest.json plus report.md/summary.json copies alongside. The audit verifies raw joins, native witness counts, source/build/lock commitments and the identical revision6/revision7 legacy witness arrays. See docs/TEST_EVIDENCE.md § M02-W14. Formal W15/Gate A approval remains unexecuted.
+
+### KI-0093 — Waiver test fixtures use platform-default text encoding
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from completed Windows CI job117181432489 in run38962597205
+- Affects: M02-W14; status-validator waiver fixtures; three-OS repository validation
+- Description: new waiver fixtures read and rewrite UTF-8 decision Markdown without an explicit encoding. The pinned Windows Python locale decodes the em-dash heading differently from its UTF-8 literal. Three unaccepted-ADR variants fail splitting the heading; changed-record replacement becomes a no-op; an unrelated later-ADR write corrupts UTF-8 text. The production authority helper already reads UTF-8 and is unchanged.
+- Reproduction: exact tested mergecb58e4a85d51fe47cf4c77dd232cb867af9f652c/tree616f54ca25ac97db7de6ac6eea204a140610364c (tree equalsd99c592); Windows final Python result5failed/1447passed in1118.28s. Failures are test_gate_v2_waiver_refuses_unaccepted_adr[PROPOSED/REJECTED/SUPERSEDED], test_gate_v2_waiver_refuses_changed_own_record_preimage and test_gate_v2_waiver_ignores_unrelated_later_adr. Original stack traces and raw logs are retained under docs/evidence/m02-w14-d99-ci; Ubuntu/macOS aggregates pass their respective same-source-tree runs.
+- Workaround: no skipped fixture, altered authority assertion, locale-wide environment override or production parser weakening. Preserve original native failures.
+- Resolution + evidence link: FIXED at the explicitUTF8 fixture/native-platform scope. Native run38979349323 completes all19 active suites on Ubuntu/macOS/Windows at headfc48930/tested merge34477f17c8b97e2caf04fb4d716d352d7e7a8a32/treecb787f46afec1281c87074a82fd31e23b37c865a. Windows passes all201 status IDs and1452 Python cases in673.22s; Ubuntu/macOS pass1454. The two platform cohort differences are the declared FIFO/Unix-socket parametrizations, with no unexplained missing IDs. Tracked-clean succeeds on all three. Native proof: docs/evidence/m02-w14-fc48930-ci/proof.tar.gz, SHA-256 5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434,814341bytes/85 safe regular members; independent retained archive/API/log/source review is clear. This does not assert native validation of later730 or the next final head, and does not attribute the old stackless contact F.
+- Historical correction checkpoints: IN_PROGRESS. The exact reviewed patch115be0ee440433d0d70db984433889ca7fea3290da12b1dba29e6e2cad437864 is integrated: eight fixture calls explicitly useUTF8, with every assertion/test identity unchanged. Independent review verifies all315 assertions/173function bodies/128test identities after removing only eight encoding keywords and threeKI93 constants. The retained cp1252 contrast supports the localized encoding diagnosis but is not a native locale print or Windows execution. Root ledger now passes201/201 in114.40s after exact integration; Ruff lint/format, strict typing, formatting, status and exhaustive retained-archive checks pass. The later clean fc48930 full Python suite passes1454/1454 in299.26s; this is local evidence only. Fresh complete native Windows confirmation remains pending. Source/proposal/diagnostic proof: docs/evidence/m02-w14-windows-fixture-utf8. KI-0090's native compiler proof is separate and passes; this failure is not attributed to the compiler or corrected native-validity runtime. See docs/TEST_EVIDENCE.md § M02-W14.
+
+
+### KI-0094 — Focus handlers can cause text/date lost updates during execute and undo
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during supplemental independent W14 runtime review
+- Affects: M02-W14; native text/date execute and undo; pre-write value preservation
+- Description: a page focus handler can change a native value without a DOM mutation. The driver rechecks ownership and actionability after focus but originally omits the value. Execute overwrites the newer value and grants undo; undo overwrites it with the captured prior value. Both can report VERIFIED/ACCEPTED.
+- Reproduction: the sealed eight-case actual-MV3 probe at exact918 runtime355/c375 has four unchanged positives PASS and four focus-preservation negatives FAIL in13.9s. Each negative records zero DOM mutation records for the page edit and one additional extension setter. All13 source/probe/build/tool bindings are unchanged. An earlier missing-await setup failure and two unreachable digest-pause cases remain explicitly separate from the confirmed focus defect. Complete original proof: docs/evidence/m02-w14-focus-value-red/proof.tar.gz, SHA-256 aebfb3fba84ce7c689bcb69234310cdccc87f4390ee116933631adeedaeef829,4793116bytes/459 safe regular members.
+- Workaround: do not overwrite a newer page-owned focus value or grant recovery/undo authority for a refused pre-write action. The source-only asynchronous re-resolution concern is unconfirmed and its draft is not integrated.
+- Resolution + evidence link: FIXED at the reviewed focus-preservation correction and complete affected local regression/comparison scope. Clean730c641a9855fc3e95620636314a28d0eee8439a/tree7402873a081286dbddce5b93ed4db997fea4f24d passes all19 active suites, including all8 permanent focus cases and242 default-browser cases, with unchanged1504 tracked-file closure. Actual revision9 then completes candidate4/legacy4 under lock72a68/runtime355-3b6c with all7 source/tool/build checks stable and corrected independent audit200/200. Complete frozen proof: docs/evidence/m02-w14-frozen-730c641/proof.tar.gz, SHA-256 0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58,6867546bytes/88 safe regular members; independent full-data audit79/79 and separate archive peer review24/24. Actual comparison proof: docs/evidence/m02-w14-revision9-actual/proof.tar.gz, SHA-256 72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8,1058673bytes/102 safe regular members; corrected independent actual-data audit200/200 and separate archive peer review26/26. Revision8 was never invoked; revision7 remains historical. This closes neither public/Simplify evidence nor formal W15/Gate A.
+- Historical correction checkpoints: IN_PROGRESS. Root integrated the exact independently reviewed two-file patch3adbcf83e27327c1fe2293cc197c80ce22286cca50a1c7c665a1e1b1f6950177. Text/date snapshot the value immediately before focus and refuse drift before their sole setter. Execute suppresses recovery/undo only for the typed marker from those exact trusted drivers; generic and partial-write recovery remain unchanged. The unchanged eight-case independent GREEN passes11.2s with all four newer values preserved, zero additional setters/input/change events, no VERIFIED result and execute undo=false. All23 existing adjacent browser regressions pass54.7s, including actual partial-widget rollback; all13 bindings match. GREEN proof: docs/evidence/m02-w14-focus-value-green/proof.tar.gz, SHA-256 cd8fd90b9a4d2dcb7e196404e5ff791fd23b0e2325b2f5d069523c1916c2e447,9803118bytes/456 members. Corrected355-file runtime is8c61ebee8af7823f2812c514fb2bbb5eb0ca44c95b919a5ac3919eb9b5fec9cc. Clean fc48930 executes the permanent eight focus cases successfully, but its full aggregate fails the native128 target20 threshold (KI-0096), so it does not close the complete regression obligation. Revision8 coordinator is source-reviewed but NEVER INVOKED, UNEXECUTED and UNRELEASED because the full run failed; candidate/legacy actor counts are0. The reviewed guard would refuse that failed full run, but no coordinator invocation or guard-refusal execution is claimed. Its proof is docs/evidence/m02-w14-revision8-coordinator/proof.tar.gz, SHA-256 9be801fefecb570931ad717d978cc5c058a2090db7045fae335f723c097fc3ff,28025bytes/14members. The later pure metadata correction changes the runtime again; complete frozen regression and a newly source-bound comparison remain pending. No Gate A approval is inferred.
+
+### KI-0095 — Function-scoped repository copies exhaust native Windows test storage
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 from terminal Windows CI job117206260868 in run38970154103
+- Affects: M02-W14; full Python verification fixture lifecycle and hosted Windows capacity
+- Description: full-docs fixture copies accumulate until session cleanup. The918 docs payload and255 declared fixture users imply about30.80GiB of logical copied docs. The actual Windows run reaches18 setup errors while copying docs, and the runner explicitly reports insufficient disk space. That failed918 run has no complete Python or aggregate PASS.
+- Reproduction: actual tested merge3781e31a17013ae361f14f371502196a7f516245 has treebd9eb473719dba61ed842c266c553e334c893538, exactly918. The first recorded setup error is test_gate_v2_waiver_refuses_invalid_owner_decision_row[missing] at full docs copytree. Original Windows raw SHA-256 e866fd0df169e7ce4227f336a3b5bb6e7123c0bed94ad3d221ad61ba76ecc3ec,962594bytes. Complete three-OS proof is retained in docs/evidence/m02-w14-918-ci; Ubuntu/macOS pass19 active suites. Windows compiler8 twice/contracts2524 pass; its final Python summary is absent and tracked-clean is SKIPPED. A separate contact child-environment test has an F progress symbol and no retained stack; its cause remains unresolved and is not assigned to disk exhaustion.
+- Workaround: preserve every full input, assertion and isolated copy. Do not omit archives, share mutable hardlinks, ignore cleanup failures or increase CI budgets to conceal the capacity failure.
+- Resolution + evidence link: FIXED at the complete-copy fixture lifecycle and native verification scope. The reviewed try/yield/finally correction remains unchanged. Fresh native fc48930 run38979349323 passes all19 active suites on all three platforms, including Windows1452 Python in673.22s,201 status IDs,11 contact-proof IDs and tracked-clean; Ubuntu/macOS pass1454. Native proof: docs/evidence/m02-w14-fc48930-ci/proof.tar.gz, SHA-256 5f416858c4585067fbf656e350152475fc1bf342ec799aa1fbb03dfcf18f9434,814341bytes/85 safe regular members; independent retained archive/API/log/source review is clear. Later clean730 local full Python1454/1454 passes305.66s within the full19-suite PASS. The old918 stackless contact F has no retained cause: UNPROVEN remains explicit despite fresh success. No capacity explanation is assigned to it, and no later final-head native CI result is claimed.
+- Historical correction checkpoints: IN_PROGRESS. Ruff rejects the initial finalizer-only proposal186b6a45 under PT021; its source/proof05a84f35 remain unchanged history. Root now integrates exact corrected patch9426e72a384533f86459a49db48e45aa2b89ddf821f2a86851995d1dcba2fcc4: each fixture uses Iterator[Path], preserves all original full-copy setup inside try, yields the same owned Path, and strictly removes only its tmp_path/repo in finally. Setup-copy exceptions also unwind through cleanup. Independent48 checks preserve all569 assertions,218 test functions and six finding-list literals; targeted Ruff lint/format pass without policy changes. Complete corrected proposal/review and original failed/corrected static records: docs/evidence/m02-w14-fixture-lifecycle-yield/proof.tar.gz, SHA-25699523db9cd272a483b147097d6b955b4015b19574ed64b6abc05cce3580b3a2b,90240bytes/22 members. Production/environment guards and thresholds remain untouched. Clean fc48930 now passes all1454 local Python tests in299.26s with complete tracked-source neutrality; proof is docs/evidence/m02-w14-frozen-fc48930/proof.tar.gz, SHA-256 28e1132c7762c3327f0943bad8973625e74e8a14ff556d9ad0c12efacc564a0a,5089970bytes/48members. Fresh complete native Windows verification remains pending, so this issue stays IN_PROGRESS; the separate contact-environment F stays causally unresolved.
+
+### KI-0096 — Frozen native128 target timing exceeds the unchanged threshold
+
+- Severity: HIGH
+- State: FIXED
+- Discovered: 2026-10-16 during M02-W14 frozen validation at fc48930
+- Affects: current M02-W15 final-candidate validation; Gate A generic scan/fill performance; historical M02-W14 failures
+- Description: clean fc48930 completes18 active suites PASS and one FAIL. The only default-browser failure is the native128 target20 p95,1527.9433329999993ms against unchanged <=1500ms;241 other browser cases and all1454 local Python tests pass. Four live resolutions per field,128 physical fills,512 resolutions and768 descriptors remain measured; the failed threshold cannot be replaced by other passing scopes.
+- Reproduction: run the exact frozen outer Python-wrapper command recorded in docs/TEST_EVIDENCE.md § M02-W14; the wrapper records its `pnpm verify` child argv and target20 environment. The complete failed run, raw rows, source/command endpoints and independent1478-Git-blob closure remain retained in docs/evidence/m02-w14-frozen-fc48930/proof.tar.gz, SHA-256 28e1132c7762c3327f0943bad8973625e74e8a14ff556d9ad0c12efacc564a0a,5089970bytes/48members; archive peer review passes21 checks. This is failed historical-source evidence, not current-runtime or gate approval.
+- Workaround: none accepted. Do not round down, omit slow samples, change thresholds/waits/cache budgets or bypass live identity/validation/recovery checks.
+- Historical resolution + evidence link: FIXED at the earlier unchanged native128 target20 regression scope. Complete clean730 local verification now passes all19 active suites, with native128 nearest-rank p95(rank19)1447.4198340000003ms below unchanged1500ms; all20 samples retain128 physical actions/512 re-resolutions/768 descriptors. The same bounded seven-hash correction and all live authority checks remain. Full proof: docs/evidence/m02-w14-frozen-730c641/proof.tar.gz, SHA-256 0584744b75a3940f88d35fa842fd9386c66b9a9a8d12c5de278d957d0deb8c58,6867546bytes/88 safe regular members; independent full-data audit79/79 and separate archive peer review24/24. Actual revision9 is independently reconciled200/200 under the same runtime and lock; docs/evidence/m02-w14-revision9-actual/proof.tar.gz, SHA-256 72bf11df63cad7b036d1c08e005430d6c8a87b757e0868336087cd14adb817b8,1058673bytes/102 safe regular members; corrected independent actual-data audit200/200 and separate archive peer review26/26. This is the existing zero-settle/no-async-rerender lower-bound harness, not final full-settlement Gate A performance proof. Earlier fc1527.9433329999993ms failure and separate focused1473.5945839999986ms pass remain retained; no isolated causal hash-cost claim, threshold waiver or final Gate A PASS is inferred.
+- Historical correction checkpoints: IN_PROGRESS. The reviewed one-file correction issues the same seven immutable result metadata computations concurrently, waits with Promise.allSettled and unwraps in original order, preserving eventual raw rejection identity, exact seed/output bytes, field order and all posthash authority witnesses. Final driver-engine SHA-25622071b77f7610b315dc58f51275d3703f895c92f5f6c919f2efbbd275a312557; corrected355-file runtime3b6c0e0c0950b03e3bb9e1f12b27bb8d385174c36fb4b68ef3345597aa8b3502. The pure metadata differential passes3 success/7 single-rejection/21 pair/all-seven profiles; it is not canonical/browser proof. All21 affected actual-MV3 guards pass24.1s. The separate unchanged native128 target20 run passes p95 1473.5945839999986ms, closing2026-10-16T23:11:06Z with source/status/head unchanged. Focused proof: docs/evidence/m02-w14-build-result-concurrency/proof.tar.gz, SHA-256 2620c4c3706a78f4895c5dc9e67450f0924b45d2f5d5ab5bd6fe94d5e09628ef,4275812bytes/95members; independent archive peer review passes24 checks, distinct from the retained40-check actual-evidence audit. Complete affected frozen regression remains pending; no measured hash-cost attribution or final Gate A PASS is inferred.
+
+- Reopened2026-10-17: exact clean507a/tree235bc696fb37e887b5efa817039276a775a18e2e completes18/19 ACTIVE suites PASS and native128 FAIL at p951662.986499999999ms (rank19/20;7/20 above1500ms), preserving128 actions/512 live resolutions/768 descriptors per sample. All1587 tracked files, HEAD/tree/status and355-file runtime3b6c remain exact. Cause is UNPROVEN. Separate actual phase diagnostic also FAILS1644.6497500000005ms; it identifies the execution phase as dominant without attributing a causal percentage. The one-line preventScroll focus proposal is independently source-clear; meaningful real-focus/viewport RED/GREEN and unchanged regressions are pending, with no performance fix or current PASS inferred. Closed raw507a result, independent81/87 failure-aware full audit,336/336 mounted/10/10 resolver audits and actual synthetic image inspection: docs/evidence/m02-w15-failed-507a/proof.tar.gz SHA2567bc9ac8e69969c98aaf2030d2ab04a1285ff8a9189c932a3ecb0201f749f55a5,6717941bytes/39outerregularmembers, including the unchanged96member independent failed-component archive. Original failure trace/screenshot remain lost; no diagnostic replacement claim.
+- Current corrective source (2026-10-18UTC): distinct TEXT/TEXTAREA-only987/c46 proposal is root-integrated after actual RED4 intended viewport failures/GREEN28PASS and independent source clearance; original date49b failure and eaf invalidtextarea/W09refusals remain unchanged. Complete root241extension units/type/lint/format/status/trace and R10pure42 PASS. Candidate355runtime/harness inventory4f5a/3372811 and newR10lock0b7c are frozen, future releaseNULL/0actors. Performance target20/finalfull/native/currentbaseline/keyreview pending; no measured benefit/currentPASS or causeclaim. Complete exact source/focused/history/review/root evidence: docs/evidence/m02-w15-corrections-integration/proof.tar.gz SHA25687a507c911329262572c159537a4ee7bffb5ad3a7db40b00f1e126fbf6278481.
+- Latest actual246 canonicaltarget20: oneoriginal120000ms whole-testtimeout, childexit1, no W13aggregate/p95 (null). Eighteen complete native128 iterations preserve allrequiredcounts/VERIFIEDvalues;19th firstbatch pendingonly~2.641ms beforeteardown,20thnotstarted. Source1642/cleanhead/tree/runtime3554f5a unchanged; all6nativeartifacts/trace retainedimmediately. Cumulativebudgetexhaustion isobserved; rootcause/visibility/timereffectUNPROVEN, notone120-secondRPCstall. Exactraw/source/independentclosedtrace proof: docs/evidence/m02-w15-canonical-246-timeout/proof.tar.gz SHA256b2fc20e5d81d3f3258d156ecaff55dcb2cbe2470e8647ad5793a5855fa633840. Foregrounddiagnostic onlysource-prepared; no rerun/deadlinewaiver/performancefix or newfullPASS.
+
+- Current foreground-method correction (2026-10-18UTC): Foreground measurement correction: independently reviewed patch17e9e2800095838469e1752944df4e5bb2ec3b6c86a4a87c364748cfa06a1474 is integrated as benchmarkc1864e71bd22d8c8df596bdec77bc39bce6b11b69171893cb0d9cd3cb1df48e2. It declares the actual target Chrome tab active and visible before original timing and checks both after each synchronously retained completed row. Original timed span6b066, assertions, row values,20samples,1500ms,120000ms and zero settlement remain exact; complete355/3372811/runtime4f5a is unchanged. Root e2e TypeScript/lint/format/status45/trace193-300/diff PASS. Actual separate V3 diagnostic completes22rows/20native128, p95842.6034590000017ms; all original/before/after DOM visibility/focus values stay visible/true, while only active-tab IDs transition to target. This proves no timer/root cause and supplies no canonical acceptance. Optional command-line metadata remains UNAVAILABLE once with0actualargv; normal successful retention produces only.last-run.json, no trace. Canonical246 timeout,507a failure and V2 zero-sample query failure remain preserved. Exact source/raw/derived corrections/root checks and nested58member independent source/raw review: docs/evidence/m02-w15-foreground-method/proof.tar.gz, SHA2561255fdcc4bd31191098f9a486a98c52782de98bf0f264fb4bbf82ad0925195b1,664265bytes/103outerregularmembers, exhaustivecomparisonPASS. Fresh frozen full/current nativeCI/R10/key14 and source-bound owner decision remain pending; W15/GateA stay IN_PROGRESS.
+- Current resolution (2026-10-18UTC): Actual frozen95f5 strict full99 and separate canonical20 pass unchanged1500ms at846.236875/847.323333ms; currentR10comparison204 and freshkey14 close. Foreground measurement is declared outside original timed work, with20samples/120000ms/settle0 unchanged. This fixes the current accepted regression scope, not a causal explanation or historical PASS. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+### KI-0097 — Evaluation harness acquisition and rejected-close paths can skip owned cleanup
+
+W15 independent source inspection at507a additionally confirmed the inherited test-only e2e/extension/support/extension-test.ts close-before-remove and unguarded listener paths. The distinct independently source-clear correction7346d2cddf53ea3261e1d74fd8a4c6c36419dcd6d4ab5201aa669274d9ffc8a9 is now root-integrated: guarded acquisition/use/isolation and cleanup that always attempts owned close/removal with explicit primary/secondary errors. Same28fake cases yield original16FAIL/12PASS and candidate28PASS; combined outside cleanup family46PASS. Root complete extension241units, complete typecheck/lint/format/status/trace and newR10pure42 now pass; final clean-candidate validation remains pending. Sealed R9 remains unchanged; newR10 initial-writer correction is separately prepared/unreleased. No actual historical run leak or whole-family FIXED claim is asserted.
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-17 by the independent230-path source closure review at frozen6384d98156ae198cd93d7b35d1bb28b501ed475e/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4, finding SRC-CLEANUP-01
+- Affects: opt-in public contact/inspection evaluation harness error paths; separate future corrected legacy campaign acquisition
+- Description: contact-harness.ts creates its owned temporary profile, then awaits context launch, HTTP route and WebSocket route before entering the cleanup try. Those acquisition/setup rejections can bypass cleanup. Both contact and inspection await context.close before profile removal without a finally, so a close rejection can skip the removal attempt. Inspection launch itself is guarded correctly. This is one source-control-flow cleanup family, not an observed run leak, numeric/scoring contradiction, unauthorized public write, shipped-runtime defect or fundamental Gate A architecture failure.
+- Reproduction: inspect frozen6384 e2e/extension/public-contact/contact-harness.ts:310–374 and494–504, and e2e/extension/public-research/inspection-harness.ts:151–162 close/removal paths. Meaningful injected launch/HTTP-route/WebSocket-route/later-setup/rejected-close/rejected-removal/ownership-transfer cases are separate corrective verification; the source review itself ran none.
+- Workaround: retain the original error and honest cleanup outcome; do not relabel rejection as cleanup success or weaken caller assertions. The existing successful6384 measurements retain their actual source and observation scope.
+- Resolution + evidence link: OPEN, MEDIUM M02 corrective work before the final W15 decision. The final separate three-file correction98d6e14cd31514623bf5d93550ecd73dc65a0347fb81f3baf12d134319e2dcb8 has independent source clearance and actual focused author evidence: the same18 fake-context cases yield13 original failures/5 passes and18 candidate passes in355ms. Sparse outside type/lint/format/policy checks pass. Exact sources, logs and review are retained in docs/evidence/m02-w14-harness-cleanup/proof.tar.gz (SHA256a885cd4d29f950fbf067d60f4a8fc7b48753c308891f6938b5c284e82db891b9). The exact patch is now root-integrated with213 complete extension units, complete repository typecheck/static checks and status/traceability passing; proof is docs/evidence/m02-w15-cleanup-integration. Controlled-browser and final clean-candidate/key-case validation remain pending; unmodified6384 is not claimed fixed. W14 may close at actually tested6384 with this finding disclosed, and W15 may begin; integrate the reviewed correction and run a full clean final candidate plus key independent reproductions before any Gate A decision.
+- Sealed R9 boundary: legacy-browser.mjs creates its owned profile before the initial evidence-write/finalize operation outside its try, so initial writer rejection can leave an empty owned profile. Its normal cleanup separately attempts close and removal. The original R9 actor and all65 locked campaign files stay byte-exact; record the initial-writer cleanup repair as a precondition of any future corrected campaign before a new invocation. Do not mutate sealed R9, rerun it to rewrite history or transfer its outcomes to corrected source. No actual historical R9 leak is asserted.
+- Current resolution (2026-10-18UTC): Reviewed contact/inspection/inherited-fixture/R10 initial-writer corrections now close actual frozen95f5 local19 and native3host full PASS, freshkey14 and currentonce-executed4+4comparison204. Fake acquisition/rejected-close proofs remain retained. Normalownedcleanup is observed; OS descendants and unexercised failures remain outside that observation. No historical leak is asserted. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+### KI-0098 — Controlled Playwright invocations erase default-suite failure artifacts
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-17 during final507a failed native128 evidence closure
+- Affects: M02-W15 browser evidence retention; controlled contact/inspection Playwright output configuration
+- Description: all three configs use the pinned Playwright1.62 nearest-package default test-results directory. Ordinary controlled-suite startup clears it after default-suite failure, erasing the original native128 trace/screenshot. Raw aggregate/log and all22 timing rows survive; the original native failure artifacts remain unavailable. A later separate diagnostic trace is not their recovery.
+- Reproduction: pinned actual CLI fixture reproduces deletion with original configs, then preserves a real failure trace.zip and marker byte-for-byte after both controlled invocations with distinct descendant output directories. Exact three-file patch177181da420e4852f5ac18ccb00758f03f06e8ea78db01e8221c601127f99793 and actual61focused checks/discovery2+62 have independent source/raw clearance; root integration now passes41existing CI tests plus Ruff/format/mypy/config lint/format/diff, with exact afterimages and unchanged policy bindings. Final-candidate validation remains pending.
+- Workaround: copy closed native failure artifacts before a subsequent invocation; do not infer original trace closure from later diagnostics.
+- Resolution + evidence link: IN_PROGRESS. Failed507a retained source/observation and independent review: docs/evidence/m02-w15-failed-507a. Exact root integration and pinned author evidence: docs/evidence/m02-w15-retention-integration/proof.tar.gz SHA256946a85efbb9984d5b3c6796f0f1fc4f90678308acb9b950b55720baafa34ec9c. The correction preserves existing41CI test identities, Python inventory, retries0, trace policies and recursive CI artifact upload. No historical artifact recovery or current full PASS is asserted.
+
+- Current resolution (2026-10-18UTC): Distinct controlled output directories and immediate native retention are validated by retained actual marker/traceRED-GREEN, unchanged41CI tests and complete current95f5local/native verification. Current successful default run correctly retains only.last-run; old507a trace/screenshot remain unavailable and are not recovered by later proof. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+## M02-W14 local defect closeout — 2026-10-16
+
+KI-0077 through KI-0087 are FIXED at the code scopes recorded above and frozen checkpoint b8b1423: all19 active suites pass,3859 TypeScript units,228 default browser tests,61 then-required controlled tests and1454 Python tests. Source/build/declarations and Git status remain unchanged. The later observation correction adds a mandatory62nd controlled proof and preserves all originals. This closes local defects only; public scored coverage, normal-user Simplify comparison and independent W15/Gate A acceptance remain incomplete. No later package is started.
+
+## M02-W13 final closeout and retained limits (2026-10-01)
+
+KI-0070 through KI-0076 are FIXED at verified content4745149f4b5da7190b5b0c68753f8ec07bed572d /tree a953274ef14a7534c39201a09738c26b8f085332. Earlier local/blocked lifecycle statements below are historical checkpoints; final governance makes W13 VERIFIED and W14 sole READY. Exact-SHA target 20 p95 is1391.5025000000005ms. Final A–N internal review has no residual PACKAGE_BLOCKER or DIRECT_REGRESSION. Evidence: docs/TEST_EVIDENCE.md § M02-W13 verified harness and docs/evidence/m02-w13-closeout/final-verifier.json.
+
+DOCUMENTED_LIMITATION: generic precision counts all attempted fields. W14 must predeclare its supported cohort and derive ordinary attempted precision from immutable field class, attempted flag and primary score; it must not directly map generic PRECISION to that Gate A dimension. The target timing is a zero-settle development lower bound, while the four-family harness separately exercises75ms settlement/20ms rerender. Full-settlement/frozen partitions and actual authorized holdout/public/Simplify/legacy comparison are FUTURE_OWNER W14; independent Gate A decision is W15. The bounded1024-entry/512KiB pure SHA memo retains memory without target authority; historical raw timing source hashes remain historical. None is final Gate A evidence; all gates NOT_EVALUATED, release NOT_READY.
+
 ## M02-W13 finite evidence corrections
 
 ### KI-0073 — Canonical replay metrics could contradict independently verified raw scores
@@ -76,7 +551,7 @@ broadening a work package (spec §1.5).
 - Description: the focused corpus command runs218 passing tests, but its accepted exact-count guard still requires207 and discovery lists only W06. Classification: DIRECT_REGRESSION in verification metadata.
 - Reproduction: full `pnpm verify` at invalidated tree86e72fbb80683d3e90d1ab0be992339714410978 fails only evaluation-corpus proof, reporting218 rather than207. All other active suites pass, including134 browser,1390 Python and retained Rust checks. Raw log: docs/evidence/m02-w13-closeout/invalidated-pass1-verify.log.
 - Workaround: n/a.
-- Resolution + evidence link: retain all207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
+- Resolution + evidence link: retain all 207 W06 tests unchanged, discover the11 W13 interface stand-ins and require exact218 with unchanged no-skip proof/commands. `pnpm verify --suite evaluation-corpus` passes 218/218 and the discovery proof. No test exclusion or lower count. Freeze invalidated; BOTH full canonical passes restart on the updated bytes. docs/TEST_EVIDENCE.md § M02-W13.
 
 ## M02-W13 bounded-stop findings
 
@@ -108,7 +583,7 @@ broadening a work package (spec §1.5).
 - State: FIXED
 - Discovered: 2026-09-30 during late M02-W13 family K review
 - Affects: M02-W13; apps/extension/src/dynamic-engine.ts root/subtree recovery
-- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
+- Description: the draft local capacity refusal returned no descriptors but did not latch the incomplete root/subtree scan. Start observation at 513 controls, remove one optional control inside a single section, then reconcile: the minimized regression reported total0 instead of512, omitting the remaining required control.
 - Reproduction: permanent `W13 K: observation beginning over capacity requires a complete recovery scan`; the original run failed expected512/received0. Its second phase also inserts and removes a transient513th control between reconciliation passes while the observer drains each batch.
 - Workaround: n/a.
 - Resolution + evidence link: latch every observed root/subtree capacity refusal, clear inventory, and reset only after a complete current root scan; carry refusal from actual candidate capture and recheck the bound after async scans and all inventory hashing immediately before canonical publication. Both recovery phases now prove total512, required_unresolved1 and NOT_READY; initial513 reports CAPACITY_EXCEEDED with no canonical inventory. The bound512 and canonical schemas are unchanged. Final affected browser suite34/34 passes; docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt.
@@ -121,10 +596,10 @@ broadening a work package (spec §1.5).
 - State: FIXED
 - Discovered: 2026-09-06 during M02-W12 hosted CI correction2
 - Affects: M02-W12 retained-suite portability; packages/evaluation-runner/package.json
-- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
-- Reproduction: Ubuntu job101557017908 of run34059370913 at268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
+- Description: after the W12 matrix tests passed65/65 on Ubuntu, the unchanged M02-W05 whole-domain UTC reference test took6047ms against its default5000ms deadline. Windows also timed out the unchanged paired-count rejection case at 5078ms in the same file (job101557017782, same run). Other runner cases took up to4690ms during concurrent file initialization. This is TEST_PORTABILITY, not a calendar assertion mismatch.
+- Reproduction: Ubuntu job101557017908 of run34059370913 at 268d954ef5bf6bb1ea3d0b630b47dab9178659e5; complete raw log4168 lines/478894bytes, SHA-2569b7a53a3c27b27f458ddaad4fd7cb1c87e63ccd9b0d21e7858a6e5fae2f78f71.
 - Workaround: n/a.
-- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: apply the existing single-worker/no-file-parallelism Vitest convention only to evaluation-runner's test command. Every test source byte, all 10000 years/reference assertions, test count290 and default deadlines remain unchanged. Concurrent focused suites601 PASS; integrity, finite replay, two new frozen canonical passes and exact forward-SHA hosted proof are required before governance. docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0068 — Batched matrix-integrity negatives exceeded one hosted test deadline
 
@@ -133,7 +608,7 @@ broadening a work package (spec §1.5).
 - Discovered: 2026-09-06 during M02-W12 hosted CI round1
 - Affects: M02-W12; packages/ats-adapters/test/matrix.test.ts and package.json
 - Description: nine full matrix revalidations shared one default5000ms test; Ubuntu measured5561ms under concurrent workspace tests. A retained runner test also crossed5000ms during the same burst. Classified TEST_PORTABILITY; no semantic assertion failure observed.
-- Reproduction: Ubuntu job101549006289 of run34056407698 at475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
+- Reproduction: Ubuntu job101549006289 of run34056407698 at 475dcb69e5f31caa8ea941980396d2c250d6c2c5; complete raw log preserved in the W12 evidence directory.
 - Workaround: n/a.
 - Resolution + evidence link: register all nine negative cases independently under unchanged per-test deadlines, and bound the ATS test package to one worker/no file parallelism. All65 ATS tests pass; no old test, fixture, manifest, core or global timeout change. Retained and hosted proof required in the forward correction; docs/TEST_EVIDENCE.md § M02-W12.
 
@@ -146,7 +621,7 @@ broadening a work package (spec §1.5).
 - Description: three `it.each` tables imported runtime enums; the repository policy could not statically prove them safe/nonempty. All57 ATS tests and125 browser tests passed, but aggregate integrity and its real-repository Python oracle correctly failed. Classified DIRECT_REGRESSION in correction round2.
 - Reproduction: `pnpm verify --suite integrity` at invalidated content tree 2da677733fa79e66d80360d7298994b6ae5c9af6 reports three unprovable parameter tables.
 - Workaround: n/a.
-- Resolution + evidence link: explicit closed literal tables preserve all12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
+- Resolution + evidence link: explicit closed literal tables preserve all 12 session,11 step and4 family cases and every assertion, independent of runtime enum availability;57 tests and canonical integrity pass. No runner/policy/implementation change or test skip. Both frozen canonical passes restarted; docs/TEST_EVIDENCE.md § M02-W12.
 
 ### KI-0066 — Writer status edit matched a gate-description sentence
 
@@ -3408,3 +3883,31 @@ W13 follow-up,2026-09-30: reproduced and treated as PACKAGE_BLOCKER for measurem
 - Workaround: n/a (not currently exploitable; layered checks cover today's
   tree).
 - Resolution + evidence link: pending a later hardening package.
+
+### KI-0099 — Node-only R10 tests enter default Playwright discovery
+
+- Severity: MEDIUM
+- State: FIXED
+- Discovered: 2026-10-18UTC, actual strict clean3c79bd0/tree8c8c095 full validation.
+- Affects: default browser test discovery before any browser cases execute; test harness only.
+- Description: Playwright default matching imports .test.mjs. The new R10 legacy cleanup Node test imports experimental SourceTextModule and requires a separately bound Node runner, so default discovery throws before W13/default browser execution. This is a test-location/discovery regression; current p95 is null and no new runtime performance conclusion follows.
+- Correction: reviewed patch820a340c6a29bdc4819461a3d0d0c1013219065c5a81d53159b4b7602bbaa3c2 adds only a narrow testIgnore for four R10 Node-only modules. All54specfiles/5customproofs/9customconfigs,36R10graph and originalR9 bytes remain unchanged. Proper Node runner executes42PASS/0fail/cancelled/skipped/todo; browser --list discovers all246cases, without execution. Root type/lint/format/diff pass.
+- Resolution + evidence link: IN_PROGRESS pending a fresh frozen full validation. docs/evidence/m02-w15-discovery-correction/proof.tar.gz SHA256ef870ded9945f3c8653d85879c571dbe1f3e6a2435ecd00ad6270c952039693b. The failed3c79 run, full source/tool/build endpoints and independent review remain retained. No browser test is removed, rewritten or marked skipped to obtain a pass.
+- Current resolution (2026-10-18UTC): Corrected95f5 runs all246 default browser cases in the full local and every native host;19ACTIVE PASS. All54specfiles and4Node-onlyR10source tests remain preserved; properNode42 focused proof remains separate. Original3c79 discovery failure stays historical. Source-bound proof and independent PASS recommendation: docs/evidence/m02-w15-review-95f5; owner Gate A decision remains pending.
+
+
+### KI-0100 — Temporary-directory aliases suppress the offline comparison CLI entry point
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: 2026-10-18UTC, current R10 reporting after both actors completed once.
+- Affects: M02-W15 external comparison coordinator reuse; test/evidence tooling only.
+- Description: frozen compare-paired.mjs compares lexical resolve(argv1) with physical import.meta.url. On macOS /tmp aliases /private/tmp, so the coordinator's offline invocation exits0 without running main or creating a worksheet; its required-file check then fails closed. Original pipeline exit1/FileNotFound and all7 neutral source/tool/build endpoints remain retained.
+- Reproduction: actual Node24 pure resolver probe gives unequal original entry paths and equal physical entry; current candidate4/legacy4 raw artifacts remain unchanged. No product actor was repeated.
+- Workaround: invoke the identical frozen comparator through its physical source path with the same lock/release/inputs and fresh separate output. This actual pure join passes, yields40/40vs28/40exact, and closes independent204raw+5postflight checks.
+- Resolution + evidence link: OPEN as a future coordinator reuse precondition: normalize that CLI entry path in any newly reviewed coordinator before another campaign. Current Gate A comparison evidence is independently complete through the separately reviewed join. Do not mutate sealed R9/R10 history or relabel the original pipelinePASS. docs/evidence/m02-w15-review-95f5 preserves the complete failure, separate join and independent scope decision.
+
+
+## M02 delegated acceptance — 2026-10-18
+
+Gate A PASS and M02 ACCEPTED under OD-037 / ADR-0008 after actual independent validation. Earlier pending-approval prose is historical. KI-0100 remains MEDIUM/OPEN for future harness reuse; original comparison evidence remains complete.

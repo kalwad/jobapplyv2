@@ -1,0 +1,14 @@
+$ vitest run
+
+ RUN  v4.1.10 /private/tmp/japp-gate-v2-draft/tree/packages/contracts
+
+semantic-matrix-adapters cases=538 chunks=2 languages=typescript,python,rust rust-build=locked-offline
+contract-adapters protocol=1 typescript=510 python=506 rust=505 historical-typescript=229 historical-python=229 historical-rust=229 rust-build=locked-offline
+semantic-matrix-adapters cases=288 chunks=1 languages=typescript,python,rust rust-build=locked-offline
+contract-adapters protocol=1 typescript=79 python=79 rust=79 historical-typescript=229 historical-python=229 historical-rust=229 rust-build=locked-offline
+
+ Test Files  21 passed (21)
+      Tests  2521 passed (2521)
+   Start at  13:39:23
+   Duration  69.56s (transform 303ms, setup 0ms, import 1.93s, tests 65.78s, environment 1ms)
+

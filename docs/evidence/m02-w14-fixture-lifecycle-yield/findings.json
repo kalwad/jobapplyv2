@@ -1,0 +1,272 @@
+{
+  "format_version": "W14_FIXTURE_YIELD_LIFECYCLE_SOURCE_REVIEW_1",
+  "authority": "NONE",
+  "result": "CLEAR_SOURCE_AND_RETAINED_TARGETED_RUFF_BINDINGS_PENDING_FRESH_PYTHON_NATIVE",
+  "checks": {
+    "scripts/tests/test_validate_status.py_preimage_exact_current_root": true,
+    "scripts/tests/test_validate_status.py_result_exact_manifest": true,
+    "scripts/tests/test_validate_status.py_request_removed_only_iterator_return": true,
+    "scripts/tests/test_validate_status.py_prefix_and_mkdir_exact_before_try": true,
+    "scripts/tests/test_validate_status.py_exact_full_copy_setup_then_single_yield": true,
+    "scripts/tests/test_validate_status.py_strict_finally_only_owned_rmtree": true,
+    "scripts/tests/test_validate_status.py_default_fixture_decorator_scope_exact": true,
+    "scripts/tests/test_validate_status.py_all_assertions_exact": true,
+    "scripts/tests/test_validate_status.py_all_test_functions_args_decorators_exact": true,
+    "scripts/tests/test_validate_status.py_six_boundary_literals_preserved": true,
+    "scripts/tests/test_validate_status.py_Iterator_import_exactly_one": true,
+    "scripts/tests/test_validate_status.py_entire_current_AST_restored": true,
+    "scripts/tests/test_validate_status.py_current_preimage_918_plus_only_old_lifecycle_and6literals": true,
+    "scripts/tests/test_doctor.py_preimage_exact_current_root": true,
+    "scripts/tests/test_doctor.py_result_exact_manifest": true,
+    "scripts/tests/test_doctor.py_request_removed_only_iterator_return": true,
+    "scripts/tests/test_doctor.py_prefix_and_mkdir_exact_before_try": true,
+    "scripts/tests/test_doctor.py_exact_full_copy_setup_then_single_yield": true,
+    "scripts/tests/test_doctor.py_strict_finally_only_owned_rmtree": true,
+    "scripts/tests/test_doctor.py_default_fixture_decorator_scope_exact": true,
+    "scripts/tests/test_doctor.py_all_assertions_exact": true,
+    "scripts/tests/test_doctor.py_all_test_functions_args_decorators_exact": true,
+    "scripts/tests/test_doctor.py_six_boundary_literals_preserved": true,
+    "scripts/tests/test_doctor.py_Iterator_import_exactly_one": true,
+    "scripts/tests/test_doctor.py_entire_current_AST_restored": true,
+    "scripts/tests/test_doctor.py_current_preimage_918_plus_only_old_lifecycle_and6literals": true,
+    "scripts/tests/test_traceability.py_preimage_exact_current_root": true,
+    "scripts/tests/test_traceability.py_result_exact_manifest": true,
+    "scripts/tests/test_traceability.py_request_removed_only_iterator_return": true,
+    "scripts/tests/test_traceability.py_prefix_and_mkdir_exact_before_try": true,
+    "scripts/tests/test_traceability.py_exact_full_copy_setup_then_single_yield": true,
+    "scripts/tests/test_traceability.py_strict_finally_only_owned_rmtree": true,
+    "scripts/tests/test_traceability.py_default_fixture_decorator_scope_exact": true,
+    "scripts/tests/test_traceability.py_all_assertions_exact": true,
+    "scripts/tests/test_traceability.py_all_test_functions_args_decorators_exact": true,
+    "scripts/tests/test_traceability.py_six_boundary_literals_preserved": true,
+    "scripts/tests/test_traceability.py_Iterator_import_exactly_one": true,
+    "scripts/tests/test_traceability.py_entire_current_AST_restored": true,
+    "scripts/tests/test_traceability.py_current_preimage_918_plus_only_old_lifecycle_and6literals": true,
+    "patch_exact_all3_before_after_diff": true,
+    "all569assertions218tests_exact": true,
+    "static_record_hash_exact": true,
+    "static_tool_config_exact": true,
+    "all6retained_Ruff_checks_exact_inputs_policy_logs": true,
+    "old_static_failure_retained_exact": true,
+    "prior_finalizer_patch_immutable": true,
+    "pinned_pytest_generator_first_next_and_finalizer": true,
+    "pinned_pytest_generator_teardown_advances_iterator": true
+  },
+  "files": [
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "checks": {
+        "preimage_exact_current_root": true,
+        "result_exact_manifest": true,
+        "request_removed_only_iterator_return": true,
+        "prefix_and_mkdir_exact_before_try": true,
+        "exact_full_copy_setup_then_single_yield": true,
+        "strict_finally_only_owned_rmtree": true,
+        "default_fixture_decorator_scope_exact": true,
+        "all_assertions_exact": true,
+        "all_test_functions_args_decorators_exact": true,
+        "six_boundary_literals_preserved": true,
+        "Iterator_import_exactly_one": true,
+        "entire_current_AST_restored": true,
+        "current_preimage_918_plus_only_old_lifecycle_and6literals": true
+      },
+      "assertions": 315,
+      "test_functions": 128,
+      "later_literals": [
+        "KI-0094",
+        "KI-0095",
+        "- KI-0094 (HIGH, IN_PROGRESS) \u2014 synthetic later focus-value finding",
+        "- KI-0095 (HIGH, IN_PROGRESS) \u2014 synthetic later fixture-capacity finding",
+        "- KI-0094 (HIGH, IN_PROGRESS) \u2014 synthetic current focus-value issue",
+        "- KI-0095 (HIGH, IN_PROGRESS) \u2014 synthetic current fixture-capacity issue"
+      ],
+      "preimage_sha256": "55be5df1b203d2852ae8f77914db84211aa719a5d778937b72bd052e1a1da529",
+      "result_sha256": "31c2f4a1f0ac3e557427de0441d8465b8bf88c09f1093cf0a19da439105d736a"
+    },
+    {
+      "path": "scripts/tests/test_doctor.py",
+      "checks": {
+        "preimage_exact_current_root": true,
+        "result_exact_manifest": true,
+        "request_removed_only_iterator_return": true,
+        "prefix_and_mkdir_exact_before_try": true,
+        "exact_full_copy_setup_then_single_yield": true,
+        "strict_finally_only_owned_rmtree": true,
+        "default_fixture_decorator_scope_exact": true,
+        "all_assertions_exact": true,
+        "all_test_functions_args_decorators_exact": true,
+        "six_boundary_literals_preserved": true,
+        "Iterator_import_exactly_one": true,
+        "entire_current_AST_restored": true,
+        "current_preimage_918_plus_only_old_lifecycle_and6literals": true
+      },
+      "assertions": 96,
+      "test_functions": 38,
+      "later_literals": [],
+      "preimage_sha256": "a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd",
+      "result_sha256": "49b6ac739cb8c85a4dfaa02ef332bbc7acf39381b4c5cad5c6abfecebb155280"
+    },
+    {
+      "path": "scripts/tests/test_traceability.py",
+      "checks": {
+        "preimage_exact_current_root": true,
+        "result_exact_manifest": true,
+        "request_removed_only_iterator_return": true,
+        "prefix_and_mkdir_exact_before_try": true,
+        "exact_full_copy_setup_then_single_yield": true,
+        "strict_finally_only_owned_rmtree": true,
+        "default_fixture_decorator_scope_exact": true,
+        "all_assertions_exact": true,
+        "all_test_functions_args_decorators_exact": true,
+        "six_boundary_literals_preserved": true,
+        "Iterator_import_exactly_one": true,
+        "entire_current_AST_restored": true,
+        "current_preimage_918_plus_only_old_lifecycle_and6literals": true
+      },
+      "assertions": 158,
+      "test_functions": 52,
+      "later_literals": [],
+      "preimage_sha256": "f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94",
+      "result_sha256": "1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f"
+    }
+  ],
+  "static_bindings": [
+    {
+      "path": "scripts/tests/test_doctor.py",
+      "kind": "check",
+      "exact_binding_pass_record": true
+    },
+    {
+      "path": "scripts/tests/test_doctor.py",
+      "kind": "format",
+      "exact_binding_pass_record": true
+    },
+    {
+      "path": "scripts/tests/test_traceability.py",
+      "kind": "check",
+      "exact_binding_pass_record": true
+    },
+    {
+      "path": "scripts/tests/test_traceability.py",
+      "kind": "format",
+      "exact_binding_pass_record": true
+    },
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "kind": "check",
+      "exact_binding_pass_record": true
+    },
+    {
+      "path": "scripts/tests/test_validate_status.py",
+      "kind": "format",
+      "exact_binding_pass_record": true
+    }
+  ],
+  "source_manifest": {
+    "format_version": "W14_FUNCTION_FIXTURE_YIELD_LIFECYCLE_CAPACITY_PROPOSAL_1",
+    "authority": "NONE",
+    "status": "SOURCE_ONLY_STATIC_CHECKED_PENDING_PEER_REVIEW_AND_FRESH_LOCAL_NATIVE_PYTHON_NOT_APPLIED",
+    "base_head": "918dedb3fc379e1fc19cf6ef54bbefa1110b35d3",
+    "preimage_basis": "CURRENT_DIRTY_ROOT_INTEGRATION_WITH_REVIEWED_FINALIZERS_AND_SIX_KI94_KI95_BOUNDARY_LIST_LITERALS",
+    "files": [
+      {
+        "path": "scripts/tests/test_validate_status.py",
+        "fixture": "repo_copy",
+        "preimage_sha256": "sha256:55be5df1b203d2852ae8f77914db84211aa719a5d778937b72bd052e1a1da529",
+        "preimage_bytes": 107367,
+        "result_sha256": "sha256:31c2f4a1f0ac3e557427de0441d8465b8bf88c09f1093cf0a19da439105d736a",
+        "result_bytes": 107434,
+        "assertions_unchanged": 315,
+        "test_function_identities_unchanged": 128,
+        "historical_direct_fixture_cases": 196,
+        "whole_module_ast_exact_after_reversing_only_lifecycle_delta": true
+      },
+      {
+        "path": "scripts/tests/test_doctor.py",
+        "fixture": "doctor_repo",
+        "preimage_sha256": "sha256:a2b8aa1d58b5420f7cea8a192dc33a2ba0c891ba57ffc2f44e978578a9433afd",
+        "preimage_bytes": 26337,
+        "result_sha256": "sha256:49b6ac739cb8c85a4dfaa02ef332bbc7acf39381b4c5cad5c6abfecebb155280",
+        "result_bytes": 26719,
+        "assertions_unchanged": 96,
+        "test_function_identities_unchanged": 38,
+        "historical_direct_fixture_cases": 11,
+        "whole_module_ast_exact_after_reversing_only_lifecycle_delta": true
+      },
+      {
+        "path": "scripts/tests/test_traceability.py",
+        "fixture": "trace_repo",
+        "preimage_sha256": "sha256:f829ce4da5badcecc9b9f5ea029f201d78e21969e81b2ecb4116b51d7fe19e94",
+        "preimage_bytes": 48459,
+        "result_sha256": "sha256:1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f",
+        "result_bytes": 49217,
+        "assertions_unchanged": 158,
+        "test_function_identities_unchanged": 52,
+        "historical_direct_fixture_cases": 48,
+        "whole_module_ast_exact_after_reversing_only_lifecycle_delta": true
+      }
+    ],
+    "patch_sha256": "sha256:9426e72a384533f86459a49db48e45aa2b89ddf821f2a86851995d1dcba2fcc4",
+    "patch_bytes": 33947,
+    "paths_changed": 3,
+    "production_paths_changed": 0,
+    "assertions_preserved": 569,
+    "test_function_identities_preserved": 218,
+    "new_ki94_ki95_literals_preserved": 6,
+    "tests_added_or_removed": 0,
+    "tests_run": 0,
+    "builds_run": 0,
+    "browsers_started": 0,
+    "root_writes": 0,
+    "static_checks": {
+      "record": "static-checks.json",
+      "sha256": "sha256:fc309e98984582468b3b29933571fade8f01eb3aa383361a32e26b22de3f50b9",
+      "ruff_version": "ruff 0.16.0",
+      "lint3_format3_passed": true,
+      "no_cache": true,
+      "only_outside_proposed_bytes_formatted": true
+    },
+    "checks": {
+      "scripts/tests/test_validate_status.py_whole_module_ast_exact_after_lifecycle_reversal": true,
+      "scripts/tests/test_validate_status.py_current_preimage_is_918_plus_only_reviewed_finalizer_and_boundary_literals": true,
+      "scripts/tests/test_doctor.py_whole_module_ast_exact_after_lifecycle_reversal": true,
+      "scripts/tests/test_doctor.py_current_preimage_is_918_plus_only_reviewed_finalizer_and_boundary_literals": true,
+      "scripts/tests/test_traceability.py_whole_module_ast_exact_after_lifecycle_reversal": true,
+      "scripts/tests/test_traceability.py_current_preimage_is_918_plus_only_reviewed_finalizer_and_boundary_literals": true
+    },
+    "old_finalizer_proposal_preserved": {
+      "path": "/tmp/japp-w14-fixture-lifecycle-proposal",
+      "patch_sha256": "sha256:186b6a45f9e7ca3636244bcb89c38363a005f74b1022574280dbfd338dcdfde8",
+      "retained_proof_path": "docs/evidence/m02-w14-fixture-lifecycle/proof.tar.gz",
+      "retained_proof_sha256": "sha256:05a84f35fd7f8bf814b6ce55a2e67e713e2e86b7a00abd07147fe37dfb70c50f",
+      "classification": "HISTORICAL_SOURCE_REVIEWED_BUT_RUFF_PT021_REJECTED_NOT_FINAL_CORRECTION"
+    },
+    "design": {
+      "iterator_annotation": "collections.abc.Iterator[Path]",
+      "request_argument_and_finalizer_removed": true,
+      "try_begins_immediately_after_existing_owned_directory_creation": true,
+      "try_contains_original_complete_copy_setup_then_yield_same_repo": true,
+      "finally_strictly_removes_only_owned_repo": "shutil.rmtree(repo), no ignored errors",
+      "function_scope_and_tmp_path_isolation_unchanged": true,
+      "inputs_archives_evidence_assertions_and_test_identities_unchanged": true,
+      "no_budget_threshold_timeout_or_environment_guard_change": true
+    },
+    "limitations": [
+      "Fresh affected local Python and native full Python execution remain required.",
+      "No actor/browser, runtime-performance, peak-disk measurement, environment-guard root-cause, gate or CI success claim.",
+      "Earlier finalizer proposal/proof and static PT021 failure remain immutable historical records."
+    ]
+  },
+  "findings": [],
+  "limits": [
+    "No reviewer-run tests, fixtures, cleanup, Ruff, builds, browser or root/worktree writes.",
+    "Earlier finalizer source review did not catch enabled PT021 rule; actual static rejection remains historical, this yield replacement removes that pattern.",
+    "Yield try/finally covers copy/setup exceptions during first next and normal pytest teardown after yield; process kill before cleanup cannot be guaranteed.",
+    "Separate contact-env F cause remains unresolved; no native or capacity-success claim."
+  ],
+  "pytest_source": {
+    "path": "/Users/tanishkalwad/jobapplyv2/.venv/lib/python3.12/site-packages/_pytest/fixtures.py",
+    "sha256": "f5d4d3f848d97411e456d50400d3aaecc19a9b0c90def9151e395ee8952042b7",
+    "version": "9.1.1"
+  }
+}

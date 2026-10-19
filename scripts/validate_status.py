@@ -61,6 +61,8 @@ import json
 import re
 import sys
 import unicodedata
+import zlib
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
@@ -245,6 +247,87 @@ APPROVED_EVIDENCE_FILES = {
 }
 APPROVED_EVIDENCE_PREFIXES = ("docs/gates/evidence/",)
 PASS_HOLDOUT_TOKENS = {"pass", "passed", "valid", "met", "meets"}
+OWNER_HOLDOUT_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0006"
+OWNER_HOLDOUT_WAIVER_HEADING = (
+    "### ADR-0006 — Continuous execution and owner-controlled holdout waiver"
+)
+OWNER_HOLDOUT_WAIVER_APPROVAL = (
+    '- Owner approval: direct instructions in this chat: "ignore instructions '
+    'relating to stopping after each W is reached and validated"; "you do not '
+    'need owner controlled holdout"; "i want you to keep working till this '
+    'entire project is finished". The owner identified the working GitHub '
+    "repository as jobapplyv2."
+)
+OWNER_HOLDOUT_WAIVER_DECISION = (
+    "- Decision: execute successive eligible packages without per-W stopping. "
+    "Remove owner-controlled hidden holdout as a completion prerequisite across "
+    "this project. Use accessible GitHub sources where they provide actual "
+    "inputs or legacy comparison components. Preserve original manifests and "
+    "historical evidence; never relabel a waiver as execution or PASS."
+)
+OWNER_HOLDOUT_WAIVER_OWNER_ROW = (
+    "| OD-035 | Continue all work packages without stopping after each W; "
+    "owner-controlled holdout is waived. Preserve measured results and report "
+    "every remaining validation limitation. | ACCEPTED | Owner messages "
+    "2026-10-16; ADR-0006 |"
+)
+OWNER_HOLDOUT_WAIVER_PREIMAGE_DOMAIN = b"japp-owner-holdout-waiver-v1\0"
+OWNER_EVIDENCE_SCOPE_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0007"
+OWNER_EVIDENCE_SCOPE_WAIVER_HEADING = (
+    "### ADR-0007 — Direct Simplify comparison and executed public-form evidence waiver"
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW = (
+    "| OD-036 | Waive direct Simplify comparison and executed "
+    "public-form evidence throughout the project; preserve all other "
+    "completion, safety, measurement and review requirements. Continue "
+    "until the project is finished and validated. | ACCEPTED | Owner "
+    "message 2026-10-17; ADR-0007 |"
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_APPROVAL = (
+    "- Owner approval: direct instruction in this chat on 2026-10-17: "
+    '"Waive the Simplify comparison and public-form evidence '
+    "requirements too. Keep going through all remaining milestones "
+    'until the entire project is finished and validated."'
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_DECISION = (
+    "- Decision: remove direct Simplify comparison and executed "
+    "public-form evidence as completion prerequisites throughout this "
+    "project. Record the affected requirements as WAIVED_BY_OWNER under "
+    "OD-036 / ADR-0007; preserve actual historical outcomes and never "
+    "relabel nonexecution as PASS. Continue successive eligible "
+    "packages under ADR-0006 without per-W stopping. Numerical "
+    "accuracy, safety and performance thresholds, controlled-corpus "
+    "execution, native-platform proof, independent review, other "
+    "comparison baselines, product capabilities, actual usability, "
+    "accessibility, visual approval and all other non-comparison "
+    "requirements remain binding. This decision grants no public ATS "
+    "support, superiority claim or final gate verdict."
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_SCOPE = (
+    "- Waiver scope: DIRECT_SIMPLIFY_COMPARISON and "
+    "EXECUTED_PUBLIC_FORM_EVIDENCE only, project-wide. Only the "
+    "directly comparative Simplify component of a mixed requirement is "
+    "waived; public-form evidence means execution-based validation on "
+    "third-party public application forms, including public "
+    "no-submit/dry-run requirements. Other components remain required. "
+    "Public UI-reference observation, actual Simplify-experienced-user "
+    "task studies, accessibility, visual approval and "
+    "originality/non-affiliation requirements are not waived."
+)
+OWNER_EVIDENCE_SCOPE_WAIVER_PREIMAGE_DOMAIN = (
+    b"japp-owner-external-evidence-waiver-v1\0"
+)
+OWNER_EVIDENCE_SCOPE_LABELS = {
+    "DIRECT_SIMPLIFY_COMPARISON": "Simplify comparison result",
+    "EXECUTED_PUBLIC_FORM_EVIDENCE": "Public-form evidence result",
+}
+OWNER_EVIDENCE_GATE_SCOPES = {
+    "AUTOFILL_FEASIBILITY": tuple(OWNER_EVIDENCE_SCOPE_LABELS),
+    "RESUME_PAGEFIT_FEASIBILITY": ("DIRECT_SIMPLIFY_COMPARISON",),
+    "WORKDAY_GUIDED_PRE_SUBMIT": tuple(OWNER_EVIDENCE_SCOPE_LABELS),
+    "CROSS_PLATFORM_CORE": (),
+}
+
 UI_SURFACE_IDS = (
     "DESKTOP_SHELL",
     "HOME_DASHBOARD",
@@ -257,6 +340,18 @@ UI_SURFACE_IDS = (
     "EXTENSION_AUTOFILL",
     "EXTENSION_REVIEW_UNRESOLVED",
 )
+UI_SURFACE_OWNERS = {
+    "DESKTOP_SHELL": ("M03-W01", "M03-W11"),
+    "HOME_DASHBOARD": ("M03-W11", "M33-W07"),
+    "JOBS": ("M33-W07",),
+    "TRACKER": ("M25-W08",),
+    "DOCUMENTS_RESUMES": ("M09-W07", "M12-W07"),
+    "PROFILE": ("M08-W07",),
+    "SETTINGS": ("M05-W17", "M27-W13", "M27-W14"),
+    "EXTENSION_DEFAULT": ("M17-W01", "M17-W11"),
+    "EXTENSION_AUTOFILL": ("M17-W11",),
+    "EXTENSION_REVIEW_UNRESOLVED": ("M17-W05", "M17-W11", "M34-W07"),
+}
 ANTI_BLOAT_RULE_IDS = tuple(f"AB-{number:02d}" for number in range(1, 13))
 FAMILIARITY_ROW_CELLS = 8
 VISUAL_BASELINE_ROW_CELLS = 13
@@ -737,12 +832,121 @@ def _id_table_rows(path: Path, valid_ids: tuple[str, ...]) -> dict[str, list[str
     return rows
 
 
+def _ui_evidence_file(repo: Path, reference: str) -> tuple[Path | None, str | None]:
+    """Resolve only nonempty regular UI evidence within the repository."""
+    relative = reference.strip().strip("`")
+    parts = PurePosixPath(relative).parts
+    if (
+        not parts
+        or ".." in parts
+        or "\\" in relative
+        or PurePosixPath(relative).is_absolute()
+        or URL_SCHEME_RE.match(relative)
+        or not relative.startswith(("docs/ui/", "docs/evidence/"))
+    ):
+        return None, "requires a repository-relative UI evidence path"
+    candidate = repo
+    for part in parts:
+        candidate /= part
+        if candidate.is_symlink():
+            return None, "UI evidence must not use symlinks"
+    if not candidate.is_file():
+        return None, "UI evidence file is missing or not regular"
+    if candidate.stat().st_size == 0:
+        return None, "UI evidence file is empty"
+    return candidate, None
+
+
+def _ui_png_dimensions(payload: bytes) -> tuple[int, int] | None:  # noqa: PLR0911
+    """Check PNG chunk structure/CRCs without interpreting captured pixels."""
+    if payload[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    signature_length = 8
+    header_length = 13
+    offset = signature_length
+    dimensions = None
+    data_seen = False
+    while offset + 12 <= len(payload):
+        length = int.from_bytes(payload[offset : offset + 4], "big")
+        kind = payload[offset + 4 : offset + 8]
+        end = offset + 12 + length
+        if end > len(payload):
+            return None
+        chunk = payload[offset + 8 : end - 4]
+        if zlib.crc32(kind + chunk) != int.from_bytes(payload[end - 4 : end], "big"):
+            return None
+        if offset == signature_length and (kind != b"IHDR" or length != header_length):
+            return None
+        if kind == b"IHDR":
+            if dimensions is not None:
+                return None
+            dimensions = (
+                int.from_bytes(chunk[:4], "big"),
+                int.from_bytes(chunk[4:8], "big"),
+            )
+            if min(dimensions) <= 0:
+                return None
+        elif kind == b"IDAT":
+            data_seen = True
+        elif kind == b"IEND":
+            return (
+                dimensions
+                if length == 0 and end == len(payload) and data_seen
+                else None
+            )
+        offset = end
+    return None
+
+
+def _ui_capture_errors(repo: Path, cells: list[str]) -> list[str]:
+    errors = []
+    artifact, error = _ui_evidence_file(repo, cells[3])
+    if error or artifact is None:
+        errors.append(error or "capture artifact is unavailable")
+    else:
+        payload = artifact.read_bytes()
+        if cells[4].strip("`") != "sha256:" + hashlib.sha256(payload).hexdigest():
+            errors.append("capture SHA-256 does not match the actual artifact")
+        dimensions = _ui_png_dimensions(payload)
+        viewport = re.fullmatch(
+            r"([1-9]\d*)\s*[x\u00d7]\s*([1-9]\d*)", cells[5].strip("`")
+        )
+        if dimensions is None or artifact.suffix.casefold() != ".png":
+            errors.append("capture must be an actual regular PNG")
+        elif viewport is None or tuple(map(int, viewport.groups())) != dimensions:
+            errors.append("capture viewport differs from PNG dimensions")
+    if not re.fullmatch(r"[1-9]\d*(?:\.\d+)?%", cells[6].strip("`")):
+        errors.append("capture zoom must record its actual percentage")
+    if any(_is_evidence_placeholder(cells[index]) for index in (7, 8)):
+        errors.append("capture theme and token version must be recorded")
+    if cells[9] != "—" or cells[10] != "`NOT_APPROVED`" or cells[11] != "—":
+        errors.append(
+            "CAPTURED has no approval date, owner approval or approved exception"
+        )
+    if not re.search(
+        r"(?:tree |commit )[0-9a-f]{40}\b|source sha256:[0-9a-f]{64}\b", cells[12]
+    ):
+        errors.append("capture change history needs a source revision binding")
+    return errors
+
+
 def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
-    repo: Path, spec: Spec, report: Report
+    repo: Path, spec: Spec, report: Report, status: Status | None = None
 ) -> None:
-    """Fail closed on fabricated UI/provider state during M00-W11."""
+    """Preserve migration boundaries while admitting evidenced UI progress."""
     errors = 0
     package_ids = set(spec.package_ids())
+    actual_status = (
+        status if status is not None else parse_status(repo / "docs/PROJECT_STATUS.md")
+    )
+    package_states = {cells[0]: cells[1] for cells in actual_status.package_rows}
+    surface_started = {
+        surface: package_states.get("M00-W11") in DONE
+        and any(
+            package_states.get(owner) in (STARTED | {"BLOCKED"}) for owner in owners
+        )
+        for surface, owners in UI_SURFACE_OWNERS.items()
+    }
 
     familiarity = repo / "docs/UI_FAMILIARITY.md"
     familiarity_rows = _id_table_rows(familiarity, UI_SURFACE_IDS)
@@ -755,21 +959,61 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
             errors += 1
             continue
         owners = PKG_ID_RE.findall(cells[2])
-        if not owners or any(owner not in package_ids for owner in owners):
+        if tuple(owners) != UI_SURFACE_OWNERS[surface_id] or any(
+            owner not in package_ids for owner in owners
+        ):
             report.fail(f"UI familiarity surface {surface_id} has invalid owners")
             errors += 1
-        if cells[3] != "`NOT_YET_APPLICABLE`":
-            report.fail(
-                f"UI familiarity surface {surface_id} must remain "
-                "NOT_YET_APPLICABLE during M00-W11"
-            )
-            errors += 1
-        if cells[4:7] != ["—", "—", "—"] or cells[7] != "`NOT_APPROVED`":
-            report.fail(
-                f"UI familiarity surface {surface_id} invents reference, "
-                "comparison, or owner-approval evidence"
-            )
-            errors += 1
+        if not surface_started[surface_id] or cells[3] in (
+            "`NOT_YET_APPLICABLE`",
+            "`NOT_STARTED`",
+        ):
+            allowed = {"`NOT_YET_APPLICABLE`"}
+            if surface_started[surface_id]:
+                allowed.add("`NOT_STARTED`")
+            if cells[3] not in allowed:
+                report.fail(
+                    f"UI familiarity surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE during M00-W11 or before its owners start"
+                )
+                errors += 1
+            if cells[4:7] != ["—", "—", "—"] or cells[7] != "`NOT_APPROVED`":
+                report.fail(
+                    f"UI familiarity surface {surface_id} invents reference, "
+                    "comparison, or owner-approval evidence"
+                )
+                errors += 1
+        else:
+            if cells[3] not in ("`IN_PROGRESS`", "`EVIDENCE_READY`"):
+                report.fail(
+                    f"UI familiarity surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE or use an unapproved evidence state"
+                )
+                errors += 1
+            if _is_evidence_placeholder(cells[4]):
+                report.fail(
+                    f"UI familiarity surface {surface_id} needs reference provenance"
+                )
+                errors += 1
+            _, observation_error = _ui_evidence_file(repo, cells[5])
+            if observation_error:
+                report.fail(f"UI familiarity surface {surface_id}: {observation_error}")
+                errors += 1
+            if cells[3] == "`EVIDENCE_READY`" or (
+                cells[6] != "—" and not cells[6].startswith("Pending ")
+            ):
+                _, comparison_error = _ui_evidence_file(repo, cells[6])
+                if comparison_error:
+                    report.fail(
+                        f"UI familiarity surface {surface_id}: "
+                        f"comparison {comparison_error}"
+                    )
+                    errors += 1
+            if cells[7] != "`NOT_APPROVED`":
+                report.fail(
+                    f"UI familiarity surface {surface_id} falsely claims approval"
+                )
+                errors += 1
 
     baseline = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
     baseline_rows = _id_table_rows(baseline, UI_SURFACE_IDS)
@@ -782,23 +1026,34 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
             errors += 1
             continue
         owners = PKG_ID_RE.findall(cells[1])
-        if not owners or any(owner not in package_ids for owner in owners):
+        if tuple(owners) != UI_SURFACE_OWNERS[surface_id] or any(
+            owner not in package_ids for owner in owners
+        ):
             report.fail(f"visual baseline surface {surface_id} has invalid owners")
             errors += 1
-        if cells[2] != "`NOT_YET_APPLICABLE`":
-            report.fail(
-                f"visual baseline surface {surface_id} must remain "
-                "NOT_YET_APPLICABLE during M00-W11"
-            )
-            errors += 1
-        if any(cells[index] != "—" for index in range(3, 10)):
-            report.fail(
-                f"visual baseline surface {surface_id} invents capture metadata"
-            )
-            errors += 1
-        if cells[10] != "`NOT_APPROVED`":
-            report.fail(f"visual baseline surface {surface_id} falsely claims approval")
-            errors += 1
+        if surface_started[surface_id] and cells[2] == "`CAPTURED`":
+            capture_errors = _ui_capture_errors(repo, cells)
+            for error in capture_errors:
+                report.fail(f"visual baseline surface {surface_id}: {error}")
+            errors += len(capture_errors)
+        else:
+            if cells[2] != "`NOT_YET_APPLICABLE`":
+                report.fail(
+                    f"visual baseline surface {surface_id} must remain "
+                    "NOT_YET_APPLICABLE during M00-W11 or until an evidenced "
+                    "started-owner capture"
+                )
+                errors += 1
+            if any(cells[index] != "—" for index in range(3, 10)):
+                report.fail(
+                    f"visual baseline surface {surface_id} invents capture metadata"
+                )
+                errors += 1
+            if cells[10] != "`NOT_APPROVED`":
+                report.fail(
+                    f"visual baseline surface {surface_id} falsely claims approval"
+                )
+                errors += 1
 
     anti_bloat = repo / "docs/ui/ANTI_BLOAT_CHECKLIST.md"
     rule_rows = _id_table_rows(anti_bloat, ANTI_BLOAT_RULE_IDS)
@@ -866,7 +1121,7 @@ def check_v14_governance_memory(  # noqa: PLR0912, PLR0915 - four ledgers
     if errors == 0:
         report.ok(
             "v1.4 UI/provider governance ledgers have exact owners and honest "
-            "NOT_YET_APPLICABLE/NOT_EVALUATED states"
+            "stage-aware unapproved UI evidence and NOT_EVALUATED states"
         )
 
 
@@ -1819,6 +2074,7 @@ def _gate_d_metric_problems(ledger_text: str) -> list[str]:
         for value in measured
         if _is_evidence_placeholder(value)
         or value.casefold().startswith(("pending", "not evaluated"))
+        or "waived_by_owner" in value.casefold()
     ]
     if not measured:
         problems.append("critical-gate ledger has no Gate D measured rows")
@@ -1867,6 +2123,283 @@ def _last_gate_state(text: str) -> str | None:
     return values[-1] if values else None
 
 
+def _owner_holdout_waiver_preimage(repo: Path) -> bytes | None:
+    """Bind one exact accepted ADR and OD record, independent of other ADRs.
+
+    The versioned preimage is the domain, exact OD-035 row plus LF, and exact
+    ADR-0006 heading/body with one terminal LF. Separator blank lines are not
+    record content. No whole-document hash or caller assertion grants authority.
+    """
+    path = repo / "docs/DECISIONS.md"
+    try:
+        if path.is_symlink() or not path.is_file():
+            return None
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    headings = re.findall(r"^### ADR-0006\b[^\n]*$", text, flags=re.MULTILINE)
+    owner_rows = re.findall(r"^\| OD-035 \|.*$", text, flags=re.MULTILINE)
+    if headings != [OWNER_HOLDOUT_WAIVER_HEADING] or owner_rows != [
+        OWNER_HOLDOUT_WAIVER_OWNER_ROW
+    ]:
+        return None
+    _, separator, section = text.partition(OWNER_HOLDOUT_WAIVER_HEADING + "\n")
+    if not separator:
+        return None
+    section = re.split(r"^##(?:#)? ", section, maxsplit=1, flags=re.MULTILINE)[0]
+    statuses = re.findall(r"^- Status: .*$", section, flags=re.MULTILINE)
+    approvals = re.findall(r"^- Owner approval: .*$", section, flags=re.MULTILINE)
+    decisions = re.findall(r"^- Decision: .*$", section, flags=re.MULTILINE)
+    if not (
+        statuses == ["- Status: ACCEPTED"]
+        and approvals == [OWNER_HOLDOUT_WAIVER_APPROVAL]
+        and decisions == [OWNER_HOLDOUT_WAIVER_DECISION]
+    ):
+        return None
+    record = (
+        OWNER_HOLDOUT_WAIVER_OWNER_ROW
+        + "\n"
+        + OWNER_HOLDOUT_WAIVER_HEADING
+        + "\n"
+        + section.rstrip("\n")
+        + "\n"
+    )
+    return OWNER_HOLDOUT_WAIVER_PREIMAGE_DOMAIN + record.encode("utf-8")
+
+
+def _owner_holdout_waiver_digest(repo: Path) -> str | None:
+    preimage = _owner_holdout_waiver_preimage(repo)
+    return (
+        None if preimage is None else "sha256:" + hashlib.sha256(preimage).hexdigest()
+    )
+
+
+def _owner_holdout_waived(repo: Path) -> bool:
+    """Recognize the accepted owner grant, never a passing hidden execution."""
+    return _owner_holdout_waiver_preimage(repo) is not None
+
+
+def gate_holdout_authority_v2_problems(
+    repo: Path,
+    bundle: Mapping[str, object],
+    decision: Mapping[str, object],
+    ledger_text: str,
+    report_text: str,
+) -> list[str]:
+    """Source-aware holdout authority check AFTER canonical v2 validation.
+
+    This supplements structural/semantic contract validation and checks paired
+    artifact identity. It never evaluates numerical evidence, reviewer identity
+    or owner gate approval, and cannot itself establish gate PASS. Callers must
+    preserve those independent checks. An executed holdout uses its ordinary
+    evidence path; a waiver must bind the actual current accepted owner record.
+    """
+    bundle_assessment = bundle.get("holdout_assessment")
+    decision_assessment = decision.get("holdout_assessment")
+    if not isinstance(bundle_assessment, dict) or not isinstance(
+        decision_assessment, dict
+    ):
+        return ["canonical v2 holdout assessment is missing"]
+    if bundle_assessment != decision_assessment:
+        return ["gate v2 holdout assessments disagree"]
+    for key in (
+        "gate_id",
+        "candidate_commit",
+        "candidate_tree",
+        "evidence_bundle_digest",
+    ):
+        if not isinstance(bundle.get(key), str) or bundle.get(key) != decision.get(key):
+            return ["gate v2 candidate or evidence identity disagrees"]
+    if bundle_assessment.get("state") != OWNER_HOLDOUT_WAIVER_RESULT:
+        return []
+    inventory = bundle.get("completeness_inventory")
+    summary = decision.get("threshold_evidence_summary")
+    waiver = bundle_assessment.get("owner_waiver")
+    expected_digest = _owner_holdout_waiver_digest(repo)
+    if (
+        bundle_assessment.get("execution_performed") is not False
+        or "execution_result_ref" in bundle_assessment
+        or not isinstance(inventory, dict)
+        or inventory.get("holdout_valid") is not False
+        or not isinstance(summary, dict)
+        or summary.get("holdout_valid") is not False
+        or not isinstance(waiver, dict)
+        or set(waiver)
+        != {
+            "adr_ref",
+            "owner_decision_ref",
+            "source_document_ref",
+            "source_record_digest",
+        }
+        or waiver.get("adr_ref") != "ADR-0006"
+        or waiver.get("owner_decision_ref") != "OD-035"
+        or waiver.get("source_document_ref") != "docs/DECISIONS.md"
+        or expected_digest is None
+        or waiver.get("source_record_digest") != expected_digest
+    ):
+        return [
+            "gate v2 waiver lacks exact accepted owner authority or claims execution"
+        ]
+    paired_waiver = all(
+        _last_gate_field(text, ("Holdout result",)) == OWNER_HOLDOUT_WAIVER_RESULT
+        for text in (ledger_text, report_text)
+    )
+    return (
+        _gate_holdout_problems(repo, ledger_text, report_text)
+        if paired_waiver
+        else ["gate v2 waiver requires the exact paired nonexecution token"]
+    )
+
+
+def _owner_evidence_scope_waiver_preimage(repo: Path) -> bytes | None:
+    """Bind only the exact accepted OD-036/ADR-0007 grant, not caller claims."""
+    path = repo / "docs/DECISIONS.md"
+    try:
+        if path.is_symlink() or path.parent.is_symlink() or not path.is_file():
+            return None
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    headings = re.findall(r"^### ADR-0007\b[^\n]*$", text, flags=re.MULTILINE)
+    owner_rows = re.findall(r"^\| OD-036 \|.*$", text, flags=re.MULTILINE)
+    if headings != [OWNER_EVIDENCE_SCOPE_WAIVER_HEADING] or owner_rows != [
+        OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW
+    ]:
+        return None
+    _, separator, section = text.partition(OWNER_EVIDENCE_SCOPE_WAIVER_HEADING + "\n")
+    if not separator:
+        return None
+    section = re.split(r"^##(?:#)? ", section, maxsplit=1, flags=re.MULTILINE)[0]
+    expected = {
+        "Status": "- Status: ACCEPTED",
+        "Owner approval": OWNER_EVIDENCE_SCOPE_WAIVER_APPROVAL,
+        "Decision": OWNER_EVIDENCE_SCOPE_WAIVER_DECISION,
+        "Waiver scope": OWNER_EVIDENCE_SCOPE_WAIVER_SCOPE,
+    }
+    if any(
+        re.findall(rf"^- {re.escape(label)}: .*$", section, flags=re.MULTILINE)
+        != [value]
+        for label, value in expected.items()
+    ):
+        return None
+    record = (
+        OWNER_EVIDENCE_SCOPE_WAIVER_OWNER_ROW
+        + "\n"
+        + OWNER_EVIDENCE_SCOPE_WAIVER_HEADING
+        + "\n"
+        + section.rstrip("\n")
+        + "\n"
+    )
+    return OWNER_EVIDENCE_SCOPE_WAIVER_PREIMAGE_DOMAIN + record.encode("utf-8")
+
+
+def _owner_evidence_scope_waiver_digest(repo: Path) -> str | None:
+    preimage = _owner_evidence_scope_waiver_preimage(repo)
+    return (
+        None if preimage is None else "sha256:" + hashlib.sha256(preimage).hexdigest()
+    )
+
+
+def _owner_evidence_scope_waived(repo: Path, scope: str) -> bool:
+    return scope in OWNER_EVIDENCE_SCOPE_LABELS and (
+        _owner_evidence_scope_waiver_preimage(repo) is not None
+    )
+
+
+def _evidence_scope_field_records(text: str, label: str) -> list[tuple[str, str]]:
+    return re.findall(
+        rf"^\s*(?:[-*]\s*)?({re.escape(label)}):\s*(.*?)\s*$",
+        text,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
+
+
+def _gate_evidence_scope_waiver_problems(
+    repo: Path,
+    ledger_text: str,
+    report_text: str,
+    *,
+    gate: str = "AUTOFILL_FEASIBILITY",
+) -> list[str]:
+    """Check explicit narrative nonexecution claims; never mint a gate verdict.
+
+    Ordinary source absence is not a waiver. Once a scope is claimed waived,
+    every applicable label must be paired exactly in ledger and report and
+    bound to the current accepted owner record. All numerical, corpus, native,
+    review, owner-decision and ordinary execution checks remain separate.
+    """
+    parsed = {
+        scope: [
+            _evidence_scope_field_records(text, label)
+            for text in (ledger_text, report_text)
+        ]
+        for scope, label in OWNER_EVIDENCE_SCOPE_LABELS.items()
+    }
+    claimed = any(
+        "waiv" in value.casefold()
+        for records in parsed.values()
+        for matches in records
+        for _, value in matches
+    )
+    foreign_claim = any(
+        "waived_by_owner_adr_0007" in value.casefold()
+        and label not in OWNER_EVIDENCE_SCOPE_LABELS.values()
+        for text in (ledger_text, report_text)
+        for label, value in re.findall(
+            r"^\s*(?:[-*]\s*)?([^:\n]+ result):\s*(.*?)\s*$",
+            text,
+            flags=re.MULTILINE | re.IGNORECASE,
+        )
+    )
+    if foreign_claim:
+        return ["evidence-source waiver claims an unapproved result scope"]
+    if not claimed:
+        return []
+    required = OWNER_EVIDENCE_GATE_SCOPES.get(gate)
+    if not required or any(
+        "waiv" in value.casefold()
+        for scope, records in parsed.items()
+        if scope not in required
+        for matches in records
+        for _, value in matches
+    ):
+        return ["evidence-source waiver claims an inapplicable gate scope"]
+    if _owner_evidence_scope_waiver_preimage(repo) is None:
+        return ["evidence-source waiver lacks exact accepted owner authority"]
+    for scope in required:
+        expected = [
+            (OWNER_EVIDENCE_SCOPE_LABELS[scope], OWNER_EVIDENCE_SCOPE_WAIVER_RESULT)
+        ]
+        if any(matches != expected for matches in parsed[scope]):
+            return [
+                "evidence-source waiver requires exact paired applicable scope fields"
+            ]
+    return []
+
+
+def _gate_holdout_problems(repo: Path, ledger_text: str, report_text: str) -> list[str]:
+    """A waiver is an explicit paired record, never a passing execution."""
+    records = (
+        ("gate report", _last_gate_field(report_text, ("Holdout result",))),
+        ("critical-gate ledger", _last_gate_field(ledger_text, ("Holdout result",))),
+    )
+    waiver_recorded = all(value == OWNER_HOLDOUT_WAIVER_RESULT for _, value in records)
+    waiver_allowed = waiver_recorded and _owner_holdout_waived(repo)
+    problems: list[str] = []
+    for label, value in records:
+        token = value.split()[0].casefold() if value else ""
+        execution_passed = (
+            token in PASS_HOLDOUT_TOKENS
+            and "waived_by_owner" not in (value or "").casefold()
+        )
+        if execution_passed or waiver_allowed:
+            continue
+        problems.append(
+            f"{label} holdout result is not a passing result or authorized waiver"
+        )
+    return problems
+
+
 def _gate_record_agreement_problems(
     label: str,
     text: str,
@@ -1882,7 +2415,6 @@ def _gate_record_agreement_problems(
     )
     recorded_reviewer = _last_gate_field(text, ("Independent reviewer",))
     owner_decision = _last_gate_field(text, ("Owner decision",))
-    holdout = _last_gate_field(text, ("Holdout result",))
     if state != "PASS":
         problems.append(f"{label} state is {state!r}, not PASS")
     if recorded_revision != revision:
@@ -1902,9 +2434,6 @@ def _gate_record_agreement_problems(
         )
     if owner_decision is None or owner_decision.split()[0].upper() != "PASS":
         problems.append(f"{label} owner decision is not PASS")
-    holdout_token = holdout.split()[0].casefold() if holdout else ""
-    if holdout_token not in PASS_HOLDOUT_TOKENS:
-        problems.append(f"{label} holdout result is not a passing result")
     return problems
 
 
@@ -1930,6 +2459,7 @@ def _check_gate_pass_evidence(
     )
     ledger_text = _gate_section_text(repo / "docs/CRITICAL_GATES.md", gate)
     if TREE_REVISION_RE.fullmatch(revision) and EVIDENCE_HASH_RE.fullmatch(corpus_hash):
+        problems.extend(_gate_holdout_problems(repo, ledger_text, report_text))
         problems.extend(
             _gate_record_agreement_problems(
                 "gate report", report_text, revision, corpus_hash, reviewer
@@ -1953,6 +2483,24 @@ def _check_gate_pass_evidence(
         problems.extend(_gate_d_metric_problems(ledger_text))
     for problem in problems:
         report.fail(f"{gate} is PASS but {problem} (PASS prerequisites, spec §12)")
+
+
+def _read_gate_report_and_check_scope_waivers(
+    repo: Path, gate: str, report: Report
+) -> tuple[str, int]:
+    report_path = repo / GATE_REPORTS[gate]
+    report_text = (
+        report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
+    )
+    problems = _gate_evidence_scope_waiver_problems(
+        repo,
+        _gate_section_text(repo / "docs/CRITICAL_GATES.md", gate),
+        report_text,
+        gate=gate,
+    )
+    for problem in problems:
+        report.fail(f"{gate} {problem}")
+    return report_text, len(problems)
 
 
 def check_gates(  # noqa: PLR0912 - gate states are intentionally fail-closed
@@ -1987,10 +2535,10 @@ def check_gates(  # noqa: PLR0912 - gate states are intentionally fail-closed
                 f"{expected_report!r}"
             )
             gate_errors += 1
-        report_path = repo / expected_report
-        report_text = (
-            report_path.read_text(encoding="utf-8") if report_path.is_file() else ""
+        report_text, waiver_errors = _read_gate_report_and_check_scope_waivers(
+            repo, gate, report
         )
+        gate_errors += waiver_errors
         report_state = _last_gate_state(report_text)
         if report_state != state:
             report.fail(
@@ -2629,6 +3177,21 @@ def _canonicalish_spec_name(name: str) -> bool:
     return collapsed.startswith("masterimplementationspec")
 
 
+def _file_contains_marker(path: Path, marker: bytes) -> bool:
+    """Search all bytes with bounded memory, including cross-chunk markers."""
+    overlap_size = max(0, len(marker) - 1)
+    overlap = b""
+    found = False
+    with path.open("rb") as stream:
+        while chunk := stream.read(64 * 1024):
+            window = overlap + chunk
+            found = found or marker in window
+            overlap = window[-overlap_size:] if overlap_size else b""
+    # Finish through EOF even after a match: later read/close OSError must
+    # retain the caller's existing unreadable-content behavior.
+    return found
+
+
 def canonical_spec_offenders(repo: Path) -> list[str]:
     """Return every non-canonical file that looks or reads like the spec."""
     docs_dir = repo / "docs"
@@ -2653,7 +3216,7 @@ def canonical_spec_offenders(repo: Path) -> list[str]:
                 offenders.append(rel)
             continue
         try:
-            content_match = marker in path.read_bytes()
+            content_match = _file_contains_marker(path, marker)
         except OSError:
             content_match = False
         if name_match or content_match:
@@ -2693,7 +3256,7 @@ def validate(repo: Path, status_path: Path, spec_path: Path) -> Report:
         return report
     check_spec_inventory(spec, report)
     check_spec_contract(spec_path, spec, report)
-    check_v14_governance_memory(repo, spec, report)
+    check_v14_governance_memory(repo, spec, report, status)
     check_status_shell(status, report)
     gate_states = check_gates(repo, status, report)
     check_gate_d_schema_guidance(repo, report)

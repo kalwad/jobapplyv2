@@ -1,0 +1,57 @@
+{
+  "format_version": "W14_CLEAN918_PYTHON_PROOF_INDEPENDENT_READONLY_AUDIT_1",
+  "authority": "NONE",
+  "formal_W15_review": false,
+  "gate_pass": false,
+  "archive_sha256": "87daa8d094c38e8ac94328df48549e63c1cceab362863bbbdfa87b4dd6ba5fe2",
+  "archive_bytes": 172731,
+  "safe_unique_regular_members": 7,
+  "exhaustive_raw_members": [
+    "after.json",
+    "before.json",
+    "command.json",
+    "completion.json",
+    "python.log",
+    "run-python.py",
+    "summary.json"
+  ],
+  "all_members_byte_identical_to_raw": true,
+  "manifest_member_hashes_valid": true,
+  "head": "918dedb3fc379e1fc19cf6ef54bbefa1110b35d3",
+  "tree": "bd9eb473719dba61ed842c266c553e334c893538",
+  "before_time": "2026-10-16T21:33:39Z",
+  "after_time": "2026-10-16T21:43:25Z",
+  "tracked_files": 1433,
+  "tracked_inventory_digest": "2b0b2f82dcbe24f768815912747815c7acf9db57dbde2f4c599e73d1ca8bed70",
+  "all_tracked_before_after_bytes_identical": true,
+  "captured_files_match_immutable_commit_and_current_worktree": true,
+  "current_status": "",
+  "argv": [
+    "pnpm",
+    "test:python"
+  ],
+  "observed_platform": "darwin",
+  "observed_python": "3.12.13",
+  "observed_pytest": "9.1.1",
+  "collected_tests": 1454,
+  "passed_tests": 1454,
+  "pytest_seconds": 583.78,
+  "wrapper_snapshot_interval_seconds": 586,
+  "exit_code": 0,
+  "active_suites_observed": [
+    "python"
+  ],
+  "scope": "FULL_AFFECTED_LOCAL_PYTHON_SUITE_ONLY",
+  "excluded_claims": [
+    "Native Windows result",
+    "Full 19-active-suite aggregate at918",
+    "Cross-platform product certification",
+    "Ignored-output neutrality",
+    "Formal W15 or Gate A approval"
+  ],
+  "issues": [],
+  "checks_passed": true,
+  "tests_run_by_auditor": 0,
+  "builds_run_by_auditor": 0,
+  "root_writes": 0
+}

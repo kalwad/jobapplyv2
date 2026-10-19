@@ -1,0 +1,10 @@
+PLR0911 Too many return statements (7 > 6)
+    --> scripts/validate_status.py:1952:5
+     |
+1952 | def gate_holdout_authority_v2_problems(
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1953 |     repo: Path,
+1954 |     bundle: Mapping[str, object],
+     |
+
+Found 1 error.

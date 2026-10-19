@@ -1,0 +1,439 @@
+{
+  "scope": "Independent packaging-only byte/hash/original-source closure review; no product execution, new source verdict or gate authority",
+  "archive": {
+    "path": "/tmp/japp-owner-waiver-governance-retained-20261017/proof.tar.gz",
+    "sha256": "42b5590fa105571e7cc7125aa6e961f1591c8319b0931ab30a56ef955c8d0539",
+    "bytes": 1326406,
+    "regular_members": 56,
+    "payload_bytes": 4164632
+  },
+  "outer_manifest_sha256": "df12f1c3cc266839295c61fbabb8a9dade1d1c5fa5c05c12f36ed6d4dde1d096",
+  "status": "CLEAR",
+  "checks_passed": 30,
+  "checks_total": 30,
+  "checks": [
+    {
+      "name": "frozen archive exact hash and length",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "outer archive identity matches bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gzip CRC/integrity and single stream",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "56 safe unique regular members",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no normalized or casefold path aliases",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no executable/special metadata or unsafe PAX values",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "tar closes with terminator/padding only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "outer metadata exhaustively indexes all56",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all outer sizes and hashes match",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact payload total",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "embedded index covers exactly other55 members",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inner and outer index records agree",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "self-excluded embedded index is covered by exhaustive outer metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no checkout/dependency/build/cache paths",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "governance-proposal original regular-member set is exhaustive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "governance-peer original regular-member set is exhaustive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "root-integration original regular-member set is exhaustive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all54 original source files byte-identical",
+      "passed": true,
+      "detail": [
+        {
+          "member": "governance-proposal/accepted-owner-record.preimage.bin",
+          "source": "/tmp/japp-owner-external-waiver/accepted-owner-record.preimage.bin",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/owner-authority-record.json",
+          "source": "/tmp/japp-owner-external-waiver/owner-authority-record.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/narrow-contract-validation-plan.md",
+          "source": "/tmp/japp-owner-external-waiver/narrow-contract-validation-plan.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/refine-proposal.py",
+          "source": "/tmp/japp-owner-external-waiver/refine-proposal.py",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/prepare-governance.py",
+          "source": "/tmp/japp-owner-external-waiver/prepare-governance.py",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/check-proposal-source.py",
+          "source": "/tmp/japp-owner-external-waiver/check-proposal-source.py",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/accepted-adr-0007.md",
+          "source": "/tmp/japp-owner-external-waiver/accepted-adr-0007.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/proposal-manifest.json",
+          "source": "/tmp/japp-owner-external-waiver/proposal-manifest.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/governance-proposal.patch",
+          "source": "/tmp/japp-owner-external-waiver/governance-proposal.patch",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/owner-authority-lines.json",
+          "source": "/tmp/japp-owner-external-waiver/owner-authority-lines.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/proposal-source-checks.json",
+          "source": "/tmp/japp-owner-external-waiver/proposal-source-checks.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/TEST_EVIDENCE.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/TEST_EVIDENCE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/PROJECT_STATUS.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/PROJECT_STATUS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/CRITICAL_GATES.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/CRITICAL_GATES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/KNOWN_ISSUES.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/KNOWN_ISSUES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/COMPATIBILITY_MATRIX.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/COMPATIBILITY_MATRIX.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/DECISIONS.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/DECISIONS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/preimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/preimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/accepted-owner-record.preimage.bin",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/accepted-owner-record.preimage.bin",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/owner-authority-record.json",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/owner-authority-record.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/accepted-adr-0007.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/accepted-adr-0007.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/proposal-manifest.json",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/proposal-manifest.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/governance-proposal.patch",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/governance-proposal.patch",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/owner-authority-lines.json",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/owner-authority-lines.json",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/TEST_EVIDENCE.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/TEST_EVIDENCE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/PROJECT_STATUS.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/PROJECT_STATUS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/CRITICAL_GATES.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/CRITICAL_GATES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/KNOWN_ISSUES.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/KNOWN_ISSUES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/DECISIONS.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/DECISIONS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/history/proposal-001/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/history/proposal-001/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/TEST_EVIDENCE.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/TEST_EVIDENCE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/PROJECT_STATUS.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/PROJECT_STATUS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/CRITICAL_GATES.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/CRITICAL_GATES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/KNOWN_ISSUES.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/KNOWN_ISSUES.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/COMPATIBILITY_MATRIX.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/COMPATIBILITY_MATRIX.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/DECISIONS.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/DECISIONS.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-proposal/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "source": "/tmp/japp-owner-external-waiver/afterimages/docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md",
+          "exact": true
+        },
+        {
+          "member": "governance-peer/report.md",
+          "source": "/tmp/japp-owner-external-waiver-independent-review/report.md",
+          "exact": true
+        },
+        {
+          "member": "governance-peer/findings.json",
+          "source": "/tmp/japp-owner-external-waiver-independent-review/findings.json",
+          "exact": true
+        },
+        {
+          "member": "root-integration/status.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/status.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/diff-check.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/diff-check.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/commands.json",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/commands.json",
+          "exact": true
+        },
+        {
+          "member": "root-integration/ruff-format.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/ruff-format.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/mypy.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/mypy.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/ruff.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/ruff.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/traceability.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/traceability.log",
+          "exact": true
+        },
+        {
+          "member": "root-integration/status-tests.log",
+          "source": "/tmp/japp-owner-waiver-root-integration-20261017/status-tests.log",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "name": "retention builder source preserved exactly",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reviewed nine-document patch exact identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all nine preimages and afterimages close",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "nine-doc scope excludes canonical master/traceability/schema/code edits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "first proposal and declared predecessor remain preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent governance38 findings preserved at historical scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all seven actual root command exit records pass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all seven original root logs hash-bound",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "real239 complete pytest summary and elapsed retained",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "root static/status/trace logs retain passing scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact accepted authority preimage and digest close",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ADR6 owner row and section bytes retained unchanged",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "findings": [],
+  "root_and_product_actions": false
+}

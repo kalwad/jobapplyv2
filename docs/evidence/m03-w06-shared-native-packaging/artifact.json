@@ -1,0 +1,129 @@
+{
+  "archive": {
+    "bytes": 6154141,
+    "mode": "0o644",
+    "safe_regular_members": 547,
+    "sha256": "cda73d62f9354a11eebe0aaed66fb4fc663c9ada898bd4bc2673e2cc91430a2b"
+  },
+  "current20_source_binding": {
+    "added": 12,
+    "after_evidence5_logical_source_count": 1988,
+    "base_head": "6867ce82b5dad7fa3d8b0f6212424231234cddc4",
+    "base_tree": "6200d0115d9c6e792414a2727e89b0cee41d93f0",
+    "current_all20_full": "PENDING_AFTER_INTEGRATION",
+    "current_hosted_native_package_execution": "PENDING_AFTER_PUBLICATION",
+    "dirty_code_inventory_paths": 20,
+    "logical_source_count_before_metadata": 1983,
+    "modified": 8,
+    "postimage_map_sha256": "4c43deedb649a1f399a6baecc63bfd00b49930c246298d2538de64d6ee71df44",
+    "postimages": {
+      ".github/workflows/ci.yml": {
+        "bytes": 23605,
+        "mode": "0o644",
+        "sha256": "9335588766256e2882f10fcbc04344a65710176d7b8c7429f7cfb337a5ee4585"
+      },
+      "apps/desktop/src-tauri/src/diagnostics/tests/tauri.rs": {
+        "bytes": 7257,
+        "mode": "0o644",
+        "sha256": "42c3ff4eebe5f357b04a763c303d07287710d06e64fc64de7bc32b8f97c2c935"
+      },
+      "packaging/native-project-wheels.json": {
+        "bytes": 575,
+        "mode": "0o644",
+        "sha256": "ac8caaf212ab161f1d6474d26bc164546b0554f8f6e942a286f3ffd3f5418672"
+      },
+      "packaging/native-project-wheels/japp_contracts-0.0.1-py3-none-any.whl": {
+        "bytes": 214204,
+        "mode": "0o644",
+        "sha256": "d1ac6f4725a98bb35dca624192bc80b89d4634a3558467b80b6b2f190b2c6d7c"
+      },
+      "packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl": {
+        "bytes": 13591,
+        "mode": "0o644",
+        "sha256": "6ef4e59987a42d0a4b34d9bb8507537616e7d83913133b2d5a55bbb83b5e6052"
+      },
+      "scripts/_native_package_process.py": {
+        "bytes": 52384,
+        "mode": "0o644",
+        "sha256": "7371248344a87e537cb66cd8ef4650fb521440088be1bd75573dcf3ee5960b1d"
+      },
+      "scripts/build-linux-service-runtime.py": {
+        "bytes": 12830,
+        "mode": "0o644",
+        "sha256": "fad933491bf8af90850229453df00dbf9bb808a012cfbbcdd3b78fb4ad982691"
+      },
+      "scripts/build-windows-runtime.py": {
+        "bytes": 12923,
+        "mode": "0o644",
+        "sha256": "78d32f99c9624bbf6fbe51643c9818d6bd17d276d4843b0db77304bd675eb9ef"
+      },
+      "scripts/check_portability.py": {
+        "bytes": 65942,
+        "mode": "0o644",
+        "sha256": "260c570b147ce01bc120e47a59533e8394550ac2869eff5ecd97646e66d50a58"
+      },
+      "scripts/native_package_ci.py": {
+        "bytes": 20359,
+        "mode": "0o644",
+        "sha256": "fce7caeca29e1888f41d2f333e5e0323c1fe4d7b2ba1f1fb8552e3268fe6ddd3"
+      },
+      "scripts/native_package_pipeline.py": {
+        "bytes": 35443,
+        "mode": "0o644",
+        "sha256": "b2a96bdbfaad7755baa5ff598bd0cac90ee9f1c23239bb0c7d6cdee5dafadb4a"
+      },
+      "scripts/native_package_retention.py": {
+        "bytes": 9373,
+        "mode": "0o644",
+        "sha256": "e950a642a5c6a303c64c1bd85664b499c8e3db5747cfcb9a359af0fe56b0362b"
+      },
+      "scripts/package_validation.rs": {
+        "bytes": 8146,
+        "mode": "0o644",
+        "sha256": "0b60ac391d27461a476f2185bbb5cecba0ad694053ad0e70b9fad71af8cd918e"
+      },
+      "scripts/python-test-inventory.v1.json": {
+        "bytes": 239428,
+        "mode": "0o644",
+        "sha256": "0d4656580383b607b62884a1d1aa90b468a0e6184347d50fb660aeb6e6993c16"
+      },
+      "scripts/tests/test_ci_native_package.py": {
+        "bytes": 8262,
+        "mode": "0o644",
+        "sha256": "ec28195802fd36f2a67d35e6e1913ed4199e7a8da7353be723f0514498c53712"
+      },
+      "scripts/tests/test_ci_workflow.py": {
+        "bytes": 34460,
+        "mode": "0o644",
+        "sha256": "df1222b1014bf60bda98ce7ac4e7efa90d8acabde8fb07c5e068281709e157c4"
+      },
+      "scripts/tests/test_native_package_inputs.py": {
+        "bytes": 12369,
+        "mode": "0o644",
+        "sha256": "00cf1b5c77e668fbf7c45ec308b69a302436c783c0c7af258d98e54a27044372"
+      },
+      "scripts/tests/test_native_package_pending_owner.py": {
+        "bytes": 8755,
+        "mode": "0o644",
+        "sha256": "e1e65f7d849d13afe256301118ea69954b71895c8f48c8e17b7128f455f2db09"
+      },
+      "scripts/tests/test_windows_builder.py": {
+        "bytes": 6170,
+        "mode": "0o644",
+        "sha256": "afdbba41dc17ce55f7594eb6a4c28271e1e41fe65a4117f81367dd752fd6e07f"
+      },
+      "scripts/wheel_only_runtime_lock.py": {
+        "bytes": 7180,
+        "mode": "0o644",
+        "sha256": "c7bf248b39faf73ca17a1d517acb408d159902e4e820f0f567aae0e207108414"
+      }
+    },
+    "source_quality_original459includes_manifest": true
+  },
+  "current_all20_full": "PENDING_AFTER_INTEGRATION",
+  "foreign_package_execution": "PENDING",
+  "physical_native_app_cache_images_in_archive": false,
+  "project_wheel_assets_bytes": 227795,
+  "scope": "DERIVED descriptor; immutable original outcomes retained",
+  "status": "W06_IN_PROGRESS"
+}

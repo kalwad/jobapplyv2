@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-japp-schema-version": "1.0.0",
+  "$id": "urn:japp:schema:desktop:service-request:v1",
+  "title": "Finite native service request",
+  "description": "Closed desktop command payload. Its opaque identifier correlates cancellation; it conveys no service URL, token, port, executable path or arbitrary operation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^req_[0-9A-HJKMNP-TV-Z]{26}$",
+      "minLength": 30,
+      "maxLength": 30
+    }
+  }
+}

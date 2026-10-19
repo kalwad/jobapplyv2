@@ -1,0 +1,42 @@
+{
+  "archive_sha256": "c0ef388152d43711b1c34c8a730008f59b71fb8c09f9141ba66255f8edafe97f",
+  "archive_bytes": 3802,
+  "regular_members": 8,
+  "files": [
+    {
+      "path": "native-validity-root-build.log",
+      "bytes": 413,
+      "sha256": "6788c1ce06b154636ef1bf64c02e6d3331a506773ef8acce65d8c15bc5fa6284"
+    },
+    {
+      "path": "native-validity-root-ledger.log",
+      "bytes": 261,
+      "sha256": "0eaed47fe5bdb2ee5ff04bae0b44f50abde3c72447a6d126e107c4f1e07d83ca"
+    },
+    {
+      "path": "native-validity-root-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-validity-root-runtime.json",
+      "bytes": 145,
+      "sha256": "688672e6d14c882f0814bfb339d9b5fcb9b7de47736d981d167c54472e6ab0b3"
+    },
+    {
+      "path": "native-validity-root-six.log",
+      "bytes": 2569,
+      "sha256": "16d707305fd8f20dee2a89d07ac47c8d3017456b2894e4b1601f2964e62a3c91"
+    },
+    {
+      "path": "native-validity-root-types.log",
+      "bytes": 3067,
+      "sha256": "b3a82d038c73086e80ebad05746e0c0687b707dcf5c837aa4f63a264690ecfb2"
+    },
+    {
+      "path": "native-validity-status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    }
+  ]
+}

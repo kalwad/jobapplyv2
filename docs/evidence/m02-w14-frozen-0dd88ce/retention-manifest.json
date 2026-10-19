@@ -1,0 +1,134 @@
+{
+  "scope": "Frozen clean0dd corrected native-validity full local verification; independent audits preserve their earlier observation-point limitations",
+  "archive_sha256": "6b9ab884d4c6990da2af98229f0bf7f78837a16bbeac63b82bb9832c8b6d5edb",
+  "archive_bytes": 4926137,
+  "regular_members": 25,
+  "raw_log_encoding": "Exact original bytes retained inside archive.",
+  "files": [
+    {
+      "path": "after.json",
+      "bytes": 269771,
+      "sha256": "b5c72dcf719c42cb9f5c57b6a27b713f0269279234ea45a231cc654151f5afe8"
+    },
+    {
+      "path": "aggregate.log",
+      "bytes": 595981,
+      "sha256": "d41d1093943d13da6f1f5e64f8e05fdc85cf54526b8f7480d704782c9ea9c196"
+    },
+    {
+      "path": "before.json",
+      "bytes": 269771,
+      "sha256": "1c4e4e960e13d424fae5a25fc060576081e93ecfc11cf8e00007ccc4eeaad293"
+    },
+    {
+      "path": "command.json",
+      "bytes": 375,
+      "sha256": "b82816d58f51c5871de6fa25d056d33eb8da86c20c550929bd42377ef1dad9ad"
+    },
+    {
+      "path": "completion.json",
+      "bytes": 169,
+      "sha256": "90d1d6bf7b861502d460880a9ac44733410e27db54c528827e8803374632cbcf"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-binding-findings.json",
+      "bytes": 3184,
+      "sha256": "c03e685707d5743c5fcab727d7218d95f8d14cb04cb5840b787564349139e9b7"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-binding-initial-float-findings.json",
+      "bytes": 3278,
+      "sha256": "980fa247160388153d5d8994c24f5493837091328d3ac4bd7d37cbbfa2efd547"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-binding-review.py",
+      "bytes": 15052,
+      "sha256": "d15c2bd586d5f54e9d50e14c64a3c331ce786699861507d527894f767fe35232"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-independent-review.md",
+      "bytes": 5334,
+      "sha256": "6bc284f9782b176dbe32881b32946d2054517393c02883ca52b0c0c03874a318"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-independent-summary.json",
+      "bytes": 939,
+      "sha256": "a41346db1e540267d41545b1c8194299cc19aa6852ac35989af00d705a14fd49"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-safety-findings.json",
+      "bytes": 105938,
+      "sha256": "bf3c00d969a94e83820233e58113c30415b7e5a591461c6cff28f20b17d8897a"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact-0dd-safety-subreview.md",
+      "bytes": 4148,
+      "sha256": "1e27c51536d4a8612e6097d7295134607cdb22018a67daa007f2abc30824f16d"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact200-w03-clause-reconciliation.json",
+      "bytes": 63187,
+      "sha256": "8a08642750a733a37e0577b1ceb5c5c317a2fd1b010423b03e37fbaba727b3a4"
+    },
+    {
+      "path": "independent-audit/japp-w14-contact200-w03-clause-review.md",
+      "bytes": 2723,
+      "sha256": "70d869d06ffc20dd9f2526c7fbf86e95a63ae8098d8dcde6876558bb71818eba"
+    },
+    {
+      "path": "run-frozen.py",
+      "bytes": 2154,
+      "sha256": "36a4fc06c27d840ad2d8b750b328d5e742f9ffcbc03eac0bc4e4f5bdcbca9d08"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 3186,
+      "sha256": "82df4af58103fe86f36c1ba6d888cf416517aec5406a8f194c989835ab8a305e"
+    },
+    {
+      "path": "w14/assessment.json",
+      "bytes": 54497,
+      "sha256": "b94a75283e64131c571680935800a134782e52279bfb943bd875f5b59459f9b2"
+    },
+    {
+      "path": "w14/canonical-autofill-run-manifest.json",
+      "bytes": 2528,
+      "sha256": "0c5c38db29c38e1676dcc59a671b442a564f95b04ca2ba7bc069a72e50ab9ccf"
+    },
+    {
+      "path": "w14/canonical-execution.json",
+      "bytes": 2900884,
+      "sha256": "e6ea20e2d286ae09b92b78b947df3d84b785e1903d72daad5f18ca972019d644"
+    },
+    {
+      "path": "w14/canonical-report-manifest.json",
+      "bytes": 624,
+      "sha256": "408f675429644bbdd69eb38bbf6b6ccf294a44dcd558d229c662da3c4a8af8a4"
+    },
+    {
+      "path": "w14/canonical-report.html",
+      "bytes": 297600,
+      "sha256": "e38cb0a4e71ef9d4ac1b3e72b238902d29e4f545ae06c6881f0aa49b975f9d2a"
+    },
+    {
+      "path": "w14/canonical-report.json",
+      "bytes": 1997587,
+      "sha256": "3cc09dc2188a626ab37a5a2ff8f532c270d2d26bd3ba287b37fecbaf8d231c6d"
+    },
+    {
+      "path": "w14/canonical-report.md",
+      "bytes": 181702,
+      "sha256": "1342bbaeb8c7cc46486c81db5aac2c816ee0813fabfabd2135ff6cc179b4a6d2"
+    },
+    {
+      "path": "w14/development-run.json.gz",
+      "bytes": 4177886,
+      "sha256": "9f2e3a88fb695f84233de20e471beb931a97e0696ff9067ea3aba09517b8c05d"
+    },
+    {
+      "path": "w14/workday-en-us-contact.png",
+      "bytes": 108547,
+      "sha256": "8cbae9fe1ecf8469db1f01ec2a94992f0dd116b0dbd3b1ae841e34c2ea0c730b"
+    }
+  ]
+}

@@ -19,21 +19,19 @@ required-version = "==0.11.32"
 
 [tool.uv.sources]
 orchestrator = { workspace = true }
+japp-contracts = { workspace = true }
 
 [tool.uv.workspace]
 # services/job-index-api and services/job-ingestion-worker join the workspace
 # when their milestones begin (M32+, spec v1.2); they are directories with READMEs until then.
-members = ["services/orchestrator"]
+members = ["services/orchestrator", "packages/contracts"]
 
 [dependency-groups]
 dev = [
+    "httpx2==2.14.0",
     "mypy==2.3.0",
-    # Pydantic backs the generated strict contract models under
-    # packages/contracts/generated/python (M01-W02). It lives in the dev
-    # group because no Python product runtime exists yet; the generated
-    # package is imported by scripts/tests and strict mypy through the
-    # pythonpath/mypy_path entries below. Exact pin; deterministic offline
-    # behavior after locked install.
+    # Runtime and installable generated contracts use this same exact pin.
+    # Keep it available for standalone contract tests too.
     "pydantic==2.12.5",
     "pytest==9.1.1",
     # PyYAML is required by scripts/check_portability.py and

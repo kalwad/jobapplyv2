@@ -1,0 +1,10 @@
+{
+  "source_inventory_digest": "sha256:4c022528a49a48037ac3426c0764e05a641e5af6f821035ca8e55d222ffcb4c3",
+  "reconstructed_matched_inventory": false,
+  "unmatched_paths": [
+    "scripts/python-test-inventory.v1.json",
+    "scripts/tests/test_validate_status.py",
+    "scripts/validate_status.py"
+  ],
+  "note": "Comparison to retained source inventory, not a new execution."
+}

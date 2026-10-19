@@ -1,0 +1,17 @@
+Scope: all 16 workspace projects
+[ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY] Aborted removal of modules directory due to no TTY
+
+If you are running pnpm in CI, set the CI environment variable to "true", or set "confirmModulesPurge" to "false".
+[ERROR] Command failed with exit code 1: '/opt/homebrew/Cellar/node@24/24.18.0/bin/node' /Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/bin/pnpm.mjs install
+
+pnpm: Command failed with exit code 1: '/opt/homebrew/Cellar/node@24/24.18.0/bin/node' /Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/bin/pnpm.mjs install
+    at getFinalError (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:88203:14)
+    at makeError (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:90510:21)
+    at getSyncResult (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:92354:10)
+    at spawnSubprocessSync (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:92314:14)
+    at execaCoreSync (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:92244:23)
+    at callBoundExeca (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:94772:23)
+    at boundExeca (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:94749:49)
+    at sync2 (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:94908:10)
+    at runPnpmCli (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:249521:5)
+    at runDepsStatusCheck (file:///Users/tanishkalwad/.cache/node/corepack/v1/pnpm/11.17.0/dist/pnpm.mjs:251287:7)

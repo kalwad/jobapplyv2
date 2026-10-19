@@ -215,6 +215,10 @@ function renderType(
       return `${renderType(emission, type.inner, indent)} | null`;
     case "object":
       return renderObjectType(emission, type, indent);
+    case "discriminatedUnion":
+      return type.branches
+        .map((branch) => renderObjectType(emission, branch, indent))
+        .join(" | ");
   }
 }
 

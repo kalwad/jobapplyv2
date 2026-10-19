@@ -1,0 +1,84 @@
+{
+  "public_delta": {
+    "path": "/tmp/japp-w14-public-union-draft/public-control-union.patch",
+    "sha256": "d02746b4caffd312b9cb304e537a2d94b4dbbb82fdd26ac4d5d310df34d779c9",
+    "files": [
+      "e2e/extension/public-contact/control-accounting.ts",
+      "e2e/extension/public-contact/run-contact.ts",
+      "e2e/extension/public-contact/controlled-contact.proof.ts",
+      "scripts/verify.py",
+      "scripts/verification-suites.json",
+      "scripts/tests/test_w14_contact_controlled_proof.py"
+    ]
+  },
+  "paired_lint_delta": {
+    "path": "/tmp/japp-w14-public-union-draft/paired-options-lint-for-preexecution-rebind.patch",
+    "sha256": "03aaef04d4d4fe9f83a348ce92e32aa902de19e43069a80704d13ac3ce246aef",
+    "files": [
+      "e2e/extension/legacy-paired-options/paired-options.proof.ts"
+    ]
+  },
+  "actual_public_runs": 0,
+  "browser_builds_for_this_delta": 0,
+  "new_pure_tests": 6,
+  "controlled_exact_inventory": 61,
+  "prior_controlled_identities_preserved": 55,
+  "new_pytest_nodes": 0,
+  "python_inventory_common_unchanged": 1451,
+  "validation": {
+    "new_pure_tests": {
+      "startTime": "2026-10-16T17:48:46.690Z",
+      "duration": 717.908,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "listed_identities": 61,
+    "strict_root_typescript": "PASS",
+    "targeted_typed_eslint": "PASS",
+    "focused_python_contact_and_suite_state": {
+      "passed": 305,
+      "contact": 11,
+      "suite_state": 294
+    },
+    "ruff": "PASS",
+    "read_only_root_patch_apply_check": "PASS",
+    "full_fresh_build_controlled_61": "NOT_RUN",
+    "protocol_2": "NOT_RERUN",
+    "new_browser_runs": 0,
+    "actual_public_runs": 0
+  },
+  "paired_data_unchanged": {
+    "paired-inputs.json": {
+      "unchanged": true,
+      "sha256": "2d1ce7ba5acf2414f5936b47055e9afd412ffbee0f8a247cd2c6f583548c3812"
+    },
+    "paired-oracles.json": {
+      "unchanged": true,
+      "sha256": "96a9fa8780c4b0c5bee78edf9f0b721ea171c598ef3e9cd89cd33ddf8ccb3626"
+    },
+    "legacy-projections.json": {
+      "unchanged": true,
+      "sha256": "7c7cd5d546aee296ddaa50455b95b4baf7c32e2984ba1df53ddacf5c445531ed"
+    },
+    "campaign.lock.json": {
+      "unchanged": true,
+      "sha256": "561bc786d35c51e9705b0c0659bec6b180e0bbd7c59bc9ea28752e9e690a759d"
+    },
+    "predeclaration.json": {
+      "unchanged": true,
+      "sha256": "845d5fa593c99e3496fcce9ba48196074cff996cac730a53b9fb4db252e7f13f"
+    },
+    "source-bindings.json": {
+      "unchanged": true,
+      "sha256": "5382a00f1f6ed2a04660917c9969600fe26f3e30fc49f66c392b81c67149e828"
+    }
+  },
+  "review_limits": [
+    "Initial/final literal matching does not prove persistent DOM node identity.",
+    "Controls transient between both snapshots remain unobserved.",
+    "Snapshot differences do not attribute causality to extension writes.",
+    "Natural site acceptance remains null; document event safety scope remains incomplete."
+  ]
+}

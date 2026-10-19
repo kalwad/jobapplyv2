@@ -1,0 +1,99 @@
+{
+  "format_version": "W14_FOCUS_VALUE_TWO_FILE_SOURCE_REVIEW_1",
+  "authority": "NONE",
+  "result": "CLEAR_SOURCE_REVIEW_PENDING_INDEPENDENT_GREEN_AND_STATIC_EXECUTION",
+  "patch_sha256": "3adbcf83e27327c1fe2293cc197c80ce22286cca50a1c7c665a1e1b1f6950177",
+  "manifest": {
+    "format_version": "W14_TEXT_DATE_FOCUS_VALUE_TWO_FILE_PROPOSAL_1",
+    "authority": "NONE",
+    "status": "SOURCE_ONLY_PENDING_PEER_REVIEW_AND_INDEPENDENT_GREEN_NOT_APPLIED_NOT_TESTED",
+    "base_commit": "918dedb3fc379e1fc19cf6ef54bbefa1110b35d3",
+    "files": [
+      {
+        "path": "apps/extension/src/drivers/text-like-drivers.ts",
+        "preimage_sha256": "sha256:d39682b692f372d91279a130b73b614afdde6bb1ef0da62f06fb6a7e63e5c316",
+        "preimage_bytes": 6773,
+        "result_sha256": "sha256:91756f25933420b515a974021cd7c4cf6c06795656b7eec10763cadbe1a1d923",
+        "result_bytes": 7165
+      },
+      {
+        "path": "apps/extension/src/driver-engine.ts",
+        "preimage_sha256": "sha256:749b00ac70478f94d8e78779e39f973475ba8d6ee003cb9a68ad1e3b623f2382",
+        "preimage_bytes": 60000,
+        "result_sha256": "sha256:9fc5287957ad148aad2cc449244427c9a2d731470dd267088396b534ed340ed4",
+        "result_bytes": 60390
+      }
+    ],
+    "patch_sha256": "sha256:3adbcf83e27327c1fe2293cc197c80ce22286cca50a1c7c665a1e1b1f6950177",
+    "patch_bytes": 2693,
+    "production_paths_changed": 2,
+    "tests_changed": 0,
+    "tests_run": 0,
+    "builds_run": 0,
+    "browsers_started": 0,
+    "root_writes": 0,
+    "red_proof": {
+      "directory": "/tmp/japp-w14-value-focus-red8-20261016",
+      "physical_join_sha256": "sha256:ea411eeb235a8830779a93ba5f3fa25746437d72eb2d443cc4fd0f77e1e9b8fc",
+      "binding_sha256": "sha256:fa9e85d591ce187d91a6690d39db8a4ae5a4b8594c6c023742498dbf5210d67b",
+      "run_log_sha256": "sha256:8a514508365095960cfe38f65f933260ab93e00f860da88bdb86d49a00d39d13",
+      "executed_probe_sha256": "sha256:16209b8cd45a86d4d313b228d6c5af0c10cd5b7830017b6e8b59ce34b61de9c6",
+      "runtime_inventory_digest": "sha256:c3757409d0e43b12e517eae863e4985d8a509273dd45b86f59a5bfb8478cc89c",
+      "source_binding_checks_passed": 13,
+      "counts": {
+        "total": 8,
+        "unchanged_positive_pass": 4,
+        "focus_safety_negative_fail": 4,
+        "setup_failures": 0,
+        "instrumentation_failures": 0,
+        "skips": 0
+      },
+      "playwright_duration_ms": 13856.447
+    },
+    "bounded_design": {
+      "pre_focus_value_snapshot_inside_mutation_callback": true,
+      "post_focus_native_value_refusal_before_setter": true,
+      "engine_exception_requires_error_instance_and_exact_trusted_driver_reference": true,
+      "no_recovery_or_undo_granted_for_exact_prewrite_value_refusal": true,
+      "generic_or_partial_mutation_recovery_unchanged": true,
+      "initial_undo_record_consumption_unchanged": true,
+      "ordinary_precondition_fields_unchanged": true,
+      "schemas_protocols_reason_codes_unchanged": true,
+      "new_awaits": 0
+    },
+    "scope_exclusions": [
+      "No asynchronous undo re-resolution race claim or engine witness draft integration.",
+      "No public/Simplify/general-driver accuracy or Gate A/W15 approval."
+    ],
+    "prior_one_file_proposal": {
+      "directory": "/tmp/japp-w14-undo-focus-fix-proposal",
+      "patch_sha256": "sha256:28b6b7bb2035b59afe0acc8501bf91d6f1144be871cee2ba41ddc50e534b3478",
+      "classification": "HISTORICAL_SOURCE_ONLY_NOT_CLEAR_FOR_EXECUTE_RECOVERY"
+    }
+  },
+  "checks": {
+    "apps/extension/src/drivers/text-like-drivers.ts_preimage_exact": true,
+    "apps/extension/src/drivers/text-like-drivers.ts_result_exact": true,
+    "apps/extension/src/driver-engine.ts_preimage_exact": true,
+    "apps/extension/src/driver-engine.ts_result_exact": true,
+    "patch_exact_manifest_and_diff": true,
+    "text_delta_only_marker_and_focus_guard": true,
+    "engine_delta_only_import_and_scoped_catch": true,
+    "single_marker_throw_before_only_setter": true,
+    "all_four_builtin_calls_remain_shared": true,
+    "trusted_exact_driver_refs_not_keys": true,
+    "undo_implementation_entirely_unchanged": true,
+    "no_new_await": true,
+    "no_result_schema_precondition_change": true,
+    "RED_proof_named_hashes_exact": true,
+    "RED13_equality_checks_and8_scope": true,
+    "root_unchanged_clean918": true
+  },
+  "findings": [],
+  "limits": [
+    "No tests/builds/browser or root/worktree writes; compile/lint/format execution remains pending.",
+    "Actual8-case GREEN and adjacent generic/partial-recovery regression execution are required before local closure.",
+    "Marker exception proves no extension native value write in this built-in writeText callback; focus/page-side effects can already have occurred.",
+    "The independent RED proof is source/hash scoped; no general async race, driver-general, public/Simplify or Gate A/W15 claim."
+  ]
+}

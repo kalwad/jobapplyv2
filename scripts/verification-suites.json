@@ -1,5 +1,5 @@
 {
-  "$comment": "Canonical machine-readable verification-suite registry (M00-W04, spec §8.5). Consumed and schema-validated by scripts/verify.py. Suite STATE is derived at runtime: ACTIVE suites run their commands and must pass; a suite with an activation condition is NOT_YET_APPLICABLE while every listed activation package is still NOT_STARTED or READY in docs/PROJECT_STATUS.md, and becomes REQUIRED_MISSING (a hard failure) as soon as any activation package has begun (IN_PROGRESS or later) while the suite's discovery globs still match no files. Nobody flips a boolean by hand: state follows the project-status tables. Proof names refer to typed discovery-proof implementations in scripts/verify.py; commands are argv arrays executed from the repository root with no shell.",
+  "$comment": "Canonical machine-readable verification-suite registry (M00-W04, spec \u00a78.5). Consumed and schema-validated by scripts/verify.py. Suite STATE is derived at runtime: ACTIVE suites run their commands and must pass; a suite with an activation condition is NOT_YET_APPLICABLE while every listed activation package is still NOT_STARTED or READY in docs/PROJECT_STATUS.md, and becomes REQUIRED_MISSING (a hard failure) as soon as any activation package has begun (IN_PROGRESS or later) while the suite's discovery globs still match no files. Nobody flips a boolean by hand: state follows the project-status tables. Proof names refer to typed discovery-proof implementations in scripts/verify.py; commands are argv arrays executed from the repository root with no shell.",
   "schema_version": 1,
   "allowed_skips": [],
   "suites": [
@@ -41,6 +41,12 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
+          "scripts/macos_package.py",
+          "scripts/build-windows-runtime.py",
+          "scripts/windows_package.py",
+          "scripts/build-linux-service-runtime.py",
+          "scripts/linux_package.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -56,6 +62,13 @@
           "fmt",
           "--manifest-path",
           "packages/contracts/test/contract/rust-harness/Cargo.toml",
+          "--check"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
           "--check"
         ]
       ],
@@ -100,6 +113,12 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
+          "scripts/macos_package.py",
+          "scripts/build-windows-runtime.py",
+          "scripts/windows_package.py",
+          "scripts/build-linux-service-runtime.py",
+          "scripts/linux_package.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ]
@@ -133,7 +152,12 @@
           "script": "test"
         }
       ],
-      "discovery_globs": ["packages/*/test/**/*.test.ts"],
+      "discovery_globs": [
+        "packages/*/test/**/*.test.ts",
+        "packages/*/test/**/*.test.tsx",
+        "apps/*/test/**/*.test.ts",
+        "apps/*/test/**/*.test.tsx"
+      ],
       "artifacts": [],
       "explanation": "--force bypasses the Turborepo cache so discovery counts always come from fresh Vitest executions; every workspace package that declares a test script must actually run and report at least one passing test."
     },
@@ -150,7 +174,7 @@
       "proofs": [],
       "discovery_globs": ["scripts/generate-contracts.*"],
       "artifacts": [],
-      "explanation": "ACTIVE since M01-W02 (Generate TypeScript and Python contracts) began: scripts/generate-contracts.ts regenerates the deterministic TypeScript and Pydantic v2 trees from packages/contracts/schemas/ into an isolated temporary directory and byte-compares the COMPLETE committed inventory under packages/contracts/generated/ — missing, stale, modified, and unexpected extra files all fail with actionable paths, and the check never modifies the working tree. This is distinct from the 'contract' suite below: contract-gen proves committed generated artifacts are exactly reproducible from the canonical schemas, while 'contract' runs cross-language compatibility tests (owner M01-W05). If the generator files at scripts/generate-contracts.* ever disappear while M01-W02 remains started, this suite returns to REQUIRED_MISSING and pnpm verify fails. No hand-maintained generated files may be introduced to satisfy it (spec §1.5)."
+      "explanation": "ACTIVE since M01-W02 (Generate TypeScript and Python contracts) began: scripts/generate-contracts.ts regenerates the deterministic TypeScript and Pydantic v2 trees from packages/contracts/schemas/ into an isolated temporary directory and byte-compares the COMPLETE committed inventory under packages/contracts/generated/ \u2014 missing, stale, modified, and unexpected extra files all fail with actionable paths, and the check never modifies the working tree. This is distinct from the 'contract' suite below: contract-gen proves committed generated artifacts are exactly reproducible from the canonical schemas, while 'contract' runs cross-language compatibility tests (owner M01-W05). If the generator files at scripts/generate-contracts.* ever disappear while M01-W02 remains started, this suite returns to REQUIRED_MISSING and pnpm verify fails. No hand-maintained generated files may be introduced to satisfy it (spec \u00a71.5)."
     },
     {
       "id": "fixture-corpus",
@@ -263,7 +287,7 @@
     },
     {
       "id": "build",
-      "name": "Workspace build targets (Turborepo; WXT MV3 extension)",
+      "name": "Workspace build targets (Turborepo; extension, ATS lab, desktop frontend)",
       "owner": "M02-W07",
       "mandatory": true,
       "activation": {
@@ -279,9 +303,10 @@
       ],
       "discovery_globs": ["apps/extension/wxt.config.ts"],
       "artifacts": [
-        "apps/extension/dist/ (WXT chrome-mv3 output, git-ignored)"
+        "apps/extension/dist/ (WXT chrome-mv3 output, git-ignored)",
+        "apps/desktop/dist/ (Vite frontend output, git-ignored)"
       ],
-      "explanation": "ACTIVE since M02-W07 (Scaffold the real MV3 feasibility extension) began: the first real JS/TS build targets exist, closing the KI-0001 deliberate deferral non-vacuously. `turbo run build --force` executes every workspace package that declares a build script (the @japp/extension WXT Manifest V3 build and the @japp/mock-ats-lab fixture build) and the turbo_task_count proof requires the executed task count to equal the declared implementer count, so an execution-level task drop fails the aggregate; the implementer inventory itself is pinned exactly (@japp/extension and @japp/mock-ats-lab) by scripts/tests/test_proofs_and_real_repo.py, so a manifest-level drop of a build script fails the python suite. Output stays under git-ignored dist/ trees; the browser suite additionally rebuilds the extension through the Playwright global setup so the e2e path never runs stale bytes. If apps/extension/wxt.config.ts ever disappears while M02-W07 remains started, this suite returns to REQUIRED_MISSING and pnpm verify fails."
+      "explanation": "ACTIVE since M02-W07. `turbo run build --force` executes every workspace package that declares a build script: the retained @japp/extension WXT Manifest V3 and @japp/mock-ats-lab fixture builds, plus the M03-W01 @japp/desktop Vite frontend build. The turbo_task_count proof requires the executed task count to equal the declared implementer count; scripts/tests/test_proofs_and_real_repo.py pins all three implementers so neither an execution-level task drop nor a manifest-level build-script drop can silently shrink coverage. Desktop build is frontend-only to avoid recursion from Tauri beforeBuildCommand; the rust suite separately formats, lints, tests and builds its native shell after explicitly building frontend assets. Outputs stay in git-ignored dist/ and target/ trees. Browser global setup still rebuilds the MV3 extension so e2e never runs stale bytes. If apps/extension/wxt.config.ts disappears while M02-W07 remains started, this suite is REQUIRED_MISSING."
     },
     {
       "id": "e2e-browser",
@@ -304,21 +329,168 @@
       ],
       "discovery_globs": ["e2e/**/*.spec.ts"],
       "artifacts": [
-        "test-results/ (failure-only traces/screenshots/videos, git-ignored)"
+        "test-results/browser/ (failure-only traces/screenshots/videos, git-ignored)"
       ],
       "explanation": "Runs every discovered Playwright test: the browser-infrastructure smoke test plus the M02-W03 mock ATS lab suites under e2e/mock-ats-lab/, which exercise the deterministic fixture app that playwright.config.ts builds and serves on 127.0.0.1:4761 for each run (strict port, never attaching to an existing process). Discovery is proven with `playwright test --list` as one of the suite's proofs (evaluated with the run itself; an empty discovered set fails the suite); forbidOnly in playwright.config.ts rejects focused tests; no external sites are contacted and a shared lab fixture fails any test that issues a non-loopback request. Future product e2e specs are added under e2e/ without changing this command contract."
     },
     {
-      "id": "visual",
-      "name": "Visual regression tests",
-      "owner": "M10-W06",
+      "id": "w14-public-controlled",
+      "name": "W14 inspect-only public scope: pure and controlled proofs",
+      "owner": "M02-W14",
       "mandatory": true,
       "activation": {
         "type": "packages_started",
-        "packages": ["M10-W06"]
+        "packages": ["M02-W14"]
       },
-      "commands": [["pnpm", "exec", "playwright", "test", "e2e/visual"]],
+      "commands": [
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w14/public-inspection/scope.test.ts"
+        ],
+        ["pnpm", "--filter", "@japp/extension", "build"],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-inspection/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "e2e/extension/public-research/playwright.config.ts"
+        ]
+      ],
       "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 4
+        },
+        {
+          "kind": "w14_public_controlled_exact",
+          "min": 2
+        }
+      ],
+      "discovery_globs": [
+        "apps/extension/test/m02-w14/public-inspection/scope.test.ts",
+        "e2e/extension/public-research/controlled-scope.proof.ts"
+      ],
+      "artifacts": [
+        "apps/extension/dist/w14-public-inspection/ (inspect-only controlled proof build, git-ignored)"
+      ],
+      "explanation": "ACTIVE when M02-W14 begins. Runs exactly four pure scope/source-inventory tests, rebuilds both the default loopback and explicit inspect-only MV3 extension, then runs and lists exactly two controlled permission-boundary proofs. Browser requests are intercepted with synthetic HTML; the actual public inspector is never a registry command. A closed argv-specific opt-in enables only this build and these controlled proofs, with no ambient public-mode inheritance, shell expansion, skipped/flaky outcomes, expected failures, or default-build permission expansion."
+    },
+    {
+      "id": "w14-public-contact-controlled",
+      "name": "W14 network-closed contact: protocol and controlled proofs",
+      "owner": "M02-W14",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M02-W14"]
+      },
+      "commands": [
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "vitest",
+          "run",
+          "test/m02-w14/public-contact/protocol.test.ts"
+        ],
+        ["pnpm", "--filter", "@japp/extension", "build"],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-inspection/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "--filter",
+          "@japp/extension",
+          "exec",
+          "wxt",
+          "build",
+          "-b",
+          "chrome",
+          "-c",
+          "test/m02-w14/public-contact/wxt.config.ts"
+        ],
+        [
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--config",
+          "e2e/extension/public-contact/playwright.config.ts",
+          "--reporter=list,json"
+        ]
+      ],
+      "proofs": [
+        {
+          "kind": "vitest_exact_tests",
+          "min": 2
+        },
+        {
+          "kind": "w14_public_controlled_exact",
+          "min": 62
+        }
+      ],
+      "discovery_globs": [
+        "apps/extension/test/m02-w14/public-contact/protocol.test.ts",
+        "e2e/extension/public-contact/controlled-contact.proof.ts"
+      ],
+      "artifacts": [
+        "apps/extension/dist/w14-public-contact/ (network-closed controlled proof build, git-ignored)"
+      ],
+      "explanation": "ACTIVE when M02-W14 begins. Runs exactly two pure contact-protocol tests, freshly rebuilds default loopback, inspect-only and explicit network-closed contact MV3 bundles, then runs and lists exactly 62 controlled proofs (all 61 retained proofs plus one new literal-label and fresh-ownership regression) with matching test identities. Every browser request is intercepted synthetic HTML; the real public contact runner is never a registry command. Both public suites validate their closed inventories before any child starts. Ambient inspection/contact/run flags are stripped; only exact build/proof/list argv receive narrow opt-ins, and CONTACT_RUN is never granted. Built-in list plus JSON reporting requires ordinary passed expectedStatus/results, one attempt, no skipped/flaky/expected-failed tests, exact discovery and unchanged inventories. Retains the separate inspection four-pure/two-browser suite unchanged."
+    },
+    {
+      "id": "visual",
+      "name": "Visual regression tests",
+      "owner": "M03-W01",
+      "mandatory": true,
+      "activation": {
+        "type": "packages_started",
+        "packages": ["M03-W01", "M10-W06"]
+      },
+      "commands": [
+        [
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "e2e/visual",
+          "--output",
+          "test-results/visual"
+        ]
+      ],
+      "proofs": [
+        {
+          "kind": "playwright_list_min",
+          "min": 1
+        },
         {
           "kind": "playwright_min_passed",
           "min": 1
@@ -326,9 +498,9 @@
       ],
       "discovery_globs": ["e2e/visual/**/*.spec.ts"],
       "artifacts": [
-        "test-results/ (failure-only diffs, git-ignored) once ACTIVE"
+        "test-results/visual/ (failure-only diffs, git-ignored) once ACTIVE"
       ],
-      "explanation": "NOT_YET_APPLICABLE: no renderable product surface exists — the first spec-mandated visual-regression owner is M10-W06 (document validation snapshots); desktop-view and extension-panel snapshot layers attach with their own milestones by updating this entry. There is deliberately no placeholder snapshot or pixel test: that would be a mocked success (spec §1.5). When M10-W06 begins, this suite turns REQUIRED_MISSING and pnpm verify fails until real visual specs exist under e2e/visual/."
+      "explanation": "NOT_YET_APPLICABLE only while both M03-W01 and M10-W06 have not begun: no renderable product surface is then required. M03-W01 activates the real desktop shell visual suite; M10-W06 remains an activation owner for document validation snapshots. Once either package begins, empty e2e/visual/ discovery is REQUIRED_MISSING and fails verification. Actual Playwright execution and independent --list discovery must each report at least one test; placeholders or mocked snapshots are not acceptance evidence."
     },
     {
       "id": "python",
@@ -351,6 +523,12 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
+          "scripts/macos_package.py",
+          "scripts/build-windows-runtime.py",
+          "scripts/windows_package.py",
+          "scripts/build-linux-service-runtime.py",
+          "scripts/linux_package.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -367,6 +545,12 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
+          "scripts/macos_package.py",
+          "scripts/build-windows-runtime.py",
+          "scripts/windows_package.py",
+          "scripts/build-linux-service-runtime.py",
+          "scripts/linux_package.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -381,6 +565,12 @@
           "scripts/doctor.py",
           "scripts/check_portability.py",
           "scripts/portability.py",
+          "scripts/build-service-runtime.py",
+          "scripts/macos_package.py",
+          "scripts/build-windows-runtime.py",
+          "scripts/windows_package.py",
+          "scripts/build-linux-service-runtime.py",
+          "scripts/linux_package.py",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -466,6 +656,57 @@
           "--offline",
           "--manifest-path",
           "packages/contracts/test/contract/rust-harness/Cargo.toml"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--check"
+        ],
+        ["pnpm", "--filter", "@japp/desktop", "build"],
+        [
+          "cargo",
+          "clippy",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--all-targets",
+          "--all-features",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        [
+          "cargo",
+          "test",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml"
+        ],
+        [
+          "cargo",
+          "test",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--all-features"
+        ],
+        [
+          "cargo",
+          "test",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml",
+          "--features",
+          "tauri/custom-protocol"
+        ],
+        [
+          "cargo",
+          "build",
+          "--locked",
+          "--manifest-path",
+          "apps/desktop/src-tauri/Cargo.toml"
         ]
       ],
       "proofs": [
@@ -476,10 +717,11 @@
       ],
       "discovery_globs": [
         "services/native-host/src/**/*.rs",
-        "packages/contracts/test/contract/rust-harness/src/**/*.rs"
+        "packages/contracts/test/contract/rust-harness/src/**/*.rs",
+        "apps/desktop/src-tauri/src/**/*.rs"
       ],
       "artifacts": [],
-      "explanation": "Explicit --manifest-path keeps execution independent of the caller's working directory; rust-toolchain.toml pins 1.97.1. The native-host scaffold remains fail-closed and is built independently. M01-W05 also formats, lints, tests, and builds its private compatibility harness --locked --offline; this adds test evidence only and no native-host runtime behavior or production Rust contract API."
+      "explanation": "Explicit --manifest-path keeps execution independent of the caller working directory; rust-toolchain.toml pins 1.97.1. The retained native-host scaffold is built independently and the private M01-W05 compatibility harness remains --locked --offline. M03-W01 adds the real desktop shell: its Cargo.lock is mandatory, and fmt, Clippy with denied warnings, tests and build run on every verification host. The explicit @japp/desktop frontend-only build precedes native compilation because Tauri generate_context! embeds the packaged assets; it never invokes the Tauri build or this verifier recursively. Linux requires the same Tauri system libraries locally and in CI; CI success is not packaged target certification. The desktop tests also run with the exact CLI dependency-only tauri/custom-protocol feature so packaged runtime discovery cannot regress to a development path when the crate feature alias is absent (W03-RUNTIME-MODE-001)."
     },
     {
       "id": "portability",

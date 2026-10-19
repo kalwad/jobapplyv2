@@ -1,4 +1,4 @@
-"""Static validation of the GitHub Actions CI definition (M00-W06, M00-W09).
+"""Validation of the GitHub Actions CI definition (M00-W06, M00-W09).
 
 Parses .github/workflows/*.yml with a duplicate-key-rejecting loader and
 asserts the security, determinism, and no-divergence properties the package
@@ -23,6 +23,7 @@ import check_portability
 import validate_status
 import verify
 import yaml
+from _bounded_process import run_bounded_process
 from conftest import REPO_ROOT
 
 WORKFLOWS_DIR = REPO_ROOT / ".github" / "workflows"
@@ -133,7 +134,8 @@ def test_concurrency_cancels_superseded_runs() -> None:
 
 def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
     data = load_ci()
-    jobs = data["jobs"]
+    assert set(data["jobs"]) == {"verify", "native_package_development"}
+    jobs = {"verify": data["jobs"]["verify"]}
     assert len(jobs) == 1
     matrix_os = next(iter(jobs.values()))["strategy"]["matrix"]["os"]
     assert matrix_os == ["macos-15", "windows-2025", "ubuntu-24.04"], (
@@ -420,6 +422,7 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
         step
         for step in ci_steps()
         if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+        and step.get("with", {}).get("path", "").rstrip("/") == "test-results"
     ]
     assert len(uploads) == 1
     upload = uploads[0]
@@ -429,13 +432,167 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
     assert "retention-days" in upload["with"]
 
 
-def test_artifact_path_matches_playwright_output_config() -> None:
+def test_only_additional_artifact_is_bounded_windows_native_failure_evidence() -> None:
+    uploads = [
+        step
+        for step in load_ci()["jobs"]["verify"]["steps"]
+        if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+    ]
+    assert len(uploads) == 2
+    native = step_named("Retain Windows native loader failure evidence")
+    condition = (
+        "${{ failure() && runner.os == 'Windows' && "
+        "steps.canonical_verify.outcome == 'failure' }}"
+    )
+    assert native["if"] == condition
+    assert native["timeout-minutes"] == 2
+    assert native["uses"] == (
+        "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+    )
+    assert native["with"] == {
+        "name": "windows-native-loader-${{ github.sha }}",
+        "path": "${{ runner.temp }}/windows-native-loader-diagnostics/",
+        "if-no-files-found": "warn",
+        "retention-days": 7,
+    }
+    inspection = step_named(
+        "Inspect retained Windows native images after canonical failure"
+    )
+    assert inspection["if"] == condition
+    assert inspection["timeout-minutes"] == 3
+    assert inspection["shell"] == "pwsh"
+    assert "./scripts/windows-native-loader-diagnostics.ps1" in inspection["run"]
+    canonical = step_named(
+        "Canonical aggregate verification (same command as local `pnpm verify`)"
+    )
+    assert canonical["id"] == "canonical_verify"
+    assert canonical["run"] == "pnpm verify"
+    steps = ci_steps()
+    assert steps.index(canonical) < steps.index(inspection) < steps.index(native)
+
+
+def test_artifact_path_matches_playwright_output_config(tmp_path: Path) -> None:
     config = (REPO_ROOT / "playwright.config.ts").read_text(encoding="utf-8")
-    # Playwright's default outputDir is test-results/; the config must not
-    # redirect it somewhere the CI artifact step does not upload.
-    assert "outputDir" not in config
+    # Every suite owns a sibling child of the CI-uploaded artifact root.
     assert 'trace: "retain-on-failure"' in config
     assert 'screenshot: "only-on-failure"' in config
+
+    # Exercise the installed, pinned runner's real output cleanup without
+    # launching a browser, building, or touching the repository's artifacts.
+    # Wrappers keep the real configs' relative locations/outputDir settings;
+    # only browser suite discovery and setup are replaced by two tiny tests.
+    fixture_root = tmp_path / "playwright-retention"
+    fixture_root.mkdir()
+    (fixture_root / "package.json").write_text(
+        '{"name":"playwright-retention","private":true,"type":"module"}',
+        encoding="utf-8",
+    )
+    test_dir = fixture_root / "synthetic"
+    test_dir.mkdir()
+    playwright_test = (
+        REPO_ROOT / "node_modules" / "@playwright" / "test" / "index.mjs"
+    ).as_uri()
+    (test_dir / "seed.spec.mjs").write_text(
+        f"import {{ test, expect }} from {json.dumps(playwright_test)};\n"
+        'import { writeFileSync } from "node:fs";\n'
+        'test("synthetic default failure", async ({}, testInfo) => {\n'
+        '  writeFileSync(testInfo.outputPath("default-evidence.marker"), '
+        '"original default failure artifact");\n'
+        '  expect("intentional negative fixture").toBe("failure");\n'
+        "});\n",
+        encoding="utf-8",
+    )
+    (test_dir / "controlled.spec.mjs").write_text(
+        f"import {{ test }} from {json.dumps(playwright_test)};\n"
+        'test("synthetic controlled pass", () => {});\n',
+        encoding="utf-8",
+    )
+
+    registry = json.loads(
+        (REPO_ROOT / "scripts/verification-suites.json").read_text(encoding="utf-8")
+    )
+    visual = next(suite for suite in registry["suites"] if suite["id"] == "visual")
+    visual_command = visual["commands"][0]
+    assert visual_command[:5] == ["pnpm", "exec", "playwright", "test", "e2e/visual"]
+    invocations: tuple[tuple[str, list[str]], ...] = (
+        ("playwright.config.ts", []),
+        ("e2e/extension/public-research/playwright.config.ts", []),
+        ("e2e/extension/public-contact/playwright.config.ts", []),
+        ("playwright.config.ts", visual_command[5:]),
+    )
+    output_dirs: list[Path] = []
+    failure_artifacts: dict[Path, bytes] = {}
+    artifact_root = fixture_root / "test-results"
+    for index, (config_path, output_args) in enumerate(invocations):
+        wrapper = fixture_root / config_path
+        wrapper.parent.mkdir(parents=True, exist_ok=True)
+        source = (REPO_ROOT / config_path).as_uri()
+        test_match = "seed.spec.mjs" if index == 0 else "controlled.spec.mjs"
+        wrapper.write_text(
+            f"import original from {json.dumps(source)};\n"
+            "export default { ...original, "
+            f"testDir: {json.dumps(str(test_dir))}, "
+            f"testMatch: {json.dumps(test_match)}, "
+            "globalSetup: undefined, webServer: undefined, "
+            'reporter: [["json"]] };\n',
+            encoding="utf-8",
+        )
+        result = run_bounded_process(
+            [
+                "node",
+                str(REPO_ROOT / "node_modules" / "@playwright" / "test" / "cli.js"),
+                "test",
+                "--config",
+                str(wrapper),
+                *output_args,
+            ],
+            cwd=fixture_root,
+            timeout_seconds=30,
+            label="Playwright failure-artifact retention",
+        )
+        assert result.returncode == (1 if index == 0 else 0), (
+            result.stdout + result.stderr
+        )
+        report = json.loads(result.stdout)
+        assert report["stats"]["unexpected"] == (1 if index == 0 else 0)
+        assert report["stats"]["expected"] == (0 if index == 0 else 1)
+        assert report["stats"]["skipped"] == 0
+        assert report["stats"]["flaky"] == 0
+        resolved = {
+            Path(project["outputDir"]) for project in report["config"]["projects"]
+        }
+        assert len(resolved) == 1
+        output_dirs.append(resolved.pop())
+        if index == 0:
+            markers = list(artifact_root.rglob("default-evidence.marker"))
+            assert len(markers) == 1
+            marker = markers[0]
+            assert (
+                marker.read_text(encoding="utf-8")
+                == "original default failure artifact"
+            )
+            trace = marker.with_name("trace.zip")
+            failure_artifacts = {marker: marker.read_bytes(), trace: trace.read_bytes()}
+        for artifact, contents in failure_artifacts.items():
+            assert artifact.is_file(), (
+                f"{config_path} deleted the default failure artifact {artifact.name}"
+            )
+            assert artifact.read_bytes() == contents
+
+    assert 'outputDir: "./test-results/browser"' in config
+    assert output_dirs == [
+        artifact_root / "browser",
+        artifact_root / "public-research",
+        artifact_root / "public-contact",
+        artifact_root / "visual",
+    ]
+    assert len(set(output_dirs)) == len(invocations)
+    for output_dir in output_dirs:
+        assert output_dir.is_relative_to(artifact_root)
+        assert output_dir != artifact_root
+        for other in output_dirs:
+            if output_dir != other:
+                assert not output_dir.is_relative_to(other)
 
 
 def test_cache_keys_carry_platform_tool_and_lockfile_identity() -> None:
@@ -611,6 +768,7 @@ def test_artifact_upload_name_is_per_matrix_platform() -> None:
         step
         for step in ci_steps()
         if str(step.get("uses", "")).startswith("actions/upload-artifact@")
+        and step.get("with", {}).get("path", "").rstrip("/") == "test-results"
     ]
     assert len(uploads) == 1
     assert "${{ matrix.os }}" in str(uploads[0]["with"]["name"]), (

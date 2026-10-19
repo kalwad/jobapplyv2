@@ -1,0 +1,12 @@
+{
+  "archive": "/tmp/japp-m02-w15-independent-canonical-246-timeout-retained/proof.tar.gz",
+  "bytes": 334725,
+  "sha256": "5cc2c8caadab290bf5472b176436caf452951989748398d3431017882dd0d25c",
+  "regular_members": 39,
+  "source_members": 38,
+  "source_payload_bytes": 10103145,
+  "all_payload_bytes_and_safe_paths_checked": true,
+  "all_source_files_recaptured_exact_after_write": true,
+  "authority": "NONE",
+  "outcome": "CANONICAL_TIMEOUT_ACCEPTANCE_BLOCKED"
+}

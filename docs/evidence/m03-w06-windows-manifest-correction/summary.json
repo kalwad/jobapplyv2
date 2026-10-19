@@ -1,0 +1,43 @@
+{
+  "base_head": "5b6def96f4b38ecbfd9c9add1cb22db7d0fe15e7",
+  "derived_scope_note": "Canonical summary adds this explicit after-observation PS1 binding note; original producer summary/receipts inside proof unchanged. Final PS-only log-retention delta followed Rust checks; all Rust source and native inputs unchanged. Fresh clean full remains pending.",
+  "evaluated_ci": {
+    "attempt": 1,
+    "head": "c4f7d9ca6df70f3d7f8a8f8d10806453e69687e6",
+    "macos": "20/20PASS",
+    "original_ci_archive_sha256": "1022a4e4fd04cbfc419d724750fad4a603438a01d2133b4587bb4a137178d41a",
+    "run_id": 39201246849,
+    "tree": "b7b7bbcf7d508309bd6c3e511bb924a0ad2338d3",
+    "ubuntu": "20/20PASS",
+    "verdict": "FAILURE",
+    "windows": "18/20PASS;typecheckFAILcauseUNOBSERVED;RustduplicateRT_MANIFESTlinkFAIL",
+    "windows_diagnostics": "FAILURE joinedGitpaths;noPEimages"
+  },
+  "local_component": {
+    "command": [
+      "pnpm",
+      "verify",
+      "--suite",
+      "rust"
+    ],
+    "command_exit": 0,
+    "native_cases_each_of_three_modes": 232,
+    "observer_error": "stale expected6 footer vs actual1;originalpreserved;derivedreconciliation;no test rerun",
+    "observer_wrapper_exit": 1,
+    "owned_group_gone_reaped_no_cleanup_signals": true,
+    "ps1_during_rust_sha256": "2f228343661f2f779b99181a41dcf1e3719f7acc21d2eb4b28a0a20520088578",
+    "registry_commands": 15,
+    "seconds": 32.3827933340217,
+    "source1956_runtime40_unchanged": true
+  },
+  "remaining": "freshclean doctor/all20,current Windows CI and actualPS,GUI/LaunchServices/nativepackagevalidation;oldentrypointcauseunproved;noM03/gate/releaseacceptance",
+  "source_correction": {
+    "build_rs_sha256": "48b13d593001ac39af9393160910d2675be869a6d28ec219b84b7a16c21a123c",
+    "ps1_sha256": "d592d1b13089c6c497c923648f05aa05376140927ebcb2d3e77f70107dea7dcb",
+    "scope": "MSVConly once-owned manifest;firstApplicationpath;bounded existing fixed Turbo tasklogs;unchanged workflow/failurepolicy/resources/XML"
+  },
+  "state": "IN_PROGRESS",
+  "total_packages": 300,
+  "verified_packages": 38,
+  "work_package": "M03-W06"
+}

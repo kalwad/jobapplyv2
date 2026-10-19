@@ -1,0 +1,88 @@
+{
+  "archive_sha256": "bd73138b0d19921a0083cf8977faf3c3c8f69208d39177d8a377e940c29bf82d",
+  "archive_bytes": 86083,
+  "regular_members": 16,
+  "scope": "Exact UTF8 proposal/source/diagnostic/review and first packaging refusal/interrupted validation. Raw source snapshots stay archived so spec-duplication detector remains unchanged. Native corrected Windows pending.",
+  "files": [
+    {
+      "path": "proposal/cp1252-contrast.json",
+      "bytes": 1335,
+      "sha256": "900936240504e6c73022b98f23b45d3c45278a85eaede1b0c80919c428faa7e9"
+    },
+    {
+      "path": "proposal/diagnostic.py",
+      "bytes": 3594,
+      "sha256": "6283ec69491999e8c3931f63bcd399865f037a58bace94a5360f1e3df96ca161"
+    },
+    {
+      "path": "proposal/proposal-manifest.json",
+      "bytes": 2482,
+      "sha256": "14afc2e7a5354d3f010d66f771d4ba41de350d214eb1e3e1018310a185232c92"
+    },
+    {
+      "path": "proposal/pyproject.toml",
+      "bytes": 6754,
+      "sha256": "d775c81cdc8c01244beac2f57a912a16ef0f1c46ebde598870a3deb5c7b19379"
+    },
+    {
+      "path": "proposal/ruff-canonical-relative.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "proposal/ruff-check.log",
+      "bytes": 115534,
+      "sha256": "ff2a4ac4a508f8aecd3bdfb1754a610819256926b26b66064d5d116b1f549886"
+    },
+    {
+      "path": "proposal/scripts/tests/test_validate_status.py",
+      "bytes": 106901,
+      "sha256": "b2785ca1e61e25acd0f3fd63a09f184fc3e8436a0beff664f9ed3be66e1ac033"
+    },
+    {
+      "path": "proposal/test_validate_status.after.py",
+      "bytes": 106901,
+      "sha256": "b2785ca1e61e25acd0f3fd63a09f184fc3e8436a0beff664f9ed3be66e1ac033"
+    },
+    {
+      "path": "proposal/test_validate_status.before.py",
+      "bytes": 106545,
+      "sha256": "f04266f10774f11a2a77ffb23d14821702f8a957312a39bb201e51f354c866d2"
+    },
+    {
+      "path": "proposal/windows-waiver-fixture-utf8.patch",
+      "bytes": 3663,
+      "sha256": "115be0ee440433d0d70db984433889ca7fea3290da12b1dba29e6e2cad437864"
+    },
+    {
+      "path": "review/japp-w14-windows-utf8-independent-review.md",
+      "bytes": 4378,
+      "sha256": "0c78f5268def10431dee580845d80731d003fc950b9350c995b3d44a400ea82b"
+    },
+    {
+      "path": "review/japp-w14-windows-utf8-independent-findings.json",
+      "bytes": 18120,
+      "sha256": "6bb9b66060ee592e1a82babb348a5a95fffe95f6e2251e378af3a395087c4faa"
+    },
+    {
+      "path": "review/japp-w14-final-integration-review.md",
+      "bytes": 5483,
+      "sha256": "7cb37d5e6a7a0f511bca043ad9f1b2029484d6327b0f8b246cab8417f40a9170"
+    },
+    {
+      "path": "packaging-correction/first-status-refusal.log",
+      "bytes": 3695,
+      "sha256": "bdf3a0be69b3f51b640891f181cbeb11ae29d908dca707e81873b4810d1d9804"
+    },
+    {
+      "path": "packaging-correction/interrupted-ledger.log",
+      "bytes": 16148,
+      "sha256": "4cd22a87439417f2e43aac219a14ea855e9e56404702ec8290f583e3e0aa9d22"
+    },
+    {
+      "path": "packaging-correction/first-prettier.log",
+      "bytes": 66,
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    }
+  ]
+}

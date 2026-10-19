@@ -1,0 +1,85 @@
+{
+  "patch_sha256": "8a889e0916bda5cc4ee55bdbf0ed97af5653b4104e8f7e732d258143d9bbd0df",
+  "source_manifest": "FINAL-DELTA-source-manifest.json",
+  "source_manifest_sha256": "4290937bab75ce3f0eef89b3cee7933f9a66dec4eda6815715acedbe582b72fb",
+  "exact_final_source": {
+    "actual_mv3": {
+      "result": "72/72 PASS",
+      "log": "final72.log",
+      "runtime_and_build_manifest": "final72-runtime-and-build-manifest.json",
+      "artifacts": "final72-artifacts",
+      "source_unchanged_during_run": true,
+      "coverage": "unchanged W10 drivers incl TX7 and VIRT, W11 dynamic/reconcile, shadow/ownership/clearing undo, unrelated MX append; actual W09 select/radio/ARIA stale label approvals; undo own input/hash drift; eventless execute/undo value drift; final W11 inventory value drift; post-verified selected-value duplicate",
+      "log_sha256": "5ad4ece20641a1566d72998f793e407877df956ca2d444fea0ae61705e953b9e"
+    },
+    "extension_types": {
+      "result": "PASS",
+      "log": "final-extension-types.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "e2e_types": {
+      "result": "PASS",
+      "log": "final-e2e-types.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "typed_eslint": {
+      "result": "PASS",
+      "log": "final-lint.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prettier": {
+      "result": "PASS",
+      "log": "final-format.log",
+      "log_sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    "units": {
+      "result": "180/180 PASS",
+      "log": "final-units.log",
+      "cache_safety": "4 cache units: immutable snapshot, ambiguity versus absence, unknown/evicted fail closed, count/byte/oversized-prefix bounds",
+      "log_sha256": "6921c70e76eaaf99aa3f15976d937e692f7bf133615babdc740402117aa7e18e"
+    }
+  },
+  "before_and_intermediate_proofs": [
+    {
+      "source": "exact first FINAL + c905 candidate only",
+      "result": "actual independent native6 before failures including corrected opaque setup; undo hash failure; property/radio extras4 and ARIA1 failures",
+      "location": "/tmp/japp-w14-independent-probes",
+      "note": "Parent-owned independent immutable proof artifacts; c905 never applied to active root"
+    },
+    {
+      "source": "exact first FINAL + c905 candidate only",
+      "result": "W11 final inventory property-only drift FAIL1/1: RECONCILED rather than ROOT_UNRESOLVED, MutationObserver0",
+      "log": "w11-property-before.log",
+      "runtime_manifest": "w11-before-runtime-manifest.json",
+      "artifacts": "w11-before-tree/test-results"
+    },
+    {
+      "source": "pre-cache expanded delta",
+      "result": "70/71 PASS; unchanged TX7 failed early before safe query clear; trace retained",
+      "log": "final-regressions.log",
+      "artifacts": "before-snapshot-cache-artifacts",
+      "runtime_manifest": "focused-runtime-manifest.json"
+    },
+    {
+      "source": "bounded snapshot cache, before final physical uniqueness correction",
+      "result": "71/71 PASS incl TX7 and VIRT",
+      "log": "final-regressions-cached.log",
+      "runtime_manifest": "cached71-runtime-manifest.json",
+      "artifacts": "cached71-artifacts"
+    },
+    {
+      "source": "same cached71 runtime",
+      "result": "post-verified duplicate selected raw value FAIL1/1: READY rather than NOT_READY, extension writes unchanged",
+      "log": "selected-duplicate-before.log",
+      "artifacts": "selected-duplicate-before-artifacts"
+    },
+    {
+      "source": "exact final runtime",
+      "result": "179 pass/1 unit setup failure: omitted outside-copy public-current-matrix fixture",
+      "log": "final-units-missing-fixture.log",
+      "repair": "restored exact historical fixture SHA256 9a9c933add2266977b9fe4f59996531719f27fbdefc44f423c09a410c6dec214; no source/test changes"
+    }
+  ],
+  "performance": "No final delta target20 timing claimed. Root owns canonical coherent full verify/performance aggregate. The 1473.745667 predecessor proof is historical and does not include this delta.",
+  "limitations": "Open shadow native text support remains the existing boundary; no closed shadow claim. Cache misses never relax option authority. Pure snapshots have no DOM refs/raw applicant values/action capability. Widget off-window fallback is exactly raw visible semantic value or approved field label plus one space plus raw value; extra text refuses."
+}

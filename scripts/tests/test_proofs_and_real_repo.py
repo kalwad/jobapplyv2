@@ -34,33 +34,38 @@ def test_workspace_package_enumeration_matches_scaffold() -> None:
     with_test = verify.workspace_packages_with_script(ctx, "test")
     with_typecheck = verify.workspace_packages_with_script(ctx, "typecheck")
     with_build = verify.workspace_packages_with_script(ctx, "build")
-    # 14 since M02-W07 turned the apps/extension slot into a real package
-    # with test/typecheck (and build) scripts.
-    assert len(with_test) == 14
-    assert len(with_typecheck) == 14
+    # M03-W01 adds the real desktop shell to the retained 14 implementers.
+    assert len(with_test) == 15
+    assert len(with_typecheck) == 15
+    assert "@japp/desktop" in with_test
+    assert "@japp/desktop" in with_typecheck
     assert all(name.startswith("@japp/") for name in with_test)
     # The build-implementer inventory is pinned exactly: turbo_task_count
     # derives its expected count from these same manifests, so a
     # manifest-level drop of a build script must fail here rather than
     # silently shrinking the build suite's expectation (KI-0001).
-    assert sorted(with_build) == ["@japp/extension", "@japp/mock-ats-lab"]
+    assert sorted(with_build) == [
+        "@japp/desktop",
+        "@japp/extension",
+        "@japp/mock-ats-lab",
+    ]
 
 
 def test_turbo_task_count_proof_detects_dropped_tasks() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="turbo_task_count", script="test")
-    good = "Tasks:    14 successful, 14 total"
-    bad = "Tasks:    13 successful, 13 total"
+    good = "Tasks:    15 successful, 15 total"
+    bad = "Tasks:    14 successful, 14 total"
     assert verify.check_proof(ctx, _suite_stub(), proof, good) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, bad)
     assert failure is not None
-    assert "14 workspace packages" in failure
+    assert "15 workspace packages" in failure
 
 
 def test_vitest_per_package_proof_requires_fresh_counts() -> None:
     ctx = _ctx()
     proof = verify.Proof(kind="vitest_per_package", script="test")
-    fresh = "\n".join(["Tests  1 passed (1)"] * 14)
+    fresh = "\n".join(["Tests  1 passed (1)"] * 15)
     cached = "\n".join(["Tests  1 passed (1)"] * 3)
     assert verify.check_proof(ctx, _suite_stub(), proof, fresh) is None
     failure = verify.check_proof(ctx, _suite_stub(), proof, cached)
@@ -114,3 +119,73 @@ def test_real_repo_toolchain_pins_are_readable() -> None:
     assert pins["python"] == "3.12.13"
     assert pins["uv"] == "0.11.32"
     assert pins["rust"] == "1.97.1"
+
+
+def test_desktop_rust_lockfile_is_mandatory(fixture_repo: verify.Context) -> None:
+    lockfile = "apps/desktop/src-tauri/Cargo.lock"
+    assert lockfile in verify.LOCKFILES
+    registry = verify.load_registry(fixture_repo.registry_path)
+    failures = verify.check_integrity(fixture_repo, registry)
+    assert f"lockfile missing for active ecosystem: {lockfile}" in failures
+
+
+def test_rust_registry_covers_all_crates_and_desktop_assets() -> None:
+    registry = verify.load_registry(_ctx().registry_path)
+    rust = next(suite for suite in registry.suites if suite.suite_id == "rust")
+    formatting = next(suite for suite in registry.suites if suite.suite_id == "format")
+    desktop = "apps/desktop/src-tauri/Cargo.toml"
+    host = "services/native-host/Cargo.toml"
+    harness = "packages/contracts/test/contract/rust-harness/Cargo.toml"
+    for manifest in (host, harness, desktop):
+        format_command = ("cargo", "fmt", "--manifest-path", manifest, "--check")
+        assert format_command in formatting.commands
+        assert format_command in rust.commands
+    for operation in ("clippy", "test", "build"):
+        for manifest in (host, harness, desktop):
+            commands = [
+                command
+                for command in rust.commands
+                if command[:2] == ("cargo", operation) and manifest in command
+            ]
+            expected_count = 3 if manifest == desktop and operation == "test" else 1
+            assert len(commands) == expected_count
+            if manifest == desktop and operation == "test":
+                base = ("cargo", "test", "--locked", "--manifest-path", desktop)
+                assert set(commands) == {
+                    base,
+                    (*base, "--all-features"),
+                    (*base, "--features", "tauri/custom-protocol"),
+                }
+            for command in commands:
+                if manifest in (harness, desktop):
+                    assert "--locked" in command
+                if manifest == harness:
+                    assert "--offline" in command
+                if operation == "clippy":
+                    assert "--all-targets" in command
+                    assert command[-3:] == ("--", "-D", "warnings")
+    prerequisite = ("pnpm", "--filter", "@japp/desktop", "build")
+    assert rust.commands.count(prerequisite) == 1
+    first_compile = min(
+        index
+        for index, command in enumerate(rust.commands)
+        if command[:2] in (("cargo", "clippy"), ("cargo", "test"), ("cargo", "build"))
+        and desktop in command
+    )
+    assert rust.commands.index(prerequisite) < first_compile
+    assert rust.discovery_globs == (
+        "services/native-host/src/**/*.rs",
+        "packages/contracts/test/contract/rust-harness/src/**/*.rs",
+        "apps/desktop/src-tauri/src/**/*.rs",
+    )
+
+
+def test_unit_ts_discovery_covers_packages_and_apps() -> None:
+    registry = verify.load_registry(_ctx().registry_path)
+    unit = next(suite for suite in registry.suites if suite.suite_id == "unit-ts")
+    assert unit.discovery_globs == (
+        "packages/*/test/**/*.test.ts",
+        "packages/*/test/**/*.test.tsx",
+        "apps/*/test/**/*.test.ts",
+        "apps/*/test/**/*.test.tsx",
+    )

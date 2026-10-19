@@ -1,0 +1,173 @@
+[WebServer] (node:58225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:58250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:58261) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 372 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 150.92 kB                            
+✔ Finished in 420 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 326 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 111.67 kB                                        
+✔ Finished in 376 ms
+
+Running 4 tests using 1 worker
+
+(node:58279) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: native-valid email clears the recoverable site error and survives controlled replacement (1.3s)
+(node:58308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: malformed email retains native and ARIA rejection (926ms)
+(node:58328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: persistent site rejection remains rejected despite native validity (934ms)
+(node:58347) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: a rerender restoring rejection prevents a verified-fill claim (920ms)
+
+
+  1) [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: native-valid email clears the recoverable site error and survives controlled replacement 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has value: undefined
+
+      90 |       expect(observed.meter.actions).toHaveLength(1);
+      91 |       expect(observed.meter.rerenders).toBe(1);
+    > 92 |       expect(observed.results[0]?.duration_ms).toBeGreaterThanOrEqual(75);
+         |                                                ^
+      93 |       expect(observed.meter.navigation).toBe(0);
+      94 |       expect(observed.meter.submission).toBe(0);
+      95 |       if (scenario.expected === "UNRESOLVED") {
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-w14-validation.spec.ts:92:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-ffa4f-ives-controlled-replacement-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-va-ffa4f-ives-controlled-replacement-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-ffa4f-ives-controlled-replacement-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-w14-va-ffa4f-ives-controlled-replacement-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: malformed email retains native and ARIA rejection 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has value: undefined
+
+      90 |       expect(observed.meter.actions).toHaveLength(1);
+      91 |       expect(observed.meter.rerenders).toBe(1);
+    > 92 |       expect(observed.results[0]?.duration_ms).toBeGreaterThanOrEqual(75);
+         |                                                ^
+      93 |       expect(observed.meter.navigation).toBe(0);
+      94 |       expect(observed.meter.submission).toBe(0);
+      95 |       if (scenario.expected === "UNRESOLVED") {
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-w14-validation.spec.ts:92:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-9c139-s-native-and-ARIA-rejection-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-va-9c139-s-native-and-ARIA-rejection-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-9c139-s-native-and-ARIA-rejection-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-w14-va-9c139-s-native-and-ARIA-rejection-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: persistent site rejection remains rejected despite native validity 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has value: undefined
+
+      90 |       expect(observed.meter.actions).toHaveLength(1);
+      91 |       expect(observed.meter.rerenders).toBe(1);
+    > 92 |       expect(observed.results[0]?.duration_ms).toBeGreaterThanOrEqual(75);
+         |                                                ^
+      93 |       expect(observed.meter.navigation).toBe(0);
+      94 |       expect(observed.meter.submission).toBe(0);
+      95 |       if (scenario.expected === "UNRESOLVED") {
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-w14-validation.spec.ts:92:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-dc700-ted-despite-native-validity-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-va-dc700-ted-despite-native-validity-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-dc700-ted-despite-native-validity-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-w14-va-dc700-ted-despite-native-validity-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: a rerender restoring rejection prevents a verified-fill claim 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has value: undefined
+
+      90 |       expect(observed.meter.actions).toHaveLength(1);
+      91 |       expect(observed.meter.rerenders).toBe(1);
+    > 92 |       expect(observed.results[0]?.duration_ms).toBeGreaterThanOrEqual(75);
+         |                                                ^
+      93 |       expect(observed.meter.navigation).toBe(0);
+      94 |       expect(observed.meter.submission).toBe(0);
+      95 |       if (scenario.expected === "UNRESOLVED") {
+        at /Users/tanishkalwad/jobapplyv2/e2e/extension/extension-w14-validation.spec.ts:92:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-c23ea-vents-a-verified-fill-claim-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/extension-extension-w14-va-c23ea-vents-a-verified-fill-claim-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/extension-extension-w14-va-c23ea-vents-a-verified-fill-claim-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/extension-extension-w14-va-c23ea-vents-a-verified-fill-claim-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: native-valid email clears the recoverable site error and survives controlled replacement 
+    [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: malformed email retains native and ARIA rejection 
+    [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: persistent site rejection remains rejected despite native validity 
+    [chromium] › e2e/extension/extension-w14-validation.spec.ts:49:3 › W14 site runtime: a rerender restoring rejection prevents a verified-fill claim 

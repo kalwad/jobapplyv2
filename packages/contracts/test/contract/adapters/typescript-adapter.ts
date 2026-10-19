@@ -11,7 +11,7 @@ import {
   contractRuntime,
   requireErrorCatalogEntryV1,
   validateContractInstance,
-  validateSemanticContractV1,
+  validateSemanticContractV2,
   type GeneratedTypeByRef,
 } from "../../../generated/typescript/index.ts";
 import {
@@ -142,7 +142,7 @@ function semanticInvalidResult(
   schemaRef: string,
   value: unknown,
 ): AdapterResult | undefined {
-  const outcome = validateSemanticContractV1(schemaRef, value);
+  const outcome = validateSemanticContractV2(schemaRef, value);
   if (outcome.valid) {
     return undefined;
   }

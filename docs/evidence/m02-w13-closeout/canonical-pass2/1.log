@@ -1,0 +1,1 @@
+PASS: portability policy validated (three-OS CI, shell and masking rules, pinned actions, cache allowlist, and platform-neutral shared scripts)

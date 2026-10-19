@@ -1,0 +1,57 @@
+function domMetrics(items: MeasuredRow[]) {
+  const scores = items.flatMap((row) => row.positive_scores ?? []);
+  const changes = items.flatMap((row) => row.changes ?? []);
+  const correct = scores.filter(
+    (score) => score.state === "INTENDED_RETAINED",
+  ).length;
+  const required = scores.filter(
+    (score) =>
+      score.required &&
+      ["INTENDED_RETAINED", "MISSING_OR_WRONG"].includes(score.state),
+  );
+  const changed = changes.filter((change) => change.state === "CHANGED").length;
+  return {
+    source_pages: items.length,
+    expected_positive_controls: scores.length,
+    initially_empty_required_controls: required.length,
+    intended_contact_values_retained: correct,
+    required_values_retained: required.filter(
+      (score) => score.state === "INTENDED_RETAINED",
+    ).length,
+    observed_physical_changes: changed,
+    dom_value_uniquely_measured_precision:
+      changed === 0 ? null : correct / changed,
+    dom_value_precision:
+      items.some((row) => row.positive_scores === undefined) ||
+      changes.some((change) => change.state === "UNMEASURABLE_IDENTITY") ||
+      changed === 0
+        ? null
+        : correct / changed,
+    dom_value_required_recall:
+      items.some((row) => row.positive_scores === undefined) ||
+      scores.some(
+        (score) => score.required && score.state === "UNMEASURABLE_IDENTITY",
+      ) ||
+      required.length === 0
+        ? null
+        : required.filter((score) => score.state === "INTENDED_RETAINED")
+            .length / required.length,
+    dom_value_uniquely_measured_required_recall:
+      required.length === 0
+        ? null
+        : required.filter((score) => score.state === "INTENDED_RETAINED")
+            .length / required.length,
+    unmeasurable_identity_controls: changes.filter(
+      (change) => change.state === "UNMEASURABLE_IDENTITY",
+    ).length,
+    unexpected_nonpositive_changes: changes.filter(
+      (change) => change.state === "CHANGED" && !change.positive,
+    ).length,
+    prefilled_preserved: scores.filter(
+      (score) => score.state === "PREFILLED_PRESERVED",
+    ).length,
+    prefilled_changed: scores.filter(
+      (score) => score.state === "PREFILLED_CHANGED",
+    ).length,
+  };
+}

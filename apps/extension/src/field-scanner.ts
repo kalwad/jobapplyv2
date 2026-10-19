@@ -1,3 +1,15 @@
+import { rememberOptionMeaningSnapshot } from "./option-meaning.ts";
+import {
+  captureOpenTree,
+  currentOpenTopology,
+  topologyWorkMetrics,
+  hasAmbiguousLocalReference,
+  composedContains,
+  composedParent,
+  composedClosest,
+  localIdReference,
+  sameOpenRoots,
+} from "./open-dom.ts";
 import {
   SCANNER_WORK_KEYS,
   type ScannerWorkMetrics,
@@ -87,6 +99,7 @@ export function scannerWorkMetrics(document: Document) {
   }
   return {
     ...metrics,
+    ...topologyWorkMetrics(document),
     total_duration_ms: Math.ceil(metrics.total_duration_us / 1000),
   };
 }
@@ -136,12 +149,13 @@ interface ScanIdentityContext {
 }
 
 function elementsWithin(root: Element, selector: string): HTMLElement[] {
-  const elements: HTMLElement[] = [];
-  if (root instanceof HTMLElement && root.matches(selector)) {
-    elements.push(root);
-  }
-  elements.push(...root.querySelectorAll<HTMLElement>(selector));
-  return elements;
+  const capture = captureOpenTree(root);
+  return capture.status === "COMPLETE"
+    ? capture.elements.filter(
+        (element): element is HTMLElement =>
+          element instanceof HTMLElement && element.matches(selector),
+      )
+    : [];
 }
 
 function hasSupportedControl(root: Element): boolean {
@@ -155,8 +169,11 @@ export function scanCapacityExceeded(root: HTMLElement): boolean {
   const work = workCounters(root.ownerDocument);
   work.capacity_checks += 1;
   try {
+    const capture = captureOpenTree(root);
     return (
-      elementsWithin(root, CONTROL_SELECTOR).length > MAX_DESCRIPTORS_PER_FRAME
+      capture.status === "CAPACITY_EXCEEDED" ||
+      capture.elements.filter((element) => element.matches(CONTROL_SELECTOR))
+        .length > MAX_DESCRIPTORS_PER_FRAME
     );
   } finally {
     work.capacity_check_duration_us += measuredUs(started);
@@ -208,7 +225,9 @@ function detectRootEvidence(document: Document): ApplicationRootResult {
   }
 
   const forms = uniqueElements([
-    ...[...document.forms].filter(hasSupportedControl),
+    ...[...elementsWithin(document.documentElement, "form")].filter(
+      hasSupportedControl,
+    ),
     ...elementsWithin(document.documentElement, "[role='form']").filter(
       hasSupportedControl,
     ),
@@ -283,6 +302,7 @@ export function normalizeText(value: string | null | undefined): string {
   }
   const normalized = value
     .normalize("NFKC")
+    .replaceAll(/[ßẞ]/g, "ss")
     .replaceAll(/\s+/g, " ")
     .replaceAll(/[^A-Za-z0-9 .,:!?()'&+/@_-]/g, " ")
     .replaceAll(/\s+/g, " ")
@@ -310,14 +330,12 @@ function directLegend(element: HTMLElement): string {
   return normalizeText(legend?.textContent);
 }
 
-function referencedText(element: HTMLElement, attribute: string): string {
+function referencedText(element: Element, attribute: string): string {
   const ids = (element.getAttribute(attribute) ?? "")
     .split(/\s+/)
     .filter((value) => value !== "");
   return normalizeText(
-    ids
-      .map((id) => element.ownerDocument.getElementById(id)?.textContent ?? "")
-      .join(" "),
+    ids.map((id) => localIdReference(element, id)?.textContent ?? "").join(" "),
   );
 }
 
@@ -367,6 +385,7 @@ function accessibleLabel(
   labelSnapshot?: ReadonlyMap<HTMLElement, readonly string[]>,
 ): string {
   const anchor = candidate.groupElement ?? candidate.anchor;
+  if (hasAmbiguousLocalReference(anchor, "aria-labelledby")) return "";
   const labelledBy = referencedText(anchor, "aria-labelledby");
   if (labelledBy !== "") {
     return labelledBy;
@@ -427,16 +446,43 @@ function sectionToken(value: string): string | null {
   return /^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$/.test(token) ? token : null;
 }
 
-function sectionContext(
+const MAX_OWNERSHIP_ANCESTORS = 256;
+
+/** A form boundary does not erase the untrusted owner of its shadow host.
+ * Capture composed context once, bounded independently of root depth, and
+ * refuse positive authority when its ancestry or canonical path is incomplete. */
+function ownershipContext(
   candidate: FieldCandidate,
-  applicationRoot: HTMLElement,
   headingCandidates: readonly HTMLElement[],
-): string[] {
-  const context: string[] = [];
+): { readonly ambiguous: boolean; readonly sections: string[] } {
   const anchor = candidate.groupElement ?? candidate.anchor;
+  let ambiguous =
+    hasAmbiguousLocalReference(anchor, "aria-labelledby") ||
+    hasAmbiguousLocalReference(anchor, "aria-describedby");
+  const ancestors: Element[] = [];
+  const visited = new Set<Element>([anchor]);
+  let current = composedParent(anchor);
+  while (current !== null && ancestors.length < MAX_OWNERSHIP_ANCESTORS) {
+    if (visited.has(current)) {
+      ambiguous = true;
+      break;
+    }
+    visited.add(current);
+    ancestors.push(current);
+    if (
+      hasAmbiguousLocalReference(current, "aria-labelledby") ||
+      hasAmbiguousLocalReference(current, "aria-describedby")
+    )
+      ambiguous = true;
+    current = composedParent(current);
+  }
+  if (current !== null) ambiguous = true;
+
+  const context: string[] = [];
   const headings = headingCandidates.filter(
     (heading) =>
       heading !== anchor &&
+      heading.getRootNode() === anchor.getRootNode() &&
       (heading.compareDocumentPosition(anchor) &
         Node.DOCUMENT_POSITION_FOLLOWING) !==
         0,
@@ -444,37 +490,28 @@ function sectionContext(
   const precedingHeading = headings.at(-1);
   if (precedingHeading !== undefined) {
     const token = sectionToken(precedingHeading.textContent);
-    if (token !== null) {
-      context.push(token);
-    }
+    if (token !== null) context.push(token);
   }
-
-  const ancestors: HTMLElement[] = [];
-  let current = anchor.parentElement;
-  while (current !== null && applicationRoot.contains(current)) {
+  for (let index = ancestors.length - 1; index >= 0; index -= 1) {
+    const ancestor = ancestors[index];
     if (
-      current.matches(
+      !ancestor?.matches(
         "fieldset,section,[role='group'],[role='radiogroup'],[aria-labelledby]",
       )
-    ) {
-      ancestors.unshift(current);
-    }
-    if (current === applicationRoot) {
-      break;
-    }
-    current = current.parentElement;
-  }
-  for (const ancestor of ancestors) {
+    )
+      continue;
     const text =
       referencedText(ancestor, "aria-labelledby") ||
       normalizeText(ancestor.getAttribute("aria-label")) ||
-      directLegend(ancestor);
+      (ancestor instanceof HTMLElement ? directLegend(ancestor) : "");
     const token = sectionToken(text);
-    if (token !== null) {
-      context.push(token);
-    }
+    if (token !== null) context.push(token);
   }
-  return [...new Set(context)].slice(0, 16);
+  const sections = [...new Set(context)];
+  // Canonical section paths hold at most 16 tokens. A prefix cannot erase a
+  // later Employer/Recruiter token while retaining applicant-fill authority.
+  if (sections.length > 16) ambiguous = true;
+  return { ambiguous, sections: sections.slice(0, 16) };
 }
 
 function controlKind(element: HTMLElement): FormFieldDescriptorV1ControlKind {
@@ -559,7 +596,7 @@ function captureCandidateEvidence(boundary: HTMLElement): CapturedCandidates {
     });
   }
 
-  const containerIds = new WeakMap<Element, number>();
+  const containerIds = new WeakMap<Node, number>();
   let nextContainerId = 1;
   const radioGroups = new Map<string, FieldCandidate>();
   for (const element of elements) {
@@ -573,7 +610,7 @@ function captureCandidateEvidence(boundary: HTMLElement): CapturedCandidates {
       const container =
         element.closest<HTMLElement>("fieldset,[role='radiogroup']") ??
         element.form ??
-        boundary;
+        element.getRootNode();
       let containerId = containerIds.get(container);
       if (containerId === undefined) {
         containerId = nextContainerId;
@@ -623,8 +660,12 @@ function captureCandidateEvidence(boundary: HTMLElement): CapturedCandidates {
  * nested scroll containers, and ancestors that re-anchor fixed descendants
  * through transform, filter, or containment are not modelled.
  */
-function hasFixedAncestor(start: HTMLElement | null, view: Window): boolean {
-  for (let current = start; current !== null; current = current.parentElement) {
+function hasFixedAncestor(start: Element | null, view: Window): boolean {
+  for (
+    let current: Element | null = start;
+    current !== null;
+    current = composedParent(current)
+  ) {
     if (view.getComputedStyle(current).position === "fixed") {
       return true;
     }
@@ -635,13 +676,40 @@ function hasFixedAncestor(start: HTMLElement | null, view: Window): boolean {
 export function isElementVisible(element: HTMLElement): boolean {
   if (
     element.hidden ||
-    element.closest("[hidden],[aria-hidden='true'],[inert]") !== null
+    composedClosest(element, "[hidden],[aria-hidden='true'],[inert]") !== null
   ) {
     return false;
   }
   const view = element.ownerDocument.defaultView;
   if (view === null) {
     return false;
+  }
+  // Chromium's native flat-tree check covers ancestor opacity/visibility
+  // across slots/hosts without repeating getComputedStyle for every ancestor.
+  // CSSOM View checkVisibility; geometry/reachable-area guards below remain.
+  if (typeof element.checkVisibility === "function") {
+    if (
+      !element.checkVisibility({
+        opacityProperty: true,
+        visibilityProperty: true,
+      })
+    )
+      return false;
+  } else {
+    for (
+      let ancestor = composedParent(element);
+      ancestor !== null;
+      ancestor = composedParent(ancestor)
+    ) {
+      const style = view.getComputedStyle(ancestor);
+      if (
+        style.display === "none" ||
+        style.visibility === "hidden" ||
+        style.visibility === "collapse" ||
+        Number(style.opacity) === 0
+      )
+        return false;
+    }
   }
   const style = view.getComputedStyle(element);
   if (
@@ -657,7 +725,8 @@ export function isElementVisible(element: HTMLElement): boolean {
     return false;
   }
   const fixed =
-    style.position === "fixed" || hasFixedAncestor(element.parentElement, view);
+    style.position === "fixed" ||
+    hasFixedAncestor(composedParent(element), view);
   const offsetX = fixed ? 0 : view.scrollX;
   const offsetY = fixed ? 0 : view.scrollY;
   const reachableWidth = fixed
@@ -691,7 +760,11 @@ export function isElementEnabled(element: HTMLElement): boolean {
   return (
     !nativeDisabled(element) &&
     !readOnly &&
-    element.closest("[aria-disabled='true'],[inert]") === null
+    !(
+      element.getRootNode() instanceof ShadowRoot &&
+      composedClosest(element, "fieldset[disabled]") !== null
+    ) &&
+    composedClosest(element, "[aria-disabled='true'],[inert]") === null
   );
 }
 
@@ -718,7 +791,7 @@ function optionElements(candidate: FieldCandidate): HTMLElement[] {
       .split(/\s+/)
       .filter((value) => value !== "")
       .flatMap((id) => {
-        const referenced = anchor.ownerDocument.getElementById(id);
+        const referenced = localIdReference(anchor, id);
         return referenced === null
           ? []
           : elementsWithin(referenced, "[role='option']");
@@ -851,7 +924,7 @@ async function buildDescriptor(
   const started = performance.now();
   workCounters(applicationRoot.ownerDocument).descriptor_builds_started += 1;
   try {
-    return await buildDescriptorEvidence(candidate, applicationRoot, context);
+    return await buildDescriptorEvidence(candidate, context);
   } finally {
     workCounters(applicationRoot.ownerDocument).descriptor_duration_us +=
       measuredUs(started);
@@ -860,16 +933,12 @@ async function buildDescriptor(
 
 async function buildDescriptorEvidence(
   candidate: FieldCandidate,
-  applicationRoot: HTMLElement,
   context: ScanIdentityContext,
 ): Promise<FormFieldDescriptorV1> {
-  const labelText = accessibleLabel(candidate);
+  const ownership = ownershipContext(candidate, context.headingCandidates);
+  const labelText = ownership.ambiguous ? "" : accessibleLabel(candidate);
   const description = descriptionText(candidate);
-  const sections = sectionContext(
-    candidate,
-    applicationRoot,
-    context.headingCandidates,
-  );
+  const sections = ownership.sections;
   const options = await optionEvidence(candidate);
   const accessibleNameFingerprint =
     labelText === ""
@@ -889,6 +958,7 @@ async function buildDescriptorEvidence(
             )
             .join("\0")}`,
         );
+  rememberOptionMeaningSnapshot(optionFingerprint, options);
   const resolutionHints: FormFieldAddressV1["resolution_hints"][number][] = [
     {
       kind: "CONTROL_KIND",
@@ -901,6 +971,16 @@ async function buildDescriptorEvidence(
       kind: "ATTRIBUTE_DIGEST",
       value_fingerprint: attributeFingerprint,
       stability_class: "PAGE_STABLE",
+    },
+    {
+      // Observation evidence bound into the W09 address digest, separately
+      // checked by W10 before a new write. It is not durable target identity:
+      // validation descriptions may legitimately clear after the action.
+      kind: "ATTRIBUTE_DIGEST",
+      value_fingerprint: await semanticDigest(
+        `field-own-description-v1\0${description}`,
+      ),
+      stability_class: "OBSERVATION_ONLY",
     },
   ];
   if (accessibleNameFingerprint !== undefined) {
@@ -996,18 +1076,20 @@ async function fieldIdentityId(address: MatchingAddress): Promise<string> {
 
 async function matchingAddress(
   candidate: FieldCandidate,
-  root: HTMLElement,
   context: ScanIdentityContext,
   labelSnapshot: ReadonlyMap<HTMLElement, readonly string[]>,
 ): Promise<MatchingAddress> {
-  const label = accessibleLabel(candidate, labelSnapshot);
+  const ownership = ownershipContext(candidate, context.headingCandidates);
+  const label = ownership.ambiguous
+    ? ""
+    : accessibleLabel(candidate, labelSnapshot);
   return {
     session_id: context.frameContext.session_id,
     frame_id: context.frameContext.frame_id,
     ats_family: "UNKNOWN",
     route_signature: context.routeSignature,
     application_root_fingerprint: context.applicationRootFingerprint,
-    section_path: sectionContext(candidate, root, context.headingCandidates),
+    section_path: ownership.sections,
     repeater_path: [],
     ...(label === ""
       ? {}
@@ -1035,8 +1117,11 @@ const IDENTITY_ATTRIBUTES = new Set([
   "placeholder",
   "aria-multiline",
   "multiple",
+  "slot",
   "aria-label",
   "aria-labelledby",
+  "aria-describedby",
+  "title",
   "data-japp-application-root",
 ]);
 interface CurrentIdentityEntry {
@@ -1050,12 +1135,16 @@ interface CurrentSemanticIndex {
   readonly revision: number;
   readonly context: ScanIdentityContext;
   readonly entries: readonly CurrentIdentityEntry[];
+  readonly exactEntries: ReadonlyMap<string, readonly CurrentIdentityEntry[]>;
   readonly allFieldIds: readonly string[];
 }
 interface SemanticIndexState {
   revision: number;
+  evidenceRevision: number;
   index: CurrentSemanticIndex | null;
   observer: MutationObserver;
+  shadowRoots: readonly ShadowRoot[];
+  capacityExceeded: boolean;
   building: {
     binding: string;
     revision: number;
@@ -1069,6 +1158,7 @@ function semanticRecords(
   document: Document,
   records: readonly MutationRecord[],
 ): void {
+  if (records.length > 0) state.evidenceRevision += 1;
   if (
     !records.some(
       (record) =>
@@ -1091,8 +1181,11 @@ function semanticState(document: Document): SemanticIndexState {
   });
   const state: SemanticIndexState = {
     revision: 0,
+    evidenceRevision: 0,
     index: null,
     observer,
+    shadowRoots: [],
+    capacityExceeded: false,
     building: null,
   };
   // Install before the first authoritative capture, independent of W11's queue.
@@ -1103,6 +1196,7 @@ function semanticState(document: Document): SemanticIndexState {
     characterData: true,
   });
   semanticIndexStates.set(document, state);
+  drainSemanticRecords(state, document);
   return state;
 }
 
@@ -1111,11 +1205,56 @@ function drainSemanticRecords(
   document: Document,
 ): void {
   semanticRecords(state, document, state.observer.takeRecords());
+  // attachShadow on an existing host has no light-DOM mutation. Fresh bounded
+  // discovery is therefore mandatory even when the index otherwise hits.
+  const capture = currentOpenTopology(document);
+  const exceeded = capture.status === "CAPACITY_EXCEEDED";
+  const roots = capture.status === "COMPLETE" ? capture.shadowRoots : [];
+  if (
+    state.capacityExceeded !== exceeded ||
+    !sameOpenRoots(state.shadowRoots, roots)
+  ) {
+    state.revision += 1;
+    state.evidenceRevision += 1;
+    state.index = null;
+    workCounters(document).index_invalidations += 1;
+    state.observer.disconnect();
+    state.observer.observe(document, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true,
+    });
+    for (const root of roots)
+      state.observer.observe(root, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        characterData: true,
+      });
+    state.shadowRoots = roots;
+    state.capacityExceeded = exceeded;
+  }
+}
+
+/** Read-only proof witness: every observed mutation, including state-only
+ * attributes, advances this revision without rebuilding the identity index. */
+export function currentDomEvidenceRevision(document: Document): number {
+  const state = semanticState(document);
+  drainSemanticRecords(state, document);
+  return state.evidenceRevision;
+}
+
+/** Conservative non-draining witness captured immediately after a resolved
+ * target has drained current evidence. Pending records may only make a later
+ * same-revision publication fence refuse; this value grants no authority. */
+export function recordedDomEvidenceRevision(document: Document): number {
+  return semanticState(document).evidenceRevision;
 }
 
 function semanticBinding(
   document: Document,
-  frameContext: FrameContext,
+  frameContext: Pick<FrameContext, "session_id" | "frame_id" | "document_id">,
 ): string {
   return JSON.stringify([
     frameContext.session_id,
@@ -1131,15 +1270,16 @@ function currentIndexBinding(
   index: CurrentSemanticIndex,
   state: SemanticIndexState,
   document: Document,
-  frameContext: FrameContext,
+  frameContext: Pick<FrameContext, "session_id" | "frame_id" | "document_id">,
 ): boolean {
   drainSemanticRecords(state, document);
   return (
+    !state.capacityExceeded &&
     index.revision === state.revision &&
     index.binding === semanticBinding(document, frameContext) &&
     index.root.isConnected &&
     index.root.ownerDocument === document &&
-    index.root.getRootNode() === document
+    composedContains(document.documentElement, index.root)
   );
 }
 
@@ -1180,7 +1320,7 @@ async function buildCurrentIndex(
     const matchingStarted = performance.now();
     const entries: CurrentIdentityEntry[] = [];
     for (const candidate of captured.candidates) {
-      const identity = await matchingAddress(candidate, root, context, labels);
+      const identity = await matchingAddress(candidate, context, labels);
       entries.push({
         candidate,
         identity,
@@ -1188,12 +1328,21 @@ async function buildCurrentIndex(
       });
     }
     work.identity_matching_duration_us += measuredUs(matchingStarted);
+    const exactEntries = new Map<string, CurrentIdentityEntry[]>();
+    for (const entry of entries) {
+      const key = exactIdentityKey(entry.identity);
+      if (key === null) continue;
+      const group = exactEntries.get(key) ?? [];
+      group.push(entry);
+      exactEntries.set(key, group);
+    }
     const index: CurrentSemanticIndex = {
       root,
       binding,
       revision,
       context,
       entries,
+      exactEntries,
       allFieldIds: entries.map((entry) => entry.fieldId),
     };
     if (!currentIndexBinding(index, state, document, frameContext)) return null;
@@ -1208,8 +1357,11 @@ async function currentSemanticIndex(
   frameContext: FrameContext,
   state: SemanticIndexState,
 ): Promise<CurrentSemanticIndex | null> {
-  drainSemanticRecords(state, document);
   const current = state.index;
+  // A cache hit performs the fresh drain inside currentIndexBinding. There
+  // is no await between reading this hint and that check, so draining twice
+  // would only repeat the same host checks in one synchronous boundary.
+  if (current === null) drainSemanticRecords(state, document);
   if (
     current !== null &&
     currentIndexBinding(current, state, document, frameContext)
@@ -1362,6 +1514,19 @@ export async function scanFrameDocument(
       descriptors: [],
     };
   }
+  // The existing closed capacity-refusal wire shape requires count 1; this
+  // marker does not assert that an overflowing document has one actual root.
+  if (currentOpenTopology(document).status === "CAPACITY_EXCEEDED")
+    return {
+      kind: FRAME_SCAN_RESULT_KIND,
+      protocolVersion: SCANNER_PROTOCOL_VERSION,
+      requestId: request.requestId,
+      frame_context: frameContext,
+      root_status: "CAPACITY_EXCEEDED",
+      root_candidate_count: 1,
+      scan_boundary: request.scope.kind,
+      descriptors: [],
+    };
   const boundary = resolveScanBoundary(document, request.scope);
   if (
     boundary.status !== "FOUND" ||
@@ -1419,6 +1584,28 @@ function sameList(
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
+/** Full semantic signals permit an exact indexed lookup. Addresses omitting
+ * optional evidence keep the original wildcard matching path. The map retains
+ * every duplicate; it never chooses a node or substitutes DOM position. */
+function exactIdentityKey(address: MatchingAddress): string | null {
+  if (
+    address.route_signature === undefined ||
+    address.application_root_fingerprint === undefined ||
+    address.accessible_name_fingerprint === undefined ||
+    address.attribute_fingerprint === undefined
+  )
+    return null;
+  return JSON.stringify([
+    address.ats_family,
+    address.route_signature,
+    address.application_root_fingerprint,
+    address.accessible_name_fingerprint,
+    address.attribute_fingerprint,
+    address.section_path,
+    address.repeater_path,
+  ]);
+}
+
 function addressMatches(
   observed: FormFieldAddressV1,
   current: MatchingAddress,
@@ -1462,6 +1649,14 @@ export interface ResolvedFieldTarget {
   readonly allFieldIds: readonly string[];
 }
 
+// Each target is a fresh W08 unique match bound to one immutable index.
+// This weak binding grants no authority after any observed identity/topology
+// invalidation and avoids re-comparing the entire address list synchronously.
+const resolvedTargetIndexes = new WeakMap<
+  ResolvedFieldTarget,
+  CurrentSemanticIndex
+>();
+
 export type FieldTargetResolution =
   | { readonly status: "RESOLVED"; readonly target: ResolvedFieldTarget }
   | {
@@ -1504,7 +1699,12 @@ export async function resolveFieldTarget(
     ) {
       return { status: "UNRESOLVED", reason: "STALE_APPLICATION_ROOT" };
     }
-    const matches = index.entries.filter((entry) => {
+    const exactKey = exactIdentityKey(address);
+    const candidates =
+      exactKey === null
+        ? index.entries
+        : (index.exactEntries.get(exactKey) ?? []);
+    const matches = candidates.filter((entry) => {
       work.semantic_match_checks += 1;
       return addressMatches(address, entry.identity);
     });
@@ -1519,34 +1719,79 @@ export async function resolveFieldTarget(
       ...index.context,
       observedAt: new Date().toISOString(),
       observedDomGeneration: currentDomGeneration(document),
-      headingCandidates: elementsWithin(index.root, HEADING_SELECTOR),
+      headingCandidates: index.context.headingCandidates,
     });
     work.descriptors_built += 1;
     if (
       !currentIndexBinding(index, state, document, frameContext) ||
       !match.candidate.anchor.isConnected ||
-      !index.root.contains(match.candidate.anchor) ||
+      !composedContains(index.root, match.candidate.anchor) ||
       !addressMatches(address, descriptor.address)
     ) {
       return { status: "UNRESOLVED", reason: "NO_MATCH" };
     }
-    return {
-      status: "RESOLVED",
-      target: {
-        anchor: match.candidate.anchor,
-        members: match.candidate.members,
-        ...(match.candidate.groupElement === undefined
-          ? {}
-          : { groupElement: match.candidate.groupElement }),
-        descriptor,
-        applicationRoot: index.root,
-        allFieldIds: [...index.allFieldIds],
-      },
+    const target: ResolvedFieldTarget = {
+      anchor: match.candidate.anchor,
+      members: match.candidate.members,
+      ...(match.candidate.groupElement === undefined
+        ? {}
+        : { groupElement: match.candidate.groupElement }),
+      descriptor,
+      applicationRoot: index.root,
+      allFieldIds: [...index.allFieldIds],
     };
+    resolvedTargetIndexes.set(target, index);
+    return { status: "RESOLVED", target };
   } finally {
     work.total_duration_us += measuredUs(started);
     work[`${purpose}_reresolution_duration_us`] += measuredUs(started);
   }
+}
+
+/** W09 approves the observed own-description, not a future ownership change.
+ * This reserved observation-only attribute hint preserves canonical grammar
+ * while ordinary semantic target re-resolution ignores transient messages. */
+export function ownDescriptionObservation(
+  address: FormFieldAddressV1,
+): string | null {
+  const hints = address.resolution_hints.filter(
+    (hint) =>
+      hint.kind === "ATTRIBUTE_DIGEST" &&
+      hint.stability_class === "OBSERVATION_ONLY",
+  );
+  return hints.length === 1 ? (hints[0]?.value_fingerprint ?? null) : null;
+}
+export function descriptionApprovalMatches(
+  approved: FormFieldAddressV1,
+  current: FormFieldAddressV1,
+): boolean {
+  const before = ownDescriptionObservation(approved);
+  return before !== null && before === ownDescriptionObservation(current);
+}
+
+/** Last synchronous guard after an awaited driver precondition. Cached node
+ * references are never action authority: drain every observed tree and
+ * rediscover roots before the native text action can execute. */
+export function targetIsCurrent(
+  document: Document,
+  target: ResolvedFieldTarget,
+  expectedEvidenceRevision?: number,
+): boolean {
+  const frameContext = target.descriptor.address;
+  const state = semanticState(document);
+  const index = state.index;
+  if (
+    index === null ||
+    !currentIndexBinding(index, state, document, frameContext)
+  )
+    return false;
+  return (
+    resolvedTargetIndexes.get(target) === index &&
+    (expectedEvidenceRevision === undefined ||
+      state.evidenceRevision === expectedEvidenceRevision) &&
+    target.anchor.isConnected &&
+    composedContains(index.root, target.anchor)
+  );
 }
 
 export async function reresolveFrameAddress(

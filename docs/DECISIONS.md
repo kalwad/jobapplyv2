@@ -61,6 +61,9 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-032 | The experimental provider ships enabled only after an independent terms/security/privacy/compatibility/account-risk review; an accepted `DISABLED_BY_POLICY` outcome satisfies the experimental package without weakening core scope. | ACCEPTED | Spec v1.4 §0(34) |
 | OD-033 | External AI output remains untrusted candidate data under the same schemas, evidence, verifier, sensitive-field, review, and no-submit boundaries as local output. | ACCEPTED | Spec v1.4 §0(35) |
 | OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
+| OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
+| OD-036 | Waive direct Simplify comparison and executed public-form evidence throughout the project; preserve all other completion, safety, measurement and review requirements. Continue until the project is finished and validated. | ACCEPTED | Owner message 2026-10-17; ADR-0007 |
+| OD-037 | Delegate routine project acceptance and continuous milestone progression after actual required validation and independent review; stop asking routine approval questions. | ACCEPTED | Direct owner reply 2026-10-18; ADR-0008 |
 
 ## Architecture decision records
 
@@ -70,6 +73,10 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | ADR-0002 | Adopt JAPP-MASTER-001 v1.3 cross-platform rebaseline through external exact-byte transport | ACCEPTED | 2026-07-26 | Entire specification (v1.2 → v1.3); platform governance; Gate D; M00 readiness |
 | ADR-0003 | Adopt JAPP-MASTER-001 v1.4 familiarity and provider rebaseline through external exact-byte transport | ACCEPTED | 2026-07-27 | Entire specification (v1.3 → v1.4); familiarity/provider governance; M00/M01/M27/M28 readiness |
 | ADR-0004 | Make corrected platform v2 roots mandatory for every new producer | ACCEPTED | 2026-07-29 | M01-W07 compatibility boundary; M02 fixture producers; future Gate D guidance |
+| ADR-0005 | Renew the bounded W13 performance correction budget | ACCEPTED | 2026-09-30 | M02-W13 measurement viability and retained Gate A thresholds |
+| ADR-0006 | Continuous execution and owner-controlled holdout waiver | ACCEPTED | 2026-10-16 | Operational owner-holdout/process clauses; all four gates; no numerical threshold or compatibility change |
+| ADR-0007 | Direct Simplify comparison and executed public-form evidence waiver | ACCEPTED | 2026-10-17 | Only direct Simplify/public-form evidence prerequisites project-wide; all other requirements and concrete gate decisions preserved |
+| ADR-0008 | Delegated project acceptance without routine approval prompts | ACCEPTED | 2026-10-18 | Owner-only operational acceptance clauses; evidence and independent reviews preserved |
 
 ### ADR-0001 — Adopt JAPP-MASTER-001 v1.2 (Workday-first critical-risk rebaseline) as the canonical specification
 
@@ -398,6 +405,58 @@ Canonical registry of (a) owner decisions that override earlier plans and
 - Rollback plan: retain the current draft and proof fingerprint as the restart baseline; forward changes must be reviewable and attributable. No reset/discard of this work is authorized by this proposal.
 - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M02-W13 measurement viability; existing W08–W11 local scanner/dynamic interfaces; spec§1.4/§1.5 and Gate A§2.3. W13 directly owns zero canonical requirement rows. No canonical evolution or gate-state change is proposed.
 - Owner approval: explicit2026-09-30 resume execution package (attachment06627663-bd1f-45a4-a6e5-4d6931c58008) authorizes four additional performance-rescue rounds and the remaining original W13 closeout. Owner-selected model is GPT-6.1 Sol Ultra. No canonical/schema/trust-boundary evolution, W14 execution, threshold weakening or safety-check removal is authorized. W13 is IN_PROGRESS; W14/W15 NOT_STARTED; zero READY.
+
+### ADR-0006 — Continuous execution and owner-controlled holdout waiver
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-10-16 / 2026-10-16
+- Owner approval: direct instructions in this chat: "ignore instructions relating to stopping after each W is reached and validated"; "you do not need owner controlled holdout"; "i want you to keep working till this entire project is finished". The owner identified the working GitHub repository as jobapplyv2.
+- Decision: execute successive eligible packages without per-W stopping. Remove owner-controlled hidden holdout as a completion prerequisite across this project. Use accessible GitHub sources where they provide actual inputs or legacy comparison components. Preserve original manifests and historical evidence; never relabel a waiver as execution or PASS.
+- Observed constraint: M02-W14 was READY after W13 verification. Original v1.4 required owner-external hidden inputs and per-package boundaries; those process requirements conflict with the owner's new instructions.
+- Alternatives considered: retain the original holdout prerequisite, which contradicts the owner; silently mark it passed, which would fabricate evidence; record this explicit accepted owner override and continue, selected.
+- Tradeoffs: hidden-set generalization assurance is reduced. Visible synthetic regressions, physical safety counters, accuracy, performance, independent review and scoped compatibility still require their actual evidence. This decision does not assert that they passed.
+- Security/privacy impact: no permission to expose private data, automate credentials, bypass challenges or submit unapproved applications. Synthetic loopback evaluation remains appropriate.
+- Data-migration impact: none. Existing corpus/holdout manifests, completed package anchors and baseline history remain immutable.
+- Benchmark and gate impact: owner-controlled holdout is WAIVED_BY_OWNER. Numerical accuracy/performance/safety thresholds and native platform proof are unchanged. Missing comparison results remain explicitly missing.
+- Test impact: preserve all existing behavioral regressions. Any future gate validator amendment must accept only the explicit waiver with this accepted decision and must reject fabricated execution evidence; no blanket test skip is authorized.
+- Contract precedence: this is the owner's subsequent explicit override under specification §0's opening rule. Preserve the exact originally approved v1.4 bytes and hash as historical adoption evidence; read its owner-holdout and package-stop clauses subject to this accepted amendment. Other requirements remain in force.
+- Rollback plan: only a subsequent owner decision can restore mandatory hidden holdout; retain the manifests so such evaluation remains possible.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: operational holdout/process clauses in §0/§1/§2.3/§5.13/§8/§9/§12 and their four gates; no canonical schema, product scope, compatibility promise or completed result changes.
+
+### ADR-0007 — Direct Simplify comparison and executed public-form evidence waiver
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-10-17 / 2026-10-17
+- Owner approval: direct instruction in this chat on 2026-10-17: "Waive the Simplify comparison and public-form evidence requirements too. Keep going through all remaining milestones until the entire project is finished and validated."
+- Decision: remove direct Simplify comparison and executed public-form evidence as completion prerequisites throughout this project. Record the affected requirements as WAIVED_BY_OWNER under OD-036 / ADR-0007; preserve actual historical outcomes and never relabel nonexecution as PASS. Continue successive eligible packages under ADR-0006 without per-W stopping. Numerical accuracy, safety and performance thresholds, controlled-corpus execution, native-platform proof, independent review, other comparison baselines, product capabilities, actual usability, accessibility, visual approval and all other non-comparison requirements remain binding. This decision grants no public ATS support, superiority claim or final gate verdict.
+- Waiver scope: DIRECT_SIMPLIFY_COMPARISON and EXECUTED_PUBLIC_FORM_EVIDENCE only, project-wide. Only the directly comparative Simplify component of a mixed requirement is waived; public-form evidence means execution-based validation on third-party public application forms, including public no-submit/dry-run requirements. Other components remain required. Public UI-reference observation, actual Simplify-experienced-user task studies, accessibility, visual approval and originality/non-affiliation requirements are not waived.
+- Observed constraint: M02-W14 retains zero scored public-form cases and zero direct Simplify cases despite real public attempts and readiness inspection. The owner explicitly removes these two external evidence prerequisites and instructs continuous completion. Existing local/native/legacy observations retain their exact source and scope.
+- Alternatives considered: retain the two prerequisites contrary to the owner; falsely relabel missing observations as passed; record the narrow accepted waiver while retaining all other requirements, selected.
+- Tradeoffs: direct competitor-relative and public-form generalization assurance is absent for waived observations. Controlled results do not become public-form results, and missing comparator outcomes cannot establish parity, superiority or production ATS support.
+- Security/privacy impact: no authorization to automate credentials, bypass CAPTCHA/access/consent boundaries, expose private application data, submit unapproved applications, or copy competitor code/assets. Existing no-submit and uncertainty safeguards remain binding.
+- Data-migration impact: none. Preserve frozen manifests, inputs, raw outcomes, comparison history, originally approved master-specification bytes and completed package anchors.
+- Benchmark and gate impact: only the two named evidence categories and directly comparative Simplify metric components are WAIVED_BY_OWNER_ADR_0007, not executed or passed. Absolute/controlled numerical accuracy, safety and performance thresholds, legacy/other baselines and complete affected regression remain required. Every critical gate still requires source-bound independent review and its concrete owner decision. This record neither supplies nor conditionally preapproves an unknown future gate verdict.
+- Test impact: preserve all product regressions, native-platform validation and frozen canonical schema/corpus bytes. Add narrow source-aware recognition of the exact accepted OD/ADR and paired waiver fields; reject missing, proposed, duplicate, forged, stale or one-sided authority and any execution/PASS substitution. Existing holdout authority under ADR-0006 remains unchanged. No blanket skip, expected-result rewrite or completeness bypass is authorized.
+- Contract precedence: this subsequent owner override amends the originally approved v1.4 requirements without rewriting their exact bytes or reviewed traceability mappings. Mixed work packages retain every nonwaived deliverable. Continue eligible validated work; do not promote W14, start W15, accept M02 or pass Gate A before their remaining applicable evidence and review are complete.
+- Rollback plan: only a later explicit owner decision can restore the waived prerequisites. Preserve original manifests, readiness records and actual attempts so renewed execution remains possible.
+- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: direct Simplify/public-form evidence portions of §2.2/§2.3/§5/§8/§9/§12, REQ-RES-016, REQ-WD-021, REQ-GATE-002/004/016 and mixed comparison work in M02/M05/M19–M20/M28/M38; the project-wide waiver does not remove any product capability or the non-comparison portions of familiarity/usability/visual requirements. No canonical schema or measured compatibility/support claim changes.
+
+### ADR-0008 — Delegated project acceptance without routine approval prompts
+
+- Status: ACCEPTED
+- Date proposed / date decided: 2026-10-18 / 2026-10-18
+- Owner authority: OD-037; direct reply to the already concrete Gate A question for95f5/source treeb851, evidence pack5085, index2c2e and independent verdictb86. Exact question and reply: docs/evidence/m02-w15-delegated-acceptance/delegation-authority.json.
+- Owner instruction (verbatim): "can you please not keep asking me these questions? Id really like it if you just kept moving through this project without stopping to ask me."
+- Observed constraint: after all required unwaived M02 validation and a separate independent PASS recommendation, a routine manual acceptance prompt interrupted the continuous execution requested in OD-035/036.
+- Decision: the owner delegates routine project acceptance, including source-bound critical-gate decisions and revision-bound UI baseline acceptance, to the implementation agent after the required actual validation and independent review. Proceed through eligible packages and milestones without routine approval questions. A delegated record identifies its actual decision-maker and authority; it must never claim that the owner clicked PASS, inspected an image, performed a study, or supplied an unobserved result.
+- Preconditions: retain all unwaived numerical, safety, performance, native, accessibility, usability, visual, corpus, compatibility and independent-review requirements. A gate may advance only after its actual independent recommendation is PASS with no unresolved blocking findings, at the evaluated source and evidence hashes. UI acceptance requires actual capture and independent accessibility/visual review against the approved criteria; no future baseline is approved by this ADR.
+- Boundaries: this process delegation does not authorize invented personal facts or credentials, live applications/submissions, external communication, cloud data egress, publishing, PR merging, or destructive actions. Missing evidence or unavailable external resources remain honestly recorded and may block completion. Ask only for indispensable missing input or consequential decisions outside the authorized project work.
+- Alternatives: continue routine prompts (contrary to the latest instruction); infer a literal owner PASS (false attribution); bypass independent or measured evidence (rejected). Delegated, explicitly attributed acceptance preserves objective gates while removing routine prompts.
+- Migration: treat this as an explicit operational overlay to owner-only process/acceptance clauses in CLAUDE.md and the canonical specification, as ADR-0006/0007 already do. Preserve the canonical v1.4 bytes/hash and all reviewed mappings. Record each actual acceptance separately with its source, evidence, reviewer, delegated decision-maker and authority. Existing predecision PENDING records remain immutable history.
+- Immediate application: delegated Gate A PASS for evaluated95f5/treeb851 with immutable pack5085/index2c2e/verdictb86; record M02-W15 VERIFIED and M02 ACCEPTED, then begin M03-W01. Complete hashes are in docs/evidence/m02-w15-delegated-acceptance/final-decision.json.
+- Security/privacy/benchmark impact: no trust-boundary, product behavior, scoring, threshold, model, corpus, or external-execution change. Independent reviews and actual evidence remain mandatory. No hidden holdout or waived Simplify/public run is retroactively executed or passed.
+- Rollback: the owner may revoke the delegation. Future acceptance then follows the updated instruction; prior delegated records retain their exact authority and evidence history.
+
 
 ## ADR template
 

@@ -31,7 +31,7 @@ from japp_contracts import (  # noqa: E402
     FixtureTestRecordV1,
     authorize_command_request_v1,
     require_error_catalog_entry_v1,
-    validate_semantic_contract_v1,
+    validate_semantic_contract_v2,
 )
 from japp_contracts._runtime import ContractModel  # noqa: E402
 
@@ -276,7 +276,7 @@ def _semantic_invalid(
     schema_ref: str,
     wire: JsonValue,
 ) -> Result | None:
-    outcome = validate_semantic_contract_v1(schema_ref, wire)
+    outcome = validate_semantic_contract_v2(schema_ref, wire)
     if outcome.valid:
         return None
     if not outcome.issues:

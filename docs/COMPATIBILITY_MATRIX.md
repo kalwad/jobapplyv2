@@ -3,6 +3,37 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## M03-W06 scoped current validation (2026-10-19UTC)
+
+Current660f9f1/treebe68 local doctor28 and all20 suites pass, with exactPython1801,
+TypeScript4006/native232 in each3 modes/browser262+2+62+3 and different49-check
+review. Source1961 and runtime40 remain unchanged. Separately, the immutable
+e0a501b cfg(test)-only headless derivative executes one packaged-service case:
+authenticated health/ready/version and same-owner EngineREADY→UNAVAILABLE pass;
+232 cases are filtered. Different47-check review preserves its historicalsource
+and deliberate own-worker-groupTERM scope. Exact evidence is in
+docs/evidence/m03-w06-current-local-full and docs/evidence/m03-w06-mac-headless-service.
+No GUI/LaunchServices, currentforeignpackage, certifiedplatform or M03 acceptance
+is added; W06 staysIN_PROGRESS and releaseNOT_READY. Hosted39207973986 is pending.
+
+## M03-W05 scoped recovery and actual2a327 hosted result (2026-10-19UTC)
+
+W05 is VERIFIED at185909b/tree3c2ba3a after current clean local doctor28/all20,
+Python1679/TypeScript4006/native183 per three modes/browser262+2+62+3 and
+independent48/48 review. Separate real selected4 recovery cases per mode pass;
+no whole187 or new GUI/unsaved-buffer action is claimed. M03 remains IN_PROGRESS,
+W06 begins and release stays NOT_READY.
+
+Independent source-bound hosted2a327 run39194489970 is Ubuntu/macOS20PASS and
+Windows19PASS/RustloaderFAIL before default library tests. Later Windows native
+modes/final build are unexecuted, step26SKIPPED. Current browser groups pass on all
+hosts, closing KI-0108 only; KI-0109 remains IN_PROGRESS. Actual artifacts include
+10 visual PNGs, no failed native PE/DLL/trace. Hosted Python masked multisets differ
+by the declared POSIX pair; no unique unredacted hosted-ID equality is claimed.
+No cause, performance20-sample, native Windows11/default-GNOME package, final visual
+baseline or certified platform/support row follows. Exact evidence is retained in
+docs/evidence/m03-w05-closeout and docs/evidence/m03-w04-hosted-ci.
+
 ## Update rules
 
 - Only measured, evidence-linked results may appear here. No claimed support
@@ -26,7 +57,64 @@ ATS/browser/OS support and measured pass rates
   target, architecture, browser family/channel and version, artifact digest
   and signature state, reviewed support tier, reviewer, evaluated revision,
   evidence references, and last-tested date). Defining that shape adds no row
-  and grants no support claim; every table below remains empty.
+  and grants no support claim; the production support tables below remain empty.
+
+## Native lifecycle observation — 2026-10-19UTC
+
+At cac56a0/tree7d7afc0, five actual macOS arm64 debug-app cases pass: native Close, native Quit, owned forced-parent exit, contained writer cleanup, and visible escaped-writer cleanup failure followed by an owned release and native Quit retry. Complete actor identity/socket evidence, six native screenshots, exact executed/source bytes and independent81-check review are retained in docs/evidence/m03-w03-lifecycle. The forced case measures231.700166ms including parent wait; normal operator intervals are not bounded shutdown measurements. Hosted run39164520190 passes macOS/Ubuntu and1648 Windows Python tests but fails Windows strict Rust warnings. The subsequent compiler-scope correction still needs fresh validation. W03 remains IN_PROGRESS; this observation adds no certified platform, production ATS or approved visual-baseline support row.
+
+## Local service skeleton observation — 2026-10-18
+
+M03-W02 is VERIFIED at tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d; M03 remains IN_PROGRESS. Actual macOS arm64/Python3.12.13 executes authenticated versioned loopback health/readiness/version, canonical errors, private bootstrap/ACK, startup/collision/EOF negatives and an empty-environment/cwd canonical wheel-only lifecycle. Source-bound strict doctor28/full20-suite verification and independent reviews are retained in docs/evidence/m03-w02-service and docs/TEST_EVIDENCE.md § M03-W02. Windows/Linux runtime and packaged Tauri lifecycle, W04 native client, final cross-platform certification and production ATS support are not supplied by this scoped service observation. Accepted Gate A evidence remains separately evaluated95f5.
+
+## Initial desktop shell observation — 2026-10-18
+
+M03-W01 is VERIFIED at tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9; M03 remains IN_PROGRESS. Target macOS arm64 actual local .app inspection rendered the original shell, real app0.0.1/Tauri2.12.4, native keyboard/skip behavior and bounded IPC/navigation denial checks. Bundled Chromium151.0.7922.34 exercised seven routes and captures at1120/320px plus200% text resize. Exact evidence: docs/TEST_EVIDENCE.md § M03-W01 and docs/evidence/m03-w01-shell. This is initial shell evidence, not authenticated service lifecycle, Windows/Ubuntu GUI validation, production ATS support or final frozen design certification. Gate A/M02 are accepted under the separate delegated decision chain recorded above their original historical packets.
+
+## Current M02-W15 research review — 2026-10-18UTC
+
+Exact95f5/treeb851 has an actual independent PASS technical recommendation; owner Gate A decision is pending. This adds no production ATS/browser/OS support row. Complete source-bound proof and limits: docs/evidence/m02-w15-review-95f5.
+
+| Research scope | Observed result | Limit |
+|---|---|---|
+| Corrected target-M5 controlled extension | Local19ACTIVE/3905TS/246default/2+62/1492Python; native12820p95846.236875ms andseparatecanonical847.323333ms | Foregroundmethod declared outsideoriginaltimedwork; zero-settle lowerbound distinct fromfullsettlement |
+| Contact200 supported cohort |1485/1485precision/persistence,1275/1275requiredrecall,770/770reporting, sevenphysicalcounters0; p95871.417084ms | Contact-only/90originalincorrectabstentions preserved; otherdriver/transitionproofs separate |
+| Current one-component legacy comparison |40/40vs28/40exact;separatedigits40vs32;candidate0/legacy4unexpectedACTIVATION | Fourrelatedsyntheticcases; originalpipelineFAIL/separatepurejoinPASS; no broad/statistical/public/performance superiority |
+| Current native repository CI |39084518359all3hostsSUCCESS, source1658treeequal; all19/3905TS/246default/2+62/Python1492POSIX1490Windows | OneCI128sampleUb1341.18689/Mac2423.20975/Win1140.7524ms; Macabove1500 retained/no target20 orpackagedplatformcertification |
+| Current mounted32 |43/43contacts;58required enabled=30filled+28explicitunresolved;5event/value counters0 | Unsupported-only14rows;67transitions unexercised bycontactcomponent; no native-setter extrapolation |
+
+Waived hiddenholdout/directSimplify/public execution remainunexecuted. FutureproductUI/accessibility/usability/visual andnativepackaging requirements remainbinding.
+
+## W14 evaluation package handoff — 2026-10-17
+
+W14 package is VERIFIED at frozen6384 content/tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 after actual clean-clone full verification and scoped evidence review. Current candidate index/manual synthetic checklist are retained in docs/evidence/m02-w14-candidate-handoff. The verified package supplies no new production support row: synthetic contact, mounted unsupported controls, fixture transition behavior, native repository CI and legacy comparison retain their exact scopes. Gate A remains IN_PROGRESS, with W15 IN_PROGRESS for the independent verdict. The owner-waived public-form and direct Simplify categories remain unexecuted, not passed.
+
+## Owner evidence waiver — 2026-10-17
+
+Direct Simplify comparison and executed public-form evidence prerequisites are WAIVED_BY_OWNER_ADR_0007 under accepted OD-036 / ADR-0007. Actual direct Simplify/public scored cases remain0. Historical rows below retain their observations and source bindings; their older pending-prerequisite language is historical. A waiver grants no public ATS support, compatibility, parity or superiority. Production support rows still require their nonwaived measured fixture/controlled evidence, versions, scoped compatibility record and applicable gate decision. Product capabilities, controlled/native verification and other baselines remain required.
+
+## M02-W14 research observations (non-support claims, 2026-10-16)
+
+W14 is VERIFIED at tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4; Gate A remains IN_PROGRESS and M02-W15 is IN_PROGRESS. These source-scoped synthetic and structural observations do not populate production adapter/browser/OS support rows. Historical inventories include uncommitted candidates; later observations bind committed runtime 15c7e33, original peer `f7f9dc1` and paired source lock `47b6fe33`. W14 package verification does not accept M02 or certify a production adapter; the historical source rows remain unchanged.
+
+| Evidence scope | Environment / variants | Observed result | Limit / evidence |
+|---|---|---|---|
+| Corrected synthetic contact cohort | Apple M5/24 GiB, Chromium 151.0.7922.34; W12 Workday 80, Greenhouse/Lever/Ashby 40 each; four authored locales | 200/200 scored, 4060 native / 4020 logical controls; ordinary precision 1485/1485, required ordinary recall 1275/1275, reporting 770/770, persistence 1485/1485; 90/90 initial values preserved | Specific contact profile only; corrected/batched/untraced p95 1799.8664160000044 / 2087.8410830000066 / 2009.8366249999963 ms; both target assertions FAIL. docs/TEST_EVIDENCE.md § M02-W14 |
+| Public read-only structural inventory | Current primary sources: Workday 10, Greenhouse 8, Lever 8, Ashby 4; anonymous Chromium 151.0.7922.34 | 30 inspected sources; 10 Workday method-choice boundaries and 20 blank public forms | 0 extension-fill evaluations, 0 scored controls, 0 comparisons. docs/evidence/m02-w14-external/public-current-matrix.json |
+| Isolated actual legacy components | JobApply c937e366b9f7566a5c3b6a9d3fafc8f7d25272bd; shared CareerPulse component bytes; Chromium 151.0.7922.34; four grouped/en-US fixtures | Per case 8 event witnesses/8 rerenders, 7 exact ordinary matches; phone formatting differs, country/region empty; 0 observed navigation/submission | COMPONENT_DETERMINISTIC_NO_AI; one shared-component execution, not two full-product comparisons; no production code reuse. docs/evidence/m02-w14-external/capture-summary.json |
+| Simplify readiness only | Official product/demo/help and normal Chrome sign-in route | Actual comparison cases/autofill runs 0 | Authenticated synthetic comparison pending; installed extension/session state unknown. docs/evidence/m02-w14-external/simplify-readiness.json |
+| Committed contact/runtime checkpoint |15c7e33; same target Mac/Chromium and200 W12 contact recipes |200/200, same exact numeric/safety pairs; full-settlement p95 857.1561660000007ms; separate native128 target 20 p95 1333.9919169999994ms | Individual source/build immutable; integrated aggregate had unrelated assertion/fixture and neutrality failures, not PASS. docs/evidence/m02-w14-integrated-checkpoint |
+| Actual public contact attempt |30 original declared anonymous URLs; network-closed action requirement |18 transport refusals plus12 form/oracle refusals;0 action requests,0 scored rows; accuracy null | Complete refusal matrix, not a support or zero-risk claim. docs/evidence/m02-w14-public-actual |
+| Integrated exact original peer |f7f9dc1, four unchanged grouped/en-US inputs |32/40 candidate versus 28/40 legacy exact;32/40 versus 32/40 phone equivalent | Formatting difference alone gives no decisive accuracy win. docs/evidence/m02-w14-comparisons-actual |
+| Actual paired approved-option comparison |source lock `47b6fe33`; candidate 4/legacy4, identical ten facts/approved token metadata, same11-surface native observer |40/40 versus 28/40 exact;40/40 versus 32/40 phone equivalent; eight state/country differences | One shared component/four related synthetic fixtures; no broad/statistical/timing or Simplify/Gate A claim. docs/evidence/m02-w14-comparisons-actual/paired-comparison.json |
+| Frozen aggregate/contact checkpoint | b8b1423; target Mac, same Chromium and all 200 W12 recipes | All 19 active suites PASS; 200/200 with unchanged accuracy/safety pairs, full-settlement p95 865.8358330000192 ms; separate native128 target 20 p95 1480.3922500000008 ms | Visual NOT_YET_APPLICABLE; zero-settle target and full-settlement campaign remain distinct. docs/evidence/m02-w14-frozen-b8b1423 |
+| Historical actual public observation | Clean 8ae96f0; same original 30 URLs, literal native labels and bounded read-only acquisition before unchanged strict closure | 17 transport refusals, 7 form/protected refusals, 6 interference outcomes; 0 action requests, 0 scored rows, accuracy/site acceptance null | All 62 controlled proofs pass; safe refusals provide no public fill/support credit. docs/evidence/m02-w14-public-observation-correction |
+
+| Corrected native-validity full checkpoint | Clean0dd88ce; target Mac/Chromium, same200contact recipes |19/19active suites;3859units/234default browser/62controlled/1454Python; contact p95871.8325829999521ms; separate native128 target20 p951489.9990840000028ms | Exact contact counts unchanged;90original W13 incorrect abstentions remain; preservation is supplemental. No Gate A/production claim. docs/evidence/m02-w14-frozen-0dd88ce |
+| Corrected-runtime actual paired comparison | Revision7 locke5b9a8dd, runtime355/c3757409; same4related synthetic cases and shared legacy component |40/40vs28/40exact;40/40vs32/40phone equivalent; candidate0/legacy4unexpected native country-code activations | Both final nonordinary/nav/submit0 in observer scope; prior revision6 already records the same4activations, correcting old prose. docs/evidence/m02-w14-revision7-actual |
+| Latest actual public observation | Clean0dd88ce; same original30URLs |17closure refusals,7form/protected refusals,6interference;0dispatches/scored rows; natural accuracy/acceptance null | Independent24-check reporting audit passes, not public fill coverage. Event/OS-descendant limits remain. docs/evidence/m02-w14-public-0dd88ce |
+
+The contact campaign does not exercise upload/repeater/date/checkbox/radio/custom-combobox drivers, iframe/shadow DOM, page transitions, parser effects or long-session soak. Presence of those features in W12 recipes is not measured support. ADR-0006 marks owner holdout WAIVED_BY_OWNER and changes no product compatibility promise.
 
 ## Workday tenant patterns (first production ATS — spec §5.11.9.13)
 
@@ -71,9 +159,9 @@ with M03/M17 measured evidence per the population rule above.
 ## Operating systems (desktop app)
 
 The first-release policy targets macOS 14+ arm64, Windows 11 x64, and Ubuntu
-24.04 LTS x64. No desktop product or packaged platform evidence exists, so
-all three are `NOT_YET_IMPLEMENTED`; this is a target matrix, not a support
-claim. M00 hosted checks (macOS 15 arm64, Windows Server 2025 x64 since
+24.04 LTS x64. The initial macOS shell and scoped development-package observations above exist.
+Final packaged platform certification is pending; the three rows below retain
+their unverified target states and grant no certified support claim. M00 hosted checks (macOS 15 arm64, Windows Server 2025 x64 since
 M00-W09, Ubuntu 24.04 x64) prove repository/toolchain bootstrap only; a
 passing `windows-2025` job is not packaged Windows 11 desktop support.
 Product certification and Gate D remain later work; see
@@ -110,3 +198,8 @@ and decisions in `docs/UI_FAMILIARITY.md`,
 | Familiarity-first product surfaces | NOT_YET_IMPLEMENTED | — | — |
 | Owner-approved visual baselines | NOT_APPROVED | — | — |
 | Experimental ChatGPT-account provider | NOT_SUPPORTED / DISABLED_BY_DEFAULT / NOT_IMPLEMENTED / NOT_EVALUATED | — | — |
+
+
+## M02 delegated acceptance — 2026-10-18
+
+Gate A PASS and M02 ACCEPTED under OD-037 / ADR-0008 at evaluated95f5/treeb851. All measured research scopes and limitations above remain exact; no production ATS or desktop certification row is added. Separate0f91158 documentary native CI passes all3hosts with complete retained proof in docs/evidence/m02-w15-delegated-acceptance. M03-W01 now begins; no shell or packaged support is claimed in advance.

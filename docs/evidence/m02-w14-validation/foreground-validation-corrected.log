@@ -1,0 +1,40 @@
+[WebServer] (node:58441) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite build --config vite.lab.config.ts && vite preview --config vite.lab.config.ts --host 127.0.0.1 --port 4761 --strictPort
+[WebServer] (node:58458) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:58486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 372 ms
+  ├─ dist/chrome-mv3/manifest.json                   532 B    
+  ├─ dist/chrome-mv3/background.js                   40.24 kB 
+  └─ dist/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 150.92 kB                            
+✔ Finished in 420 ms
+
+WXT 0.20.27
+ℹ Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+✔ Built extension in 319 ms
+  ├─ dist/invalid-ack/chrome-mv3/manifest.json                   362 B    
+  ├─ dist/invalid-ack/chrome-mv3/background.js                   1.16 kB  
+  └─ dist/invalid-ack/chrome-mv3/content-scripts/feasibility.js  110.15 kB
+Σ Total size: 111.67 kB                                        
+✔ Finished in 367 ms
+
+Running 5 tests using 1 worker
+
+(node:58510) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: native-valid email clears the recoverable site error and survives controlled replacement (1.2s)
+  ✓  2 [chromium] › e2e/extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: malformed email retains native and ARIA rejection (675ms)
+  ✓  3 [chromium] › e2e/extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: persistent site rejection remains rejected despite native validity (678ms)
+  ✓  4 [chromium] › e2e/extension/extension-w14-validation.spec.ts:51:3 › W14 site runtime: a rerender restoring rejection prevents a verified-fill claim (716ms)
+W14_FOREGROUND_DIAGNOSTIC {"duration_ms":861.7264169999999,"phases":{"initial_scan":12.155541999999969,"planning_and_unbatched_execution":7.14816699999983,"batched_execution":830.4282499999999,"final_reconciliation":11.994458000000122},"driver_durations_ms":[79,79,79,79,80,86,82,82,82,81]}
+  ✓  5 [chromium] › e2e/extension/extension-w14-validation.spec.ts:123:1 › W14 foreground contact campaign retains ten native writes through full settlement (1.5s)
+
+  5 passed (8.2s)

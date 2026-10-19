@@ -1,0 +1,1729 @@
+{
+  "capture_policy": "All required sources, including root-check and supplemental-review files, are enumerated at execution time.",
+  "exclusions": {
+    "archive_suffixes": [
+      ".tar",
+      ".tar.gz",
+      ".tgz",
+      ".tar.bz2",
+      ".tbz2",
+      ".tar.xz",
+      ".txz",
+      ".tar.zst",
+      ".zip",
+      ".7z"
+    ],
+    "directory_names": [
+      ".cache",
+      ".mypy_cache",
+      ".pnpm-store",
+      ".pytest_cache",
+      ".ruff_cache",
+      ".turbo",
+      ".uv-cache",
+      ".uv_cache",
+      ".venv",
+      ".vite",
+      ".vitest",
+      "__pycache__",
+      "cache",
+      "caches",
+      "isolated-tree",
+      "node_modules"
+    ],
+    "frozen_content_basename": "frozen-content.tar",
+    "observed": [
+      {
+        "reason": "excluded directory",
+        "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/__pycache__"
+      },
+      {
+        "reason": "excluded existing proof/frozen-content archive",
+        "source": "/tmp/japp-w14-closeout-template/materialized/frozen-content.tar"
+      },
+      {
+        "reason": "excluded directory",
+        "source": "/tmp/japp-w14-closeout-template/materialized/isolated-tree"
+      }
+    ],
+    "proof_archive_rule": "case-insensitive basename contains proof and ends with one of archive_suffixes"
+  },
+  "files": [
+    {
+      "bytes": 2779,
+      "member": "actual-facts/japp-w14-closeout-actual-facts-6384.json",
+      "sha256": "5d706de224d429c981c1fa43870ec58e0b00ffabb78b2230347388b4223fadc9",
+      "source": "/tmp/japp-w14-closeout-actual-facts-6384.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 1693,
+      "member": "focused-runner/japp-w14-closure-focused-checks-20261017.py",
+      "sha256": "ea576bad0b2ab30f571c06a9e41d004e41d6a9044f5170681437d110f9ea5961",
+      "source": "/tmp/japp-w14-closure-focused-checks-20261017.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 7624,
+      "member": "peer-review/REPORT.md",
+      "sha256": "f621eed467a28bc6e9c081a8baabe5685ec60d9583e5b7b4270ce5b4550c99ca",
+      "source": "/tmp/japp-w14-closeout-peer-review/REPORT.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 2779,
+      "member": "peer-review/actual-source-facts.json",
+      "sha256": "5d706de224d429c981c1fa43870ec58e0b00ffabb78b2230347388b4223fadc9",
+      "source": "/tmp/japp-w14-closeout-peer-review/actual-source-facts.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 13399,
+      "member": "peer-review/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 15157,
+      "member": "peer-review/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "925f161e82cd916ce0ba8db4ac36016de33a1dbd14ee67019ce0834307f965f4",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 272719,
+      "member": "peer-review/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "72ce2a359afef7dc8950f7ab70416ec50ea5c5cc97ace18d647526fac6934395",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 45530,
+      "member": "peer-review/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "5673c9916abfe42cae11e4eb5072486fe767392c34de399da25755a4f1ea62bd",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 341591,
+      "member": "peer-review/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "2c15d40154fb441542b142bf3af651c7dc0dd6c0c7308adc07176acd5dc78f80",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 918042,
+      "member": "peer-review/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "ff1431e9c50b076f91d2b13f630528af687c60d5f205ef659cdb2472ea3893c9",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 38345,
+      "member": "peer-review/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "1a6032f60a1abb8ec98a60489da2b121ec782186d6d6a6fd64b8ebc24c8b5e63",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 710165,
+      "member": "peer-review/afterimages/docs/traceability.json",
+      "sha256": "f9d2c055a7c9f9b1682503efa647d8f77c7e5bbe8a842528171f92a868f669d0",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/docs/traceability.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 81635,
+      "member": "peer-review/afterimages/scripts/traceability.py",
+      "sha256": "0d27cb4858ed44cc270b2dbcae97e0739ad9126225748632259efbfbd04e499b",
+      "source": "/tmp/japp-w14-closeout-peer-review/afterimages/scripts/traceability.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 76185,
+      "member": "peer-review/archive-binding-audit.json",
+      "sha256": "479cb5580eddc6df3fc333b49b51994b9d1698d2149362293e768d91ba0b03bb",
+      "source": "/tmp/japp-w14-closeout-peer-review/archive-binding-audit.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 30870,
+      "member": "peer-review/cleanup-proof-binding-audit.json",
+      "sha256": "40f1e33ce6dcc4e2aaa9fd03076767d88c540379bd10c3ea0eb5e8404f6daf57",
+      "source": "/tmp/japp-w14-closeout-peer-review/cleanup-proof-binding-audit.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 94321,
+      "member": "peer-review/closeout-final.patch",
+      "sha256": "10cfdaaabd4c9b3b8bf8541af847f2dbaa4c14d6052bd3cf98749bf41c0ccb19",
+      "source": "/tmp/japp-w14-closeout-peer-review/closeout-final.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1787,
+      "member": "peer-review/direct-status-audit.json",
+      "sha256": "db58764d5a5be1273b3086f66ec18187e512a2b97b5c4fecc9e4ed480cc5e44e",
+      "source": "/tmp/japp-w14-closeout-peer-review/direct-status-audit.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 0,
+      "member": "peer-review/final-context-generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-peer-review/final-context-generate.stderr",
+      "source_mode": 292
+    },
+    {
+      "bytes": 68,
+      "member": "peer-review/final-context-generate.stdout",
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779",
+      "source": "/tmp/japp-w14-closeout-peer-review/final-context-generate.stdout",
+      "source_mode": 292
+    },
+    {
+      "bytes": 647,
+      "member": "peer-review/final-context-generation-command.json",
+      "sha256": "4d8ee825879587903b84c605657aa3c4e6d2d75f8daea5474f974d06a06ff435",
+      "source": "/tmp/japp-w14-closeout-peer-review/final-context-generation-command.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 4567,
+      "member": "peer-review/final-manifest.json",
+      "sha256": "57d1adf47fa6505487254adcd1d6a64104f0c447d8b4b213d9818d670b07ef47",
+      "source": "/tmp/japp-w14-closeout-peer-review/final-manifest.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 2525,
+      "member": "peer-review/history/materialization001/REPORT.md",
+      "sha256": "dfaec44548f35444db43e5630de277ace14df80cbe65308d675021403ae58f06",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/REPORT.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 92323,
+      "member": "peer-review/history/materialization001/closeout-final.patch",
+      "sha256": "e05ba23f8c343675375b9f7514382d1dc13d0cd28d04c7c9b2115a40311e0cf2",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/closeout-final.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3006,
+      "member": "peer-review/history/materialization001/final-manifest.json",
+      "sha256": "8e9b44347481ad8f226cf77ce3d76d5a554d35440fb408656b6a6aad84f4b81b",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/final-manifest.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 434,
+      "member": "peer-review/history/materialization001/generation-command.json",
+      "sha256": "900077b83bced805d2c0cbf199e63bd624c5ae9a2666b57315996765e0e58e71",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/generation-command.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 0,
+      "member": "peer-review/history/materialization001/traceability-generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/traceability-generate.stderr",
+      "source_mode": 292
+    },
+    {
+      "bytes": 68,
+      "member": "peer-review/history/materialization001/traceability-generate.stdout",
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/traceability-generate.stdout",
+      "source_mode": 292
+    },
+    {
+      "bytes": 9732,
+      "member": "peer-review/history/materialization001/traceability-subset-audit.json",
+      "sha256": "1b87aa9882fa2b8d4dc77d61c4f780c2cd353382f747386faffb44e0e2d1b7c8",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/traceability-subset-audit.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 7642,
+      "member": "peer-review/history/materialization001/traceability-subset-replay-audit.py",
+      "sha256": "b48cedcf0c61a10c60cb637ec9f80d2637e9b258edbfc54cc8f003ddef10c829",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/traceability-subset-replay-audit.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 4642,
+      "member": "peer-review/history/materialization001/traceability-subset-report.md",
+      "sha256": "4e2321e5a1430e7cae9147462a4a8c52f1873b69ad3467a5f8f42e77d15461eb",
+      "source": "/tmp/japp-w14-closeout-peer-review/history/materialization001/traceability-subset-report.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 7006,
+      "member": "peer-review/narrative-refiner.py",
+      "sha256": "8553c826d94181584b92b48688f0082e9929f2eb2413a7b570ca595171241ef9",
+      "source": "/tmp/japp-w14-closeout-peer-review/narrative-refiner.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 483,
+      "member": "peer-review/root-endpoint-observation.json",
+      "sha256": "ab7c492b950f23705c4b7c01a2b82b8a0d01228f8802572bbf84ff8ff29139d5",
+      "source": "/tmp/japp-w14-closeout-peer-review/root-endpoint-observation.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 6783,
+      "member": "peer-review/seal.json",
+      "sha256": "aab2406178ec34be812dc4cff24a8b93384d5f87315bd575c91f94b01742bda7",
+      "source": "/tmp/japp-w14-closeout-peer-review/seal.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3240,
+      "member": "peer-review/summary.json",
+      "sha256": "d9c2353499bb98ecdffdb9f937c26bf703bb23d308570358345be83f2f823212",
+      "source": "/tmp/japp-w14-closeout-peer-review/summary.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 4567,
+      "member": "peer-review/traceability-subset-final-manifest.json",
+      "sha256": "57d1adf47fa6505487254adcd1d6a64104f0c447d8b4b213d9818d670b07ef47",
+      "source": "/tmp/japp-w14-closeout-peer-review/traceability-subset-final-manifest.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 17919,
+      "member": "peer-review/traceability-subset-final-narrative-delta.patch",
+      "sha256": "955484a40f4c95e1b217d27d150bde3719e57e4d3d69f7b8ceee99fb1d1d0686",
+      "source": "/tmp/japp-w14-closeout-peer-review/traceability-subset-final-narrative-delta.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 11042,
+      "member": "peer-review/traceability-subset-final.json",
+      "sha256": "cc807ef18a820fd2fee2b41db9f3045d41e60adb5e907bfc980980d06e4898b9",
+      "source": "/tmp/japp-w14-closeout-peer-review/traceability-subset-final.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 5156,
+      "member": "peer-review/traceability-subset-final.md",
+      "sha256": "76977cae9e851fd6e70927ae61f0a19fdeeec45a04a31d3e761ac67ec2f70500",
+      "source": "/tmp/japp-w14-closeout-peer-review/traceability-subset-final.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 7006,
+      "member": "refiner/japp-refine-w14-closeout-freshness.py",
+      "sha256": "8553c826d94181584b92b48688f0082e9929f2eb2413a7b570ca595171241ef9",
+      "source": "/tmp/japp-refine-w14-closeout-freshness.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 9687,
+      "member": "retention/builder.py",
+      "sha256": "00537a89ac4872a6e7ffe2a6c41775b39bf66947e5d156471285056123eb45a3",
+      "source": "/tmp/japp-w14-closeout-retention-builder.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3161,
+      "member": "retention/preparation/README.md",
+      "sha256": "f293b638052358b9df431ef87bae86a82b51169817b4040c225ef2aab162ff7a",
+      "source": "/tmp/japp-w14-closeout-retention-preparation/README.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4011,
+      "member": "retention/preparation/source-manifest.json",
+      "sha256": "951b814fc080bea47fd6e78295718bb0d67fe58fb61512a792cabf9b857bb570",
+      "source": "/tmp/japp-w14-closeout-retention-preparation/source-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3577,
+      "member": "root-checks/commands.json",
+      "sha256": "5e7b130bf9fc4f4a453cbcf480d95b65ac5aa987d4ff5a5709fc164f66b74ff5",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/commands.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 0,
+      "member": "root-checks/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/diff.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 50286,
+      "member": "root-checks/fixture-correction/after.py",
+      "sha256": "8389cb7fd459cac1767bfb83edf91de1b4dd58d408cf5138a0b3d3fe18dcd80f",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/fixture-correction/after.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 49217,
+      "member": "root-checks/fixture-correction/before.py",
+      "sha256": "1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/fixture-correction/before.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 1655,
+      "member": "root-checks/fixture-correction/delta.patch",
+      "sha256": "572ddb44e926e6750b8c1bde64bfcdfd391b3dd5b211083f9d0268292dee33ed",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/fixture-correction/delta.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 349,
+      "member": "root-checks/fixture-correction/manifest.json",
+      "sha256": "3873cf0120a6edb981fd44b629adf83113bddaac5be5b376b1b1c003ea169492",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/fixture-correction/manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 462,
+      "member": "root-checks/history/attempt001/commands.json",
+      "sha256": "45b2ad7fbb3b9c7bfd7e8800ea9269f34367dc3f836c233cc31fb8438124ff02",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt001/commands.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 225,
+      "member": "root-checks/history/attempt001/status.log",
+      "sha256": "3a4e0d404f98547390402822ead09dde4d1964d81aa2aaa452ff329843b3c32d",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt001/status.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 547,
+      "member": "root-checks/history/attempt002/commands.json",
+      "sha256": "13882dc65fe8b011d1bd6b3704ee1b6688d02754e27e8ece40f873c0c5470e2f",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt002/commands.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3718,
+      "member": "root-checks/history/attempt002/status.log",
+      "sha256": "cd476c94408c41851621ed56c0b98f65e0122271378c069ea1ea8f8d7c7e4545",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt002/status.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 992,
+      "member": "root-checks/history/attempt003/commands.json",
+      "sha256": "753ee203bb976bc21052290a719e38d60a3ae2cddacf0b58b336d5b766627b56",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt003/commands.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3575,
+      "member": "root-checks/history/attempt003/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt003/status.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 245,
+      "member": "root-checks/history/attempt003/traceability.log",
+      "sha256": "2bd8324e68495138144a66cc0084fe7d5ff6c9d467533183de2f285fa43067aa",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt003/traceability.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3435,
+      "member": "root-checks/history/attempt004/commands.json",
+      "sha256": "88b84464f82b520a814f5e721ff36769042d59227ecf7428647228d45e81c7c1",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/commands.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 0,
+      "member": "root-checks/history/attempt004/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/diff.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 1582,
+      "member": "root-checks/history/attempt004/executed-wrapper.py",
+      "sha256": "37b0984b458a3df18009bbd656f11e1ef7f37c4d0fb390fc29ac03995167ae5f",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/executed-wrapper.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 42,
+      "member": "root-checks/history/attempt004/mypy.log",
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/mypy.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 5147,
+      "member": "root-checks/history/attempt004/pytest.log",
+      "sha256": "745b3423e55af7981a956d09afd08d81be61fc8a6a636757a7c2d9e568674d8b",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/pytest.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 25,
+      "member": "root-checks/history/attempt004/ruff-format.log",
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/ruff-format.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 19,
+      "member": "root-checks/history/attempt004/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/ruff.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3575,
+      "member": "root-checks/history/attempt004/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/status.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 114,
+      "member": "root-checks/history/attempt004/traceability.log",
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/history/attempt004/traceability.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 43,
+      "member": "root-checks/mypy.log",
+      "sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/mypy.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 431,
+      "member": "root-checks/pytest.log",
+      "sha256": "d19ee75ea9f13b5500d7a71cc0bfd4e421389600621cd43a298c2d5d8a88225c",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/pytest.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 26,
+      "member": "root-checks/ruff-format.log",
+      "sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/ruff-format.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 19,
+      "member": "root-checks/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/ruff.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3575,
+      "member": "root-checks/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/status.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 114,
+      "member": "root-checks/traceability.log",
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc",
+      "source": "/tmp/japp-w14-closure-root-checks-20261017/traceability.log",
+      "source_mode": 420
+    },
+    {
+      "bytes": 5468,
+      "member": "supplemental-review/REPORT.md",
+      "sha256": "9edccd5edffdbd639680ed643690a6cf2a4a4691daf5c9b11a1d0c27ca315c85",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/REPORT.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 2847,
+      "member": "supplemental-review/actual-corrected-closeout-manifest.json",
+      "sha256": "9ebad8a082dfcbcdb92fc5c88efe12abadd22230ec84e30e2a9f8eaf447ee463",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/actual-corrected-closeout-manifest.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 95584,
+      "member": "supplemental-review/actual-corrected-closeout.patch",
+      "sha256": "b8f1f18ea0ec7d6ea5f888777769d56ee28f608fd168faea4f6c1b374ee7aea8",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/actual-corrected-closeout.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 2144,
+      "member": "supplemental-review/actual-focused-root-review.json",
+      "sha256": "c93c3a7b5ebdbfcf99009079075137923226a188b74f88e64c783a7c66b5556b",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/actual-focused-root-review.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1288,
+      "member": "supplemental-review/bookkeeping-supplement.patch",
+      "sha256": "f3a87695d0199004ec8f460cd7a41102fd9def353d53f0eb7aca32ae902df68d",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/bookkeeping-supplement.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 45221,
+      "member": "supplemental-review/corrected-afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "3af86407142230d1c861b5196d563541eede1a260fe50464920eb7d5cf7562e1",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/corrected-afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 341588,
+      "member": "supplemental-review/corrected-afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "20110931831f406f964274355a960e754d7eae768fa8d3bd99fd9591ae9f210c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/corrected-afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 45221,
+      "member": "supplemental-review/expected-corrected-PROJECT_STATUS.md",
+      "sha256": "3af86407142230d1c861b5196d563541eede1a260fe50464920eb7d5cf7562e1",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/expected-corrected-PROJECT_STATUS.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1389,
+      "member": "supplemental-review/fixture-correction-review.json",
+      "sha256": "ecc33a25b409806e0d23f3bd2c97dae2483b99f964e6c8a8d3405a972a139b31",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/fixture-correction-review.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1575,
+      "member": "supplemental-review/fixture-correction.patch",
+      "sha256": "70238ada088459cfd7c8c60b2c2ab80a6388590b1f5d78a9b6ec0badbcc93ed9",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/fixture-correction.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 50286,
+      "member": "supplemental-review/fixture-correction/after/scripts/tests/test_traceability.py",
+      "sha256": "8389cb7fd459cac1767bfb83edf91de1b4dd58d408cf5138a0b3d3fe18dcd80f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/fixture-correction/after/scripts/tests/test_traceability.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 49217,
+      "member": "supplemental-review/fixture-correction/before/scripts/tests/test_traceability.py",
+      "sha256": "1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/fixture-correction/before/scripts/tests/test_traceability.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 443,
+      "member": "supplemental-review/generated-view-correction.diff",
+      "sha256": "401c6c2c2a21b8250c9a72ea186687c18a27976de47f889d167e720976480ede",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/generated-view-correction.diff",
+      "source_mode": 292
+    },
+    {
+      "bytes": 992,
+      "member": "supplemental-review/history/live-log-capture-race/commands.json",
+      "sha256": "753ee203bb976bc21052290a719e38d60a3ae2cddacf0b58b336d5b766627b56",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/history/live-log-capture-race/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 45530,
+      "member": "supplemental-review/history/live-log-capture-race/reviewed-10cf-PROJECT_STATUS.md",
+      "sha256": "5673c9916abfe42cae11e4eb5072486fe767392c34de399da25755a4f1ea62bd",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/history/live-log-capture-race/reviewed-10cf-PROJECT_STATUS.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3575,
+      "member": "supplemental-review/history/live-log-capture-race/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/history/live-log-capture-race/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 462,
+      "member": "supplemental-review/initial-failed-root-check/commands.json",
+      "sha256": "45b2ad7fbb3b9c7bfd7e8800ea9269f34367dc3f836c233cc31fb8438124ff02",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/initial-failed-root-check/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 45530,
+      "member": "supplemental-review/initial-failed-root-check/reviewed-10cf-PROJECT_STATUS.md",
+      "sha256": "5673c9916abfe42cae11e4eb5072486fe767392c34de399da25755a4f1ea62bd",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/initial-failed-root-check/reviewed-10cf-PROJECT_STATUS.md",
+      "source_mode": 292
+    },
+    {
+      "bytes": 225,
+      "member": "supplemental-review/initial-failed-root-check/status.log",
+      "sha256": "3a4e0d404f98547390402822ead09dde4d1964d81aa2aaa452ff329843b3c32d",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/initial-failed-root-check/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1423,
+      "member": "supplemental-review/initial-review-correction.json",
+      "sha256": "5b0ae1105249f4078fb9a0cca325d73e3690c1b94e90185b091f21b0887d1b07",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/initial-review-correction.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3577,
+      "member": "supplemental-review/root-focused-evidence/commands.json",
+      "sha256": "5e7b130bf9fc4f4a453cbcf480d95b65ac5aa987d4ff5a5709fc164f66b74ff5",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 0,
+      "member": "supplemental-review/root-focused-evidence/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/diff.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 50286,
+      "member": "supplemental-review/root-focused-evidence/fixture-correction/after.py",
+      "sha256": "8389cb7fd459cac1767bfb83edf91de1b4dd58d408cf5138a0b3d3fe18dcd80f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/fixture-correction/after.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 49217,
+      "member": "supplemental-review/root-focused-evidence/fixture-correction/before.py",
+      "sha256": "1a38705fba1856ed5e9cf1da4bb1dba490bb55c4016fb2dafa1d8f1bf46da96f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/fixture-correction/before.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1655,
+      "member": "supplemental-review/root-focused-evidence/fixture-correction/delta.patch",
+      "sha256": "572ddb44e926e6750b8c1bde64bfcdfd391b3dd5b211083f9d0268292dee33ed",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/fixture-correction/delta.patch",
+      "source_mode": 292
+    },
+    {
+      "bytes": 349,
+      "member": "supplemental-review/root-focused-evidence/fixture-correction/manifest.json",
+      "sha256": "3873cf0120a6edb981fd44b629adf83113bddaac5be5b376b1b1c003ea169492",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/fixture-correction/manifest.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 462,
+      "member": "supplemental-review/root-focused-evidence/history/attempt001/commands.json",
+      "sha256": "45b2ad7fbb3b9c7bfd7e8800ea9269f34367dc3f836c233cc31fb8438124ff02",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt001/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 225,
+      "member": "supplemental-review/root-focused-evidence/history/attempt001/status.log",
+      "sha256": "3a4e0d404f98547390402822ead09dde4d1964d81aa2aaa452ff329843b3c32d",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt001/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 547,
+      "member": "supplemental-review/root-focused-evidence/history/attempt002/commands.json",
+      "sha256": "13882dc65fe8b011d1bd6b3704ee1b6688d02754e27e8ece40f873c0c5470e2f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt002/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3718,
+      "member": "supplemental-review/root-focused-evidence/history/attempt002/status.log",
+      "sha256": "cd476c94408c41851621ed56c0b98f65e0122271378c069ea1ea8f8d7c7e4545",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt002/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 992,
+      "member": "supplemental-review/root-focused-evidence/history/attempt003/commands.json",
+      "sha256": "753ee203bb976bc21052290a719e38d60a3ae2cddacf0b58b336d5b766627b56",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt003/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3575,
+      "member": "supplemental-review/root-focused-evidence/history/attempt003/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt003/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 245,
+      "member": "supplemental-review/root-focused-evidence/history/attempt003/traceability.log",
+      "sha256": "2bd8324e68495138144a66cc0084fe7d5ff6c9d467533183de2f285fa43067aa",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt003/traceability.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3435,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/commands.json",
+      "sha256": "88b84464f82b520a814f5e721ff36769042d59227ecf7428647228d45e81c7c1",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/commands.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 0,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/diff.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 1582,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/executed-wrapper.py",
+      "sha256": "37b0984b458a3df18009bbd656f11e1ef7f37c4d0fb390fc29ac03995167ae5f",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/executed-wrapper.py",
+      "source_mode": 292
+    },
+    {
+      "bytes": 42,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/mypy.log",
+      "sha256": "5d4b6d285b77932e3d08212c3b4974d0a803f98ec60408ac6ccf6a063fa6c19e",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/mypy.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 5147,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/pytest.log",
+      "sha256": "745b3423e55af7981a956d09afd08d81be61fc8a6a636757a7c2d9e568674d8b",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/pytest.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 25,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/ruff-format.log",
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/ruff-format.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 19,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/ruff.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3575,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 114,
+      "member": "supplemental-review/root-focused-evidence/history/attempt004/traceability.log",
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/history/attempt004/traceability.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 43,
+      "member": "supplemental-review/root-focused-evidence/mypy.log",
+      "sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/mypy.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 431,
+      "member": "supplemental-review/root-focused-evidence/pytest.log",
+      "sha256": "d19ee75ea9f13b5500d7a71cc0bfd4e421389600621cd43a298c2d5d8a88225c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/pytest.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 26,
+      "member": "supplemental-review/root-focused-evidence/ruff-format.log",
+      "sha256": "3bc53bf3e981a98a34a852e175bf9b77af841edea74fca595d9aedcbaf9a4938",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/ruff-format.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 19,
+      "member": "supplemental-review/root-focused-evidence/ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/ruff.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 3575,
+      "member": "supplemental-review/root-focused-evidence/status.log",
+      "sha256": "2c3d16adc41ddfda17b236651adb05d7ba46d5e8241625023fddcc199d354b6c",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/status.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 114,
+      "member": "supplemental-review/root-focused-evidence/traceability.log",
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-focused-evidence/traceability.log",
+      "source_mode": 292
+    },
+    {
+      "bytes": 2801,
+      "member": "supplemental-review/root-source-binding.json",
+      "sha256": "24b2559efed117dff3185d25c02dd00ee628e1ddb54ee9f48826716f573b5f88",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/root-source-binding.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 9059,
+      "member": "supplemental-review/seal.json",
+      "sha256": "0ff19dd9833ad58c6e0cf25eb1b9c7112797769ac2754e361776edbb038d6935",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/seal.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 840,
+      "member": "supplemental-review/summary.json",
+      "sha256": "f023907902ead827f2d81b4486dfdc404922708d54364e5acd929fcb20fb4975",
+      "source": "/tmp/japp-w14-closeout-supplemental-review/summary.json",
+      "source_mode": 292
+    },
+    {
+      "bytes": 6357,
+      "member": "template/README.md",
+      "sha256": "3c7eb8c3f213c17a0ab00768b55f5b46926ec6ad56fa7563a69a39269442c166",
+      "source": "/tmp/japp-w14-closeout-template/README.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 15157,
+      "member": "template/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "925f161e82cd916ce0ba8db4ac36016de33a1dbd14ee67019ce0834307f965f4",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 272296,
+      "member": "template/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "710aa3b76cad3958ed559ffda51e6a7728bb6df273e73a67839c4da4ea4eedc8",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 44136,
+      "member": "template/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "e6f35bb6d6d974c2d17a76344b4e5f93b0d6898aec29a806e1e2b505f95a5003",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 915435,
+      "member": "template/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "f6b7d957ed5104dacffc6eaac51fbe3492ce3aa164506f4ed23c5e033af10f2d",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 36473,
+      "member": "template/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "917350ff4da6f29493ec5ab28036bb941cbfc4aecc4829c9b3888bdd2c908dd1",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710138,
+      "member": "template/afterimages/docs/traceability.json",
+      "sha256": "b6e04888eed0a83b6668906c9eca0125db1945b863265bdd4e41e902ff86a8e5",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81608,
+      "member": "template/afterimages/scripts/traceability.py",
+      "sha256": "d3d8f8d2defde079a8e2f5dec4125336859c712a8dd1b614ad2fb9474100d87e",
+      "source": "/tmp/japp-w14-closeout-template/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 56830,
+      "member": "template/closeout-template.patch",
+      "sha256": "3e35483537ffe334874b648fcacaabbe2b7d5e3d7b0d8c30537b2bec8735cec6",
+      "source": "/tmp/japp-w14-closeout-template/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 9442,
+      "member": "template/finalize-after-root-release.py",
+      "sha256": "0972fd8d54ea9e1141312deb33e172b000e86a6b112c4179799930dbe0eb8c89",
+      "source": "/tmp/japp-w14-closeout-template/finalize-after-root-release.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 8388,
+      "member": "template/history/finalizer-source-001/finalize-after-root-release.py",
+      "sha256": "4107650775f893cbcb644d839bf5fce122f453f9afb0bc7afeb40ac40335e4eb",
+      "source": "/tmp/japp-w14-closeout-template/history/finalizer-source-001/finalize-after-root-release.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 272282,
+      "member": "template/history/ki0097-path-correction-001/KNOWN_ISSUES.before-path-correction.md",
+      "sha256": "d8e53bac6d4fa52fb7f46a68fffaa415562fd64bc252cae7f2b150b201a775b0",
+      "source": "/tmp/japp-w14-closeout-template/history/ki0097-path-correction-001/KNOWN_ISSUES.before-path-correction.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 56816,
+      "member": "template/history/ki0097-path-correction-001/closeout-template.patch",
+      "sha256": "546ade2067c3c665d5da300a3e98ade89ab20c4189dea7b6dde16e207e88d558",
+      "source": "/tmp/japp-w14-closeout-template/history/ki0097-path-correction-001/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4702,
+      "member": "template/history/ki0097-path-correction-001/template-manifest.json",
+      "sha256": "9d97ddadd7ce07143d86f5f46c386944e50eb159c279ff61e692fef2e16ae076",
+      "source": "/tmp/japp-w14-closeout-template/history/ki0097-path-correction-001/template-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/history/template-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 14743,
+      "member": "template/history/template-001/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "e9f5b5c6ab7a9db46b9bd56442567c34e42a02c2940660df28179fa659af5aad",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 269462,
+      "member": "template/history/template-001/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "7c88ba78c6bab914fcd8ad8c0def24441e81272346301ada41eb5645c6bb3422",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 42888,
+      "member": "template/history/template-001/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "3fbd38ba694f1b620672859bdfd8f8c236514cd3ea1ed7725d9a9247ecb6cd7e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/history/template-001/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 913487,
+      "member": "template/history/template-001/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "f0b1312f30842758bda1e00bd5514eab643484e247e03fd663652e1d9e7104cb",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 34805,
+      "member": "template/history/template-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "be062d215e27e1342f63010b11d92de368c7816e3cb449e3b1437bbfbe7fab8b",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710138,
+      "member": "template/history/template-001/afterimages/docs/traceability.json",
+      "sha256": "b6e04888eed0a83b6668906c9eca0125db1945b863265bdd4e41e902ff86a8e5",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81608,
+      "member": "template/history/template-001/afterimages/scripts/traceability.py",
+      "sha256": "d3d8f8d2defde079a8e2f5dec4125336859c712a8dd1b614ad2fb9474100d87e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 40142,
+      "member": "template/history/template-001/closeout-template.patch",
+      "sha256": "75dc177de595884ef15569a4cbee6d9e3b7377e29e861098662afb42001d6640",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3867,
+      "member": "template/history/template-001/template-manifest.json",
+      "sha256": "e7028d63cae41e6355f00b8f4944315793a25c7e88ad16326a039cfd6737e114",
+      "source": "/tmp/japp-w14-closeout-template/history/template-001/template-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4231,
+      "member": "template/history/template-002/README.md",
+      "sha256": "7a98c4c6fe73a89d8c81a28cd323014ac71f7a0562323730f07bff4c18f7d4b2",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/README.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/history/template-002/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 14743,
+      "member": "template/history/template-002/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "e9f5b5c6ab7a9db46b9bd56442567c34e42a02c2940660df28179fa659af5aad",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 269462,
+      "member": "template/history/template-002/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "7c88ba78c6bab914fcd8ad8c0def24441e81272346301ada41eb5645c6bb3422",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 42888,
+      "member": "template/history/template-002/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "3fbd38ba694f1b620672859bdfd8f8c236514cd3ea1ed7725d9a9247ecb6cd7e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/history/template-002/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 913852,
+      "member": "template/history/template-002/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "4e5a04cb8efc77d94aae613b9bbc2764037c154968341347550cca5751b4c077",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 34805,
+      "member": "template/history/template-002/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "be062d215e27e1342f63010b11d92de368c7816e3cb449e3b1437bbfbe7fab8b",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710138,
+      "member": "template/history/template-002/afterimages/docs/traceability.json",
+      "sha256": "b6e04888eed0a83b6668906c9eca0125db1945b863265bdd4e41e902ff86a8e5",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81608,
+      "member": "template/history/template-002/afterimages/scripts/traceability.py",
+      "sha256": "d3d8f8d2defde079a8e2f5dec4125336859c712a8dd1b614ad2fb9474100d87e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 45183,
+      "member": "template/history/template-002/closeout-template.patch",
+      "sha256": "1872d666e7dc981f06d16fdaa8bf335987939e19a620e266676f392af72470b1",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 8429,
+      "member": "template/history/template-002/finalize-after-root-release.py",
+      "sha256": "b2a31e98d6a9aaed6674bb3ec8d19ce047c76e349a67010ede057f9b1df3a52e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/finalize-after-root-release.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 415,
+      "member": "template/history/template-002/prepared-finalizer-manifest.json",
+      "sha256": "339645566750dd4a09ffaedcd775a38511fb5f2d20c1a5634c77a6f291cdd550",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/prepared-finalizer-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4194,
+      "member": "template/history/template-002/template-manifest.json",
+      "sha256": "e5200ec3a9e6278dd69780b1f17a368798ce64df2709f62f07fc640c10e888c0",
+      "source": "/tmp/japp-w14-closeout-template/history/template-002/template-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 5001,
+      "member": "template/history/template-003/README.md",
+      "sha256": "632bbc4c197a98129e4d398c93d6c22686a93a1c45cdc3eb5dd008c754973e90",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/README.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/history/template-003/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 14743,
+      "member": "template/history/template-003/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "e9f5b5c6ab7a9db46b9bd56442567c34e42a02c2940660df28179fa659af5aad",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 269462,
+      "member": "template/history/template-003/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "7c88ba78c6bab914fcd8ad8c0def24441e81272346301ada41eb5645c6bb3422",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 42888,
+      "member": "template/history/template-003/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "3fbd38ba694f1b620672859bdfd8f8c236514cd3ea1ed7725d9a9247ecb6cd7e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/history/template-003/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 914606,
+      "member": "template/history/template-003/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "1f378a4971bbe7ca4646c8cb42bb94ff17c02465a96b4283913bee78cb7ad2b7",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 34805,
+      "member": "template/history/template-003/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "be062d215e27e1342f63010b11d92de368c7816e3cb449e3b1437bbfbe7fab8b",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710138,
+      "member": "template/history/template-003/afterimages/docs/traceability.json",
+      "sha256": "b6e04888eed0a83b6668906c9eca0125db1945b863265bdd4e41e902ff86a8e5",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81608,
+      "member": "template/history/template-003/afterimages/scripts/traceability.py",
+      "sha256": "d3d8f8d2defde079a8e2f5dec4125336859c712a8dd1b614ad2fb9474100d87e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 45939,
+      "member": "template/history/template-003/closeout-template.patch",
+      "sha256": "b437b53eeeb6ea860c5c2842633ca1b0159451b8a0b7ddadf515e469b97f2693",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 9442,
+      "member": "template/history/template-003/finalize-after-root-release.py",
+      "sha256": "0972fd8d54ea9e1141312deb33e172b000e86a6b112c4179799930dbe0eb8c89",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/finalize-after-root-release.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 316,
+      "member": "template/history/template-003/prepared-finalizer-manifest.json",
+      "sha256": "ff0012181315aa32ecc4f151a33cc7867d21d6970abd66c5e1f44f5bc15ad650",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/prepared-finalizer-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4463,
+      "member": "template/history/template-003/template-manifest.json",
+      "sha256": "ef5bbd61ede964c4c1dd1d78ad68f64f2a8106a68e27e27b12bce2b05bc99dd8",
+      "source": "/tmp/japp-w14-closeout-template/history/template-003/template-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 5536,
+      "member": "template/history/template-004/README.md",
+      "sha256": "1fdede885eb739a5f6595593f52a7dd52fd8d56552b339a2015ad495aab1b012",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/README.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/history/template-004/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 14743,
+      "member": "template/history/template-004/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "e9f5b5c6ab7a9db46b9bd56442567c34e42a02c2940660df28179fa659af5aad",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 269462,
+      "member": "template/history/template-004/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "7c88ba78c6bab914fcd8ad8c0def24441e81272346301ada41eb5645c6bb3422",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 43459,
+      "member": "template/history/template-004/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "ea56ff2a93f44b3087dc62347031703563d4c31ba810f87c2953a5ce54bde806",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/history/template-004/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 914668,
+      "member": "template/history/template-004/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "ec1bb93d6883b1b5279ea9881d6b68d40535a64bf7a2243cedf0f62500630138",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 35199,
+      "member": "template/history/template-004/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "a09a476deef3efba92a22be9e26550ca6e20aa70b3dab6d0d25536cb3a30eada",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710138,
+      "member": "template/history/template-004/afterimages/docs/traceability.json",
+      "sha256": "b6e04888eed0a83b6668906c9eca0125db1945b863265bdd4e41e902ff86a8e5",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81608,
+      "member": "template/history/template-004/afterimages/scripts/traceability.py",
+      "sha256": "d3d8f8d2defde079a8e2f5dec4125336859c712a8dd1b614ad2fb9474100d87e",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 48075,
+      "member": "template/history/template-004/closeout-template.patch",
+      "sha256": "e81285431e3edc70cd5fd23efa52bf9032e6df3f3629a8b91ada75db1645558d",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/closeout-template.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13190,
+      "member": "template/history/template-004/sealed-preparation-manifest.json",
+      "sha256": "780bf72fb6f6d51b1a9f6966ffb651a2ad923ef15c193e9fb305ebdc0bfb6834",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/sealed-preparation-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4502,
+      "member": "template/history/template-004/template-manifest.json",
+      "sha256": "8b26607143caa05c3a54f91ac4f2a4bcb3f513afd77eb0f67a01c29367f4cf13",
+      "source": "/tmp/japp-w14-closeout-template/history/template-004/template-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/materialized/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 15157,
+      "member": "template/materialized/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "925f161e82cd916ce0ba8db4ac36016de33a1dbd14ee67019ce0834307f965f4",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 272719,
+      "member": "template/materialized/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "72ce2a359afef7dc8950f7ab70416ec50ea5c5cc97ace18d647526fac6934395",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 45530,
+      "member": "template/materialized/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "5673c9916abfe42cae11e4eb5072486fe767392c34de399da25755a4f1ea62bd",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 341591,
+      "member": "template/materialized/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "2c15d40154fb441542b142bf3af651c7dc0dd6c0c7308adc07176acd5dc78f80",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 918042,
+      "member": "template/materialized/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "ff1431e9c50b076f91d2b13f630528af687c60d5f205ef659cdb2472ea3893c9",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 38345,
+      "member": "template/materialized/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "1a6032f60a1abb8ec98a60489da2b121ec782186d6d6a6fd64b8ebc24c8b5e63",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710165,
+      "member": "template/materialized/afterimages/docs/traceability.json",
+      "sha256": "f9d2c055a7c9f9b1682503efa647d8f77c7e5bbe8a842528171f92a868f669d0",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81635,
+      "member": "template/materialized/afterimages/scripts/traceability.py",
+      "sha256": "0d27cb4858ed44cc270b2dbcae97e0739ad9126225748632259efbfbd04e499b",
+      "source": "/tmp/japp-w14-closeout-template/materialized/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 94321,
+      "member": "template/materialized/closeout-final.patch",
+      "sha256": "10cfdaaabd4c9b3b8bf8541af847f2dbaa4c14d6052bd3cf98749bf41c0ccb19",
+      "source": "/tmp/japp-w14-closeout-template/materialized/closeout-final.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 0,
+      "member": "template/materialized/final-context-generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-template/materialized/final-context-generate.stderr",
+      "source_mode": 420
+    },
+    {
+      "bytes": 68,
+      "member": "template/materialized/final-context-generate.stdout",
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779",
+      "source": "/tmp/japp-w14-closeout-template/materialized/final-context-generate.stdout",
+      "source_mode": 420
+    },
+    {
+      "bytes": 647,
+      "member": "template/materialized/final-context-generation-command.json",
+      "sha256": "4d8ee825879587903b84c605657aa3c4e6d2d75f8daea5474f974d06a06ff435",
+      "source": "/tmp/japp-w14-closeout-template/materialized/final-context-generation-command.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4567,
+      "member": "template/materialized/final-manifest.json",
+      "sha256": "57d1adf47fa6505487254adcd1d6a64104f0c447d8b4b213d9818d670b07ef47",
+      "source": "/tmp/japp-w14-closeout-template/materialized/final-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 434,
+      "member": "template/materialized/generation-command.json",
+      "sha256": "900077b83bced805d2c0cbf199e63bd624c5ae9a2666b57315996765e0e58e71",
+      "source": "/tmp/japp-w14-closeout-template/materialized/generation-command.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13399,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "ee16c7707dafbd65b4a96fb482cddf82d4a073d72d28a4bb0495bf82bc9a18d7",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 15157,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/CRITICAL_GATES.md",
+      "sha256": "925f161e82cd916ce0ba8db4ac36016de33a1dbd14ee67019ce0834307f965f4",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 272296,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/KNOWN_ISSUES.md",
+      "sha256": "710aa3b76cad3958ed559ffda51e6a7728bb6df273e73a67839c4da4ea4eedc8",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 45530,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/PROJECT_STATUS.md",
+      "sha256": "5673c9916abfe42cae11e4eb5072486fe767392c34de399da25755a4f1ea62bd",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 341591,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "2c15d40154fb441542b142bf3af651c7dc0dd6c0c7308adc07176acd5dc78f80",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 916935,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/TEST_EVIDENCE.md",
+      "sha256": "c6e3b9c9c62fd84f2a6448eb64c7721dc516893c881309bb8d564c5a4e1e3aeb",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 37879,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "2c71b53b8d4c23fec351be8ea6c031742ea5340fcbeac331371b7d6b7250e173",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 710165,
+      "member": "template/materialized/history/materialization-001/afterimages/docs/traceability.json",
+      "sha256": "f9d2c055a7c9f9b1682503efa647d8f77c7e5bbe8a842528171f92a868f669d0",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81635,
+      "member": "template/materialized/history/materialization-001/afterimages/scripts/traceability.py",
+      "sha256": "0d27cb4858ed44cc270b2dbcae97e0739ad9126225748632259efbfbd04e499b",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/afterimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 92323,
+      "member": "template/materialized/history/materialization-001/closeout-final.patch",
+      "sha256": "e05ba23f8c343675375b9f7514382d1dc13d0cd28d04c7c9b2115a40311e0cf2",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/closeout-final.patch",
+      "source_mode": 420
+    },
+    {
+      "bytes": 3006,
+      "member": "template/materialized/history/materialization-001/final-manifest.json",
+      "sha256": "8e9b44347481ad8f226cf77ce3d76d5a554d35440fb408656b6a6aad84f4b81b",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/final-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 434,
+      "member": "template/materialized/history/materialization-001/generation-command.json",
+      "sha256": "900077b83bced805d2c0cbf199e63bd624c5ae9a2666b57315996765e0e58e71",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/generation-command.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 0,
+      "member": "template/materialized/history/materialization-001/traceability-generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/traceability-generate.stderr",
+      "source_mode": 420
+    },
+    {
+      "bytes": 68,
+      "member": "template/materialized/history/materialization-001/traceability-generate.stdout",
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779",
+      "source": "/tmp/japp-w14-closeout-template/materialized/history/materialization-001/traceability-generate.stdout",
+      "source_mode": 420
+    },
+    {
+      "bytes": 0,
+      "member": "template/materialized/traceability-generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/tmp/japp-w14-closeout-template/materialized/traceability-generate.stderr",
+      "source_mode": 420
+    },
+    {
+      "bytes": 68,
+      "member": "template/materialized/traceability-generate.stdout",
+      "sha256": "7d875fde10d13eec2cd13e7528efe8db464ed20524f57291676a9ccb0618e779",
+      "source": "/tmp/japp-w14-closeout-template/materialized/traceability-generate.stdout",
+      "source_mode": 420
+    },
+    {
+      "bytes": 12548,
+      "member": "template/preimages/docs/COMPATIBILITY_MATRIX.md",
+      "sha256": "49757e4284cef3eea9ee22e2bf4df0939dab1b42189533736f4560bf99acd3a9",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/COMPATIBILITY_MATRIX.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 14695,
+      "member": "template/preimages/docs/CRITICAL_GATES.md",
+      "sha256": "de2288a2ea4a9025b1c83845ca3b1c8089b8da07a0b3cfcbfe0777aee5d6396a",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/CRITICAL_GATES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 269336,
+      "member": "template/preimages/docs/KNOWN_ISSUES.md",
+      "sha256": "6932364930b2469d6288a690884e0dbd86a843af4fa9606a53aa0296489d7fef",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/KNOWN_ISSUES.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 42650,
+      "member": "template/preimages/docs/PROJECT_STATUS.md",
+      "sha256": "5e392bfaee56b25cc189ecdff50ae9550d3386512b12f09583195b392c4fd41c",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/PROJECT_STATUS.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 340184,
+      "member": "template/preimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "sha256": "26714c43036926a3e668b79a6198d9016a9438a24deab7d6f34f6ed2076d828e",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/REQUIREMENTS_TRACEABILITY.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 910184,
+      "member": "template/preimages/docs/TEST_EVIDENCE.md",
+      "sha256": "bd5114d9e8fea57e68fcdc30be76365941288b33bbc13372288444f8400eb727",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/TEST_EVIDENCE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 33507,
+      "member": "template/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "sha256": "d90ec355ed39e59a3e79521cb8f6d408a6b0db25b8cc538a8d174c11929230e8",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+      "source_mode": 420
+    },
+    {
+      "bytes": 707098,
+      "member": "template/preimages/docs/traceability.json",
+      "sha256": "be27b5ab96fc9a27db3d6c0eeec4ad0ff96744aef55a601cfd6f6a354df1e8aa",
+      "source": "/tmp/japp-w14-closeout-template/preimages/docs/traceability.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 81212,
+      "member": "template/preimages/scripts/traceability.py",
+      "sha256": "a7644b031d06b0aa670762f28ac384d8dccd3c4f3411983ab381d78444f1002a",
+      "source": "/tmp/japp-w14-closeout-template/preimages/scripts/traceability.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 21096,
+      "member": "template/prepare-template.py",
+      "sha256": "b4c6625015b279383d6bab0bcec8bcdf3c23f926b0ef9e9bd306af3b79a32cde",
+      "source": "/tmp/japp-w14-closeout-template/prepare-template.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 316,
+      "member": "template/prepared-finalizer-manifest.json",
+      "sha256": "ff0012181315aa32ecc4f151a33cc7867d21d6970abd66c5e1f44f5bc15ad650",
+      "source": "/tmp/japp-w14-closeout-template/prepared-finalizer-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 8011,
+      "member": "template/refine-doctor-and-audit-order.py",
+      "sha256": "b46ad147a3364e7f382af34f54175780c041dbb97b5cfaa8fdbabaa4bc5e4e34",
+      "source": "/tmp/japp-w14-closeout-template/refine-doctor-and-audit-order.py",
+      "source_mode": 420
+    },
+    {
+      "bytes": 16619,
+      "member": "template/sealed-preparation-manifest.json",
+      "sha256": "8aa78e8275e6b49842a3461ea74412b31844a08ceba1bddd54d574b94019fdf3",
+      "source": "/tmp/japp-w14-closeout-template/sealed-preparation-manifest.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 13190,
+      "member": "template/sealed-preparation-manifest.pre-ki0097.json",
+      "sha256": "780bf72fb6f6d51b1a9f6966ffb651a2ad923ef15c193e9fb305ebdc0bfb6834",
+      "source": "/tmp/japp-w14-closeout-template/sealed-preparation-manifest.pre-ki0097.json",
+      "source_mode": 420
+    },
+    {
+      "bytes": 4825,
+      "member": "template/template-manifest.json",
+      "sha256": "fcd4d63958ad8869c01f7390283c9c9c3db996fc5e581c7bd8d70a17c541f95f",
+      "source": "/tmp/japp-w14-closeout-template/template-manifest.json",
+      "source_mode": 420
+    }
+  ],
+  "fixed_sources": [
+    {
+      "label": "template",
+      "path": "/tmp/japp-w14-closeout-template"
+    },
+    {
+      "label": "peer-review",
+      "path": "/tmp/japp-w14-closeout-peer-review"
+    },
+    {
+      "label": "refiner",
+      "path": "/tmp/japp-refine-w14-closeout-freshness.py"
+    },
+    {
+      "label": "actual-facts",
+      "path": "/tmp/japp-w14-closeout-actual-facts-6384.json"
+    },
+    {
+      "label": "focused-runner",
+      "path": "/tmp/japp-w14-closure-focused-checks-20261017.py"
+    },
+    {
+      "label": "root-checks",
+      "path": "/tmp/japp-w14-closure-root-checks-20261017"
+    },
+    {
+      "label": "supplemental-review",
+      "path": "/tmp/japp-w14-closeout-supplemental-review"
+    }
+  ],
+  "format_version": "W14_CLOSURE_RETENTION_INDEX_1"
+}

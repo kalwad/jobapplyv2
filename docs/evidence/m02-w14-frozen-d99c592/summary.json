@@ -1,0 +1,71 @@
+{
+  "head": "d99c5921338984d6727a0a81bc38d7c628b41199",
+  "exit_code": 0,
+  "active_suites": 19,
+  "passed_active_suites": 19,
+  "unit_ts_passed": 3859,
+  "default_browser_passed": 228,
+  "controlled_contact_passed": 62,
+  "python_passed": 1454,
+  "native128_target_samples": 20,
+  "native128_p95_ms": 1446.918709000005,
+  "tracked_status_before": "CLEAN",
+  "tracked_status_after": "CLEAN",
+  "w14_metrics": {
+    "executed_cases": 200,
+    "scored_cases": 200,
+    "refused_cases": 0,
+    "measurement_error_cases": 0,
+    "scored_logical_controls": 4020,
+    "preservation": {
+      "expected": 90,
+      "correct": 90,
+      "violations": 0,
+      "empty_abstention_violations": 0
+    },
+    "ordinary_attempted_precision": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "required_ordinary_recall": {
+      "numerator": 1275,
+      "denominator": 1275,
+      "rate": 1
+    },
+    "required_reporting": {
+      "numerator": 770,
+      "denominator": 770,
+      "rate": 1
+    },
+    "observed_persistence": {
+      "numerator": 1485,
+      "denominator": 1485,
+      "rate": 1
+    },
+    "counts": {
+      "required_silent": 0,
+      "sensitive_fills": 0,
+      "honeypot_fills": 0,
+      "catastrophic_option_errors": 0,
+      "duplicate_actions": 0
+    },
+    "full_settle_scan_fill_timing": {
+      "sample_count": 200,
+      "p95_ms": 873.0006670000148,
+      "scope": "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
+      "includes_fixture_setup": false,
+      "includes_browser_setup": false,
+      "includes_reporting": false
+    }
+  },
+  "limits": "Pre-KI0091 correction checkpoint; standard suites pass but independent late setCustomValidity safety probes fail. No Gate A approval.",
+  "visual": "NOT_YET_APPLICABLE_NOT_A_PASS",
+  "w14_immutability": {
+    "source_unchanged": true,
+    "build_unchanged": true,
+    "declarations_unchanged": true,
+    "end_source_digest": "sha256:851e4a33571e2ee4756689a780e586d6c117c572d81a77c6d3aa41c0f10090c1",
+    "end_build_digest": "sha256:d431e1d15a86d82e1dd54cfe04f9d03b79eb00501e3d2793f894d42836bceed8"
+  }
+}

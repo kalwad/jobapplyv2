@@ -20,7 +20,7 @@ import re
 import shutil
 import subprocess
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from pathlib import Path
 
 import pytest
@@ -66,6 +66,28 @@ CURRENT_M02_CORRECTIVE_ISSUE_IDS = (
     "KI-0061",
     "KI-0062",
 )
+CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS = (
+    "KI-0077",
+    "KI-0078",
+    "KI-0079",
+    "KI-0080",
+    "KI-0081",
+    "KI-0082",
+    "KI-0083",
+    "KI-0084",
+    "KI-0085",
+    "KI-0086",
+    "KI-0087",
+    "KI-0088",
+    "KI-0089",
+    "KI-0090",
+    "KI-0091",
+    "KI-0092",
+    "KI-0093",
+    "KI-0094",
+    "KI-0095",
+    "KI-0096",
+)
 CURRENT_BLOCKER_LINES = [
     "- KI-0029 (HIGH, IN_PROGRESS) — governance contradiction",
     "- KI-0030 (HIGH, IN_PROGRESS) — semantic contradictions",
@@ -90,31 +112,34 @@ def run_validator(repo: Path) -> subprocess.CompletedProcess[str]:
 
 
 @pytest.fixture
-def repo_copy(tmp_path: Path) -> Path:
+def repo_copy(tmp_path: Path) -> Iterator[Path]:
     """Full temporary copy of the project-memory surface of the real repo."""
     repo = tmp_path / "repo"
     repo.mkdir()
-    shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
-    shutil.copytree(REPO_ROOT / "docs", repo / "docs")
-    platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
-    platform_schemas.mkdir(parents=True)
-    for name in ("evidence-record", "certification-input"):
+    try:
+        shutil.copy2(REPO_ROOT / "CLAUDE.md", repo / "CLAUDE.md")
+        shutil.copytree(REPO_ROOT / "docs", repo / "docs")
+        platform_schemas = repo / "packages" / "contracts" / "schemas" / "platform"
+        platform_schemas.mkdir(parents=True)
+        for name in ("evidence-record", "certification-input"):
+            shutil.copy2(
+                REPO_ROOT
+                / "packages"
+                / "contracts"
+                / "schemas"
+                / "platform"
+                / f"{name}.v2.schema.json",
+                platform_schemas / f"{name}.v2.schema.json",
+            )
+        holdout_status = repo / "benchmarks" / "holdout-manifests"
+        holdout_status.mkdir(parents=True)
         shutil.copy2(
-            REPO_ROOT
-            / "packages"
-            / "contracts"
-            / "schemas"
-            / "platform"
-            / f"{name}.v2.schema.json",
-            platform_schemas / f"{name}.v2.schema.json",
+            REPO_ROOT / holdout_status.relative_to(repo) / "status.v1.json",
+            holdout_status / "status.v1.json",
         )
-    holdout_status = repo / "benchmarks" / "holdout-manifests"
-    holdout_status.mkdir(parents=True)
-    shutil.copy2(
-        REPO_ROOT / holdout_status.relative_to(repo) / "status.v1.json",
-        holdout_status / "status.v1.json",
-    )
-    return repo
+        yield repo
+    finally:
+        shutil.rmtree(repo)
 
 
 def status_path(repo: Path) -> Path:
@@ -161,9 +186,34 @@ def set_live_blockers(repo: Path, lines: list[str]) -> None:
 
 def resolve_corrective_issues(repo: Path) -> None:
     """Remove today's corrective blockers from historical future-state fixtures."""
-    for issue_id in (*CORRECTIVE_BLOCKER_IDS, *CURRENT_M02_CORRECTIVE_ISSUE_IDS):
+    for issue_id in (
+        *CORRECTIVE_BLOCKER_IDS,
+        *CURRENT_M02_CORRECTIVE_ISSUE_IDS,
+        *CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS,
+    ):
         set_issue_state(repo, issue_id, "FIXED")
     set_live_blockers(repo, ["- NONE"])
+
+
+def resolve_w14_findings_before_historical_boundary(repo: Path) -> None:
+    """Isolate historical fixtures from only the later W14 campaign findings."""
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        set_issue_state(repo, issue_id, "FIXED")
+    text = status_path(repo).read_text(encoding="utf-8")
+    section = re.search(
+        r"## Known release blockers\n\n(.*?)(?=\n## )", text, flags=re.DOTALL
+    )
+    assert section is not None, "no live blocker section"
+    retained = [
+        line
+        for line in section.group(1).splitlines()
+        if line.strip()
+        and not any(
+            line.startswith(f"- {issue_id} (")
+            for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS
+        )
+    ]
+    set_live_blockers(repo, retained or ["- NONE"])
 
 
 def clear_in_progress(repo: Path) -> None:
@@ -184,6 +234,7 @@ def clear_in_progress(repo: Path) -> None:
         pattern.sub(r"\g<1>NOT_STARTED\g<2>", text),
         encoding="utf-8",
     )
+    rewind_unstarted_ui_surfaces(repo)
 
 
 def set_pkg_state(repo: Path, pid: str, state: str) -> None:
@@ -192,6 +243,8 @@ def set_pkg_state(repo: Path, pid: str, state: str) -> None:
     pattern = re.compile(rf"^(\| `{pid}` \| )[A-Z_]+( \|)", flags=re.MULTILINE)
     assert pattern.search(text), f"no work-package row for {pid}"
     path.write_text(pattern.sub(rf"\g<1>{state}\g<2>", text), encoding="utf-8")
+    if state in {"NOT_STARTED", "READY"}:
+        rewind_unstarted_ui_surfaces(repo)
 
 
 def set_pkg_revision(repo: Path, pid: str, revision: str) -> None:
@@ -451,6 +504,23 @@ def set_ledger_gate_state(repo: Path, gate: str, state: str) -> None:
     path.write_text("\n## ".join(sections), encoding="utf-8")
 
 
+def set_fixture_gate_state(repo: Path, gate: str, state: str) -> None:
+    """Establish all three gate-state records for an isolated test premise."""
+    set_status_gate_row(repo, gate, state)
+    set_ledger_gate_state(repo, gate, state)
+    report = repo / "docs" / "gates" / f"{gate}_GATE.md"
+    text = report.read_text(encoding="utf-8")
+    assert re.search(r"^(- State: )[A-Z_]+", text, flags=re.MULTILINE), (
+        f"no gate report state for {gate}"
+    )
+    # The report is append-only and the last state is authoritative. Keep the
+    # copied actual history, then declare this fixture's synthetic boundary.
+    report.write_text(
+        text + f"\n## Synthetic fixture boundary\n\n- State: {state}\n",
+        encoding="utf-8",
+    )
+
+
 def set_ledger_gate_pass_evidence(
     repo: Path, gate: str, *, revision: str = FAKE_TREE
 ) -> None:
@@ -657,6 +727,38 @@ def accept_full_ai_profiles(repo: Path) -> None:
         )
 
 
+def rewind_unstarted_ui_surfaces(repo: Path) -> None:
+    """Rewind UI rows with their owners, retaining the complete copied history."""
+    parsed = validate_status.parse_status(status_path(repo))
+    states = {row[0]: row[1] for row in parsed.package_rows}
+    migration_complete = states.get("M00-W11") in validate_status.DONE
+    for surface, owners in validate_status.UI_SURFACE_OWNERS.items():
+        if migration_complete and any(
+            states.get(owner) in (validate_status.STARTED | {"BLOCKED"})
+            for owner in owners
+        ):
+            continue
+        familiarity = repo / "docs/UI_FAMILIARITY.md"
+        for index, value in (
+            (3, "`NOT_YET_APPLICABLE`"),
+            (4, "—"),
+            (5, "—"),
+            (6, "—"),
+            (7, "`NOT_APPROVED`"),
+        ):
+            _set_markdown_table_cell(familiarity, surface, index, value)
+        baseline = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
+        for index in range(2, 12):
+            value = (
+                "`NOT_YET_APPLICABLE`"
+                if index == 2
+                else "`NOT_APPROVED`"
+                if index == 10
+                else "—"
+            )
+            _set_markdown_table_cell(baseline, surface, index, value)
+
+
 def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) -> None:
     """Force every package and milestone past the boundary to NOT_STARTED.
 
@@ -693,6 +795,28 @@ def reset_downstream(repo: Path, *, after_package: str, after_milestone: str) ->
         flags=re.MULTILINE,
     )
     path.write_text(text, encoding="utf-8")
+    rewind_unstarted_ui_surfaces(repo)
+    parsed = validate_status.parse_status(path)
+    # Rewinding packages inside an accepted milestone also rewinds its
+    # acceptance. Later readiness/acceptance mutations still run unchanged.
+    boundary_state = dict(parsed.milestone_rows).get(after_milestone)
+    boundary_packages = [
+        row for row in parsed.package_rows if row[0].startswith(after_milestone + "-")
+    ]
+    if boundary_state in validate_status.DONE and any(
+        row[1] not in validate_status.DONE for row in boundary_packages
+    ):
+        set_ms_state(repo, after_milestone, "IN_PROGRESS")
+        set_ms_revision(repo, after_milestone, "—")
+    # A historical boundary before W14 also predates Gate A evaluation.
+    # Reset the fixture's ledger/report with its package rows; the live
+    # repository and the validator's premature-gate rejection stay unchanged.
+    if after_package < "M02-W14":
+        set_fixture_gate_state(repo, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
+        resolve_w14_findings_before_historical_boundary(repo)
+    elif after_package < "M02-W15":
+        # W14 campaign findings remain live; W15 acceptance has not occurred.
+        set_fixture_gate_state(repo, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
 
 
 def prepare_m00_closeout(repo: Path, *, m01_ready: bool) -> None:
@@ -921,6 +1045,7 @@ def test_future_gate_d_schema_guidance_rejects_deprecated_or_missing_major(
 
 
 def test_gate_pass_unblocks_m03(repo_copy: Path) -> None:
+    reset_downstream(repo_copy, after_package="M03-W01", after_milestone="M03")
     promote_milestones(repo_copy, ["M00", "M01", "M02"])
     set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M03", "READY")
@@ -1125,6 +1250,11 @@ def test_fixed_ledger_and_none_sentinel_allow_later_readiness(
 
 
 def test_invalid_package_state_rejected(repo_copy: Path) -> None:
+    reset_downstream(repo_copy, after_package="M03-W01", after_milestone="M03")
+    promote(repo_copy, "M03-W01")
+    set_current_package(repo_copy, "NONE")
+    set_next_ready(repo_copy, "NONE")
+    assert run_validator(repo_copy).returncode == 0
     edit(status_path(repo_copy), "| `M03-W02` | NOT_STARTED |", "| `M03-W02` | DONE |")
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -1456,6 +1586,20 @@ def test_v14_governance_ledger_false_completion_rejected(
     because the validator's own ``ok:`` lines mention v1.4 and the provider
     boundary; the expected message is therefore pinned per case.
     """
+    # These mutations target the migration scaffold, not a later evidenced capture.
+    if relative == "docs/UI_FAMILIARITY.md":
+        for index, value in (
+            (3, "`NOT_YET_APPLICABLE`"),
+            (4, "—"),
+            (5, "—"),
+            (6, "—"),
+            (7, "`NOT_APPROVED`"),
+        ):
+            _set_markdown_table_cell(
+                repo_copy / relative, "DESKTOP_SHELL", index, value
+            )
+    elif relative == "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md":
+        _reset_migration_baseline(repo_copy)
     edit(repo_copy / relative, old, new, count=1)
     result = run_validator(repo_copy)
     assert result.returncode == 1
@@ -1497,6 +1641,20 @@ def test_missing_or_duplicate_familiarity_surface_rejected(
     assert "UI familiarity surface DESKTOP_SHELL" in result.stdout
 
 
+def _reset_migration_baseline(repo: Path) -> None:
+    """Keep historical negative fixtures explicit after honest W01 captures land."""
+    path = repo / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md"
+    for index in range(2, 11):
+        value = (
+            "`NOT_YET_APPLICABLE`"
+            if index == 2
+            else "`NOT_APPROVED`"
+            if index == 10
+            else "—"
+        )
+        _set_markdown_table_cell(path, "DESKTOP_SHELL", index, value)
+
+
 @pytest.mark.parametrize(
     ("cell_index", "value", "message"),
     [
@@ -1507,6 +1665,7 @@ def test_missing_or_duplicate_familiarity_surface_rejected(
 def test_unapproved_visual_baseline_cannot_claim_artifact_or_decision(
     repo_copy: Path, cell_index: int, value: str, message: str
 ) -> None:
+    _reset_migration_baseline(repo_copy)
     _set_markdown_table_cell(
         repo_copy / "docs/ui/OWNER_APPROVED_VISUAL_BASELINE.md",
         "DESKTOP_SHELL",
@@ -1660,6 +1819,7 @@ def test_gate_report_cell_must_name_canonical_report(repo_copy: Path) -> None:
 def test_report_state_must_agree_even_while_not_evaluated(
     repo_copy: Path,
 ) -> None:
+    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
     report = repo_copy / "docs" / "gates" / "AUTOFILL_FEASIBILITY_GATE.md"
     edit(report, "- State: NOT_EVALUATED", "- State: PASS", count=1)
     result = run_validator(repo_copy)
@@ -1669,10 +1829,7 @@ def test_report_state_must_agree_even_while_not_evaluated(
 
 def test_gate_cannot_start_before_its_evaluation_package(repo_copy: Path) -> None:
     prepare_m00_closeout(repo_copy, m01_ready=False)
-    set_status_gate_row(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
-    set_ledger_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
-    report = repo_copy / "docs" / "gates" / "AUTOFILL_FEASIBILITY_GATE.md"
-    edit(report, "- State: NOT_EVALUATED", "- State: IN_PROGRESS", count=1)
+    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "IN_PROGRESS")
     result = run_validator(repo_copy)
     assert result.returncode == 1
     assert "before evaluation package M02-W14 is started" in result.stdout
@@ -2101,6 +2258,8 @@ def test_ledger_invalid_state_value_rejected(repo_copy: Path) -> None:
 
 def test_m03_blocked_without_autofill_gate(repo_copy: Path) -> None:
     promote_milestones(repo_copy, ["M00", "M01", "M02"])
+    set_fixture_gate_state(repo_copy, "AUTOFILL_FEASIBILITY", "NOT_EVALUATED")
+    set_current_package(repo_copy, "NONE")
     set_ms_state(repo_copy, "M03", "READY")
     set_pkg_state(repo_copy, "M03-W01", "READY")
     set_next_ready(repo_copy, "`M03-W01`")
@@ -2296,3 +2455,901 @@ def test_milestone_acceptance_allows_verified_package_rows(repo_copy: Path) -> N
     assert all(row[1] == "VERIFIED" for row in m00_rows)
     result = run_validator(repo_copy)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+# The owner waiver changes one documentary prerequisite only. These fixtures
+# retain ordinary gate decisions, reviewers, numerical/safety and native proof.
+def write_owner_holdout_waiver(repo: Path, *, status: str = "ACCEPTED") -> None:
+    path = repo / "docs/DECISIONS.md"
+    text = path.read_text(encoding="utf-8")
+    text = re.sub(
+        r"^### ADR-0006\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    section = (
+        "### ADR-0006 — Continuous execution and owner-controlled holdout waiver\n\n"
+        f"- Status: {status}\n"
+        "- Date proposed / date decided: 2026-10-16 / 2026-10-16\n"
+        '- Owner approval: direct instructions in this chat: "ignore instructions '
+        'relating to stopping after each W is reached and validated"; "you do not '
+        'need owner controlled holdout"; "i want you to keep working till this '
+        'entire project is finished". The owner identified the working GitHub '
+        "repository as jobapplyv2.\n"
+        "- Decision: execute successive eligible packages without per-W stopping. "
+        "Remove owner-controlled hidden holdout as a completion prerequisite across "
+        "this project. Use accessible GitHub sources where they provide actual "
+        "inputs or legacy comparison components. Preserve original manifests and "
+        "historical evidence; never relabel a waiver as execution or PASS.\n\n"
+    )
+    marker = "## ADR template"
+    assert marker in text
+    path.write_text(text.replace(marker, section + marker, 1), encoding="utf-8")
+
+
+def set_fixture_holdout_record(
+    repo: Path, gate: str, value: str | None, *, location: str
+) -> None:
+    path = repo / (
+        "docs/CRITICAL_GATES.md"
+        if location == "ledger"
+        else f"docs/gates/{gate}_GATE.md"
+    )
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(r"^(?:- )?Holdout result:.*$", flags=re.MULTILINE)
+    replacement = "" if value is None else f"- Holdout result: {value}"
+    if location == "ledger":
+        sections = text.split("\n## ")
+        for index, section in enumerate(sections):
+            if section.splitlines()[0] == gate:
+                assert pattern.search(section)
+                sections[index] = pattern.sub(replacement, section)
+                break
+        else:
+            pytest.fail(f"no ledger section for {gate}")
+        text = "\n## ".join(sections)
+    else:
+        assert pattern.search(text)
+        text = pattern.sub(replacement, text)
+    path.write_text(text, encoding="utf-8")
+
+
+def prepare_owner_holdout_waiver_gate(repo: Path) -> None:
+    write_owner_holdout_waiver(repo)
+    prepare_gate_d_pass(repo)
+    for location in ("ledger", "report"):
+        set_fixture_holdout_record(
+            repo, "CROSS_PLATFORM_CORE", "WAIVED_BY_OWNER_ADR_0006", location=location
+        )
+
+
+def assert_holdout_waiver_refused(repo: Path) -> None:
+    result = run_validator(repo)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert "holdout result is not a passing result" in result.stdout
+
+
+def test_owner_holdout_waiver_accepts_exact_accepted_decision(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    for gate in GATES:
+        for location in ("ledger", "report"):
+            set_fixture_holdout_record(
+                repo_copy, gate, "WAIVED_BY_OWNER_ADR_0006", location=location
+            )
+    assert validate_status._owner_holdout_waived(repo_copy)
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_owner_holdout_waiver_rejects_proposed_decision(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    write_owner_holdout_waiver(repo_copy, status="PROPOSED")
+    assert not validate_status._owner_holdout_waived(repo_copy)
+    assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_missing_decision(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    text = re.sub(
+        r"^### ADR-0006\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        path.read_text(encoding="utf-8"),
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    path.write_text(text, encoding="utf-8")
+    assert not validate_status._owner_holdout_waived(repo_copy)
+    assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_missing_owner_quote(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    edit(
+        repo_copy / "docs/DECISIONS.md",
+        '"you do not need owner controlled holdout"',
+        '"owner approval pending"',
+        count=1,
+    )
+    assert not validate_status._owner_holdout_waived(repo_copy)
+    assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_missing_waiver_scope(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    edit(
+        repo_copy / "docs/DECISIONS.md",
+        "Remove owner-controlled hidden holdout as a completion prerequisite "
+        "across this project.",
+        "Retain owner-controlled hidden holdout as a completion prerequisite "
+        "across this project.",
+        count=1,
+    )
+    assert not validate_status._owner_holdout_waived(repo_copy)
+    assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_ambiguous_decision(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write("\n### ADR-0006 — Another decision\n- Status: ACCEPTED\n")
+    assert not validate_status._owner_holdout_waived(repo_copy)
+    assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_fabricated_tokens(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    for token in (
+        "WAIVED_BY_OWNER",
+        "WAIVED_BY_OWNER_ADR_0005",
+        "waived_by_owner_adr_0006",
+        "WAIVED_BY_OWNER_ADR_0006 fabricated execution",
+        "PASS WAIVED_BY_OWNER_ADR_0006",
+    ):
+        for location in ("ledger", "report"):
+            set_fixture_holdout_record(
+                repo_copy, "CROSS_PLATFORM_CORE", token, location=location
+            )
+        assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_one_sided_records(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    for waived_location in ("ledger", "report"):
+        for location in ("ledger", "report"):
+            set_fixture_holdout_record(
+                repo_copy,
+                "CROSS_PLATFORM_CORE",
+                "WAIVED_BY_OWNER_ADR_0006" if location == waived_location else "PASS",
+                location=location,
+            )
+        assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_rejects_ordinary_missing_results(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    for value in ("pending", "UNAVAILABLE", "", None):
+        for location in ("ledger", "report"):
+            if value is None:
+                # Restore a declared field before deliberately removing it.
+                set_fixture_holdout_record(
+                    repo_copy, "CROSS_PLATFORM_CORE", "pending", location=location
+                )
+            set_fixture_holdout_record(
+                repo_copy, "CROSS_PLATFORM_CORE", value, location=location
+            )
+        assert_holdout_waiver_refused(repo_copy)
+
+
+def test_owner_holdout_waiver_keeps_independent_review_required(
+    repo_copy: Path,
+) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    report = repo_copy / "docs/gates/CROSS_PLATFORM_CORE_GATE.md"
+    text = re.sub(
+        r"^- Independent reviewer:.*$",
+        "- Independent reviewer: pending",
+        report.read_text(encoding="utf-8"),
+        flags=re.MULTILINE,
+    )
+    report.write_text(text, encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "independent reviewer" in result.stdout
+
+
+def test_owner_holdout_waiver_keeps_owner_decision_required(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    report = repo_copy / "docs/gates/CROSS_PLATFORM_CORE_GATE.md"
+    text = re.sub(
+        r"^- Owner decision:.*$",
+        "- Owner decision: REJECTED",
+        report.read_text(encoding="utf-8"),
+        flags=re.MULTILINE,
+    )
+    report.write_text(text, encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "owner decision is not PASS" in result.stdout
+
+
+def test_owner_holdout_waiver_keeps_native_evidence_required(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    _set_markdown_table_cell(
+        repo_copy / "docs/platform/MODEL_RUNTIME_PROFILES.md",
+        "windows-x64",
+        1,
+        "`NOT_YET_IMPLEMENTED`",
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "windows-x64 lacks CERTIFIED_FULL/ACCEPTED" in result.stdout
+
+
+def test_owner_holdout_waiver_keeps_zero_tolerance_required(repo_copy: Path) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    ledger = repo_copy / "docs/CRITICAL_GATES.md"
+    sections = ledger.read_text(encoding="utf-8").split("\n## ")
+    for index, section in enumerate(sections):
+        if section.splitlines()[0] == "CROSS_PLATFORM_CORE":
+            sections[index] = section.replace(
+                "- Zero-tolerance failures observed: 0",
+                "- Zero-tolerance failures observed: 1",
+                1,
+            )
+            break
+    ledger.write_text("\n## ".join(sections), encoding="utf-8")
+    result = run_validator(repo_copy)
+    assert result.returncode == 1
+    assert "does not record zero Gate D zero-tolerance failures" in result.stdout
+
+
+def test_historical_boundary_removes_only_later_w14_findings(repo_copy: Path) -> None:
+    activate_corrective_blockers(repo_copy)
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        set_issue_state(repo_copy, issue_id, "IN_PROGRESS")
+    set_live_blockers(
+        repo_copy,
+        [
+            *CURRENT_BLOCKER_LINES,
+            "- KI-0077 (HIGH, IN_PROGRESS) — synthetic later timing finding",
+            "- KI-0078 (HIGH, IN_PROGRESS) — synthetic later locale finding",
+            "- KI-0079 (HIGH, IN_PROGRESS) — synthetic later ownership finding",
+            "- KI-0080 (HIGH, IN_PROGRESS) — synthetic later observation finding",
+            "- KI-0081 (HIGH, IN_PROGRESS) — synthetic later option-binding finding",
+            (
+                "- KI-0082 (HIGH, IN_PROGRESS) — synthetic later "
+                "topology-accounting finding"
+            ),
+            "- KI-0083 (HIGH, IN_PROGRESS) — synthetic later native-property finding",
+            "- KI-0084 (HIGH, IN_PROGRESS) — synthetic later source finding",
+            "- KI-0085 (HIGH, IN_PROGRESS) — synthetic later collision finding",
+            "- KI-0086 (HIGH, IN_PROGRESS) — synthetic later freshness finding",
+            "- KI-0087 (HIGH, IN_PROGRESS) — synthetic later fixture finding",
+            "- KI-0088 (HIGH, IN_PROGRESS) — synthetic later observation finding",
+            "- KI-0089 (HIGH, IN_PROGRESS) — synthetic later external evidence gap",
+            "- KI-0090 (HIGH, IN_PROGRESS) — synthetic later Windows compiler finding",
+            "- KI-0091 (HIGH, IN_PROGRESS) — synthetic later native validity finding",
+            "- KI-0092 (HIGH, IN_PROGRESS) — synthetic later reporting finding",
+            "- KI-0093 (HIGH, IN_PROGRESS) — synthetic later encoding finding",
+            "- KI-0094 (HIGH, IN_PROGRESS) — synthetic later focus-value finding",
+            "- KI-0095 (HIGH, IN_PROGRESS) — synthetic later fixture-capacity finding",
+            "- KI-0096 (HIGH, IN_PROGRESS) — synthetic later metadata timing finding",
+        ],
+    )
+    reset_downstream(repo_copy, after_package="M01-W07", after_milestone="M01")
+    issues = validate_status.parse_known_issues(
+        repo_copy / "docs/KNOWN_ISSUES.md", validate_status.Report()
+    )
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        assert issues[issue_id].state == "FIXED"
+    for issue_id in CORRECTIVE_BLOCKER_IDS:
+        assert issues[issue_id].state == "IN_PROGRESS"
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_w14_boundary_preserves_current_campaign_findings(repo_copy: Path) -> None:
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        set_issue_state(repo_copy, issue_id, "IN_PROGRESS")
+    set_live_blockers(
+        repo_copy,
+        [
+            "- KI-0077 (HIGH, IN_PROGRESS) — synthetic current timing finding",
+            "- KI-0078 (HIGH, IN_PROGRESS) — synthetic current locale finding",
+            "- KI-0079 (HIGH, IN_PROGRESS) — synthetic current ownership finding",
+            "- KI-0080 (HIGH, IN_PROGRESS) — synthetic current observation finding",
+            "- KI-0081 (HIGH, IN_PROGRESS) — synthetic current option-binding finding",
+            (
+                "- KI-0082 (HIGH, IN_PROGRESS) — synthetic current "
+                "topology-accounting finding"
+            ),
+            "- KI-0083 (HIGH, IN_PROGRESS) — synthetic current native-property finding",
+            "- KI-0084 (HIGH, IN_PROGRESS) — synthetic current source finding",
+            "- KI-0085 (HIGH, IN_PROGRESS) — synthetic current collision finding",
+            "- KI-0086 (HIGH, IN_PROGRESS) — synthetic current freshness finding",
+            "- KI-0087 (HIGH, IN_PROGRESS) — synthetic current fixture finding",
+            "- KI-0088 (HIGH, IN_PROGRESS) — synthetic current observation finding",
+            "- KI-0089 (HIGH, IN_PROGRESS) — synthetic current external evidence gap",
+            "- KI-0090 (HIGH, IN_PROGRESS) — synthetic current Windows compiler issue",
+            "- KI-0091 (HIGH, IN_PROGRESS) — synthetic current native validity issue",
+            "- KI-0092 (HIGH, IN_PROGRESS) — synthetic current reporting issue",
+            "- KI-0093 (HIGH, IN_PROGRESS) — synthetic current encoding issue",
+            "- KI-0094 (HIGH, IN_PROGRESS) — synthetic current focus-value issue",
+            "- KI-0095 (HIGH, IN_PROGRESS) — synthetic current fixture-capacity issue",
+            "- KI-0096 (HIGH, IN_PROGRESS) — synthetic current metadata timing issue",
+        ],
+    )
+    reset_downstream(repo_copy, after_package="M02-W14", after_milestone="M02")
+    issues = validate_status.parse_known_issues(
+        repo_copy / "docs/KNOWN_ISSUES.md", validate_status.Report()
+    )
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        assert issues[issue_id].state == "IN_PROGRESS"
+    status = status_path(repo_copy).read_text(encoding="utf-8")
+    for issue_id in CURRENT_M02_W14_CORRECTIVE_ISSUE_IDS:
+        assert f"- {issue_id} (HIGH, IN_PROGRESS)" in status
+
+
+def _typed_waiver_pair(repo: Path) -> tuple[dict[str, object], dict[str, object]]:
+    """Source authority is separate from the canonical typed gate verdict."""
+    digest = validate_status._owner_holdout_waiver_digest(repo)
+    assert digest is not None
+    assessment: dict[str, object] = {
+        "state": "WAIVED_BY_OWNER_ADR_0006",
+        "execution_performed": False,
+        "owner_waiver": {
+            "adr_ref": "ADR-0006",
+            "owner_decision_ref": "OD-035",
+            "source_document_ref": "docs/DECISIONS.md",
+            "source_record_digest": digest,
+        },
+    }
+    identity: dict[str, object] = {
+        "gate_id": "AUTOFILL_FEASIBILITY",
+        "candidate_commit": "0" * 40,
+        "candidate_tree": "1" * 40,
+        "evidence_bundle_digest": FAKE_EVIDENCE_HASH,
+        "holdout_assessment": assessment,
+    }
+    return (
+        {**identity, "completeness_inventory": {"holdout_valid": False}},
+        {**identity, "threshold_evidence_summary": {"holdout_valid": False}},
+    )
+
+
+def _typed_waiver_authority_problems(
+    repo: Path,
+    bundle: dict[str, object],
+    decision: dict[str, object],
+    ledger: str = "Holdout result: WAIVED_BY_OWNER_ADR_0006",
+    report: str = "Holdout result: WAIVED_BY_OWNER_ADR_0006",
+) -> list[str]:
+    return validate_status.gate_holdout_authority_v2_problems(
+        repo, bundle, decision, ledger, report
+    )
+
+
+@pytest.mark.parametrize("gate_id", GATES)
+def test_gate_v2_waiver_binds_accepted_owner_record_all_gates(
+    repo_copy: Path, gate_id: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    bundle["gate_id"] = decision["gate_id"] = gate_id
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision) == []
+    assert bundle["completeness_inventory"] == {"holdout_valid": False}
+    assert decision["threshold_evidence_summary"] == {"holdout_valid": False}
+
+
+@pytest.mark.parametrize("state", ["PROPOSED", "REJECTED", "SUPERSEDED"])
+def test_gate_v2_waiver_refuses_unaccepted_adr(repo_copy: Path, state: str) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    text = path.read_text(encoding="utf-8")
+    heading = validate_status.OWNER_HOLDOUT_WAIVER_HEADING
+    prefix, section = text.split(heading, 1)
+    path.write_text(
+        prefix
+        + heading
+        + section.replace("- Status: ACCEPTED", f"- Status: {state}", 1),
+        encoding="utf-8",
+    )
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+def test_gate_v2_waiver_refuses_missing_adr(repo_copy: Path) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    (repo_copy / "docs/DECISIONS.md").unlink()
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+def test_gate_v2_waiver_refuses_fabricated_record_digest(repo_copy: Path) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    assessment = bundle["holdout_assessment"]
+    assert isinstance(assessment, dict)
+    assessment["owner_waiver"]["source_record_digest"] = FAKE_EVIDENCE_HASH
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+def test_gate_v2_waiver_refuses_changed_own_record_preimage(repo_copy: Path) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    text = path.read_text(encoding="utf-8")
+    heading = validate_status.OWNER_HOLDOUT_WAIVER_HEADING
+    path.write_text(
+        text.replace(
+            heading + "\n", heading + "\n\n- Additional accepted-record context.\n", 1
+        ),
+        encoding="utf-8",
+    )
+    assert validate_status._owner_holdout_waived(repo_copy)
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+def test_gate_v2_waiver_ignores_unrelated_later_adr(repo_copy: Path) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    before = validate_status._owner_holdout_waiver_digest(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    text = path.read_text(encoding="utf-8")
+    path.write_text(
+        text.replace(
+            "## ADR template",
+            "### ADR-9999 — Unrelated synthetic later decision\n\n"
+            "- Status: PROPOSED\n\n## ADR template",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    assert validate_status._owner_holdout_waiver_digest(repo_copy) == before
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision) == []
+
+
+@pytest.mark.parametrize("change", ["missing", "duplicate", "proposed"])
+def test_gate_v2_waiver_refuses_invalid_owner_decision_row(
+    repo_copy: Path, change: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    path = repo_copy / "docs/DECISIONS.md"
+    row = validate_status.OWNER_HOLDOUT_WAIVER_OWNER_ROW
+    replacement = (
+        ""
+        if change == "missing"
+        else row + "\n" + row
+        if change == "duplicate"
+        else row.replace("| ACCEPTED |", "| PROPOSED |")
+    )
+    path.write_text(
+        path.read_text(encoding="utf-8").replace(row, replacement, 1), encoding="utf-8"
+    )
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+@pytest.mark.parametrize(
+    "key", ["gate_id", "candidate_commit", "candidate_tree", "evidence_bundle_digest"]
+)
+def test_gate_v2_waiver_refuses_unpaired_artifact_identity(
+    repo_copy: Path, key: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    decision[key] = "different"
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+@pytest.mark.parametrize("side", ["bundle", "decision"])
+def test_gate_v2_waiver_refuses_claimed_holdout_valid(
+    repo_copy: Path, side: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    if side == "bundle":
+        bundle["completeness_inventory"] = {"holdout_valid": True}
+    else:
+        decision["threshold_evidence_summary"] = {"holdout_valid": True}
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+@pytest.mark.parametrize("mutation", ["executed", "result-ref", "unknown-owner-ref"])
+def test_gate_v2_waiver_refuses_execution_or_other_owner_authority(
+    repo_copy: Path, mutation: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    assessment = bundle["holdout_assessment"]
+    assert isinstance(assessment, dict)
+    if mutation == "executed":
+        assessment["execution_performed"] = True
+    elif mutation == "result-ref":
+        assessment["execution_result_ref"] = "result_0123456789ABCDEFGHJKMNPQRS"
+    else:
+        assessment["owner_waiver"]["owner_decision_ref"] = "OD-036"
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+@pytest.mark.parametrize("token", ["PENDING", "UNAVAILABLE", "WAIVED_BY_OWNER", "PASS"])
+def test_gate_v2_waiver_refuses_unpaired_or_execution_tokens(
+    repo_copy: Path, token: str
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    assert _typed_waiver_authority_problems(
+        repo_copy, bundle, decision, report=f"Holdout result: {token}"
+    )
+
+
+def test_gate_v2_waiver_refuses_mismatched_assessments(repo_copy: Path) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    decision["holdout_assessment"] = {
+        "state": "NOT_EXECUTED",
+        "execution_performed": False,
+    }
+    assert _typed_waiver_authority_problems(repo_copy, bundle, decision)
+
+
+def test_gate_v2_waiver_cannot_relabel_both_records_as_execution_pass(
+    repo_copy: Path,
+) -> None:
+    bundle, decision = _typed_waiver_pair(repo_copy)
+    assert _typed_waiver_authority_problems(
+        repo_copy,
+        bundle,
+        decision,
+        ledger="Holdout result: PASS",
+        report="Holdout result: PASS",
+    )
+
+
+# ADR-0007 changes only two explicitly named evidence-source prerequisites.
+EVIDENCE_SCOPE_AUTHORITY_FIXTURE = {
+    "heading": (
+        "### ADR-0007 — Direct Simplify comparison and executed public-form "
+        "evidence waiver"
+    ),
+    "owner_row": (
+        "| OD-036 | Waive direct Simplify comparison and executed "
+        "public-form evidence throughout the project; preserve all other "
+        "completion, safety, measurement and review requirements. Continue "
+        "until the project is finished and validated. | ACCEPTED | Owner "
+        "message 2026-10-17; ADR-0007 |"
+    ),
+    "approval": (
+        "- Owner approval: direct instruction in this chat on 2026-10-17: "
+        '"Waive the Simplify comparison and public-form evidence '
+        "requirements too. Keep going through all remaining milestones "
+        'until the entire project is finished and validated."'
+    ),
+    "decision": (
+        "- Decision: remove direct Simplify comparison and executed "
+        "public-form evidence as completion prerequisites throughout this "
+        "project. Record the affected requirements as WAIVED_BY_OWNER under "
+        "OD-036 / ADR-0007; preserve actual historical outcomes and never "
+        "relabel nonexecution as PASS. Continue successive eligible "
+        "packages under ADR-0006 without per-W stopping. Numerical "
+        "accuracy, safety and performance thresholds, controlled-corpus "
+        "execution, native-platform proof, independent review, other "
+        "comparison baselines, product capabilities, actual usability, "
+        "accessibility, visual approval and all other non-comparison "
+        "requirements remain binding. This decision grants no public ATS "
+        "support, superiority claim or final gate verdict."
+    ),
+    "scope": (
+        "- Waiver scope: DIRECT_SIMPLIFY_COMPARISON and "
+        "EXECUTED_PUBLIC_FORM_EVIDENCE only, project-wide. Only the "
+        "directly comparative Simplify component of a mixed requirement is "
+        "waived; public-form evidence means execution-based validation on "
+        "third-party public application forms, including public "
+        "no-submit/dry-run requirements. Other components remain required. "
+        "Public UI-reference observation, actual Simplify-experienced-user "
+        "task studies, accessibility, visual approval and "
+        "originality/non-affiliation requirements are not waived."
+    ),
+}
+
+EVIDENCE_SCOPE_LABELS = {
+    "DIRECT_SIMPLIFY_COMPARISON": "Simplify comparison result",
+    "EXECUTED_PUBLIC_FORM_EVIDENCE": "Public-form evidence result",
+}
+EVIDENCE_SCOPE_WAIVER_RESULT = "WAIVED_BY_OWNER_ADR_0007"
+
+
+def write_owner_evidence_scope_waiver(repo: Path, *, status: str = "ACCEPTED") -> None:
+    path = repo / "docs/DECISIONS.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = path.read_text(encoding="utf-8") if path.is_file() else "# Decisions\n"
+    text = re.sub(r"^\| OD-036 \|.*\n?", "", text, flags=re.MULTILINE)
+    text = re.sub(
+        r"^### ADR-0007\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    record = (
+        EVIDENCE_SCOPE_AUTHORITY_FIXTURE["owner_row"]
+        + "\n\n"
+        + EVIDENCE_SCOPE_AUTHORITY_FIXTURE["heading"]
+        + f"\n\n- Status: {status}\n"
+        + "\n".join(
+            EVIDENCE_SCOPE_AUTHORITY_FIXTURE[key]
+            for key in ("approval", "decision", "scope")
+        )
+        + "\n"
+    )
+    path.write_text(text.rstrip("\n") + "\n\n" + record, encoding="utf-8")
+
+
+def evidence_scope_records(
+    *scopes: str, token: str = EVIDENCE_SCOPE_WAIVER_RESULT
+) -> str:
+    selected = scopes or tuple(EVIDENCE_SCOPE_LABELS)
+    return "\n".join(f"- {EVIDENCE_SCOPE_LABELS[scope]}: {token}" for scope in selected)
+
+
+def install_gate_evidence_scope_records(repo: Path, gate: str, value: str) -> None:
+    pattern = r"^(?:- )?(?:Simplify comparison|Public-form evidence) result:.*\n?"
+    ledger = repo / "docs/CRITICAL_GATES.md"
+    sections = ledger.read_text(encoding="utf-8").split("\n## ")
+    for index, section in enumerate(sections):
+        if section.splitlines()[0] == gate:
+            updated_section = re.sub(pattern, "", section, flags=re.MULTILINE)
+            sections[index] = updated_section.rstrip("\n") + "\n" + value + "\n"
+            break
+    else:
+        pytest.fail(f"missing gate fixture section: {gate}")
+    ledger.write_text("\n## ".join(sections), encoding="utf-8")
+    report = repo / f"docs/gates/{gate}_GATE.md"
+    text = re.sub(pattern, "", report.read_text(encoding="utf-8"), flags=re.MULTILINE)
+    report.write_text(text.rstrip("\n") + "\n" + value + "\n", encoding="utf-8")
+
+
+def test_owner_evidence_waiver_claims_require_recorded_authority(
+    repo_copy: Path,
+) -> None:
+    path = repo_copy / "docs/DECISIONS.md"
+    text = re.sub(
+        r"^### ADR-0007\b[^\n]*\n.*?(?=^##(?:#)? |\Z)",
+        "",
+        path.read_text(encoding="utf-8"),
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    text = re.sub(r"^\| OD-036 \|.*\n?", "", text, flags=re.MULTILINE)
+    path.write_text(text, encoding="utf-8")
+    install_gate_evidence_scope_records(
+        repo_copy, "AUTOFILL_FEASIBILITY", evidence_scope_records()
+    )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert (
+        "evidence-source waiver lacks exact accepted owner authority" in result.stdout
+    )
+
+
+def test_owner_evidence_waiver_cannot_substitute_native_metrics(tmp_path: Path) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    text = (
+        "### Metric table\n"
+        "| Dimension | Threshold | Measured |\n"
+        "|---|---|---|\n"
+        f"| Native startup | 1000ms | {EVIDENCE_SCOPE_WAIVER_RESULT} |\n"
+        "- Zero-tolerance failures observed: 0\n"
+    )
+    assert validate_status._gate_d_metric_problems(text)
+
+
+def test_owner_evidence_waiver_accepts_closed_paired_scopes(tmp_path: Path) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    for scope in EVIDENCE_SCOPE_LABELS:
+        assert validate_status._owner_evidence_scope_waived(tmp_path, scope)
+    records = evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON")
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records, gate="RESUME_PAGEFIT_FEASIBILITY"
+    )
+    records = evidence_scope_records()
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+    for gate in ("AUTOFILL_FEASIBILITY", "WORKDAY_GUIDED_PRE_SUBMIT"):
+        incomplete = evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON")
+        assert validate_status._gate_evidence_scope_waiver_problems(
+            tmp_path, incomplete, incomplete, gate=gate
+        )
+    for scope in ("NATIVE_PLATFORM_PROOF", "INDEPENDENT_REVIEW", "SAFETY", "ALL"):
+        assert not validate_status._owner_evidence_scope_waived(tmp_path, scope)
+
+
+@pytest.mark.parametrize("status", ["PROPOSED", "REJECTED", "SUPERSEDED"])
+def test_owner_evidence_waiver_refuses_unaccepted_record(
+    tmp_path: Path, status: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path, status=status)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "part", ["owner_row", "heading", "approval", "decision", "scope", "status"]
+)
+def test_owner_evidence_waiver_refuses_missing_or_changed_authority(
+    tmp_path: Path, part: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    old = (
+        "- Status: ACCEPTED"
+        if part == "status"
+        else EVIDENCE_SCOPE_AUTHORITY_FIXTURE[part]
+    )
+    edit(path, old, "- removed or changed authority", count=1)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "part", ["owner_row", "heading", "approval", "decision", "scope"]
+)
+def test_owner_evidence_waiver_refuses_ambiguous_authority(
+    tmp_path: Path, part: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(EVIDENCE_SCOPE_AUTHORITY_FIXTURE[part] + "\n")
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize(
+    "token",
+    [
+        "WAIVED_BY_OWNER",
+        "WAIVED_BY_OWNER_ADR_0006",
+        "WAIVED_BY_OWNER_ADR_0008",
+        "waived_by_owner_adr_0007",
+        "PASS WAIVED_BY_OWNER_ADR_0007",
+        "WAIVED_BY_OWNER_ADR_0007 executed",
+        "PENDING",
+        "UNAVAILABLE",
+    ],
+)
+def test_owner_evidence_waiver_refuses_forged_or_unpaired_tokens(
+    tmp_path: Path, token: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, evidence_scope_records(), evidence_scope_records(token=token)
+    )
+
+
+def test_owner_evidence_waiver_refuses_missing_duplicate_and_expanded_fields(
+    tmp_path: Path,
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    records = evidence_scope_records()
+    for bad in (
+        "",
+        evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+        records + "\n" + evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+        records + f"\n- Native platform proof result: {EVIDENCE_SCOPE_WAIVER_RESULT}",
+    ):
+        assert validate_status._gate_evidence_scope_waiver_problems(
+            tmp_path, records, bad
+        )
+
+
+def test_owner_evidence_waiver_absence_never_claims_authority(tmp_path: Path) -> None:
+    assert not validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, "ordinary evidence pending", "ordinary evidence pending"
+    )
+    assert not validate_status._owner_evidence_scope_waived(
+        tmp_path, "DIRECT_SIMPLIFY_COMPARISON"
+    )
+
+
+@pytest.mark.parametrize("source_state", ["missing", "directory", "invalid_utf8"])
+def test_owner_evidence_waiver_refuses_unreadable_source(
+    tmp_path: Path, source_state: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    path = tmp_path / "docs/DECISIONS.md"
+    path.unlink()
+    if source_state == "directory":
+        path.mkdir()
+    elif source_state == "invalid_utf8":
+        path.write_bytes(b"\xff")
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+@pytest.mark.parametrize("link_component", ["docs", "DECISIONS.md"])
+def test_owner_evidence_waiver_refuses_symlink_metadata(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, link_component: str
+) -> None:
+    write_owner_evidence_scope_waiver(tmp_path)
+    original = Path.is_symlink
+
+    def reported_link(path: Path) -> bool:
+        return path.name == link_component or original(path)
+
+    monkeypatch.setattr(Path, "is_symlink", reported_link)
+    records = evidence_scope_records()
+    assert validate_status._gate_evidence_scope_waiver_problems(
+        tmp_path, records, records
+    )
+
+
+def test_owner_evidence_waiver_record_digest_is_local_and_holdout_unchanged(
+    repo_copy: Path,
+) -> None:
+    before_holdout = validate_status._owner_holdout_waiver_digest(repo_copy)
+    assert before_holdout
+    write_owner_evidence_scope_waiver(repo_copy)
+    before = validate_status._owner_evidence_scope_waiver_digest(repo_copy)
+    assert before
+    path = repo_copy / "docs/DECISIONS.md"
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write("\n### ADR-9999 — Unrelated future record\n- Status: PROPOSED\n")
+    assert validate_status._owner_evidence_scope_waiver_digest(repo_copy) == before
+    assert validate_status._owner_holdout_waiver_digest(repo_copy) == before_holdout
+    edit(path, EVIDENCE_SCOPE_AUTHORITY_FIXTURE["scope"], "- Waiver scope: ALL")
+    assert validate_status._owner_evidence_scope_waiver_digest(repo_copy) is None
+
+
+def test_owner_evidence_waiver_does_not_promote_current_gate(repo_copy: Path) -> None:
+    write_owner_evidence_scope_waiver(repo_copy)
+    install_gate_evidence_scope_records(
+        repo_copy, "AUTOFILL_FEASIBILITY", evidence_scope_records()
+    )
+    before = status_path(repo_copy).read_bytes()
+    result = run_validator(repo_copy)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert status_path(repo_copy).read_bytes() == before
+
+
+@pytest.mark.parametrize("missing", ["reviewer", "owner", "native", "safety"])
+def test_owner_evidence_waiver_preserves_other_gate_prerequisites(
+    repo_copy: Path, missing: str
+) -> None:
+    prepare_owner_holdout_waiver_gate(repo_copy)
+    write_owner_evidence_scope_waiver(repo_copy)
+    for gate in ("AUTOFILL_FEASIBILITY", "WORKDAY_GUIDED_PRE_SUBMIT"):
+        install_gate_evidence_scope_records(repo_copy, gate, evidence_scope_records())
+    install_gate_evidence_scope_records(
+        repo_copy,
+        "RESUME_PAGEFIT_FEASIBILITY",
+        evidence_scope_records("DIRECT_SIMPLIFY_COMPARISON"),
+    )
+    baseline = run_validator(repo_copy)
+    assert baseline.returncode == 0, baseline.stdout + baseline.stderr
+    report = repo_copy / "docs/gates/CROSS_PLATFORM_CORE_GATE.md"
+    if missing == "reviewer":
+        edit(
+            report,
+            f"- Independent reviewer: {FAKE_REVIEWER}",
+            "- Independent reviewer: pending",
+        )
+    elif missing == "owner":
+        edit(
+            report,
+            "- Owner decision: PASS (synthetic fixture)",
+            "- Owner decision: REJECTED",
+        )
+    elif missing == "native":
+        _set_markdown_table_cell(
+            repo_copy / "docs/platform/MODEL_RUNTIME_PROFILES.md",
+            "windows-x64",
+            1,
+            "`NOT_YET_IMPLEMENTED`",
+        )
+    else:
+        ledger = repo_copy / "docs/CRITICAL_GATES.md"
+        edit(
+            ledger,
+            "- Zero-tolerance failures observed: 0",
+            "- Zero-tolerance failures observed: 1",
+        )
+    result = run_validator(repo_copy)
+    assert result.returncode == 1, result.stdout + result.stderr

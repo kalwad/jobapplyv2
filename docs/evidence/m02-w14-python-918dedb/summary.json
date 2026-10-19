@@ -1,0 +1,20 @@
+{
+  "head": "918dedb3fc379e1fc19cf6ef54bbefa1110b35d3",
+  "tree": "bd9eb473719dba61ed842c266c553e334c893538",
+  "command": [
+    "pnpm",
+    "test:python"
+  ],
+  "exit_code": 0,
+  "python_tests_passed": 1454,
+  "pytest_seconds": 583.78,
+  "completion": {
+    "exit_code": 0,
+    "head_unchanged": true,
+    "status_before": "",
+    "status_after": "",
+    "tracked_inventory_unchanged": true,
+    "ended_at": "2026-10-16T21:43:25Z"
+  },
+  "scope": "Full affected Python suite including doctor neutrality on clean source after UTF8 fixture correction; native Windows remains separately pending."
+}

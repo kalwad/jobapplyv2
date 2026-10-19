@@ -1,18 +1,18 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M02-W13 performance rescue and harness implementation based on f17b358b7e9a8d601769a099992510515d50278e
-Last updated: 2026-09-30T18:32:59+00:00
-Current phase: A — Contract, measurement, and early autofill proof
-Current milestone: M02
-Current work package: M02-W13
+Repository revision: M03-W05 VERIFIED at185909b/tree3c2ba3a; M03-W06 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
+Last updated: 2026-10-19
+Current phase: B — Local platform and desktop foundation
+Current milestone: M03
+Current work package: M03-W06
 Overall release gate: NOT_READY
 
 ## Critical gates
 
 | Gate | State | Evaluated revision | Corpus/holdout hash | Independent reviewer | Report |
 |---|---|---|---|---|---|
-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+| AUTOFILL_FEASIBILITY | PASS | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8 | /root/gate_a_final_audit | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
 | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
 | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
 | CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
@@ -23,9 +23,13 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M02-W13 is IN_PROGRESS. GPT-6.1 Sol Ultra remains owner-selected. The current dirty worktree was preserved in a hashed local recovery snapshot before continuation. Zero packages are READY.
-- Evidence: rescue round 1 of four additionally authorized rounds clears the exact target-Mac 128-control lower-bound case: 20-sample p95 1,468.28 ms, all 128 fills verified, 512 live resolutions, three candidate enumerations and one semantic-index build. The four-family W12 development harness uses the accepted W05 runner and reports partial completion honestly. Internal finite verification and all six mutations are CLEAR; the exact corpus registration is aligned. Refreeze, both canonical passes, exact-SHA hosted proof and final verifier/lifecycle/governance remain pending.
-- Gate posture: M00/M01 ACCEPTED, M02 IN_PROGRESS, W01–W12 VERIFIED, W14/W15 NOT_STARTED. All gates NOT_EVALUATED and release NOT_READY. ADR-0005 records owner approval. No actual owner holdout, Simplify, employer evaluation, automatic navigation, submission or production ATS-support claim.
+- State: M03-W06 is the sole IN_PROGRESS package;38/300 packages VERIFIED. M00/M01/M02 remain ACCEPTED and Gate A PASS. M03 stays IN_PROGRESS;release NOT_READY.
+- Completed prerequisite: W05 VERIFIED at185909b/tree3c2ba3a after actual doctor28/all20 PASS,Python1679/TypeScript4006/native183 in each of three modes/browser262+2+62+3, unchanged1905 source/runtime40 and different48/48 full-data review. Separately reviewed real four-case recovery proof each3 modes retains its own identity.
+- Objective: finish the macOS arm64 development package and common lifecycle contract. Reviewed packaging source is integrated; actual affected112Python/native232 in each3 modes, fresh40-file runtime/43-file signed local app/static inspection, and one owned forced-parent process case pass with separate data reviews. Native window/LaunchServices/Close/Quit/Ready UI cases remain pending: the actual own-app UI tool returned Mac LOCKED. No lock workaround or W06 verification is inferred. The first clean e0a501b full records doctor28 PASS and18PASS/2FAIL before pytest at the fixture collection-policy boundary; the preserved fixture-only repair then passes all6 focused commands including1801Python/no skips and integrity, with source/runtime unchanged and separate data review. The new clean660f9f1/treebe68 full passes doctor28/all20, Python1801, TypeScript4006/native232 each3/browser262+2+62+3, with1961 source/runtime40 unchanged and different49/49 data review. Separately, one e0a501b cfg(test)-only headless packaged-service derivative passes authenticated health/ready/version and same-owner EngineREADY→UNAVAILABLE cleanup;232 other cases are filtered, and no currentwhole-tree/GUI credit transfers.
+- Execution: continue all eligible work without routine approval prompts under OD-035–037. Measured evidence, different reviews, numerical/safety limits and exact ADR-0006/0007 waivers remain binding.
+- Hosted immutable660f run39207973986 is terminal: macOS/Ubuntu20PASS;Windows18PASS2FAIL (Python mocked-system-directory fixture; two Tauri local-origin assertions). Actual mergef1a558ee maps to exactbe68 tree1961 on all3hosts. Doctor28/TypeScript4006/browser262+2+62+3PASS each; nativeMac232/Ubuntu231 each3PASS,Windowsdefault220with218PASS2FAIL/latermodesandfinalbuildUNEXECUTED. TypecheckPASS; priorc4f opaqueFAIL cause remainsUNOBSERVED. Static Windows diagnostic succeeds with14commands/145source bindings/twoPE+CommonControls6manifests/15Turbo logs446B, while its NO_CAUSAL_VERDICT and skipped Windows neutrality step remain explicit. KI-0111 link andKI-0113 resolver defects close narrowly; KI-0109 historical startup cause remains unproved. KI-0114/0115 corrections preserve all assertions and pass local checks; fresh native Windows validation remains pending.
+- Shared packaging integration:20 reviewed current code/inventory paths (8modified/12added),1983logical source before metadata; common1858/POSIX1860 preserves allold1799+2 and adds exactly59common IDs. Original715focus713PASS2FAIL remains frozen. Corrected7-command focus715PASS/portability0/canonical1860 collection and separate6 local checks (fixture3PASS/Rust15commands/native232each3/finalbuildPASS/same1860IDs) pass with source/runtime40 unchanged and different57+59 data reviews. Current integrated all20 full and new native package CI evaluation are pending; no source/outcome transfer from the older clean660f full or hosted run is used.
+- Evidence: docs/evidence/m03-w06-shared-native-packaging plus docs/evidence/m03-w06-current-local-full, docs/evidence/m03-w06-mac-headless-service, docs/evidence/m03-w06-windows-manifest-correction, docs/evidence/m03-w06-collection-correction and preserved development-package/W05/W04 packets. The oldc4f/2a327 failures and the newer660f WindowsFAIL remain distinct. Native window/LaunchServices/Close/Quit/Ready UI remains pending after MacLOCKED; WindowsServer CI is not Windows11desktop and UbuntuCI is not defaultGNOMEGUI. No milestone, gate, release or M04 activation is asserted.
 
 ## Milestone table
 
@@ -33,8 +37,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 |---|---|---|---|
 | M00 | ACCEPTED | tree 7a2a02cad4bbd8c4dc2a8106b1595860f9b78d91 | Phase A. Re-accepted under v1.4 after the M00-W11 exact-byte adoption and hosted three-OS proof; v1.2/v1.3 acceptances remain historical evidence |
 | M01 | ACCEPTED | tree 51c81bedb909ae7b6d54569abc8b8fb13af1c590 | Phase A. Re-accepted after KI-0029 through KI-0032 corrective executable proof; the invalidated acceptance at tree 211c4b72cae4404dc277d8b31df240e4abfc717c and prior acceptances remain historical evidence |
-| M02 | IN_PROGRESS | — | Phase A. Evaluation corpus, mock ATS lab, frozen baselines, and Autofill Feasibility Gate (deps: M00, M01); M02-W01 VERIFIED at tree 666987a702d274aabcee8bbfdfae5afd5d9c18e7, M02-W02 VERIFIED at tree ebe546966ed403f3155dcd04779984671e565d06, M02-W03 VERIFIED at tree 63c2dd89c4f02b6ba929b52f8fb862e9e3880758, M02-W04 VERIFIED at tree 656c61d87d0615b6a9b96319888856057686223b, M02-W05 VERIFIED at tree 40bbe111a4f80702c1fdd98b576534f1284873fc, M02-W06 VERIFIED at tree 6fd4219460a7659b21576f2ca20b19b744f3bbf9, M02-W07 VERIFIED at tree 9412c5b71437ee562534a1fb92e80ab50ffc333d, M02-W08 VERIFIED at tree 3aab675ae852fe0f14ce4be52e1630a88ce2b202, M02-W09 VERIFIED at tree 0c3546e6a83a28b088b6f52d299a2c769f3ab412, M02-W10 VERIFIED at tree 339281269554f5886a9d763e0d23f1de0deffa2c, M02-W11 VERIFIED at tree b90668b5d8eb120533be26a94817e2081b8df261, and M02-W12 VERIFIED at tree 25f4128163ec73a91afd54a15c026b38d4187e5a |
-| M03 | NOT_STARTED | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
+| M02 | ACCEPTED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | Gate A PASS after actual complete frozen95f5 validation, independent source-bound PASS and delegated acceptance OD-037 / ADR-0008; all fifteen packages VERIFIED |
+| M03 | IN_PROGRESS | — | Phase B. Desktop shell, local orchestrator lifecycle, and authenticated health path (deps: M00, M01, M02; requires AUTOFILL_FEASIBILITY = PASS, M02 ACCEPTED) |
 | M04 | NOT_STARTED | — | Phase B. Encrypted persistence, migrations, artifacts, backup, and restore (deps: M01, M03) |
 | M05 | NOT_STARTED | — | Phase B. Local model runtime, exact model lock, domain benchmark, and Resume Tailoring/PageFit Feasibility Gate (deps: M02, M03, M04) |
 | M06 | NOT_STARTED | — | Phase C. Canonical career evidence graph (deps: M01, M04, M05; requires RESUME_PAGEFIT_FEASIBILITY = PASS, M05 ACCEPTED) |
@@ -105,15 +109,15 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W10` | VERIFIED | tree 339281269554f5886a9d763e0d23f1de0deffa2c | docs/TEST_EVIDENCE.md § M02-W10 | Implement transactional control drivers; final content verified by the same-package internal adversarial gauntlet after `CONTENT CLEAR` (hosted content run 32772492093) |
 | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
 | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
-| `M02-W13` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W13 blocked development attempt | Performance rescue passed locally; complete W13 verification and hosted proof pending |
-| `M02-W14` | NOT_STARTED | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
-| `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
-| `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
-| `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
-| `M03-W03` | NOT_STARTED | — | — | Implement sidecar lifecycle |
-| `M03-W04` | NOT_STARTED | — | — | Implement authenticated API client |
-| `M03-W05` | NOT_STARTED | — | — | Add crash/restart behavior |
-| `M03-W06` | NOT_STARTED | — | — | Package development build |
+| `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
+| `M02-W14` | VERIFIED | tree d2c1fd5e50bbbd31a926cbf251d6140d11b9b9c4 | docs/TEST_EVIDENCE.md § M02-W14 | Frozen6384 clean-clone full verification and reviewed candidate package evidence complete; ADR6/7 waived observations stay unexecuted; formal Gate A decision belongs W15 |
+| `M02-W15` | VERIFIED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | docs/TEST_EVIDENCE.md § M02-W15 | Independent source-bound PASS and delegated Gate A acceptance; immutable evidence chain retained |
+| `M03-W01` | VERIFIED | tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9 | docs/TEST_EVIDENCE.md § M03-W01 | Tauri desktop shell and shared UI foundation; accepted M00/M01/M02 and Gate A PASS dependencies |
+| `M03-W02` | VERIFIED | tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d | docs/TEST_EVIDENCE.md § M03-W02 | Create FastAPI service skeleton |
+| `M03-W03` | VERIFIED | tree 34fcf854cb4a1a452b267a02a05e0c34aeb6f89c | docs/TEST_EVIDENCE.md § M03-W03 | Implement sidecar lifecycle |
+| `M03-W04` | VERIFIED | tree 4ce9cf0c1f5515252a029584f820ea674a66e05e | docs/TEST_EVIDENCE.md § M03-W04 | Implement authenticated API client |
+| `M03-W05` | VERIFIED | tree 3c2ba3a601bd1b8c32bb11b52ca79e48d13b92ed | docs/TEST_EVIDENCE.md § M03-W05 | Add crash/restart behavior |
+| `M03-W06` | IN_PROGRESS | — | — | Package development build |
 | `M03-W07` | NOT_STARTED | — | — | Package Windows x64 development build |
 | `M03-W08` | NOT_STARTED | — | — | Package Ubuntu x64 development build |
 | `M03-W09` | NOT_STARTED | — | — | Implement platform lifecycle, path, and process adapters |
@@ -379,7 +383,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Next READY package
 
 - ID: NONE
-- Reason: M02-W13 is IN_PROGRESS under bounded performance rescue; M02-W14 requires W13 VERIFIED.
+- Reason: M03-W06 is IN_PROGRESS after verified M03-W05. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
 
 ## Known release blockers
 

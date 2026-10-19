@@ -6,7 +6,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { describe, expect, test } from "vitest";
@@ -115,21 +115,42 @@ describe("contract compatibility infrastructure fails closed", () => {
     const root = mkdtempSync(join(tmpdir(), "japp-rust-negative-"));
     try {
       const source = join(root, "main.rs");
+      // Resolve inside the repository so rustup uses its pinned toolchain,
+      // then invoke the compiler binary directly from the isolated fixture.
+      // The bounded child is the compiler itself, without a proxy process
+      // whose compiler descendant can retain the fixture after a timeout.
+      const rustc = runChild({
+        executable: "rustup",
+        args: ["which", "rustc"],
+        cwd: REPOSITORY_ROOT,
+        timeoutMs: 5_000,
+        maxOutputBytes: 8_192,
+      }).trim();
+      expect(isAbsolute(rustc)).toBe(true);
+      const args = [
+        "--crate-name",
+        "compile_negative",
+        "--edition=2024",
+        "--emit=metadata",
+        source,
+      ];
+      // Prove this exact executable and fixture can compile first; an absent
+      // compiler or an unwritable output directory is not a syntax rejection.
+      writeFileSync(source, "fn main() {}\n");
+      expect(
+        runChild({
+          executable: rustc,
+          args,
+          cwd: root,
+          timeoutMs: 5_000,
+          maxOutputBytes: 128 * 1024,
+        }),
+      ).toBe("");
       writeFileSync(source, "not rust source\n");
-      // This assertion is about the bounded child-process mapping for a
-      // noncompiling Rust source. Invoking rustc directly preserves that
-      // boundary without adding Cargo's coordinator/descendant lifetime,
-      // which can outlive a timed-out spawnSync call on Windows.
       expect(() =>
         runChild({
-          executable: "rustc",
-          args: [
-            "--crate-name",
-            "compile_negative",
-            "--edition=2024",
-            "--emit=metadata",
-            source,
-          ],
+          executable: rustc,
+          args,
           cwd: root,
           timeoutMs: 30_000,
           maxOutputBytes: 128 * 1024,

@@ -1,0 +1,1166 @@
+diff --git a/docs/CRITICAL_GATES.md b/docs/CRITICAL_GATES.md
+index d67110d..1a0964e 100644
+--- a/docs/CRITICAL_GATES.md
++++ b/docs/CRITICAL_GATES.md
+@@ -60,14 +60,14 @@ reports live in `docs/gates/`.
+ 
+ | Gate | State | Owning milestones | Blocks | Report |
+ |---|---|---|---|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | M02 | M03 readiness (and M17/M18/M19 qualifiers) | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M05 | M06 readiness | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M19–M20 | M21 readiness and later production ATS expansion (and M22/M23 qualifiers) | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | M03–M05, M10, M17, M27 | M28 readiness (requires M27 ACCEPTED) | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+ 
+ ## AUTOFILL_FEASIBILITY
+ 
+-- State: NOT_EVALUATED
++- State: IN_PROGRESS
+ - Evaluated revision: —
+ - Corpus/holdout hash: —
+ - Independent reviewer: —
+diff --git a/docs/DECISIONS.md b/docs/DECISIONS.md
+index 58fbfb9..1da1dd8 100644
+--- a/docs/DECISIONS.md
++++ b/docs/DECISIONS.md
+@@ -62,6 +62,8 @@ Canonical registry of (a) owner decisions that override earlier plans and
+ | OD-033 | External AI output remains untrusted candidate data under the same schemas, evidence, verifier, sensitive-field, review, and no-submit boundaries as local output. | ACCEPTED | Spec v1.4 §0(35) |
+ | OD-034 | Only one implementation agent may modify a working tree at a time; independent audits and agent handoffs use clean package boundaries or separate worktrees. | ACCEPTED | Spec v1.4 §0(27), §1.5 |
+ 
++| OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
++
+ ## Architecture decision records
+ 
+ | ID | Title | Status | Date | Spec sections affected |
+@@ -399,6 +401,23 @@ Canonical registry of (a) owner decisions that override earlier plans and
+ - Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: M02-W13 measurement viability; existing W08–W11 local scanner/dynamic interfaces; spec§1.4/§1.5 and Gate A§2.3. W13 directly owns zero canonical requirement rows. No canonical evolution or gate-state change is proposed.
+ - Owner approval: explicit2026-09-30 resume execution package (attachment06627663-bd1f-45a4-a6e5-4d6931c58008) authorizes four additional performance-rescue rounds and the remaining original W13 closeout. Owner-selected model is GPT-6.1 Sol Ultra. No canonical/schema/trust-boundary evolution, W14 execution, threshold weakening or safety-check removal is authorized. W13 is IN_PROGRESS; W14/W15 NOT_STARTED; zero READY.
+ 
++### ADR-0006 — Continuous execution and owner-controlled holdout waiver
++
++- Status: ACCEPTED
++- Date proposed / date decided: 2026-10-16 / 2026-10-16
++- Owner approval: direct instructions in this chat: "ignore instructions relating to stopping after each W is reached and validated"; "you do not need owner controlled holdout"; "i want you to keep working till this entire project is finished". The owner identified the working GitHub repository as jobapplyv2.
++- Decision: execute successive eligible packages without per-W stopping. Remove owner-controlled hidden holdout as a completion prerequisite across this project. Use accessible GitHub sources where they provide actual inputs or legacy comparison components. Preserve original manifests and historical evidence; never relabel a waiver as execution or PASS.
++- Observed constraint: M02-W14 was READY after W13 verification. Original v1.4 required owner-external hidden inputs and per-package boundaries; those process requirements conflict with the owner's new instructions.
++- Alternatives considered: retain the original holdout prerequisite, which contradicts the owner; silently mark it passed, which would fabricate evidence; record this explicit accepted owner override and continue, selected.
++- Tradeoffs: hidden-set generalization assurance is reduced. Visible synthetic regressions, physical safety counters, accuracy, performance, independent review and scoped compatibility still require their actual evidence. This decision does not assert that they passed.
++- Security/privacy impact: no permission to expose private data, automate credentials, bypass challenges or submit unapproved applications. Synthetic loopback evaluation remains appropriate.
++- Data-migration impact: none. Existing corpus/holdout manifests, completed package anchors and baseline history remain immutable.
++- Benchmark and gate impact: owner-controlled holdout is WAIVED_BY_OWNER. Numerical accuracy/performance/safety thresholds and native platform proof are unchanged. Missing comparison results remain explicitly missing.
++- Test impact: preserve all existing behavioral regressions. Any future gate validator amendment must accept only the explicit waiver with this accepted decision and must reject fabricated execution evidence; no blanket test skip is authorized.
++- Contract precedence: this is the owner's subsequent explicit override under specification §0's opening rule. Preserve the exact originally approved v1.4 bytes and hash as historical adoption evidence; read its owner-holdout and package-stop clauses subject to this accepted amendment. Other requirements remain in force.
++- Rollback plan: only a subsequent owner decision can restore mandatory hidden holdout; retain the manifests so such evaluation remains possible.
++- Spec sections, requirements, milestones, schemas, gates, and compatibility promises affected: operational holdout/process clauses in §0/§1/§2.3/§5.13/§8/§9/§12 and their four gates; no canonical schema, product scope, compatibility promise or completed result changes.
++
+ ## ADR template
+ 
+ ```markdown
+diff --git a/docs/PROJECT_STATUS.md b/docs/PROJECT_STATUS.md
+index f98af64..47d0975 100644
+--- a/docs/PROJECT_STATUS.md
++++ b/docs/PROJECT_STATUS.md
+@@ -1,18 +1,18 @@
+ # Project Status
+ 
+ Spec version: 1.4
+-Repository revision: M02-W13 content 4745149f4b5da7190b5b0c68753f8ec07bed572d, lifecycle closeout
+-Last updated: 2026-10-01T19:58:19Z
++Repository revision: M02-W14 working tree based on 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483
++Last updated: 2026-10-16T15:25:00Z
+ Current phase: A — Contract, measurement, and early autofill proof
+ Current milestone: M02
+-Current work package: NONE
++Current work package: M02-W14
+ Overall release gate: NOT_READY
+ 
+ ## Critical gates
+ 
+ | Gate | State | Evaluated revision | Corpus/holdout hash | Independent reviewer | Report |
+ |---|---|---|---|---|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | — | — | — | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | — | — | — | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | — | — | — | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | — | — | — | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+@@ -23,9 +23,10 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ 
+ ## Active work
+ 
+-- State: M02-W13 VERIFIED at the content tree recorded below; M02-W14 is the sole READY package. Zero work packages are IN_PROGRESS. M02 remains IN_PROGRESS.
+-- Evidence: W13 internal content verification, six killed mutations, frozen canonical passes and exact-content proof are recorded in docs/TEST_EVIDENCE.md. Lifecycle changes do not execute W14.
+-- Gate posture: M00/M01 ACCEPTED; M02-W01 through W13 VERIFIED; W14 READY; W15 NOT_STARTED. All critical gates NOT_EVALUATED; release NOT_READY. Owner model remains GPT-6.1 Sol Ultra. No actual owner holdout or Simplify execution, employer navigation/submission, or production ATS claim.
++- State: M02-W14 IN_PROGRESS; M00/M01 ACCEPTED and M02-W01 through W13 VERIFIED satisfy its prerequisites. No package is READY.
++- Scope: execute the visible frozen development and research partitions, measure full-settlement accuracy/performance, and capture available GitHub legacy comparisons. Required results remain unverified until executed and inspected.
++- Owner instruction (2026-10-16, ADR-0006): continue across packages without per-W stops; owner-controlled holdout is waived. A waiver is not a passing holdout result or an accuracy, safety, platform, or comparison result.
++- Gate posture: AUTOFILL_FEASIBILITY IN_PROGRESS, other gates NOT_EVALUATED; release NOT_READY. No employer submission or production ATS compatibility claim.
+ 
+ ## Milestone table
+ 
+@@ -106,7 +107,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ | `M02-W11` | VERIFIED | tree b90668b5d8eb120533be26a94817e2081b8df261 | docs/TEST_EVIDENCE.md § M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation |
+ | `M02-W12` | VERIFIED | tree 25f4128163ec73a91afd54a15c026b38d4187e5a | docs/TEST_EVIDENCE.md § M02-W12 | Build ATS research variant matrix |
+ | `M02-W13` | VERIFIED | tree a953274ef14a7534c39201a09738c26b8f085332 | docs/TEST_EVIDENCE.md § M02-W13 | Autofill benchmark/scorer, explicit stand-in interface, baseline isolation and worksheet internally verified |
+-| `M02-W14` | READY | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation |
++| `M02-W14` | IN_PROGRESS | — | docs/TEST_EVIDENCE.md § M02-W14 | Visible evaluation and GitHub baseline capture; owner holdout waived by ADR-0006 |
+ | `M02-W15` | NOT_STARTED | — | — | Independent Autofill Feasibility Gate audit and decision |
+ | `M03-W01` | NOT_STARTED | — | — | Create Tauri desktop shell and initial design foundation |
+ | `M03-W02` | NOT_STARTED | — | — | Create FastAPI service skeleton |
+@@ -378,8 +379,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
+ 
+ ## Next READY package
+ 
+-- ID: M02-W14
+-- Reason: M02-W13 VERIFIED; its direct and milestone prerequisites are satisfied. W14 evaluation has not begun.
++- ID: NONE
++- Reason: M02-W14 is IN_PROGRESS. Continue its implementation and validation; per-package stopping is superseded by ADR-0006.
+ 
+ ## Known release blockers
+ 
+diff --git a/docs/REQUIREMENTS_TRACEABILITY.md b/docs/REQUIREMENTS_TRACEABILITY.md
+index 855a44b..e86b674 100644
+--- a/docs/REQUIREMENTS_TRACEABILITY.md
++++ b/docs/REQUIREMENTS_TRACEABILITY.md
+@@ -26,15 +26,15 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
+ 
+ ## Deterministic next work
+ 
+-- Current package: `NONE`
+-- Next READY package: `M02-W14`
++- Current package: `M02-W14`
++- Next READY package: `NONE`
+ - Readiness rule: every milestone prerequisite must be `ACCEPTED`, every reviewed direct package prerequisite must be `VERIFIED` or `ACCEPTED`, and every critical-gate prerequisite must be `PASS`.
+ 
+ ## Critical-gate effects
+ 
+ | Gate | State | Blocked milestones | Blocked packages | Report |
+ |---|---|---|---:|---|
+-| AUTOFILL_FEASIBILITY | NOT_EVALUATED | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
++| AUTOFILL_FEASIBILITY | IN_PROGRESS | M03, M17, M18, M19 | 40 | docs/gates/AUTOFILL_FEASIBILITY_GATE.md |
+ | RESUME_PAGEFIT_FEASIBILITY | NOT_EVALUATED | M06 | 6 | docs/gates/RESUME_PAGEFIT_FEASIBILITY_GATE.md |
+ | WORKDAY_GUIDED_PRE_SUBMIT | NOT_EVALUATED | M21, M22, M23 | 16 | docs/gates/WORKDAY_GUIDED_PRE_SUBMIT_GATE.md |
+ | CROSS_PLATFORM_CORE | NOT_EVALUATED | M28 | 6 | docs/gates/CROSS_PLATFORM_CORE_GATE.md |
+@@ -284,7 +284,7 @@ The specification owns exact text, IDs, titles, and explicit milestone/gate depe
+ | M02-W11 | Implement dynamic state, reconciliation, and performance instrumentation | VERIFIED | M02-W10 | M00, M01 | — | — | Implement dynamic state, reconciliation, and performance instrumentation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation | M02-W12 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W11) | REVIEWED_V1_2 |
+ | M02-W12 | Build ATS research variant matrix | VERIFIED | M02-W11 | M00, M01 | — | — | Build ATS research variant matrix | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope | M02-W13 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W12) | REVIEWED_V1_2 |
+ | M02-W13 | Build autofill benchmark and clean-room baseline harness | VERIFIED | M02-W12 | M00, M01 | — | — | Build autofill benchmark and clean-room baseline harness | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Browser/document integration or E2E verification when the real surface exists, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Browser/manual workflow evidence on declared supported scope, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W14 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | docs/TEST_EVIDENCE.md (### M02-W13) | REVIEWED_V1_2 |
+-| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | READY | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
++| M02-W14 | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | IN_PROGRESS | M02-W13 | M00, M01 | — | — | Execute synthetic, holdout, public no-submit, and side-by-side evaluation | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | M02-W15 | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
+ | M02-W15 | Independent Autofill Feasibility Gate audit and decision | NOT_STARTED | M02-W14 | M00, M01 | — | — | Independent Autofill Feasibility Gate audit and decision | Package-specific unit/contract/integration verification required by the M02 exit gate, pnpm verify with only genuinely activated suites, Measured corpus/holdout assertions and reproducible negative paths | M02 manual/hosted/holdout evidence required by JAPP-MASTER-001 §9; NOT_YET_APPLICABLE until implementation, Raw measured artifacts, hashes, reviewer identity, and decision evidence | — | M03, M05, M10, M17, M18, M19, M21, M22, M23, M28, M38 | — | REVIEWED_V1_2 |
+ 
+ ### M03 — Desktop shell, local orchestrator lifecycle, and authenticated health path
+diff --git a/docs/TEST_EVIDENCE.md b/docs/TEST_EVIDENCE.md
+index 014aa7c..e4a99e6 100644
+--- a/docs/TEST_EVIDENCE.md
++++ b/docs/TEST_EVIDENCE.md
+@@ -33,6 +33,14 @@ Exact verification commands and summarized results
+ 
+ ## Entries
+ 
++### M02-W14 — Visible evaluation in progress (2026-10-16)
++
++- Starting revision: commit 4d6a3e57af8d6224ac1cc7efeabcdacfbc306483; uncommitted W14 source is identified by the development bundle's complete source inventory, not represented as a frozen commit.
++- Prerequisites: M00/M01 ACCEPTED; M02-W01 through W13 VERIFIED.
++- Owner amendment: ADR-0006 authorizes continuous execution and waives owner-controlled holdout. No holdout execution or PASS is claimed.
++- Implementation: full 200-recipe W12 real-MV3 development campaign with explicit option tokens, resolved option digests, logical radio observation, full 75 ms settlement, all-case physical safety counters, raw observations, worksheets, source/build/browser/hardware commitments and explicit input-model refusals. Actual campaign results will be appended after execution.
++- Status: M02-W14 IN_PROGRESS; Gate A IN_PROGRESS, no READY package; no completed milestone or production support claim.
++
+ ### M02-W13 — Verified autofill benchmark and clean-room baseline harness (2026-10-01)
+ 
+ **Completed prerequisites for W13 governance.** Owner-selected **GPT-6.1 Sol Ultra**. This is SAME-PACKAGE INTERNAL ADVERSARIAL GAUNTLET VERIFICATION, not the independent W15/Gate A decision. W13 is VERIFIED at content tree `a953274ef14a7534c39201a09738c26b8f085332`; W14 is the sole READY package and has not begun. M00/M01 remain ACCEPTED, M02 IN_PROGRESS, W01–W13 VERIFIED, W15 NOT_STARTED, zero work packages IN_PROGRESS, all four critical gates NOT_EVALUATED, release NOT_READY.
+diff --git a/docs/gates/AUTOFILL_FEASIBILITY_GATE.md b/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
+index cf11a63..561e068 100644
+--- a/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
++++ b/docs/gates/AUTOFILL_FEASIBILITY_GATE.md
+@@ -16,7 +16,7 @@ fields, safety pauses, or other Gate A evidence.
+ - Owning milestone: M02 (packages M02-W07 … M02-W15)
+ - Blocks: M03 readiness (spec §9.1.1, §12); M17/M18/M19 carry the same
+   `AUTOFILL_FEASIBILITY = PASS` dependency qualifier.
+-- State: NOT_EVALUATED (mirror of docs/CRITICAL_GATES.md; do not edit here
++- State: IN_PROGRESS (mirror of docs/CRITICAL_GATES.md; do not edit here
+   without updating the ledger and status table in the same change)
+ 
+ ## Blocking thresholds
+@@ -64,3 +64,11 @@ obtain PASS.)
+ | Date | Revision | Result | Notes |
+ |---|---|---|---|
+ | — | — | — | Gate created (template) during M00-W05 v1.2 adoption |
++
++## Owner validation amendment — 2026-10-16
++
++ADR-0006 records the owner's explicit waiver of owner-controlled holdout and
++continuous execution authorization. Holdout is WAIVED_BY_OWNER, not executed
++or passed. Visible corpus, physical safety, accuracy, performance, real-browser,
++comparison and independent-review evidence remain individually reportable.
++The current W14 development campaign is not a final Gate A decision.
+diff --git a/docs/traceability.json b/docs/traceability.json
+index ef0d9d7..8f49b5f 100644
+--- a/docs/traceability.json
++++ b/docs/traceability.json
+@@ -2237,7 +2237,7 @@
+         "apps/extension/test/m02-w11/dynamic-reconcile.test.ts",
+         "e2e/extension/extension-dynamic.spec.ts"
+       ],
+-      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state — no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
++      "notes": "M02-W11 implements the feasibility portion through the canonical generated reconciliation-inventory contract and its RECONCILIATION_READINESS semantic rule: every currently inventoried control is classified deterministically; a visible enabled required control without currently valid verified evidence is REQUIRED_UNRESOLVED; page-script value changes after verification are detected through fresh W08 re-resolution plus the exact W10 driver observation and classify PAGE_CHANGED_VALUE (non-required) or the canonical required equivalent REQUIRED_UNRESOLVED with the detection counter surfaced; READY requires page and proof generations to agree and zero required-unresolved, blocked-sensitive, page-changed, stale-document, unconfirmed-consequential, and mandatory-uncertain items. W11 only computes and reports the state \u2014 no navigation or submit surface exists. The requirement remains SCAFFOLD_ONLY / NOT_YET_APPLICABLE because W11 supplies same-package feasibility evidence only and M18-W05 retains production completion; no compatibility, gate, acceptance, or release claim is made.",
+       "mapping_review_state": "REVIEWED_V1_2"
+     },
+     {
+@@ -8119,7 +8119,7 @@
+       "id": "M02-W14",
+       "milestone": "M02",
+       "title": "Execute synthetic, holdout, public no-submit, and side-by-side evaluation",
+-      "current_state": "READY",
++      "current_state": "IN_PROGRESS",
+       "verified_revision": "\u2014",
+       "direct_package_prerequisites": [
+         "M02-W13"
+@@ -21148,7 +21148,7 @@
+   "critical_gates": [
+     {
+       "id": "AUTOFILL_FEASIBILITY",
+-      "current_state": "NOT_EVALUATED",
++      "current_state": "IN_PROGRESS",
+       "report_path": "docs/gates/AUTOFILL_FEASIBILITY_GATE.md",
+       "blocked_milestones": [
+         "M03",
+diff --git a/e2e/extension/support/autofill-benchmark.ts b/e2e/extension/support/autofill-benchmark.ts
+index 8cc7b8a..03f52a9 100644
+--- a/e2e/extension/support/autofill-benchmark.ts
++++ b/e2e/extension/support/autofill-benchmark.ts
+@@ -6,7 +6,6 @@ import {
+   type FeasibilityConcept,
+ } from "../../../packages/form-engine/src/index.ts";
+ import { normalizeText } from "../../../apps/extension/src/field-scanner.ts";
+-import { semanticDigest } from "../../../apps/extension/src/semantic-identity.ts";
+ import type {
+   FormDriverResultV1,
+   FormFieldDecisionV1,
+@@ -30,7 +29,12 @@ import {
+ } from "./research-harness.ts";
+ export interface SanitizedAutofillInput {
+   html: string;
+-  profile: readonly { concept: FeasibilityConcept; value: string }[];
++  profile: readonly {
++    concept: FeasibilityConcept;
++    value: string;
++    /** Explicit approved option semantics; omitted by the frozen W13 recipe. */
++    valueToken?: string;
++  }[];
+ }
+ export async function executeMv3Autofill(
+   harness: Harness,
+@@ -103,6 +107,7 @@ export async function executeMv3Autofill(
+       true,
+     );
+   });
++  const scanFillStarted = performance.now();
+   const top = foundTopFrame(await scanFrames(harness));
+   const records = buildApprovedRecordSet(
+     await Promise.all(
+@@ -112,6 +117,9 @@ export async function executeMv3Autofill(
+           `w13-profile\0${fact.concept}\0${fact.value}`,
+         ),
+         concept: fact.concept,
++        ...(fact.valueToken === undefined
++          ? {}
++          : { valueToken: fact.valueToken }),
+         policy: "FILL_FROM_EXPLICIT_RECORD" as const,
+         confirmation: { state: "MISSING" as const },
+         valueConfidence: 1,
+@@ -135,13 +143,14 @@ export async function executeMv3Autofill(
+       (f) => f.concept === decision.field_concept,
+     );
+     if (fact === undefined) throw new Error("W13_CANDIDATE_RECORD_MISSING");
++    const option = resolved.resolution.optionResolution;
++    if (descriptor.control_kind === "SELECT" && option?.status !== "RESOLVED")
++      throw new Error("W13_CANDIDATE_OPTION_UNRESOLVED");
+     const intended =
+-      descriptor.control_kind === "SELECT"
++      descriptor.control_kind === "SELECT" && option?.status === "RESOLVED"
+         ? {
+             kind: "OPTION" as const,
+-            value_digest: await semanticDigest(
+-              `option-value-v1\0${fact.value}`,
+-            ),
++            value_digest: option.valueDigest,
+           }
+         : { kind: "TEXT" as const, text: fact.value };
+     const transaction = await buildTransaction(
+@@ -158,6 +167,7 @@ export async function executeMv3Autofill(
+   const reconciliation = reconciled(
+     await dynReconcile(harness, top.frame_context.frame_id),
+   );
++  const scanFillDurationMs = performance.now() - scanFillStarted;
+   const observed = await harness.page.evaluate(() => {
+     const page = globalThis as unknown as {
+       w13Meter: {
+@@ -253,6 +263,7 @@ export async function executeMv3Autofill(
+     };
+   });
+   return {
++    scan_fill_duration_ms: scanFillDurationMs,
+     fields,
+     scanner_fields: top.descriptors.map((d) => ({
+       field_id: d.field_id,
+diff --git a/e2e/extension/extension-w14-evaluation.spec.ts b/e2e/extension/extension-w14-evaluation.spec.ts
+new file mode 100644
+index 0000000..3d7f3fe
+--- /dev/null
++++ b/e2e/extension/extension-w14-evaluation.spec.ts
+@@ -0,0 +1,500 @@
++import { execFileSync } from "node:child_process";
++import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
++import { arch, cpus, platform, release, totalmem } from "node:os";
++import { isAbsolute, join, resolve } from "node:path";
++import { gzipSync } from "node:zlib";
++import { test, expect, EXTENSION_DIST } from "./support/extension-test.ts";
++import { openHarness } from "./support/research-harness.ts";
++import { bindMv3Observation } from "./support/autofill-benchmark.ts";
++import {
++  measureW14Candidate,
++  w14Recipe,
++  W14_CONTACT_COHORT,
++} from "./support/autofill-w14.ts";
++import {
++  RESEARCH_MATRIX,
++  ATS_FAMILIES,
++} from "../../packages/ats-adapters/research/matrix.ts";
++import {
++  scoreAutofill,
++  worksheet,
++  type AutofillScore,
++} from "../../packages/evaluation-runner/src/autofill.ts";
++import {
++  sha256Bytes,
++  sha256Canonical,
++  type ContentDigest,
++} from "../../packages/evaluation-runner/src/canonical.ts";
++import { loadCommittedLegacyObservations } from "../../packages/evaluation-baselines/src/index.ts";
++
++function git(...args: string[]) {
++  return execFileSync("git", args, { encoding: "utf8" }).trim();
++}
++
++function sourceFacts() {
++  const paths = execFileSync(
++    "git",
++    ["ls-files", "-co", "--exclude-standard", "-z"],
++    { encoding: "utf8" },
++  )
++    .split("\0")
++    .filter((path) => path !== "" && !path.startsWith("docs/evidence/"));
++  const inventory = [...new Set(paths)]
++    .sort()
++    .map((path) => ({ path, digest: sha256Bytes(readFileSync(path)) }));
++  const status = git("status", "--porcelain");
++  return {
++    commit: git("rev-parse", "HEAD"),
++    tree: git("rev-parse", "HEAD^{tree}"),
++    source_state: status === "" ? "CLEAN" : "DIRTY_SOURCE",
++    status,
++    inventory,
++    digest: sha256Canonical(inventory),
++  };
++}
++
++function buildInventory(
++  root: string,
++  prefix = "",
++): { path: string; digest: ContentDigest }[] {
++  return readdirSync(join(root, prefix), { withFileTypes: true })
++    .sort((a, b) => a.name.localeCompare(b.name))
++    .flatMap((entry) => {
++      const path = prefix === "" ? entry.name : `${prefix}/${entry.name}`;
++      if (entry.isSymbolicLink()) throw new Error("W14_BUILD_SYMLINK_REFUSED");
++      return entry.isDirectory()
++        ? buildInventory(root, path)
++        : [{ path, digest: sha256Bytes(readFileSync(join(root, path))) }];
++    });
++}
++
++type Measurement = Awaited<ReturnType<typeof measureW14Candidate>>;
++interface CaseResult {
++  case_id: string;
++  fixture_id: string;
++  ats: (typeof ATS_FAMILIES)[number];
++  started_at: string;
++  ended_at: string;
++  measurement_state: "SCORED" | "REFUSED_INPUT_MODEL" | "MEASUREMENT_ERROR";
++  measurement_issues: string[];
++  observation: Measurement | null;
++  artifact: ReturnType<typeof bindMv3Observation> | null;
++  score: AutofillScore | null;
++  worksheet: ReturnType<typeof worksheet> | null;
++}
++
++function exactRate(numerator: number, denominator: number) {
++  return {
++    numerator,
++    denominator,
++    rate: denominator === 0 ? null : numerator / denominator,
++  };
++}
++
++function metrics(rows: readonly CaseResult[]) {
++  const scores = rows.flatMap((row) => (row.score === null ? [] : [row.score]));
++  const fields = scores.flatMap((score) => score.fields);
++  const ordinary = fields.filter(
++    (field) => field.expected_class === "ORDINARY" && field.supported,
++  );
++  const attempted = ordinary.filter((field) => field.attempted);
++  const sum = (name: keyof AutofillScore["counts"]) =>
++    scores.reduce((count, score) => count + score.counts[name], 0);
++  const timings = rows
++    .flatMap((row) =>
++      row.observation === null
++        ? []
++        : [row.observation.observed.scan_fill_duration_ms],
++    )
++    .sort((a, b) => a - b);
++  return {
++    executed_cases: rows.filter((row) => row.observation !== null).length,
++    scored_cases: scores.length,
++    refused_cases: rows.filter(
++      (row) => row.measurement_state === "REFUSED_INPUT_MODEL",
++    ).length,
++    measurement_error_cases: rows.filter(
++      (row) => row.measurement_state === "MEASUREMENT_ERROR",
++    ).length,
++    scored_logical_controls: fields.length,
++    ordinary_attempted_precision: exactRate(
++      attempted.filter((field) => field.primary === "CORRECT_FILL").length,
++      attempted.length,
++    ),
++    required_ordinary_recall: exactRate(
++      sum("correct_required_fills"),
++      sum("expected_required_fills"),
++    ),
++    required_reporting: exactRate(
++      sum("required_reported"),
++      sum("required_unresolved"),
++    ),
++    observed_persistence: exactRate(sum("persisted"), sum("attempted_fills")),
++    counts: {
++      required_silent: sum("required_silent"),
++      sensitive_fills: sum("sensitive_fills"),
++      honeypot_fills: sum("honeypot_fills"),
++      catastrophic_option_errors: sum("catastrophic_option_errors"),
++      duplicate_actions: sum("duplicate_actions"),
++    },
++    full_settle_scan_fill_timing: {
++      sample_count: timings.length,
++      p95_ms:
++        timings.length === 0
++          ? null
++          : timings[Math.ceil(timings.length * 0.95) - 1],
++      scope:
++        "ONE_EXECUTION_PER_DIFFERENT_W12_PAGE_75MS_SETTLEMENT_20MS_RERENDER",
++      includes_fixture_setup: false,
++      includes_browser_setup: false,
++      includes_reporting: false,
++    },
++  };
++}
++
++test("W14: execute all 200 immutable W12 recipes and preserve incomplete measurement evidence", async ({
++  extensionContext,
++  extensionId,
++  serviceWorker,
++}, testInfo) => {
++  test.setTimeout(600_000);
++  const output = process.env.JAPP_W14_ARTIFACT_DIRECTORY;
++  if (output !== undefined && !isAbsolute(output))
++    throw new Error("W14_EXPLICIT_ABSOLUTE_OUTPUT_REQUIRED");
++  const startedAt = new Date().toISOString();
++  const facts = sourceFacts();
++  const buildFiles = buildInventory(EXTENSION_DIST);
++  const matrixDigest = sha256Canonical(RESEARCH_MATRIX);
++  const toolchainDigest = sha256Canonical({
++    package: sha256Bytes(readFileSync("package.json")),
++    lock: sha256Bytes(readFileSync("pnpm-lock.yaml")),
++    runtime: process.versions,
++  });
++  const corpus = {
++    version: "1.0.0",
++    digest:
++      "sha256:93c8aae9c74ca7802c7a2469bb561c314e2d585a4f81001ed7db2739da4bedf8" as ContentDigest,
++  };
++  // Freeze every recipe and its expected truth before the first candidate run.
++  const cases = RESEARCH_MATRIX.map((variant) => ({
++    variant,
++    ...w14Recipe(variant, matrixDigest, corpus, toolchainDigest),
++  }));
++  const browserVersion = extensionContext.browser()?.version();
++  if (browserVersion === undefined)
++    throw new Error("W14_BROWSER_VERSION_ABSENT");
++  const hardware = {
++    platform: platform(),
++    release: release(),
++    architecture: arch(),
++    cpu_model: cpus()[0]?.model ?? "UNKNOWN",
++    logical_cpus: cpus().length,
++    memory_bytes: totalmem(),
++  };
++  const rows: CaseResult[] = [];
++  for (const entry of cases) {
++    const row: CaseResult = {
++      case_id: entry.oracle.case_id,
++      fixture_id: entry.variant.id,
++      ats: entry.variant.ats,
++      started_at: new Date().toISOString(),
++      ended_at: "",
++      measurement_state: "MEASUREMENT_ERROR",
++      measurement_issues: [],
++      observation: null,
++      artifact: null,
++      score: null,
++      worksheet: null,
++    };
++    const harness = await openHarness(
++      extensionContext,
++      extensionId,
++      serviceWorker,
++      "/native/",
++    );
++    try {
++      row.observation = await measureW14Candidate(harness, entry.input);
++      if (
++        output !== undefined &&
++        entry.variant.id === "W12-WORKDAY-GROUPED-en-US-MY_INFORMATION"
++      ) {
++        mkdirSync(output, { recursive: true });
++        await harness.page.screenshot({
++          path: resolve(output, "workday-en-us-contact.png"),
++          fullPage: true,
++        });
++      }
++      row.measurement_issues = [...row.observation.measurement_issues];
++      row.artifact = bindMv3Observation(
++        {
++          case_id: entry.oracle.case_id,
++          fixture_id: entry.oracle.fixture_id,
++          oracle_digest: sha256Canonical(entry.oracle),
++          matrix_version: entry.oracle.matrix_version,
++          matrix_digest: entry.oracle.matrix_digest,
++          corpus_version: entry.oracle.corpus_version,
++          corpus_digest: entry.oracle.corpus_digest,
++          profile_digest: entry.oracle.profile_digest,
++        },
++        row.observation.observed,
++      );
++      if (row.measurement_issues.length > 0) {
++        row.measurement_state = row.measurement_issues.some((issue) =>
++          issue.startsWith("MEASUREMENT_ERROR:"),
++        )
++          ? "MEASUREMENT_ERROR"
++          : "REFUSED_INPUT_MODEL";
++      } else {
++        try {
++          row.score = scoreAutofill(
++            entry.benchmarkCase,
++            entry.oracle,
++            row.artifact.candidate,
++            row.artifact.audit,
++          );
++          row.measurement_state = "SCORED";
++        } catch (error) {
++          const code =
++            error instanceof Error &&
++            /^W13_[A-Z_0-9]{1,80}$/.test(error.message)
++              ? error.message
++              : "UNKNOWN_SCORER_ERROR";
++          row.measurement_issues.push(
++            `MEASUREMENT_ERROR:SCORER_REFUSED:${code}`,
++          );
++        }
++      }
++    } catch (error) {
++      row.measurement_issues.push(
++        `MEASUREMENT_ERROR:CANDIDATE_EXECUTION_FAILED:${error instanceof Error && /^W(?:13|14)_[A-Z_0-9]{1,80}$/.test(error.message) ? error.message : error instanceof Error && ["TimeoutError", "AssertionError"].includes(error.name) ? error.name : "UNKNOWN_EXECUTION_ERROR"}`,
++      );
++    } finally {
++      row.ended_at = new Date().toISOString();
++      await harness.page.close();
++      await harness.controller.close();
++    }
++    if (row.score !== null)
++      row.worksheet = worksheet(entry.oracle, row.score, {
++        browser: "Chromium",
++        browser_version: browserVersion,
++        product_version: "1.0.0",
++        observed_at: row.ended_at,
++        provenance_digest: facts.digest,
++      });
++    rows.push(row);
++  }
++  // Independent physical counters cover refused cases too. Scorer exclusion
++  // never hides a safety write, duplicate, navigation or submission activation.
++  const physicalSafety = {
++    sensitive_fills: 0,
++    honeypot_fills: 0,
++    catastrophic_option_errors: 0,
++    duplicate_actions: 0,
++    navigation_activations: 0,
++    submission_activations: 0,
++    paused_boundary_actions: 0,
++  };
++  for (const [index, row] of rows.entries()) {
++    const entry = cases[index];
++    if (entry === undefined || row.artifact === null) continue;
++    const audit = row.artifact.audit;
++    physicalSafety.navigation_activations += audit.navigation_activations;
++    physicalSafety.submission_activations += audit.submission_activations;
++    for (const field of audit.fields) {
++      const expected = entry.oracle.fields.find(
++        (item) => item.key === field.key,
++      );
++      if (expected?.class === "SENSITIVE" || expected?.class === "PROHIBITED")
++        physicalSafety.sensitive_fills += Number(field.actions.length > 0);
++      if (expected?.class === "HONEYPOT")
++        physicalSafety.honeypot_fills += Number(field.actions.length > 0);
++      if (
++        expected?.option &&
++        field.actions.some(
++          (action) => action.value_digest !== expected.value_digest,
++        )
++      )
++        physicalSafety.catastrophic_option_errors++;
++      physicalSafety.duplicate_actions += Math.max(0, field.actions.length - 1);
++      if (entry.variant.expected.sessionBoundary)
++        physicalSafety.paused_boundary_actions += field.actions.length;
++    }
++  }
++  const baselineRecords = loadCommittedLegacyObservations().records;
++  const safetyCoverage = {
++    expected_cases: cases.length,
++    observed_cases: rows.filter((row) => row.artifact !== null).length,
++    state: rows.every((row) => row.artifact !== null)
++      ? "OBSERVED"
++      : "INCOMPLETE_UNOBSERVED_CASES",
++  };
++  const unsupportedFeatures = [
++    "FILE_UPLOAD",
++    "REPEATER_OPERATION",
++    "DATE_DRIVER",
++    "CHECKBOX_DRIVER",
++    "RADIO_DRIVER",
++    "CUSTOM_COMBOBOX_DRIVER",
++    "IFRAME",
++    "SHADOW_DOM",
++    "PAGE_TRANSITION",
++    "PARSER_EFFECT",
++    "LONG_SESSION_SOAK",
++  ];
++  const assessment = {
++    format_version: "W14_DEVELOPMENT_ASSESSMENT_1",
++    authority: "NONE",
++    gate_decision: "NOT_DECIDED",
++    complete_gate_evidence: false,
++    source_inventory_digest: facts.digest,
++    matrix_digest: matrixDigest,
++    expected_cases: RESEARCH_MATRIX.length,
++    recorded_cases: rows.length,
++    authored_logical_controls: cases.reduce(
++      (count, entry) => count + entry.oracle.fields.length,
++      0,
++    ),
++    observed_native_controls: rows.reduce(
++      (count, row) =>
++        count +
++        (row.observation?.final.reduce(
++          (total, field) => total + field.native_keys.length,
++          0,
++        ) ?? 0),
++      0,
++    ),
++    metrics: metrics(rows),
++    family_metrics: Object.fromEntries(
++      ATS_FAMILIES.map((family) => [
++        family,
++        metrics(rows.filter((row) => row.ats === family)),
++      ]),
++    ),
++    physical_safety_all_executed_cases: physicalSafety,
++    physical_safety_coverage: safetyCoverage,
++    measurement_refusals: rows
++      .filter((row) => row.measurement_state !== "SCORED")
++      .map((row) => ({
++        case_id: row.case_id,
++        fixture_id: row.fixture_id,
++        state: row.measurement_state,
++        issues: row.measurement_issues,
++      })),
++    unsupported_scored_feature_coverage: unsupportedFeatures.map((feature) => ({
++      feature,
++      state: "NOT_EXERCISED_BY_CONTACT_PROFILE_CAMPAIGN",
++    })),
++    actual_external_execution: {
++      holdout: "HOLDOUT_WAIVED_OWNER_ADR0006",
++      public_no_submit: "NOT_EXECUTED",
++      simplify: "NOT_EXECUTED",
++      legacy: baselineRecords.map((record) => ({
++        system: record.system,
++        status: record.observation_status,
++        source_revision: record.source_revision,
++      })),
++    },
++    limitations: [
++      "Visible synthetic W12 expansion only; W06 parent corpus is separately committed and is not wholly executed by this campaign.",
++      "Supported ordinary cohort is the predeclared contact profile; other features retain separate W10/W12 tests and have no scored support claim here.",
++      "Pre-existing values and duplicate label joins remain explicit scorer-v1 input-model refusals; their initial/final digests and physical actions are retained.",
++      "Timing uses full settlement across different pages; this is not a repeated 128-control target-Mac performance proof.",
++      "No comparison or independent critical-gate approval is inferred from development metrics.",
++    ],
++  };
++  const bundle = {
++    format_version: "W14_DEVELOPMENT_BUNDLE_1",
++    labels: ["DEVELOPMENT", "PARTIAL_GATE_EVIDENCE", "NO_GATE_AUTHORITY"],
++    started_at: startedAt,
++    ended_at: new Date().toISOString(),
++    source: facts,
++    extension_build: {
++      digest: sha256Canonical(buildFiles),
++      inventory: buildFiles,
++    },
++    runtime: {
++      node: process.versions.node,
++      browser: { family: "CHROMIUM", version: browserVersion },
++      hardware,
++      hardware_digest: sha256Canonical(hardware),
++      toolchain_digest: toolchainDigest,
++    },
++    configuration: {
++      settle_budget_ms: 75,
++      rerender_delay_ms: 20,
++      ai_enabled: false,
++      navigation_enabled: false,
++      submission_enabled: false,
++      supported_cohort: W14_CONTACT_COHORT,
++    },
++    corpus: {
++      ...corpus,
++      parent_manifest_digest: sha256Bytes(
++        readFileSync(
++          "packages/evaluation-corpus/artifacts/development/M02_AUTOFILL_DEVELOPMENT_V1/1.0.0/corpus.manifest.json",
++        ),
++      ),
++      expansion_matrix_digest: matrixDigest,
++    },
++    cases,
++    rows,
++    assessment,
++  };
++  const compressed = gzipSync(JSON.stringify(bundle), { level: 9 });
++  const evidence = {
++    ...assessment,
++    compressed_bundle_digest: sha256Bytes(compressed),
++    compressed_bundle_bytes: compressed.byteLength,
++  };
++  await testInfo.attach("w14-development-run.json.gz", {
++    body: compressed,
++    contentType: "application/gzip",
++  });
++  await testInfo.attach("w14-development-assessment", {
++    body: JSON.stringify(evidence, null, 2),
++    contentType: "application/json",
++  });
++  if (output !== undefined) {
++    mkdirSync(output, { recursive: true });
++    writeFileSync(resolve(output, "development-run.json.gz"), compressed);
++    writeFileSync(
++      resolve(output, "assessment.json"),
++      JSON.stringify(evidence, null, 2) + "\n",
++    );
++  }
++  console.log(
++    `W14_DEVELOPMENT ${JSON.stringify({ recorded_cases: rows.length, metrics: assessment.metrics, safety: physicalSafety, bundle_digest: evidence.compressed_bundle_digest })}`,
++  );
++  // Assertions check measurement integrity and safety, not fabricated product
++  // accuracy. Failed metrics remain reviewable in the saved evidence first.
++  expect(rows).toHaveLength(200);
++  expect(new Set(rows.map((row) => row.case_id)).size).toBe(200);
++  expect(safetyCoverage).toEqual({
++    expected_cases: 200,
++    observed_cases: 200,
++    state: "OBSERVED",
++  });
++  expect(
++    rows.filter((row) => row.measurement_state === "MEASUREMENT_ERROR"),
++  ).toEqual([]);
++  expect(Object.values(physicalSafety).every((count) => count === 0)).toBe(
++    true,
++  );
++  expect(assessment.authored_logical_controls).toBe(4020);
++  expect(assessment.observed_native_controls).toBe(4060);
++  expect(
++    rows.filter((row) => row.measurement_state === "REFUSED_INPUT_MODEL")
++      .length,
++  ).toBeGreaterThan(0);
++  for (const family of ATS_FAMILIES) {
++    const contact = rows.find(
++      (row) => row.fixture_id === `W12-${family}-GROUPED-en-US-MY_INFORMATION`,
++    );
++    expect(contact?.score?.rates.required_recall).toEqual({
++      numerator: 9,
++      denominator: 9,
++      rate: 1,
++    });
++    expect(contact?.score?.counts.sensitive_fills).toBe(0);
++  }
++});
+diff --git a/e2e/extension/support/autofill-w14.ts b/e2e/extension/support/autofill-w14.ts
+new file mode 100644
+index 0000000..0a14e5b
+--- /dev/null
++++ b/e2e/extension/support/autofill-w14.ts
+@@ -0,0 +1,349 @@
++/** W14 visible development measurement. No gate or private-holdout authority. */
++import { normalizeText } from "../../../apps/extension/src/field-scanner.ts";
++import type { ResearchVariant } from "../../../packages/ats-adapters/research/matrix.ts";
++import { fixtureHtml } from "../../../packages/ats-adapters/research/fixture-html.ts";
++import {
++  freezeOracle,
++  type AutofillOracle,
++  type FieldObservation,
++} from "../../../packages/evaluation-runner/src/autofill.ts";
++import {
++  sha256Canonical,
++  stableIdFromDigest,
++  type ContentDigest,
++} from "../../../packages/evaluation-runner/src/canonical.ts";
++import { computeThresholdSetDigest } from "../../../packages/evaluation-runner/src/thresholds.ts";
++import type { BenchmarkCaseV1 } from "../../../packages/evaluation-runner/src/model.ts";
++import type { FeasibilityConcept } from "../../../packages/form-engine/src/index.ts";
++import {
++  executeMv3Autofill,
++  type SanitizedAutofillInput,
++} from "./autofill-benchmark.ts";
++import type { Harness } from "./research-harness.ts";
++
++// This cohort is declared before execution. The executor receives only HTML
++// and approved synthetic facts, never these expected classes or value digests.
++export const W14_CONTACT_COHORT: Readonly<Record<string, FeasibilityConcept>> =
++  {
++    "first-name": "FIRST_NAME",
++    "last-name": "LAST_NAME",
++    email: "EMAIL_ADDRESS",
++    phone: "PHONE_NUMBER",
++    website: "WEBSITE_URL",
++    "street-address": "ADDRESS_LINE_1",
++    city: "ADDRESS_CITY",
++    state: "ADDRESS_REGION",
++    province: "ADDRESS_REGION",
++    county: "ADDRESS_REGION",
++    "postal-code": "ADDRESS_POSTAL_CODE",
++    country: "ADDRESS_COUNTRY",
++  };
++
++/** Independently declared locale examples, not values inferred from options. */
++export function w14Profile(
++  locale: ResearchVariant["locale"],
++): SanitizedAutofillInput["profile"] {
++  const address = (
++    {
++      "en-US": ["United States", "Michigan", "48104"],
++      "en-GB": ["United Kingdom", "Greater London", "SW1A 1AA"],
++      "de-DE": ["Germany", "Berlin", "10115"],
++      "fr-CA": ["Canada", "Québec", "H2Y 1C6"],
++    } as const
++  )[locale];
++  return [
++    { concept: "FIRST_NAME", value: "Synthetic" },
++    { concept: "LAST_NAME", value: "Applicant" },
++    { concept: "EMAIL_ADDRESS", value: "synthetic@example.invalid" },
++    { concept: "PHONE_NUMBER", value: "2025550100" },
++    { concept: "WEBSITE_URL", value: "https://example.invalid/profile" },
++    { concept: "ADDRESS_LINE_1", value: "100 Synthetic Avenue" },
++    { concept: "ADDRESS_CITY", value: "Synthetic City" },
++    { concept: "ADDRESS_REGION", value: address[1], valueToken: address[1] },
++    { concept: "ADDRESS_POSTAL_CODE", value: address[2] },
++    { concept: "ADDRESS_COUNTRY", value: address[0], valueToken: address[0] },
++  ];
++}
++
++export function w14Recipe(
++  variant: ResearchVariant,
++  matrixDigest: ContentDigest,
++  corpus: { version: string; digest: ContentDigest },
++  toolchainDigest: ContentDigest,
++) {
++  const input: SanitizedAutofillInput = {
++    html: fixtureHtml(variant),
++    profile: w14Profile(variant.locale),
++  };
++  const caseId = stableIdFromDigest(
++    "benchmarkcase",
++    sha256Canonical({ variant: variant.id, input }),
++  );
++  const oracle = freezeOracle({
++    format_version: "W13_ORACLE_1",
++    case_id: caseId,
++    fixture_id: variant.id,
++    matrix_version: "1.0.0",
++    matrix_digest: matrixDigest,
++    corpus_version: corpus.version,
++    corpus_digest: corpus.digest,
++    profile_digest: sha256Canonical(input),
++    provenance_digest: sha256Canonical({
++      author: "W14_PREDECLARED_CONTACT_RECIPE",
++      cohort: W14_CONTACT_COHORT,
++      profile: input.profile,
++      variant,
++    }),
++    fields: variant.controls.map((control) => {
++      const concept = W14_CONTACT_COHORT[control.id];
++      const fact = input.profile.find((f) => f.concept === concept);
++      const sensitive = control.policy === "SENSITIVE_ABSTAIN";
++      const honeypot = control.policy === "HONEYPOT_ABSTAIN";
++      const supported = !sensitive && !honeypot && fact !== undefined;
++      const fill = supported && !variant.expected.sessionBoundary;
++      return {
++        key: control.id,
++        concept: concept ?? "UNKNOWN",
++        required: control.required,
++        visible: !honeypot,
++        enabled: !variant.expected.sessionBoundary,
++        class: sensitive
++          ? "SENSITIVE"
++          : honeypot
++            ? "HONEYPOT"
++            : supported
++              ? "ORDINARY"
++              : "UNSUPPORTED",
++        supported,
++        expected: fill ? "FILL" : "ABSTAIN",
++        value_digest: fill ? sha256Canonical(fact.value) : null,
++        option: control.kind === "select",
++      };
++    }),
++  } satisfies AutofillOracle);
++  // MEASURE preserves raw failures. These thresholds concern safety only;
++  // no PASS from this development case is a Gate A decision.
++  const thresholds: BenchmarkCaseV1["thresholds"] = [
++    "SENSITIVE_FILLS",
++    "HONEYPOT_FILLS",
++    "CATASTROPHIC_OPTION_ERRORS",
++    "DUPLICATE_ACTIONS",
++    "NAVIGATION_ACTIVATIONS",
++    "SUBMISSION_ACTIVATIONS",
++  ].map((metric_id) => ({
++    metric_id,
++    unit: "COUNT",
++    comparator: "EXACT",
++    expected_value: 0,
++  }));
++  const thresholdRef = stableIdFromDigest(
++    "thresholdset",
++    sha256Canonical(thresholds),
++  );
++  const benchmarkCase: BenchmarkCaseV1 = {
++    case_id: caseId,
++    case_schema_version: "BENCHMARK_CASE_V1",
++    benchmark_family: "AUTOFILL_FEASIBILITY",
++    corpus_version: corpus.version,
++    corpus_digest: corpus.digest,
++    input_artifacts: [
++      {
++        artifact_ref: stableIdFromDigest("artifact", sha256Canonical(oracle)),
++        artifact_digest: sha256Canonical(oracle),
++        schema_ref: "urn:japp:schema:evaluation-artifact:w13-oracle:v1",
++      },
++      {
++        artifact_ref: stableIdFromDigest("artifact", sha256Canonical(input)),
++        artifact_digest: sha256Canonical(input),
++        schema_ref: "urn:japp:schema:evaluation-artifact:w13-input:v1",
++      },
++    ],
++    expected_behavior: "MEASURE",
++    threshold_set_ref: thresholdRef,
++    threshold_set_digest: computeThresholdSetDigest({
++      threshold_set_ref: thresholdRef,
++      thresholds,
++    }),
++    thresholds,
++    environment_requirements: {
++      runtime_profile: "NODE",
++      platform_profile: "DEVELOPMENT",
++      toolchain_digest: toolchainDigest,
++      adapter_version: "1.0.0",
++    },
++    synthetic_data: true,
++    provenance: {
++      source_kind: "GENERATED",
++      source_id: stableIdFromDigest("source", oracle.provenance_digest),
++      observed_at: "2026-10-16T00:00:00Z",
++      source_digest: oracle.provenance_digest,
++    },
++    holdout_visibility: "PUBLIC_SYNTHETIC",
++    applicable_platform_profiles: ["DEVELOPMENT"],
++  };
++  return { benchmarkCase, oracle, input };
++}
++
++async function logicalControls(harness: Harness, markup?: string) {
++  const controls = await harness.page.evaluate((html) => {
++    const root =
++      html === null
++        ? document
++        : new DOMParser().parseFromString(html, "text/html");
++    const seen = new Set<string>();
++    return [
++      ...root.querySelectorAll<
++        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
++      >("input,select,textarea"),
++    ].flatMap((node) => {
++      const radio = node instanceof HTMLInputElement && node.type === "radio";
++      const group = radio ? node.closest("fieldset") : null;
++      const key = group?.id ?? node.id;
++      if (seen.has(key)) return [];
++      seen.add(key);
++      const members =
++        group === null
++          ? [node]
++          : [...group.querySelectorAll<HTMLInputElement>("input[type=radio]")];
++      const selected = members.find(
++        (member) => member instanceof HTMLInputElement && member.checked,
++      );
++      const value = radio
++        ? (selected?.value ?? "")
++        : node instanceof HTMLInputElement && node.type === "checkbox"
++          ? node.checked
++            ? "true"
++            : ""
++          : node.value;
++      return [
++        {
++          key,
++          native_keys: members.map((member) => member.id),
++          label:
++            group?.querySelector("legend")?.textContent ??
++            node.labels?.[0]?.textContent ??
++            "",
++          value,
++          valid: members.every(
++            (member) =>
++              member.validity.valid &&
++              member.getAttribute("aria-invalid") !== "true",
++          ),
++          required: members.some((member) => member.required),
++          disabled: members.every((member) => member.disabled),
++          kind: radio
++            ? "radio"
++            : node.getAttribute("role") === "combobox"
++              ? "combobox"
++              : node instanceof HTMLInputElement
++                ? node.type
++                : node.tagName.toLowerCase(),
++        },
++      ];
++    });
++  }, markup ?? null);
++  return controls.map(({ value, ...control }) => ({
++    ...control,
++    value_digest: value === "" ? null : sha256Canonical(value),
++  }));
++}
++
++/** Candidate has no oracle input. Only this observer normalizes logical radios. */
++export async function measureW14Candidate(
++  harness: Harness,
++  input: SanitizedAutofillInput,
++) {
++  const initial = await logicalControls(harness, input.html);
++  const candidate = await executeMv3Autofill(harness, input);
++  const final = await logicalControls(harness);
++  const issues: string[] = [];
++  if (initial.some((field) => field.value_digest !== null))
++    issues.push("REFUSED_INPUT_MODEL:PREEXISTING_VALUE");
++  const labels = initial.map((field) => normalizeText(field.label));
++  if (new Set(labels).size !== labels.length)
++    issues.push("REFUSED_INPUT_MODEL:DUPLICATE_LABEL_JOIN");
++  if (
++    initial
++      .map((f) => f.key)
++      .sort()
++      .join() !==
++    final
++      .map((f) => f.key)
++      .sort()
++      .join()
++  )
++    issues.push("MEASUREMENT_ERROR:CHANGED_CONTROL_INVENTORY");
++  const actions = candidate.meter.actions.map((action) => {
++    const field = final.find((item) => item.native_keys.includes(action.key));
++    if (field === undefined)
++      issues.push("MEASUREMENT_ERROR:UNJOINED_PHYSICAL_ACTION");
++    return { ...action, key: field?.key ?? action.key };
++  });
++  const fields: FieldObservation[] = final.map((field) => {
++    const matches = candidate.scanner_fields.filter(
++      (descriptor) => descriptor.label === normalizeText(field.label),
++    );
++    const descriptor = matches.length === 1 ? matches[0] : undefined;
++    const decision = candidate.decisions.find(
++      (item) => item.field_id === descriptor?.field_id,
++    );
++    const result =
++      decision === undefined
++        ? undefined
++        : candidate.results.find(
++            (item) => item.correlation_id === decision.correlation_id,
++          );
++    const inventory =
++      descriptor === undefined
++        ? undefined
++        : candidate.reconciliation.inventory.items.find(
++            (item) => item.field_id === descriptor.field_id,
++          );
++    const attempted = actions.some((action) => action.key === field.key);
++    const unresolved =
++      inventory !== undefined &&
++      inventory.required &&
++      inventory.visible &&
++      inventory.enabled &&
++      inventory.category !== "VERIFIED_FILLED";
++    const filled =
++      result?.outcome === "VERIFIED" &&
++      inventory?.category === "VERIFIED_FILLED";
++    return {
++      key: field.key,
++      status: filled ? "FILLED" : unresolved ? "UNRESOLVED" : "ABSTAINED",
++      observed_digest: field.value_digest,
++      persistence: attempted
++        ? result?.persistence_verified === true && !inventory?.changed_value
++          ? "PERSISTED"
++          : "REVERTED"
++        : "UNKNOWN",
++      site_acceptance: attempted
++        ? result?.site_acceptance === "ACCEPTED" && field.valid
++          ? "ACCEPTED"
++          : "REJECTED"
++        : "UNKNOWN",
++      reason: filled
++        ? "VERIFIED"
++        : unresolved
++          ? "REQUIRED_UNRESOLVED"
++          : attempted
++            ? "SITE_REJECTED"
++            : "POLICY_ABSTAIN",
++      report_digest: sha256Canonical({
++        decision:
++          candidate.decisions.find(
++            (d) => d.field_id === descriptor?.field_id,
++          ) ?? null,
++        result: result ?? null,
++        inventory: inventory ?? null,
++      }),
++    };
++  });
++  return {
++    initial,
++    final,
++    measurement_issues: [...new Set(issues)].sort(),
++    observed: { ...candidate, fields, meter: { ...candidate.meter, actions } },
++  };
++}

@@ -1,0 +1,71 @@
+{
+  "phase": "governance precommit",
+  "parent": "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+  "verdict": "PASS",
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "scripts/validate_status.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.13148129201726988,
+      "log": "/tmp/jobapply-w13-governance-checks/1.log",
+      "log_sha256": "b672c1fc6058a1ed9400bf0029f45bba3e5a525bf2ca83eea6ecac5bdcacf637"
+    },
+    {
+      "command": [
+        "pnpm",
+        "traceability:check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4665044580178801,
+      "log": "/tmp/jobapply-w13-governance-checks/2.log",
+      "log_sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "command": [
+        "pnpm",
+        "generate:contracts",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5720573339785915,
+      "log": "/tmp/jobapply-w13-governance-checks/3.log",
+      "log_sha256": "0fa734fa4cc7fa4edb1ec4496774cec113b3c9c222d05cedaded478e7371660d"
+    },
+    {
+      "command": [
+        "pnpm",
+        "verify",
+        "--suite",
+        "integrity"
+      ],
+      "exit_code": 0,
+      "seconds": 2.661737249989528,
+      "log": "/tmp/jobapply-w13-governance-checks/4.log",
+      "log_sha256": "e7f773a05643be0af8c1bb5d82b44b5dc73dc442b19f3d17b1182d7c4ea843c9"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/check_portability.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5786160420102533,
+      "log": "/tmp/jobapply-w13-governance-checks/5.log",
+      "log_sha256": "0719a826bcbb1fa198edabe34de03ec95ae52f9bd5bdc77dd092332cefc8ead9"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.019155832997057587,
+      "log": "/tmp/jobapply-w13-governance-checks/6.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

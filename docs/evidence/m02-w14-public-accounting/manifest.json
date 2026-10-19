@@ -1,0 +1,81 @@
+{
+  "format_version": "W14_PUBLIC_CONTROL_ACCOUNTING_SUPPLEMENT_1",
+  "scope": "PURE_SOURCE_REPLAY_AND_CONTROLLED_ACCOUNTING_DELTA_NO_PUBLIC_EXECUTION",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "96c6c4fe418baa034a4a8ff4dce4789ec2e1c2fd92626e235dedf9fb5474c6b6",
+      "bytes": 5448
+    },
+    {
+      "path": "before-README.txt",
+      "sha256": "6b6a8c96d4eefc9ec38b0c1fc3aa0587eec4fe36b66fcbb6f598ab320fb17a52",
+      "bytes": 997
+    },
+    {
+      "path": "before-artifact-manifest.json",
+      "sha256": "dc08afa2f75c28431abdbc35e488d9fd275794da98a7942c95f801d441a02afc",
+      "bytes": 2057
+    },
+    {
+      "path": "before-original-domMetrics-snippet.ts.txt",
+      "sha256": "3ac24f5a90a58af369d1912899805390c9da67c95855075ad5ae4c293798f774",
+      "bytes": 2213
+    },
+    {
+      "path": "before-original-scoring-snippet.js.txt",
+      "sha256": "c606c57deb55e528722178e2d20fe4cf2b95895a05efb82ccfb33ed775903955",
+      "bytes": 2057
+    },
+    {
+      "path": "before-provenance.json",
+      "sha256": "fbc4029cd6022e0754fa7ea3bb613488eaf77fca60e8bbff63eb7fe2974a36eb",
+      "bytes": 3362
+    },
+    {
+      "path": "before-raw-output-repeat.json",
+      "sha256": "7e92c3006642b3a4c7558b55ea9e02c26f493acbe6df9b280830fe58c0c1ff10",
+      "bytes": 4355
+    },
+    {
+      "path": "before-raw-output.json",
+      "sha256": "7e92c3006642b3a4c7558b55ea9e02c26f493acbe6df9b280830fe58c0c1ff10",
+      "bytes": 4355
+    },
+    {
+      "path": "before-replay.mjs.txt",
+      "sha256": "9bfa400507ebc8da4d458544dee65afd7614b917f90e0ca0a0bfa4e90a4d57f0",
+      "bytes": 4595
+    },
+    {
+      "path": "before-stderr-repeat.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "before-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "paired-options-lint-for-preexecution-rebind.patch",
+      "sha256": "03aaef04d4d4fe9f83a348ce92e32aa902de19e43069a80704d13ac3ce246aef",
+      "bytes": 439
+    },
+    {
+      "path": "patch-summary.json",
+      "sha256": "832be28a80ae017faa0cf182b4a17e3a7e85fd45631879a4c744a0ba6c2aa7e5",
+      "bytes": 2936
+    },
+    {
+      "path": "public-control-union.patch",
+      "sha256": "d02746b4caffd312b9cb304e537a2d94b4dbbb82fdd26ac4d5d310df34d779c9",
+      "bytes": 32569
+    }
+  ],
+  "archival_renames_preserve_bytes": {
+    "before-original-domMetrics-snippet.ts": "before-original-domMetrics-snippet.ts.txt",
+    "before-original-scoring-snippet.js": "before-original-scoring-snippet.js.txt",
+    "before-replay.mjs": "before-replay.mjs.txt"
+  }
+}

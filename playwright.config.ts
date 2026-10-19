@@ -6,6 +6,11 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  // Sibling suites must not erase earlier failure traces during output cleanup.
+  outputDir: "./test-results/browser",
+  // R10 structural Node tests require their separately bound Node runner.
+  // Keep these Node-only modules outside default browser discovery.
+  testIgnore: ["**/extension/legacy-paired-options-r10/*.test.mjs"],
   // M02-W07: build the real @japp/extension MV3 output before any test
   // runs, so the canonical `playwright test` command always exercises the
   // freshly built extension. Playwright skips global setup for `--list`,
@@ -26,15 +31,23 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
-  webServer: {
-    // Deterministic build + preview of apps/mock-ats-lab on 127.0.0.1:4761.
-    // --strictPort (in the package script) refuses to drift to another
-    // port, and reuseExistingServer: false refuses to attach to any
-    // already-running process on it.
-    command: "pnpm --filter @japp/mock-ats-lab e2e-server",
-    url: "http://127.0.0.1:4761/",
-    reuseExistingServer: false,
-    timeout: 180_000,
-  },
+  webServer: [
+    {
+      // Deterministic build + preview of apps/mock-ats-lab on 127.0.0.1:4761.
+      // --strictPort (in the package script) refuses to drift to another
+      // port, and reuseExistingServer: false refuses to attach to any
+      // already-running process on it.
+      command: "pnpm --filter @japp/mock-ats-lab e2e-server",
+      url: "http://127.0.0.1:4761/",
+      reuseExistingServer: false,
+      timeout: 180_000,
+    },
+    {
+      command: "pnpm --filter @japp/desktop e2e-server",
+      url: "http://127.0.0.1:4762/",
+      reuseExistingServer: false,
+      timeout: 180_000,
+    },
+  ],
   projects: [{ name: "chromium" }],
 });

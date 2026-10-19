@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:japp:schema:gate:evidence-bundle:v2",
+  "x-japp-schema-version": "2.0.0",
+  "title": "Gate evidence bundle v2",
+  "description": "Exact candidate evidence inventory with an explicit, nonexecuted owner holdout waiver. A typed waiver is a declaration; source-aware repository acceptance must independently bind the accepted owner decision. It does not evaluate repository gate state.",
+  "$defs": {
+    "gateId": {
+      "title": "Critical gate identifier",
+      "type": "string",
+      "enum": [
+        "AUTOFILL_FEASIBILITY",
+        "CROSS_PLATFORM_CORE",
+        "RESUME_PAGEFIT_FEASIBILITY",
+        "WORKDAY_GUIDED_PRE_SUBMIT"
+      ]
+    },
+    "completenessInventory": {
+      "title": "Gate evidence completeness inventory",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_benchmark_count",
+        "present_benchmark_count",
+        "corpus_valid",
+        "holdout_valid",
+        "raw_artifacts_complete",
+        "manual_inspection_complete",
+        "independent_review_complete",
+        "owner_decision_requirement",
+        "owner_decision_complete"
+      ],
+      "properties": {
+        "required_benchmark_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/positiveSafeInteger"
+        },
+        "present_benchmark_count": {
+          "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/nonNegativeSafeInteger"
+        },
+        "corpus_valid": {
+          "type": "boolean"
+        },
+        "holdout_valid": {
+          "type": "boolean"
+        },
+        "raw_artifacts_complete": {
+          "type": "boolean"
+        },
+        "manual_inspection_complete": {
+          "type": "boolean"
+        },
+        "independent_review_complete": {
+          "type": "boolean"
+        },
+        "owner_decision_requirement": {
+          "type": "string",
+          "enum": ["NOT_REQUIRED", "REQUIRED"]
+        },
+        "owner_decision_complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ownerHoldoutWaiver": {
+      "title": "Exact owner holdout waiver declaration",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adr_ref",
+        "owner_decision_ref",
+        "source_document_ref",
+        "source_record_digest"
+      ],
+      "properties": {
+        "adr_ref": {
+          "type": "string",
+          "pattern": "^ADR-0006$",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        "owner_decision_ref": {
+          "type": "string",
+          "pattern": "^OD-035$",
+          "minLength": 6,
+          "maxLength": 6
+        },
+        "source_document_ref": {
+          "type": "string",
+          "pattern": "^docs/DECISIONS\\.md$",
+          "minLength": 17,
+          "maxLength": 17
+        },
+        "source_record_digest": {
+          "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+        }
+      }
+    },
+    "holdoutAssessment": {
+      "title": "Executed holdout or explicit nonexecution declaration",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "execution_performed"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["EXECUTED", "NOT_EXECUTED", "WAIVED_BY_OWNER_ADR_0006"]
+        },
+        "execution_performed": {
+          "type": "boolean"
+        },
+        "execution_result_ref": {
+          "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+        },
+        "owner_waiver": {
+          "$ref": "#/$defs/ownerHoldoutWaiver"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_bundle_id",
+    "gate_id",
+    "candidate_commit",
+    "candidate_tree",
+    "corpus_manifest_digest",
+    "runtime_metadata",
+    "benchmark_result_refs",
+    "raw_artifact_report_digests",
+    "manual_inspection_evidence_refs",
+    "independent_review_ref",
+    "reviewer_identity_ref",
+    "completeness_inventory",
+    "known_limitations",
+    "bundle_state",
+    "evidence_bundle_digest",
+    "provenance",
+    "holdout_assessment"
+  ],
+  "properties": {
+    "evidence_bundle_id": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "gate_id": {
+      "$ref": "#/$defs/gateId"
+    },
+    "candidate_commit": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "candidate_tree": {
+      "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/gitObjectId"
+    },
+    "corpus_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "holdout_manifest_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "runtime_metadata": {
+      "$ref": "urn:japp:schema:benchmark:result:v1#/$defs/runtimeMetadata"
+    },
+    "benchmark_result_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "raw_artifact_report_digests": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "manual_inspection_evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "independent_review_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "reviewer_identity_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "owner_decision_ref": {
+      "$ref": "urn:japp:schema:common:stable-id:v1#/$defs/stableId"
+    },
+    "completeness_inventory": {
+      "$ref": "#/$defs/completenessInventory"
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:japp:schema:common:contract-text:v1#/$defs/normalizedText"
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "bundle_state": {
+      "type": "string",
+      "enum": ["COMPLETE", "INCOMPLETE", "INVALID"]
+    },
+    "evidence_bundle_digest": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/contentDigest"
+    },
+    "provenance": {
+      "$ref": "urn:japp:schema:common:provenance:v1#/$defs/provenance"
+    },
+    "holdout_assessment": {
+      "$ref": "#/$defs/holdoutAssessment"
+    }
+  }
+}

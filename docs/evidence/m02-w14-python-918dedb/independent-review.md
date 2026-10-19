@@ -1,0 +1,12 @@
+# Independent read-only audit — clean918 retained Python proof
+
+Result: retained evidence is consistent with the original raw outputs and exact clean918 source. No discrepancy found. This audit ran no tests, builds or browsers and made no root or original-artifact changes.
+
+- Archive `/tmp/japp-w14-python-918-retained/proof.tar.gz`: SHA-256 `87daa8d094c38e8ac94328df48549e63c1cceab362863bbbdfa87b4dd6ba5fe2`, 172,731 bytes, seven safe unique regular members. Manifest exhaustively names all seven files in `/tmp/japp-w14-python-918dedb-20261016`; every member size/SHA and original byte preimage matches. No symlinks, duplicate paths, unsafe paths, omitted raw files or normalized terminal bytes.
+- `python.log` records the real `pnpm test:python` → `uv run python scripts/verify.py --suite python` invocation, exact 1454-test collection, ordinary `1454 passed in 583.78s (0:09:43)`, Python ACTIVE/PASS and verifier exit 0. Platform is darwin, Python 3.12.13 and pytest 9.1.1. The 583.78 seconds value is pytest elapsed time, not the entire wrapper interval; source snapshots span 21:33:39–21:43:25 UTC (586 seconds).
+- Before and after bind commit `918dedb3fc379e1fc19cf6ef54bbefa1110b35d3` / tree `bd9eb473719dba61ed842c266c553e334c893538`, clean statuses, exactly 1433 tracked paths and identical complete SHA-256/byte-count inventories (inventory digest `2b0b2f82dcbe24f768815912747815c7acf9db57dbde2f4c599e73d1ca8bed70`). I independently recomputed that digest, every current tracked file SHA/size and each Git blob object ID against the immutable918 tree. All match, and current HEAD/tree/status also match.
+- Completion exit 0/neutrality fields and both retained summaries agree exactly. The retained runner script captures stdout/stderr raw, waits for the command, then takes its final source snapshot. It is evidence context, not rerun by this audit.
+
+Scope: full affected **local Python suite** including quality checks and 1454 tests. The verifier summary reports only Python as an active executed suite. This proof does **not** establish native Windows success, a complete 19-suite aggregate at918, product platform certification, ignored build/cache output neutrality, formal W15 approval or Gate A PASS. Before/after tracked-byte neutrality is verified; continuous mid-run source immutability additionally relies on the root's frozen-run procedure.
+
+Machine findings: `/tmp/japp-w14-python-918-evidence-audit/findings.json`.

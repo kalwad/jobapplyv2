@@ -1,0 +1,1146 @@
+[
+  {
+    "format_version": "W14_PAIRED_OPTIONS_ORACLE_1",
+    "case_id": "benchmarkcase_17AXF7N6VDCJXSV8WAEDCHRW1G",
+    "original_case_id": "benchmarkcase_7FHETQGRS7Q4VX31SGMAHK338T",
+    "original_oracle_digest": "sha256:5403d4f0a59d814d7e1036ab0eb3385404ba5099baf110f4ff34ce1e8ede29c4",
+    "ordinary_expectations": [
+      {
+        "key": "first-name",
+        "concept": "FIRST_NAME",
+        "value": "Synthetic",
+        "required": true
+      },
+      {
+        "key": "last-name",
+        "concept": "LAST_NAME",
+        "value": "Applicant",
+        "required": true
+      },
+      {
+        "key": "email",
+        "concept": "EMAIL_ADDRESS",
+        "value": "synthetic@example.invalid",
+        "required": true
+      },
+      {
+        "key": "phone",
+        "concept": "PHONE_NUMBER",
+        "value": "2025550100",
+        "required": true
+      },
+      {
+        "key": "website",
+        "concept": "WEBSITE_URL",
+        "value": "https://example.invalid/profile",
+        "required": false
+      },
+      {
+        "key": "street-address",
+        "concept": "ADDRESS_LINE_1",
+        "value": "100 Synthetic Avenue",
+        "required": true
+      },
+      {
+        "key": "city",
+        "concept": "ADDRESS_CITY",
+        "value": "Synthetic City",
+        "required": true
+      },
+      {
+        "key": "state",
+        "concept": "ADDRESS_REGION",
+        "value": "Michigan",
+        "required": true
+      },
+      {
+        "key": "postal-code",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "value": "48104",
+        "required": true
+      },
+      {
+        "key": "country",
+        "concept": "ADDRESS_COUNTRY",
+        "value": "United States",
+        "required": true
+      }
+    ],
+    "field_expectations": [
+      {
+        "class": "ORDINARY",
+        "concept": "FIRST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "first-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "LAST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "last-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "EMAIL_ADDRESS",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "email",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:353641a5daeefe60dbb6d63da213eaee7e4e5eaa56ed67398821bc5a092b18f9",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "PHONE_NUMBER",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "phone",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:37262bad2f66b828791785de155dbe9a520c40717583e1f499f8ab3e338e3bd8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "WEBSITE_URL",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "website",
+        "option": false,
+        "required": false,
+        "supported": true,
+        "value_digest": "sha256:c41613b5d7629476a9dd363de1a6ddbde8c983929a5e1e382b3848e448f09fa5",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "optional-note",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "sensitive-disclosure",
+        "option": true,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "HONEYPOT",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "honeypot",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": false
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "privacy-consent",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_COUNTRY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "country",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_CITY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "city",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:b4a334c928c0a30543b044a8b478bf17c10f1181dc80facfe40fbd6cbac89ab2",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_LINE_1",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "street-address",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:a67914ed2d86a2fe6ac708d6c29a9e95a8e90e64caeade0238696ae1725f8937",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_REGION",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "state",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:e6e034d143cdeb74113c213e3cc611af2da4330bad83eb053a370813733c06ad",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "postal-code",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:5dbfc7af4b1e0d4f6548fed382343033628c6182057072b5a8d94e6b8bcf79e3",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "resume",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "country-code",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "contact-method",
+        "option": true,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "availability-date",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "format_version": "W14_PAIRED_OPTIONS_ORACLE_1",
+    "case_id": "benchmarkcase_4N6PQ8ZBMFFCM97D0HB0P49AJM",
+    "original_case_id": "benchmarkcase_5ZFV555N324C5TW0D3Y3ZKQC0B",
+    "original_oracle_digest": "sha256:addd374475e09662293e34dd6df65790bd9e5ca3db4443101414a6bb6be034bb",
+    "ordinary_expectations": [
+      {
+        "key": "first-name",
+        "concept": "FIRST_NAME",
+        "value": "Synthetic",
+        "required": true
+      },
+      {
+        "key": "last-name",
+        "concept": "LAST_NAME",
+        "value": "Applicant",
+        "required": true
+      },
+      {
+        "key": "email",
+        "concept": "EMAIL_ADDRESS",
+        "value": "synthetic@example.invalid",
+        "required": true
+      },
+      {
+        "key": "phone",
+        "concept": "PHONE_NUMBER",
+        "value": "2025550100",
+        "required": true
+      },
+      {
+        "key": "website",
+        "concept": "WEBSITE_URL",
+        "value": "https://example.invalid/profile",
+        "required": false
+      },
+      {
+        "key": "street-address",
+        "concept": "ADDRESS_LINE_1",
+        "value": "100 Synthetic Avenue",
+        "required": true
+      },
+      {
+        "key": "city",
+        "concept": "ADDRESS_CITY",
+        "value": "Synthetic City",
+        "required": true
+      },
+      {
+        "key": "state",
+        "concept": "ADDRESS_REGION",
+        "value": "Michigan",
+        "required": true
+      },
+      {
+        "key": "postal-code",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "value": "48104",
+        "required": true
+      },
+      {
+        "key": "country",
+        "concept": "ADDRESS_COUNTRY",
+        "value": "United States",
+        "required": true
+      }
+    ],
+    "field_expectations": [
+      {
+        "class": "ORDINARY",
+        "concept": "FIRST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "first-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "LAST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "last-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "EMAIL_ADDRESS",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "email",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:353641a5daeefe60dbb6d63da213eaee7e4e5eaa56ed67398821bc5a092b18f9",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "PHONE_NUMBER",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "phone",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:37262bad2f66b828791785de155dbe9a520c40717583e1f499f8ab3e338e3bd8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "WEBSITE_URL",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "website",
+        "option": false,
+        "required": false,
+        "supported": true,
+        "value_digest": "sha256:c41613b5d7629476a9dd363de1a6ddbde8c983929a5e1e382b3848e448f09fa5",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "optional-note",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "sensitive-disclosure",
+        "option": true,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "HONEYPOT",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "honeypot",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": false
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "privacy-consent",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_COUNTRY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "country",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_CITY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "city",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:b4a334c928c0a30543b044a8b478bf17c10f1181dc80facfe40fbd6cbac89ab2",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_LINE_1",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "street-address",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:a67914ed2d86a2fe6ac708d6c29a9e95a8e90e64caeade0238696ae1725f8937",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_REGION",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "state",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:e6e034d143cdeb74113c213e3cc611af2da4330bad83eb053a370813733c06ad",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "postal-code",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:5dbfc7af4b1e0d4f6548fed382343033628c6182057072b5a8d94e6b8bcf79e3",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "resume",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "country-code",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "contact-method",
+        "option": true,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "availability-date",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "format_version": "W14_PAIRED_OPTIONS_ORACLE_1",
+    "case_id": "benchmarkcase_14W801B90ZX8QZMQKTE65FKZD6",
+    "original_case_id": "benchmarkcase_03V44C83WM2VFNX01STRHHGRXF",
+    "original_oracle_digest": "sha256:3bb842e0ff7ed410e019d4d59121c7a8c057625456f601e489fc157d9646f18b",
+    "ordinary_expectations": [
+      {
+        "key": "first-name",
+        "concept": "FIRST_NAME",
+        "value": "Synthetic",
+        "required": true
+      },
+      {
+        "key": "last-name",
+        "concept": "LAST_NAME",
+        "value": "Applicant",
+        "required": true
+      },
+      {
+        "key": "email",
+        "concept": "EMAIL_ADDRESS",
+        "value": "synthetic@example.invalid",
+        "required": true
+      },
+      {
+        "key": "phone",
+        "concept": "PHONE_NUMBER",
+        "value": "2025550100",
+        "required": true
+      },
+      {
+        "key": "website",
+        "concept": "WEBSITE_URL",
+        "value": "https://example.invalid/profile",
+        "required": false
+      },
+      {
+        "key": "street-address",
+        "concept": "ADDRESS_LINE_1",
+        "value": "100 Synthetic Avenue",
+        "required": true
+      },
+      {
+        "key": "city",
+        "concept": "ADDRESS_CITY",
+        "value": "Synthetic City",
+        "required": true
+      },
+      {
+        "key": "state",
+        "concept": "ADDRESS_REGION",
+        "value": "Michigan",
+        "required": true
+      },
+      {
+        "key": "postal-code",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "value": "48104",
+        "required": true
+      },
+      {
+        "key": "country",
+        "concept": "ADDRESS_COUNTRY",
+        "value": "United States",
+        "required": true
+      }
+    ],
+    "field_expectations": [
+      {
+        "class": "ORDINARY",
+        "concept": "FIRST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "first-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "LAST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "last-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "EMAIL_ADDRESS",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "email",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:353641a5daeefe60dbb6d63da213eaee7e4e5eaa56ed67398821bc5a092b18f9",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "PHONE_NUMBER",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "phone",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:37262bad2f66b828791785de155dbe9a520c40717583e1f499f8ab3e338e3bd8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "WEBSITE_URL",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "website",
+        "option": false,
+        "required": false,
+        "supported": true,
+        "value_digest": "sha256:c41613b5d7629476a9dd363de1a6ddbde8c983929a5e1e382b3848e448f09fa5",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "optional-note",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "sensitive-disclosure",
+        "option": true,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "HONEYPOT",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "honeypot",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": false
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "privacy-consent",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_COUNTRY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "country",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_CITY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "city",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:b4a334c928c0a30543b044a8b478bf17c10f1181dc80facfe40fbd6cbac89ab2",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_LINE_1",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "street-address",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:a67914ed2d86a2fe6ac708d6c29a9e95a8e90e64caeade0238696ae1725f8937",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_REGION",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "state",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:e6e034d143cdeb74113c213e3cc611af2da4330bad83eb053a370813733c06ad",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "postal-code",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:5dbfc7af4b1e0d4f6548fed382343033628c6182057072b5a8d94e6b8bcf79e3",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "resume",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "country-code",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "contact-method",
+        "option": true,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "availability-date",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      }
+    ]
+  },
+  {
+    "format_version": "W14_PAIRED_OPTIONS_ORACLE_1",
+    "case_id": "benchmarkcase_5PEWA5521D0Q0JZ6PMKNW96NNJ",
+    "original_case_id": "benchmarkcase_2J80QHS92HHFAJD1WZQ7DZ1X15",
+    "original_oracle_digest": "sha256:95b98fe6c2b9a88d81f2a2f9a4076afaa4ed788976a8fdd763a7c0033cdcbc1a",
+    "ordinary_expectations": [
+      {
+        "key": "first-name",
+        "concept": "FIRST_NAME",
+        "value": "Synthetic",
+        "required": true
+      },
+      {
+        "key": "last-name",
+        "concept": "LAST_NAME",
+        "value": "Applicant",
+        "required": true
+      },
+      {
+        "key": "email",
+        "concept": "EMAIL_ADDRESS",
+        "value": "synthetic@example.invalid",
+        "required": true
+      },
+      {
+        "key": "phone",
+        "concept": "PHONE_NUMBER",
+        "value": "2025550100",
+        "required": true
+      },
+      {
+        "key": "website",
+        "concept": "WEBSITE_URL",
+        "value": "https://example.invalid/profile",
+        "required": false
+      },
+      {
+        "key": "street-address",
+        "concept": "ADDRESS_LINE_1",
+        "value": "100 Synthetic Avenue",
+        "required": true
+      },
+      {
+        "key": "city",
+        "concept": "ADDRESS_CITY",
+        "value": "Synthetic City",
+        "required": true
+      },
+      {
+        "key": "state",
+        "concept": "ADDRESS_REGION",
+        "value": "Michigan",
+        "required": true
+      },
+      {
+        "key": "postal-code",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "value": "48104",
+        "required": true
+      },
+      {
+        "key": "country",
+        "concept": "ADDRESS_COUNTRY",
+        "value": "United States",
+        "required": true
+      }
+    ],
+    "field_expectations": [
+      {
+        "class": "ORDINARY",
+        "concept": "FIRST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "first-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:f5defb7d8a17154e98e771f5f7645b0bf67d1400bafa961dcf38ed3a92beecc8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "LAST_NAME",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "last-name",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "EMAIL_ADDRESS",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "email",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:353641a5daeefe60dbb6d63da213eaee7e4e5eaa56ed67398821bc5a092b18f9",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "PHONE_NUMBER",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "phone",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:37262bad2f66b828791785de155dbe9a520c40717583e1f499f8ab3e338e3bd8",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "WEBSITE_URL",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "website",
+        "option": false,
+        "required": false,
+        "supported": true,
+        "value_digest": "sha256:c41613b5d7629476a9dd363de1a6ddbde8c983929a5e1e382b3848e448f09fa5",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "optional-note",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "sensitive-disclosure",
+        "option": true,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "HONEYPOT",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "honeypot",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": false
+      },
+      {
+        "class": "SENSITIVE",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "privacy-consent",
+        "option": false,
+        "required": false,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_COUNTRY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "country",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_CITY",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "city",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:b4a334c928c0a30543b044a8b478bf17c10f1181dc80facfe40fbd6cbac89ab2",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_LINE_1",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "street-address",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:a67914ed2d86a2fe6ac708d6c29a9e95a8e90e64caeade0238696ae1725f8937",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_REGION",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "state",
+        "option": true,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:e6e034d143cdeb74113c213e3cc611af2da4330bad83eb053a370813733c06ad",
+        "visible": true
+      },
+      {
+        "class": "ORDINARY",
+        "concept": "ADDRESS_POSTAL_CODE",
+        "enabled": true,
+        "expected": "FILL",
+        "key": "postal-code",
+        "option": false,
+        "required": true,
+        "supported": true,
+        "value_digest": "sha256:5dbfc7af4b1e0d4f6548fed382343033628c6182057072b5a8d94e6b8bcf79e3",
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "resume",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "country-code",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "contact-method",
+        "option": true,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      },
+      {
+        "class": "UNSUPPORTED",
+        "concept": "UNKNOWN",
+        "enabled": true,
+        "expected": "ABSTAIN",
+        "key": "availability-date",
+        "option": false,
+        "required": true,
+        "supported": false,
+        "value_digest": null,
+        "visible": true
+      }
+    ]
+  }
+]

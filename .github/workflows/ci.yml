@@ -27,8 +27,8 @@
 #
 # Security posture: read-only token, no secrets, official actions only,
 # every action pinned to an immutable commit SHA (annotated with its
-# release tag), no live-site tests, artifacts uploaded only on failure and
-# only Playwright's failure-scoped traces from test-results/.
+# release tag), no live-site tests, failure-only Playwright outputs plus a
+# bounded Windows native-loader diagnostic artifact after canonical failure.
 name: ci
 
 on:
@@ -209,7 +209,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock', 'packages/contracts/test/contract/rust-harness/Cargo.lock') }}
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', 'services/native-host/Cargo.lock', 'packages/contracts/test/contract/rust-harness/Cargo.lock', 'apps/desktop/src-tauri/Cargo.lock') }}
 
       - name: Cache pinned Playwright browsers
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -219,6 +219,10 @@ jobs:
             ~/.cache/ms-playwright
             ~/AppData/Local/ms-playwright
           key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Tauri Linux build prerequisites
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev
 
       - name: Install JS dependencies (frozen lockfile)
         run: pnpm install --frozen-lockfile
@@ -244,13 +248,44 @@ jobs:
       - name: Fetch test-only contract harness dependencies (locked)
         run: cargo fetch --locked --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml
 
+      - name: Fetch desktop shell dependencies (locked)
+        run: cargo fetch --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
+
       - name: Environment doctor (same command as local `pnpm run doctor`)
         # `run` is required: pnpm has an unrelated built-in `pnpm doctor`
         # command that would shadow the repository script's bare form.
+        env:
+          TMPDIR: ${{ runner.temp }}
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}
         run: pnpm run doctor
 
       - name: Canonical aggregate verification (same command as local `pnpm verify`)
+        id: canonical_verify
+        env:
+          TMPDIR: ${{ runner.temp }}
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}
         run: pnpm verify
+
+      - name: Inspect retained Windows native images after canonical failure
+        if: ${{ failure() && runner.os == 'Windows' && steps.canonical_verify.outcome == 'failure' }}
+        timeout-minutes: 3
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          ./scripts/windows-native-loader-diagnostics.ps1 -OutputDirectory (Join-Path $env:RUNNER_TEMP 'windows-native-loader-diagnostics')
+
+      - name: Retain Windows native loader failure evidence
+        if: ${{ failure() && runner.os == 'Windows' && steps.canonical_verify.outcome == 'failure' }}
+        timeout-minutes: 2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: windows-native-loader-${{ github.sha }}
+          path: ${{ runner.temp }}/windows-native-loader-diagnostics/
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Assert verification left no tracked changes
         shell: pwsh
@@ -267,4 +302,168 @@ jobs:
           name: playwright-failure-${{ matrix.os }}
           path: test-results/
           if-no-files-found: ignore
+          retention-days: 7
+
+  native_package_development:
+    name: native development package (${{ matrix.os }})
+    needs: verify
+    # These build-host labels do not certify Windows11 or default GNOME GUI.
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, ubuntu-24.04]
+    steps:
+      - name: Check out exact source for read-only package projection
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Activate project Node pin
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Activate pinned pnpm via Corepack (native package)
+        run: corepack enable pnpm
+      - name: Install exact project uv pin (POSIX)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          UV_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))["tool"]["uv"]["required-version"].removeprefix("=="))')"
+          pipx install "uv==${UV_PIN}"
+          uv --version
+      - name: Install exact project uv pin (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $uvPin = python3 -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text(encoding='utf-8'))['tool']['uv']['required-version'].removeprefix('=='))"
+          pipx install "uv==$uvPin"
+          uv --version
+      - name: Activate exact project Python pin
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $pythonPin = (Get-Content -LiteralPath '.python-version' -Raw).Trim()
+          uv python install $pythonPin
+          $python = (uv python find $pythonPin).Trim()
+          "PACKAGE_PYTHON=$python" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Install pinned Rust toolchain for native package (rust-toolchain.toml)
+        if: runner.os != 'Windows'
+        # runner.temp is available at step scope (not jobs.<job_id>.env).
+        # Persist this fresh per-job home for every later cargo/rustup probe.
+        env:
+          RUSTUP_HOME: ${{ runner.temp }}/rustup-home
+        shell: bash
+        run: |
+          test ! -e "$RUSTUP_HOME"
+          mkdir -p "$RUSTUP_HOME"
+          printf 'RUSTUP_HOME=%s\n' "$RUSTUP_HOME" >> "$GITHUB_ENV"
+          RUST_PIN="$(python3 -c 'import tomllib,pathlib; print(tomllib.loads(pathlib.Path("rust-toolchain.toml").read_text(encoding="utf-8"))["toolchain"]["channel"])')"
+          rustup toolchain install "${RUST_PIN}" --profile minimal --component rustfmt --component clippy
+
+          ACTIVE_TOOLCHAIN="$(rustup show active-toolchain)"
+          printf '%s\n' "$ACTIVE_TOOLCHAIN"
+          [[ "$ACTIVE_TOOLCHAIN" == "${RUST_PIN}-"* ]]
+          [[ "$ACTIVE_TOOLCHAIN" == *"rust-toolchain.toml"* ]]
+
+          CARGO_PROXY="$(command -v cargo)"
+          RUSTC_PROXY="$(command -v rustc)"
+          CARGO_TOOLCHAIN_BIN="$(rustup which cargo)"
+          RUSTC_TOOLCHAIN_BIN="$(rustup which rustc)"
+          printf '%s\n' "$CARGO_PROXY" "$RUSTC_PROXY"
+          printf '%s\n' "$CARGO_TOOLCHAIN_BIN" "$RUSTC_TOOLCHAIN_BIN"
+          test "$CARGO_PROXY" != "$CARGO_TOOLCHAIN_BIN"
+          test "$RUSTC_PROXY" != "$RUSTC_TOOLCHAIN_BIN"
+
+          CARGO_VERSION="$(cargo --version)"
+          RUSTC_VERSION="$(rustc --version)"
+          RUSTFMT_VERSION="$(rustfmt --version)"
+          CLIPPY_VERSION="$(cargo clippy --version)"
+          printf '%s\n' "$CARGO_VERSION" "$RUSTC_VERSION"
+          printf '%s\n' "$RUSTFMT_VERSION" "$CLIPPY_VERSION"
+          [[ "$CARGO_VERSION" == "cargo ${RUST_PIN} "* ]]
+          [[ "$RUSTC_VERSION" == "rustc ${RUST_PIN} "* ]]
+
+          # Only rustup proxies accept +toolchain; these prove the PATH
+          # cargo/rustc commands are the trusted runner proxies.
+          cargo "+${RUST_PIN}" --version
+          rustc "+${RUST_PIN}" --version
+
+      - name: Install pinned Rust toolchain for native package (rust-toolchain.toml, Windows)
+        if: runner.os == 'Windows'
+        env:
+          RUSTUP_HOME: ${{ runner.temp }}/rustup-home
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          if (Test-Path -LiteralPath $env:RUSTUP_HOME) { throw "RUSTUP_HOME already exists: $env:RUSTUP_HOME" }
+          New-Item -ItemType Directory -Path $env:RUSTUP_HOME | Out-Null
+          "RUSTUP_HOME=$env:RUSTUP_HOME" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          $rustPin = python3 -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('rust-toolchain.toml').read_text(encoding='utf-8'))['toolchain']['channel'])"
+          rustup toolchain install $rustPin --profile minimal --component rustfmt --component clippy
+
+          $activeToolchain = (rustup show active-toolchain) -join "`n"
+          Write-Output $activeToolchain
+          if ($activeToolchain -notlike "$rustPin-*") { throw "active toolchain '$activeToolchain' does not start with the pin $rustPin" }
+          if ($activeToolchain -notlike "*rust-toolchain.toml*") { throw "active toolchain is not selected by the rust-toolchain.toml override" }
+
+          $cargoProxy = (Get-Command cargo).Path
+          $rustcProxy = (Get-Command rustc).Path
+          $cargoToolchainBin = rustup which cargo
+          $rustcToolchainBin = rustup which rustc
+          Write-Output $cargoProxy $rustcProxy $cargoToolchainBin $rustcToolchainBin
+          if ($cargoProxy -eq $cargoToolchainBin) { throw "cargo on PATH is the toolchain binary, not the trusted rustup proxy" }
+          if ($rustcProxy -eq $rustcToolchainBin) { throw "rustc on PATH is the toolchain binary, not the trusted rustup proxy" }
+
+          $cargoVersion = cargo --version
+          $rustcVersion = rustc --version
+          $rustfmtVersion = rustfmt --version
+          $clippyVersion = cargo clippy --version
+          Write-Output $cargoVersion $rustcVersion $rustfmtVersion $clippyVersion
+          if ($cargoVersion -notlike "cargo $rustPin *") { throw "cargo version '$cargoVersion' does not match the pin $rustPin" }
+          if ($rustcVersion -notlike "rustc $rustPin *") { throw "rustc version '$rustcVersion' does not match the pin $rustPin" }
+
+          # Only rustup proxies accept +toolchain; these prove the PATH
+          # cargo/rustc commands are the trusted runner proxies.
+          cargo "+$rustPin" --version
+          rustc "+$rustPin" --version
+
+      - name: Install existing CI Linux build prerequisites and retain actual versions
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir "$RUNNER_TEMP/japp-development-package-sdk"
+          sudo apt-get update 2>&1 | tee "$RUNNER_TEMP/japp-development-package-sdk/apt-update.stdout"
+          sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev 2>&1 | tee "$RUNNER_TEMP/japp-development-package-sdk/apt-install.stdout"
+          dpkg-query -W -f='${Package}\t${Version}\t${Architecture}\n' > "$RUNNER_TEMP/japp-development-package-sdk/dpkg-versions.stdout"
+          pkg-config --modversion webkit2gtk-4.1 gtk+-3.0 > "$RUNNER_TEMP/japp-development-package-sdk/webkit-gtk-versions.stdout"
+          # Actual SDK provenance; this is not a hash-locked apt/image closure.
+      - name: Build isolated development package and run one owned native service actor
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          & $env:PACKAGE_PYTHON -I -S scripts/native_package_ci.py --source (Get-Location).Path --work (Join-Path $env:RUNNER_TEMP 'japp-development-package-work') --proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') --python $env:PACKAGE_PYTHON
+      - name: Curate finite package evidence even on failure
+        if: always()
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $curatorPython = $env:PACKAGE_PYTHON
+          if (-not $curatorPython) { $curatorPython = (Get-Command python3).Path }
+          # Bootstrap fallback is documentary curation only; no payload import or launch.
+          & $curatorPython -I -S scripts/native_package_retention.py --proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') --sdk (Join-Path $env:RUNNER_TEMP 'japp-development-package-sdk')
+      - name: Retain finite native development evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: native-development-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/japp-development-package-proof/retained/
+          if-no-files-found: error
           retention-days: 7

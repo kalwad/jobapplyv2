@@ -1,0 +1,15 @@
+{
+  "archive": "proof.tar.gz",
+  "archive_bytes": 2702950,
+  "archive_sha256": "fe17912146e6e547b05f5c1e12ca72f598ff4682d56e6ce3746382cf6b1e521f",
+  "members": 490,
+  "source_manifest_sha256": "a9dbebc8f2540e4aeacc18dd826f166777e3603f6253f251295cbf7d0a4e9cda",
+  "head_sha": "0f91158f68fa4fac4c5786b97b8d539d103d53ed",
+  "tree_sha": "85dd2cd9bc8969b448277560f0b107ca3e962b83",
+  "run_id": 39087938620,
+  "run_attempt": 1,
+  "actual_run_conclusion": "success",
+  "authority": "NONE",
+  "owner_decision": "PENDING",
+  "captured_at_utc": "2026-10-18T02:34:42.636328+00:00"
+}

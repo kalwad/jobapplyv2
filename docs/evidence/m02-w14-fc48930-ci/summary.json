@@ -1,0 +1,466 @@
+{
+  "repository": "kalwad/jobapplyv2",
+  "pull_request": 1,
+  "run_id": 38979349323,
+  "run_url": "https://github.com/kalwad/jobapplyv2/actions/runs/38979349323",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "head": "fc48930fd880795f72972fd97e2e69d68e636855",
+  "tested_merge": "34477f17c8b97e2caf04fb4d716d352d7e7a8a32",
+  "tested_tree": "cb787f46afec1281c87074a82fd31e23b37c865a",
+  "merge_parents": [
+    "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+    "fc48930fd880795f72972fd97e2e69d68e636855"
+  ],
+  "head_tree_equals_tested_merge_tree": true,
+  "created_at": "2026-10-16T23:03:41Z",
+  "updated_at": "2026-10-16T23:39:17Z",
+  "platforms": [
+    {
+      "platform": "ubuntu",
+      "job_id": 117236280907,
+      "job_name": "doctor + verify (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:03:45Z",
+      "completed_at": "2026-10-16T23:24:33Z",
+      "raw_log": {
+        "path": "ubuntu-117236280907.raw.log",
+        "bytes": 1077807,
+        "sha256": "959bf60f613470e67b41591e0c347eff0689d1904331ca9cc941b11339b8ba93"
+      },
+      "tested_merge": "34477f17c8b97e2caf04fb4d716d352d7e7a8a32",
+      "python": {
+        "count": 1454,
+        "duration": "316.09s (0:05:16)",
+        "summary_line": 7340,
+        "outcome": "PASS, complete final all-pass summary"
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1734,
+          "text": "242 passed (8.2m)"
+        },
+        {
+          "line": 2065,
+          "text": "2 passed (2.1s)"
+        },
+        {
+          "line": 2192,
+          "text": "62 passed (38.4s)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 1154,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1199ms"
+        },
+        {
+          "line": 1330,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1158ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 1171,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1047.209044000001,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    {
+      "platform": "macos",
+      "job_id": 117236280670,
+      "job_name": "doctor + verify (macos-15)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:03:51Z",
+      "completed_at": "2026-10-16T23:39:16Z",
+      "raw_log": {
+        "path": "macos-117236280670.raw.log",
+        "bytes": 1068644,
+        "sha256": "7e32c069ef2e2b2efae3b03dc4a289b05ce379bb455ef487fc02bae6526302b3"
+      },
+      "tested_merge": "34477f17c8b97e2caf04fb4d716d352d7e7a8a32",
+      "python": {
+        "count": 1454,
+        "duration": "539.73s (0:08:59)",
+        "summary_line": 7202,
+        "outcome": "PASS, complete final all-pass summary"
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1596,
+          "text": "242 passed (14.0m)"
+        },
+        {
+          "line": 1927,
+          "text": "2 passed (6.2s)"
+        },
+        {
+          "line": 2054,
+          "text": "62 passed (1.8m)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 1006,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1600ms"
+        },
+        {
+          "line": 1191,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 2118ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 1023,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1814.681916999998,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    },
+    {
+      "platform": "windows",
+      "job_id": 117236281022,
+      "job_name": "doctor + verify (windows-2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-16T23:03:45Z",
+      "completed_at": "2026-10-16T23:38:12Z",
+      "raw_log": {
+        "path": "windows-117236281022.raw.log",
+        "bytes": 1092509,
+        "sha256": "21fd3ce0ebc565c61d2b8acb68893fad3e8e3e266cf1cb929463bbe6ab020b52"
+      },
+      "tested_merge": "34477f17c8b97e2caf04fb4d716d352d7e7a8a32",
+      "python": {
+        "count": 1452,
+        "duration": "673.22s (0:11:13)",
+        "summary_line": 7341,
+        "outcome": "PASS, complete final all-pass summary"
+      },
+      "active_suites": [
+        {
+          "name": "toolchain",
+          "outcome": "PASS"
+        },
+        {
+          "name": "format",
+          "outcome": "PASS"
+        },
+        {
+          "name": "lint",
+          "outcome": "PASS"
+        },
+        {
+          "name": "typecheck",
+          "outcome": "PASS"
+        },
+        {
+          "name": "unit-ts",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract-gen",
+          "outcome": "PASS"
+        },
+        {
+          "name": "fixture-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "evaluation-corpus",
+          "outcome": "PASS"
+        },
+        {
+          "name": "contract",
+          "outcome": "PASS"
+        },
+        {
+          "name": "build",
+          "outcome": "PASS"
+        },
+        {
+          "name": "e2e-browser",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "w14-public-contact-controlled",
+          "outcome": "PASS"
+        },
+        {
+          "name": "python",
+          "outcome": "PASS"
+        },
+        {
+          "name": "rust",
+          "outcome": "PASS"
+        },
+        {
+          "name": "portability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "traceability",
+          "outcome": "PASS"
+        },
+        {
+          "name": "status",
+          "outcome": "PASS"
+        },
+        {
+          "name": "integrity",
+          "outcome": "PASS"
+        }
+      ],
+      "playwright_summaries": [
+        {
+          "line": 1737,
+          "text": "242 passed (12.8m)"
+        },
+        {
+          "line": 2068,
+          "text": "2 passed (5.0s)"
+        },
+        {
+          "line": 2195,
+          "text": "62 passed (1.7m)"
+        }
+      ],
+      "infrastructure_eight": [
+        {
+          "line": 1141,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1335ms"
+        },
+        {
+          "line": 1333,
+          "text": " \u2713 test/contract/infrastructure.test.ts (8 tests) 1357ms"
+        }
+      ],
+      "contracts_2524": [
+        {
+          "line": 1157,
+          "text": "      Tests  2524 passed (2524)"
+        }
+      ],
+      "doctor_and_aggregate_and_tracked_clean": "PASS",
+      "status_cohort": {
+        "count": 201,
+        "outcome": "PASS"
+      },
+      "contact_cohort": {
+        "count": 11,
+        "outcome": "PASS"
+      },
+      "native128_performance": {
+        "samples": 1,
+        "p95_ms": 1040.765199999998,
+        "threshold_ms": 1500,
+        "settle_budget_ms": 0,
+        "scope": "TARGET_MACHINE_LOWER_BOUND_HARNESS_VALIDATION"
+      }
+    }
+  ],
+  "artifact_count": 0,
+  "scope": [
+    "Exact fc48930 source and matching PR merge tree only.",
+    "Native Windows full pytest summary confirms all 1452 tests, status 201 and contact 11, including the previously stackless contact-environment case.",
+    "Native Windows direct-compiler infrastructure 8 passes twice; full contracts 2524 passes.",
+    "CI native128 measurement uses one sample on each platform; it does not satisfy or replace the separate 20-sample target campaign.",
+    "The exact benchmark source applies its 1500ms target assertion only for sampleCount===20 on darwin; macOS single-sample CI measured 1814.681916999998ms and still passed its default functional scope.",
+    "No causal explanation is asserted for the prior stackless contact-environment failure.",
+    "No later local optimization is covered by this CI run."
+  ]
+}

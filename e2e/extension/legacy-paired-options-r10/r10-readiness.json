@@ -1,0 +1,15 @@
+{
+  "format_version": "R10_SOURCE_ONLY_PREPARATION_1",
+  "authority": "NONE",
+  "gate_pass": false,
+  "state": "SOURCE_BOUND_REVIEWED",
+  "candidate_runtime_inventory_digest": "sha256:4f5a9608eb23a80a15a81b4a79494901907c4ad7e5c6a996fbce455b498c77d5",
+  "candidate_runtime_inventory_count": 355,
+  "exact_future_full_pass_commit": null,
+  "exact_future_full_pass_tree": null,
+  "future_full_completion_sha256": null,
+  "future_tools_before_sha256": null,
+  "future_tools_after_sha256": null,
+  "root_execution_release": null,
+  "note": "Runtime source freeze only. All exact future full-PASS commit, proof and tool pins remain null in source preparation; actual execution requires separately reviewed out-of-band R10 release descriptor after exact clean committed full PASS. No actor has been invoked."
+}

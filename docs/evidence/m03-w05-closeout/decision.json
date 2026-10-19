@@ -1,0 +1,29 @@
+{
+  "work_package": "M03-W05",
+  "decision": "VERIFIED",
+  "decision_maker": "/root",
+  "authority": "OD-037 / ADR-0008",
+  "manual_owner_click": false,
+  "evaluated_commit": "185909baee1fdcbf21e779959f40bad30b0231c9",
+  "evaluated_tree": "3c2ba3a601bd1b8c32bb11b52ca79e48d13b92ed",
+  "source_files": 1905,
+  "doctor_pass": 28,
+  "active_suites_pass": 20,
+  "counts": {
+    "Python": 1679,
+    "TypeScript": 4006,
+    "native_each_three_modes": 183,
+    "default_browser": 262,
+    "controlled_inspection": 2,
+    "controlled_contact": 62,
+    "visual": 3
+  },
+  "full_data_review_sha256": "9e4e0e04497eb7142e6ed75be7799b1dba6a513105f021078e87825fab28ce99",
+  "real_recovery_review_sha256": "17dc1c0a5503b374301abcd93759b3a393ef9dbd0fae7896df1736281cb0bab3",
+  "next_package": "M03-W06",
+  "M03_accepted": false,
+  "release_ready": false,
+  "new_gui_or_hosted_PASS": false,
+  "KI0108": "FIXED currentbrowserrevalidation",
+  "KI0109": "IN_PROGRESS Windowslibraryloaderfailure"
+}

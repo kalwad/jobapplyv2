@@ -1,0 +1,29 @@
+{
+  "base_commit": "8ae96f0966f101fff55f178b15ce12c7dbb533b9",
+  "scope": "working tree with retained patch; no acceptance or gate transition",
+  "command": "env PATH=/opt/homebrew/opt/node@24/bin:$PATH uv run pytest scripts/tests/test_validate_status.py -q > /tmp/japp-w14-public-final-20261016/final-status-tests.log 2>&1",
+  "exit_code": 0,
+  "passed": 201,
+  "files": [
+    {
+      "path": "final-status-tests.log",
+      "bytes": 261,
+      "sha256": "ab3672ffa64c3da6eaba4612c49660c468db791c59271a769fab6f77681abf21"
+    },
+    {
+      "path": "final-status.log",
+      "bytes": 3563,
+      "sha256": "84b501d18c32b2526bf9e2b72d40d08aa9d87edda83d25ca2cc8bc69a445ec55"
+    },
+    {
+      "path": "final-traceability.log",
+      "bytes": 114,
+      "sha256": "4cdccdf15aac3e9407b5eb002925557911ad970a6bd3d65ba63177e5549fd1bc"
+    },
+    {
+      "path": "final-ledger-source.patch",
+      "bytes": 57201,
+      "sha256": "e7362130b4785baa055b992e7f457fb603d827fb3143527ac26b8fcee7f70cc6"
+    }
+  ]
+}
