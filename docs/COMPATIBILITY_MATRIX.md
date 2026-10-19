@@ -3,6 +3,24 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## M03-W05 scoped recovery and actual2a327 hosted result (2026-10-19UTC)
+
+W05 is VERIFIED at185909b/tree3c2ba3a after current clean local doctor28/all20,
+Python1679/TypeScript4006/native183 per three modes/browser262+2+62+3 and
+independent48/48 review. Separate real selected4 recovery cases per mode pass;
+no whole187 or new GUI/unsaved-buffer action is claimed. M03 remains IN_PROGRESS,
+W06 begins and release stays NOT_READY.
+
+Independent source-bound hosted2a327 run39194489970 is Ubuntu/macOS20PASS and
+Windows19PASS/RustloaderFAIL before default library tests. Later Windows native
+modes/final build are unexecuted, step26SKIPPED. Current browser groups pass on all
+hosts, closing KI-0108 only; KI-0109 remains IN_PROGRESS. Actual artifacts include
+10 visual PNGs, no failed native PE/DLL/trace. Hosted Python masked multisets differ
+by the declared POSIX pair; no unique unredacted hosted-ID equality is claimed.
+No cause, performance20-sample, native Windows11/default-GNOME package, final visual
+baseline or certified platform/support row follows. Exact evidence is retained in
+docs/evidence/m03-w05-closeout and docs/evidence/m03-w04-hosted-ci.
+
 ## Update rules
 
 - Only measured, evidence-linked results may appear here. No claimed support

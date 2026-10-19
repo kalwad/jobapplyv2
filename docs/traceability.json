@@ -8553,8 +8553,8 @@
       "id": "M03-W05",
       "milestone": "M03",
       "title": "Add crash/restart behavior",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 3c2ba3a601bd1b8c32bb11b52ca79e48d13b92ed",
       "direct_package_prerequisites": [
         "M03-W04"
       ],
@@ -8596,14 +8596,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M03-W05"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W06",
       "milestone": "M03",
       "title": "Package development build",
-      "current_state": "NOT_STARTED",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M03-W05"

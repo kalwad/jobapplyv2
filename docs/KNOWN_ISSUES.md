@@ -32,12 +32,25 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current Windows native validation finding (2026-10-19UTC)
+
+### KI-0109 — Desktop unit-test executable fails before startup on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39194489970,Windows job117874182536
+- Affects: M03 native test/build infrastructure / REQ-PLAT-013; Windows desktop library test executable
+- Description: default cargo test links then exits0xc0000139 STATUS_ENTRYPOINT_NOT_FOUND before any library test summary. Windows aggregate is19PASS/RustFAIL; later all-features/SDK test modes and final desktop build are unexecuted. Three strict Clippy commands cover three workspaces, only one desktop. No failed-PE import, actual missing DLL/export or production-app failure is observed.
+- Reproduction: immutable2a327/tree4ce9, actual PRmerge bdeb5ddae0ade030b5d0be2aa95dd3a8288fc03b; `cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml` launches japp_desktop-d259cde1f90c873d.exe and returns3221225785. Official logs ZIP72304ac2157ecb71b9a2192dab7ce9e228786d1b06a70867861ccb26f21d0e42 and exact raw lines are retained. The downloadable artifact has10visualPNGs, no native PE/DLL/trace.
+- Workaround: none used; canonical failure remains failed, Windows step26SKIPPED. Mac/local results grant no Windows startup PASS.
+- Resolution + evidence link: investigate the source-supported Common Controls v6 test-manifest gap and evaluate the separately reviewed target-scoped candidate with actual Windows PE/resource/unchanged native tests. Cause/fix and normal-app resource merging remain unvalidated. Add bounded failure-only native diagnostics without weakening canonical exit handling. See docs/evidence/m03-w04-hosted-ci and docs/TEST_EVIDENCE.md; current work continues in W06.
+
 ## Current browser validation regression (2026-10-19UTC)
 
 ### KI-0108 — Windows owned browser-context and profile cleanup fails; failure artifact unavailable
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-19UTC in required hosted run39188122249, Windows job117854768223
 - Affects: M03 verification infrastructure / REQ-PLAT-013; e2e/extension/support/extension-test.ts
 - Description: the observed-boundary research case reports1.7s and fails during fixture teardown, which reports EXTENSION_CONTEXT_CLEANUP_FAILED: browserContext.close returns Target page, context or browser has been closed, and recursive owned-profile removal returns EPERM despite the existing10 retries/100ms delay. The default browser suite reports255PASS/1FAIL;19 other suites pass, including all required native modes. No timeout or flaky classification is inferred.
@@ -46,6 +59,8 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link: repair owned lifecycle/profile cleanup and preserve failure outputs across later suites, retaining every original assertion, strict failure policy and bounded budgets. Revalidate before closing. See docs/evidence/m03-w03-closeout/ci-6d3-terminal.tar.gz and terminal-ci-independent-review.
 
 - Implemented correction (2026-10-19UTC): captured owned-Browser retirement and awaited async profile removal retain all Context.close errors and original budgets; sibling output roots preserve actual failed trace bytes. Actual10-case RED/44GREEN,355 Python checks, one local WD replay and real retained failure trace pass separate review465e8e22. Root strict typecheck initially fails on one local test annotation; the exact annotation fix and complete PASS are retained. Canonical full and actual native Windows validation remain pending; no prior failed job is relabeled. See docs/evidence/m03-w04-browser-cleanup.
+
+- Closure (2026-10-19UTC): actual source-bound run39194489970 browser262+2+62+3 passes on Windows, Ubuntu and macOS; current local W05 all20 also passes, with preserved source/counterproof and separate CI documentary74/74 review. This closes the cleanup/failure-artifact correction scope, while the new Windows Rust loader failure is KI-0109. Old255PASS/1FAIL and missing trace remain unchanged. See docs/evidence/m03-w04-hosted-ci and docs/evidence/m03-w05-closeout.
 
 ## M03-W03 validation findings (2026-10-18)
 
