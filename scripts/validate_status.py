@@ -3177,6 +3177,21 @@ def _canonicalish_spec_name(name: str) -> bool:
     return collapsed.startswith("masterimplementationspec")
 
 
+def _file_contains_marker(path: Path, marker: bytes) -> bool:
+    """Search all bytes with bounded memory, including cross-chunk markers."""
+    overlap_size = max(0, len(marker) - 1)
+    overlap = b""
+    found = False
+    with path.open("rb") as stream:
+        while chunk := stream.read(64 * 1024):
+            window = overlap + chunk
+            found = found or marker in window
+            overlap = window[-overlap_size:] if overlap_size else b""
+    # Finish through EOF even after a match: later read/close OSError must
+    # retain the caller's existing unreadable-content behavior.
+    return found
+
+
 def canonical_spec_offenders(repo: Path) -> list[str]:
     """Return every non-canonical file that looks or reads like the spec."""
     docs_dir = repo / "docs"
@@ -3201,7 +3216,7 @@ def canonical_spec_offenders(repo: Path) -> list[str]:
                 offenders.append(rel)
             continue
         try:
-            content_match = marker in path.read_bytes()
+            content_match = _file_contains_marker(path, marker)
         except OSError:
             content_match = False
         if name_match or content_match:

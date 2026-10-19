@@ -254,9 +254,17 @@ jobs:
       - name: Environment doctor (same command as local `pnpm run doctor`)
         # `run` is required: pnpm has an unrelated built-in `pnpm doctor`
         # command that would shadow the repository script's bare form.
+        env:
+          TMPDIR: ${{ runner.temp }}
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}
         run: pnpm run doctor
 
       - name: Canonical aggregate verification (same command as local `pnpm verify`)
+        env:
+          TMPDIR: ${{ runner.temp }}
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}
         run: pnpm verify
 
       - name: Assert verification left no tracked changes

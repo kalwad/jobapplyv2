@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 1648,
-    "sha256": "7fdad170efd8a2146057841207c52ad712897d9ac0ae7a5e206cc3760f4487ab",
+    "count": 1651,
+    "sha256": "e194e6a38fea1204a1d98904a9fc7ad60a3cd602e8af6ae2ff3f03ccbc9c9560",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -868,6 +868,9 @@
       "scripts/tests/test_proofs_and_real_repo.py::test_unit_ts_discovery_covers_packages_and_apps",
       "scripts/tests/test_proofs_and_real_repo.py::test_vitest_per_package_proof_requires_fresh_counts",
       "scripts/tests/test_proofs_and_real_repo.py::test_workspace_package_enumeration_matches_scaffold",
+      "scripts/tests/test_status_scan_streaming.py::test_canonical_scan_bounds_reads_and_catches_every_marker_split",
+      "scripts/tests/test_status_scan_streaming.py::test_canonical_scan_keeps_open_read_close_errors_and_name_matches",
+      "scripts/tests/test_status_scan_streaming.py::test_canonical_scan_preserves_late_binary_marker_and_empty_file",
       "scripts/tests/test_suite_states.py::test_activated_but_empty_contract_suite_fails",
       "scripts/tests/test_suite_states.py::test_activated_but_empty_visual_suite_fails",
       "scripts/tests/test_suite_states.py::test_array_from_empty_table_with_count_compensation_still_fails",
