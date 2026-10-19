@@ -82,6 +82,7 @@ import json
 import re
 import subprocess
 import sys
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -443,12 +444,137 @@ def _strip_shell_comments(body: str, shell: str = "") -> str:
     return "\n".join(stripped)
 
 
+NATIVE_PACKAGE_JOB = "native_package_development"
+NATIVE_PACKAGE_TIMEOUT_MINUTES = 60
+NATIVE_PACKAGE_UPLOAD = {
+    "name": "native-development-${{ matrix.os }}-${{ github.sha }}",
+    "path": "${{ runner.temp }}/japp-development-package-proof/retained/",
+    "if-no-files-found": "error",
+    "retention-days": 7,
+}
+NATIVE_PACKAGE_STEPS = (
+    "Check out exact source for read-only package projection",
+    "Activate project Node pin",
+    "Activate pinned pnpm via Corepack (native package)",
+    "Install exact project uv pin (POSIX)",
+    "Install exact project uv pin (Windows)",
+    "Activate exact project Python pin",
+    "Install pinned Rust toolchain for native package (rust-toolchain.toml)",
+    "Install pinned Rust toolchain for native package (rust-toolchain.toml, Windows)",
+    "Install existing CI Linux build prerequisites and retain actual versions",
+    "Build isolated development package and run one owned native service actor",
+    "Curate finite package evidence even on failure",
+    "Retain finite native development evidence",
+)
+
+
+def _native_package_header_valid(job: Mapping[object, object]) -> bool:
+    return (
+        job.get("needs") == "verify"
+        and job.get("runs-on") == MATRIX_RUNS_ON
+        and job.get("timeout-minutes") == NATIVE_PACKAGE_TIMEOUT_MINUTES
+        and job.get("strategy")
+        == {
+            "fail-fast": False,
+            "matrix": {"os": ["windows-2025", "ubuntu-24.04"]},
+        }
+        and not any(
+            key in job for key in ("if", "defaults", "permissions", "continue-on-error")
+        )
+    )
+
+
+def _native_package_steps(value: object) -> list[Mapping[object, object]] | None:
+    if not isinstance(value, list):
+        return None
+    steps: list[Mapping[object, object]] = []
+    for step in value:
+        if not isinstance(step, dict):
+            return None
+        steps.append(step)
+    if tuple(step.get("name") for step in steps) != NATIVE_PACKAGE_STEPS:
+        return None
+    if any("continue-on-error" in step for step in steps):
+        return None
+    return steps
+
+
+def _native_package_commands_valid(steps: list[Mapping[object, object]]) -> bool:
+    build, curator, upload = steps[-3:]
+    command = (
+        "& $env:PACKAGE_PYTHON -I -S scripts/native_package_ci.py "
+        "--source (Get-Location).Path "
+        "--work (Join-Path $env:RUNNER_TEMP 'japp-development-package-work') "
+        "--proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') "
+        "--python $env:PACKAGE_PYTHON"
+    )
+    expected_build = [
+        "$ErrorActionPreference = 'Stop'",
+        "$PSNativeCommandUseErrorActionPreference = $true",
+        command,
+    ]
+    expected_curator = [
+        "$ErrorActionPreference = 'Stop'",
+        "$PSNativeCommandUseErrorActionPreference = $true",
+        "$curatorPython = $env:PACKAGE_PYTHON",
+        "if (-not $curatorPython) { $curatorPython = (Get-Command python3).Path }",
+        (
+            "# Bootstrap fallback is documentary curation only; "
+            "no payload import or launch."
+        ),
+        (
+            "& $curatorPython -I -S scripts/native_package_retention.py "
+            "--proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') "
+            "--sdk (Join-Path $env:RUNNER_TEMP 'japp-development-package-sdk')"
+        ),
+    ]
+    if (
+        "if" in build
+        or build.get("shell") != "pwsh"
+        or str(build.get("run", "")).strip().splitlines() != expected_build
+    ):
+        return False
+    return (
+        curator.get("if") == "always()"
+        and curator.get("shell") == "pwsh"
+        and str(curator.get("run", "")).strip().splitlines() == expected_curator
+        and upload.get("if") == "always()"
+        and upload.get("uses")
+        == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+        and upload.get("with") == NATIVE_PACKAGE_UPLOAD
+    )
+
+
+def _native_package_job_valid(workflow: Mapping[str, object]) -> bool:
+    """Only the explicit bounded package recipe can accompany canonical verify."""
+    jobs: object = workflow.get("jobs", {})
+    if not isinstance(jobs, dict) or set(jobs) != {"verify", NATIVE_PACKAGE_JOB}:
+        return False
+    job: object = jobs.get(NATIVE_PACKAGE_JOB)
+    if not isinstance(job, dict) or not _native_package_header_valid(job):
+        return False
+    steps = _native_package_steps(job.get("steps"))
+    return steps is not None and _native_package_commands_valid(steps)
+
+
 def _check_matrix(
     workflow: dict[str, Any], violations: list[Violation]
 ) -> tuple[str, dict[str, Any]] | None:
     jobs = workflow.get("jobs", {})
     matrix_jobs: list[tuple[str, dict[str, Any]]] = []
+    if NATIVE_PACKAGE_JOB in jobs and not _native_package_job_valid(workflow):
+        violations.append(
+            Violation(
+                "PORT-CI-002",
+                "jobs." + NATIVE_PACKAGE_JOB,
+                "native package job must retain its exact bounded contract",
+            )
+        )
     for job_id, job in jobs.items():
+        # Invalid package recipes already fail above. They must never become
+        # baseline candidates and hide a disconnected canonical-command job.
+        if job_id == NATIVE_PACKAGE_JOB:
+            continue
         if not isinstance(job, dict):
             continue
         strategy = job.get("strategy", {})
@@ -1019,7 +1145,10 @@ def _check_chromium(
 
 
 def _check_artifacts(
-    steps: list[tuple[str, dict[str, Any]]], violations: list[Violation]
+    steps: list[tuple[str, dict[str, Any]]],
+    violations: list[Violation],
+    *,
+    approved_package: bool = False,
 ) -> None:
     for where, step in steps:
         if not str(step.get("uses", "")).startswith("actions/upload-artifact@"):
@@ -1046,6 +1175,16 @@ def _check_artifacts(
                 and candidate.get("run") == "pnpm verify"
                 for _location, candidate in steps
             )
+        ):
+            continue
+        if (
+            approved_package
+            and where
+            == NATIVE_PACKAGE_JOB + ":Retain finite native development evidence"
+            and step.get("uses")
+            == "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+            and step.get("if") == "always()"
+            and step.get("with") == NATIVE_PACKAGE_UPLOAD
         ):
             continue
         if str(step.get("if", "")).strip() != "failure()":
@@ -1566,7 +1705,9 @@ def run_checks(repo: Path) -> list[Violation]:
     _check_rust_steps(steps, violations)
     _check_caches(steps, violations)
     _check_chromium(steps, violations)
-    _check_artifacts(steps, violations)
+    _check_artifacts(
+        steps, violations, approved_package=_native_package_job_valid(workflow)
+    )
     _check_no_live_sites(steps, violations)
 
     for script in _runtime_scripts(repo):

@@ -95,6 +95,8 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
     monkeypatch.setattr(sys, "argv", argv)
     monkeypatch.setattr(module, "host_target", lambda: "x86_64-pc-windows-msvc")
 
+    trusted_windows = str(tmp_path / "trusted-windows")
+
     class Buffer(Protocol):
         value: str
 
@@ -102,8 +104,8 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
         @staticmethod
         def GetWindowsDirectoryW(buffer: Buffer, size: int) -> int:  # noqa: N802 - native API spelling
             del size
-            buffer.value = "/trusted/windows"
-            return len("/trusted/windows")
+            buffer.value = trusted_windows
+            return len(trusted_windows)
 
     monkeypatch.setattr(
         module.ctypes, "WinDLL", lambda *_a, **_k: Kernel(), raising=False
@@ -121,7 +123,7 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
         assert options["timeout"] == 300
         environment = options["env"]
         assert isinstance(environment, dict)
-        assert environment["SystemRoot"] == "/trusted/windows"
+        assert environment["SystemRoot"] == trusted_windows
         assert environment["PATH"] == ""
         assert "JAPP_PRIVATE_TOKEN" not in environment
         output = b""

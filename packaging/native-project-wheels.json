@@ -1,0 +1,11 @@
+{
+  "contracts": {
+    "path": "packaging/native-project-wheels/japp_contracts-0.0.1-py3-none-any.whl",
+    "sha256": "d1ac6f4725a98bb35dca624192bc80b89d4634a3558467b80b6b2f190b2c6d7c"
+  },
+  "orchestrator": {
+    "path": "packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl",
+    "sha256": "6ef4e59987a42d0a4b34d9bb8507537616e7d83913133b2d5a55bbb83b5e6052"
+  },
+  "scope": "Exact previously built pure project wheels. Consumer must verify every current source package/resource and restricted install surface; no new wheel build/native distribution claim."
+}

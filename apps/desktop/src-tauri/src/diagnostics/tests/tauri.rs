@@ -64,6 +64,13 @@ fn request(cmd: &str, url: &str, body: InvokeBody) -> InvokeRequest {
         invoke_key: INVOKE_KEY.into(),
     }
 }
+fn local_app_origin() -> &'static str {
+    if cfg!(any(windows, target_os = "android")) {
+        "http://tauri.localhost"
+    } else {
+        "tauri://localhost"
+    }
+}
 const ID: &str = "req_00000000000000000000000001";
 #[test]
 fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
@@ -76,7 +83,7 @@ fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
         &window,
         request(
             "read_service_diagnostics",
-            "tauri://localhost",
+            local_app_origin(),
             InvokeBody::Json(json!({"request_id":ID})),
         ),
     )
@@ -89,7 +96,7 @@ fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
         &window,
         request(
             "cancel_service_request",
-            "tauri://localhost",
+            local_app_origin(),
             InvokeBody::Json(json!({"request_id":ID})),
         ),
     )
@@ -102,7 +109,7 @@ fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
             &window,
             request(
                 "unlisted_probe",
-                "tauri://localhost",
+                local_app_origin(),
                 InvokeBody::Json(json!({}))
             )
         )
@@ -114,7 +121,7 @@ fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
             &window,
             request(
                 "arbitrary_http",
-                "tauri://localhost",
+                local_app_origin(),
                 InvokeBody::Json(json!({"url":"private"}))
             )
         )
@@ -136,7 +143,7 @@ fn actual_acl_rejects_other_windows_and_remote_invocation_origins() {
                 &other,
                 request(
                     cmd,
-                    "tauri://localhost",
+                    local_app_origin(),
                     InvokeBody::Json(json!({"request_id":ID}))
                 )
             )
@@ -168,7 +175,7 @@ fn actual_command_rejects_extra_top_level_fields_and_raw_payload() {
     ] {
         let error = get_ipc_response(
             &window,
-            request("read_service_diagnostics", "tauri://localhost", body),
+            request("read_service_diagnostics", local_app_origin(), body),
         )
         .unwrap_err();
         assert_eq!(error["payload"]["code"], "TRANSPORT_MALFORMED_MESSAGE");

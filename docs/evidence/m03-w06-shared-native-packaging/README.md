@@ -1,0 +1,7 @@
+M03-W06 shared native packaging remains IN_PROGRESS. This packet binds20current code/inventory postimages (8modified/12added) on base6867/tree6200,1983logical source before5evidence files; no package/gate/state promotion.
+
+Originalv4458payloads6311075B and all static/preparation histories are retained. Originalfailed715focus713PASS2FAIL is untouched; corrected715PASS/7commands/1860collection and separatefixture3PASS/Rust15commands232each3/finalbuild/same1860IDs have different57+59data reviews. Newinventory1858common+2POSIX adds exactly59common and removes/renames0old IDs. Currentintegrated all20 full/newnativepackage CI remain pending.
+
+Immutable660f hostedrun39207973986 hasMac20PASS/Ubuntu20PASS/Windows18PASS2FAIL. Actualtestedmergef1a558 maps exactbe68tree1961; no result transfers to laterroot. WindowsTYPECHECKPASS and linked/executeddefault220 are directobservations; Pythonfixture1FAIL/Tauriorigin2FAIL remain. LaterWindows modes/finalbuildunexecuted; oldc4f typecheck causeunknown. Diagnostic succeedsbutexplicitlyNO_CAUSAL_VERDICT. Linkduplicate andjoinedGitpath defects close narrowly; freshWindowsfixture/originvalidation remains pending.
+
+CompleteofficialCI nativePE/PNG/opaqueartifactZIP bodies remain outsideGit with exhaustivehashbindings inselectedCI archive. Onlypureprojectwheel productassets227795B are embedded; no native/app/cacheimages. NativeWindows11/defaultUbuntuGNOMEGUI/MacLaunchServices/window/Readyacceptance, W06/W07/W08/M03/Gates/release/M04/provider activation are not claimed.

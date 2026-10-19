@@ -34,16 +34,38 @@ broadening a work package (spec §1.5).
 
 ## Current hosted Windows failures (2026-10-19UTC)
 
-### KI-0111 — Windows executable link duplicates RT_MANIFEST
+### KI-0114 — Windows builder mock supplies a non-absolute system directory
 
 - Severity: MEDIUM
 - State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native package tests / REQ-PLAT-013; scripts/tests/test_windows_builder.py
+- Description: mocked GetWindowsDirectoryW returns /trusted/windows. On native Windows this lacks a drive and Path(...).is_absolute() refuses before the synthetic six-stage proof. Actual Python1798PASS/1FAIL652.50s; no real native builder or application failure is inferred from this fixture.
+- Reproduction: exact660f/be68 testedmergef1a558ee; official Windows log8267–8429 and API/source bindings are retained.
+- Workaround: none used; original canonical Windows failure stays failed.
+- Resolution + evidence link: reviewed test-only tmp_path-derived absolute directory replaces three fake API/count/expected-env sites, preserving every stage, CLI argument and assertion. Actual local fixture3PASS and canonical715focus/1860collection remain separately bound. Fresh native Windows validation is pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0115 — Tauri ACL tests send a nonlocal origin on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
+- Affects: M03 native diagnostics transport tests / REQ-PLAT-013; src/diagnostics/tests/tauri.rs
+- Description: six test requests hardcode tauri://localhost. Pinned Tauri2.12.4 uses http://tauri.localhost on Windows/Android; its actual local-only ACL rejects the hardcoded URL. Two default-library assertions fail: allowed-command unwrap gets ACL refusal and malformed-message assertion sees Null. Actual218PASS/2FAILof220; no production permission broadening is warranted.
+- Reproduction: exact660f/be68 testedmergef1a558ee Windows default cargo test, official log9070–9085. Later all-features/SDK/finalbuild are unexecuted.
+- Workaround: none; no ACL/CSP/command change or ignored assertion is used.
+- Resolution + evidence link: test-only local_app_origin matches the exact pinned framework's official test example; six argument adapters preserve all four tests/assertions and secondary-window/remote denial. Actual localMac Rust15commands/232cases each3/finalbuildPASS; fresh Windows validation remains pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+
+### KI-0111 — Windows executable link duplicates RT_MANIFEST
+
+- Severity: MEDIUM
+- State: FIXED
 - Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
 - Affects: M03 native build/test infrastructure / REQ-PLAT-013; Windows desktop bin-test link
 - Description: Tauri's resource.lib embeds its default manifest while the candidate also passes general /MANIFEST:EMBED and /MANIFESTINPUT. CVTRES rejects duplicate name1/language0x0409; LINK returns LNK1123 before a successful new executable launch.
 - Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955, default desktop cargo test exit101; official raw link command and diagnostic are retained.
-- Workaround: none; mandatory Rust remains failed. This is a separate introduced link failure from KI-0109's historical startup failure.
-- Resolution + evidence link: reviewed MSVC-only Tauri new_without_app_manifest retains one linker-owned Common Controls6 manifest and other resources. Actual Mac Rust15 commands/232 each3 modes pass; actual Windows resource/link/startup remains pending. See docs/evidence/m03-w06-windows-manifest-correction and docs/TEST_EVIDENCE.md.
+- Workaround: none used; originalc4f linkFAIL remains unchanged. The later660f canonical Rust suite still fails on two test-origin assertions, separately tracked by KI-0115.
+- Resolution + evidence link: FIXED for the duplicate-manifest link defect by exact660f Windows evidence: default test executables link and library220 cases actually execute; two retained PE files and mt-extracted manifests contain CommonControls6. No duplicate CVT1100/LNK1123 occurs. Static diagnostic itself claims no causal loader verdict, and later native modes/finalbuild remain unexecuted; this does not close historicalKI-0109 or certify the normal app. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
 
 ### KI-0112 — Windows typecheck exits without a captured compiler diagnostic
 
@@ -53,19 +75,19 @@ broadening a work package (spec §1.5).
 - Affects: M03 canonical typecheck validation / REQ-PLAT-013
 - Description: pnpm exec turbo run typecheck exits1; complete captured aggregate output contains package-group discovery and telemetry but no compiler diagnostic or task footer. The source cause is UNOBSERVED.
 - Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955 typecheck block; no guessed TypeScript error, timeout or flaky classification is used.
-- Workaround: none; typecheck remains failed and no task is rerun by diagnostics.
-- Resolution + evidence link: bounded failure-only capture of15 literal existing Turbo task-log paths is integrated into the existing diagnostic artifact with strict absent/PENDING/refused distinctions. Actual native Windows capture and a successful canonical typecheck remain pending. See docs/evidence/m03-w06-windows-manifest-correction.
+- Workaround: none used; originalc4f typecheckFAIL is preserved with causeUNOBSERVED, without guessed TypeScript error, timeout or flaky classification.
+- Resolution + evidence link: bounded15fixed-path existing Turbo logs now actually retain446B in successful660f Windows diagnostic; current canonical typecheckPASS. Current successful logs do not establish the olderc4f failure cause, so this historical investigation remains IN_PROGRESS. See docs/evidence/m03-w06-shared-native-packaging and preserved m03-w06-windows-manifest-correction.
 
 ### KI-0113 — Windows failure diagnostic joins multiple Git executable paths
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849 step26
 - Affects: M03 Windows native failure diagnostics / REQ-PLAT-013
 - Description: Get-Command returns multiple ApplicationInfo records; array-to-text coercion makes Get-Item receive one joined invalid path. Diagnostic fails before checkout/image/tool inspection.
 - Reproduction: retained step26 log and DIAGNOSTIC_INCOMPLETE/source null/images empty/tools empty artifact from exactc4f run.
-- Workaround: none; no PE/import/export witness is inferred from the empty diagnostic.
-- Resolution + evidence link: reviewed first-Application resolution binds one absolute regular image in original resolution order. Five source fixture cases remain unexecuted; actual native Windows behavior is pending. See docs/evidence/m03-w06-windows-manifest-correction.
+- Workaround: none; the original incompletec4f artifact/zero-image/zero-tool result remains preserved.
+- Resolution + evidence link: FIXED for joined Git-path resolution by actual660f Windows step26SUCCESS: one first-Application image resolves, checkout/tree145source records bind,14static commands exit0,4tools and2PE/CommonControls6manifests are retained, and artifact upload succeeds. The five historical PowerShell source fixtures remain unexecuted; real native resolver execution supplies the direct outcome. This is static diagnostic success, not a causal loader or full Rust/app verdict. See docs/evidence/m03-w06-shared-native-packaging.
 
 ## Current package-test collection correction (2026-10-19UTC)
 

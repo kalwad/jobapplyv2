@@ -164,6 +164,7 @@ def main() -> None:  # noqa: PLR0912, PLR0915 - ordered six-stage native build c
         parser.add_argument("--" + name, required=True, type=Path)
     for name in ["contracts-sha256", "orchestrator-sha256", "target"]:
         parser.add_argument("--" + name, required=True)
+    parser.add_argument("--runtime-requirements-sha256")
     args = parser.parse_args()
     validate_host(
         args.target,
@@ -197,6 +198,16 @@ def main() -> None:  # noqa: PLR0912, PLR0915 - ordered six-stage native build c
         shutil.copy2(path, destination)
         copied[name] = destination
     sources = {name + "_sha256": sha256(path) for name, path in copied.items()}
+    expected_copied = {
+        "contracts_wheel_sha256": args.contracts_sha256,
+        "orchestrator_wheel_sha256": args.orchestrator_sha256,
+    }
+    if args.runtime_requirements_sha256 is not None:
+        expected_copied["runtime_requirements_sha256"] = (
+            args.runtime_requirements_sha256
+        )
+    if any(sources[name] != value for name, value in expected_copied.items()):
+        raise ValueError("Copied build input differs from expected identity")
     env = {
         "PATH": system_default_path(args.work_dir),
         "PYTHONNOUSERSITE": "1",

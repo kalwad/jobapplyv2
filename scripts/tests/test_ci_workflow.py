@@ -134,7 +134,8 @@ def test_concurrency_cancels_superseded_runs() -> None:
 
 def test_matrix_requires_exactly_the_three_certified_ci_platforms() -> None:
     data = load_ci()
-    jobs = data["jobs"]
+    assert set(data["jobs"]) == {"verify", "native_package_development"}
+    jobs = {"verify": data["jobs"]["verify"]}
     assert len(jobs) == 1
     matrix_os = next(iter(jobs.values()))["strategy"]["matrix"]["os"]
     assert matrix_os == ["macos-15", "windows-2025", "ubuntu-24.04"], (
@@ -434,7 +435,7 @@ def test_artifact_upload_is_failure_scoped_and_playwright_only() -> None:
 def test_only_additional_artifact_is_bounded_windows_native_failure_evidence() -> None:
     uploads = [
         step
-        for step in ci_steps()
+        for step in load_ci()["jobs"]["verify"]["steps"]
         if str(step.get("uses", "")).startswith("actions/upload-artifact@")
     ]
     assert len(uploads) == 2
