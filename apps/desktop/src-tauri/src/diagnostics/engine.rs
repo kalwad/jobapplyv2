@@ -246,6 +246,22 @@ impl Engine {
         if Instant::now() >= deadline {
             return Err(self.error("TRANSPORT_TIMEOUT", &correlation));
         }
+        if result.is_ok() {
+            self.registry
+                .complete(&id, &lease)
+                .map_err(|error| self.error(error.code(), &correlation))?;
+            // Recheck native authority/cancellation/deadline after the one-shot
+            // bounded commit. A replacement cannot revive an old completion.
+            if lease.cancel.is_cancelled() {
+                return Ok(self.state(&id, "CANCELLED", &correlation));
+            }
+            if !still_current() {
+                return Err(self.error("TRANSPORT_DISCONNECTED", &correlation));
+            }
+            if Instant::now() >= deadline {
+                return Err(self.error("TRANSPORT_TIMEOUT", &correlation));
+            }
+        }
         match result {
             Ok(version)=>Ok(self.ids.envelope("urn:japp:schema:desktop:service-diagnostics:v1",&correlation,json!({"request_id":id,"state":"READY","service_version":version.service,"api_version":version.api}))),
             Err(Failure::Cancelled)=>Ok(self.state(&id,"CANCELLED",&correlation)),

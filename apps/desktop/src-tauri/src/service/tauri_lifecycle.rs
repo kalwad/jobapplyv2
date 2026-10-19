@@ -1,39 +1,20 @@
-//! Native lifecycle wiring. No renderer command, credential or runtime path is exposed.
+//! Concrete Tauri wrapper. A single worker owns startup, observation, recovery and cleanup.
 use super::{
-    ConfiguredRuntime, MonotonicClock, Policy, ServiceState, Supervisor, SupervisorError,
+    ConfiguredRuntime, MonotonicClock, Policy, SupervisorError,
     lifecycle_state::ShutdownGate,
+    restart::{RecoveryFailure, RecoveryPolicy, RecoveryState, RestartOwner, ShutdownSignal},
 };
-use std::sync::{
-    Arc, Mutex,
-    atomic::{AtomicBool, AtomicU8, Ordering},
+use std::{
+    sync::{
+        Arc, Mutex,
+        atomic::{AtomicBool, AtomicU8, Ordering},
+    },
+    time::Duration,
 };
 use tauri::{AppHandle, ExitRequestApi, Manager};
-type NativeSupervisor = Supervisor<ConfiguredRuntime, MonotonicClock>;
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[repr(u8)]
-pub(crate) enum LifecycleDiagnostic {
-    Unavailable = 0,
-    Starting = 1,
-    Running = 2,
-    Stopping = 3,
-    Stopped = 4,
-    Failed = 5,
-    CleanupFailed = 6,
-}
-impl LifecycleDiagnostic {
-    fn title(self) -> &'static str {
-        match self {
-            Self::Unavailable => "Desktop App — Local service unavailable",
-            Self::Starting => "Desktop App — Starting local service",
-            Self::Running => "Desktop App",
-            Self::Stopping => "Desktop App — Stopping local service",
-            Self::Stopped => "Desktop App — Local service stopped",
-            Self::Failed => "Desktop App — Local service failed",
-            Self::CleanupFailed => "Desktop App — Could not stop local service; retry Quit",
-        }
-    }
-}
-fn update_background_phase(
+type NativeSupervisor = RestartOwner<ConfiguredRuntime, MonotonicClock>;
+pub(crate) type LifecycleDiagnostic = RecoveryState;
+pub(super) fn update_background_phase(
     current: &AtomicU8,
     cancelled: &AtomicBool,
     next: LifecycleDiagnostic,
@@ -43,20 +24,43 @@ fn update_background_phase(
     }
     let previous = current.load(Ordering::Acquire);
     let allowed = match next {
-        LifecycleDiagnostic::Starting => previous == LifecycleDiagnostic::Unavailable as u8,
-        LifecycleDiagnostic::Running | LifecycleDiagnostic::Unavailable => {
-            previous == LifecycleDiagnostic::Starting as u8
-        }
+        LifecycleDiagnostic::Starting => [
+            LifecycleDiagnostic::Unavailable as u8,
+            LifecycleDiagnostic::Backoff as u8,
+        ]
+        .contains(&previous),
+        // A blocking Backoff poll performs Starting -> ACK -> Running internally;
+        // the single worker observes only final Running when that poll returns.
+        LifecycleDiagnostic::Running => [
+            LifecycleDiagnostic::Starting as u8,
+            LifecycleDiagnostic::Backoff as u8,
+        ]
+        .contains(&previous),
+        LifecycleDiagnostic::Unavailable => previous == LifecycleDiagnostic::Starting as u8,
+        LifecycleDiagnostic::Recovering => [
+            LifecycleDiagnostic::Running as u8,
+            LifecycleDiagnostic::Failed as u8,
+        ]
+        .contains(&previous),
+        LifecycleDiagnostic::Backoff => [
+            LifecycleDiagnostic::Recovering as u8,
+            LifecycleDiagnostic::Backoff as u8,
+        ]
+        .contains(&previous),
         LifecycleDiagnostic::Failed => [
             LifecycleDiagnostic::Unavailable as u8,
             LifecycleDiagnostic::Starting as u8,
             LifecycleDiagnostic::Running as u8,
+            LifecycleDiagnostic::Recovering as u8,
+            LifecycleDiagnostic::Backoff as u8,
             LifecycleDiagnostic::Failed as u8,
         ]
         .contains(&previous),
         LifecycleDiagnostic::CleanupFailed => [
             LifecycleDiagnostic::Starting as u8,
             LifecycleDiagnostic::Running as u8,
+            LifecycleDiagnostic::Recovering as u8,
+            LifecycleDiagnostic::Backoff as u8,
             LifecycleDiagnostic::Failed as u8,
         ]
         .contains(&previous),
@@ -71,137 +75,175 @@ fn update_background_phase(
 pub struct ManagedService {
     supervisor: Arc<Mutex<NativeSupervisor>>,
     cancellation: Arc<AtomicBool>,
-    gate: Arc<ShutdownGate>,
     authority: Arc<super::authority_hub::AuthorityHub>,
+    signal: ShutdownSignal,
+    gate: Arc<ShutdownGate>,
+    pending_shutdown: Arc<AtomicBool>,
+    worker_running: Arc<AtomicBool>,
     diagnostic: Arc<AtomicU8>,
+}
+struct WorkerClaim(Arc<AtomicBool>);
+impl Drop for WorkerClaim {
+    fn drop(&mut self) {
+        self.0.store(false, Ordering::Release);
+    }
 }
 impl ManagedService {
     pub fn new(runtime: ConfiguredRuntime) -> Result<Self, SupervisorError> {
-        let supervisor = Supervisor::new(runtime, MonotonicClock::default(), Policy::default())?;
-        let cancellation = supervisor.cancellation_handle();
-        let authority = supervisor.authority_handle();
-        let gate = Arc::new(ShutdownGate::with_authority(Arc::clone(&authority)));
+        let owner = RestartOwner::new(
+            runtime,
+            MonotonicClock::default(),
+            Policy::default(),
+            RecoveryPolicy::default(),
+        )
+        .map_err(|error| match error {
+            RecoveryFailure::Supervisor(error) => error,
+            RecoveryFailure::InvalidPolicy => SupervisorError::InvalidPolicy,
+        })?;
+        let signal = owner.shutdown_signal();
+        let gate = Arc::new(ShutdownGate::with_authority(owner.authority_handle()));
         Ok(Self {
-            supervisor: Arc::new(Mutex::new(supervisor)),
-            cancellation,
+            cancellation: owner.quit_handle(),
+            authority: owner.authority_handle(),
+            supervisor: Arc::new(Mutex::new(owner)),
+            signal,
             gate,
-            authority,
-            diagnostic: Arc::new(AtomicU8::new(LifecycleDiagnostic::Unavailable as u8)),
+            pending_shutdown: Arc::new(AtomicBool::new(false)),
+            worker_running: Arc::new(AtomicBool::new(false)),
+            diagnostic: Arc::new(AtomicU8::new(RecoveryState::Unavailable as u8)),
         })
     }
-    pub(crate) fn diagnostic(&self) -> LifecycleDiagnostic {
-        match self.diagnostic.load(Ordering::Acquire) {
-            1 => LifecycleDiagnostic::Starting,
-            2 => LifecycleDiagnostic::Running,
-            3 => LifecycleDiagnostic::Stopping,
-            4 => LifecycleDiagnostic::Stopped,
-            5 => LifecycleDiagnostic::Failed,
-            6 => LifecycleDiagnostic::CleanupFailed,
-            _ => LifecycleDiagnostic::Unavailable,
+    fn title(state: RecoveryState) -> &'static str {
+        match state {
+            RecoveryState::Unavailable => "Desktop App — Local service unavailable",
+            RecoveryState::Starting => "Desktop App — Starting local service",
+            RecoveryState::Running => "Desktop App",
+            RecoveryState::Recovering | RecoveryState::Backoff => {
+                "Desktop App — Restarting local service"
+            }
+            RecoveryState::Failed => "Desktop App — Local service failed",
+            RecoveryState::Stopping => "Desktop App — Stopping local service",
+            RecoveryState::Stopped => "Desktop App — Local service stopped",
+            RecoveryState::CleanupFailed => {
+                "Desktop App — Could not stop local service; retry Quit"
+            }
         }
+    }
+    pub fn diagnostic(&self) -> RecoveryState {
+        match self.diagnostic.load(Ordering::Acquire) {
+            1 => RecoveryState::Starting,
+            2 => RecoveryState::Running,
+            3 => RecoveryState::Recovering,
+            4 => RecoveryState::Backoff,
+            5 => RecoveryState::Failed,
+            6 => RecoveryState::Stopping,
+            7 => RecoveryState::Stopped,
+            8 => RecoveryState::CleanupFailed,
+            _ => RecoveryState::Unavailable,
+        }
+    }
+    fn update_background_phase(&self, state: RecoveryState) -> bool {
+        update_background_phase(&self.diagnostic, &self.cancellation, state)
+    }
+    #[cfg(test)]
+    pub(crate) fn phase_for_test(&self, state: LifecycleDiagnostic) -> bool {
+        self.update_background_phase(state)
     }
     fn refresh_title(&self, app: &AppHandle) {
         let managed = self.clone();
         let app = app.clone();
         let dispatcher = app.clone();
-        // Read the latest phase on the UI thread; a delayed startup title cannot
-        // overwrite a later shutdown failure after the worker was descheduled.
         let _ = dispatcher.run_on_main_thread(move || {
             if let Some(window) = app.get_webview_window("main") {
-                let _ = window.set_title(managed.diagnostic().title());
+                let _ = window.set_title(Self::title(managed.diagnostic()));
             }
         });
     }
-    fn publish(&self, app: &AppHandle, state: LifecycleDiagnostic) {
-        self.diagnostic.store(state as u8, Ordering::Release);
-        self.refresh_title(app);
-    }
-    fn publish_background(&self, app: &AppHandle, state: LifecycleDiagnostic) {
-        if update_background_phase(&self.diagnostic, &self.cancellation, state) {
+    fn publish_background(&self, app: &AppHandle, state: RecoveryState) {
+        if self.update_background_phase(state) {
             self.refresh_title(app);
         }
     }
+    fn publish_shutdown(&self, app: &AppHandle, state: RecoveryState) {
+        self.diagnostic.store(state as u8, Ordering::Release);
+        self.refresh_title(app);
+    }
+    fn claim_worker(&self) -> bool {
+        self.worker_running
+            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
+            .is_ok()
+    }
     pub fn start_background(&self, app: &AppHandle) -> std::io::Result<()> {
+        if !self.claim_worker() {
+            return Ok(());
+        }
+        self.publish_background(app, RecoveryState::Starting);
+        self.spawn_claimed_worker(app)
+    }
+    fn spawn_claimed_worker(&self, app: &AppHandle) -> std::io::Result<()> {
         let managed = self.clone();
         let app = app.clone();
-        self.publish_background(&app, LifecycleDiagnostic::Starting);
         let error_app = app.clone();
         let result = std::thread::Builder::new()
-            .name("japp-service-start".into())
+            .name("japp-service-owner".into())
             .spawn(move || {
-                let mut supervisor = match managed.supervisor.lock() {
-                    Ok(supervisor) => supervisor,
-                    Err(poisoned) => {
-                        let mut supervisor = poisoned.into_inner();
-                        supervisor.invalidate_poisoned_authority();
-                        let cleaned = supervisor.shutdown().is_ok();
-                        drop(supervisor);
-                        managed.publish_background(
-                            &app,
-                            if cleaned {
-                                LifecycleDiagnostic::Failed
-                            } else {
-                                LifecycleDiagnostic::CleanupFailed
-                            },
-                        );
-                        return;
-                    }
-                };
-                if let Err(error) = supervisor.start() {
-                    drop(supervisor);
-                    managed.publish_background(
-                        &app,
-                        if error == SupervisorError::RuntimeUnavailable {
-                            LifecycleDiagnostic::Unavailable
-                        } else {
-                            LifecycleDiagnostic::Failed
-                        },
-                    );
-                    return;
-                }
-                drop(supervisor);
-                managed.publish_background(&app, LifecycleDiagnostic::Running);
-                while !managed.cancellation.load(Ordering::Acquire) {
-                    let mut supervisor = match managed.supervisor.lock() {
-                        Ok(supervisor) => supervisor,
-                        Err(poisoned) => {
-                            let mut supervisor = poisoned.into_inner();
-                            supervisor.invalidate_poisoned_authority();
-                            let cleaned = supervisor.shutdown().is_ok();
-                            drop(supervisor);
-                            managed.publish_background(
-                                &app,
-                                if cleaned {
-                                    LifecycleDiagnostic::Failed
-                                } else {
-                                    LifecycleDiagnostic::CleanupFailed
-                                },
-                            );
+                let _claim = WorkerClaim(Arc::clone(&managed.worker_running));
+                let mut start_pending = true;
+                let mut monitor_failed = false;
+                loop {
+                    if managed.pending_shutdown.swap(false, Ordering::AcqRel) {
+                        let stopped = match managed.supervisor.lock() {
+                            Ok(mut owner) => owner.shutdown().is_ok(),
+                            Err(poison) => {
+                                let mut owner = poison.into_inner();
+                                owner.invalidate_poisoned_authority();
+                                owner.shutdown().is_ok()
+                            }
+                        };
+                        if stopped {
+                            managed.gate.finish(true);
+                            managed.publish_shutdown(&app, RecoveryState::Stopped);
+                            app.exit(0);
                             return;
                         }
-                    };
-                    if !matches!(supervisor.observe(), Ok(ServiceState::Running)) {
-                        let _originating_failure = supervisor.failure_cause();
-                        let cleaned = supervisor.shutdown().is_ok();
-                        drop(supervisor);
-                        managed.publish_background(
-                            &app,
-                            if cleaned {
-                                LifecycleDiagnostic::Failed
-                            } else {
-                                LifecycleDiagnostic::CleanupFailed
-                            },
-                        );
-                        return;
+                        managed.publish_shutdown(&app, RecoveryState::CleanupFailed);
+                        managed.gate.finish(false);
+                        start_pending = false;
+                    } else if !managed.signal.is_closed() && !monitor_failed {
+                        let state = match managed.supervisor.lock() {
+                            Ok(mut owner) => {
+                                if start_pending {
+                                    let _ = owner.start_initial();
+                                    start_pending = false;
+                                } else {
+                                    let _ = owner.poll();
+                                }
+                                owner.snapshot().state
+                            }
+                            Err(poison) => {
+                                let mut owner = poison.into_inner();
+                                owner.invalidate_poisoned_authority();
+                                start_pending = false;
+                                monitor_failed = true;
+                                owner.snapshot().state
+                            }
+                        };
+                        managed.publish_background(&app, state);
                     }
-                    drop(supervisor);
-                    std::thread::sleep(std::time::Duration::from_millis(100));
+                    // The worker never waits while holding native lifecycle ownership.
+                    std::thread::sleep(Duration::from_millis(100));
                 }
             });
         match result {
             Ok(_) => Ok(()),
             Err(error) => {
-                self.publish_background(&error_app, LifecycleDiagnostic::Failed);
+                self.worker_running.store(false, Ordering::Release);
+                if self.signal.is_closed() {
+                    self.publish_shutdown(&error_app, RecoveryState::CleanupFailed);
+                    self.gate.finish(false);
+                } else {
+                    self.publish_background(&error_app, RecoveryState::Failed);
+                }
                 Err(error)
             }
         }
@@ -242,43 +284,21 @@ impl ManagedService {
         self.gate.completed()
     }
     pub fn on_exit_requested(&self, app: &AppHandle, api: &ExitRequestApi) {
-        if self.allow_exit() {
-            return;
+        if !self.allow_exit() {
+            api.prevent_exit();
+            self.request_shutdown(app);
         }
-        api.prevent_exit();
-        self.request_shutdown(app);
     }
     pub fn request_shutdown(&self, app: &AppHandle) {
         if !self.gate.begin() {
             return;
         }
-        self.publish(app, LifecycleDiagnostic::Stopping);
-        let managed = self.clone();
-        let app = app.clone();
-        let error_app = app.clone();
-        let shutdown = std::thread::Builder::new()
-            .name("japp-service-stop".into())
-            .spawn(move || {
-                let stopped = match managed.supervisor.lock() {
-                    Ok(mut supervisor) => supervisor.shutdown().is_ok(),
-                    Err(poisoned) => {
-                        let mut supervisor = poisoned.into_inner();
-                        supervisor.invalidate_poisoned_authority();
-                        supervisor.shutdown().is_ok()
-                    }
-                };
-                if stopped {
-                    managed.gate.finish(true);
-                    managed.publish(&app, LifecycleDiagnostic::Stopped);
-                    app.exit(0);
-                } else {
-                    managed.publish(&app, LifecycleDiagnostic::CleanupFailed);
-                    managed.gate.finish(false);
-                }
-            });
-        if shutdown.is_err() {
-            self.publish(&error_app, LifecycleDiagnostic::CleanupFailed);
-            self.gate.finish(false);
+        // Gate closes the exact generation/epoch immediately, before owner locking.
+        debug_assert!(self.signal.is_closed());
+        self.pending_shutdown.store(true, Ordering::Release);
+        self.publish_shutdown(app, RecoveryState::Stopping);
+        if self.claim_worker() {
+            let _ = self.spawn_claimed_worker(app);
         }
     }
 }
@@ -444,5 +464,145 @@ mod bridge_tests {
         drop(lock);
         reader.join().unwrap();
         assert_eq!(early.unwrap(), (true, expected));
+    }
+}
+
+#[cfg(test)]
+mod recovery_wrapper_tests {
+    use super::*;
+    use std::sync::mpsc;
+    #[test]
+    fn duplicate_background_claims_cannot_create_two_lifecycle_owners() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        assert!(managed.claim_worker());
+        assert!(!managed.claim_worker());
+        drop(WorkerClaim(Arc::clone(&managed.worker_running)));
+        assert!(managed.claim_worker());
+    }
+    #[test]
+    fn held_owner_returns_busy_before_native_start_or_cleanup_releases() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        let (held, ready) = mpsc::channel();
+        let (release, wait) = mpsc::channel();
+        let owner = managed.clone();
+        let worker = std::thread::spawn(move || {
+            let _guard = owner.supervisor.lock().unwrap();
+            held.send(()).unwrap();
+            wait.recv().unwrap();
+        });
+        ready.recv().unwrap();
+        let (send, receive) = mpsc::channel();
+        let command = managed.clone();
+        let reader = std::thread::spawn(move || {
+            send.send(matches!(
+                command.client_session(),
+                Err(SupervisorError::RuntimeUnavailable)
+            ))
+            .unwrap();
+        });
+        let early = receive.recv_timeout(Duration::from_millis(100));
+        release.send(()).unwrap();
+        worker.join().unwrap();
+        reader.join().unwrap();
+        assert!(early.unwrap());
+    }
+    #[test]
+    fn quit_signal_closes_before_waiting_for_a_busy_native_owner() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        let _guard = managed.supervisor.lock().unwrap();
+        assert!(managed.gate.begin());
+        managed.signal.close();
+        assert!(managed.signal.is_closed());
+        assert!(!managed.gate.begin());
+    }
+    #[test]
+    fn stop_priority_rejects_late_background_failure_and_unavailable() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        managed.signal.close();
+        for stopping in [RecoveryState::Stopping, RecoveryState::CleanupFailed] {
+            managed.diagnostic.store(stopping as u8, Ordering::Release);
+            for late in [
+                RecoveryState::Running,
+                RecoveryState::Failed,
+                RecoveryState::Unavailable,
+            ] {
+                assert!(!managed.update_background_phase(late));
+                assert_eq!(managed.diagnostic.load(Ordering::Acquire), stopping as u8);
+            }
+        }
+    }
+    #[test]
+    fn stop_priority_poisoned_command_cannot_replace_shutdown_failure() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        let poison = managed.clone();
+        std::thread::spawn(move || {
+            let _ = std::panic::catch_unwind(|| {
+                let _guard = poison.supervisor.lock().unwrap();
+                panic!("owned poison fixture");
+            });
+        })
+        .join()
+        .unwrap();
+        managed.signal.close();
+        managed
+            .diagnostic
+            .store(RecoveryState::CleanupFailed as u8, Ordering::Release);
+        assert_eq!(
+            managed.with_running_session(|_, _, _| ()),
+            Err(SupervisorError::CleanupFailed)
+        );
+        assert_eq!(
+            managed.diagnostic.load(Ordering::Acquire),
+            RecoveryState::CleanupFailed as u8
+        );
+    }
+    #[test]
+    fn review_successful_coalesced_recovery_publishes_running_from_backoff() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        for phase in [
+            RecoveryState::Starting,
+            RecoveryState::Running,
+            RecoveryState::Recovering,
+            RecoveryState::Backoff,
+        ] {
+            assert!(managed.update_background_phase(phase));
+        }
+        assert!(
+            managed.update_background_phase(RecoveryState::Running),
+            "worker sees only final Running when blocking Backoff poll returns"
+        );
+        assert_eq!(managed.diagnostic(), RecoveryState::Running);
+        assert!(
+            managed.update_background_phase(RecoveryState::Recovering),
+            "next owned loss must remain publishable"
+        );
+    }
+    #[test]
+    fn review_running_publication_keeps_failed_cleanup_and_permanent_quit_fences() {
+        for previous in [
+            RecoveryState::Unavailable,
+            RecoveryState::Recovering,
+            RecoveryState::Failed,
+            RecoveryState::Stopping,
+            RecoveryState::Stopped,
+            RecoveryState::CleanupFailed,
+        ] {
+            let phase = AtomicU8::new(previous as u8);
+            assert!(!update_background_phase(
+                &phase,
+                &AtomicBool::new(false),
+                RecoveryState::Running
+            ));
+            assert_eq!(phase.load(Ordering::Acquire), previous as u8);
+        }
+        for previous in [RecoveryState::Starting, RecoveryState::Backoff] {
+            let phase = AtomicU8::new(previous as u8);
+            assert!(!update_background_phase(
+                &phase,
+                &AtomicBool::new(true),
+                RecoveryState::Running
+            ));
+            assert_eq!(phase.load(Ordering::Acquire), previous as u8);
+        }
     }
 }

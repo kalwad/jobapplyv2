@@ -242,12 +242,25 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
         self.revoke_session();
         self.state = ServiceState::Failed;
     }
+    pub(super) fn withdraw_generation(&mut self) {
+        self.revoke_session();
+    }
+    pub(super) fn has_owned_process(&self) -> bool {
+        self.child.is_some()
+    }
     fn revoke_session(&mut self) {
+        self.authority_hub.withdraw_current();
         self.session_authority = None;
         self.secret = None;
         self.identity = None;
     }
     pub fn start(&mut self) -> Result<ServiceIdentity, SupervisorError> {
+        self.start_until(Duration::MAX)
+    }
+    pub(super) fn start_until(
+        &mut self,
+        outer_deadline: Duration,
+    ) -> Result<ServiceIdentity, SupervisorError> {
         if self.cancellation.load(Ordering::Acquire) {
             return self.fail(SupervisorError::Cancelled);
         }
@@ -255,7 +268,7 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
             return Err(SupervisorError::AlreadyRunning);
         }
         self.failure_cause = None;
-        let deadline = self.clock.now() + self.policy.startup_timeout;
+        let deadline = (self.clock.now() + self.policy.startup_timeout).min(outer_deadline);
         let permit = SpawnPermit {
             cancellation: &self.cancellation,
             clock: &self.clock,
@@ -514,39 +527,11 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
         }
         Ok(self.state)
     }
-    // Background lifecycle owner may finish native group/reap/reader cleanup.
-    fn inspect_authority(&mut self) -> Result<ServiceState, SupervisorError> {
-        if self.state == ServiceState::Failed {
-            return self.failure_cause.map_or(Ok(self.state), Err);
-        }
-        if let Some(child) = self.child.as_mut() {
-            match child.poll_exit() {
-                Ok(Some(_)) => {
-                    self.child = None;
-                    self.record_failure(SupervisorError::ChildExited);
-                }
-                Err(error) => {
-                    self.record_failure(error);
-                    return Err(error);
-                }
-                Ok(None) => {
-                    if self.state == ServiceState::Running {
-                        match child.read_ready() {
-                            Ok(None) => {}
-                            Ok(Some(_)) | Err(_) => {
-                                self.record_failure(SupervisorError::ProtocolRejected);
-                                return Err(SupervisorError::ProtocolRejected);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        Ok(self.state)
-    }
+    /// Observation only withdraws native authority. The recovery owner schedules
+    /// bounded close/reap/drain separately and retains every failed cleanup handle.
     pub fn observe(&mut self) -> Result<ServiceState, SupervisorError> {
-        match self.inspect_authority() {
-            Err(SupervisorError::ProtocolRejected) => self.fail(SupervisorError::ProtocolRejected),
+        match self.inspect_session_authority() {
+            Err(SupervisorError::ChildExited) => Ok(ServiceState::Failed),
             result => result,
         }
     }
@@ -885,6 +870,7 @@ mod tests {
         let (mut s, record) = harness(vec![Outcome::Ready]);
         s.start().unwrap();
         let valid = s.with_running_session(|_, _, valid| valid).unwrap();
+        let issued_epoch = s.authority_handle().current_epoch();
         s.child = Some(Box::new(FakeChild {
             outcome: Outcome::ProtocolFailure,
             record: Arc::clone(&record),
@@ -907,9 +893,36 @@ mod tests {
         assert_eq!(record.lock().unwrap().terminations, 0);
         assert_eq!(s.failure_cause(), Some(SupervisorError::ProtocolRejected));
         assert_eq!(s.observe(), Err(SupervisorError::ProtocolRejected));
+        assert_eq!(record.lock().unwrap().closes, 0);
+        assert!(!valid.load(Ordering::Acquire));
+        assert!(s.authority_handle().current_epoch() > issued_epoch);
+        s.shutdown().unwrap();
         assert_eq!(record.lock().unwrap().closes, 1);
         assert!(s.child.is_none());
         assert_eq!(s.failure_cause(), Some(SupervisorError::ProtocolRejected));
+    }
+    #[test]
+    fn recovery_observation_withdraws_epoch_before_explicit_cleanup() {
+        let (mut s, record) = harness(vec![Outcome::Ready]);
+        s.start().unwrap();
+        let native = s.client_session().unwrap();
+        s.child = Some(Box::new(FakeChild {
+            outcome: Outcome::ProtocolFailure,
+            record: Arc::clone(&record),
+            identity: None,
+            closed: false,
+            terminated: false,
+            polls: 0,
+        }));
+        assert_eq!(s.observe(), Err(SupervisorError::ProtocolRejected));
+        assert_eq!(record.lock().unwrap().closes, 0);
+        assert_eq!(record.lock().unwrap().terminations, 0);
+        assert!(!native.valid.load(Ordering::Acquire));
+        assert!(s.authority_handle().current_epoch() > native.authority_epoch);
+        assert!(s.child.is_some());
+        s.shutdown().unwrap();
+        assert_eq!(record.lock().unwrap().closes, 1);
+        assert!(s.child.is_none());
     }
     #[test]
     fn guarded_session_callback_requires_actual_running_authority() {

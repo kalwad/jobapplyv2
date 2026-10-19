@@ -1,6 +1,6 @@
 pub mod commands;
-mod core;
-mod owner;
+pub(crate) mod core;
+pub(crate) mod owner;
 pub use owner::create_engine;
 
 #[cfg(test)]

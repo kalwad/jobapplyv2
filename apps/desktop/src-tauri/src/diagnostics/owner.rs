@@ -14,16 +14,7 @@ impl SessionSource for OwnerSource {
         match self.0.client_session() {
             Ok(native) => snapshot_from_native(native),
             Err(_) => (
-                Snapshot::Unavailable(match self.0.diagnostic() {
-                    LifecycleDiagnostic::Starting => "STARTING",
-                    LifecycleDiagnostic::Stopping => "STOPPING",
-                    LifecycleDiagnostic::Stopped => "STOPPED",
-                    LifecycleDiagnostic::Failed => "FAILED",
-                    LifecycleDiagnostic::CleanupFailed => "CLEANUP_FAILED",
-                    LifecycleDiagnostic::Unavailable | LifecycleDiagnostic::Running => {
-                        "UNAVAILABLE"
-                    }
-                }),
+                Snapshot::Unavailable(diagnostic_state(self.0.diagnostic())),
                 None,
             ),
         }
@@ -32,7 +23,19 @@ impl SessionSource for OwnerSource {
         Some(self.0.authority_epoch())
     }
 }
-fn snapshot_from_native(native: NativeSession) -> (Snapshot, Option<u64>) {
+pub(crate) fn diagnostic_state(state: LifecycleDiagnostic) -> &'static str {
+    match state {
+        LifecycleDiagnostic::Starting
+        | LifecycleDiagnostic::Recovering
+        | LifecycleDiagnostic::Backoff => "STARTING",
+        LifecycleDiagnostic::Stopping => "STOPPING",
+        LifecycleDiagnostic::Stopped => "STOPPED",
+        LifecycleDiagnostic::Failed => "FAILED",
+        LifecycleDiagnostic::CleanupFailed => "CLEANUP_FAILED",
+        LifecycleDiagnostic::Unavailable | LifecycleDiagnostic::Running => "UNAVAILABLE",
+    }
+}
+pub(crate) fn snapshot_from_native(native: NativeSession) -> (Snapshot, Option<u64>) {
     (
         Snapshot::Running {
             session: native.session,
@@ -108,5 +111,44 @@ mod bridge_tests {
         assert_eq!(epoch, Some(19));
         valid.store(false, Ordering::Release);
         assert!(!flag.load(Ordering::Acquire));
+    }
+    struct NeverRead;
+    impl super::super::core::engine::DiagnosticReader for NeverRead {
+        fn read<'a>(
+            &'a self,
+            _: Arc<Session>,
+            _: crate::api_client::client::Cancellation,
+            _: &'a str,
+        ) -> super::super::core::engine::ReadFuture<'a> {
+            panic!("unavailable recovery phase must never touch transport")
+        }
+    }
+    #[tokio::test(flavor = "current_thread")]
+    async fn actual_owner_source_maps_recovery_and_backoff_to_starting_without_transport() {
+        let owner = ManagedService::new(crate::service::ConfiguredRuntime::unavailable()).unwrap();
+        assert!(owner.phase_for_test(LifecycleDiagnostic::Starting));
+        assert!(owner.phase_for_test(LifecycleDiagnostic::Running));
+        let engine =
+            Engine::new(Arc::new(OwnerSource(owner.clone())), Arc::new(NeverRead)).unwrap();
+        for (index, phase) in [
+            LifecycleDiagnostic::Recovering,
+            LifecycleDiagnostic::Backoff,
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            assert!(owner.phase_for_test(phase));
+            let record = engine
+                .read(
+                    "main",
+                    "tauri://localhost",
+                    false,
+                    &serde_json::json!({"request_id":format!("req_{:026}", index+1)}),
+                )
+                .await
+                .unwrap();
+            assert_eq!(record["payload"]["state"], "STARTING");
+            assert_eq!(record["payload"].as_object().unwrap().len(), 2);
+        }
     }
 }

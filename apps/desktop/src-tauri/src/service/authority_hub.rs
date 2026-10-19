@@ -41,6 +41,22 @@ impl AuthorityHub {
             }
         }
     }
+    /// The serialized owner withdraws a generation without reopening Permanent Quit.
+    pub(super) fn withdraw_current(&self) {
+        self.withdraw_current_with_hook(|| {});
+    }
+    fn withdraw_current_with_hook(&self, after_remove: impl FnOnce()) {
+        // The same serialized owner alone publishes/withdraws generations. Keep
+        // its Quit-reachable handle in the slot until immediate flag invalidation
+        // is visible; concurrent close can never observe an empty slot plus a
+        // still-valid issued flag, even if this owner is then descheduled.
+        if let Some(current) = self.current.load_full() {
+            current.store(false, Ordering::Release);
+            self.current.store(None);
+            after_remove();
+            let _ = self.advance_epoch();
+        }
+    }
     pub(super) fn close(&self) {
         self.cancellation.store(true, Ordering::Release);
         let _ = self.advance_epoch();
@@ -114,5 +130,41 @@ mod tests {
         assert!(!first.load(Ordering::Acquire));
         assert!(!later.load(Ordering::Acquire));
         assert!(!Arc::ptr_eq(&first, &later));
+    }
+    #[test]
+    fn recovery_withdrawal_epoch_exhaustion_closes_instead_of_wrapping_authority() {
+        let hub = AuthorityHub::new(Arc::new(AtomicBool::new(false)));
+        let issued = hub.publish();
+        hub.epoch.store(u64::MAX, Ordering::Release);
+        hub.withdraw_current();
+        assert!(!issued.load(Ordering::Acquire));
+        assert_eq!(hub.current_epoch(), u64::MAX);
+        assert!(hub.cancellation_handle().load(Ordering::Acquire));
+        assert!(!hub.publish().load(Ordering::Acquire));
+    }
+    #[test]
+    fn review_quit_during_withdrawal_never_returns_with_an_issued_flag_still_valid() {
+        let hub = AuthorityHub::new(Arc::new(AtomicBool::new(false)));
+        let issued = hub.publish();
+        let issued_epoch = hub.current_epoch();
+        assert!(issued.load(Ordering::Acquire));
+        let revoked_at_accepted_quit_return = AtomicBool::new(false);
+        hub.withdraw_current_with_hook(|| {
+            assert!(
+                hub.current.load_full().is_none(),
+                "hook must follow removal in the actual production helper"
+            );
+            hub.close();
+            assert!(hub.cancellation_handle().load(Ordering::Acquire));
+            revoked_at_accepted_quit_return
+                .store(!issued.load(Ordering::Acquire), Ordering::Release);
+        });
+        assert!(
+            revoked_at_accepted_quit_return.load(Ordering::Acquire),
+            "accepted Quit returned while the issued native flag was true"
+        );
+        assert!(!issued.load(Ordering::Acquire));
+        assert!(hub.current_epoch() > issued_epoch);
+        assert!(!hub.publish().load(Ordering::Acquire));
     }
 }

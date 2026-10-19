@@ -20,3 +20,5 @@ mod runtime_descriptor;
 pub(crate) use runtime_descriptor::configured_runtime;
 
 mod authority_hub;
+
+mod restart;
