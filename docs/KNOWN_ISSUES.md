@@ -32,6 +32,41 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current hosted Windows failures (2026-10-19UTC)
+
+### KI-0111 — Windows executable link duplicates RT_MANIFEST
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 native build/test infrastructure / REQ-PLAT-013; Windows desktop bin-test link
+- Description: Tauri's resource.lib embeds its default manifest while the candidate also passes general /MANIFEST:EMBED and /MANIFESTINPUT. CVTRES rejects duplicate name1/language0x0409; LINK returns LNK1123 before a successful new executable launch.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955, default desktop cargo test exit101; official raw link command and diagnostic are retained.
+- Workaround: none; mandatory Rust remains failed. This is a separate introduced link failure from KI-0109's historical startup failure.
+- Resolution + evidence link: reviewed MSVC-only Tauri new_without_app_manifest retains one linker-owned Common Controls6 manifest and other resources. Actual Mac Rust15 commands/232 each3 modes pass; actual Windows resource/link/startup remains pending. See docs/evidence/m03-w06-windows-manifest-correction and docs/TEST_EVIDENCE.md.
+
+### KI-0112 — Windows typecheck exits without a captured compiler diagnostic
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849
+- Affects: M03 canonical typecheck validation / REQ-PLAT-013
+- Description: pnpm exec turbo run typecheck exits1; complete captured aggregate output contains package-group discovery and telemetry but no compiler diagnostic or task footer. The source cause is UNOBSERVED.
+- Reproduction: immutablec4f7d9c/treeb7b7bbcf Windows job117894478955 typecheck block; no guessed TypeScript error, timeout or flaky classification is used.
+- Workaround: none; typecheck remains failed and no task is rerun by diagnostics.
+- Resolution + evidence link: bounded failure-only capture of15 literal existing Turbo task-log paths is integrated into the existing diagnostic artifact with strict absent/PENDING/refused distinctions. Actual native Windows capture and a successful canonical typecheck remain pending. See docs/evidence/m03-w06-windows-manifest-correction.
+
+### KI-0113 — Windows failure diagnostic joins multiple Git executable paths
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-19UTC during M03-W06 hosted run39201246849 step26
+- Affects: M03 Windows native failure diagnostics / REQ-PLAT-013
+- Description: Get-Command returns multiple ApplicationInfo records; array-to-text coercion makes Get-Item receive one joined invalid path. Diagnostic fails before checkout/image/tool inspection.
+- Reproduction: retained step26 log and DIAGNOSTIC_INCOMPLETE/source null/images empty/tools empty artifact from exactc4f run.
+- Workaround: none; no PE/import/export witness is inferred from the empty diagnostic.
+- Resolution + evidence link: reviewed first-Application resolution binds one absolute regular image in original resolution order. Five source fixture cases remain unexecuted; actual native Windows behavior is pending. See docs/evidence/m03-w06-windows-manifest-correction.
+
 ## Current package-test collection correction (2026-10-19UTC)
 
 ### KI-0110 — macOS package fixture violates static collection policy

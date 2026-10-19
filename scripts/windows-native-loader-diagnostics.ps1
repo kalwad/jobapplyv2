@@ -19,6 +19,124 @@ function File-Binding([string] $Path) {
     }
 }
 
+# Get-Command may return several ApplicationInfo records for Git on the runner.
+# Preserve its resolution order and bind one image, never an array coerced to text.
+function Resolve-ApplicationPath([string] $Name) {
+    $command = Get-Command -Name $Name -CommandType Application -ErrorAction Stop |
+        Select-Object -First 1
+    if ($null -eq $command -or $command.CommandType -ne 'Application' -or
+        -not [IO.Path]::IsPathFullyQualified($command.Source)) {
+        throw "Application did not resolve to one absolute executable: $Name"
+    }
+    $binding = File-Binding $command.Source
+    return $binding.path
+}
+
+# Read a fixed diagnostic input through a bounded stream. On Windows FileShare.Read
+# denies replacement/writing while this owned read handle is open.
+function Read-DiagnosticBytes([string] $Path, [int] $Limit) {
+    $before = Get-Item -LiteralPath $Path
+    if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+        $before.Length -gt $Limit) { throw 'Diagnostic input is not a bounded regular file' }
+    $stream = [IO.File]::Open($Path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+    try {
+        if ($stream.Length -ne $before.Length) { throw 'Diagnostic input changed before open' }
+        $buffer = [byte[]]::new($Limit + 1)
+        $count = 0
+        while ($count -lt $buffer.Length) {
+            $read = $stream.Read($buffer, $count, $buffer.Length - $count)
+            if ($read -eq 0) { break }
+            $count += $read
+        }
+        $after = Get-Item -LiteralPath $Path
+        if ($count -gt $Limit -or $count -ne $before.Length -or
+            $after.Length -ne $before.Length -or
+            $after.LastWriteTimeUtc -ne $before.LastWriteTimeUtc -or
+            $after.CreationTimeUtc -ne $before.CreationTimeUtc -or
+            ($after.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            throw 'Diagnostic input changed during retention'
+        }
+        $data = [byte[]]::new($count)
+        [Array]::Copy($buffer, $data, $count)
+        return ,$data
+    }
+    finally { $stream.Dispose() }
+}
+
+function Get-OptionalDiagnosticItem([string] $Path) {
+    try { return Get-Item -LiteralPath $Path -Force -ErrorAction Stop }
+    catch [Management.Automation.ItemNotFoundException] { return $null }
+}
+
+function Retain-TypecheckLogs([string] $Repository, [string] $Output) {
+    # Current workspace contract declares these exact 15 typecheck implementers.
+    # This is a finite diagnostic selection, never a task-coverage/verdict proof.
+    $packages = @('apps/desktop', 'apps/extension', 'apps/mock-ats-lab',
+        'packages/ats-adapters', 'packages/contracts', 'packages/domain',
+        'packages/evaluation-baselines', 'packages/evaluation-corpus',
+        'packages/evaluation-runner', 'packages/form-engine', 'packages/platform',
+        'packages/resume-schema', 'packages/security', 'packages/test-fixtures', 'packages/ui')
+    $destination = Join-Path $Output 'typecheck-tasks'
+    New-Item -ItemType Directory -Path $destination -ErrorAction Stop | Out-Null
+    $report = [ordered]@{
+        scope = 'Existing fixed-name Turbo logs only; no task rerun or verdict change'
+        original_typecheck_cause = 'UNOBSERVED until these existing logs establish it'
+        status = 'INCOMPLETE'; tasks = @(); total_bytes = 0
+        limits = @{ selected_packages = 15; per_log_bytes = 1048576; total_log_bytes = 8388608 }
+        actual_tool_versions = 'See preceding canonical version output in official job log; no new tool invocation'
+        declared_versions = $null
+    }
+    try {
+        # Root metadata is declared-version evidence, not an executing-tool attestation.
+        $nodeBytes = Read-DiagnosticBytes (Join-Path $Repository '.nvmrc') 1024
+        $packageBytes = Read-DiagnosticBytes (Join-Path $Repository 'package.json') 1048576
+        $packageMetadata = [Text.Encoding]::UTF8.GetString($packageBytes) | ConvertFrom-Json
+        $report.declared_versions = [ordered]@{
+            node = [Text.Encoding]::UTF8.GetString($nodeBytes).Trim()
+            package_manager = $packageMetadata.packageManager
+            root_package_json_sha256 = [Convert]::ToHexString(
+                [Security.Cryptography.SHA256]::HashData($packageBytes)).ToLowerInvariant()
+        }
+        foreach ($relative in $packages) {
+            $task = [ordered]@{ package_path = $relative; status = 'PENDING' }
+            $report.tasks += $task
+            $package = Join-Path $Repository $relative
+            $turbo = Join-Path $package '.turbo'
+            $log = Join-Path $turbo 'turbo-typecheck.log'
+            $missing = $false
+            foreach ($directory in @((Join-Path $Repository ($relative.Split('/')[0])), $package, $turbo)) {
+                $item = Get-OptionalDiagnosticItem $directory
+                if ($null -eq $item) { $missing = $true; break }
+                if (-not $item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+                    throw 'Typecheck log directory is linked, reparsed or non-directory'
+                }
+            }
+            if ($missing) { $task.status = 'ABSENT'; continue }
+            $logItem = Get-OptionalDiagnosticItem $log
+            if ($null -eq $logItem) { $task.status = 'ABSENT'; continue }
+            $bytes = Read-DiagnosticBytes $log 1048576
+            if ($report.total_bytes + $bytes.Length -gt 8388608) {
+                throw 'Typecheck log total byte bound exceeded'
+            }
+            $name = 'task-{0:d3}.log' -f $report.tasks.Count
+            $retained = Join-Path $destination $name
+            $retainedStream = [IO.File]::Open($retained, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+            try { $retainedStream.Write($bytes, 0, $bytes.Length) }
+            finally { $retainedStream.Dispose() }
+            $report.total_bytes += $bytes.Length
+            $task.status = 'RETAINED'
+            $task['source_path'] = "$relative/.turbo/turbo-typecheck.log"
+            $task['retained_path'] = $name
+            $task['bytes'] = $bytes.Length
+            $task['sha256'] = [Convert]::ToHexString(
+                [Security.Cryptography.SHA256]::HashData($bytes)).ToLowerInvariant()
+        }
+        $report.status = 'RETENTION_COMPLETE_NOT_A_TEST_VERDICT'
+        return $report
+    }
+    finally { Write-Record (Join-Path $destination 'manifest.json') $report }
+}
+
 if (-not $IsWindows -or $env:RUNNER_ARCH -ne 'X64') { throw 'Requires native Windows X64 runner' }
 $repo = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 $tempRoot = (Resolve-Path -LiteralPath $env:RUNNER_TEMP).Path
@@ -120,7 +238,7 @@ $summary = [ordered]@{
     status = 'INCOMPLETE'; error = $null; ended_utc = $null; elapsed_seconds = $null
 }
 try {
-    $git = (Get-Command git -CommandType Application).Source
+    $git = Resolve-ApplicationPath 'git'
     $head = Invoke-BoundTool $git @('rev-parse', 'HEAD', 'HEAD^{tree}')
     if ($head.code -ne 0) { throw 'Could not bind checkout' }
     $source = Invoke-BoundTool $git @('ls-files', '-s', '-z', '--',
@@ -153,6 +271,7 @@ try {
         limitation = 'Source/tree binding is not a reconstructed compiler invocation or a PE provenance attestation'
     }
     Write-Record (Join-Path $output 'source-upfront.json') $summary.source
+    $summary['typecheck_logs'] = Retain-TypecheckLogs $repo $output
 
     # Discover installed SDK tools by VS/Windows Kits metadata; never alter PATH.
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
