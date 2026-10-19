@@ -1,0 +1,27 @@
+{
+  "archive_sha256": "498a246eff6e3c622b4378a86451f07c1be22b48301eeddeaab119c87d7790b1",
+  "archive_bytes": 14374,
+  "members": {
+    "REVIEW.md": {
+      "sha256": "c050e12a30586913783b9e5c43d7e3b9a22db144dd3d53de91640333461a672f",
+      "bytes": 4603
+    },
+    "audit.py": {
+      "sha256": "b3885227b687e9b635da4830b4e31f09c937e7aa6939cbd14e2a53a60d75d4d2",
+      "bytes": 5408
+    },
+    "findings.json": {
+      "sha256": "d53d46356fc1297b8b510d7bbed8d85da16c2d9d523d434c216a1e093c22fb19",
+      "bytes": 9599
+    },
+    "retention-manifest.json": {
+      "sha256": "b366b94a74df89076ccfe57fb26036adcb1bd5fa4310715e96cf45211fb984a8",
+      "bytes": 742
+    },
+    "reviewed-doc-diff.patch": {
+      "sha256": "501cf553113417e7770c2671934167591b87b69ce4204967495fae92ada386c9",
+      "bytes": 24639
+    }
+  },
+  "scope": "Original review including raw diff patch retained byte-exact in archive. Initial staged diff-check rejected literal diff context-line whitespace; no commit occurred and no raw evidence was rewritten."
+}

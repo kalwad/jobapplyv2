@@ -8431,8 +8431,8 @@
       "id": "M03-W03",
       "milestone": "M03",
       "title": "Implement sidecar lifecycle",
-      "current_state": "IN_PROGRESS",
-      "verified_revision": "\u2014",
+      "current_state": "VERIFIED",
+      "verified_revision": "tree 34fcf854cb4a1a452b267a02a05e0c34aeb6f89c",
       "direct_package_prerequisites": [
         "M03-W02"
       ],
@@ -8474,14 +8474,19 @@
         "M28",
         "M38"
       ],
-      "current_evidence": [],
+      "current_evidence": [
+        {
+          "path": "docs/TEST_EVIDENCE.md",
+          "heading": "### M03-W03"
+        }
+      ],
       "dependency_review_state": "REVIEWED_V1_2"
     },
     {
       "id": "M03-W04",
       "milestone": "M03",
       "title": "Implement authenticated API client",
-      "current_state": "NOT_STARTED",
+      "current_state": "IN_PROGRESS",
       "verified_revision": "\u2014",
       "direct_package_prerequisites": [
         "M03-W03"

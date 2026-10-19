@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M03-W02 VERIFIED at aa7e4e3; M03-W03 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
+Repository revision: M03-W03 VERIFIED at6d3a6b8/tree34fcf85; M03-W04 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
 Last updated: 2026-10-19
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
-Current work package: M03-W03
+Current work package: M03-W04
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -23,12 +23,12 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
 
-- State: M03-W03 is the sole IN_PROGRESS package; 35/300 packages VERIFIED. M00/M01/M02 remain ACCEPTED; Gate A remains PASS. M03 remains IN_PROGRESS; release NOT_READY.
-- Completed prerequisite: authenticated service skeleton M03-W02 VERIFIED at tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d after actual strict doctor28/all20 ACTIVE PASS, exact1627 Python inventory and independent source/focused/wheel/full-data review. W01 accessible shell remains VERIFIED; initial baseline remains CAPTURED/NOT_APPROVED.
-- Objective: real Tauri-owned random loopback port, fresh ephemeral credential/instance/generation, trusted native service executable, private readiness ACK, nonblocking diagnostics authority and bounded normal/forced lifecycle cleanup. Authenticated desktop API and restart are following packages.
-- Execution: continue all eligible work without routine approval prompts under OD-035–037. Required measured evidence, independent reviews, numerical/safety limits and precise ADR-0006/0007 waivers remain binding. No native cross-platform certification is implied.
-- Observed candidate cac56a0/tree7d7afc0: clean strict doctor28 and all20 ACTIVE suites pass, including exact1650 Python tests and77 native tests in each of three required modes. Separate independent full-data review passes. Five actual macOS native lifecycle cases pass: Close, Quit, owned forced-parent exit, contained writer cleanup, and visible escaped-writer cleanup failure followed by owned release and Quit retry. Independent native review is81/81 CLEAR. The retained source and executed bytes remain bound to cac56, not the subsequent correction.
-- Current validation gap: hosted run39164520190 has macOS/Ubuntu PASS and Windows1648 Python PASS, but Windows strict Clippy fails on unused imports/helpers and an unconstructed cleanup variant. The narrow four-file compiler-scope correction has53/53 independent checks CLEAR and preserves all77 test IDs/bodies/assertions. It is adopted for fresh root/full/native/hosted validation; no Windows GREEN or W03 completion is claimed yet. Evidence and explicit limits are in docs/evidence/m03-w03-lifecycle and docs/TEST_EVIDENCE.md.
+- State: M03-W04 is the sole IN_PROGRESS package; 36/300 packages VERIFIED. M00/M01/M02 remain ACCEPTED; Gate A remains PASS. M03 remains IN_PROGRESS; release NOT_READY.
+- Completed prerequisite: M03-W03 VERIFIED at6d3a6b8/tree34fcf854 after unchanged clean root doctor28/all20 PASS, exact1,653 Python and77 native tests in each of three modes, independently reviewed actual lifecycle applicability, and completed required native commands on all three hosted operating systems.
+- Objective: bounded authenticated native API client with correlation IDs, cancellation, idempotent-only retries and user-safe diagnostics. W04 source and real-owner connection proofs have been prepared outside the canonical root; adoption and applicable current verification follow.
+- Execution: continue all eligible work without routine approval prompts under OD-035–037. Required measured evidence, independent reviews, numerical/safety limits and precise ADR-0006/0007 waivers remain binding.
+- Actual hosted run39188122249: Ubuntu/macOS20/20 PASS; Windows19/20 PASS, including1,651 Python and70 native tests in each of three modes. Windows browser255PASS/1FAIL during fixture cleanup; its standalone tracked-change step is SKIPPED. The failure remains open as KI-0108 and is not a three-OS aggregate PASS or native platform certification.
+- Evidence and qualified delegated package decision: docs/evidence/m03-w03-closeout and docs/TEST_EVIDENCE.md. Earlier cac56 five actual macOS lifecycle observations remain bound to their actual source, with separate current-source applicability; no new6d3 GUI launch is asserted.
 
 ## Milestone table
 
@@ -113,8 +113,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M02-W15` | VERIFIED | tree b85166b035fbf90a1b8c85d54f52461ccc422dd6 | docs/TEST_EVIDENCE.md § M02-W15 | Independent source-bound PASS and delegated Gate A acceptance; immutable evidence chain retained |
 | `M03-W01` | VERIFIED | tree 6fd7fad07a796b2885f465c55db42ddb6b7905c9 | docs/TEST_EVIDENCE.md § M03-W01 | Tauri desktop shell and shared UI foundation; accepted M00/M01/M02 and Gate A PASS dependencies |
 | `M03-W02` | VERIFIED | tree 4770ca1bf59d043c0a0ca8084a73ab878a65163d | docs/TEST_EVIDENCE.md § M03-W02 | Create FastAPI service skeleton |
-| `M03-W03` | IN_PROGRESS | — | — | Implement sidecar lifecycle |
-| `M03-W04` | NOT_STARTED | — | — | Implement authenticated API client |
+| `M03-W03` | VERIFIED | tree 34fcf854cb4a1a452b267a02a05e0c34aeb6f89c | docs/TEST_EVIDENCE.md § M03-W03 | Implement sidecar lifecycle |
+| `M03-W04` | IN_PROGRESS | — | — | Implement authenticated API client |
 | `M03-W05` | NOT_STARTED | — | — | Add crash/restart behavior |
 | `M03-W06` | NOT_STARTED | — | — | Package development build |
 | `M03-W07` | NOT_STARTED | — | — | Package Windows x64 development build |
@@ -382,7 +382,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Next READY package
 
 - ID: NONE
-- Reason: M03-W03 is IN_PROGRESS after verified M03-W02. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
+- Reason: M03-W04 is IN_PROGRESS after verified M03-W03. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
 
 ## Known release blockers
 

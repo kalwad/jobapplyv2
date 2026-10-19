@@ -32,12 +32,25 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current browser validation regression (2026-10-19UTC)
+
+### KI-0108 — Windows owned browser-context and profile cleanup fails; failure artifact unavailable
+
+- Severity: MEDIUM
+- State: OPEN
+- Discovered: 2026-10-19UTC in required hosted run39188122249, Windows job117854768223
+- Affects: M03 verification infrastructure / REQ-PLAT-013; e2e/extension/support/extension-test.ts
+- Description: the observed-boundary research case reports1.7s and fails during fixture teardown, which reports EXTENSION_CONTEXT_CLEANUP_FAILED: browserContext.close returns Target page, context or browser has been closed, and recursive owned-profile removal returns EPERM despite the existing10 retries/100ms delay. The default browser suite reports255PASS/1FAIL;19 other suites pass, including all required native modes. No timeout or flaky classification is inferred.
+- Reproduction: exact6d3 source, actual PR merge0d3/tree34, official complete logs.zip SHA25617c2114afd39c71c15686e3a966f7f001775e2216cefdf2f35caba7782e1aa7d; Windows research spec:585. The upload step reports no files and the official artifact API returns total_count0; printed trace/error-context paths do not supply retained artifact bytes.
+- Workaround: none used; Windows aggregate remains FAIL and its separate tracked-change stepSKIPPED. W03 package-scoped verification is separately justified by its actual required behavior/source evidence, while this repository regression and global CI requirements remain open.
+- Resolution + evidence link: repair owned lifecycle/profile cleanup and preserve failure outputs across later suites, retaining every original assertion, strict failure policy and bounded budgets. Revalidate before closing. See docs/evidence/m03-w03-closeout/ci-6d3-terminal.tar.gz and terminal-ci-independent-review.
+
 ## M03-W03 validation findings (2026-10-18)
 
 ### KI-0107 — Windows deny-warnings compilation exposes unused backend scaffolding
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-19UTC while inspecting terminal hosted run39164520190
 - Affects: M03-W03; strict Windows desktop Rust compilation
 - Description: actual Windows1648 Python tests pass, but strict Clippy rejects currently unused Bootstrap/ReadyFrame imports, bounded stream helpers and the common CleanupPending variant without a Windows production constructor. macOS and Ubuntu complete successfully.
@@ -45,10 +58,12 @@ broadening a work package (spec §1.5).
 - Workaround: none used; the Windows job remains failed.
 - Resolution + evidence link: independently reviewed four-file compiler-scope patch b7d49f4b preserves every runtime method body, common typed contract, strict warning policy and all77 tests/assertions. Ten isolated Mac commands and53 independent source checks pass. Fresh root/full/native and actual Windows confirmation remain required. W07 integration must restore actual Windows stream consumers and remove the variant-only expectation. See docs/TEST_EVIDENCE.md and docs/evidence/m03-w03-lifecycle/windows-clippy-manifest.json.
 
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
 ### KI-0106 — Windows post-exit refusal observation used a 0.2-second budget
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-18 during hosted validation of M03-W02
 - Affects: M03-W02 / M03-W03; service lifecycle test observation
 - Description: Windows CI completed READY, authenticated canonical responses, parent EOF and service exit0, then timed out in the single post-exit socket probe. The observed failure was at the refusal check, not startup or shutdown.
@@ -56,10 +71,12 @@ broadening a work package (spec §1.5).
 - Workaround: none used; this CI run remains failed.
 - Resolution + evidence link: proposed Windows-only3s refusal observation keeps the same required ConnectionRefusedError, single attempt, timeout failure,3s HTTP and8s exit bounds. Eight modeled tests exercise refusal, timeout, other errors and accepted-connection cleanup. Independent review and actual new Windows CI remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
 
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
 ### KI-0105 — Runtime builder contained a platform-specific PATH literal
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-18 during M03-W03 clean full validation
 - Affects: M03-W03; runtime builder portability policy
 - Description: the unchanged PORT-SRC-001 checker rejects the builder's literal system PATH. Both failing suites in the complete run report this same defect.
@@ -67,16 +84,20 @@ broadening a work package (spec §1.5).
 - Workaround: none used; policy and allowlist remain unchanged.
 - Resolution + evidence link: use validated absolute system defaults from os.defpath/os.pathsep while rejecting empty, relative and current-directory entries before any build command. Fifteen builder tests, unchanged policy check, strict statics, exact1642 inventory and a fresh six-stage real runtime build pass. Independent source/integration review clears the correction; fresh complete validation remains required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
 
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
+
 ### KI-0104 — Packaged runtime selection used an application feature alias
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-18 during M03-W03 actual packaged app observation
 - Affects: M03-W03; compile-bound runtime selection
 - Description: the CLI enables tauri/custom-protocol directly; the application's custom-protocol alias can remain false. The packaged debug app therefore selected the development-stage executable despite having a bound bundled runtime.
 - Reproduction: actual4244afb app launch reports the service executable under root runtime-payload instead of bundled Resources/runtime. The observer baseline fails; this is not a passing Close case. Root GUI Quit cleans the exact observed app/service/group/listener.
 - Workaround: none used; the failed actor remains preserved.
 - Resolution + evidence link: choose mode through SDK tauri::is_dev(), preserving manifest/hash/absolute-path/no-fallback guards. Two new shipping-selector tests reproduce the direct-dependency feature mode;77 tests in each of three mandatory modes and strict Clippy/fmt pass. Windows-native fixture paths preserve production guards. Independent review clears source integration; fresh actual bundled lifecycle and full validation remain required; docs/TEST_EVIDENCE.md § M03-W03 validation corrections.
+
+- Closure (2026-10-19UTC): current6d3 clean canonical full validation and independently audited actual three-host native modes/strict compilation pass; exact local/native historical applicability and scoped limits are retained in docs/evidence/m03-w03-closeout. This does not relabel the unrelated Windows browser failure as PASS.
 
 ## M03-W02 corrected verification fixtures (2026-10-18)
 

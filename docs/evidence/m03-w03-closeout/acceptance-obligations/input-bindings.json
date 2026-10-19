@@ -1,0 +1,80 @@
+{
+  "scope": "Selected governing and receipt inputs only; no broad physical/cache/archive audit or new execution",
+  "inputs": [
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/CLAUDE.md",
+      "bytes": 14981,
+      "sha256": "64655f7e161d969bf07a9310763d196c8f8e4a61d5eb16bd4d16b8e7a295aa1f"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/MASTER_IMPLEMENTATION_SPEC.md",
+      "bytes": 367893,
+      "sha256": "3eba7bdfbbb1591b5ea54c31bc415fc0cbfd3c361d32005b328f27a12f3ac943"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/DECISIONS.md",
+      "bytes": 49320,
+      "sha256": "90397a99fb6d65ad6bc90cc7e5d45929304b833326a503757959605ff20c9849"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/PROJECT_STATUS.md",
+      "bytes": 39504,
+      "sha256": "7f11f87e44f2dc45282ad8cce16a474a044fbd8bb8c4d11a7912e2cef0cd4936"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/docs/traceability.json",
+      "bytes": 713715,
+      "sha256": "cd12b8f42293ba238ff617acb3445594b4ddfaa5415aa27c232a16355e08b6d6"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/scripts/verification-suites.json",
+      "bytes": 31141,
+      "sha256": "93016458fdf16ff141529cd4bf944a37b8c7faced960be7d08601234324e86d8"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/scripts/verify.py",
+      "bytes": 145793,
+      "sha256": "eca614e1cd32ffa63f7f02f93e992b718c61ed757bec8c702bde315b2a66aae0"
+    },
+    {
+      "path": "/Users/tanishkalwad/jobapplyv2/.github/workflows/ci.yml",
+      "bytes": 13401,
+      "sha256": "0909bc59497331c8839bbad89f3d48f12ddf3fcf3b2901a89585bc300be4bf91"
+    },
+    {
+      "path": "/tmp/japp-m03-w03-acceptance-obligation-audit-20261019/REVIEW.md",
+      "bytes": 14764,
+      "sha256": "e06eb07775070c664e055540547763c463bc028830d4b5bb6646a73c780812ce"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-independent-real-owner-http-review-20261019/REVIEW.md",
+      "bytes": 7542,
+      "sha256": "6562808fc7cc8561d1892918b872e7462ab960287717d19e5530343ae2274882"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-current-tooling-full-preparation-20261019/canonical-aggregate-result.json",
+      "bytes": 3041,
+      "sha256": "e6ed6e8a636462a38df456250827cb2fce302746cb170ce3fc1fe69a8bf31b3c"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-current-tooling-full-preparation-20261019/source-manifest.json",
+      "bytes": 314955,
+      "sha256": "b79acf135fcd53da216363dfa50f30af376315fab3504696a697fe08490a66d0"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-current-tooling-native-retry-20261019/retry-upfront.json",
+      "bytes": 2714,
+      "sha256": "045cbf2836dbf63dbad70ae3a81da69e4474edcb04beae5d19d544cf2ace4517"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-current-tooling-native-retry-20261019/retry-result.json",
+      "bytes": 400,
+      "sha256": "9597d5022b40da7dbe256bd0713824baba194c88afaf12dc160f25bd85680d29"
+    },
+    {
+      "path": "/tmp/japp-m03-w04-current-tooling-native-retry-20261019/owned-ignored-runtime-mode-correction.json",
+      "bytes": 51094,
+      "sha256": "63946922870fa261d573bbe7baaa9db8b4fe2ef3dce1d9a516a494413d390be5"
+    }
+  ]
+}
