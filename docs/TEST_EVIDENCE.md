@@ -3,6 +3,10 @@
 Exact verification commands and summarized results
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1 and §8.6). Newest entries first.
 
+## Current native macOS development package (2026-10-28)
+
+Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.
+
 ## Update rules
 
 - Every entry records: work-package ID; git commit or working-tree hash;
@@ -32,6 +36,16 @@ Exact verification commands and summarized results
 ```
 
 ## Entries
+
+### M03-W06 — Resumed hosted434 failures and bounded fixture corrections (2026-10-28)
+
+- Revision: hosted head434ba0778fb4bcbf760c3800a10622be35ea255c/tree d09331f88af59a949d469889fa15451164e8c0e5,1988 source blobs. Official checkoutmerge38a4f211530e2fafffb90a6e82697c6e8a3f6b95 maps by GitAPI to that same tree on all3hosts. Local focused corrections add only the exact two test-file afterimages in the evidence summary; no new complete-tree PASS is inferred.
+- Actual hosted run39213957984/attempt1 is terminal: macOS/Ubuntu20PASS;Windows18PASS2FAIL. PythonMac1860PASS717.57s/Ubuntu1860PASS607.23s/Windows1857PASS1FAIL999.33s. NativeMac232/Ubuntu231 each3PASS; Windows default220PASS,all-features219PASS1FAIL, later custom-protocol mode/finalbuildUNEXECUTED. Native development package matrix SKIPPED. All failures and skipped work remain explicit.
+- Windows Python failure is the synthetic builder test's global subprocess.run fake intercepting platform.system→Windows version probe→subprocess.check_output("ver",shell=True). Add an explicit synthetic module.platform.system Windows seam; all18 assertions/3test IDs remain. No production subprocess or no-shell policy changes. Native Windows now passes the old absolute-directory guard/env assertions before that separate fixture failure. Four actual Tauri tests pass in both completed Windows modes, directly closing the old origin-adapter scope without completing the Rust aggregate.
+- Windows Rust failure is WSA10048/AddrInUse at the replacement listener setup. Its precise kernel/process cause remainsUNOBSERVED. A private test helper retries only AddrInUse for the same127.0.0.1:oldport within1s; no forced reuse, port substitution, ignored error or production policy change. Two added real-listener counterproofs require actual release and refuse a still-owned port. Reversing that helper/additions/call change reconstructs the original whole Rust file; all original HMAC/401/no-token/no-bearer assertions remain.
+- Actual local commands after root source review/adoption: `uv run --no-sync --offline pytest -q scripts/tests/test_windows_builder.py` exits0,3PASS0.02s (outer0.399201958s). `cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml api_client::tests::python_runtime:: -- --test-threads=1` exits0,6PASS/0failed/0ignored/**228filtered**1.44s (outer8.656383583s). Exact1988 source-content hashes are equal before/after and at separate data review; modes/ignored runtime/all-descendant closure are not measured by this hash record. Different data24/24CLEAR, reviewJSON87fe20dc92380df1446ed5eb7d2f5bb501baba1cb390b99ab88254cc36b4cfe4. The first reviewer script expected19 AST assertions; actual before/after18 are equal. That observer correction/history is retained; subject tests were not changed or rerun to repair the observer.
+- Evidence: docs/evidence/m03-w06-resumed-ci-corrections. Original CI packet a67abe78ebdc84b70434ccd0734b8219e44643293d7420fc6d599da7afce1165,1619277B/29safe members; focused packet153620db90f6ada045c87970c238eaa532e077383a78049d8c2c04859af614a6,189920B/11safe members. Complete original official ZIP6daa04f685e71c317301180b4275f3259f66f467a91c1ac00a87d31098d3ad73,749998B/6safe log members. Raw upload receipts show diagnostics139files/15416262B and browser465158B under7day retention; resumed artifacts API is empty/direct diagnostics404, so absent binary/screenshot bodies are not inspected or reconstructed.
+- W06 remains soleIN_PROGRESS/38of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY. No current whole aggregate/native suite, corrected-headWindows, nativeGUI, foreign package, milestone/gate or release PASS is claimed. KI-0116/0117 await fresh native Windows confirmation; all unwaived acceptance evidence remains required.
 
 ### M03-W06 — Shared native packaging integrated; measured focused checks and hosted failures retained (2026-10-19UTC)
 

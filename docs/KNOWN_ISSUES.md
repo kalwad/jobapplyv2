@@ -32,29 +32,55 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
-## Current hosted Windows failures (2026-10-19UTC)
+## Current native macOS development package (2026-10-28)
+
+Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.
+
+## Current hosted Windows failures (resumed2026-10-28)
+
+### KI-0116 — Synthetic Windows builder test intercepts Python's host probe
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-28 while retaining terminal2026-10-19 run39213957984,Windows job117933391097
+- Affects: M03-W06 / REQ-PLAT-013; scripts/tests/test_windows_builder.py
+- Description: platform.system calls Python's Windows version probe through subprocess.check_output("ver",shell=True). The test's shared subprocess.run fake intercepts this unrelated host probe and correctly rejects shell use, before the final synthetic builder stage. Actual1857PASS/1FAIL999.33s; no production builder shell call is inferred.
+- Reproduction: exact434/d093 testedmerge38a4f211; official Windows raw failure lines8510–8594, retained API/source/log packet.
+- Workaround: none; original hosted Windows FAIL remains failed.
+- Resolution + evidence link: root-reviewed explicit synthetic platform.system Windows seam preserves all18 assertions,8command labels and3test identities. Actual local3PASS, unchanged1988source-content inventory and separate24-check data review. Fresh corrected-head nativeWindows confirmation remains pending. See docs/evidence/m03-w06-resumed-ci-corrections and docs/TEST_EVIDENCE.md.
+
+### KI-0117 — Replacement-listener test assumes immediate reuse after child reap
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-28 while retaining terminal2026-10-19 run39213957984,Windows job117933391097
+- Affects: M03-W06 / REQ-PLAT-013; api_client/tests/python_runtime.rs
+- Description: after killing/reaping the actual Python service, the all-features test's immediate same-port replacement bind returnsWSA10048/AddrInUse. Exact kernel/process cause isUNOBSERVED. Default220PASS/all-features219PASS1FAIL; the protected request/bearer assertions are unexecuted in that failing case.
+- Reproduction: exact434/d093 testedmerge38a4f211; official Windows raw lines9686–9698 and source line167.
+- Workaround: none; no forced socket reuse, different port, ignored error or production timeout change.
+- Resolution + evidence link: root-reviewed private fixture helper admits only actual same-port binding, retries onlyAddrInUse within1s and preserves final failure. Two actual-listener cases prove held-port refusal and success after actual release. Actual local six runtime casesPASS/228filtered, including original no-bearer case; all original assertions reconstruct exactly. Fresh corrected-head nativeWindows confirmation remains pending. See docs/evidence/m03-w06-resumed-ci-corrections and docs/TEST_EVIDENCE.md.
 
 ### KI-0114 — Windows builder mock supplies a non-absolute system directory
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
 - Affects: M03 native package tests / REQ-PLAT-013; scripts/tests/test_windows_builder.py
 - Description: mocked GetWindowsDirectoryW returns /trusted/windows. On native Windows this lacks a drive and Path(...).is_absolute() refuses before the synthetic six-stage proof. Actual Python1798PASS/1FAIL652.50s; no real native builder or application failure is inferred from this fixture.
 - Reproduction: exact660f/be68 testedmergef1a558ee; official Windows log8267–8429 and API/source bindings are retained.
 - Workaround: none used; original canonical Windows failure stays failed.
-- Resolution + evidence link: reviewed test-only tmp_path-derived absolute directory replaces three fake API/count/expected-env sites, preserving every stage, CLI argument and assertion. Actual local fixture3PASS and canonical715focus/1860collection remain separately bound. Fresh native Windows validation is pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+- Resolution + evidence link: reviewed test-only tmp_path-derived absolute directory replaces three fake API/count/expected-env sites, preserving every stage, CLI argument and assertion. Actual local fixture3PASS and canonical715focus/1860collection remain separately bound. Direct native434Windows execution passes the absolute-directory guard and all seven preceding stage environment checks before the distinct platform-probe fixture failureKI-0116. This closes only the original non-absolute mock defect; no complete builder-test/native package PASS is inferred. See additionally docs/evidence/m03-w06-resumed-ci-corrections. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
 
 ### KI-0115 — Tauri ACL tests send a nonlocal origin on Windows
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-19UTC in hosted run39207973986,Windows job117914852791
 - Affects: M03 native diagnostics transport tests / REQ-PLAT-013; src/diagnostics/tests/tauri.rs
 - Description: six test requests hardcode tauri://localhost. Pinned Tauri2.12.4 uses http://tauri.localhost on Windows/Android; its actual local-only ACL rejects the hardcoded URL. Two default-library assertions fail: allowed-command unwrap gets ACL refusal and malformed-message assertion sees Null. Actual218PASS/2FAILof220; no production permission broadening is warranted.
 - Reproduction: exact660f/be68 testedmergef1a558ee Windows default cargo test, official log9070–9085. Later all-features/SDK/finalbuild are unexecuted.
 - Workaround: none; no ACL/CSP/command change or ignored assertion is used.
-- Resolution + evidence link: test-only local_app_origin matches the exact pinned framework's official test example; six argument adapters preserve all four tests/assertions and secondary-window/remote denial. Actual localMac Rust15commands/232cases each3/finalbuildPASS; fresh Windows validation remains pending. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
+- Resolution + evidence link: test-only local_app_origin matches the exact pinned framework's official test example; six argument adapters preserve all four tests/assertions and secondary-window/remote denial. Actual localMac Rust15commands/232cases each3/finalbuildPASS; actual434Windows default and all-features runs each pass all four unchanged Tauri ACL/command tests. This closes the exact origin defect; the separate same-port setup failureKI-0117 leaves the aggregate failed and the later custom-protocol mode/finalbuild unexecuted. See additionally docs/evidence/m03-w06-resumed-ci-corrections. See docs/evidence/m03-w06-shared-native-packaging and docs/TEST_EVIDENCE.md.
 
 ### KI-0111 — Windows executable link duplicates RT_MANIFEST
 

@@ -157,12 +157,58 @@ async fn actual_python_service_accepts_native_proof_then_ready_version_health() 
     drop(client);
     drop(owned);
 }
+// A reaped process is no longer an owner, but its former socket tuple may
+// remain unavailable briefly on Windows. Admit only an actual bind of that
+// same tuple; never force reuse, change the port, or suppress a final error.
+async fn bind_replacement_listener(port: u16, budget: Duration) -> std::io::Result<TcpListener> {
+    let deadline = Instant::now() + budget;
+    loop {
+        match TcpListener::bind((std::net::Ipv4Addr::LOCALHOST, port)).await {
+            Err(error) if error.kind() == std::io::ErrorKind::AddrInUse => {
+                let remaining = deadline.saturating_duration_since(Instant::now());
+                if remaining.is_zero() {
+                    return Err(error);
+                }
+                tokio::time::sleep(remaining.min(Duration::from_millis(5))).await;
+                if Instant::now() >= deadline {
+                    return Err(error);
+                }
+            }
+            result => return result,
+        }
+    }
+}
+#[tokio::test(flavor = "current_thread")]
+async fn replacement_listener_requires_the_same_port_to_be_actually_released() {
+    let original = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let port = original.local_addr().unwrap().port();
+    let waiting = bind_replacement_listener(port, Duration::from_secs(1));
+    tokio::pin!(waiting);
+    assert!(
+        tokio::time::timeout(Duration::from_millis(20), &mut waiting)
+            .await
+            .is_err()
+    );
+    drop(original);
+    let replacement = waiting.await.unwrap();
+    assert_eq!(replacement.local_addr().unwrap().port(), port);
+}
+#[tokio::test(flavor = "current_thread")]
+async fn replacement_listener_refuses_a_port_that_stays_owned() {
+    let original = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let port = original.local_addr().unwrap().port();
+    let error = bind_replacement_listener(port, Duration::from_millis(30))
+        .await
+        .unwrap_err();
+    assert_eq!(error.kind(), std::io::ErrorKind::AddrInUse);
+    assert_eq!(original.local_addr().unwrap().port(), port);
+}
 #[tokio::test(flavor = "current_thread")]
 async fn actual_child_death_and_port_reuse_never_release_bearer() {
     let mut owned = OwnedService::start();
     let session = session(owned.port);
     owned.kill_and_reap();
-    let replacement = TcpListener::bind((std::net::Ipv4Addr::LOCALHOST, owned.port))
+    let replacement = bind_replacement_listener(owned.port, Duration::from_secs(1))
         .await
         .unwrap();
     let sink = tokio::spawn(async move {

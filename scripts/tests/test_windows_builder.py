@@ -94,6 +94,9 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
         argv += ["--" + name, str(value)]
     monkeypatch.setattr(sys, "argv", argv)
     monkeypatch.setattr(module, "host_target", lambda: "x86_64-pc-windows-msvc")
+    # The synthetic Windows build must not run the actual host platform probe:
+    # Python on Windows may implement it through subprocess.check_output("ver").
+    monkeypatch.setattr(module.platform, "system", lambda: "Windows")
 
     trusted_windows = str(tmp_path / "trusted-windows")
 
