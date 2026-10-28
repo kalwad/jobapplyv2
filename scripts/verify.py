@@ -3047,7 +3047,7 @@ def _argv_vitest_invocation_kind(argv: tuple[str, ...]) -> str | None:
             and names.count("turbo") == 1
             and argv.count("--") <= 1
             and argv[5 : argv.index("--") if "--" in argv else len(argv)]
-            in ((), ("--force",))
+            in ((), ("--force",), ("--force", "--concurrency=2"))
         ):
             return "turbo"
         return "invalid"

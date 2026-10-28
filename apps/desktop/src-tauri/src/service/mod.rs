@@ -26,3 +26,8 @@ mod runtime_integrity;
 mod windows_native;
 #[cfg(any(windows, test, feature = "windows-source-check"))]
 mod windows_policy;
+
+pub mod native_paths;
+mod owned_worker;
+mod platform_adapters;
+mod quit;

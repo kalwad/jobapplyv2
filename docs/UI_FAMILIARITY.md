@@ -83,3 +83,9 @@ compatibility that does not exist.
 ## M03-W01 implementation state — 2026-10-18
 
 The desktop shell is now IN_PROGRESS with repository-owned components/tokens and a recorded public task-reference log. The M00-W11 scaffold statements above remain historical. Other product surfaces/studies remain unimplemented and unapproved. OD-037 / ADR-0008 delegates actual later acceptance; it supplies no invented owner observation or future result.
+
+## Controlled shell evidence appendix — 2026-10-28
+
+Seven truthful shell destinations have14 actual1120/320px captures, complete dirty-source/PNG metadata,32 passing browser checks and different74-check/14-image review: docs/evidence/m03-w11-shell-catalog. All12 captured shipping UI/component/token source blobs equal35b, preserving the M03-W01 foundation; the isolated harness supplies synthetic scenarios. Public-reference provenance remains docs/ui/SIMPLIFY_FAMILIARITY_MATRIX.md. Direct Simplify comparison is waived and unexecuted. No comparative task success/time, reference parity, user study, affiliation or superiority is inferred. Source/images show original geometric icons and repository components/copy/tokens without third-party artwork/marks; this is not legal originality certification.
+
+All canonical familiarity and baseline state rows are preserved unchanged. The outside packet is review ready, but no future feature, owner/delegated visual acceptance, final familiarity/accessibility approval, platform certification or token freeze is recorded. W11 stays NOT_STARTED.

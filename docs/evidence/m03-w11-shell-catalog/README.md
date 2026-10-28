@@ -1,0 +1,9 @@
+# Controlled desktop-shell catalog — review ready
+
+Actual 2026-10-28 Chromium run:32 passed,14 PNG/metadata pairs for seven truthful shell surfaces at1120/320px, six corrected quality checks exit0. Different retained-data/image review is CLEAR74/74. Original TypeScript failure remains retained. `summary.json` records actual hashes, capture parameters, dirty-source identity, rule-by-rule limits and unchanged states; `proof.tar.gz` contains original PNGs/metadata, source/runtime snapshots, raw logs/report, selected source bodies and independent review. `retention-manifest.json` indexes every safe regular archive member.
+
+Reference35b/treef078 plus dirty selected20-source hash6acfc8d4 describes the actual UI; this is not a clean35b claim. Twelve selected shipping UI/component/token blobs are identical to35b; the isolated renderer has separate generated output. Synthetic versions and unavailable-service state prove neither native IPC nor service readiness. Metadata's Windows-style user-agent is not Windows execution.
+
+The outside review packet is REVIEW_READY; canonical baseline/familiarity/anti-bloat governance rows are preserved unchanged. Existing DESKTOP_SHELL remains CAPTURED and future rows NOT_YET_APPLICABLE, all NOT_APPROVED. AB01–10 pass only for inspected shell states; AB11/12 and the overall checklist remain NOT_EVALUATED. No tokens are frozen, no delegated acceptance is recorded, no platform is certified, and no task-study result is invented. M03-W06 IN_PROGRESS; M03-W11 NOT_STARTED; M03 IN_PROGRESS;38/300 VERIFIED;release NOT_READY.
+
+The initial outside v1 proposal is preserved unadopted. Current validators admit only raw-image CAPTURED rows belonging to started packages; neither archive pointers nor future W11 ownership authorize row promotion. This v2 adds measured appendices only and does not weaken validation.

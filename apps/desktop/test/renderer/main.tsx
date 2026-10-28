@@ -50,10 +50,27 @@ function FragileView() {
   if (throwing) throw new Error("fixture-render-private-secret");
   return <h1>Recovered view</h1>;
 }
+function CatalogRenderFault() {
+  return (
+    <div
+      onClickCapture={() => {
+        // Only this fixture releases its injected fault when the real retry
+        // action is activated. The original render-error scenario stays latched.
+        throwing = false;
+      }}
+    >
+      <RenderErrorBoundary>
+        <FragileView />
+      </RenderErrorBoundary>
+    </div>
+  );
+}
 const root = document.getElementById("root");
 if (root === null) throw new Error("Renderer fixture mount is missing");
 createRoot(root).render(
-  scenario === "render-error" ? (
+  scenario === "catalog-render-error" ? (
+    <CatalogRenderFault />
+  ) : scenario === "render-error" ? (
     <RenderErrorBoundary>
       <FragileView />
     </RenderErrorBoundary>

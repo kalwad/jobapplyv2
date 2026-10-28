@@ -44,3 +44,9 @@ No screenshots, hashes, approvals, or visual pass results exist at M00-W11.
 ## M03-W01 initial capture — 2026-10-18
 
 DESKTOP_SHELL is CAPTURED and NOT_APPROVED. Parameters, original bytes and exact UI source inventory are retained in docs/evidence/m03-w01-shell/captures.json. This uses shipping components with a synthetic version loader in the isolated renderer; actual native version IPC and keyboard behavior were inspected separately through CUA in the packaged macOS shell. The initial layout is not a frozen design system, a human task study, or a final M03-W11 visual approval. Historical M00-W11 no-capture statements above retain their original scope.
+
+## Controlled shell capture review record — 2026-10-28
+
+Fourteen actual catalog PNG/metadata pairs and a different74-check/14-image review are retained in docs/evidence/m03-w11-shell-catalog. The outside packet is review ready; canonical baseline rows remain exactly as above (DESKTOP_SHELL CAPTURED, future rows NOT_YET_APPLICABLE, all NOT_APPROVED). No future business-state owner package is started by this preparation. Archive-contained captures are measured evidence, not a substitute for the raw-image baseline-row requirements of the current validator.
+
+Capture identity is reference35b/f078 plus dirty selected20-source SHA2566acfc8d44737af6bdf2e3ce79157507de720ca517ff42d277b96fbd49d61478a. Chromium151/darwin-arm64, light100%,1x scale,16px root font and reduced motion are recorded; narrow full-page PNG height may exceed760px. Versions are synthetic, native IPC/service unproven. AB11/12 remain NOT_EVALUATED; no visual approval, delegated acceptance, token freeze or native certification is recorded. W11 remains NOT_STARTED; W06 remains IN_PROGRESS.

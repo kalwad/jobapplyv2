@@ -1,0 +1,736 @@
+{
+  "archive_members": {
+    "actual-apfs-observation-v2/observation.json": {
+      "bytes": 1481,
+      "sha256": "c014ec8b71de4ca6e2c64f435e7ce0d26b2f7ae77c035c893faabe8165193547",
+      "source_mode": 420
+    },
+    "actual-apfs-observation-v3/observation.json": {
+      "bytes": 6003,
+      "sha256": "1c33666c9954072cbc7a3bfece4c2fe970ca38aab630108641d8455d47b813fb",
+      "source_mode": 420
+    },
+    "actual-v1/after.json": {
+      "bytes": 417562,
+      "sha256": "37c4bb6bc4cbd696f59d51477c05b972566068556dc6c7100121c7d49287c7e6",
+      "source_mode": 420
+    },
+    "actual-v1/before.json": {
+      "bytes": 417562,
+      "sha256": "37c4bb6bc4cbd696f59d51477c05b972566068556dc6c7100121c7d49287c7e6",
+      "source_mode": 420
+    },
+    "actual-v1/closure.json": {
+      "bytes": 217,
+      "sha256": "25877e15d4ebb3be6a6dc2a1701d2c18e64ee17e0d5f82ac89db7453ab8821c2",
+      "source_mode": 420
+    },
+    "actual-v1/context.json": {
+      "bytes": 108,
+      "sha256": "c74851ca269c364bd9c32b8ed37f11cff9f33566e15960116c1444c58b7222d9",
+      "source_mode": 420
+    },
+    "actual-v1/default-catalog.log": {
+      "bytes": 34536,
+      "sha256": "5ea5190d9147e0c5e9416b6c9e31fb5c22e8a93048552b2845a88ef1aedcfc76",
+      "source_mode": 420
+    },
+    "actual-v1/default-clippy.log": {
+      "bytes": 161,
+      "sha256": "90931ff47bbb6ec53a61521f03a28e8d3f212b5d0543d95aa9729fb469b4e736",
+      "source_mode": 420
+    },
+    "actual-v1/default-compile.log": {
+      "bytes": 269,
+      "sha256": "cbdeedf9f6e2003189a71f995d7fb13b1b05cd04576145be98aac7b8c1aa1e93",
+      "source_mode": 420
+    },
+    "actual-v1/default-tests.log": {
+      "bytes": 39506,
+      "sha256": "21f7e2e1eaeb4fc91347038ac82ce7f732ae0f938144ee7bd2fd899c233193bb",
+      "source_mode": 420
+    },
+    "actual-v1/format.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_mode": 420
+    },
+    "actual-v1/results.json": {
+      "bytes": 1905,
+      "sha256": "25b27fac27b9c6e863fd8a94be195626537b8f93d9d2ad6be486aa6b95576207",
+      "source_mode": 420
+    },
+    "actual-v1/wrapper-executed.py": {
+      "bytes": 4948,
+      "sha256": "6813d3f6745637621b846d66989613f39ca56e8f6915b7b234afc08f7a2d4682",
+      "source_mode": 420
+    },
+    "actual-v2/after.json": {
+      "bytes": 417562,
+      "sha256": "623d5cbcb2b13b0f1f7832249ed52b681d6512c3bc97a19986c6595226a8fc7b",
+      "source_mode": 420
+    },
+    "actual-v2/all-features-clippy.log": {
+      "bytes": 194,
+      "sha256": "172bdc0b71ad840848b411d7cdbbe717f7215b897b5291ae6a93d30729f22625",
+      "source_mode": 420
+    },
+    "actual-v2/all-features-tests.log": {
+      "bytes": 37067,
+      "sha256": "1010ae277e9d2e2ffe3787195af31bc53c7c8d5d2269bdd928da8b6c46c29f03",
+      "source_mode": 420
+    },
+    "actual-v2/before.json": {
+      "bytes": 417562,
+      "sha256": "623d5cbcb2b13b0f1f7832249ed52b681d6512c3bc97a19986c6595226a8fc7b",
+      "source_mode": 420
+    },
+    "actual-v2/closure.json": {
+      "bytes": 217,
+      "sha256": "1ff9f171a403feab87e6b7dc5fd1ad48fccff2ee4f388264fa1596fc724801a8",
+      "source_mode": 420
+    },
+    "actual-v2/context.json": {
+      "bytes": 108,
+      "sha256": "b3d9339aea08c9713ac3ce01f333644d899a8eece84a8bb6a5f523a1fb43dce4",
+      "source_mode": 420
+    },
+    "actual-v2/custom-protocol-build.log": {
+      "bytes": 161,
+      "sha256": "01937d9a3221ddbbea273bd943cc83dcfd5b824c1ffb46c853928c199425799e",
+      "source_mode": 420
+    },
+    "actual-v2/custom-protocol-clippy.log": {
+      "bytes": 161,
+      "sha256": "71dad8371c1aa50164924ad4502c46395b5bb19ae38ce2318d8bf5952b7718c3",
+      "source_mode": 420
+    },
+    "actual-v2/custom-protocol-tests.log": {
+      "bytes": 37034,
+      "sha256": "00e5722b87f1862d1820dc0c116b5cb5d566a7837064f890bd38a258c6c30039",
+      "source_mode": 420
+    },
+    "actual-v2/default-catalog.log": {
+      "bytes": 34801,
+      "sha256": "6b55b6d1084e73648f861cb145d24f318f9c1061498f1a60dccbce9a71ec7a93",
+      "source_mode": 420
+    },
+    "actual-v2/default-clippy.log": {
+      "bytes": 161,
+      "sha256": "22e216c922c109c724717b815b9b4198399d6506d073814ce11d3f12716f4d6d",
+      "source_mode": 420
+    },
+    "actual-v2/default-compile.log": {
+      "bytes": 269,
+      "sha256": "bf01252bb2060bf59785d9a8b323cc1d83328bd880e615499e7df4145c6e578d",
+      "source_mode": 420
+    },
+    "actual-v2/default-tests.log": {
+      "bytes": 36945,
+      "sha256": "9bdb840b3ff977d928dd1f2367ce06ae3597179a9ebff25ae6db523a92319403",
+      "source_mode": 420
+    },
+    "actual-v2/format.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_mode": 420
+    },
+    "actual-v2/results.json": {
+      "bytes": 4433,
+      "sha256": "8d7ab68e11bdf216449561e151013089fe478700974bf4baac02a15ce274c3a0",
+      "source_mode": 420
+    },
+    "actual-v2/windows-source-check.log": {
+      "bytes": 247,
+      "sha256": "5d5f55118191c634a2aaffb88e7848814c20de1e5767aa959d2c07a080ee5320",
+      "source_mode": 420
+    },
+    "actual-v2/wrapper-executed.py": {
+      "bytes": 4948,
+      "sha256": "073f987f9766f61f9a5087d8c41b2b310785162aaa2b536b69cf03a3c928d093",
+      "source_mode": 420
+    },
+    "darwin-v3/HANDOFF.json": {
+      "bytes": 4260,
+      "sha256": "ded9820c501a6825b900de54ffc3236f4aa15f82148df5e311588b486c3c8672",
+      "source_mode": 420
+    },
+    "darwin-v3/REVIEW.md": {
+      "bytes": 4414,
+      "sha256": "d731366e985916080a1298581277fd4347e82fa6db1f2e7e67e0150a41cbdd2f",
+      "source_mode": 420
+    },
+    "darwin-v3/after/apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs": {
+      "bytes": 8445,
+      "sha256": "d7bc55995dff35436c425e12d15dfe43dfe19fd27a36498dd36b2f08167ada55",
+      "source_mode": 420
+    },
+    "darwin-v3/after/apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs": {
+      "bytes": 21682,
+      "sha256": "df76115e4a4849700ca995239793cf8e4dc3782691e1d6b82f1b4d39b06d1792",
+      "source_mode": 420
+    },
+    "darwin-v3/before/apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs": {
+      "bytes": 6037,
+      "sha256": "5d5da20d95c12f353f098d1392bfb949b4fcb6bef43fd0fd821fe9a9d077dc50",
+      "source_mode": 420
+    },
+    "darwin-v3/before/apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs": {
+      "bytes": 19197,
+      "sha256": "129b473341c0e07b51ad5ede983b753fc0f531cedf01e767fa6ade08bbc4fecb",
+      "source_mode": 420
+    },
+    "darwin-v3/correction.patch": {
+      "bytes": 8397,
+      "sha256": "0ab42232eff2748f1136f1f6672d1619a27fa05af5601985ad90ad345b653e81",
+      "source_mode": 420
+    },
+    "darwin-v3/root-adoption.json": {
+      "bytes": 1177,
+      "sha256": "9d97846dfe82b061e22f6da0c64b08595c9c1425330b918ea7c1f67584ee4381",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/Cargo.toml": {
+      "bytes": 2307,
+      "sha256": "230df99445e2aef8581b362574b1871163527d778c5fb3f077c0852282c3e1b8",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/api_client/mod.rs": {
+      "bytes": 1231,
+      "sha256": "f08eae0a03abb160acf72fe7fe2635e23445b4afd285c8d1e840a5c47294bb20",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/api_client/tests/client.rs": {
+      "bytes": 20819,
+      "sha256": "7f53766e143a5e135dd27d75c3b417351ec28ada9092a23def9a2886f429ad71",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/api_client/tests/mod.rs": {
+      "bytes": 2351,
+      "sha256": "a3b0c9983d6235c6f3a15895be6f3d0a0a330fcae228d46fb8f2c9b7aee14063",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/diagnostics/mod.rs": {
+      "bytes": 435,
+      "sha256": "0576ed4a07434dfb0a2142ce28aa10fe21d89cdd8cf0669c743ddc3a2dd9fc6a",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/diagnostics/tests/http_integration.rs": {
+      "bytes": 15688,
+      "sha256": "5199aa776c34ab055317fda633782ae33f873ab33a4c589fb7d4ad4ab6d4fbfa",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/lib.rs": {
+      "bytes": 9028,
+      "sha256": "e1fd74f0d82f80bf0a8bea4554ae9e49a97af441d59da3f30b73fb51e7eb8027",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/mod.rs": {
+      "bytes": 835,
+      "sha256": "aa8af7ac886734f2f80414df7a82541aef83967ae2a0665270ca24605a17bd13",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/native_paths.rs": {
+      "bytes": 429,
+      "sha256": "73a34de21e828a0f54e6c1722b06d635a384cec7d9d06c9e429a80391a8c5b61",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/owned_worker.rs": {
+      "bytes": 4319,
+      "sha256": "2f49bde63239ac8aaa5e1326bffe30de2dd71c2407baca23f7332590420bc30d",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform.rs": {
+      "bytes": 30175,
+      "sha256": "664b3cf480203393c525e754c363efc53310b2bfdf7086954f374decdf578be4",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/app_owner.rs": {
+      "bytes": 14011,
+      "sha256": "67fde29fe40e3dc6e8674ad2466394799e2afc51533d6418eda833f07ecc6022",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/app_owner_tests.rs": {
+      "bytes": 15379,
+      "sha256": "856f248a8a56567a52745ba49a2bbd3a7c0c1049fa6cef80dc3a297fc4f5ecd7",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/creation.rs": {
+      "bytes": 7254,
+      "sha256": "b78d54f35f837e37cc92c949458008d8d542528fb3fade0eabc9b8e618564aa1",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/fixture_isolation.rs": {
+      "bytes": 4622,
+      "sha256": "90918a0d0ff22b8a06b7093e392a187d5b7305f56d9df7143d2bf6fc5f1e946a",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/macos_sdk_alias.rs": {
+      "bytes": 4129,
+      "sha256": "5e905056518e1f784f8348fdc7ea2965a7abda85de2a533a49f346f600014854",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/mod.rs": {
+      "bytes": 665,
+      "sha256": "0c4b546326c3ac1961bf7cb5ea1ba2b789a65afd83726e6424ca7d2833e5573b",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/native.rs": {
+      "bytes": 2916,
+      "sha256": "65cbff7e3db9b9962897c0bb8e778fa3ded1593ce54a939d998a78bc690dd7c7",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/ownership_tests.rs": {
+      "bytes": 24655,
+      "sha256": "2f904ccae10679b9b349f6e6c44f83fd163f06352611193dd9d580a2f681c24f",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/paths.rs": {
+      "bytes": 25553,
+      "sha256": "02e8961bc0e2e72f90c1988e5da3f78a59bb437c5006321492397ba35a8060f8",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/policy.rs": {
+      "bytes": 7585,
+      "sha256": "ecee9b481407cac5949ccf899c28480a305a6d4c7103c66f995799478941c791",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/posix_cleanup_tests.rs": {
+      "bytes": 8445,
+      "sha256": "d7bc55995dff35436c425e12d15dfe43dfe19fd27a36498dd36b2f08167ada55",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs": {
+      "bytes": 21682,
+      "sha256": "df76115e4a4849700ca995239793cf8e4dc3782691e1d6b82f1b4d39b06d1792",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/probe_admission_tests.rs": {
+      "bytes": 3042,
+      "sha256": "82fa46d9a8bd2fc0b853fc24b7165da5e2df40c3c65a29ddcd2a2a43fec0518d",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/tests.rs": {
+      "bytes": 32023,
+      "sha256": "33cd111424c429798836bf64c03cff1de73196c74361d087adc599212b6c0f78",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/platform_adapters/windows_paths.rs": {
+      "bytes": 25403,
+      "sha256": "850e505708db6abadeae5e7e8532c0f4f5b53ecc27667757707184b82b724163",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/quit.rs": {
+      "bytes": 4012,
+      "sha256": "ccc903b954e1c52e3f70534aadabb5cadb456a28aa05492eeee874e4ae2d3597",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/quit_tests.rs": {
+      "bytes": 17642,
+      "sha256": "df6c47c4c95ceb09087aae3b2ae9d32ad67e30f6966a983b080d0888e9f8be5c",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/restart.rs": {
+      "bytes": 53224,
+      "sha256": "a2aa5a37c0d7afb6ae26c967d159fe9ff10510cb8ff2a1257282c5fcb4ddb852",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/supervisor.rs": {
+      "bytes": 56789,
+      "sha256": "9d407222268bf8e4c89d1d55a327c9930850f96e5155dd18c2c3dea77db1cbbe",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/tauri_lifecycle.rs": {
+      "bytes": 28815,
+      "sha256": "4ccf238462e9bbd7115b23e1fe6ff31859d2dc341cf7691724ec86ff60540393",
+      "source_mode": 420
+    },
+    "evaluated-native-source/apps/desktop/src-tauri/src/service/windows_native.rs": {
+      "bytes": 30170,
+      "sha256": "892e84d14f7d7e8edd1a5f69b43a005223fee616a4cbae8fe7f9d5cd66791d5e",
+      "source_mode": 420
+    },
+    "functional-v2/ADOPTION-MAP.json": {
+      "bytes": 21022,
+      "sha256": "dcf4ab4aeef18d2b318c175e161e3699aedafe9640280f805a2072640eb83993",
+      "source_mode": 420
+    },
+    "functional-v2/HANDOFF.json": {
+      "bytes": 1418,
+      "sha256": "4838e0ac0d7bf86705e56711248471136c3e8862b4d51aa1e0a197999132afcc",
+      "source_mode": 420
+    },
+    "functional-v2/README.md": {
+      "bytes": 1638,
+      "sha256": "7ef6bd2d6bc27d1fa2166e006adac12f65687f4acf4de184017c34f7d25ecd5a",
+      "source_mode": 420
+    },
+    "functional-v2/REVIEW.md": {
+      "bytes": 6027,
+      "sha256": "1bbc220d3309024ccfe32dbaa15ec2f7c0e4cb055656dcf6a1635a4759dbb27f",
+      "source_mode": 420
+    },
+    "functional-v2/corrections-vs-original.patch": {
+      "bytes": 43268,
+      "sha256": "c313eddfc26e9d58b9b79c305a21ef32549595144d26ef973c1f9ef9b70506fc",
+      "source_mode": 420
+    },
+    "functional-v2/normalized-sdk-temp-ancestor-observations.json": {
+      "bytes": 1075,
+      "sha256": "84cc7cf39c37b3ffc729b98ef42b3fea131d37e5c13f7ad80be824d0b5c17af6",
+      "source_mode": 420
+    },
+    "functional-v2/original-w09-oracle-preservation.json": {
+      "bytes": 34716,
+      "sha256": "10666695ca26d0ebcc91ed4863bae45f3efbb79851fa737177467b29f95c9a32",
+      "source_mode": 420
+    },
+    "functional-v2/pinned-sdk-root-functions.txt": {
+      "bytes": 2819,
+      "sha256": "2f5344d65ea5a86e021414692a36077d23c05e3e5be06c0966c4f4d11f455a23",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/Cargo.toml": {
+      "bytes": 2011,
+      "sha256": "3c03fb174637b9c9279b9d565c52edbbd3e6a278f9b73a650d99d03bd7b58101",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/api_client/mod.rs": {
+      "bytes": 1231,
+      "sha256": "f08eae0a03abb160acf72fe7fe2635e23445b4afd285c8d1e840a5c47294bb20",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/api_client/tests/client.rs": {
+      "bytes": 20819,
+      "sha256": "7f53766e143a5e135dd27d75c3b417351ec28ada9092a23def9a2886f429ad71",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/api_client/tests/mod.rs": {
+      "bytes": 2351,
+      "sha256": "a3b0c9983d6235c6f3a15895be6f3d0a0a330fcae228d46fb8f2c9b7aee14063",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/diagnostics/mod.rs": {
+      "bytes": 435,
+      "sha256": "0576ed4a07434dfb0a2142ce28aa10fe21d89cdd8cf0669c743ddc3a2dd9fc6a",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/diagnostics/tests/http_integration.rs": {
+      "bytes": 15688,
+      "sha256": "5199aa776c34ab055317fda633782ae33f873ab33a4c589fb7d4ad4ab6d4fbfa",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/lib.rs": {
+      "bytes": 8491,
+      "sha256": "98778cb1bfae4a212e176137a96aa67ec3edb7dd48ab6ae49578456b501f4ffd",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/mod.rs": {
+      "bytes": 761,
+      "sha256": "924b179e9426f73d486b7fb92174d8b6c9b09e05b6ae1c7767a8cbe49f2708d1",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/platform.rs": {
+      "bytes": 28806,
+      "sha256": "a3e2b194250cdab49257916f2c82cc63dd9954b6d07875c740fb341b5ea31c7c",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/restart.rs": {
+      "bytes": 52720,
+      "sha256": "f8d358377a7bffe76291ad7bc8e4e2a802e18e683bc977993a4394d3e0ba3fcc",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/supervisor.rs": {
+      "bytes": 54293,
+      "sha256": "1ca1670cb35e3f89d9fb7070f14d97a39274f7ce4e1a8df0a58a766df850a38b",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/tauri_lifecycle.rs": {
+      "bytes": 24118,
+      "sha256": "1f6ad4d216c5c0768e89e099f2153406a2e97a79620d2d51b470312b0dd225d1",
+      "source_mode": 420
+    },
+    "functional-v2/preimages/apps/desktop/src-tauri/src/service/windows_native.rs": {
+      "bytes": 29263,
+      "sha256": "9121750cbe147500ea6c447cd55962c8222b9d042258edbf84c5c5e286d99696",
+      "source_mode": 420
+    },
+    "functional-v2/prospective-current.patch": {
+      "bytes": 255627,
+      "sha256": "f6b2d9e3c752edb09d588d265e1a91019eb8372d7112e787093d98d6caa23510",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/README.md": {
+      "bytes": 2780,
+      "sha256": "cfc4696da479acac4d17213750a4ed66b969c8aa9d4f7c1333a09cc18e9ab107",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/src-tauri/src/api_client/tests/python_runtime.rs": {
+      "bytes": 15661,
+      "sha256": "aab65aab2b022cce409df44f017b4bb774f0f314ccf9abd577de8688216c2020",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/src-tauri/src/service/runtime_integrity.rs": {
+      "bytes": 22546,
+      "sha256": "6596e63f9e29d4a6d30423ba5205f926a9b1f4161ab5298a7e46785e92464718",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/test/renderer/catalog-main.tsx": {
+      "bytes": 2366,
+      "sha256": "30e54f4327409817463e9aba1ea7b8d7fb60d7f4604d528bb2e3b2abc41884c6",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/test/renderer/catalog.html": {
+      "bytes": 313,
+      "sha256": "73a7f70887c6fed182d87a341dda844160eb9914647291ba0b43ce709f3697f7",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/test/renderer/catalog.ts": {
+      "bytes": 2122,
+      "sha256": "58ee89e7ead3aaff8cea13b1b83149b4525a1770d8c7e124b9ca9109373e243d",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/test/renderer/main.tsx": {
+      "bytes": 2456,
+      "sha256": "8fda62e1f379b72ffd890aa7217a9b2fdd472176a9cd5ea2d12de7cb29eee363",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/apps/desktop/vite.renderer.config.ts": {
+      "bytes": 670,
+      "sha256": "9efa1e12d40e5297b2fccb189b5249ffd4147747e4e129195c537e25bc95f899",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/e2e/desktop/state-catalog.spec.ts": {
+      "bytes": 2394,
+      "sha256": "347243ea474880bba340f4327cd392a3d849898abb4f954d6ac9ed31d6998b88",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/e2e/visual/desktop-catalog.spec.ts": {
+      "bytes": 2297,
+      "sha256": "8b6251a0dcfc5e1f58f7686c234e94a834a7d4927dc4c5f65b919f6e00ff40c4",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/e2e/visual/support/desktop-capture.ts": {
+      "bytes": 5460,
+      "sha256": "427a98f219d9585974d323f854160785183d3f84da114420d5d192547fffe10f",
+      "source_mode": 420
+    },
+    "functional-v2/protected-preimages/scripts/tests/test_windows_builder.py": {
+      "bytes": 6400,
+      "sha256": "636bf6300697dfbfd07a5902f0b2108d358618d778038dc21a654af60f635806",
+      "source_mode": 420
+    },
+    "functional-v2/root-adoption.json": {
+      "bytes": 5274,
+      "sha256": "bc3ad6e9593512a1f3bff67a1a1bea2bab2de2fdee94c87ea8e8f099dc180edf",
+      "source_mode": 420
+    },
+    "functional-v2/sdk-and-os-observations.json": {
+      "bytes": 1232,
+      "sha256": "267f322c828352a615096be020fe8f36f28ad7e2be3bf71f697ca8f11da5afe1",
+      "source_mode": 420
+    },
+    "functional-v2/test-body-correspondence.json": {
+      "bytes": 103111,
+      "sha256": "c5610e063c9228c82e98a6704921b714019b122136b763636075f186208083c1",
+      "source_mode": 420
+    },
+    "independent-review/ACTUAL-REVIEW.md": {
+      "bytes": 3504,
+      "sha256": "0f400dd1825c0bce009e8b6587145c744ada6a4f39f2a01ddc5c6361dd960366",
+      "source_mode": 420
+    },
+    "independent-review/SOURCE-REVIEW.md": {
+      "bytes": 5195,
+      "sha256": "318e26181a6f7daeb7c391e354de8b895a231756163a28b7d3d209f79b376587",
+      "source_mode": 420
+    },
+    "independent-review/TEST-PRESERVATION-ADDENDUM.md": {
+      "bytes": 965,
+      "sha256": "e494a5bff72cc82171a80f41fdcf3da5ca31d7eb8dc21938db7a8981bd3185ff",
+      "source_mode": 420
+    },
+    "independent-review/actual-data-checks.json": {
+      "bytes": 46862,
+      "sha256": "2c12effb37c372bfa20fbd6bd8d0e636c3c81cec35cc0f317d84c88a455cf0b1",
+      "source_mode": 420
+    },
+    "independent-review/audit-actual.py": {
+      "bytes": 7564,
+      "sha256": "108de2d2fc3396e47c5607a54c60e4eaa83f873a6b80581f9ddeff85f0ce09a4",
+      "source_mode": 420
+    },
+    "independent-review/audit-source.py": {
+      "bytes": 4069,
+      "sha256": "d3ac0d0f55c5282ad0bb9905867287bf09cd04636015b2b3426400d19ed09ecb",
+      "source_mode": 420
+    },
+    "independent-review/audit-test-preservation.py": {
+      "bytes": 4703,
+      "sha256": "e04cfd653ef0f599f482358e2c561729130fb0434a1109fb2ff998c6b325b977",
+      "source_mode": 420
+    },
+    "independent-review/source-data-checks.json": {
+      "bytes": 14257,
+      "sha256": "53ee652d72b0c97ca8b10f00c91725bab2914201ad41c016e5e0b33d3906ec65",
+      "source_mode": 420
+    },
+    "independent-review/test-preservation-checks.json": {
+      "bytes": 143366,
+      "sha256": "7e7822ec7b614872e8df235a3e8b733f37767ca2b2b6247c405a53745297a9b1",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/Cargo.toml": {
+      "bytes": 2307,
+      "sha256": "230df99445e2aef8581b362574b1871163527d778c5fb3f077c0852282c3e1b8",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/api_client/mod.rs": {
+      "bytes": 1231,
+      "sha256": "f08eae0a03abb160acf72fe7fe2635e23445b4afd285c8d1e840a5c47294bb20",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/api_client/tests/client.rs": {
+      "bytes": 20819,
+      "sha256": "7f53766e143a5e135dd27d75c3b417351ec28ada9092a23def9a2886f429ad71",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/api_client/tests/mod.rs": {
+      "bytes": 2351,
+      "sha256": "a3b0c9983d6235c6f3a15895be6f3d0a0a330fcae228d46fb8f2c9b7aee14063",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/diagnostics/mod.rs": {
+      "bytes": 435,
+      "sha256": "0576ed4a07434dfb0a2142ce28aa10fe21d89cdd8cf0669c743ddc3a2dd9fc6a",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/diagnostics/tests/http_integration.rs": {
+      "bytes": 15688,
+      "sha256": "5199aa776c34ab055317fda633782ae33f873ab33a4c589fb7d4ad4ab6d4fbfa",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/lib.rs": {
+      "bytes": 9028,
+      "sha256": "e1fd74f0d82f80bf0a8bea4554ae9e49a97af441d59da3f30b73fb51e7eb8027",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/mod.rs": {
+      "bytes": 835,
+      "sha256": "aa8af7ac886734f2f80414df7a82541aef83967ae2a0665270ca24605a17bd13",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/native_paths.rs": {
+      "bytes": 429,
+      "sha256": "73a34de21e828a0f54e6c1722b06d635a384cec7d9d06c9e429a80391a8c5b61",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/owned_worker.rs": {
+      "bytes": 4319,
+      "sha256": "2f49bde63239ac8aaa5e1326bffe30de2dd71c2407baca23f7332590420bc30d",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform.rs": {
+      "bytes": 26325,
+      "sha256": "b4da44706e566c30fb4133491bb58bb77f98a93b85487b97e9edb416a932a0f6",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/app_owner.rs": {
+      "bytes": 14011,
+      "sha256": "67fde29fe40e3dc6e8674ad2466394799e2afc51533d6418eda833f07ecc6022",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/app_owner_tests.rs": {
+      "bytes": 15321,
+      "sha256": "1223eb55c4fe77b60a187d8acf9350f5bade1ae96b04a852adcca256283f9cc2",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/creation.rs": {
+      "bytes": 7254,
+      "sha256": "b78d54f35f837e37cc92c949458008d8d542528fb3fade0eabc9b8e618564aa1",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/fixture_isolation.rs": {
+      "bytes": 4622,
+      "sha256": "90918a0d0ff22b8a06b7093e392a187d5b7305f56d9df7143d2bf6fc5f1e946a",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/mod.rs": {
+      "bytes": 665,
+      "sha256": "0c4b546326c3ac1961bf7cb5ea1ba2b789a65afd83726e6424ca7d2833e5573b",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/native.rs": {
+      "bytes": 2916,
+      "sha256": "65cbff7e3db9b9962897c0bb8e778fa3ded1593ce54a939d998a78bc690dd7c7",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/ownership_tests.rs": {
+      "bytes": 24597,
+      "sha256": "42b4e872a86aa0a8e3507afbc80501e0b47b6917bf9d41d8d36d6f5c261b8a39",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/paths.rs": {
+      "bytes": 24860,
+      "sha256": "b3b6f1abbbfe53ca2ebf35097f3fb352cc711a1aa9775f6fe56385ea2b208641",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/policy.rs": {
+      "bytes": 7585,
+      "sha256": "ecee9b481407cac5949ccf899c28480a305a6d4c7103c66f995799478941c791",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/posix_paths.rs": {
+      "bytes": 16594,
+      "sha256": "a9cb0e4aaf2f5a12307755b07fb3cc5ef87f4a5aad4ff9e17c59640f44b42d74",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/tests.rs": {
+      "bytes": 31965,
+      "sha256": "28750b7e6fafa99cd2ec915e83e3de0c1b5ff2db39f616a9f8ff1d3333173637",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/platform_adapters/windows_paths.rs": {
+      "bytes": 23121,
+      "sha256": "431dd9a735ac184a3a47753d4100c1f7763378769733e9af5382f77f1a7be4ae",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/quit.rs": {
+      "bytes": 4012,
+      "sha256": "ccc903b954e1c52e3f70534aadabb5cadb456a28aa05492eeee874e4ae2d3597",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/quit_tests.rs": {
+      "bytes": 17642,
+      "sha256": "df6c47c4c95ceb09087aae3b2ae9d32ad67e30f6966a983b080d0888e9f8be5c",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/restart.rs": {
+      "bytes": 53224,
+      "sha256": "a2aa5a37c0d7afb6ae26c967d159fe9ff10510cb8ff2a1257282c5fcb4ddb852",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/supervisor.rs": {
+      "bytes": 56789,
+      "sha256": "9d407222268bf8e4c89d1d55a327c9930850f96e5155dd18c2c3dea77db1cbbe",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/tauri_lifecycle.rs": {
+      "bytes": 28815,
+      "sha256": "4ccf238462e9bbd7115b23e1fe6ff31859d2dc341cf7691724ec86ff60540393",
+      "source_mode": 420
+    },
+    "original-pinned-donor/apps/desktop/src-tauri/src/service/windows_native.rs": {
+      "bytes": 29296,
+      "sha256": "4177edd1d4a161333479441683ce9fdb98471977397ba64c95497de8ac295984",
+      "source_mode": 420
+    },
+    "original-pinned-donor/w09-declared-test-inventory.json": {
+      "bytes": 8126,
+      "sha256": "42fddbadc5d9544fdb85738dd48a1605ef9f45619d8447f65c2aab1820ce6040",
+      "source_mode": 420
+    }
+  },
+  "safe_regular_members": 146,
+  "archive_member_bytes": 3934716
+}

@@ -3259,3 +3259,129 @@ def test_registry_rejects_duplicate_ids_and_empty_argv(tmp_path: Path) -> None:
     write_registry(registry_path, [make_suite(commands=[[]])])
     with pytest.raises(verify.RegistryError, match="no-op"):
         verify.load_registry(registry_path)
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "test"],
+            id="retained-no-options",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "test", "--force"],
+            id="retained-force",
+        ),
+        pytest.param(
+            ["pnpm", "exec", "turbo", "run", "test", "--force", "--concurrency=2"],
+            id="force-bounded-two-tasks",
+        ),
+        pytest.param(
+            ["pnpm.cmd", "exec", "turbo", "run", "test", "--force", "--concurrency=2"],
+            id="windows-force-bounded-two-tasks",
+        ),
+        pytest.param(
+            [
+                "pnpm",
+                "exec",
+                "turbo",
+                "run",
+                "test",
+                "--force",
+                "--concurrency=2",
+                "--",
+                "--pool=threads",
+            ],
+            id="bounded-tasks-with-safe-vitest-forwarding",
+        ),
+    ],
+)
+def test_turbo_bounded_package_concurrency_preserves_full_reporter_channel(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    command: list[str],
+) -> None:
+    write_vitest_workspace(fixture_repo)
+    write_registry(
+        fixture_repo.registry_path,
+        [make_suite(id="unit-ts", commands=[command])],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(verify, "run_command", record_successfully(observed))
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.PASS
+    if "--" in command:
+        split = command.index("--")
+        expected = (
+            *command[: split + 1],
+            "--reporter=default",
+            *command[split + 1 :],
+        )
+    else:
+        expected = (*command, "--", "--reporter=default")
+    assert observed == [expected]
+    assert observed[0].count("--reporter=default") == 1
+    if "--concurrency=2" in command:
+        assert "--force" in observed[0]
+        assert observed[0].index("--concurrency=2") < observed[0].index("--")
+
+
+@pytest.mark.parametrize(
+    "options",
+    [
+        pytest.param(["--force", "--concurrency=0"], id="zero"),
+        pytest.param(["--force", "--concurrency=1"], id="unreviewed-one"),
+        pytest.param(["--force", "--concurrency=3"], id="unreviewed-three"),
+        pytest.param(["--force", "--concurrency=100%"], id="unbounded-percentage"),
+        pytest.param(["--force", "--concurrency"], id="missing-value"),
+        pytest.param(["--force", "--concurrency", "2"], id="unapproved-split-form"),
+        pytest.param(["--concurrency=2"], id="cache-may-replay-without-force"),
+        pytest.param(["--concurrency=2", "--force"], id="unapproved-order"),
+        pytest.param(
+            ["--force", "--concurrency=2", "--concurrency=2"],
+            id="duplicate-option",
+        ),
+        pytest.param(
+            ["--force", "--concurrency=2", "--filter=@japp/probe"],
+            id="package-filter",
+        ),
+        pytest.param(
+            ["--force", "--concurrency=2", "--continue=always"],
+            id="ignore-task-failure",
+        ),
+        pytest.param(["--force", "--concurrency=2", "--only"], id="task-scope-only"),
+        pytest.param(
+            ["--force", "--concurrency=2", "--dry-run"],
+            id="discovery-without-execution",
+        ),
+        pytest.param(
+            ["--force", "--concurrency=2", "--daemon"],
+            id="unapproved-extra-option",
+        ),
+    ],
+)
+def test_turbo_package_concurrency_expansion_fails_before_any_child(
+    fixture_repo: verify.Context,
+    monkeypatch: pytest.MonkeyPatch,
+    options: list[str],
+) -> None:
+    write_vitest_workspace(fixture_repo)
+    write_registry(
+        fixture_repo.registry_path,
+        [
+            make_suite(
+                id="unit-ts",
+                commands=[["pnpm", "exec", "turbo", "run", "test", *options]],
+            )
+        ],
+    )
+    observed: list[tuple[str, ...]] = []
+    monkeypatch.setattr(verify, "run_command", record_successfully(observed))
+    registry = verify.load_registry(fixture_repo.registry_path)
+    states = verify.parse_package_states(fixture_repo.status_path)
+    outcome = verify.run_suite(fixture_repo, registry.suites[0], states, registry)
+    assert outcome.verdict is verify.Verdict.FAIL
+    assert observed == []
+    assert any("bounded grammar" in message for message in outcome.messages)

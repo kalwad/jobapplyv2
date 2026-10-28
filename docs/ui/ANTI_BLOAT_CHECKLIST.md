@@ -49,3 +49,9 @@ an accessibility/safety rationale. A checklist cannot pass while any rule is
 - Evaluated rules: 0
 - Passed surfaces: 0
 - Approved exceptions: 0
+
+## Scoped controlled-shell inspection — 2026-10-28
+
+Different review individually inspected14 actual1120/320px catalog PNGs plus the separate200% text-resize image, and cleared74/74 retained-data checks. Exact rule reasoning is in docs/evidence/m03-w11-shell-catalog/proof.tar.gz (independent-review/REVIEW.md). Its scoped AB01–10 findings are PASS for those observed shell states only: original shared components/tokens, plain task hierarchy, no hero/KPI/decorative treatment, truthful availability and one content primary action. Copy/icons serve orientation, capability disclosure, recovery and the submission boundary.
+
+Canonical mandatory-rule and surface-review rows above remain unchanged. AB11/12 and the complete checklist remain NOT_EVALUATED. No approved baseline exists for density comparison; browser keyboard/focus/reflow/reduced-motion and sampled static-token contrast do not constitute comprehensive accessibility/assistive-technology/native review. No exception, passed surface, frozen token system or delegated visual acceptance is added.

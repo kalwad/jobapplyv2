@@ -4,6 +4,20 @@ mod diagnostics;
 #[path = "../build_support.rs"]
 mod runtime_build_tests;
 mod service;
+pub use service::{
+    ManagedService,
+    native_paths::{
+        NativePathService, PathFailure, PathOutcome, PathRequest, PathResolutionFields, PathRole,
+        PathState, Reason, Scope,
+    },
+};
+// Native-only traits used by the typed process policy; no renderer commands.
+pub use service::native_paths::{
+    LocalProcessSelection, ProcessProfile, TerminationIntent, WorkPermit, diagnostic_reason,
+    request_owned_termination,
+};
+pub use service::{Bootstrap, Clock, OwnedProcess, ReadyFrame, ServiceIdentity, SupervisorError};
+
 use tauri::{Manager, webview::NewWindowResponse};
 
 fn shell_navigation_allowed(url: &tauri::Url, development: bool) -> bool {

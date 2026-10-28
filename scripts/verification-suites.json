@@ -141,7 +141,9 @@
       "activation": {
         "type": "always_active"
       },
-      "commands": [["pnpm", "exec", "turbo", "run", "test", "--force"]],
+      "commands": [
+        ["pnpm", "exec", "turbo", "run", "test", "--force", "--concurrency=2"]
+      ],
       "proofs": [
         {
           "kind": "turbo_task_count",

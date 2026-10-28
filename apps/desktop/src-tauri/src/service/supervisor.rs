@@ -1,4 +1,5 @@
 use super::authority_hub::AuthorityHub;
+use super::platform_adapters::{TerminationIntent, request_owned_termination};
 use super::protocol::{Bootstrap, ReadyFrame, ServiceIdentity};
 use crate::api_client::client::Session;
 use std::{
@@ -99,6 +100,31 @@ impl SpawnPermit<'_> {
         } else {
             Ok(())
         }
+    }
+}
+
+// Retain the reviewed W09 constructor oracle without installing an unused native-work API.
+#[cfg(test)]
+impl<'a> SpawnPermit<'a> {
+    pub(crate) fn for_operation(
+        cancellation: &'a AtomicBool,
+        clock: &'a dyn Clock,
+        total: Duration,
+    ) -> Result<Self, SupervisorError> {
+        if total.is_zero() || total > Duration::from_secs(30) {
+            return Err(SupervisorError::InvalidPolicy);
+        }
+        let deadline = clock
+            .now()
+            .checked_add(total)
+            .ok_or(SupervisorError::InvalidPolicy)?;
+        let permit = Self {
+            cancellation,
+            clock,
+            deadline,
+        };
+        permit.check()?;
+        Ok(permit)
     }
 }
 
@@ -453,31 +479,50 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
     }
 
     pub fn shutdown(&mut self) -> Result<(), SupervisorError> {
+        self.shutdown_inner(None)
+    }
+    pub(super) fn shutdown_until(&mut self, deadline: Duration) -> Result<(), SupervisorError> {
+        self.shutdown_inner(Some(deadline))
+    }
+    fn shutdown_inner(&mut self, common_deadline: Option<Duration>) -> Result<(), SupervisorError> {
         self.revoke_session();
         if self.child.is_none() {
             self.state = ServiceState::Stopped;
             return Ok(());
         }
         self.state = ServiceState::Stopping;
-        self.child
-            .as_mut()
-            .expect("owned child checked above")
-            .close_lease();
-        if self.wait_for_exit(self.policy.shutdown_timeout)? {
+        if common_deadline.is_some_and(|d| self.clock.now() >= d) {
+            return Err(SupervisorError::CleanupFailed);
+        }
+        request_owned_termination(
+            self.child
+                .as_mut()
+                .expect("owned child checked above")
+                .as_mut(),
+            TerminationIntent::GracefulStop,
+        )?;
+        if self.wait_for_exit(self.policy.shutdown_timeout, common_deadline)? {
             self.state = ServiceState::Stopped;
             return Ok(());
         }
-        if self
-            .child
-            .as_mut()
-            .expect("unreaped child is retained")
-            .terminate_owned()
-            .is_err()
+        // A late native return cannot start another phase after the common cap.
+        if common_deadline.is_some_and(|d| self.clock.now() >= d) {
+            self.state = ServiceState::Failed;
+            return Err(SupervisorError::CleanupFailed);
+        }
+        if request_owned_termination(
+            self.child
+                .as_mut()
+                .expect("unreaped child is retained")
+                .as_mut(),
+            TerminationIntent::ImmediateStop,
+        )
+        .is_err()
         {
             self.state = ServiceState::Failed;
             return Err(SupervisorError::CleanupFailed);
         }
-        if self.wait_for_exit(self.policy.shutdown_timeout)? {
+        if self.wait_for_exit(self.policy.shutdown_timeout, common_deadline)? {
             self.state = ServiceState::Stopped;
             Ok(())
         } else {
@@ -485,10 +530,17 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
             Err(SupervisorError::CleanupFailed)
         }
     }
-
-    fn wait_for_exit(&mut self, duration: Duration) -> Result<bool, SupervisorError> {
-        let deadline = self.clock.now() + duration;
+    fn wait_for_exit(
+        &mut self,
+        duration: Duration,
+        common_deadline: Option<Duration>,
+    ) -> Result<bool, SupervisorError> {
+        let phase_deadline = self.clock.now() + duration;
+        let deadline = common_deadline.map_or(phase_deadline, |d| d.min(phase_deadline));
         loop {
+            if common_deadline.is_some() && self.clock.now() >= deadline {
+                return Ok(false);
+            }
             match self
                 .child
                 .as_mut()
@@ -496,6 +548,11 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
                 .poll_exit()
             {
                 Ok(Some(_)) => {
+                    // Retain the real process on an overdue return. A later
+                    // explicit attempt can observe its completed native cleanup.
+                    if common_deadline.is_some_and(|d| self.clock.now() >= d) {
+                        return Ok(false);
+                    }
                     self.child = None;
                     return Ok(true);
                 }
@@ -508,7 +565,12 @@ impl<A: RuntimeAdapter, C: Clock> Supervisor<A, C> {
             if self.clock.now() >= deadline {
                 return Ok(false);
             }
-            self.clock.pause(self.policy.poll_interval);
+            let pause = common_deadline.map_or(self.policy.poll_interval, |_| {
+                self.policy
+                    .poll_interval
+                    .min(deadline.saturating_sub(self.clock.now()))
+            });
+            self.clock.pause(pause);
         }
     }
 

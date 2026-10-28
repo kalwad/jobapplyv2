@@ -53,7 +53,7 @@ impl Drop for Handle {
         }
     }
 }
-struct Local(*mut c_void);
+pub(super) struct Local(pub(super) *mut c_void);
 impl Drop for Local {
     fn drop(&mut self) {
         unsafe {
@@ -64,21 +64,40 @@ impl Drop for Local {
 fn wide(text: &str) -> Vec<u16> {
     text.encode_utf16().chain([0]).collect()
 }
-fn private_security() -> Result<Local, SupervisorError> {
+pub(super) fn private_security() -> Result<Local, SupervisorError> {
+    private_security_inner(None)
+}
+pub(super) fn private_security_permitted(
+    permit: &impl super::platform_adapters::WorkPermit,
+) -> Result<Local, SupervisorError> {
+    private_security_inner(Some(permit))
+}
+fn check_security_work(
+    permit: Option<&dyn super::platform_adapters::WorkPermit>,
+) -> Result<(), SupervisorError> {
+    permit.map_or(Ok(()), super::platform_adapters::WorkPermit::check)
+}
+fn private_security_inner(
+    permit: Option<&dyn super::platform_adapters::WorkPermit>,
+) -> Result<Local, SupervisorError> {
     // A pipe is created already connected by its native owner, with a DACL for
     // this exact token user. No name, access token or listener reaches the child.
     unsafe {
+        check_security_work(permit)?;
         let mut token = null_mut();
         if OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &mut token) == 0 {
             return Err(SupervisorError::ContainmentUnavailable);
         }
         let token = Handle::new(token)?;
+        check_security_work(permit)?;
         let mut bytes = 0;
         GetTokenInformation(token.0, TokenUser, null_mut(), 0, &mut bytes);
+        check_security_work(permit)?;
         if bytes == 0 || bytes > 65536 {
             return Err(SupervisorError::ContainmentUnavailable);
         }
         let mut storage = vec![0usize; (bytes as usize).div_ceil(size_of::<usize>())];
+        check_security_work(permit)?;
         if GetTokenInformation(
             token.0,
             TokenUser,
@@ -89,12 +108,14 @@ fn private_security() -> Result<Local, SupervisorError> {
         {
             return Err(SupervisorError::ContainmentUnavailable);
         }
+        check_security_work(permit)?;
         let user = &*storage.as_ptr().cast::<TOKEN_USER>();
         let mut sid = null_mut();
         if ConvertSidToStringSidW(user.User.Sid, &mut sid) == 0 {
             return Err(SupervisorError::ContainmentUnavailable);
         }
         let sid_owner = Local(sid.cast());
+        check_security_work(permit)?;
         let mut length = 0;
         while length < 256 && *sid.add(length) != 0 {
             length += 1
@@ -105,6 +126,7 @@ fn private_security() -> Result<Local, SupervisorError> {
         let sid = String::from_utf16(std::slice::from_raw_parts(sid, length))
             .map_err(|_| SupervisorError::ContainmentUnavailable)?;
         let descriptor = wide(&format!("D:P(A;;GA;;;{sid})"));
+        check_security_work(permit)?;
         let mut security = null_mut();
         if ConvertStringSecurityDescriptorToSecurityDescriptorW(
             descriptor.as_ptr(),
@@ -116,7 +138,9 @@ fn private_security() -> Result<Local, SupervisorError> {
             return Err(SupervisorError::ContainmentUnavailable);
         }
         drop(sid_owner);
-        Ok(Local(security))
+        let security = Local(security);
+        check_security_work(permit)?;
+        Ok(security)
     }
 }
 struct IoStorage {

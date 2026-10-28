@@ -2,6 +2,9 @@
 use super::{
     ConfiguredRuntime, MonotonicClock, Policy, SupervisorError,
     lifecycle_state::ShutdownGate,
+    native_paths::NativePathService,
+    owned_worker::OwnedWorker,
+    quit::{Decision, QuitAttempt, QuitCoordinator, QuitSink},
     restart::{RecoveryFailure, RecoveryPolicy, RecoveryState, RestartOwner, ShutdownSignal},
 };
 use std::{
@@ -81,6 +84,11 @@ pub struct ManagedService {
     pending_shutdown: Arc<AtomicBool>,
     worker_running: Arc<AtomicBool>,
     diagnostic: Arc<AtomicU8>,
+    native_paths: NativePathService,
+    quit: Arc<QuitCoordinator>,
+    service_worker: Arc<OwnedWorker>,
+    shutdown_active: Arc<AtomicBool>,
+    pending_attempt: Arc<Mutex<Option<Arc<QuitAttempt>>>>,
 }
 struct WorkerClaim(Arc<AtomicBool>);
 impl Drop for WorkerClaim {
@@ -102,6 +110,9 @@ impl ManagedService {
         })?;
         let signal = owner.shutdown_signal();
         let gate = Arc::new(ShutdownGate::with_authority(owner.authority_handle()));
+        let clock = owner.clock_handle();
+        let native_paths = NativePathService::new(owner.quit_handle(), clock.clone());
+        let quit = Arc::new(QuitCoordinator::new(clock, gate.clone()));
         Ok(Self {
             cancellation: owner.quit_handle(),
             authority: owner.authority_handle(),
@@ -111,7 +122,16 @@ impl ManagedService {
             pending_shutdown: Arc::new(AtomicBool::new(false)),
             worker_running: Arc::new(AtomicBool::new(false)),
             diagnostic: Arc::new(AtomicU8::new(RecoveryState::Unavailable as u8)),
+            native_paths,
+            quit,
+            service_worker: Arc::new(OwnedWorker::default()),
+            shutdown_active: Arc::new(AtomicBool::new(false)),
+            pending_attempt: Arc::new(Mutex::new(None)),
         })
+    }
+    /// The same lazy native owner is available through app-managed service state.
+    pub fn native_paths(&self) -> NativePathService {
+        self.native_paths.clone()
     }
     fn title(state: RecoveryState) -> &'static str {
         match state {
@@ -184,67 +204,82 @@ impl ManagedService {
         let managed = self.clone();
         let app = app.clone();
         let error_app = app.clone();
-        let result = std::thread::Builder::new()
-            .name("japp-service-owner".into())
-            .spawn(move || {
-                let _claim = WorkerClaim(Arc::clone(&managed.worker_running));
-                let mut start_pending = true;
-                let mut monitor_failed = false;
-                loop {
-                    if managed.pending_shutdown.swap(false, Ordering::AcqRel) {
-                        let stopped = match managed.supervisor.lock() {
-                            Ok(mut owner) => owner.shutdown().is_ok(),
-                            Err(poison) => {
-                                let mut owner = poison.into_inner();
-                                owner.invalidate_poisoned_authority();
-                                owner.shutdown().is_ok()
-                            }
-                        };
-                        if stopped {
-                            managed.gate.finish(true);
-                            managed.publish_shutdown(&app, RecoveryState::Stopped);
-                            app.exit(0);
-                            return;
-                        }
-                        managed.publish_shutdown(&app, RecoveryState::CleanupFailed);
-                        managed.gate.finish(false);
-                        start_pending = false;
-                    } else if !managed.signal.is_closed() && !monitor_failed {
-                        let state = match managed.supervisor.lock() {
-                            Ok(mut owner) => {
-                                if start_pending {
-                                    let _ = owner.start_initial();
-                                    start_pending = false;
-                                } else {
-                                    let _ = owner.poll();
-                                }
-                                owner.snapshot().state
-                            }
-                            Err(poison) => {
-                                let mut owner = poison.into_inner();
-                                owner.invalidate_poisoned_authority();
-                                start_pending = false;
-                                monitor_failed = true;
-                                owner.snapshot().state
-                            }
-                        };
-                        managed.publish_background(&app, state);
+        let result = self.service_worker.spawn("japp-service-owner", move || {
+            let _claim = WorkerClaim(Arc::clone(&managed.worker_running));
+            let mut start_pending = true;
+            let mut monitor_failed = false;
+            loop {
+                if managed.pending_shutdown.swap(false, Ordering::AcqRel) {
+                    let attempt = managed
+                        .pending_attempt
+                        .lock()
+                        .unwrap_or_else(std::sync::PoisonError::into_inner)
+                        .clone();
+                    if let Some(attempt) = attempt {
+                        let stopped =
+                            std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                                let mut owner = match managed.supervisor.lock() {
+                                    Ok(owner) => owner,
+                                    Err(poison) => {
+                                        let mut owner = poison.into_inner();
+                                        owner.invalidate_poisoned_authority();
+                                        owner
+                                    }
+                                };
+                                owner.shutdown_until(attempt.deadline).is_ok()
+                            }))
+                            .unwrap_or(false);
+                        attempt.service(stopped);
                     }
-                    // The worker never waits while holding native lifecycle ownership.
-                    std::thread::sleep(Duration::from_millis(100));
+                    managed.shutdown_active.store(false, Ordering::Release);
+                    // Only the common coordinator may finish the gate/exit.
+                    return;
+                } else if !managed.signal.is_closed() && !monitor_failed {
+                    let state = match managed.supervisor.lock() {
+                        Ok(mut owner) => {
+                            if start_pending {
+                                let _ = owner.start_initial();
+                                start_pending = false;
+                            } else {
+                                let _ = owner.poll();
+                            }
+                            owner.snapshot().state
+                        }
+                        Err(poison) => {
+                            let mut owner = poison.into_inner();
+                            owner.invalidate_poisoned_authority();
+                            start_pending = false;
+                            monitor_failed = true;
+                            owner.snapshot().state
+                        }
+                    };
+                    managed.publish_background(&app, state);
                 }
-            });
+                // The worker never waits while holding native lifecycle ownership.
+                std::thread::sleep(Duration::from_millis(100));
+            }
+        });
         match result {
-            Ok(_) => Ok(()),
+            Ok(()) => Ok(()),
             Err(error) => {
                 self.worker_running.store(false, Ordering::Release);
                 if self.signal.is_closed() {
                     self.publish_shutdown(&error_app, RecoveryState::CleanupFailed);
-                    self.gate.finish(false);
+                    self.shutdown_active.store(false, Ordering::Release);
+                    if let Some(attempt) = self
+                        .pending_attempt
+                        .lock()
+                        .unwrap_or_else(std::sync::PoisonError::into_inner)
+                        .as_ref()
+                    {
+                        attempt.service(false);
+                    }
                 } else {
                     self.publish_background(&error_app, RecoveryState::Failed);
                 }
-                Err(error)
+                Err(std::io::Error::other(format!(
+                    "service worker unavailable: {error:?}"
+                )))
             }
         }
     }
@@ -290,16 +325,83 @@ impl ManagedService {
         }
     }
     pub fn request_shutdown(&self, app: &AppHandle) {
-        if !self.gate.begin() {
+        let Some(attempt) = self.quit.begin_checked(|| {
+            self.shutdown_active.load(Ordering::Acquire) || self.native_paths.busy()
+        }) else {
+            if self.signal.is_closed() && !self.allow_exit() {
+                self.publish_shutdown(app, RecoveryState::CleanupFailed);
+            }
+            return;
+        };
+        // begin closes the existing authority before any owner lock/native work.
+        debug_assert!(self.signal.is_closed());
+        self.publish_shutdown(app, RecoveryState::Stopping);
+        let managed = self.clone();
+        let sink = AppQuitSink {
+            managed: self.clone(),
+            app: app.clone(),
+        };
+        let failure_sink = AppQuitSink {
+            managed: self.clone(),
+            app: app.clone(),
+        };
+        let worker_attempt = attempt.clone();
+        if self
+            .quit
+            .worker
+            .spawn("japp-quit-coordinator", move || {
+                loop {
+                    let decision = managed.quit.observe(
+                        &worker_attempt,
+                        managed.shutdown_active.load(Ordering::Acquire),
+                        managed.native_paths.busy(),
+                        &sink,
+                    );
+                    if decision != Decision::Pending {
+                        break;
+                    }
+                    std::thread::sleep(Duration::from_millis(10));
+                }
+            })
+            .is_err()
+        {
+            self.quit.fail(&attempt, &failure_sink);
             return;
         }
-        // Gate closes the exact generation/epoch immediately, before owner locking.
-        debug_assert!(self.signal.is_closed());
+        // The deadline observer exists before either cleanup worker is started.
+        self.shutdown_active.store(true, Ordering::Release);
+        *self
+            .pending_attempt
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner) = Some(attempt.clone());
         self.pending_shutdown.store(true, Ordering::Release);
-        self.publish_shutdown(app, RecoveryState::Stopping);
         if self.claim_worker() {
             let _ = self.spawn_claimed_worker(app);
         }
+        let path_attempt = attempt.clone();
+        if self
+            .native_paths
+            .start_quit(attempt.deadline, move |ok| path_attempt.paths(ok))
+            .is_err()
+        {
+            attempt.paths(false);
+        }
+    }
+}
+
+struct AppQuitSink {
+    managed: ManagedService,
+    app: AppHandle,
+}
+impl QuitSink for AppQuitSink {
+    fn finished(&self) {
+        self.managed
+            .publish_shutdown(&self.app, RecoveryState::Stopped);
+        self.app.exit(0);
+    }
+    fn failed(&self) {
+        self.managed
+            .publish_shutdown(&self.app, RecoveryState::CleanupFailed);
     }
 }
 
@@ -604,5 +706,25 @@ mod recovery_wrapper_tests {
             ));
             assert_eq!(phase.load(Ordering::Acquire), previous as u8);
         }
+    }
+}
+
+#[cfg(test)]
+mod native_owner_bridge_tests {
+    use super::*;
+    #[test]
+    fn managed_service_engine_bridge_keeps_existing_session_epoch_registry() {
+        let managed = ManagedService::new(ConfiguredRuntime::unavailable()).unwrap();
+        let paths = managed.native_paths();
+        assert!(paths.shares_cancellation_for_test(&managed.cancellation));
+        let engine = crate::diagnostics::create_engine(managed.clone()).unwrap();
+        let epoch = managed.authority_epoch();
+        assert!(managed.gate.begin());
+        assert!(managed.cancellation.load(Ordering::Acquire));
+        assert!(managed.authority_epoch() > epoch);
+        assert!(managed.client_session().is_err());
+        assert!(managed.native_paths().same_owner_for_test(&paths));
+        drop(engine);
+        assert!(paths.shares_cancellation_for_test(&managed.cancellation));
     }
 }

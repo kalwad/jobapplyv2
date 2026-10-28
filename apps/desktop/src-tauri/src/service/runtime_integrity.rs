@@ -268,6 +268,31 @@ fn same_identity(before: &Metadata, after: &Metadata) -> bool {
         && before.len() == after.len()
         && before.modified().ok() == after.modified().ok()
 }
+// The named regular-file check is not atomic with open. A replacement FIFO
+// must be acquired without waiting for a writer, then refused by held identity
+// before any payload bytes are read. O_NONBLOCK remains set on the regular FD.
+fn open_regular_payload(path: &Path, initial: &Metadata) -> Result<File, SupervisorError> {
+    let mut options = OpenOptions::new();
+    options.read(true);
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::OpenOptionsExt;
+        options.custom_flags(libc::O_NOFOLLOW | libc::O_CLOEXEC | libc::O_NONBLOCK);
+    }
+    let file: File = options
+        .open(path)
+        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    if !same_identity(
+        initial,
+        &file
+            .metadata()
+            .map_err(|_| SupervisorError::InvalidRuntime)?,
+    ) {
+        return Err(SupervisorError::InvalidRuntime);
+    }
+    Ok(file)
+}
+
 fn read_checked(
     path: &Path,
     size: u64,
@@ -282,24 +307,7 @@ fn read_checked(
     if !initial.is_file() || initial.file_type().is_symlink() || initial.len() != size {
         return Err(SupervisorError::InvalidRuntime);
     }
-    let mut options = OpenOptions::new();
-    options.read(true);
-    #[cfg(unix)]
-    {
-        use std::os::unix::fs::OpenOptionsExt;
-        options.custom_flags(libc::O_NOFOLLOW);
-    }
-    let file: File = options
-        .open(path)
-        .map_err(|_| SupervisorError::InvalidRuntime)?;
-    if !same_identity(
-        &initial,
-        &file
-            .metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?,
-    ) {
-        return Err(SupervisorError::InvalidRuntime);
-    }
+    let file = open_regular_payload(path, &initial)?;
     let mut limited = file.take(size + 1);
     let mut hash = Sha256::new();
     let mut raw = Vec::new();
@@ -578,6 +586,32 @@ mod tests {
         assert_eq!(
             runtime.check_runtime(),
             Err(SupervisorError::InvalidRuntime)
+        );
+    }
+    #[cfg(unix)]
+    #[test]
+    fn prechecked_payload_replaced_with_fifo_is_rejected_before_read() {
+        use std::os::unix::{ffi::OsStrExt, fs::FileTypeExt};
+        let fixture = Fixture::ready();
+        let path = fixture.root.join("owned-open-target");
+        let retained = fixture.root.join("retained-regular");
+        std::fs::write(&path, b"owned synthetic payload\n").unwrap();
+        let initial = path.symlink_metadata().unwrap();
+        assert!(initial.is_file());
+        std::fs::rename(&path, &retained).unwrap();
+        let c_path = std::ffi::CString::new(path.as_os_str().as_bytes()).unwrap();
+        assert_eq!(unsafe { libc::mkfifo(c_path.as_ptr(), 0o600) }, 0);
+        assert!(path.symlink_metadata().unwrap().file_type().is_fifo());
+        // No writer exists. The future outer owned-process cap must fail the
+        // selector if O_NONBLOCK is removed and the native open blocks.
+        assert!(matches!(
+            open_regular_payload(&path, &initial),
+            Err(SupervisorError::InvalidRuntime)
+        ));
+        assert!(path.symlink_metadata().unwrap().file_type().is_fifo());
+        assert_eq!(
+            std::fs::read(retained).unwrap(),
+            b"owned synthetic payload\n"
         );
     }
 }

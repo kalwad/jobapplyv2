@@ -3,9 +3,21 @@
 Exact verification commands and summarized results
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1 and §8.6). Newest entries first.
 
+## M03-W06 — Bounded unit-TS scheduling; terminal CI preserved (2026-10-28)
+
+Hosted run40782097996 attempt1 has head35b46287/tree f0789de7: macOS19/20ACTIVE suitesPASS and unit-tsFAIL; Windows/Ubuntu20/20PASS; dependent native packagesSKIPPED. The original macOS raw log records a5000ms holdout-boundary timeout (217/218PASS) and two runner failed labels at5713/5294ms without final diagnostics before Turbo abort. No product-cause attribution or future CI result is asserted.
+
+The root-reviewed three-file correction adds only --concurrency=2 to the forced unit-ts Turbo command and admits precisely that tuple in the verifier's bounded grammar. All prior Python test/helper AST statements and131 TS/package/config input hashes remain unchanged; existing task graph, proof/discovery fields, assertions, deadlines and performance gates are retained. The local wrapper records exact child argv `uv run --no-sync --offline python scripts/verify.py --suite unit-ts`, which runs `pnpm exec turbo run test --force --concurrency=2 -- --reporter=default`. Actual2026-10-28T23:47:04.887732Z–23:48:34.184855Z exits0 in88.91856595792342s:15/15fresh tasks,0cached,4006ordinary passes with the same prior15per-package counts. Dirty2065source/runtime40 sizes/hashes/fullmodes/status endpoints match; one owned child is reaped/groupABSENT with no timeout or cleanup signal. No final HEAD/tree or complete per-case Vitest-ID report is recorded.
+
+The retained focused Python log reports19PASS/296deselected0.63s; exact argv/source-neutrality receipts were not durably captured, so none is reconstructed here. Actual full collection2120IDs equals2118common+2POSIX; all2082priorcommon IDs remain, with19harness and17separate generation additions. Collection is not full execution. Independent actual-data review CLEAR172/172; exact raw/source/CI/inventory proof: docs/evidence/m03-w06-unit-ts-concurrency. Fresh clean full/hosted/package validation remains separate. W06/M03IN_PROGRESS;38/300VERIFIED;releaseNOT_READY.
+
 ## Current native macOS development package (2026-10-28)
 
 Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.
+
+## Immutable35b local full verification (2026-10-28)
+
+Clean35b46287/tree f0789de7 runs doctor28PASS7.642s and all20ACTIVE suitesPASS1170.553932s: TypeScript4006/Python1860PASS391.37s/native234each3/browser262+2+62+3. All1998tracked file blobs/sizes/executablebits match immutableGit; fullpermissionmodes equal between endpoints; runtime40byte/mode endpoints equal; both outer children reaped/groupsABSENT/zero cleanup signals. Independent source/data review CLEAR; exact raw proof docs/evidence/m03-w06-local-full-35b. This validates35b only: the subsequent source-known FIFO correction and freshCI40782097996 are pending separately. Earlier failed runs remain failed and separately retained. No escaped-descendant, clean-environment, newGUI/foreignpackage/certification or milestone acceptance claim is added. W06IN_PROGRESS;38/300VERIFIED;M03IN_PROGRESS;releaseNOT_READY.
 
 ## Update rules
 
@@ -11951,3 +11963,24 @@ gate remains NOT_READY.
     `origin` remote (https://github.com/kalwad/jobapplyv2.git) is configured
     but unpushed; the owner pushes from the development machine. Recorded
     also under Known release blockers in PROJECT_STATUS.md.
+
+### M03-W11 preparation — Controlled shell catalog captured and independently reviewed (2026-10-28)
+
+Actual corrected quality-v2 commands (exact argv/raw logs retained): scoped Prettier, ESLint, root TypeScript, desktop typecheck, isolated renderer build and Playwright32-case list each exit0. The earlier root TypeScript run exits2/TS2353 for a top-level reducedMotion option; retained separately, then corrected to contextOptions and rechecked. Actual browser command is `pnpm exec playwright test e2e/desktop/shell.spec.ts e2e/desktop/service-diagnostics.spec.ts e2e/desktop/state-catalog.spec.ts e2e/visual/desktop-shell.spec.ts e2e/visual/desktop-catalog.spec.ts --output <retained browser-v1/artifacts> --reporter=list,json`:32 unique cases pass once, zero skipped/flaky/unexpected, outer11.614109s; direct child reaped/groupABSENT/no timeout/no cleanup signals.
+
+All2004 source files/full modes,40 runtime files/full modes and Git status match before/after; corrected quality source endpoints equal the same projection. Isolated renderer10 assets have equal endpoints; the inspected observer reports separate shipping4 assets unchanged. Different review is CLEAR74/74, individually inspecting14 actual catalog PNGs plus200% resize. All14 PNG size/hash/dimensions and metadata20-source compact-JSON hash match. Capture identity is reference35b46287dc754a5987d653490ab49f978647ca26/treef0789de7f5c82f6931eebe489110fcb771130724 plus dirty selected20-source SHA2566acfc8d44737af6bdf2e3ce79157507de720ca517ff42d277b96fbd49d61478a; selected_sources_match_revision=false is preserved. Twelve selected shipping UI/component/token source blobs equal35b. Captures use Chromium151.0.7922.34 on darwin/arm64, light100%,1x scale,16px root font and reduced motion. Native IPC/service are not proven; the Windows-style browser user-agent is not Windows execution.
+
+Exact raw/PNG/source/review evidence: docs/evidence/m03-w11-shell-catalog. Outside packet is review ready; canonical governance rows are preserved unchanged; AB01–10 scoped PASS, AB11/12 and complete checklist NOT_EVALUATED. No comprehensive accessibility, task study, native platform certification, frozen tokens or delegated visual acceptance is added. W06IN_PROGRESS/W11NOT_STARTED/M03IN_PROGRESS/38of300VERIFIED/releaseNOT_READY. This preparation does not complete a milestone or transfer validation to later root changes.
+
+
+## Historical runtime acquisition validation appendix — 2026-10-28
+
+The source-confirmed stale-metadata/FIFO open risk is corrected at the actual platform/runtime-integrity acquisition sites. Actual14-phase local validation passes compile/list238, four exact new cases (each1PASS/237filtered under a5s outer cap), rustfmt, three strict all-target Clippy modes, three full modes with identical238 names/no failures/ignored/filtered, and final custom-protocol build. Different retained-data review is CLEAR101/101, separate from the pre-execution source review. Exact plan/wrapper/raw/source identities are retained in docs/evidence/m03-w06-runtime-preflight.
+
+Reference35b/f078 plus the frozen dirty2004-source projection is the evaluated boundary. Source2004/runtime40 path-kind/byte/hash and HEAD/tree/status endpoints match; permission modes were NOT RECORDED by this native actor. All14 direct children reaped/groups observedGONE, zero timeout/cleanup signals. The later W11 byte projection differs only in its corrected TS option file; later documentary/source adoption is separate. No whole-current-tree aggregate PASS, foreign OS/native package/GUI/certification or milestone acceptance is transferred. W06IN_PROGRESS/W11NOT_STARTED/M03IN_PROGRESS/38of300VERIFIED/releaseNOT_READY.
+
+## Integrated generation/runtime-metadata preparation — 2026-10-28
+
+Exact reviewed generation-v6/runtime-metadata-v3 sources pass actual integrated focus224/collection2084 and strict Ruff/format/Mypy17. Earlier focus202/collection2062 and the initial five import-collection errors remain retained. Different data review is CLEAR219/219, plus204 wheel RECORD hash/length rows. The sole semantic pytest config correction adds the repository root for explicit shared-helper imports; strict settings and all1858 prior common IDs plus the exact2 POSIX-only IDs remain. Common inventory1858→2060→2082 derives from actual collections; collection does not claim full-suite execution.
+
+Pure orchestrator wheel6ef4→448a→cdc50 matches all18 current package files/17 Python files; contracts are unchanged. Frozen source bytes/full modes match within each recorded2026/2026/2031-file phase; later W09/documentary changes do not inherit whole-tree PASS. First wheel serializer failure is reported bookkeeping only (raw traceback unavailable); tool-output-only24-pass checks are omitted from durable proof. Evidence: docs/evidence/generation-metadata-integration. No route/UI/model-lock activation, qualification, inference-quality/native-package or milestone/release acceptance claim. W06IN_PROGRESS/M03IN_PROGRESS/38of300VERIFIED/M05NOT_STARTED/releaseNOT_READY.

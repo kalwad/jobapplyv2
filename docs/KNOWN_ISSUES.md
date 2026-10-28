@@ -32,6 +32,23 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current hosted unit-TS validation (2026-10-28)
+
+### KI-0118 — Hosted TypeScript tests exceed retained wall-clock budgets
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: 2026-10-28 during M03-W06; run40782097996/macOS job123146069723
+- Affects: M03-W06 / REQ-PLAT-013; canonical unit-ts verification harness
+- Description: immutable run head35b/treef078 records one explicit5000ms holdout-boundary test timeout and two evaluation-runner failed labels at5713/5294ms without final failure diagnostics before Turbo abort. macOS finishes19PASS/unit-tsFAIL; Windows/Ubuntu20PASS. CPU/I/O contention is a scheduling hypothesis, not an established product defect or causal finding.
+- Reproduction: retained official macOS canonical-step raw log and terminal run/job/source metadata under docs/evidence/m03-w06-unit-ts-concurrency. The original hosted result remains failed; native package matrixSKIPPED.
+- Workaround: none; no deadline, assertion, sampled domain, discovery proof or performance threshold is relaxed.
+- Resolution + evidence link: reviewed --force/--concurrency=2 command and exact bounded grammar admission preserve all existing TS inputs. Actual local15fresh tasks/4006PASS88.918566s, frozen2065source/runtime40 size/hash/mode/status endpoints and different172-check data review pass. Retained19focused Python passes and full2120-ID collection have their explicit narrower receipt scopes. Fresh corrected hosted CI and clean aggregate remain pending; this issue is not closed by the local pass. See docs/evidence/m03-w06-unit-ts-concurrency and docs/TEST_EVIDENCE.md.
+
+## Immutable35b local full verification (2026-10-28)
+
+Clean35b46287/tree f0789de7 runs doctor28PASS7.642s and all20ACTIVE suitesPASS1170.553932s: TypeScript4006/Python1860PASS391.37s/native234each3/browser262+2+62+3. All1998tracked file blobs/sizes/executablebits match immutableGit; fullpermissionmodes equal between endpoints; runtime40byte/mode endpoints equal; both outer children reaped/groupsABSENT/zero cleanup signals. Independent source/data review CLEAR; exact raw proof docs/evidence/m03-w06-local-full-35b. This validates35b only: the subsequent source-known FIFO correction and freshCI40782097996 are pending separately. Earlier failed runs remain failed and separately retained. No escaped-descendant, clean-environment, newGUI/foreignpackage/certification or milestone acceptance claim is added. W06IN_PROGRESS;38/300VERIFIED;M03IN_PROGRESS;releaseNOT_READY.
+
 ## Current native macOS development package (2026-10-28)
 
 Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.

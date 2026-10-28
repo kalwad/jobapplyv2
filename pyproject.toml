@@ -47,7 +47,9 @@ testpaths = ["services/orchestrator/tests", "scripts/tests"]
 # The generated strict Pydantic contract package (M01-W02) is imported by
 # scripts/tests through this path entry; the generated tree is committed,
 # so collection works identically on a clean clone.
-pythonpath = ["packages/contracts/generated/python/src"]
+# The repository root also resolves shared test helpers through their explicit
+# services.orchestrator.tests namespace under the canonical pytest console entry.
+pythonpath = [".", "packages/contracts/generated/python/src"]
 # --strict-markers: unknown markers are errors, not silent no-ops.
 # --strict-config: unknown/typo'd ini options are errors.
 # -ra: always summarize non-passing outcomes.

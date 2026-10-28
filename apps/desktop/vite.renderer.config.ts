@@ -15,6 +15,9 @@ export default defineConfig({
         service: fileURLToPath(
           new URL("./test/renderer/service.html", import.meta.url),
         ),
+        catalog: fileURLToPath(
+          new URL("./test/renderer/catalog.html", import.meta.url),
+        ),
       },
     },
   },

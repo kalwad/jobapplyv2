@@ -163,6 +163,9 @@ impl<A: RuntimeAdapter, C: Clock> RestartOwner<A, C> {
             ..self.snapshot
         }
     }
+    pub(super) fn clock_handle(&self) -> Arc<C> {
+        Arc::clone(&self.clock)
+    }
     pub fn quit_handle(&self) -> Arc<AtomicBool> {
         self.supervisor.cancellation_handle()
     }
@@ -379,12 +382,22 @@ impl<A: RuntimeAdapter, C: Clock> RestartOwner<A, C> {
         );
     }
     pub fn shutdown(&mut self) -> Result<(), RecoveryFailure> {
+        self.shutdown_inner(None)
+    }
+    pub(super) fn shutdown_until(&mut self, deadline: Duration) -> Result<(), RecoveryFailure> {
+        self.shutdown_inner(Some(deadline))
+    }
+    fn shutdown_inner(&mut self, deadline: Option<Duration>) -> Result<(), RecoveryFailure> {
         self.shutdown_signal().close();
         self.quit_cleanup_attempted = true;
         self.supervisor.withdraw_generation();
         self.phase = Phase::Terminal;
         self.publish(RecoveryState::Stopping, Some(LossReason::Cancelled));
-        if let Err(error) = self.supervisor.shutdown() {
+        let result = match deadline {
+            Some(d) => self.supervisor.shutdown_until(d),
+            None => self.supervisor.shutdown(),
+        };
+        if let Err(error) = result {
             self.publish(RecoveryState::CleanupFailed, Some(LossReason::Cancelled));
             return Err(RecoveryFailure::Supervisor(error));
         }

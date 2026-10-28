@@ -1,0 +1,129 @@
+{
+  "schema": "M03_W06_IMMUTABLE35B_LOCAL_FULL_V1",
+  "head": "35b46287dc754a5987d653490ab49f978647ca26",
+  "tree": "f0789de7f5c82f6931eebe489110fcb771130724",
+  "tracked_files": 1998,
+  "runtime_files": 40,
+  "source_before_after_equals_immutable_git": true,
+  "runtime_bytes_modes_before_after_equal": true,
+  "doctor": {
+    "pass": 28,
+    "warning": 0,
+    "fail": 0,
+    "seconds": 7.642166375066154
+  },
+  "verify": {
+    "active_pass": 20,
+    "seconds": 1170.5539319999516,
+    "typescript": 4006,
+    "python": 1860,
+    "python_seconds": 391.37,
+    "desktop_native_per_mode": 234,
+    "desktop_modes": 3,
+    "browser": [
+      {
+        "line": 979,
+        "text": "  262 passed (8.5m)",
+        "count": 262,
+        "duration": "8.5m"
+      },
+      {
+        "line": 1331,
+        "text": "  2 passed (1.6s)",
+        "count": 2,
+        "duration": "1.6s"
+      },
+      {
+        "line": 1457,
+        "text": "  62 passed (40.0s)",
+        "count": 62,
+        "duration": "40.0s"
+      },
+      {
+        "line": 5062,
+        "text": "  3 passed (5.3s)",
+        "count": 3,
+        "duration": "5.3s"
+      }
+    ]
+  },
+  "root_execution_closure": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 7.642166375066154,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 1170.5539319999516,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "selected_inner_rows": [
+    {
+      "line": 979,
+      "text": "  262 passed (8.5m)"
+    },
+    {
+      "line": 1331,
+      "text": "  2 passed (1.6s)"
+    },
+    {
+      "line": 1457,
+      "text": "  62 passed (40.0s)"
+    },
+    {
+      "line": 5062,
+      "text": "  3 passed (5.3s)"
+    },
+    {
+      "line": 7023,
+      "text": "======================= 1860 passed in 391.37s (0:06:31) ======================="
+    },
+    {
+      "line": 7339,
+      "text": "test result: ok. 234 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.06s"
+    },
+    {
+      "line": 7611,
+      "text": "test result: ok. 234 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.07s"
+    },
+    {
+      "line": 7868,
+      "text": "test result: ok. 234 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.07s"
+    }
+  ],
+  "decision": "CLEAR_SOURCE_BOUND_LOCAL_FULL_OBSERVATION",
+  "limits": [
+    "This full observation evaluates immutable35b/f078 and1998tracked paths only; later FIFO corrections or other working-tree changes are not validated by it.",
+    "Snapshots establish matching before/after bytes and full modes, not an exhaustive history of intermediate filesystem mutations. Git binds file bytes/sizes and executable bits; it does not retain full POSIX permissions. The25 read-only0444 and1973 ordinary0644 source modes are snapshot observations.",
+    "Outer results record direct children reaped, observed groupsABSENT and zero cleanup signals. Numeric group IDs are not retained in results; unobserved escaped descendants are not proven absent.",
+    "The wrapper inherits the development environment with Node/Python PATH prefixes; it is not a clean-environment or packaged-GUI experiment.",
+    "Browser figures are four separate executions, not unique-case totals or performance certification. No new GUI, foreign package, live model or milestone acceptance follows.",
+    "Source-known FIFO guard correction and freshCI40782097996 remain pending separately. Prior failed runs remain separate and failed."
+  ],
+  "states": {
+    "M03_W06": "IN_PROGRESS",
+    "verified": 38,
+    "total": 300,
+    "M03": "IN_PROGRESS",
+    "release": "NOT_READY"
+  }
+}

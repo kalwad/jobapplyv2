@@ -83,11 +83,7 @@ impl ConfiguredRuntime {
                 return Err(SupervisorError::InvalidRuntime);
             }
         }
-        let mut file = File::open(path).map_err(|_| SupervisorError::InvalidRuntime)?;
-        let opened = file
-            .metadata()
-            .map_err(|_| SupervisorError::InvalidRuntime)?;
-        validate_unchanged(&metadata, &opened, &metadata)?;
+        let (mut file, opened) = open_regular_runtime(path, &metadata)?;
         let actual = hash_bounded_checked(&mut file, 512 * 1024 * 1024, || {
             if let Some(permit) = permit {
                 permit.check()
@@ -158,6 +154,19 @@ impl RuntimeAdapter for ConfiguredRuntime {
         ))
     }
     fn spawn(&self, permit: &SpawnPermit<'_>) -> Result<Box<dyn OwnedProcess>, SupervisorError> {
+        super::platform_adapters::LocalProcessSelection::select(
+            super::platform_adapters::ProcessProfile::LocalOrchestrator,
+            super::platform_adapters::Scope::User,
+            &[],
+            &[],
+            false,
+            permit,
+        )
+        .map_err(|failure| match failure {
+            super::platform_adapters::PathFailure::Cancelled => SupervisorError::Cancelled,
+            super::platform_adapters::PathFailure::Timeout => SupervisorError::StartupTimeout,
+            _ => SupervisorError::InvalidPolicy,
+        })?;
         self.check_runtime_with_permit(Some(permit))?;
         permit.check()?;
         #[cfg(any(target_os = "macos", target_os = "linux"))]
@@ -185,6 +194,30 @@ impl RuntimeAdapter for ConfiguredRuntime {
             Err(SupervisorError::ContainmentUnavailable)
         }
     }
+}
+
+// Named metadata can become stale before acquisition. Nonblocking open keeps
+// a replacement FIFO from waiting for a writer; validate the held regular-file
+// identity before any read/hash, and retain O_NONBLOCK throughout regular IO.
+fn open_regular_runtime(
+    path: &Path,
+    expected: &std::fs::Metadata,
+) -> Result<(File, std::fs::Metadata), SupervisorError> {
+    let mut options = std::fs::OpenOptions::new();
+    options.read(true);
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::OpenOptionsExt;
+        options.custom_flags(libc::O_NOFOLLOW | libc::O_CLOEXEC | libc::O_NONBLOCK);
+    }
+    let file = options
+        .open(path)
+        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    let opened = file
+        .metadata()
+        .map_err(|_| SupervisorError::InvalidRuntime)?;
+    validate_unchanged(expected, &opened, expected)?;
+    Ok((file, opened))
 }
 
 #[cfg(test)]
@@ -684,5 +717,93 @@ mod tests {
         let result = validate_unchanged(&initial, &initial, &replacement);
         std::fs::remove_dir_all(&directory).unwrap();
         assert_eq!(result, Err(SupervisorError::InvalidRuntime));
+    }
+    #[cfg(unix)]
+    fn runtime_open_fixture(name: &str) -> (PathBuf, PathBuf) {
+        use std::os::unix::fs::PermissionsExt;
+        let root =
+            std::env::temp_dir().join(format!("japp-runtime-open-{name}-{}", std::process::id()));
+        std::fs::create_dir(&root).unwrap();
+        let root = root.canonicalize().unwrap();
+        let path = root.join("runtime");
+        std::fs::write(&path, b"owned synthetic runtime\n").unwrap();
+        std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o700)).unwrap();
+        (root, path)
+    }
+    #[cfg(unix)]
+    #[test]
+    fn prechecked_runtime_replaced_with_fifo_is_rejected_before_read() {
+        use std::os::unix::{ffi::OsStrExt, fs::FileTypeExt};
+        let (root, path) = runtime_open_fixture("fifo");
+        let retained = root.join("retained-regular");
+        let initial = path.symlink_metadata().unwrap();
+        assert!(initial.is_file());
+        std::fs::rename(&path, &retained).unwrap();
+        let c_path = std::ffi::CString::new(path.as_os_str().as_bytes()).unwrap();
+        assert_eq!(unsafe { libc::mkfifo(c_path.as_ptr(), 0o600) }, 0);
+        assert!(path.symlink_metadata().unwrap().file_type().is_fifo());
+        // No writer exists. Run this selector in an outer owned/capped process:
+        // removing O_NONBLOCK makes the actual acquisition wait indefinitely.
+        assert!(matches!(
+            open_regular_runtime(&path, &initial),
+            Err(SupervisorError::InvalidRuntime)
+        ));
+        assert!(path.symlink_metadata().unwrap().file_type().is_fifo());
+        assert_eq!(
+            std::fs::read(&retained).unwrap(),
+            b"owned synthetic runtime\n"
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[cfg(unix)]
+    #[test]
+    fn prechecked_runtime_replaced_with_symlink_is_rejected_before_read() {
+        let (root, path) = runtime_open_fixture("symlink");
+        let retained = root.join("retained-regular");
+        let initial = path.symlink_metadata().unwrap();
+        assert!(initial.is_file());
+        std::fs::rename(&path, &retained).unwrap();
+        std::os::unix::fs::symlink(&retained, &path).unwrap();
+        // The symlink points to the original inode: O_NOFOLLOW, rather than a
+        // later inode comparison, must refuse the acquisition before hashing.
+        assert!(matches!(
+            open_regular_runtime(&path, &initial),
+            Err(SupervisorError::InvalidRuntime)
+        ));
+        assert!(path.symlink_metadata().unwrap().file_type().is_symlink());
+        assert_eq!(
+            std::fs::read(&retained).unwrap(),
+            b"owned synthetic runtime\n"
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[cfg(unix)]
+    #[test]
+    fn valid_regular_runtime_is_still_accepted_with_nonblocking_open() {
+        let (root, path) = runtime_open_fixture("valid");
+        let hash: [u8; 32] = Sha256::digest(b"owned synthetic runtime\n").into();
+        let adapter = ConfiguredRuntime::approved(path, hash).unwrap();
+        assert_eq!(adapter.check_runtime(), Ok(()));
+        std::fs::remove_dir_all(root).unwrap();
+    }
+}
+
+#[cfg(test)]
+mod typed_spawn_tests {
+    use super::*;
+    #[test]
+    fn actual_runtime_spawn_consumes_typed_selection_before_native_edge() {
+        let cancelled = std::sync::atomic::AtomicBool::new(true);
+        let clock = MonotonicClock::default();
+        // The reviewed constructor rejects a cancelled flag, so mint while open and
+        // cancel before calling the actual runtime entry.
+        cancelled.store(false, std::sync::atomic::Ordering::Release);
+        let permit =
+            SpawnPermit::for_operation(&cancelled, &clock, Duration::from_secs(1)).unwrap();
+        cancelled.store(true, std::sync::atomic::Ordering::Release);
+        assert!(matches!(
+            ConfiguredRuntime::unavailable().spawn(&permit),
+            Err(SupervisorError::Cancelled)
+        ));
     }
 }

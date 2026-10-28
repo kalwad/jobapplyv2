@@ -47,12 +47,14 @@ default = []
 custom-protocol = ["tauri/custom-protocol"]
 
 windows-source-check = ["dep:windows-sys"]
+# Source-check feature compiles foreign Windows declarations; native paths are lazy in default production.
+platform-adapter-source-check = ["windows-source-check"]
 
 [dependencies.windows-sys]
 version = "=0.61.2"
 optional = true
-features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory"]
+features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemServices", "Win32_System_WindowsProgramming"]
 
 [target.'cfg(windows)'.dependencies.windows-sys]
 version = "=0.61.2"
-features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory"]
+features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_System_IO", "Win32_Storage_FileSystem", "Win32_System_Memory", "Win32_System_SystemServices", "Win32_System_WindowsProgramming"]
