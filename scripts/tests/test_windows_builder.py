@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import ntpath
+import os
 import struct
 import subprocess
 import sys
 from pathlib import Path
 from typing import Protocol
+from unittest.mock import patch
 
 import pytest
 
@@ -115,6 +118,8 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
     )
     monkeypatch.setenv("SystemRoot", "/untrusted/parent")
     monkeypatch.setenv("JAPP_PRIVATE_TOKEN", "synthetic-parent-must-not-copy")
+    for name in ["USERPROFILE", "APPDATA", "LOCALAPPDATA", "PYINSTALLER_CONFIG_DIR"]:
+        monkeypatch.setenv(name, "hostile-parent-must-not-copy")
     calls: list[list[str]] = []
 
     def fake_run(
@@ -129,6 +134,34 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
         assert environment["SystemRoot"] == trusted_windows
         assert environment["PATH"] == ""
         assert "JAPP_PRIVATE_TOKEN" not in environment
+        # Windows Path.home uses the real stdlib ntpath expansion. A scrubbed
+        # environment must still supply a usable private profile to PyInstaller.
+        with patch.dict(os.environ, environment, clear=True):
+            expanded = ntpath.expanduser("~")
+        assert expanded == str(work / "build-home")
+        assert Path(expanded).is_dir()
+        assert environment["LOCALAPPDATA"] == str(work / "build-home/AppData/Local")
+        assert environment["APPDATA"] == str(work / "build-home/AppData/Roaming")
+        assert environment["PYINSTALLER_CONFIG_DIR"] == str(work / "pyinstaller-cache")
+        for name in ["LOCALAPPDATA", "APPDATA", "PYINSTALLER_CONFIG_DIR"]:
+            assert Path(environment[name]).is_dir()
+        assert "HOME" not in environment
+        assert "HOMEDRIVE" not in environment
+        assert "HOMEPATH" not in environment
+        assert set(environment) == {
+            "PATH",
+            "PYTHONNOUSERSITE",
+            "PYTHONHASHSEED",
+            "UV_CACHE_DIR",
+            "SystemRoot",
+            "WINDIR",
+            "TEMP",
+            "TMP",
+            "USERPROFILE",
+            "LOCALAPPDATA",
+            "APPDATA",
+            "PYINSTALLER_CONFIG_DIR",
+        }
         output = b""
         if command == [str(python), "--version"]:
             output = b"Python 3.12.13\n"

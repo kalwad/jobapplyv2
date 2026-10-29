@@ -195,11 +195,23 @@ def main() -> None:  # noqa: PLR0912, PLR0915 - ordered six-stage native build c
         raise ValueError("Trusted Windows system directory unavailable")
     temporary = args.work_dir / "temp"
     temporary.mkdir()
+    # Build tools need a profile and cache even under a scrubbed environment.
+    # Keep these fresh and private to this build; never copy the caller profile.
+    build_home = args.work_dir / "build-home"
+    local_data = build_home / "AppData/Local"
+    roaming_data = build_home / "AppData/Roaming"
+    installer_cache = args.work_dir / "pyinstaller-cache"
+    for directory in (local_data, roaming_data, installer_cache):
+        directory.mkdir(parents=True)
     env.update(
         SystemRoot=buffer.value,
         WINDIR=buffer.value,
         TEMP=str(temporary),
         TMP=str(temporary),
+        USERPROFILE=str(build_home),
+        LOCALAPPDATA=str(local_data),
+        APPDATA=str(roaming_data),
+        PYINSTALLER_CONFIG_DIR=str(installer_cache),
     )
     commands: list[dict[str, object]] = []
     proof = args.work_dir / "build-proof.json"

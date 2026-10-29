@@ -6,7 +6,7 @@ broadening a work package (spec §1.5).
 
 ## Current W07 package validation (2026-10-29UTC)
 
-Cleanb28 actualdoctor28/all20PASS anddifferent6801joinsCLEAR validate the localrollbackfixturefix at its exacttree. RootreviewedGNOME31sourcepaths are nowguarded-adopted; actualcanonical407selected/strict/portability/integrityPASS. Currentexpanded2477wholeexecution/full/hosted remains pending. Exact docs/evidence/m03-w07-clean-aggregate-b28 and docs/evidence/m03-gnome-lifecycle-infrastructure. GNOMEtemplateinactive/no candidate/install/VM/nativeactor; Windows11/defaultGNOME acceptance stays pending. Hosted80e68 hasUbuntuall20SUCCESS whileMac/Windows/packageoutcomes remainpending; prior07ebFAILURE andunknownoldrollbackeventorder/attachmentcause stayseparate. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY.
+Clean2ea actual doctor28/all20 ACTIVE PASS, including2477Python, with different7020 data joins CLEAR: docs/evidence/m03-w07-clean-aggregate-2ea. Hosted40898412173 at80e68 is terminal FAILURE despite all three canonical jobs passing all20; both native-package jobs fail at later, separate stages. Exact original raw/API/source/review: docs/evidence/m03-w07-ci-80e68ac-failure. KI-0121 discovery, KI-0122 static inspection and KI-0123 SDK path policy are now FIXED at their stated scopes. New KI-0125/0126 record actual package failures and reviewed corrections; corrected native hosted execution remains pending. KI-0124 still awaits the fixed fixture's hosted run. Guarded three-file adoption and actual26selected/strict/portability/integrity PASS: docs/evidence/m03-w07-native-package-corrections. No native Windows11/default GNOME actor has run. W07 sole IN_PROGRESS/39of300 VERIFIED/M03 IN_PROGRESS/release NOT_READY.
 
 ## Current W06 closeout observation (2026-10-28)
 
@@ -42,6 +42,28 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current fixture compatibility validation (2026-10-29UTC)
 
+### KI-0126 — Unix package cleanup test conflates listener release with immediate address reuse
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Ubuntu native-package job123566716778/run40898412173 at80e68ac, 2026-10-29UTC.
+- Affects: M03-W07/W08; scripts/package_validation.rs packaged service actor.
+- Description: actual packaged health/authentication and owned cleanup succeed; the next plain TcpListener bind fails AddrInUse/OS98. The original TIME_WAIT, collision or residual-owner cause is UNOBSERVED. Immediate plain-bind success measures more than whether the retired listener accepts connections.
+- Reproduction: original pipeline15 actor exit101/4.267067s, zeroPASS/oneFAIL, cleanup success221ms/bound6000ms, keeper reaped and observed group/session absent. Exact original logs/artifact/API/source and different5720 review: docs/evidence/m03-w07-ci-80e68ac-failure.
+- Workaround: none; no retry, sleep, deadline extension, socket-policy relaxation or fabricated Linux cause.
+- Resolution + evidence link: retain Windows bind/drop and all original actor health/auth/version/cleanup oracles. Unix single250ms connection must refuse specifically ConnectionRefused; successful connection/timeout/other error fails. Add a live/retired owned connected-listener control with prior reuse=false. Production socket exclusivity unchanged. Separate fresh offline compilation binds different old/fixed Mac executables; same five controls PASS each, strict checks PASS. V1 shared-target HOLD remains immutable; different v2 source/data4796 joins CLEAR. Canonical source adoption,26Python/strict/portability/integrity checks PASS. Exact docs/evidence/m03-w07-native-package-corrections. Corrected Linux inline control and real package actor await fresh hosted execution.
+
+### KI-0125 — Scrubbed Windows package builder omits PyInstaller's required home
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Windows native-package job123566716686/run40898412173 at80e68ac, 2026-10-29UTC.
+- Affects: M03-W07; scripts/build-windows-runtime.py.
+- Description: PyInstaller6.22.3 import calls Path.home().resolve; the intentionally scrubbed eight-key environment supplies no home and fails with RuntimeError: Could not determine home directory. App build and native service actor are not reached.
+- Reproduction: exact runtime-build06-native-build stderr2573B SHA256469cfbe3050b4c3461f597efc6e7e87803513fa88c919b4aef3be2eac3b00bfb, original artifact12911338406 and different5720 failure review: docs/evidence/m03-w07-ci-80e68ac-failure.
+- Workaround: none; do not inherit user profiles, caches, tokens or broader PATH authority.
+- Resolution + evidence link: fresh owned work/build-home/AppData/Local and Roaming plus private PyInstaller cache; pass USERPROFILE/LOCALAPPDATA/APPDATA/PYINSTALLER_CONFIG_DIR explicitly. All original three IDs/eighteen assertions remain. Real Windows stdlib expansion under exact child environment fails old builder (twoPASS/oneFAIL), passes corrected three cases plus strict checks. Different34 source/data joins CLEAR; actual canonical26selected/strict/portability/integrity PASS. Exact docs/evidence/m03-w07-native-package-corrections. Corrected native Windows package execution remains pending.
+
 ### KI-0124 — Rollback fixture can rerender before asynchronous driver write
 
 - Severity: MEDIUM
@@ -51,40 +73,40 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 - Description: pre-armed20msrerender can occur before asynchronous decision/hash preparation and extensionmessage/write. Then the blockedReactevents never commitstate but the DOMwrite persists through the unchanged125mswindow, so the fixture's FAILED assertion receivesVERIFIED without its intended postwrite rollback.
 - Reproduction: actualrealownedChromium with identical100mspreparationlatency logs click→input→change/stateempty/DOMTransient only/VERIFIED and fails the unchangedoracle. This establishes the controlledlocal defect, not the originalhosted eventorder. Oldreferencedtrace/PNG/context are absent from actualMacartifact; specificnonpersistence cause staysUNOBSERVED after27join source/datareview.
 - Workaround: none; no flaky label, retry, skip, deadline increase or assertion weakening.
-- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedcleanb28 nowactuallypassesall20/Python2141 withdifferent6801joinsCLEAR andneutral2202source/runtime40/HEAD-tree endpoints: docs/evidence/m03-w07-clean-aggregate-b28. CurrentexpandedGNOMEsource full/hostedvalidation remains pending; state IN_PROGRESS for thatdeclaredhostedscope.
+- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedcleanb28 nowactuallypassesall20/Python2141 withdifferent6801joinsCLEAR andneutral2202source/runtime40/HEAD-tree endpoints: docs/evidence/m03-w07-clean-aggregate-b28. Clean2ea expanded2477Python/all20 full now PASS with different7020 joins CLEAR (docs/evidence/m03-w07-clean-aggregate-2ea). Fixed-fixture hosted execution remains pending; state IN_PROGRESS for that scope.
 
 ### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: clean07eb77b full aggregate, 2026-10-29UTC.
 - Affects: M03-W07; scripts/native_package_ci.py path construction.
 - Description: the new interpolated Windows SDK path contains a literal /bin/Hostx64/x64/dumpbin.exe fragment. The existing conservative PORT-SRC-001 policy refuses it, causing the real-repository Python oracle and standalone portability suite to fail.
 - Reproduction: exact07eb77b doctor28PASS/aggregate18PASS2FAIL, Python2140PASS1FAIL391.89s and raw CLI violation in docs/evidence/m03-w07-portable-sdk-path-correction. Different2269joins confirm the recorded failure and immutable source.
 - Workaround: none; do not relax or bypass the policy.
-- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Corrected clean80e68ac full now actually passes all20 suites/Python2141 with unchanged source/runtime/modes/status/HEAD-tree endpoints and different2275joinsCLEAR: docs/evidence/m03-w07-closed-validation. Prior40803470877 is terminalFAILURE and remains separate; fresh40898412173 hosted/native results are pending. State remains IN_PROGRESS for the declared hosted validation scope.
+- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Corrected clean80e68ac full now actually passes all20 suites/Python2141 with unchanged source/runtime/modes/status/HEAD-tree endpoints and different2275joinsCLEAR: docs/evidence/m03-w07-closed-validation. Prior40803470877 remains FAILURE. Actual40898412173 at80e68 now passes this portability policy in all three all20 canonical jobs, including2139Windows/2141POSIX Python; different5720 joins CLEAR_AS_RECORDED_FAILURE for its separate later package failures. Exact docs/evidence/m03-w07-ci-80e68ac-failure. State FIXED at the SDK path-policy scope; no package or GUI certification follows.
 
 ### KI-0121 — Installed sibling MSVC toolsets make package inspection discovery ambiguous
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: Windowsnativepackagejob123208496933/run40795147477, tested9872.
 - Affects: M03-W07; scripts/native_package_ci.py.
 - Description: absentPATHdumpbin triggers latestVS -find, which actually returns3installedversions; len==1 refuses before payloadbuild.
 - Reproduction: exactvswhere rawchoices/commands/source/API in docs/evidence/m03-w07-ci-9872aca-failure.
 - Workaround: none; no guessedfirst/highesttool or fabricatedpin.
-- Resolution + evidence link: selectMicrosoft's declareddefault via oneinstallation/default-version file, forcedUTF8, boundedheldregularread and exactdeclaration/toolhashes. New12cases and all134affectedcases/strict/integrity pass; different14source/38data reviewCLEAR. FreshWindowsnativepackage/fullvalidation pending. See docs/evidence/m03-w07-packaging-corrections.
+- Resolution + evidence link: selectMicrosoft's declareddefault via oneinstallation/default-version file, forcedUTF8, boundedheldregularread and exactdeclaration/toolhashes. New12cases and all134affectedcases/strict/integrity pass; different14source/38data reviewCLEAR. Actual80e68 Windows native-package job123566716686 passes the corrected declared-default discovery and reaches PyInstaller, then fails separately at missing home (KI-0125). All20Windows canonical suites PASS; different5720 data joins clear the recorded failure. FIXED at discovery scope, without a later dumpbin/static-inspection or native desktop pass. See docs/evidence/m03-w07-packaging-corrections and docs/evidence/m03-w07-ci-80e68ac-failure.
 
 ### KI-0122 — Static Linux inspector rejects legacy three-component GLIBC versions
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: DATAONLY replay of UbuntuDeb from nativepackagejob123208496922/run40795147477.
 - Affects: M03-W07/W08; scripts/linux_package.py ELF minimum-version screen.
 - Description: actual mainELF declaresGLIBC_2.2.5; oldtwo-componentregex refuses it despite targetceiling2.39.0. Actualhostfailure is genericstaticreject; the exactcriterion is reproduced onMac using package-derived runtime, not originalstage.
 - Reproduction: unchangedDeb24bf9661/oldinspector0036afde metadata/rawreplay and3FAIL6PASS test-first result in docs/evidence/m03-w07-packaging-corrections.
 - Workaround: none; no ignoredELF/version/chain guard or newerGLIBC acceptance.
-- Resolution + evidence link: optionalnumericpatch/normalized3tuple withunchanged2.39.0ceiling; newer/malformed/unknown cases refuse. ActualLinux70affectedcases and finalcombined134/strict/integrity pass, finalsource95ad static package-derived replayPASS. This does not prove exactsymbolavailability, originalstageequality or nativeexecution. Different source/data reviewsCLEAR; fresh correctednativehost/fullvalidation pending.
+- Resolution + evidence link: optionalnumericpatch/normalized3tuple withunchanged2.39.0ceiling; newer/malformed/unknown cases refuse. ActualLinux70affectedcases and finalcombined134/strict/integrity pass, finalsource95ad static package-derived replayPASS. This does not prove exactsymbolavailability, originalstageequality or nativeexecution. Different source/data reviews CLEAR. Actual80e68 Ubuntu job123566716778 completes runtime/app build, catalog and static inspection before its separate service-actor listener assertion fails (KI-0126). All20Ubuntu canonical suites PASS; different5720 joins clear the recorded failure. FIXED at static-inspection scope, without native GUI or overall package acceptance. Exact docs/evidence/m03-w07-ci-80e68ac-failure.
 
 ### KI-0119 — Deep malformed-JSON Python fixture trips collection policy
 
