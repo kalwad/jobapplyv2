@@ -3,6 +3,16 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Current path/cache correction and native Mac observation (2026-10-29UTC)
+
+The subsequently composed thirteen-path native guest harness preserves these corrections and passes ten current canonical checks:441Python6.89s/2788exact collected IDs/strictLinux33/Win32selected10/formatting/portability/integrity/diff. Different4251source+2591actual joins CLEAR the2333source/runtime40 phase. Exact docs/evidence/m03-native-guest-composition. Native COM source compilation is separate from actual target/provider/PowerShell/guest behavior; no support row or native platform acceptance changes.
+
+The current a7-based correction passes ten actual canonical checks:693Python137.85s,2704unique catalog-matched collection, strict Linux/Win32, formatting, portability/integrity/diff. Different2573joins CLEAR the2310source/runtime40 endpoint-bound record and19inert cache projections. Exact docs/evidence/m03-ci-path-and-bytecode-correction. This is scoped regression evidence; fresh corrected clean full/hosted execution remains pending.
+
+Actual native MacGUIv6 passes the prospective four-witness near2×/exact1× reset and native controls across50 original captures, seven routes/three scales with scroll views, keyboard refresh/UTC advance/Skip focus, within the original600s interval. Different1354data+590pixel checks CLEAR and selected22source/40runtime/43app endpoints join historical a7. Exact docs/evidence/m03-w11-macos-native-zoom-v6. No direct native zoom/DPI getter, screen-reader narration, fresh launch/orphan proof, visual-baseline or certified-support promotion follows.
+
+Hosted bd4 remains terminalFAILURE: all three canonical hosts19ACTIVE PASS/PythonFAIL, dependent native packagesSKIPPED/zero curated exports. Four auxiliary successes are disabled-request metadata only. Different9722joins CLEAR the preserved failure at docs/evidence/m03-w07-hosted-bd4-terminal. WindowsServer is not Windows11; Ubuntu build host is not defaultGNOME. All support/model/formal states below remain unchanged.
+
 ## bd4 aggregate failure and scoped native zoom preparation (2026-10-29UTC)
 
 Actual clean bd4/tree75d79ae7 is FAILURE: doctor28PASS, nineteen ACTIVE suites pass and Python reports2623PASS/one copied-cache fixture failure414.65s. Source2294/runtime40 bytes/full modes/clean statuses/immediate HEAD-tree endpoints agree; children reaped/groupsABSENT/no signals/timeouts. Different7226 data joins clear only the failed record. TS4006fresh/browser278+2+62+17/native342same3+1/10 component passes do not turn the aggregate PASS. Exact docs/evidence/m03-w07-full-bd4-failure.

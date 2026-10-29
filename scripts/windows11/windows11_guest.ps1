@@ -52,10 +52,90 @@ function Ready($Owner) {
     } while ($clock.Elapsed.TotalSeconds -lt $limit)
     throw 'Actual owned Diagnostics Ready/version UI not observed'
 }
+function TimestampParts([string]$Value) {
+    $matched=[Text.RegularExpressions.Regex]::Match($Value,'^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{1,9}))?Z$',[Text.RegularExpressions.RegexOptions]::CultureInvariant)
+    if(-not $matched.Success -or $matched.Length -ne $Value.Length) { throw 'Exact UTC timestamp required' }
+    $whole=[DateTime]::new([int]$matched.Groups[1].Value,[int]$matched.Groups[2].Value,[int]$matched.Groups[3].Value,[int]$matched.Groups[4].Value,[int]$matched.Groups[5].Value,[int]$matched.Groups[6].Value,[DateTimeKind]::Utc)
+    return @{whole_ticks=[long]$whole.Ticks;nanoseconds=[long]$matched.Groups[7].Value.PadRight(9,'0')}
+}
+function TimestampAdvances([string]$Before,[string]$After) {
+    $left=TimestampParts $Before;$right=TimestampParts $After
+    return $right.whole_ticks -gt $left.whole_ticks -or ($right.whole_ticks -eq $left.whole_ticks -and $right.nanoseconds -gt $left.nanoseconds)
+}
 function CheckedAt($Owner) {
-    $matches=@($Owner.Names()|Where-Object { $_ -cmatch '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$' }|Select-Object -Unique)
+    $matches=@($Owner.Names()|Where-Object { $_ -cmatch '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,9})?Z$' }|Select-Object -Unique)
     if($matches.Count -ne 1) { throw 'Exactly one actual Checked at timestamp required' }
     return [string]$matches[0]
+}
+function ShellWait([scriptblock]$Predicate) {
+    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
+    do { WithinBudget; if(& $Predicate){return}; Start-Sleep -Milliseconds 25 } while($clock.Elapsed.TotalSeconds -lt $limit)
+    throw 'Actual bounded native shell focus or geometry did not settle'
+}
+function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
+    $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
+    $last=''; $lastRow=$null
+    do {
+        WithinBudget
+        $row=$Owner.ShellMeasure($Stage)
+        $anchors=$row.anchors|ConvertTo-Json -Depth 10 -Compress
+        if($anchors -ceq $last -and ($PreviousAnchors -ceq '' -or $anchors -cne $PreviousAnchors)){return $row}
+        $last=$anchors; $lastRow=$row
+        Start-Sleep -Milliseconds 50
+    } while($clock.Elapsed.TotalSeconds -lt $limit)
+    if($null -ne $lastRow){$lastRow|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $proof ('shell-unsettled-'+$Stage+'.json')) -Encoding UTF8}
+    throw 'Actual visible complete glyph measurement unavailable or unchanged after chord'
+}
+function ShellCapture($Owner) {
+    $destinations=@(@('home','Home'),@('jobs','Jobs'),@('tracker','Tracker'),@('documents','Documents / Resumes'),@('profile','Profile'),@('settings','Settings'),@('diagnostics','Diagnostics'))
+    $captures=New-Object Collections.ArrayList
+    $measures=New-Object Collections.ArrayList
+    foreach($scale in @('baseline','enlarged')) {
+        if($scale -ceq 'baseline') {
+            $Owner.ShellFocusRoute('Diagnostics');$Owner.ShellKeys('enter');$Owner.ShellKeys('reset')
+            Start-Sleep -Milliseconds 100
+        } else {
+            $baseline=ShellMeasurement $Owner 'baseline' ''
+            [void]$measures.Add($baseline)
+            $prior=$baseline.anchors|ConvertTo-Json -Depth 10 -Compress
+            foreach($increment in 1..5) {
+                $Owner.ShellKeys('zoom')
+                $measurement=ShellMeasurement $Owner ('step'+$increment) $prior
+                [void]$measures.Add($measurement)
+                $prior=$measurement.anchors|ConvertTo-Json -Depth 10 -Compress
+            }
+        }
+        foreach($destination in $destinations) {
+            WithinBudget
+            $slug=$destination[0];$label=$destination[1]
+            $Owner.ShellFocusRoute($label)
+            $Owner.ShellKeys('tab');ShellWait { -not $Owner.ShellRouteLinkFocused($label) }
+            $Owner.ShellKeys('backtab');ShellWait { $Owner.ShellRouteLinkFocused($label) }
+            $Owner.ShellKeys('enter');ShellWait { $Owner.ShellRouteFocused($label) }
+            $name='shell-'+$scale+'-'+$slug
+            Snapshot $name $Owner
+            $tree=$Owner.ShellTree()|ConvertTo-Json -Depth 10
+            if($tree.Length -gt 1048576){throw 'Actual native shell tree exceeds retained cap'}
+            $tree|Set-Content -LiteralPath (Join-Path $proof ($name+'.json')) -Encoding UTF8
+            $imagePath=Join-Path $proof ($name+'.png')
+            $image=[Drawing.Image]::FromFile($imagePath)
+            try {$width=$image.Width;$height=$image.Height} finally {$image.Dispose()}
+            $geometry=$Owner.ShellRouteGeometry($label)
+            $checkedBefore=$null;$checkedAfter=$null
+            if($slug -ceq 'diagnostics') {
+                $checkedBefore=CheckedAt $Owner;$Owner.KeyboardCheckAgain()
+                ShellWait { TimestampAdvances $checkedBefore (CheckedAt $Owner) }
+                $checkedAfter=CheckedAt $Owner
+            }
+            $Owner.ShellFocusSkip();$Owner.ShellKeys('enter');ShellWait { $Owner.ShellMainFocused() }
+            [void]$captures.Add(@{scale=$scale;route=$slug;heading=$label;heading_unique=$true;heading_focused=$true;navigation_unique=$true;checked_before=$checkedBefore;checked_after=$checkedAfter;glyph=$geometry.glyph;frame=$geometry.frame;backing=$geometry.backing;window_id=$geometry.window_id;app_pid=$geometry.app_pid;tab_shift_tab=$true;skip_main=$true;image_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $imagePath).Hash.ToLowerInvariant();image_width=$width;image_height=$height})
+        }
+    }
+    $Owner.ShellKeys('reset')
+    $reset=ShellMeasurement $Owner 'reset' ''
+    [void]$measures.Add($reset)
+    Snapshot 'shell-reset' $Owner
+    return @{schema='japp-native-shell-capture-v1';policy_sha256='7aaf7a099cf111661c9fd6e98497ebf97bbb4d6a1c72c8d6ec2d20f190735e88';subject_sha256=$config.package_sha256;platform='WINDOWS_UIA';measurements=@($measures);routes=@($captures);reset_image=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $proof 'shell-reset.png')).Hash.ToLowerInvariant();reader_output='NOT_COLLECTED'}
 }
 function Endpoint($Owner) {
     $image = Join-Path $packageRoot 'runtime\japp-orchestrator\japp-orchestrator.exe'
@@ -176,8 +256,8 @@ try {
     $phase='keyboard'; $checkedBefore=CheckedAt $app; $app.KeyboardCheckAgain()
     $keyboardLimit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
     do { WithinBudget; $checkedAfter=CheckedAt $app; if($checkedAfter -cne $checkedBefore){break}; Start-Sleep -Milliseconds 25 } while($clock.Elapsed.TotalSeconds -lt $keyboardLimit)
-    if([DateTimeOffset]::Parse($checkedAfter) -le [DateTimeOffset]::Parse($checkedBefore)) { throw 'Owned Enter keyboard action did not advance Checked at' }
-    Snapshot 'keyboard' $app; Receipt 'keyboard' @{action='owned_foreground_focused_Check_again_Enter';checked_before=$checkedBefore;checked_after=$checkedAfter}
+    if(-not(TimestampAdvances $checkedBefore $checkedAfter)) { throw 'Owned Enter keyboard action did not advance Checked at' }
+    Snapshot 'keyboard' $app; $nativeShell=ShellCapture $app; $nativeShell|ConvertTo-Json -Depth 12|Set-Content -LiteralPath (Join-Path $proof 'native-shell.json') -Encoding UTF8; Receipt 'keyboard' @{action='owned_foreground_focused_Check_again_Enter';checked_before=$checkedBefore;checked_after=$checkedAfter;native_shell=$nativeShell}
     $phase='crash'; $serviceHandle=$app.OpenMember([uint32]$endpoint.pid,(Join-Path $packageRoot 'runtime\japp-orchestrator\japp-orchestrator.exe')); $serviceHandle.Kill()
     $until=$clock.Elapsed.TotalSeconds+6
     while(-not $serviceHandle.Exited -and $clock.Elapsed.TotalSeconds -lt $until) { Start-Sleep -Milliseconds 25 }

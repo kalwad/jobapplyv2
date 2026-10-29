@@ -35,6 +35,7 @@ SCRIPTS = (
     "ubuntu_gnome_atspi.py",
     "ubuntu_gnome_process.py",
     "ubuntu_gnome_platform.py",
+    "ubuntu_gnome_shell.py",
 )
 
 

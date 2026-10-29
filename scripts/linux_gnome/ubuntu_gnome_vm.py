@@ -29,6 +29,12 @@ from typing import IO, Any, BinaryIO
 from ubuntu_gnome_platform import require_linux
 from ubuntu_gnome_process import ChildCustody
 from ubuntu_gnome_retention import retain
+from ubuntu_gnome_shell import (
+    POLICY_SHA256,
+    ROUTES,
+    validate_capture,
+    verify_capture_images,
+)
 
 QMP_CAP = 65536
 DOCUMENT_CAP = 8 * 1024 * 1024
@@ -62,6 +68,7 @@ SCRIPTS = (
     "ubuntu_gnome_atspi.py",
     "ubuntu_gnome_process.py",
     "ubuntu_gnome_platform.py",
+    "ubuntu_gnome_shell.py",
 )
 
 
@@ -889,6 +896,113 @@ def observe_session(
     return session
 
 
+def shell_request(owner: Owner, operation: str) -> dict[str, Any]:
+    if owner.ssh is None:
+        raise ValueError("Owned guest SSH endpoint required")
+    response = json.loads(
+        owner.command(
+            [
+                *owner.ssh,
+                "/usr/bin/python3 /opt/japp-ci/ubuntu_gnome_guest.py --request "
+                + shlex.quote(operation),
+            ],
+            seconds=40,
+            permit_failure=True,
+        )
+    )
+    name = response["receipt"]
+    if re.fullmatch(r"[0-9]{2,3}-shell_[a-z0-9_]+\.json", name) is None:
+        raise ValueError("Exact finite shell receipt filename required")
+    raw = owner.command(
+        [*owner.ssh, "/usr/bin/cat /home/japp-ci/japp-proof/" + shlex.quote(name)],
+        cap=1024 * 1024,
+    )
+    receipt = json.loads(raw)
+    write(owner.proof / name, receipt)
+    if (
+        response["status"] != "PASS"
+        or receipt["status"] != "PASS"
+        or receipt["operation"] != operation
+    ):
+        raise ValueError(
+            "Actual shell operation failed; retained first raw observation"
+        )
+    result = receipt["result"]
+    if not isinstance(result, dict):
+        raise ValueError("Object native operation result required")
+    return result
+
+
+def capture_native_shell(
+    owner: Owner, subject: str, frames: list[dict[str, object]]
+) -> dict[str, Any]:
+    routes: list[dict[str, Any]] = []
+    measures: list[dict[str, Any]] = []
+    shell_request(owner, "shell_focus_diagnostics")
+    owner.keys(["ret"])
+    owner.keys(["ctrl", "0"])
+    for scale in ("baseline", "enlarged"):
+        if scale == "enlarged":
+            measures.append(shell_request(owner, "shell_scale_baseline"))
+            for increment in range(1, 6):
+                owner.keys(["ctrl", "shift", "equal"])
+                measures.append(
+                    shell_request(owner, "shell_scale_step" + str(increment))
+                )
+        for slug, label in ROUTES:
+            shell_request(owner, "shell_focus_" + slug)
+            owner.keys(["tab"])
+            shell_request(owner, "shell_tab_" + slug)
+            owner.keys(["shift", "tab"])
+            shell_request(owner, "shell_back_" + slug)
+            owner.keys(["ret"])
+            observed = shell_request(owner, "shell_route_" + slug)
+            frame = owner.frame("shell-" + scale + "-" + slug)
+            frames.append(frame)
+            if observed["heading"] != label:
+                raise ValueError("Source-bound exact native route label differs")
+            observed.pop(
+                "accessibility"
+            )  # Full tree remains in its separately retained raw receipt.
+            observed["checked_before"] = None
+            observed["checked_after"] = None
+            if slug == "diagnostics":
+                before = shell_request(owner, "shell_check_focus")
+                owner.keys(["ret"])
+                after = shell_request(owner, "shell_check_observe")
+                observed["checked_before"] = before["checked_before"]
+                observed["checked_after"] = after["checked_at"]
+            shell_request(owner, "shell_skip_focus")
+            owner.keys(["ret"])
+            shell_request(owner, "shell_skip_observe")
+            routes.append(
+                {
+                    **observed,
+                    "scale": scale,
+                    "route": slug,
+                    "tab_shift_tab": True,
+                    "skip_main": True,
+                    "image_sha256": frame["sha256"],
+                    "image_width": frame["width"],
+                    "image_height": frame["height"],
+                }
+            )
+    owner.keys(["ctrl", "0"])
+    measures.append(shell_request(owner, "shell_scale_reset"))
+    # The unchanged keyboard-after-enter lifecycle frame supplies the reset image
+    # after another actual glyph/backing recheck. No 21st frame/cap increase.
+    return {
+        "schema": "japp-native-shell-capture-v1",
+        "policy_sha256": POLICY_SHA256,
+        "subject_sha256": subject,
+        "platform": "GNOME_ATSPI",
+        "measurements": measures,
+        "routes": routes,
+        "reset_image": None,
+        "reader_output": "NOT_COLLECTED",
+    }
+
+
 def run_lifecycle(
     args: argparse.Namespace,
     owner: Owner,
@@ -901,6 +1015,7 @@ def run_lifecycle(
         raise ValueError("Owned SSH endpoint required")
     frames = [owner.frame("session-before-product")]
     receipts = []
+    native_shell: dict[str, Any] | None = None
     sequence = [
         ("launch", None),
         ("keyboard_before", None),
@@ -931,7 +1046,7 @@ def run_lifecycle(
             )
         )
         name = response["receipt"]
-        if not re.fullmatch(r"[0-9]{2}-[a-z_]+\.json", name):
+        if not re.fullmatch(r"[0-9]{2,3}-[a-z_]+\.json", name):
             raise ValueError("Guest returned unsafe receipt name")
         raw = owner.command(
             [
@@ -965,6 +1080,20 @@ def run_lifecycle(
             frames.append(
                 owner.frame(str(index).zfill(2) + "-" + operation.replace("_", "-"))
             )
+        if operation == "launch":
+            native_shell = capture_native_shell(
+                owner, export["files"]["package.deb"]["sha256"], frames
+            )
+        if operation == "keyboard_after_enter":
+            if native_shell is None:
+                raise ValueError("Complete native shell route capture required")
+            native_shell["measurements"][-1] = shell_request(owner, "shell_scale_reset")
+            native_shell["reset_image"] = frames[-1]["sha256"]
+            validate_capture(
+                native_shell, export["files"]["package.deb"]["sha256"], "GNOME_ATSPI"
+            )
+            verify_capture_images(args.proof, native_shell)
+            write(args.proof / "native-shell.json", native_shell)
     result.update(
         status="ACTUAL_GDM_UBUNTU_GNOME_PACKAGE_LIFECYCLE_SCOPED_PASS",
         frames=frames,

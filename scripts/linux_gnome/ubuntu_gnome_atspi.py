@@ -13,9 +13,23 @@ from typing import Protocol, cast
 from ubuntu_gnome_platform import require_linux
 
 
+class Rect(Protocol):
+    x: int
+    y: int
+    width: int
+    height: int
+
+
+class TextRange(Protocol):
+    start_offset: int
+    end_offset: int
+
+
 class Text(Protocol):
     def get_character_count(self) -> int: ...
     def get_text(self, start: int, end: int) -> str: ...
+    def get_character_extents(self, offset: int, coordinates: object) -> Rect: ...
+    def get_string_at_offset(self, offset: int, granularity: object) -> TextRange: ...
 
 
 class Action(Protocol):
@@ -26,6 +40,8 @@ class Action(Protocol):
 
 class Component(Protocol):
     def grab_focus(self) -> bool: ...
+    def get_extents(self, coordinates: object) -> Rect: ...
+    def scroll_to(self, placement: object) -> bool: ...
 
 
 class StateSet(Protocol):
@@ -33,6 +49,8 @@ class StateSet(Protocol):
 
 
 class Accessible(Protocol):
+    def clear_cache(self) -> None: ...
+    def get_attributes(self) -> dict[str, str]: ...
     def get_child_count(self) -> int: ...
     def get_child_at_index(self, index: int) -> Accessible: ...
     def get_process_id(self) -> int: ...
@@ -46,9 +64,27 @@ class Accessible(Protocol):
 
 class States(Protocol):
     FOCUSED: object
+    ACTIVE: object
+    VISIBLE: object
+    SHOWING: object
+
+
+class Coordinates(Protocol):
+    SCREEN: object
+
+
+class Granularity(Protocol):
+    LINE: object
+
+
+class Scroll(Protocol):
+    TOP_EDGE: object
 
 
 class Atspi(Protocol):
+    CoordType: Coordinates
+    TextGranularity: Granularity
+    ScrollType: Scroll
     StateType: States
 
     def set_timeout(self, normal_ms: int, startup_ms: int) -> None: ...
@@ -73,7 +109,39 @@ class Flags(Protocol):
     NONE: object
 
 
+class BusTypes(Protocol):
+    SESSION: object
+
+
+class BusFlags(Protocol):
+    NO_AUTO_START: object
+
+
+class Variant(Protocol):
+    def unpack(self) -> object: ...
+
+
+class Connection(Protocol):
+    def call_sync(  # noqa: PLR0913, PLR0917 - exact documented GIO foreign API
+        self,
+        bus: str,
+        path: str,
+        interface: str,
+        method: str,
+        parameters: None,
+        reply_type: None,
+        flags: object,
+        timeout: int,
+        cancellable: None,
+    ) -> Variant: ...
+
+
 class Gio(Protocol):
+    BusType: BusTypes
+    DBusCallFlags: BusFlags
+
+    def bus_get_sync(self, bus_type: object, cancellable: None) -> Connection: ...
+
     AppInfo: AppInfoFactory
     DesktopAppInfo: DesktopInfoFactory
     AppInfoCreateFlags: Flags

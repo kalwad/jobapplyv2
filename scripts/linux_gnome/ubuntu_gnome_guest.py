@@ -28,6 +28,7 @@ from typing import Any
 from ubuntu_gnome_atspi import Accessible, load_native
 from ubuntu_gnome_platform import require_linux
 from ubuntu_gnome_session_receipt import main as session_main
+from ubuntu_gnome_shell import ANCHORS, ROUTES, STAGES, mutter_backing
 
 AX_NODE_CAP = 4096
 AX_TEXT_CAP = 4096
@@ -55,7 +56,7 @@ RELOCATED = HOME / "Job Apply ünicode space"
 MAIN = "usr/bin/japp-desktop"
 SERVICE = "usr/lib/Desktop App/runtime/japp-orchestrator/japp-orchestrator"
 ENTRY = Path("/usr/share/applications/Desktop App.desktop")
-OPERATIONS = (
+OPERATIONS: tuple[str, ...] = (
     "launch",
     "diagnostics",
     "keyboard_before",
@@ -70,6 +71,22 @@ OPERATIONS = (
     "force_parent",
     "finish",
 )
+
+SHELL_OPERATIONS = (
+    tuple(
+        "shell_" + action + "_" + slug
+        for action in ("focus", "tab", "back", "route")
+        for slug, _label in ROUTES
+    )
+    + tuple("shell_scale_" + stage for stage in STAGES)
+    + (
+        "shell_skip_focus",
+        "shell_skip_observe",
+        "shell_check_focus",
+        "shell_check_observe",
+    )
+)
+OPERATIONS += SHELL_OPERATIONS
 
 
 def document(path: Path, cap: int = MIB) -> dict[str, Any]:
@@ -724,8 +741,252 @@ class Controller:
         self.action("Check again")
         return self.await_ready(fresh=True)
 
+    def shell_frame(self) -> tuple[list[int], str]:
+        rows, objects = self.tree()
+        frames = [row for row in rows if row["role"] in {"frame", "window"}]
+        if len(frames) != 1 or self.app is None:
+            raise ValueError("One actual owned top-level native frame required")
+        node = objects[frames[0]["id"]]
+        state = node.get_state_set()
+        if not all(
+            state.contains(s)
+            for s in (
+                self.atspi.StateType.ACTIVE,
+                self.atspi.StateType.VISIBLE,
+                self.atspi.StateType.SHOWING,
+            )
+        ):
+            raise ValueError("Actual owned active visible native frame required")
+        component = node.get_component_iface()
+        if component is None:
+            raise ValueError("Actual owned frame bounds unavailable")
+        rect = component.get_extents(self.atspi.CoordType.SCREEN)
+        return [
+            rect.x,
+            rect.y,
+            rect.width,
+            rect.height,
+        ], f"{self.app['pid']}:{self.app['starttime_ticks']}"
+
+    def shell_backing(self) -> dict[str, Any]:
+        self.fence()
+        connection = self.gio.bus_get_sync(self.gio.BusType.SESSION, None)
+        reply = connection.call_sync(
+            "org.gnome.Mutter.DisplayConfig",
+            "/org/gnome/Mutter/DisplayConfig",
+            "org.gnome.Mutter.DisplayConfig",
+            "GetCurrentState",
+            None,
+            None,
+            self.gio.DBusCallFlags.NO_AUTO_START,
+            800,
+            None,
+        ).unpack()
+        self.fence()
+        return mutter_backing(reply)
+
+    def shell_version_rows(
+        self, rows: list[dict[str, Any]], objects: list[Accessible]
+    ) -> list[dict[str, Any]]:
+        regions = [
+            row
+            for row in rows
+            if row["name"] == "Desktop versions"
+            and objects[row["id"]].get_attributes().get("xml-roles") == "region"
+        ]
+        if len(regions) != 1:
+            raise ValueError("One source-bound Desktop versions native region required")
+        region = regions[0]["id"]
+        selected = []
+        for row in rows:
+            current = row["id"]
+            for _ in range(len(rows)):
+                if current == region:
+                    selected.append(row)
+                    break
+                current = rows[current]["parent"]
+                if current is None:
+                    break
+            else:
+                raise ValueError("Native version region ancestry is cyclic")
+        return selected
+
+    def shell_text(
+        self, text: str, prefix: int | None = None, *, versions: bool = False
+    ) -> dict[str, Any]:
+        rows, objects = self.tree()
+        if versions:
+            rows = self.shell_version_rows(rows, objects)
+        candidates = [
+            row
+            for row in rows
+            if row["text"] == text and not objects[row["id"]].get_child_count()
+        ]
+        if len(candidates) != 1:
+            raise ValueError("One exact native Text leaf required")
+        node = objects[candidates[0]["id"]]
+        state = node.get_state_set()
+        if not state.contains(self.atspi.StateType.VISIBLE) or not state.contains(
+            self.atspi.StateType.SHOWING
+        ):
+            raise ValueError("Actual Text leaf is hidden or offscreen")
+        interface = node.get_text_iface()
+        if interface is None:
+            raise ValueError("Actual native Text bounds unavailable")
+        count = len(text) if prefix is None else prefix
+        line = interface.get_string_at_offset(0, self.atspi.TextGranularity.LINE)
+        if (
+            line.start_offset != 0
+            or line.end_offset < count
+            or (prefix is None and line.end_offset != len(text))
+        ):
+            raise ValueError("Actual complete selected glyph range wraps or is unknown")
+        boxes = [
+            interface.get_character_extents(i, self.atspi.CoordType.SCREEN)
+            for i in range(count)
+        ]
+        if any(box.width <= 0 or box.height <= 0 for box in boxes):
+            raise ValueError("Actual selected glyph is not visible")
+        x, y = min(box.x for box in boxes), min(box.y for box in boxes)
+        width = max(box.x + box.width for box in boxes) - x
+        height = max(box.y + box.height for box in boxes) - y
+        self.fence()
+        return {
+            "text": text[:count],
+            "rect": [x, y, width, height],
+            "single_line": True,
+            "visible": True,
+            "showing": True,
+        }
+
+    def shell_focus(self, name: str) -> None:
+        rows, objects = self.tree()
+        found = [row for row in rows if row["name"] == name and row["actions"]]
+        if len(found) != 1:
+            raise ValueError("One exact native actionable shell target required")
+        component = objects[found[0]["id"]].get_component_iface()
+        if component is None or not component.grab_focus():
+            raise ValueError("Actual native shell focus unavailable")
+        self.shell_frame()
+        self.fence()
+
+    def shell_focused(self, name: str, role: str | None = None) -> bool:
+        rows, _ = self.tree()
+        found = [
+            row
+            for row in rows
+            if row["name"] == name and (role is None or row["role"] == role)
+        ]
+        return len(found) == 1 and found[0]["focused"]
+
+    def shell_measure(self, stage: str) -> dict[str, Any]:
+        rows, objects = self.tree()
+        rows = self.shell_version_rows(rows, objects)
+        self.shell_text("Tauri version", versions=True)
+        found = [
+            row
+            for row in rows
+            if row["text"] == "App version" and not objects[row["id"]].get_child_count()
+        ]
+        if len(found) != 1:
+            raise ValueError("One exact native version label required")
+        component = objects[found[0]["id"]].get_component_iface()
+        if component is None or not component.scroll_to(self.atspi.ScrollType.TOP_EDGE):
+            raise ValueError("Actual version labels could not scroll into view")
+        frame, window = self.shell_frame()
+        if self.app is None:
+            raise ValueError("Actual owned app identity unavailable")
+        return {
+            "stage": stage,
+            "window_id": window,
+            "app_pid": self.app["pid"],
+            "frame": frame,
+            "backing": self.shell_backing(),
+            "anchors": [self.shell_text(label, versions=True) for label in ANCHORS],
+        }
+
+    def shell_operation(self, operation: str) -> dict[str, Any]:
+        self.app_accessible().clear_cache()
+        if operation.startswith("shell_scale_"):
+            return self.shell_measure(operation.removeprefix("shell_scale_"))
+        if operation == "shell_skip_focus":
+            self.shell_focus("Skip to main content")
+            return {"focused": True}
+        if operation == "shell_skip_observe":
+            rows, objects = self.tree()
+            found = [
+                row
+                for row in rows
+                if row["role"] == "landmark"
+                and row["focused"]
+                and objects[row["id"]].get_attributes().get("xml-roles") == "main"
+            ]
+            if len(found) != 1:
+                raise ValueError("Actual skip link did not focus the main landmark")
+            return {"skip_main": True, "accessibility": rows}
+        if operation == "shell_check_focus":
+            self.await_ready()
+            self.shell_focus("Check again")
+            return {"checked_before": self.checked_at}
+        if operation == "shell_check_observe":
+            return self.await_ready(fresh=True)
+        return self.shell_route_operation(operation)
+
+    def shell_route_operation(self, operation: str) -> dict[str, Any]:
+        action, slug = operation.removeprefix("shell_").split("_", 1)
+        label = dict(ROUTES)[slug]
+        if action == "focus":
+            self.shell_focus(label)
+            return {"focused": True}
+        if action == "tab":
+            focused, _ = self.tree()
+            if not any(row["focused"] for row in focused) or self.shell_focused(
+                label, "link"
+            ):
+                raise ValueError("Actual native Tab did not leave the route link")
+            return {"tab_moved": True}
+        if action == "back":
+            if not self.shell_focused(label, "link"):
+                raise ValueError("Actual native Shift+Tab did not restore route focus")
+            return {"back_returned": True}
+        if action != "route":
+            raise ValueError("Unknown closed shell operation")
+        rows, _ = self.tree()
+        headings = [
+            row for row in rows if row["role"] == "heading" and row["name"] == label
+        ]
+        links = [
+            row
+            for row in rows
+            if row["role"] == "link" and row["name"] == label and row["actions"]
+        ]
+        if (
+            len(headings) != 1
+            or not headings[0]["focused"]
+            or len(links) != 1
+            or self.app is None
+        ):
+            raise ValueError(
+                "Exact unique native route and keyboard heading focus required"
+            )
+        frame, window = self.shell_frame()
+        return {
+            "heading": label,
+            "heading_unique": True,
+            "heading_focused": True,
+            "navigation_unique": True,
+            "glyph": self.shell_text(label, 4),
+            "frame": frame,
+            "backing": self.shell_backing(),
+            "window_id": window,
+            "app_pid": self.app["pid"],
+            "accessibility": rows,
+        }
+
     def operation(self, operation: str) -> dict[str, Any]:
         self.fence()
+        if operation in SHELL_OPERATIONS:
+            return self.shell_operation(operation)
         if operation in {"launch", "relaunch", "relocated_launch"}:
             return self.launch(operation == "relocated_launch")
         if operation.startswith("keyboard_"):

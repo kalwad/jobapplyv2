@@ -47,6 +47,7 @@ from windows11_resources import ensure_capacity
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "linux_gnome"))
 from ubuntu_gnome_host import require_host
+from ubuntu_gnome_shell import validate_capture, verify_capture_images
 from ubuntu_gnome_vm import Owner, group_exists, write
 
 BUNDLE_MEMBERS = 6000
@@ -434,6 +435,10 @@ def observe(  # noqa: PLR0912, PLR0915 - bounded ordered receipt protocol
                             "Actual Windows guest environment or lifecycle failed"
                         )
                     lifecycle(receipts, nonce, package_pin)
+                    keyboard = next(r for r in receipts if r["phase"] == "keyboard")
+                    validate_capture(
+                        keyboard.get("native_shell"), package_pin, "WINDOWS_UIA"
+                    )
                     return {"receipts": receipts, "terminal": row}
                 if (
                     row.get("status") != "PASS"
@@ -663,6 +668,16 @@ def main() -> int:  # noqa: PLR0912, PLR0915 - one retained VM/TPM custody brack
             or sum(p.stat().st_size for p in files if p.is_file()) > 64 * 1024**2
         ):
             raise ValueError("Guest result retention exceeds finite cap")
+        native_shell = json.loads(
+            bounded(output / "native-shell.json").decode("utf-8-sig")
+        )
+        validate_capture(native_shell, package["portable_sha256"], "WINDOWS_UIA")
+        verify_capture_images(output, native_shell)
+        keyboard = next(
+            row for row in observation["receipts"] if row["phase"] == "keyboard"
+        )
+        if keyboard.get("native_shell") != native_shell:
+            raise ValueError("Serial and retained native shell capture differ")
         attestation = document(output / "environment.json")
         attest_guest(attestation, nonce, current_cpu["model name"])
         if attestation["package_sha256"] != package["portable_sha256"]:

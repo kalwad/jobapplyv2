@@ -5,6 +5,7 @@ Importing this module neither starts a process nor accesses the network.
 
 from __future__ import annotations
 
+import datetime
 import hashlib
 import json
 import re
@@ -224,7 +225,7 @@ def original_package(  # noqa: PLR0912 - one complete source/artifact join
     for node in nodes:
         info = node.lstat()
         if stat.S_ISREG(info.st_mode):
-            actual.add(str(node.relative_to(root)))
+            actual.add(node.relative_to(root).as_posix())
         elif not stat.S_ISDIR(info.st_mode):
             raise ValueError("Original artifact links/special nodes refused")
     if actual != set(rows) | {"manifest.json"}:
@@ -383,6 +384,25 @@ def attest_guest(value: dict[str, Any], nonce: str, expected_cpu: str) -> None:
     hex_pin(value["package_sha256"])
 
 
+def timestamp_parts(value: object) -> tuple[int, int]:
+    """Exact UTC calendar/time ordering, retaining all nine fractional digits."""
+    if not isinstance(value, str):
+        raise ValueError("Exact UTC timestamp required")
+    match = re.fullmatch(
+        r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{1,9}))?Z",
+        value,
+    )
+    if match is None:
+        raise ValueError("Exact UTC timestamp required")
+    year, month, day, hour, minute, second = (int(match[i]) for i in range(1, 7))
+    whole = datetime.datetime(
+        year, month, day, hour, minute, second, tzinfo=datetime.UTC
+    )
+    seconds = whole.toordinal() * 86400 + hour * 3600 + minute * 60 + second
+    fraction = int((match[7] or "").ljust(9, "0"))
+    return seconds, fraction
+
+
 def lifecycle(receipts: list[dict[str, Any]], nonce: str, package: str) -> None:
     if [r.get("phase") for r in receipts] != list(REQUIRED_PHASES):
         raise ValueError("Complete ordered native lifecycle receipts required")
@@ -398,14 +418,14 @@ def lifecycle(receipts: list[dict[str, Any]], nonce: str, package: str) -> None:
     keyboard = next(row for row in receipts if row["phase"] == "keyboard")
     before = keyboard.get("checked_before")
     after = keyboard.get("checked_after")
-    stamp = r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z"
+    stamp = r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,9})?Z"
     if (
         keyboard.get("action") != "owned_foreground_focused_Check_again_Enter"
         or not isinstance(before, str)
         or not isinstance(after, str)
         or re.fullmatch(stamp, before) is None
         or re.fullmatch(stamp, after) is None
-        or after <= before
+        or timestamp_parts(after) <= timestamp_parts(before)
     ):
         raise ValueError("Actual owned keyboard timestamp advancement required")
     accelerator = next(row for row in receipts if row["phase"] == "accelerator")

@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import stat
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
-from pathlib import Path
-from typing import Any
+from pathlib import Path, PureWindowsPath
+from typing import Any, cast
 
 import pytest
 
@@ -295,7 +296,7 @@ def test_virtual_display_is_measured_without_physical_gpu_qualification() -> Non
 
 def seal_original(root: Path) -> str:
     rows = {
-        str(p.relative_to(root)): {
+        p.relative_to(root).as_posix(): {
             "bytes": p.stat().st_size,
             "sha256": inputs.digest(p),
             "original": "synthetic",
@@ -382,3 +383,61 @@ def test_original_curated_artifact_requires_complete_actual_source_and_success(
     worker.write_text(json.dumps(value))
     with pytest.raises(ValueError, match="did not pass"):
         inputs.original_package(tmp_path, seal_original(tmp_path), "c" * 40, "d" * 40)
+
+
+class _WindowsInventoryMember:
+    """Real inert files with Windows-relative path semantics on every test OS."""
+
+    def __init__(self, path: Path) -> None:
+        self.path = path
+
+    def lstat(self) -> os.stat_result:
+        return self.path.lstat()
+
+    def relative_to(self, root: _WindowsInventoryRoot) -> PureWindowsPath:
+        return PureWindowsPath(*self.path.relative_to(root.path).parts)
+
+
+class _WindowsInventoryRoot:
+    def __init__(self, path: Path) -> None:
+        self.path = path
+
+    def __truediv__(self, name: str) -> Path:
+        return self.path / name
+
+    def rglob(self, pattern: str) -> list[_WindowsInventoryMember]:
+        return [_WindowsInventoryMember(p) for p in self.path.rglob(pattern)]
+
+
+def test_original_artifact_windows_inventory_uses_posix_member_names(
+    tmp_path: Path,
+) -> None:
+    pin = original_fixture(tmp_path)
+    rows = json.loads((tmp_path / "manifest.json").read_text())["files"]
+    assert "packages/windows-portable.zip" in rows
+    assert all("\\" not in name for name in rows)
+    accepted = inputs.original_package(
+        cast(Path, _WindowsInventoryRoot(tmp_path)), pin, "c" * 40, "d" * 40
+    )
+    assert accepted["portable_sha256"] == inputs.digest(
+        tmp_path / "packages/windows-portable.zip"
+    )
+
+
+def test_original_artifact_backslash_manifest_stays_refused(
+    tmp_path: Path,
+) -> None:
+    original_fixture(tmp_path)
+    manifest = tmp_path / "manifest.json"
+    data = json.loads(manifest.read_text())
+    data["files"] = {
+        str(PureWindowsPath(name)): row for name, row in data["files"].items()
+    }
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match=r"member set|Safe portable relative member"):
+        inputs.original_package(
+            cast(Path, _WindowsInventoryRoot(tmp_path)),
+            inputs.digest(manifest),
+            "c" * 40,
+            "d" * 40,
+        )

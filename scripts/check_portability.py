@@ -1810,6 +1810,7 @@ LINUX_INFRASTRUCTURE_MODULES = frozenset(
         "ubuntu_gnome_retention.py",
         "ubuntu_gnome_session_receipt.py",
         "ubuntu_gnome_signed_indexes.py",
+        "ubuntu_gnome_shell.py",
         "ubuntu_gnome_vm.py",
     }
 )
@@ -1979,6 +1980,287 @@ def _linux_file_identity(info: os.stat_result) -> tuple[int, ...]:
     )
 
 
+_MARSHAL312_MAX_BYTES = 2 * 1024 * 1024
+_MARSHAL312_MAX_TOKENS = 100_000
+_MARSHAL312_MAX_DEPTH = 80
+_MARSHAL312_REF_FLAG = 0x80
+_MARSHAL312_LONG_BASE = 0x8000
+_MARSHAL312_SMALL_INT_MIN = -5
+_MARSHAL312_SMALL_INT_MAX = 256
+
+
+@dataclass(frozen=True, eq=False)
+class _Marshal312Value:
+    kind: str
+    payload: bytes
+    children: tuple[_Marshal312Value, ...]
+    digest: bytes
+    height: int
+
+
+class _Marshal312Reader:
+    """Parse an inert, bounded immutable occurrence graph, never code objects.
+
+    Pinned to Python/marshal.c v3.12.13. Nodes retain actual reference sharing
+    and string interning. Content hashes only order unordered members; the final
+    commitment includes canonical definition/reference IDs. Unused FLAG_REF
+    slots and equivalent string/tuple length spellings alone are ignored.
+    """
+
+    def __init__(self, raw: bytes) -> None:
+        self.raw = raw
+        self.position = 0
+        self.tokens = 0
+        self.references: list[_Marshal312Value | None] = []
+
+    def take(self, count: int) -> bytes:
+        if count < 0 or count > len(self.raw) - self.position:
+            raise ValueError("truncated marshal312 value")
+        start = self.position
+        self.position += count
+        return self.raw[start : self.position]
+
+    def integer(self) -> int:
+        return int.from_bytes(self.take(4), "little", signed=True)
+
+    def count(self) -> int:
+        count = self.integer()
+        if count < 0 or count > _MARSHAL312_MAX_TOKENS - self.tokens:
+            raise ValueError("marshal312 item budget")
+        return count
+
+    @staticmethod
+    def node(
+        kind: str,
+        payload: bytes = b"",
+        children: tuple[_Marshal312Value, ...] = (),
+    ) -> _Marshal312Value:
+        height = 1 + max((value.height for value in children), default=0)
+        if height > _MARSHAL312_MAX_DEPTH:
+            raise ValueError("marshal312 semantic depth")
+        digest = hashlib.sha256(b"CPY312-CODE-COMMITMENT\x00")
+        digest.update(kind.encode("ascii") + b"\x00")
+        digest.update(len(payload).to_bytes(8, "little"))
+        digest.update(payload)
+        digest.update(len(children).to_bytes(4, "little"))
+        for child in children:
+            digest.update(child.digest)
+        return _Marshal312Value(kind, payload, children, digest.digest(), height)
+
+    def objects(self, count: int, depth: int) -> tuple[_Marshal312Value, ...]:
+        if count > _MARSHAL312_MAX_TOKENS - self.tokens:
+            raise ValueError("marshal312 item budget")
+        return tuple(self.object(depth + 1) for _ in range(count))
+
+    def string(self, tag: str) -> _Marshal312Value:
+        count = self.take(1)[0] if tag in {"z", "Z"} else self.integer()
+        payload = self.take(count)
+        if tag == "s":
+            return self.node("bytes", payload)
+        try:
+            text = payload.decode(
+                "ascii" if tag in {"a", "A", "z", "Z"} else "utf-8",
+                errors="surrogatepass",
+            )
+        except UnicodeError as error:
+            raise ValueError("marshal312 string encoding") from error
+        kind = "interned-str" if tag in {"t", "A", "Z"} else "str"
+        return self.node(kind, text.encode("utf-8", errors="surrogatepass"))
+
+    def long_integer(self) -> _Marshal312Value:
+        count = self.integer()
+        digits = abs(count)
+        if digits > _MARSHAL312_MAX_BYTES // 2:
+            raise ValueError("marshal312 integer budget")
+        payload = self.take(digits * 2)
+        for index in range(0, len(payload), 2):
+            if (
+                int.from_bytes(payload[index : index + 2], "little")
+                >= _MARSHAL312_LONG_BASE
+            ):
+                raise ValueError("marshal312 long digit")
+        if digits and payload[-2:] == bytes(2):
+            raise ValueError("marshal312 nonnormalized long")
+        return self.node("long", count.to_bytes(4, "little", signed=True) + payload)
+
+    def code(self, depth: int) -> _Marshal312Value:
+        # argcount, posonlyargcount, kwonlyargcount, stacksize and flags.
+        header = self.take(5 * 4)
+        children = self.objects(8, depth)
+        firstline = self.take(4)
+        children += self.objects(2, depth)
+        kinds = (
+            "bytes",  # code (including inline-cache opcode bytes)
+            "tuple",  # consts: recursively typed, including nested code
+            "tuple",  # names
+            "tuple",  # localsplusnames
+            "bytes",  # localspluskinds
+            "str",  # filename
+            "str",  # name
+            "str",  # qualname
+            "bytes",  # linetable
+            "bytes",  # exceptiontable
+        )
+        if (
+            tuple(
+                "str" if value.kind == "interned-str" else value.kind
+                for value in children
+            )
+            != kinds
+        ):
+            raise ValueError("marshal312 code field types")
+        return self.node("code", header + firstline, children)
+
+    def value(self, tag: str, depth: int) -> _Marshal312Value:
+        if tag in {"N", "F", "T", ".", "S"}:
+            return self.node(tag)
+        fixed = {"i": ("int", 4), "g": ("float-bits", 8), "y": ("complex-bits", 16)}
+        if tag in fixed:
+            kind, count = fixed[tag]
+            return self.node(kind, self.take(count))
+        if tag == "l":
+            return self.long_integer()
+        if tag in {"s", "t", "u", "a", "A", "z", "Z"}:
+            return self.string(tag)
+        if tag in {"(", ")", ">"}:
+            count = self.take(1)[0] if tag == ")" else self.count()
+            children = self.objects(count, depth)
+            ordered = (
+                tuple(sorted(children, key=lambda value: value.digest))
+                if tag == ">"
+                else children
+            )
+            return self.node("frozenset" if tag == ">" else "tuple", children=ordered)
+        if tag == "c":
+            return self.code(depth)
+        # Mutable containers and obsolete/textual scalar forms cannot occur in
+        # compiler-produced marshal4 code constants. No Python object loader runs.
+        raise ValueError("unsupported marshal312 cache tag")
+
+    def object(self, depth: int = 0) -> _Marshal312Value:
+        self.tokens += 1
+        if self.tokens > _MARSHAL312_MAX_TOKENS or depth >= _MARSHAL312_MAX_DEPTH:
+            raise ValueError("marshal312 object budget")
+        token = self.take(1)[0]
+        flagged = bool(token & _MARSHAL312_REF_FLAG)
+        tag = chr(token & ~_MARSHAL312_REF_FLAG)
+        if tag == "r":
+            index = self.integer()
+            if flagged or not 0 <= index < len(self.references):
+                raise ValueError("marshal312 reference index")
+            value = self.references[index]
+            if value is None or depth + value.height > _MARSHAL312_MAX_DEPTH:
+                raise ValueError("marshal312 active reference or semantic depth")
+            return value
+        if flagged and tag in {"N", "F", "T", ".", "S"}:
+            raise ValueError("marshal312 singleton reference flag")
+        slot = len(self.references) if flagged else None
+        if flagged:
+            self.references.append(None)
+        result = self.value(tag, depth)
+        if slot is not None:
+            self.references[slot] = result
+        return result
+
+    @staticmethod
+    def global_value(value: _Marshal312Value) -> bool:
+        # These constructors return process-global objects in pinned CPython.
+        # Do not generalize to other equal scalars (floats, long ints, bytes,
+        # noninterned strings) or to nonempty containers.
+        if value.kind in {"N", "F", "T", ".", "S", "interned-str"}:
+            return True
+        if value.kind == "int":
+            return (
+                _MARSHAL312_SMALL_INT_MIN
+                <= int.from_bytes(value.payload, "little", signed=True)
+                <= _MARSHAL312_SMALL_INT_MAX
+            )
+        return (value.kind == "tuple" and not value.children) or (
+            value.kind == "bytes" and not value.payload
+        )
+
+    def commitment(self, root: _Marshal312Value) -> bytes:
+        # Count graph edges once, never expand shared DAGs. Multiple incoming
+        # edges expose identity even when their content commitment is equal.
+        incoming = {id(root): 1}
+        nodes: dict[int, _Marshal312Value] = {}
+        pending = [root]
+        while pending:
+            value = pending.pop()
+            identity = id(value)
+            if identity in nodes:
+                continue
+            nodes[identity] = value
+            for child in value.children:
+                key = id(child)
+                incoming[key] = incoming.get(key, 0) + 1
+                pending.append(child)
+        work = 0
+        for value in nodes.values():
+            if value.kind != "frozenset":
+                continue
+            children = value.children  # Already ordered by typed content hash.
+            for index, child in enumerate(children):
+                tied = (index > 0 and children[index - 1].digest == child.digest) or (
+                    index + 1 < len(children)
+                    and children[index + 1].digest == child.digest
+                )
+                if not tied:
+                    continue
+                pending = [child]
+                seen: set[int] = set()
+                while pending:
+                    member = pending.pop()
+                    key = id(member)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    work += 1
+                    if work > _MARSHAL312_MAX_TOKENS:
+                        raise ValueError("marshal312 unordered work budget")
+                    if incoming[key] > 1 and not self.global_value(member):
+                        # Canonicalizing symmetric unordered alias graphs needs
+                        # graph isomorphism. Refuse that unsupported ambiguity.
+                        raise ValueError("marshal312 ambiguous unordered alias")
+                    pending.extend(member.children)
+        digest = hashlib.sha256(b"CPY312-IDENTITY-GRAPH-V2\x00")
+        definitions: dict[int, int] = {}
+
+        def emit(value: _Marshal312Value) -> None:
+            if self.global_value(value):
+                # Global values are leaves. Reuse their typed content hash so
+                # short references cannot repeatedly hash a large string.
+                digest.update(b"G" + value.digest)
+                return
+            identity = id(value)
+            if identity in definitions:
+                digest.update(b"R" + definitions[identity].to_bytes(4, "little"))
+                return
+            serial = len(definitions)
+            definitions[identity] = serial
+            digest.update(b"D" + serial.to_bytes(4, "little"))
+            kind = value.kind.encode("ascii")
+            digest.update(len(kind).to_bytes(1, "little") + kind)
+            digest.update(len(value.payload).to_bytes(8, "little") + value.payload)
+            digest.update(len(value.children).to_bytes(4, "little"))
+            for child in value.children:
+                emit(child)
+
+        emit(root)
+        return digest.digest()
+
+
+def _marshal312_signature(raw: bytes) -> bytes:
+    """Commit every code field without unmarshalling or executing cache bytes."""
+    if type(raw) is not bytes or not 0 < len(raw) <= _MARSHAL312_MAX_BYTES:
+        raise ValueError("marshal312 byte budget")
+    reader = _Marshal312Reader(raw)
+    value = reader.object()
+    if value.kind != "code" or reader.position != len(raw):
+        raise ValueError("marshal312 code root or trailing bytes")
+    return reader.commitment(value)
+
+
 def _check_linux_bytecode(
     directory: Path, modules: frozenset[str] = LINUX_INFRASTRUCTURE_MODULES
 ) -> None:
@@ -2017,7 +2299,15 @@ def _check_linux_bytecode(
             source.read_bytes(), str(source), "exec", dont_inherit=True, optimize=0
         )
         expected = marshal.dumps(compiled)
-        if raw != header + expected:
+        equal = raw[:16] == header
+        if equal:
+            try:
+                equal = _marshal312_signature(raw[16:]) == _marshal312_signature(
+                    expected
+                )
+            except ValueError:
+                equal = False
+        if not equal:
             raise ValueError("Linux bytecode cache differs from exact source compile")
         if _linux_file_identity(path.lstat()) != _linux_file_identity(
             before
@@ -2173,13 +2463,13 @@ WINDOWS11_PYTHON_MODULES = frozenset(
 )
 WINDOWS11_NATIVE_PINS = {
     "windows11_owned.cs": (
-        "638e090d0e8374adc3aebdeb913ceb27e7a0d6ac5e0e2a145288562f3374a32e"
+        "5337bf5e16c0755d8269cf22d94b86eb39ac0397b71abccc07e27746b4d52b8e"
     ),
     "windows11_source_check.ps1": (
         "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
     ),
     "windows11_guest.ps1": (
-        "5d8026e1e98c64117b8731dfa6d4f8263641e59ed910bc3c4d037b8318423311"
+        "f17109ccce05f33cedc39e83b4ca46b699997d184c770f12df65219943c853cf"
     ),
     "windows11_bootstrap.ps1": (
         "723c3afd0d40219353e8f64483ac145ccdc8398dcb96bca37e7091b2e5721e01"
@@ -2195,6 +2485,7 @@ WINDOWS11_SHARED_HELPERS = {
     "ubuntu_gnome_host",
     "ubuntu_gnome_prepare",
     "ubuntu_gnome_vm",
+    "ubuntu_gnome_shell",
 }
 WINDOWS11_PLATFORM_SHA256 = (
     "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460"
