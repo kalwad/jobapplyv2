@@ -3,6 +3,14 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Clean f3 local pass and scoped generation correction (2026-10-29UTC)
+
+The source-bound f3a1c6f/tree298ac93 local aggregate passes doctor28/all20ACTIVE suites, including2788Python448.19s, with2348source/runtime40/full-mode/status/HEAD-tree equality and both groups absent after reap. Different4833data/source and419visual/source joins CLEAR, exact docs/evidence/m03-w07-full-f3a1c6f. All67original browser visual bodies remain; these captures do not approve a native visual baseline.
+
+Older hosted374 has genuine Windows3FAIL/2783PASS (terminal ordering plus two suppressed idle-timeout cases), Ubuntu1FAIL/2787PASS (ordering), Mac partial cancellation and no curated package exports. Its independent10295-join record preserves the original auxiliary checkout observer labels separately from actual direct-source identity. Exact docs/evidence/m03-w07-ci-374-terminal. No Windows11/defaultGNOME certification follows from Windows Server/hosted Ubuntu metadata.
+
+The subsequent exact client/test/catalog adoption passes165focused cases and2817whole collection, with35default-platform services and13explicitWin32 generation typing checks. Different source/actual reviews CLEAR the finite correction, exact docs/evidence/m03-generation-idle-timeout-correction. This is synthetic timer/cancellation and source-portability evidence; corrected clean full and actual Windows execution remain pending. Formal package, platform, model, baseline and gate states are unchanged.
+
 ## Clean374 failure and corrected GNOME terminal ordering (2026-10-29UTC)
 
 Clean374/treea77820bb is a preserved FAILURE: doctor28PASS,19ACTIVE suitesPASS/PythonFAIL,2787PASS/one finish-last invariant failure444.92s. Source2338/runtime40/full modes/clean status/HEAD-tree endpoints agree; children reaped/groupsABSENT/no signals/timeouts. Different4746source/data+419visual/source checks confirm this finite record, exact docs/evidence/m03-w07-full-374-failure. Later correction does not relabel the run.

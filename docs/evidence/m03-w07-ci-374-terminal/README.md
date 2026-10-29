@@ -1,0 +1,9 @@
+# Original374 hosted failures and cancellation
+
+Original374b6fe/treea77820bb mainCI is APIcancelled: Windows3FAIL/2783PASS681.25s; Ubuntu1FAIL/2787PASS684.62s; Maccancelled during Python with no terminal Python/full summary. Both completed jobs fail the terminal-finish boundary; Windows also fails open/read suppressed-idle-cancellation tests with DID NOT RAISE GenerationError. Neither failure is dismissed as a flake. Dependent package is an unexpanded cancelled matrix job, unassigned, logHTTP404, noexports.
+
+Four auxiliary authorization workflows succeed with explicit disabled-request markers and downstreamSKIP. Their four original CHECKOUT_SOURCE_BINDING_MISMATCH labels remain unchanged: collectorv1 applied merge-parent rules to intentional direct-S control checkout. Different review checks both controlS and workflow-origin actualmerge against exact workflow roles/all2338source bindings. This observer disposition waives no product failure. Original labels/raw data remain in proof.
+
+Different10295joins cover124GETchild receipts,13terminal jobs,7artifacts and12archives. Twelve masked parameter IDs per platform permit direct-ID/function-multiplicity scope, not guessed hidden identities. OuterPTY0 has no numeric Popen/group custody; internal children are separately retained/reaped/groupsABSENT. Root reports superseding push under existing policy; logs/API directly show cancellation without encoding its initiator.
+
+Complete original sealed review proof retains all793collector files, all artifacts, raw receipts and its first-reader regex failure/correction. Direct logs/endpoints aid inspection without expanded duplicate trees. This packet records failure/partial cancellation, no allCI/native/model/M03/Gate/release PASS or credit. Formal39/300 and activeM03-W07 remain unchanged. Pending newf3CI is excluded.

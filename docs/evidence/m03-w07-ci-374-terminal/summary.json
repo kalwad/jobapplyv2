@@ -1,0 +1,558 @@
+{
+  "created_utc": "2026-10-29T21:58:16.172702+00:00",
+  "actual_result": "FAILURES_AND_PARTIAL_CANCELLATION",
+  "source_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+  "source_tree": "a77820bb5430ec8bebcfb17c8010b0764011fabe",
+  "source_files": 2338,
+  "actual_runs": [
+    {
+      "id": 40950984824,
+      "name": "ci",
+      "role": "canonical",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "id": 123718724049,
+          "name": "doctor + verify (ubuntu-24.04)",
+          "conclusion": "failure",
+          "checkout_observations": [
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": null,
+              "path_parameter": "/home/runner/.local/share/pnpm/store/v11"
+            }
+          ]
+        },
+        {
+          "id": 123718724454,
+          "name": "doctor + verify (windows-2025)",
+          "conclusion": "failure",
+          "checkout_observations": [
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": null,
+              "path_parameter": "D:\\.pnpm-store\\v11"
+            }
+          ]
+        },
+        {
+          "id": 123718724628,
+          "name": "doctor + verify (macos-15)",
+          "conclusion": "cancelled",
+          "checkout_observations": [
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": null,
+              "path_parameter": "/Users/runner/Library/pnpm/store/v11"
+            }
+          ]
+        },
+        {
+          "id": 123738677855,
+          "name": "native development package (${{ matrix.os }})",
+          "conclusion": "cancelled",
+          "checkout_observations": []
+        }
+      ]
+    },
+    {
+      "id": 40950984906,
+      "name": "prepare unreviewed GNOME dependency candidate",
+      "role": "disabled_policy",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 123718724364,
+          "name": "authorize",
+          "conclusion": "success",
+          "checkout_observations": [
+            {
+              "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "ref_parameter": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "path_parameter": "control"
+            },
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "path_parameter": "workflow-origin"
+            }
+          ]
+        },
+        {
+          "id": 123719109649,
+          "name": "download-only",
+          "conclusion": "skipped",
+          "checkout_observations": []
+        }
+      ]
+    },
+    {
+      "id": 40950985040,
+      "name": "reviewed native Windows11 package lifecycle",
+      "role": "disabled_policy",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 123718725239,
+          "name": "authorize",
+          "conclusion": "success",
+          "checkout_observations": [
+            {
+              "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "ref_parameter": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "path_parameter": "control"
+            },
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "path_parameter": "workflow-origin"
+            }
+          ]
+        },
+        {
+          "id": 123719129577,
+          "name": "win11",
+          "conclusion": "skipped",
+          "checkout_observations": []
+        }
+      ]
+    },
+    {
+      "id": 40950984835,
+      "name": "reviewed Ubuntu GNOME package lifecycle",
+      "role": "disabled_policy",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 123718724089,
+          "name": "authorize",
+          "conclusion": "success",
+          "checkout_observations": [
+            {
+              "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "ref_parameter": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "path_parameter": "control"
+            },
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "path_parameter": "workflow-origin"
+            }
+          ]
+        },
+        {
+          "id": 123719169480,
+          "name": "gnome",
+          "conclusion": "skipped",
+          "checkout_observations": []
+        }
+      ]
+    },
+    {
+      "id": 40950984823,
+      "name": "prepare unreviewed Windows11 media and host-tool candidate",
+      "role": "disabled_policy",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 123718724255,
+          "name": "authorize",
+          "conclusion": "success",
+          "checkout_observations": [
+            {
+              "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "ref_parameter": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+              "path_parameter": "control"
+            },
+            {
+              "observed_commit": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "ref_parameter": "d3541f5c9a7ae4f129b8df066fe26e31647bc210",
+              "path_parameter": "workflow-origin"
+            }
+          ]
+        },
+        {
+          "id": 123719173674,
+          "name": "guest-source-checks",
+          "conclusion": "skipped",
+          "checkout_observations": []
+        },
+        {
+          "id": 123719173790,
+          "name": "download-only",
+          "conclusion": "skipped",
+          "checkout_observations": []
+        }
+      ]
+    }
+  ],
+  "case_scope": [
+    {
+      "job_id": 123718724049,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "API_conclusion": "failure",
+      "collection_count": 2788,
+      "expected_count": 2788,
+      "direct_exact_ID_count": 2776,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [
+        "================== 1 failed, 2787 passed in 684.62s (0:11:24) =================="
+      ],
+      "exact_failed_ids": [
+        "scripts/tests/test_ubuntu_gnome_boundaries.py::test_imports_do_not_load_platform_gi_or_spawn_actor"
+      ],
+      "actual_component_summary": [
+        [
+          "toolchain",
+          "PASS"
+        ],
+        [
+          "format",
+          "PASS"
+        ],
+        [
+          "lint",
+          "PASS"
+        ],
+        [
+          "typecheck",
+          "PASS"
+        ],
+        [
+          "unit-ts",
+          "PASS"
+        ],
+        [
+          "contract-gen",
+          "PASS"
+        ],
+        [
+          "fixture-corpus",
+          "PASS"
+        ],
+        [
+          "evaluation-corpus",
+          "PASS"
+        ],
+        [
+          "contract",
+          "PASS"
+        ],
+        [
+          "build",
+          "PASS"
+        ],
+        [
+          "e2e-browser",
+          "PASS"
+        ],
+        [
+          "w14-public-controlled",
+          "PASS"
+        ],
+        [
+          "w14-public-contact-controlled",
+          "PASS"
+        ],
+        [
+          "visual",
+          "PASS"
+        ],
+        [
+          "python",
+          "FAIL"
+        ],
+        [
+          "rust",
+          "PASS"
+        ],
+        [
+          "portability",
+          "PASS"
+        ],
+        [
+          "traceability",
+          "PASS"
+        ],
+        [
+          "status",
+          "PASS"
+        ],
+        [
+          "integrity",
+          "PASS"
+        ]
+      ],
+      "cancellation_line_observed": false,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    },
+    {
+      "job_id": 123718724454,
+      "name": "doctor + verify (windows-2025)",
+      "API_conclusion": "failure",
+      "collection_count": 2786,
+      "expected_count": 2786,
+      "direct_exact_ID_count": 2774,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [
+        "================= 3 failed, 2783 passed in 681.25s (0:11:21) =================="
+      ],
+      "exact_failed_ids": [
+        "scripts/tests/test_ubuntu_gnome_boundaries.py::test_imports_do_not_load_platform_gi_or_spawn_actor",
+        "services/orchestrator/tests/test_generation_idle_deadline.py::test_suppressed_idle_timer_cancellation_still_refuses_success[open]",
+        "services/orchestrator/tests/test_generation_idle_deadline.py::test_suppressed_idle_timer_cancellation_still_refuses_success[read]"
+      ],
+      "actual_component_summary": [
+        [
+          "toolchain",
+          "PASS"
+        ],
+        [
+          "format",
+          "PASS"
+        ],
+        [
+          "lint",
+          "PASS"
+        ],
+        [
+          "typecheck",
+          "PASS"
+        ],
+        [
+          "unit-ts",
+          "PASS"
+        ],
+        [
+          "contract-gen",
+          "PASS"
+        ],
+        [
+          "fixture-corpus",
+          "PASS"
+        ],
+        [
+          "evaluation-corpus",
+          "PASS"
+        ],
+        [
+          "contract",
+          "PASS"
+        ],
+        [
+          "build",
+          "PASS"
+        ],
+        [
+          "e2e-browser",
+          "PASS"
+        ],
+        [
+          "w14-public-controlled",
+          "PASS"
+        ],
+        [
+          "w14-public-contact-controlled",
+          "PASS"
+        ],
+        [
+          "visual",
+          "PASS"
+        ],
+        [
+          "python",
+          "FAIL"
+        ],
+        [
+          "rust",
+          "PASS"
+        ],
+        [
+          "portability",
+          "PASS"
+        ],
+        [
+          "traceability",
+          "PASS"
+        ],
+        [
+          "status",
+          "PASS"
+        ],
+        [
+          "integrity",
+          "PASS"
+        ]
+      ],
+      "cancellation_line_observed": false,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    },
+    {
+      "job_id": 123718724628,
+      "name": "doctor + verify (macos-15)",
+      "API_conclusion": "cancelled",
+      "collection_count": 2788,
+      "expected_count": 2788,
+      "direct_exact_ID_count": 2776,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [],
+      "exact_failed_ids": [],
+      "actual_component_summary": [],
+      "cancellation_line_observed": true,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    }
+  ],
+  "original_collector_failures_unchanged": [
+    {
+      "kind": "CHECKOUT_SOURCE_BINDING_MISMATCH",
+      "job": 123718724364,
+      "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431"
+    },
+    {
+      "kind": "CHECKOUT_SOURCE_BINDING_MISMATCH",
+      "job": 123718725239,
+      "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431"
+    },
+    {
+      "kind": "CHECKOUT_SOURCE_BINDING_MISMATCH",
+      "job": 123718724089,
+      "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431"
+    },
+    {
+      "kind": "CHECKOUT_SOURCE_BINDING_MISMATCH",
+      "job": 123718724255,
+      "observed_commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431"
+    },
+    {
+      "kind": "TERMINAL_JOB_FAILURE",
+      "run": 40950984824,
+      "job": 123718724454,
+      "name": "doctor + verify (windows-2025)",
+      "conclusion": "failure"
+    },
+    {
+      "kind": "TERMINAL_JOB_FAILURE",
+      "run": 40950984824,
+      "job": 123718724049,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "conclusion": "failure"
+    },
+    {
+      "kind": "TERMINAL_JOB_FAILURE",
+      "run": 40950984824,
+      "job": 123718724628,
+      "name": "doctor + verify (macos-15)",
+      "conclusion": "cancelled"
+    },
+    {
+      "kind": "LOG_NOT_RETAINED",
+      "run": 40950984824,
+      "job": 123738677855
+    }
+  ],
+  "auxiliary_false_label_disposition": "Four original collector labels are a first-checkout/unconditional-merge-parent observer defect. Observed direct control S and separate workflow-origin merge both source-bound. Labels remain unchanged in raw records.",
+  "original_labels_mutated": false,
+  "package_exports": [],
+  "outer_collector_numeric_custody_retained": false,
+  "internal_GET_receipts": 124,
+  "internal_GET_exit0": 123,
+  "internal_GET_HTTP404_exit1": 1,
+  "different_review": {
+    "report_sha256": "028c88d387cc24ee47148a9ebe5c3b90322d3566995022b282f949c3e592ab14",
+    "data_joins": 10295,
+    "verdict": "CONFIRMED_ACTUAL_CI_FAILURE_AND_PARTIAL_CANCELLATION"
+  },
+  "all_original793_files_and_reader_error_history_in_nested_proof": true,
+  "formal_progress": "39/300; active M03-W07; unchanged",
+  "formal_progress_change": false,
+  "milestone_or_gate_or_release_credit": false,
+  "native_or_model_qualification": false,
+  "new_f3_CI_included": false
+}

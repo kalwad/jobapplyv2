@@ -40,6 +40,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0136 — Suppressed early idle cancellation discards expired timer state
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual hosted374 Windows Python failures,2026-10-29UTC.
+- Affects: M03-W07 portability validation and the prepared M05 generation boundary; services/orchestrator/src/orchestrator/generation/client.py.
+- Description: an adapter can suppress an idle timer's cancellation and return while a sampled clock is still before its deadline. Deadline sampling alone can then admit success. Historical Windows callback/clock values were not captured; the early-timer mechanism is independently reproduced, not attributed to unobserved historical timestamps.
+- Reproduction: original Windows test_generation_idle_deadline.py suppressed open/read cancellation cases both fail DID NOT RAISE. New deterministic real asyncio.Timeout callbacks reproduce six early open/read/EOF value/error failures before correction. Exact-final old source gives9FAIL156PASS; removing only expired admission gives the same result. Removing raw-error admission or TIMEOUT precedence over ordinary close errors each gives3FAIL162PASS with final tests unchanged.
+- Workaround: none; preserve original cancellation ownership, all limits/deadlines and existing oracles.
+- Resolution + evidence link: retain the exact open/read timeout owner; unchanged active/caller and deadline checks run first, followed by expired-state refusal. Returned streams still close, pending caller cancellation wins, and ordinary cleanup errors cannot replace a detected TIMEOUT. All136old cases remain;29new cases pass. Different1265source/data checks plus fresh165 and12admission-order controls per child CLEAR the source. Guarded canonical adoption changes only client/catalog plus one new test;2346unselected sources/runtime40 remain. Ten actual checks pass165Python0.24s/2817collection/default-platform services35+explicitWin32generation13/format/portability/integrity/diff; different4832actual joins CLEAR. Exact docs/evidence/m03-generation-idle-timeout-correction. New clean full and actual Windows execution are required; the earlier f3 full predates this correction.
+
 ### KI-0135 — GNOME shell commands follow the required terminal finish operation
 
 - Severity: MEDIUM
@@ -49,7 +60,7 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Description: the new shell operation list is appended after finish, violating the unchanged existing protocol boundary test.
 - Reproduction: original full2787PASS/oneFAIL444.92s; original unchanged boundary suite independently reproduces1FAIL35PASS. The exact failing node is test_imports_do_not_load_platform_gi_or_spawn_actor.
 - Workaround: none; preserve the terminal-operation invariant and every old operation/test.
-- Resolution + evidence link: one reviewed tuple composition inserts39shell operations before finish; all52unique operations/old relative orders and every function/class/test remain. Actual ten canonical checks pass564Python/2788collection, strict37+14/portability/integrity; different419source+2451actual joins CLEAR. Exact docs/evidence/m03-gnome-terminal-order-correction. Fresh corrected clean full/hosted/packages remain required; original failed record is docs/evidence/m03-w07-full-374-failure.
+- Resolution + evidence link: one reviewed tuple composition inserts39shell operations before finish; all52unique operations/old relative orders and every function/class/test remain. Actual ten canonical checks pass564Python/2788collection, strict37+14/portability/integrity; different419source+2451actual joins CLEAR. Exact docs/evidence/m03-gnome-terminal-order-correction. Fresh corrected clean full/hosted/packages remain required; original failed record is docs/evidence/m03-w07-full-374-failure. Subsequent cleanf3 all20ACTIVE/Python2788PASS and different4833joins are recorded at docs/evidence/m03-w07-full-f3a1c6f; corrected hosted/native package validation remains pending.
 
 ### KI-0134 — General issue-ledger rules are parsed as fields of the preceding issue
 

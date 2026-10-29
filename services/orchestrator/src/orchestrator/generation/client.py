@@ -128,6 +128,14 @@ def _admit(deadline: float, active: _Active | None = None) -> None:
         raise GenerationFailure(ErrorCode.TIMEOUT)
 
 
+def _admit_idle(deadline: float, timer: asyncio.Timeout, active: _Active) -> None:
+    _admit(deadline, active)
+    # A timer may fire within the clock's resolution before its sampled deadline.
+    # Suppressing its cancellation must not discard that terminal timeout state.
+    if timer.expired():
+        raise GenerationFailure(ErrorCode.TIMEOUT)
+
+
 def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
     result: dict[str, object] = {}
     for key, value in pairs:
@@ -316,44 +324,53 @@ async def _consume(
     request = decoded.request
     _admit(deadline, active)
     open_deadline = min(deadline, _monotonic() + request.limits.idle_seconds)
+    open_timer = asyncio.timeout_at(open_deadline)
     try:
-        async with asyncio.timeout_at(open_deadline):
+        async with open_timer:
             stream = await transport.open(payload, request.limits)
     except Exception:
-        _admit(open_deadline, active)
+        _admit_idle(open_deadline, open_timer, active)
         raise
     cancellation: asyncio.CancelledError | None = None
+    timeout_failure: GenerationFailure | None = None
     try:
         # A transport can return an owned resource after a synchronous overrun
         # or suppress the idle timer's cancellation. Its original idle deadline
-        # remains authoritative, checked where refusal still closes the stream.
-        _admit(open_deadline, active)
+        # and expired timer remain authoritative where refusal closes the stream.
+        _admit_idle(open_deadline, open_timer, active)
         while True:
             _admit(deadline, active)
             read_deadline = min(deadline, _monotonic() + request.limits.idle_seconds)
+            read_timer = asyncio.timeout_at(read_deadline)
             try:
-                async with asyncio.timeout_at(read_deadline):
+                async with read_timer:
                     chunk = await anext(stream)
             except StopAsyncIteration:
-                _admit(read_deadline, active)
+                _admit_idle(read_deadline, read_timer, active)
                 break
             except Exception:
-                _admit(read_deadline, active)
+                _admit_idle(read_deadline, read_timer, active)
                 raise
-            _admit(read_deadline, active)
+            _admit_idle(read_deadline, read_timer, active)
             decoded.append(chunk, deadline, active)
         return decoded.finish(deadline, active)
     except asyncio.CancelledError as error:
         cancellation = error
         raise
+    except GenerationFailure as failure:
+        if failure.code is ErrorCode.TIMEOUT:
+            timeout_failure = failure
+        raise
     finally:
         try:
             stream.close()
-        except BaseException:
+        except BaseException as close_error:
             # Preserve the original cancellation, including an ambiguous marker,
             # if synchronous resource closure raises while it is unwinding.
             if cancellation is not None:
                 raise cancellation from None
+            if timeout_failure is not None and isinstance(close_error, Exception):
+                raise timeout_failure from None
             raise
 
 
