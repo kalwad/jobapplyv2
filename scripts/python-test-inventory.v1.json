@@ -1,6 +1,9 @@
 {
+  "schema_version": 1,
+  "normalization_version": 1,
   "common": {
     "count": 2878,
+    "sha256": "e8b0964607824588e0e43fe94c204c3d9217af8e9874ae802750bc65f6fdc9af",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -2880,13 +2883,10 @@
       "services/orchestrator/tests/test_service_startup.py::test_ack_waits_for_lifespan_and_ready_withdraws_on_lease",
       "services/orchestrator/tests/test_service_startup.py::test_cli_failed_lifespan_exits_70_without_ack_or_exception_output",
       "services/orchestrator/tests/test_service_startup.py::test_parent_eof_during_startup_prevents_ready_ack"
-    ],
-    "sha256": "e8b0964607824588e0e43fe94c204c3d9217af8e9874ae802750bc65f6fdc9af"
+    ]
   },
-  "normalization_version": 1,
   "posix_only_node_ids": [
     "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[fifo]",
     "scripts/tests/test_v14_migration.py::test_atomic_adoption_rejects_non_regular_source[socket]"
-  ],
-  "schema_version": 1
+  ]
 }
