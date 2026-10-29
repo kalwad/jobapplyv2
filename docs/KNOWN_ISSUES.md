@@ -32,6 +32,30 @@ broadening a work package (spec §1.5).
 - Resolution + evidence link:
 ```
 
+## Current fixture compatibility validation (2026-10-29UTC)
+
+### KI-0119 — Deep malformed-JSON Python fixture trips collection policy
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: clean204bc06 full verification; Python and integrity refuse before Python execution.
+- Affects: M03-W06; new runtime metadata test fixture, not production metadata behavior.
+- Description: the existing conservative verifier treats Python literal nesting beyond its bounded capability traversal as a potential dynamic collection hook. One18-level malformed-JSON fixture passes that literal through `_json`, causing the observed refusal.
+- Reproduction: exact204bc06 raw18PASS/2FAIL full and independent2097-join review in docs/evidence/m03-w06-aggregate-204bc06-failure.
+- Workaround: none; verifier/test inventory protections stay intact.
+- Resolution + evidence link: root-reviewed byte-identical66-byte wire literal preserves all2120 IDs and negative assertions. Corrected current canonical105PASS and integrityPASS; outside same105/preflight/integrity/Ruff pass. Corrected complete aggregate remains pending. See docs/evidence/m03-w06-fixture-portability-corrections.
+
+### KI-0120 — Native owner fixture assumes POSIX absolute roots on Windows
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: run40790930093/Windows job123175708107 at204bc06.
+- Affects: M03-W06/W09; shared native path-owner/Quit test fixture.
+- Description: three fake `/data/app`, `/cache/app`, `/temp` roots are not absolute on Windows; all16 failed native tests stop at the same TrustedBases Invalid setup, before their lifecycle oracle. Rust default300PASS16FAIL; later modes unexecuted.
+- Reproduction: retained exact official raw lines6575–6724 and whole-log pin in docs/evidence/m03-w06-fixture-portability-corrections; separate live CI collector retains official run/source/artifacts.
+- Workaround: none; no guard/assertion/deadline is relaxed.
+- Resolution + evidence link: test-only cfg Windows roots are local absolute C-drive values; exact previous POSIX values remain. All test bodies/assertions/budgets unchanged. Outside Mac owner12/Quit15, catalog342, fmt/compile/strictClippy pass with neutral endpoints. Actual corrected Windows and complete aggregate pending. See docs/evidence/m03-w06-fixture-portability-corrections.
+
 ## Current hosted unit-TS validation (2026-10-28)
 
 ### KI-0118 — Hosted TypeScript tests exceed retained wall-clock budgets

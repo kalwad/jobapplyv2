@@ -224,9 +224,17 @@ fn fixture() -> (
 fn backend(e: Arc<Mutex<Edges>>) -> Backend {
     Backend(PathOwner::new(PathProvider::new(
         TrustedBases::new(
-            PathBuf::from("/data/app"),
-            PathBuf::from("/cache/app"),
-            PathBuf::from("/temp"),
+            PathBuf::from(if cfg!(windows) {
+                r"C:\data\app"
+            } else {
+                "/data/app"
+            }),
+            PathBuf::from(if cfg!(windows) {
+                r"C:\cache\app"
+            } else {
+                "/cache/app"
+            }),
+            PathBuf::from(if cfg!(windows) { r"C:\temp" } else { "/temp" }),
             BUNDLE_ID,
             false,
         )

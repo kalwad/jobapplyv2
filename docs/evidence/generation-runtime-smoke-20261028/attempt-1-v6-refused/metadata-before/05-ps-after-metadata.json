@@ -1,0 +1,12 @@
+{
+  "label": "ps-after-metadata",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 13,
+  "received_sha256": "a6fe9ec6e26a38d99fca418b69826e0238b7a2bb319ff05eb153a6fcfd1fa28d",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "loaded_model_count": 0,
+    "prescribed_candidate_models": [],
+    "other_loaded_model_count": 0
+  }
+}

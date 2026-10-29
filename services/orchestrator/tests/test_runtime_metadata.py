@@ -235,7 +235,7 @@ def test_absent_model_does_not_show_download_or_fall_back() -> None:
         b'{"version":"0.40.2","version":"0.40.2"}',
         b'{"version":NaN}',
         b"\xff",
-        _json({"version": "0.40.2", "other": [[[[[[[[[[[[[[[[[[0]]]]]]]]]]]]]]]]]]}),
+        b'{"version":"0.40.2","other":[[[[[[[[[[[[[[[[[[0]]]]]]]]]]]]]]]]]]}',
     ],
 )
 def test_malformed_version_metadata_fails_closed_before_model_requests(

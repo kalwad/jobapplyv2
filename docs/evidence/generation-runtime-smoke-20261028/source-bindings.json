@@ -1,0 +1,122 @@
+{
+  "schema": "JAPP_SYNTHETIC_SMOKE_SOURCE_BINDING_PROJECTION_V1",
+  "scope": "Exact second-actor bytes, checked against canonical modules at review; home-directory paths removed in this projection. The original authorization binds the original pins hash below, not the hash of this projection.",
+  "original_source_pins_sha256": "13cbc37302d6eb55bfdf916213b742b31df20a58636227a7389239a136fe53fb",
+  "original_source_pins_bytes": 2745,
+  "files": [
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/generation/__init__.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/generation/__init__.py",
+      "bytes": 663,
+      "sha256": "ea7792a6104a51934fd9fc50c7ea5096f3185f04efac12f067c1470b6318d5b4"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/generation/client.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/generation/client.py",
+      "bytes": 24183,
+      "sha256": "661328686b629ea247bb5ab32b370074568ff68510b1f943eaf8ade0886c6b8e"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/generation/fake.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/generation/fake.py",
+      "bytes": 1596,
+      "sha256": "8b644d97d22db9b3a5f62ead161b876740d863f87ef83e95f35232affce73a54"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/generation/transport.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/generation/transport.py",
+      "bytes": 8542,
+      "sha256": "ea26f7ecc4fc2e0a05c971f5ab8bcf56f5c873210d08e172102de6e5538de2a3"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/generation/types.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/generation/types.py",
+      "bytes": 6403,
+      "sha256": "97369b8ba7386f12ac36316319cca7a0e2da705d04d302173aeaa85f844b5468"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/runtime/__init__.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/runtime/__init__.py",
+      "bytes": 84,
+      "sha256": "f91143585e4c65ac92ab9b89598c879e48d0ff2a851e8ac333bc84275b7ac7f5"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/runtime/metadata.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/runtime/metadata.py",
+      "bytes": 13956,
+      "sha256": "6ec2623fdac7cdaf29b09dc4f7241ef3ecbf9310ae02e8225e123eda32e3d998"
+    },
+    {
+      "product_source_path": "services/orchestrator/src/orchestrator/runtime/transport.py",
+      "source_kind": "PRODUCT_SOURCE",
+      "isolated_subject_path": "subject/orchestrator/runtime/transport.py",
+      "bytes": 4122,
+      "sha256": "63e56a64de23fdbf0b71e61e2f8eba4d4265d7f5e797d65007eebc9b86b47c26"
+    },
+    {
+      "product_source_path": null,
+      "source_kind": "OWNED_ISOLATED_NAMESPACE_ONLY",
+      "isolated_subject_path": "subject/orchestrator/__init__.py",
+      "bytes": 70,
+      "sha256": "f8cfd5745f52a60545be3930f786306585f7033900d9a08e95cc2c76a34d0425"
+    }
+  ],
+  "reviewed_driver_files": [
+    {
+      "path": "bootstrap.py",
+      "sha256": "9707832d1220232feb80512bed8ec916fd8d991c47f51912acca79267e56c45e"
+    },
+    {
+      "path": "preflight.py",
+      "sha256": "5333a85afad02f572666b89580e4244a40c2ade35bf119a6254dc1601c05d759"
+    },
+    {
+      "path": "smoke.py",
+      "sha256": "ebf26c36d96792d970edb21194aabcceac42fb6fa6f4a454f11329ca093160f3"
+    },
+    {
+      "path": "run-reviewed.py",
+      "sha256": "25364f880e4782f9c22b9ef2c23b8c718a9c17155e46e15fa3cf4fb557eb6d48"
+    },
+    {
+      "path": "run-synthetic-tests.py",
+      "sha256": "d1789b14132a6855689657e64cd05d62f6d486ff063ab54c31b8cfe79379a045"
+    },
+    {
+      "path": "test_driver.py",
+      "sha256": "b8b60c69cc64a7188f972e9d59f6e6568c3ba132c97a54fc29ec6d096336a42f"
+    },
+    {
+      "path": "source-review-driver/projection_counterexamples_proposed.py",
+      "sha256": "9f355f1fdc70163bd1c20486d554b4d7debd5aecdd1f984beadc225cf08084cd"
+    }
+  ],
+  "actor_authorization": {
+    "schema": "JAPP_REVIEWED_SYNTHETIC_SMOKE_AUTHORIZATION_V1",
+    "scope": "ONE_SYNTHETIC_GEMMA_GENERATE_CALL_MAX_TWO_SCHEMA_ATTEMPTS",
+    "reviewed_driver_sha256": "ebf26c36d96792d970edb21194aabcceac42fb6fa6f4a454f11329ca093160f3",
+    "reviewed_preflight_sha256": "5333a85afad02f572666b89580e4244a40c2ade35bf119a6254dc1601c05d759",
+    "reviewed_bootstrap_sha256": "9707832d1220232feb80512bed8ec916fd8d991c47f51912acca79267e56c45e",
+    "reviewed_source_pins_sha256": "13cbc37302d6eb55bfdf916213b742b31df20a58636227a7389239a136fe53fb",
+    "expected_public_manifest_digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "release_permitted": false,
+    "runtime_digest_verified": false,
+    "execute_once": true
+  },
+  "actor_authorization_sha256": "5d80b11fa80a85c76b92fd89919dc83a9e478e672a6ef2605156b22b34f195ee",
+  "watchdog_authorization": {
+    "scope": "LAUNCH_ONE_REVIEWED_SYNTHETIC_GEMMA_SMOKE",
+    "reviewed_watchdog_sha256": "25364f880e4782f9c22b9ef2c23b8c718a9c17155e46e15fa3cf4fb557eb6d48",
+    "reviewed_actor_authorization_sha256": "5d80b11fa80a85c76b92fd89919dc83a9e478e672a6ef2605156b22b34f195ee",
+    "total_wall_seconds": 125
+  },
+  "watchdog_authorization_sha256": "27f59eb7a77a51c831a8aa71baf62bdfd5a5bb01d9486f59b49fc54c98cbdb2e",
+  "qualification_or_release_authorization": false
+}

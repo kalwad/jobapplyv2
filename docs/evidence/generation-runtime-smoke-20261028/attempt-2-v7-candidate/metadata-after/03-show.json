@@ -1,0 +1,34 @@
+{
+  "label": "show",
+  "endpoint": "http://127.0.0.1:11434",
+  "received_bytes": 21783,
+  "received_sha256": "f8f065d03e78d0f1b416fb8687b74555e1177bf1c8d90f9a8bb1472a0fd718b9",
+  "retention": "PUBLIC_ALLOWLIST_PROJECTION",
+  "public": {
+    "details": {
+      "format": "safetensors",
+      "family": "gemma4_unified",
+      "parameter_size": "12.4B",
+      "quantization_level": "nvfp4",
+      "runner": null
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ],
+    "thinking": {
+      "values": [
+        false,
+        true
+      ],
+      "default": true
+    },
+    "manifests": [],
+    "requires": "0.31.0",
+    "remote_host": "",
+    "remote_model": ""
+  }
+}

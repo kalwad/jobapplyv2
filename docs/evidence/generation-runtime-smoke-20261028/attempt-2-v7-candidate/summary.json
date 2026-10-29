@@ -1,0 +1,109 @@
+{
+  "schema": "JAPP_ONE_SYNTHETIC_GEMMA_CANDIDATE_SMOKE_V1",
+  "started_utc": "2026-10-28T23:53:35.445099+00:00",
+  "candidate_only": true,
+  "qualified_full": false,
+  "runtime_digest_verified": false,
+  "release_permitted": false,
+  "production_profile_registered": false,
+  "model_lock_changed": false,
+  "model_lifecycle_operation_requested": false,
+  "server_configuration_changed": false,
+  "generation_client_calls": 1,
+  "state": "SYNTHETIC_CANDIDATE_RESPONSE_VALIDATED",
+  "metadata_before": {
+    "model_reference": "sha256-ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "reported_tag_digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "selected_manifest": null,
+    "tag_runner": "mlx",
+    "show_runner": null,
+    "selected_manifest_runner": null,
+    "runner_lookup_request": "mlx",
+    "actual_initialized_runner_observed": false,
+    "format": "safetensors",
+    "metadata_only_full_digest_lookup_succeeded": true,
+    "runtime_digest_verified": false,
+    "qualified_full": false,
+    "release_permitted": false,
+    "profile_assertion_scope": "SYNTHETIC_SMOKE_HYPOTHESIS_ONLY",
+    "inference_executed": false,
+    "ps_before": {
+      "loaded_model_count": 0,
+      "prescribed_candidate_models": [],
+      "other_loaded_model_count": 0
+    },
+    "ps_after": {
+      "loaded_model_count": 0,
+      "prescribed_candidate_models": [],
+      "other_loaded_model_count": 0
+    }
+  },
+  "audit": {
+    "request_id": "smoke.gemma4.synthetic.001",
+    "provider": "LOCAL_OLLAMA",
+    "profile_ref": "smoke.gemma4-12b-mlx.candidate-only",
+    "model": "sha256-ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "expected_model_digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+    "runtime_digest_verified": false,
+    "task": "RESUME_CANDIDATE",
+    "prompt_ref": "smoke.resume.synthetic.v1",
+    "context_policy_ref": "smoke.single-approved-synthetic-evidence.v1",
+    "schema_version": "GENERATION_CANDIDATES_V1",
+    "data_classes": [
+      "APPROVED_EVIDENCE"
+    ],
+    "egress_policy": "LOOPBACK_ONLY",
+    "request_sha256": "eaed578c3cc4872f0929a6d08d709d3b4f174ac7857b20eb7b8404c8e417bf68",
+    "attempt_request_sha256s": [
+      "eaed578c3cc4872f0929a6d08d709d3b4f174ac7857b20eb7b8404c8e417bf68"
+    ],
+    "output_sha256": "fa6c222e66e58ce0de7634ea17c17203300cde24a0e243903e83ec11b67348e1",
+    "attempts": 1,
+    "latency_seconds": 7.3474121250910684,
+    "prompt_tokens": 225,
+    "output_tokens": 72,
+    "quota_state": "NOT_REPORTED",
+    "error": null
+  },
+  "generation_transport_opens": [
+    {
+      "attempt": 1,
+      "request_bytes": 2009,
+      "request_sha256": "eaed578c3cc4872f0929a6d08d709d3b4f174ac7857b20eb7b8404c8e417bf68",
+      "model": "sha256-ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+      "schema_repair_only": false,
+      "endpoint": "http://127.0.0.1:11434/api/chat"
+    }
+  ],
+  "generation_http_attempts": 1,
+  "ps_after_actor": {
+    "loaded_model_count": 1,
+    "prescribed_candidate_models": [
+      {
+        "digest": "ded7a27350032202d9e9b2a6071e8aa89959ab156771b5228f30863c741c4970",
+        "size": 7650590652,
+        "size_vram": 7650590652,
+        "context_length": 8192,
+        "details": {
+          "format": "safetensors",
+          "family": null,
+          "parameter_size": null,
+          "quantization_level": null,
+          "runner": null
+        }
+      }
+    ],
+    "other_loaded_model_count": 0
+  },
+  "metadata_after_consistent": true,
+  "loaded_candidate_runner_reports": [
+    null
+  ],
+  "initialized_runner_observation": "NOT_OBSERVED",
+  "loaded_candidate_identity_consistent": true,
+  "other_loaded_model_interference": false,
+  "elapsed_seconds": 7.4659392080502585,
+  "finished_utc": "2026-10-28T23:53:42.919048+00:00",
+  "server_inference_stopped_attested": false,
+  "resource_acceptance_evaluated": false
+}
