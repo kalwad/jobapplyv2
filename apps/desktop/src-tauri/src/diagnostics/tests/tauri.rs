@@ -104,6 +104,35 @@ fn actual_app_manifest_acl_allows_only_two_commands_on_local_main() {
     .deserialize::<Value>()
     .unwrap();
     assert_eq!(cancel["payload"]["outcome"], "ALREADY_FINISHED");
+    // Exercise the real resolved core ACL with the framework's mock dispatcher.
+    // This proves local authorization; it does not measure actual native zoom.
+    let zoom = get_ipc_response(
+        &window,
+        request(
+            "plugin:webview|set_webview_zoom",
+            local_app_origin(),
+            InvokeBody::Json(json!({"value": 2.0})),
+        ),
+    )
+    .unwrap()
+    .deserialize::<Value>()
+    .unwrap();
+    assert!(zoom.is_null());
+    for (cmd, body) in [
+        ("plugin:webview|webview_close", json!({})),
+        (
+            "plugin:webview|create_webview_window",
+            json!({"options": {"label": "unlisted-created", "url": "index.html"}}),
+        ),
+    ] {
+        assert!(
+            get_ipc_response(
+                &window,
+                request(cmd, local_app_origin(), InvokeBody::Json(body)),
+            )
+            .is_err()
+        );
+    }
     assert!(
         get_ipc_response(
             &window,
@@ -161,6 +190,22 @@ fn actual_acl_rejects_other_windows_and_remote_invocation_origins() {
             .is_err()
         );
     }
+    for (caller, origin) in [
+        (&other, local_app_origin()),
+        (&window, "https://private.example/secret"),
+    ] {
+        assert!(
+            get_ipc_response(
+                caller,
+                request(
+                    "plugin:webview|set_webview_zoom",
+                    origin,
+                    InvokeBody::Json(json!({"value": 2.0}))
+                ),
+            )
+            .is_err()
+        );
+    }
 }
 #[test]
 fn actual_command_rejects_extra_top_level_fields_and_raw_payload() {
@@ -199,7 +244,8 @@ fn policy_bytes_keep_main_local_only_and_ipc_only_csp() {
             "core:app:allow-version",
             "core:app:allow-tauri-version",
             "allow-read-service-diagnostics",
-            "allow-cancel-service-request"
+            "allow-cancel-service-request",
+            "core:webview:allow-set-webview-zoom"
         ])
     );
     let config: Value = serde_json::from_str(include_str!("../../../tauri.conf.json")).unwrap();

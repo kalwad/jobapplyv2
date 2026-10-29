@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 2622,
-    "sha256": "f297edc510f3ea67157255f0aa859962421aaaebd1ee9e6c05b91302db057e21",
+    "count": 2625,
+    "sha256": "274dbf5f968f601bd6beb1ba73e7f51fb80317eba8feace9ce5ad5c95987138e",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -2155,6 +2155,9 @@
       "scripts/tests/test_windows11_inputs.py::test_supported_unattend_uses_standard_fixture_without_bypasses",
       "scripts/tests/test_windows11_inputs.py::test_virtual_display_is_measured_without_physical_gpu_qualification",
       "scripts/tests/test_windows11_isolation.py::test_exact_windows11_island_and_inactive_workflows",
+      "scripts/tests/test_windows11_isolation.py::test_generated_bytecode_requires_exact_local_source[flags]",
+      "scripts/tests/test_windows11_isolation.py::test_generated_bytecode_requires_exact_local_source[payload]",
+      "scripts/tests/test_windows11_isolation.py::test_generated_bytecode_requires_exact_local_source[relocated]",
       "scripts/tests/test_windows11_isolation.py::test_island_refuses_unknown_or_substituted_source[extra]",
       "scripts/tests/test_windows11_isolation.py::test_island_refuses_unknown_or_substituted_source[guard]",
       "scripts/tests/test_windows11_isolation.py::test_island_refuses_unknown_or_substituted_source[import]",

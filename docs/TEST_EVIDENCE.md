@@ -3,6 +3,190 @@
 Exact verification commands and summarized results
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1 and §8.6). Newest entries first.
 
+### M03-W07/W11 — bd4 full failure, cached-fixture correction and native zoom preparation (2026-10-29UTC)
+
+Work package: M03-W07 remains IN_PROGRESS; W06 VERIFIED,39/300 VERIFIED, M00/M01/M02 ACCEPTED and Gate A PASS. Owner-authorized batch/delegated acceptance continues; no formal state, gate, baseline or certified-support row changes.
+
+Actual clean bd4cffd7f61f99f77520e7dc522f852488cdd9d3/tree75d79ae7fc14e9a02c1f326e5376b16d74a7736e runs the unchanged outside run-clean-full-v2.py wrapper: `pnpm run doctor` exits0/28PASS6.593782125s; `pnpm verify` exits1/1211.364738667s,19ACTIVE PASS/PythonFAIL. Python collects2624 and reports2623PASS/oneFAIL414.65s at test_windows11_isolation.py::test_exact_windows11_island_and_inactive_workflows: strict PORT-SRC-009 refuses origin bytecode copied to a new fixture source path. TS4006/15fresh/zero cached unit tasks, browser278(9.0m)/2(1.8s)/62(39.8s)/17(7.9s), native342same IDs each3modes plus separate1/10 pass; ordinary typecheck separately has14cached tasks. All2294source/runtime40 bytes/full modes/clean statuses/immediate HEAD-tree endpoints agree; both children reaped/groupsABSENT/no signals/timeouts. Different7226 joins CLEAR_AS_RECORDED_FAILURE. All67 original visual bodies were independently retained during running Python; root-selected33=19PNG/14metadata/29unique, all19PNG equal prior. Exact docs/evidence/m03-w07-full-bd4-failure; proof SHA256 0a6bfd3fa60ff634c2fde1050c826ab3a6296102c000ed028f025a5bdb0c2992. This original aggregate remains failed.
+
+Files changed: five exact afterimages. Native zoomHotkeysEnabled plus one core:webview:allow-set-webview-zoom permission for the local main caller, with existing resolved-ACL allow/remote/othercaller/unlisted tests extended. Old four permissions/CSP/application-command manifest and historical W01 fixture remain. Optional target label has no independent argument scope; current product creates only main and denies new windows. The framework mock setter does not render. Separately, the source fixture copy ignores only generated __pycache__; every old test/payload/assertion is AST-identical and production cache integrity is unchanged. Three new cases first accept destination-compiled cache then require relocated/payload/flags refusal. Exact catalog retains all2624old IDs and adds three common:2625common/2627POSIX projected. Source reviews74 and2738 joins CLEAR; expected outside RED1FAIL13PASS, corrected17PASS and observer histories are retained.
+
+Root guarded adoption preserves all2289unselected source bodies/full modes, runtime40, index and HEAD/tree. Actual combined twelve-command canonical focus closes0 at18:30:52.271704UTC:216focused Python3.21s; complete2627collection0.34s; strictLinux15/selectedWin32sixfixtures; Prettier8; Rust format/strictClippy/registered suite31.191269s, native342same IDs each3modes plus separate1/10, including actual resolved zoom ACL calls; portability/integrity. All2294source/runtime40/full-mode/status/HEAD-tree endpoints agree; direct children reaped/groupsABSENT/no signals/timeouts. Numeric PID/PGID values were not recorded in result rows; no independent numeric or universal-descendant proof is invented. Different2576 data joins CLEAR. Exact docs/evidence/m03-native-zoom-and-cache-correction; proof SHA256 bf717ec29ff040c06ef86bcbfca121a944dcfa9b432f3047d91fd8a657bfdeaf. Exact retained argv arrays for all twelve actual commands:
+
+```json
+[
+  [
+    "cargo",
+    "fmt",
+    "--manifest-path",
+    "apps/desktop/src-tauri/Cargo.toml",
+    "--",
+    "--check"
+  ],
+  [
+    "cargo",
+    "clippy",
+    "--locked",
+    "--manifest-path",
+    "apps/desktop/src-tauri/Cargo.toml",
+    "--all-targets",
+    "--all-features",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "python",
+    "scripts/verify.py",
+    "--suite",
+    "rust"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "ruff",
+    "check",
+    "--config",
+    "pyproject.toml",
+    "scripts/check_portability.py",
+    "scripts/windows11",
+    "scripts/tests"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "ruff",
+    "format",
+    "--check",
+    "--config",
+    "pyproject.toml",
+    "scripts/check_portability.py",
+    "scripts/windows11",
+    "scripts/tests"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "mypy",
+    "--config-file",
+    "pyproject.toml",
+    "--platform",
+    "linux",
+    "scripts/check_portability.py",
+    "scripts/windows11",
+    "scripts/tests/test_windows11_inputs.py",
+    "scripts/tests/test_windows11_request.py",
+    "scripts/tests/test_windows11_isolation.py",
+    "scripts/tests/test_windows11_resources.py",
+    "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+    "scripts/tests/test_ci_workflow.py"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "mypy",
+    "--config-file",
+    "pyproject.toml",
+    "--platform",
+    "win32",
+    "scripts/tests/test_windows11_inputs.py",
+    "scripts/tests/test_windows11_request.py",
+    "scripts/tests/test_windows11_isolation.py",
+    "scripts/tests/test_windows11_resources.py",
+    "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+    "scripts/tests/test_ci_workflow.py"
+  ],
+  [
+    "pnpm",
+    "exec",
+    "prettier",
+    "--check",
+    ".github/windows11",
+    ".github/workflows/windows11-native-prepare.yml",
+    ".github/workflows/windows11-native-lifecycle.yml",
+    "package.json",
+    "scripts/python-test-inventory.v1.json",
+    "scripts/verification-suites.json",
+    "apps/desktop/src-tauri/tauri.conf.json",
+    "apps/desktop/src-tauri/capabilities/main-shell.json"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "pytest",
+    "-c",
+    "pyproject.toml",
+    "--strict-config",
+    "--strict-markers",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/native-zoom-bytecode-canonical-focus-v1/pytest-temp",
+    "-q",
+    "scripts/tests/test_windows11_inputs.py",
+    "scripts/tests/test_windows11_request.py",
+    "scripts/tests/test_windows11_isolation.py",
+    "scripts/tests/test_windows11_resources.py",
+    "scripts/tests/test_ubuntu_gnome_signed_indexes.py",
+    "scripts/tests/test_ci_workflow.py"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "pytest",
+    "-c",
+    "pyproject.toml",
+    "--strict-config",
+    "--strict-markers",
+    "-p",
+    "no:cacheprovider",
+    "--collect-only",
+    "-q",
+    "services/orchestrator/tests",
+    "scripts/tests"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "python",
+    "scripts/check_portability.py",
+    "--quiet"
+  ],
+  [
+    "uv",
+    "run",
+    "--no-sync",
+    "--offline",
+    "python",
+    "scripts/verify.py",
+    "--suite",
+    "integrity"
+  ]
+]
+```
+
+Manual/UI observations are separate historical app evidence: seven actual routes, Tab/Return advances CheckedAt, ShiftTab returns Diagnostics, reverseTabs reach skip and Return focuses main. The204-built43-file app matches its postUI full map and14current frontend/sharedUI sources; it is not a fresh native-entry/zoom build. Different169 joins/all8uneditedJPEGs actually viewed, docs/evidence/m03-w11-macos-ax-observations; proof SHA256 2fb625b0b4b3987043256907e03006e0fa163f3cc7e71da149ad6341bf275f40. Content Cmdplus image is unchanged; actual CUA App quit error is not a new process/listener/orphan measurement. No numerical200percent, VoiceOver narration, full accessibility or baseline approval is claimed.
+
+Schemas/migrations changed: none; tests additive3, no removal/skip/input/oracle reduction. Security/privacy: caller capability adds only built-in zoom; no model/secret-store/egress/submission/default activation. Original cache validator stays strict. KI-0130/0131 IN_PROGRESS pending corrected full and fresh native zoom/platform validation. Hosted bd4 remains independently collected; no hosted outcome transfers from local focus. Status/memory updates are factual only; no next READY while W07 is IN_PROGRESS. Fresh package, actual keyboard/200percent/reset/reader/native lifecycle and corrected clean full remain required.
+
 ### M03-W07 — Windows11 source infrastructure and explicit canonical composition (2026-10-29UTC)
 
 Root guarded-adopts exact25 independently reviewed Windows11v2 afterimages (sixreplace/19add) atf5a, preserving the two reviewed native lib/main fixes, all remaining source/runtime40 bytes/full modes and HEAD/tree. SOURCE167b9efccc423c3998320fbadc80d9e9d38cfce96672afb42f3b2d47481f888d; differentv2 review9778 joins CLEAR, REVIEWd615684647f36442bb80af6678bb6760e1f65cac92362971db963fa79fd29cd3/manifest4a7d10d80f1d02ff5c24a52ddaddb543f4b272351c2053c46108bf33be1ebc90. Originalv1/HOLD F1 (common Windows type analysis follows a Linux-only resource import) remains immutable. V2 changes only the established ModuleType fixture loader; original helper/test bodies/assertions/payloads/147IDs and24production afterimages remain exact. Actual outside147pure/strict and full commonWindows-targetMypy92files PASS; original12errors and initialv2missing-loader130PASS17ERROR remain retained, without native execution credit. Fullv1 review6247 joins/12fake cleanup controls carries its exact source scope and history gaps.

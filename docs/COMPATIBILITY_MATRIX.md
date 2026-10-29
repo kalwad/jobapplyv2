@@ -3,6 +3,14 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## bd4 aggregate failure and scoped native zoom preparation (2026-10-29UTC)
+
+Actual clean bd4/tree75d79ae7 is FAILURE: doctor28PASS, nineteen ACTIVE suites pass and Python reports2623PASS/one copied-cache fixture failure414.65s. Source2294/runtime40 bytes/full modes/clean statuses/immediate HEAD-tree endpoints agree; children reaped/groupsABSENT/no signals/timeouts. Different7226 data joins clear only the failed record. TS4006fresh/browser278+2+62+17/native342same3+1/10 component passes do not turn the aggregate PASS. Exact docs/evidence/m03-w07-full-bd4-failure.
+
+Five reviewed afterimages now pass actual twelve canonical checks:216focused Python/full2627collection/strictLinux15/selectedWin32sixfixtures/Prettier8/portability/integrity/native342same3+1/10. All old2624 IDs and production bytecode rules remain. Different2576 joins CLEAR, exact docs/evidence/m03-native-zoom-and-cache-correction. Mock native zoom authorization is not actual rendering or200percent proof; corrected clean full/fresh package/native GUI remain pending.
+
+Historical204-built native macOS app shows seven readable routes at the recorded scale, actual keyboard refresh/skip focus and Ready/versions. Different169 joins/all8JPEGs viewed bind its43-file postUI map and14current frontend/sharedUI sources. Content Cmdplus remains visually unchanged; no numerical200percent, VoiceOver, fresh native-entry build or new orphan measurement. Exact docs/evidence/m03-w11-macos-ax-observations. No certified-support row, owner-approved baseline, platform/milestone or release acceptance is added. WindowsServerCI is not Windows11 and UbuntuCI is not defaultGNOME; source-bound native campaigns remain required.
+
 ## Corrected f5a full and native desktop entry scope (2026-10-29UTC)
 
 Cleanf5a05ba/treeaa9fbaa9 now actually passes doctor28 and all20ACTIVE suites: Python2477PASS422.35s, TypeScript4006/15fresh/zero cached, browser278/2/62/17, native342same IDs each3modes plus separate1/10. All2255source/runtime40 bytes/full modes/clean statuses/immediate HEAD/tree endpoints equal, children reaped/groups ABSENT/no signals/timeouts. Different7068 joins CLEAR. Exact docs/evidence/m03-w07-clean-aggregate-f5a. This full predates the two native entry corrections.
