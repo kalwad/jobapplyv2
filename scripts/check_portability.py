@@ -78,10 +78,16 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
+import importlib.util
 import json
+import marshal
+import os
 import re
+import stat
 import subprocess
 import sys
+import tomllib
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -104,6 +110,19 @@ PORTABILITY_MODULE_REL = "scripts/portability.py"
 TYPESCRIPT_PORTABILITY_HELPER = Path(__file__).with_name(
     "check_typescript_portability.mjs"
 )
+
+# Exact candidate bodies only. These pins are pending independent source
+# review and root adoption; byte equality is not source/VM authorization.
+CANDIDATE_AUXILIARY_WORKFLOWS = {
+    "ubuntu-gnome-prepare.yml": (
+        6561,
+        "7c1dfff4005e5bbc290a56484836de2babe2f981c5eaa56283c68ebe1bc942e0",
+    ),
+    "ubuntu-gnome-lifecycle.yml": (
+        8044,
+        "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d",
+    ),
+}
 
 REQUIRED_RUNNERS = ("macos-15", "windows-2025", "ubuntu-24.04")
 MATRIX_RUNS_ON = "${{ matrix.os }}"
@@ -466,6 +485,34 @@ NATIVE_PACKAGE_STEPS = (
     "Curate finite package evidence even on failure",
     "Retain finite native development evidence",
 )
+NATIVE_PACKAGE_EXPORT_SLOT = 10
+NATIVE_PACKAGE_EXPORT = {
+    "name": "Export exact inspected Ubuntu package for separately reviewed GNOME job",
+    "if": "runner.os == 'Linux'",
+    "shell": "bash",
+    "run": (
+        "set -euo pipefail\n"
+        '"$PACKAGE_PYTHON" -B scripts/linux_gnome/ubuntu_gnome_package_export.py \\\n'
+        '  --proof "$RUNNER_TEMP/japp-development-package-proof" \\\n'
+        '  --output "$RUNNER_TEMP/japp-gnome-package-export" \\\n'
+        '  --expected-head "$GITHUB_SHA"\n'
+    ),
+}
+NATIVE_PACKAGE_EXPORT_UPLOAD = {
+    "name": "Retain exact Ubuntu package export without GUI qualification claim",
+    "if": "runner.os == 'Linux'",
+    "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+    "with": {
+        "name": "gnome-package-input-${{ github.sha }}",
+        "path": "${{ runner.temp }}/japp-gnome-package-export/",
+        "if-no-files-found": "error",
+        "retention-days": 7,
+    },
+}
+NATIVE_PACKAGE_EXPORT_NAMES = (
+    NATIVE_PACKAGE_EXPORT["name"],
+    NATIVE_PACKAGE_EXPORT_UPLOAD["name"],
+)
 
 
 def _native_package_header_valid(job: Mapping[object, object]) -> bool:
@@ -492,10 +539,26 @@ def _native_package_steps(value: object) -> list[Mapping[object, object]] | None
         if not isinstance(step, dict):
             return None
         steps.append(step)
-    if tuple(step.get("name") for step in steps) != NATIVE_PACKAGE_STEPS:
+    names = tuple(step.get("name") for step in steps)
+    extended_names = (
+        NATIVE_PACKAGE_STEPS[:NATIVE_PACKAGE_EXPORT_SLOT]
+        + NATIVE_PACKAGE_EXPORT_NAMES
+        + NATIVE_PACKAGE_STEPS[NATIVE_PACKAGE_EXPORT_SLOT:]
+    )
+    if names not in (NATIVE_PACKAGE_STEPS, extended_names):
         return None
     if any("continue-on-error" in step for step in steps):
         return None
+    if names == extended_names:
+        slot = NATIVE_PACKAGE_EXPORT_SLOT
+        if steps[slot : slot + 2] != [
+            NATIVE_PACKAGE_EXPORT,
+            NATIVE_PACKAGE_EXPORT_UPLOAD,
+        ]:
+            return None
+        # Validate the original recipe with its unchanged command oracle.
+        # No generic shell/action/artifact check omits these two steps.
+        steps = steps[:slot] + steps[slot + 2 :]
     return steps
 
 
@@ -1187,6 +1250,13 @@ def _check_artifacts(
             and step.get("with") == NATIVE_PACKAGE_UPLOAD
         ):
             continue
+        if (
+            approved_package
+            and where
+            == NATIVE_PACKAGE_JOB + ":" + str(NATIVE_PACKAGE_EXPORT_UPLOAD["name"])
+            and step == NATIVE_PACKAGE_EXPORT_UPLOAD
+        ):
+            continue
         if str(step.get("if", "")).strip() != "failure()":
             violations.append(
                 Violation(
@@ -1668,6 +1738,394 @@ def _check_registry_commands(repo: Path, violations: list[Violation]) -> None:
                 )
 
 
+def _check_workflow_files(repo: Path, violations: list[Violation]) -> None:
+    workflows_dir = repo / ".github" / "workflows"
+    names = sorted(
+        p.name for p in [*workflows_dir.glob("*.yml"), *workflows_dir.glob("*.yaml")]
+    )
+    if names == ["ci.yml"]:
+        return
+    expected = sorted(["ci.yml", *CANDIDATE_AUXILIARY_WORKFLOWS])
+    if names != expected:
+        violations.append(
+            Violation(
+                "PORT-CI-001",
+                ".github/workflows",
+                "workflow files must be only ci.yml or the exact candidate "
+                f"auxiliary pair (found {names})",
+            )
+        )
+        return
+    for name, (expected_size, expected_digest) in CANDIDATE_AUXILIARY_WORKFLOWS.items():
+        path = workflows_dir / name
+        try:
+            metadata = path.lstat()
+            valid = stat.S_ISREG(metadata.st_mode) and metadata.st_size == expected_size
+            data = path.read_bytes() if valid else b""
+            valid = (
+                valid
+                and len(data) == expected_size
+                and hashlib.sha256(data).hexdigest() == expected_digest
+            )
+        except OSError:
+            valid = False
+        if not valid:
+            violations.append(
+                Violation(
+                    "PORT-CI-001",
+                    ".github/workflows/" + name,
+                    "auxiliary workflow must be a regular non-symlink file "
+                    "with its exact candidate byte length and SHA256; "
+                    "candidate equality is not source or VM approval",
+                )
+            )
+
+
+# The finite Linux evidence surface is separate from shared runtime tools.
+# This does not authorize any shared runtime import or a Windows fallback.
+LINUX_INFRASTRUCTURE_REL = "scripts/linux_gnome"
+LINUX_INFRASTRUCTURE_MODULES = frozenset(
+    {
+        "ubuntu_gnome_atspi.py",
+        "ubuntu_gnome_guest.py",
+        "ubuntu_gnome_host.py",
+        "ubuntu_gnome_package_export.py",
+        "ubuntu_gnome_platform.py",
+        "ubuntu_gnome_prepare.py",
+        "ubuntu_gnome_process.py",
+        "ubuntu_gnome_provision.py",
+        "ubuntu_gnome_request.py",
+        "ubuntu_gnome_retention.py",
+        "ubuntu_gnome_session_receipt.py",
+        "ubuntu_gnome_signed_indexes.py",
+        "ubuntu_gnome_vm.py",
+    }
+)
+LINUX_INFRASTRUCTURE_ENTRYPOINTS = frozenset(
+    {
+        "ubuntu_gnome_guest.py",
+        "ubuntu_gnome_host.py",
+        "ubuntu_gnome_package_export.py",
+        "ubuntu_gnome_prepare.py",
+        "ubuntu_gnome_provision.py",
+        "ubuntu_gnome_request.py",
+        "ubuntu_gnome_session_receipt.py",
+        "ubuntu_gnome_vm.py",
+    }
+)
+LINUX_INFRASTRUCTURE_STDLIB = frozenset(
+    {
+        "__future__",
+        "argparse",
+        "collections",
+        "dataclasses",
+        "datetime",
+        "errno",
+        "getpass",
+        "hashlib",
+        "http",
+        "importlib",
+        "ipaddress",
+        "json",
+        "os",
+        "pathlib",
+        "platform",
+        "pwd",
+        "re",
+        "select",
+        "shlex",
+        "shutil",
+        "signal",
+        "socket",
+        "stat",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "time",
+        "types",
+        "typing",
+        "urllib",
+    }
+)
+LINUX_PLATFORM_SHA256 = (
+    "8ea71349dce148662d6a8cb2629760a36ec657f6acc9a7285fd2f7703c0052b8"
+)
+
+
+def _linux_reference(value: str) -> bool:
+    return "linux_gnome" in value or "ubuntu_gnome_" in value
+
+
+def _check_linux_shared_imports(repo: Path, violations: list[Violation]) -> None:
+    for path in _runtime_scripts(repo):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        references = list(_iter_string_constants(tree))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                references.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                references.append(node.module)
+                references.extend(alias.name for alias in node.names)
+        if any(_linux_reference(value) for value in references):
+            violations.append(
+                Violation(
+                    "PORT-SRC-009",
+                    path.relative_to(repo).as_posix(),
+                    "shared runtime may not import or execute isolated Linux "
+                    "evidence infrastructure",
+                )
+            )
+
+
+def _linux_quality_failures(repo: Path) -> list[str]:
+    """Pin coverage, while retaining host-target semantics of shared mypy."""
+    failures = []
+    try:
+        config = tomllib.loads((repo / "pyproject.toml").read_text(encoding="utf-8"))
+        registry = json.loads((repo / REGISTRY_REL).read_text(encoding="utf-8"))
+        package = json.loads((repo / "package.json").read_text(encoding="utf-8"))
+        suites = {row["id"]: row for row in registry["suites"]}
+        commands = {
+            key: suites[key]["commands"] for key in ("format", "typecheck", "python")
+        }
+        required = {
+            "format": ("uv", "run", "ruff", "format", "--check"),
+            "python": ("uv", "run", "ruff", "check"),
+        }
+        for suite, prefix in required.items():
+            if not any(
+                tuple(row[: len(prefix)]) == prefix and LINUX_INFRASTRUCTURE_REL in row
+                for row in commands[suite]
+            ):
+                failures.append(f"{suite} does not cover Linux infrastructure")
+        prefix = ("uv", "run", "ruff", "format", "--check")
+        if not any(
+            tuple(row[: len(prefix)]) == prefix and LINUX_INFRASTRUCTURE_REL in row
+            for row in commands["python"]
+        ):
+            failures.append("Python format does not cover Linux infrastructure")
+        linux_mypy = [
+            "uv",
+            "run",
+            "mypy",
+            "--platform",
+            "linux",
+            LINUX_INFRASTRUCTURE_REL,
+        ]
+        for suite in ("typecheck", "python"):
+            if linux_mypy not in commands[suite]:
+                failures.append(
+                    f"{suite} lacks exact separate Linux-target mypy command"
+                )
+            shared = [
+                row
+                for row in commands[suite]
+                if row[:3] == ["uv", "run", "mypy"] and row != linux_mypy
+            ]
+            if not shared or any(
+                "--platform" in row or LINUX_INFRASTRUCTURE_REL in row for row in shared
+            ):
+                failures.append(f"{suite} changed shared mypy target semantics")
+        if LINUX_INFRASTRUCTURE_REL not in config["tool"]["mypy"]["mypy_path"]:
+            failures.append("Linux helper import path is missing from strict mypy")
+        if LINUX_INFRASTRUCTURE_REL not in package["scripts"]["format"].split():
+            failures.append("package format does not cover Linux infrastructure")
+    except (OSError, KeyError, TypeError, ValueError) as error:
+        failures.append(f"Linux quality registry is unreadable: {type(error).__name__}")
+    return failures
+
+
+def _linux_file_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (
+        info.st_dev,
+        info.st_ino,
+        info.st_size,
+        info.st_mtime_ns,
+        info.st_ctime_ns,
+        info.st_mode,
+    )
+
+
+def _check_linux_bytecode(directory: Path) -> None:
+    """Accept only ordinary unoptimized bytecode compiled from these sources."""
+    cache = directory / "__pycache__"
+    cache_info = cache.lstat()
+    if not stat.S_ISDIR(cache_info.st_mode):
+        raise ValueError("regular Linux bytecode cache directory required")
+    if sys.implementation.cache_tag != "cpython-312" or sys.flags.optimize != 0:
+        raise ValueError("Linux cache requires pinned unoptimized CPython3.12")
+    names = {
+        f"{Path(name).stem}.cpython-312.pyc": name
+        for name in LINUX_INFRASTRUCTURE_MODULES
+    }
+    entries = list(cache.iterdir())
+    if len(entries) > len(names):
+        raise ValueError("finite Linux bytecode cache inventory required")
+    for path in entries:
+        if path.name not in names:
+            raise ValueError("unknown Linux bytecode cache entry")
+        before = path.lstat()
+        if not stat.S_ISREG(before.st_mode) or before.st_size > 2 * 1024 * 1024:
+            raise ValueError("bounded regular Linux bytecode cache file required")
+        source = directory / names[path.name]
+        source_before = source.lstat()
+        if (
+            not stat.S_ISREG(source_before.st_mode)
+            or source_before.st_size > 2 * 1024 * 1024
+        ):
+            raise ValueError("bounded regular Linux cache source required")
+        raw = path.read_bytes()
+        header = (
+            importlib.util.MAGIC_NUMBER
+            + (0).to_bytes(4, "little")
+            + (int(source_before.st_mtime) & 0xFFFFFFFF).to_bytes(4, "little")
+            + (source_before.st_size & 0xFFFFFFFF).to_bytes(4, "little")
+        )
+        compiled = compile(
+            source.read_bytes(), str(source), "exec", dont_inherit=True, optimize=0
+        )
+        expected = marshal.dumps(compiled)
+        if raw != header + expected:
+            raise ValueError("Linux bytecode cache differs from exact source compile")
+        if _linux_file_identity(path.lstat()) != _linux_file_identity(
+            before
+        ) or _linux_file_identity(source.lstat()) != _linux_file_identity(
+            source_before
+        ):
+            raise ValueError("Linux bytecode cache/source changed during observation")
+    if _linux_file_identity(cache.lstat()) != _linux_file_identity(cache_info):
+        raise ValueError("Linux bytecode cache directory changed during observation")
+
+
+def _check_linux_infrastructure(repo: Path, violations: list[Violation]) -> None:
+    directory = repo / LINUX_INFRASTRUCTURE_REL
+    expected_present = any(
+        (repo / ".github/workflows" / name).exists()
+        for name in CANDIDATE_AUXILIARY_WORKFLOWS
+    )
+    if not directory.exists() and not directory.is_symlink() and not expected_present:
+        return
+    location = LINUX_INFRASTRUCTURE_REL
+    try:
+        if directory.is_symlink() or not directory.is_dir():
+            raise ValueError("regular isolated Linux infrastructure directory required")
+        entries = {path.name for path in directory.iterdir()}
+        if "__pycache__" in entries:
+            _check_linux_bytecode(directory)
+            entries.remove("__pycache__")
+        if entries != LINUX_INFRASTRUCTURE_MODULES:
+            raise ValueError("exact registered Linux infrastructure inventory required")
+        stems = {Path(name).stem for name in LINUX_INFRASTRUCTURE_MODULES}
+        for name in sorted(entries):
+            path = directory / name
+            info = path.lstat()
+            if not stat.S_ISREG(info.st_mode) or info.st_size > 2 * 1024 * 1024:
+                raise ValueError(f"bounded regular Linux source required: {name}")
+            raw = path.read_bytes()
+            tree = ast.parse(raw)
+            if (
+                name == "ubuntu_gnome_platform.py"
+                and hashlib.sha256(raw).hexdigest() != LINUX_PLATFORM_SHA256
+            ):
+                raise ValueError("Linux host boundary body differs")
+            for node in ast.walk(tree):
+                modules = []
+                if isinstance(node, ast.ImportFrom):
+                    if node.level or not node.module:
+                        raise ValueError(f"relative Linux helper import: {name}")
+                    modules.append(node.module.split(".")[0])
+                elif isinstance(node, ast.Import):
+                    modules.extend(alias.name.split(".")[0] for alias in node.names)
+                for module in modules:
+                    if (
+                        module == "linux_package"
+                        and name == "ubuntu_gnome_package_export.py"
+                    ):
+                        continue
+                    if module not in stems | LINUX_INFRASTRUCTURE_STDLIB:
+                        raise ValueError(f"unknown Linux helper import: {name}")
+            if (
+                name in LINUX_INFRASTRUCTURE_ENTRYPOINTS
+                or name == "ubuntu_gnome_atspi.py"
+            ):
+                entrypoint = (
+                    "load_native" if name == "ubuntu_gnome_atspi.py" else "main"
+                )
+                mains = [
+                    node
+                    for node in tree.body
+                    if isinstance(node, ast.FunctionDef) and node.name == entrypoint
+                ]
+                guard = ast.Expr(
+                    value=ast.Call(
+                        func=ast.Name(id="require_linux", ctx=ast.Load()),
+                        args=[],
+                        keywords=[],
+                    )
+                )
+                imported = any(
+                    isinstance(node, ast.ImportFrom)
+                    and node.module == "ubuntu_gnome_platform"
+                    and node.level == 0
+                    and any(
+                        alias.name == "require_linux" and alias.asname is None
+                        for alias in node.names
+                    )
+                    for node in tree.body
+                )
+                shadowed = any(
+                    (
+                        isinstance(node, ast.Name)
+                        and node.id == "require_linux"
+                        and isinstance(node.ctx, ast.Store)
+                    )
+                    or (
+                        isinstance(node, (ast.FunctionDef, ast.ClassDef))
+                        and node.name == "require_linux"
+                    )
+                    or (isinstance(node, ast.arg) and node.arg == "require_linux")
+                    for node in ast.walk(tree)
+                )
+                shadowed = shadowed or any(
+                    isinstance(node, (ast.Import, ast.ImportFrom))
+                    and any(
+                        (alias.asname or alias.name.split(".")[0]) == "require_linux"
+                        and not (
+                            isinstance(node, ast.ImportFrom)
+                            and node.module == "ubuntu_gnome_platform"
+                            and alias.name == "require_linux"
+                            and alias.asname is None
+                        )
+                        for alias in node.names
+                    )
+                    for node in ast.walk(tree)
+                )
+                if (
+                    len(mains) != 1
+                    or not mains[0].body
+                    or not imported
+                    or shadowed
+                    or ast.dump(mains[0].body[0]) != ast.dump(guard)
+                ):
+                    raise ValueError(
+                        f"Linux guard must precede every CLI operation: {name}"
+                    )
+            # Only system paths and POSIX mode semantics are platform-specific.
+            # Generic shell and separator rules retain their unchanged predicates.
+            generic: list[Violation] = []
+            _check_runtime_script(repo, path, generic)
+            violations.extend(
+                item
+                for item in generic
+                if item.rule not in {"PORT-SRC-001", "PORT-SRC-004"}
+            )
+        for failure in _linux_quality_failures(repo):
+            violations.append(Violation("PORT-SRC-009", location, failure))
+    except (OSError, SyntaxError, ValueError) as error:
+        violations.append(Violation("PORT-SRC-009", location, str(error)))
+    _check_linux_shared_imports(repo, violations)
+
+
 def run_checks(repo: Path) -> list[Violation]:
     violations: list[Violation] = []
     workflow, raw = _load_workflow(repo)
@@ -1677,21 +2135,7 @@ def run_checks(repo: Path) -> list[Violation]:
         for _, step in steps
     )
 
-    workflows_dir = repo / ".github" / "workflows"
-    extra = sorted(
-        p.name
-        for p in [*workflows_dir.glob("*.yml"), *workflows_dir.glob("*.yaml")]
-        if p.name != "ci.yml"
-    )
-    if extra:
-        violations.append(
-            Violation(
-                "PORT-CI-001",
-                ".github/workflows",
-                f"unexpected workflow files {extra}; ci.yml is the only "
-                "approved workflow (no deployment/release workflows in M00)",
-            )
-        )
+    _check_workflow_files(repo, violations)
 
     required_matrix_job = _check_matrix(workflow, violations)
     _check_canonical_commands(required_matrix_job, violations)
@@ -1710,6 +2154,7 @@ def run_checks(repo: Path) -> list[Violation]:
     )
     _check_no_live_sites(steps, violations)
 
+    _check_linux_infrastructure(repo, violations)
     for script in _runtime_scripts(repo):
         _check_runtime_script(repo, script, violations)
     _check_ts_runtime_sources(repo, _ts_runtime_sources(repo), violations)

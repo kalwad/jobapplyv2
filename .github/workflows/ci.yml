@@ -449,6 +449,23 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSNativeCommandUseErrorActionPreference = $true
           & $env:PACKAGE_PYTHON -I -S scripts/native_package_ci.py --source (Get-Location).Path --work (Join-Path $env:RUNNER_TEMP 'japp-development-package-work') --proof (Join-Path $env:RUNNER_TEMP 'japp-development-package-proof') --python $env:PACKAGE_PYTHON
+      - name: Export exact inspected Ubuntu package for separately reviewed GNOME job
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$PACKAGE_PYTHON" -B scripts/linux_gnome/ubuntu_gnome_package_export.py \
+            --proof "$RUNNER_TEMP/japp-development-package-proof" \
+            --output "$RUNNER_TEMP/japp-gnome-package-export" \
+            --expected-head "$GITHUB_SHA"
+      - name: Retain exact Ubuntu package export without GUI qualification claim
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: gnome-package-input-${{ github.sha }}
+          path: ${{ runner.temp }}/japp-gnome-package-export/
+          if-no-files-found: error
+          retention-days: 7
       - name: Curate finite package evidence even on failure
         if: always()
         shell: pwsh

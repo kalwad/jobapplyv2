@@ -168,6 +168,7 @@ mypy_path = [
     "services/orchestrator/src",
     "scripts",
     "scripts/tests",
+    "scripts/linux_gnome",
     # Generated strict Pydantic contract package (M01-W02): strict mypy
     # follows imports from scripts/tests into japp_contracts through this
     # path, so the generated code itself must stay strict-clean.

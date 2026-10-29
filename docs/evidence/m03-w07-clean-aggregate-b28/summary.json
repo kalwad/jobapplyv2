@@ -1,0 +1,54 @@
+{
+  "closure": {
+    "bytes_full_modes_cleanstatus_immediate_head_tree_endpoints_equal": true,
+    "children_reaped_groups_absent_no_timeouts_or_signals": true,
+    "runtime_files": 40,
+    "source_files": 2202
+  },
+  "created_utc": "2026-10-29T15:52:26.082115+00:00",
+  "doctor": {
+    "exit_code": 0,
+    "pass": 28,
+    "seconds": 6.324971916968934
+  },
+  "head": "b28b2b9f245d057bea24b92f28ca131a7cf349c9",
+  "independent_review": {
+    "immutable_source_origin": "actual localGitb28 objects, no GitHubAPI source claim",
+    "joins": 6801,
+    "manifest_sha256": "aa1d9bca774221bf3df1a35bc870ec2ae21db0d18d70fd7ba3841cd7fb3044fe",
+    "report_sha256": "57b1595eb9ab1102bd8d652bf51c721094fde97ce93f5cf60dd8d28d7818f52e"
+  },
+  "later_source_or_native_certification_milestone_release_credit": false,
+  "tree": "c7cdd7158a70969d77765b143cd5e3b972db4ba3",
+  "verify": {
+    "active_suites_pass": 20,
+    "browser_pass": [
+      278,
+      2,
+      62,
+      17
+    ],
+    "cached_tasks": 0,
+    "contract": 10,
+    "exit_code": 0,
+    "fresh_tasks": 15,
+    "native_unique_same_each_three_modes": 342,
+    "native_unit": 1,
+    "python_pass": 2141,
+    "python_seconds": 397.84,
+    "seconds": 1189.22211362503,
+    "typescript_pass": 4006
+  },
+  "visual": {
+    "all19png_equal_prior": true,
+    "excluded_exact_duplicate_attachment_aliases": 33,
+    "excluded_runner_markers": 1,
+    "initial_observer_path_assumption_error_separate": true,
+    "metadata": 14,
+    "original_output_inventory": 67,
+    "png": 19,
+    "retention_manifest_sha256": "474b8a5345254f24a26127f00a71b8a957e399de6f973c6de612ec9ffb1e4ccc",
+    "selected_files": 33,
+    "unique_bodies": 29
+  }
+}

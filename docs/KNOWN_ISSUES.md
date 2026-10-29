@@ -6,10 +6,7 @@ broadening a work package (spec §1.5).
 
 ## Current W07 package validation (2026-10-29UTC)
 
-Clean80e68ac/tree3ce18844 doctor28/all20PASS and different2275joinsCLEAR validate the local SDK path correction. Prior07eb hosted40803470877 remains terminalFAILURE, including an additional Macrollback browser failure and nativepackageSKIPPED; old failure attachment bytes/eventordering remain unobserved. Exact source/raw/reviews: docs/evidence/m03-w07-closed-validation. Fresh40898412173 is pending; nativeWindows11/defaultGNOME acceptance stays pending. Earlier9872 results below remain historical.
-
-Fresh9872 hostedMac/Ubuntu/Windows canonicaljobs all20PASS. KI-0118 scheduling andKI-0120 Windowsabsolute-root regression scopes are now FIXED by actual affected-hostfullpasses; no originalCPUcontention cause is asserted. The run overall is FAILURE because two nativepackagejobs fail before serviceactors. Their exactcode/data corrections and current134focused/strict/integrity validation are retained below; fresh correctednativehost/fullvalidation remains pending. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY.
-
+Cleanb28 actualdoctor28/all20PASS anddifferent6801joinsCLEAR validate the localrollbackfixturefix at its exacttree. RootreviewedGNOME31sourcepaths are nowguarded-adopted; actualcanonical407selected/strict/portability/integrityPASS. Currentexpanded2477wholeexecution/full/hosted remains pending. Exact docs/evidence/m03-w07-clean-aggregate-b28 and docs/evidence/m03-gnome-lifecycle-infrastructure. GNOMEtemplateinactive/no candidate/install/VM/nativeactor; Windows11/defaultGNOME acceptance stays pending. Hosted80e68 hasUbuntuall20SUCCESS whileMac/Windows/packageoutcomes remainpending; prior07ebFAILURE andunknownoldrollbackeventorder/attachmentcause stayseparate. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY.
 
 ## Current W06 closeout observation (2026-10-28)
 
@@ -54,7 +51,7 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 - Description: pre-armed20msrerender can occur before asynchronous decision/hash preparation and extensionmessage/write. Then the blockedReactevents never commitstate but the DOMwrite persists through the unchanged125mswindow, so the fixture's FAILED assertion receivesVERIFIED without its intended postwrite rollback.
 - Reproduction: actualrealownedChromium with identical100mspreparationlatency logs click→input→change/stateempty/DOMTransient only/VERIFIED and fails the unchangedoracle. This establishes the controlledlocal defect, not the originalhosted eventorder. Oldreferencedtrace/PNG/context are absent from actualMacartifact; specificnonpersistence cause staysUNOBSERVED after27join source/datareview.
 - Workaround: none; no flaky label, retry, skip, deadline increase or assertion weakening.
-- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedfull/hostedvalidation remains pending; state IN_PROGRESS for that declaredscope.
+- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedcleanb28 nowactuallypassesall20/Python2141 withdifferent6801joinsCLEAR andneutral2202source/runtime40/HEAD-tree endpoints: docs/evidence/m03-w07-clean-aggregate-b28. CurrentexpandedGNOMEsource full/hostedvalidation remains pending; state IN_PROGRESS for thatdeclaredhostedscope.
 
 ### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
 

@@ -3,6 +3,10 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Current combined infrastructure scope (2026-10-29UTC)
+
+Cleanb28/treec7cdd715 afterrollbackfixturefix passesdoctor28/all20ACTIVE/Python2141/TS4006fresh/browser278+2+62+17/native342same3+1+10, different6801joinsCLEAR: docs/evidence/m03-w07-clean-aggregate-b28. LaterguardedGNOME31sourcepaths passactualcanonical407selectedcases/strict25/Prettier7/portability/integrity with2225indexedsource/fullmodes/status/HEAD-tree endpointsneutral; expanded2477wholeexecution/full/hostedpending. Exact docs/evidence/m03-gnome-lifecycle-infrastructure. This is source/purefixture infrastructure, not defaultGDM/GNOME/nativepackage/WaylandorX11 evidence; templateinactive/no candidate/install/VM. Hosted80Ubuntu canonical20SUCCESS isdistinctfrompendingMac/Windows/dependentpackageoutcomes. No Windows11/defaultGNOME/certifiedsupport row orlater-tree fullpass isadded.
+
 ## Rollback fixture scoped regression (2026-10-29UTC)
 
 ControlledrealChromium proves oldpre-armedrerender ordering defect and post-inputone-shotfix under identical100mspreparationlatency/original125mssettlebudget. Actualcanonical13drivercases/strict3PASS; different35joinsCLEAR, exact docs/evidence/m03-w07-browser-rollback-order. OriginalhostedMac eventorder and missingattachmentcause stayUNKNOWN; freshfixedfull/hostedpending. Browserfixture evidence adds no nativeOS/certifiedsupport row.

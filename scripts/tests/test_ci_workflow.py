@@ -13,6 +13,7 @@ platform/tool/lockfile identity, and honest generated-contract ownership.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import tomllib
@@ -110,7 +111,29 @@ def test_workflows_dir_contains_only_ci() -> None:
     files = sorted(p.name for p in WORKFLOWS_DIR.glob("*.yml")) + sorted(
         p.name for p in WORKFLOWS_DIR.glob("*.yaml")
     )
-    assert files == ["ci.yml"], f"unexpected workflow files: {files}"
+    if files == ["ci.yml"]:
+        assert files == ["ci.yml"], f"unexpected workflow files: {files}"
+        return
+    # Independent literal oracle for the candidate extension. The legacy
+    # singleton assertion above is also exercised against a legacy fixture.
+    candidates = {
+        "ubuntu-gnome-prepare.yml": (
+            6561,
+            "7c1dfff4005e5bbc290a56484836de2babe2f981c5eaa56283c68ebe1bc942e0",
+        ),
+        "ubuntu-gnome-lifecycle.yml": (
+            8044,
+            "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d",
+        ),
+    }
+    assert files == sorted(["ci.yml", *candidates]), files
+    for name, (expected_size, expected_digest) in candidates.items():
+        path = WORKFLOWS_DIR / name
+        assert not path.is_symlink()
+        assert path.is_file()
+        data = path.read_bytes()
+        assert len(data) == expected_size
+        assert hashlib.sha256(data).hexdigest() == expected_digest
 
 
 def test_workflow_parses_without_duplicate_keys() -> None:
