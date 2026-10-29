@@ -40,6 +40,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0135 — GNOME shell commands follow the required terminal finish operation
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual clean374b6fe/treea77820bb aggregate,2026-10-29UTC.
+- Affects: M03-W07/W08/W11 guest capture harness; scripts/linux_gnome/ubuntu_gnome_guest.py.
+- Description: the new shell operation list is appended after finish, violating the unchanged existing protocol boundary test.
+- Reproduction: original full2787PASS/oneFAIL444.92s; original unchanged boundary suite independently reproduces1FAIL35PASS. The exact failing node is test_imports_do_not_load_platform_gi_or_spawn_actor.
+- Workaround: none; preserve the terminal-operation invariant and every old operation/test.
+- Resolution + evidence link: one reviewed tuple composition inserts39shell operations before finish; all52unique operations/old relative orders and every function/class/test remain. Actual ten canonical checks pass564Python/2788collection, strict37+14/portability/integrity; different419source+2451actual joins CLEAR. Exact docs/evidence/m03-gnome-terminal-order-correction. Fresh corrected clean full/hosted/packages remain required; original failed record is docs/evidence/m03-w07-full-374-failure.
+
 ### KI-0134 — General issue-ledger rules are parsed as fields of the preceding issue
 
 - Severity: LOW

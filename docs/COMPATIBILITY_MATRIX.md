@@ -3,6 +3,12 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Clean374 failure and corrected GNOME terminal ordering (2026-10-29UTC)
+
+Clean374/treea77820bb is a preserved FAILURE: doctor28PASS,19ACTIVE suitesPASS/PythonFAIL,2787PASS/one finish-last invariant failure444.92s. Source2338/runtime40/full modes/clean status/HEAD-tree endpoints agree; children reaped/groupsABSENT/no signals/timeouts. Different4746source/data+419visual/source checks confirm this finite record, exact docs/evidence/m03-w07-full-374-failure. Later correction does not relabel the run.
+
+The one-assignment correction retains all52operations with sole finish last and passes ten canonical focused checks:564Python6.54s,2788exact collected IDs, strictLinux37/selectedWin32fourteen and formatting/portability/integrity/diff. Different419source+2451actual joins CLEAR the scoped source/adoption/cache/focus, exact docs/evidence/m03-gnome-terminal-order-correction. Corrected clean full/hosted/package exports and actual Windows11/defaultGNOME/native reader evidence remain pending; no support/model/baseline/milestone state changes.
+
 ## Current path/cache correction and native Mac observation (2026-10-29UTC)
 
 The subsequently composed thirteen-path native guest harness preserves these corrections and passes ten current canonical checks:441Python6.89s/2788exact collected IDs/strictLinux33/Win32selected10/formatting/portability/integrity/diff. Different4251source+2591actual joins CLEAR the2333source/runtime40 phase. Exact docs/evidence/m03-native-guest-composition. Native COM source compilation is separate from actual target/provider/PowerShell/guest behavior; no support row or native platform acceptance changes.

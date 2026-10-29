@@ -1,0 +1,104 @@
+{
+  "created_utc": "2026-10-29T21:09:57.879957+00:00",
+  "context": {
+    "commit": "374b6fe484b5dd82c4a7fa1d751a77369ec79431",
+    "tree": "a77820bb5430ec8bebcfb17c8010b0764011fabe",
+    "start_utc": "2026-10-29T20:39:22.167161+00:00"
+  },
+  "actual_result": "FAILURE",
+  "doctor_pass": 28,
+  "commands": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "pid": 39306,
+      "pgid": 39306,
+      "start_utc": "2026-10-29T20:39:22.167525+00:00",
+      "end_utc": "2026-10-29T20:39:30.056060+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 7.888529749936424,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "pid": 39472,
+      "pgid": 39472,
+      "start_utc": "2026-10-29T20:39:30.056405+00:00",
+      "end_utc": "2026-10-29T21:01:36.112822+00:00",
+      "exit_code": 1,
+      "timeout": false,
+      "seconds": 1326.053786084056,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "suite_results": {
+    "toolchain": "PASS",
+    "format": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit-ts": "PASS",
+    "contract-gen": "PASS",
+    "fixture-corpus": "PASS",
+    "evaluation-corpus": "PASS",
+    "contract": "PASS",
+    "build": "PASS",
+    "e2e-browser": "PASS",
+    "w14-public-controlled": "PASS",
+    "w14-public-contact-controlled": "PASS",
+    "visual": "PASS",
+    "python": "FAIL",
+    "rust": "PASS",
+    "portability": "PASS",
+    "traceability": "PASS",
+    "status": "PASS",
+    "integrity": "PASS"
+  },
+  "python": {
+    "collected": 2788,
+    "passed": 2787,
+    "failed": 1,
+    "seconds": 444.92,
+    "failed_id": "scripts/tests/test_ubuntu_gnome_boundaries.py::test_imports_do_not_load_platform_gi_or_spawn_actor",
+    "reason": "Shell operations appended after the required terminal finish operation."
+  },
+  "closure": {
+    "end_utc": "2026-10-29T21:01:36.443560+00:00",
+    "source_count": 2338,
+    "runtime_count": 40,
+    "source_bytes_modes_unchanged": true,
+    "runtime_bytes_modes_unchanged": true,
+    "git_status_before": "",
+    "git_status_after": "",
+    "commit_and_tree_equal_at_end_observation": true,
+    "all_commands_exit_zero": false
+  },
+  "visual": {
+    "selected_files": 33,
+    "png": 19,
+    "metadata": 14,
+    "all19png_equal_prior": true,
+    "all67original_bodies_retained_by_reviewer": true,
+    "manifest_sha256": "1d794c94ef278fc1c3ca6fef884b5e624021dcd51b9ef719efbc156c90c8941d"
+  },
+  "different_review": {
+    "verdict": "CONFIRMED_ACTUAL_FULL_FAILURE_PYTHON_OPERATION_ORDER",
+    "data_joins": 4746,
+    "visual_metadata_source_checks": 419,
+    "report_sha256": "9be67b212180403bdb66cb51cec2065e8ed8a95c794b6af655945b3c06f82a31",
+    "manifest_sha256": "6c869fd8b803dbdd00fa98d6d8048d62f37a4c16d869b62440a9c142e31defd8"
+  },
+  "later_fix_native_milestone_or_release_credit": false
+}

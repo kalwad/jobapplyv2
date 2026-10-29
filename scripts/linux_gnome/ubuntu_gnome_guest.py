@@ -86,7 +86,7 @@ SHELL_OPERATIONS = (
         "shell_check_observe",
     )
 )
-OPERATIONS += SHELL_OPERATIONS
+OPERATIONS = OPERATIONS[:-1] + SHELL_OPERATIONS + OPERATIONS[-1:]
 
 
 def document(path: Path, cap: int = MIB) -> dict[str, Any]:
