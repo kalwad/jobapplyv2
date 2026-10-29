@@ -181,7 +181,17 @@ def declared_dumpbin(installation_output: bytes, proof: Path) -> Path:
         raise ValueError("Malformed MSVC default declaration") from error
     if re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version) is None:
         raise ValueError("Malformed MSVC default version")
-    image = installation / f"VC/Tools/MSVC/{version}/bin/Hostx64/x64/dumpbin.exe"
+    image = (
+        installation
+        / "VC"
+        / "Tools"
+        / "MSVC"
+        / version
+        / "bin"
+        / "Hostx64"
+        / "x64"
+        / "dumpbin.exe"
+    )
     if not image.is_file():
         raise ValueError("Declared MSVC default inspection tool unavailable")
     (proof / "msvc-default-version.stdout").write_bytes(body)

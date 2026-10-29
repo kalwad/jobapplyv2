@@ -43,6 +43,17 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current fixture compatibility validation (2026-10-29UTC)
 
+### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: clean07eb77b full aggregate, 2026-10-29UTC.
+- Affects: M03-W07; scripts/native_package_ci.py path construction.
+- Description: the new interpolated Windows SDK path contains a literal /bin/Hostx64/x64/dumpbin.exe fragment. The existing conservative PORT-SRC-001 policy refuses it, causing the real-repository Python oracle and standalone portability suite to fail.
+- Reproduction: exact07eb77b doctor28PASS/aggregate18PASS2FAIL, Python2140PASS1FAIL391.89s and raw CLI violation in docs/evidence/m03-w07-portable-sdk-path-correction. Different2269joins confirm the recorded failure and immutable source.
+- Workaround: none; do not relax or bypass the policy.
+- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Fresh corrected full and hosted/native results remain pending; current40803470877 is not cancelled or relabeled.
+
 ### KI-0121 — Installed sibling MSVC toolsets make package inspection discovery ambiguous
 
 - Severity: MEDIUM

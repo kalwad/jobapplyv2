@@ -3,6 +3,10 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Current local packaging validation (2026-10-29UTC)
+
+Clean07eb77b/treeeadbd0 actual local aggregate is18PASS/2FAIL; both failures come from the same existing portability guard rejecting the new SDK path f-string fragment. Python2140PASS1FAIL and all other18 suites pass. A one-expression pathlib-segment correction passes13unchanged focused cases/strictchecks/CLI with different source/data review, pending fresh aggregate/hosted/native validation. Exact raw source/endpoints/reviews: docs/evidence/m03-w07-portable-sdk-path-correction. This adds no Windows11/defaultGNOME/certified support row or transferred full PASS.
+
 ## Hosted canonical validation and package limits (2026-10-28)
 
 At9872aca/treef2d982d, actualMac/Ubuntu/WindowsServer2025 canonicaljobs eachpass20ACTIVE suites and4006freshTS; Python2120/2120/2118 and native342/338/316 respectively ineach3modes. Complete source/API/raw/review: docs/evidence/m03-w07-ci-9872aca-failure. Bothnativepackagejobs fail (WindowsSDKambiguity, Ubuntu staticinspection), with no serviceactor/GUI certification. Scopedsourcecorrections/134focusedpasses and MacDATAONLYDeb replay are docs/evidence/m03-w07-packaging-corrections, pendingfreshhosted/nativevalidation. These results add no Windows11x64/defaultGNOME/productionATS/certifiedsupportrow. Earlier entries retain their originalhistoricalscope.
