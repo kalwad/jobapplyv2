@@ -460,7 +460,14 @@ def release_receipt(context: Context, request: dict[str, Any]) -> dict[str, Any]
     return value
 
 
-def artifact_metadata(request: dict[str, Any], fetch: FETCH) -> dict[str, Any]:
+def artifact_metadata(
+    request: dict[str, Any], fetch: FETCH, *, authorization_head: str | None = None
+) -> dict[str, Any]:
+    # Only decode supplies a head after all current authorization checks pass.
+    # Standalone metadata callers retain the original source-only requirement.
+    allowed_pr_heads = {request["expected_source_sha"]}
+    if authorization_head is not None:
+        allowed_pr_heads.add(hexadecimal(authorization_head, 40))
     pin = request["artifact"]
     prefix = "/repos/" + REPOSITORY + "/actions/"
     run = fetch(prefix + "runs/" + pin["run_id"] + "/attempts/" + pin["run_attempt"])
@@ -503,7 +510,7 @@ def artifact_metadata(request: dict[str, Any], fetch: FETCH) -> dict[str, Any]:
             not isinstance(prs, list)
             or len(prs) != 1
             or prs[0]["number"] != PR_NUMBER
-            or prs[0]["head"]["sha"] != request["expected_source_sha"]
+            or prs[0]["head"]["sha"] not in allowed_pr_heads
             or prs[0]["head"]["ref"] != BRANCH
             or prs[0]["base"]["ref"] != "main"
             or any(
@@ -611,7 +618,7 @@ def decode(
         context.control, "show", head + ":" + RELEASE
     ) != bounded(context.control / RELEASE, REQUEST_CAP):
         raise ValueError("Root release differs from committed authorization blob")
-    metadata = artifact_metadata(request, fetch)
+    metadata = artifact_metadata(request, fetch, authorization_head=head)
     outputs = {
         "enabled": "true",
         "mode": context.mode,

@@ -21,7 +21,7 @@ from unittest import mock
 import pytest
 
 HELPER = Path(__file__).resolve().parents[1] / "_native_package_process.py"
-HELPER_SHA256 = "7371248344a87e537cb66cd8ef4650fb521440088be1bd75573dcf3ee5960b1d"
+HELPER_SHA256 = "19bf1ae0eec2f1511703f3ff9e97de14b289a1f67d64c36a2e5bf52e616b86b2"
 
 
 class _ProcessIdentity(TypedDict):

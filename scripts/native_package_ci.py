@@ -88,7 +88,7 @@ def _wheel_pins(value: object) -> dict[str, FilePin]:
     return result
 
 
-PROCESS_HELPER_SHA = "7371248344a87e537cb66cd8ef4650fb521440088be1bd75573dcf3ee5960b1d"
+PROCESS_HELPER_SHA = "19bf1ae0eec2f1511703f3ff9e97de14b289a1f67d64c36a2e5bf52e616b86b2"
 
 
 def load_process_helper() -> ProcessHelper:

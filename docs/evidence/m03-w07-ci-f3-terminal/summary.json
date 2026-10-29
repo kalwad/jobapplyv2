@@ -1,0 +1,687 @@
+{
+  "created_utc": "2026-10-29T22:28:47.998052+00:00",
+  "formal_progress": "39/300; active M03-W07; unchanged",
+  "formal_progress_change": false,
+  "milestone_or_gate_or_release_credit": false,
+  "native_or_model_qualification": false,
+  "actual_result": "THREE_VERIFY_PASS_MAIN_CI_PACKAGE_FAILURE",
+  "source_commit": "f3a1c6f7ad62161c682d92f842003fd018c5eec1",
+  "source_tree": "298ac93fe910d8917d3863d48e5f6c2621bf3f17",
+  "source_files": 2348,
+  "tested_merge": "f39bbb08181d729e97214f2f111ad3a88ee408b8",
+  "source_client_sha256": "661328686b629ea247bb5ab32b370074568ff68510b1f943eaf8ade0886c6b8e",
+  "main_workflow": {
+    "id": 40956683963,
+    "conclusion": "failure"
+  },
+  "three_verification_jobs": [
+    {
+      "job_id": 123738678821,
+      "name": "doctor + verify (macos-15)",
+      "API_conclusion": "success",
+      "collection_count": 2788,
+      "expected_count": 2788,
+      "direct_exact_ID_count": 2776,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [
+        "====================== 2788 passed in 1021.41s (0:17:01) ======================="
+      ],
+      "exact_failed_ids": [],
+      "actual_component_summary": [
+        [
+          "toolchain",
+          "PASS"
+        ],
+        [
+          "format",
+          "PASS"
+        ],
+        [
+          "lint",
+          "PASS"
+        ],
+        [
+          "typecheck",
+          "PASS"
+        ],
+        [
+          "unit-ts",
+          "PASS"
+        ],
+        [
+          "contract-gen",
+          "PASS"
+        ],
+        [
+          "fixture-corpus",
+          "PASS"
+        ],
+        [
+          "evaluation-corpus",
+          "PASS"
+        ],
+        [
+          "contract",
+          "PASS"
+        ],
+        [
+          "build",
+          "PASS"
+        ],
+        [
+          "e2e-browser",
+          "PASS"
+        ],
+        [
+          "w14-public-controlled",
+          "PASS"
+        ],
+        [
+          "w14-public-contact-controlled",
+          "PASS"
+        ],
+        [
+          "visual",
+          "PASS"
+        ],
+        [
+          "python",
+          "PASS"
+        ],
+        [
+          "rust",
+          "PASS"
+        ],
+        [
+          "portability",
+          "PASS"
+        ],
+        [
+          "traceability",
+          "PASS"
+        ],
+        [
+          "status",
+          "PASS"
+        ],
+        [
+          "integrity",
+          "PASS"
+        ]
+      ],
+      "cancellation_line_observed": false,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    },
+    {
+      "job_id": 123738679067,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "API_conclusion": "success",
+      "collection_count": 2788,
+      "expected_count": 2788,
+      "direct_exact_ID_count": 2776,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [
+        "======================= 2788 passed in 611.48s (0:10:11) ======================="
+      ],
+      "exact_failed_ids": [],
+      "actual_component_summary": [
+        [
+          "toolchain",
+          "PASS"
+        ],
+        [
+          "format",
+          "PASS"
+        ],
+        [
+          "lint",
+          "PASS"
+        ],
+        [
+          "typecheck",
+          "PASS"
+        ],
+        [
+          "unit-ts",
+          "PASS"
+        ],
+        [
+          "contract-gen",
+          "PASS"
+        ],
+        [
+          "fixture-corpus",
+          "PASS"
+        ],
+        [
+          "evaluation-corpus",
+          "PASS"
+        ],
+        [
+          "contract",
+          "PASS"
+        ],
+        [
+          "build",
+          "PASS"
+        ],
+        [
+          "e2e-browser",
+          "PASS"
+        ],
+        [
+          "w14-public-controlled",
+          "PASS"
+        ],
+        [
+          "w14-public-contact-controlled",
+          "PASS"
+        ],
+        [
+          "visual",
+          "PASS"
+        ],
+        [
+          "python",
+          "PASS"
+        ],
+        [
+          "rust",
+          "PASS"
+        ],
+        [
+          "portability",
+          "PASS"
+        ],
+        [
+          "traceability",
+          "PASS"
+        ],
+        [
+          "status",
+          "PASS"
+        ],
+        [
+          "integrity",
+          "PASS"
+        ]
+      ],
+      "cancellation_line_observed": false,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    },
+    {
+      "job_id": 123738679162,
+      "name": "doctor + verify (windows-2025)",
+      "API_conclusion": "success",
+      "collection_count": 2786,
+      "expected_count": 2786,
+      "direct_exact_ID_count": 2774,
+      "masked_residual_count": 12,
+      "masked_observed_ids": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[***"
+      ],
+      "possible_expected_ids_by_preserved_function_multiplicity": [
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer -version]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../docs]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-../openapi.json]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-health]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-ready]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-unknown]",
+        "services/orchestrator/tests/test_service_api.py::test_every_route_requires_session_auth[Bearer wrong-version]"
+      ],
+      "collection_is_execution_or_PASS_proof": false,
+      "python_terminal_summaries": [
+        "====================== 2786 passed in 906.22s (0:15:06) ======================="
+      ],
+      "exact_failed_ids": [],
+      "actual_component_summary": [
+        [
+          "toolchain",
+          "PASS"
+        ],
+        [
+          "format",
+          "PASS"
+        ],
+        [
+          "lint",
+          "PASS"
+        ],
+        [
+          "typecheck",
+          "PASS"
+        ],
+        [
+          "unit-ts",
+          "PASS"
+        ],
+        [
+          "contract-gen",
+          "PASS"
+        ],
+        [
+          "fixture-corpus",
+          "PASS"
+        ],
+        [
+          "evaluation-corpus",
+          "PASS"
+        ],
+        [
+          "contract",
+          "PASS"
+        ],
+        [
+          "build",
+          "PASS"
+        ],
+        [
+          "e2e-browser",
+          "PASS"
+        ],
+        [
+          "w14-public-controlled",
+          "PASS"
+        ],
+        [
+          "w14-public-contact-controlled",
+          "PASS"
+        ],
+        [
+          "visual",
+          "PASS"
+        ],
+        [
+          "python",
+          "PASS"
+        ],
+        [
+          "rust",
+          "PASS"
+        ],
+        [
+          "portability",
+          "PASS"
+        ],
+        [
+          "traceability",
+          "PASS"
+        ],
+        [
+          "status",
+          "PASS"
+        ],
+        [
+          "integrity",
+          "PASS"
+        ]
+      ],
+      "cancellation_line_observed": false,
+      "scope": "Masked labels cannot authenticate individual parameter identity. Collection exact direct IDs and per-function multiplicity are separate from actual aggregate execution summary; no passing-case outcome invented."
+    }
+  ],
+  "dependent_package_jobs": [
+    {
+      "id": 123763606871,
+      "name": "native development package (ubuntu-24.04)",
+      "conclusion": "success",
+      "checkout_observations": [
+        {
+          "observed_commit": "f39bbb08181d729e97214f2f111ad3a88ee408b8",
+          "ref_parameter": null,
+          "path_parameter": null
+        }
+      ]
+    },
+    {
+      "id": 123763607069,
+      "name": "native development package (windows-2025)",
+      "conclusion": "failure",
+      "checkout_observations": [
+        {
+          "observed_commit": "f39bbb08181d729e97214f2f111ad3a88ee408b8",
+          "ref_parameter": null,
+          "path_parameter": null
+        }
+      ]
+    }
+  ],
+  "Windows10_tauri_package_record": {
+    "argv": [
+      "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node.EXE",
+      "C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64\\node_modules\\corepack\\dist\\pnpm.js",
+      "--filter",
+      "@japp/desktop",
+      "exec",
+      "tauri",
+      "build",
+      "--debug",
+      "--config",
+      "D:\\a\\_temp\\japp-development-package-work\\packaging\\windows-local.config.json",
+      "--ci",
+      "--",
+      "--locked"
+    ],
+    "cwd": "D:\\a\\_temp\\japp-development-package-work",
+    "environment": {
+      "PATH": "C:\\Program Files\\PowerShell\\7;C:\\hostedtoolcache\\windows\\node\\24.18.0\\x64;C:\\Program Files\\MongoDB\\Server\\7.0\\bin;C:\\vcpkg;C:\\tools\\zstd;C:\\hostedtoolcache\\windows\\stack\\3.11.1\\x64;C:\\cabal\\bin;C:\\\\ghcup\\bin;C:\\mingw64\\bin;C:\\Program Files\\dotnet;C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin;C:\\Program Files\\R\\R-4.6.1\\bin\\x64;C:\\SeleniumWebDrivers\\GeckoDriver;C:\\SeleniumWebDrivers\\EdgeDriver\\;C:\\SeleniumWebDrivers\\ChromeDriver;C:\\Program Files (x86)\\sbt\\bin;C:\\Program Files (x86)\\GitHub CLI;C:\\Program Files\\Git\\bin;C:\\Program Files (x86)\\pipx_bin;C:\\npm\\prefix;C:\\hostedtoolcache\\windows\\go\\1.24.13\\x64\\bin;C:\\hostedtoolcache\\windows\\Python\\3.12.10\\x64\\Scripts;C:\\hostedtoolcache\\windows\\Python\\3.12.10\\x64;C:\\hostedtoolcache\\windows\\Ruby\\3.3.12\\x64\\bin;C:\\Program Files\\OpenSSL\\bin;C:\\tools\\kotlinc\\bin;C:\\hostedtoolcache\\windows\\Java_Temurin-Hotspot_jdk\\17.0.20-101\\x64\\bin;C:\\Program Files\\ImageMagick-7.1.2-Q16-HDRI;C:\\Program Files\\Microsoft SDKs\\Azure\\CLI2\\wbin;C:\\ProgramData\\kind;C:\\ProgramData\\Chocolatey\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\WSL\\;C:\\Program Files\\PowerShell\\7\\;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\Program Files (x86)\\WiX Toolset v3.14\\bin;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\140\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\150\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\170\\DTS\\Binn\\;C:\\ProgramData\\chocolatey\\lib\\pulumi\\tools\\Pulumi\\bin;C:\\Program Files\\CMake\\bin;C:\\Strawberry\\c\\bin;C:\\Strawberry\\perl\\site\\bin;C:\\Strawberry\\perl\\bin;C:\\ProgramData\\chocolatey\\lib\\maven\\apache-maven-3.9.16\\bin;C:\\Program Files\\Microsoft Service Fabric\\bin\\Fabric\\Fabric.Code;C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\ServiceFabricLocalClusterManager;C:\\Program Files\\LLVM\\bin;C:\\Program Files (x86)\\LLVM\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\ucrt64\\bin;C:\\Program Files\\Git\\usr\\bin;C:\\Program Files\\GitHub CLI\\;c:\\tools\\php;C:\\Program Files (x86)\\sbt\\bin;C:\\Program Files\\Amazon\\AWSCLIV2\\;C:\\Program Files\\Amazon\\SessionManagerPlugin\\bin\\;C:\\Program Files\\Amazon\\AWSSAMCLI\\bin\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\mongosh\\;C:\\Users\\runneradmin\\.dotnet\\tools;C:\\Users\\runneradmin\\.cargo\\bin;C:\\Users\\runneradmin\\AppData\\Local\\Microsoft\\WindowsApps",
+      "USERPROFILE": "C:\\Users\\runneradmin",
+      "SystemRoot": "C:\\Windows",
+      "WINDIR": "C:\\Windows",
+      "SystemDrive": "C:",
+      "COMSPEC": "C:\\Windows\\system32\\cmd.exe",
+      "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL",
+      "RUSTUP_HOME": "D:\\a\\_temp/rustup-home",
+      "TMPDIR": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\temp",
+      "TEMP": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\temp",
+      "TMP": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\temp",
+      "CARGO_BUILD_JOBS": "2",
+      "CARGO_TARGET_DIR": "D:\\a\\_temp\\japp-development-package-proof\\pipeline\\target",
+      "RUSTC": "D:\\a\\_temp\\rustup-home\\toolchains\\1.97.1-x86_64-pc-windows-msvc\\bin\\rustc.exe"
+    },
+    "seconds": 900,
+    "work_deadline": 1139.671,
+    "cleanup_deadline": 1154.671,
+    "start_utc": "2026-10-29T22:13:50.554110+00:00",
+    "escaped_sessions_or_jobs": "UNOBSERVED",
+    "exit_code": 0,
+    "success": false,
+    "failure": null,
+    "cleanup_error": null,
+    "containment": {
+      "held_job": true,
+      "assigned_before_resume": true,
+      "terminated_job": true,
+      "job_active_processes": 0,
+      "direct_exit": 0,
+      "all_job_members_closed": true,
+      "outside_job_descendants": "UNOBSERVED"
+    },
+    "capture": {
+      "captured_bytes": 19032,
+      "discarded_bytes": 0,
+      "overflow": false,
+      "errors": [],
+      "readers_closed": true
+    },
+    "seconds_elapsed": 241.36,
+    "end_utc": "2026-10-29T22:17:51.923726+00:00",
+    "stdout_sha256": "aaae97df401c3afc8127000dd3b6ad6fe0d9e756a92b35df7cb6da832f6dc023",
+    "stderr_sha256": "4c65de1db982cb5a0d64854726ffe0a9fe05bb0d09ad04ff4d27d8d23339f3fe",
+    "native_launch_failure": null,
+    "retained_inherited_handle_count": 0
+  },
+  "Ubuntu_curated_export": {
+    "bytes": 85566554,
+    "sha256": "6cd30c0c52ae59db39977aed2731ff8e9f7ba6c8a28571f84a9d83c95f163306",
+    "retained_artifacts": [
+      12937691097,
+      12937890723
+    ],
+    "installed_or_GUI_certification": false
+  },
+  "auxiliary_outcomes": "Four disabled-policy successes; downstream skipped; no VM/native execution credit",
+  "outer_collector": {
+    "start_utc": "2026-10-29T21:26:38.497309+00:00",
+    "end_utc": "2026-10-29T22:18:45.577231+00:00",
+    "elapsed_seconds": 3127.0673730000854,
+    "pid": 65424,
+    "pgid": 65424,
+    "reaped": true,
+    "exit_code": 0,
+    "group_after_wait": "ABSENT",
+    "signals": [],
+    "stop_reason": null,
+    "stdout": {
+      "bytes": 24280,
+      "sha256": "480fd1367df22c7f357c41c802b5c3219a8e9e4a31239e1f5435d2d731ac1057"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "scope": "GET-only collector outer custody. Terminal product/job results are in collector evidence; exit0 alone is not product PASS."
+  },
+  "API_GET_children": {
+    "count": 158,
+    "nonzero": 0,
+    "all_reaped_groups_ABSENT_no_signals_or_stops": true
+  },
+  "different_review": {
+    "report": {
+      "bytes": 6082,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "c7862436e9b217c6edeadc5b75090ad193aa5802004595a39764c5039c7d573f"
+    },
+    "DATA": {
+      "bytes": 2102883,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "1d9c027ce45366cb3f1d919f10a4b65041d2098cd0dfdb1925e7be6869409b1a"
+    },
+    "PACKAGE_DATA": {
+      "bytes": 1098943,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "e5316d50027951187caee64c175fdcb7cbded1be4afc9d9db9b1c94e19b26930"
+    },
+    "manifest": {
+      "bytes": 296255,
+      "mode": 420,
+      "full_mode": 33188,
+      "sha256": "97751b94458ead58f3de87b034fb31e881539714833fcc03156dbe55dcf14e6d"
+    },
+    "main_data_joins": 14079,
+    "inner_package_source_joins": 7728,
+    "workflow_source_checks": 73
+  },
+  "original_collector": {
+    "absolute_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f",
+    "files": 1247,
+    "bytes": 1409686724,
+    "retained_copy": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector",
+    "before_copy_after_bytes_full_modes_equal": true
+  },
+  "original_parent_proof_not_embedded": {
+    "absolute_path": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/proof.tar.gz",
+    "bytes": 517312791,
+    "mode": 420,
+    "full_mode": 33188,
+    "sha256": "9158eefac41c3e0d66f02d6d6ec76084005247a12299f7460ca855a17c24231a"
+  },
+  "artifacts": [
+    {
+      "id": 12932693443,
+      "name": "win11-vm-request-40956684124",
+      "workflow_run": 40956684124,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956684124/artifacts/12932693443",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12932693443",
+      "created_at": "2026-10-29T21:19:15Z",
+      "expires_at": "2026-11-05T21:19:14Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 1011,
+      "archive_sha256": "0f719bdfb05a9eeb547c1166075ba7420e9e4e5fd464a46696dc37bf9f905bca",
+      "expanded_regular_members": 5,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12932693443/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12932693443/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12932992982,
+      "name": "gnome-download-only-request-40956684121",
+      "workflow_run": 40956684121,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956684121/artifacts/12932992982",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12932992982",
+      "created_at": "2026-10-29T21:19:15Z",
+      "expires_at": "2026-11-05T21:19:14Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 1011,
+      "archive_sha256": "0f719bdfb05a9eeb547c1166075ba7420e9e4e5fd464a46696dc37bf9f905bca",
+      "expanded_regular_members": 5,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12932992982/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12932992982/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12933017923,
+      "name": "win11-download-only-request-40956684134",
+      "workflow_run": 40956684134,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956684134/artifacts/12933017923",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12933017923",
+      "created_at": "2026-10-29T21:19:19Z",
+      "expires_at": "2026-11-05T21:19:18Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 1011,
+      "archive_sha256": "d1d0f5282ed03230e9f34907824811893cadba20186d6771e105295adbb89cc0",
+      "expanded_regular_members": 5,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12933017923/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12933017923/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12934301244,
+      "name": "gnome-vm-request-40956684094",
+      "workflow_run": 40956684094,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956684094/artifacts/12934301244",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12934301244",
+      "created_at": "2026-10-29T21:19:11Z",
+      "expires_at": "2026-11-05T21:19:11Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 1011,
+      "archive_sha256": "2e83429bc9abc4871ec252ccfb78fc231c09f67b6eec700a0634e6bc2f52ac10",
+      "expanded_regular_members": 5,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12934301244/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12934301244/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12937691097,
+      "name": "native-development-ubuntu-24.04-f39bbb08181d729e97214f2f111ad3a88ee408b8",
+      "workflow_run": 40956683963,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956683963/artifacts/12937691097",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12937691097",
+      "created_at": "2026-10-29T22:18:07Z",
+      "expires_at": "2026-11-05T22:17:48Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 258525706,
+      "archive_sha256": "b04e5a74b002ee54b62b350f43817fe4b52e929b67240c1e7a41c9c163770793",
+      "expanded_regular_members": 456,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12937691097/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12937691097/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12937890723,
+      "name": "gnome-package-input-f39bbb08181d729e97214f2f111ad3a88ee408b8",
+      "workflow_run": 40956683963,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956683963/artifacts/12937890723",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12937890723",
+      "created_at": "2026-10-29T22:17:46Z",
+      "expires_at": "2026-11-05T22:17:42Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 85288555,
+      "archive_sha256": "0ec3bc9e2fdc049f076dbff574228ee1dbfefe8caf2a33763ae0077a31dfcb08",
+      "expanded_regular_members": 9,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12937890723/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12937890723/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    },
+    {
+      "id": 12938240486,
+      "name": "native-development-windows-2025-f39bbb08181d729e97214f2f111ad3a88ee408b8",
+      "workflow_run": 40956683963,
+      "url": "https://github.com/kalwad/jobapplyv2/actions/runs/40956683963/artifacts/12938240486",
+      "retained_api_url": "https://api.github.com/repos/kalwad/jobapplyv2/actions/artifacts/12938240486",
+      "created_at": "2026-10-29T22:18:03Z",
+      "expires_at": "2026-11-05T22:17:55Z",
+      "expired_at_retained_observation": false,
+      "archive_bytes": 81313678,
+      "archive_sha256": "8ab8e573d1ed8ab4b729d150f77e57aa0b7ebac2891a020940f05123a831a12c",
+      "expanded_regular_members": 211,
+      "absolute_original_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f/artifacts/12938240486/attempt-1.zip",
+      "absolute_review_copy_zip": "/Users/tanishkalwad/jobapplyv2-evidence/resume-20261028/ci-f3a1c6f-independent-review/v1/raw-collector/artifacts/12938240486/attempt-1.zip",
+      "binary_archive_embedded_in_compact_packet": false
+    }
+  ],
+  "compact_omitted_body_count": 43,
+  "complete_binary_payloads_or_ZIPs_embedded": false,
+  "self_contained_for_binary_retrieval": false,
+  "availability_checked_after_retained_API_snapshot": false,
+  "original374_failures_preserved": true,
+  "new437_client977e_and29_cases_covered_by_this_CI": false
+}

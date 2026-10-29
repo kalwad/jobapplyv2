@@ -66,6 +66,7 @@ class Containment(TypedDict, total=False):
     remaining: list[ProcessIdentity]
     held_job: bool
     terminated_job: bool
+    job_cleanup_deadline_met: bool
     job_active_processes: int
     direct_exit: int | None
     all_job_members_closed: bool
@@ -299,6 +300,7 @@ def _containment(value: object) -> Containment:
         "session_members_absent",
         "held_job",
         "terminated_job",
+        "job_cleanup_deadline_met",
         "all_job_members_closed",
         "no_process_created",
         "assigned_before_resume",
@@ -1076,7 +1078,9 @@ class _WindowsJob:
         )
         return int(data.active)
 
-    def settle(self, deadline: float) -> Containment:
+    def settle(
+        self, deadline: float, *, allow_natural_drain: bool = True
+    ) -> Containment:
         if self.process is None:
             return {
                 "held_job": bool(self.job),
@@ -1085,9 +1089,19 @@ class _WindowsJob:
                 "direct_exit": None,
                 "all_job_members_closed": True,
                 "no_process_created": True,
+                "job_cleanup_deadline_met": time.monotonic() < deadline,
             }
+        direct_exit = self.poll()
         active = self.active() if self.assigned else 0
-        terminated = active != 0 or self.poll() is None
+        if allow_natural_drain and self.assigned and direct_exit is not None:
+            # The direct command has exited; its held Job can briefly retain
+            # helpers/accounting. Reserve three seconds of the same bound for
+            # contained termination and observed closure if natural drain fails.
+            natural_until = deadline - 3.0
+            while active and (remaining := natural_until - time.monotonic()) > 0:
+                time.sleep(min(0.02, remaining))
+                active = self.active()
+        terminated = active != 0 or direct_exit is None
         if self.assigned and active:
             self._ok(self.k.TerminateJobObject(self.job, 125))
         if not self.assigned and self.poll() is None:
@@ -1097,14 +1111,16 @@ class _WindowsJob:
         ):
             time.sleep(0.02)
         active = self.active() if self.assigned else 0
+        direct_exit = self.poll()
         return {
             "held_job": True,
             "assigned_before_resume": self.assigned,
             "terminated_job": terminated,
             "job_active_processes": active,
-            "direct_exit": self.poll(),
-            "all_job_members_closed": active == 0 and self.poll() is not None,
+            "direct_exit": direct_exit,
+            "all_job_members_closed": active == 0 and direct_exit is not None,
             "outside_job_descendants": "UNOBSERVED",
+            "job_cleanup_deadline_met": time.monotonic() < deadline,
         }
 
     def close(self) -> None:
@@ -1172,6 +1188,7 @@ def run(  # noqa: PLR0912, PLR0913, PLR0915 -- one ordered owner acquisition/unw
     capture.start()
     child: subprocess.Popen[bytes] | None = None
     windows: _WindowsJob | None = None
+    windows_close_until: float | None = None
     lease: int | None = None
     keeper: ProcessIdentity | None = None
     keeper_fd: int | None = None
@@ -1204,9 +1221,12 @@ def run(  # noqa: PLR0912, PLR0913, PLR0915 -- one ordered owner acquisition/unw
                 if capture.overflow.is_set():
                     raise ValueError("Native command output cap")
                 time.sleep(0.02)
-            cleanup = windows.settle(
-                min(close_until, time.monotonic() + COMMAND_CLEANUP_SECONDS)
+            windows_close_until = min(
+                until, close_until, time.monotonic() + COMMAND_CLEANUP_SECONDS
             )
+            cleanup = windows.settle(windows_close_until)
+            if not cleanup["job_cleanup_deadline_met"]:
+                raise TimeoutError("Windows Job cleanup deadline")
         elif _runtime_platform() == "linux":
             if not hasattr(os, "pidfd_open") or not hasattr(
                 signal, "pidfd_send_signal"
@@ -1313,12 +1333,19 @@ def run(  # noqa: PLR0912, PLR0913, PLR0915 -- one ordered owner acquisition/unw
                 os.close(lease)
                 lease = None
             if windows is not None and hasattr(windows, "job"):
-                final = windows.settle(final_until)
+                if windows_close_until is None:
+                    windows_close_until = final_until
+                final_until = min(final_until, windows_close_until)
+                final = windows.settle(final_until, allow_natural_drain=False)
                 cleanup = {
                     **cleanup,
                     **final,
                     "terminated_job": cleanup.get("terminated_job", False)
                     or final["terminated_job"],
+                    "job_cleanup_deadline_met": cleanup.get(
+                        "job_cleanup_deadline_met", True
+                    )
+                    and final["job_cleanup_deadline_met"],
                 }
                 if final["all_job_members_closed"]:
                     windows.close()
@@ -1375,6 +1402,13 @@ def run(  # noqa: PLR0912, PLR0913, PLR0915 -- one ordered owner acquisition/unw
             elif keeper_fd is not None:
                 os.close(keeper_fd)
             captured = capture.finish()
+            if windows is not None and windows_close_until is not None:
+                # A late held observer/CloseHandle/capture completion cannot
+                # refresh the first closure fence or erase earlier lateness.
+                cleanup["job_cleanup_deadline_met"] = (
+                    cleanup.get("job_cleanup_deadline_met", False)
+                    and time.monotonic() < windows_close_until
+                )
             closed = (
                 cleanup.get("all_job_members_closed")
                 if _runtime_platform() == "win32"
@@ -1389,6 +1423,10 @@ def run(  # noqa: PLR0912, PLR0913, PLR0915 -- one ordered owner acquisition/unw
                 and cleanup_error is None
                 and closed
                 and not intervened
+                and (
+                    _runtime_platform() != "win32"
+                    or cleanup.get("job_cleanup_deadline_met", False)
+                )
                 and captured["readers_closed"]
                 and not captured["overflow"]
                 and not captured["errors"]
