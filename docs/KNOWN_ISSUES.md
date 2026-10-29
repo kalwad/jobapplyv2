@@ -4,6 +4,10 @@ Reproducible defects and deferred risks (`docs/MASTER_IMPLEMENTATION_SPEC.md`
 §1.1). This file is also where out-of-scope ideas are parked instead of
 broadening a work package (spec §1.5).
 
+## Current W06 closeout observation (2026-10-28)
+
+Clean9872 actual doctor28/all20PASS includes2120Python and preserves every committed collection identity; KI-0119’s metadata preflight defect is closed by this full validation plus unchanged fixture/negative oracle. Original204bc full/CI failures remain failures in their exact retained packets. Windows-only KI-0120 and hosted scheduling KI-0118 stay IN_PROGRESS pending current terminal affected-host evidence; a local/Ubuntu pass does not close them. Fresh MacGUI is now observed and independently reviewed after owner unlock; lock-related pending prose below is historical. Delegated W06 decision and limitations: docs/TEST_EVIDENCE.md § M03-W06 and docs/evidence/m03-w06-delegated-readiness. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY. Foreign desktop certification and later storage/native-key activation remain pending.
+
 ## Update rules
 
 - IDs: `KI-####`, never reused.
@@ -37,13 +41,13 @@ broadening a work package (spec §1.5).
 ### KI-0119 — Deep malformed-JSON Python fixture trips collection policy
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: clean204bc06 full verification; Python and integrity refuse before Python execution.
 - Affects: M03-W06; new runtime metadata test fixture, not production metadata behavior.
 - Description: the existing conservative verifier treats Python literal nesting beyond its bounded capability traversal as a potential dynamic collection hook. One18-level malformed-JSON fixture passes that literal through `_json`, causing the observed refusal.
 - Reproduction: exact204bc06 raw18PASS/2FAIL full and independent2097-join review in docs/evidence/m03-w06-aggregate-204bc06-failure.
 - Workaround: none; verifier/test inventory protections stay intact.
-- Resolution + evidence link: root-reviewed byte-identical66-byte wire literal preserves all2120 IDs and negative assertions. Corrected current canonical105PASS and integrityPASS; outside same105/preflight/integrity/Ruff pass. Corrected complete aggregate remains pending. See docs/evidence/m03-w06-fixture-portability-corrections.
+- Resolution + evidence link: root-reviewed byte-identical66-byte wire literal preserves all2120 IDs and negative assertions. Corrected current canonical105PASS and integrityPASS; outside same105/preflight/integrity/Ruff pass. Corrected clean9872 full now actually passes all20 suites including2120Python; different2173-join reviewCLEAR at docs/evidence/m03-w06-clean-aggregate-9872aca. See docs/evidence/m03-w06-fixture-portability-corrections.
 
 ### KI-0120 — Native owner fixture assumes POSIX absolute roots on Windows
 

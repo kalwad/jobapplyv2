@@ -1,0 +1,342 @@
+{
+  "scope": "INDEPENDENT_ACTUAL_CLEAN_LOCAL_FULL_AGGREGATE_9872_DATA_REVIEW_NOT_CI_OR_NATIVE_GUI_ACCEPTANCE",
+  "verdict": "CLEAR_LOCAL_FULL_AGGREGATE_PASS",
+  "passed_checks": 2173,
+  "commit": "9872acaf6191ce77fd1c077ef27ea972b71b8315",
+  "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+  "start_utc": "2026-10-29T00:35:54.368465+00:00",
+  "end_utc": "2026-10-29T00:55:37.560657+00:00",
+  "actual_results": [
+    {
+      "name": "doctor",
+      "argv": [
+        "pnpm",
+        "run",
+        "doctor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 6.077765750000253,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    },
+    {
+      "name": "verify",
+      "argv": [
+        "pnpm",
+        "verify"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 1176.8554958750028,
+      "direct_child_reaped": true,
+      "observed_group": "ABSENT",
+      "outer_cleanup_signals": []
+    }
+  ],
+  "aggregate_suites": [
+    {
+      "suite": "toolchain",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "format",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "lint",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "typecheck",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "unit-ts",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "contract-gen",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "fixture-corpus",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "evaluation-corpus",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "contract",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "build",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "e2e-browser",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "w14-public-controlled",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "w14-public-contact-controlled",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "visual",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "python",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "rust",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "portability",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "traceability",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "status",
+      "state": "ACTIVE",
+      "result": "PASS"
+    },
+    {
+      "suite": "integrity",
+      "state": "ACTIVE",
+      "result": "PASS"
+    }
+  ],
+  "unit_package_counts": {
+    "@japp/ats-adapters": 65,
+    "@japp/evaluation-corpus": 218,
+    "@japp/evaluation-baselines": 171,
+    "@japp/security": 1,
+    "@japp/mock-ats-lab": 32,
+    "@japp/extension": 257,
+    "@japp/desktop": 39,
+    "@japp/evaluation-runner": 377,
+    "@japp/test-fixtures": 166,
+    "@japp/platform": 1,
+    "@japp/domain": 1,
+    "@japp/form-engine": 106,
+    "@japp/ui": 11,
+    "@japp/resume-schema": 1,
+    "@japp/contracts": 2560
+  },
+  "ordinary_unit_passed": 4006,
+  "browser_passed": 278,
+  "dedicated_visual_passed": 17,
+  "python_execution": "ACTUAL2120PASS386_47_SECONDS",
+  "python_inventory_sha256": "9ed9864326fd43ef9fd405d9de9bf573940866b058056569abea8b019095647e",
+  "python_collection_argv": [
+    "uv",
+    "run",
+    "pytest",
+    "-c",
+    "pyproject.toml",
+    "--rootdir=.",
+    "--confcutdir=.",
+    "-o",
+    "addopts=",
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--disable-plugin-autoload",
+    "--collect-only",
+    "-q",
+    "scripts/tests/test_bounded_process.py",
+    "scripts/tests/test_build_service_runtime.py",
+    "scripts/tests/test_build_service_runtime_environment.py",
+    "scripts/tests/test_ci_native_package.py",
+    "scripts/tests/test_ci_workflow.py",
+    "scripts/tests/test_contract_python_adapter.py",
+    "scripts/tests/test_doctor.py",
+    "scripts/tests/test_generated_contracts.py",
+    "scripts/tests/test_generated_platform_contracts.py",
+    "scripts/tests/test_generated_security_policy.py",
+    "scripts/tests/test_generated_semantic_rules.py",
+    "scripts/tests/test_integrity.py",
+    "scripts/tests/test_linux_builder_environment.py",
+    "scripts/tests/test_linux_package.py",
+    "scripts/tests/test_linux_parser_and_cli.py",
+    "scripts/tests/test_linux_parser_records.py",
+    "scripts/tests/test_macos_package.py",
+    "scripts/tests/test_native_package_inputs.py",
+    "scripts/tests/test_native_package_pending_owner.py",
+    "scripts/tests/test_portability.py",
+    "scripts/tests/test_proofs_and_real_repo.py",
+    "scripts/tests/test_status_scan_streaming.py",
+    "scripts/tests/test_suite_states.py",
+    "scripts/tests/test_traceability.py",
+    "scripts/tests/test_ui_governance_progress.py",
+    "scripts/tests/test_v14_migration.py",
+    "scripts/tests/test_validate_status.py",
+    "scripts/tests/test_w14_contact_controlled_proof.py",
+    "scripts/tests/test_w14_public_controlled_proof.py",
+    "scripts/tests/test_windows_builder.py",
+    "scripts/tests/test_windows_package.py",
+    "services/orchestrator/tests/test_generation_boundary.py",
+    "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+    "services/orchestrator/tests/test_generation_header_whitespace.py",
+    "services/orchestrator/tests/test_generation_idle_deadline.py",
+    "services/orchestrator/tests/test_generation_loopback.py",
+    "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+    "services/orchestrator/tests/test_generation_transport.py",
+    "services/orchestrator/tests/test_health_proof.py",
+    "services/orchestrator/tests/test_package.py",
+    "services/orchestrator/tests/test_proof_response_bounds.py",
+    "services/orchestrator/tests/test_runtime_metadata.py",
+    "services/orchestrator/tests/test_runtime_metadata_transport.py",
+    "services/orchestrator/tests/test_service_api.py",
+    "services/orchestrator/tests/test_service_cli.py",
+    "services/orchestrator/tests/test_service_cli_post_exit_observation.py",
+    "services/orchestrator/tests/test_service_config.py",
+    "services/orchestrator/tests/test_service_startup.py"
+  ],
+  "python_execution_argv": [
+    "uv",
+    "run",
+    "pytest",
+    "-c",
+    "pyproject.toml",
+    "--rootdir=.",
+    "--confcutdir=.",
+    "-o",
+    "addopts=",
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--disable-plugin-autoload",
+    "scripts/tests/test_bounded_process.py",
+    "scripts/tests/test_build_service_runtime.py",
+    "scripts/tests/test_build_service_runtime_environment.py",
+    "scripts/tests/test_ci_native_package.py",
+    "scripts/tests/test_ci_workflow.py",
+    "scripts/tests/test_contract_python_adapter.py",
+    "scripts/tests/test_doctor.py",
+    "scripts/tests/test_generated_contracts.py",
+    "scripts/tests/test_generated_platform_contracts.py",
+    "scripts/tests/test_generated_security_policy.py",
+    "scripts/tests/test_generated_semantic_rules.py",
+    "scripts/tests/test_integrity.py",
+    "scripts/tests/test_linux_builder_environment.py",
+    "scripts/tests/test_linux_package.py",
+    "scripts/tests/test_linux_parser_and_cli.py",
+    "scripts/tests/test_linux_parser_records.py",
+    "scripts/tests/test_macos_package.py",
+    "scripts/tests/test_native_package_inputs.py",
+    "scripts/tests/test_native_package_pending_owner.py",
+    "scripts/tests/test_portability.py",
+    "scripts/tests/test_proofs_and_real_repo.py",
+    "scripts/tests/test_status_scan_streaming.py",
+    "scripts/tests/test_suite_states.py",
+    "scripts/tests/test_traceability.py",
+    "scripts/tests/test_ui_governance_progress.py",
+    "scripts/tests/test_v14_migration.py",
+    "scripts/tests/test_validate_status.py",
+    "scripts/tests/test_w14_contact_controlled_proof.py",
+    "scripts/tests/test_w14_public_controlled_proof.py",
+    "scripts/tests/test_windows_builder.py",
+    "scripts/tests/test_windows_package.py",
+    "services/orchestrator/tests/test_generation_boundary.py",
+    "services/orchestrator/tests/test_generation_cancellation_deadline.py",
+    "services/orchestrator/tests/test_generation_header_whitespace.py",
+    "services/orchestrator/tests/test_generation_idle_deadline.py",
+    "services/orchestrator/tests/test_generation_loopback.py",
+    "services/orchestrator/tests/test_generation_sticky_cancellation.py",
+    "services/orchestrator/tests/test_generation_transport.py",
+    "services/orchestrator/tests/test_health_proof.py",
+    "services/orchestrator/tests/test_package.py",
+    "services/orchestrator/tests/test_proof_response_bounds.py",
+    "services/orchestrator/tests/test_runtime_metadata.py",
+    "services/orchestrator/tests/test_runtime_metadata_transport.py",
+    "services/orchestrator/tests/test_service_api.py",
+    "services/orchestrator/tests/test_service_cli.py",
+    "services/orchestrator/tests/test_service_cli_post_exit_observation.py",
+    "services/orchestrator/tests/test_service_config.py",
+    "services/orchestrator/tests/test_service_startup.py"
+  ],
+  "public_inspection_passed": 2,
+  "public_contact_controlled_passed": 62,
+  "source_files": 2141,
+  "runtime_files": 40,
+  "retained_visual_files": 33,
+  "limits": [
+    "No complete Vitest per-case ID channel",
+    "Source-neutrality endpoints do not prove every intermediate state",
+    "Rust test PASS is not packaged GUI or desktop-native foreign-OS acceptance",
+    "Starting HEAD/tree context retained; no immediate after-run HEAD/tree receipt retained",
+    "Current foreign CI and separate fresh native GUI are separate actual evidence"
+  ],
+  "native_modes": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--all-features"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "apps/desktop/src-tauri/Cargo.toml",
+        "--features",
+        "tauri/custom-protocol"
+      ],
+      "passed": 342,
+      "names_sha256": "0480c36b3eedd3b7486abc194b17085c64bfa7b5b6ffcc2b68db18bb7db57554"
+    }
+  ],
+  "historical_aggregate_verdict": "PASS_20_ACTIVE_ACTUAL2120_PYTHON_EXECUTED",
+  "state_promotion": "NONE"
+}

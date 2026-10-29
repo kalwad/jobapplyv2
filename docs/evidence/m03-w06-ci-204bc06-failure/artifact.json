@@ -1,0 +1,10 @@
+{
+  "archive": {
+    "bytes": 20305708,
+    "sha256": "f42dd20367a792b485f51ade32f84029678aab7d8cfdec8ad5f7ce3ace461517",
+    "safe_regular_members": 40
+  },
+  "review_sha256": "2ddf7616366a80821cef31f508f151d24e79faaeb32a4dcda2b2117f8047a2b6",
+  "audit_sha256": "a1b3c722ccd1bcab0875dcf0dcc34312758b6ef391f9145ef2d08f06c0410f2c",
+  "scope": "INDEPENDENT_TERMINAL_CI_204BC06_DATA_JOIN_NO_FUTURE_CI_OR_NATIVE_PACKAGE_ACCEPTANCE"
+}

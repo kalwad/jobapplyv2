@@ -3,6 +3,10 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Scoped macOS development-package W06 closeout (2026-10-28)
+
+M03-W06 VERIFIED at9872aca/treef2d982d after current all20-suite local full and separately bound43-file native app lifecycle; actual source/runtime/app identities and independent reviews: docs/evidence/m03-w06-clean-aggregate-9872aca, docs/evidence/m03-w06-fresh-native-gui and docs/evidence/m03-w06-delegated-readiness. App built204bc with identical production graph at9872. Native Ready/keyboard/crash-restart/12unauthorized401/Close/relaunch/Quit/forced-parent observed-cohort cleanup passes at a spaces/Unicode path. Later host observation records macOS27.2/build26B5101f/arm64/M5/24GiB. Local ad-hoc debug signature, not notarized release. This measured development scope adds no certified support tier, universal process containment, final visual baseline or ATS support. M03-W07/Windows11, W08/defaultGNOME, W10/all-platform lifecycle and W11design acceptance remain pending; M03IN_PROGRESS/releaseNOT_READY. Earlier entries below preserve their original evaluated revisions and historical states.
+
 ## Current native macOS development package (2026-10-28)
 
 Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.

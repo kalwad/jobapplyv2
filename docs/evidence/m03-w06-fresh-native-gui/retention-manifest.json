@@ -1,0 +1,286 @@
+{
+  "scope": "Finite exact original GUI records and independent review; physical app/runtime/Git archive excluded",
+  "source_packet_sha256": "80f4bd8ec99aa7687e59f2a0a83cf259f74edcb0f098dca85f71153ab09c62c7",
+  "members": [
+    {
+      "path": "actual/01-ready-ax.txt",
+      "bytes": 1538,
+      "sha256": "f7c3a06f43c2d002e0a071eca535f19d7ad81232f4335a9886bcea12e9c5677f",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/01-ready.png",
+      "bytes": 223878,
+      "sha256": "b075c276f95d93a1da4a68bac18f8220d8f32111643e0dc2a255a092335b0355",
+      "archive_mode": 420,
+      "media_type": "image/jpeg",
+      "original_filename_preserved": true
+    },
+    {
+      "path": "actual/02-keyboard-tab.txt",
+      "bytes": 2082,
+      "sha256": "6cb4bc618f956996ecdfdd35f24cfd0a0b6267233e84d990624d11c7d0db2d41",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/03-keyboard-shift-tab.txt",
+      "bytes": 2118,
+      "sha256": "7a306b600793bbdbb933887fa57dd292f474d8f0e6556582af4da01cc7015a02",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/04-keyboard-refresh.txt",
+      "bytes": 2095,
+      "sha256": "fcc07454a54a8bc0b25598507b37c87080b8e352560c55e784ddd26f71ead467",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/05-ready-processes-auth.json",
+      "bytes": 2349,
+      "sha256": "5171329de364c827299b46ab666def35758a62d310c3a68a99dbf120ff3172cf",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/06-forced-service-before.json",
+      "bytes": 975,
+      "sha256": "d3f1ba81ffe004c36e0736ad2a0a81319c3f5a00b1cac94917d4eb97fb88561d",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/06-forced-service-sent.json",
+      "bytes": 1032,
+      "sha256": "16848bdf5e2aaf22692aa4b767adf4dd71612032d19ad51a442a23ade478c166",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/07-after-service-crash.txt",
+      "bytes": 2242,
+      "sha256": "f6970c33fbd536efe4dc51b31008fc3f27ee7f30e4d52c96e35582703ff836ff",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/08-recovered-ready.png",
+      "bytes": 222902,
+      "sha256": "008f63d6d658215dab89e4a7d6586b356887750df82077ba5c5163c263578dec",
+      "archive_mode": 420,
+      "media_type": "image/jpeg",
+      "original_filename_preserved": true
+    },
+    {
+      "path": "actual/08-recovered-ready.txt",
+      "bytes": 2155,
+      "sha256": "d398d3fbd736fb63808ef59e29f93a7e9c493b15513602553de13412c5919aed",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/09-before-close.json",
+      "bytes": 927,
+      "sha256": "a5d647a64fe5d2ead4211073447e8b018a129bd3b04b16f6cecdc26819819b9f",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/10-after-close-observation.txt",
+      "bytes": 49,
+      "sha256": "64acca1b0fd045061d7a1445eeebe3274188f87a070a6907e76b2bb6e9c59186",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/11-after-close-processes.json",
+      "bytes": 310,
+      "sha256": "e5683fd57c10491791a1d79d2fc568993ded746d159614952cf40cab2d831e09",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/12-relaunch-ready.txt",
+      "bytes": 2155,
+      "sha256": "4c6a36f74277d9f96e98fd1b563c2949e6e0beb7a2de39c1b74d375a9b7f5720",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/13-relaunch-processes-auth.json",
+      "bytes": 2349,
+      "sha256": "c65f204703d1cc080edc7962dae2fd609ebee239741d9d0fba1fd81a4e40e333",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/14-app-quit-menu.txt",
+      "bytes": 699,
+      "sha256": "36fcf686c8161387e12d65ee68f1a7027ad1c699d4cbfaefa78f0706d9910ac5",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/15-after-quit-observation.txt",
+      "bytes": 559,
+      "sha256": "be7a8382819cb79e241c650bda00388ccdee4587ce656f1a59b7f674aa1ec9e7",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/16-after-quit-processes.json",
+      "bytes": 311,
+      "sha256": "8d66cd50bd06ee843f57df6b70133fd4f1876e31656fc3246276b0acdfcc68d8",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/17-before-forced-app.txt",
+      "bytes": 2093,
+      "sha256": "e68454cef37a4fe9f570d8e37881e7e1ebba486bde08eecde3bd53bd5e825930",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/18-forced-app-before.json",
+      "bytes": 971,
+      "sha256": "8804a0cbd03511ba8bd95646a6e3446fff291dffc94a6e66d44d16e1a5f74aa5",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/18-forced-app-result.json",
+      "bytes": 310,
+      "sha256": "6eff51caac1ed233fbeabfa33f9491c669fa39b39ce58f2438ed820048107e66",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/19-after-forced-app-ax.txt",
+      "bytes": 1865,
+      "sha256": "8e4376eb2fff063f01c2e16711327be943255d8d3bda42df2de8c8dfae0de854",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/20-post-proof-relaunch-ready.txt",
+      "bytes": 2093,
+      "sha256": "5b66d2cbc863298596eef69f6cddb8a9e9f98a6d88b5329d7478668c6c823b9c",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/21-post-proof-relaunch-processes.json",
+      "bytes": 927,
+      "sha256": "e3e8cbcbe3fcf8efb414912861529139c3b8ab312ac2b5182b5009bd91d302f1",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/22-final-cleanup.json",
+      "bytes": 310,
+      "sha256": "e099a9d604c69d677a2ff14868230c91d6936e3a98170996a17d4b61e99c14ed",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/23-after-source-observation.json",
+      "bytes": 441817,
+      "sha256": "165974a614c91da9213971256869b4618866f5842cecbe9c73623697cd0f52dc",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/24-lifecycle-closure.json",
+      "bytes": 2334,
+      "sha256": "2953172b5119cf269275548070556394224534a0410ff0d066049245b7dddfe7",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/HANDOFF.json",
+      "bytes": 339,
+      "sha256": "dad90be23c4e46cf4bafe1b6cb6ccefbd74d8335fbde385cc42350b39c859ffd",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/README.md",
+      "bytes": 2216,
+      "sha256": "63616689c28986b42685beb408596c78cecbc92a63738c1abf14ebb0e3bc5fc3",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/SOURCE.json",
+      "bytes": 5786,
+      "sha256": "80f4bd8ec99aa7687e59f2a0a83cf259f74edcb0f098dca85f71153ab09c62c7",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/observe-lifecycle.py",
+      "bytes": 4987,
+      "sha256": "26a3c7166e196831150ee7e87d15040ceaf1e86ae7ca1df3bd0778cf3c47b725",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/seal-executed.py",
+      "bytes": 8602,
+      "sha256": "05c3bfcc16bb9499d0f2fae01db9157e130299d199d0d2c77cab0d04080d781c",
+      "archive_mode": 420
+    },
+    {
+      "path": "actual/start-observation.json",
+      "bytes": 10207,
+      "sha256": "b911e67da54479a575669dbe65f94044f8103dcefec441ae58a02e37cb2f2cc2",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/CORRECTION.md",
+      "bytes": 1208,
+      "sha256": "258edd1738f89b962abbf1ff4f7c21a66b81d362cfc7dc691566c82eb2c02887",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/REVIEW.md",
+      "bytes": 3866,
+      "sha256": "8b00aef7b685f14709fe9fb5422869eb156a5003bf7704d94aa020da3d0b657c",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/audit.py",
+      "bytes": 9783,
+      "sha256": "9e5a00b9232e7f63c0d6385dad82fc221e345f2b6352750154ef66ce76c1cf4f",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/checks.json",
+      "bytes": 287384,
+      "sha256": "4aec4298210e92b8db3fec6eafae3e9e2524219fe257e77b930b6e40451e9fe6",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/initial-audit.py",
+      "bytes": 9458,
+      "sha256": "a8c751d2b9d7779efc24a5ec9d957bdf2443fe0d1b4415379e4371160a41da66",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/initial-review-checks.json",
+      "bytes": 287386,
+      "sha256": "358144f8d4f1920f50a5bab6f27082f103fc8ef601ac6198a3ae74b0ba010676",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/manifest.json",
+      "bytes": 1468,
+      "sha256": "7f7476b1624c8607ef62a3fdb63e337937fc57e0c92d98e81e4228d4f9632b0e",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/source-reference.json",
+      "bytes": 612408,
+      "sha256": "80a2b1eeff9d3f55ddc2eb4d3551ba1953dd2fb1fe715e96de3d618e0213cd61",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/static-reference.json",
+      "bytes": 483417,
+      "sha256": "3354bdb49d7281512d0323876c100d2758c06ac1f5774713da8411b35badc791",
+      "archive_mode": 420
+    },
+    {
+      "path": "independent-review/supplemental-context-review.json",
+      "bytes": 435,
+      "sha256": "ac7dd258fc8eab822e8a70d92e19ed39b617189fa0aab3b55d819927aace1092",
+      "archive_mode": 420
+    },
+    {
+      "path": "references/full-9872-after.json",
+      "bytes": 431886,
+      "sha256": "95223244187a7c94e6d5f52d2b3606194f142c6700b144b960789ebf6dc6535b",
+      "archive_mode": 420
+    },
+    {
+      "path": "references/later-host-context.json",
+      "bytes": 982,
+      "sha256": "e8089ac2c518d00d9b979debca7023d61f75d8e9cf27e9627f38be5f294da393",
+      "archive_mode": 420
+    }
+  ]
+}

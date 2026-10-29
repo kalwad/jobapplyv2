@@ -1,11 +1,11 @@
 # Project Status
 
 Spec version: 1.4
-Repository revision: M03-W05 VERIFIED at185909b/tree3c2ba3a; M03-W06 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
+Repository revision: M03-W06 VERIFIED at9872aca/treef2d982d; M03-W07 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
 Last updated: 2026-10-28
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
-Current work package: M03-W06
+Current work package: M03-W07
 Overall release gate: NOT_READY
 
 ## Critical gates
@@ -22,6 +22,13 @@ This table must always agree with the per-gate `- State:` lines in
 docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
+
+- M03-W06 VERIFIED by /root under OD-037/ADR-0008 after actual clean9872aca/treef2d982d full validation, static package and fresh native GUI evidence, different full/GUI reviews and clean-scope acceptance-readiness review. Required status/traceability checks accompany this closeout.39/300 packages VERIFIED; M03 remains IN_PROGRESS and release NOT_READY. M00/M01/M02 ACCEPTED and Gate A PASS remain unchanged.
+- M03-W07 is the sole IN_PROGRESS package. Objective: finish the Windows11x64 development package and actual native launch/authentication/Unicode-spaces/clean-exit evidence. Existing reviewed packaging source is integrated. Current hosted run40795147477 remains pending separately; Ubuntu job completed20PASS, Mac/Windows and native-package jobs were pending at this record. WindowsServer2025 CI cannot establish Windows11desktop validation. W08/defaultGNOME and W10/all-platform matrix remain required; outside storage preparations receive no M04 credit.
+- Current measured evidence: clean9872 doctor28PASS/all20ACTIVE suitesPASS; actual2120Python/4006TS/native342each3 modes/browser278+2+62+17. All2141source and40runtime bytes/full modes and clean status match endpoints. Starting HEAD/tree only is recorded; immediate ending HEAD/tree was not observed. Different full-data review2173joinsCLEAR. Fresh43-file app is built204bc with unchanged production inputs at9872, runtime manifestad2c9779. Actual native Ready/keyboard,12unauthorized401s, service restart, Close/relaunch/Quit and forced-parent observed-cohort cleanup pass; separate2301-join reviewCLEAR. Later host receipt is macOS27.2/build26B5101f/M5/24GiB. Exact evidence: docs/evidence/m03-w06-clean-aggregate-9872aca, docs/evidence/m03-w06-fresh-native-gui and docs/evidence/m03-w06-delegated-readiness. Old204bc full/CI failures stay failed and retained.
+- Continue all eligible work without routine owner approval prompts. Actual foreign desktops, security boundaries, independent reviews and unwaived final human studies remain required.
+
+## Historical M03-W06 progress (superseded current-state prose)
 
 - Current integration correction (2026-10-29UTC): clean204bc06/tree5b5b (full tree5b5bfeda09b60654adce335e0e21cd9ad056e120) doctor28PASS6.355s; aggregate18PASS/2FAIL816.335s. Python and integrity refused one deeply nested Python fixture before Python execution; all2070source/runtime40 bytes/modes/status endpoints unchanged. Independent2097-join review clears the record as a FAILURE, retained at docs/evidence/m03-w06-aggregate-204bc06-failure. Actual4006TS, browser278/2/62/17 and native342each3 component passes do not turn the aggregate PASS. Windows204bc additionally reports300PASS/16FAIL at one Unix-only fake-root setup; official evidence remains distinct. Two root-reviewed test-only corrections preserve the exact66-byte JSON payload/all2120IDs and all native test bodies/assertions/budgets; actual canonical105metadataPASS/source2136/runtime40 unchanged and integrityPASS; outside Mac owner12/Quit15/catalog342/strictClippy pass. Corrected clean aggregate and actual Windows remain pending. Evidence docs/evidence/m03-w06-fixture-portability-corrections. No production/verifier policy or milestone/gate state changes.
 
@@ -126,8 +133,8 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 | `M03-W03` | VERIFIED | tree 34fcf854cb4a1a452b267a02a05e0c34aeb6f89c | docs/TEST_EVIDENCE.md § M03-W03 | Implement sidecar lifecycle |
 | `M03-W04` | VERIFIED | tree 4ce9cf0c1f5515252a029584f820ea674a66e05e | docs/TEST_EVIDENCE.md § M03-W04 | Implement authenticated API client |
 | `M03-W05` | VERIFIED | tree 3c2ba3a601bd1b8c32bb11b52ca79e48d13b92ed | docs/TEST_EVIDENCE.md § M03-W05 | Add crash/restart behavior |
-| `M03-W06` | IN_PROGRESS | — | — | Package development build |
-| `M03-W07` | NOT_STARTED | — | — | Package Windows x64 development build |
+| `M03-W06` | VERIFIED | tree f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a | docs/TEST_EVIDENCE.md § M03-W06 | Local macOS arm64 development package/common lifecycle; delegated OD-037 closeout |
+| `M03-W07` | IN_PROGRESS | — | — | Package Windows x64 development build; W06 prerequisite VERIFIED |
 | `M03-W08` | NOT_STARTED | — | — | Package Ubuntu x64 development build |
 | `M03-W09` | NOT_STARTED | — | — | Implement platform lifecycle, path, and process adapters |
 | `M03-W10` | NOT_STARTED | — | — | Run cross-platform desktop lifecycle matrix |
@@ -392,7 +399,7 @@ docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 ## Next READY package
 
 - ID: NONE
-- Reason: M03-W06 is IN_PROGRESS after verified M03-W05. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
+- Reason: M03-W07 is IN_PROGRESS after verified M03-W06. Continue implementation and validation without routine approval stops under OD-037 / ADR-0008.
 
 ## Known release blockers
 

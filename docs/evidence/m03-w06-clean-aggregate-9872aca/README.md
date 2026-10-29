@@ -1,0 +1,5 @@
+# Clean local full aggregate — 9872aca
+
+Doctor28PASS and all20ACTIVE suitesPASS at exact clean commit9872acaf6191ce77fd1c077ef27ea972b71b8315/treef2d982dfe441ca6a98c2f9ae2862c3efd1e4373a. Actual results include fresh15-task/4006TS, canonical2120PythonPASS386.47s with exact committed collection IDs, browser278/controlled2/contact62/visual17, and desktopRust342each of3modes. The2173-join independent review binds all2141 source and40 runtime size/hash/full-mode endpoints and clean Git statuses; both direct children reaped/groupsabsent/zero cleanup signals.
+
+Starting HEAD/tree is retained; immediate ending HEAD/tree was not recorded. Exact source bytes still bind the immutable tree. Original204bc06 failed aggregate remains unchanged. Separate fresh foreign CI and native GUI/package evidence is not accepted by this local packet. No milestone, certification or release state changes. See summary, raw logs, inventory/source bindings and independent review inside proof.tar.gz. Artifact and retention manifests bind every safe regular archive member.
