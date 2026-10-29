@@ -14,6 +14,31 @@ BASE_ADDRESS = 0x400000
 RECORD_BYTES = 16
 
 
+@pytest.mark.parametrize(
+    ("version", "accepted"),
+    [
+        ("GLIBC_2.2.5", True),
+        ("GLIBC_2.3.4", True),
+        ("GLIBC_2.39", True),
+        ("GLIBC_2.39.0", True),
+        ("GLIBC_2.39.1", False),
+        ("GLIBC_2.40", False),
+        ("GLIBC_3.0", False),
+        ("GLIBC_2.39.0.1", False),
+        ("GLIBC_PRIVATE", False),
+    ],
+)
+def test_numeric_glibc_versions_keep_the_ubuntu_ceiling(
+    version: str, accepted: bool
+) -> None:
+    raw = elf(["libc.so.6"], glibc=version)
+    if accepted:
+        assert INSPECTOR.elf_metadata(raw, MAIN)["glibc_versions"] == [version]
+    else:
+        with pytest.raises(ValueError, match="glibc"):
+            INSPECTOR.elf_metadata(raw, MAIN)
+
+
 def version_layout(raw: bytes | bytearray) -> tuple[int, int]:
     header = struct.unpack_from("<HHIQQQIHHHHHH", raw, 16)
     dynamic = struct.unpack_from("<IIQQQQQQ", raw, header[4] + header[8])

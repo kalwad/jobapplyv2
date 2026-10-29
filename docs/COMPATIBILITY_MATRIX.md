@@ -3,6 +3,10 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Hosted canonical validation and package limits (2026-10-28)
+
+At9872aca/treef2d982d, actualMac/Ubuntu/WindowsServer2025 canonicaljobs eachpass20ACTIVE suites and4006freshTS; Python2120/2120/2118 and native342/338/316 respectively ineach3modes. Complete source/API/raw/review: docs/evidence/m03-w07-ci-9872aca-failure. Bothnativepackagejobs fail (WindowsSDKambiguity, Ubuntu staticinspection), with no serviceactor/GUI certification. Scopedsourcecorrections/134focusedpasses and MacDATAONLYDeb replay are docs/evidence/m03-w07-packaging-corrections, pendingfreshhosted/nativevalidation. These results add no Windows11x64/defaultGNOME/productionATS/certifiedsupportrow. Earlier entries retain their originalhistoricalscope.
+
 ## Scoped macOS development-package W06 closeout (2026-10-28)
 
 M03-W06 VERIFIED at9872aca/treef2d982d after current all20-suite local full and separately bound43-file native app lifecycle; actual source/runtime/app identities and independent reviews: docs/evidence/m03-w06-clean-aggregate-9872aca, docs/evidence/m03-w06-fresh-native-gui and docs/evidence/m03-w06-delegated-readiness. App built204bc with identical production graph at9872. Native Ready/keyboard/crash-restart/12unauthorized401/Close/relaunch/Quit/forced-parent observed-cohort cleanup passes at a spaces/Unicode path. Later host observation records macOS27.2/build26B5101f/arm64/M5/24GiB. Local ad-hoc debug signature, not notarized release. This measured development scope adds no certified support tier, universal process containment, final visual baseline or ATS support. M03-W07/Windows11, W08/defaultGNOME, W10/all-platform lifecycle and W11design acceptance remain pending; M03IN_PROGRESS/releaseNOT_READY. Earlier entries below preserve their original evaluated revisions and historical states.

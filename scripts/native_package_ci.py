@@ -1,4 +1,4 @@
-"""UNEXECUTED future CI coordinator on a dedicated runner.
+"""Isolated native package CI coordinator on a dedicated runner.
 
 Original source stays read-only.
 """
@@ -12,6 +12,7 @@ import importlib.util
 import json
 import os
 import platform
+import re
 import shutil
 import stat
 import sys
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from native_package_pipeline import Budget, FilePin, ProcessHelper, ToolPin
 
 NAMES = ("japp_contracts-0.0.1-py3-none-any.whl", "orchestrator-0.0.1-py3-none-any.whl")
+MSVC_DECLARATION_LIMIT = 128
 ENV_KEYS = (
     "PATH",
     "HOME",
@@ -135,6 +137,67 @@ def sha(path: str | Path) -> str:
 
 def dump(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+
+
+def declared_dumpbin(installation_output: bytes, proof: Path) -> Path:
+    """Select the installed default, without guessing among sibling toolsets."""
+    installations = installation_output.decode("utf-8").splitlines()
+    installations = [line.strip() for line in installations if line.strip()]
+    if len(installations) != 1 or not Path(installations[0]).is_absolute():
+        raise ValueError("Unambiguous absolute MSVC installation required")
+    installation = Path(installations[0])
+    declaration = (
+        installation / "VC/Auxiliary/Build/Microsoft.VCToolsVersion.default.txt"
+    )
+    try:
+        before = declaration.lstat()
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or not 0 < before.st_size <= MSVC_DECLARATION_LIMIT
+        ):
+            raise ValueError("Bounded regular MSVC default declaration required")
+        flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
+        flags |= getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_NOFOLLOW", 0)
+        descriptor = os.open(declaration, flags)
+        try:
+            opened = os.fstat(descriptor)
+            body = os.read(descriptor, MSVC_DECLARATION_LIMIT + 1)
+            after = os.fstat(descriptor)
+        finally:
+            os.close(descriptor)
+    except OSError as error:
+        raise ValueError("MSVC default declaration unavailable") from error
+    identity = ("st_dev", "st_ino", "st_mode", "st_size", "st_mtime_ns")
+    if (
+        not stat.S_ISREG(opened.st_mode)
+        or any(getattr(before, key) != getattr(after, key) for key in identity)
+        or any(getattr(opened, key) != getattr(after, key) for key in identity)
+        or len(body) != before.st_size
+    ):
+        raise ValueError("MSVC default declaration changed while reading")
+    try:
+        version = body.decode("utf-8-sig").strip()
+    except UnicodeError as error:
+        raise ValueError("Malformed MSVC default declaration") from error
+    if re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version) is None:
+        raise ValueError("Malformed MSVC default version")
+    image = installation / f"VC/Tools/MSVC/{version}/bin/Hostx64/x64/dumpbin.exe"
+    if not image.is_file():
+        raise ValueError("Declared MSVC default inspection tool unavailable")
+    (proof / "msvc-default-version.stdout").write_bytes(body)
+    dump(
+        proof / "msvc-default-selection.json",
+        {
+            "selection": "installed-declared-default",
+            "installation": str(installation),
+            "version": version,
+            "declaration": str(declaration),
+            "declaration_sha256": hashlib.sha256(body).hexdigest(),
+            "image": str(image),
+            "image_sha256": sha(image),
+        },
+    )
+    return image
 
 
 def tool(name: str) -> ToolPin:
@@ -345,8 +408,8 @@ def main() -> None:  # noqa: PLR0912, PLR0915
                 "sha256": sha(real.resolve()),
             }
         if platform.system() == "Windows":
-            # VS discovery must already be activated by the workflow;
-            # never invent SDK hashes.
+            # Keep an activated PATH tool; otherwise use the installed declared
+            # default. A VS installation may contain multiple MSVC versions.
             selected = shutil.which("dumpbin.exe")
             if selected is None:
                 vswhere = (
@@ -356,32 +419,24 @@ def main() -> None:  # noqa: PLR0912, PLR0915
                 output = raw(
                     [
                         vswhere,
+                        "-utf8",
                         "-latest",
                         "-products",
                         "*",
                         "-requires",
                         "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
-                        "-find",
-                        r"VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe",
+                        "-property",
+                        "installationPath",
                     ],
                     work,
                     env,
                 )
-                (proof / "vswhere-dumpbin.stdout").write_bytes(output)
+                (proof / "vswhere-installation.stdout").write_bytes(output)
                 dump(
                     proof / "vswhere-image.json",
                     {"path": str(vswhere), "sha256": sha(vswhere)},
                 )
-                choices = [
-                    Path(line)
-                    for line in output.decode("utf-8").splitlines()
-                    if line.strip()
-                ]
-                if len(choices) != 1:
-                    raise ValueError(
-                        "Unambiguous installed native SDK inspection tool unavailable"
-                    )
-                selected = str(choices[0])
+                selected = str(declared_dumpbin(output, proof))
             image = Path(selected).absolute()
             role_tools["dumpbin"] = {
                 "path": str(image),

@@ -1,0 +1,13 @@
+{
+  "scope": "POST_CLOSEOUT_F104_DOCUMENTARY_REGRESSION_SUBSET_ONLY",
+  "commit": "f10468a9f16e4b4a204b018e0d12f6e1327e647a",
+  "tree": "48477afa1fe15c3055513ee9d6ba1499c6576624",
+  "actual_cases_pass": 338,
+  "pytest_seconds": 138.27,
+  "outer_seconds": 138.7865903750062,
+  "different_data_checks": 9,
+  "source_files_bytes_fullmodes_unchanged": 2161,
+  "initial_outer_50second_cutoff_retained": true,
+  "new_tests_added": 0,
+  "full_twenty_suites_rerun": false
+}

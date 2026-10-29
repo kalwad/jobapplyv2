@@ -1,0 +1,124 @@
+{
+  "scope": "INDEPENDENT_TERMINAL_FIXED9872_CI_DATA_JOIN_NO_ARTIFACT_EXECUTION",
+  "verdict": "CLEAR_AS_RECORDED_THREE_CANONICAL_PASSES_TWO_PACKAGE_FAILURES",
+  "passed_checks": 510,
+  "total_checks": 510,
+  "run": 40795147477,
+  "run_url": "https://github.com/kalwad/jobapplyv2/actions/runs/40795147477",
+  "run_conclusion": "failure",
+  "head": "9872acaf6191ce77fd1c077ef27ea972b71b8315",
+  "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+  "actual_merge": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+  "tracked_blobs": 2141,
+  "jobs": [
+    {
+      "id": 123189700883,
+      "name": "doctor + verify (macos-15)",
+      "conclusion": "success",
+      "raw_log_bytes": 1501013,
+      "raw_log_sha256": "35ebbf4bdb6f597cc73191066a59a3a1b3f0307782ea3860df089ce2b5b27fe1",
+      "checkout": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+      "passed_suites": 20,
+      "failed_suites": 0,
+      "unit_ts": 4006,
+      "unit_tasks": 15,
+      "python_passed": 2120,
+      "python_seconds": 821.4,
+      "native_ids_each_mode": 342,
+      "native_modes": 3
+    },
+    {
+      "id": 123189701229,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "conclusion": "success",
+      "raw_log_bytes": 1575947,
+      "raw_log_sha256": "9eb696a29135fd3ce0c73fa0b4f58e181c792a1dee507da223c2f017cda66697",
+      "checkout": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+      "passed_suites": 20,
+      "failed_suites": 0,
+      "unit_ts": 4006,
+      "unit_tasks": 15,
+      "python_passed": 2120,
+      "python_seconds": 446.47,
+      "native_ids_each_mode": 338,
+      "native_modes": 3
+    },
+    {
+      "id": 123189701316,
+      "name": "doctor + verify (windows-2025)",
+      "conclusion": "success",
+      "raw_log_bytes": 1466657,
+      "raw_log_sha256": "297efd3a1f94584354ba4a3d4ea62eb781b666b0ab3eb29db2c1b5d07fa28e96",
+      "checkout": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a",
+      "passed_suites": 20,
+      "failed_suites": 0,
+      "unit_ts": 4006,
+      "unit_tasks": 15,
+      "python_passed": 2118,
+      "python_seconds": 1062.97,
+      "native_ids_each_mode": 316,
+      "native_modes": 3
+    },
+    {
+      "id": 123208496922,
+      "name": "native development package (ubuntu-24.04)",
+      "conclusion": "failure",
+      "raw_log_bytes": 143014,
+      "raw_log_sha256": "74866e30b9a288a0ae494ea53f84e9dec13347bf6f72539a61f12f4bb42b0dbd",
+      "checkout": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a"
+    },
+    {
+      "id": 123208496933,
+      "name": "native development package (windows-2025)",
+      "conclusion": "failure",
+      "raw_log_bytes": 32853,
+      "raw_log_sha256": "cb5a26b9b4bdba06311f13813fa1f5d223ce9666a51042a8e46cc4408bec9711",
+      "checkout": "1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "tree": "f2d982dfe441ca6a98c2f9ae2862c3efd1e4373a"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12866490529,
+      "name": "native-development-windows-2025-1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "bytes": 336423,
+      "sha256": "771ff9e1d8eb83225c320927d0fba04f461c47569898b63accd5504837c72b68",
+      "safe_regular_members": 89
+    },
+    {
+      "id": 12865484769,
+      "name": "native-development-ubuntu-24.04-1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "bytes": 196288284,
+      "sha256": "62da8c619466f080326506999149cda1eb6d419b2efbedd75b3ebc9e8cb15b24",
+      "safe_regular_members": 371
+    }
+  ],
+  "windows_package_cause": "PATH lookup missing dumpbin; vswhere selected VS18 installation returns three MSVC versions; exact-one candidate guard refuses before build",
+  "ubuntu_package_observation": "Runtime and .deb built; phase11 static inspector rejects with only generic STATIC_VALIDATION_REJECTED; actual underlying rejected criterion unretained; no native service actor reached",
+  "no_subject_execution": true,
+  "canonical_writes": 0,
+  "limits": [
+    "Hosted WindowsServer2025 is not Windows11 native desktop",
+    "Ubuntu CI package static observation is not defaultGNOME GUI",
+    "No package acceptance/final GUI/certification/release/milestone promotion",
+    "Old204CI failure and local9872 aggregate remain separate outcomes"
+  ],
+  "schema": "M03_W07_TERMINAL_FIXED9872_CI_FAILURE_V1",
+  "canonical_state_promotion": "NONE",
+  "retention": {
+    "canonical_archive": "all5complete rawjobs+officialrunlogZIP+source/API bindings+all460artifactmember inventories+allselected diagnostic/raw closure records+original Windows artifact ZIP",
+    "outside_only": "original196288284-byte Ubuntu artifactZIP and expanded payload/SDK/deb bytes remain under ci-9872aca; not copied into canonical archive",
+    "ubuntu_original_zip": {
+      "id": 12865484769,
+      "name": "native-development-ubuntu-24.04-1f7ee086340d8125b127178a19b79a0283aef1a8",
+      "bytes": 196288284,
+      "sha256": "62da8c619466f080326506999149cda1eb6d419b2efbedd75b3ebc9e8cb15b24",
+      "safe_regular_members": 371
+    },
+    "downloaded_subject_execution": false
+  }
+}

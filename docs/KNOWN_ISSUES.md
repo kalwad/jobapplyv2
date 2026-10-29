@@ -4,9 +4,14 @@ Reproducible defects and deferred risks (`docs/MASTER_IMPLEMENTATION_SPEC.md`
 §1.1). This file is also where out-of-scope ideas are parked instead of
 broadening a work package (spec §1.5).
 
+## Current W07 package validation (2026-10-28)
+
+Fresh9872 hostedMac/Ubuntu/Windows canonicaljobs all20PASS. KI-0118 scheduling andKI-0120 Windowsabsolute-root regression scopes are now FIXED by actual affected-hostfullpasses; no originalCPUcontention cause is asserted. The run overall is FAILURE because two nativepackagejobs fail before serviceactors. Their exactcode/data corrections and current134focused/strict/integrity validation are retained below; fresh correctednativehost/fullvalidation remains pending. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY.
+
+
 ## Current W06 closeout observation (2026-10-28)
 
-Clean9872 actual doctor28/all20PASS includes2120Python and preserves every committed collection identity; KI-0119’s metadata preflight defect is closed by this full validation plus unchanged fixture/negative oracle. Original204bc full/CI failures remain failures in their exact retained packets. Windows-only KI-0120 and hosted scheduling KI-0118 stay IN_PROGRESS pending current terminal affected-host evidence; a local/Ubuntu pass does not close them. Fresh MacGUI is now observed and independently reviewed after owner unlock; lock-related pending prose below is historical. Delegated W06 decision and limitations: docs/TEST_EVIDENCE.md § M03-W06 and docs/evidence/m03-w06-delegated-readiness. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY. Foreign desktop certification and later storage/native-key activation remain pending.
+Clean9872 actual doctor28/all20PASS includes2120Python and preserves every committed collection identity; KI-0119’s metadata preflight defect is closed by this full validation plus unchanged fixture/negative oracle. Original204bc full/CI failures remain failures in their exact retained packets. Historical pending statement superseded: KI-0120 and KI-0118 are now FIXED at their regression scopes by exact9872 Windows/Mac canonicalfullpasses; bothnativepackagefailures remain separate. Fresh MacGUI is now observed and independently reviewed after owner unlock; lock-related pending prose below is historical. Delegated W06 decision and limitations: docs/TEST_EVIDENCE.md § M03-W06 and docs/evidence/m03-w06-delegated-readiness. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY. Foreign desktop certification and later storage/native-key activation remain pending.
 
 ## Update rules
 
@@ -38,6 +43,28 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current fixture compatibility validation (2026-10-29UTC)
 
+### KI-0121 — Installed sibling MSVC toolsets make package inspection discovery ambiguous
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: Windowsnativepackagejob123208496933/run40795147477, tested9872.
+- Affects: M03-W07; scripts/native_package_ci.py.
+- Description: absentPATHdumpbin triggers latestVS -find, which actually returns3installedversions; len==1 refuses before payloadbuild.
+- Reproduction: exactvswhere rawchoices/commands/source/API in docs/evidence/m03-w07-ci-9872aca-failure.
+- Workaround: none; no guessedfirst/highesttool or fabricatedpin.
+- Resolution + evidence link: selectMicrosoft's declareddefault via oneinstallation/default-version file, forcedUTF8, boundedheldregularread and exactdeclaration/toolhashes. New12cases and all134affectedcases/strict/integrity pass; different14source/38data reviewCLEAR. FreshWindowsnativepackage/fullvalidation pending. See docs/evidence/m03-w07-packaging-corrections.
+
+### KI-0122 — Static Linux inspector rejects legacy three-component GLIBC versions
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: DATAONLY replay of UbuntuDeb from nativepackagejob123208496922/run40795147477.
+- Affects: M03-W07/W08; scripts/linux_package.py ELF minimum-version screen.
+- Description: actual mainELF declaresGLIBC_2.2.5; oldtwo-componentregex refuses it despite targetceiling2.39.0. Actualhostfailure is genericstaticreject; the exactcriterion is reproduced onMac using package-derived runtime, not originalstage.
+- Reproduction: unchangedDeb24bf9661/oldinspector0036afde metadata/rawreplay and3FAIL6PASS test-first result in docs/evidence/m03-w07-packaging-corrections.
+- Workaround: none; no ignoredELF/version/chain guard or newerGLIBC acceptance.
+- Resolution + evidence link: optionalnumericpatch/normalized3tuple withunchanged2.39.0ceiling; newer/malformed/unknown cases refuse. ActualLinux70affectedcases and finalcombined134/strict/integrity pass, finalsource95ad static package-derived replayPASS. This does not prove exactsymbolavailability, originalstageequality or nativeexecution. Different source/data reviewsCLEAR; fresh correctednativehost/fullvalidation pending.
+
 ### KI-0119 — Deep malformed-JSON Python fixture trips collection policy
 
 - Severity: MEDIUM
@@ -52,7 +79,7 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 ### KI-0120 — Native owner fixture assumes POSIX absolute roots on Windows
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: run40790930093/Windows job123175708107 at204bc06.
 - Affects: M03-W06/W09; shared native path-owner/Quit test fixture.
 - Description: three fake `/data/app`, `/cache/app`, `/temp` roots are not absolute on Windows; all16 failed native tests stop at the same TrustedBases Invalid setup, before their lifecycle oracle. Rust default300PASS16FAIL; later modes unexecuted.
@@ -62,10 +89,12 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current hosted unit-TS validation (2026-10-28)
 
+Current scoped resolution: exact9872 hosted canonicaljobs all20PASS; Windows2118Python/316nativeeach3 and Mac2120Python/342nativeeach3. Originalfailure stays failed. NewpackageFAILURES are separateKI-0121/0122. Evidence docs/evidence/m03-w07-ci-9872aca-failure.
+
 ### KI-0118 — Hosted TypeScript tests exceed retained wall-clock budgets
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: 2026-10-28 during M03-W06; run40782097996/macOS job123146069723
 - Affects: M03-W06 / REQ-PLAT-013; canonical unit-ts verification harness
 - Description: immutable run head35b/treef078 records one explicit5000ms holdout-boundary test timeout and two evaluation-runner failed labels at5713/5294ms without final failure diagnostics before Turbo abort. macOS finishes19PASS/unit-tsFAIL; Windows/Ubuntu20PASS. CPU/I/O contention is a scheduling hypothesis, not an established product defect or causal finding.
@@ -82,6 +111,8 @@ Clean35b46287/tree f0789de7 runs doctor28PASS7.642s and all20ACTIVE suitesPASS11
 Source434/d093 plus exactly two reviewed test afterimages builds a43-file80,134,001B local ad-hoc signed arm64 debug app; moved spaces/Unicode path equals the built package and40-file29,902,565B runtime equals stage bytes/current modes. Actual native GUI Ready/keyboard refresh, service928→1009 restart, Close/relaunch/six401/Quit and app3293-only forced exit pass for observed identities/groups/listeners. Forced-parent observed closure is0.33389675s. Independent source/data review is CLEAR for this scope. Exact raw/AX/PNG/static/codesign/build/process evidence: docs/evidence/m03-w06-macos-native-package. No controlled app PATH experiment, raw LaunchServices invocation, escaped-descendant, notarization, foreign desktop or certification claim is added. Source closure predates later documentary adoption; product projection stays exact. W06 remainsIN_PROGRESS and releaseNOT_READY pending current clean full/hosted validation.
 
 ## Current hosted Windows failures (resumed2026-10-28)
+
+Current scoped resolution: exact9872 hosted canonicaljobs all20PASS; Windows2118Python/316nativeeach3 and Mac2120Python/342nativeeach3. Originalfailure stays failed. NewpackageFAILURES are separateKI-0121/0122. Evidence docs/evidence/m03-w07-ci-9872aca-failure.
 
 ### KI-0116 — Synthetic Windows builder test intercepts Python's host probe
 

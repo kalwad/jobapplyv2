@@ -31,6 +31,7 @@ ELF_DYNAMIC_SEGMENT = 2
 MAX_ELF_STRING_BYTES = 4096
 MAX_VERSION_RECORDS = 256
 ELF_VERSION_RECORD_BYTES = 16
+GLIBC_CEILING = (2, 39, 0)
 RUNTIME = "usr/lib/Desktop App/runtime/"
 MAIN = "usr/bin/japp-desktop"
 DESKTOP = "usr/share/applications/Desktop App.desktop"
@@ -341,8 +342,13 @@ def elf_metadata(raw: bytes, name: str) -> dict[str, object]:  # noqa: PLR0912, 
                 if not text:
                     raise ValueError("Empty ELF auxiliary version name")
                 if text.startswith("GLIBC_"):
-                    match = re.fullmatch(r"GLIBC_(\d+)\.(\d+)", text)
-                    if match is None or tuple(map(int, match.groups())) > (2, 39):
+                    match = re.fullmatch(
+                        r"GLIBC_([0-9]+)\.([0-9]+)(?:\.([0-9]+))?", text
+                    )
+                    if (
+                        match is None
+                        or tuple(map(int, match.groups(default="0"))) > GLIBC_CEILING
+                    ):
                         raise ValueError("ELF exceeds Ubuntu24.04 glibc contract")
                     versions.append(text)
                 if number + 1 < count:
