@@ -122,6 +122,14 @@ CANDIDATE_AUXILIARY_WORKFLOWS = {
         8044,
         "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d",
     ),
+    "windows11-native-prepare.yml": (
+        8555,
+        "565ec8e8b23cbf051b5540d4cae860f356f87851ab08f0b3f26f2be13931000f",
+    ),
+    "windows11-native-lifecycle.yml": (
+        7419,
+        "1821e57da5bfcbd01124a1534ad24ec8e493bff2885f115362811efa7019f4de",
+    ),
 }
 
 REQUIRED_RUNNERS = ("macos-15", "windows-2025", "ubuntu-24.04")
@@ -1745,7 +1753,11 @@ def _check_workflow_files(repo: Path, violations: list[Violation]) -> None:
     )
     if names == ["ci.yml"]:
         return
-    expected = sorted(["ci.yml", *CANDIDATE_AUXILIARY_WORKFLOWS])
+    legacy = ["ubuntu-gnome-prepare.yml", "ubuntu-gnome-lifecycle.yml"]
+    selected = CANDIDATE_AUXILIARY_WORKFLOWS
+    if names == sorted(["ci.yml", *legacy]):
+        selected = {name: CANDIDATE_AUXILIARY_WORKFLOWS[name] for name in legacy}
+    expected = sorted(["ci.yml", *selected])
     if names != expected:
         violations.append(
             Violation(
@@ -1756,7 +1768,7 @@ def _check_workflow_files(repo: Path, violations: list[Violation]) -> None:
             )
         )
         return
-    for name, (expected_size, expected_digest) in CANDIDATE_AUXILIARY_WORKFLOWS.items():
+    for name, (expected_size, expected_digest) in selected.items():
         path = workflows_dir / name
         try:
             metadata = path.lstat()
@@ -1853,7 +1865,18 @@ LINUX_PLATFORM_SHA256 = (
 
 
 def _linux_reference(value: str) -> bool:
-    return "linux_gnome" in value or "ubuntu_gnome_" in value
+    return (
+        any(
+            marker in value
+            for marker in ("linux_gnome", "ubuntu_gnome_", "scripts/windows11")
+        )
+        or re.search(
+            r"(?:^|[\s/\\])windows11_(?:candidate|request|platform|process|vm|"
+            r"deployment|inputs|resources|owned|bootstrap|guest|source_check)(?:$|[.\s])",
+            value,
+        )
+        is not None
+    )
 
 
 def _check_linux_shared_imports(repo: Path, violations: list[Violation]) -> None:
@@ -1877,7 +1900,9 @@ def _check_linux_shared_imports(repo: Path, violations: list[Violation]) -> None
             )
 
 
-def _linux_quality_failures(repo: Path) -> list[str]:
+def _linux_quality_failures(
+    repo: Path, isolated_rel: str = LINUX_INFRASTRUCTURE_REL
+) -> list[str]:
     """Pin coverage, while retaining host-target semantics of shared mypy."""
     failures = []
     try:
@@ -1894,13 +1919,13 @@ def _linux_quality_failures(repo: Path) -> list[str]:
         }
         for suite, prefix in required.items():
             if not any(
-                tuple(row[: len(prefix)]) == prefix and LINUX_INFRASTRUCTURE_REL in row
+                tuple(row[: len(prefix)]) == prefix and isolated_rel in row
                 for row in commands[suite]
             ):
                 failures.append(f"{suite} does not cover Linux infrastructure")
         prefix = ("uv", "run", "ruff", "format", "--check")
         if not any(
-            tuple(row[: len(prefix)]) == prefix and LINUX_INFRASTRUCTURE_REL in row
+            tuple(row[: len(prefix)]) == prefix and isolated_rel in row
             for row in commands["python"]
         ):
             failures.append("Python format does not cover Linux infrastructure")
@@ -1910,8 +1935,16 @@ def _linux_quality_failures(repo: Path) -> list[str]:
             "mypy",
             "--platform",
             "linux",
-            LINUX_INFRASTRUCTURE_REL,
+            isolated_rel,
         ]
+        isolated_commands = [
+            ["uv", "run", "mypy", "--platform", "linux", LINUX_INFRASTRUCTURE_REL]
+        ]
+        # Exact registered host-only command; legacy GNU fixtures need not
+        # carry the optional Windows11 island. Unknown commands still fail.
+        isolated_commands.append(
+            ["uv", "run", "mypy", "--platform", "linux", WINDOWS11_INFRASTRUCTURE_REL]
+        )
         for suite in ("typecheck", "python"):
             if linux_mypy not in commands[suite]:
                 failures.append(
@@ -1920,15 +1953,15 @@ def _linux_quality_failures(repo: Path) -> list[str]:
             shared = [
                 row
                 for row in commands[suite]
-                if row[:3] == ["uv", "run", "mypy"] and row != linux_mypy
+                if row[:3] == ["uv", "run", "mypy"] and row not in isolated_commands
             ]
             if not shared or any(
-                "--platform" in row or LINUX_INFRASTRUCTURE_REL in row for row in shared
+                "--platform" in row or isolated_rel in row for row in shared
             ):
                 failures.append(f"{suite} changed shared mypy target semantics")
-        if LINUX_INFRASTRUCTURE_REL not in config["tool"]["mypy"]["mypy_path"]:
+        if isolated_rel not in config["tool"]["mypy"]["mypy_path"]:
             failures.append("Linux helper import path is missing from strict mypy")
-        if LINUX_INFRASTRUCTURE_REL not in package["scripts"]["format"].split():
+        if isolated_rel not in package["scripts"]["format"].split():
             failures.append("package format does not cover Linux infrastructure")
     except (OSError, KeyError, TypeError, ValueError) as error:
         failures.append(f"Linux quality registry is unreadable: {type(error).__name__}")
@@ -1946,7 +1979,9 @@ def _linux_file_identity(info: os.stat_result) -> tuple[int, ...]:
     )
 
 
-def _check_linux_bytecode(directory: Path) -> None:
+def _check_linux_bytecode(
+    directory: Path, modules: frozenset[str] = LINUX_INFRASTRUCTURE_MODULES
+) -> None:
     """Accept only ordinary unoptimized bytecode compiled from these sources."""
     cache = directory / "__pycache__"
     cache_info = cache.lstat()
@@ -1954,10 +1989,7 @@ def _check_linux_bytecode(directory: Path) -> None:
         raise ValueError("regular Linux bytecode cache directory required")
     if sys.implementation.cache_tag != "cpython-312" or sys.flags.optimize != 0:
         raise ValueError("Linux cache requires pinned unoptimized CPython3.12")
-    names = {
-        f"{Path(name).stem}.cpython-312.pyc": name
-        for name in LINUX_INFRASTRUCTURE_MODULES
-    }
+    names = {f"{Path(name).stem}.cpython-312.pyc": name for name in modules}
     entries = list(cache.iterdir())
     if len(entries) > len(names):
         raise ValueError("finite Linux bytecode cache inventory required")
@@ -2126,6 +2158,185 @@ def _check_linux_infrastructure(repo: Path, violations: list[Violation]) -> None
     _check_linux_shared_imports(repo, violations)
 
 
+WINDOWS11_INFRASTRUCTURE_REL = "scripts/windows11"
+WINDOWS11_PYTHON_MODULES = frozenset(
+    {
+        "windows11_candidate.py",
+        "windows11_request.py",
+        "windows11_platform.py",
+        "windows11_process.py",
+        "windows11_vm.py",
+        "windows11_deployment.py",
+        "windows11_inputs.py",
+        "windows11_resources.py",
+    }
+)
+WINDOWS11_NATIVE_PINS = {
+    "windows11_owned.cs": (
+        "638e090d0e8374adc3aebdeb913ceb27e7a0d6ac5e0e2a145288562f3374a32e"
+    ),
+    "windows11_source_check.ps1": (
+        "8fe860dee981b6392ee291fd63c4d057b4174b3673926e5e385a4f55bed7e822"
+    ),
+    "windows11_guest.ps1": (
+        "5d8026e1e98c64117b8731dfa6d4f8263641e59ed910bc3c4d037b8318423311"
+    ),
+    "windows11_bootstrap.ps1": (
+        "723c3afd0d40219353e8f64483ac145ccdc8398dcb96bca37e7091b2e5721e01"
+    ),
+}
+WINDOWS11_MODULES = WINDOWS11_PYTHON_MODULES | WINDOWS11_NATIVE_PINS.keys()
+WINDOWS11_ENTRYPOINTS = frozenset(
+    {"windows11_request.py", "windows11_candidate.py", "windows11_vm.py"}
+)
+WINDOWS11_WORKFLOWS = ("windows11-native-prepare.yml", "windows11-native-lifecycle.yml")
+WINDOWS11_STDLIB = LINUX_INFRASTRUCTURE_STDLIB | {"fcntl", "secrets", "zipfile", "xml"}
+WINDOWS11_SHARED_HELPERS = {
+    "ubuntu_gnome_host",
+    "ubuntu_gnome_prepare",
+    "ubuntu_gnome_vm",
+}
+WINDOWS11_PLATFORM_SHA256 = (
+    "fc8949ba1d89314d90b21a027e697e339f77da341a31d9a88a393fd8536d2460"
+)
+
+
+def _check_windows11_infrastructure(repo: Path, violations: list[Violation]) -> None:
+    directory = repo / WINDOWS11_INFRASTRUCTURE_REL
+    expected_present = any(
+        (repo / ".github/workflows" / name).exists() for name in WINDOWS11_WORKFLOWS
+    )
+    if not directory.exists() and not directory.is_symlink() and not expected_present:
+        return
+    location = WINDOWS11_INFRASTRUCTURE_REL
+    try:
+        if directory.is_symlink() or not directory.is_dir():
+            raise ValueError("regular isolated Linux infrastructure directory required")
+        entries = {path.name for path in directory.iterdir()}
+        if "__pycache__" in entries:
+            _check_linux_bytecode(directory, WINDOWS11_PYTHON_MODULES)
+            entries.remove("__pycache__")
+        if entries != WINDOWS11_MODULES:
+            raise ValueError("exact registered Linux infrastructure inventory required")
+        stems = {Path(name).stem for name in WINDOWS11_PYTHON_MODULES}
+        for name in sorted(entries):
+            if name in WINDOWS11_NATIVE_PINS:
+                native_path = directory / name
+                native_info = native_path.lstat()
+                if (
+                    not stat.S_ISREG(native_info.st_mode)
+                    or hashlib.sha256(native_path.read_bytes()).hexdigest()
+                    != WINDOWS11_NATIVE_PINS[name]
+                ):
+                    raise ValueError("Exact reviewed native guest source required")
+                continue
+            path = directory / name
+            info = path.lstat()
+            if not stat.S_ISREG(info.st_mode) or info.st_size > 2 * 1024 * 1024:
+                raise ValueError(f"bounded regular Linux source required: {name}")
+            raw = path.read_bytes()
+            tree = ast.parse(raw)
+            if (
+                name == "windows11_platform.py"
+                and hashlib.sha256(raw).hexdigest() != WINDOWS11_PLATFORM_SHA256
+            ):
+                raise ValueError("Linux host boundary body differs")
+            for node in ast.walk(tree):
+                modules = []
+                if isinstance(node, ast.ImportFrom):
+                    if node.level or not node.module:
+                        raise ValueError(f"relative Linux helper import: {name}")
+                    modules.append(node.module.split(".")[0])
+                elif isinstance(node, ast.Import):
+                    modules.extend(alias.name.split(".")[0] for alias in node.names)
+                for module in modules:
+                    if (
+                        module == "linux_package"
+                        and name == "ubuntu_gnome_package_export.py"
+                    ):
+                        continue
+                    if (
+                        module
+                        not in stems | WINDOWS11_STDLIB | WINDOWS11_SHARED_HELPERS
+                    ):
+                        raise ValueError(f"unknown Linux helper import: {name}")
+            if name in WINDOWS11_ENTRYPOINTS:
+                entrypoint = "main"
+                mains = [
+                    node
+                    for node in tree.body
+                    if isinstance(node, ast.FunctionDef) and node.name == entrypoint
+                ]
+                guard = ast.Expr(
+                    value=ast.Call(
+                        func=ast.Name(id="require_linux", ctx=ast.Load()),
+                        args=[],
+                        keywords=[],
+                    )
+                )
+                imported = any(
+                    isinstance(node, ast.ImportFrom)
+                    and node.module == "windows11_platform"
+                    and node.level == 0
+                    and any(
+                        alias.name == "require_linux" and alias.asname is None
+                        for alias in node.names
+                    )
+                    for node in tree.body
+                )
+                shadowed = any(
+                    (
+                        isinstance(node, ast.Name)
+                        and node.id == "require_linux"
+                        and isinstance(node.ctx, ast.Store)
+                    )
+                    or (
+                        isinstance(node, (ast.FunctionDef, ast.ClassDef))
+                        and node.name == "require_linux"
+                    )
+                    or (isinstance(node, ast.arg) and node.arg == "require_linux")
+                    for node in ast.walk(tree)
+                )
+                shadowed = shadowed or any(
+                    isinstance(node, (ast.Import, ast.ImportFrom))
+                    and any(
+                        (alias.asname or alias.name.split(".")[0]) == "require_linux"
+                        and not (
+                            isinstance(node, ast.ImportFrom)
+                            and node.module == "windows11_platform"
+                            and alias.name == "require_linux"
+                            and alias.asname is None
+                        )
+                        for alias in node.names
+                    )
+                    for node in ast.walk(tree)
+                )
+                if (
+                    len(mains) != 1
+                    or not mains[0].body
+                    or not imported
+                    or shadowed
+                    or ast.dump(mains[0].body[0]) != ast.dump(guard)
+                ):
+                    raise ValueError(
+                        f"Linux guard must precede every CLI operation: {name}"
+                    )
+            # Only system paths and POSIX mode semantics are platform-specific.
+            # Generic shell and separator rules retain their unchanged predicates.
+            generic: list[Violation] = []
+            _check_runtime_script(repo, path, generic)
+            violations.extend(
+                item
+                for item in generic
+                if item.rule not in {"PORT-SRC-001", "PORT-SRC-004"}
+            )
+        for failure in _linux_quality_failures(repo, WINDOWS11_INFRASTRUCTURE_REL):
+            violations.append(Violation("PORT-SRC-009", location, failure))
+    except (OSError, SyntaxError, ValueError) as error:
+        violations.append(Violation("PORT-SRC-009", location, str(error)))
+    _check_linux_shared_imports(repo, violations)
+
+
 def run_checks(repo: Path) -> list[Violation]:
     violations: list[Violation] = []
     workflow, raw = _load_workflow(repo)
@@ -2155,6 +2366,7 @@ def run_checks(repo: Path) -> list[Violation]:
     _check_no_live_sites(steps, violations)
 
     _check_linux_infrastructure(repo, violations)
+    _check_windows11_infrastructure(repo, violations)
     for script in _runtime_scripts(repo):
         _check_runtime_script(repo, script, violations)
     _check_ts_runtime_sources(repo, _ts_runtime_sources(repo), violations)

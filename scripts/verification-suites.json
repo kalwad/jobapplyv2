@@ -48,6 +48,7 @@
           "scripts/build-linux-service-runtime.py",
           "scripts/linux_package.py",
           "scripts/linux_gnome",
+          "scripts/windows11",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -123,7 +124,8 @@
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
-        ["uv", "run", "mypy", "--platform", "linux", "scripts/linux_gnome"]
+        ["uv", "run", "mypy", "--platform", "linux", "scripts/linux_gnome"],
+        ["uv", "run", "mypy", "--platform", "linux", "scripts/windows11"]
       ],
       "proofs": [
         {
@@ -534,6 +536,7 @@
           "scripts/build-linux-service-runtime.py",
           "scripts/linux_package.py",
           "scripts/linux_gnome",
+          "scripts/windows11",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -557,6 +560,7 @@
           "scripts/build-linux-service-runtime.py",
           "scripts/linux_package.py",
           "scripts/linux_gnome",
+          "scripts/windows11",
           "scripts/tests",
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
@@ -581,6 +585,7 @@
           "packages/contracts/test/contract/adapters/python_adapter.py"
         ],
         ["uv", "run", "mypy", "--platform", "linux", "scripts/linux_gnome"],
+        ["uv", "run", "mypy", "--platform", "linux", "scripts/windows11"],
         ["uv", "run", "pytest"]
       ],
       "proofs": [

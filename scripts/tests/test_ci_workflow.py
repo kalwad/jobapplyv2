@@ -125,7 +125,18 @@ def test_workflows_dir_contains_only_ci() -> None:
             8044,
             "60f9545aebfed42c002c8b54087ef355b7891068804e821ecb0233357662523d",
         ),
+        "windows11-native-prepare.yml": (
+            8555,
+            "565ec8e8b23cbf051b5540d4cae860f356f87851ab08f0b3f26f2be13931000f",
+        ),
+        "windows11-native-lifecycle.yml": (
+            7419,
+            "1821e57da5bfcbd01124a1534ad24ec8e493bff2885f115362811efa7019f4de",
+        ),
     }
+    legacy = ["ubuntu-gnome-prepare.yml", "ubuntu-gnome-lifecycle.yml"]
+    if files == sorted(["ci.yml", *legacy]):
+        candidates = {name: candidates[name] for name in legacy}
     assert files == sorted(["ci.yml", *candidates]), files
     for name, (expected_size, expected_digest) in candidates.items():
         path = WORKFLOWS_DIR / name

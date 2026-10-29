@@ -27,7 +27,12 @@ def indexes() -> ModuleType:
 
 
 @pytest.mark.parametrize(
-    "payload", [b"Package: a\npackage: b\n", b" continuation\n", b"x" * 65537]
+    "payload",
+    [
+        b"Package: a\npackage: b\n",
+        b" continuation\n",
+        pytest.param(b"x" * 65537, id="oversized-field"),
+    ],
 )
 def test_duplicate_continuation_and_oversized_fields_refused(
     indexes: ModuleType, payload: bytes

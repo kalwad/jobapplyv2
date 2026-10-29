@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write . && uv run ruff format services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/check_portability.py scripts/portability.py scripts/tests scripts/linux_gnome packages/contracts/test/contract/adapters/python_adapter.py && cargo fmt --manifest-path services/native-host/Cargo.toml && cargo fmt --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml",
+    "format": "prettier --write . && uv run ruff format services scripts/verify.py scripts/validate_status.py scripts/traceability.py scripts/doctor.py scripts/check_portability.py scripts/portability.py scripts/tests scripts/linux_gnome scripts/windows11 packages/contracts/test/contract/adapters/python_adapter.py && cargo fmt --manifest-path services/native-host/Cargo.toml && cargo fmt --manifest-path packages/contracts/test/contract/rust-harness/Cargo.toml",
     "format:check": "uv run python scripts/verify.py --suite format",
     "generate:contracts": "node scripts/generate-contracts.ts",
     "contracts:corpus:update-manifest": "node packages/contracts/test/contract/adapters/update-corpus-manifest.ts --update-corpus-manifest",

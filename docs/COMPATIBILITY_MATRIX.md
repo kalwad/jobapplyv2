@@ -3,6 +3,17 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Corrected f5a full and native desktop entry scope (2026-10-29UTC)
+
+Cleanf5a05ba/treeaa9fbaa9 now actually passes doctor28 and all20ACTIVE suites: Python2477PASS422.35s, TypeScript4006/15fresh/zero cached, browser278/2/62/17, native342same IDs each3modes plus separate1/10. All2255source/runtime40 bytes/full modes/clean statuses/immediate HEAD/tree endpoints equal, children reaped/groups ABSENT/no signals/timeouts. Different7068 joins CLEAR. Exact docs/evidence/m03-w07-clean-aggregate-f5a. This full predates the two native entry corrections.
+
+Reviewed source adds an explicit Windows/Ubuntu File→Quit/Ctrl+Q action through the unchanged shutdown owner and Windows normal-debug/release GUI subsystem selection excluding tests. The latter is a source-derived mismatch, not an observed current hosted PE failure. Both guarded adoptions and combined actual five canonical checks PASS (Rust342same IDs each3modes plus separate1/10), exact docs/evidence/m03-native-desktop-entry. Actual corrected Windows PE/Windows11/defaultGNOME menu and lifecycle, final visual baseline, certification and later-source full validation remain pending. No support row or milestone state changes follow from source review or Mac checks.
+
+Actual hostedf5a40914184628 is FAILURE: Mac/Ubuntu all20PASS/Python2477; Windows19PASS/Python2474PASS+two setup/teardown errors for one oversized parameter ID. All4006TS/browser278/2/62/17 and platform-native342/338/316same3sets plus separate1/10 pass; native package matrix SKIPPED/zero exports. Different7863/109 joins preserve the outcome and twelve masked Python identity limits. Exact docs/evidence/m03-w07-ci-f5a-failure. SourceS and actual testedmergeM share the2255-file tree; Windows post-success worktree assertion is skipped, so no Windows after-run worktree neutrality is claimed.
+
+Reviewed Windows11v2 infrastructure and explicit one-ID mapping are now guarded-adopted; actual combined213focused/strictLinux+selectedWindowsMypy/wholeportability/integrity and2624collection PASS, neutral2274source/runtime40/fullmode/status/HEAD/tree. Different4632 joins CLEAR, exact docs/evidence/m03-w07-windows11-infrastructure. Collection is not full2624execution. Templates inactive/no targetcompile/media/install/VM/nativeGUI; WindowsServerCI is not Windows11 and UbuntuCI is not defaultGNOME. Fresh combined cleanfull/hostedpackages and actual reviewed VM campaigns remain pending. No certifiedsupport row or acceptance added.
+
+
 ## Current combined infrastructure scope (2026-10-29UTC)
 
 Clean2ea/tree785d5bad includes the corrected browser fixture and GNOME source infrastructure: doctor28/all20 ACTIVE PASS1164.646322s, Python2477, TS4006fresh, browser278/2/62/17, native342same three modes plus1unit/10contract. All2240source/runtime40 bytes/full modes/clean status/immediate HEAD-tree endpoints agree; different7020 joins CLEAR. Exact docs/evidence/m03-w07-clean-aggregate-2ea. This predates the three narrow package corrections; it is not their full validation.

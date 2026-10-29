@@ -39,12 +39,30 @@ fn native_navigation_allowed(url: &tauri::Url) -> bool {
     shell_navigation_allowed(url, tauri::is_dev())
 }
 
+fn install_shell_quit_menu(app: &tauri::App) -> tauri::Result<()> {
+    // Keep the framework's macOS application menu. This constant branch leaves
+    // the non-Mac menu API type-checked by the common desktop build as well.
+    if cfg!(target_os = "macos") {
+        return Ok(());
+    }
+    use tauri::menu::{Menu, MenuItem, Submenu};
+    let quit = MenuItem::with_id(app, "desktop-quit", "Quit", true, Some("Ctrl+Q"))?;
+    let file = Submenu::with_items(app, "File", true, &[&quit])?;
+    app.set_menu(Menu::with_items(app, &[&file])?)?;
+    Ok(())
+}
+
 pub fn run() {
     let app = tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             diagnostics::commands::read_service_diagnostics,
             diagnostics::commands::cancel_service_request
         ])
+        .on_menu_event(|app, event| {
+            if event.id().as_ref() == "desktop-quit" {
+                app.state::<service::ManagedService>().request_shutdown(app);
+            }
+        })
         .setup(|app| {
             let config =
                 app.config().app.windows.first().ok_or_else(|| {
@@ -59,6 +77,7 @@ pub fn run() {
             let service = service::ManagedService::new(runtime)
                 .map_err(|_| std::io::Error::other("Local service configuration failed"))?;
             app.manage(service.clone());
+            install_shell_quit_menu(app)?;
             let diagnostics = diagnostics::create_engine(service.clone())
                 .map_err(|_| std::io::Error::other("Native diagnostics configuration failed"))?;
             app.manage(diagnostics::commands::DiagnosticsState(diagnostics));

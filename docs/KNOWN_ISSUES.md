@@ -42,6 +42,39 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current fixture compatibility validation (2026-10-29UTC)
 
+### KI-0129 — Oversized pytest parameter ID exceeds Windows environment limit
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual Windows Server2025 canonical job123589894788/run40914184628 atf5a,2026-10-29UTC.
+- Affects: M03-W07 cross-platform validation; scripts/tests/test_ubuntu_gnome_signed_indexes.py and exact Python test catalog.
+- Description: pytest derives a65646-character node ID from the synthetic b"x"*65537 oversized-field input. Windows rejects its PYTEST_CURRENT_TEST environment assignment before the case body; setup and teardown each error. Python reports2474passed/two errors from2475collected. This is a fixture identifier problem, not evidence that the oversized-input parser body failed or passed.
+- Reproduction: actual raw traceback through _update_current_test_var/os.environ to32767-character ValueError and different7863/109 reviews in docs/evidence/m03-w07-ci-f5a-failure. Dependent native packages SKIPPED/zero exports.
+- Workaround: none; no skip, input reduction, parser limit relaxation or assertion removal.
+- Resolution + evidence link: explicit id="oversized-field" for only that same input; all test bodies, assertions and payload expressions AST-identical, other IDs unchanged. Old/new24collections map exactly one ID65646→124, corrected24tests/strict3checks PASS, six children reaped/groupsABSENT. Different59 joins CLEAR; fresh corrected Windows execution remains pending. The147-case Windows11 addition requires explicit catalog composition preserving all added IDs and original2POSIX metadata.
+
+### KI-0128 — Windows debug package source selects console subsystem
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: source review of the pinned native packaging path and Rust entry attribute,2026-10-29UTC.
+- Affects: M03-W07; apps/desktop/src-tauri/src/main.rs.
+- Description: native packaging invokes TauriCLI2.12.3 build--debug, but the old GUI subsystem attribute applies only without debug assertions. The unchanged inspector requires appPE GUI2 and rejects console3. This is a source-derived gap; no current hosted PE failure is claimed and future ambient runner Cargo configuration is not inventoried.
+- Reproduction: pinned CLI source, project profiles/build/env and primary Rust/Cargo references in docs/evidence/m03-native-desktop-entry. Existing meaningful PE refusal oracle remains unchanged.
+- Workaround: none; do not weaken PE inspection or conceal a terminal window after launch.
+- Resolution + evidence link: explicit Windows-only normal-build GUI selection excluding cfg(test). Different source review CLEAR, guarded exact main.rs adoption and actual five canonical checks PASS with native342same IDs each3modes plus separate1/10; all2255source/runtime40 bytes/full modes/status/HEAD/tree endpoints neutral. Actual corrected Windows PE/native launch is pending. Exact docs/evidence/m03-native-desktop-entry.
+
+### KI-0127 — Windows and Ubuntu lack an explicit native Quit entry
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: pinned Tauri2.12.4 menu installation source review,2026-10-29UTC.
+- Affects: M03-W07/W08/W10; apps/desktop/src-tauri/src/lib.rs.
+- Description: Tauri automatically installs its default menu only on macOS; the project did not install a Windows/Ubuntu native File→Quit action. Close/ExitRequested callbacks alone do not prove native Quit or its accelerator.
+- Reproduction: exact pinned framework/project references and different source review in docs/evidence/m03-native-desktop-entry. No native Windows/Ubuntu missing-control actor is invented.
+- Workaround: none; do not alias window Close to the required Quit action or use an OS Quit that bypasses the common owner.
+- Resolution + evidence link: explicit ordinary native File→Quit/Ctrl+Q item routes the existing ManagedService.request_shutdown owner. macOS retains its native default menu. No renderer authority/schema/dependency/deadline change. Different review CLEAR and guarded lib.rs adoption; combined actual five canonical checks PASS, native342same IDs each3modes plus separate1/10. Corrected real Windows11/defaultGNOME native menu, accelerator and cleanup remain pending. Exact docs/evidence/m03-native-desktop-entry.
+
 ### KI-0126 — Unix package cleanup test conflates listener release with immediate address reuse
 
 - Severity: MEDIUM
@@ -67,13 +100,14 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 ### KI-0124 — Rollback fixture can rerender before asynchronous driver write
 
 - Severity: MEDIUM
-- State: IN_PROGRESS
+- State: FIXED
 - Discovered: originalhosted40803470877/Mac277browserPASS1FAIL and controlledlocalordering proof, 2026-10-29UTC.
 - Affects: M03-W07 crossplatform regression; existing FW3negativeReact browserfixture.
 - Description: pre-armed20msrerender can occur before asynchronous decision/hash preparation and extensionmessage/write. Then the blockedReactevents never commitstate but the DOMwrite persists through the unchanged125mswindow, so the fixture's FAILED assertion receivesVERIFIED without its intended postwrite rollback.
 - Reproduction: actualrealownedChromium with identical100mspreparationlatency logs click→input→change/stateempty/DOMTransient only/VERIFIED and fails the unchangedoracle. This establishes the controlledlocal defect, not the originalhosted eventorder. Oldreferencedtrace/PNG/context are absent from actualMacartifact; specificnonpersistence cause staysUNOBSERVED after27join source/datareview.
 - Workaround: none; no flaky label, retry, skip, deadline increase or assertion weakening.
 - Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedcleanb28 nowactuallypassesall20/Python2141 withdifferent6801joinsCLEAR andneutral2202source/runtime40/HEAD-tree endpoints: docs/evidence/m03-w07-clean-aggregate-b28. Clean2ea expanded2477Python/all20 full now PASS with different7020 joins CLEAR (docs/evidence/m03-w07-clean-aggregate-2ea). Fixed-fixture hosted execution remains pending; state IN_PROGRESS for that scope.
+- Later validation: actual f5a browser278/2/62/17 passes on Mac,Ubuntu and Windows Server2025; different7863 terminal/109 case joins retain exact source/observations in docs/evidence/m03-w07-ci-f5a-failure. This closes the hosted rollback-fixture scope; the separate Windows Python parameter-ID failure and skipped native packages remain failures. Prior pending statements above are historical.
 
 ### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
 
