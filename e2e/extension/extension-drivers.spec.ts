@@ -626,22 +626,27 @@ test("FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify"
   );
   const scannedReact = await descriptors(react);
   await react.page.evaluate(() => {
+    let rerenderScheduled = false;
     for (const eventName of ["input", "change"]) {
       document.addEventListener(
         eventName,
         (event) => {
           if ((event.target as HTMLElement).id === "react-full-name") {
             event.stopImmediatePropagation();
+            // Arm the rollback after the write, regardless of request preparation.
+            if (!rerenderScheduled) {
+              rerenderScheduled = true;
+              window.setTimeout(() => {
+                document
+                  .getElementById("react-rerender")
+                  ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+              }, 20);
+            }
           }
         },
         true,
       );
     }
-    window.setTimeout(() => {
-      document
-        .getElementById("react-rerender")
-        ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    }, 20);
   });
   const rollback = await execute(
     react,
@@ -650,6 +655,8 @@ test("FW3/VAL1/VAL2/DATE2: immediate-only or site-rejected matches never verify"
     undefined,
     125,
   );
+  await expect(react.page.locator("#react-render-count")).toHaveText("2");
+  await expect(react.page.locator("#react-state-full-name")).toHaveText("");
   expect(rollback.result.outcome).toBe("FAILED");
   expect(rollback.result.reason_codes).toContain("PERSISTENCE_NOT_VERIFIED");
   expect(await react.page.locator("#react-full-name").inputValue()).toBe("");

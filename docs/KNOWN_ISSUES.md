@@ -4,7 +4,9 @@ Reproducible defects and deferred risks (`docs/MASTER_IMPLEMENTATION_SPEC.md`
 §1.1). This file is also where out-of-scope ideas are parked instead of
 broadening a work package (spec §1.5).
 
-## Current W07 package validation (2026-10-28)
+## Current W07 package validation (2026-10-29UTC)
+
+Clean80e68ac/tree3ce18844 doctor28/all20PASS and different2275joinsCLEAR validate the local SDK path correction. Prior07eb hosted40803470877 remains terminalFAILURE, including an additional Macrollback browser failure and nativepackageSKIPPED; old failure attachment bytes/eventordering remain unobserved. Exact source/raw/reviews: docs/evidence/m03-w07-closed-validation. Fresh40898412173 is pending; nativeWindows11/defaultGNOME acceptance stays pending. Earlier9872 results below remain historical.
 
 Fresh9872 hostedMac/Ubuntu/Windows canonicaljobs all20PASS. KI-0118 scheduling andKI-0120 Windowsabsolute-root regression scopes are now FIXED by actual affected-hostfullpasses; no originalCPUcontention cause is asserted. The run overall is FAILURE because two nativepackagejobs fail before serviceactors. Their exactcode/data corrections and current134focused/strict/integrity validation are retained below; fresh correctednativehost/fullvalidation remains pending. W07soleIN_PROGRESS/39of300VERIFIED/M03IN_PROGRESS/releaseNOT_READY.
 
@@ -43,6 +45,17 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 
 ## Current fixture compatibility validation (2026-10-29UTC)
 
+### KI-0124 — Rollback fixture can rerender before asynchronous driver write
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: originalhosted40803470877/Mac277browserPASS1FAIL and controlledlocalordering proof, 2026-10-29UTC.
+- Affects: M03-W07 crossplatform regression; existing FW3negativeReact browserfixture.
+- Description: pre-armed20msrerender can occur before asynchronous decision/hash preparation and extensionmessage/write. Then the blockedReactevents never commitstate but the DOMwrite persists through the unchanged125mswindow, so the fixture's FAILED assertion receivesVERIFIED without its intended postwrite rollback.
+- Reproduction: actualrealownedChromium with identical100mspreparationlatency logs click→input→change/stateempty/DOMTransient only/VERIFIED and fails the unchangedoracle. This establishes the controlledlocal defect, not the originalhosted eventorder. Oldreferencedtrace/PNG/context are absent from actualMacartifact; specificnonpersistence cause staysUNOBSERVED after27join source/datareview.
+- Workaround: none; no flaky label, retry, skip, deadline increase or assertion weakening.
+- Resolution + evidence link: firstactualinput/change armsone20msrerender; addrender2/emptyReactstateassertions. Samecontrolledcase logs input→change→click/DOMempty/FAILED and alloriginaloraclesPASS. Canonical13drivercases and3strictchecksPASS; different35source/datajoinsCLEAR. Exact raw/actualcontrolledfailuretrace/initialharnessfailures/endpoints/reviews: docs/evidence/m03-w07-browser-rollback-order. Fresh fixedfull/hostedvalidation remains pending; state IN_PROGRESS for that declaredscope.
+
 ### KI-0123 — Windows SDK f-string fragment violates the existing portability policy
 
 - Severity: MEDIUM
@@ -52,7 +65,7 @@ Clean9872 actual doctor28/all20PASS includes2120Python and preserves every commi
 - Description: the new interpolated Windows SDK path contains a literal /bin/Hostx64/x64/dumpbin.exe fragment. The existing conservative PORT-SRC-001 policy refuses it, causing the real-repository Python oracle and standalone portability suite to fail.
 - Reproduction: exact07eb77b doctor28PASS/aggregate18PASS2FAIL, Python2140PASS1FAIL391.89s and raw CLI violation in docs/evidence/m03-w07-portable-sdk-path-correction. Different2269joins confirm the recorded failure and immutable source.
 - Workaround: none; do not relax or bypass the policy.
-- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Fresh corrected full and hosted/native results remain pending; current40803470877 is not cancelled or relabeled.
+- Resolution + evidence link: compose the same path from individual pathlib segments. Existing13focused cases, strict3checks and correct offline-uv CLI pass; different65source/datajoinsCLEAR. Initial wrong-isolated-interpreter CLI2/PyYAML observer error is retained separately. No checker/test/inventory changes. Corrected clean80e68ac full now actually passes all20 suites/Python2141 with unchanged source/runtime/modes/status/HEAD-tree endpoints and different2275joinsCLEAR: docs/evidence/m03-w07-closed-validation. Prior40803470877 is terminalFAILURE and remains separate; fresh40898412173 hosted/native results are pending. State remains IN_PROGRESS for the declared hosted validation scope.
 
 ### KI-0121 — Installed sibling MSVC toolsets make package inspection discovery ambiguous
 

@@ -3,6 +3,14 @@
 ATS/browser/OS support and measured pass rates
 (`docs/MASTER_IMPLEMENTATION_SPEC.md` §1.1).
 
+## Rollback fixture scoped regression (2026-10-29UTC)
+
+ControlledrealChromium proves oldpre-armedrerender ordering defect and post-inputone-shotfix under identical100mspreparationlatency/original125mssettlebudget. Actualcanonical13drivercases/strict3PASS; different35joinsCLEAR, exact docs/evidence/m03-w07-browser-rollback-order. OriginalhostedMac eventorder and missingattachmentcause stayUNKNOWN; freshfixedfull/hostedpending. Browserfixture evidence adds no nativeOS/certifiedsupport row.
+
+## Corrected local validation and prior hosted failure (2026-10-29UTC)
+
+Clean80e68ac/tree3ce18844 actual doctor28/all20ACTIVE suitesPASS: Python2141, TS4006fresh, browser278/2/62/17, native342each3modes plus separate1/10. Exact2187source/runtime40/fullmodes/cleanstatus/immediateHEAD-tree endpoints equal; different2275joinsCLEAR. Prior07eb hosted40803470877 remainsFAILURE: Mac17/3, Windows/Ubuntu18/2; SDK-path policy refusal plus Macrollback expectedFAILED/receivedVERIFIED, nativepackageSKIPPED. Different443joinsCLEAR_AS_FAILURE. Oldrollback attachment bytes/eventordering remain unobserved. Exact separate source/raw/reviews: docs/evidence/m03-w07-closed-validation. Fresh40898412173 pending. This adds no Windows11/defaultGNOME/certifiedsupport row or later-tree full pass.
+
 ## Current local packaging validation (2026-10-29UTC)
 
 Clean07eb77b/treeeadbd0 actual local aggregate is18PASS/2FAIL; both failures come from the same existing portability guard rejecting the new SDK path f-string fragment. Python2140PASS1FAIL and all other18 suites pass. A one-expression pathlib-segment correction passes13unchanged focused cases/strictchecks/CLI with different source/data review, pending fresh aggregate/hosted/native validation. Exact raw source/endpoints/reviews: docs/evidence/m03-w07-portable-sdk-path-correction. This adds no Windows11/defaultGNOME/certified support row or transferred full PASS.
