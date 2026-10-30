@@ -64,6 +64,7 @@ Canonical registry of (a) owner decisions that override earlier plans and
 | OD-035 | Continue all work packages without stopping after each W; owner-controlled holdout is waived. Preserve measured results and report every remaining validation limitation. | ACCEPTED | Owner messages 2026-10-16; ADR-0006 |
 | OD-036 | Waive direct Simplify comparison and executed public-form evidence throughout the project; preserve all other completion, safety, measurement and review requirements. Continue until the project is finished and validated. | ACCEPTED | Owner message 2026-10-17; ADR-0007 |
 | OD-037 | Delegate routine project acceptance and continuous milestone progression after actual required validation and independent review; stop asking routine approval questions. | ACCEPTED | Direct owner reply 2026-10-18; ADR-0008 |
+| OD-038 | Authorize the project's disposable Windows 11 VM validation campaigns to accept the Microsoft Windows 11 Enterprise Evaluation license during unattended installation of the exact pinned evaluation ISO (scripts/windows11/windows11_inputs.py MEDIA/MEDIA_SHA256). Scope: ephemeral CI virtual machines used only for this project's native Windows 11 package validation; no other license, product key, Microsoft account, or real-user system is covered, and every other security, privacy and evidence requirement stays in force. | ACCEPTED | Direct owner reply 2026-10-30 to the question "May the Windows 11 VM campaign accept Microsoft's Enterprise Evaluation license?": "Yes, accept it" |
 
 ## Architecture decision records
 
