@@ -29,6 +29,25 @@ k.Process32FirstW.argtypes = [wt.HANDLE, ctypes.POINTER(Entry)]
 k.Process32NextW.argtypes = [wt.HANDLE, ctypes.POINTER(Entry)]
 
 
+nt = ctypes.WinDLL("ntdll")
+nt.NtQueryInformationProcess.argtypes = [wt.HANDLE, ctypes.c_int, ctypes.c_void_p, wt.ULONG, ctypes.POINTER(wt.ULONG)]
+
+
+def details(pid: int) -> tuple[str, str]:
+    h = k.OpenProcess(0x1000, False, pid)
+    if not h:
+        return "<gone>", "<gone>"
+    buf = ctypes.create_unicode_buffer(2048); n = wt.DWORD(2048)
+    image = buf.value if k.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(n)) else "<image?>"
+    raw = ctypes.create_string_buffer(65536); got = wt.ULONG(0)
+    line = "<cmdline?>"
+    if nt.NtQueryInformationProcess(h, 60, raw, 65536, ctypes.byref(got)) == 0:
+        length = int.from_bytes(raw.raw[0:2], "little")
+        line = raw.raw[16:16 + length].decode("utf-16-le", "replace")
+    k.CloseHandle(h)
+    return image, line
+
+
 def snapshot() -> dict[int, tuple[int, str]]:
     h = k.CreateToolhelp32Snapshot(2, 0)
     e = Entry(); e.size = ctypes.sizeof(Entry); out = {}
@@ -68,6 +87,8 @@ def main() -> int:
         return buf.value if ok else f"<image failed {ctypes.get_last_error()}>"
 
     trace: dict[int, tuple[int, str, float]] = {}
+    full: dict[int, tuple[str, str]] = {}
+    TOOLS = {"cl.exe", "lib.exe", "link.exe", "mt.exe", "rc.exe", "vctip.exe", "cvtres.exe"}
     done = threading.Event()
     start = time.monotonic()
 
@@ -78,6 +99,8 @@ def main() -> int:
             for pid in live:
                 if pid not in trace and pid in snap:
                     trace[pid] = (snap[pid][0], snap[pid][1], round(time.monotonic() - start, 2))
+                    if snap[pid][1].lower() in TOOLS or snap[pid][1].lower() == "build-script-build.exe":
+                        full[pid] = details(pid)
             time.sleep(0.03)
 
     thread = threading.Thread(target=tracer, daemon=True)
@@ -90,6 +113,9 @@ def main() -> int:
         names[exe.lower()] = names.get(exe.lower(), 0) + 1
     print(f"[{label}] traced image counts: {sorted(names.items())}", flush=True)
     for pid, (parent, exe, t) in sorted(trace.items(), key=lambda x: x[1][2]):
+        if exe.lower() in TOOLS:
+            print(f"[{label}] TOOL {exe} pid={pid} at {t}s cmd={full.get(pid, ('', ''))[1][:400]!r}", flush=True)
+            print(f"[{label}]   parent {parent}: {full.get(parent, ('<untraced>', ''))[0]} cmd={full.get(parent, ('', ''))[1][:300]!r}", flush=True)
         if exe.lower() == "vctip.exe":
             p = trace.get(parent)
             print(f"[{label}] VCTIP pid={pid} at {t}s parent={parent} parent_image={p[1] if p else '<unobserved>'} grandparent_image={trace.get(p[0], (0, '<unobserved>'))[1] if p else '-'}", flush=True)

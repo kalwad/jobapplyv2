@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 4: rust-lld plus a pinned
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 5 (full tool lineage): rust-lld plus a pinned
 # Windows SDK rc.exe, traced over the app build and the test-harness compile.
 name: ci
 on:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   desktop:
-    name: desktop (lld+rc)
+    name: desktop (lld+rc trace)
     runs-on: windows-2025
     timeout-minutes: 50
     steps:
