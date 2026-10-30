@@ -6,6 +6,14 @@ on:
 permissions:
   contents: read
 jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ubuntu runner alive
+  probe-win:
+    runs-on: windows-latest
+    steps:
+      - run: echo windows-latest runner alive
   hello:
     name: hello (${{ matrix.variant }})
     runs-on: windows-2025
