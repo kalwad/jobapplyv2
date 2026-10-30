@@ -88,6 +88,15 @@ def prepare_destination(path: Path) -> None:
         raise ValueError("Refusing to replace an existing runtime payload")
 
 
+# Exact bytes of the tracked runtime-payload/.gitignore. Windows text-mode
+# writes would translate newlines to CRLF and dirty the reviewed source.
+STAGE_IGNORE = b"*\n!.gitignore\n"
+
+
+def write_stage_ignore(stage: Path) -> None:
+    (stage / ".gitignore").write_bytes(STAGE_IGNORE)
+
+
 def write_manifest(root: Path, target: str, sources: dict[str, str]) -> PayloadManifest:
     entries: list[PayloadFile] = []
     total = 0
@@ -351,7 +360,7 @@ def main() -> None:  # noqa: PLR0912, PLR0915 - ordered six-stage native build c
     shutil.copytree(
         args.work_dir / "dist/japp-orchestrator", stage / "japp-orchestrator"
     )
-    (stage / ".gitignore").write_text("*\n!.gitignore\n")
+    write_stage_ignore(stage)
     manifest = write_manifest(stage, args.target, sources)
     from windows_package import (  # noqa: PLC0415 - reached only after native host/build guard
         digest,

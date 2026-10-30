@@ -22,6 +22,11 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
+TRACKED_IGNORE = (
+    Path(__file__).parents[2] / "apps/desktop/src-tauri/runtime-payload/.gitignore"
+)
+
+
 def args(target: str) -> list[str]:
     result = ["builder"]
     for name in [
@@ -207,5 +212,25 @@ def test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell(  
         assert required in final
     assert "--windowed" not in final
     assert (destination / "japp-orchestrator/dependency.dll").is_file()
+    assert (destination / ".gitignore").read_bytes() == TRACKED_IGNORE.read_bytes()
     assert module.__file__ is not None
     assert proof["builder_script_sha256"] == module.sha256(Path(module.__file__))
+
+
+def test_staged_payload_ignore_matches_tracked_bytes() -> None:
+    assert TRACKED_IGNORE.read_bytes() == module.STAGE_IGNORE
+
+
+def test_staged_payload_ignore_survives_windows_text_newline_translation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Emulate Windows text mode, where write_text turns "\n" into "\r\n" and
+    # dirtied the tracked LF file in the packaged checkout.
+    original = Path.write_text
+
+    def windows_text(self: Path, data: str, *a: object, **k: object) -> int:
+        return original(self, data.replace("\n", "\r\n"), *a, **k)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(Path, "write_text", windows_text)
+    module.write_stage_ignore(tmp_path)
+    assert (tmp_path / ".gitignore").read_bytes() == TRACKED_IGNORE.read_bytes()

@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 2895,
-    "sha256": "140aa7636d5f3854fa7dce0d8c4ae88c33baaba85904580a57ce969b083c90c1",
+    "count": 2897,
+    "sha256": "5b7ff98319d43d5d4ec106ffcb1aff40d2bd4ac4a51c2adf32a556eb70058f52",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -2490,6 +2490,8 @@
       "scripts/tests/test_windows11_resources.py::test_removal_metadata_refuses_noncanonical_or_unowned_roots[uid]",
       "scripts/tests/test_windows11_resources.py::test_removal_metadata_refuses_noncanonical_or_unowned_roots[unknown]",
       "scripts/tests/test_windows11_resources.py::test_removal_metadata_refuses_noncanonical_or_unowned_roots[writable]",
+      "scripts/tests/test_windows_builder.py::test_staged_payload_ignore_matches_tracked_bytes",
+      "scripts/tests/test_windows_builder.py::test_staged_payload_ignore_survives_windows_text_newline_translation",
       "scripts/tests/test_windows_builder.py::test_windows_builder_preserves_six_stages_with_explicit_pins_and_no_shell",
       "scripts/tests/test_windows_builder.py::test_windows_builder_refuses_actual_wrong_host_before_filesystem",
       "scripts/tests/test_windows_builder.py::test_windows_builder_refuses_non_windows_target_before_filesystem",
