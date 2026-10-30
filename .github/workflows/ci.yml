@@ -1,33 +1,28 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 7: is dumpbin (link /DUMP)
-# a VCTIP starter when it is the first MSVC tool on a fresh runner?
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Does the exact b74d867 packaged
+# Windows service exit at startup because its environment block is empty?
 name: ci
 on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
-  inspect:
-    name: inspect (${{ matrix.variant }})
+  probe:
+    name: service environment probe
     runs-on: windows-2025
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        variant: [dumpbin, llvm-readobj]
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Observe a single fresh inspection inside a Job
+      - name: Download the exact b74d867 Windows package artifact
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path
-          $target = "$env:SystemRoot\System32\notepad.exe"
-          if ('${{ matrix.variant }}' -eq 'dumpbin') {
-            $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-            $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
-            python scripts\diag\job_linger_diag.py dumpbin-fresh 120 no -- "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64\dumpbin.exe" /headers /dependents /imports $target
-          } else {
-            python scripts\diag\job_linger_diag.py readobj-fresh 60 no -- 'C:\Program Files\LLVM\bin\llvm-readobj.exe' --file-headers --coff-imports $target
-          }
-          Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path
+          gh run download 41124431600 -R kalwad/jobapplyv2 -n native-development-windows-2025-af74040c1371eab07d9671f2464d909a60ad626d -D "$env:RUNNER_TEMP\art"
+          Expand-Archive "$env:RUNNER_TEMP\art\packages\windows-portable.zip" "$env:RUNNER_TEMP\portable"
+          Get-FileHash "$env:RUNNER_TEMP\portable\runtime\japp-orchestrator\japp-orchestrator.exe" -Algorithm SHA256 | Format-List
+      - name: Probe empty versus SystemRoot-only environments
+        shell: pwsh
+        run: python scripts\diag\env_probe.py "$env:RUNNER_TEMP\portable\runtime\japp-orchestrator\japp-orchestrator.exe"
