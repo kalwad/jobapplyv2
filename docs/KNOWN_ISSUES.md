@@ -34,6 +34,8 @@ broadening a work package (spec §1.5).
 
 ## Latest W07/W11 validation scope (2026-10-29UTC)
 
+Current cf9local full/three-host verification now PASS with separate stale-wheel packageFAIL/zero eligibleexports; bounded M04v6 headless debug-profile actual53.427s remains outside currentGUI/default/wholemilestone acceptance. Exact docs/evidence/m03-w07-full-cf9b60d, docs/evidence/m03-w07-ci-cf9b60d-terminal and docs/evidence/m04-frozen-debug-sha2-profile. KI-0139 closes only its source invariant; KI-0140 remainsIN_PROGRESS until corrected actual packages. Older pending statements below retain their historical revision scope.
+
 Latest closed437local fullPASS and originalf3 three-host verifyPASS/Ubuntu packagePASS/Windows packageFAIL are docs/evidence/m03-w07-full-4378627 and docs/evidence/m03-w07-ci-f3-terminal. RequestRc930 fails at GNOME metadata before any package/VM actor. Narrow authorizer and WindowsJob corrections have different CLEAR reviews and guarded8path/62catalog root adoption, but a stale package-loader helper pin and canonical focus remain pending;  KI-0135 closes only its source invariant, KI-0136/0137/0138 retain their pending actual validation. Earlier observations below keep historical scope; no currentR/newfix full or native acceptance is inferred.
 
 Clean bd4 is a preserved19PASS/onePythonFAIL aggregate; the narrow cache fixture correction and native zoom source now pass216focused/full2627collection/registeredRust and different2576 data joins. Earlier revision-scoped observations below remain historical; no corrected full/native acceptance is inferred. Exact docs/evidence/m03-w07-full-bd4-failure and docs/evidence/m03-native-zoom-and-cache-correction.
@@ -42,10 +44,21 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
-### KI-0139 — Strict Turbo tasks lose the CI-installed Rust toolchain home
+### KI-0140 — Committed pure orchestrator wheel lags the corrected client source
 
 - Severity: MEDIUM
 - State: IN_PROGRESS
+- Discovered: actual cf9 CI native-package jobs123840589484/123840589553,2026-10-30UTC.
+- Affects: M03-W07 native package source closure; packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl and packaging/native-project-wheels.json.
+- Description: exact wheel/source validation refuses the committed07ab9ea… wheel because its generation/client.py is old66132868…, while tested source has corrected977e0759…. All18paths,17other orchestrator bodies and110contracts bodies match. The strict guard correctly prevents installing the obsolete client.
+- Reproduction: both actual Windows/Ubuntu package jobs fail native_package_pipeline.py:352 with the same ValueError before pipeline output/native service actor; PREPARATION_INCOMPLETE and zero eligible curated exports. Independent inert member hashing binds the sole difference to immutable cf9source and both retained native-input wheel hashes.
+- Workaround: none; preserve exact full package/resource equality, restricted installer surface and every existing limit; do not waive the guard or reuse old exports.
+- Resolution + evidence link: docs/evidence/m03-w07-ci-cf9b60d-terminal, different16874joins/f71b7cef… and exact preserved failedCI/source/member records. Separate frozen source correction SOURCE76103d8f… now supplies exact32666B wheel21fdd2c…/one manifestSHA/two read-only alignment cases/two additive IDs; all23oldtests+2newPASS and samefinaloldwheel1PASS1FAIL preserve the unchanged strict guard. Different2528joins/34e9b0f4… CLEAR and officialHatchling1.32.4 privatebuild provenance are retained in the same packet. Rootguardedadoption/focus and fresh corrected actual hosted package results remain required; derived2882collection is not actualfullcollection. No future package/native/gatePASS is inferred.
+
+### KI-0139 — Strict Turbo tasks lose the CI-installed Rust toolchain home
+
+- Severity: MEDIUM
+- State: FIXED
 - Discovered: actual D7f7902f Mac CI unit-ts subprocess failures,2026-10-29UTC; source-only controlled environment-loss reproduction,2026-10-30UTC.
 - Affects: M03-W07 hosted contract/parity verification; turbo.json and packages/contracts/test/contract/support process boundary.
 - Description: the workflow installs/exports its pinned compiler under fresh RUSTUP_HOME, while default strict Turbo tasks omit that selector. Actual D's four suite hooks fail cargo build and its infrastructure setup fails rustup which rustc; suppressed stderr prevents asserting this reproduced source mechanism as the sole historical error cause. Direct later contract/Rust suites pass.
@@ -53,6 +66,8 @@ The reviewed guest/COM/parser composition now passes441canonical Python tests/27
 - Workaround: preserve strict filtering and all original tests/limits; do not loosen environment mode, invent a Rust diagnostic or relabel CI.
 - Resolution + evidence link: independently reviewed one-variable correction f090c098…/fullmode33188 over edb1a6db… includes the selector in cache identity. Sourcepeer809joinsCLEAR; all17explicit qualification/format childowners close/reap/groupsABSENT/no signals/timeouts and all failed observer/format histories remain. Exact docs/evidence/m03-ci-turbo-rustup-home. Existing2878common+2POSIX IDs/digest remain unchanged; no new canonical test. Fresh corrected hosted CI remains required before closure.
 
+
+- Current scoped verification: corrected cf9 hosted Mac/Windows/Ubuntu each pass all20ACTIVE suites with Python2880/2878/2880PASS. Different16874joins CLEAR_AS_RECORDED_FAILURE at docs/evidence/m03-w07-ci-cf9b60d-terminal validates these successful verification jobs while preserving both stale-wheel package failures as KI-0140. This closes only the reproduced strict-Turbo compiler-home source invariant; the suppressed historical D Rust stderr/exclusive cause remains UNKNOWN. Original C/D failures are unchanged.
 ### KI-0138 — Mutable PR head metadata rejects an otherwise validated authorization request
 
 - Severity: MEDIUM

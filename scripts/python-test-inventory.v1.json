@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 2878,
-    "sha256": "e8b0964607824588e0e43fe94c204c3d9217af8e9874ae802750bc65f6fdc9af",
+    "count": 2880,
+    "sha256": "69344a5dcd3a5afa2e35b7e24757bdf89d3d391fa610ec5109366e16c89c8715",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -1428,6 +1428,8 @@
       "scripts/tests/test_portability.py::test_windows_resolves_cmd_shim_for_pnpm",
       "scripts/tests/test_portability.py::test_windows_resolves_exe_via_pathext",
       "scripts/tests/test_portability.py::test_wrapped_exact_non_windows_guard_is_permitted",
+      "scripts/tests/test_project_wheel_alignment.py::test_committed_project_wheel_matches_current_source[contracts]",
+      "scripts/tests/test_project_wheel_alignment.py::test_committed_project_wheel_matches_current_source[orchestrator]",
       "scripts/tests/test_proofs_and_real_repo.py::test_cargo_minimum_and_pytest_exact_inventory_proofs",
       "scripts/tests/test_proofs_and_real_repo.py::test_desktop_rust_lockfile_is_mandatory",
       "scripts/tests/test_proofs_and_real_repo.py::test_playwright_passed_proof_ignores_non_summary_lines",

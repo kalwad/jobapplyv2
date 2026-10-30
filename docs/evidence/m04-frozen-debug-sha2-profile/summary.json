@@ -1,0 +1,29 @@
+{
+  "status": "SCOPED_SYNTHETIC_FROZEN_PROFILE_PASS",
+  "source_proposal_sha256": "f0a0ea81ddb872a198cf4f7950b3833d7a52e6db85c70c7e312b9fabbd15754e",
+  "source_peer_review_sha256": "7fab814cc704759f4085369ea174e5ad005e5d5edc6c9a70579f2cbb4df717f7",
+  "actual_peer_review_sha256": "6a4e5c5a246a0487a466026b38ecc8ff6a0b9e9b457655f5b538b84364e5aa89",
+  "actual_peer_joins": 3635,
+  "seconds": 53.42706995795015,
+  "parent_seconds": 180,
+  "compile_seconds": 120,
+  "native_startup_seconds": 3,
+  "python_startup_seconds": 2,
+  "closed_seconds": 1,
+  "outer_commands_closed": 16,
+  "pure_controls": 137,
+  "Rust_collected": 170,
+  "Rust_selected_executed": 39,
+  "app_profile": {
+    "opt_level": 0,
+    "debug_assertions": true,
+    "overflow_checks": true
+  },
+  "exact_sha2_0_10_9_profile": {
+    "dev_opt_level": 3,
+    "test_opt_level": 3
+  },
+  "default_activation": false,
+  "whole_M04_acceptance": false,
+  "scope": "Actual headless synthetic experiment only; prospective canonical Cargo source needs separate guarded adoption."
+}

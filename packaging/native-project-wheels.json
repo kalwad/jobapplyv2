@@ -5,7 +5,7 @@
   },
   "orchestrator": {
     "path": "packaging/native-project-wheels/orchestrator-0.0.1-py3-none-any.whl",
-    "sha256": "07ab9ea371a8b6abd0f1f73658ec84c7d71e24878c0c7d36a3aae043dfcdf8f7"
+    "sha256": "21fdd2c137f4575fadf5d7d0f8ad1389650e75a4a185fdf07255693fc06540f7"
   },
   "scope": "Exact previously built pure project wheels. Consumer must verify every current source package/resource and restricted install surface; no new wheel build/native distribution claim."
 }

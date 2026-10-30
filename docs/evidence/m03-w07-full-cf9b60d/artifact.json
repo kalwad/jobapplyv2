@@ -1,0 +1,27 @@
+{
+  "artifact_type": "COMPACT_SOURCE_BOUND_CLOSED_ACTUAL_EVIDENCE",
+  "work_package": "M03-W07",
+  "files": {
+    "README.md": {
+      "bytes": 1296,
+      "sha256": "53c46814efee2e2414f0a2f19f480f9c8baa92d9d68cf66a70af1f2e40a3cf89",
+      "full_mode": 33188
+    },
+    "proof.tar.gz": {
+      "bytes": 1575479,
+      "sha256": "edc39561b8a2bef8c4ac18a55fad416307ce6c7ac587c0a71756602030981de2",
+      "full_mode": 33188
+    },
+    "retention-manifest.json": {
+      "bytes": 5263,
+      "sha256": "73a584e50d1b7d1106390f5dab5914d777f5cacead72b2c3560e3ad06d5390e5",
+      "full_mode": 33188
+    },
+    "summary.json": {
+      "bytes": 592,
+      "sha256": "3344c73548642944330bc76e01c7539a48ac12f858acfad0f6fbd69a7700c2b8",
+      "full_mode": 33188
+    }
+  },
+  "scope": "Closed cf9 local full only; later source/CI/packages require separate evidence."
+}
