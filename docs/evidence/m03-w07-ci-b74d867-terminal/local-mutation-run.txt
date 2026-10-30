@@ -1,0 +1,32 @@
+# Single-pass mutation run over src/service/windows_policy.rs (sha256 15e18d0650e9d57d5d0caf028d16cff0b959d1c40a3bd8e75e2f46bb2d13449a)
+# Command per mutant: cargo test --locked -q -- service_environment creation_requires
+KILLED   no '=' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no ':' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '<' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '>' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '"' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '/' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '|' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '?' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '*' refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no control-char refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   NUL refusal only via '=': test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '.' component refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no '..' component refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no empty component refusal: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no drive-letter check: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   uppercase-only drive: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no ':\\' prefix check: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   length > 260 -> >= 260: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   length counts bytes: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   length counts chars: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   no length bound: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+SURVIVED min length 4 -> 3: test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   min length 4 -> 5: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   variable name casing: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   single terminator: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   empty block: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   drop CREATE_UNICODE_ENVIRONMENT: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+KILLED   drop CREATE_SUSPENDED: test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s
+27/28 killed; file restored byte-identically: True
+unmutated: test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 341 filtered out; finished in 0.00s

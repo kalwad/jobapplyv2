@@ -1,0 +1,32 @@
+# Run 41137888774 (diag/windows-service-env 7dc7d35, windows-2025), step 'Probe exclusive-port release semantics'.
+# Timestamps kept; ANSI colour codes stripped.
+
+2026-10-30T22:25:07.2907989Z ##[group]Run python scripts\diag\tcp_release_probe.py
+2026-10-30T22:25:07.2908718Z python scripts\diag\tcp_release_probe.py
+2026-10-30T22:25:14.6215514Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-30T22:25:14.6216097Z ##[endgroup]
+2026-10-30T22:25:41.7887719Z 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)] win32
+2026-10-30T22:25:41.7888330Z == listener-only: child exit 0; port 58550
+2026-10-30T22:25:41.7888702Z    netstat before bind: (none)
+2026-10-30T22:25:41.7889076Z    immediate single bind: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7889554Z    bounded retry 1s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7890021Z    bounded retry 30s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7890392Z    netstat after: (none)
+2026-10-30T22:25:41.7890861Z    connect timeout=0.25s -> TimeoutError('timed out') after 0.547s
+2026-10-30T22:25:41.7891961Z    connect timeout=3.0s -> ConnectionRefusedError(10061, 'No connection could be made because the target machine actively refused it', None, 10061, None) after 2.046s
+2026-10-30T22:25:41.7892814Z == client-first: child exit 0; port 58553
+2026-10-30T22:25:41.7893217Z    netstat before bind: TCP 127.0.0.1:58554 127.0.0.1:58553 TIME_WAIT 0
+2026-10-30T22:25:41.7893687Z    immediate single bind: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7894095Z    bounded retry 1s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7894482Z    bounded retry 30s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7894897Z    netstat after: TCP 127.0.0.1:58554 127.0.0.1:58553 TIME_WAIT 0
+2026-10-30T22:25:41.7895365Z    connect timeout=0.25s -> TimeoutError('timed out') after 0.250s
+2026-10-30T22:25:41.7896265Z    connect timeout=3.0s -> ConnectionRefusedError(10061, 'No connection could be made because the target machine actively refused it', None, 10061, None) after 2.000s
+2026-10-30T22:25:41.7897108Z == server-first: child exit 0; port 58562
+2026-10-30T22:25:41.7897512Z    netstat before bind: TCP 127.0.0.1:58562 127.0.0.1:58563 TIME_WAIT 0
+2026-10-30T22:25:41.7898209Z    immediate single bind: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7898613Z    bounded retry 1s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7898994Z    bounded retry 30s: bind OK after 0.000s (1 attempts)
+2026-10-30T22:25:41.7899593Z    netstat after: TCP 127.0.0.1:58562 127.0.0.1:58563 TIME_WAIT 0
+2026-10-30T22:25:41.7900063Z    connect timeout=0.25s -> TimeoutError('timed out') after 0.265s
+2026-10-30T22:25:41.7900969Z    connect timeout=3.0s -> ConnectionRefusedError(10061, 'No connection could be made because the target machine actively refused it', None, 10061, None) after 2.000s

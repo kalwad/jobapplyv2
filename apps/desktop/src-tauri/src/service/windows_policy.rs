@@ -6,8 +6,32 @@ pub struct LaunchPlan {
     pub application: Vec<u16>,
     pub command_line: Vec<u16>,
     pub directory: Vec<u16>,
-    pub environment: [u16; 2],
     pub flags: u32,
+}
+/// The owned service inherits nothing from the parent environment. It gets
+/// exactly one variable, the OS-reported Windows directory: Winsock resolves
+/// its provider DLLs through %SystemRoot%, so with an empty block every socket
+/// fails with WSAEPROVIDERFAILEDINIT (10106) and the frozen service exits while
+/// importing asyncio, before it reads its bootstrap.
+pub fn service_environment(system_root: &str) -> Result<Vec<u16>, SupervisorError> {
+    let bytes = system_root.as_bytes();
+    if bytes.len() < 4
+        || system_root.encode_utf16().count() > 260
+        || !bytes[0].is_ascii_alphabetic()
+        || &bytes[1..3] != b":\\"
+        || system_root[2..]
+            .chars()
+            .any(|v| v < ' ' || "<>:\"/|?*=".contains(v))
+        || system_root[3..]
+            .split('\\')
+            .any(|c| c.is_empty() || c == "." || c == "..")
+    {
+        return Err(SupervisorError::SpawnFailed);
+    }
+    Ok(format!("SystemRoot={system_root}")
+        .encode_utf16()
+        .chain([0, 0])
+        .collect())
 }
 pub fn launch_plan(path: &str) -> Result<LaunchPlan, SupervisorError> {
     let normalized = path.replace('/', "\\");
@@ -58,7 +82,6 @@ pub fn launch_plan(path: &str) -> Result<LaunchPlan, SupervisorError> {
         application: wide(path),
         command_line: wide(&format!("\"{path}\"")),
         directory: wide(directory),
-        environment: [0, 0],
         flags: CREATE_FLAGS,
     })
 }
@@ -151,7 +174,66 @@ mod tests {
             String::from_utf16(&p.directory[..p.directory.len() - 1]).unwrap(),
             "C:\\Build Test Ω漢字\\runtime"
         );
-        assert_eq!(p.environment, [0, 0]);
+    }
+    #[test]
+    fn service_environment_block_holds_exactly_system_root() {
+        for root in [
+            "C:\\Windows",
+            "c:\\windows",
+            "C:\\W",
+            "D:\\OS Root Ω\\Windows",
+        ] {
+            assert_eq!(
+                String::from_utf16(&service_environment(root).unwrap()).unwrap(),
+                format!("SystemRoot={root}\0\0")
+            );
+        }
+    }
+    #[test]
+    fn service_environment_refuses_malformed_or_injected_roots() {
+        for root in [
+            "",
+            "Windows",
+            "C:",
+            "C:\\",
+            "C:Windows",
+            "C:/Windows",
+            "\\\\server\\share\\Windows",
+            "\\\\?\\C:\\Windows",
+            "C:\\Windows\\",
+            "C:\\Windows\\..\\Users",
+            "C:\\.\\Windows",
+            "1:\\Windows",
+            "C:\\Win:dows",
+            "C:\\Win<dows",
+            "C:\\Win>dows",
+            "C:\\Win\"dows",
+            "C:\\Win/dows",
+            "C:\\Win|dows",
+            "C:\\Win?dows",
+            "C:\\Win*dows",
+            "C:\\Windows=PATH",
+            "C:\\Windows\0PATH=C:\\x",
+            "C:\\Windows\0",
+            "Ω:\\Windows",
+            "CΩ\\Windows",
+            "C:Ω\\Windows",
+            "C:\\Windows\nPATH",
+        ] {
+            assert_eq!(
+                service_environment(root),
+                Err(SupervisorError::SpawnFailed),
+                "{root:?}"
+            );
+        }
+        // The bound counts UTF-16 units, as CreateProcessW receives them.
+        let longest = format!("C:\\{}\u{1D54E}", "w".repeat(255));
+        assert_eq!(longest.encode_utf16().count(), 260);
+        assert!(service_environment(&longest).is_ok());
+        assert_eq!(
+            service_environment(&format!("{longest}w")),
+            Err(SupervisorError::SpawnFailed)
+        );
     }
     #[test]
     fn unsafe_windows_paths_never_form_a_launch_plan() {
@@ -175,6 +257,11 @@ mod tests {
             CREATE_FLAGS
         );
         assert_eq!(CREATE_FLAGS & (0x10 | 0x8 | 0x01000000), 0);
+        // Suspended, extended startup info, no console, and a UTF-16
+        // environment block (service_environment builds UTF-16).
+        for required in [0x4, 0x0008_0000, 0x0800_0000, 0x400] {
+            assert_eq!(CREATE_FLAGS & required, required, "{required:#x}");
+        }
     }
     #[test]
     fn handle_list_refuses_job_lease_aliases_and_invalid_handles() {

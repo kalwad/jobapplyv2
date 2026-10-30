@@ -1,0 +1,19 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Can a plain bind reclaim a port
+# whose SO_EXCLUSIVEADDRUSE listener closed after a server-first or client-first close?
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    name: tcp release probe
+    runs-on: windows-2025
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Probe exclusive-port release semantics
+        shell: pwsh
+        run: python scripts\diag\tcp_release_probe.py

@@ -14,7 +14,7 @@
 )]
 use super::windows_policy::{
     ReadyDecoder, cleanup_status, create_and_release_attributes, inherited_handles, inventory_key,
-    launch_plan, opened_directory, resolve_immediate_overlapped_completion,
+    launch_plan, opened_directory, resolve_immediate_overlapped_completion, service_environment,
 };
 use super::{Bootstrap, OwnedProcess, ReadyFrame, SpawnPermit, SupervisorError};
 use std::{
@@ -29,7 +29,9 @@ use windows_sys::Win32::{
     Foundation::*,
     Security::{Authorization::*, *},
     Storage::FileSystem::*,
-    System::{IO::*, JobObjects::*, Pipes::*, Threading::*},
+    System::{
+        IO::*, JobObjects::*, Pipes::*, SystemInformation::GetSystemWindowsDirectoryW, Threading::*,
+    },
 };
 
 struct Handle(HANDLE);
@@ -638,6 +640,16 @@ struct NativeChild {
 }
 // SAFETY: native handle ownership and all operation buffers move together.
 unsafe impl Send for NativeChild {}
+/// The OS-reported Windows directory, never the inherited %SystemRoot%.
+fn system_windows_directory() -> Result<String, SupervisorError> {
+    let mut buffer = [0u16; 261];
+    let length =
+        unsafe { GetSystemWindowsDirectoryW(buffer.as_mut_ptr(), buffer.len() as u32) } as usize;
+    if length == 0 || length >= buffer.len() {
+        return Err(SupervisorError::SpawnFailed);
+    }
+    String::from_utf16(&buffer[..length]).map_err(|_| SupervisorError::SpawnFailed)
+}
 pub(super) fn spawn(
     path: &Path,
     expected: [u8; 32],
@@ -646,6 +658,7 @@ pub(super) fn spawn(
 ) -> Result<Box<dyn OwnedProcess>, SupervisorError> {
     let _executable = lock_and_hash(path, expected, permit)?;
     let mut plan = launch_plan(path.to_str().ok_or(SupervisorError::InvalidRuntime)?)?;
+    let environment = service_environment(&system_windows_directory()?)?;
     let job = Job::new()?;
     let input = pipe(true, permit)?;
     let output = pipe(false, permit)?;
@@ -693,7 +706,7 @@ pub(super) fn spawn(
             null(),
             1,
             plan.flags,
-            plan.environment.as_ptr().cast(),
+            environment.as_ptr().cast(),
             plan.directory.as_ptr(),
             &startup.StartupInfo,
             &mut result,
@@ -877,5 +890,21 @@ impl Drop for NativeChild {
         }
         self.output.cancel();
         let _ = self.job.terminate();
+    }
+}
+
+#[cfg(all(test, windows))]
+mod tests {
+    use super::*;
+    #[test]
+    fn os_windows_directory_forms_the_service_environment() {
+        let root = system_windows_directory().unwrap();
+        let block = String::from_utf16(&service_environment(&root).unwrap()).unwrap();
+        assert_eq!(block, format!("SystemRoot={root}\0\0"));
+        let inherited = std::env::var("SystemRoot").unwrap();
+        assert!(
+            root.eq_ignore_ascii_case(&inherited),
+            "{root} != {inherited}"
+        );
     }
 }
