@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 5 (full tool lineage): rust-lld plus a pinned
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 6 (clang-cl/llvm-lib for build-time C++, lineage): rust-lld plus a pinned
 # Windows SDK rc.exe, traced over the app build and the test-harness compile.
 name: ci
 on:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   desktop:
-    name: desktop (lld+rc trace)
+    name: desktop (lld+rc+clang-cl trace)
     runs-on: windows-2025
     timeout-minutes: 50
     steps:
@@ -32,6 +32,11 @@ jobs:
           Write-Output "rc=$($rc.FullName)"
           $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe'
           $env:RC_x86_64_pc_windows_msvc = $rc.FullName
+          $llvm = 'C:\Program Files\LLVM\bin'
+          & "$llvm\clang-cl.exe" --version
+          $env:CXX_x86_64_pc_windows_msvc = "$llvm\clang-cl.exe"
+          $env:CC_x86_64_pc_windows_msvc = "$llvm\clang-cl.exe"
+          $env:AR_x86_64_pc_windows_msvc = "$llvm\llvm-lib.exe"
           python scripts\diag\job_linger_diag.py lldrc-build 60 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml
           python scripts\diag\job_linger_diag.py lldrc-test 60 no -- cargo test --locked --no-run --manifest-path apps\desktop\src-tauri\Cargo.toml
           $exe = 'apps\desktop\src-tauri\target\debug\japp-desktop.exe'
