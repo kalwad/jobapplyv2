@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   desktop:
-    name: desktop (lld+rc+clang-cl trace)
+    name: desktop (lld+clang-cl, no rc pin)
     runs-on: windows-2025
     timeout-minutes: 50
     steps:
@@ -31,7 +31,6 @@ jobs:
           $rc = Get-ChildItem "$kits\bin\10.*\x64\rc.exe" | Sort-Object { [version]$_.Directory.Parent.Name } | Select-Object -Last 1
           Write-Output "rc=$($rc.FullName)"
           $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe'
-          $env:RC_x86_64_pc_windows_msvc = $rc.FullName
           $llvm = 'C:\Program Files\LLVM\bin'
           & "$llvm\clang-cl.exe" --version
           $env:CXX_x86_64_pc_windows_msvc = "$llvm\clang-cl.exe"
