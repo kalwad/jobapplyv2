@@ -1,5 +1,5 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 2: confirm rust-lld on the
-# real desktop crate and whether dumpbin (link /DUMP) also leaves VCTIP.EXE.
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 3: trace which MSVC tool
+# starts VCTIP.EXE in the desktop build, and test the documented SQM opt-out.
 name: ci
 on:
   workflow_dispatch:
@@ -7,13 +7,9 @@ permissions:
   contents: read
 jobs:
   hello:
-    name: hello (${{ matrix.variant }})
+    name: hello (optout)
     runs-on: windows-2025
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        variant: [envskip, dumpbin]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -23,26 +19,24 @@ jobs:
         run: |
           rustup toolchain install 1.97.1 --profile minimal
           rustup default 1.97.1
-      - name: Observe
+      - name: Observe with Visual Studio SQM opt-out (ephemeral runner only)
         shell: pwsh
         run: |
-          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-          $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
-          $dumpbin = "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64\dumpbin.exe"
+          foreach ($key in 'HKLM:\SOFTWARE\Microsoft\VSCommon\18.0\SQM','HKLM:\SOFTWARE\WOW6432Node\Microsoft\VSCommon\18.0\SQM','HKLM:\SOFTWARE\Microsoft\VSCommon\17.0\SQM','HKLM:\SOFTWARE\WOW6432Node\Microsoft\VSCommon\17.0\SQM','HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\SQM') {
+            New-Item -Path $key -Force | Out-Null
+            New-ItemProperty -Path $key -Name OptIn -PropertyType DWord -Value 0 -Force | Out-Null
+          }
           cargo new --bin "$env:RUNNER_TEMP\hello" --vcs none
           Set-Location "$env:RUNNER_TEMP\hello"
-          if ('${{ matrix.variant }}' -eq 'envskip') {
-            $env:VSCMD_SKIP_SENDTELEMETRY = '1'
-            python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" envskip 90 no -- cargo build
-          } else {
-            cargo build
-            Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path
-            python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" dumpbin 90 no -- $dumpbin /headers /dependents /imports target\debug\hello.exe
-          }
+          python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" optout 90 no -- cargo build
   desktop:
-    name: desktop (lld)
+    name: desktop (${{ matrix.variant }})
     runs-on: windows-2025
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [lld-trace, link-trace]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -55,20 +49,9 @@ jobs:
         shell: pwsh
         run: rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
       - run: pnpm install --frozen-lockfile
-      - name: Build desktop with rust-lld inside a Job, then inspect PE
+      - name: Build desktop inside a traced Job
         shell: pwsh
         run: |
           pnpm --filter @japp/desktop build
-          $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe'
-          python scripts\diag\job_linger_diag.py desktop-lld 120 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml
-          $exe = 'apps\desktop\src-tauri\target\debug\japp-desktop.exe'
-          Get-Item $exe | Format-List Length
-          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-          $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
-          $bin = "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64"
-          & "$bin\dumpbin.exe" /headers $exe | Select-String 'subsystem|machine|DLL characteristics|Debug Directories' -Context 0,2
-          & "$bin\dumpbin.exe" /dependents $exe
-          $sdk = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\mt.exe" | Sort-Object FullName | Select-Object -Last 1
-          & $sdk.FullName -nologo "-inputresource:$exe;#1" "-out:$env:RUNNER_TEMP\embedded.manifest"
-          Get-Content "$env:RUNNER_TEMP\embedded.manifest"
-          Get-ChildItem apps\desktop\src-tauri\target\debug\*.pdb | Format-Table Name,Length
+          if ('${{ matrix.variant }}' -eq 'lld-trace') { $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe' }
+          python scripts\diag\job_linger_diag.py ${{ matrix.variant }} 30 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml

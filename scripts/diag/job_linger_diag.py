@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import sys
+import threading
 import time
 
 k = ctypes.WinDLL("kernel32", use_last_error=True)
@@ -15,6 +16,28 @@ k.OpenProcess.restype = wt.HANDLE
 k.AssignProcessToJobObject.argtypes = [wt.HANDLE, wt.HANDLE]
 k.QueryInformationJobObject.argtypes = [wt.HANDLE, ctypes.c_int, ctypes.c_void_p, wt.DWORD, ctypes.c_void_p]
 k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
+
+
+class Entry(ctypes.Structure):
+    _fields_ = [("size", wt.DWORD), ("usage", wt.DWORD), ("pid", wt.DWORD), ("heap", ctypes.c_size_t),
+                ("module", wt.DWORD), ("threads", wt.DWORD), ("parent", wt.DWORD), ("base", ctypes.c_long),
+                ("flags", wt.DWORD), ("exe", ctypes.c_wchar * 260)]
+
+
+k.CreateToolhelp32Snapshot.restype = wt.HANDLE
+k.Process32FirstW.argtypes = [wt.HANDLE, ctypes.POINTER(Entry)]
+k.Process32NextW.argtypes = [wt.HANDLE, ctypes.POINTER(Entry)]
+
+
+def snapshot() -> dict[int, tuple[int, str]]:
+    h = k.CreateToolhelp32Snapshot(2, 0)
+    e = Entry(); e.size = ctypes.sizeof(Entry); out = {}
+    ok = k.Process32FirstW(h, ctypes.byref(e))
+    while ok:
+        out[int(e.pid)] = (int(e.parent), e.exe)
+        ok = k.Process32NextW(h, ctypes.byref(e))
+    k.CloseHandle(h)
+    return out
 
 
 class IdList(ctypes.Structure):
@@ -44,8 +67,32 @@ def main() -> int:
         k.CloseHandle(h)
         return buf.value if ok else f"<image failed {ctypes.get_last_error()}>"
 
+    trace: dict[int, tuple[int, str, float]] = {}
+    done = threading.Event()
     start = time.monotonic()
+
+    def tracer() -> None:
+        while not done.is_set():
+            live = set(members())
+            snap = snapshot()
+            for pid in live:
+                if pid not in trace and pid in snap:
+                    trace[pid] = (snap[pid][0], snap[pid][1], round(time.monotonic() - start, 2))
+            time.sleep(0.03)
+
+    thread = threading.Thread(target=tracer, daemon=True)
+    thread.start()
     code = subprocess.run(command, check=False).returncode
+    time.sleep(0.5)
+    done.set(); thread.join()
+    names: dict[str, int] = {}
+    for pid, (parent, exe, t) in trace.items():
+        names[exe.lower()] = names.get(exe.lower(), 0) + 1
+    print(f"[{label}] traced image counts: {sorted(names.items())}", flush=True)
+    for pid, (parent, exe, t) in sorted(trace.items(), key=lambda x: x[1][2]):
+        if exe.lower() == "vctip.exe":
+            p = trace.get(parent)
+            print(f"[{label}] VCTIP pid={pid} at {t}s parent={parent} parent_image={p[1] if p else '<unobserved>'} grandparent_image={trace.get(p[0], (0, '<unobserved>'))[1] if p else '-'}", flush=True)
     exited = time.monotonic()
     print(f"[{label}] direct exit {code} after {exited - start:.1f}s", flush=True)
     seen: dict[int, str] = {}
