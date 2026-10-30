@@ -1,0 +1,18 @@
+[default] direct exit 0 after 2.8s
+[default] +0.0s member pid=6744 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[default] still live after 720.0s: [(6744, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[default] cmdline pid=6744: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[strip] direct exit 0 after 2.0s
+[strip] +0.0s member pid=8796 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[strip] still live after 60.0s: [(8796, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[strip] cmdline pid=8796: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[stop] direct exit 0 after 4.3s
+[stop] +0.0s member pid=1384 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[stop] still live after 120.0s: [(1384, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[stop] cmdline pid=1384: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[lld] direct exit 0 after 0.7s
+[lld] job drained naturally at +0.0s
+[desktop-cargo] direct exit 0 after 209.7s
+[desktop-cargo] +0.0s member pid=5168 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[desktop-cargo] still live after 300.0s: [(5168, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[desktop-cargo] cmdline pid=5168: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"

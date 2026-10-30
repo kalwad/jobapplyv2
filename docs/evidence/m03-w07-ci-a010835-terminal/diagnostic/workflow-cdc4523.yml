@@ -1,0 +1,74 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 2: confirm rust-lld on the
+# real desktop crate and whether dumpbin (link /DUMP) also leaves VCTIP.EXE.
+name: ci
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hello:
+    name: hello (${{ matrix.variant }})
+    runs-on: windows-2025
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [envskip, dumpbin]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install pinned toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.97.1 --profile minimal
+          rustup default 1.97.1
+      - name: Observe
+        shell: pwsh
+        run: |
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
+          $dumpbin = "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64\dumpbin.exe"
+          cargo new --bin "$env:RUNNER_TEMP\hello" --vcs none
+          Set-Location "$env:RUNNER_TEMP\hello"
+          if ('${{ matrix.variant }}' -eq 'envskip') {
+            $env:VSCMD_SKIP_SENDTELEMETRY = '1'
+            python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" envskip 90 no -- cargo build
+          } else {
+            cargo build
+            Get-Process vctip -ErrorAction SilentlyContinue | Format-Table Id,Path
+            python "$env:GITHUB_WORKSPACE\scripts\diag\job_linger_diag.py" dumpbin 90 no -- $dumpbin /headers /dependents /imports target\debug\hello.exe
+          }
+  desktop:
+    name: desktop (lld)
+    runs-on: windows-2025
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable pnpm
+      - name: Install pinned toolchain (rust-toolchain.toml)
+        shell: pwsh
+        run: rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
+      - run: pnpm install --frozen-lockfile
+      - name: Build desktop with rust-lld inside a Job, then inspect PE
+        shell: pwsh
+        run: |
+          pnpm --filter @japp/desktop build
+          $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = 'rust-lld.exe'
+          python scripts\diag\job_linger_diag.py desktop-lld 120 no -- cargo build --locked --manifest-path apps\desktop\src-tauri\Cargo.toml
+          $exe = 'apps\desktop\src-tauri\target\debug\japp-desktop.exe'
+          Get-Item $exe | Format-List Length
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          $ver = (Get-Content "$vs\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt").Trim()
+          $bin = "$vs\VC\Tools\MSVC\$ver\bin\Hostx64\x64"
+          & "$bin\dumpbin.exe" /headers $exe | Select-String 'subsystem|machine|DLL characteristics|Debug Directories' -Context 0,2
+          & "$bin\dumpbin.exe" /dependents $exe
+          $sdk = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\mt.exe" | Sort-Object FullName | Select-Object -Last 1
+          & $sdk.FullName -nologo "-inputresource:$exe;#1" "-out:$env:RUNNER_TEMP\embedded.manifest"
+          Get-Content "$env:RUNNER_TEMP\embedded.manifest"
+          Get-ChildItem apps\desktop\src-tauri\target\debug\*.pdb | Format-Table Name,Length

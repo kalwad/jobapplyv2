@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 import pytest
-from native_package_ci import declared_dumpbin
+from native_package_ci import declared_dumpbin, toolchain_rust_lld
 
 
 def installed(tmp_path: Path) -> tuple[Path, Path, Path]:
@@ -86,3 +86,52 @@ def test_nonregular_declaration_refuses_before_read(tmp_path: Path) -> None:
     declaration.mkdir()
     with pytest.raises(ValueError, match="default"):
         declared_dumpbin(str(root).encode(), proof)
+
+
+def toolchain(tmp_path: Path) -> tuple[Path, Path]:
+    root = tmp_path / "rustup home 应用/toolchains/1.97.1-x86_64-pc-windows-msvc"
+    rustc = root / "bin/rustc.exe"
+    rustc.parent.mkdir(parents=True)
+    rustc.write_bytes(b"synthetic compiler, never executed")
+    lld = root / "lib/rustlib/x86_64-pc-windows-msvc/bin/rust-lld.exe"
+    lld.parent.mkdir(parents=True)
+    lld.write_bytes(b"synthetic linker, never executed")
+    return rustc, lld
+
+
+def test_toolchain_rust_lld_pins_the_exact_sibling_image(tmp_path: Path) -> None:
+    rustc, lld = toolchain(tmp_path)
+    pin = toolchain_rust_lld(rustc)
+    assert pin == {
+        "path": str(lld.resolve()),
+        "resolved_path": str(lld.resolve()),
+        "sha256": hashlib.sha256(lld.read_bytes()).hexdigest(),
+    }
+
+
+def test_toolchain_rust_lld_absent_is_refused(tmp_path: Path) -> None:
+    rustc, lld = toolchain(tmp_path)
+    lld.unlink()
+    with pytest.raises(ValueError, match="rust-lld unavailable"):
+        toolchain_rust_lld(rustc)
+
+
+def test_toolchain_rust_lld_directory_is_refused(tmp_path: Path) -> None:
+    rustc, lld = toolchain(tmp_path)
+    lld.unlink()
+    lld.mkdir()
+    with pytest.raises(ValueError, match="regular non-reparse"):
+        toolchain_rust_lld(rustc)
+
+
+def test_toolchain_rust_lld_requires_the_real_rustc_image(tmp_path: Path) -> None:
+    rustc, _ = toolchain(tmp_path)
+    proxy = rustc.parent.parent / "proxy/rustc.exe"
+    proxy.parent.mkdir()
+    proxy.write_bytes(b"synthetic proxy")
+    with pytest.raises(ValueError, match="Exact toolchain rustc"):
+        toolchain_rust_lld(proxy)
+    other = rustc.with_name("cargo.exe")
+    other.write_bytes(b"synthetic cargo")
+    with pytest.raises(ValueError, match="Exact toolchain rustc"):
+        toolchain_rust_lld(other)

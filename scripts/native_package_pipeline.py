@@ -225,6 +225,41 @@ def bind_tool(row: ToolPin) -> Path:
     return invocation
 
 
+def windows_build_tools(tools: Mapping[str, Path]) -> dict[str, str]:
+    """Keep MSVC cl.exe/lib.exe/link.exe out of the Windows package build.
+
+    Each starts VCTIP.EXE, which outlives the build inside the held Job and
+    forces strict cleanup failure (KI-0137). Link with the exact toolchain's
+    own lld-link and compile build-time C/C++ (vswhom-sys under
+    embed-resource) with one LLVM installation's clang-cl and llvm-lib.
+    """
+    linker = tools.get("rust_lld")
+    rustc = tools.get("rustc_real")
+    if (
+        linker is None
+        or rustc is None
+        or linker.name.lower() != "rust-lld.exe"
+        or not linker.resolve().is_relative_to(rustc.resolve().parents[1])
+    ):
+        raise ValueError("Pinned toolchain rust-lld required")
+    compiler = tools.get("clang_cl")
+    archiver = tools.get("llvm_lib")
+    if (
+        compiler is None
+        or archiver is None
+        or compiler.name.lower() != "clang-cl.exe"
+        or archiver.name.lower() != "llvm-lib.exe"
+        or compiler.resolve().parent != archiver.resolve().parent
+    ):
+        raise ValueError("Pinned LLVM clang-cl and llvm-lib required")
+    return {
+        "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER": str(linker),
+        "CC_x86_64_pc_windows_msvc": str(compiler),
+        "CXX_x86_64_pc_windows_msvc": str(compiler),
+        "AR_x86_64_pc_windows_msvc": str(archiver),
+    }
+
+
 def pinned_lock_helper(
     expected: str,
 ) -> Callable[[Path, Path, Path], dict[str, object]]:
@@ -506,6 +541,9 @@ def main(spec_path: Path | None = None) -> None:  # noqa: PLR0912, PLR0915
         raise ValueError("Exact native tool pins required")
     if target.endswith("windows-msvc") and "dumpbin" not in tools:
         raise ValueError("Pinned native PE inspection tool required")
+    windows_tools = (
+        windows_build_tools(tools) if target.endswith("windows-msvc") else {}
+    )
     if target.endswith("linux-gnu") and "dpkg_deb" not in tools:
         raise ValueError("Pinned native Debian extraction tool required")
     env = dict(spec["build_environment"])
@@ -568,6 +606,7 @@ def main(spec_path: Path | None = None) -> None:  # noqa: PLR0912, PLR0915
         CARGO_TARGET_DIR=str(output / "target"),
         RUSTC=str(tools["rustc_real"]),
     )
+    env.update(windows_tools)
     dump(
         output / "upfront.json",
         {

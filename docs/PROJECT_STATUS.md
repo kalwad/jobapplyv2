@@ -2,7 +2,7 @@
 
 Spec version: 1.4
 Repository revision: M03-W06 VERIFIED at9872aca/treef2d982d; M03-W07 IN_PROGRESS; M02 ACCEPTED / Gate A PASS
-Last updated: 2026-10-29
+Last updated: 2026-10-30
 Current phase: B — Local platform and desktop foundation
 Current milestone: M03
 Current work package: M03-W07
@@ -22,6 +22,13 @@ This table must always agree with the per-gate `- State:` lines in
 docs/CRITICAL_GATES.md (enforced by `python3 scripts/validate_status.py`).
 
 ## Active work
+
+### Execution checkpoint (2026-10-30UTC, Claude Code controller)
+
+- Branch `codex/autofill-evaluation-hardening` (draft PR kalwad/jobapplyv2#1); last pushed content a010835 (tree ca0ec13). Formal state unchanged: M03-W07 sole IN_PROGRESS; 39/300 VERIFIED; M00/M01/M02 ACCEPTED; Gate A PASS; release NOT_READY.
+- Last hosted run a010835/40989502173: three verify jobs PASS (20 ACTIVE suites each; Python Mac2882/Ubuntu2882/Windows2880), Ubuntu package PASS with owned service actor PASS, Windows package FAIL at 10-tauri-package. KI-0140 FIXED. Exact docs/evidence/m03-w07-ci-a010835-terminal.
+- Active blocker KI-0137 root cause established: MSVC VCTIP.EXE (telemetry helper started by link.exe and by cl.exe/lib.exe for the vswhom-sys build script) outlives the build in the held Job for more than720s. Correction in progress: Windows package build links with the exact toolchain rust-lld and compiles build-time C/C++ with pinned LLVM clang-cl/llvm-lib; strict cleanup policy unchanged. Scratch experiments prove natural drain; fresh hosted CI of the corrected commit is pending.
+- Next actions: commit and push the correction, run local full verification and exact-SHA hosted CI, record evidence; on a Windows package PASS, run the Windows 11 VM campaign (requires the owner's explicit acceptance of the Windows 11 Enterprise Evaluation license, which the unattended install accepts) and the Ubuntu GNOME campaign for W07/W08.
 
 - Current cf9b60d/tree94fb9c9 local full passes doctor28/all20ACTIVE suites, Python2880PASS440.14s and verify1249.932067s; different4863finite joins CLEAR binds2388source/runtime40/fullmodes/cleanstatus/HEAD-tree. Automated visual17PASS adds no fresh appearance/native/baseline claim. Exact docs/evidence/m03-w07-full-cf9b60d.
 - Hosted cf9/run40981941122 is terminal FAILURE despite all three verify jobs passing20ACTIVE suites: Windows2878Python1100.64s, Mac2880/887.00s and Ubuntu2880/712.62s. Both package jobs fail before their native service actor at the unchanged exact wheel/source gate: all18 orchestrator paths match, but wheel client6613 differs from source977e; contracts110files and other17orchestrator files match. Zero eligible curated exports; four auxiliary workflows remain disabled/SKIP. Different16874joins validate the actual record, not packagePASS; exact docs/evidence/m03-w07-ci-cf9b60d-terminal.

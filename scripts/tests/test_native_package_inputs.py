@@ -13,11 +13,18 @@ from typing import TypedDict
 from unittest.mock import patch
 
 import pytest
-from native_package_pipeline import bind_tool, pinned_lock_helper, wheel_code
+from native_package_pipeline import (
+    bind_tool,
+    pinned_lock_helper,
+    wheel_code,
+    windows_build_tools,
+)
 from wheel_only_runtime_lock import make
 
 W = "1" * 64
 S = "2" * 64
+REFUSED_LLD = r"^Pinned\ toolchain\ rust-lld\ required$"
+REFUSED_LLVM = r"^Pinned\ LLVM\ clang-cl\ and\ llvm-lib\ required$"
 
 
 class _ToolPin(TypedDict):
@@ -333,6 +340,78 @@ sdist = { url = "https://example.invalid/foo.tar.gz", hash = "sha256:SDIST" }
             ValueError, match=r"^Native\ tool\ alias\ or\ image\ changed$"
         ):
             bind_tool(row)
+
+    def toolchain(self) -> dict[str, Path]:
+        root = self.root / "toolchains/1.97.1-x86_64-pc-windows-msvc"
+        tools = {
+            "rustc_real": root / "bin/rustc.exe",
+            "rust_lld": root / "lib/rustlib/x86_64-pc-windows-msvc/bin/rust-lld.exe",
+            "clang_cl": self.root / "LLVM/bin/clang-cl.exe",
+            "llvm_lib": self.root / "LLVM/bin/llvm-lib.exe",
+        }
+        for path in tools.values():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
+        return tools
+
+    def test_windows_package_uses_pinned_lld_and_llvm_tools(self) -> None:
+        tools = self.toolchain()
+        assert windows_build_tools(tools) == {
+            "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER": str(tools["rust_lld"]),
+            "CC_x86_64_pc_windows_msvc": str(tools["clang_cl"]),
+            "CXX_x86_64_pc_windows_msvc": str(tools["clang_cl"]),
+            "AR_x86_64_pc_windows_msvc": str(tools["llvm_lib"]),
+        }
+
+    def test_windows_package_without_pinned_lld_is_refused(self) -> None:
+        tools = self.toolchain()
+        del tools["rust_lld"]
+        with pytest.raises(ValueError, match=REFUSED_LLD):
+            windows_build_tools(tools)
+
+    def test_windows_package_lld_outside_the_toolchain_is_refused(self) -> None:
+        tools = self.toolchain()
+        foreign = self.root / "elsewhere/rust-lld.exe"
+        foreign.parent.mkdir()
+        foreign.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
+        tools["rust_lld"] = foreign
+        with pytest.raises(ValueError, match=REFUSED_LLD):
+            windows_build_tools(tools)
+
+    def test_windows_package_linker_must_be_rust_lld(self) -> None:
+        tools = self.toolchain()
+        link = tools["rust_lld"].with_name("link.exe")
+        link.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
+        tools["rust_lld"] = link
+        with pytest.raises(ValueError, match=REFUSED_LLD):
+            windows_build_tools(tools)
+
+    def test_windows_package_without_pinned_llvm_tools_is_refused(self) -> None:
+        tools = self.toolchain()
+        for missing in ("clang_cl", "llvm_lib"):
+            partial = {name: path for name, path in tools.items() if name != missing}
+            with pytest.raises(ValueError, match=REFUSED_LLVM):
+                windows_build_tools(partial)
+
+    def test_windows_package_msvc_compiler_or_archiver_is_refused(self) -> None:
+        tools = self.toolchain()
+        msvc = self.root / "MSVC/bin/Hostx64/x64"
+        msvc.mkdir(parents=True)
+        for name, image in (("clang_cl", "cl.exe"), ("llvm_lib", "lib.exe")):
+            substitute = msvc / image
+            substitute.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
+            with pytest.raises(ValueError, match=REFUSED_LLVM):
+                windows_build_tools({**tools, name: substitute})
+
+    def test_windows_package_llvm_tools_from_two_installations_are_refused(
+        self,
+    ) -> None:
+        tools = self.toolchain()
+        other = self.root / "Other LLVM/bin/llvm-lib.exe"
+        other.parent.mkdir(parents=True)
+        other.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
+        with pytest.raises(ValueError, match=REFUSED_LLVM):
+            windows_build_tools({**tools, "llvm_lib": other})
 
 
 if __name__ == "__main__":

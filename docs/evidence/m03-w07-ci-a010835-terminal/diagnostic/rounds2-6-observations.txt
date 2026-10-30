@@ -1,0 +1,81 @@
+## round2 run41103357965
+[desktop-lld] direct exit 0 after 193.4s
+[desktop-lld] +0.0s member pid=4924 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[desktop-lld] still live after 120.0s: [(4924, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[desktop-lld] cmdline pid=4924: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[envskip] direct exit 0 after 2.2s
+[envskip] +0.0s member pid=3976 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[envskip] still live after 90.0s: [(3976, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[envskip] cmdline pid=3976: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[dumpbin] direct exit 0 after 0.1s
+[dumpbin] job drained naturally at +0.0s
+## round3 run41105253017
+[link-trace] traced image counts: [('build-script-build.exe', 24), ('cargo.exe', 2), ('cl.exe', 1), ('conhost.exe', 1), ('git.exe', 1), ('link.exe', 52), ('mt.exe', 1), ('rc.exe', 1), ('rustc.exe', 283), ('vctip.exe', 1)]
+[link-trace] VCTIP pid=8568 at 19.78s parent=6000 parent_image=link.exe grandparent_image=rustc.exe
+[link-trace] direct exit 0 after 191.7s
+[link-trace] +0.0s member pid=8568 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[link-trace] still live after 30.0s: [(8568, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[link-trace] cmdline pid=8568: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[lld-trace] traced image counts: [('build-script-build.exe', 24), ('cargo.exe', 2), ('cl.exe', 1), ('conhost.exe', 1), ('git.exe', 2), ('lib.exe', 1), ('rc.exe', 1), ('rust-lld.exe', 57), ('rustc.exe', 294), ('vctip.exe', 1)]
+[lld-trace] VCTIP pid=4460 at 73.39s parent=1956 parent_image=cl.exe grandparent_image=build-script-build.exe
+[lld-trace] direct exit 0 after 203.3s
+[lld-trace] +0.0s member pid=4460 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[lld-trace] still live after 30.0s: [(4460, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[lld-trace] cmdline pid=4460: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[optout] traced image counts: [('cargo.exe', 2), ('link.exe', 1), ('rustc.exe', 4), ('vctip.exe', 1)]
+[optout] VCTIP pid=7308 at 3.17s parent=3368 parent_image=link.exe grandparent_image=rustc.exe
+[optout] direct exit 0 after 4.9s
+[optout] +0.0s member pid=7308 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[optout] still live after 90.0s: [(7308, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[optout] cmdline pid=7308: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+## round4 run41106303366
+[lldrc-build] traced image counts: [('build-script-build.exe', 33), ('cargo.exe', 2), ('cl.exe', 1), ('conhost.exe', 1), ('git.exe', 1), ('lib.exe', 1), ('link.exe', 1), ('mt.exe', 1), ('rc.exe', 1), ('rust-lld.exe', 56), ('rustc.exe', 331)]
+[lldrc-build] direct exit 0 after 203.5s
+[lldrc-build] +0.0s member pid=1176 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[lldrc-build] still live after 60.0s: [(1176, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[lldrc-build] cmdline pid=1176: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[lldrc-test] traced image counts: [('build-script-build.exe', 2), ('cargo.exe', 2), ('conhost.exe', 1), ('git.exe', 2), ('mt.exe', 1), ('rust-lld.exe', 3), ('rustc.exe', 9)]
+[lldrc-test] direct exit 0 after 41.3s
+[lldrc-test] job drained naturally at +0.0s
+## round5 run41107379915
+[lldrc-build] traced image counts: [('build-script-build.exe', 29), ('cargo.exe', 2), ('cl.exe', 1), ('conhost.exe', 1), ('git.exe', 2), ('mt.exe', 1), ('rc.exe', 1), ('rust-lld.exe', 56), ('rustc.exe', 307)]
+[lldrc-build] TOOL cl.exe pid=8932 at 53.14s cmd='"C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\x64\\cl.exe" -nologo -MD -Brepro -W4 /Zm2000 -FoD:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\vswhom-sys-773bc6049ce8848e\\out\\71b29add3157f200-vswhom.o -c ext/vswhom.cpp'
+[lldrc-build]   parent 8988: D:\a\jobapplyv2\jobapplyv2\apps\desktop\src-tauri\target\debug\build\vswhom-sys-ab12d753687b2659\build-script-build.exe cmd='"D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\vswhom-sys-ab12d753687b2659\\build-script-build"'
+[lldrc-build] TOOL rc.exe pid=2868 at 126.53s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe" /fo D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-f6e0bb183ba17afe\\out\\resource.lib /I D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-f6e0bb183ba17afe\\out D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-f6e0bb183ba17afe\\out\\re'
+[lldrc-build]   parent 8600: D:\a\jobapplyv2\jobapplyv2\apps\desktop\src-tauri\target\debug\build\serde-83c70d2d611379e1\build-script-build.exe cmd='"D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\serde-83c70d2d611379e1\\build-script-build"'
+[lldrc-build] TOOL mt.exe pid=6636 at 152.86s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe" /manifest "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-defaultxml-2b1762.manifest" /manifest "D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\windows-common-controls.manifest" /nologo "/out:C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-user-bba0d8.manifest" '
+[lldrc-build]   parent 3888: <untraced> cmd=''
+[lldrc-build] direct exit 0 after 155.6s
+[lldrc-build] +0.0s member pid=8164 image=C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\vctip.exe
+[lldrc-build] still live after 60.0s: [(8164, 'C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe')]
+[lldrc-build] cmdline pid=8164: "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64\VCTIP.EXE"
+[lldrc-test] traced image counts: [('build-script-build.exe', 2), ('cargo.exe', 2), ('conhost.exe', 1), ('git.exe', 1), ('mt.exe', 1), ('rust-lld.exe', 3), ('rustc.exe', 8)]
+[lldrc-test] TOOL mt.exe pid=7560 at 29.16s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe" /manifest "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-defaultxml-ea5d38.manifest" /manifest "D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\windows-common-controls.manifest" /nologo "/out:C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-user-09d123.manifest" '
+[lldrc-test]   parent 9144: <untraced> cmd=''
+[lldrc-test] direct exit 0 after 34.9s
+[lldrc-test] job drained naturally at +0.0s
+## round6 run41108392333 (lld+rc+clang-cl)
+[lldrc-build] traced image counts: [('build-script-build.exe', 29), ('cargo.exe', 2), ('clang-cl.exe', 2), ('conhost.exe', 1), ('git.exe', 2), ('llvm-lib.exe', 1), ('mt.exe', 1), ('rust-lld.exe', 54), ('rustc.exe', 318)]
+[lldrc-build] TOOL mt.exe pid=1028 at 193.56s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe" /manifest "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-defaultxml-64cf19.manifest" /manifest "D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\windows-common-controls.manifest" /nologo "/out:C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-user-38941d.manifest" '
+[lldrc-build]   parent 4460: D:\a\jobapplyv2\jobapplyv2\apps\desktop\src-tauri\target\debug\build\webview2-com-sys-4ac8a9bfa5d8ad4c\build-script-build.exe cmd='"D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\webview2-com-sys-4ac8a9bfa5d8ad4c\\build-script-build"'
+[lldrc-build] direct exit 0 after 196.5s
+[lldrc-build] job drained naturally at +0.0s
+[lldrc-test] traced image counts: [('build-script-build.exe', 2), ('cargo.exe', 2), ('conhost.exe', 1), ('git.exe', 2), ('mt.exe', 2), ('rc.exe', 1), ('rust-lld.exe', 3), ('rustc.exe', 9)]
+[lldrc-test] TOOL rc.exe pid=8004 at 1.81s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe" /fo D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-8fb250cce8059256\\out\\resource.lib /I D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-8fb250cce8059256\\out D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-8fb250cce8059256\\out\\re'
+[lldrc-test]   parent 6228: D:\a\jobapplyv2\jobapplyv2\apps\desktop\src-tauri\target\debug\build\japp-desktop-f098349fb5a306d0\build-script-build.exe cmd='"D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\target\\debug\\build\\japp-desktop-f098349fb5a306d0\\build-script-build"'
+[lldrc-test] TOOL mt.exe pid=5468 at 36.89s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe" /manifest "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-defaultxml-673899.manifest" /manifest "D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\windows-common-controls.manifest" /nologo "/out:C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-user-50bb38.manifest" '
+[lldrc-test]   parent 8344: <untraced> cmd=''
+[lldrc-test] TOOL mt.exe pid=2104 at 40.88s cmd='<cmdline?>'
+[lldrc-test]   parent 1556: <untraced> cmd=''
+[lldrc-test] direct exit 0 after 43.5s
+[lldrc-test] job drained naturally at +0.0s
+## round6b run41108437778 (lld+clang-cl, no rc pin)
+clang version 20.1.8
+[lldrc-build] traced image counts: [('build-script-build.exe', 29), ('cargo.exe', 2), ('clang-cl.exe', 2), ('conhost.exe', 1), ('git.exe', 1), ('mt.exe', 1), ('rust-lld.exe', 59), ('rustc.exe', 328)]
+[lldrc-build] TOOL mt.exe pid=8112 at 184.41s cmd='"C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe" /manifest "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-defaultxml-513bf2.manifest" /manifest "D:\\a\\jobapplyv2\\jobapplyv2\\apps\\desktop\\src-tauri\\windows-common-controls.manifest" /nologo "/out:C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\lld-user-abdc75.manifest" '
+[lldrc-build]   parent 7640: <untraced> cmd=''
+[lldrc-build] direct exit 0 after 187.5s
+[lldrc-build] job drained naturally at +0.0s
+[lldrc-test] traced image counts: [('build-script-build.exe', 2), ('cargo.exe', 2), ('conhost.exe', 1), ('git.exe', 2), ('rust-lld.exe', 3), ('rustc.exe', 9)]
+[lldrc-test] direct exit 0 after 42.2s
+[lldrc-test] job drained naturally at +0.0s

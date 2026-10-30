@@ -1,0 +1,58 @@
+{
+  "source": "a010835140df3b766734c5c22b9cb4438f82714e",
+  "tree": "ca0ec13d0e0f38dcb8f96d28f66941404d02585d",
+  "merge": "8a2043f6617b0cc99edecee38117c6ae296e7d37",
+  "run": 40989502173,
+  "attempt": 1,
+  "outcome": "FAILURE",
+  "verification": {
+    "macos-15": {
+      "suites_active_pass": 20,
+      "python_passed": 2882,
+      "seconds": 797.31
+    },
+    "ubuntu-24.04": {
+      "suites_active_pass": 20,
+      "python_passed": 2882,
+      "seconds": 605.38
+    },
+    "windows-2025": {
+      "suites_active_pass": 20,
+      "python_passed": 2880,
+      "seconds": 996.18
+    }
+  },
+  "packages": {
+    "ubuntu-24.04": "PASS",
+    "windows-2025": "FAIL_10_TAURI_PACKAGE_EXIT0_TERMINATED_JOB"
+  },
+  "artifacts": {
+    "windows": {
+      "id": 12950094607,
+      "sha256": "88004b467c70e09735f1630dfd4449a3bbc83116628bb2db4dfbdd97bc43dd77"
+    },
+    "ubuntu": {
+      "id": 12951100409,
+      "sha256": "a56f9fa9e6586ff389de9abcdc30cd15745690b591941707a6548143a1ada0d7"
+    },
+    "gnome_input": {
+      "id": 12951145108,
+      "sha256": "9234d5b699c2df631e36dae0e52d20cc3d48c497859bdfedc4ed455c2d7cfd63"
+    },
+    "expires": "2026-11-06"
+  },
+  "KI0140": "FIXED",
+  "KI0137_root_cause": "MSVC VCTIP.EXE started by link.exe and by cl.exe/lib.exe for the vswhom-sys build script; lingers >720s",
+  "diagnostic_runs": [
+    41101101252,
+    41103357965,
+    41105253017,
+    41106303366,
+    41107379915,
+    41108392333,
+    41108437778
+  ],
+  "diagnostic_branch": "diag/windows-job-linger (never merged)",
+  "windows11_evidence": false,
+  "native_package_pass": false
+}

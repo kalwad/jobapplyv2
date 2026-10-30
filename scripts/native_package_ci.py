@@ -210,6 +210,33 @@ def declared_dumpbin(installation_output: bytes, proof: Path) -> Path:
     return image
 
 
+def toolchain_rust_lld(rustc_real: Path) -> ToolPin:
+    """Pin the exact toolchain's own lld-link for the Windows package link.
+
+    MSVC link.exe starts VCTIP.EXE, which outlives the build inside the held
+    Job (KI-0137); the toolchain-shipped linker starts no such helper.
+    """
+    rustc = rustc_real.resolve(strict=True)
+    if rustc.name.lower() != "rustc.exe" or rustc.parent.name.lower() != "bin":
+        raise ValueError("Exact toolchain rustc.exe image required")
+    image = (
+        rustc.parent.parent
+        / "lib"
+        / "rustlib"
+        / "x86_64-pc-windows-msvc"
+        / "bin"
+        / "rust-lld.exe"
+    )
+    try:
+        info = image.lstat()
+    except OSError as error:
+        raise ValueError("Toolchain rust-lld unavailable") from error
+    if not stat.S_ISREG(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
+        raise ValueError("Toolchain rust-lld must be a regular non-reparse file")
+    resolved = image.resolve(strict=True)
+    return {"path": str(image), "resolved_path": str(resolved), "sha256": sha(resolved)}
+
+
 def tool(name: str) -> ToolPin:
     selected = shutil.which(name)
     if selected is None:
@@ -453,6 +480,13 @@ def main() -> None:  # noqa: PLR0912, PLR0915
                 "resolved_path": str(image.resolve()),
                 "sha256": sha(image.resolve()),
             }
+            role_tools["rust_lld"] = toolchain_rust_lld(
+                Path(role_tools["rustc_real"]["resolved_path"])
+            )
+            # Build-time C/C++ (vswhom-sys under embed-resource) must not use
+            # MSVC cl.exe/lib.exe, which start VCTIP.EXE in the Job (KI-0137).
+            role_tools["clang_cl"] = tool("clang-cl")
+            role_tools["llvm_lib"] = tool("llvm-lib")
             target = "x86_64-pc-windows-msvc"
         else:
             role_tools["dpkg_deb"] = tool("dpkg-deb")
