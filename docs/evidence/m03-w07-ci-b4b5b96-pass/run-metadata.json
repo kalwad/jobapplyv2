@@ -1,0 +1,74 @@
+{
+  "retrieved_with": "gh api (2026-10-30UTC); selected fields only",
+  "run": {
+    "id": 41139850970,
+    "run_attempt": 1,
+    "event": "pull_request",
+    "head_sha": "b4b5b96cf9014474ea71442581491e9f87f6a6c0",
+    "head_branch": "codex/autofill-evaluation-hardening",
+    "status": "completed",
+    "conclusion": "success",
+    "path": ".github/workflows/ci.yml",
+    "pull_request_heads": [
+      "b4b5b96cf9014474ea71442581491e9f87f6a6c0"
+    ]
+  },
+  "jobs": [
+    {
+      "id": 124351193203,
+      "name": "doctor + verify (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124351193472,
+      "name": "doctor + verify (macos-15)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124351193473,
+      "name": "doctor + verify (windows-2025)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124370272510,
+      "name": "native development package (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124370272515,
+      "name": "native development package (windows-2025)",
+      "conclusion": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13021481393,
+      "name": "native-development-ubuntu-24.04-f4854e2f33757f9f367d18820d44911b44182061",
+      "size_in_bytes": 258825326,
+      "digest": "sha256:fef701299379435bfbed7c2eeb2bf545c5a6361196b26362d7e61bdce4d1a8b4",
+      "expires_at": "2026-11-06T23:44:08Z"
+    },
+    {
+      "id": 13021446265,
+      "name": "gnome-package-input-f4854e2f33757f9f367d18820d44911b44182061",
+      "size_in_bytes": 85479781,
+      "digest": "sha256:a4408aa4b1a5a82390f824ed3418c1fc9da9562a966c041751a8a10eab055579",
+      "expires_at": "2026-11-06T23:44:02Z"
+    },
+    {
+      "id": 13020593172,
+      "name": "native-development-windows-2025-f4854e2f33757f9f367d18820d44911b44182061",
+      "size_in_bytes": 190947341,
+      "digest": "sha256:d205b30e3dd2e699f894ce95ae35f34639c0995e50eecb3b134883ddc24f2511",
+      "expires_at": "2026-11-06T23:46:37Z"
+    }
+  ],
+  "merge_commit": {
+    "sha": "f4854e2f33757f9f367d18820d44911b44182061",
+    "tree": "6a40b7905199c98655dc357a5170829e07e10c83",
+    "parents": [
+      "4745149f4b5da7190b5b0c68753f8ec07bed572d",
+      "b4b5b96cf9014474ea71442581491e9f87f6a6c0"
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+PACKAGE_OWNED_CLEANUP success=true elapsed_ms=277 policy_wait_bound_ms=6000
+PACKAGE_SERVICE_ACTOR_PASS actual_native_actors=1 health=1 ready=1 version=1 shutdown=1 authority_withdrawn=1 listener_released=1 gui_claim=0
