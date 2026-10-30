@@ -42,7 +42,7 @@
     "expires": "2026-11-06"
   },
   "KI0140": "FIXED",
-  "KI0137_root_cause": "MSVC VCTIP.EXE started by link.exe and by cl.exe/lib.exe for the vswhom-sys build script; lingers >720s",
+  "KI0137_root_cause": "MSVC VCTIP.EXE, observed as a child of link.exe (Rust link) and of cl.exe (vswhom-sys build script); alive beyond every observation window (720s hello, 300s desktop)",
   "diagnostic_runs": [
     41101101252,
     41103357965,
@@ -50,9 +50,10 @@
     41106303366,
     41107379915,
     41108392333,
-    41108437778
+    41108437778,
+    41112771730
   ],
-  "diagnostic_branch": "diag/windows-job-linger (never merged)",
+  "diagnostic_branch": "diag/windows-job-linger (rounds 1-6, 7) and diag/windows-job-linger-norc (round 6b); never merged",
   "windows11_evidence": false,
   "native_package_pass": false
 }

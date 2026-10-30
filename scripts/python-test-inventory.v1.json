@@ -2,8 +2,8 @@
   "schema_version": 1,
   "normalization_version": 1,
   "common": {
-    "count": 2891,
-    "sha256": "c3abdc1c5f176ebbaf39940913c8060914921dce9df5b8dbd72266d244c8ce56",
+    "count": 2895,
+    "sha256": "140aa7636d5f3854fa7dce0d8c4ae88c33baaba85904580a57ce969b083c90c1",
     "node_ids": [
       "scripts/tests/test_bounded_process.py::test_ordinary_nonzero_exit_preserves_stdout_and_stderr",
       "scripts/tests/test_bounded_process.py::test_over_one_mib_child_is_stopped_and_retained_output_is_bounded",
@@ -838,6 +838,10 @@
       "scripts/tests/test_native_package_pending_owner.py::PendingBeforePidfd::test_missing_pidfd_retains_exact_launched_popen",
       "scripts/tests/test_native_package_pending_owner.py::PendingBeforePidfd::test_pidfd_acquisition_error_retains_exact_launched_popen",
       "scripts/tests/test_native_package_pending_owner.py::PendingBeforePidfd::test_reaped_child_with_unvalidated_session_stays_quarantined",
+      "scripts/tests/test_native_package_retention.py::test_changed_tool_image_is_refused",
+      "scripts/tests/test_native_package_retention.py::test_every_coordinator_tool_role_is_retainable",
+      "scripts/tests/test_native_package_retention.py::test_unknown_tool_role_is_still_refused",
+      "scripts/tests/test_native_package_retention.py::test_windows_build_tool_roles_are_retained_once_per_image",
       "scripts/tests/test_native_sdk_discovery.py::test_declared_default_wins_over_other_installed_toolsets",
       "scripts/tests/test_native_sdk_discovery.py::test_malformed_default_does_not_guess_an_installed_version[../14.44.35207]",
       "scripts/tests/test_native_sdk_discovery.py::test_malformed_default_does_not_guess_an_installed_version[111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111]",

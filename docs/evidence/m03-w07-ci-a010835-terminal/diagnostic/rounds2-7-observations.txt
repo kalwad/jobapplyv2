@@ -79,3 +79,12 @@ clang version 20.1.8
 [lldrc-test] traced image counts: [('build-script-build.exe', 2), ('cargo.exe', 2), ('conhost.exe', 1), ('git.exe', 2), ('rust-lld.exe', 3), ('rustc.exe', 9)]
 [lldrc-test] direct exit 0 after 42.2s
 [lldrc-test] job drained naturally at +0.0s
+## round7 run41112771730 (fresh runner, first MSVC tool)
+[readobj-fresh] traced image counts: [('llvm-readobj.exe', 1)]
+[readobj-fresh] direct exit 0 after 0.9s
+[readobj-fresh] job drained naturally at +0.0s
+[dumpbin-fresh] traced image counts: [('dumpbin.exe', 1), ('link.exe', 1)]
+[dumpbin-fresh] TOOL link.exe pid=6012 at 0.14s cmd='LINK /DUMP /headers /dependents /imports C:\\Windows\\System32\\notepad.exe'
+[dumpbin-fresh]   parent 1968: <untraced> cmd=''
+[dumpbin-fresh] direct exit 0 after 1.1s
+[dumpbin-fresh] job drained naturally at +0.0s

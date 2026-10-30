@@ -395,10 +395,9 @@ sdist = { url = "https://example.invalid/foo.tar.gz", hash = "sha256:SDIST" }
 
     def test_windows_package_msvc_compiler_or_archiver_is_refused(self) -> None:
         tools = self.toolchain()
-        msvc = self.root / "MSVC/bin/Hostx64/x64"
-        msvc.mkdir(parents=True)
+        # Same directory as the LLVM tools, so only the image-name rule refuses.
         for name, image in (("clang_cl", "cl.exe"), ("llvm_lib", "lib.exe")):
-            substitute = msvc / image
+            substitute = tools[name].with_name(image)
             substitute.write_bytes(b"FIXED_FAKE_TOOL_NO_EXECUTION")
             with pytest.raises(ValueError, match=REFUSED_LLVM):
                 windows_build_tools({**tools, name: substitute})

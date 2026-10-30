@@ -2,8 +2,8 @@
   "scope": "Exact committed (LF-normalized) bytes; windows-10-tauri-package.result.json line endings normalized from the CRLF artifact copy, content otherwise identical",
   "files": {
     "README.md": {
-      "bytes": 4262,
-      "sha256": "53ee78871c1c71791d41c8e74153a6d0b54860a67895720e64154fad6a750f24"
+      "bytes": 6104,
+      "sha256": "979011f88c6e017a7432d8b805c0c059c73f3527b544d06d5c0e1d7dca0b76cc"
     },
     "diagnostic/branch-commits.txt": {
       "bytes": 538,
@@ -13,13 +13,17 @@
       "bytes": 6963,
       "sha256": "b10e392973a259eb3b364ddbff59f3e55b1ce5d59b231d115ab58aad8d3b3504"
     },
+    "diagnostic/pe-observations.txt": {
+      "bytes": 1862,
+      "sha256": "4bfcbff4e6595e54bdb7312d6343314640364bf0947560e59f2290c6a04a991a"
+    },
     "diagnostic/round1-observations.txt": {
       "bytes": 2005,
       "sha256": "21cd2be1cbc6e5b29a78553945e803aa03960d586b89a9e0250d861cf87b5c54"
     },
-    "diagnostic/rounds2-6-observations.txt": {
-      "bytes": 11446,
-      "sha256": "f40bc1f93034a980ae2314add7262c38ab6535aaa2f274e982bce6095fb801fc"
+    "diagnostic/rounds2-7-observations.txt": {
+      "bytes": 11996,
+      "sha256": "8e4c4a57f3a1e62304f86c716f7f9ac7350d17f06f70b42d49e9dc8cf1ae5eea"
     },
     "diagnostic/workflow-16678a7.yml": {
       "bytes": 2527,
@@ -37,6 +41,10 @@
       "bytes": 2267,
       "sha256": "ebcb9fde107a4d6f75d204b3e688f4913d6364b0ae76a54164ccdd754008480a"
     },
+    "diagnostic/workflow-80b0c14.yml": {
+      "bytes": 1587,
+      "sha256": "378cb77010dc35dc3a746909375772466baf324100c07234625e922b6d1879d8"
+    },
     "diagnostic/workflow-b8b84b0.yml": {
       "bytes": 3046,
       "sha256": "45b57ed9a7ecbe36cf4bb981eee48cc6827191912dad24338319b2e03f38a4d4"
@@ -50,8 +58,8 @@
       "sha256": "7c292894cd27418084696cd0108a63370447e2741efcecbf47298b6f525ddb5f"
     },
     "summary.json": {
-      "bytes": 1580,
-      "sha256": "92a190e10748159b19bb05add5ad14e7e1f73199ddbe56efa1cb893d2a875ecd"
+      "bytes": 1718,
+      "sha256": "3587de1469b01df1fccb234d8eff2118345b381a5ed3dc3b8f5537491d0f878e"
     },
     "ubuntu-15-package-actor.stderr": {
       "bytes": 593,

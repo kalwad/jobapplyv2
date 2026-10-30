@@ -128,6 +128,9 @@ def _keep_tool_images(base: Path, retention: _Retention) -> dict[str, ToolRole]:
         "rustup",
         "git",
         "dumpbin",
+        "rust_lld",
+        "clang_cl",
+        "llvm_lib",
         "dpkg_deb",
     }
     if set(tools) - allowed:
