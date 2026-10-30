@@ -42,6 +42,17 @@ Current scoped correction supersedes the pending source/focus statements: all te
 
 The reviewed guest/COM/parser composition now passes441canonical Python tests/2788exact collection/strict33+10/portability/integrity, with different4251source+2591actual joins CLEAR at docs/evidence/m03-native-guest-composition. Its earlier invalid managed UIA property and composer failures remain preserved; the corrected exact native COM body has separate scoped compilation review. No actual target COM/provider/PowerShell or Windows11/defaultGNOME result is transferred. These current-source corrections still await clean full/hosted validation and native platform campaigns.
 
+### KI-0139 — Strict Turbo tasks lose the CI-installed Rust toolchain home
+
+- Severity: MEDIUM
+- State: IN_PROGRESS
+- Discovered: actual D7f7902f Mac CI unit-ts subprocess failures,2026-10-29UTC; source-only controlled environment-loss reproduction,2026-10-30UTC.
+- Affects: M03-W07 hosted contract/parity verification; turbo.json and packages/contracts/test/contract/support process boundary.
+- Description: the workflow installs/exports its pinned compiler under fresh RUSTUP_HOME, while default strict Turbo tasks omit that selector. Actual D's four suite hooks fail cargo build and its infrastructure setup fails rustup which rustc; suppressed stderr prevents asserting this reproduced source mechanism as the sole historical error cause. Direct later contract/Rust suites pass.
+- Reproduction: installedTurbo2.10.7 executes seven tiny Node-only tasks; original default/explicitstrict config loses the synthetic home, exact globalEnv:[RUSTUP_HOME] preserves it, and unrelated synthetic environment data stays filtered. No compiler/network/model actor is used.
+- Workaround: preserve strict filtering and all original tests/limits; do not loosen environment mode, invent a Rust diagnostic or relabel CI.
+- Resolution + evidence link: independently reviewed one-variable correction f090c098…/fullmode33188 over edb1a6db… includes the selector in cache identity. Sourcepeer809joinsCLEAR; all17explicit qualification/format childowners close/reap/groupsABSENT/no signals/timeouts and all failed observer/format histories remain. Exact docs/evidence/m03-ci-turbo-rustup-home. Existing2878common+2POSIX IDs/digest remain unchanged; no new canonical test. Fresh corrected hosted CI remains required before closure.
+
 ### KI-0138 — Mutable PR head metadata rejects an otherwise validated authorization request
 
 - Severity: MEDIUM
