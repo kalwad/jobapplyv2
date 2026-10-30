@@ -1,4 +1,5 @@
 {
+  "scope": "Exact committed (LF-normalized) bytes; windows-10-tauri-package.result.json line endings normalized from the CRLF artifact copy, content otherwise identical",
   "files": {
     "README.md": {
       "bytes": 4262,
@@ -13,12 +14,12 @@
       "sha256": "b10e392973a259eb3b364ddbff59f3e55b1ce5d59b231d115ab58aad8d3b3504"
     },
     "diagnostic/round1-observations.txt": {
-      "bytes": 2023,
-      "sha256": "94d78c63ed2f8a7eae85716e3bbae5436767d4aec67bc284aeffa2d22e067874"
+      "bytes": 2005,
+      "sha256": "21cd2be1cbc6e5b29a78553945e803aa03960d586b89a9e0250d861cf87b5c54"
     },
     "diagnostic/rounds2-6-observations.txt": {
-      "bytes": 11521,
-      "sha256": "5f92e0d39b4418cd8576b58dc982479fd6b7377acac37e4f7467acb11bda4d9b"
+      "bytes": 11446,
+      "sha256": "f40bc1f93034a980ae2314add7262c38ab6535aaa2f274e982bce6095fb801fc"
     },
     "diagnostic/workflow-16678a7.yml": {
       "bytes": 2527,
@@ -61,8 +62,8 @@
       "sha256": "a9011a540c3c1f3ea8ccd1f5f93067b5e5908c8b7d220403ce919506b07a6444"
     },
     "windows-10-tauri-package.result.json": {
-      "bytes": 5329,
-      "sha256": "80502637a3bb0f6d040e452f5098dc95446b397152e178d230b299b3ec4531d8"
+      "bytes": 5263,
+      "sha256": "faf7104b49b908311de43b9dc30ebbc0205677a06c2586bab4af55beea2847e7"
     }
   }
 }
