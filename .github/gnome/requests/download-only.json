@@ -1,0 +1,22 @@
+{
+  "schema": "japp-gnome-pr-request-v1",
+  "enabled": true,
+  "mode": "DOWNLOAD_ONLY",
+  "repository": "kalwad/jobapplyv2",
+  "repository_id": 1312360079,
+  "pull_request": 1,
+  "head_branch": "codex/autofill-evaluation-hardening",
+  "request_id": "79a38d9745927e42fedf9b3ebd812d1f",
+  "expected_source_sha": "b4b5b96cf9014474ea71442581491e9f87f6a6c0",
+  "request_parent_sha": "8bf1697c39651a3eb152ecea33d748d78eddc6a0",
+  "package_build_sha": "f4854e2f33757f9f367d18820d44911b44182061",
+  "source_tree_sha": "6a40b7905199c98655dc357a5170829e07e10c83",
+  "artifact": {
+    "run_id": "41139850970",
+    "run_attempt": "1",
+    "run_head_sha": "b4b5b96cf9014474ea71442581491e9f87f6a6c0",
+    "artifact_id": "13021446265",
+    "digest_sha256": "a4408aa4b1a5a82390f824ed3418c1fc9da9562a966c041751a8a10eab055579",
+    "export_sha256": "bdcb7eed053466d615fb4201bb6f06d47dd946cdc62ab5cf0466777a1af60450"
+  }
+}
