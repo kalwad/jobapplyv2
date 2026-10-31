@@ -2,7 +2,7 @@
 # the guest's own phase code (sliced verbatim from windows11_guest.ps1) with its
 # functions and windows11_owned.cs, against the fixed development package
 # (diag/win-gui-service run 41227766396), on a hosted windows-2025 desktop.
-name: win-diag
+name: ci
 on:
   workflow_dispatch:
 permissions:
