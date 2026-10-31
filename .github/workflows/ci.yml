@@ -1,4 +1,4 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 5 (service failure isolation, then the round 4 measurements): compile the committed
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 6 (packaged service failure root cause): compile the committed
 # Windows 11 guest driver (windows11_owned.cs at the campaign head) with Windows
 # PowerShell 5.1 on a hosted Windows runner and exercise the reviewed a5ec1e3
 # portable package the way the guest would, to measure the audit's Windows guest
@@ -24,16 +24,25 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh run download 41154871189 -R kalwad/jobapplyv2 -n unreviewed-windows11-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154871189 -D "$env:RUNNER_TEMP\cand"
-      - name: Probe with Windows PowerShell 5.1
-        shell: powershell
+      - name: Service alone with the product's SystemRoot-only environment
+        shell: pwsh
         run: |
           $zip = Join-Path $env:RUNNER_TEMP 'cand\retained\inputs\original-native-artifact\packages\windows-portable.zip'
           (Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_guest_probe5.ps1 -Zip $zip -Cs diag\win_owned_head.cs -Out (Join-Path $env:RUNNER_TEMP 'out')
+          Expand-Archive -LiteralPath $zip -DestinationPath C:\japp-service-alone
+          python -I diag\win_service_env_probe.py C:\japp-service-alone\runtime\japp-orchestrator\japp-orchestrator.exe 2>&1 | Tee-Object -FilePath (Join-Path $env:RUNNER_TEMP 'service-alone.txt')
+          New-Item -ItemType Directory -Force -Path (Join-Path $env:RUNNER_TEMP 'out') | Out-Null
+          Copy-Item (Join-Path $env:RUNNER_TEMP 'service-alone.txt') (Join-Path $env:RUNNER_TEMP 'out\service-alone.txt')
+      - name: Desktop launch traces with Windows PowerShell 5.1
+        if: always()
+        shell: powershell
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP 'cand\retained\inputs\original-native-artifact\packages\windows-portable.zip'
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_guest_probe6.ps1 -Zip $zip -Out (Join-Path $env:RUNNER_TEMP 'out')
           Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'out\probe.json') -Raw
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag5-win-guest
+          name: diag6-win-guest
           path: ${{ runner.temp }}/out
           retention-days: 7
