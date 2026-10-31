@@ -1,19 +1,37 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Can a plain bind reclaim a port
-# whose SO_EXCLUSIVEADDRUSE listener closed after a server-first or client-first close?
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Why does the reviewed GNOME
+# host-tool install (apt-get --no-download install <131 local debs>) refuse?
 name: ci
 on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   probe:
-    name: tcp release probe
-    runs-on: windows-2025
-    timeout-minutes: 15
+    name: host apt plan probe
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Probe exclusive-port release semantics
-        shell: pwsh
-        run: python scripts\diag\tcp_release_probe.py
+      - name: Download the exact reviewed GNOME candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 41154763996 -R kalwad/jobapplyv2 -n unreviewed-gnome-inputs-a5ec1e3a894fc6f11354f5adce1631b1cc262470-41154763996 -D "$RUNNER_TEMP/cand"
+          echo "ImageVersion=$ImageVersion"
+          ls "$RUNNER_TEMP/cand/inputs/host-debs" | wc -l
+      - name: Simulate the plan (no root, nothing installed)
+        run: |
+          cd "$RUNNER_TEMP/cand/inputs/host-debs"
+          apt-get -s --no-install-recommends install ./*.deb > "$RUNNER_TEMP/sim.txt" 2>&1 || echo "simulate exit $?"
+          grep -E "^(Inst|Conf|Remv)" "$RUNNER_TEMP/sim.txt" | head -200
+          echo "--- non-local Inst lines (would need a download):"
+          grep -E "^Inst" "$RUNNER_TEMP/sim.txt" | grep -v "/home/runner\|local" | head -50
+          tail -20 "$RUNNER_TEMP/sim.txt"
+      - name: Replay the exact refused command with acquire debug, in simulate-free dry form
+        run: |
+          cd "$RUNNER_TEMP/cand/inputs/host-debs"
+          sudo -n apt-get --no-download --no-install-recommends -y --print-uris install ./*.deb 2>&1 | grep -vE "is already the newest|set to manually" | tail -60 || true
+      - name: Versions installed on the runner vs locked debs
+        run: |
+          cd "$RUNNER_TEMP/cand/inputs/host-debs"
+          for f in *.deb; do p=$(dpkg-deb -f "$f" Package); v=$(dpkg-deb -f "$f" Version); i=$(dpkg-query -W -f='${Version}' "$p" 2>/dev/null || echo NONE); [ "$v" != "$i" ] && echo "$p locked=$v installed=$i"; done | head -80
