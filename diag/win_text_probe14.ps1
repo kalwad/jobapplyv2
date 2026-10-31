@@ -46,6 +46,28 @@ Step 'region-and-scope' {
     }
     $rows
 }
+Step 'leaf-ranges' {
+    $window=$app.Window()
+    $doc=@($window.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Document))))[0]
+    $pattern=[Windows.Automation.TextPattern]$doc.GetCurrentPattern([Windows.Automation.TextPattern]::Pattern)
+    $region=@($window.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,'Desktop versions')),(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Group))))))[0]
+    $rows=@{}
+    foreach($label in @('App version','Tauri version','0.0.1','2.12.4')) {
+        $leaves=@($region.FindAll([Windows.Automation.TreeScope]::Descendants,(New-Object Windows.Automation.AndCondition((New-Object Windows.Automation.PropertyCondition($A::NameProperty,$label)),(New-Object Windows.Automation.PropertyCondition($A::ControlTypeProperty,[Windows.Automation.ControlType]::Text))))))
+        $row=@{leaves=$leaves.Count}
+        if($leaves.Count -ge 1) {
+            $leaf=$leaves[0]; $scope=$pattern.RangeFromChild($leaf)
+            $row.leaf_rect=@($leaf.Current.BoundingRectangle.X,$leaf.Current.BoundingRectangle.Y,$leaf.Current.BoundingRectangle.Width,$leaf.Current.BoundingRectangle.Height)
+            $row.scope_text=$scope.GetText(100); $row.scope_rects=(Rects $scope)
+            $first=$scope.FindText($label,$false,$false); $last=$scope.FindText($label,$true,$false)
+            $row.first=$(if($first){@{text=$first.GetText(30);rects=(Rects $first)}}else{$null})
+            $row.last=$(if($last){@{text=$last.GetText(30);rects=(Rects $last)}}else{$null})
+            $row.same=$(if($first -and $last){$first.Compare($last)}else{$null})
+        }
+        $rows[$label]=$row
+    }
+    $rows
+}
 Step 'shell-measure-current-driver' { $app.ShellMeasure('baseline') }
 foreach($owner in $owners) { try { $owner.Dispose() } catch {} }
 ProbeNote 'end' @{}
