@@ -1132,9 +1132,19 @@ class Controller:
         if len(found) != 1:
             raise ValueError("One exact native version label required")
         # The largest zoom step stacks the layout and leaves the version rows below
-        # the fold (measured in diagnostic run 41249463049, KI-0164). Scroll first,
+        # the fold (measured in diagnostic run 41249463049, KI-0164). WebKitGTK
+        # scrolls a target only until it is visible (run 41249857437: TOP_EDGE on
+        # the label left the rows below it offscreen), so scroll the whole region,
         # then require every label visible and showing.
-        component = objects[found[0]["id"]].get_component_iface()
+        regions = [
+            row
+            for row in rows
+            if row["name"] == "Desktop versions"
+            and objects[row["id"]].get_attributes().get("xml-roles") == "region"
+        ]
+        if len(regions) != 1:
+            raise ValueError("One source-bound Desktop versions native region required")
+        component = objects[regions[0]["id"]].get_component_iface()
         if component is None or not component.scroll_to(self.atspi.ScrollType.TOP_EDGE):
             raise ValueError("Actual version labels could not scroll into view")
         deadline = min(self.work_deadline, time.monotonic() + SHELL_SETTLE_SECONDS)
