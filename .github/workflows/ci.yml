@@ -1,8 +1,8 @@
-# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 2: why the GNOME guest's
-# SSH channel dies when GDM starts (COM2 network/session snapshots; variants:
-# as-is, needrestart suspended, NetworkManager masked), the session/AT-SPI
-# facts that round 1 could not retrieve, and the Windows 11 firmware COM1 bytes
-# and cdboot key window with the work directory where the harness puts it.
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Round 3: run the proposed
+# harness fixes themselves on hosted runners — Windows 11 qemu_argv with a COM1
+# firmware console and COM2 protocol port plus the firmware-triggered single
+# boot key; GNOME with needrestart suspended, logind session resolution, the
+# graphical-session.target timeline and AT-SPI get_action_name.
 name: ci
 on:
   workflow_dispatch:
@@ -41,25 +41,27 @@ jobs:
           want=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/cand/retained/inputs/media-lock.json'))['media']['sha256'])")
           curl -fsSL --proto '=https' --max-time 1500 -o "$RUNNER_TEMP/diag/win11.iso" "$url"
           got=$(sha256sum "$RUNNER_TEMP/diag/win11.iso" | cut -d' ' -f1); echo "sha256 $got"; test "$got" = "$want"
-      - name: Boot with no key (cdboot prompt window)
-        run: timeout 300 python3 -I diag/win11_boot_probe.py "$RUNNER_TEMP/diag/w-none" "$RUNNER_TEMP/out/none" "$RUNNER_TEMP/diag/win11.iso" none 75
-      - name: Boot with the harness's single +8 s space key
+      - name: Boot with the proposed harness argv and firmware-triggered key
+        run: |
+          sudo -n setfacl -m "u:$(id -u):rw" /dev/kvm; getfacl /dev/kvm
+          timeout 700 python3 -I diag/win11_boot3.py diag/repo-root "$RUNNER_TEMP/diag/w3" "$RUNNER_TEMP/out/boot3" "$RUNNER_TEMP/diag/win11.iso" 480
+      - name: ACL after one VM lifetime
         if: always()
-        run: timeout 600 python3 -I diag/win11_boot_probe.py "$RUNNER_TEMP/diag/w-single8" "$RUNNER_TEMP/out/single8" "$RUNNER_TEMP/diag/win11.iso" single8 360
+        run: getfacl /dev/kvm
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag2-win11-boot
+          name: diag3-win11-boot
           path: ${{ runner.temp }}/out
           retention-days: 7
   gnome-session:
     name: gnome session (${{ matrix.variant }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
-        variant: [base, nrsuspend, nmmask]
+        variant: [fixed]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -83,10 +85,10 @@ jobs:
           curl -fsSL --proto '=https' --max-time 900 -o "$RUNNER_TEMP/cloud.img" https://cloud-images.ubuntu.com/releases/noble/release-20261017/ubuntu-24.04-server-cloudimg-amd64.img
           echo "04e8f2461a16a44e78a370284471f29616cdd9baf1893df25807b71f985b6c94  $RUNNER_TEMP/cloud.img" | sha256sum -c
       - name: Session probe
-        run: timeout 2100 python3 -I diag/gnome_host_probe.py "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/cloud.img" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" kvm 1500 diag/repo-root "${{ matrix.variant }}"
+        run: timeout 2100 python3 -I diag/gnome_host_probe.py "$RUNNER_TEMP/cand/inputs" "$RUNNER_TEMP/cloud.img" "$RUNNER_TEMP/work" "$RUNNER_TEMP/out" kvm 1200 diag/repo-root "${{ matrix.variant }}"
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: diag2-gnome-${{ matrix.variant }}
+          name: diag3-gnome-${{ matrix.variant }}
           path: ${{ runner.temp }}/out
           retention-days: 7

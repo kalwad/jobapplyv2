@@ -367,6 +367,29 @@ def observe_shell() -> tuple[dict[str, object], dict[str, object]]:
     return shell, shell_identity
 
 
+def session_identifier(
+    inherited: str | None, observations: dict[str, dict[str, object]]
+) -> str | None:
+    if inherited:
+        return inherited
+    # GNOME starts autostart applications in a systemd user scope outside the
+    # login session, without XDG_SESSION_ID (KI-0149). logind itself names the
+    # user's graphical session; every session check below still applies.
+    owner = command(
+        [
+            "/usr/bin/loginctl",
+            "show-user",
+            str(os.geteuid()),
+            "--property=Display",
+            "--value",
+        ]
+    )
+    observations["logind_user_display_session"] = owner
+    if owner.get("exit_code") != 0:
+        return None
+    return str(owner["stdout"]).strip()
+
+
 def observe_session() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
@@ -394,9 +417,9 @@ def observe_session() -> int:
         for value in environment.values()
     ):
         raise ValueError("Session metadata exceeds bound")
-    identifier = environment["XDG_SESSION_ID"]
     observations: dict[str, dict[str, object]] = {}
     properties: dict[str, str] = {}
+    identifier = session_identifier(environment["XDG_SESSION_ID"], observations)
     if identifier and re.fullmatch(r"[A-Za-z0-9_-]{1,64}", identifier):
         session = command(
             [

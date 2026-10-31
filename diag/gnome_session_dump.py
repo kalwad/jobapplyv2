@@ -96,6 +96,26 @@ try:
 except Exception:  # noqa: BLE001
     atspi["error"] = traceback.format_exc()[-3000:]
 result["atspi"] = atspi
+# Round 3: does graphical-session.target become active, and when does the
+# repository's (fixed) receipt reach SESSION_READY?
+targets: list[dict] = []
+last_state = None
+for second in range(0, 122, 2):
+    target_at = time.monotonic() - start
+    state = subprocess.run(["/usr/bin/systemctl", "--user", "is-active", "graphical-session.target"], capture_output=True, text=True, timeout=10, check=False).stdout.strip()
+    if state != last_state:
+        targets.append({"t": round(target_at, 1), "uptime": Path("/proc/uptime").read_text().split()[0], "state": state})
+        last_state = state
+    if second in (0, 30, 60, 120):
+        run("targets_" + str(second), ["/usr/bin/systemctl", "--user", "list-units", "--type=target", "--all", "--no-legend", "--no-pager"])
+        run("gnome_session_units_" + str(second), ["/usr/bin/systemctl", "--user", "list-units", "gnome-session*", "--all", "--no-legend", "--no-pager"])
+    if second in (60, 120):
+        run(
+            "repository_session_receipt_" + str(second),
+            [sys.executable, "/mnt/jappinput/scripts/ubuntu_gnome_session_receipt.py", "--output", "/home/japp-ci/probe/receipt-" + str(second) + "/actual-gnome-session.json"],
+        )
+    time.sleep(2)
+result["graphical_session_target_timeline"] = targets
 result["seconds"] = round(time.monotonic() - start, 2)
 (OUT / "session.json").write_text(json.dumps(result, indent=1))
 (OUT / "done").write_text("1\n")

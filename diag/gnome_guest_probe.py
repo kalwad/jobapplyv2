@@ -33,7 +33,7 @@ def mark(event: str, **extra: object) -> None:
 
 def collect() -> None:
     """Separate transient unit: wait for the autostart dump, then copy logs."""
-    deadline = time.monotonic() + 1500
+    deadline = time.monotonic() + 1200
     while time.monotonic() < deadline and not (PROBE / "session" / "done").exists():
         time.sleep(5)
     for name, argv in {
@@ -146,7 +146,7 @@ def main() -> None:
              "-o", "Dir::State::Lists=" + str(lists), "-o", "Dir::Cache::pkgcache=", "-o", "Dir::Cache::srcpkgcache=",
              "--no-install-recommends", "-y", "install", *archives, str(package)],
             stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, timeout=3600, check=False,
-            env={"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "DEBIAN_FRONTEND": "noninteractive", **({"NEEDRESTART_SUSPEND": "1"} if VARIANT == "nrsuspend" else {})},
+            env={"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "DEBIAN_FRONTEND": "noninteractive", **({"NEEDRESTART_SUSPEND": "1"} if VARIANT in ("nrsuspend", "fixed") else {})},
         )
     size = (STATE / "locked-install.log").stat().st_size
     mark("installed", exit_code=result.returncode, log_bytes=size)
@@ -157,8 +157,9 @@ def main() -> None:
     for path in (HOME / ".config", HOME / ".config/autostart"):
         path.mkdir(mode=0o700, exist_ok=True)
         os.chown(path, UID, GID)
-    (PROBE / "receipt").mkdir(mode=0o700)
-    os.chown(PROBE / "receipt", UID, GID)
+    for name in ("receipt", "receipt-60", "receipt-120"):
+        (PROBE / name).mkdir(mode=0o700)
+        os.chown(PROBE / name, UID, GID)
     autostart = HOME / ".config/autostart/japp-ci.desktop"
     autostart.write_text(
         "[Desktop Entry]\nType=Application\nName=JobApply disposable session probe\n"
