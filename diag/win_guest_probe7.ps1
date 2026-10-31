@@ -51,6 +51,7 @@ try {
 } catch {
     $failure=@{terminal='FAIL';phase=$phase;elapsed_s=[Math]::Round($clock.Elapsed.TotalSeconds,2);error_type=$_.Exception.GetType().FullName;message=$_.Exception.Message;inner=$(if($_.Exception.InnerException){$_.Exception.InnerException.GetType().FullName+': '+$_.Exception.InnerException.Message}else{$null});position=$_.InvocationInfo.PositionMessage}
     ProbeNote 'terminal' $failure
+    try { Add-Type -AssemblyName UIAutomationClient; Add-Type -AssemblyName UIAutomationTypes; $f=[Windows.Automation.AutomationElement]::FocusedElement; ProbeNote 'focus-at-failure' @{name=$f.Current.Name;type=$f.Current.ControlType.ProgrammaticName;pid=$f.Current.ProcessId;main_focused=$(try{$app.ShellMainFocused()}catch{$_.Exception.Message});names=@($app.Names()|Where-Object { $_ -match 'Skip|main|Checked|Ready|Local service' }|Select-Object -Unique)} } catch { ProbeNote 'focus-at-failure-error' @{message=$_.Exception.Message} }
     try { Add-Type -AssemblyName System.Windows.Forms; $bounds=[Windows.Forms.Screen]::PrimaryScreen.Bounds; $bitmap=New-Object Drawing.Bitmap $bounds.Width,$bounds.Height; $graphics=[Drawing.Graphics]::FromImage($bitmap); $graphics.CopyFromScreen($bounds.Location,[Drawing.Point]::Empty,$bounds.Size); $bitmap.Save((Join-Path $Out 'failure.png')); $graphics.Dispose(); $bitmap.Dispose() } catch {}
 } finally {
     foreach($owner in $owners) { try { $owner.Dispose() } catch { ProbeNote 'dispose-error' @{message=$_.Exception.Message} } }
