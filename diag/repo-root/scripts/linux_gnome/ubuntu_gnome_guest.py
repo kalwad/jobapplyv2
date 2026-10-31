@@ -1068,7 +1068,23 @@ class Controller:
         rows, objects = self.tree()
         found = [row for row in rows if row["name"] == name and row["actions"]]
         if len(found) != 1:
-            raise ValueError("One exact native actionable shell target required")
+            # Name the candidates (role, actions, parent role) so a hosted run shows
+            # the real WebKitGTK tree shape; these are the app's own UI labels.
+            named = [row for row in rows if row["name"] == name][:6]
+            shape = [
+                (
+                    row["role"],
+                    row["actions"][:4],
+                    None if row["parent"] is None else rows[row["parent"]]["role"],
+                )
+                for row in named
+            ]
+            raise ValueError(
+                "One exact native actionable shell target required: "
+                + str(len(found))
+                + " actionable of "
+                + str(shape)[:900]
+            )
         component = objects[found[0]["id"]].get_component_iface()
         if component is None or not component.grab_focus():
             raise ValueError("Actual native shell focus unavailable")
