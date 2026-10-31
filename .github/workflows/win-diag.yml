@@ -1,0 +1,35 @@
+# DIAGNOSTIC SCRATCH BRANCH ONLY — never merge. Windows guest driver lifecycle:
+# the guest's own phase code (sliced verbatim from windows11_guest.ps1) with its
+# functions and windows11_owned.cs, against the fixed development package
+# (diag/win-gui-service run 41227766396), on a hosted windows-2025 desktop.
+name: win-diag
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  win-guest:
+    name: windows guest lifecycle
+    runs-on: windows-2025
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Download the fixed development portable package
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download 41227766396 -R kalwad/jobapplyv2 -n diag-fixed-portable -D "$env:RUNNER_TEMP\fixed"
+      - name: Run the guest driver's own lifecycle phases with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File diag\win_guest_probe7.ps1 -Guest diag\win_guest_current.ps1 -Cs diag\win_owned_current.cs -Package (Join-Path $env:RUNNER_TEMP 'fixed') -Out (Join-Path $env:RUNNER_TEMP 'out')
+          Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'out\probe.json') -Raw
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: diag13-win-lifecycle
+          path: ${{ runner.temp }}/out
+          retention-days: 7

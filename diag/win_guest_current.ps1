@@ -61,7 +61,17 @@ function NotYet([Management.Automation.ErrorRecord]$Record) {
     # caller keeps polling within its bound and asserts strictly at its deadline.
     $exception=$Record.Exception
     if(($exception -is [Management.Automation.MethodInvocationException] -or $exception -is [Management.Automation.GetValueInvocationException]) -and $null -ne $exception.InnerException) { $exception=$exception.InnerException }
+    # The owner's own ownership, uniqueness and bound assertions, and a disposed
+    # owner, are never 'not yet': they fail at once with their exact cause.
+    if($exception.GetType().FullName -ceq 'JobApplyValidation.OwnedInvariantException' -or $exception -is [ObjectDisposedException]) { return $false }
     return ($exception -is [InvalidOperationException] -or $exception -is [Runtime.InteropServices.COMException] -or $exception.GetType().FullName -ceq 'System.Windows.Automation.ElementNotAvailableException')
+}
+function LastTransient([Management.Automation.ErrorRecord]$Record) {
+    # The last 'not yet' cause, bounded, for the deadline refusal that follows it.
+    $exception=$Record.Exception
+    if(($exception -is [Management.Automation.MethodInvocationException] -or $exception -is [Management.Automation.GetValueInvocationException]) -and $null -ne $exception.InnerException) { $exception=$exception.InnerException }
+    $message=[string]$exception.Message
+    return ('; last: '+$exception.GetType().FullName+': '+$message.Substring(0,[Math]::Min(256,$message.Length)))
 }
 function Snapshot([string]$Name, $Owner) {
     $Owner.Capture((Join-Path $proof ($Name+'.png')))
@@ -77,6 +87,7 @@ function Ready($Owner) {
     $limit = [Math]::Min(300, $clock.Elapsed.TotalSeconds+35)
     $clicked = $false
     $retried = $null
+    $transient = ''
     do {
         WithinBudget
         try {
@@ -86,10 +97,10 @@ function Ready($Owner) {
             if ($names -contains 'Ready' -and ($names -join ' ') -match '0\.0\.1' -and ($names -join ' ') -match '1\.0\.0') { return }
             if (-not $clicked -and $names -contains 'Diagnostics') { $Owner.Invoke('Diagnostics'); $clicked=$true }
             elseif ($names -contains 'Check again' -and ($null -eq $retried -or $clock.Elapsed.TotalSeconds -ge $retried+2)) { $retried=$clock.Elapsed.TotalSeconds; $Owner.Invoke('Check again') }
-        } catch { if (-not (NotYet $_)) { throw } }
+        } catch { if (-not (NotYet $_)) { throw }; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 250
     } while ($clock.Elapsed.TotalSeconds -lt $limit)
-    throw 'Actual owned Diagnostics Ready/version UI not observed'
+    throw ('Actual owned Diagnostics Ready/version UI not observed'+$transient)
 }
 function MachineScalar($Value,[string]$Name) {
     # Total strict read of one protected receipt member: absent or structured is $null.
@@ -97,6 +108,20 @@ function MachineScalar($Value,[string]$Name) {
     $property=$Value.PSObject.Properties[$Name]
     if($null -eq $property -or $property.Value -is [Array] -or $property.Value -is [Management.Automation.PSCustomObject]) { return $null }
     return $property.Value
+}
+function ProtectedReceipt([string]$Path) {
+    # One bounded protected receipt, or $null while it is absent, partial or unreadable.
+    if(-not (Test-Path -LiteralPath $Path)) { return $null }
+    if((Get-Item -LiteralPath $Path).Length -gt 64KB) { throw 'Bounded protected machine receipt required' }
+    try { return (Get-Content -LiteralPath $Path -Raw|ConvertFrom-Json) } catch { return $null }
+}
+function MachineDiffers($Record,[string]$Schema,[string]$Boot) {
+    # The members that bind a protected record to this run's nonce and this boot.
+    $mismatch=New-Object Collections.ArrayList
+    if((MachineScalar $Record 'schema') -cne $Schema) { [void]$mismatch.Add('schema') }
+    if((MachineScalar $Record 'nonce') -cne $config.nonce) { [void]$mismatch.Add('nonce') }
+    if((MachineScalar $Record 'boot_time') -cne $Boot) { [void]$mismatch.Add('boot_time') }
+    return ,@($mismatch)
 }
 function TimestampParts([string]$Value) {
     $matched=[Text.RegularExpressions.Regex]::Match($Value,'^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{1,9}))?Z$',[Text.RegularExpressions.RegexOptions]::CultureInvariant)
@@ -116,44 +141,47 @@ function TryCheckedAt($Owner) {
 }
 function WaitCheckedAt($Owner) {
     $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
+    $transient=''
     do {
         WithinBudget
-        try { $value=TryCheckedAt $Owner; if($null -ne $value){return $value} } catch { if(-not(NotYet $_)){throw} }
+        try { $value=TryCheckedAt $Owner; if($null -ne $value){return $value} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
-    throw 'Exactly one actual Checked at timestamp required'
+    throw ('Exactly one actual Checked at timestamp required'+$transient)
 }
 function CheckedAdvance($Owner,[string]$Before) {
     $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+6)
+    $transient=''
     do {
         WithinBudget
         $after=$null
-        try { $after=TryCheckedAt $Owner } catch { if(-not(NotYet $_)){throw} }
+        try { $after=TryCheckedAt $Owner } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         if($null -ne $after -and $after -cne $Before) {
             if(-not(TimestampAdvances $Before $after)) { throw 'Owned Enter keyboard action did not advance Checked at' }
             return $after
         }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
-    throw 'Owned Enter keyboard action did not advance Checked at'
+    throw ('Owned Enter keyboard action did not advance Checked at'+$transient)
 }
 function ShellWait([scriptblock]$Predicate) {
     $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
+    $transient=''
     do {
         WithinBudget
-        try { if(& $Predicate){return} } catch { if(-not(NotYet $_)){throw} }
+        try { if(& $Predicate){return} } catch { if(-not(NotYet $_)){throw}; $transient=LastTransient $_ }
         Start-Sleep -Milliseconds 25
     } while($clock.Elapsed.TotalSeconds -lt $limit)
-    throw 'Actual bounded native shell focus or geometry did not settle'
+    throw ('Actual bounded native shell focus or geometry did not settle'+$transient)
 }
 function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
     $limit=[Math]::Min(300,$clock.Elapsed.TotalSeconds+3)
-    $last=''; $lastRow=$null
+    $last=''; $lastRow=$null; $transient=''
     do {
         WithinBudget
         $row=$null
         # A document still laying out is 'not yet' and breaks the consecutive pair.
-        try { $row=$Owner.ShellMeasure($Stage) } catch { if(-not(NotYet $_)){throw}; $last='' }
+        try { $row=$Owner.ShellMeasure($Stage) } catch { if(-not(NotYet $_)){throw}; $last=''; $transient=LastTransient $_ }
         if($null -ne $row) {
             $anchors=$row.anchors|ConvertTo-Json -Depth 10 -Compress
             if($anchors -ceq $last -and ($PreviousAnchors -ceq '' -or $anchors -cne $PreviousAnchors)){return $row}
@@ -162,7 +190,12 @@ function ShellMeasurement($Owner,[string]$Stage,[string]$PreviousAnchors) {
         Start-Sleep -Milliseconds 50
     } while($clock.Elapsed.TotalSeconds -lt $limit)
     if($null -ne $lastRow){$lastRow|ConvertTo-Json -Depth 10|Set-Content -LiteralPath (Join-Path $proof ('shell-unsettled-'+$Stage+'.json')) -Encoding UTF8}
-    throw 'Actual visible complete glyph measurement unavailable or unchanged after chord'
+    throw ('Actual visible complete glyph measurement unavailable or unchanged after chord'+$transient)
+}
+function DesktopVersionsShown($Owner) {
+    # Diagnostics renders both version rows only after its mount-time metadata load.
+    $names=@($Owner.Names())
+    return ($names -ccontains 'App version' -and $names -ccontains 'Tauri version')
 }
 function ShellCapture($Owner) {
     $destinations=@(@('home','Home'),@('jobs','Jobs'),@('tracker','Tracker'),@('documents','Documents / Resumes'),@('profile','Profile'),@('settings','Settings'),@('diagnostics','Diagnostics'))
@@ -190,6 +223,12 @@ function ShellCapture($Owner) {
             $Owner.ShellKeys('tab');ShellWait { -not $Owner.ShellRouteLinkFocused($label) }
             $Owner.ShellKeys('backtab');ShellWait { $Owner.ShellRouteLinkFocused($label) }
             $Owner.ShellKeys('enter');ShellWait { $Owner.ShellRouteFocused($label) }
+            $checkedBefore=$null;$checkedAfter=$null
+            if($slug -ceq 'diagnostics') {
+                # The remounted route runs two mount-time loads (the service check and the
+                # version metadata); its tree is read only after both have rendered.
+                $checkedBefore=WaitCheckedAt $Owner;ShellWait { DesktopVersionsShown $Owner }
+            }
             $name='shell-'+$scale+'-'+$slug
             Snapshot $name $Owner
             $tree=$Owner.ShellTree()|ConvertTo-Json -Depth 10
@@ -199,10 +238,7 @@ function ShellCapture($Owner) {
             $image=[Drawing.Image]::FromFile($imagePath)
             try {$width=$image.Width;$height=$image.Height} finally {$image.Dispose()}
             $geometry=$Owner.ShellRouteGeometry($label)
-            $checkedBefore=$null;$checkedAfter=$null
-            if($slug -ceq 'diagnostics') {
-                $checkedBefore=WaitCheckedAt $Owner;$Owner.KeyboardCheckAgain();$checkedAfter=CheckedAdvance $Owner $checkedBefore
-            }
+            if($slug -ceq 'diagnostics') { $Owner.KeyboardCheckAgain();$checkedAfter=CheckedAdvance $Owner $checkedBefore }
             $Owner.ShellFocusSkip();$Owner.ShellKeys('enter');ShellWait { $Owner.ShellMainFocused() }
             [void]$captures.Add(@{scale=$scale;route=$slug;heading=$label;heading_unique=$true;heading_focused=$true;navigation_unique=$true;checked_before=$checkedBefore;checked_after=$checkedAfter;glyph=$geometry.glyph;frame=$geometry.frame;backing=$geometry.backing;window_id=$geometry.window_id;app_pid=$geometry.app_pid;tab_shift_tab=$true;skip_main=$true;image_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $imagePath).Hash.ToLowerInvariant();image_width=$width;image_height=$height})
         }
@@ -300,13 +336,15 @@ try {
     $boot=$os.LastBootUpTime.ToUniversalTime().ToString('o')
     $machinePath='C:\ProgramData\JappHarness\machine.json'
     $machineErrorPath='C:\ProgramData\JappHarness\machine-error.json'
+    $machineSchema='japp-win11-protected-machine-v1'
     $machineLimit=$clock.Elapsed.TotalSeconds+30
     $machine=$null
+    # Only a parsable receipt bound to this nonce and boot ends the wait. A partial
+    # receipt, one from another run or boot, or an attestor error from an earlier
+    # logon is 'not yet' for the full bound and never overrides a later current one.
     do {
-        if(Test-Path -LiteralPath $machineErrorPath) { break }
-        # A receipt still being written is 'not yet'; one unread at the deadline fails below.
-        if(Test-Path -LiteralPath $machinePath) { try { $machine=Get-Content -LiteralPath $machinePath -Raw|ConvertFrom-Json } catch { $machine=$null } }
-        if($null -ne $machine) { break }
+        $current=ProtectedReceipt $machinePath
+        if($null -ne $current) { $machine=$current; if((MachineDiffers $machine $machineSchema $boot).Count -eq 0) { break } }
         Start-Sleep -Milliseconds 250
     } while($clock.Elapsed.TotalSeconds -lt $machineLimit)
     # Both protected receipts hold no secret. They are retained before any check, so a
@@ -318,13 +356,16 @@ try {
             Copy-Item -LiteralPath $retainedPath -Destination (Join-Path $proof $retainedName)
         }
     }
-    if(Test-Path -LiteralPath $machineErrorPath) { throw 'Protected machine attestor failed; its named step is retained' }
-    if($null -eq $machine) { throw 'Protected current-boot machine attestation missing or unreadable' }
-    $mismatch=New-Object Collections.ArrayList
-    if((MachineScalar $machine 'schema') -ne 'japp-win11-protected-machine-v1') { [void]$mismatch.Add('schema') }
-    if((MachineScalar $machine 'nonce') -cne $config.nonce) { [void]$mismatch.Add('nonce') }
-    if((MachineScalar $machine 'boot_time') -cne $boot) { [void]$mismatch.Add('boot_time') }
-    if($mismatch.Count -gt 0) { throw ('Protected current-boot machine attestation differs: '+($mismatch -join ',')) }
+    $mismatch=@()
+    if($null -ne $machine) { $mismatch=MachineDiffers $machine $machineSchema $boot }
+    if($null -eq $machine -or $mismatch.Count -gt 0) {
+        # No current receipt at the deadline: only an attestor error bound to this
+        # nonce and boot names the attestor as the cause.
+        $attestorError=ProtectedReceipt $machineErrorPath
+        if($null -ne $attestorError -and (MachineDiffers $attestorError 'japp-win11-protected-machine-error-v1' $boot).Count -eq 0) { throw 'Protected machine attestor failed; its named step is retained' }
+        if($null -eq $machine) { throw 'Protected current-boot machine attestation missing or unreadable' }
+        throw ('Protected current-boot machine attestation differs: '+($mismatch -join ','))
+    }
     $unmet=New-Object Collections.ArrayList
     $value=MachineScalar $machine 'caption'; if($value -isnot [string] -or $value -cne 'Microsoft Windows 11 Enterprise Evaluation') { [void]$unmet.Add('caption') }
     if((MachineScalar $machine 'product_type') -ne 1) { [void]$unmet.Add('product_type') }
